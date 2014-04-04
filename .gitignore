@@ -18,6 +18,9 @@
 # Ignore local Guardfile customation file
 config/local_guardfile_customizations.yml
 
+# Ignore the session management secrets
+config/initializers/secret_token.rb
+config/initializers/session_store.rb
 # Ignore editor files
 *~
 \#*\#
