@@ -9,4 +9,4 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-Dcv::Application.config.secret_key_base = YAML.load_file("#{Rails.root}/config/initializers/initializer_secrets.yml")['secret_key_base']
+Dcv::Application.config.secret_key_base = YAML.load_file("#{Rails.root}/config/initializer_secrets.yml")['secret_key_base']
