@@ -13,6 +13,9 @@ gem 'cul_scv_hydra', :git => 'git://github.com/cul/cul_scv_hydra', :branch => 'h
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 
+# Use mysql2 gem for mysql connections
+gem 'mysql2', '0.3.11'
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.2'
 

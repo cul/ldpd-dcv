@@ -183,6 +183,7 @@ GEM
       nokogiri
       nom-xml
     multi_json (1.9.2)
+    mysql2 (0.3.11)
     net-http-persistent (2.9.4)
     net-scp (1.2.0)
       net-ssh (>= 2.6.5)
@@ -362,6 +363,7 @@ DEPENDENCIES
   jbuilder (~> 1.2)
   jettywrapper
   jquery-rails
+  mysql2 (= 0.3.11)
   rails (= 4.0.4)
   rspec-rails
   sass-rails (~> 4.0.2)
