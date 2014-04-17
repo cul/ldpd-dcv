@@ -30,6 +30,7 @@ database.yml
 fedora.yml
 solr.yml
 wind.yml
+config/devise_secret_key.txt
 
 # Ignore OS-specific
 .DS_Store
