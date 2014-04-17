@@ -8,7 +8,7 @@ gem 'blacklight'
 gem 'hydra-head', '~>7'
 
 # Columbia Hydra models
-gem 'cul_scv_hydra'
+gem 'cul_scv_hydra', :git => 'git://github.com/cul/cul_scv_hydra', :branch => 'hh7'
 
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
@@ -23,7 +23,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-# gem 'therubyracer', platforms: :ruby
+gem 'therubyracer', platforms: :ruby
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
@@ -46,7 +46,7 @@ end
 # gem 'unicorn'
 
 # Use Capistrano for deployment
-# gem 'capistrano', group: :development
+gem 'capistrano', '~> 2.12.0', group: :development
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
