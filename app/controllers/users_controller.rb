@@ -65,7 +65,7 @@ class UsersController < ApplicationController
 
           redirect_to root_path, :status => 302
         else
-          flash[:notice] = 'The UNI ' + user_uni + ' is not authorized to log into Hyacinth (no account exists with email ' + user_uni + '@columbia.edu).  If you believe that you should have access, please contact an application administrator.'
+          flash[:notice] = 'The UNI ' + user_uni + ' is not authorized to log into DCV (no account exists with email ' + user_uni + '@columbia.edu).  If you believe that you should have access, please contact an application administrator.'
 
           # Log this user out
           redirect_to(@wind_logout_uri + '?passthrough=1&destination=' + URI::escape(root_url))

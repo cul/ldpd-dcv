@@ -18,9 +18,6 @@
 # Ignore local Guardfile customation file
 config/local_guardfile_customizations.yml
 
-# Ignore the session management secrets
-config/initializers/secret_token.rb
-config/initializers/session_store.rb
 # Ignore editor files
 *~
 \#*\#
@@ -30,7 +27,7 @@ database.yml
 fedora.yml
 solr.yml
 wind.yml
-config/devise_secret_key.txt
+config/initializers/initializer_secrets.yml
 
 # Ignore OS-specific
 .DS_Store

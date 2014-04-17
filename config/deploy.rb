@@ -51,8 +51,9 @@ namespace :deploy do
 
   task :symlink_shared do
     run "ln -nfs #{deploy_to}shared/database.yml #{release_path}/config/database.yml"
+    run "ln -nfs #{deploy_to}shared/wind.yml #{release_path}/config/wind.yml"
     run "ln -nfs #{deploy_to}shared/fedora.yml #{release_path}/config/fedora.yml"
-    run "ln -nfs #{deploy_to}shared/devise_secret_key.txt #{release_path}/config/devise_secret_key.txt"
+    run "ln -nfs #{deploy_to}shared/initializer_secrets.yml #{release_path}/config/initializers/initializer_secrets.yml"
     run "mkdir -p #{release_path}/db"
     run "ln -nfs #{deploy_to}shared/#{rails_env}.sqlite3 #{release_path}/db/#{rails_env}.sqlite3"
   end

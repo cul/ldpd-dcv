@@ -61,3 +61,6 @@ group :development, :test do
   gem "rspec-rails"
   gem "jettywrapper"
 end
+
+# Use Thin for local development
+gem "thin"
