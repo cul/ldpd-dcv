@@ -18,8 +18,8 @@ module Dcv::Utils::FedoraUtils
     uri = URI.parse(ActiveFedora.config.credentials[:url] + '/risearch')
     uri.query = URI.encode_www_form(risearch_params)
     http = Net::HTTP.new(uri.host, uri.port)
-    http.use_ssl = true unless Rails.env == 'development'
-    http.verify_mode = OpenSSL::SSL::VERIFY_NONE if Rails.env == 'development'
+    http.use_ssl = true if uri.scheme == 'https'
+    http.verify_mode = OpenSSL::SSL::VERIFY_NONE if uri.scheme == 'https' && Rails.env == 'development'
     
     risearch_request = Net::HTTP::Get.new(uri.request_uri)
     risearch_request.basic_auth(ActiveFedora.config.credentials[:user], ActiveFedora.config.credentials[:password])
