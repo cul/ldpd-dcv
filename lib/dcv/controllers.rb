@@ -26,14 +26,5 @@ module Dcv::Controllers
       end
     end
 
-    def require_project_permission!(project, permission_type)
-
-      # Always allow access if this user is an admin
-      return if current_user.is_admin?
-
-      return if current_user.has_project_permission?(project, permission_type)
-
-      render_unauthorized!
-    end
   end
 end
