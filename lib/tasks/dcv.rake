@@ -3,7 +3,6 @@ require "active-fedora"
 namespace :dcv do
 
   task :test => :environment do
-    
     lindquist_pid = 'ldpd:130509'
     active_fedora_object = ActiveFedora::Base.find(lindquist_pid)
     puts 'Object with pid ' + lindquist_pid + ' has ' + active_fedora_object.members.length.to_s + ' members!'
@@ -57,22 +56,24 @@ namespace :dcv do
       :query => member_query
     )
     
-    total_number_of_members = search_response['results'].length
+    unique_pids = search_response['results'].map{|result| result['child'].gsub('info:fedora/', '') }.uniq
+    
+    total_number_of_members = unique_pids.length
     puts 'Recursive search found ' + total_number_of_members.to_s + ' members.'
     
-    i = 0
+    i = 1
     if total_number_of_members > 0
-      search_response['results'].each {|result|
+      unique_pids.each {|pid|
         
-        # Isolate the pid from the response
-        member_pid = result['child'].gsub('info:fedora/', '')
+        print 'Indexing ' + i.to_s + ' of ' + total_number_of_members.to_s + ' members (' + pid + ')...'
         
-        active_fedora_object = ActiveFedora::Base.find(member_pid, :cast => true)
+        active_fedora_object = ActiveFedora::Base.find(pid, :cast => true)
         active_fedora_object.update_index
         
         # Display progress
+        puts 'done.'
+        
         i += 1
-        puts 'Indexed ' + i.to_s + ' of ' + total_number_of_members.to_s + ' members (' + member_pid + ')'
       }
     end
     
