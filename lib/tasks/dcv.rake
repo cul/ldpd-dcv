@@ -10,6 +10,9 @@ namespace :dcv do
 
   task :recursively_index_fedora_objects => :environment do
     
+    puts 'Fedora URL: ' + ActiveFedora.config.credentials[:url]
+    puts 'Solr URL: ' + YAML.load_file("#{Rails.root}/config/solr.yml")[Rails.env]['default']['url']
+    
     START_TIME = Time.now
     
     #lindquist == burke_lindq == ldpd:130509
