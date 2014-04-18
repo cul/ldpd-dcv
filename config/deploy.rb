@@ -53,6 +53,7 @@ namespace :deploy do
     run "ln -nfs #{deploy_to}shared/database.yml #{release_path}/config/database.yml"
     run "ln -nfs #{deploy_to}shared/wind.yml #{release_path}/config/wind.yml"
     run "ln -nfs #{deploy_to}shared/fedora.yml #{release_path}/config/fedora.yml"
+    run "ln -nfs #{deploy_to}shared/solr.yml #{release_path}/config/solr.yml"
     run "ln -nfs #{deploy_to}shared/initializer_secrets.yml #{release_path}/config/initializer_secrets.yml"
     run "mkdir -p #{release_path}/db"
     run "ln -nfs #{deploy_to}shared/#{rails_env}.sqlite3 #{release_path}/db/#{rails_env}.sqlite3"
