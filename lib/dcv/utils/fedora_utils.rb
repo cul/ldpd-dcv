@@ -1,12 +1,12 @@
 module Dcv::Utils::FedoraUtils
-  
+
   def self.risearch(user_search_params)
-    
+
     # Required
     if ! user_search_params.include?(:query)
       raise 'Error: No query specified for risearch.'
     end
-    
+
     risearch_params = {}
     risearch_params['type'] = 'tuples'
     risearch_params['lang'] = 'itql'
@@ -14,19 +14,19 @@ module Dcv::Utils::FedoraUtils
     risearch_params['limit'] = '' # empty string means unlimited results
     risearch_params['stream'] = 'on'
     risearch_params['query'] = user_search_params[:query]
-    
+
     uri = URI.parse(ActiveFedora.config.credentials[:url] + '/risearch')
     uri.query = URI.encode_www_form(risearch_params)
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = true if uri.scheme == 'https'
-    http.verify_mode = OpenSSL::SSL::VERIFY_NONE if uri.scheme == 'https' && uri.host == 'localhost'
-    
+    http.verify_mode = OpenSSL::SSL::VERIFY_NONE # if uri.scheme == 'https' && uri.host == 'localhost'
+
     risearch_request = Net::HTTP::Get.new(uri.request_uri)
     risearch_request.basic_auth(ActiveFedora.config.credentials[:user], ActiveFedora.config.credentials[:password])
     risearch_response = http.request(risearch_request)
-    
+
     return JSON(risearch_response.body)
-    
+
   end
 
   def self.get_top_level_all_content_fedora_object
