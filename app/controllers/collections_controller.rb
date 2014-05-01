@@ -1,17 +1,42 @@
-# -*- encoding : utf-8 -*-
-require 'blacklight/catalog'
-
-class CatalogController < ApplicationController
+class CollectionsController < ApplicationController
 
   include Blacklight::Catalog
   include Hydra::Controller::ControllerBehavior
+
+  layout :collection_layout
+
+  parent_prefixes << 'catalog' # haaaaaaack to not reproduce templates
+
+  def collection_layout
+    puts CUSTOM_COLLECTIONS.inspect
+    puts params.inspect
+    layout = CUSTOM_COLLECTIONS.fetch(self.controller_name, DEFAULT_COLLECTION)['layout']
+    "#{layout}.html.erb"
+  end
+
+  def solr_search_params(user_params = params || {})
+    solr_params = super
+    add_collection_fq(solr_params, user_params)
+    solr_params
+  end
+
+  def add_collection_fq(solr_parameters, user_params)
+    collection_id = CUSTOM_COLLECTIONS.fetch(self.controller_name, DEFAULT_COLLECTION)['collection_id']
+    collection_id.strip!
+    user_params = {f: {
+      #cul_member_of_ssim: "info:fedora/#{collection_id}".gsub(/:/,'\:')
+      lib_format_sim: "photographs"
+      }}
+      puts "user_params: #{user_params.inspect}"
+    add_facet_fq_to_solr(solr_parameters, user_params)
+    puts solr_parameters.inspect
+  end
 
   # These before_filters apply the hydra access controls
   #before_filter :enforce_show_permissions, :only=>:show
   # This applies appropriate access controls to all solr queries
   #CatalogController.solr_search_params_logic += [:add_access_controls_to_solr_params]
 
-  layout 'dcv'
 
   configure_blacklight do |config|
     config.default_solr_params = {
@@ -42,7 +67,6 @@ class CatalogController < ApplicationController
     #
     # :show may be set to false if you don't want the facet to be drawn in the
     # facet bar
-    config.add_facet_field solr_name('lib_project', :facetable), :label => 'Project'
     config.add_facet_field solr_name('lib_collection', :facetable), :label => 'Collection'
     config.add_facet_field solr_name('lib_repo', :facetable), :label => 'Repository'
     config.add_facet_field solr_name('lib_format', :facetable), :label => 'Format'
@@ -153,7 +177,5 @@ class CatalogController < ApplicationController
     # mean") suggestion is offered.
     config.spell_max = 5
   end
-
-
 
 end

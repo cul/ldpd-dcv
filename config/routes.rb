@@ -1,6 +1,8 @@
 Dcv::Application.routes.draw do
   root :to => "catalog#index"
-  blacklight_for :catalog
+
+  blacklight_for :catalog, :lindquist
+
   devise_for :users
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

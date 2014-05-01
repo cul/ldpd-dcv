@@ -1,0 +1,7 @@
+development: &DEFAULT
+  lindquist:
+    collection_id: 'ldpd:13059'
+    layout: 'lindquist'
+    short_title: 'GEE Lindquist'
+test:
+  <<: *DEFAULT	
