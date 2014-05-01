@@ -4,4 +4,6 @@ development: &DEFAULT
     layout: 'lindquist'
     short_title: 'GEE Lindquist'
 test:
+  <<: *DEFAULT
+dcv_dev:
   <<: *DEFAULT	
