@@ -1,3 +1,3 @@
 class AuthenticatedController < ApplicationController
-  include Dcv::Controllers:Authenticated
+  include Dcv::Authenticated::AccessControl
 end

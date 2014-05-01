@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  include Dcv::Controllers::Authenticated
+  include Dcv::Authenticated::AccessControl
   attr_accessor :wind_config
   before_action :require_admin!, except: :do_wind_login
   before_action :set_user, only: [:show, :edit, :update, :destroy]
