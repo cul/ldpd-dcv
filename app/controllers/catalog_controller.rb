@@ -16,7 +16,7 @@ class CatalogController < ApplicationController
   configure_blacklight do |config|
     config.default_solr_params = {
       :qt => 'search',
-      :rows => 10
+      :rows => 12
     }
 
     # solr field configuration for search results/index views
@@ -152,8 +152,8 @@ class CatalogController < ApplicationController
     # If there are more than this many search results, no spelling ("did you
     # mean") suggestion is offered.
     config.spell_max = 5
+
+    config.index.thumbnail_method = :thumbnail_for_doc
   end
-
-
 
 end

@@ -1,0 +1,6 @@
+<% # container for all documents in index view -%>
+<div id="documents col-sm-8">
+  <div class="row">
+    <%= render :partial=>'document',:collection=> documents, :as=> :document, :locals=> {:row_offset=> 0} %>
+  </div>
+</div>
