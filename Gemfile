@@ -2,14 +2,13 @@ source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.4'
-
+gem 'actionpack-action_caching'
 # Hydra stack
 gem 'blacklight'
 gem 'hydra-head', '~>7'
 
 # Columbia Hydra models
-#gem 'cul_scv_hydra', '>= 0.12.1'
-gem 'cul_scv_hydra', :path => '../cul_scv_hydra'
+gem 'cul_scv_hydra', '>= 0.14.0'
 
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'

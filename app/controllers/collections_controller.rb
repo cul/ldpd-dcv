@@ -24,8 +24,7 @@ class CollectionsController < ApplicationController
     collection_id = CUSTOM_COLLECTIONS.fetch(self.controller_name, DEFAULT_COLLECTION)['collection_id']
     collection_id.strip!
     user_params = {f: {
-      #cul_member_of_ssim: "info:fedora/#{collection_id}".gsub(/:/,'\:')
-      lib_format_sim: "photographs"
+      cul_member_of_ssim: "info:fedora/#{collection_id}"
       }}
       puts "user_params: #{user_params.inspect}"
     add_facet_fq_to_solr(solr_parameters, user_params)

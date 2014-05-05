@@ -1,9 +1,9 @@
 development: &DEFAULT
   lindquist:
-    collection_id: 'ldpd:13059'
+    collection_id: 'ldpd:130509'
     layout: 'lindquist'
     short_title: 'GEE Lindquist'
 test:
   <<: *DEFAULT
 dcv_dev:
-  <<: *DEFAULT	
+  <<: *DEFAULT
