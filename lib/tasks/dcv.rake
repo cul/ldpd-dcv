@@ -30,7 +30,7 @@ namespace :dcv do
       next
     end
 
-    if ENV['skip_top_level_object_indexing']
+    if (ENV['skip_top_level_object_indexing'] && ENV['skip_top_level_object_indexing'] == 'true')
       puts 'Skipping top level object indexing (' + pid + ')'
     else
       puts 'Indexing topmost object in this set (' + pid + ')...'
