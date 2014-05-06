@@ -35,8 +35,13 @@ a.thumbnail img {
   height: 200px;
   &.list-view {
     height:auto;
+    margin-bottom:1em;
     .thumbnail {
+      max-height:110px;
       margin-right:1em;
+      img {
+        max-height:98%;
+      }
     }
   }
 }
