@@ -2,7 +2,10 @@ a.thumbnail {
   height:134px;
   overflow:hidden;
 }
-
+a.thumbnail img {
+  max-height:100%;
+  width:auto;
+}
 #content .col-sm-3 {
   height: 200px;
 }
