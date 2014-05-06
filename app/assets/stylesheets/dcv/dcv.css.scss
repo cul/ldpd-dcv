@@ -8,4 +8,14 @@ a.thumbnail img {
 }
 #content .col-sm-3 {
   height: 200px;
+  &.list-view {
+    height:auto;
+    .thumbnail {
+      margin-right:1em;
+    }
+  }
+}
+#view-options {
+  margin-bottom:1em;
+  text-align:right;
 }
