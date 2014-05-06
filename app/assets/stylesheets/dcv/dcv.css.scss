@@ -28,6 +28,9 @@ a.thumbnail img {
   max-height:100%;
   width:auto;
 }
+#content .col-sm-2 {
+  height: 150px;
+}
 #content .col-sm-3 {
   height: 200px;
   &.list-view {
@@ -40,7 +43,4 @@ a.thumbnail img {
 #view-options {
   margin-bottom:1em;
   text-align:right;
-}
-#content .col-sm-2 {
-  height: 150px;
 }
