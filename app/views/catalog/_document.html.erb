@@ -1,6 +1,6 @@
 <% counter_in_results = document_counter + row_offset + 1 + @response.params[:start].to_i -%>
 
 <div class="col-sm-3 document <%= render_document_class document %>" itemscope itemtype="<%= document.itemtype %>">
-	<%= link_to_document(document, label: image_tag(thumb_url(document.id), {class: 'img-square', style: 'width:99%'}), class: 'thumbnail') %>
+	<%= link_to_document(document, label: image_tag(thumb_url(document.id), {class: 'img-square'}), class: 'thumbnail') %>
   <h6 class="index_title"><%= t('blacklight.search.documents.counter', :counter => counter_in_results) %><%= short_link(document, :counter => counter_in_results) %></h6>
 </div>
