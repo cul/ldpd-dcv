@@ -24,7 +24,10 @@ a.thumbnail > img {
   margin-bottom: 0px;
   border: 0px;
 }
-
+a.thumbnail img {
+  max-height:100%;
+  width:auto;
+}
 #content .col-sm-3 {
   height: 225px;
 }
