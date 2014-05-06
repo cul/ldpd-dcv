@@ -20,4 +20,5 @@ module CatalogHelper
     end
     return link_to_document(document, {label: title}.merge(opts))
   end
+
 end

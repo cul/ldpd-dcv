@@ -5,6 +5,8 @@ Dcv::Application.routes.draw do
 
   devise_for :users
 
+  get 'catalog/:id/children' => 'children#index', as: :children
+
   resources(:solr_document, {only: [:show], path: 'lindquist', controller: 'lindquist'}) do
     member do
       post "track"

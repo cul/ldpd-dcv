@@ -16,9 +16,10 @@ class CatalogController < ApplicationController
   configure_blacklight do |config|
     config.default_solr_params = {
       :qt => 'search',
-      :rows => 12
+      :rows => 20
     }
 
+    config.per_page = [20,60,100]
     # solr field configuration for search results/index views
     config.index.title_field = solr_name('title_display', :displayable, type: :string)
     config.index.display_type_field = solr_name('has_model', :symbol)

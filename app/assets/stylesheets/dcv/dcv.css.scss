@@ -1,8 +1,38 @@
+.thumbnail {
+  line-height: 1;
+}
+.col-sm-3 .thumbnail {
+  height:150px;
+}
+
+.col-sm-2 .thumbnail {
+  height:100px;
+}
+
 a.thumbnail {
-  height:134px;
   overflow:hidden;
+  display: block;
+  padding: 0px;
+  margin: 0px;
+}
+a.thumbnail > img {
+  display: block;
+  max-height:100%;
+  max-width:100%;
+  padding: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  border: 0px;
 }
 
 #content .col-sm-3 {
-  height: 200px;
+  height: 225px;
+}
+
+.col-sm-3 > h6, .col-sm-2 > h6 {
+  margin: 0px;
+}
+
+#content .col-sm-2 {
+  height: 150px;
 }
