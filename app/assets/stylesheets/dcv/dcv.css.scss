@@ -1,9 +1,13 @@
 .thumbnail {
   display: block;
-  padding: 0;
+  padding: 6px;
   margin: 0;
   overflow:hidden;
   line-height: 1;
+  -moz-border-radius:0;
+  -webkit-border-radius:0;
+  border-radius:0;
+  border-color:#aaa;
   > img {
     display: block;
     max-width:100%;
@@ -26,12 +30,22 @@
 }
 #content .col-sm-3 {
   height: 200px;
+  margin-bottom:1em; 
+  .tombstone {
+    height:100%;
+    padding:.25em;
+    border:1px solid #ccc;
+  }
   .thumbnail {
     height:150px;
   }
   &.list-view {
     height:auto;
     margin-bottom:1em;
+    .tombstone {
+      display:table;
+      width:100%;
+    }
     .thumbnail {
       max-height:110px;
       margin-right:1em;
