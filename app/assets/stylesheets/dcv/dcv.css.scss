@@ -1,13 +1,13 @@
 .thumbnail {
   display: block;
-  padding: 6px;
+  padding: .25em;
   margin: 0;
   overflow:hidden;
   line-height: 1;
-  -moz-border-radius:0;
-  -webkit-border-radius:0;
-  border-radius:0;
   border-color:#aaa;
+  -webkit-border-radius:0;
+  -moz-border-radius:0;
+  border-radius:0;
   > img {
     display: block;
     max-width:100%;
@@ -33,7 +33,7 @@
   margin-bottom:1em; 
   .tombstone {
     height:100%;
-    padding:.25em;
+    padding:.3em;
     border:1px solid #ccc;
   }
   .thumbnail {
