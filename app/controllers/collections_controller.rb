@@ -21,6 +21,7 @@ class CollectionsController < ApplicationController
   end
 
   def add_collection_fq(solr_parameters, user_params)
+    puts 'CUSTOM_COLLECTIONS: ' + CUSTOM_COLLECTIONS.inspect
     collection_id = CUSTOM_COLLECTIONS.fetch(self.controller_name, DEFAULT_COLLECTION)['collection_id']
     collection_id.strip!
     user_params = {f: {

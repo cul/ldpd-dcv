@@ -1,13 +1,19 @@
 Dcv::Application.routes.draw do
   root :to => "catalog#index"
 
-  blacklight_for :catalog, :lindquist
+  blacklight_for :catalog, :lindquist, :css
 
   devise_for :users
 
   get 'catalog/:id/children' => 'children#index', as: :children
 
   resources(:solr_document, {only: [:show], path: 'lindquist', controller: 'lindquist'}) do
+    member do
+      post "track"
+    end
+  end
+
+  resources(:solr_document, {only: [:show], path: 'css', controller: 'css'}) do
     member do
       post "track"
     end

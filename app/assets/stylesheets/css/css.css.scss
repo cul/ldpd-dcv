@@ -1,0 +1,45 @@
+@charset "UTF-8";
+
+body.css {
+	color: #505050;
+  background-color: #717171;
+  background-image: url(asset_path("css/bg.jpg"));
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-size: cover;
+
+	.navbar {
+		background-color: #717171;
+		color: #505050;
+	}
+
+	div.panel {
+		background-color: whitesmoke;
+		color: #505050;
+	}
+
+	div.panel-heading {
+		background-color: #FFFFFB;
+		color: #505050;
+	}
+
+	.btn-default {
+		background-color: #FFF8E8;
+		color: #505050;
+	}
+
+	.search-btn,  body.lindquist .input-group-addon {
+		color: #FFF8E8;
+		background-color: #505050;
+	}
+
+	.navbar-brand {
+		background-image: none;
+	}
+
+	#documents {
+		background-color: rgba(255, 248, 232,0.85);
+	}
+
+}

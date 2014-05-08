@@ -18,12 +18,11 @@ module Dcv
     # -- all .rb files in that directory are automatically loaded.
 
     # Custom directories with classes and modules you want to be autoloadable.
+    # See: http://stackoverflow.com/questions/4928664/trying-to-implement-a-module-using-namespaces
     config.autoload_paths += %W(#{config.root}/lib)
 
     # Custom precompiled asset manifests
-    config.assets.precompile += ['dcv.css', 'lindquist.css']
-
-    # Hyacinth Note - See: http://stackoverflow.com/questions/4928664/trying-to-implement-a-module-using-namespaces
+    config.assets.precompile += ['dcv.css', 'lindquist.css', 'css.css']
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.

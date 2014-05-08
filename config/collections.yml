@@ -2,7 +2,11 @@ development: &DEFAULT
   lindquist:
     collection_id: 'ldpd:130509'
     layout: 'lindquist'
-    short_title: 'GEE Lindquist'
+    short_title: 'G.E.E Lindquist'
+  css:
+    collection_id: 'ldpd:135833'
+    layout: 'css'
+    short_title: 'Community Service Society'
 test:
   <<: *DEFAULT
 dcv_dev:
