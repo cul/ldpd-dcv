@@ -1,6 +1,8 @@
 Dcv::Application.routes.draw do
   root :to => "catalog#index"
 
+  get '/collections' => 'pages#collections', as: :all_collections
+
   blacklight_for :catalog, :lindquist, :css
 
   devise_for :users
@@ -20,6 +22,7 @@ Dcv::Application.routes.draw do
   end
 
   resources :thumbs, only: [:show]
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
