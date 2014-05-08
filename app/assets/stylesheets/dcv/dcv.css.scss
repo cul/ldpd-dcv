@@ -4,7 +4,7 @@
   margin: 0;
   overflow:hidden;
   line-height: 1;
-  border-color:#aaa;
+  border-color:#ddd;
   -webkit-border-radius:0;
   -moz-border-radius:0;
   border-radius:0;
@@ -34,7 +34,10 @@
   .tombstone {
     height:100%;
     padding:.3em;
-    border:1px solid #aaa;
+    border: 1px solid #ddd;
+    -webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.075);
+    -moz-box-shadow: 0 1px 1px rgba(0,0,0,0.075);
+    box-shadow: 0 1px 1px rgba(0,0,0,0.075);
   }
   .thumbnail {
     height:150px;
