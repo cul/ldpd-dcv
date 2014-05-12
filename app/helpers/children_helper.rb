@@ -26,7 +26,9 @@ module ChildrenHelper
     children[:page] = children[:page]
     children[:count] = response['numFound'].to_i
     response['docs'].map do |doc|
-      child = {id: doc['id'], thumbnail: url_for(controller: :thumbs, id: doc['id'], action: :show)}
+      opts = {controller: :thumbs, id: doc['id'], action: :show}
+      opts[:protocol] = (request.ssl?) ? 'https' : 'http' 
+      child = {id: doc['id'], thumbnail: url_for(opts)}
       if title_field
         title = doc[title_field.to_s]
         title = title.first if title.is_a? Array
