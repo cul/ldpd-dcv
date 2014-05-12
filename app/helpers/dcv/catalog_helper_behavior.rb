@@ -1,8 +1,8 @@
 module Dcv::CatalogHelperBehavior
   def url_for_children_data(per_page=nil)
-    opts = {id: params[:id]}
+    opts = {id: params[:id], controller: :children}
     opts[:per_page] = per_page || 4
-    opts[:protocol] = (request.protocol =~ /^https/) ? 'https' : 'http'
-    children_url(opts)
+    opts[:protocol] = (request.ssl?) ? 'https' : 'http'
+    url_for(opts)
   end
 end
