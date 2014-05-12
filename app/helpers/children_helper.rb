@@ -27,7 +27,7 @@ module ChildrenHelper
     children[:count] = response['numFound'].to_i
     response['docs'].map do |doc|
       opts = {controller: :thumbs, id: doc['id'], action: :show}
-      opts[:protocol] = (request.ssl?) ? 'https' : 'http' 
+      opts[:only_path] = true 
       child = {id: doc['id'], thumbnail: url_for(opts)}
       if title_field
         title = doc[title_field.to_s]
