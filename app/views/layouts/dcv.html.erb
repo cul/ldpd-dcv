@@ -48,5 +48,23 @@
   </div>
 
   <%= render :partial => 'shared/footer' %>
+
+<!-- CULTNBW CUSTOM RIGHT MENU -->
+<ul id="cultnbw-custom-right" style="display:none;">
+ <!--li><%= link_to application_name, root_path, class: "brand" %></li-->
+ <li>
+   <%= render :partial=>'/user_util_links' %>
+ </li>
+</ul><!--//cultnbw-custom-right-->
+
+<!-- CULTNBW START -->
+<script type="text/javascript">
+  CULh_colorfg = '#000000'; // topnavbar foreground color. hex value. ex: #002B7F
+  CULh_colorbg = '#444444'; // topnavbar background color. hex value. ex: #779BC3
+  CULh_nobs = 1; // uncomment to NOT load our bootstrap javascript file and or use your own (v2.3.x required)
+</script>
+<script src="//cdn.cul.columbia.edu/ldpd-toolkit/widgets/cultnbw.min.js"></script>
+<!-- /CULTNBW END -->
+
   </body>
 </html>
