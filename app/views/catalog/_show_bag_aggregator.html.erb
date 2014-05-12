@@ -46,13 +46,7 @@ window.addEventListener('popstate', historyEvent);
       success: loadChildren
     });
     if (push) {
-      // parse the existing page number out of the url, and place in state map
-      // create new url with replaced value
-      old_page = location.href.match(/child_page=\d+/)
-      if (old_page != null) {
-        old_page = old_page[0].replace(/child_page=/,'');
-      }
-      pushToHistory(old_page, page);
+      pushToHistory(currentPage(), page);
     }
   }
 
@@ -66,7 +60,7 @@ window.addEventListener('popstate', historyEvent);
         location.href + '?child_page=' + new_page;
     }
     
-    history.pushState({'child_page':old_page}, null, new_href);
+    history.pushState({'old_page':old_page, 'new_page': new_page}, null, new_href);
   }
 
   function loadChildren(data, textStatus, jqXHR) {
@@ -86,6 +80,14 @@ window.addEventListener('popstate', historyEvent);
       $('#next-button a').attr('data-page', (page + 1));
       $('#next-button').removeClass('disabled');
     }
+  }
+
+  function currentPage() {
+    old_page = location.href.match(/child_page=\d+/)
+    if (old_page != null) {
+      old_page = old_page[0].replace(/child_page=/,'');
+    }
+    return old_page;
   }
 
   function pushChild(next, child) {
@@ -112,8 +114,7 @@ window.addEventListener('popstate', historyEvent);
   }
 
   function historyEvent(e) {
-    orig_page = e.state['child_page'] || 0;
-    loadPage(orig_page, false);
+    loadPage(currentPage() || 0, false);
   }
 
   //todo: window.addEventListener("popstate", function(e){}) to restore previous state
