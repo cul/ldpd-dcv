@@ -36,7 +36,7 @@ $('body').ready(function() {
 window.addEventListener('popstate', historyEvent);
 
   function loadPage(page, push) {
-    var data_url = '<%= children_url(controller: :children, id: params[:id], per_page: 4) %>&page=' + page;
+    var data_url = '<%= url_for_children_data(4) %>&page=' + page;
     $('#imageControls a').click(function(){return false;});
     $('#prev-button').addClass('disabled');
     $('#next-button').addClass('disabled');
