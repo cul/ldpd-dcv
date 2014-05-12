@@ -16,4 +16,5 @@
 //
 // Required by Blacklight
 //= require blacklight/blacklight
+//= require bootstrap
 //= require_tree .

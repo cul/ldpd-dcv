@@ -47,6 +47,7 @@ class CatalogController < ApplicationController
     config.add_facet_field solr_name('lib_collection', :facetable), :label => 'Collection'
     config.add_facet_field solr_name('lib_repo', :facetable), :label => 'Repository'
     config.add_facet_field solr_name('lib_format', :facetable), :label => 'Format'
+    config.add_facet_field 'format_ssi', :label => 'System Type'
     config.add_facet_field solr_name('lc1_letter', :facetable), :label => 'Call Number'
 
     # Have BL send all facet field names to Solr, which has been the default
