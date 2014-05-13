@@ -44,7 +44,7 @@
 }
 #content .col-sm-3 {
   height: 200px;
-  margin-bottom:1em; 
+  margin-bottom:1em;
   .tombstone {
     height:100%;
     padding:.3em;
@@ -75,4 +75,10 @@
 #view-options {
   margin-bottom:1em;
   text-align:right;
+}
+
+.lead.section-heading {
+  border:solid #E0E0E0;
+  border-width:1px 0px;
+  padding:15px 0px;
 }
