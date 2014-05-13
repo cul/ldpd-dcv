@@ -1,0 +1,134 @@
+<style>
+div#imagestrip {
+  height: 25%; max-height: 134px;
+  width: 100%;
+}
+
+#imagestrip > div {
+  height:15%; width: 25%; max-width: 25%;
+  padding: 0px;
+}
+
+#imagestrip img {
+  max-height: 90%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#imageControls {
+  width: 100%;
+}
+
+#imageControls > ul.pagination {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+</style>
+<script type="text/javascript">
+//<![CDATA[
+$('body').ready(function() {
+  loadPage(<%= params.fetch(:child_page, 0) %>, false);
+});
+
+window.addEventListener('popstate', historyEvent);
+
+  function loadPage(page, push) {
+    var data_url = '<%= url_for_children_data(4) %>&page=' + page;
+    $('#imageControls a').click(function(){return false;});
+    $('#prev-button').addClass('disabled');
+    $('#next-button').addClass('disabled');
+    $.ajax({
+      dataType: "json",
+      url: data_url,
+      success: loadChildren
+    });
+    if (push) {
+      pushToHistory(currentPage(), page);
+    }
+  }
+
+  function pushToHistory(old_page, new_page) {
+    // parse the existing page number out of the url, and place in state map
+    // create new url with replaced value
+    if (old_page != null) {
+      new_href = location.href.replace(/child_page=\d+/,'child_page=' + new_page);
+    } else {
+      new_href = (location.href.indexOf('?') > 0) ? location.href + '&child_page=' + new_page :
+        location.href + '?child_page=' + new_page;
+    }
+    
+    history.pushState({'old_page':old_page, 'new_page': new_page}, null, new_href);
+  }
+
+  function loadChildren(data, textStatus, jqXHR) {
+    var response = data;
+    var children = response['children'];
+    for (var i=0; i < children.length; i++) {
+      pushChild(i, children[i]);
+    }
+    // todo: display-none the remainder if children.length < 4
+    var page = parseInt(response['page']);
+    $('#current-page').text(page + 1 + '/' + response['pages']);
+    if (page > 0) {
+      $('#prev-button a').attr('data-page', (page - 1));
+      $('#prev-button').removeClass('disabled');
+    }
+    if (page < response['pages'] - 1) {
+      $('#next-button a').attr('data-page', (page + 1));
+      $('#next-button').removeClass('disabled');
+    }
+  }
+
+  function currentPage() {
+    old_page = location.href.match(/child_page=\d+/)
+    if (old_page != null) {
+      old_page = old_page[0].replace(/child_page=/,'');
+    }
+    return old_page;
+  }
+
+  function pushChild(next, child) {
+    var next_id = 'child-' + (next).toString();
+    var frame = $('#' + next_id);
+    var img;
+    if (frame.length == 0) {
+      var div = $('<div/>',{
+          'class':'col-xs-4 col-md-2'
+        }).appendTo('#imagestrip');
+      img = $('<img />', {
+        'id': next_id,
+        'data-toggle':'tooltip',
+        'data-placement':'bottom',
+        'class': 'img-square thumbnail'
+      });
+      div.append(img);
+    }
+    img = $('#' + next_id);
+    img[0].setAttribute('src', child['thumbnail']);
+    img[0].setAttribute('alt', child['title']);
+    img[0].setAttribute('title', child['title']);
+    img.tooltip();
+  }
+
+  function historyEvent(e) {
+    loadPage(currentPage() || 0, false);
+  }
+
+  //todo: window.addEventListener("popstate", function(e){}) to restore previous state
+//]]>
+</script>
+<div id="imagestrip" class="row">
+</div>
+<div  id="imageControls" class="row">
+<ul class="pager">
+  <li id="prev-button" class="disabled"><a href="#" data-page="0" onClick="loadPage(this.dataset.page, true); return false;">&laquo; Prev</a></li>
+  <li class="active"><span id='current-page' href="#"><span class="sr-only">(current)</span></span></li>
+  <li id="next-button" class="disabled"><a href="#" data-page="0" onClick="loadPage(this.dataset.page, true); return false;">Next &raquo;</a></li>
+</ul>
+</div>
+<script>
+  $('a.image-control').click(function(){slide(this.getAttribute('data-action'),2); return false;});
+  </script>

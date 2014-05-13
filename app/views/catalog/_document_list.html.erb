@@ -1,6 +1,12 @@
 <% # container for all documents in index view -%>
 <div id="documents col-sm-8">
+<div id="view-options">
+  <div class="hidden-xs btn-group btn-group-xs">
+    <button id="grid-mode" type="button" class="btn btn-success"><i class="glyphicon glyphicon-th"></i></button>
+    <button id="list-mode" type="button" class="btn btn-default"><i class="glyphicon glyphicon-th-list"></i></button>
+  </div>
+</div>
   <div class="row">
-    <%= render :partial=>'document',:collection=> documents, :as=> :document, :locals=> {:row_offset=> 0} %>
+<%= render :partial=>'document',:collection=> documents, :as=> :document, :locals=> {:row_offset=> 0} %>
   </div>
 </div>
