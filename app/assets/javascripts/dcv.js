@@ -2,15 +2,17 @@ $(function() {
   $('body').on('click', '#list-mode', function() {
       $('#content .col-sm-3').addClass('col-sm-12').addClass('list-view');
       $('#content .col-sm-3 .thumbnail').addClass('col-sm-2');
-      $('#content .col-sm-3 .index-title').addClass('col-sm-10');
+      $('#content .col-sm-3 .index_title').addClass('col-sm-9');
       $('#grid-mode').removeClass('btn-success').addClass('btn-default');
+      $('#content .index_show_fields').removeClass('hidden');
       $(this).addClass('btn-success');
   });
   $('body').on('click', '#grid-mode', function() {
       $('#content .col-sm-3').removeClass('col-sm-12').removeClass('list-view');
       $('#content .col-sm-3 .thumbnail').removeClass('col-sm-2');
-      $('#content .col-sm-3 .index-title').removeClass('col-sm-10');
+      $('#content .col-sm-3 .index_title').removeClass('col-sm-9');
       $('#list-mode').removeClass('btn-success').addClass('btn-default');
+      $('#content .index_show_fields').addClass('hidden');
       $(this).addClass('btn-success');
   });
 });

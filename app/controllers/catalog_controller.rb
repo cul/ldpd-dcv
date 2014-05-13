@@ -61,32 +61,11 @@ class CatalogController < ApplicationController
     # solr fields to be displayed in the index (search results) view
     #   The ordering of the field names is the order of the display
     config.add_index_field solr_name('title_display', :displayable, type: :string), :label => 'Title'
-    config.add_index_field solr_name('title_vern', :stored_searchable, type: :string), :label => 'Title'
-    config.add_index_field solr_name('author', :stored_searchable, type: :string), :label => 'Author'
-    config.add_index_field solr_name('author_vern', :stored_searchable, type: :string), :label => 'Author'
-    config.add_index_field solr_name('lib_format', :displayable), :label => 'Format'
-    config.add_index_field solr_name('lib_repo', :displayable), :label => 'Repository'
-    config.add_index_field solr_name('language', :stored_searchable, type: :string), :label => 'Language'
-    config.add_index_field solr_name('published', :stored_searchable, type: :string), :label => 'Published'
-    config.add_index_field solr_name('published_vern', :stored_searchable, type: :string), :label => 'Published'
-    config.add_index_field solr_name('lc_callnum', :stored_searchable, type: :string), :label => 'Call number'
+    config.add_index_field solr_name('lib_collection', :displayable, type: :string), :label => 'Collection'
 
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display
-    config.add_show_field solr_name('title_display', :stored_searchable, type: :string), :label => 'Title'
-    config.add_show_field solr_name('title_vern', :stored_searchable, type: :string), :label => 'Title'
-    config.add_show_field solr_name('subtitle', :stored_searchable, type: :string), :label => 'Subtitle'
-    config.add_show_field solr_name('subtitle_vern', :stored_searchable, type: :string), :label => 'Subtitle'
-    config.add_show_field solr_name('author', :stored_searchable, type: :string), :label => 'Author'
-    config.add_show_field solr_name('author_vern', :stored_searchable, type: :string), :label => 'Author'
-    config.add_show_field solr_name('format', :symbol), :label => 'Format'
-    config.add_show_field solr_name('url_fulltext_tsim', :stored_searchable, type: :string), :label => 'URL'
-    config.add_show_field solr_name('url_suppl_tsim', :stored_searchable, type: :string), :label => 'More Information'
-    config.add_show_field solr_name('language', :stored_searchable, type: :string), :label => 'Language'
-    config.add_show_field solr_name('published', :stored_searchable, type: :string), :label => 'Published'
-    config.add_show_field solr_name('published_vern', :stored_searchable, type: :string), :label => 'Published'
-    config.add_show_field solr_name('lc_callnum', :stored_searchable, type: :string), :label => 'Call number'
-    config.add_show_field solr_name('isbn', :stored_searchable, type: :string), :label => 'ISBN'
+    config.add_show_field solr_name('lib_collection', :displayable, type: :string), :label => 'Collection'
 
     # "fielded" search configuration. Used by pulldown among other places.
     # For supported keys in hash, see rdoc for Blacklight::SearchFields
@@ -107,7 +86,6 @@ class CatalogController < ApplicationController
     # since we aren't specifying it otherwise.
 
     config.add_search_field 'all_fields', :label => 'All Fields'
-
 
     # Now we see how to over-ride Solr request handler defaults, in this
     # case for a BL "search field", which is really a dismax aggregate
