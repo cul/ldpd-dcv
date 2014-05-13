@@ -8,8 +8,8 @@ body {
 #site-banner {
   h1 {
     width:100%;
-    border:3px solid #eeeeee;
-    border-width:3px 0;
+    border:2px solid #eeeeee;
+    border-width:2px 0;
     padding:30px 0;
     text-align:center;
     font-family: TrajanProRegular, trajan, georgia, serif;
@@ -60,13 +60,8 @@ body {
   margin-bottom:1em;
   .tombstone {
     height:100%;
-    padding:.3em;
     margin-left:-5px;
     margin-right:-5px;
-    border: 1px solid #888888;
-    -webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.075);
-    -moz-box-shadow: 0 1px 1px rgba(0,0,0,0.075);
-    box-shadow: 0 1px 1px rgba(0,0,0,0.075);
   }
   .thumbnail {
     height:150px;
