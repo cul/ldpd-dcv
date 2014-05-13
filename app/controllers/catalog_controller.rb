@@ -66,6 +66,7 @@ class CatalogController < ApplicationController
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display
     config.add_show_field solr_name('lib_collection', :displayable, type: :string), :label => 'Collection'
+    config.add_show_field solr_name('lib_name', :displayable, type: :string), :label => 'Name'
 
     # "fielded" search configuration. Used by pulldown among other places.
     # For supported keys in hash, see rdoc for Blacklight::SearchFields
@@ -81,42 +82,29 @@ class CatalogController < ApplicationController
     # urls.  A display label will be automatically calculated from the :key,
     # or can be specified manually to be different.
 
-    # This one uses all the defaults set by the solr request handler. Which
-    # solr request handler? The one set in config[:default_solr_parameters][:qt],
-    # since we aren't specifying it otherwise.
-
-    config.add_search_field 'all_fields', :label => 'All Fields'
-
-    # Now we see how to over-ride Solr request handler defaults, in this
-    # case for a BL "search field", which is really a dismax aggregate
-    # of Solr search fields.
-
-    config.add_search_field('title') do |field|
-      # :solr_local_parameters will be sent using Solr LocalParams
-      # syntax, as eg {! qf=$title_qf }. This is neccesary to use
-      # Solr parameter de-referencing like $title_qf.
-      # See: http://wiki.apache.org/solr/LocalParams
-      field.solr_local_parameters = {
-        :qf => '$title_qf',
-        :pf => '$title_pf'
+    # All Text search configuration, used by main search pulldown.
+    config.add_search_field solr_name('all_text', :searchable, type: :text) do |field|
+      field.label = 'All Fields'
+      field.default = true
+      field.solr_parameters = {
+        :qf => ['all_text_teim'],
+        :pf => ['all_text_teim']
       }
     end
 
-    config.add_search_field('author') do |field|
-      field.solr_local_parameters = {
-        :qf => '$author_qf',
-        :pf => '$author_pf'
+    config.add_search_field solr_name('search_title_info_search_title', :searchable, type: :text) do |field|
+      field.label = 'Title'
+      field.solr_parameters = {
+        :qf => [solr_name('search_title_info_search_title', :searchable, type: :text)],
+        :pf => [solr_name('search_title_info_search_title', :searchable, type: :text)]
       }
     end
 
-    # Specifying a :qt only to show it's possible, and so our internal automated
-    # tests can test it. In this case it's the same as
-    # config[:default_solr_parameters][:qt], so isn't actually neccesary.
-    config.add_search_field('subject') do |field|
-      field.qt = 'search'
-      field.solr_local_parameters = {
-        :qf => '$subject_qf',
-        :pf => '$subject_pf'
+    config.add_search_field solr_name('lib_name', :searchable, type: :text) do |field|
+      field.label = 'Name'
+      field.solr_parameters = {
+        :qf => [solr_name('lib_name', :searchable, type: :text)],
+        :pf => [solr_name('lib_name', :searchable, type: :text)]
       }
     end
 
@@ -124,10 +112,8 @@ class CatalogController < ApplicationController
     # label in pulldown is followed by the name of the SOLR field to sort by and
     # whether the sort is ascending or descending (it must be asc or desc
     # except in the relevancy case).
-    config.add_sort_field 'score desc, pub_date_dtsi desc, title_si asc', :label => 'relevance'
-    config.add_sort_field 'pub_date_dtsi desc, title_si asc', :label => 'year'
-    config.add_sort_field 'author_tesi asc, title_si asc', :label => 'author'
-    config.add_sort_field 'title_si asc, pub_date_dtsi desc', :label => 'title'
+    config.add_sort_field 'score desc, title_si asc, lib_date_dtsi desc', :label => 'relevance'
+    config.add_sort_field 'title_si asc, lib_date_dtsi desc', :label => 'title'
 
     # If there are more than this many search results, no spelling ("did you
     # mean") suggestion is offered.
