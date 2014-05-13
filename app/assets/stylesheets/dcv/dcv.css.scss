@@ -1,5 +1,4 @@
 body {
-  color:#ffffff;
   background-attachment: fixed;
   background-image: image-url('dcv/columbia_university_library___night_by_never4getthis-d57w6dl-cropped.jpg');
   background-position: center top;
@@ -47,7 +46,7 @@ body {
 }
 #main-container .inner {
   padding: 1.2em;
-  background-color: rgba(0,0,0,.7);
+  background-color: rgba(0,0,0,.75);
   border: 1px dotted #666;
 }
 #content .col-sm-2 {
@@ -91,4 +90,13 @@ body {
 #view-options {
   margin-bottom:1em;
   text-align:right;
+}
+#sidebar {
+  .panel-default {
+    border-color:#666;
+    border-style:dotted;
+  }
+  .panel-body .nav a:hover {
+    color:#fff;
+  }
 }
