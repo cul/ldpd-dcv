@@ -57,7 +57,7 @@ body {
 }
 #content .col-sm-3 {
   height: 200px;
-  margin-bottom:1em; 
+  margin-bottom:1em;
   .tombstone {
     height:100%;
     padding:.3em;
@@ -99,4 +99,15 @@ body {
   .panel-body .nav a:hover {
     color:#fff;
   }
+}
+
+.lead.section-heading {
+  border:solid #E0E0E0;
+  border-width:1px 0px;
+  padding:15px 0px;
+}
+
+.index_show_fields ul {
+  list-style: none;
+  padding-left:0px;
 }
