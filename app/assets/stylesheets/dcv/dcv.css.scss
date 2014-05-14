@@ -6,10 +6,21 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
 }
+#outer-wrapper {
+  background-color:rgba(0,0,0,.55);
+  padding:0 10px 2em 10px;
+  border:1px solid #333;
+  border-top:0;
+}
+@media (min-width: 1200px) {
+  #outer-wrapper {
+    width:1190px;
+  }
+}
 #site-banner {
   h1 {
     width:100%;
-    border:2px solid #eeeeee;
+    border:2px solid #aaa;
     border-width:2px 0;
     padding:30px 0;
     margin-bottom:.5em;
@@ -64,8 +75,8 @@ body {
 }
 #main-container .inner {
   padding: 1.2em;
-  background-color: rgba(0,0,0,.75);
-  border: 1px dotted #666;
+  background-color: rgba(0,0,0,.5);
+  border: 1px dotted #999;
 }
 #content .col-sm-2 {
   height: 150px;
