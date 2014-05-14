@@ -28,18 +28,24 @@
 
   </head>
   <body class="<%= render_body_class %> dcv">
-  <%= render :partial => 'shared/header_navbar' %>
+  <div id="outer-wrapper" class="container">
+    <div class="row">
 
-  <%= render partial: 'shared/ajax_modal' %>
+	  <%= render :partial => 'shared/header_navbar' %>
 
-  <div id="main-container" class="container">
-    <%= render :partial=>'/flash_msg', layout: 'shared/flash_messages' %>
+	  <%= render partial: 'shared/ajax_modal' %>
 
-    <%= yield %>
+	  <div id="main-container" class="container">
+		<%= render :partial=>'/flash_msg', layout: 'shared/flash_messages' %>
 
-  </div>
+		<%= yield %>
 
-  <%= render :partial => 'shared/footer' %>
+	  </div>
+
+	  <%= render :partial => 'shared/footer' %>
+
+    </div><!--/.row-->
+  </div><!--/#outer-wrapper-->
 
 <!-- CULTNBW CUSTOM RIGHT MENU -->
 <ul id="cultnbw-custom-right" style="display:none;">
