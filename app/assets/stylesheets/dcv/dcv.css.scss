@@ -1,14 +1,14 @@
 body {
-  background-color:#222;
   background-attachment: fixed;
+  background-color:#222;
   background-image: image-url('dcv/columbia_university_library___night_by_never4getthis-d57w6dl-cropped.jpg');
   background-position: center top;
   background-repeat: no-repeat;
   background-size: cover;
 }
 #outer-wrapper {
-  background-color:rgba(0,0,0,.55);
   padding:0 10px 2em 10px;
+  background-color:rgba(0,0,0,.55);
   border:1px solid #333;
   border-top:0;
 }
@@ -20,19 +20,21 @@ body {
 #site-banner {
   h1 {
     width:100%;
-    border:2px solid #aaa;
-    border-width:2px 0;
+    border:2px dotted #eee;
+    border-width:1px 0;
     padding:30px 0;
     margin-bottom:.5em;
     text-align:center;
     font-family: TrajanProRegular, trajan, georgia, serif;
-    font-size: 200%;
+    font-size: 220%;
     a {
       color:#ffffff;
     }
   }
 }
 #search-navbar {
+  border-color:#444;
+  border-style:dotted;
   #q {
     background-color:rgba(0,0,0,.6);
     color:#ccc;
@@ -75,8 +77,8 @@ body {
 }
 #main-container .inner {
   padding: 1.2em;
-  background-color: rgba(0,0,0,.5);
-  border: 1px dotted #999;
+  background-color: rgba(0,0,0,.7);
+  border: 1px solid #777;
 }
 #content .col-sm-2 {
   height: 150px;
@@ -125,13 +127,13 @@ body {
   }
 }
 
-.lead.section-heading {
+.section-heading {
+  padding:15px 0;
   border:solid #E0E0E0;
   border-width:1px 0;
-  padding:15px 0;
 }
 
-.index_show_fields ul {
-  list-style: none;
+.index-show-fields ul {
   padding-left:0;
+  list-style: none;
 }

@@ -4,7 +4,7 @@ $(function() {
       $('#content .col-sm-3 .thumbnail').addClass('col-sm-2');
       $('#content .col-sm-3 .index_title').addClass('col-sm-9');
       $('#grid-mode').removeClass('btn-success').addClass('btn-default');
-      $('#content .index_show_fields').removeClass('hidden');
+      $('#content .index-show-fields').removeClass('hidden');
       $(this).addClass('btn-success');
   });
   $('body').on('click', '#grid-mode', function() {
@@ -12,7 +12,7 @@ $(function() {
       $('#content .col-sm-3 .thumbnail').removeClass('col-sm-2');
       $('#content .col-sm-3 .index_title').removeClass('col-sm-9');
       $('#list-mode').removeClass('btn-success').addClass('btn-default');
-      $('#content .index_show_fields').addClass('hidden');
+      $('#content .index-show-fields').addClass('hidden');
       $(this).addClass('btn-success');
   });
 });
