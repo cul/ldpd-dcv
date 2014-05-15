@@ -126,6 +126,7 @@ class CatalogController < ApplicationController
 
   def get_solr_response_for_app_id(id=nil, extra_controller_params={})
     id ||= params[:id]
+    id.sub!(/apt\:\/columbia/,'apt://columbia') # TOTAL HACK
     id.gsub!(':','\:')
     id.gsub!('/','\/')
     p = blacklight_config.default_document_solr_params.merge(extra_controller_params)
