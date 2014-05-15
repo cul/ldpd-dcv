@@ -29,6 +29,9 @@ body {
     font-size: 220%;
     a {
       color:#ffffff;
+      &:hover {
+        text-decoration:none;
+      }
     }
   }
 }
