@@ -3,7 +3,7 @@
 <div class="col-sm-3 document <%= render_document_class document %>" itemscope itemtype="<%= document.itemtype %>">
   <div class="tombstone">
 	<%= link_to_document(document, :counter => counter_in_results, label: image_tag(thumb_url(document.id), {class: 'img-square'}), class: 'thumbnail') %>
-    <h6 class="index_title"><%= t('blacklight.search.documents.counter', :counter => counter_in_results) %><%= short_link(document, :counter => counter_in_results) %></h6>
+    <h3 class="index_title"><%= t('blacklight.search.documents.counter', :counter => counter_in_results) %><%= short_link(document, :counter => counter_in_results) %></h3>
 
 		<div class="col-sm-9 index-show-fields hidden">
 			<%= render :partial => 'show_default', :locals => {:document => document } %>
