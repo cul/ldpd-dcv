@@ -1,1 +1,0 @@
-resolver_controller.rb
