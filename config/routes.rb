@@ -23,6 +23,14 @@ Dcv::Application.routes.draw do
 
   resources :thumbs, only: [:show]
 
+  get '/resolve/:resolve/:id',
+    :to => CatalogController.action(:resolve),
+    :as => :resolver,
+    :constraints => {
+      :id => /([^\/]).+/,
+      :resolve => /(catalog|thumbs)/
+    }
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

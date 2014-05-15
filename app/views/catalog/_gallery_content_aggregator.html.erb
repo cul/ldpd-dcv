@@ -1,0 +1,18 @@
+<ul id="child_items" class="thumbnails row">
+<% structured_children.each do |child| -%>
+  <li class="col-sm-3">
+  	<article>
+      <a href="#" class="post thumbnail document blacklight-photographs">
+      	<img src="<%= resolver_url(id: child[:id], resolve: 'thumbs') %>" />
+      </a>
+      <div class="caption">
+      	<div class="documentHeader">
+      	  <div class="documentFunctions"></div>	
+      		<h5 class="index_title"><%= child[:title] %></h5>
+      	</div>
+      	<p><a href="<%= resolver_url(id: child[:id], resolve: 'catalog') %>" class="item-link btn btn-mini btn-inverse" rel="tooltip" data-original-title="<%= child[:title] %>" data-counter="<%= child[:order] %>"></a>
+      </div>
+    </article>
+  </li>
+<% end -%>
+</ul>

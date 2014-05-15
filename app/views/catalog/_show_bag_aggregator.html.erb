@@ -94,6 +94,7 @@ window.addEventListener('popstate', historyEvent);
     var next_id = 'child-' + (next).toString();
     var frame = $('#' + next_id);
     var img;
+    var title;
     if (frame.length == 0) {
       var div = $('<div/>',{
           'class':'col-xs-4 col-md-2'
@@ -105,6 +106,7 @@ window.addEventListener('popstate', historyEvent);
         'class': 'img-square thumbnail'
       });
       div.append(img);
+      //title = $('<h5>');
     }
     img = $('#' + next_id);
     img[0].setAttribute('src', child['thumbnail']);
@@ -120,6 +122,15 @@ window.addEventListener('popstate', historyEvent);
   //todo: window.addEventListener("popstate", function(e){}) to restore previous state
 //]]>
 </script>
+<dl class="dl-horizontal">
+  <% document_show_fields(document).each do |solr_fname, field| -%>
+    <% if should_render_show_field? document, field -%>
+      <dt class="blacklight-<%= solr_fname.parameterize %>"><%= render_document_show_field_label document, :field => solr_fname %></dt>
+      <dd class="blacklight-<%= solr_fname.parameterize %>"><%= render_document_show_field_value document, :field => solr_fname %></dd>
+    <% end -%>
+  <% end -%>
+</dl>
+
 <div id="imagestrip" class="row">
 </div>
 <div  id="imageControls" class="row">
