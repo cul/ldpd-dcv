@@ -22,7 +22,12 @@ module Dcv::CatalogHelperBehavior
       ns = {'mets'=>'http://www.loc.gov/METS/'}
       nodes = struct.xpath('//mets:div[@ORDER]').sort {|a,b| a['ORDER'].to_i <=> b['ORDER'].to_i }
 
-      nodes = nodes.map {|node| {id: CGI.escape(node['CONTENTIDS']), title: node['LABEL'], order: node['ORDER'].to_i}}
+      nodes = nodes.map do |node|
+        node_id = CGI.escape(node['CONTENTIDS'])
+
+        node_thumbnail = resolver_url(id: node_id, resolve: :thumbs, action: :resolve)
+        {id: node_id, title: node['LABEL'], thumbnail: node_thumbnail, order: node['ORDER'].to_i}
+      end
       nodes
     else
       []

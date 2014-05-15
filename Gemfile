@@ -9,7 +9,7 @@ gem 'hydra-head', '~>7'
 
 # Columbia Hydra models
 #gem 'cul_scv_hydra', :git => 'git://github.com/cul/cul_scv_hydra', :branch => 'master'
-gem 'cul_scv_hydra', '>= 0.14.1'
+gem 'cul_scv_hydra', '>= 0.14.2'
 
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
@@ -48,7 +48,7 @@ end
 # gem 'bcrypt', '~> 3.1.7'
 
 # Use unicorn as the app server
-# gem 'unicorn'
+gem 'unicorn'
 
 # Use Capistrano for deployment
 gem 'capistrano', '~> 2.12.0', group: :development
@@ -65,4 +65,4 @@ group :development, :test do
 end
 
 # Use Thin for local development
-gem "thin"
+#gem "thin"
