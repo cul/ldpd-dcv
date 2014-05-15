@@ -64,6 +64,7 @@
   <script src="//cdn.cul.columbia.edu/ldpd-toolkit/widgets/cultnbw.min.js" data-turbolinks-eval="false"></script>
   <!-- Navbar fix for compatibility with turbolinks -->
   <script type="text/javascript" data-turbolinks-eval="false">
+  $(function() {
     $(document).on('page:receive', function(){
       if (typeof(LDPDTKW) != 'undefined') {
         LDPDTKW.cachedNavbar = $('#cultnbw').remove();
