@@ -2,6 +2,7 @@ module CatalogHelper
   include Blacklight::CatalogHelperBehavior
   include Dcv::CatalogHelperBehavior
 
+
   def has_thumbnail? document
     true
   end

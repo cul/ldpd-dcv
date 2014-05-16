@@ -10,5 +10,5 @@
  *
  *= require_self
  *= require ./blacklight
-  *= require_tree './dcv'
+ *= require_tree './dcv'
 */

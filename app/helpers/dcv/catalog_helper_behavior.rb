@@ -15,4 +15,23 @@ module Dcv::CatalogHelperBehavior
     end
   end
 
+  def structured_children
+    if @document['structured_bsi'] == true
+      struct = Cul::Scv::Fedora.ds_for_uri("info:fedora/#{@document['id']}/structMetadata")
+      struct = Nokogiri::XML(struct.content)
+      ns = {'mets'=>'http://www.loc.gov/METS/'}
+      nodes = struct.xpath('//mets:div[@ORDER]').sort {|a,b| a['ORDER'].to_i <=> b['ORDER'].to_i }
+
+      nodes = nodes.map do |node|
+        node_id = CGI.escape(node['CONTENTIDS'])
+
+        node_thumbnail = resolver_url(id: node_id, resolve: :thumbs, action: :resolve)
+        {id: node_id, title: node['LABEL'], thumbnail: node_thumbnail, order: node['ORDER'].to_i}
+      end
+      nodes
+    else
+      []
+    end
+  end
+
 end
