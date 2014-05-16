@@ -1,82 +1,37 @@
 <div class="inner">
-<h2>Collections</h2>
-<p>The Digital Collections Viewer is a site for searching across or within many digital collections here at Columbia.  Some collections are housed entirely within this site, while others have also been published as their own external exhibitions.  Below, you'll find everything that we offer.</p>
+	<h2>Collections</h2>
+	<p>The Digital Collections Viewer is a site for searching across or within many digital collections here at Columbia.  Some collections are housed entirely within this site, while others have also been published as their own external exhibitions.  Below, you'll find everything that we offer.</p>
+	<br />
+	<% 4.times do %>
+	<div class="row">
+		<div class="col-sm-6">
+			<div class="row">
+				<div class="col-sm-4">
+					<%= link_to image_tag("collections_page/about_css.jpg", :class => 'thumbnail img-responsive'), 'http://css.cul.columbia.edu' %>
+					<div class="aligncenter">
+						<small><%= link_to 'Visit External Site', 'http://css.cul.columbia.edu' %></small>
+					</div>
+				</div>
+				<div class="col-sm-8">
+					<strong>Community Service Society Photographs</strong> is an online presentation of almost 1400 photographs (and a few illustrations) from the Community Service Society Records at Columbia University's Rare Book & Manuscript Library. They offer representations of urban poverty, unsafe tenement housing, inadequate hygiene in public areas, and other pressing social issues in late-19th- and early-20th-century New York. The images range from the 1880s through the 1950s.
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<div class="row">
+				<div class="col-sm-4">
+					<%= link_to image_tag("collections_page/about_lindquist.jpg", :class => 'thumbnail img-responsive'), 'http://lindquist.cul.columbia.edu' %>
+					<div class="aligncenter">
+						<small><%= link_to 'View The Collection', 'http://lindquist.cul.columbia.edu' %></small>
+					</div>
+				</div>
+				<div class="col-sm-8">
+					<strong>G.E.E. Lindquist Native American Photographs</strong> is an online presentation of the 1322 photographs, 124 postcards, 388 negatives, and 34 glass plate negatives/lantern slides, which derive from the G.E.E. Lindquist Papers archival collection at The Burke Library.  They depict the people, places, and practices of Native Americans and their communities from at least 34 States, plus Canada and Mexico in the period from 1909-1953.
+				</div>
+			</div>
+		</div>
+	</div>
+	<br />
+	<% end %>
 
-<h3 class="lead section-heading">Unique To The DCV</h3>
-
-<div class="row">
-	<div class="col-sm-3">
-		<%= link_to image_tag("collections_page/about_css.jpg", :class => 'thumbnail img-responsive'), 'http://css.cul.columbia.edu' %>
-		<p>Community Service Society Photographs</p>
-	</div><!-- /.col-sm-3 -->
-	<div class="col-sm-3">
-		<%= link_to image_tag("collections_page/about_lindquist.jpg", :class => 'thumbnail img-responsive'), 'http://lindquist.cul.columbia.edu' %>
-		<p>G.E.E. Lindquist Native American Photographs<p>
-	</div><!-- /.col-sm-3 -->
-	<div class="col-sm-3">
-		<%= link_to image_tag("collections_page/about_css.jpg", :class => 'thumbnail img-responsive'), 'http://css.cul.columbia.edu' %>
-		<p>Community Service Society Photographs</p>
-	</div><!-- /.col-sm-3 -->
-	<div class="col-sm-3">
-		<%= link_to image_tag("collections_page/about_lindquist.jpg", :class => 'thumbnail img-responsive'), 'http://lindquist.cul.columbia.edu' %>
-		<p>G.E.E. Lindquist Native American Photographs<p>
-	</div><!-- /.col-sm-3 -->
-</div><!-- /.row -->
-<div class="row">
-	<div class="col-sm-3">
-		<%= link_to image_tag("collections_page/about_lindquist.jpg", :class => 'thumbnail img-responsive'), 'http://lindquist.cul.columbia.edu' %>
-		<p>G.E.E. Lindquist Native American Photographs<p>
-	</div><!-- /.col-sm-3 -->
-	<div class="col-sm-3">
-		<%= link_to image_tag("collections_page/about_css.jpg", :class => 'thumbnail img-responsive'), 'http://css.cul.columbia.edu' %>
-		<p>Community Service Society Photographs</p>
-	</div><!-- /.col-sm-3 -->
-	<div class="col-sm-3">
-		<%= link_to image_tag("collections_page/about_lindquist.jpg", :class => 'thumbnail img-responsive'), 'http://lindquist.cul.columbia.edu' %>
-		<p>G.E.E. Lindquist Native American Photographs<p>
-	</div><!-- /.col-sm-3 -->
-	<div class="col-sm-3">
-		<%= link_to image_tag("collections_page/about_css.jpg", :class => 'thumbnail img-responsive'), 'http://css.cul.columbia.edu' %>
-		<p>Community Service Society Photographs</p>
-	</div><!-- /.col-sm-3 -->
-</div><!-- /.row -->
-
-<h3 class="lead section-heading">External Exhibition Sites</h3>
-
-<div class="row">
-	<div class="col-sm-3">
-		<%= link_to image_tag("collections_page/about_css.jpg", :class => 'thumbnail img-responsive'), 'http://css.cul.columbia.edu' %>
-		<p>Community Service Society Photographs</p>
-	</div><!-- /.col-sm-3 -->
-	<div class="col-sm-3">
-		<%= link_to image_tag("collections_page/about_lindquist.jpg", :class => 'thumbnail img-responsive'), 'http://lindquist.cul.columbia.edu' %>
-		<p>G.E.E. Lindquist Native American Photographs<p>
-	</div><!-- /.col-sm-3 -->
-	<div class="col-sm-3">
-		<%= link_to image_tag("collections_page/about_css.jpg", :class => 'thumbnail img-responsive'), 'http://css.cul.columbia.edu' %>
-		<p>Community Service Society Photographs</p>
-	</div><!-- /.col-sm-3 -->
-	<div class="col-sm-3">
-		<%= link_to image_tag("collections_page/about_lindquist.jpg", :class => 'thumbnail img-responsive'), 'http://lindquist.cul.columbia.edu' %>
-		<p>G.E.E. Lindquist Native American Photographs<p>
-	</div><!-- /.col-sm-3 -->
-</div><!-- /.row -->
-<div class="row">
-	<div class="col-sm-3">
-		<%= link_to image_tag("collections_page/about_lindquist.jpg", :class => 'thumbnail img-responsive'), 'http://lindquist.cul.columbia.edu' %>
-		<p>G.E.E. Lindquist Native American Photographs<p>
-	</div><!-- /.col-sm-3 -->
-	<div class="col-sm-3">
-		<%= link_to image_tag("collections_page/about_css.jpg", :class => 'thumbnail img-responsive'), 'http://css.cul.columbia.edu' %>
-		<p>Community Service Society Photographs</p>
-	</div><!-- /.col-sm-3 -->
-	<div class="col-sm-3">
-		<%= link_to image_tag("collections_page/about_lindquist.jpg", :class => 'thumbnail img-responsive'), 'http://lindquist.cul.columbia.edu' %>
-		<p>G.E.E. Lindquist Native American Photographs<p>
-	</div><!-- /.col-sm-3 -->
-	<div class="col-sm-3">
-		<%= link_to image_tag("collections_page/about_css.jpg", :class => 'thumbnail img-responsive'), 'http://css.cul.columbia.edu' %>
-		<p>Community Service Society Photographs</p>
-	</div><!-- /.col-sm-3 -->
-</div><!-- /.row -->
 </div><!--/.inner-->
