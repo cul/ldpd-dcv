@@ -44,6 +44,9 @@ class CatalogController < ApplicationController
     #
     # :show may be set to false if you don't want the facet to be drawn in the
     # facet bar
+    
+    config.add_facet_fields_to_solr_request! # Required for facet queries
+    
     config.add_facet_field solr_name('lib_project', :facetable), :label => 'Project'
     config.add_facet_field solr_name('lib_collection', :facetable), :label => 'Collection'
     config.add_facet_field solr_name('lib_repo', :facetable), :label => 'Repository'
@@ -54,8 +57,6 @@ class CatalogController < ApplicationController
         :exclude_items => { label: 'Exclude Items', fq: '-active_fedora_model_ssi:ContentAggregator' },
         :exclude_files => { label: 'Exclude Files', fq: '-active_fedora_model_ssi:GenericResource' }
     }
-    
-    config.add_facet_fields_to_solr_request!
 
     config.add_facet_field solr_name('lc1_letter', :facetable), :label => 'Call Number'
 
