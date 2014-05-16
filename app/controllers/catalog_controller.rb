@@ -5,6 +5,7 @@ class CatalogController < ApplicationController
 
   include Blacklight::Catalog
   include Hydra::Controller::ControllerBehavior
+  include Dcv::Catalog::MultiSelectFilters
 
   # These before_filters apply the hydra access controls
   #before_filter :enforce_show_permissions, :only=>:show
@@ -47,7 +48,15 @@ class CatalogController < ApplicationController
     config.add_facet_field solr_name('lib_collection', :facetable), :label => 'Collection'
     config.add_facet_field solr_name('lib_repo', :facetable), :label => 'Repository'
     config.add_facet_field solr_name('lib_format', :facetable), :label => 'Format'
-    config.add_facet_field 'format_ssi', :label => 'Result Type', :helper_method => :format_value_transformer
+    config.add_facet_field 'format_ssi', :label => 'System Format'
+    config.add_facet_field 'active_fedora_model_ssi', :label => 'Result Type Exclusion', :query => {
+        :exclude_groups => { label: 'Exclude Groups', fq: '-active_fedora_model_ssi:BagAggregator' },
+        :exclude_items => { label: 'Exclude Items', fq: '-active_fedora_model_ssi:ContentAggregator' },
+        :exclude_files => { label: 'Exclude Files', fq: '-active_fedora_model_ssi:GenericResource' }
+    }
+    
+    config.add_facet_fields_to_solr_request!
+
     config.add_facet_field solr_name('lc1_letter', :facetable), :label => 'Call Number'
 
     # Have BL send all facet field names to Solr, which has been the default
