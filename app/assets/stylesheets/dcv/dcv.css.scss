@@ -36,8 +36,8 @@ body {
   }
 }
 #search-navbar {
-  border-color:#444;
-  border-style:dotted;
+  background-color:transparent;
+  border:none;
   #q {
     background-color:rgba(0,0,0,.6);
     color:#ccc;
@@ -48,6 +48,10 @@ body {
   }
   .input-group-addon {
     background-color:#666;
+    border-color:#ccc;
+  }
+  .search-btn, .reset-btn {
+    border-color:#ccc;
   }
   #search {
     border-color:#ccc;
