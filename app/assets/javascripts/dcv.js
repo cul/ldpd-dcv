@@ -76,8 +76,8 @@ $(function() {
   });
 });
 
-<!-- CULTNBW START -->
+//** CULTNBW START **/
   CULh_colorfg = '#000000'; // topnavbar foreground color. hex value. ex: #002B7F
   CULh_colorbg = '#444444'; // topnavbar background color. hex value. ex: #779BC3
   CULh_nobs = 1; // uncomment to NOT load our bootstrap javascript file and or use your own (v2.3.x required)
-<!-- /CULTNBW END -->
+//** /CULTNBW END **/
