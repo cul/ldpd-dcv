@@ -22,7 +22,7 @@ module Dcv
     config.autoload_paths += %W(#{config.root}/lib)
 
     # Custom precompiled asset manifests
-    config.assets.precompile += ['dcv.css', 'lindquist.css', 'css.css']
+    config.assets.precompile += ['dcv.css', 'lindquist.css', 'css.css', 'dcv.js', 'freelib.js']
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
