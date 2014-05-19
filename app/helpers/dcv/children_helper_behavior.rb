@@ -1,5 +1,5 @@
 module Dcv::ChildrenHelperBehavior
-	def document_children_from_model(opts={})
+  def document_children_from_model(opts={})
     # get the model class
     klass = @document['active_fedora_model_ssi'].constantize
     # get a relation for :parts
@@ -10,7 +10,7 @@ module Dcv::ChildrenHelperBehavior
     children[:page] = opts.fetch(:page, 0).to_i
     offset = children[:per_page] * children[:page]
     rows = children[:per_page]
-    fl = ['id']
+    fl = ['id',"active_fedora_model_ssi",'identifier_ssim','rels_int_profile_tesim','rft_id_ss']
     title_field = nil
     begin
       fl << (title_field = document_show_link_field).to_s
@@ -23,12 +23,26 @@ module Dcv::ChildrenHelperBehavior
     children[:count] = response['numFound'].to_i
     response['docs'].map do |doc|
       opts = {controller: :thumbs, id: doc['id'], action: :show}
-      opts[:only_path] = true 
+      opts[:only_path] = true
       child = {id: doc['id'], thumbnail: url_for(opts)}
       if title_field
         title = doc[title_field.to_s]
         title = title.first if title.is_a? Array
         child[:title] = title
+      end
+      if doc["active_fedora_model_ssi"] == 'GenericResource'
+        child[:contentids] = doc['identifier_ssim']
+        rels_int = JSON.load(doc.fetch('rels_int_profile_tesim',[]).join(''))
+        unless rels_int.blank?
+          #child[:rels_int] = rels_int
+          child[:width] = rels_int["info:fedora/#{child[:id]}/content"].fetch('exif_image_width',[]).first.to_i
+          child[:length] = rels_int["info:fedora/#{child[:id]}/content"].fetch('exif_image_length',[]).first.to_i
+        end
+        if (base_rft = doc['rft_id_ss'])
+          base_rft.sub!(/^info\:fedora\/datastreams/,ActiveFedora.config.credentials[:datastreams_root])
+          base_rft = 'file:' + base_rft unless base_rft =~ /file\:\//
+          child[:rft_id] = CGI.escape(base_rft)
+        end
       end
       children[:children] << child
     end

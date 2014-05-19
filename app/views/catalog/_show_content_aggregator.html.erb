@@ -6,4 +6,14 @@
     <% end -%>
   <% end -%>
 </dl>
+<div id="view-options">
+  <div class="hidden-xs btn-group btn-group-xs">
+    <button id="unzoom-mode" type="button" class="btn btn-success"><i class="glyphicon glyphicon-th"></i></button>
+    <button id="zoom-mode" type="button" class="btn btn-default" data-url="<%= children_url(document[:id], :per_page=>999) %>"><i class="glyphicon glyphicon-zoom-in"></i></button>
+  </div>
+</div>
 <%= render_document_partials @document, ['gallery'] %>
+<div id="zoom-gallery" class="hidden">
+  <div id="zoom-toolbar" class="toolbar"></div>
+  <div id="zoom-content" class="openseadragon"></div>
+</div>

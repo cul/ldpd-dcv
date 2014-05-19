@@ -1,5 +1,5 @@
 <ul id="child_items" class="thumbnails row">
-<% structured_children.each do |child| -%>
+<% structured_children.each_with_index do |child, ix| -%>
   <li class="col-sm-3">
   	<article>
       <a href="#" class="post thumbnail document blacklight-photographs">
@@ -7,9 +7,9 @@
       </a>
       <div class="caption">
       	<div class="documentHeader">
-          <a rel="" data-src="<%= resolver_url(id: child[:id], resolve: 'catalog') %>.json"><i class="icon-zoom-in"></i></a>
+          <a rel="document-link" data-src="<%= resolver_url(id: child[:id], resolve: 'catalog') %>.json" data-id="<%=child[:id]%>"><i class="icon-zoom-in"></i></a>
       	  <div class="documentFunctions">
-          </div>	
+          </div>
       		<h5 class="index_title"><%= child[:title] %></h5>
       	</div>
       	<p><a href="<%= resolver_url(id: child[:id], resolve: 'catalog') %>" class="item-link btn btn-xs btn-default" rel="tooltip" data-original-title="<%= child[:title] %>" data-counter="<%= child[:order] %>">
