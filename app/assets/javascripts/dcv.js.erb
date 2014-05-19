@@ -79,9 +79,21 @@ $(function() {
           fullpage['GROUP'] = '<%= image_path("seadragon/fullpage_grouphover.png")%>';
           fullpage['HOVER'] = '<%= image_path("seadragon/fullpage_hover.png")%>';
           fullpage['DOWN'] = '<%= image_path("seadragon/fullpage_pressed.png")%>';
+          // previous buttons
+          previous = ($.navImages['previous'] = {});
+          previous['REST'] = '<%= image_path("seadragon/previous_rest.png")%>';
+          previous['GROUP'] = '<%= image_path("seadragon/previous_grouphover.png")%>';
+          previous['HOVER'] = '<%= image_path("seadragon/previous_hover.png")%>';
+          fullpage['DOWN'] = '<%= image_path("seadragon/previous_pressed.png")%>';
+          // next buttons
+          next = ($.navImages['next'] = {});
+          next['REST'] = '<%= image_path("seadragon/next_rest.png")%>';
+          next['GROUP'] = '<%= image_path("seadragon/next_grouphover.png")%>';
+          next['HOVER'] = '<%= image_path("seadragon/next_hover.png")%>';
+          next['DOWN'] = '<%= image_path("seadragon/next_pressed.png")%>';
           OpenSeadragon({
             id:            "zoom-content",
-            prefixUrl:     "/assets",
+            prefixUrl:     "",
             toolbar:       "zoom-toolbar",
             springStiffness:        10,
             showReferenceStrip:     true,
