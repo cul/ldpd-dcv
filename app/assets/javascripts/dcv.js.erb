@@ -54,14 +54,40 @@ $(function() {
             }
           });
           $.tileSources = sources;
+          $.navImages = {};
+          // zoomIn buttons
+          zoomIn = ($.navImages['zoomIn'] = {});
+          zoomIn['REST'] = '<%= image_path("seadragon/zoomin_rest.png")%>';
+          zoomIn['GROUP'] = '<%= image_path("seadragon/zoomin_grouphover.png")%>';
+          zoomIn['HOVER'] = '<%= image_path("seadragon/zoomin_hover.png")%>';
+          zoomIn['DOWN'] = '<%= image_path("seadragon/zoomin_pressed.png")%>';
+          // zoomOut buttons
+          zoomOut = ($.navImages['zoomOut'] = {});
+          zoomOut['REST'] = '<%= image_path("seadragon/zoomout_rest.png")%>';
+          zoomOut['GROUP'] = '<%= image_path("seadragon/zoomout_grouphover.png")%>';
+          zoomOut['HOVER'] = '<%= image_path("seadragon/zoomout_hover.png")%>';
+          zoomOut['DOWN'] = '<%= image_path("seadragon/zoomout_pressed.png")%>';
+          // home buttons
+          home = ($.navImages['home'] = {});
+          home['REST'] = '<%= image_path("seadragon/home_rest.png")%>';
+          home['GROUP'] = '<%= image_path("seadragon/home_grouphover.png")%>';
+          home['HOVER'] = '<%= image_path("seadragon/home_hover.png")%>';
+          home['DOWN'] = '<%= image_path("seadragon/home_pressed.png")%>';
+          // fullpage buttons
+          fullpage = ($.navImages['fullpage'] = {});
+          fullpage['REST'] = '<%= image_path("seadragon/fullpage_rest.png")%>';
+          fullpage['GROUP'] = '<%= image_path("seadragon/fullpage_grouphover.png")%>';
+          fullpage['HOVER'] = '<%= image_path("seadragon/fullpage_hover.png")%>';
+          fullpage['DOWN'] = '<%= image_path("seadragon/fullpage_pressed.png")%>';
           OpenSeadragon({
             id:            "zoom-content",
-            prefixUrl:     "/assets/seadragon/",
+            prefixUrl:     "/assets",
             toolbar:       "zoom-toolbar",
             springStiffness:        10,
             showReferenceStrip:     true,
             autoHideControls:       false,
             showNavigator:  true,
+            navImages: $.navImages,
             tileSources: $.tileSources
           });
         }
