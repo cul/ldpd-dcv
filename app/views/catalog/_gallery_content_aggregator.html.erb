@@ -2,17 +2,17 @@
 <% structured_children.each_with_index do |child, ix| -%>
   <li class="col-sm-3">
   	<article>
-      <a href="#" class="post thumbnail document blacklight-photographs">
+      <span href="#" class="post thumbnail document blacklight-photographs">
       	<img src="<%= child[:thumbnail] %>" />
-      </a>
+      </span>
       <div class="caption">
       	<div class="documentHeader">
-          <a rel="document-link" data-src="<%= resolver_url(id: child[:id], resolve: 'catalog') %>.json" data-id="<%=child[:id]%>"><i class="icon-zoom-in"></i></a>
+          <a rel="document-link" data-src="<%= resolve_catalog_url(id: CGI.escape(child[:id])) %>.json" data-id="<%=child[:id]%>"><i class="icon-zoom-in"></i></a>
       	  <div class="documentFunctions">
           </div>
       		<h5 class="index_title"><%= child[:title] %></h5>
       	</div>
-      	<p><a href="<%= resolver_url(id: child[:id], resolve: 'catalog') %>" class="item-link btn btn-xs btn-default" rel="tooltip" data-original-title="<%= child[:title] %>" data-counter="<%= child[:order] %>">
+      	<p><a href="<%= resolve_catalog_url(id: CGI.escape(child[:id])) %>" class="item-link btn btn-xs btn-default" rel="tooltip" data-original-title="<%= child[:title] %>" data-counter="<%= child[:order] %>" data-screen="<%= resolve_bytestream_content_url(catalog_id: CGI.escape(child[:id]), id: 'web850') %>.png">
           View Item <i class="icon-circle-arrow-right icon-white"></i>
         </a></p>
       </div>

@@ -31,14 +31,15 @@ Dcv::Application.routes.draw do
 
   resources :thumbs, only: [:show]
 
-  get '/resolve/:resolve/:id',
-    :to => CatalogController.action(:resolve),
-    :as => :resolver,
-    :constraints => {
-      :id => /([^\/]).+/,
-      :resolve => /(catalog|thumbs|bytestreams)/
-    }
+  namespace :resolve do
+    resources :catalog, only: [:show], constraints: { id: /[^\/]+/ }
+    resources :thumbs, only: [:show], constraints: { id: /[^\/]+/ }
+    resources :bytestreams, only: [:index, :show], constraints: { id: /[^\/]+/ }
+  end
 
+  get 'resolve/catalog/:catalog_id/bytestreams/:id/content' => 'resolve/bytestreams#content',
+   as: :resolve_bytestream_content,
+   constraints: { catalog_id: /[^\/]+/ }
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

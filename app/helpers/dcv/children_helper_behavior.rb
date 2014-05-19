@@ -40,7 +40,7 @@ module Dcv::ChildrenHelperBehavior
         end
         if (base_rft = doc['rft_id_ss'])
           base_rft.sub!(/^info\:fedora\/datastreams/,ActiveFedora.config.credentials[:datastreams_root])
-          base_rft = 'file:' + base_rft unless base_rft =~ /file\:\//
+          base_rft = 'file:' + base_rft unless base_rft =~ /(file|https?)\:\//
           child[:rft_id] = CGI.escape(base_rft)
         end
       end

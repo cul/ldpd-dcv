@@ -118,8 +118,11 @@ $(function() {
     title: function(){
       var otit = $(this).data('original-title');
       return otit;
-    }, 
-    html:"<h2 style=\"color:#000;text-shadow:1px 1px #003\">Coming Soon!</h2><p style=\"color:#333;\">This is a placeholder for a larger image and relevant metadata</p>"
+    },
+    html: function() {
+      return "<h2 style=\"color:#000;text-shadow:1px 1px #003\">Downloads Coming Soon!</h2><img src='"
+       + $(this).data('screen') + "'/>";
+    }
   });
 });
 
