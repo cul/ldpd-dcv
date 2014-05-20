@@ -113,16 +113,12 @@ $(function() {
     $(this).addClass('btn-success');
   });
   $('a.item-link').colorbox({
-    width:"720px", 
-    height:"480px", 
+    maxHeight:"90%",
+    maxWidth:"90%",
     title: function(){
       var otit = $(this).data('original-title');
       return otit;
     },
-    html: function() {
-      return "<h2 style=\"color:#000;text-shadow:1px 1px #003\">Downloads Coming Soon!</h2><img src='"
-       + $(this).data('screen') + "'/>";
-    }
   });
 });
 
