@@ -62,7 +62,7 @@ class BytestreamsController < ApplicationController
     if @document.nil?
       render :status => 401
     end
-    ds_parms = {pid: params[:catalog_id], dsid: params[:id]}
+    ds_parms = {pid: params[:catalog_id], dsid: params[:bytestream_id]}
     response.headers["Last-Modified"] = Time.now.to_s
     puts ds_parms.inspect()
     ds = Cul::Scv::Fedora.ds_for_opts(ds_parms)
@@ -114,6 +114,6 @@ class BytestreamsController < ApplicationController
   def url_for_content(key, mime)
     parts = key.split('/')
     ext = mime.split('/')[-1].downcase
-    bytestream_content_url(catalog_id: parts[1], id: parts[2], format: ext)
+    bytestream_content_url(catalog_id: parts[1], bytestream_id: parts[2], format: ext)
   end
 end

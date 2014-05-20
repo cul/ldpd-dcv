@@ -10,12 +10,8 @@ Dcv::Application.routes.draw do
   get 'catalog/:id/children' => 'children#index', as: :children
 
   resources :bytestreams, path: '/catalog/:catalog_id/bytestreams' do
-#    get '/:id/content' => 'bytestreams#content', as: :bytestream_content
+    get 'content' => 'bytestreams#content'
   end
-  get '/catalog/:catalog_id/bytestreams/:id/content' => 'bytestreams#content', as: :bytestream_content
-
-#  get 'catalog/:id/bytestreams' => 'bytestreams#index', as: :bytestreams
-#  get 'catalog/:id/bytestreams/:dsid' => 'bytestreams#show', as: :bytestreams
 
   resources(:solr_document, {only: [:show], path: 'lindquist', controller: 'lindquist'}) do
     member do
@@ -32,14 +28,18 @@ Dcv::Application.routes.draw do
   resources :thumbs, only: [:show]
 
   namespace :resolve do
-    resources :catalog, only: [:show], constraints: { id: /[^\/]+/ }
-    resources :thumbs, only: [:show], constraints: { id: /[^\/]+/ }
-    resources :bytestreams, only: [:index, :show], constraints: { id: /[^\/]+/ }
+    resources :catalog, only: [:show], constraints: { id: /[^\?]+/ } do
+      resources :bytestreams, only: [:index, :show] do
+        get 'content'=> 'bytestreams#content'
+      end
+    end
+    resources :thumbs, only: [:show], constraints: { id: /[^\?]+/ }
+    resources :bytestreams, path: 'catalog/:catalog_id/bytestreams', only: [:index, :show], constraints: { id: /[^\/]+/ }
   end
 
-  get 'resolve/catalog/:catalog_id/bytestreams/:id/content' => 'resolve/bytestreams#content',
-   as: :resolve_bytestream_content,
-   constraints: { catalog_id: /[^\/]+/ }
+  #get 'resolve/catalog/*catalog_id/bytestreams/:id/content(.:format)' => 'resolve/bytestreams#content',
+  # as: :resolve_bytestream_content #,
+   #constraints: { catalog_id: /[^\/]+/ }
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

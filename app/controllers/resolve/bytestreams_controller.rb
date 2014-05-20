@@ -24,6 +24,7 @@ class Resolve::BytestreamsController < ApplicationController
   def get_solr_response_for_app_id(id=nil, extra_controller_params={})
     id ||= params[:id]
     p = blacklight_config.default_document_solr_params.merge(extra_controller_params)
+    id.sub!(/apt\:\/columbia/,'apt://columbia') # TOTAL HACK
     id.gsub!(':','\:')
     id.gsub!('/','\/')
     p[:fq] = "identifier_ssim:#{(id)}"
@@ -64,7 +65,7 @@ class Resolve::BytestreamsController < ApplicationController
     if @document.nil?
       render :status => 401
     end
-    ds_parms = {pid: @document[:id], dsid: params[:id]}
+    ds_parms = {pid: @document[:id], dsid: params[:bytestream_id]}
     response.headers["Last-Modified"] = Time.now.to_s
     puts ds_parms.inspect()
     ds = Cul::Scv::Fedora.ds_for_opts(ds_parms)
@@ -116,6 +117,6 @@ class Resolve::BytestreamsController < ApplicationController
   def url_for_content(key, mime)
     parts = key.split('/')
     ext = mime.split('/')[-1].downcase
-    bytestream_content_url(catalog_id: parts[1], id: parts[2], format: ext)
+    bytestream_content_url(catalog_id: parts[1], bytestream_id: parts[2], format: ext)
   end
 end

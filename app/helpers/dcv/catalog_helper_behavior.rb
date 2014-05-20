@@ -25,7 +25,7 @@ module Dcv::CatalogHelperBehavior
       nodes = nodes.map do |node|
         node_id = (node['CONTENTIDS'])
 
-        node_thumbnail = resolve_thumb_url(id: CGI.escape(node_id))
+        node_thumbnail = resolve_thumb_url(id: node_id)
         {id: node_id, title: node['LABEL'], thumbnail: node_thumbnail, order: node['ORDER'].to_i}
       end
       nodes

@@ -12,7 +12,7 @@
           </div>
       		<h5 class="index_title"><%= child[:title] %></h5>
       	</div>
-      	<p><a href="<%= resolve_catalog_url(id: CGI.escape(child[:id])) %>" class="item-link btn btn-xs btn-default" rel="tooltip" data-original-title="<%= child[:title] %>" data-counter="<%= child[:order] %>" data-screen="<%= resolve_bytestream_content_url(catalog_id: CGI.escape(child[:id]), id: 'web850') %>.png">
+      	<p><a href="<%= resolve_catalog_url(id: CGI.escape(child[:id])) %>" class="item-link btn btn-xs btn-default" rel="tooltip" data-original-title="<%= child[:title] %>" data-counter="<%= child[:order] %>" data-screen="<%= resolve_catalog_bytestream_content_url(catalog_id: child[:id], bytestream_id: 'web850') %>.png">
           View Item <i class="icon-circle-arrow-right icon-white"></i>
         </a></p>
       </div>
