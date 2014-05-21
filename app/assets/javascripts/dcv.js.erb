@@ -115,9 +115,12 @@ $(function() {
   $('a.item-link').colorbox({
     maxHeight:"90%",
     maxWidth:"90%",
+    opacity:".7",
+    current:"{current} of {total}",
     title: function(){
       var otit = $(this).data('original-title');
-      return otit;
+      var dlb = '<div id="dlwrapper"><div class="btn-group dropup"><button class="btn btn-link btn-lg dropdown-toggle" type="button" data-toggle="dropdown"><i class="glyphicon glyphicon-download"></i></button><ul class="dropdown-menu pull-right"><li><a href="#">Download Links Coming Soon!</a></li></ul></div></div>';
+      return otit+dlb;
     },
   });
 });
