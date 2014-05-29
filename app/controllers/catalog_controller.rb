@@ -16,6 +16,7 @@ class CatalogController < ApplicationController
   configure_blacklight do |config|
     config.default_solr_params = {
       :qt => 'search',
+      :fq => ['active_fedora_model_ssi:ContentAggregator'], # Only including Items for now.  Excluding groups and assets.
       :rows => 20
     }
 
@@ -43,19 +44,17 @@ class CatalogController < ApplicationController
     #
     # :show may be set to false if you don't want the facet to be drawn in the
     # facet bar
-    
+
     config.add_facet_fields_to_solr_request! # Required for facet queries
-    
+
     config.add_facet_field solr_name('lib_project', :facetable), :label => 'Project'
     config.add_facet_field solr_name('lib_collection', :facetable), :label => 'Collection'
     config.add_facet_field solr_name('lib_repo', :facetable), :label => 'Repository'
+    config.add_facet_field solr_name('lib_name', :facetable), :label => 'Name'
     config.add_facet_field solr_name('lib_format', :facetable), :label => 'Format'
-    config.add_facet_field 'format_ssi', :label => 'System Format'
-    config.add_facet_field 'active_fedora_model_ssi', :label => 'Result Type Exclusion', :query => {
-        :exclude_groups => { label: 'Exclude Groups', fq: '-active_fedora_model_ssi:BagAggregator' },
-        :exclude_items => { label: 'Exclude Items', fq: '-active_fedora_model_ssi:ContentAggregator' },
-        :exclude_files => { label: 'Exclude Files', fq: '-active_fedora_model_ssi:GenericResource' }
-    }
+    #date
+    #language
+    config.add_facet_field solr_name('language_term', :facetable), :label => 'Language'
 
     config.add_facet_field solr_name('lc1_letter', :facetable), :label => 'Call Number'
 
@@ -78,6 +77,7 @@ class CatalogController < ApplicationController
     config.add_show_field solr_name('identifier', :symbol), :label => 'Identifier'
     config.add_show_field solr_name('lib_format', :displayable), :label => 'Format'
     config.add_show_field solr_name('lib_name', :displayable), :label => 'Name'
+    config.add_show_field solr_name('lib_collection', :displayable), :label=>"Collection:"
 
     # "fielded" search configuration. Used by pulldown among other places.
     # For supported keys in hash, see rdoc for Blacklight::SearchFields
