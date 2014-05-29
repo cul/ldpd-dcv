@@ -1,5 +1,7 @@
-PATH
-  remote: ../cul_scv_hydra
+GIT
+  remote: git://github.com/elo2112/cul_scv_hydra
+  revision: 192cd0c2cf065c2fcf1cedf7c861123fcd4899c9
+  branch: master
   specs:
     cul_scv_hydra (0.14.2)
       active-fedora (>= 7.0.2)
