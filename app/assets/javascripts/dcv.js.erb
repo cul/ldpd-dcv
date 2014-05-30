@@ -112,6 +112,11 @@ $(function() {
     $('#unzoom-mode').removeClass('btn-success').addClass('btn-default');
     $(this).addClass('btn-success');
   });
+  $('#search-navbar').find('.reset-btn').hover(function() {
+      $('#appliedParams').find('.remove').addClass('btn-danger');
+    }, function() {
+      $('#appliedParams').find('.remove').removeClass('btn-danger');
+  });
   $('a.item-link').colorbox({
     maxHeight:"90%",
     maxWidth:"90%",

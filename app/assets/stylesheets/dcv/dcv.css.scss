@@ -55,6 +55,11 @@ body {
   .search-btn, .reset-btn {
     border-color:#ccc;
   }
+  .reset-btn {
+    &:hover {
+      background-color:#c9302c;
+    }
+  }
   #search {
     border-color:#ccc;
   }
