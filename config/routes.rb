@@ -1,5 +1,5 @@
 Dcv::Application.routes.draw do
-  root :to => "pages#home"
+  root :to => "catalog#home"
 
   get '/collections' => 'pages#collections', as: :all_collections
 
