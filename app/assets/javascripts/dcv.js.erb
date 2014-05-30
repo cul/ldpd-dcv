@@ -129,6 +129,9 @@ $(function() {
       return otit+dlb;
     },
   });
+  $('#show_file_assets_checkbox').on('change', function(){
+    window.location = decodeURIComponent($(this).attr('data-new-location'));
+  });
 });
 
 //** CULTNBW START **/
