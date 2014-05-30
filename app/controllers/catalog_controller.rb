@@ -5,6 +5,7 @@ class CatalogController < ApplicationController
 
   include Blacklight::Catalog
   include Hydra::Controller::ControllerBehavior
+  include Dcv::Catalog::CatalogControllerBehavior
 
   # These before_filters apply the hydra access controls
   #before_filter :enforce_show_permissions, :only=>:show
@@ -16,7 +17,6 @@ class CatalogController < ApplicationController
   configure_blacklight do |config|
     config.default_solr_params = {
       :qt => 'search',
-      :fq => ['active_fedora_model_ssi:ContentAggregator'], # Only including Items for now.  Excluding groups and assets.
       :rows => 20
     }
 
@@ -52,9 +52,14 @@ class CatalogController < ApplicationController
     config.add_facet_field solr_name('lib_repo', :facetable), :label => 'Repository'
     config.add_facet_field solr_name('lib_name', :facetable), :label => 'Name'
     config.add_facet_field solr_name('lib_format', :facetable), :label => 'Format'
-    #date
-    #language
-    config.add_facet_field solr_name('language_term', :facetable), :label => 'Language'
+    #todo: date
+    #todo: language
+    config.add_facet_field 'format_ssi', :label => 'System Format'
+    config.add_facet_field 'active_fedora_model_ssi', :label => 'Result Type Exclusion', :query => {
+        :exclude_groups => { label: 'Exclude Groups', fq: '-active_fedora_model_ssi:BagAggregator' },
+        :exclude_items => { label: 'Exclude Items', fq: '-active_fedora_model_ssi:ContentAggregator' },
+        :exclude_files => { label: 'Exclude Files', fq: '-active_fedora_model_ssi:GenericResource' }
+    }
 
     config.add_facet_field solr_name('lc1_letter', :facetable), :label => 'Call Number'
 

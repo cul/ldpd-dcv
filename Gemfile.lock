@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/elo2112/cul_scv_hydra
-  revision: 192cd0c2cf065c2fcf1cedf7c861123fcd4899c9
+  revision: bd1e32f696007702f25cbd2c4d1d66d575d9255e
   branch: master
   specs:
     cul_scv_hydra (0.14.2)
