@@ -13,37 +13,83 @@
 	<div id="content" class="col-md-9">
 
 	  <div class="inner">
+		<!-- Nav tabs -->
+		<ul class="nav nav-tabs">
+		  <li class="active"><a href="#featured" data-toggle="tab">Featured</a></li>
+		  <li><a href="#tab2" data-toggle="tab">Browse List 1</a></li>
+		  <li><a href="#tab3" data-toggle="tab">Browse List 2</a></li>
+		  <li><a href="#tab4" data-toggle="tab">Browse List 3</a></li>
+		</ul>
 
-			<h2 class="lead section-heading">Featured Collections</h2>
+		<!-- Tab panes -->
+		<div class="tab-content">
+		  <div class="tab-pane fade in active" id="featured">
+					<h2 class="lead section-heading hide">Featured Collections</h2>
 
-			<div class="row">
-				<div class="col-sm-4">
-					<%= link_to image_tag("collections_page/about_css.jpg", :class => 'thumbnail img-responsive'), 'http://css.cul.columbia.edu' %>
-					<p>Community Service Society Photographs</p>
-				</div><!-- /.col-sm-4 -->
-				<div class="col-sm-4">
-					<%= link_to image_tag("collections_page/about_lindquist.jpg", :class => 'thumbnail img-responsive'), 'http://lindquist.cul.columbia.edu' %>
-					<p>G.E.E. Lindquist Native American Photographs<p>
-				</div><!-- /.col-sm-4 -->
-				<div class="col-sm-4">
-					<%= link_to image_tag("collections_page/about_css.jpg", :class => 'thumbnail img-responsive'), 'http://css.cul.columbia.edu' %>
-					<p>Community Service Society Photographs</p>
-				</div><!-- /.col-sm-4 -->
-			</div><!-- /.row -->
-			<div class="row">
-				<div class="col-sm-4">
-					<%= link_to image_tag("collections_page/about_lindquist.jpg", :class => 'thumbnail img-responsive'), 'http://lindquist.cul.columbia.edu' %>
-					<p>G.E.E. Lindquist Native American Photographs<p>
-				</div><!-- /.col-sm-4 -->
-				<div class="col-sm-4">
-					<%= link_to image_tag("collections_page/about_css.jpg", :class => 'thumbnail img-responsive'), 'http://css.cul.columbia.edu' %>
-					<p>Community Service Society Photographs</p>
-				</div><!-- /.col-sm-4 -->
-				<div class="col-sm-4">
-					<%= link_to image_tag("collections_page/about_lindquist.jpg", :class => 'thumbnail img-responsive'), 'http://lindquist.cul.columbia.edu' %>
-					<p>G.E.E. Lindquist Native American Photographs<p>
-				</div><!-- /.col-sm-4 -->
-			</div><!-- /.row -->
+					<div class="row">
+						<div class="col-sm-4">
+							<%= link_to image_tag("collections_page/about_css.jpg", :class => 'thumbnail img-responsive'), 'http://css.cul.columbia.edu' %>
+							<p>Community Service Society Photographs</p>
+						</div><!-- /.col-sm-4 -->
+						<div class="col-sm-4">
+							<%= link_to image_tag("collections_page/about_lindquist.jpg", :class => 'thumbnail img-responsive'), 'http://lindquist.cul.columbia.edu' %>
+							<p>G.E.E. Lindquist Native American Photographs<p>
+						</div><!-- /.col-sm-4 -->
+						<div class="col-sm-4">
+							<%= link_to image_tag("collections_page/about_css.jpg", :class => 'thumbnail img-responsive'), 'http://css.cul.columbia.edu' %>
+							<p>Community Service Society Photographs</p>
+						</div><!-- /.col-sm-4 -->
+					</div><!-- /.row -->
+					<div class="row">
+						<div class="col-sm-4">
+							<%= link_to image_tag("collections_page/about_lindquist.jpg", :class => 'thumbnail img-responsive'), 'http://lindquist.cul.columbia.edu' %>
+							<p>G.E.E. Lindquist Native American Photographs<p>
+						</div><!-- /.col-sm-4 -->
+						<div class="col-sm-4">
+							<%= link_to image_tag("collections_page/about_css.jpg", :class => 'thumbnail img-responsive'), 'http://css.cul.columbia.edu' %>
+							<p>Community Service Society Photographs</p>
+						</div><!-- /.col-sm-4 -->
+						<div class="col-sm-4">
+							<%= link_to image_tag("collections_page/about_lindquist.jpg", :class => 'thumbnail img-responsive'), 'http://lindquist.cul.columbia.edu' %>
+							<p>G.E.E. Lindquist Native American Photographs<p>
+						</div><!-- /.col-sm-4 -->
+					</div><!-- /.row -->
+		  </div>
+		  <div class="tab-pane fade" id="tab2">
+            <ul class="nopad-rl cols-two">
+              <li>< %= render_browse_list('name__facet') % ></li>
+              <li>< %= render_browse_list('name__facet') % ></li>
+              <li>< %= render_browse_list('name__facet') % ></li>
+              <li>< %= render_browse_list('name__facet') % ></li>
+              <li>< %= render_browse_list('name__facet') % ></li>
+              <li>< %= render_browse_list('name__facet') % ></li>
+              <li>< %= render_browse_list('name__facet') % ></li>
+              <li>< %= render_browse_list('name__facet') % ></li>
+              <li>< %= render_browse_list('name__facet') % ></li>
+              <li>< %= render_browse_list('name__facet') % ></li>
+              <li>< %= render_browse_list('name__facet') % ></li>
+              <li>< %= render_browse_list('name__facet') % ></li>
+              <li>< %= render_browse_list('name__facet') % ></li>
+              <li>< %= render_browse_list('name__facet') % ></li>
+              <li>< %= render_browse_list('name__facet') % ></li>
+              <li>< %= render_browse_list('name__facet') % ></li>
+              <li>< %= render_browse_list('name__facet') % ></li>
+              <li>< %= render_browse_list('name__facet') % ></li>
+              <li>< %= render_browse_list('name__facet') % ></li>
+            </ul>
+          </div>
+		  <div class="tab-pane fade" id="tab3">
+            <ul class="nopad-rl cols-two">
+              <li>< %= render_browse_list('format__facet') % ></li>
+            </ul>
+          </div>
+		  <div class="tab-pane fade" id="tab4">
+            <ul class="nopad-rl cols-two">
+              <li>< %= render_browse_list('repository__facet') % ></li>
+            </ul>
+          </div>
+		</div>
+
 
 	  </div> <!--/.inner-->
 
