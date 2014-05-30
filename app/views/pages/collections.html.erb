@@ -1,15 +1,17 @@
 <div class="inner">
-	<h2>Collections</h2>
+	<h2>Digital Projects</h2>
 	<p>The Digital Collections Viewer is a site for searching across or within many digital collections here at Columbia.  Some collections are housed entirely within this site, while others have also been published as their own external exhibitions.  Below, you'll find everything that we offer.</p>
 	<br />
-	<% 4.times do %>
 	<div class="row">
 		<div class="col-sm-6">
 			<div class="row">
 				<div class="col-sm-4">
-					<%= link_to image_tag("collections_page/about_css.jpg", :class => 'thumbnail img-responsive'), 'http://css.cul.columbia.edu' %>
+					<% dcv_search_link = search_action_path(:f => {'lib_project_sim' => ['Community Service Society Photographs']}) %>
+					<%= link_to image_tag("collections_page/about_css.jpg", :class => 'thumbnail img-responsive'), dcv_search_link %>
 					<div class="aligncenter">
-						<small><%= link_to 'Visit External Site', 'http://css.cul.columbia.edu' %></small>
+						<small><%= link_to 'View Content', dcv_search_link %></small>
+						<br />
+						<small><%= link_to 'Jump to Project Site', 'http://css.cul.columbia.edu' %></small>
 					</div>
 				</div>
 				<div class="col-sm-8">
@@ -20,9 +22,12 @@
 		<div class="col-sm-6">
 			<div class="row">
 				<div class="col-sm-4">
-					<%= link_to image_tag("collections_page/about_lindquist.jpg", :class => 'thumbnail img-responsive'), 'http://lindquist.cul.columbia.edu' %>
+					<% dcv_search_link = search_action_path(:f => {'lib_project_sim' => ['Lindquist Photographs']}) %>
+					<%= link_to image_tag("collections_page/about_lindquist.jpg", :class => 'thumbnail img-responsive'), dcv_search_link %>
 					<div class="aligncenter">
-						<small><%= link_to 'View The Collection', 'http://lindquist.cul.columbia.edu' %></small>
+						<small><%= link_to 'View Content', dcv_search_link %></small>
+						<br />
+						<small><%= link_to 'Jump to Project Site', 'http://lindquist.cul.columbia.edu' %></small>
 					</div>
 				</div>
 				<div class="col-sm-8">
@@ -31,7 +36,5 @@
 			</div>
 		</div>
 	</div>
-	<br />
-	<% end %>
 
 </div><!--/.inner-->
