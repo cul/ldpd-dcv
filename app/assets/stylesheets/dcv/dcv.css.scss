@@ -148,7 +148,7 @@ body {
 #sidebar {
   .panel-default {
     border-color:#666;
-    border-style:dotted;
+    border-style:solid;
   }
   .panel-body .nav a:hover {
     color:#fff;
@@ -156,10 +156,52 @@ body {
 }
 #facets {
   padding-bottom:0;
+  margin-right:-15px;
+  margin-left:-15px;
+  h4 {
+    padding-left:.9em;
+  }
+  .panel {
+    margin-bottom:.8em;
+  }
+  .panel-default {
+    border-right:0;
+    border-left:0;
+    border-color:#333;
+    border-style:solid;
+  }
+  .panel-body {
+    border-top-color:#333;
+  }
   .top-panel-heading {
     padding-left:0px;
     padding-top:0px;
     padding-right:0px;
+  }
+  .facet_limit-active > .panel-heading {
+    background-color:rgba(123,123,123,.25);
+  }
+  .facet-values {
+    font-size:90%;
+    margin-bottom:0;
+    li:last-child .facet-label {
+      padding-bottom:0;
+    }
+    .facet-label {
+      padding-right:.4em;
+      padding-bottom:.9em;
+      padding-left:0;
+      line-height:1.25em;
+      text-indent:0;
+    }
+    li:before {
+      padding-right:3px;
+      margin-left:-5px;
+      font-size:.7em;
+      font-family:"Glyphicons Halflings";
+      color:#888;
+      content: "\e080";
+    }
   }
 }
 
