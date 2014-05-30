@@ -55,11 +55,6 @@ class CatalogController < ApplicationController
     #todo: date
     #todo: language
     config.add_facet_field 'format_ssi', :label => 'System Format'
-    config.add_facet_field 'active_fedora_model_ssi', :label => 'Result Type Exclusion', :query => {
-        :exclude_groups => { label: 'Exclude Groups', fq: '-active_fedora_model_ssi:BagAggregator' },
-        :exclude_items => { label: 'Exclude Items', fq: '-active_fedora_model_ssi:ContentAggregator' },
-        :exclude_files => { label: 'Exclude Files', fq: '-active_fedora_model_ssi:GenericResource' }
-    }
 
     config.add_facet_field solr_name('lc1_letter', :facetable), :label => 'Call Number'
 

@@ -1,0 +1,5 @@
+<%= render 'facets' %>
+
+<div class="checkbox">
+	<label><%= check_box_tag :show_file_assets_checkbox, params[:show_file_assets] == 'toggle', nil, :checked => params[:show_file_assets] == 'true', :onchange => ('window.location=\'' + url_for(params.merge(:show_file_assets => (params[:show_file_assets] == 'true' ? 'false' : 'true'))) + '\';') %> Show File Assets</label>
+</div>
