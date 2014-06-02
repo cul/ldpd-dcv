@@ -17,8 +17,9 @@
 			<ul class="nav nav-tabs">
 				<li class="active"><a href="#featured" data-toggle="tab">Featured</a></li>
 				<% counter = 2 %>
-				<% @browse_lists.each_key do |list_name| %>
-					<li><a href="#tab<%= counter %>" data-toggle="tab"><%= list_name %></a></li>
+				<% @browse_lists.each do |facet_name, data| %>
+					<li><a href="#tab<%= counter %>" data-toggle="tab"><%= data['display_label'] %></a></li>
+					<% counter += 1 %>
 				<% end %>
 			</ul>
 
@@ -57,14 +58,16 @@
 						</div><!-- /.row -->
 				</div>
 				<% counter = 2 %>
-				<% @browse_lists.each do |list_name, value_pairs| %>
+				<% @browse_lists.each do |facet_name, data| %>
 					<div class="tab-pane fade" id="tab<%= counter %>">
 						<ul class="nopad-rl cols-two">
-							<% value_pairs.each do |value, count| %>
-								<li><%= value %> (<%= count %>)</li>
+							<% data['value_pairs'].each do |value, count| %>
+								<% search_link = search_action_path(:f => {facet_name => [value]}) %>
+								<li><%= link_to value, search_link %> (<%= counter %>)</li>
 							<% end %>
 						</ul>
 					</div>
+					<% counter += 1 %>
 				<% end %>
 			</div>
 	  </div> <!--/.inner-->
