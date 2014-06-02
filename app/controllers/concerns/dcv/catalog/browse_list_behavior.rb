@@ -12,7 +12,7 @@ module Dcv::Catalog::BrowseListBehavior
   # Controller Actions
   
   def home
-    unless Rails.cache.exist?(BROWSE_LISTS_KEY)
+    if Rails.env == 'development' || ! Rails.cache.exist?(BROWSE_LISTS_KEY)
       refresh_browse_lists_cache
     end
     @browse_lists = Rails.cache.read(BROWSE_LISTS_KEY)
