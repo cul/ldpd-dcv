@@ -19,7 +19,7 @@ $(function() {
      // hide the zooming stuff
       $('div#zoom-gallery').addClass('hidden');
 
-      $('ul#child_items').removeClass('hidden');
+      $('#child_items').removeClass('hidden');
       $('#zoom-mode').removeClass('btn-success').addClass('btn-default');
       $(this).addClass('btn-success');
   });
@@ -106,7 +106,7 @@ $(function() {
       });
     }
     // hide the non-zooming stuff
-    $('ul#child_items').addClass('hidden');
+    $('#child_items').addClass('hidden');
     // OSD the zooming div
     $('div#zoom-gallery').removeClass('hidden');
     $('#unzoom-mode').removeClass('btn-success').addClass('btn-default');

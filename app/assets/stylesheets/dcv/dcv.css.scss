@@ -161,6 +161,11 @@ body {
   .panel-body .nav a:hover {
     color:#fff;
   }
+  .panel-title {
+    &:hover {
+      text-decoration:none;
+    }
+  }
 }
 #facets {
   padding-bottom:0;
