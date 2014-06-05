@@ -117,6 +117,12 @@ $(function() {
     }, function() {
       $('#appliedParams').find('.remove').removeClass('btn-danger');
   });
+  $('#q').focus(function() {
+    $('#search-navbar').css('box-shadow','0 0 18px #ccf');
+  });
+  $('#q').blur(function() {
+    $('#search-navbar').css('box-shadow','none');
+  });
   $('a.item-link').colorbox({
     maxHeight:"90%",
     maxWidth:"90%",
