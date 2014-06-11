@@ -2,7 +2,7 @@
 <% structured_children.each_with_index do |child, ix| -%>
   <div class="col-sm-3">
   	<article>
-      <a class="item-link post thumbnail document blacklight-photographs" rel="tooltip" data-original-title="<%= child[:title] %>" data-counter="<%= child[:order] %>" href="<%= resolve_catalog_bytestream_content_url(catalog_id: child[:id], bytestream_id: 'web850') %>.png">
+      <a class="item-link post thumbnail document blacklight-photographs" rel="tooltip" data-original-title="<%= child[:title] %>" data-counter="<%= child[:order] %>" href="<%= resolve_catalog_bytestream_content_url(catalog_id: child[:id], bytestream_id: 'web850') %>.png" data-bytestreams="<%= resolve_catalog_bytestreams_url(catalog_id: child[:id], :format=>'json') %>">
       	<img src="<%= child[:thumbnail] %>" />
       </a>
       <div class="caption">

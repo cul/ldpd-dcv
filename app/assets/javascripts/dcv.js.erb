@@ -128,11 +128,33 @@ $(function() {
     maxWidth:"90%",
     opacity:".7",
     fixed:true,
+    preloading: false,
     current:"{current} of {total}",
     title: function(){
       var otit = $(this).data('original-title');
-      var dlb = '<div id="dlwrapper"><div class="btn-group dropup"><button class="btn btn-link btn-lg dropdown-toggle" type="button" data-toggle="dropdown"><i class="glyphicon glyphicon-download"></i></button><ul class="dropdown-menu pull-right"><li><a href="#">Download Links Coming Soon!</a></li></ul></div></div>';
+      var dlb = '<div id="dlwrapper"><div class="btn-group dropup">' +
+                '<button class="btn btn-link btn-lg dropdown-toggle" type="button" data-toggle="dropdown">' +
+                '<i class="glyphicon glyphicon-download"></i></button><ul class="dropdown-menu pull-right">' +
+                '<li><a href="#">Retrieving Download Links...</a></li></ul></div></div>';
       return otit+dlb;
+    },
+    onComplete: function(){
+      var bsUrl = $(this).attr('data-bytestreams');
+      $.ajax({
+        dataType: "json",
+        url: bsUrl,
+        success: function(data){
+          $('#dlwrapper ul.dropdown-menu').each(function(list){
+            li_html = '';
+            for(var i=0;i<data.length;i++){
+              dlName = data[i]["title"] + '.' + data[i]["url"].match(/\.(.+)$/)[1];
+              dlName += ' (' + data[i]["width"] + 'x' + data[i]["length"] + ')';
+              li_html += '<li><a href="' + data[i]["url"] + '" target="_blank">' + dlName + '</a></li>'
+            }
+            $(this).html(li_html);
+          });
+        }
+      });
     },
   });
   $('#show_file_assets_checkbox').on('change', function(){
