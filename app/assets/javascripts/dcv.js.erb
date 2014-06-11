@@ -152,7 +152,7 @@ $(function() {
           $('#dlwrapper ul.dropdown-menu').each(function(list){
             li_html = '';
             for(var i=0;i<data.length;i++){
-              dlName = data[i]["title"] + '.' + data[i]["url"].match(/\.(.+)$/)[1];
+              dlName = data[i]["title"] + '.' + data[i]["url"].match(/\.([^.]+)$/)[1];
               dlName += ' (' + data[i]["width"] + 'x' + data[i]["length"] + ')';
               li_html += '<li><a href="' + data[i]["url"] + '" target="_blank">' + dlName + '</a></li>'
             }
