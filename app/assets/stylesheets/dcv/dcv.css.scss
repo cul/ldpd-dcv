@@ -348,6 +348,12 @@ body {
         border:none;
         border-top-left-radius:6px;
         box-shadow:none;
+        a {
+          color:#429cec;
+          &:hover {
+            color:#1069b9;
+          }
+        }
       }
     }
 }
