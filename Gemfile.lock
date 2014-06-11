@@ -1,18 +1,3 @@
-GIT
-  remote: git://github.com/elo2112/cul_scv_hydra
-  revision: bd1e32f696007702f25cbd2c4d1d66d575d9255e
-  branch: master
-  specs:
-    cul_scv_hydra (0.14.2)
-      active-fedora (>= 7.0.2)
-      active_fedora_finders (>= 0.5.0)
-      active_fedora_relsint
-      blacklight
-      cul_image_props
-      httpclient
-      hydra-head (~> 7)
-      mods
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -91,6 +76,15 @@ GEM
     coffee-script-source (1.7.0)
     cul_image_props (0.3.5)
       nokogiri
+    cul_scv_hydra (0.15.0)
+      active-fedora (>= 7.0.2)
+      active_fedora_finders (>= 0.5.0)
+      active_fedora_relsint
+      blacklight
+      cul_image_props
+      httpclient
+      hydra-head (~> 7)
+      mods
     daemons (1.1.9)
     deprecation (0.1.0)
       activesupport
@@ -120,7 +114,7 @@ GEM
     hooks (0.3.6)
       uber (~> 0.0.4)
     htmlentities (4.3.1)
-    httpclient (2.3.4.1)
+    httpclient (2.4.0)
     hydra-access-controls (7.0.2)
       active-fedora (~> 7.0.0)
       activesupport
@@ -370,7 +364,7 @@ DEPENDENCIES
   blacklight (>= 5.4.0)
   capistrano (~> 2.12.0)
   coffee-rails (~> 4.0.0)
-  cul_scv_hydra!
+  cul_scv_hydra (>= 0.15.0)
   devise
   devise-guests (~> 0.3)
   hydra-head (~> 7)
