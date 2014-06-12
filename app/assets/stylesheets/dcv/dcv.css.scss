@@ -42,6 +42,22 @@ body {
   margin-top:-6px;
   background-color:transparent;
   border:none;
+  #banner-sm {
+    display:block;
+    margin-bottom:1em;
+    img { max-width:100%; }
+  }
+	@media (min-width: 992px) {
+	  #banner-sm {
+		padding-top:12px;
+	  }
+	}
+	@media (min-width: 1200px) {
+	  #banner-sm {
+		margin-bottom:1em;
+        padding-top:7px;
+	  }
+	}
   #q {
     background-color:rgba(0,0,0,.6);
     color:#ccc;
@@ -58,6 +74,7 @@ body {
     border-color:#ccc;
   }
   .reset-btn {
+    line-height:34px;
     &:hover {
       background-color:#c9302c;
     }
