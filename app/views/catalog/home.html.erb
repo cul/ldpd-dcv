@@ -26,36 +26,16 @@
 			<!-- Tab panes -->
 			<div class="tab-content">
 				<div class="tab-pane fade in active" id="featured">
-						<h2 class="lead section-heading hide">Featured Collections</h2>
-
-						<div class="row">
-							<div class="col-sm-4">
-								<%= link_to image_tag("collections_page/about_css.jpg", :class => 'thumbnail img-responsive'), 'http://css.cul.columbia.edu' %>
-								<p>Community Service Society Photographs</p>
-							</div><!-- /.col-sm-4 -->
-							<div class="col-sm-4">
-								<%= link_to image_tag("collections_page/about_lindquist.jpg", :class => 'thumbnail img-responsive'), 'http://lindquist.cul.columbia.edu' %>
-								<p>G.E.E. Lindquist Native American Photographs<p>
-							</div><!-- /.col-sm-4 -->
-							<div class="col-sm-4">
-								<%= link_to image_tag("collections_page/about_css.jpg", :class => 'thumbnail img-responsive'), 'http://css.cul.columbia.edu' %>
-								<p>Community Service Society Photographs</p>
-							</div><!-- /.col-sm-4 -->
-						</div><!-- /.row -->
-						<div class="row">
-							<div class="col-sm-4">
-								<%= link_to image_tag("collections_page/about_lindquist.jpg", :class => 'thumbnail img-responsive'), 'http://lindquist.cul.columbia.edu' %>
-								<p>G.E.E. Lindquist Native American Photographs<p>
-							</div><!-- /.col-sm-4 -->
-							<div class="col-sm-4">
-								<%= link_to image_tag("collections_page/about_css.jpg", :class => 'thumbnail img-responsive'), 'http://css.cul.columbia.edu' %>
-								<p>Community Service Society Photographs</p>
-							</div><!-- /.col-sm-4 -->
-							<div class="col-sm-4">
-								<%= link_to image_tag("collections_page/about_lindquist.jpg", :class => 'thumbnail img-responsive'), 'http://lindquist.cul.columbia.edu' %>
-								<p>G.E.E. Lindquist Native American Photographs<p>
-							</div><!-- /.col-sm-4 -->
-						</div><!-- /.row -->
+						<small>You are viewing results related to the keyword "<%= @selected_keyword %>."</small>
+						<%- if @response.empty? %>
+						<%= render "zero_results" %>
+						<%- elsif render_grouped_response? %>
+						<%= render_grouped_document_index %>
+						<%- else %>
+						<%= render_document_index %>
+						<%- end %>
+						<%= link_to 'View more results from this keyword search &raquo;'.html_safe, @link_to_full_search, :class => 'btn btn-default btn-xs pull-right' %>
+						<div class="clearfix"></div>
 				</div>
 				<% counter = 2 %>
 				<% @browse_lists.each do |facet_name, data| %>

@@ -8,16 +8,7 @@ module Dcv::Catalog::BrowseListBehavior
     'lib_format_sim' => {:display_label => 'Format'},
     'lib_repo_sim' => {:display_label => 'Repository'}
   }
-  
-  # Controller Actions
-  
-  def home
-    if Rails.env == 'development' || ! Rails.cache.exist?(BROWSE_LISTS_KEY)
-      refresh_browse_lists_cache
-    end
-    @browse_lists = Rails.cache.read(BROWSE_LISTS_KEY)
-  end
-  
+
   # Browse List Logic
 
   def refresh_browse_lists_cache
@@ -29,7 +20,7 @@ module Dcv::Catalog::BrowseListBehavior
     hash_to_return = {}
 
     BROWSE_LISTS.each do |facet_field_name, options|
-      
+
       @rsolr = RSolr.connect :url => YAML.load_file('config/solr.yml')[Rails.env]['url']
       response = @rsolr.get 'select', :params => {
         :q  => '*:*',
@@ -40,7 +31,7 @@ module Dcv::Catalog::BrowseListBehavior
         :'facet.field' => [facet_field_name],
         ('f.' + facet_field_name + '.facet.limit').to_sym => -1,
       }
-      
+
       facet_response = response['facet_counts']['facet_fields'][facet_field_name]
       hash_to_return[facet_field_name] = {}
       hash_to_return[facet_field_name]['display_label'] = options[:display_label]
@@ -48,7 +39,7 @@ module Dcv::Catalog::BrowseListBehavior
       facet_response.each_slice(2) do |value, count|
         hash_to_return[facet_field_name]['value_pairs'][value] = count
       end
-      
+
     end
 
     return hash_to_return

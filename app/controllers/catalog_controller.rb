@@ -155,4 +155,22 @@ class CatalogController < ApplicationController
     url = send method_name.to_sym, @document[:id]
     redirect_to url
   end
+
+  def home
+    if Rails.env == 'development' || ! Rails.cache.exist?(BROWSE_LISTS_KEY)
+      refresh_browse_lists_cache
+    end
+    @browse_lists = Rails.cache.read(BROWSE_LISTS_KEY)
+
+    canned_keyword_searches = [
+      'building',
+      'game',
+      'street'
+    ]
+
+    @selected_keyword = canned_keyword_searches.sample
+    search_params = {:q => @selected_keyword, :search_field => 'all_text_teim'}
+    (@response, @document_list) = get_search_results(search_params.merge({:per_page => '12'}))
+    @link_to_full_search = search_action_path(search_params)
+  end
 end
