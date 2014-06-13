@@ -3,7 +3,7 @@ require 'blacklight/catalog'
 
 class Resolve::ThumbsController < ApplicationController
 
-  include Blacklight::Catalog
+  include Dcv::NonCatalog
   include Hydra::Controller::ControllerBehavior
 
   # These before_filters apply the hydra access controls

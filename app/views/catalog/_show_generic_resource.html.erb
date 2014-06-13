@@ -1,0 +1,31 @@
+<%# default partial to display solr document fields in catalog show view -%>
+<ul>
+  <% document_show_fields(document).each do |solr_fname, field| -%>
+    <% if should_render_show_field? document, field %>
+      <li>
+      <strong><%= render_document_show_field_label document, :field => solr_fname %></strong>
+      <%= render_document_show_field_value document, :field => solr_fname %>
+      </li>
+    <% end -%>
+  <% end -%>
+</ul>
+<div>
+  <img src="<%= screen_url(document[:id]) %>"  style="width:100%;" />
+  <div id="dlwrapper" style="position:absolute; right:0; bottom:-6px;">
+    <div class="btn-group dropup">
+      <button class="btn btn-link btn-lg dropdown-toggle" type="button" data-toggle="dropdown" onclick="loadByteStreams('<%= bytestreams_url(catalog_id: params[:id], format: 'json') %>');">
+        <i class="glyphicon glyphicon-download"></i>
+      </button>
+      <ul class="dropdown-menu pull-right">
+        <li><a href="#">Retrieving Download Links...</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="caption">
+    <div class="documentHeader">
+      <a rel="document-link" data-src="<%= resolve_catalog_url(id: CGI.escape(document[:id])) %>.json" data-id="<%=document[:id]%>"><i class="icon-zoom-in"></i></a>
+      <div class="documentFunctions">
+      </div>
+    </div>
+  </div>
+</div>

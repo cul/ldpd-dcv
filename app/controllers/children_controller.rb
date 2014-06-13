@@ -3,7 +3,7 @@ require 'blacklight/catalog'
 
 class ChildrenController < ApplicationController
 
-  include Blacklight::Catalog
+  include Dcv::NonCatalog
   include Hydra::Controller::ControllerBehavior
   include Cul::Scv::Hydra::Resolver
   include ChildrenHelper
