@@ -8,6 +8,12 @@
       </li>
     <% end -%>
   <% end -%>
+  <% unless (parent_links = link_to_resource_in_context(document)).empty? %>
+    <li>
+      <strong>Resource in Context:</strong>
+      <%= link_to_resource_in_context(document).join(',').html_safe %>
+    </li>
+  <% end -%>
 </ul>
 <div>
   <img src="<%= screen_url(document[:id]) %>"  style="width:100%;" />

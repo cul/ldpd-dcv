@@ -2,7 +2,9 @@
 module Dcv::NonCatalog
   extend ActiveSupport::Concern
   
-  include Blacklight::Base
+  include Blacklight::Configurable
+  include Blacklight::SolrHelper
+
 
   # The following code is executed when someone includes blacklight::catalog in their
   # own controller.
@@ -13,7 +15,7 @@ module Dcv::NonCatalog
     # Hint: the SolrHelper #get_solr_response_for_doc_id method raises this error,
     # which is used in the #show action here.
     rescue_from Blacklight::Exceptions::InvalidSolrID, :with => :invalid_solr_id_error
-
+    rescue_from RSolr::Error::Http, :with => :rsolr_request_error if respond_to? :rescue_from
   end
   
     # get search results from the solr index
@@ -165,5 +167,28 @@ module Dcv::NonCatalog
         end
       end
     end
+  protected
 
+  # when solr (RSolr) throws an error (RSolr::RequestError), this method is executed.
+  def rsolr_request_error(exception)
+
+    if Rails.env.development? || Rails.env.test?
+      raise exception # Rails own code will catch and give usual Rails error page with stack trace
+    else
+
+      flash_notice = I18n.t('blacklight.search.errors.request_error')
+
+      # If there are errors coming from the index page, we want to trap those sensibly
+
+      if flash[:notice] == flash_notice
+        logger.error "Cowardly aborting rsolr_request_error exception handling, because we redirected to a page that raises another exception"
+        raise exception
+      end
+
+      logger.error exception
+
+      flash[:notice] = flash_notice 
+      redirect_to root_path
+    end
+  end
 end
