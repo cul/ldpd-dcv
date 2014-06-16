@@ -177,10 +177,13 @@ body {
     border-color:#666;
     border-style:solid;
   }
-  .panel-body .nav a {
+  .panel-body .nav a, .panel-body .nav .btn-link {
     padding:.25em 0;
     font-size:95%;
     color:#bbb;
+    position:relative;
+    display:block;
+    text-decoration:none;
     &:hover {
       color:#fff;
     }

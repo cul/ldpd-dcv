@@ -16,7 +16,7 @@
   <% end -%>
 </ul>
 <div>
-  <img src="<%= screen_url(document[:id]) %>"  style="width:100%;" />
+  <img src="<%= screen_url(document[:id], format: 'png') %>"  style="width:100%;" />
   <div id="dlwrapper" style="position:absolute; right:0; bottom:-6px;">
     <div class="btn-group dropup">
       <button class="btn btn-link btn-lg dropdown-toggle" type="button" data-toggle="dropdown" onclick="loadByteStreams('<%= bytestreams_url(catalog_id: params[:id], format: 'json') %>');">

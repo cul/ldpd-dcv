@@ -36,9 +36,6 @@ class BytestreamsController < ApplicationController
   	@response, @document = get_solr_response_for_doc_id(params[:catalog_id])
     respond_to do |format|
       format.any do 
-        opts = {}
-        opts[:per_page] = params.fetch('per_page', '10')
-        opts[:page] = params.fetch('page', '0')
         render json: resources_for_document, layout: false
       end
     end
@@ -50,9 +47,6 @@ class BytestreamsController < ApplicationController
   	doc = doc.first || {}
     respond_to do |format|
       format.any do 
-        opts = {}
-        opts[:per_page] = params.fetch('per_page', '10')
-        opts[:page] = params.fetch('page', '0')
         render json: doc, layout: false
       end
     end

@@ -1,5 +1,10 @@
 <li>
-  <a data-toggle="dropdown" onclick="loadByteStreams('<%= bytestreams_url(catalog_id: params[:id], format: 'json') %>'); return false;" href="">
-    <i class="glyphicon glyphicon-download"></i> Download Assets
-  </a>
+  <div class="btn-group">
+  <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-download"></i> Download File</button>
+  <ul class="dropdown-menu" role="menu">
+    <% resources_as_list_items(document, "glyphicon glyphicon-download").each do |item| -%>
+      <%= item %>
+    <% end -%>
+  </ul>
+</div>
 </li>
