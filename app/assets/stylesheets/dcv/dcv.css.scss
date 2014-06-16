@@ -177,8 +177,13 @@ body {
     border-color:#666;
     border-style:solid;
   }
-  .panel-body .nav a:hover {
-    color:#fff;
+  .panel-body .nav a {
+    padding:.25em 0;
+    font-size:95%;
+    color:#bbb;
+    &:hover {
+      color:#fff;
+    }
   }
   .panel-title {
     &:hover {
