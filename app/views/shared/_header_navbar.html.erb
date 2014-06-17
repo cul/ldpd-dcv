@@ -1,6 +1,13 @@
 <div class="container" id="site-banner">
 <% if controller.controller_name != "catalog" or current_page?(root_url) %>
-  <h1><%= link_to 'Digital Library Collections', root_path %></h1>
+<div class="row" style="background:rgba(0,0,0,.3);margin-left:-20px;margin-right:-20px;overflow:hidden;">
+  <div class="col-sm-3">
+   <div style="margin-top:20px;background-image:url(/thumbs/ldpd:138544);background-repeat:no-repeat;background-position:center center;background-size:104%;height:128px;vertical-align:middle;width:100%;"></div>
+  </div>
+  <div class="col-sm-9">
+  <h1><%= link_to image_tag('dcv/dcv-banner-sm-c.png', :alt => 'Digital Library Collections'), root_path %></h1>
+  </div>
+</div>
 <% end %>
 
 <nav class="navbar navbar-inverse hide" role="navigation">
