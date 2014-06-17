@@ -13,12 +13,22 @@ body {
   border:1px solid #333;
   border-top:0;
 }
-@media (min-width: 1200px) {
-  #outer-wrapper {
-    width:1190px;
-  }
-}
 #site-banner {
+  padding:0 23px .1em;
+  margin:0 -23px 20px;
+  background-color:rgba(120,120,120,.1);
+  border-top: 10px solid #222;
+  #site-banner-left {
+    margin-top:20px;
+    background-color:rgba(0,0,0,.2);
+    background-image:image-url('/thumbs/ldpd:138544');
+    background-repeat:no-repeat;
+    background-position:center center;
+    background-size:104%;
+    vertical-align:middle;
+    height:80px;
+    width:100%;
+  }
   nav {border:0;}
   h1 {
     width:100%;
@@ -38,26 +48,32 @@ body {
     }
   }
 }
+@media (min-width: 992px) {
+  #site-banner {
+    #site-banner-left {
+      height:105px;
+    }
+  }
+}
+@media (min-width: 1200px) {
+  #outer-wrapper {
+    width:1190px;
+  }
+  #site-banner {
+    #site-banner-inner {
+      margin-bottom:.3em;
+      overflow:hidden;
+    }
+    #site-banner-left {
+      height:128px;
+    }
+  }
+}
 #search-navbar {
   margin-top:-6px;
+  margin-bottom:0;
   background-color:transparent;
   border:none;
-  #banner-sm {
-    display:block;
-    margin-bottom:1em;
-    img { max-width:100%; }
-  }
-	@media (min-width: 992px) {
-	  #banner-sm {
-		padding-top:7px;
-	  }
-	}
-	@media (min-width: 1200px) {
-	  #banner-sm {
-		margin-bottom:1em;
-        padding-top:7px;
-	  }
-	}
   #q {
     background-color:rgba(0,0,0,.6);
     color:#ccc;
@@ -199,6 +215,7 @@ body {
   margin-left:-15px;
   h4 {
     padding-left:.9em;
+    font-weight:100;
   }
   .panel {
     margin-bottom:.5em;

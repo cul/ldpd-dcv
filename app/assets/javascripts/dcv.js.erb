@@ -1,4 +1,16 @@
 $(function() {
+  /* rand banner img */
+  /* unused for now 
+  var $rbi = [];
+  var $ielems = $('.thumbnail img'), icount = $ielems.length;
+  $ielems.each(function() { 
+    $rbi.push($ielems.attr('src'));
+    if (!--icount) {
+      ix = Math.floor($rbi.length*Math.random())
+      $('#site-banner-left').css('background-image','url('+$rbi[ix]+')');
+    }
+  });
+  */
   /* scroll to top function */
   $('body').on('click', '.totop', function() {
     $('body,html').animate({ scrollTop: 0 }, 500, 'swing');
