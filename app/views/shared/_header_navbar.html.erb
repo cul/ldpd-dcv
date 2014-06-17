@@ -1,7 +1,9 @@
 <div class="container" id="site-banner">
-<% if controller.controller_name != "catalog" or current_page?(root_url) %>
-  <h1><%= link_to image_tag('dcv/dcv-banner.png', :alt=> 'Columbia Digital Collections Portal'), root_path %></h1>
-<% end %>
+<%# if controller.controller_name != "catalog" or current_page?(root_url) %>
+<!--
+  <h1><%= link_to 'Digital Library Collections', root_path %></h1>
+-->
+<%# end %>
 
 <nav class="navbar navbar-inverse hide" role="navigation">
 <div class="container">
@@ -20,19 +22,21 @@
   </div>
 </nav>
 
-<% if controller.controller_name == "catalog" and !current_page?(root_url) %>
+<%# if controller.controller_name == "catalog" and !current_page?(root_url) %>
   <div id="search-navbar" class="navbar navbar-default" role="navigation" style="margin-top:2.5em;margin-bottom:1em;">
 <div class="row">
 <div class="col-md-3">
-  <%= link_to image_tag('dcv/dcv-banner-sm.png', :alt=> 'Columbia Digital Collections Portal'), root_path, { :class => 'text-lg', :id=> 'banner-sm' } %>
+  <%= link_to image_tag('dcv/dcv-banner-sm-b.png', :alt=> 'Columbia Digital Collections Portal'), root_path, { :class => 'text-lg', :id=> 'banner-sm' } %>
 </div>
 <div class="col-md-9">
     <%= render_search_bar  %>
 </div>
 </div>
-<% else %>
+<%# else %>
+<!--
   <div id="search-navbar" class="navbar navbar-default" role="navigation">
-    <%= render_search_bar  %>
-<% end %>
+    <%#= render_search_bar  %>
+-->
+<%# end %>
   </div>
 </div>
