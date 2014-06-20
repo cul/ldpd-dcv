@@ -7,13 +7,10 @@
   # functions by default only on detail.
 
 -%>
-<div class="panel panel-default show-tools">
-  <div class="panel-heading">
-    <%= t('blacklight.tools.title') %>
-  </div>
+<li class="dropdown">
+  <a class="dropdown-toggle" data-toggle="dropdown" href=""><i class="glyphicon glyphicon-wrench"></i> <%= t('blacklight.tools.title') %></a>
 
-  <div class="panel-body">
-  <ul class="nav">
+  <ul class="dropdown-menu" role="menu">
       <li class="hide">
         <%= render_show_doc_actions @document %>
       </li>
@@ -42,12 +39,10 @@
       <%= link_to '<i class="glyphicon glyphicon-phone"></i> '.html_safe+t('blacklight.tools.sms'), sms_catalog_path(:id => @document), {:id => 'smsLink', :data => {:ajax_modal => "trigger"}} %>
       </li>
     <%- end -%>
-    <%= render_document_partials @document, ['show_tools'] %>
     <% if respond_to? :librarian_view_catalog_path and @document.respond_to?(:to_marc) %>
       <li class="librarian_view">
         <%= link_to t('blacklight.tools.librarian_view'), librarian_view_catalog_path(@document), {:id => 'librarianLink', :data => {:ajax_modal => "trigger"}} %>
       </li>
     <% end %>
   </ul>
-  </div>
-</div>
+</li>

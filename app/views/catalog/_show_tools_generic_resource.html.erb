@@ -1,10 +1,8 @@
-<li>
-  <div class="btn-group">
-  <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-download"></i> Download File</button>
+<li class="dropdown">
+  <a class="dropdown-toggle" data-toggle="dropdown" href=""><i class="glyphicon glyphicon-download-alt"></i> Download File</a>
   <ul class="dropdown-menu" role="menu">
     <% resources_as_list_items(document, "glyphicon glyphicon-download").each do |item| -%>
       <%= item %>
     <% end -%>
   </ul>
-</div>
 </li>

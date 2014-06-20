@@ -27,9 +27,10 @@
     </div>
   </div>
 </nav>
-
+<% unless params[:action] == 'show' -%>
   <div id="search-navbar" class="navbar navbar-default" role="navigation">
     <%= render_search_bar  %>
   </div>
+  <% end -%>
 </div>
 </div>

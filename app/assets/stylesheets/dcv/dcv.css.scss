@@ -6,6 +6,23 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
 }
+/*
+body.show {
+  background-image: radial-gradient(
+    ellipse,
+    #ECDEB3,
+    #7A400D
+    );
+}
+
+*/
+body.show {
+  background-image: radial-gradient(
+    ellipse,
+    #FFDFA5,
+    #70440B
+    );
+}
 #outer-wrapper {
   padding:0 10px 2em 10px;
   margin-bottom:2em;
@@ -97,6 +114,10 @@ body {
   #search {
     border-color:#ccc;
   }
+}
+h2[itemprop="name"] {
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .thumbnails {
   margin-left: 20px;
