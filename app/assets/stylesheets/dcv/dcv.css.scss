@@ -15,6 +15,7 @@ body.show {
     );
 }
 
+*/
 body.show {
   background-image: radial-gradient(
     ellipse,
@@ -22,16 +23,6 @@ body.show {
     #70440B
     );
 }
-*/
-
-body.show {
-  background-image: radial-gradient(
-    ellipse,
-    #888,
-    #000
-    );
-}
-
 #outer-wrapper {
   padding:0 10px 2em 10px;
   margin-bottom:2em;
@@ -405,7 +396,7 @@ h2[itemprop="name"] {
 	}
     #dlwrapper {
       position: absolute;
-      right: 0;
+      right: 0; 
       bottom:-6px;
       .dropdown-toggle {
         padding:0;
