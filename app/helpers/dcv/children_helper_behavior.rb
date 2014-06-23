@@ -25,6 +25,8 @@ module Dcv::ChildrenHelperBehavior
       opts = {controller: :thumbs, id: doc['id'], action: :show}
       opts[:only_path] = true
       child = {id: doc['id'], thumbnail: url_for(opts)}
+      opts[:controller] = :screen_images
+      child[:screen] = url_for(opts)
       if title_field
         title = doc[title_field.to_s]
         title = title.first if title.is_a? Array

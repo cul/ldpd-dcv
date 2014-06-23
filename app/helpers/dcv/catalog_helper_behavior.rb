@@ -17,21 +17,26 @@ module Dcv::CatalogHelperBehavior
   end
 
   def structured_children
-    if @document['structured_bsi'] == true
-      struct = Cul::Scv::Fedora.ds_for_uri("info:fedora/#{@document['id']}/structMetadata")
-      struct = Nokogiri::XML(struct.content)
-      ns = {'mets'=>'http://www.loc.gov/METS/'}
-      nodes = struct.xpath('//mets:div[@ORDER]').sort {|a,b| a['ORDER'].to_i <=> b['ORDER'].to_i }
+    @structured_children ||= begin
+      if @document['structured_bsi'] == true
+        struct = Cul::Scv::Fedora.ds_for_uri("info:fedora/#{@document['id']}/structMetadata")
+        struct = Nokogiri::XML(struct.content)
+        ns = {'mets'=>'http://www.loc.gov/METS/'}
+        nodes = struct.xpath('//mets:div[@ORDER]', ns).sort {|a,b| a['ORDER'].to_i <=> b['ORDER'].to_i }
 
-      nodes = nodes.map do |node|
-        node_id = (node['CONTENTIDS'])
+        nodes = nodes.map do |node|
+          node_id = (node['CONTENTIDS'])
 
-        node_thumbnail = resolve_thumb_url(id: node_id)
-        {id: node_id, title: node['LABEL'], thumbnail: node_thumbnail, order: node['ORDER'].to_i}
+          node_thumbnail = resolve_thumb_url(id: node_id)
+          {id: node_id, title: node['LABEL'], thumbnail: node_thumbnail, order: node['ORDER'].to_i}
+        end
+        nodes
+      else
+        nodes = document_children_from_model[:children]
+        # just assign the order they came in, since there's no structure
+        nodes.each_with_index {|node, ix| node[:order] = ix + 1}
+        nodes
       end
-      nodes
-    else
-      []
     end
   end
 
@@ -40,7 +45,7 @@ module Dcv::CatalogHelperBehavior
     p_pids = Array.new(document[fname])
     p_pids.compact!
     p_pids.collect! {|p_pid| p_pid.split('/')[-1].sub(':','\:')}
-    p = controller.get_solr_response_for_document_ids(p_pids, extra_params)[1]
+    controller.get_solr_response_for_document_ids(p_pids, extra_params)[1]
   end
 
   def link_to_resource_in_context(document=@document)

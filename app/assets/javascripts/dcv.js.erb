@@ -41,93 +41,10 @@ $(function() {
       $(this).addClass('btn-success');
   });
   $('body').on('click', '#zoom-mode', function(){
-     // do some stuff with a data url
-     if (!$.tileSources){
-       $.djUrl = "http://iris.cul.columbia.edu:8888/view/";
-       $.ajax({
-        dataType: "json",
-        url: this.getAttribute('data-url'),
-        success: function(data){
-          var sources = [];
-          var children = data['children'] || [];
-          var children_map = {};
-
-          for (var i=0; i<children.length; i++) {
-            var child = children[i];
-            children_map[child['id']] = child;
-          }
-          $("a[rel='document-link']").each(function() {
-            var child = null;
-            var dataId = $(this).attr('data-id');
-            for (var i=0; i< children.length; i++) {
-              if (children[i]['contentids'].indexOf(dataId) > -1) {
-                child = children[i];
-                break;
-              }
-            }
-            if (child && child['rft_id']) {
-            //sources[sources.length] = new OpenSeadragon.DjTileSource($.djUrl, child['rft_id']);
-            sources[sources.length] = new OpenSeadragon.CalculatedDjTileSource($.djUrl, child['rft_id'], child['width'], child['length']);
-            }
-          });
-          $.tileSources = sources;
-          $.navImages = {};
-          // zoomIn buttons
-          zoomIn = ($.navImages['zoomIn'] = {});
-          zoomIn['REST'] = '<%= image_path("seadragon/zoomin_rest.png")%>';
-          zoomIn['GROUP'] = '<%= image_path("seadragon/zoomin_grouphover.png")%>';
-          zoomIn['HOVER'] = '<%= image_path("seadragon/zoomin_hover.png")%>';
-          zoomIn['DOWN'] = '<%= image_path("seadragon/zoomin_pressed.png")%>';
-          // zoomOut buttons
-          zoomOut = ($.navImages['zoomOut'] = {});
-          zoomOut['REST'] = '<%= image_path("seadragon/zoomout_rest.png")%>';
-          zoomOut['GROUP'] = '<%= image_path("seadragon/zoomout_grouphover.png")%>';
-          zoomOut['HOVER'] = '<%= image_path("seadragon/zoomout_hover.png")%>';
-          zoomOut['DOWN'] = '<%= image_path("seadragon/zoomout_pressed.png")%>';
-          // home buttons
-          home = ($.navImages['home'] = {});
-          home['REST'] = '<%= image_path("seadragon/home_rest.png")%>';
-          home['GROUP'] = '<%= image_path("seadragon/home_grouphover.png")%>';
-          home['HOVER'] = '<%= image_path("seadragon/home_hover.png")%>';
-          home['DOWN'] = '<%= image_path("seadragon/home_pressed.png")%>';
-          // fullpage buttons
-          fullpage = ($.navImages['fullpage'] = {});
-          fullpage['REST'] = '<%= image_path("seadragon/fullpage_rest.png")%>';
-          fullpage['GROUP'] = '<%= image_path("seadragon/fullpage_grouphover.png")%>';
-          fullpage['HOVER'] = '<%= image_path("seadragon/fullpage_hover.png")%>';
-          fullpage['DOWN'] = '<%= image_path("seadragon/fullpage_pressed.png")%>';
-          // previous buttons
-          previous = ($.navImages['previous'] = {});
-          previous['REST'] = '<%= image_path("seadragon/previous_rest.png")%>';
-          previous['GROUP'] = '<%= image_path("seadragon/previous_grouphover.png")%>';
-          previous['HOVER'] = '<%= image_path("seadragon/previous_hover.png")%>';
-          previous['DOWN'] = '<%= image_path("seadragon/previous_pressed.png")%>';
-          // next buttons
-          next = ($.navImages['next'] = {});
-          next['REST'] = '<%= image_path("seadragon/next_rest.png")%>';
-          next['GROUP'] = '<%= image_path("seadragon/next_grouphover.png")%>';
-          next['HOVER'] = '<%= image_path("seadragon/next_hover.png")%>';
-          next['DOWN'] = '<%= image_path("seadragon/next_pressed.png")%>';
-          OpenSeadragon({
-            id:            "zoom-content",
-            prefixUrl:     "",
-            toolbar:       "zoom-toolbar",
-            springStiffness:        10,
-            showReferenceStrip:     true,
-            autoHideControls:       false,
-            showNavigator:  true,
-            navImages: $.navImages,
-            tileSources: $.tileSources
-          });
-        }
-      });
-    }
-    // hide the non-zooming stuff
-    $('#child_items').addClass('hidden');
-    // OSD the zooming div
-    $('div#zoom-gallery').removeClass('hidden');
-    $('#unzoom-mode').removeClass('btn-success').addClass('btn-default');
-    $(this).addClass('btn-success');
+    switchToZoom();
+  });
+  $('body').on('click', '#inset-zoom-mode', function(){
+    switchToZoom();
   });
   $('#search-navbar').find('.reset-btn').hover(function() {
       $('#appliedParams').find('.remove').addClass('btn-danger');
@@ -140,31 +57,122 @@ $(function() {
   $('#q').blur(function() {
     $('#search-navbar .input-group').css('box-shadow','none');
   });
-  $('a.item-link').colorbox({
-    maxHeight:"90%",
-    maxWidth:"90%",
-    opacity:".7",
-    fixed:true,
-    preloading: false,
-    current:"{current} of {total}",
-    title: function(){
-      var otit = $(this).data('original-title');
-      var dlb = '<div id="dlwrapper"><div class="btn-group dropup">' +
-                '<button class="btn btn-link btn-lg dropdown-toggle" type="button" data-toggle="dropdown">' +
-                '<i class="glyphicon glyphicon-download"></i></button><ul class="dropdown-menu pull-right">' +
-                '<li><a href="#">Retrieving Download Links...</a></li></ul></div></div>';
-      return otit+dlb;
-    },
-    onComplete: function(){
-      var bsUrl = $(this).attr('data-bytestreams');
-      loadByteStreams(bsUrl);
-    },
-  });
   $('#show_file_assets_checkbox').on('change', function(){
     window.location = decodeURIComponent($(this).attr('data-new-location'));
   });
 });
+function switchToZoom() {
+  // do some stuff with a data url
+  btn = $('#zoom-mode');
+  if (!$.tileSources){
+    $.djUrl = "http://iris.cul.columbia.edu:8888/view/";
+    $.ajax({
+      dataType: "json",
+      url: btn.attr('data-url'),
+      success: function(data){
+        var sources = [];
+        var children = data['children'] || [];
+        var children_map = {};
 
+        for (var i=0; i<children.length; i++) {
+          var child = children[i];
+          children_map[child['id']] = child;
+        }
+        $("a[rel='item-link']").each(function() {
+          var child = null;
+          var dataId = $(this).attr('data-id');
+          for (var i=0; i< children.length; i++) {
+            if (children[i]['contentids'].indexOf(dataId) > -1) {
+              child = children[i];
+              $(this).attr('data-pid',child['id'])
+              if (child['rft_id']){
+                $(this).attr('data-rft', child['rft_id']);
+                //sources[sources.length] = new OpenSeadragon.DjTileSource($.djUrl, child['rft_id']);
+                sources[parseInt($(this).attr('data-counter')) - 1] = new OpenSeadragon.CalculatedDjTileSource($.djUrl, child['rft_id'], child['width'], child['length']);
+              }
+              break;
+            }
+          }
+        });
+        $.tileSources = sources;
+        $.navImages = {};
+        // zoomIn buttons
+        zoomIn = ($.navImages['zoomIn'] = {});
+        zoomIn['REST'] = '<%= image_path("seadragon/zoomin_rest.png")%>';
+        zoomIn['GROUP'] = '<%= image_path("seadragon/zoomin_grouphover.png")%>';
+        zoomIn['HOVER'] = '<%= image_path("seadragon/zoomin_hover.png")%>';
+        zoomIn['DOWN'] = '<%= image_path("seadragon/zoomin_pressed.png")%>';
+        // zoomOut buttons
+        zoomOut = ($.navImages['zoomOut'] = {});
+        zoomOut['REST'] = '<%= image_path("seadragon/zoomout_rest.png")%>';
+        zoomOut['GROUP'] = '<%= image_path("seadragon/zoomout_grouphover.png")%>';
+        zoomOut['HOVER'] = '<%= image_path("seadragon/zoomout_hover.png")%>';
+        zoomOut['DOWN'] = '<%= image_path("seadragon/zoomout_pressed.png")%>';
+        // home buttons
+        home = ($.navImages['home'] = {});
+        home['REST'] = '<%= image_path("seadragon/home_rest.png")%>';
+        home['GROUP'] = '<%= image_path("seadragon/home_grouphover.png")%>';
+        home['HOVER'] = '<%= image_path("seadragon/home_hover.png")%>';
+        home['DOWN'] = '<%= image_path("seadragon/home_pressed.png")%>';
+        // fullpage buttons
+        fullpage = ($.navImages['fullpage'] = {});
+        fullpage['REST'] = '<%= image_path("seadragon/fullpage_rest.png")%>';
+        fullpage['GROUP'] = '<%= image_path("seadragon/fullpage_grouphover.png")%>';
+        fullpage['HOVER'] = '<%= image_path("seadragon/fullpage_hover.png")%>';
+        fullpage['DOWN'] = '<%= image_path("seadragon/fullpage_pressed.png")%>';
+        // previous buttons
+        previous = ($.navImages['previous'] = {});
+        previous['REST'] = '<%= image_path("seadragon/previous_rest.png")%>';
+        previous['GROUP'] = '<%= image_path("seadragon/previous_grouphover.png")%>';
+        previous['HOVER'] = '<%= image_path("seadragon/previous_hover.png")%>';
+        previous['DOWN'] = '<%= image_path("seadragon/previous_pressed.png")%>';
+        // next buttons
+        next = ($.navImages['next'] = {});
+        next['REST'] = '<%= image_path("seadragon/next_rest.png")%>';
+        next['GROUP'] = '<%= image_path("seadragon/next_grouphover.png")%>';
+        next['HOVER'] = '<%= image_path("seadragon/next_hover.png")%>';
+        next['DOWN'] = '<%= image_path("seadragon/next_pressed.png")%>';
+        if ($.tileSources && $.tileSources.length > 0) {
+          initZoomingViewer();
+          // hide the non-zooming stuff
+          $('#child_items').addClass('hidden');
+          // OSD the zooming div
+          $('div#zoom-gallery').removeClass('hidden');
+          $('#unzoom-mode').removeClass('btn-success').addClass('btn-default');
+          btn.addClass('btn-success');
+        }
+      }
+    });
+  }
+  if ($.tileSources && $.tileSources.length > 0) {
+    $('#child_items').addClass('hidden');
+    // OSD the zooming div
+    $('div#zoom-gallery').removeClass('hidden');
+    $('#unzoom-mode').removeClass('btn-success').addClass('btn-default');
+    btn.addClass('btn-success');
+  }
+}
+function initZoomingViewer() {
+  var initialPage = $('#favorite-child img').attr('data-counter') || '1';
+  initialPage = parseInt(initialPage) - 1;
+  if ($.zoomingViewer) {
+    $.zoomingViewer.goToPage(initialPage);
+  } else {  
+    $.zoomingViewer = OpenSeadragon({
+      id:            "zoom-content",
+      prefixUrl:     "",
+      toolbar:       "zoom-toolbar",
+      springStiffness:        10,
+      showReferenceStrip:     false,
+      autoHideControls:       false,
+      showNavigator:  true,
+      navImages: $.navImages,
+      tileSources: $.tileSources,
+      showSequenceControl: false,
+      initialPage: initialPage
+    });
+  }
+}
 function loadByteStreams(bsUrl) {
   $.ajax({
     dataType: "json",
@@ -181,6 +189,20 @@ function loadByteStreams(bsUrl) {
       });
     }
   });
+}
+
+function favoriteChild(child) {
+  var screenUrl = $(child).attr('href');
+  var screenImg = $('#favorite-child img').first();
+  var dataCounter = $(child).attr('data-counter');
+  if (screenUrl != screenImg.attr('src')) {
+    screenImg.attr('src', screenUrl);
+    screenImg.attr('data-counter', dataCounter);
+  }
+  var rftId = $(child).attr('data-rft');
+  if ($.zoomingViewer) {
+    $.zoomingViewer.goToPage(parseInt(dataCounter) - 1);
+  }
 }
 //** CULTNBW START **/
   CULh_colorfg = '#000000'; // topnavbar foreground color. hex value. ex: #002B7F
