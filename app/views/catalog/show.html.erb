@@ -1,6 +1,6 @@
 <div class="row">
 
-	<div id="content" class="col-md-9 show-document">
+	<div id="content" class="<%= @document.more_like_this.empty? ? 'col-md-12' : 'col-md-9' %> show-document">
 
 	<div class="inner">
 
@@ -34,9 +34,9 @@
 		</div>
 
 	</div>
-
+	<% unless @document.more_like_this.empty? %>
 	<div id="sidebar" class="col-md-3">
 	   <%= render_document_sidebar_partial %>
 	</div>
-
+    <% end -%>
 </div>

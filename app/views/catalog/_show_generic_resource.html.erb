@@ -1,0 +1,27 @@
+<%# default partial to display solr document fields in catalog show view -%>
+<ul>
+  <% document_show_fields(document).each do |solr_fname, field| -%>
+    <% if should_render_show_field? document, field %>
+      <li>
+      <strong><%= render_document_show_field_label document, :field => solr_fname %></strong>
+      <%= render_document_show_field_value document, :field => solr_fname %>
+      </li>
+    <% end -%>
+  <% end -%>
+  <% unless (parent_links = link_to_resource_in_context(document)).empty? %>
+    <li>
+      <strong>Resource in Context:</strong>
+      <%= link_to_resource_in_context(document).join(',').html_safe %>
+    </li>
+  <% end -%>
+</ul>
+<div>
+  <img src="<%= screen_url(document[:id], format: 'png') %>"  style="width:100%;" />
+  <div class="caption">
+    <div class="documentHeader">
+      <a rel="document-link" data-src="<%= resolve_catalog_url(id: CGI.escape(document[:id])) %>.json" data-id="<%=document[:id]%>"><i class="icon-zoom-in"></i></a>
+      <div class="documentFunctions">
+      </div>
+    </div>
+  </div>
+</div>

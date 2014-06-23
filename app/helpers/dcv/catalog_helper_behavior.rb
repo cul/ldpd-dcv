@@ -1,4 +1,5 @@
 module Dcv::CatalogHelperBehavior
+
   def url_for_children_data(per_page=nil)
     opts = {id: params[:id], controller: :children}
     opts[:per_page] = per_page || 4
@@ -34,4 +35,18 @@ module Dcv::CatalogHelperBehavior
     end
   end
 
+  def parents(document=@document, extra_params={})
+    fname = 'cul_member_of_ssim' #solr_name(:cul_member_of, :symbol)
+    p_pids = Array.new(document[fname])
+    p_pids.compact!
+    p_pids.collect! {|p_pid| p_pid.split('/')[-1].sub(':','\:')}
+    p = controller.get_solr_response_for_document_ids(p_pids, extra_params)[1]
+  end
+
+  def link_to_resource_in_context(document=@document)
+    parents = parents(document)
+    parents.collect do |parent|
+      link_to(parent.fetch('title_display_ssm',[]).first, catalog_url(id:parent['id']))
+    end
+  end
 end

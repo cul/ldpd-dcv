@@ -78,7 +78,7 @@ class CatalogController < ApplicationController
     config.add_show_field solr_name('identifier', :symbol), :label => 'Identifier'
     config.add_show_field solr_name('lib_format', :displayable), :label => 'Format'
     config.add_show_field solr_name('lib_name', :displayable), :label => 'Name'
-    config.add_show_field solr_name('lib_collection', :displayable), :label=>"Collection:"
+    config.add_show_field solr_name('lib_collection', :displayable), :label=>"Collection"
 
     # "fielded" search configuration. Used by pulldown among other places.
     # For supported keys in hash, see rdoc for Blacklight::SearchFields

@@ -1,28 +1,15 @@
 <div class="row">
 
-	<div id="sidebar" class="col-md-3">
-		<div class="inner">
-			<a class="panel-title" href="<%= search_action_path(:q => '', :search_field => 'all_text_teim') %>"><span class="lead">Browse Content</span> <i class="glyphicon glyphicon-white glyphicon-circle-arrow-right"></i></a>
-			<br />
-			<a class="panel-title" href="<%= all_collections_path %>"><span class="lead">View Collections</span> <i class="glyphicon glyphicon-white glyphicon-circle-arrow-right"></i></a>
-		</div>
-		<div class="clearfix">&nbsp;</div>
-		<div class="inner">
-			<p><strong>The Columbia Digital Collections Portal</strong> is a gateway to many of the digital projects that Columbia University Libraries / Information Services has completed over the past ten years. It includes scans of photographs, posters, objects, manuscripts and other archival material from our special and archival collections. The Portal will continue to grow as more of our special collections are digitized and cataloged. (It does not at present include digitized books, however; these can be located by searching the CLIO catalog.) All Portal content is intended to be used for education and research.</p>
-		 </div>
-	</div>
-
-	<div id="content" class="col-md-9">
-
+	<div id="content" class="col-md-12">
 	  <div class="inner">
 			<!-- Nav tabs -->
 			<ul class="nav nav-tabs">
 				<li class="active"><a href="#featured" data-toggle="tab">Featured</a></li>
-				<% counter = 2 %>
 				<% @browse_lists.each do |facet_name, data| %>
-					<li><a href="#tab<%= counter %>" data-toggle="tab"><%= data['display_label'] %></a></li>
-					<% counter += 1 %>
+					<li><a href="#tab_<%= facet_name %>" data-toggle="tab"><%= data['display_label'] %></a></li>
 				<% end %>
+				<li><a href="#collections" data-toggle="tab">Collections</a></li>
+				<li><a href="#about" data-toggle="tab">About</a></li>
 			</ul>
 
 			<!-- Tab panes -->
@@ -39,18 +26,22 @@
 						<%= link_to 'View more results from this keyword search &raquo;'.html_safe, @link_to_full_search, :class => 'btn btn-default btn-xs pull-right' %>
 						<div class="clearfix"></div>
 				</div>
-				<% counter = 2 %>
 				<% @browse_lists.each do |facet_name, data| %>
-					<div class="tab-pane fade" id="tab<%= counter %>">
+					<div class="tab-pane fade" id="tab_<%= facet_name %>">
 						<ul class="nopad-rl cols-two">
 							<% data['value_pairs'].each do |value, count| %>
 								<% search_link = search_action_path(:f => {facet_name => [value]}) %>
-								<li><%= link_to value, search_link %> (<%= counter %>)</li>
+								<li><%= link_to value, search_link %> (<%= count %>)</li>
 							<% end %>
 						</ul>
 					</div>
-					<% counter += 1 %>
 				<% end %>
+				<div class="tab-pane fade" id="collections">
+					<%= render template: 'pages/collections' -%>
+				</div>
+				<div class="tab-pane fade" id="about">
+			<p><strong>Digital Library Collections</strong> is a gateway to many of the digital projects that Columbia University Libraries / Information Services has completed over the past ten years. It includes scans of photographs, posters, objects, manuscripts and other archival material from our special and archival collections. The site will continue to grow as more of our special collections are digitized and cataloged. (It does not at present include digitized books, however; these can be located by searching the CLIO catalog.) All site content is intended to be used for education and research.</p>
+				</div>
 			</div>
 	  </div> <!--/.inner-->
 

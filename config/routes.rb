@@ -27,6 +27,8 @@ Dcv::Application.routes.draw do
 
   resources :thumbs, only: [:show]
 
+  resources :screens, only: [:show], controller: :screen_images
+
   namespace :resolve do
     resources :catalog, only: [:show], constraints: { id: /[^\?]+/ } do
       resources :bytestreams, only: [:index, :show] do
