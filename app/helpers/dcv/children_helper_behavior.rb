@@ -37,17 +37,20 @@ module Dcv::ChildrenHelperBehavior
         rels_int = JSON.load(doc.fetch('rels_int_profile_tesim',[]).join(''))
         unless rels_int.blank?
           #child[:rels_int] = rels_int
-          width = rels_int["info:fedora/#{child[:id]}/content"].fetch('exif_image_width',[]).first.to_i
-          length = rels_int["info:fedora/#{child[:id]}/content"].fetch('exif_image_length',[]).first.to_i
+          width = rels_int["info:fedora/#{child[:id]}/content"].fetch('exif_image_width',[0]).first.to_i
+          length = rels_int["info:fedora/#{child[:id]}/content"].fetch('exif_image_length',[0]).first.to_i
           child[:width] = width if width > 0
           child[:length] = length if length > 0
         end
         if (base_rft = doc['rft_id_ss'])
+          zoom = rels_int["info:fedora/#{child[:id]}/content"].fetch('foaf_zooming',['zoom']).first
+          zoom = zoom.split('/')[-1]
           base_rft.sub!(/^info\:fedora\/datastreams/,ActiveFedora.config.credentials[:datastreams_root])
           base_rft = 'file:' + base_rft unless base_rft =~ /(file|https?)\:\//
           child[:rft_id] = CGI.escape(base_rft)
-          child[:width] ||= rels_int["info:fedora/#{child[:id]}/zoom"].fetch('exif_image_width',[]).first.to_i
-          child[:length] ||= rels_int["info:fedora/#{child[:id]}/zoom"].fetch('exif_image_length',[]).first.to_i
+          puts rels_int.inspect
+          child[:width] ||= rels_int["info:fedora/#{child[:id]}/#{zoom}"].fetch('exif_image_width',[0]).first.to_i
+          child[:length] ||= rels_int["info:fedora/#{child[:id]}/#{zoom}"].fetch('exif_image_length',[0]).first.to_i
         end
       end
       children[:children] << child
