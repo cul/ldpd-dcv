@@ -8,7 +8,7 @@
 				<% @browse_lists.each do |facet_name, data| %>
 					<li><a href="#tab_<%= facet_name %>" data-toggle="tab"><%= data['display_label'] %></a></li>
 				<% end %>
-				<li><a href="#collections" data-toggle="tab">Collections</a></li>
+				<li><a href="#projects" data-toggle="tab">Digital Projects</a></li>
 				<li><a href="#about" data-toggle="tab">About</a></li>
 			</ul>
 
@@ -36,8 +36,8 @@
 						</ul>
 					</div>
 				<% end %>
-				<div class="tab-pane fade" id="collections">
-					<%= render template: 'pages/collections' -%>
+				<div class="tab-pane fade" id="projects">
+					<%= render template: 'pages/digital_projects' -%>
 				</div>
 				<div class="tab-pane fade" id="about">
 			<p><strong>Digital Library Collections</strong> is a gateway to many of the digital projects that Columbia University Libraries / Information Services has completed over the past ten years. It includes scans of photographs, posters, objects, manuscripts and other archival material from our special and archival collections. The site will continue to grow as more of our special collections are digitized and cataloged. (It does not at present include digitized books, however; these can be located by searching the CLIO catalog.) All site content is intended to be used for education and research.</p>
