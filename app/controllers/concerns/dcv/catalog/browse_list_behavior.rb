@@ -5,8 +5,8 @@ module Dcv::Catalog::BrowseListBehavior
   BROWSE_LISTS_KEY = 'browse_lists'
   BROWSE_LISTS = {
     'lib_name_sim' => {:display_label => 'Names'},
-    'lib_format_sim' => {:display_label => 'Format'},
-    'lib_repo_sim' => {:display_label => 'Repository'}
+    'lib_format_sim' => {:display_label => 'Formats'},
+    'lib_repo_sim' => {:display_label => 'Repositories'}
   }
 
   # Browse List Logic

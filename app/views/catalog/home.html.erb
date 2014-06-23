@@ -2,7 +2,9 @@
 
 	<div id="sidebar" class="col-md-3">
 		<div class="inner">
-			<a class="panel-title" href="/collections"><span class="lead">Browse Collections</span> <i class="glyphicon glyphicon-white glyphicon-circle-arrow-right"></i></a>
+			<a class="panel-title" href="<%= search_action_path(:q => '', :search_field => 'all_text_teim') %>"><span class="lead">Browse Content</span> <i class="glyphicon glyphicon-white glyphicon-circle-arrow-right"></i></a>
+			<br />
+			<a class="panel-title" href="<%= all_collections_path %>"><span class="lead">View Collections</span> <i class="glyphicon glyphicon-white glyphicon-circle-arrow-right"></i></a>
 		</div>
 		<div class="clearfix">&nbsp;</div>
 		<div class="inner">
