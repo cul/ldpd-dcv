@@ -39,6 +39,8 @@ Dcv::Application.routes.draw do
     resources :bytestreams, path: 'catalog/:catalog_id/bytestreams', only: [:index, :show], constraints: { id: /[^\/]+/ }
   end
 
+  get ':layout/:id/details' => 'details#show', as: :details
+
   #get 'resolve/catalog/*catalog_id/bytestreams/:id/content(.:format)' => 'resolve/bytestreams#content',
   # as: :resolve_bytestream_content #,
    #constraints: { catalog_id: /[^\/]+/ }

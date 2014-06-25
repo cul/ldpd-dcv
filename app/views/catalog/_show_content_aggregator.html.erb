@@ -1,14 +1,8 @@
-<div id="view-options">
-  <div class="hidden-xs btn-group btn-group-xs">
-    <button id="unzoom-mode" type="button" class="btn btn-success"><i class="glyphicon glyphicon-th-list"></i></button>
-    <button id="zoom-mode" type="button" class="btn btn-default" data-url="<%= children_url(document[:id], :per_page=>999) %>"><i class="glyphicon glyphicon-zoom-in"></i></button>
-  </div>
-</div>
 <div class="row" id="child_items">
   <div id="favorite-child" class="col-md-8">
     <% if child = structured_children.first -%>
       <img src="<%= child[:screen] || resolve_catalog_bytestream_content_url(catalog_id: child[:id], bytestream_id: 'web850') %>.png" style="width:100%;" data-counter="1" />
-      <button id="inset-zoom-mode" type="button" class="btn btn-default btn-lg" data-url="<%= children_url(document[:id], :per_page=>999) %>" style="position:absolute; top:0;right:0;" onclick="switchToZoom();"><i class="glyphicon glyphicon-zoom-in"></i></button>
+      <a class="btn btn-default btn-lg" style="position:absolute; top:0;right:0;" onclick="window.open('<%= details_url(id: document[:id], layout:(request.path.split('/')[1])) %>'); return false;"><i class="glyphicon glyphicon-zoom-in"></i></a>
     <% end -%>
   </div>
   <div id="item-description" class="col-md-4">
@@ -21,9 +15,5 @@
       <% end -%>
     </dl>
   </div>
-</div>
-<div id="zoom-gallery" class="hidden">
-  <div id="zoom-toolbar" class="toolbar"></div>
-  <div id="zoom-content" class="openseadragon"></div>
 </div>
 <%= render_document_partials @document, ['gallery'] %>

@@ -2,14 +2,14 @@ class CollectionsController < ApplicationController
 
   include Blacklight::Catalog
   include Hydra::Controller::ControllerBehavior
+  include Dcv::Catalog::SearchParamsLogicBehavior
+  include Dcv::Catalog::BrowseListBehavior
 
   layout :collection_layout
 
   parent_prefixes << 'catalog' # haaaaaaack to not reproduce templates
 
   def collection_layout
-    puts CUSTOM_COLLECTIONS.inspect
-    puts params.inspect
     layout = CUSTOM_COLLECTIONS.fetch(self.controller_name, DEFAULT_COLLECTION)['layout']
     "#{layout}.html.erb"
   end

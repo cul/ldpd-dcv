@@ -61,14 +61,52 @@ $(function() {
     window.location = decodeURIComponent($(this).attr('data-new-location'));
   });
 });
-function switchToZoom() {
+function initZoomingViewer() {
+  if (!$.navImages) {
+    $.navImages = {};
+    // zoomIn buttons
+    zoomIn = ($.navImages['zoomIn'] = {});
+    zoomIn['REST'] = '<%= image_path("seadragon/zoomin_rest.png")%>';
+    zoomIn['GROUP'] = '<%= image_path("seadragon/zoomin_grouphover.png")%>';
+    zoomIn['HOVER'] = '<%= image_path("seadragon/zoomin_hover.png")%>';
+    zoomIn['DOWN'] = '<%= image_path("seadragon/zoomin_pressed.png")%>';
+    // zoomOut buttons
+    zoomOut = ($.navImages['zoomOut'] = {});
+    zoomOut['REST'] = '<%= image_path("seadragon/zoomout_rest.png")%>';
+    zoomOut['GROUP'] = '<%= image_path("seadragon/zoomout_grouphover.png")%>';
+    zoomOut['HOVER'] = '<%= image_path("seadragon/zoomout_hover.png")%>';
+    zoomOut['DOWN'] = '<%= image_path("seadragon/zoomout_pressed.png")%>';
+    // home buttons
+    home = ($.navImages['home'] = {});
+    home['REST'] = '<%= image_path("seadragon/home_rest.png")%>';
+    home['GROUP'] = '<%= image_path("seadragon/home_grouphover.png")%>';
+    home['HOVER'] = '<%= image_path("seadragon/home_hover.png")%>';
+    home['DOWN'] = '<%= image_path("seadragon/home_pressed.png")%>';
+    // fullpage buttons
+    fullpage = ($.navImages['fullpage'] = {});
+    fullpage['REST'] = '<%= image_path("seadragon/fullpage_rest.png")%>';
+    fullpage['GROUP'] = '<%= image_path("seadragon/fullpage_grouphover.png")%>';
+    fullpage['HOVER'] = '<%= image_path("seadragon/fullpage_hover.png")%>';
+    fullpage['DOWN'] = '<%= image_path("seadragon/fullpage_pressed.png")%>';
+    // previous buttons
+    previous = ($.navImages['previous'] = {});
+    previous['REST'] = '<%= image_path("seadragon/previous_rest.png")%>';
+    previous['GROUP'] = '<%= image_path("seadragon/previous_grouphover.png")%>';
+    previous['HOVER'] = '<%= image_path("seadragon/previous_hover.png")%>';
+    previous['DOWN'] = '<%= image_path("seadragon/previous_pressed.png")%>';
+    // next buttons
+    next = ($.navImages['next'] = {});
+    next['REST'] = '<%= image_path("seadragon/next_rest.png")%>';
+    next['GROUP'] = '<%= image_path("seadragon/next_grouphover.png")%>';
+    next['HOVER'] = '<%= image_path("seadragon/next_hover.png")%>';
+    next['DOWN'] = '<%= image_path("seadragon/next_pressed.png")%>';
+  }
   // do some stuff with a data url
-  btn = $('#zoom-mode');
   if (!$.tileSources){
     $.djUrl = "http://iris.cul.columbia.edu:8888/view/";
     $.ajax({
       dataType: "json",
-      url: btn.attr('data-url'),
+      url: $('#zoom-gallery').attr('data-url'),
       success: function(data){
         var sources = [];
         var children = data['children'] || [];
@@ -78,101 +116,57 @@ function switchToZoom() {
           var child = children[i];
           children_map[child['id']] = child;
         }
-        $("a[rel='item-link']").each(function() {
+        $("#children-links a[rel='child']").each(function() {
           var child = null;
           var dataId = $(this).attr('data-id');
           for (var i=0; i< children.length; i++) {
             if (children[i]['contentids'].indexOf(dataId) > -1) {
               child = children[i];
-              $(this).attr('data-pid',child['id'])
-              if (child['rft_id']){
-                $(this).attr('data-rft', child['rft_id']);
-                //sources[sources.length] = new OpenSeadragon.DjTileSource($.djUrl, child['rft_id']);
-                sources[parseInt($(this).attr('data-counter')) - 1] = new OpenSeadragon.CalculatedDjTileSource($.djUrl, child['rft_id'], child['width'], child['length']);
-              }
               break;
             }
           }
+          if (child && child['rft_id']) {
+            $(this).attr('data-rftId',child['rft_id'])
+            //sources[sources.length] = new OpenSeadragon.DjTileSource($.djUrl, child['rft_id']);
+            sources[sources.length] = new OpenSeadragon.CalculatedDjTileSource($.djUrl, child['rft_id'], child['width'], child['length']);
+          }
         });
         $.tileSources = sources;
-        $.navImages = {};
-        // zoomIn buttons
-        zoomIn = ($.navImages['zoomIn'] = {});
-        zoomIn['REST'] = '<%= image_path("seadragon/zoomin_rest.png")%>';
-        zoomIn['GROUP'] = '<%= image_path("seadragon/zoomin_grouphover.png")%>';
-        zoomIn['HOVER'] = '<%= image_path("seadragon/zoomin_hover.png")%>';
-        zoomIn['DOWN'] = '<%= image_path("seadragon/zoomin_pressed.png")%>';
-        // zoomOut buttons
-        zoomOut = ($.navImages['zoomOut'] = {});
-        zoomOut['REST'] = '<%= image_path("seadragon/zoomout_rest.png")%>';
-        zoomOut['GROUP'] = '<%= image_path("seadragon/zoomout_grouphover.png")%>';
-        zoomOut['HOVER'] = '<%= image_path("seadragon/zoomout_hover.png")%>';
-        zoomOut['DOWN'] = '<%= image_path("seadragon/zoomout_pressed.png")%>';
-        // home buttons
-        home = ($.navImages['home'] = {});
-        home['REST'] = '<%= image_path("seadragon/home_rest.png")%>';
-        home['GROUP'] = '<%= image_path("seadragon/home_grouphover.png")%>';
-        home['HOVER'] = '<%= image_path("seadragon/home_hover.png")%>';
-        home['DOWN'] = '<%= image_path("seadragon/home_pressed.png")%>';
-        // fullpage buttons
-        fullpage = ($.navImages['fullpage'] = {});
-        fullpage['REST'] = '<%= image_path("seadragon/fullpage_rest.png")%>';
-        fullpage['GROUP'] = '<%= image_path("seadragon/fullpage_grouphover.png")%>';
-        fullpage['HOVER'] = '<%= image_path("seadragon/fullpage_hover.png")%>';
-        fullpage['DOWN'] = '<%= image_path("seadragon/fullpage_pressed.png")%>';
-        // previous buttons
-        previous = ($.navImages['previous'] = {});
-        previous['REST'] = '<%= image_path("seadragon/previous_rest.png")%>';
-        previous['GROUP'] = '<%= image_path("seadragon/previous_grouphover.png")%>';
-        previous['HOVER'] = '<%= image_path("seadragon/previous_hover.png")%>';
-        previous['DOWN'] = '<%= image_path("seadragon/previous_pressed.png")%>';
-        // next buttons
-        next = ($.navImages['next'] = {});
-        next['REST'] = '<%= image_path("seadragon/next_rest.png")%>';
-        next['GROUP'] = '<%= image_path("seadragon/next_grouphover.png")%>';
-        next['HOVER'] = '<%= image_path("seadragon/next_hover.png")%>';
-        next['DOWN'] = '<%= image_path("seadragon/next_pressed.png")%>';
-        if ($.tileSources && $.tileSources.length > 0) {
-          initZoomingViewer();
-          // hide the non-zooming stuff
-          $('#child_items').addClass('hidden');
-          // OSD the zooming div
-          $('div#zoom-gallery').removeClass('hidden');
-          $('#unzoom-mode').removeClass('btn-success').addClass('btn-default');
-          btn.addClass('btn-success');
+        if ($.zoomingViewer) {
+          $.zoomingViewer.open($.tileSources);
+        } else {
+          $.zoomingViewer = OpenSeadragon({
+            id:            "zoom-content",
+            prefixUrl:     "",
+            toolbar:       "zoom-toolbar",
+            springStiffness:        10,
+            showReferenceStrip:     true,
+            autoHideControls:       false,
+            showNavigator:  true,
+            navImages: $.navImages,
+            tileSources: $.tileSources,
+            showSequenceControl: false
+          });
+          $.zoomingViewer.addHandler('open',handleImageChange,null);
         }
       }
     });
   }
-  if ($.tileSources && $.tileSources.length > 0) {
-    $('#child_items').addClass('hidden');
-    // OSD the zooming div
-    $('div#zoom-gallery').removeClass('hidden');
-    $('#unzoom-mode').removeClass('btn-success').addClass('btn-default');
-    btn.addClass('btn-success');
-  }
+
 }
-function initZoomingViewer() {
-  var initialPage = $('#favorite-child img').attr('data-counter') || '1';
-  initialPage = parseInt(initialPage) - 1;
-  if ($.zoomingViewer) {
-    $.zoomingViewer.goToPage(initialPage);
-  } else {  
-    $.zoomingViewer = OpenSeadragon({
-      id:            "zoom-content",
-      prefixUrl:     "",
-      toolbar:       "zoom-toolbar",
-      springStiffness:        10,
-      showReferenceStrip:     false,
-      autoHideControls:       false,
-      showNavigator:  true,
-      navImages: $.navImages,
-      tileSources: $.tileSources,
-      showSequenceControl: false,
-      initialPage: initialPage
-    });
-  }
+function handleImageChange(event) {
+  var src = event.source;
+  var tile = event.tileSource;
+  var bsUrl = null;
+  var dataId = "[none]";
+  $("a[rel='child']").each(function(){
+    if ($(this).attr('data-rftId') == src.imageID) {
+      bsUrl = $(this).attr('data-bytestreams');
+    }
+  })
+  loadByteStreams(bsUrl);
 }
+
 function loadByteStreams(bsUrl) {
   $.ajax({
     dataType: "json",
@@ -198,10 +192,6 @@ function favoriteChild(child) {
   if (screenUrl != screenImg.attr('src')) {
     screenImg.attr('src', screenUrl);
     screenImg.attr('data-counter', dataCounter);
-  }
-  var rftId = $(child).attr('data-rft');
-  if ($.zoomingViewer) {
-    $.zoomingViewer.goToPage(parseInt(dataCounter) - 1);
   }
 }
 //** CULTNBW START **/
