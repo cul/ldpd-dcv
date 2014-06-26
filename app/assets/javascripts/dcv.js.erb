@@ -60,6 +60,14 @@ $(function() {
   $('#show_file_assets_checkbox').on('change', function(){
     window.location = decodeURIComponent($(this).attr('data-new-location'));
   });
+  $('.panel').on('shown.bs.collapse', function(e){
+    $(this).children('i.more').removeClass('glyphicon-chevron-down');
+    $(this).children('i.more').addClass('glyphicon-chevron-right');
+  })
+  $('.panel').on('hidden.bs.collapse', function(e){
+    $(this).children('i.more').removeClass('glyphicon-chevron-down');
+    $(this).children('i.more').addClass('glyphicon-chevron-right');
+  })
 });
 function initZoomingViewer() {
   if (!$.navImages) {
@@ -138,14 +146,18 @@ function initZoomingViewer() {
           $.zoomingViewer = OpenSeadragon({
             id:            "zoom-content",
             prefixUrl:     "",
-            toolbar:       "zoom-toolbar",
             springStiffness:        10,
             showReferenceStrip:     true,
             autoHideControls:       false,
             showNavigator:  true,
-            navImages: $.navImages,
             tileSources: $.tileSources,
-            showSequenceControl: false
+            zoomInButton:   "zoom-in-control",
+            zoomOutButton:  "zoom-out-control",
+            homeButton:     "zoom-home-control",
+            fullPageButton: "zoom-full-control",
+            nextButton:     "zoom-next-control",
+            previousButton: "zoom-prev-control",
+            showSequenceControl: true
           });
           $.zoomingViewer.addHandler('open',handleImageChange,null);
         }
