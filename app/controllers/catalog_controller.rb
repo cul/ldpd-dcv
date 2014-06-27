@@ -53,6 +53,9 @@ class CatalogController < ApplicationController
     config.add_facet_field solr_name('lib_repo', :facetable), :label => 'Repository'
     config.add_facet_field solr_name('lib_name', :facetable), :label => 'Name'
     config.add_facet_field solr_name('lib_format', :facetable), :label => 'Format'
+    config.add_facet_field solr_name('lib_start_date', :facetable), :label => 'Start Date'
+    config.add_facet_field solr_name('lib_end_date', :facetable), :label => 'End Date'
+    config.add_facet_field solr_name('language_language_term_text', :facetable), :label => 'Language'
     #todo: date
     #todo: language
     config.add_facet_field 'format_ssi', :label => 'System Format'

@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 require 'blacklight/catalog'
+require 'actionpack/action_caching'
 
 class BytestreamsController < ApplicationController
 
@@ -35,7 +36,7 @@ class BytestreamsController < ApplicationController
   def index
   	@response, @document = get_solr_response_for_doc_id(params[:catalog_id])
     respond_to do |format|
-      format.any do 
+      format.any do
         render json: resources_for_document, layout: false
       end
     end
@@ -46,7 +47,7 @@ class BytestreamsController < ApplicationController
   	doc = resources_for_document.select {|x| x[:id].split('/')[-1] == params[:id]}
   	doc = doc.first || {}
     respond_to do |format|
-      format.any do 
+      format.any do
         render json: doc, layout: false
       end
     end
