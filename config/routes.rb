@@ -7,7 +7,7 @@ Dcv::Application.routes.draw do
 
   devise_for :users
 
-  get 'catalog/:id/children' => 'children#index', as: :children
+  resources :children, path: 'catalog/:parent_id/children', only: [:index, :show]
 
   resources :bytestreams, path: '/catalog/:catalog_id/bytestreams' do
     get 'content' => 'bytestreams#content'

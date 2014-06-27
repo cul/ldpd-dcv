@@ -35,8 +35,12 @@ class ChildrenController < ApplicationController
         opts = {}
         opts[:per_page] = params.fetch('per_page', '10')
         opts[:page] = params.fetch('page', '0')
-        render json: children(params['id'], opts)
+        render json: children(params['parent_id'], opts)
       end
     end
   end
+
+  def show
+    render json: child(params['id'])
+  end    
 end

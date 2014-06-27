@@ -60,100 +60,89 @@ $(function() {
   $('#show_file_assets_checkbox').on('change', function(){
     window.location = decodeURIComponent($(this).attr('data-new-location'));
   });
+  $('#collapseDesc').on('show.bs.collapse', function(e){
+    $(this).parent().find('i.more').addClass('glyphicon-chevron-down');
+    $(this).parent().find('i.more').removeClass('glyphicon-chevron-right');
+  })
+  $('#collapseDesc').on('hide.bs.collapse', function(e){
+    $(this).parent().find('i.more').removeClass('glyphicon-chevron-down');
+    $(this).parent().find('i.more').addClass('glyphicon-chevron-right');
+  })
 });
-function initZoomingViewer() {
-  if (!$.navImages) {
-    $.navImages = {};
-    // zoomIn buttons
-    zoomIn = ($.navImages['zoomIn'] = {});
-    zoomIn['REST'] = '<%= image_path("seadragon/zoomin_rest.png")%>';
-    zoomIn['GROUP'] = '<%= image_path("seadragon/zoomin_grouphover.png")%>';
-    zoomIn['HOVER'] = '<%= image_path("seadragon/zoomin_hover.png")%>';
-    zoomIn['DOWN'] = '<%= image_path("seadragon/zoomin_pressed.png")%>';
-    // zoomOut buttons
-    zoomOut = ($.navImages['zoomOut'] = {});
-    zoomOut['REST'] = '<%= image_path("seadragon/zoomout_rest.png")%>';
-    zoomOut['GROUP'] = '<%= image_path("seadragon/zoomout_grouphover.png")%>';
-    zoomOut['HOVER'] = '<%= image_path("seadragon/zoomout_hover.png")%>';
-    zoomOut['DOWN'] = '<%= image_path("seadragon/zoomout_pressed.png")%>';
-    // home buttons
-    home = ($.navImages['home'] = {});
-    home['REST'] = '<%= image_path("seadragon/home_rest.png")%>';
-    home['GROUP'] = '<%= image_path("seadragon/home_grouphover.png")%>';
-    home['HOVER'] = '<%= image_path("seadragon/home_hover.png")%>';
-    home['DOWN'] = '<%= image_path("seadragon/home_pressed.png")%>';
-    // fullpage buttons
-    fullpage = ($.navImages['fullpage'] = {});
-    fullpage['REST'] = '<%= image_path("seadragon/fullpage_rest.png")%>';
-    fullpage['GROUP'] = '<%= image_path("seadragon/fullpage_grouphover.png")%>';
-    fullpage['HOVER'] = '<%= image_path("seadragon/fullpage_hover.png")%>';
-    fullpage['DOWN'] = '<%= image_path("seadragon/fullpage_pressed.png")%>';
-    // previous buttons
-    previous = ($.navImages['previous'] = {});
-    previous['REST'] = '<%= image_path("seadragon/previous_rest.png")%>';
-    previous['GROUP'] = '<%= image_path("seadragon/previous_grouphover.png")%>';
-    previous['HOVER'] = '<%= image_path("seadragon/previous_hover.png")%>';
-    previous['DOWN'] = '<%= image_path("seadragon/previous_pressed.png")%>';
-    // next buttons
-    next = ($.navImages['next'] = {});
-    next['REST'] = '<%= image_path("seadragon/next_rest.png")%>';
-    next['GROUP'] = '<%= image_path("seadragon/next_grouphover.png")%>';
-    next['HOVER'] = '<%= image_path("seadragon/next_hover.png")%>';
-    next['DOWN'] = '<%= image_path("seadragon/next_pressed.png")%>';
-  }
-  // do some stuff with a data url
+function initTiles() {
   if (!$.tileSources){
     $.djUrl = "http://iris.cul.columbia.edu:8888/view/";
-    $.ajax({
-      dataType: "json",
-      url: $('#zoom-gallery').attr('data-url'),
-      success: function(data){
-        var sources = [];
-        var children = data['children'] || [];
-        var children_map = {};
-
-        for (var i=0; i<children.length; i++) {
-          var child = children[i];
-          children_map[child['id']] = child;
-        }
-        $("#children-links a[rel='child']").each(function() {
-          var child = null;
-          var dataId = $(this).attr('data-id');
-          for (var i=0; i< children.length; i++) {
-            if (children[i]['contentids'].indexOf(dataId) > -1) {
-              child = children[i];
-              break;
-            }
-          }
-          if (child && child['rft_id']) {
-            $(this).attr('data-rftId',child['rft_id'])
-            //sources[sources.length] = new OpenSeadragon.DjTileSource($.djUrl, child['rft_id']);
-            sources[sources.length] = new OpenSeadragon.CalculatedDjTileSource($.djUrl, child['rft_id'], child['width'], child['length']);
-          }
-        });
-        $.tileSources = sources;
-        if ($.zoomingViewer) {
-          $.zoomingViewer.open($.tileSources);
-        } else {
-          $.zoomingViewer = OpenSeadragon({
-            id:            "zoom-content",
-            prefixUrl:     "",
-            toolbar:       "zoom-toolbar",
-            springStiffness:        10,
-            showReferenceStrip:     true,
-            autoHideControls:       false,
-            showNavigator:  true,
-            navImages: $.navImages,
-            tileSources: $.tileSources,
-            showSequenceControl: false
-          });
-          $.zoomingViewer.addHandler('open',handleImageChange,null);
-        }
-      }
-    });
+    if ($('#zoom-gallery').attr('data-url')) {
+      setTilesFromQuery($('#zoom-gallery').attr('data-url'))
+    } else {
+      loadByteStreams($('#zoom-gallery').attr('data-bytestreams'), setTileFromId);
+    }
+  } else {
+    initZoomingViewer($.tileSources);
   }
-
 }
+function initZoomingViewer(tileSources) {
+  if ($.zoomingViewer) {
+    $.zoomingViewer.open(tileSources);
+  } else {
+    $.zoomingViewer = OpenSeadragon({
+      id:            "zoom-content",
+      prefixUrl:     "",
+      springStiffness:        10,
+      showReferenceStrip:     (tileSources.length > 1),
+      autoHideControls:       false,
+      showNavigator:  true,
+      tileSources: tileSources,
+      zoomInButton:   "zoom-in-control",
+      zoomOutButton:  "zoom-out-control",
+      homeButton:     "zoom-home-control",
+      fullPageButton: "zoom-full-control",
+      nextButton:     "zoom-next-control",
+      previousButton: "zoom-prev-control",
+      showSequenceControl: (tileSources.length > 1)
+    });
+    $.zoomingViewer.addHandler('open',handleImageChange,null);
+  }
+}
+
+function setTilesFromQuery(dataUrl){
+  $.ajax({
+    dataType: "json",
+    url: dataUrl,
+    success: function(data){
+      var sources = [];
+      var children = data['children'] || [data];
+      var children_map = {};
+
+      for (var i=0; i<children.length; i++) {
+        var child = children[i];
+        children_map[child['id']] = child;
+      }
+      $("#children-links a[rel='child']").each(function() {
+        var child = null;
+        var dataId = $(this).attr('data-id');
+        for (var i=0; i< children.length; i++) {
+          if (children[i]['id'] == dataId) {
+            child = children[i];
+            break;
+          }
+          if (children[i]['contentids'].indexOf(dataId) > -1) {
+            child = children[i];
+            break;
+          }
+        }
+        if (child && child['rft_id']) {
+          $(this).attr('data-rftId',child['rft_id'])
+          //sources[sources.length] = new OpenSeadragon.DjTileSource($.djUrl, child['rft_id']);
+          sources[sources.length] = new OpenSeadragon.CalculatedDjTileSource($.djUrl, child['rft_id'], child['width'], child['length']);
+        }
+      });
+      $.tileSources = sources;
+      initZoomingViewer($.tileSources);
+    }
+  });
+}
+
 function handleImageChange(event) {
   var src = event.source;
   var tile = event.tileSource;
@@ -164,27 +153,36 @@ function handleImageChange(event) {
       bsUrl = $(this).attr('data-bytestreams');
     }
   })
-  loadByteStreams(bsUrl);
+  loadByteStreams(bsUrl, setDownloads);
 }
 
-function loadByteStreams(bsUrl) {
-  $.ajax({
-    dataType: "json",
-    url: bsUrl,
-    success: function(data){
-      $('#dlwrapper ul.dropdown-menu').each(function(list){
-        li_html = '';
-        for(var i=0;i<data.length;i++){
-          dlName = data[i]["title"] + '.' + data[i]["url"].match(/\.([^.]+)$/)[1];
-          dlName += ' (' + data[i]["width"] + 'x' + data[i]["length"] + ')';
-          li_html += '<li><a href="' + data[i]["url"] + '" target="_blank">' + dlName + '</a></li>'
-        }
-        $(this).html(li_html);
-      });
+function loadByteStreams(bsUrl, handler) {
+  if (!$.bytestreams) $.bytestreams = {};
+  if ($.bytestreams[bsUrl]) {
+    if (handler) handler.call(this,data);
+  } else {
+    $.ajax({
+      dataType: "json",
+      url: bsUrl,
+      success: function(data){
+        $.bytestreams[bsUrl] = data;
+        if (handler) handler.call(this,data);
+      }
+    });
+  }
+}
+
+function setDownloads(data) {
+  $('#dlwrapper ul.dropdown-menu').each(function(list){
+    li_html = '';
+    for(var i=0;i<data.length;i++){
+      dlName = data[i]["title"] + '.' + data[i]["url"].match(/\.([^.]+)$/)[1];
+      dlName += ' (' + data[i]["width"] + 'x' + data[i]["length"] + ')';
+      li_html += '<li><a href="' + data[i]["url"] + '" target="_blank">' + dlName + '</a></li>'
     }
+    $(this).html(li_html);
   });
 }
-
 function favoriteChild(child) {
   var screenUrl = $(child).attr('href');
   var screenImg = $('#favorite-child img').first();

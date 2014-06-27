@@ -1,17 +1,11 @@
 <div id="zoom-gallery" data-url="<%= children_url(document[:id], :per_page=>999) %>">
-  <div id="zoom-toolbar" class="toolbar"></div>
+  <div id="zoom-toolbar" class="btn-toolbar">
+    <%= render 'zoom/controls' -%>
+  </div>
   <div id="zoom-content" class="openseadragon"></div>
 </div>
 <div id="children-links" style="visibility: hidden;">
   <% structured_children.each_with_index do |child, ix| -%>
     <a rel="child" data-src="<%= resolve_catalog_url(id: CGI.escape(child[:id])) %>.json" data-id="<%=child[:id]%>" data-bytestreams="<%= resolve_catalog_bytestreams_url(catalog_id: child[:id], :format=>'json') %>"></a>
   <% end -%>
-</div>
-<div id="dlwrapper">
-  <div class="btn-group dropup">
-    <button class="btn btn-link btn-lg dropdown-toggle" type="button" data-toggle="dropdown"><i class="glyphicon glyphicon-download"></i></button>
-    <ul class="dropdown-menu">
-      <li>Loading downloads...</li>
-    </ul>
-  </div>
 </div>
