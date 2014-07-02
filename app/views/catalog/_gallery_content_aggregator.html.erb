@@ -1,8 +1,8 @@
-<div id="child_gallery" class="row" style="<%= structured_children.length > 1 ? '' : 'visibility:hidden;'%>">
+<div id="child_gallery" class="row" style="<%= structured_children.length > 1 ? '' : 'display:none;'%>">
 <% structured_children.each_with_index do |child, ix| -%>
   <div class="col-sm-<%= (structured_children.length <= 2) ? '6' : '3' %>">
   	<article>
-      <a rel="item-link" class="post thumbnail document blacklight-photographs" data-original-title="<%= child[:title] %>" data-counter="<%= child[:order] %>" href="<%= child[:screen] || resolve_catalog_bytestream_content_url(catalog_id: child[:id], bytestream_id: 'web850') %>.png" data-bytestreams="<%= resolve_catalog_bytestreams_url(catalog_id: child[:id], :format=>'json') %>" onclick="favoriteChild(this); return false;" data-id="<%=child[:id]%>">
+      <a rel="item-link" class="totop post thumbnail document blacklight-photographs" data-original-title="<%= child[:title] %>" data-counter="<%= child[:order] %>" href="<%= child[:screen] || resolve_catalog_bytestream_content_url(catalog_id: child[:id], bytestream_id: 'web850') %>.png" data-bytestreams="<%= resolve_catalog_bytestreams_url(catalog_id: child[:id], :format=>'json') %>" onclick="favoriteChild(this); return false;" data-id="<%=child[:id]%>">
       	<img src="<%= child[:thumbnail] %>" />
       </a>
       <div class="caption">

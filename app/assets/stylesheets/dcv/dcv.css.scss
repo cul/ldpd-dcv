@@ -1,43 +1,21 @@
 body {
-  background-attachment: fixed;
-  background-color:#222;
-  background-image: image-url('dcv/1836760843_267e9c947f_o-sepc.jpg'); /* cc by-nc-sa 2.0, https://www.flickr.com/photos/mmj171188/1836760843/ remix by er2576@columbia */
-  background-position: center top;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-/*
-body.show {
-  background-image: radial-gradient(
-    ellipse,
-    #FFDFA5,
-    #70440B
-    );
-}
-
-*/
-body.show {
-  background-image: radial-gradient(
-    ellipse,
-    #AAA,
-    #444
-    );
+  background-color:#000;
 }
 #outer-wrapper {
   padding:0 10px 2em 10px;
   margin-bottom:2em;
-  background-color:rgba(0,0,0,.4);
+  background-color:#222;
   border:1px solid #333;
   border-top:0;
 }
 #site-banner {
-  padding:0 23px .1em;
+  padding:0 23px 1.4em;
   margin:0 -23px 20px;
-  background-color:rgba(120,120,120,.1);
-  border-top: 10px solid #222;
+  background-color:#111;
+  border-bottom:1px solid #333;
   #site-banner-left {
     margin-top:20px;
-    background-color:rgba(0,0,0,.2);
+    background-color:#000;
     background-image:image-url('/thumbs/ldpd:138544');
     background-repeat:no-repeat;
     background-position:center center;
@@ -380,6 +358,23 @@ h2[itemprop="name"] {
   position:absolute;
   top:2px;
   right:2px;
+}
+#child_items .dl-vertical dd {
+  margin-left:1em;
+}
+#favorite-child {
+  max-height:600px;
+  margin-bottom:1em;
+  text-align:center;
+  img {
+    max-height:100%;
+    max-width:100%;
+  }
+}
+#child_gallery {
+  padding-top:1em;
+  margin-top:1em;
+  border-top:1px solid #333;
 }
 #colorbox {
 	#cboxClose {
