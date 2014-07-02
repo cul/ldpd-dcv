@@ -15,7 +15,7 @@ body {
   border-bottom:1px solid #333;
   #site-banner-left {
     margin-top:20px;
-    background-color:rgba(0,0,0,.2);
+    background-color:#000;
     background-image:image-url('/thumbs/ldpd:138544');
     background-repeat:no-repeat;
     background-position:center center;
@@ -355,6 +355,22 @@ h2[itemprop="name"] {
   position:absolute;
   top:2px;
   right:2px;
+}
+#child_items .dl-vertical dd {
+  margin-left:1em;
+}
+#favorite-child {
+  max-height:600px;
+  margin-bottom:1em;
+  img {
+    max-height:100%;
+    max-width:100%;
+  }
+}
+#child_gallery {
+  padding-top:1em;
+  margin-top:1em;
+  border-top:1px solid #333;
 }
 #colorbox {
 	#cboxClose {
