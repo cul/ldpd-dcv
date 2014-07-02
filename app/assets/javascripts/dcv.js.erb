@@ -16,6 +16,10 @@ $(function() {
     $('body,html').animate({ scrollTop: 0 }, 500, 'swing');
     return false;
   });
+  $('body').on('click', '.tocontent', function() {
+    $('body,html').animate({ scrollTop: $('#content').offset().top - $('#topnavbar').height() }, 500, 'swing');
+    return false;
+  });
   $('body').on('click', '#list-mode', function() {
       $('#content .col-sm-3').addClass('col-sm-12').addClass('list-view');
       $('#content .col-sm-3 .thumbnail').addClass('col-sm-2');
