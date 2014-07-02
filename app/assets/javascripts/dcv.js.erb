@@ -1,9 +1,9 @@
 $(function() {
   /* rand banner img */
-  /* unused for now 
+  /* unused for now
   var $rbi = [];
   var $ielems = $('.thumbnail img'), icount = $ielems.length;
-  $ielems.each(function() { 
+  $ielems.each(function() {
     $rbi.push($ielems.attr('src'));
     if (!--icount) {
       ix = Math.floor($rbi.length*Math.random())
@@ -68,7 +68,10 @@ $(function() {
     $(this).parent().find('i.more').removeClass('glyphicon-chevron-down');
     $(this).parent().find('i.more').addClass('glyphicon-chevron-right');
   })
+
+  DCV.DateRangeSlider.init();
 });
+
 function initTiles() {
   if (!$.tileSources){
     $.djUrl = "http://iris.cul.columbia.edu:8888/view/";
@@ -197,3 +200,108 @@ function favoriteChild(child) {
   CULh_colorbg = '#444444'; // topnavbar background color. hex value. ex: #779BC3
   CULh_nobs = 1; // uncomment to NOT load our bootstrap javascript file and or use your own (v2.3.x required)
 //** /CULTNBW END **/
+
+
+
+/*********************
+ * Date Range Slider *
+ *********************/
+
+DCV.DateRangeSlider = {};
+DCV.DateRangeSlider.maxNumSegments = 30;
+
+DCV.DateRangeSlider.dateCache = null;
+
+DCV.DateRangeSlider.init = function() {
+  if ($('#date-range-widget').length > 0 && DCV.dateWidgetData['highest_segment_count_value'] > 0) {
+    $('#date-range-widget').html('<canvas id="date-range-canvas" width="1000" height="80"></canvas>');
+    var canvasElement = $('#date-range-canvas');
+    canvasElement.attr('data-original-width', canvasElement[0].width).attr('data-original-height', canvasElement[0].height);
+    DCV.DateRangeSlider.resizeCanvas();
+    DCV.DateRangeSlider.render();
+    $(window).on('resize', DCV.DateRangeSlider.resizeCanvas);
+  }
+};
+
+DCV.DateRangeSlider.resizeCanvas = function() {
+  // Make sure that actual canvas dimensions are equal to the current size
+  // so that we don't get anti-aliased rescaling.  This will look sharper.
+
+  var c = document.getElementById('date-range-canvas');
+  var aspectRatio = parseInt($(c).attr('data-original-width'))/parseInt($(c).attr('data-original-height'));
+  var canvasWidth = $(c).width();
+  var canvasHeight = canvasWidth/aspectRatio;
+  $(c).height(canvasHeight);
+
+  c.width = canvasWidth;
+  c.height = canvasHeight;
+
+  DCV.DateRangeSlider.render();
+};
+
+DCV.DateRangeSlider.render = function() {
+
+  var c = document.getElementById('date-range-canvas');
+
+  var ctx = c.getContext('2d');
+
+  var segmentColors = ['#333', '#666'];
+
+  ctx.lineWidth   = 1;
+  ctx.strokeStyle = '#000';
+  ctx.fillStyle   = '#000';
+
+  // DCV.dateWidgetData is declared in-page, generated server-side.
+  var earliestStartYear = DCV.dateWidgetData['earliest_start_year'];
+  var latestEndYear = DCV.dateWidgetData['latest_end_year'];
+  var segments = DCV.dateWidgetData['segments'];
+  var highestSegmentCountValue = DCV.dateWidgetData['highest_segment_count_value'];
+
+  var numSegments = segments.length;
+
+  var padding = c.width/15;
+  var segmentWidth = (c.width-padding*2)/numSegments;
+
+  //Draw bounding box
+  for(var i = 0; i < numSegments; i++) {
+
+    //Time dividing lines
+    ctx.strokeStyle = '#222';
+    ctx.beginPath();
+    ctx.moveTo(padding+i*segmentWidth, 0);
+    ctx.lineTo(padding+i*segmentWidth, c.height);
+    ctx.stroke();
+
+    if (i == numSegments-1) {
+      ctx.beginPath();
+      ctx.moveTo(padding+(i+1)*segmentWidth, 0);
+      ctx.lineTo(padding+(i+1)*segmentWidth, c.height);
+      ctx.stroke();
+    }
+
+    //Segment blocks
+    var segment = segments[i];
+    ctx.fillStyle = segmentColors[i%segmentColors.length];
+    var proportionalHeight = (segment['count']/(highestSegmentCountValue));
+
+    //Post-processing to move values toward the center, making it look better
+    var centerWeighting = .2;
+    proportionalHeight = proportionalHeight+(centerWeighting*(.5-proportionalHeight));
+    ctx.fillRect(  padding+i*segmentWidth, c.height, segmentWidth, -c.height*proportionalHeight);
+
+    var textYOffset = 13;
+    var textXOffset = 2;
+
+    ctx.fillStyle = "#000";
+    ctx.font = (c.height/5) + "px 'Helvetica Neue'";
+    ctx.fillText(segment['start'] + ' - ' + segment['start'], textXOffset+padding+i*segmentWidth-1, textYOffset-1);
+    ctx.fillText(segment['start'] + ' - ' + segment['start'], textXOffset+padding+i*segmentWidth+1, textYOffset+1);
+    ctx.fillStyle = "#ddd";
+    ctx.font = (c.height/5) + "px 'Helvetica Neue'";
+    ctx.fillText(segment['start'] + ' - ' + segment['end'], textXOffset+padding+i*segmentWidth, textYOffset);
+
+    if (i == numSegments-1) {
+      ctx.fillText(segment['end'], textXOffset+padding+(i+1)*segmentWidth, textYOffset);
+    }
+  }
+};

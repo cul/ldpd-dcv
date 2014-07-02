@@ -283,6 +283,9 @@ h2[itemprop="name"] {
       content: "\e080";
     }
   }
+  #facet-panel-collapse {
+    margin-bottom: 10px;
+  }
 }
 
 .section-heading {
@@ -396,7 +399,7 @@ h2[itemprop="name"] {
 	}
     #dlwrapper {
       position: absolute;
-      right: 0; 
+      right: 0;
       bottom:-6px;
       .dropdown-toggle {
         padding:0;

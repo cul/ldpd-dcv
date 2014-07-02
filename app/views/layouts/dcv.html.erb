@@ -16,6 +16,11 @@
     <title><%= render_page_title %></title>
     <%= opensearch_description_tag application_name, opensearch_catalog_path(:format => 'xml', :only_path => false) %>
     <%= favicon_link_tag asset_path('favicon.ico') %>
+
+    <script>
+      var DCV = {}; // DCV Namespace
+    </script>
+
     <%= stylesheet_link_tag    "dcv" %>
     <%= javascript_include_tag "application" %>
     <%= javascript_include_tag "dcv" %>
