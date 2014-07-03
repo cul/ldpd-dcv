@@ -122,6 +122,9 @@ body {
   margin-bottom:0;
   background-color:transparent;
   border:none;
+  &.slim {
+    margin-top:.5em;
+  }
   #q {
     background-color:rgba(0,0,0,.6);
     color:#ccc;
