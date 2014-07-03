@@ -217,7 +217,7 @@ DCV.DateRangeSlider.maxNumSegments = 30;
 DCV.DateRangeSlider.dateCache = null;
 
 DCV.DateRangeSlider.init = function() {
-  if ($('#date-range-widget').length > 0 && DCV.dateWidgetData['highest_segment_count_value'] > 0) {
+  if ($('#date-range-widget').length > 0 && DCV.dateWidgetData != null) {
     $('#date-range-widget').html('<canvas id="date-range-canvas" width="1000" height="80"></canvas>');
     var canvasElement = $('#date-range-canvas');
     canvasElement.attr('data-original-width', canvasElement[0].width).attr('data-original-height', canvasElement[0].height);

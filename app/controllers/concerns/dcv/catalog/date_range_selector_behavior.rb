@@ -17,6 +17,12 @@ module Dcv::Catalog::DateRangeSelectorBehavior
 
     year_split_regex = /(-?\d\d\d\d)-(-?\d\d\d\d)/
 
+    if year_range_response['facet_counts']['facet_fields'][date_range_field_name].length == 0
+      @date_year_segment_data = nil
+      return
+    end
+
+
     first_range = year_range_response['facet_counts']['facet_fields'][date_range_field_name][0]
     if first_range.present?
       # Initialize earliest_year and latest_year based on first result
