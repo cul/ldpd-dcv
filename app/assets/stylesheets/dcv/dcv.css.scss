@@ -277,7 +277,8 @@ h2[itemprop="name"] {
     margin-bottom:.5em;
   }
   .panel-title {
-    font-size:1.1em;
+    font-size:.86em;
+    text-transform:uppercase;
   }
   .panel-default {
     border-right:0;
@@ -490,6 +491,8 @@ h2[itemprop="name"] {
 #item-description {
   dt {
     border-bottom:1px solid #444;
+    font-size:.86em;
+    text-transform:uppercase;
   }
   dd {
     margin:5px 0px;
