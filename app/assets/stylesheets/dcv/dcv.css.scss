@@ -150,6 +150,9 @@ h2[itemprop="name"] {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+.show h2[itemprop="name"] {
+  margin-bottom:.66em;
+}
 .thumbnails {
   margin-left: 20px;
   list-style: none;
