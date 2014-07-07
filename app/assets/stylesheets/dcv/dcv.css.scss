@@ -122,6 +122,9 @@ body {
   margin-bottom:0;
   background-color:transparent;
   border:none;
+  &.slim {
+    margin-top:.5em;
+  }
   #q {
     background-color:rgba(0,0,0,.6);
     color:#ccc;
@@ -151,7 +154,8 @@ h2[itemprop="name"] {
   text-overflow: ellipsis;
 }
 .show h2[itemprop="name"] {
-  margin-bottom:.66em;
+  margin-bottom:1em;
+  font-size:20px;
 }
 .thumbnails {
   margin-left: 20px;

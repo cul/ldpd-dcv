@@ -15,13 +15,16 @@
     </li>
   <% end -%>
 </ul>
-<div>
+<div class="row">
+  <div class="col-md-12">
   <img src="<%= screen_url(document[:id], format: 'png') %>"  style="width:100%;" />
+  <a class="btn btn-default btn-lg" style="position:absolute; top:0;right:0;" onclick="window.open('<%= details_url(id: document[:id], layout:(request.path.split('/')[1])) %>'); return false;"><i class="glyphicon glyphicon-zoom-in"></i></a>
   <div class="caption">
     <div class="documentHeader">
       <a rel="document-link" data-src="<%= resolve_catalog_url(id: CGI.escape(document[:id])) %>.json" data-id="<%=document[:id]%>"><i class="icon-zoom-in"></i></a>
       <div class="documentFunctions">
       </div>
     </div>
+  </div>
   </div>
 </div>

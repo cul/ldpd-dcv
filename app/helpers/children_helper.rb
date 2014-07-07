@@ -9,7 +9,7 @@ module ChildrenHelper
   end
   def child(id=params[:id], opts={})
     # get the document
-    @response, @document = get_solr_response_for_doc_id(id)
+    @response, @document = get_solr_response_for_doc_id(id, {fl: '*'})
     child_from_solr(@document)
   end
 end
