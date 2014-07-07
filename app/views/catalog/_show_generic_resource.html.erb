@@ -1,22 +1,22 @@
 <%# default partial to display solr document fields in catalog show view -%>
-<ul>
-  <% document_show_fields(document).each do |solr_fname, field| -%>
-    <% if should_render_show_field? document, field %>
-      <li>
-      <strong><%= render_document_show_field_label document, :field => solr_fname %></strong>
-      <%= render_document_show_field_value document, :field => solr_fname %>
-      </li>
-    <% end -%>
-  <% end -%>
-  <% unless (parent_links = link_to_resource_in_context(document)).empty? %>
-    <li>
-      <strong>Resource in Context:</strong>
-      <%= link_to_resource_in_context(document).join(',').html_safe %>
-    </li>
-  <% end -%>
-</ul>
 <div class="row">
-  <div class="col-md-12">
+  <div id="item-description" class="col-md-3">
+   <div class="inner">
+    <dl class="dl-vertical">
+      <% document_show_fields(document).each do |solr_fname, field| -%>
+        <% if should_render_show_field? document, field -%>
+          <dt class="blacklight-<%= solr_fname.parameterize %>"><%= render_document_show_field_label document, :field => solr_fname %></dt>
+          <dd class="blacklight-<%= solr_fname.parameterize %>"><%= render_document_show_field_value document, :field => solr_fname %></dd>
+        <% end -%>
+      <% end -%>
+    <% unless (parent_links = link_to_resource_in_context(document)).empty? %>
+      <dt>Resource in Context:</dt>
+      <dd><%= link_to_resource_in_context(document).join(',').html_safe %></dd>
+    <% end -%>
+    </dl>
+   </div>
+  </div>
+  <div class="col-md-9">
   <img src="<%= screen_url(document[:id], format: 'png') %>"  style="width:100%;" />
   <a class="btn btn-default btn-lg" style="position:absolute; top:0;right:0;" onclick="window.open('<%= details_url(id: document[:id], layout:(request.path.split('/')[1])) %>'); return false;"><i class="glyphicon glyphicon-zoom-in"></i></a>
   <div class="caption">
