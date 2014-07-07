@@ -9,6 +9,7 @@ module Dcv::Catalog::DateRangeSelectorBehavior
 
   def get_date_year_segment_data_for_query()
 
+    max_number_of_segments = 50
     date_range_field_name = 'lib_date_year_range_si'
 
     year_range_response = get_facet_field_response(date_range_field_name, params, {'facet.limit' => '1000000'})
@@ -38,8 +39,6 @@ module Dcv::Catalog::DateRangeSelectorBehavior
       year_range_facet_values << {:start_year => start_year, :end_year => end_year, :count => facet_and_count[1]}
     }
 
-    max_number_of_segments = 30
-
     # Generate segments
     if latest_end_year == earliest_start_year
       number_of_segments = 1
@@ -52,6 +51,7 @@ module Dcv::Catalog::DateRangeSelectorBehavior
       else
         number_of_segments = max_number_of_segments
         segment_size = ((latest_end_year - earliest_start_year)/number_of_segments.to_f).ceil
+        number_of_segments = ((latest_end_year - earliest_start_year)/segment_size).ceil+1
       end
     end
 
