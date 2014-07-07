@@ -10,7 +10,7 @@ gem 'hydra-head', '~>7'
 # Columbia Hydra models
 #gem 'cul_scv_hydra', :path => '../cul_scv_hydra'
 #gem 'cul_scv_hydra', '>= 0.15.1'
-gem 'cul_scv_hydra', :git => 'https://github.com/elo2112/cul_scv_hydra.git'
+gem 'cul_scv_hydra', :git => 'http://github.com/elo2112/cul_scv_hydra.git'
 
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
