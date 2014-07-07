@@ -42,5 +42,5 @@ class ChildrenController < ApplicationController
 
   def show
     render json: child(params['id'])
-  end    
+  end
 end
