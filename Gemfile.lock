@@ -1,5 +1,5 @@
 GIT
-  remote: http://github.com/elo2112/cul_scv_hydra.git
+  remote: git://github.com/elo2112/cul_scv_hydra.git
   revision: 5d8325e918b31d50a46046304bb5c30c828cb766
   specs:
     cul_scv_hydra (0.15.1)
