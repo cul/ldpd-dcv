@@ -79,6 +79,7 @@ module Dcv::Catalog::DateRangeSelectorBehavior
       earliest_start_year: earliest_start_year,
       latest_end_year: latest_end_year,
       highest_segment_count_value: highest_segment_count_value,
+      years_per_segment: segment_size,
       segments: segments
     }
 

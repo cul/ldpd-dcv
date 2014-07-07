@@ -213,17 +213,48 @@ function favoriteChild(child) {
 
 DCV.DateRangeSlider = {};
 DCV.DateRangeSlider.maxNumSegments = 30;
+DCV.DateRangeSlider.lastClickEvent = null;
 
 DCV.DateRangeSlider.dateCache = null;
 
 DCV.DateRangeSlider.init = function() {
   if ($('#date-range-widget').length > 0 && DCV.dateWidgetData != null) {
     $('#date-range-widget').html('<canvas id="date-range-canvas" width="1000" height="80"></canvas>');
-    var canvasElement = $('#date-range-canvas');
-    canvasElement.attr('data-original-width', canvasElement[0].width).attr('data-original-height', canvasElement[0].height);
+    var canvasJQueryElement = $('#date-range-canvas');
+    canvasJQueryElement.attr('data-original-width', canvasJQueryElement[0].width).attr('data-original-height', canvasJQueryElement[0].height);
     DCV.DateRangeSlider.resizeCanvas();
     DCV.DateRangeSlider.render();
     $(window).on('resize', DCV.DateRangeSlider.resizeCanvas);
+    canvasJQueryElement.on('mousedown', function(e1){
+      var e1ParentOffset = $(this).offset();
+      var canvasXLocation = e1.pageX - e1ParentOffset.left;
+      var canvasYLocation = e1.pageY - e1ParentOffset.top;
+
+      $('#date-range-canvas').attr('data-begin-drag', 'true');
+      $('#date-range-canvas').attr('data-drag-start-x', canvasXLocation);
+      $("#date-range-canvas").on('mousemove.daterange', function(e2){
+      if($('#date-range-canvas').attr('data-begin-drag') == 'true') {
+
+          var e2ParentOffset = $(this).offset();
+          var canvasXDragLocation = e2.pageX - e2ParentOffset.left;
+          var canvasYDragLocation = e2.pageY - e2ParentOffset.top;
+
+          $('#date-range-canvas').attr('data-drag-end-x', canvasXDragLocation);
+          DCV.DateRangeSlider.render();
+        }
+      });
+      $(window).on('mouseup.daterange', function(e){
+        if ($('#date-range-canvas').attr('data-begin-drag') == 'true') {
+          $('#date-range-canvas').attr('data-begin-drag', 'false');
+          $(window).off('.daterange'); //Remove .daterange listeners so that we're not constantly listening for mousemove and mouseup events
+          //And redirect to the correct date range selection
+          var newStartYearFilter = $('#date-range-canvas').attr('data-new-start-year-filter');
+          var newEndYearFilter = $('#date-range-canvas').attr('data-new-end-year-filter');
+          var redirecUrl = decodeURIComponent(DCV.newDateFilterTemplateUrl).replace('_start_year_', newStartYearFilter).replace('_end_year_', newEndYearFilter);
+          window.location = redirecUrl;
+        }
+      });
+    });
   }
 };
 
@@ -249,6 +280,8 @@ DCV.DateRangeSlider.render = function() {
 
   var ctx = c.getContext('2d');
 
+  ctx.clearRect ( 0 , 0 , c.width , c.height ); //clear canvas
+
   var segmentColors = ['#333', '#666'];
 
   ctx.lineWidth   = 1;
@@ -259,6 +292,7 @@ DCV.DateRangeSlider.render = function() {
   var earliestStartYear = DCV.dateWidgetData['earliest_start_year'];
   var latestEndYear = DCV.dateWidgetData['latest_end_year'];
   var segments = DCV.dateWidgetData['segments'];
+  var yearsPerSegment = DCV.dateWidgetData['years_per_segment'];
   var highestSegmentCountValue = DCV.dateWidgetData['highest_segment_count_value'];
 
   var numSegments = segments.length;
@@ -308,4 +342,33 @@ DCV.DateRangeSlider.render = function() {
       ctx.fillText(segment['end'], textXOffset+padding+(i+1)*segmentWidth, textYOffset);
     }
   }
+
+  //Overlay with drag
+  var overlayXStart = parseInt($('#date-range-canvas').attr('data-drag-start-x'));
+  var overlayXEnd = parseInt($('#date-range-canvas').attr('data-drag-end-x'));
+
+  if(overlayXStart < overlayXEnd) {
+    var startOfPixelRange = overlayXStart;
+    var endOfPixelRange = overlayXEnd;
+  } else {
+    var startOfPixelRange = overlayXEnd;
+    var endOfPixelRange = overlayXStart;
+  }
+
+  //Apply padding corrections
+  startOfPixelRange -= padding;
+  endOfPixelRange -= padding;
+
+  var fullPixelRange = segmentWidth*numSegments;
+
+  var dateRangeInYears = numSegments*yearsPerSegment;
+  var newStartYearFilter = Math.round((startOfPixelRange/fullPixelRange)*dateRangeInYears)+earliestStartYear;
+  var newEndYearFilter = Math.round((endOfPixelRange/fullPixelRange)*dateRangeInYears)+earliestStartYear;
+
+  $('#date-range-canvas').attr('data-new-start-year-filter', newStartYearFilter);
+  $('#date-range-canvas').attr('data-new-end-year-filter', newEndYearFilter);
+
+  ctx.globalAlpha=0.5;
+  ctx.fillRect(  overlayXStart, 0, overlayXEnd-overlayXStart, c.height);
+  ctx.globalAlpha=1.0;
 };
