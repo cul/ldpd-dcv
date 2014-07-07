@@ -9,7 +9,6 @@ module Dcv::Catalog::DateRangeSelectorBehavior
 
   def get_date_year_segment_data_for_query()
 
-    max_number_of_segments = 8
     date_range_field_name = 'lib_date_year_range_si'
 
     year_range_response = get_facet_field_response(date_range_field_name, params, {'facet.limit' => '1000000'})
@@ -22,33 +21,38 @@ module Dcv::Catalog::DateRangeSelectorBehavior
       return
     end
 
-
     first_range = year_range_response['facet_counts']['facet_fields'][date_range_field_name][0]
-    if first_range.present?
-      # Initialize earliest_year and latest_year based on first result
-      year_split_match = first_range.match(year_split_regex)
-      earliest_start_year = year_split_match.captures[0].to_i
-      latest_end_year = year_split_match.captures[1].to_i
 
-      year_range_response['facet_counts']['facet_fields'][date_range_field_name].each_slice(2){|facet_and_count|
-        year_split_match = facet_and_count[0].match(year_split_regex)
-        start_year = year_split_match.captures[0].to_i
-        end_year = year_split_match.captures[1].to_i
-        earliest_start_year = start_year if start_year < earliest_start_year
-        latest_end_year = end_year if end_year > latest_end_year
+    # Initialize earliest_year and latest_year based on first result
+    year_split_match = first_range.match(year_split_regex)
+    earliest_start_year = year_split_match.captures[0].to_i
+    latest_end_year = year_split_match.captures[1].to_i
 
-        year_range_facet_values << {:start_year => start_year, :end_year => end_year, :count => facet_and_count[1]}
-      }
-    end
+    year_range_response['facet_counts']['facet_fields'][date_range_field_name].each_slice(2){|facet_and_count|
+      year_split_match = facet_and_count[0].match(year_split_regex)
+      start_year = year_split_match.captures[0].to_i
+      end_year = year_split_match.captures[1].to_i
+      earliest_start_year = start_year if start_year < earliest_start_year
+      latest_end_year = end_year if end_year > latest_end_year
+
+      year_range_facet_values << {:start_year => start_year, :end_year => end_year, :count => facet_and_count[1]}
+    }
+
+    max_number_of_segments = 30
 
     # Generate segments
-    segment_size = ((latest_end_year - earliest_start_year)/max_number_of_segments.to_f).ceil
-    if segment_size < 1
-       number_of_segments = (latest_end_year - earliest_start_year)
-       segment_size = 1
+    if latest_end_year == earliest_start_year
+      number_of_segments = 1
+      segment_size = 1
     else
-      number_of_segments = max_number_of_segments
-      segment_size = segment_size.ceil
+
+      if (latest_end_year - earliest_start_year) < max_number_of_segments
+         number_of_segments = (latest_end_year - earliest_start_year)
+         segment_size = 1
+      else
+        number_of_segments = max_number_of_segments
+        segment_size = ((latest_end_year - earliest_start_year)/number_of_segments.to_f).ceil
+      end
     end
 
     segments = []
