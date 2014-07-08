@@ -1,28 +1,18 @@
 module Dcv::Authenticated::AccessControl
+  extend ActiveSupport::Concern
 
-  def self.included(controller)
-    controller.before_filter :require_authenticated_user!
+  included do
+    before_filter :require_authenticated_user!
   end
 
-  # Permission/Authorization methods
   def require_authenticated_user!
+
     if ! user_signed_in?
-
-      if (params[:controller] == 'pages' && params[:action] == 'home') ||
-        (params[:controller] == 'devise/sessions') ||
-        (params[:controller] == 'users' && params[:action] == 'do_wind_login') ||
-        (params[:controller] == 'pages' && params[:action] == 'login_check') ||
-        (params[:controller] == 'pages' && params[:action] == 'get_csrf_token')
-       # Allow access
+      if (params[:controller] == 'devise/sessions') || (params[:controller] == 'users' && params[:action] == 'do_wind_login')
+        # Allow access
       else
-        redirect_to root_path
+        redirect_to :controller => 'users', :action => 'do_wind_login'
       end
-    end
-  end
-
-  def require_admin!
-    unless current_user.is_admin?
-      render_unauthorized!
     end
   end
 

@@ -1,10 +1,9 @@
 Dcv::Application.routes.draw do
   root :to => "catalog#home"
 
-  get '/collections' => 'pages#collections', as: :all_collections
-
   blacklight_for :catalog, :lindquist, :css
 
+  get '/users/do_wind_login' => 'users#do_wind_login', as: :do_wind_login
   devise_for :users
 
   resources :children, path: 'catalog/:parent_id/children', only: [:index, :show]

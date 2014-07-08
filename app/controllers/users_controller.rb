@@ -1,19 +1,6 @@
 class UsersController < ApplicationController
-  include Dcv::Authenticated::AccessControl
-  attr_accessor :wind_config
-  before_action :require_admin!, except: :do_wind_login
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
-  before_action :set_admin_contextual_nav_options
 
-  def initialize(*args)
-    super
-    @wind_config = YAML.load(File.join(Rails.root.to_s, 'config', 'wind.yml'))[::Rails.env]
-    @wind_server_uri = wind_config[:server]
-    @wind_login_uri = wind_server_uri + wind_config[:login]
-    @wind_validate_uri = wind_server_uri + wind_config[:validate]
-    @wind_logout_uri = wind_server_uri + wind_config[:logout]
-    @wind_realm = wind_config[:realm]
-  end
+  before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   # Note: To log a specific user in manually, use:
   # sign_in User.where(email: 'durst@library.columbia.edu').first, :bypass => true
@@ -31,15 +18,15 @@ class UsersController < ApplicationController
 
       # If ticketid is NOT set, this means that the user hasn't gotten to the uni/password login page yet.  Let's send them there.
       # After they log in, they'll be redirected to this page and they'll continue with the authentication.
-
-      redirect_to(@wind_login_uri + '?service=' + wind_realm + '&destination=' + URI::escape(request.original_url))
+      redirect_to(WIND_CONFIG['login_uri'] + '?service=' + WIND_CONFIG['realm'] + '&destination=' + URI::escape(request.original_url))
 
     else
+
       # Login: Part 2
       # If ticketid is set, we'll use that ticket for login part 2.
 
       #We'll validate the ticket against the wind server
-      full_validate_uri = @wind_validate_uri + '?ticketid=' + params['ticketid']
+      full_validate_uri = WIND_CONFIG['validate_uri'] + '?sendxml=1&ticketid=' + params['ticketid']
 
       uri = URI.parse(full_validate_uri)
       http = Net::HTTP.new(uri.host, uri.port)
@@ -47,28 +34,57 @@ class UsersController < ApplicationController
       http.verify_mode = OpenSSL::SSL::VERIFY_NONE if Rails.env == 'development'
 
       wind_request = Net::HTTP::Get.new(uri.request_uri)
-      response = http.request(wind_request)
+      response_body = http.request(wind_request).body
 
-      xml_response = Nokogiri::XML(response.body)
+      puts 'Response body: ' + response_body.inspect
 
-      if xml_response
+      user_uni = nil
+
+      if(response_body.start_with?('<'))
+        xml_response = Nokogiri::XML(response_body)
         xml_response.remove_namespaces!
-
         user_uni = xml_response.xpath('/serviceResponse/authenticationSuccess/user').first.text
+        user_affiliations = []
+        user_affiliation_elements = xml_response.xpath('/serviceResponse/authenticationSuccess/affiliations/affil')
+        if user_affiliation_elements.present?
+          user_affiliation_elements.each do |affil_element|
+            user_affiliations << affil_element.text
+          end
+        end
+      else
+        render :inline => 'Received non-xml (likely text-formatted) authentication response, but only an XML response is allowed.'
+      end
 
-        possible_user = User.where(email: (user_uni + '@columbia.edu')).first
+      if user_uni.present?
+        # We've received a uni response.  This is a real uni user.
+        # Next, make sure that this user has the required library affiliation (cul.cunix.local:columbia.edu).
 
-        unless possible_user.nil?
+        if user_affiliations.include?('cul.cunix.local:columbia.edu')
+
+          possible_user = User.where(email: (user_uni + '@columbia.edu')).first
+
+          # Create new User (in DB) if this one does not exist
+          if possible_user.nil?
+            random_password = (('a'..'z').to_a + ('A'..'Z').to_a + (0..9).to_a).shuffle[0,12].join # Generate a secure, random password (because it doesn't matter and won't ever be used for uni authentication)
+            possible_user = User.create(
+              :email => user_uni + '@columbia.edu',
+              :password => random_password,
+              :password_confirmation => random_password,
+              :first_name => user_uni,
+              :last_name => 'Columbia',
+              :is_admin => false
+            )
+          end
+
+          # Sign in.
           sign_in possible_user, :bypass => true
           session[:signed_in_using_uni] = true # TODO use this session variable to know when to do a Wind logout upon Devise logout
           flash[:notice] = 'You are now logged in.'
 
           redirect_to root_path, :status => 302
         else
-          flash[:notice] = 'The UNI ' + user_uni + ' is not authorized to log into DCV (no account exists with email ' + user_uni + '@columbia.edu).  If you believe that you should have access, please contact an application administrator.'
-
-          # Log this user out
-          redirect_to(@wind_logout_uri + '?passthrough=1&destination=' + URI::escape(root_url))
+          render :inline => 'Access denied.  Library affiliation is required.'
+          #redirect_to(WIND_CONFIG['logout_uri'] + '?passthrough=1&destination=' + URI::escape(root_url))
         end
 
       else
@@ -76,7 +92,6 @@ class UsersController < ApplicationController
       end
 
     end
-
 
   end
 
@@ -164,25 +179,6 @@ class UsersController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def user_params
     params.require(:user).permit(:email, :first_name, :last_name, :password, :password_confirmation, :current_password, :is_admin)
-  end
-
-  def set_admin_contextual_nav_options
-
-    @contextual_nav_options['nav_title']['label'] = 'Users'
-    @contextual_nav_options['nav_title']['url'] = users_path
-
-    case params[:action]
-    when 'index'
-      @contextual_nav_options['nav_items'].push(label: 'Add New User', url: new_user_path)
-    when 'show'
-      @contextual_nav_options['nav_items'].push(label: '<span class="glyphicon glyphicon-edit"></span> Edit This User'.html_safe, url: edit_user_path(@user.id))
-    when 'edit', 'update'
-      @contextual_nav_options['nav_items'].push(label: 'Delete This User', url: user_path(@user.id), options: {method: :delete, data: { confirm: 'Are you sure you want to delete this User?' } })
-
-      @contextual_nav_options['nav_title']['label'] =  '&laquo; Back to Users'.html_safe
-      @contextual_nav_options['nav_title']['url'] = users_path
-    end
-
   end
 
 end
