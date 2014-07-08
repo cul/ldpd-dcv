@@ -335,10 +335,17 @@ DCV.DateRangeSlider.render = function() {
   }
 
   // Render text separately so that it's always on top of the bars
+
+  var dateMarkersToRender = [0, .25, .50, .75]; // End is always makred
+  var dateMarkerCounter = 0;
+
   for(var i = 0; i < numSegments; i++) {
 
     var segment = segments[i];
-    if (i % 10 == 0) {
+    if (i/numSegments >= dateMarkersToRender[dateMarkerCounter]) {
+
+      dateMarkerCounter++;
+
       var textYOffset = 13;
       var textXOffset = 2;
 
@@ -363,7 +370,6 @@ DCV.DateRangeSlider.render = function() {
 
   //Ignore accidental clicks
   if (overlayXStart == overlayXEnd) {
-    alert('same!');
     $('#date-range-canvas').attr('data-new-start-year-filter', 'NaN');
     $('#date-range-canvas').attr('data-new-end-year-filter', 'NaN');
   } else {

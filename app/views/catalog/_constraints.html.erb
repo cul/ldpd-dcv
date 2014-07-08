@@ -3,5 +3,6 @@
       <div id="appliedParams" class="clearfix constraints-container inner">
         <span class="constraints-label"><%= t('blacklight.search.filters.title') %></span>
         <%= render_constraints(params) %>
+       <%= render_constraint_element('Date Range', params[:start_year] + ' - ' + params[:end_year], {:remove => url_for(params.except(:start_year, :end_year))}) if params[:start_year] && params[:end_year] %>
       </div>
 <% end %>
