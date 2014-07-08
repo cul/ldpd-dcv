@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 gem 'rails', '4.0.4'
 gem 'actionpack-action_caching'
 # Hydra stack
-gem 'blacklight', '>= 5.5'
+gem 'blacklight', '>= 5.4.0'
 gem 'hydra-head', '~>7'
 
 # Columbia Hydra models
