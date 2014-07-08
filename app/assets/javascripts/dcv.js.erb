@@ -194,9 +194,11 @@ function favoriteChild(child) {
   var screenUrl = $(child).attr('href');
   var screenImg = $('#favorite-child img').first();
   var dataCounter = $(child).attr('data-counter');
+  var ccap = $(child).next('.caption').find('h5').text();
   if (screenUrl != screenImg.attr('src')) {
     screenImg.attr('src', screenUrl);
     screenImg.attr('data-counter', dataCounter);
+    $('#ct').html(ccap); // should redo above and fire this after ajax success
   }
 }
 //** CULTNBW START **/
