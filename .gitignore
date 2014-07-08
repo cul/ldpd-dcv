@@ -29,6 +29,8 @@ fedora.yml
 solr.yml
 wind.yml
 config/initializers/initializer_secrets.yml
+dcv.yml
+default_user_accounts.yml
 
 # Ignore OS-specific
 .DS_Store
