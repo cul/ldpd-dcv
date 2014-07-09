@@ -2,7 +2,7 @@ module Dcv::Authenticated::AccessControl
   extend ActiveSupport::Concern
 
   included do
-    if DCV_CONFIG.blank? || DCV_CONFIG['require_authentication'].blank? || DCV_CONFIG['require_authentication']
+    if DCV_CONFIG.blank? || DCV_CONFIG['require_authentication'].nil? || DCV_CONFIG['require_authentication']
       before_filter :require_authenticated_user!
     end
   end
