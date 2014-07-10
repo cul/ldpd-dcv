@@ -61,6 +61,33 @@ $(function() {
   $('#q').blur(function() {
     $('#search-navbar .input-group').css('box-shadow','none');
   });
+
+  $('a.item-cbox').colorbox({
+    height:"76%",
+    width:"76%",
+    opacity:".6",
+    fixed:true,
+    iframe:true,
+    preloading: false,
+    current:"{current} of {total}",
+    title: function(){
+      var otit = $(this).data('original-title');
+/*
+      var dlb = '<div id="dlwrapper"><div class="btn-group dropup">' +
+                '<button class="btn btn-link btn-lg dropdown-toggle" type="button" data-toggle="dropdown">' +
+                '<i class="glyphicon glyphicon-download"></i></button><ul class="dropdown-menu pull-right">' +
+                '<li><a href="#">Retrieving Download Links...</a></li></ul></div></div>';
+      return otit+dlb;
+*/
+      return otit;
+    },
+    onComplete: function(){
+      var bsUrl = $(this).attr('data-bytestreams');
+      loadByteStreams(bsUrl);
+    },
+  });
+  $('#colorbox').tinyDraggable({handle:'#cboxTitle', exclude:'input, textarea, a, button, i'});
+
   $('#show_file_assets_checkbox').on('change', function(){
     window.location = decodeURIComponent($(this).attr('data-new-location'));
   });

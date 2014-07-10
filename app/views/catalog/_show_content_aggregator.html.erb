@@ -19,7 +19,7 @@
      <% end -%>
    <div id="favorite-child"> 
     <% if child = structured_children.first -%>
-      <a class="btn btn-default btn-lg" style="position:absolute; top:1em;right:5px;" onclick="window.open('<%= details_url(id: document[:id], layout:(request.path.split('/')[1])) %>'); return false;"><i class="glyphicon glyphicon-zoom-in"></i></a>
+      <a class="btn btn-default btn-lg item-cbox" style="position:absolute; top:1em;right:5px;" data-original-title="<%= document_show_html_title %>" href="<%= details_url(id: document[:id], layout:(request.path.split('/')[1])) %>"><i class="glyphicon glyphicon-zoom-in"></i></a>
       <img src="<%= child[:screen] || resolve_catalog_bytestream_content_url(catalog_id: child[:id], bytestream_id: 'web850') %>.png" data-counter="1" />
     <% end -%>
    </div>
