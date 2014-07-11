@@ -1,6 +1,11 @@
+<div id="date-range-graph-wrapper">
+
 <script>
 	DCV.newDateFilterTemplateUrl = '<%= CGI.escape(url_for(params.merge(:start_year => '_start_year_', :end_year => '_end_year_'))) %>';
 	DCV.dateWidgetData = <%= @date_year_segment_data.to_json.html_safe %>;
 </script>
 
+Click and drag inside of the date range graph to view results from that range.
 <div id="date-range-widget"></div>
+
+</div>

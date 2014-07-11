@@ -28,8 +28,6 @@
 
 		  <h2 class="sr-only"><%= t('blacklight.search.search_results') %></h2>
 
-			<%= render 'date_range_selector' %>
-
 		  <%- if @response.empty? %>
 			<%= render "zero_results" %>
 		  <%- elsif render_grouped_response? %>

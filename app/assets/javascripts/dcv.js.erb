@@ -23,21 +23,35 @@ $(function() {
     return false;
   });
   $('body').on('click', '#list-mode', function() {
+      $('.search-result-display').hide();
+      $('#search-results-standard').show();
+      $('.result-type-button').removeClass('btn-success').addClass('btn-default');
+      
       $('#content .col-sm-3').addClass('col-sm-12').addClass('list-view');
       $('#content .col-sm-3 .thumbnail').addClass('col-sm-2');
       $('#content .col-sm-3 .index_title').addClass('col-sm-9');
-      $('#grid-mode').removeClass('btn-success').addClass('btn-default');
       $('#content .index-show-fields').removeClass('hidden');
       $(this).addClass('btn-success');
   });
   $('body').on('click', '#grid-mode', function() {
+      $('.search-result-display').hide();
+      $('#search-results-standard').show();
+      $('.result-type-button').removeClass('btn-success').addClass('btn-default');
+      
       $('#content .col-sm-3').removeClass('col-sm-12').removeClass('list-view');
       $('#content .col-sm-3 .thumbnail').removeClass('col-sm-2');
       $('#content .col-sm-3 .index_title').removeClass('col-sm-9');
-      $('#list-mode').removeClass('btn-success').addClass('btn-default');
       $('#content .index-show-fields').addClass('hidden');
       $(this).addClass('btn-success');
   });
+  $('body').on('click', '#date-graph-mode', function() {
+    $('.search-result-display').hide();
+    $('#search-results-date-graph').show();
+    $('.result-type-button').removeClass('btn-success').addClass('btn-default');
+    DCV.DateRangeGraphSelector.resizeCanvas();
+    $(this).addClass('btn-success');
+  });
+  
   $('body').on('click', '#unzoom-mode', function(){
      // hide the zooming stuff
       $('div#zoom-gallery').addClass('hidden');
@@ -293,7 +307,7 @@ DCV.DateRangeGraphSelector.dateCache = null;
 
 DCV.DateRangeGraphSelector.init = function() {
   if ($('#date-range-widget').length > 0 && DCV.dateWidgetData != null) {
-    $('#date-range-widget').html('<canvas id="date-range-canvas" width="1000" height="80"></canvas>');
+    $('#date-range-widget').html('<canvas id="date-range-canvas" width="1000" height="150"></canvas>');
     var canvasJQueryElement = $('#date-range-canvas');
     canvasJQueryElement.attr('data-original-width', canvasJQueryElement[0].width).attr('data-original-height', canvasJQueryElement[0].height);
     DCV.DateRangeGraphSelector.resizeCanvas();
@@ -419,15 +433,15 @@ DCV.DateRangeGraphSelector.render = function() {
 
       dateMarkerCounter++;
 
-      var textYOffset = 13;
-      var textXOffset = 2;
+      var textYOffset = c.height/7;
+      var fontSize = c.height/8;
+      var textXOffset = fontSize/6;
 
       ctx.fillStyle = "#000";
-      ctx.font = (c.height/5) + "px 'Helvetica Neue'";
+      ctx.font = fontSize + "px 'Helvetica Neue'";
       ctx.fillText(segment['start'], textXOffset+padding+i*segmentWidth-1, textYOffset-1);
       ctx.fillText(segment['start'], textXOffset+padding+i*segmentWidth+1, textYOffset+1);
       ctx.fillStyle = "#ddd";
-      ctx.font = (c.height/5) + "px 'Helvetica Neue'";
       ctx.fillText(segment['start'], textXOffset+padding+i*segmentWidth, textYOffset);
 
     }

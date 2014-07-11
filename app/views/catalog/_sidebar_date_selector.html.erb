@@ -12,9 +12,9 @@
       <form id="sidebar-date-range-selector" action="#">
       
         <div>
-          <input type="text" class="sliderValue form-control input-sm" data-index="0" value="<%= params[:start_year] if params[:start_year] %>" />
+          <input type="text" class="sliderValue form-control input-sm" data-index="0" placeholder="YYYY" value="<%= params[:start_year] if params[:start_year] %>" />
           -
-          <input type="text" class="sliderValue form-control input-sm" data-index="1" value="<%= params[:end_year] if params[:end_year] %>" />
+          <input type="text" class="sliderValue form-control input-sm" data-index="1" placeholder="YYYY" value="<%= params[:end_year] if params[:end_year] %>" />
           <input id="sidebar-date-range-set-btn" type="submit" class="btn btn-default btn-sm" value="Set &raquo;" />
         </div>
       
