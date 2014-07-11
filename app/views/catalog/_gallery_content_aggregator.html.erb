@@ -1,4 +1,4 @@
-<div id="child_gallery" class="row" style="<%= structured_children.length > 1 ? '' : 'display:none;'%>">
+<div id="child_gallery" class="row <%= (structured_children.length <= 2) ? '' : 'child-scroll' %>" style="<%= structured_children.length > 1 ? '' : 'display:none;'%>">
 <% structured_children.each_with_index do |child, ix| -%>
   <div class="col-sm-<%= (structured_children.length <= 2) ? '6' : '3' %>">
   	<article>
