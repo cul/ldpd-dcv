@@ -17,7 +17,7 @@ input {
   background-color:#111;
   border-bottom:1px solid #333;
   &.slim {
-    margin-bottom:1em;
+    margin-bottom:.5em;
     #site-banner-inner {
       margin-top:.9em;
       img {
@@ -503,4 +503,16 @@ h2[itemprop="name"] {
 #sidebar-date-range-selector #sidebar-date-range-set-btn {
   width:30%;
   float:right;
+}
+
+.page_links {
+  padding: 3px 12px 3px 0px !important;
+}
+
+#show-tools-dropdown {
+  margin-left:5px;
+}
+
+#previousNextDocument {
+  padding-bottom:9px;
 }
