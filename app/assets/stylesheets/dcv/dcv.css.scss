@@ -433,7 +433,7 @@ h2[itemprop="name"] {
   margin-top:1em;
   border:1px solid #333;
   border-width:1px 0;
-  &.child-scroll {
+  .child-scroll {
     height:210px;
     overflow:auto;
   }
