@@ -1,19 +1,13 @@
 <% #Using the Bootstrap Pagination class  -%>
   <div id="previousNextDocument">
     <% if @previous_document || @next_document %>
-      <div class="page_links previous-and-next">
-        <%= link_to_previous_document @previous_document %>
-        |
-        <%= item_page_entry_info %> 
-        |
-        <%= link_to_next_document @next_document %>
+      <div class="page_links previous-and-next btn-group btn-group-xs">
+        <%= link_back_to_catalog(label: '<i class="glyphicon glyphicon-fast-backward"></i> '.html_safe, class: 'btn btn-default' ) %>
+        <%= button_to_previous_document @previous_document, class: 'btn btn-default' %>
+        <%= button_to_next_document @next_document, class: 'btn btn-default' %>
       </div>
     <% end %>
     <div class="pull-right search-widgets">
       <%= render 'show_tools' %>
-      <div class="btn-group pull-right">
-        <%= link_back_to_catalog(label: '<i class="glyphicon glyphicon-backward"></i> '.html_safe+"Back to search results", class: 'btn btn-default btn-sm' ) %>
-        <%= link_to '<i class="glyphicon glyphicon-remove"></i> '.html_safe+"Start Over", start_over_path(current_search_session.try(:query_params) || {}), :id=>"startOverLink", :class => 'btn btn-default btn-sm' %>
-      </div>
     </div>
   </div>
