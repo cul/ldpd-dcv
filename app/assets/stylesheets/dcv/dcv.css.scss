@@ -428,9 +428,13 @@ h2[itemprop="name"] {
   }
 }
 #child_gallery {
+  height:210px;
+  background-color:#111;
+  overflow:auto;
   padding-top:1em;
   margin-top:1em;
-  border-top:1px solid #333;
+  border:1px solid #333;
+  border-width:1px 0;
 }
 #colorbox {
 	#cboxClose {
