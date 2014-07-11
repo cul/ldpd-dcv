@@ -10,5 +10,6 @@
  *
  *= require_self
  *= require ./blacklight
+ *= require jquery.ui.all
  *= require_tree './dcv'
 */

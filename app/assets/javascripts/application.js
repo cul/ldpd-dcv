@@ -17,4 +17,9 @@
 //
 // Required by Blacklight
 //= require blacklight/blacklight
+//
+// Bootstrap
 //= require bootstrap-sprockets
+//
+// jQuery UI
+//= require jquery.ui.all

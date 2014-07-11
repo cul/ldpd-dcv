@@ -153,6 +153,9 @@ GEM
     jquery-turbolinks (2.0.2)
       railties (>= 3.1.0)
       turbolinks
+    jquery-ui-rails (4.0.4)
+      jquery-rails
+      railties (>= 3.1.0)
     json (1.8.1)
     json-ld (1.1.4)
       rdf (~> 1.1)
@@ -376,8 +379,9 @@ DEPENDENCIES
   hydra-head (~> 7)
   jbuilder (~> 1.2)
   jettywrapper
-  jquery-rails
+  jquery-rails (>= 3.0)
   jquery-turbolinks
+  jquery-ui-rails
   mysql2 (= 0.3.11)
   rails (= 4.0.4)
   rspec-rails

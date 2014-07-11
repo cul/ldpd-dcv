@@ -73,7 +73,10 @@ $(function() {
     $(this).parent().find('i.more').addClass('glyphicon-chevron-right');
   })
 
+  //Date Range Graph Setup
+  DCV.DateRangeGraphSelector.init();
   DCV.DateRangeSlider.init();
+
 });
 
 function initTiles() {
@@ -214,18 +217,59 @@ function favoriteChild(child) {
  *********************/
 
 DCV.DateRangeSlider = {};
-DCV.DateRangeSlider.lastClickEvent = null;
-
-DCV.DateRangeSlider.dateCache = null;
-
 DCV.DateRangeSlider.init = function() {
+  //$("#sidebar-date-range-slider").slider({
+  //  min: DCV.dateWidgetData['earliest_start_year'],
+  //  max: DCV.dateWidgetData['latest_end_year'],
+  //  step: 1,
+  //  values: [DCV.dateWidgetData['earliest_start_year'], DCV.dateWidgetData['latest_end_year']],
+  //  slide: function(event, ui) {
+  //      for (var i = 0; i < ui.values.length; ++i) {
+  //          $("#sidebar-date-range-selector input.sliderValue[data-index=" + i + "]").val(ui.values[i]);
+  //      }
+  //  }
+  //});
+  //$("#sidebar-date-range-selector input.sliderValue[data-index=0]").val(DCV.dateWidgetData['earliest_start_year']);
+  //$("#sidebar-date-range-selector input.sliderValue[data-index=1]").val(DCV.dateWidgetData['latest_end_year']);
+  //$("#sidebar-date-range-selector input.sliderValue").change(function() {
+  //    var $this = $(this);
+  //    $("#sidebar-date-range-slider").slider("values", $this.data("index"), $this.val());
+  //});
+  //$('#sidebar-date-range-selector').on('submit', function(){
+  //  e.preventDefault();
+  //  alert('submit');
+  //  DCV.DateRangeSlider.filterBySelectedDateRange();
+  //  return false;
+  //});
+  $('#sidebar-date-range-set-btn').on('click', function(){
+    DCV.DateRangeSlider.filterBySelectedDateRange();
+    return false;
+  });
+};
+DCV.DateRangeSlider.filterBySelectedDateRange = function() {
+  var newStartYearFilter = $("#sidebar-date-range-selector input.sliderValue[data-index=0]").val();
+  var newEndYearFilter = $("#sidebar-date-range-selector input.sliderValue[data-index=1]").val();
+  var redirecUrl = decodeURIComponent(DCV.newDateFilterTemplateUrl).replace('_start_year_', newStartYearFilter).replace('_end_year_', newEndYearFilter);
+  window.location = redirecUrl;
+};
+
+/****************************
+ * Date Range GraphSelector *
+ ****************************/
+
+DCV.DateRangeGraphSelector = {};
+DCV.DateRangeGraphSelector.lastClickEvent = null;
+
+DCV.DateRangeGraphSelector.dateCache = null;
+
+DCV.DateRangeGraphSelector.init = function() {
   if ($('#date-range-widget').length > 0 && DCV.dateWidgetData != null) {
     $('#date-range-widget').html('<canvas id="date-range-canvas" width="1000" height="80"></canvas>');
     var canvasJQueryElement = $('#date-range-canvas');
     canvasJQueryElement.attr('data-original-width', canvasJQueryElement[0].width).attr('data-original-height', canvasJQueryElement[0].height);
-    DCV.DateRangeSlider.resizeCanvas();
-    DCV.DateRangeSlider.render();
-    $(window).on('resize', DCV.DateRangeSlider.resizeCanvas);
+    DCV.DateRangeGraphSelector.resizeCanvas();
+    DCV.DateRangeGraphSelector.render();
+    $(window).on('resize', DCV.DateRangeGraphSelector.resizeCanvas);
     canvasJQueryElement.on('mousedown', function(e1){
       var e1ParentOffset = $(this).offset();
       var canvasXLocation = e1.pageX - e1ParentOffset.left;
@@ -241,7 +285,7 @@ DCV.DateRangeSlider.init = function() {
           var canvasYDragLocation = e2.pageY - e2ParentOffset.top;
 
           $('#date-range-canvas').attr('data-drag-end-x', canvasXDragLocation);
-          DCV.DateRangeSlider.render();
+          DCV.DateRangeGraphSelector.render();
         }
       });
       $(window).on('mouseup.daterange', function(e){
@@ -261,7 +305,7 @@ DCV.DateRangeSlider.init = function() {
   }
 };
 
-DCV.DateRangeSlider.resizeCanvas = function() {
+DCV.DateRangeGraphSelector.resizeCanvas = function() {
   // Make sure that actual canvas dimensions are equal to the current size
   // so that we don't get anti-aliased rescaling.  This will look sharper.
 
@@ -274,10 +318,10 @@ DCV.DateRangeSlider.resizeCanvas = function() {
   c.width = canvasWidth;
   c.height = canvasHeight;
 
-  DCV.DateRangeSlider.render();
+  DCV.DateRangeGraphSelector.render();
 };
 
-DCV.DateRangeSlider.render = function() {
+DCV.DateRangeGraphSelector.render = function() {
 
   var c = document.getElementById('date-range-canvas');
 

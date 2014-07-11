@@ -1,6 +1,9 @@
 body {
   background-color:#000;
 }
+input {
+  /*color: #222;*/
+}
 #outer-wrapper {
   padding:0 10px 2em 10px;
   margin-bottom:2em;
@@ -501,4 +504,15 @@ h2[itemprop="name"] {
   dd {
     margin:5px 0px;
   }
+}
+
+#sidebar-date-range-selector input.sliderValue {
+  width: 29%;
+  display:inline-block;
+  text-align: center;
+}
+
+#sidebar-date-range-selector #sidebar-date-range-set-btn {
+  width:30%;
+  float:right;
 }

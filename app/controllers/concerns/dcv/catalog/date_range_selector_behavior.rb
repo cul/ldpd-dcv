@@ -4,6 +4,37 @@ module Dcv::Catalog::DateRangeSelectorBehavior
   included do
     before_filter :get_date_year_segment_data_for_query, :only => [:index]
   end
+  
+  ## TODO: Use this to get the earliest and latest dates for the date range slider
+  ## Also make sure that earliest year and latest year are stored fields.
+  ## Right now, they're only indexed.
+  #def get_earliest_and_latest_dates_in_entire_solr_index()
+  #  
+  #  rsolr = RSolr.connect :url => YAML.load_file('config/solr.yml')[Rails.env]['url']
+  #
+  #  # Earliest date
+  #  response = rsolr.get 'select', :params => {
+  #    :q  => '*:*',
+  #    :qt => 'search',
+  #    #:fl => 'lib_start_date_year_si', # Only one field
+  #    :rows => 1,
+  #    :sort => 'lib_start_date_year_ssi asc',
+  #    :facet => false,
+  #  }
+  #  response['response']['docs'][0].inspect
+  #  
+  #  # Latest date
+  #  response = rsolr.get 'select', :params => {
+  #    :q  => '*:*',
+  #    :qt => 'search',
+  #    #:fl => 'lib_start_date_year_si', # Only one field
+  #    :rows => 1,
+  #    :sort => 'lib_end_date_year_ssi desc',
+  #    :facet => false,
+  #  }
+  #  response['response']['docs'][0].inspect
+  #  
+  #end
 
   # This is all related to date range graph generation
 

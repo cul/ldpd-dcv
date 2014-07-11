@@ -19,10 +19,11 @@ module Dcv::Catalog::BrowseListBehavior
 
     hash_to_return = {}
 
-    BROWSE_LISTS.each do |facet_field_name, options|
+    rsolr = RSolr.connect :url => YAML.load_file('config/solr.yml')[Rails.env]['url']
 
-      @rsolr = RSolr.connect :url => YAML.load_file('config/solr.yml')[Rails.env]['url']
-      response = @rsolr.get 'select', :params => {
+    BROWSE_LISTS.each do |facet_field_name, options|
+      
+      response = rsolr.get 'select', :params => {
         :q  => '*:*',
         :qt => 'search',
         :rows => 0,
