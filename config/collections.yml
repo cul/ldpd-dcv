@@ -1,4 +1,4 @@
-development: &DEFAULT
+default: &default
   lindquist:
     collection_id: 'ldpd:130509'
     layout: 'lindquist'
@@ -7,7 +7,15 @@ development: &DEFAULT
     collection_id: 'ldpd:135833'
     layout: 'css'
     short_title: 'Community Service Society'
-test:
-  <<: *DEFAULT
-dcv_dev:
-  <<: *DEFAULT
+
+development: *default
+test: *default
+production: *default
+
+dcv_dev: *default
+dcv_test: *default
+dcv_prod: *default
+
+dcv_private_dev: *default
+dcv_private_test: *default
+dcv_private_prod: *default
