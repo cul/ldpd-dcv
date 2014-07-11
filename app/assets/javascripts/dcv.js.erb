@@ -51,6 +51,8 @@ $(function() {
     DCV.DateRangeGraphSelector.resizeCanvas();
     $(this).addClass('btn-success');
   });
+  //Hide search-results-date-graph by default
+  $('#search-results-date-graph').hide();
   
   $('body').on('click', '#unzoom-mode', function(){
      // hide the zooming stuff
