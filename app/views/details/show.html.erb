@@ -2,7 +2,7 @@
 
 	<div id="content" class="<%= @document.more_like_this.empty? ? 'col-md-12' : 'col-md-9' %> show-document">
 
-	<div class="inner">
+	<div class="inner" style="border:0;padding:1px;">
 
 		   
 		<% @page_title = t('blacklight.search.show.title', :document_title => document_show_html_title, :application_name => application_name).html_safe -%>

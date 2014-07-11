@@ -16,6 +16,16 @@ input {
   margin:0 -12px 20px;
   background-color:#111;
   border-bottom:1px solid #333;
+  &.slim {
+    margin-bottom:1em;
+    #site-banner-inner {
+      margin-top:.9em;
+      img {
+        max-width:100%;
+        margin-top:1.4em;
+      }
+    }
+  }
   #site-banner-left {
     margin-top:20px;
     background-color:#000;
@@ -51,18 +61,6 @@ input {
     #site-banner-inner {
       margin-bottom:.1em;
       overflow:hidden;
-      &.slim {
-        #site-banner-left, h1 {
-          height:56px;
-          overflow:hidden;
-        }
-        h1 {
-          margin-bottom:0;
-          img {
-            margin-top:-.40em;
-          }
-        }
-      }
     }
     #site-banner-left {
       height:80px;
@@ -74,21 +72,16 @@ input {
     #site-banner-inner {
       margin-bottom:.3em;
       overflow:hidden;
-      &.slim {
-        #site-banner-left, h1 {
-          height:66px;
-          overflow:hidden;
-        }
-        h1 {
-          margin-bottom:0;
-          img {
-            margin-top:-.65em;
-          }
-        }
-      }
     }
     #site-banner-left {
       height:105px;
+    }
+    &.slim {
+     #site-banner-inner {
+       img {
+         margin-top:1.2em;
+       }
+     }
     }
   }
 }
@@ -102,21 +95,16 @@ input {
     #site-banner-inner {
       margin-bottom:.3em;
       overflow:hidden;
-      &.slim {
-        #site-banner-left, h1 {
-          height:80px;
-          overflow:hidden;
-        }
-        h1 {
-          margin-bottom:0;
-          img {
-            margin-top:-.65em;
-          }
-        }
-      }
     }
     #site-banner-left {
       height:128px;
+    }
+    &.slim {
+     #site-banner-inner {
+       img {
+         margin-top:1em;
+       }
+     }
     }
   }
 }
