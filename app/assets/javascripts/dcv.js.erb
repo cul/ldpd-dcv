@@ -26,7 +26,7 @@ $(function() {
       $('.search-result-display').hide();
       $('#search-results-standard').show();
       $('.result-type-button').removeClass('btn-success').addClass('btn-default');
-      
+
       $('#content .col-sm-3').addClass('col-sm-12').addClass('list-view');
       $('#content .col-sm-3 .thumbnail').addClass('col-sm-2');
       $('#content .col-sm-3 .index_title').addClass('col-sm-9');
@@ -37,7 +37,7 @@ $(function() {
       $('.search-result-display').hide();
       $('#search-results-standard').show();
       $('.result-type-button').removeClass('btn-success').addClass('btn-default');
-      
+
       $('#content .col-sm-3').removeClass('col-sm-12').removeClass('list-view');
       $('#content .col-sm-3 .thumbnail').removeClass('col-sm-2');
       $('#content .col-sm-3 .index_title').removeClass('col-sm-9');
@@ -53,7 +53,7 @@ $(function() {
   });
   //Hide search-results-date-graph by default
   $('#search-results-date-graph').hide();
-  
+
   $('body').on('click', '#unzoom-mode', function(){
      // hide the zooming stuff
       $('div#zoom-gallery').addClass('hidden');
@@ -342,12 +342,19 @@ DCV.DateRangeGraphSelector.init = function() {
           var newEndYearFilter = $('#date-range-canvas').attr('data-new-end-year-filter');
           if (newStartYearFilter != 'NaN' && newStartYearFilter != 'NaN') {
             var redirecUrl = decodeURIComponent(DCV.newDateFilterTemplateUrl).replace('_start_year_', newStartYearFilter).replace('_end_year_', newEndYearFilter);
+            DCV.DateRangeGraphSelector.clearSelectedRegionIndicator();
             window.location = redirecUrl;
           }
         }
       });
     });
   }
+};
+
+DCV.DateRangeGraphSelector.clearSelectedRegionIndicator = function() {
+  var newStartYearFilter = $('#date-range-canvas').removeAttr('data-drag-start-x');
+  var newEndYearFilter = $('#date-range-canvas').removeAttr('data-drag-end-x');
+  DCV.DateRangeGraphSelector.render();
 };
 
 DCV.DateRangeGraphSelector.resizeCanvas = function() {
