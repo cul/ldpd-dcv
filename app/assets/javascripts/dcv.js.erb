@@ -26,6 +26,7 @@ $(function() {
       $('.search-result-display').hide();
       $('#search-results-standard').show();
       $('.result-type-button').removeClass('btn-success').addClass('btn-default');
+      $('.results-pagination').show();
 
       $('#content .col-sm-3').addClass('col-sm-12').addClass('list-view');
       $('#content .col-sm-3 .thumbnail').addClass('col-sm-2');
@@ -37,6 +38,7 @@ $(function() {
       $('.search-result-display').hide();
       $('#search-results-standard').show();
       $('.result-type-button').removeClass('btn-success').addClass('btn-default');
+      $('.results-pagination').show();
 
       $('#content .col-sm-3').removeClass('col-sm-12').removeClass('list-view');
       $('#content .col-sm-3 .thumbnail').removeClass('col-sm-2');
@@ -48,6 +50,8 @@ $(function() {
     $('.search-result-display').hide();
     $('#search-results-date-graph').show();
     $('.result-type-button').removeClass('btn-success').addClass('btn-default');
+    $('.results-pagination').hide();
+
     DCV.DateRangeGraphSelector.resizeCanvas();
     $(this).addClass('btn-success');
   });
