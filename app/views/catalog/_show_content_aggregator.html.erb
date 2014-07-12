@@ -19,16 +19,6 @@
      <% end -%>
    <div id="favorite-child"> 
     <% if child = structured_children.first -%>
-      <div class="btn-group" style="position:absolute;top:10px;right:10px;">
-        <a class="btn btn-default btn item-cbox" data-original-title="<%= document_show_html_title %>" href="<%= details_url(id: document[:id], layout:(request.path.split('/')[1])) %>"><i class="glyphicon glyphicon-zoom-in"></i></a>
-<button type="button" class="btn btn-default btn dropdown-toggle" data-toggle="dropdown">
-    <i class="glyphicon glyphicon-cog"></i> <span class="caret"></span>
-    <span class="sr-only">Toggle Dropdown</span>
-  </button>
-  <ul class="dropdown-menu dropdown-menu-right" role="menu">
-        <li><a href="#" data-original-title="<%= document_show_html_title %>" onclick="window.open('<%= details_url(id: document[:id], layout:(request.path.split('/')[1])) %>'); return false;">Open in a new window</a></li>
-  </ul>
-      </div>
       <img src="<%= child[:screen] || resolve_catalog_bytestream_content_url(catalog_id: child[:id], bytestream_id: 'web850') %>.png" data-counter="1" />
     <% end -%>
    </div>

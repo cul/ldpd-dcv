@@ -2,12 +2,11 @@
   <div id="previousNextDocument">
     <% if @previous_document || @next_document %>
       <div class="page_links previous-and-next btn-group btn-group-xs">
-        <%= link_back_to_catalog(label: '<i class="glyphicon glyphicon-fast-backward"></i> '.html_safe, class: 'btn btn-default' ) %>
-        <%= button_to_previous_document @previous_document, class: 'btn btn-default' %>
-        <%= button_to_next_document @next_document, class: 'btn btn-default' %>
+        <%= link_back_to_catalog(label: '<i class="glyphicon glyphicon-fast-backward"></i> '.html_safe, class: 'btn btn-default', title: 'return to search' ) %>
+        <span class="btn btn-default" style="pointer-events:none;"><%= item_page_entry_info %></span>
+        <%= button_to_previous_document @previous_document, class: 'btn btn-default', title: 'previous search result' %>
+        <%= button_to_next_document @next_document, class: 'btn btn-default', title: 'next search result' %>
       </div>
     <% end %>
-    <div class="pull-right search-widgets">
-      <%= render 'show_tools' %>
-    </div>
+    <%= render 'show_tools' %>
   </div>
