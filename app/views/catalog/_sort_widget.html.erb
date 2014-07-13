@@ -1,0 +1,12 @@
+<% if show_sort_and_per_page? and !active_sort_fields.blank? %>
+<div id="sort-dropdown" class="btn-group btn-group-xs pull-right">
+  <%= link_to('<i class="glyphicon glyphicon-sort-by-alphabet"></i> <span class="caret"></span>'.html_safe, "#", :class=>"btn btn-default dropdown-toggle", :'data-toggle'=>"dropdown", :title=>t('blacklight.search.sort.label', :field =>current_sort_field.label)) %>
+
+  <ul class="dropdown-menu" role="menu">
+      <%- active_sort_fields.each do |sort_key, field_config| %>
+        <%- label = (current_sort_field.key == sort_key) ? "#{field_config.label} <i class=\"glyphicon glyphicon-ok\"></i>".html_safe : field_config.label -%>
+        <li><%= link_to(label, url_for(params_for_search(:sort => sort_key))) %></li>
+      <%- end -%>
+  </ul>
+</div>
+<% end %>

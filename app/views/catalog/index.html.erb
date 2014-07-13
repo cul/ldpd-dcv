@@ -1,5 +1,7 @@
 <div class="row">
-
+  <div id="nav" class="col-md-12">
+    <%= render 'sort_and_per_page' %>
+  </div>
 	<div id="sidebar" class="col-md-3">
 		<div class="inner">
 			<%= render 'search_sidebar' %>
@@ -33,15 +35,6 @@
 				<%- if @response.empty? %>
 					<%= render "zero_results" %>
 				<%- else %>
-				
-					<div id="view-options">
-						<div class="hidden-xs btn-group btn-group-xs">
-							<button id="grid-mode" type="button" class="btn btn-success result-type-button"><i class="glyphicon glyphicon-th"></i></button>
-							<button id="list-mode" type="button" class="btn btn-default result-type-button"><i class="glyphicon glyphicon-th-list"></i></button>
-							<button id="date-graph-mode" type="button" class="btn btn-default result-type-button"><i class="glyphicon glyphicon-stats"></i></button>
-						</div>
-					</div>
-				
 					<%- if render_grouped_response? %>
 						<%= render_grouped_document_index %>
 					<%- else %>
