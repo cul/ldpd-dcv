@@ -536,3 +536,19 @@ h2[itemprop="name"] {
   margin-bottom:0 !important;
   border-bottom:0 !important;
 }
+
+#ajax-modal .modal-content {
+  color:#888;
+  background-color: #000;
+  border-color: #888;
+
+  .modal-header,
+  .modal-footer {
+    border-color: #888;
+  }
+
+  button {
+    color: #ddd;
+    opacity: 1;
+  }
+}
