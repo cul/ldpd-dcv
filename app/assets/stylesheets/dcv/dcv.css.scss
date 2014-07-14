@@ -194,14 +194,21 @@ h2[itemprop="name"] {
 }
 #content .col-sm-3 {
   height: 200px;
-  margin-bottom:1em;
+  margin-bottom:2em;
   .tombstone {
     height:100%;
-    margin-left:-5px;
-    margin-right:-5px;
+    font-size:1em;
+    .index-show-tombstone-fields {
+      font-size:.85em;
+      h3 {
+        margin-bottom: .5em;
+      }
+    }
+    h3 {
+      font-size:1em;
+    }
     .index_title {
       margin-top:1em;
-      font-size:.85em;
     }
   }
   .thumbnail {
@@ -220,9 +227,14 @@ h2[itemprop="name"] {
     .tombstone {
       display:table;
       width:100%;
+      .index-show-tombstone-fields {
+        font-size:1em;
+        h3 {
+          font-size:1em;
+        }
+      }
       .index_title {
         margin-top:0;
-        font-size:1em;
       }
     }
     .thumbnail {
@@ -325,7 +337,7 @@ h2[itemprop="name"] {
   border-width:1px 0;
 }
 
-.index-show-fields ul {
+.index-show-list-fields ul {
   padding-left:0;
   list-style: none;
 }

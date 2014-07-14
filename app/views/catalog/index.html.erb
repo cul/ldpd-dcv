@@ -27,14 +27,28 @@
 		  <%= render 'search_header' %>
 
 		  <h2 class="sr-only"><%= t('blacklight.search.search_results') %></h2>
-
-		  <%- if @response.empty? %>
-			<%= render "zero_results" %>
-		  <%- elsif render_grouped_response? %>
-			<%= render_grouped_document_index %>
-		  <%- else %>
-			<%= render_document_index %>
-		  <%- end %>
+			
+			<div id="documents col-sm-8">
+				
+				<%- if @response.empty? %>
+					<%= render "zero_results" %>
+				<%- else %>
+				
+					<div id="view-options">
+						<div class="hidden-xs btn-group btn-group-xs">
+							<button id="grid-mode" type="button" class="btn btn-success result-type-button"><i class="glyphicon glyphicon-th"></i></button>
+							<button id="list-mode" type="button" class="btn btn-default result-type-button"><i class="glyphicon glyphicon-th-list"></i></button>
+							<button id="date-graph-mode" type="button" class="btn btn-default result-type-button"><i class="glyphicon glyphicon-stats"></i></button>
+						</div>
+					</div>
+				
+					<%- if render_grouped_response? %>
+						<%= render_grouped_document_index %>
+					<%- else %>
+						<%= render_document_index %>
+					<%- end %>
+				<%- end %>
+			</div>
 
 			<%= render 'results_pagination' %>
 

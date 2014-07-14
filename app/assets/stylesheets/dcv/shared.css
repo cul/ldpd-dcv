@@ -5,3 +5,7 @@
 .aligncenter {
   text-align:center;
 }
+
+.ellipsis {
+  display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+}

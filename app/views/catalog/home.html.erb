@@ -7,10 +7,10 @@
 
   <div id="content" class="col-md-9">
 
-    <div class="inner">
+		<div id="home-page-tabs" class="inner">
       <!-- Nav tabs -->
       <ul class="nav nav-tabs">
-        <li class="active"><a href="#featured" data-toggle="tab">Featured</a></li>
+        <li class="active"><a href="#sample_items" data-toggle="tab">Sample Items</a></li>
         <% @browse_lists.each do |facet_name, data| %>
           <li><a href="#tab_<%= facet_name %>" data-toggle="tab"><%= data['display_label'] %></a></li>
         <% end %>
@@ -19,20 +19,22 @@
 
       <!-- Tab panes -->
       <div class="tab-content">
-        <div class="tab-pane fade in active" id="featured">
-            <small>Below are example items related to the keyword "<%= @selected_keyword %>."</small>
-            <%- if @response.empty? %>
-            <%= render "zero_results" %>
-            <%- elsif render_grouped_response? %>
-            <%= render_grouped_document_index %>
-            <%- else %>
-            <%= render_document_index %>
-            <%- end %>
-            <%= link_to 'View more results from this keyword search &raquo;'.html_safe, @link_to_full_search, :class => 'btn btn-default btn-xs pull-right' %>
-            <div class="clearfix"></div>
+        <div class="tab-pane fade in active" id="sample_items">
+							<small>Below, you'll find a randomly selected sample of items from several of our repositories.</small>
+							<br /><br />
+							<%- if @response.empty? %>
+							<%= render "zero_results" %>
+							<%- elsif render_grouped_response? %>
+							<%= render_grouped_document_index %>
+							<%- else %>
+							<%= render_document_index %>
+							<%- end %>
+							<div class="clearfix"></div>
         </div>
         <% @browse_lists.each do |facet_name, data| %>
           <div class="tab-pane fade" id="tab_<%= facet_name %>">
+						<small><%= data['short_description'] %></small>
+						<br /><br />
             <ul class="nopad-rl cols-two">
               <% data['value_pairs'].each do |value, count| %>
                 <% search_link = search_action_path(:f => {facet_name => [value]}) %>

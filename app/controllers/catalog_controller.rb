@@ -166,15 +166,43 @@ class CatalogController < ApplicationController
     end
     @browse_lists = Rails.cache.read(BROWSE_LISTS_KEY)
 
-    canned_keyword_searches = [
-      'building',
-      'game',
-      'street'
-    ]
+    number_of_items_to_show = 4
 
-    @selected_keyword = canned_keyword_searches.sample
-    search_params = {:q => @selected_keyword, :search_field => 'all_text_teim'}
-    (@response, @document_list) = get_search_results(search_params.merge({:per_page => '12'}))
-    @link_to_full_search = search_action_path(search_params)
+    # Use list of repositories from previous query and select a random one
+    repositories_and_counts = @browse_lists['lib_repo_sim']['value_pairs'].dup
+    if repositories_and_counts.length > number_of_items_to_show
+      selected_repository_keys = repositories_and_counts.keys.shuffle[0, number_of_items_to_show]
+    else
+      selected_repository_keys = repositories_and_counts.keys
+    end
+    
+    rsolr = RSolr.connect :url => YAML.load_file('config/solr.yml')[Rails.env]['url']
+
+    list_of_ids_to_retrieve = []
+
+    selected_repository_keys.each do |repository_key|
+      repository_to_query = repository_key
+      expected_response_count = repositories_and_counts[repository_key]
+
+      # Do solr query for each repository
+      response = rsolr.get 'select', :params => {
+        :q  => '*:*',
+        :fl => 'id',
+        :qt => 'search',
+        :fq => ['lib_repo_sim:"' + repository_to_query + '"'], # Need quotes because values can contain spaces
+        :rows => 1,
+        :facet => false,
+        :start => Random.new.rand(0..expected_response_count-1)
+      }
+      
+      docs = response['response']['docs']
+      
+      if docs.length > 0
+        # Append single document id to list_of_ids_to_retrieve
+        list_of_ids_to_retrieve << docs[0]['id']
+      end
+    end
+
+    (@response, @document_list) = get_search_results({:per_page => '4'}, {:fq => 'id:(' + list_of_ids_to_retrieve.map{|id| id.gsub(':', '\:')}.join(' OR ') + ')'})
   end
 end

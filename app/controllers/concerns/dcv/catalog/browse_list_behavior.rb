@@ -4,9 +4,9 @@ module Dcv::Catalog::BrowseListBehavior
   # Browse list items must be accessible as facets from in solr (i.e. like facets)
   BROWSE_LISTS_KEY = 'browse_lists'
   BROWSE_LISTS = {
-    'lib_name_sim' => {:display_label => 'Names'},
-    'lib_format_sim' => {:display_label => 'Formats'},
-    'lib_repo_sim' => {:display_label => 'Repositories'}
+    'lib_name_sim' => {:display_label => 'Names', :short_description => 'People, corporate bodies and events that are represented in or by our items.'},
+    'lib_format_sim' => {:display_label => 'Formats', :short_description => 'Archives where our items are stored.'},
+    'lib_repo_sim' => {:display_label => 'Repositories', :short_description => 'Original formats of our digitally-presented items.'}
   }
 
   # Browse List Logic
@@ -36,6 +36,7 @@ module Dcv::Catalog::BrowseListBehavior
       facet_response = response['facet_counts']['facet_fields'][facet_field_name]
       hash_to_return[facet_field_name] = {}
       hash_to_return[facet_field_name]['display_label'] = options[:display_label]
+      hash_to_return[facet_field_name]['short_description'] = options[:short_description]
       hash_to_return[facet_field_name]['value_pairs'] = {}
       facet_response.each_slice(2) do |value, count|
         hash_to_return[facet_field_name]['value_pairs'][value] = count
