@@ -8,6 +8,7 @@ class CatalogController < ApplicationController
   include Dcv::Catalog::SearchParamsLogicBehavior
   include Dcv::Catalog::BrowseListBehavior
   include Dcv::Catalog::DateRangeSelectorBehavior
+  include Dcv::Catalog::AlternateHomePages # Temporary, for demos
 
   # These before_filters apply the hydra access controls
   #before_filter :enforce_show_permissions, :only=>:show

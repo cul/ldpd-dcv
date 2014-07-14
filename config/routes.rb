@@ -1,6 +1,9 @@
 Dcv::Application.routes.draw do
   root :to => "catalog#home"
 
+  get '/home2' => 'catalog#home2'
+  get '/home3' => 'catalog#home3'
+
   blacklight_for :catalog, :lindquist, :css
 
   get '/users/do_wind_login' => 'users#do_wind_login', as: :do_wind_login
