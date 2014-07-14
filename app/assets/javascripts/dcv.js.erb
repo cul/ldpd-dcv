@@ -106,7 +106,7 @@ $(function() {
     },
     onComplete: function(){
       var bsUrl = $(this).attr('data-bytestreams');
-      loadByteStreams(bsUrl);
+      if (bsUrl) loadByteStreams(bsUrl);
     },
   });
   $('#colorbox').tinyDraggable({handle:'#cboxTitle', exclude:'input, textarea, a, button, i'});
@@ -210,12 +210,12 @@ function handleImageChange(event) {
   var tile = event.tileSource;
   var bsUrl = null;
   var dataId = "[none]";
-  $("a[rel='child']").each(function(){
+  $("#children-links a[rel='child']").each(function(){
     if ($(this).attr('data-rftId') == src.imageID) {
       bsUrl = $(this).attr('data-bytestreams');
+      loadByteStreams(bsUrl, setDownloads);
     }
   })
-  loadByteStreams(bsUrl, setDownloads);
 }
 
 function loadByteStreams(bsUrl, handler) {
