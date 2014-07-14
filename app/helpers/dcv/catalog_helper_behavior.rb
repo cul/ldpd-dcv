@@ -54,4 +54,41 @@ module Dcv::CatalogHelperBehavior
       link_to(parent.fetch('title_display_ssm',[]).first, catalog_url(id:parent['id']))
     end
   end
+
+  ##
+  # Link to the previous document in the current search context
+  def button_to_previous_document(previous_document, opts={})
+    link_opts = session_tracking_params(previous_document, search_session['counter'].to_i - 1).merge(:class => "previous", :rel => 'prev')
+    # raw(t('views.pagination.previous'))
+    link_opts.merge!(opts)
+    link_to_unless previous_document.nil?, '<i class="glyphicon glyphicon-arrow-left"></i>'.html_safe, url_for_document(previous_document), link_opts do
+      if opts[:class]
+        opts = opts.merge(class: opts[:class] + ' disabled')
+      else
+        opts = opts.merge(class: 'disabled')
+      end
+      content_tag :button, opts do
+        content_tag :i, '', :class => 'glyphicon glyphicon-arrow-left'
+      end
+    end
+  end
+
+  ##
+  # Link to the next document in the current search context
+  def button_to_next_document(next_document, opts={})
+    link_opts = session_tracking_params(next_document, search_session['counter'].to_i + 1).merge(:class => "next", :rel => 'next')
+    # raw(t('views.pagination.next'))
+    link_opts.merge!(opts)
+    link_to_unless next_document.nil?, '<i class="glyphicon glyphicon-arrow-right"></i>'.html_safe, url_for_document(next_document), link_opts do
+      if opts[:class]
+        opts = opts.merge(class: opts[:class] + ' disabled')
+      else
+        opts = opts.merge(class: 'disabled')
+      end
+      content_tag :button, opts do
+        content_tag :i, '', :class => 'glyphicon glyphicon-arrow-right'
+      end
+    end
+  end
+
 end

@@ -7,44 +7,25 @@
   # functions by default only on detail.
 
 -%>
-<div id="show-tools-dropdown" class="dropdown pull-right">
-  <a class="dropdown-toggle btn btn-default btn-sm" data-toggle="dropdown" href=""><i class="glyphicon glyphicon-wrench"></i> <%= t('blacklight.tools.title') %> <span class="caret"></span></a>
-
-  <ul class="dropdown-menu pull-right" role="menu">
-      <li class="hide">
-        <%= render_show_doc_actions @document %>
-      </li>
-      <% if (@document.respond_to?(:export_as_mla_citation_txt) || @document.respond_to?(:export_as_apa_citation_txt)) %>
-        <li class="cite">
-         <%= link_to t('blacklight.tools.cite'), citation_catalog_path(:id => @document), {:id => 'citeLink', :data => {:ajax_modal => "trigger"}} %>
-        </li>
-      <% end %>
-      <% if @document.export_formats.keys.include?( :refworks_marc_txt ) %>
-        <li class="refworks">
-        <%= link_to t('blacklight.tools.refworks'), refworks_export_url(:id => @document)  %>
-        </li>
-     <% end %>
-     <% if @document.export_formats.keys.include?( :endnote ) %>
-      <li class="endnote">
-      <%= link_to t('blacklight.tools.endnote'), catalog_path(@document, :format => 'endnote') %>
-      </li>
-    <% end %>
-    <% if @document.respond_to?( :to_email_text ) %>
-      <li class="email">
-      <%= link_to '<i class="glyphicon glyphicon-envelope"></i> '.html_safe+t('blacklight.tools.email'), email_catalog_path(:id => @document), {:id => 'emailLink', :data => {:ajax_modal => "trigger"}} %>
-      </li>
-    <%- end -%>
-    <%- if @document.respond_to?( :to_sms_text ) -%>
-      <li class="sms">
-      <%= link_to '<i class="glyphicon glyphicon-phone"></i> '.html_safe+t('blacklight.tools.sms'), sms_catalog_path(:id => @document), {:id => 'smsLink', :data => {:ajax_modal => "trigger"}} %>
-      </li>
-    <%- end -%>
-    <% if respond_to? :librarian_view_catalog_path and @document.respond_to?(:to_marc) %>
-      <li class="librarian_view">
-        <%= link_to t('blacklight.tools.librarian_view'), librarian_view_catalog_path(@document), {:id => 'librarianLink', :data => {:ajax_modal => "trigger"}} %>
-      </li>
-    <% end %>
-  </ul>
-
+<div class="pull-right search-widgets btn-group btn-group-xs">
   <%= render_document_partials @document, ['show_tools'] %>
+  <div class="btn-group btn-group-xs">
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" title="Share this">
+      <i class="glyphicon glyphicon-share-alt"></i> <span class="caret"></span>
+      <span class="sr-only">Toggle Dropdown</span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+        <li class="hide">
+          <%= render_show_doc_actions @document %>
+        </li>
+      <% if @document.respond_to?( :to_email_text ) %>
+        <li class="email">
+        <%= link_to '<i class="glyphicon glyphicon-envelope"></i> '.html_safe+t('blacklight.tools.email'), email_catalog_path(:id => @document), {:id => 'emailLink', :data => {:ajax_modal => "trigger"}} %>
+        </li>
+      <%- end -%>
+      <li class="twitter">
+        <a href="" onclick="return false;" style="pointer-events:none;"><i class="glyphicon glyphicon-send"></i> Throw it</a>
+      </li>
+    </ul>
+  </div>
 </div>
