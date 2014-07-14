@@ -28,7 +28,7 @@ class Resolve::BytestreamsController < ApplicationController
     id.sub!(/apt\:\/columbia/,'apt://columbia') # TOTAL HACK
     id.gsub!(':','\:')
     id.gsub!('/','\/')
-    p[:fq] = "identifier_ssim:#{(id)}"
+    p[:fq] = "dc_identifier_ssim:#{(id)}"
     solr_response = find(blacklight_config.document_solr_path, p)
     raise Blacklight::Exceptions::InvalidSolrID.new if solr_response.docs.empty?
     document = SolrDocument.new(solr_response.docs.first, solr_response)
