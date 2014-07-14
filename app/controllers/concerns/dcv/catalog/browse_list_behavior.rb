@@ -5,8 +5,8 @@ module Dcv::Catalog::BrowseListBehavior
   BROWSE_LISTS_KEY = 'browse_lists'
   BROWSE_LISTS = {
     'lib_name_sim' => {:display_label => 'Names', :short_description => 'People, corporate bodies and events that are represented in or by our items.'},
-    'lib_format_sim' => {:display_label => 'Formats', :short_description => 'Archives where our items are stored.'},
-    'lib_repo_sim' => {:display_label => 'Repositories', :short_description => 'Original formats of our digitally-presented items.'}
+    'lib_format_sim' => {:display_label => 'Formats', :short_description => 'Original formats of our digitally-presented items.'},
+    'lib_repo_sim' => {:display_label => 'Repositories', :short_description => 'Archives where our items are stored.'}
   }
 
   # Browse List Logic
@@ -22,7 +22,7 @@ module Dcv::Catalog::BrowseListBehavior
     rsolr = RSolr.connect :url => YAML.load_file('config/solr.yml')[Rails.env]['url']
 
     BROWSE_LISTS.each do |facet_field_name, options|
-      
+
       response = rsolr.get 'select', :params => {
         :q  => '*:*',
         :qt => 'search',
