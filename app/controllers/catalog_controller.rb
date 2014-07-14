@@ -166,7 +166,7 @@ class CatalogController < ApplicationController
     end
     @browse_lists = Rails.cache.read(BROWSE_LISTS_KEY)
 
-    number_of_items_to_show = 4
+    number_of_items_to_show = 8
 
     # Use list of repositories from previous query and select a random one
     repositories_and_counts = @browse_lists['lib_repo_sim']['value_pairs'].dup
@@ -175,7 +175,7 @@ class CatalogController < ApplicationController
     else
       selected_repository_keys = repositories_and_counts.keys
     end
-    
+
     rsolr = RSolr.connect :url => YAML.load_file('config/solr.yml')[Rails.env]['url']
 
     list_of_ids_to_retrieve = []
@@ -194,15 +194,16 @@ class CatalogController < ApplicationController
         :facet => false,
         :start => Random.new.rand(0..expected_response_count-1)
       }
-      
+
       docs = response['response']['docs']
-      
+
       if docs.length > 0
         # Append single document id to list_of_ids_to_retrieve
         list_of_ids_to_retrieve << docs[0]['id']
+        puts 'list_of_ids_to_retrieve: ' + list_of_ids_to_retrieve.inspect
       end
     end
 
-    (@response, @document_list) = get_search_results({:per_page => '4'}, {:fq => 'id:(' + list_of_ids_to_retrieve.map{|id| id.gsub(':', '\:')}.join(' OR ') + ')'})
+    (@response, @document_list) = get_search_results({:per_page => number_of_items_to_show}, {:fq => 'id:(' + list_of_ids_to_retrieve.map{|id| id.gsub(':', '\:')}.join(' OR ') + ')'})
   end
 end

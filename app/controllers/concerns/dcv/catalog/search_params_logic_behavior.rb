@@ -14,12 +14,12 @@ module Dcv::Catalog::SearchParamsLogicBehavior
   def date_range_filter(solr_parameters, user_parameters)
     if user_parameters[:start_year].present?
       start_year = zero_pad_year(user_parameters[:start_year])
-      solr_parameters[:fq] << "lib_start_date_year_si:[#{start_year} TO *]"
+      solr_parameters[:fq] << "lib_start_date_year_ssi:[#{start_year} TO *]"
     end
 
     if user_parameters[:end_year].present?
       end_year = zero_pad_year(user_parameters[:end_year])
-      solr_parameters[:fq] << "lib_end_date_year_si:[* TO #{end_year}]"
+      solr_parameters[:fq] << "lib_end_date_year_ssi:[* TO #{end_year}]"
     end
   end
 
