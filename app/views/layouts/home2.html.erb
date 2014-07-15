@@ -99,9 +99,17 @@
       /*box-shadow:0 0 86px rgba(255,255,255,.4);*/
     }
     #about .culpanel {
-      width:1190px;
       padding:50px 220px;
     } 
+    @media (min-width: 768px) {
+      .culpanel { width:740px; }
+    }
+    @media (min-width: 992px) {
+      .culpanel { width:970px; }
+    }
+    @media (min-width: 1200px) {
+      .culpanel { width:1190px; }
+    }
     .blurb {
       font-size:.9em;
       text-transform:uppercase;
@@ -183,7 +191,7 @@ circle.child {
 <div id="browse" class="bgParallax" data-speed="16">
   <div class="culinner">
     <div class="culpanel">
-        <h4 class="lead alignleft">BROWSE COLLECTIONS</h4>
+        <h4 class="lead alignleft">EXPLORE FORMATS</h4>
         <div class="alignjustify" id="bubbles" style="width:100%">
 <h5 id="zoom-label">Flare code size circle packing</h5>
         </div>
@@ -205,7 +213,7 @@ circle.child {
 <div class="hide" id="culnavitems">
 <li><a href="#home" class="scrollto">Home</a></li>
 <li><a href="#about" class="scrollto">About</a></li>
-<li><a href="#browse" class="scrollto">Browse</a></li>
+<li><a href="#browse" class="scrollto">Explore</a></li>
 </div>
 
 <!-- CULTNBW START -->
@@ -253,6 +261,13 @@ $(window).load(function() {
 	$('#topnavbar, #pane-1 .cover, .culpanel').fadeIn(900);
 
   Dcv.Bubbles.chart("div#bubbles","data/format-repo-collection-flare.json");
+
+    var wtop = $('#topnavbar').height();
+    if($(this).scrollTop()>=wtop){
+        //$('#topnavbar').css('background-color','#444444');
+        $('#cul_top-right > li:not(:last-child)').show();
+        $('#menuholder li:not(:last-child)').show();
+    } 
 });
 
 $(document).ready(function() {
@@ -263,16 +278,12 @@ $(document).ready(function() {
   });
 });
 
-$('div.bgParallax').each(function(){
+$('div.bgParallax-OFF').each(function(){
 	var $obj = $(this);
-
 	$(window).scroll(function() {
 		var yPos = -($(window).scrollTop() / $obj.data('speed')); 
-
 		var bgpos = '50% '+ yPos + 'px';
-
 		$obj.css('background-position', bgpos );
- 
 	}); 
 });
 </script>
