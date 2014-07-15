@@ -24,6 +24,7 @@
     <%= stylesheet_link_tag    "dcv" %>
     <%= javascript_include_tag "application" %>
     <%= javascript_include_tag "dcv" %>
+    <%= javascript_include_tag "d3" %>
     <%= javascript_include_tag "freelib" %>
     <%= csrf_meta_tags %>
     <%= content_for(:head) %>
@@ -122,6 +123,40 @@
 		background-repeat: repeat;
 		background-attachment: fixed;
 	}
+
+  /* D3 Styles */
+  text {
+  font-size: 11px;
+  pointer-events: none;
+}
+
+text.parent {
+  fill: #333;
+}
+
+circle {
+  fill: #ccc;
+  stroke: #999;
+  pointer-events: all;
+}
+
+circle.parent {
+  fill: #666;
+  fill-opacity: .1;
+  stroke: #999;
+}
+
+circle.parent:hover {
+  stroke: #ff7f0e;
+  stroke-width: .5px;
+}
+
+circle.child {
+  /** need to be able to zoom to a child **/
+  /** pointer-events: none; **/
+}
+
+
   </style>
   <!-- end prototype styles -->
 
@@ -148,8 +183,8 @@
   <div class="culinner">
     <div class="culpanel">
         <h4 class="lead alignleft">BROWSE COLLECTIONS</h4>
-        <div class="lead alignjustify">
-This will be a nice browse listing or something.
+        <div class="lead alignjustify" id="bubbles" style="width:600px;height:400px;">
+<h5 id="zoom-label">Flare code size circle packing</h5>
         </div>
     </div>
   </div>
@@ -238,5 +273,12 @@ $('div.bgParallax').each(function(){
 	}); 
 });
 </script>
+    <script type="text/javascript">
+
+Dcv.Bubbles.chart("div#bubbles","data/format-repo-collection-flare.json");
+
+
+    </script>
+
   </body>
 </html>
