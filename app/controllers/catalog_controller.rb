@@ -9,6 +9,7 @@ class CatalogController < ApplicationController
   include Dcv::Catalog::BrowseListBehavior
   include Dcv::Catalog::DateRangeSelectorBehavior
   include Dcv::Catalog::RandomItemBehavior
+  include Dcv::Catalog::PivotFacetDataBehavior
   include Dcv::Catalog::AlternateHomePages # Temporary, for demos
 
   # These before_filters apply the hydra access controls
