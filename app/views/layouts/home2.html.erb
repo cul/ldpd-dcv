@@ -204,7 +204,7 @@ circle.child {
     <div class="culpanel">
         <h4 class="lead alignleft">EXPLORE FORMATS</h4>
         <div class="alignjustify" id="bubbles" style="width:100%">
-<h5 id="zoom-label">Flare code size circle packing</h5>
+<h5 class="zoom-label">Flare code size circle packing</h5>
         </div>
     </div>
   </div>
@@ -374,7 +374,7 @@ $(window).load(function() {
 */
 	$('#topnavbar, #pane-1 .cover, .culpanel').fadeIn(900);
 
-  Dcv.Bubbles.chart("div#bubbles","data/format-repo-collection-flare.json");
+  new DCV.Bubbles("div#bubbles").chart("data/format-repo-collection-flare.json");
 
     var wtop = $('#topnavbar').height();
     if($(this).scrollTop()>=wtop){
