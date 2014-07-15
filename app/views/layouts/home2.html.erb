@@ -33,8 +33,210 @@
       <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
+  <!-- prototype styles -->
+  <style>
+    html,body {
+      height:100%;
+      padding-top:0!important;
+    }
+    a:hover { text-decoration:none; }
+    h4 { border-bottom:1px solid #888; }
+    #topnavbar, #pane-1 .cover, .culpanel { display:none; }
+    #navholder { position:relative; }
+    #browse {
+      background-image:url('/assets/dcv/rbml_0819r.jpg');
+      background-size:cover;
+      background-repeat:no-repeat;
+      background-position:top center;
+      background-attachment:fixed;
+      display:table;
+      margin:0 auto;
+      width:100%;
+      height:100%;
+    }
+    #about {
+      background-image:url('/assets/dcv/rbml_css_0912r.png');
+      background-size:cover;
+      background-repeat:no-repeat;
+      background-position:top center;
+      background-attachment:fixed;
+      display:table;
+      margin:0 auto;
+      width:100%;
+      height:100%;
+    }
+    #home { 
+      background-image:url('/assets/dcv/1836760843_267e9c947f_o-sepc.jpg');
+      background-size:cover;
+      background-repeat:no-repeat;
+      background-position:top center;
+      background-attachment:fixed;
+      display:table;
+      margin:0 auto;
+      width:100%;
+      height:100%;
+    }
+    .culinner {
+      display:table-cell;
+      vertical-align:middle;
+      text-align:center;
+    }
+    .culcontainer {
+      position:relative;
+      max-width:800px;
+      margin:0 auto;
+    }
+    .culpanel {
+      width:1190px;
+      min-height:340px;
+      vertical-align:middle;
+      background-color:rgba(0,0,0,.5);
+      padding:50px 40px;
+      border:1px dotted #666;
+      margin:-100px auto 0 auto;
+      /*box-shadow:0 0 86px rgba(255,255,255,.4);*/
+    }
+    #about .culpanel {
+      width:1190px;
+      padding:50px 220px;
+    } 
+    .blurb {
+      font-size:.9em;
+      text-transform:uppercase;
+      font-weight:200;
+      margin: 2em 0 0;
+    }
+    .aligncenter { text-align:center; }
+    .alignleft { text-align:left; }
+    .alignjustify { text-align:justify; }
+    .trajanpro { font-family: "trajan pro", trajan, serif; }
+.bgParallax {
+		margin: 0 auto;
+        padding-top:60px;
+		width: 100%;
+/*		position: relative;*/
+		min-height: 100%;
+		text-shadow:0 0 10px rgba(0,0,0,0.7);
+	 
+		background-position: 50% 0;
+		background-repeat: repeat;
+		background-attachment: fixed;
+	}
+  </style>
+  <!-- end prototype styles -->
+
   </head>
   <body class="<%= render_body_class %> dcv <%= params[:action] %>">
+    <div id="home" class="bgParallax" data-speed="8">
+     <div class="culinner">
 		<%= yield %>
+     </div>
+    </div>
+
+<div id="about" class="bgParallax" data-speed="4">
+  <div class="culinner">
+    <div class="culpanel">
+        <h4 class="lead alignleft">ABOUT DIGITAL LIBRARY COLLECTIONS</h4>
+        <div class="lead alignjustify">
+        Digital Library Collections is a gateway to many of the digital projects that <a href="http://library.columbia.edu">Columbia University Libraries / Information Services</a> has completed over the past ten years. It includes scans of photographs, posters, objects, manuscripts and other archival material from our special and archival collections. The site will continue to grow as more of our special collections are digitized and cataloged. (It does not at present include digitized books, however; these can be located by searching the CLIO catalog.) All site content is intended to be used for education and research.
+        </div>
+    </div>
+  </div>
+</div>
+
+<div id="browse" class="bgParallax" data-speed="16">
+  <div class="culinner">
+    <div class="culpanel">
+        <h4 class="lead alignleft">BROWSE COLLECTIONS</h4>
+        <div class="lead alignjustify">
+This will be a nice browse listing or something.
+        </div>
+    </div>
+  </div>
+</div>
+
+
+<ul id="cultnbw-custom-right" style="display:none;">
+ <li class="dropdown menu"><a class="dropdown-toggle menu" data-toggle="dropdown" href="#">Help <b class="caret"></b></a>
+  <ul class="dropdown-menu menu-dropdown">
+   <li><a href="http://library.columbia.edu">Exa Drop One</a></li>
+   <li><a href="http://library.columbia.edu">Exa Drop Two & Foo</a></li>
+   <li><a href="http://library.columbia.edu">Exa Drop Three</a></li>                                                        
+  </ul>
+ </li>
+</ul><!--//cultnbw-custom-right-->
+
+<div class="hide" id="culnavitems">
+<li><a href="#home" class="scrollto">Home</a></li>
+<li><a href="#about" class="scrollto">About</a></li>
+<li><a href="#browse" class="scrollto">Browse</a></li>
+</div>
+
+<!-- CULTNBW START -->
+  <script type="text/javascript" data-turbolinks-eval="false">
+    CULh_colorfg = '#000000'; // topnavbar foreground color. hex value. ex: #002B7F
+    CULh_colorbg = 'rgba(100,100,100,.4)'; // topnavbar background color. hex value. ex: #779BC3
+    CULh_nobs = 1; // uncomment to NOT load our bootstrap javascript file and or use your own (v2.3.x required)
+  </script>
+  <script src="//cdn.cul.columbia.edu/ldpd-toolkit/widgets/cultnbw.min.js" data-turbolinks-eval="false"></script>
+  <!-- Navbar fix for compatibility with turbolinks -->
+  <script type="text/javascript" data-turbolinks-eval="false">
+	if (typeof(jQuery) != 'undefined') {
+		$(document).on('page:receive', function(){
+		  if (typeof(LDPDTKW) != 'undefined') {
+			LDPDTKW.cachedNavbar = $('#cultnbw').remove();
+		  }
+		});
+		$(document).on('page:update', function(){
+		  if (typeof(LDPDTKW) != 'undefined') {
+			$('body').prepend(LDPDTKW.cachedNavbar);
+		  }
+		});
+	}
+  </script>
+  <!-- /CULTNBW END -->
+
+<script>
+$(window).load(function() {
+ $('#culnavitems li').hide().prependTo($('#cul_top-right'));
+  $(window).scroll(function(){
+    var wtop = $('#topnavbar').height();
+    if($(this).scrollTop()>=wtop){
+        //$('#topnavbar').css('background-color','#444444');
+        $('#cul_top-right > li:not(:last-child)').show();
+        $('#menuholder li:not(:last-child)').show();
+    } else {
+		//$('#topnavbar').css('background-color','transparent');
+        $('#cul_top-right > li:not(:last-child)').hide();
+        $('#menuholder li:not(:last-child)').show();
+	}
+  });
+/*
+    $('#topnavbar,.navbar-inner').css('background-color','transparent').css('background','transparent');
+*/
+	$('#topnavbar, #pane-1 .cover, .culpanel').fadeIn(900);
+});
+
+$(document).ready(function() {
+  $('body').on('click', '.scrollto', function() {
+  var where = $(this).attr('href');
+    $('body,html').animate({ scrollTop: $(where).offset().top /*- $('#topnavbar').height()*/ }, 900, 'swing');
+    return false;
+  });
+});
+
+$('div.bgParallax').each(function(){
+	var $obj = $(this);
+
+	$(window).scroll(function() {
+		var yPos = -($(window).scrollTop() / $obj.data('speed')); 
+
+		var bgpos = '50% '+ yPos + 'px';
+
+		$obj.css('background-position', bgpos );
+ 
+	}); 
+});
+</script>
   </body>
 </html>
