@@ -1,3 +1,6 @@
+//DCV Namespace
+if (typeof(DCV) == 'undefined') { var DCV = {}; }
+
 $(function() {
   // quick hack to get openseadragon height to be viewport height
   $('#zoom-content').height($(window).height()-120);
@@ -84,32 +87,6 @@ $(function() {
     $('#search-navbar .input-group').css('box-shadow','none');
   });
 
-  $('a.item-cbox').colorbox({
-    height:"90%",
-    width:"90%",
-    opacity:".6",
-    fixed:true,
-    iframe:true,
-    preloading: false,
-    current:"{current} of {total}",
-    title: function(){
-      var otit = $(this).data('original-title');
-/*
-      var dlb = '<div id="dlwrapper"><div class="btn-group dropup">' +
-                '<button class="btn btn-link btn-lg dropdown-toggle" type="button" data-toggle="dropdown">' +
-                '<i class="glyphicon glyphicon-download"></i></button><ul class="dropdown-menu pull-right">' +
-                '<li><a href="#">Retrieving Download Links...</a></li></ul></div></div>';
-      return otit+dlb;
-*/
-      return otit;
-    },
-    onComplete: function(){
-      var bsUrl = $(this).attr('data-bytestreams');
-      loadByteStreams(bsUrl);
-    },
-  });
-  $('#colorbox').tinyDraggable({handle:'#cboxTitle', exclude:'input, textarea, a, button, i'});
-
   $('#show_file_assets_checkbox').on('change', function(){
     window.location = decodeURIComponent($(this).attr('data-new-location'));
   });
@@ -130,7 +107,15 @@ $(function() {
 
 });
 
-function initTiles() {
+//initialPage is an optional parameter
+function initTiles(initialPage) {
+
+  if (typeof(initialPage) != 'undefined') {
+    DCV.zoomingViewerInitialPage = initialPage;
+  } else {
+    DCV.zoomingViewerInitialPage = 0;
+  }
+
   if (!$.tileSources){
     $.djUrl = "http://iris.cul.columbia.edu:8888/view/";
     if ($('#zoom-gallery').attr('data-url')) {
@@ -143,6 +128,7 @@ function initTiles() {
   }
 }
 function initZoomingViewer(tileSources) {
+
   if ($.zoomingViewer) {
     $.zoomingViewer.open(tileSources);
   } else {
@@ -154,13 +140,14 @@ function initZoomingViewer(tileSources) {
       autoHideControls:       false,
       showNavigator:  true,
       tileSources: tileSources,
+      initialPage: DCV.zoomingViewerInitialPage,
       zoomInButton:   "zoom-in-control",
       zoomOutButton:  "zoom-out-control",
       homeButton:     "zoom-home-control",
       fullPageButton: "zoom-full-control",
       nextButton:     "zoom-next-control",
       previousButton: "zoom-prev-control",
-      showSequenceControl: (tileSources.length > 1)
+      showSequenceControl:  (tileSources.length > 1)
     });
     $.zoomingViewer.addHandler('open',handleImageChange,null);
   }
@@ -248,10 +235,12 @@ function favoriteChild(child) {
   var screenUrl = $(child).attr('href');
   var screenImg = $('#favorite-child img').first();
   var dataCounter = $(child).attr('data-counter');
+  var dataSequence = $(child).attr('data-sequence');
   var ccap = $(child).next('.caption').find('h5').text();
   if (screenUrl != screenImg.attr('src')) {
     screenImg.attr('src', screenUrl);
     screenImg.attr('data-counter', dataCounter);
+    screenImg.attr('data-sequence', dataSequence);
     $('#ct').html(ccap); // should redo above and fire this after ajax success
   }
 }
@@ -261,6 +250,48 @@ function favoriteChild(child) {
   CULh_nobs = 1; // uncomment to NOT load our bootstrap javascript file and or use your own (v2.3.x required)
 //** /CULTNBW END **/
 
+
+/*********************
+ * ZoomingImage Modal *
+ *********************/
+
+DCV.ZoomingImageModal = {};
+DCV.ZoomingImageModal.show = function(){
+
+  var zoomUrl = DCV.ZoomingImageModal.getCurrentZoomUrl();
+
+  $.colorbox({
+    href: zoomUrl,
+    height:"90%",
+    width:"90%",
+    opacity:".6",
+    fixed:true,
+    iframe:true,
+    preloading: false,
+    current:"{current} of {total}",
+    title: function(){
+      var otit = $(this).data('original-title');
+      return otit;
+    },
+    onComplete: function(){
+      var bsUrl = $(this).attr('data-bytestreams');
+      loadByteStreams(bsUrl);
+    },
+  });
+  $('#colorbox').tinyDraggable({handle:'#cboxTitle', exclude:'input, textarea, a, button, i'});
+
+  return false;
+};
+
+DCV.ZoomingImageModal.openInNewWindow = function() {
+  window.open(DCV.ZoomingImageModal.getCurrentZoomUrl());
+  return false;
+};
+
+DCV.ZoomingImageModal.getCurrentZoomUrl = function() {
+  var currentChild = $('#favorite-child img');
+  return currentChild.attr('data-zoom-url') + '?initial_page=' + currentChild.attr('data-sequence');
+}
 
 
 /*********************

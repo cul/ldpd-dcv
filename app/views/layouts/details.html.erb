@@ -29,7 +29,7 @@
     <![endif]-->
 
   </head>
-  <body class="<%= render_body_class %> blacklight-<%= controller.collection_layout %> <%= params[:action] %>" onload="initTiles();">
+  <body class="<%= render_body_class %> blacklight-<%= controller.collection_layout %> <%= params[:action] %>" onload="initTiles(<%= params[:initial_page] if params[:initial_page] %>);">
 
   <div id="main-container" class="container">
     <%= render :partial=>'/flash_msg', layout: 'shared/flash_messages' %>

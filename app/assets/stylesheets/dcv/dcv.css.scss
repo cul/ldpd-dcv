@@ -432,11 +432,12 @@ h2[itemprop="name"] {
   margin-bottom:1em;
   text-align:center;
   img {
-
     width:auto;
     height:auto;
     max-width:100%;
     max-height:400px;
+    cursor: pointer; /* Backup pointer in case browser doesn't support zoom pointer */
+    cursor: -moz-zoom-in; cursor: -webkit-zoom-in; cursor: zoom-in;
   }
 }
 #child_gallery {

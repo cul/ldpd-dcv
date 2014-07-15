@@ -17,9 +17,9 @@
      <% if ct = structured_children.first -%>
        <p id="ct"><%= ct[:title] %></p>
      <% end -%>
-   <div id="favorite-child"> 
+   <div id="favorite-child">
     <% if child = structured_children.first -%>
-      <img src="<%= child[:screen] || resolve_catalog_bytestream_content_url(catalog_id: child[:id], bytestream_id: 'web850') %>.png" data-counter="1" />
+        <img onclick="$('.item-cbox').click();" src="<%= child[:screen] || resolve_catalog_bytestream_content_url(catalog_id: child[:id], bytestream_id: 'web850') %>.png" data-counter="1" data-sequence="0" data-zoom-url="<%= details_url(id: document[:id], layout:(request.path.split('/')[1])) %>"/>
     <% end -%>
    </div>
 <%= render_document_partials @document, ['gallery'] %>

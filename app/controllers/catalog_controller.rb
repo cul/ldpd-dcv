@@ -187,7 +187,10 @@ class CatalogController < ApplicationController
         :q  => '*:*',
         :fl => 'id',
         :qt => 'search',
-        :fq => ['lib_repo_sim:"' + repository_to_query + '"'], # Need quotes because values can contain spaces
+        :fq => [
+          'lib_repo_sim:"' + repository_to_query + '"', # Need quotes because values can contain spaces
+          '-active_fedora_model_ssi:GenericResource' # Not retrieving file assets
+        ],
         :rows => 1,
         :facet => false,
         :start => Random.new.rand(0..expected_response_count-1)
