@@ -8,6 +8,7 @@ class CatalogController < ApplicationController
   include Dcv::Catalog::SearchParamsLogicBehavior
   include Dcv::Catalog::BrowseListBehavior
   include Dcv::Catalog::DateRangeSelectorBehavior
+  include Dcv::Catalog::RandomItemBehavior
 
   # These before_filters apply the hydra access controls
   #before_filter :enforce_show_permissions, :only=>:show
