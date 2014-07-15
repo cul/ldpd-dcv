@@ -23,10 +23,9 @@ Dcv.Bubbles.setRadius = function(r) {
     .value(function(d) { return d.size; });
 }
 Dcv.Bubbles.chart = function(container, dataUrl) {
-  var w = $(container).width(), h = $(container).height();
-
-  var r = 0.9*(h || w);
-  h = h || 1.1*r;
+  var w = $(container).width() || 800;
+  var h = w/2.35;
+  var r = 0.9*(h);
   //alert("w:" + w + ", r:" + r);
   Dcv.Bubbles.setRadius(r);
   Dcv.Bubbles.vis = d3.select(container).insert("svg:svg", "h2")

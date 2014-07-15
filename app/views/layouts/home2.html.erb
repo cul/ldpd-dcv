@@ -183,7 +183,7 @@ circle.child {
   <div class="culinner">
     <div class="culpanel">
         <h4 class="lead alignleft">BROWSE COLLECTIONS</h4>
-        <div class="lead alignjustify" id="bubbles" style="width:600px;height:400px;">
+        <div class="alignjustify" id="bubbles" style="width:100%">
 <h5 id="zoom-label">Flare code size circle packing</h5>
         </div>
     </div>
@@ -250,6 +250,8 @@ $(window).load(function() {
     $('#topnavbar,.navbar-inner').css('background-color','transparent').css('background','transparent');
 */
 	$('#topnavbar, #pane-1 .cover, .culpanel').fadeIn(900);
+
+  Dcv.Bubbles.chart("div#bubbles","data/format-repo-collection-flare.json");
 });
 
 $(document).ready(function() {
@@ -273,12 +275,6 @@ $('div.bgParallax').each(function(){
 	}); 
 });
 </script>
-    <script type="text/javascript">
-
-Dcv.Bubbles.chart("div#bubbles","data/format-repo-collection-flare.json");
-
-
-    </script>
 
   </body>
 </html>
