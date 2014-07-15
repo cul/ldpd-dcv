@@ -25,8 +25,9 @@ class BytestreamsController < ApplicationController
 
   def get_solr_response_for_app_id(id=nil, extra_controller_params={})
     id ||= params[:id]
+    id.gsub!(/\:/,'\:')
     p = blacklight_config.default_document_solr_params.merge(extra_controller_params)
-    p[:fq] = "identifier_ssim:#{(id)}"
+    p[:fq] = "identifier_ssim:#{id}"
     solr_response = find(blacklight_config.document_solr_path, p)
     raise Blacklight::Exceptions::InvalidSolrID.new if solr_response.docs.empty?
     document = SolrDocument.new(solr_response.docs.first, solr_response)
