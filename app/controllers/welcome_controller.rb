@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'blacklight/catalog'
 
-class HomesController < ApplicationController
+class WelcomeController < ApplicationController
 
   include Blacklight::Catalog
   include Hydra::Controller::ControllerBehavior
@@ -15,7 +15,7 @@ class HomesController < ApplicationController
   #before_filter :enforce_show_permissions, :only=>:show
   # This applies appropriate access controls to all solr queries
   #CatalogController.solr_search_params_logic += [:add_access_controls_to_solr_params]
-  layout 'home2'
+  layout 'welcome'
 
   configure_blacklight do |config|
     config.default_solr_params = {
@@ -211,6 +211,5 @@ class HomesController < ApplicationController
   end
 
   def home
-    render 'catalog/alternate_home_pages/home2'
   end
 end
