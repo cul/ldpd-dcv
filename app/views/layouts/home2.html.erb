@@ -121,10 +121,14 @@
 		background-repeat: repeat;
 		background-attachment: fixed;
     }
-
+  a.browse-link {
+    font-size: 70%;
+    color: white;
+    text-transform: uppercase;
+  }  
   /* D3 Styles */
   text {
-  font-size: 11px;
+  font-size: 66%;
   pointer-events: none;
 }
 
@@ -181,7 +185,8 @@ circle.child {
 <div id="explore" class="bgParallax" data-speed="16">
   <div class="culinner">
     <div class="culpanel">
-        <h4 class="lead alignleft">EXPLORE FORMATS</h4>
+        <h4 class="lead alignleft">EXPLORE FORMATS        <%= link_to 'Browse formats &raquo;'.html_safe, browse_url(list:'lib_format_sim'), class: 'browse-link pull-right' %>
+</h4>
         <div class="alignjustify" id="bubbles" style="width:100%">
 <h5 class="zoom-label">Flare code size circle packing</h5>
         </div>
@@ -192,7 +197,7 @@ circle.child {
 <div id="discover" class="bgParallax" data-speed="6">
   <div class="culinner">
     <div class="culpanel">
-        <h4 class="lead alignleft">DISCOVER PROJECTS</h4>
+        <h4 class="lead alignleft">DISCOVER PROJECTS        <%= link_to 'Browse projects &raquo;'.html_safe, browse_url(list:'projects'), class: 'browse-link pull-right' %></h4>
 <br>
 <div class="container-fluid">
 				<div class="row">
