@@ -10,6 +10,7 @@ class CatalogController < ApplicationController
   include Dcv::Catalog::DateRangeSelectorBehavior
   include Dcv::Catalog::RandomItemBehavior
   include Dcv::Catalog::PivotFacetDataBehavior
+  include Dcv::Catalog::ModsDisplayBehavior
 
   # These before_filters apply the hydra access controls
   #before_filter :enforce_show_permissions, :only=>:show
@@ -74,8 +75,16 @@ class CatalogController < ApplicationController
 
     # solr fields to be displayed in the index (search results) view
     #   The ordering of the field names is the order of the display
-    config.add_index_field solr_name('title_display', :displayable, type: :string), :label => 'Title'
     config.add_index_field solr_name('lib_collection', :displayable, type: :string), :label => 'Collection'
+    config.add_index_field solr_name('title_display', :displayable, type: :string), :label => 'Title'
+
+    #Repository --- location/physicalLocation
+    #Names --- name/namePart
+    #Title --- titleInfo/title
+    #Department --- location/sublocation
+    #Shelf Location --- location/shelfLocator
+    #Date --- originInfo/date [free text]
+    #Item In Project --- location/url access="object in context"
 
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display

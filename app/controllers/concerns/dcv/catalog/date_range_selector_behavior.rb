@@ -40,6 +40,8 @@ module Dcv::Catalog::DateRangeSelectorBehavior
 
   def get_date_year_segment_data_for_query()
 
+    year_regex = /(-?\d\d\d\d)/
+
     max_number_of_segments = 50
     date_range_field_name = 'lib_date_year_range_si'
 
@@ -70,19 +72,32 @@ module Dcv::Catalog::DateRangeSelectorBehavior
       year_range_facet_values << {:start_year => start_year, :end_year => end_year, :count => facet_and_count[1]}
     }
 
+    # If possible, use start_year and end_year to set the start_of_range and end_of_range values
+    if params[:start_year].present?
+      start_of_range = params[:start_year].to_i
+    else
+      start_of_range = earliest_start_year
+    end
+
+    if params[:end_year].present?
+      end_of_range = params[:end_year].to_i
+    else
+      end_of_range = latest_end_year
+    end
+
     # Generate segments
-    if latest_end_year == earliest_start_year
+    if end_of_range == start_of_range
       number_of_segments = 1
       segment_size = 1
     else
 
-      if (latest_end_year - earliest_start_year) < max_number_of_segments
-         number_of_segments = (latest_end_year - earliest_start_year)
+      if (end_of_range - start_of_range) < max_number_of_segments
+         number_of_segments = (end_of_range - start_of_range)
          segment_size = 1
       else
         number_of_segments = max_number_of_segments
-        segment_size = ((latest_end_year - earliest_start_year)/number_of_segments.to_f).ceil
-        number_of_segments = ((latest_end_year - earliest_start_year)/segment_size).ceil+1
+        segment_size = ((end_of_range - start_of_range)/number_of_segments.to_f)
+        #number_of_segments = ((end_of_range - start_of_range)/segment_size).ceil+1
       end
     end
 
@@ -90,11 +105,12 @@ module Dcv::Catalog::DateRangeSelectorBehavior
     highest_segment_count_value = 0
 
     number_of_segments.times {|i|
+
       start_of_segment_range = earliest_start_year+i*segment_size
       end_of_segment_range = start_of_segment_range + segment_size
       new_segment = {}
-      new_segment[:start] = start_of_segment_range
-      new_segment[:end] = end_of_segment_range
+      new_segment[:start] = start_of_segment_range.round(0)
+      new_segment[:end] = end_of_segment_range.round(0)
       new_segment[:count] = 0
 
       year_range_facet_values.each {|val|
@@ -111,6 +127,8 @@ module Dcv::Catalog::DateRangeSelectorBehavior
     }
 
     @date_year_segment_data = {
+      start_of_range: start_of_range,
+      end_of_range: end_of_range,
       earliest_start_year: earliest_start_year,
       latest_end_year: latest_end_year,
       highest_segment_count_value: highest_segment_count_value,

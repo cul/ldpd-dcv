@@ -14,7 +14,7 @@ module Dcv::Catalog::PivotFacetDataBehavior
     else
       rsolr = RSolr.connect :url => YAML.load_file('config/solr.yml')[Rails.env]['url']
       first_facet = facets_to_pivot_on.split(',')[0]
-      top_level_field_name = blacklight_configuration.facets.select {|f| f.field == first_facet}.first
+      top_level_field_name = blacklight_config.facet_fields[first_facet]
       if (top_level_field_name)
         top_level_field_name = top_level_field_name.label
       else

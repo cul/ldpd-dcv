@@ -145,7 +145,7 @@ circle {
 
 circle.parent {
   fill: #666;
-  fill-opacity: .1;
+  fill-opacity: .2;
   stroke: #999;
 }
 
@@ -360,7 +360,7 @@ $(window).load(function() {
 */
 	$('#topnavbar, #pane-1 .cover, .culpanel, .harrow').fadeIn(900);
 
-  new DCV.Bubbles("div#bubbles").chart("data/format-repo-collection-flare.json");
+  new DCV.Bubbles("div#bubbles").chart("<%= flare_data_url(format: 'json', fields: 'lib_format_sim,lib_repo_ssim,lib_collection_sim')%>");
 
     var wtop = $('#topnavbar').height();
     if($(this).scrollTop()>=wtop){
