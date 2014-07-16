@@ -54,6 +54,7 @@ class CatalogController < ApplicationController
 
     config.add_facet_field solr_name('lib_project', :facetable), :label => 'Digital Project', :limit => 10
     config.add_facet_field solr_name('lib_collection', :facetable), :label => 'Collection', :limit => 10
+    config.add_facet_field 'lib_repo_ssim', :label => 'Repository', :sort => 'index', :limit => 10, :show => false
     config.add_facet_field solr_name('lib_repo', :facetable), :label => 'Repository', :sort => 'index', :limit => 10
     config.add_facet_field solr_name('lib_name', :facetable), :label => 'Name', :limit => 10
     config.add_facet_field solr_name('lib_format', :facetable), :label => 'Format', :limit => 10
