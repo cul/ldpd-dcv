@@ -1,8 +1,8 @@
 Dcv::Application.routes.draw do
   root :to => "catalog#home"
 
-  get '/home2' => 'catalog#home2'
-  get '/home3' => 'catalog#home3'
+  get '/browse' => 'catalog#browse'
+  get '/home2' => 'homes#home'
 
   get '/catalog/get_random_item' => 'catalog#get_random_item'
   get '/catalog/get_pivot_facet_data' => 'catalog#get_pivot_facet_data'

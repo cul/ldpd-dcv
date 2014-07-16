@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'blacklight/catalog'
 
-class CatalogController < ApplicationController
+class HomesController < ApplicationController
 
   include Blacklight::Catalog
   include Hydra::Controller::ControllerBehavior
@@ -15,8 +15,7 @@ class CatalogController < ApplicationController
   #before_filter :enforce_show_permissions, :only=>:show
   # This applies appropriate access controls to all solr queries
   #CatalogController.solr_search_params_logic += [:add_access_controls_to_solr_params]
-
-  layout 'dcv'
+  layout 'home2'
 
   configure_blacklight do |config|
     config.default_solr_params = {
@@ -204,6 +203,7 @@ class CatalogController < ApplicationController
       if docs.length > 0
         # Append single document id to list_of_ids_to_retrieve
         list_of_ids_to_retrieve << docs[0]['id']
+        puts 'list_of_ids_to_retrieve: ' + list_of_ids_to_retrieve.inspect
       end
     end
 
@@ -211,9 +211,6 @@ class CatalogController < ApplicationController
   end
 
   def home
-    do_home()
-  end
-  def browse
-    do_home()
+    render 'catalog/alternate_home_pages/home2'
   end
 end
