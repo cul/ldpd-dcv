@@ -2,6 +2,7 @@ Dcv::Application.routes.draw do
   root :to => "catalog#home"
 
   get '/catalog/get_random_item' => 'catalog#get_random_item'
+  get '/catalog/:pid/mods' => 'catalog#mods', as: :item_mods
   blacklight_for :catalog, :lindquist, :css
 
   get '/users/do_wind_login' => 'users#do_wind_login', as: :do_wind_login
