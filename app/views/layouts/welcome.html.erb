@@ -117,7 +117,7 @@
 		width: 100%;
 		min-height: 100%;
 		text-shadow:0 0 10px rgba(0,0,0,0.7);
-		background-position: 0% 0;
+		background-position: 50% 0;
 		background-repeat: no-repeat;
         background-size:cover;
 		background-attachment: fixed;
@@ -400,7 +400,7 @@ function parallasse() {
 				// Scroll the background at var speed
 				// the yPos is a negative value because we're scrolling it UP!
 				var yPos = -(($window.scrollTop() - $bgobj.offset().top) / $bgobj.data('speed'));
-				var coords = '0% ' + yPos.toFixed(0) + 'px';
+				var coords = '50% ' + yPos.toFixed(0) + 'px';
 				// Move the background
 				$bgobj.css({
 					backgroundPosition: coords
