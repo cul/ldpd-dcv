@@ -44,19 +44,7 @@
     h4 { border-bottom:1px solid #888; }
     #topnavbar, #pane-1 .cover, .culpanel { display:none; }
     #navholder { position:relative; }
-    #discover {
-      background-image:url('/assets/dcv/ldpd.treasures.243.jpg');
-      background-size:cover;
-      background-repeat:no-repeat;
-      background-position:bottom center;
-      background-attachment:fixed;
-      display:table;
-      margin:0 auto;
-      width:100%;
-      height:100%;
-    }
-    #browse {
-      background-image:url('/assets/dcv/rbml_0819r.jpg');
+    .bgParallax {
       background-size:cover;
       background-repeat:no-repeat;
       background-position:top center;
@@ -65,28 +53,19 @@
       margin:0 auto;
       width:100%;
       height:100%;
+    }
+    #discover {
+      background-image:url('/assets/dcv/ldpd.treasures.243.jpg');
+      background-position:center center;
+    }
+    #explore {
+      background-image:url('/assets/dcv/rbml_0819r.jpg');
     }
     #about {
       background-image:url('/assets/dcv/rbml_css_0912r.png');
-      background-size:cover;
-      background-repeat:no-repeat;
-      background-position:top center;
-      background-attachment:fixed;
-      display:table;
-      margin:0 auto;
-      width:100%;
-      height:100%;
     }
     #home { 
       background-image:url('/assets/dcv/1836760843_267e9c947f_o-sepc.jpg');
-      background-size:cover;
-      background-repeat:no-repeat;
-      background-position:top center;
-      background-attachment:fixed;
-      display:table;
-      margin:0 auto;
-      width:100%;
-      height:100%;
     }
     #home a { color:#ddd; }
     .culinner {
@@ -131,18 +110,17 @@
     .alignleft { text-align:left; }
     .alignjustify { text-align:justify; }
     .trajanpro { font-family: "trajan pro", trajan, serif; }
-.bgParallax {
+    .harrow { display:none;font-size:40px;color:rgba(0,0,0,.3);margin-top:-2px;position:absolute;width:100%; }
+    .bgParallax {
 		margin: 0 auto;
         padding-top:60px;
 		width: 100%;
-/*		position: relative;*/
 		min-height: 100%;
 		text-shadow:0 0 10px rgba(0,0,0,0.7);
-	 
 		background-position: 50% 0;
 		background-repeat: repeat;
 		background-attachment: fixed;
-	}
+    }
 
   /* D3 Styles */
   text {
@@ -185,6 +163,7 @@ circle.child {
     <div id="home" class="bgParallax" data-speed="8">
      <div class="culinner">
 		<%= yield %>
+        <div class="harrow"><i class="glyphicon glyphicon-arrow-down"></i></div>
      </div>
     </div>
 
@@ -199,7 +178,7 @@ circle.child {
   </div>
 </div>
 
-<div id="browse" class="bgParallax" data-speed="16">
+<div id="explore" class="bgParallax" data-speed="16">
   <div class="culinner">
     <div class="culpanel">
         <h4 class="lead alignleft">EXPLORE FORMATS</h4>
@@ -326,8 +305,9 @@ circle.child {
 <div class="hide" id="culnavitems">
 <li><a href="#home" class="scrollto">Home</a></li>
 <li><a href="#about" class="scrollto">About</a></li>
-<li><a href="#browse" class="scrollto">Explore</a></li>
+<li><a href="#explore" class="scrollto">Explore</a></li>
 <li><a href="#discover" class="scrollto">Discover</a></li>
+<li><a href="#browse" class="scrollto">Browse</a></li>
 </div>
 
 <!-- CULTNBW START -->
@@ -372,7 +352,7 @@ $(window).load(function() {
 /*
     $('#topnavbar,.navbar-inner').css('background-color','transparent').css('background','transparent');
 */
-	$('#topnavbar, #pane-1 .cover, .culpanel').fadeIn(900);
+	$('#topnavbar, #pane-1 .cover, .culpanel, .harrow').fadeIn(900);
 
   new DCV.Bubbles("div#bubbles").chart("data/format-repo-collection-flare.json");
 
@@ -390,6 +370,7 @@ $(document).ready(function() {
     $('body,html').animate({ scrollTop: $(where).offset().top /*- $('#topnavbar').height()*/ }, 900, 'swing');
     return false;
   });
+
 });
 
 $('div.bgParallax-OFF').each(function(){
