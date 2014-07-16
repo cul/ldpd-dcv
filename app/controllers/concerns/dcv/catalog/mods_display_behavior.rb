@@ -5,9 +5,14 @@ module Dcv::Catalog::ModsDisplayBehavior
 
     begin
       obj = ActiveFedora::Base.find(params[:pid])
-      render xml: obj.descMetadata.content
-    rescue ActiveFedora::ObjectNotFoundError, NoMethodError => e
-      render text: 'No MODS record found for this ID.'
+      puts 'Found obj: ' + obj.inspect
+      if obj.respond_to?(:descMetadata) && obj.descMetadata.present?
+        render xml: obj.descMetadata.content
+      else
+        render text: 'No MODS record found for this object.'
+      end
+    rescue ActiveFedora::ObjectNotFoundError
+      render text: 'Object not found.'
     end
 
   end
