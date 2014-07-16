@@ -76,6 +76,14 @@ class CatalogController < ApplicationController
     config.add_index_field solr_name('lib_collection', :displayable, type: :string), :label => 'Collection'
     config.add_index_field solr_name('title_display', :displayable, type: :string), :label => 'Title'
 
+    #Repository --- location/physicalLocation
+    #Names --- name/namePart
+    #Title --- titleInfo/title
+    #Department --- location/sublocation
+    #Shelf Location --- location/shelfLocator
+    #Date --- originInfo/date [free text]
+    #Item In Project --- location/url access="object in context"
+
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display
     config.add_show_field solr_name('title_display', :displayable, type: :string), :label => 'Title'

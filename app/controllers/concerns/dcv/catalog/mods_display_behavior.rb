@@ -5,7 +5,6 @@ module Dcv::Catalog::ModsDisplayBehavior
 
     begin
       obj = ActiveFedora::Base.find(params[:pid])
-      puts 'Found obj: ' + obj.inspect
       if obj.respond_to?(:descMetadata) && obj.descMetadata.present?
         render xml: obj.descMetadata.content
       else
