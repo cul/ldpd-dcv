@@ -5,7 +5,7 @@ Dcv::Application.routes.draw do
   get '/welcome' => 'welcome#home'
 
   get '/catalog/get_random_item' => 'catalog#get_random_item'
-  get '/catalog/get_pivot_facet_data' => 'catalog#get_pivot_facet_data'
+  get '/data/flare' => 'catalog#get_pivot_facet_data', as: :flare_data
   blacklight_for :catalog, :lindquist, :css
 
   get '/users/do_wind_login' => 'users#do_wind_login', as: :do_wind_login

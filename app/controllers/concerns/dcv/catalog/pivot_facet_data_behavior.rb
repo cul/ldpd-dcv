@@ -13,7 +13,13 @@ module Dcv::Catalog::PivotFacetDataBehavior
       json_response['error'] = 'Pivot facet requires at least two fields.'
     else
       rsolr = RSolr.connect :url => YAML.load_file('config/solr.yml')[Rails.env]['url']
-
+      first_facet = facets_to_pivot_on.split(',')[0]
+      top_level_field_name = blacklight_configuration.facets.select {|f| f.field == first_facet}.first
+      if (top_level_field_name)
+        top_level_field_name = top_level_field_name.label
+      else
+        top_level_field_name = 'Top Level'
+      end      
       begin
         # Do solr query for each repository
         response = rsolr.get 'select', :params => {
