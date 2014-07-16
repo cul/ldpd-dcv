@@ -1,0 +1,60 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <link type="text/css" rel="stylesheet" href="media/styles.css"/>
+    <script type="text/javascript" src="assets/application.js"></script>
+    <script type="text/javascript" src="assets/d3.js"></script>
+    <style type="text/css">
+
+body {
+  background-color: #fff;
+}
+text {
+  font-size: 11px;
+  pointer-events: none;
+}
+
+text.parent {
+  fill: #333;
+}
+
+circle {
+  fill: #ccc;
+  stroke: #999;
+  pointer-events: all;
+}
+
+circle.parent {
+  fill: #666;
+  fill-opacity: .1;
+  stroke: #999;
+}
+
+circle.parent:hover {
+  stroke: #ff7f0e;
+  stroke-width: .5px;
+}
+
+circle.child {
+  /** need to be able to zoom to a child **/
+  /** pointer-events: none; **/
+}
+
+    </style>
+  </head>
+  <body>
+    <div id="bubbles" style="width:80%;border:1px solid black;">
+    <h2 class="zoom-label">
+      Flare code size circle packing
+    </h2>
+    </div>
+    <script type="text/javascript">
+
+new DCV.Bubbles("div#bubbles").chart("data/format-repo-collection-flare.json");
+
+
+    </script>
+  </body>
+</html>
