@@ -204,7 +204,6 @@ class CatalogController < ApplicationController
       if docs.length > 0
         # Append single document id to list_of_ids_to_retrieve
         list_of_ids_to_retrieve << docs[0]['id']
-        puts 'list_of_ids_to_retrieve: ' + list_of_ids_to_retrieve.inspect
       end
     end
 
