@@ -117,8 +117,9 @@
 		width: 100%;
 		min-height: 100%;
 		text-shadow:0 0 10px rgba(0,0,0,0.7);
-		background-position: 50% 0;
-		background-repeat: repeat;
+		background-position: 0% 0;
+		background-repeat: no-repeat;
+        background-size:cover;
 		background-attachment: fixed;
     }
   a.browse-link {
@@ -164,7 +165,7 @@ circle.child {
 
   </head>
   <body class="<%= render_body_class %> dcv <%= params[:action] %>">
-    <div id="home" class="bgParallax" data-speed="8">
+    <div id="home" class="bgParallax" data-speed="2">
      <div class="culinner">
 		<%= yield %>
         <div class="harrow"><i class="glyphicon glyphicon-arrow-down"></i></div>
@@ -182,7 +183,7 @@ circle.child {
   </div>
 </div>
 
-<div id="explore" class="bgParallax" data-speed="16">
+<div id="explore" class="bgParallax" data-speed="6">
   <div class="culinner">
     <div class="culpanel">
         <h4 class="lead alignleft">EXPLORE FORMATS        <%= link_to 'Browse formats &raquo;'.html_safe, browse_url(list:'lib_format_sim'), class: 'browse-link pull-right' %>
@@ -194,7 +195,7 @@ circle.child {
   </div>
 </div>
 
-<div id="discover" class="bgParallax" data-speed="6">
+<div id="discover" class="bgParallax" data-speed="3">
   <div class="culinner">
     <div class="culpanel">
         <h4 class="lead alignleft">DISCOVER PROJECTS        <%= link_to 'Browse projects &raquo;'.html_safe, browse_url(list:'projects'), class: 'browse-link pull-right' %></h4>
@@ -370,6 +371,7 @@ $(window).load(function() {
 });
 
 $(document).ready(function() {
+parallasse();
   $('body').on('click', '.scrollto', function() {
   var where = $(this).attr('href');
     $('body,html').animate({ scrollTop: $(where).offset().top /*- $('#topnavbar').height()*/ }, 900, 'swing');
@@ -386,6 +388,31 @@ $('div.bgParallax-OFF').each(function(){
 		$obj.css('background-position', bgpos );
 	}); 
 });
+
+
+function parallasse() {
+		var $window = $(window);
+		//$('section[data-type="background"]').each(function() {
+		$('.bgParallax').each(function() {
+			//$(this).css('background-attachment', 'fixed').css('background-position', '50% -800px');
+			var $bgobj = $(this); // assigning the object
+			$(window).scroll(function() {
+				// Scroll the background at var speed
+				// the yPos is a negative value because we're scrolling it UP!
+				var yPos = -(($window.scrollTop() - $bgobj.offset().top) / $bgobj.data('speed'));
+				var coords = '0% ' + yPos.toFixed(0) + 'px';
+				// Move the background
+				$bgobj.css({
+					backgroundPosition: coords
+				});
+			});
+		});
+//		document.createElement("article");
+//		document.createElement("section");
+}
+
+// parallasse per immagini bg RS
+
 </script>
 
   </body>
