@@ -2,10 +2,28 @@
 <div class="tab-pane fade<%= 'in active' if active_tab == facet_name %>" id="tab_<%= facet_name %>">
   <small><%= data['short_description'] %></small>
   <br /><br />
-  <ul class="nopad-rl cols-two">
-    <% data['value_pairs'].each do |value, count| %>
-      <% search_link = search_action_path(:f => {facet_name => [value]}) %>
-      <li><%= link_to value, search_link %> (<%= count %>)</li>
-    <% end %>
+  <ul class="nav nav-pills" role="tablist">
+  <% first = data['value_pairs'].first[0].codepoints.first %>
+  <% tab_map = {} -%>
+  <% data['value_pairs'].each do |value, count| -%>
+    <%- codepoint = value.codepoints.first -%>
+    <% unless tab_map.include? codepoint -%>
+      <li class="<%= 'active' if codepoint == first %>"><a href="#tab-<%= codepoint %>" role="tab" data-toggle="tab"><%= value[0] %></a></li>
+      <% tab_map[codepoint] = [] %>
+    <%- end -%>
+    <%- tab_map[codepoint] << [value, count] -%>
+  <% end -%>
   </ul>
+  <div class="tab-content">
+  <% tab_map.each do |codepoint, value_pairs| -%>
+    <div class="tab-pane <%= 'active' if first == codepoint %>" id="tab-<%= codepoint %>">
+      <ul class="nopad-rl cols-two">
+        <% value_pairs.each do |value, count| %>
+          <% search_link = search_action_path(:controller => :catalog, :f => {facet_name => [value]}) %>
+          <li><%= link_to value, search_link %> (<%= count %>)</li>
+        <% end -%>
+      </ul>
+      </div>
+    <% end %>
+  </div>
 </div>
