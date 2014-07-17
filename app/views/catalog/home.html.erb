@@ -19,29 +19,9 @@
 
       <!-- Tab panes -->
       <div class="tab-content">
-        <div class="tab-pane fade in active" id="sample_items">
-							<small>Below, you'll find a randomly selected sample of items from several of our repositories.</small>
-							<br /><br />
-							<%- if @response.empty? %>
-							<%= render "zero_results" %>
-							<%- elsif render_grouped_response? %>
-							<%= render_grouped_document_index %>
-							<%- else %>
-							<%= render_document_index %>
-							<%- end %>
-							<div class="clearfix"></div>
-        </div>
+        <%= render template: 'pages/sample_items' -%>
         <% @browse_lists.each do |facet_name, data| %>
-          <div class="tab-pane fade" id="tab_<%= facet_name %>">
-						<small><%= data['short_description'] %></small>
-						<br /><br />
-            <ul class="nopad-rl cols-two">
-              <% data['value_pairs'].each do |value, count| %>
-                <% search_link = search_action_path(:f => {facet_name => [value]}) %>
-                <li><%= link_to value, search_link %> (<%= count %>)</li>
-              <% end %>
-            </ul>
-          </div>
+          <%= render template: "pages/#{facet_name}", locals: {facet_name: facet_name, data: data} -%>
         <% end %>
         <div class="tab-pane fade" id="projects">
           <%= render template: 'pages/digital_projects' -%>
