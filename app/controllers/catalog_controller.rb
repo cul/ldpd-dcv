@@ -216,4 +216,8 @@ class CatalogController < ApplicationController
 
     (@response, @document_list) = get_search_results({:per_page => number_of_items_to_show}, {:fq => 'id:(' + list_of_ids_to_retrieve.map{|id| id.gsub(':', '\:')}.join(' OR ') + ')'})
   end
+
+  def about
+    # no op
+  end
 end
