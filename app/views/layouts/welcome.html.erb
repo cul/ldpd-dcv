@@ -91,6 +91,11 @@
     #about .culpanel {
       padding:50px 220px;
     } 
+    #home .culpanel {
+      width:768px;
+      padding:20px;
+      border:0;
+    }
     @media (min-width: 768px) {
       .culpanel { width:740px; }
     }
@@ -110,7 +115,7 @@
     .alignleft { text-align:left; }
     .alignjustify { text-align:justify; }
     .trajanpro { font-family: "trajan pro", trajan, serif; }
-    .harrow { display:none;font-size:40px;color:rgba(0,0,0,.3);margin-top:-2px;position:absolute;width:100%; }
+    .harrow { display:none;font-size:40px;color:rgba(0,0,0,.3);margin-top:-5px;position:absolute;width:100%; }
     .bgParallax {
 		margin: 0 auto;
         padding-top:60px;
@@ -170,6 +175,11 @@ circle.child {
 		<%= yield %>
         <div class="harrow"><i class="glyphicon glyphicon-arrow-down"></i></div>
      </div>
+     <ol class="carousel-indicators">
+       <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+       <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+       <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+     </ol>
     </div>
 
 <div id="about" class="bgParallax" data-speed="4">
@@ -355,9 +365,6 @@ $(window).load(function() {
         $('#menuholder li:not(:last-child)').show();
 	}
   });
-/*
-    $('#topnavbar,.navbar-inner').css('background-color','transparent').css('background','transparent');
-*/
 	$('#topnavbar, #pane-1 .cover, .culpanel, .harrow').fadeIn(900);
 
   new DCV.Bubbles("div#bubbles").chart("<%= flare_data_url(format: 'json', fields: 'lib_format_sim,lib_repo_ssim,lib_collection_sim')%>");
@@ -368,10 +375,33 @@ $(window).load(function() {
         $('#cul_top-right > li:not(:last-child)').show();
         $('#menuholder li:not(:last-child)').show();
     } 
+
 });
 
 $(document).ready(function() {
-parallasse();
+
+  /* bg carousel */
+  var $bgimgs = [
+    "<%= image_path('dcv/1836760843_267e9c947f_o-sepc.jpg')%>", 
+    "<%= image_path('dcv/columbia_university_library___night_by_never4getthis-d57w6dl-cropped.jpg')%>",
+    "<%= image_path('dcv/1836760843_267e9c947f_o.jpg')%>"
+  ]; 
+  $("#home").bgswitcher({ 
+	images: $bgimgs,
+    start: false,
+	loop: true,
+    effect: "drop"
+  });
+  $('.bgswitcher').addClass('bgParallax').attr('data-speed','2');
+  $("#home .carousel-indicators li").on("click", function() {
+    $(this).parent().find('.active').removeClass('active')
+    $('#home').bgswitcher("select", $(this).index());
+    $(this).addClass('active');
+  });
+  /* /END bg carousel */
+
+  parallasse();
+
   $('body').on('click', '.scrollto', function() {
   var where = $(this).attr('href');
     $('body,html').animate({ scrollTop: $(where).offset().top /*- $('#topnavbar').height()*/ }, 900, 'swing');
@@ -410,8 +440,6 @@ function parallasse() {
 //		document.createElement("article");
 //		document.createElement("section");
 }
-
-// parallasse per immagini bg RS
 
 </script>
 
