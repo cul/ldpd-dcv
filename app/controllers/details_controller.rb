@@ -43,7 +43,7 @@ class DetailsController < ApplicationController
 
     config.add_facet_field solr_name('lib_project', :facetable), :label => 'Project'
     config.add_facet_field solr_name('lib_collection', :facetable), :label => 'Collection'
-    config.add_facet_field solr_name('lib_repo', :facetable), :label => 'Repository'
+    config.add_facet_field solr_name('lib_repo', :facetable), :label => 'Library Location'
     config.add_facet_field solr_name('lib_name', :facetable), :label => 'Name'
     config.add_facet_field solr_name('lib_format', :facetable), :label => 'Format'
     #todo: date
