@@ -15,6 +15,7 @@
           <li><a href="#tab_<%= facet_name %>" data-toggle="tab"><%= data['display_label'] %></a></li>
         <% end %>
         <li><a href="#projects" data-toggle="tab">Digital Projects</a></li>
+        <li><a href="#exhibits" data-toggle="tab">Digital Exhibitions</a></li>
       </ul>
 
       <!-- Tab panes -->
@@ -25,6 +26,9 @@
         <% end %>
         <div class="tab-pane fade" id="projects">
           <%= render template: 'pages/digital_projects' -%>
+        </div>
+        <div class="tab-pane fade" id="exhibits">
+          <%= render template: 'pages/digital_exhibits' -%>
         </div>
       </div>
     </div> <!--/.inner-->
