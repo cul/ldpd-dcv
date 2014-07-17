@@ -43,6 +43,7 @@
     a:hover { text-decoration:none; }
     h4 { border-bottom:1px solid #888; }
     #topnavbar, #pane-1 .cover, .culpanel { display:none; }
+    #topnavbar:hover { opacity:1!important; }
     #navholder { position:relative; }
     .bgParallax {
       background-size:cover;
@@ -83,7 +84,7 @@
       min-height:340px;
       vertical-align:middle;
       background-color:rgba(0,0,0,.5);
-      padding:50px 40px;
+      padding:20px 40px;
       border:1px dotted #666;
       margin:-100px auto 0 auto;
       /*box-shadow:0 0 86px rgba(255,255,255,.4);*/
@@ -180,6 +181,12 @@ circle.child {
        <li data-target="#carousel-example-generic" data-slide-to="1"></li>
        <li data-target="#carousel-example-generic" data-slide-to="2"></li>
      </ol>
+  <a class="left carousel-control" href="#prev" role="button" data-slide="prev">
+    <span class="glyphicon glyphicon-chevron-left"></span>
+  </a>
+  <a class="right carousel-control" href="#next" role="button" data-slide="next">
+    <span class="glyphicon glyphicon-chevron-right"></span>
+  </a>
     </div>
 
 <div id="about" class="bgParallax" data-speed="4">
@@ -352,35 +359,36 @@ circle.child {
 
 <script>
 $(window).load(function() {
- $('#culnavitems li').hide().prependTo($('#cul_top-right'));
+  $('#culnavitems li').hide().prependTo($('#cul_top-right'));
   $(window).scroll(function(){
-    var wtop = $('#topnavbar').height();
-    if($(this).scrollTop()>=wtop){
-        //$('#topnavbar').css('background-color','#444444');
+    if($(this).scrollTop()>=$('#home').height()/1.6){
+       $('#topnavbar').css('opacity','1');
         $('#cul_top-right > li:not(:last-child)').show();
         $('#menuholder li:not(:last-child)').show();
     } else {
-		//$('#topnavbar').css('background-color','transparent');
+       $('#topnavbar').css('opacity','0.2');
         $('#cul_top-right > li:not(:last-child)').hide();
         $('#menuholder li:not(:last-child)').show();
-	}
+    }
   });
-	$('#topnavbar, #pane-1 .cover, .culpanel, .harrow').fadeIn(900);
+  $('#topnavbar, #pane-1 .cover, .culpanel, .harrow').fadeIn(900);
+
+  if($(window).scrollTop()<$('#home').height()/1.6) {
+    $('#topnavbar').fadeTo('slow','0.2');
+  }
+  var wtop = $('#topnavbar').height();
+  if($(this).scrollTop()>=wtop){
+      $('#cul_top-right > li:not(:last-child)').show();
+      $('#menuholder li:not(:last-child)').show();
+  } 
 
   new DCV.Bubbles("div#bubbles").chart("<%= flare_data_url(format: 'json', fields: 'lib_format_sim,lib_repo_ssim,lib_collection_sim')%>");
-
-    var wtop = $('#topnavbar').height();
-    if($(this).scrollTop()>=wtop){
-        //$('#topnavbar').css('background-color','#444444');
-        $('#cul_top-right > li:not(:last-child)').show();
-        $('#menuholder li:not(:last-child)').show();
-    } 
 
 });
 
 $(document).ready(function() {
 
-  /* bg carousel */
+  /* home bg carousel */
   var $bgimgs = [
     "<%= image_path('dcv/1836760843_267e9c947f_o-sepc.jpg')%>", 
     "<%= image_path('dcv/columbia_university_library___night_by_never4getthis-d57w6dl-cropped.jpg')%>",
@@ -390,7 +398,7 @@ $(document).ready(function() {
 	images: $bgimgs,
     start: false,
 	loop: true,
-    effect: "drop"
+    effect: "fade"
   });
   $('.bgswitcher').addClass('bgParallax').attr('data-speed','2');
   $("#home .carousel-indicators li").on("click", function() {
@@ -398,7 +406,27 @@ $(document).ready(function() {
     $('#home').bgswitcher("select", $(this).index());
     $(this).addClass('active');
   });
-  /* /END bg carousel */
+  $("#home .carousel-control").on("click", function() {
+    var nextprev = $(this).attr('data-slide');
+    $('#home').bgswitcher(nextprev);
+    if (nextprev == 'next') {
+     var $next = $('#home .carousel-indicators li').parent().find('.active').removeClass('active').next();
+     if ($next.length) {
+       $next.addClass('active');
+     } else {
+       $('#home .carousel-indicators li:first').addClass('active');
+     }
+    } else {
+     var $prev = $('#home .carousel-indicators li').parent().find('.active').removeClass('active').prev();
+     if ($prev.length) {
+       $prev.addClass('active');
+     } else {
+       $('#home .carousel-indicators li:last').addClass('active');
+     }
+    }
+    return false;
+  });
+  /* /END home bg carousel */
 
   parallasse();
 
