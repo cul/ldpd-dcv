@@ -53,7 +53,7 @@ class CatalogController < ApplicationController
 
     config.add_facet_field solr_name('lib_project', :facetable), :label => 'Digital Project', :limit => 10
     config.add_facet_field solr_name('lib_collection', :facetable), :label => 'Collection', :limit => 10
-    config.add_facet_field solr_name('lib_repo', :facetable), :label => 'Repository', :sort => 'index', :limit => 10
+    config.add_facet_field solr_name('lib_repo', :facetable), :label => 'Library Location', :sort => 'index', :limit => 10
     config.add_facet_field solr_name('lib_name', :facetable), :label => 'Name', :limit => 10
     config.add_facet_field solr_name('lib_format', :facetable), :label => 'Format', :limit => 10
     config.add_facet_field solr_name('language_language_term_text', :facetable), :label => 'Language', :limit => 10
@@ -213,5 +213,9 @@ class CatalogController < ApplicationController
     end
 
     (@response, @document_list) = get_search_results({:per_page => number_of_items_to_show}, {:fq => 'id:(' + list_of_ids_to_retrieve.map{|id| id.gsub(':', '\:')}.join(' OR ') + ')'})
+  end
+
+  def about
+    # no op
   end
 end
