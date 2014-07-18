@@ -1,0 +1,76 @@
+<%
+	digital_exhibitions = [
+		{
+			:name => "Children's Drawings of the Spanish Civil War",
+			:image => 'spanish_civil_war_children_drawings.png',
+			:facet_value => 'Spanish Civil War',
+			:external_url => 'http://www.columbia.edu/cgi-bin/cul/resolve?clio4278351',
+			:description => "A virtual exhibition of drawings done by children evacuated to 'colonies' (camps) in war-free areas of Spain and in the south of France from war zones during the Spanish Civil War (1936-1939).   In addition to providing a poignant testimony to how children see and understand war, this exhibition reaches out to those who may have been evacuees and provides a way to contact others with memories of that era. The originals of the images displayed here are housed in the Avery Fine Arts and Architectural Library."
+		},
+		{
+			:name => "Jewels in Her Crown: Treasures from the Special Collections of Columbia's Libraries",
+			:image => 'jewels_in_her_crown.png',
+			:facet_value => 'Jewels in her Crown',
+			:external_url => 'http://www.columbia.edu/cgi-bin/cul/resolve?clio4887511',
+			:description => "An online version of the exhibition held in Rare Book and Manuscript Galleries from October 8, 2004 - January 28, 2005, the site brings together for the first time objects selected from all eleven special collections within Columbia University Libraries and affiliates. Mounted in conjunction with the 250th anniversary of Columbia, this exhibition celebrates both the rich collections of books, drawings, manuscripts and other research materials gathered since King's College had its start near Trinity Church in lower Manhattan in 1754 and also the generosity of the donors whose gifts have made possible the work of students and scholars for many generations."
+		},
+		{
+			:name => "Russian Imperial Corps of Pages: an Online Exhibition Catalog",
+			:image => 'russian_corps.png',
+			:facet_value => 'Russian Corps of Pages',
+			:external_url => 'http://www.columbia.edu/cgi-bin/cul/resolve?clio4171223',
+			:description => "An online exhibition catalog containing selections from the Columbia University Libraries exhibition, \"The Russian Imperial Corps of Pages,\" on view in Butler Library from December 1, 2002 to February 28, 2003, timed to coincide with celebrations of the 300th anniversary of St. Petersburg.  Objects were drawn from the Imperial Corps of Pages collection held by Columbia's Bakhmeteff Archive of Russian and East European History and Culture, one of the world's most extensive repositories of Russian materials outside Russia."
+		},
+	]
+%>
+	<div id="digital_exhibitions">
+		<h2 class="hide">Digital Exhibitions</h2>
+		<p><strong>Digital Library Collections</strong> is a gateway to many of the digital exhibitions that Columbia University Libraries / Information Services has completed over the past ten years. Some of these exhibitions are housed entirely within this site, while others have also been published as independent external exhibitions.  Below, you'll find everything that we offer.</p>
+
+		<%
+		per_row = 1
+		col_size = 12/per_row
+		col_counter = 0
+		%>
+
+		<% digital_exhibitions.each do |digital_exhibition| %>
+			<% if col_counter == 0 %>
+				<br />
+				<div class="row">
+			<% end %>
+
+			<div class="col-md-<%= col_size %>">
+
+				<div class="row">
+					<div class="col-sm-3">
+						<% dcv_search_link = digital_exhibition[:facet_value].present? ? search_action_path(:f => {'lib_project_sim' => [digital_exhibition[:facet_value]]}) : nil %>
+						<%= link_to image_tag('digital_exhibitions_page/' + digital_exhibition[:image], :class => 'thumbnail img-responsive'), dcv_search_link, :style => 'margin:0px auto;' %>
+
+						<div class="aligncenter">
+							<% if dcv_search_link.present? %>
+								<small><%= link_to 'View Content', dcv_search_link %></small>
+							<% end %>
+							<% if dcv_search_link.present? && digital_exhibition[:external_url].present? %>
+								<br />
+							<% end %>
+							<% if digital_exhibition[:external_url].present? %>
+								<small><%= link_to 'Jump to Exhibition Site', digital_exhibition[:external_url] %></small>
+							<% end %>
+						</div>
+					</div>
+					<div class="col-sm-9">
+						<h3><%= digital_exhibition[:name] %></h3>
+						<%= digital_exhibition[:description] %>
+					</div>
+				</div>
+
+			</div>
+
+			<% col_counter += 1 %>
+			<% if col_counter == per_row %>
+				</div>
+				<% col_counter = 0 %>
+			<% end %>
+
+		<% end %>
+	</div>
