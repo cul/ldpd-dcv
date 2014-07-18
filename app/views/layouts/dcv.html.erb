@@ -55,10 +55,20 @@
   </div><!--/#outer-wrapper-->
 
   <!-- CULTNBW START -->
+  <ul id="cultnbw-custom-right" style="display:none;">
+   <li class="dropdown menu"><a class="dropdown-toggle menu" data-toggle="dropdown" href="#">Help <b class="caret"></b></a>
+    <ul class="dropdown-menu menu-dropdown">
+     <li><a href="#">Link 1</a></li>
+     <li><a href="#">Link 2</a></li>
+     <li><a href="#">Link 3</a></li>
+    </ul>
+   </li>
+  </ul><!--//cultnbw-custom-right-->
   <script type="text/javascript" data-turbolinks-eval="false">
     CULh_colorfg = '#000000'; // topnavbar foreground color. hex value. ex: #002B7F
     CULh_colorbg = '#444444'; // topnavbar background color. hex value. ex: #779BC3
     CULh_nobs = 1; // uncomment to NOT load our bootstrap javascript file and or use your own (v2.3.x required)
+    CULh_links = { "<%= root_url %>" : "Digital Collections Home", "http://clio.columbia.edu/" : "CLIO" };
   </script>
   <script src="//cdn.cul.columbia.edu/ldpd-toolkit/widgets/cultnbw.min.js" data-turbolinks-eval="false"></script>
   <!-- Navbar fix for compatibility with turbolinks -->
