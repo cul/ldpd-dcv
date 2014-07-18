@@ -8,8 +8,11 @@
   <span class="sr-only">Toggle Dropdown</span>
 </button>
 <ul class="dropdown-menu pull-right" role="menu">
-  <li class="twitter">
-    <%= link_to '<span class="glyphicon glyphicon-file"></span> MODS XML'.html_safe, item_mods_path(:pid => @document.id), :'data-no-turbolink' => true %>
+  <li>
+    <%= link_to '<span class="glyphicon glyphicon-file"></span> Download Metadata'.html_safe, item_mods_path(:pid => @document.id), :'data-no-turbolink' => true %>
+    <%= link_to '<span class="glyphicon glyphicon-download"></span> Download Small'.html_safe, '#', :'data-no-turbolink' => true %>
+    <%= link_to '<span class="glyphicon glyphicon-download"></span> Download Medium'.html_safe, '#', :'data-no-turbolink' => true %>
+    <%= link_to '<span class="glyphicon glyphicon-download"></span> Download Large'.html_safe, '#', :'data-no-turbolink' => true %>
   </li>
 </ul>
 </div>

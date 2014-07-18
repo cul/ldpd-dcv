@@ -44,6 +44,7 @@ DCV.DateRangeSlider.filterBySelectedDateRange = function() {
  ****************************/
 
 DCV.DateRangeGraphSelector = {};
+DCV.DateRangeGraphSelector.initialized = false;
 DCV.DateRangeGraphSelector.lastClickEvent = null;
 
 DCV.DateRangeGraphSelector.dateCache = null;
@@ -98,6 +99,9 @@ DCV.DateRangeGraphSelector.clearSelectedRegionIndicator = function() {
 };
 
 DCV.DateRangeGraphSelector.resizeCanvas = function() {
+
+  if ( ! DCV.DateRangeGraphSelector.initialized ) { return; }
+
   // Make sure that actual canvas dimensions are equal to the current size
   // so that we don't get anti-aliased rescaling.  This will look sharper.
 
@@ -114,6 +118,8 @@ DCV.DateRangeGraphSelector.resizeCanvas = function() {
 };
 
 DCV.DateRangeGraphSelector.render = function() {
+
+  if ( ! DCV.DateRangeGraphSelector.initialized ) { return; }
 
   var c = document.getElementById('date-range-canvas');
 
@@ -160,7 +166,7 @@ DCV.DateRangeGraphSelector.render = function() {
     ctx.moveTo(padding+i*segmentWidth, 0);
     ctx.lineTo(padding+i*segmentWidth, c.height-1);
     ctx.stroke();
-    
+
   }
 
   // Render text separately so that it's always on top of the bars
@@ -174,7 +180,7 @@ DCV.DateRangeGraphSelector.render = function() {
     if (i/numSegments >= dateMarkersToRender[dateMarkerCounter]) {
 
       dateMarkerCounter++;
-      
+
       //Draw line
       //Time dividing lines
       ctx.strokeStyle = '#555';
@@ -182,7 +188,7 @@ DCV.DateRangeGraphSelector.render = function() {
       ctx.moveTo(padding+i*segmentWidth, 0);
       ctx.lineTo(padding+i*segmentWidth, c.height-1);
       ctx.stroke();
-      
+
       //Draw year
 
       var textYOffset = c.height/7;
@@ -206,13 +212,13 @@ DCV.DateRangeGraphSelector.render = function() {
     }
 
     if (i == numSegments-1) {
-      
+
       //Draw Line
       ctx.beginPath();
       ctx.moveTo(padding+(i+1)*segmentWidth, 0);
       ctx.lineTo(padding+(i+1)*segmentWidth, c.height-1);
       ctx.stroke();
-      
+
       //if (segment['end'].toString().substring(0, 1) == '-') {
       //  var textToRender = segment['end'].toString().substring(1) + ' BCE';
       //} else {
