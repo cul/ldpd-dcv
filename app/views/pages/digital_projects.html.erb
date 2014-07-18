@@ -36,7 +36,7 @@ An online presentation of almost 1400 photographs  from the Community Service So
 		<p><strong>Digital Library Collections</strong> is a gateway to many of the digital projects that Columbia University Libraries / Information Services has completed over the past ten years. Some of these projects are housed entirely within this site, while others have also been published as independent external exhibitions.  Below, you'll find everything that we offer.</p>
 
 		<%
-		per_row = 2
+		per_row = 1
 		col_size = 12/per_row
 		col_counter = 0
 		%>
@@ -50,7 +50,7 @@ An online presentation of almost 1400 photographs  from the Community Service So
 			<div class="col-md-<%= col_size %>">
 
 				<div class="row">
-					<div class="col-sm-4">
+					<div class="col-sm-3">
 						<% dcv_search_link = search_action_path(:f => {'lib_project_sim' => [digital_project[:facet_value]]}) %>
 						<%= link_to image_tag('digital_projects_page/' + digital_project[:image], :class => 'thumbnail img-responsive'), dcv_search_link, :style => 'margin:0px auto;' %>
 
@@ -62,7 +62,7 @@ An online presentation of almost 1400 photographs  from the Community Service So
 							<% end %>
 						</div>
 					</div>
-					<div class="col-sm-8">
+					<div class="col-sm-9">
 						<h3><%= digital_project[:name] %></h3>
 						<%= digital_project[:description] %>
 					</div>

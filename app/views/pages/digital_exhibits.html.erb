@@ -28,7 +28,7 @@
 		<p><strong>Digital Library Collections</strong> is a gateway to many of the digital exhibitions that Columbia University Libraries / Information Services has completed over the past ten years. Some of these exhibitions are housed entirely within this site, while others have also been published as independent external exhibitions.  Below, you'll find everything that we offer.</p>
 
 		<%
-		per_row = 2
+		per_row = 1
 		col_size = 12/per_row
 		col_counter = 0
 		%>
@@ -42,7 +42,7 @@
 			<div class="col-md-<%= col_size %>">
 
 				<div class="row">
-					<div class="col-sm-4">
+					<div class="col-sm-3">
 						<% dcv_search_link = search_action_path(:controller => :catalog, :f => {'lib_project_sim' => [digital_exhibit[:facet_value]]}) %>
 						<%= link_to image_tag('digital_projects_page/' + digital_exhibit[:image], :class => 'thumbnail img-responsive'), dcv_search_link, :style => 'margin:0px auto;' %>
 
@@ -54,7 +54,7 @@
 							<% end %>
 						</div>
 					</div>
-					<div class="col-sm-8">
+					<div class="col-sm-9">
 						<h3><%= digital_exhibit[:name] %></h3>
 						<%= digital_exhibit[:description] %>
 					</div>
