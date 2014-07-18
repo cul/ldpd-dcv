@@ -57,8 +57,6 @@ class CatalogController < ApplicationController
     config.add_facet_field solr_name('lib_name', :facetable), :label => 'Name', :limit => 10
     config.add_facet_field solr_name('lib_format', :facetable), :label => 'Format', :limit => 10
     config.add_facet_field solr_name('language_language_term_text', :facetable), :label => 'Language', :limit => 10
-    #todo: date
-    #todo: language
     config.add_facet_field 'format_ssi', :label => 'System Format'
 
     config.add_facet_field solr_name('lc1_letter', :facetable), :label => 'Call Number'

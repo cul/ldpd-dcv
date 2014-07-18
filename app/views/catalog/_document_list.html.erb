@@ -1,9 +1,9 @@
 <% # container for all documents in index view -%>
-<div id="search-results-standard" class="search-result-display">
+<div id="search-results-date-graph" class="search-result-display hidden">
+  <%= render 'date_range_selector' %>
+</div>
+<div id="search-results">
   <div class="row">
     <%= render :partial=>'document',:collection=> documents, :as=> :document, :locals=> {:row_offset=> 0} %>
   </div>
-</div>
-<div id="search-results-date-graph" class="search-result-display">
-  <%= render 'date_range_selector' %>
 </div>

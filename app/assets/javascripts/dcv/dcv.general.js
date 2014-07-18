@@ -1,4 +1,7 @@
 $(function() {
+
+  DCV.SearchResults.setCookieDefaults();
+
   // quick hack to get openseadragon height to be viewport height
   $('#zoom-content').height($(window).height()-120);
   /* rand banner img */
@@ -23,40 +26,15 @@ $(function() {
     return false;
   });
   $('body').on('click', '#list-mode', function() {
-      $('.search-result-display').hide();
-      $('#search-results-standard').show();
-      $('.result-type-button').removeClass('btn-success').addClass('btn-default');
-      $('.results-pagination').show();
-
-      $('#content .col-sm-3').addClass('col-sm-12').addClass('list-view');
-      $('#content .col-sm-3 .thumbnail').addClass('col-sm-2');
-      $('#content .index-show-tombstone-fields').addClass('hidden');
-      $('#content .index-show-list-fields').removeClass('hidden');
-      $(this).addClass('btn-success');
+      DCV.SearchResults.setSearchMode('list');
   });
   $('body').on('click', '#grid-mode', function() {
-      $('.search-result-display').hide();
-      $('#search-results-standard').show();
-      $('.result-type-button').removeClass('btn-success').addClass('btn-default');
-      $('.results-pagination').show();
-
-      $('#content .col-sm-3').removeClass('col-sm-12').removeClass('list-view');
-      $('#content .col-sm-3 .thumbnail').removeClass('col-sm-2');
-      $('#content .index-show-list-fields').addClass('hidden');
-      $('#content .index-show-tombstone-fields').removeClass('hidden');
-      $(this).addClass('btn-success');
+    DCV.SearchResults.setSearchMode('grid');
   });
-  $('body').on('click', '#date-graph-mode', function() {
-    $('.search-result-display').hide();
-    $('#search-results-date-graph').show();
-    $('.result-type-button').removeClass('btn-success').addClass('btn-default');
-    $('.results-pagination').hide();
 
-    DCV.DateRangeGraphSelector.resizeCanvas();
-    $(this).addClass('btn-success');
+  $('body').on('click', '#date-graph-toggle', function() {
+    DCV.SearchResults.toggleSearchDateGraphVisibility();
   });
-  //Hide search-results-date-graph by default
-  $('#search-results-date-graph').hide();
 
   $('body').on('click', '#unzoom-mode', function(){
      // hide the zooming stuff
@@ -97,10 +75,15 @@ $(function() {
   })
 
   //Date Range Graph Setup
+  //Activate date graphif cookie is set
   DCV.DateRangeGraphSelector.init();
   DCV.DateRangeSlider.init();
 
   $('.child-scroll').niceScroll({cursorminheight: "46", cursorcolor:"#111", cursorborder:"1px solid #ccc", autohidemode: false, cursorborderradius: "2px", cursorwidth: "8"});
+
+  DCV.SearchResults.setSearchMode(readCookie(DCV.SearchResults.CookieNames.searchMode));
+  DCV.SearchResults.setSearchDateGraphVisibility(readCookie(DCV.SearchResults.CookieNames.searchDateGraphVisiblity));
+
 
 });
 
@@ -248,6 +231,69 @@ function favoriteChild(child) {
 //** /CULTNBW END **/
 
 
+
+/*********************
+ * Search Results *
+ *********************/
+DCV.SearchResults = {};
+
+DCV.SearchResults.CookieNames = {};
+DCV.SearchResults.CookieNames.searchMode = 'search_mode';
+DCV.SearchResults.CookieNames.searchDateGraphVisiblity = 'search_date_graph_visibility';
+
+DCV.SearchResults.setCookieDefaults = function() {
+  //Do not show date graph by default
+  if (readCookie(DCV.SearchResults.CookieNames.searchDateGraphVisiblity) == null) {
+    createCookie(DCV.SearchResults.CookieNames.searchDateGraphVisiblity, 'hide', 1);
+  }
+  //Start in grid mode by default
+  if (readCookie(DCV.SearchResults.CookieNames.searchMode) == null) {
+    createCookie(DCV.SearchResults.CookieNames.searchMode, 'grid', 1);
+  }
+};
+
+DCV.SearchResults.setSearchMode = function(searchMode) {
+  $('.result-type-button').removeClass('btn-success').addClass('btn-default');
+
+  if (searchMode == 'grid') {
+      $('#content .col-sm-3').removeClass('col-sm-12').removeClass('list-view');
+      $('#content .col-sm-3 .thumbnail').removeClass('col-sm-2');
+      $('#content .index-show-list-fields').addClass('hidden');
+      $('#content .index-show-tombstone-fields').removeClass('hidden');
+      $('#grid-mode').addClass('btn-success');
+      createCookie(DCV.SearchResults.CookieNames.searchMode, 'grid', 1);
+  } else if (searchMode == 'list') {
+      $('#content .col-sm-3').addClass('col-sm-12').addClass('list-view');
+      $('#content .col-sm-3 .thumbnail').addClass('col-sm-2');
+      $('#content .index-show-tombstone-fields').addClass('hidden');
+      $('#content .index-show-list-fields').removeClass('hidden');
+      $('#list-mode').addClass('btn-success');
+      createCookie(DCV.SearchResults.CookieNames.searchMode, 'list', 1);
+  } else {
+    alert('Invalid search mode: ' + searchMode);
+  }
+}
+
+DCV.SearchResults.setSearchDateGraphVisibility = function(showOrHide) {
+  if (showOrHide == 'hide') {
+    $('#search-results-date-graph').addClass('hidden');
+    createCookie(DCV.SearchResults.CookieNames.searchDateGraphVisiblity, showOrHide, 1);
+  } else {
+    $('#search-results-date-graph').removeClass('hidden');
+    DCV.DateRangeGraphSelector.resizeCanvas();
+    createCookie(DCV.SearchResults.CookieNames.searchDateGraphVisiblity, showOrHide, 1);
+  }
+}
+
+DCV.SearchResults.toggleSearchDateGraphVisibility = function() {
+  if($('#search-results-date-graph').hasClass('hidden')) {
+    DCV.SearchResults.setSearchDateGraphVisibility('show');
+  } else {
+    DCV.SearchResults.setSearchDateGraphVisibility('hide');
+  }
+}
+
+
 /*********************
  * ZoomingImage Modal *
  *********************/
@@ -288,4 +334,36 @@ DCV.ZoomingImageModal.openInNewWindow = function() {
 DCV.ZoomingImageModal.getCurrentZoomUrl = function() {
   var currentChild = $('#favorite-child img');
   return currentChild.attr('data-zoom-url') + '?initial_page=' + currentChild.attr('data-sequence');
+}
+
+/***********
+ * COOKIES *
+ ***********/
+
+function createCookie(name, value, days) {
+    var expires;
+
+    if (days) {
+        var date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        expires = "; expires=" + date.toGMTString();
+    } else {
+        expires = "";
+    }
+    document.cookie = escape(name) + "=" + escape(value) + expires + "; path=/";
+}
+
+function readCookie(name) {
+    var nameEQ = escape(name) + "=";
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) === 0) return unescape(c.substring(nameEQ.length, c.length));
+    }
+    return null;
+}
+
+function eraseCookie(name) {
+    createCookie(name, "", -1);
 }
