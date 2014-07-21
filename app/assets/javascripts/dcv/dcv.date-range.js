@@ -51,6 +51,7 @@ DCV.DateRangeGraphSelector.dateCache = null;
 
 DCV.DateRangeGraphSelector.init = function() {
   if ($('#date-range-widget').length > 0 && DCV.dateWidgetData != null) {
+    DCV.DateRangeGraphSelector.initialized = true;
     $('#date-range-widget').html('<canvas id="date-range-canvas" width="1000" height="150"></canvas>');
     var canvasJQueryElement = $('#date-range-canvas');
     canvasJQueryElement.attr('data-original-width', canvasJQueryElement[0].width).attr('data-original-height', canvasJQueryElement[0].height);
@@ -134,8 +135,8 @@ DCV.DateRangeGraphSelector.render = function() {
   ctx.fillStyle   = '#000';
 
   // DCV.dateWidgetData is declared in-page, generated server-side.
-  var earliestStartYear = DCV.dateWidgetData['earliest_start_year'];
-  var latestEndYear = DCV.dateWidgetData['latest_end_year'];
+  var startOfRange = DCV.dateWidgetData['start_of_range'];
+
   var segments = DCV.dateWidgetData['segments'];
   var yearsPerSegment = DCV.dateWidgetData['years_per_segment'];
   var highestSegmentCountValue = DCV.dateWidgetData['highest_segment_count_value'];
@@ -254,8 +255,8 @@ DCV.DateRangeGraphSelector.render = function() {
     var fullPixelRange = segmentWidth*numSegments;
 
     var dateRangeInYears = numSegments*yearsPerSegment;
-    var newStartYearFilter = Math.round((startOfPixelRange/fullPixelRange)*dateRangeInYears)+earliestStartYear;
-    var newEndYearFilter = Math.round((endOfPixelRange/fullPixelRange)*dateRangeInYears)+earliestStartYear;
+    var newStartYearFilter = Math.round((startOfPixelRange/fullPixelRange)*dateRangeInYears)+startOfRange;
+    var newEndYearFilter = Math.round((endOfPixelRange/fullPixelRange)*dateRangeInYears)+startOfRange;
 
     $('#date-range-canvas').attr('data-new-start-year-filter', newStartYearFilter);
     $('#date-range-canvas').attr('data-new-end-year-filter', newEndYearFilter);
