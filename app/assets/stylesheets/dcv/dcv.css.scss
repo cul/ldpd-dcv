@@ -123,6 +123,20 @@ input {
       background-color:#000;
       color:#fff;
     }
+	&::-webkit-input-placeholder { /* WebKit browsers */
+		color:    #bbc;
+	}
+	&:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+		color:    #bbc;
+		opacity:  1;
+	}
+	&::-moz-placeholder { /* Mozilla Firefox 19+ */
+		color:    #bbc;
+		opacity:  1;
+	}
+	&:-ms-input-placeholder { /* Internet Explorer 10+ */
+		color:    #bbc;
+	}
   }
   .input-group-addon {
     background-color:#666;
