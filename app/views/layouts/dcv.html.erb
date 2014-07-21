@@ -34,7 +34,10 @@
     <![endif]-->
 
   </head>
-  <body class="<%= render_body_class %> dcv <%= params[:action] %>">
+  <body class="<%= render_body_class %> dcv <%= params[:action] %>" style="padding-top: 50px;">
+
+<%= render :partial => 'shared/topnavbar' %>
+
   <div id="outer-wrapper" class="container">
     <div class="row">
 
@@ -67,13 +70,6 @@
     </ul>
    </li>
   </ul><!--//cultnbw-custom-right-->
-  <script type="text/javascript" data-turbolinks-eval="false">
-    CULh_colorfg = '#000000'; // topnavbar foreground color. hex value. ex: #002B7F
-    CULh_colorbg = '#444444'; // topnavbar background color. hex value. ex: #779BC3
-    CULh_nobs = 1; // uncomment to NOT load our bootstrap javascript file and or use your own (v2.3.x required)
-    CULh_links = { "<%= root_url %>" : "Digital Collections Home" };
-  </script>
-  <script src="//cdn.cul.columbia.edu/ldpd-toolkit/widgets/cultnbw.min.js" data-turbolinks-eval="false"></script>
   <!-- Navbar fix for compatibility with turbolinks -->
   <script type="text/javascript" data-turbolinks-eval="false">
 	if (typeof(jQuery) != 'undefined') {

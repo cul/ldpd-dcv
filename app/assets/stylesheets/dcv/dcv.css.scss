@@ -67,6 +67,17 @@ input {
     }
   }
 }
+@media (max-width: 490px) {
+  .topbarlogo {
+    display:none;
+  }
+}
+@media (max-width: 991px) {
+  .topbarlogo {
+    font-size:72%;
+    letter-spacing:0;
+  }
+}
 @media (min-width: 992px) {
   #site-banner {
     #site-banner-inner {
@@ -86,7 +97,7 @@ input {
   }
 }
 @media (min-width: 1200px) {
-  #outer-wrapper {
+  #outer-wrapper, #navbar-container {
     width:1190px;
   }
   #site-banner {
@@ -579,4 +590,22 @@ h2[itemprop="name"] {
   .search-index-tool-group {
     margin-left:5px;
   }
+}
+
+@font-face {
+    font-family: 'TrajanProRegular';
+    src: url('//cdn.cul.columbia.edu/ldpd-toolkit/fonts/trajanpro-regular-webfont.eot');
+    src: url('//cdn.cul.columbia.edu/ldpd-toolkit/fonts/trajanpro-regular-webfont.eot?#iefix') format('embedded-opentype'),
+    url('//cdn.cul.columbia.edu/ldpd-toolkit/fonts/trajanpro-regular-webfont.woff') format('woff'),
+    url('//cdn.cul.columbia.edu/ldpd-toolkit/fonts/trajanpro-regular-webfont.ttf') format('truetype'),
+    url('//cdn.cul.columbia.edu/ldpd-toolkit/fonts/trajanpro-regular-webfont.svg#TrajanProRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.topbarlogo {
+    margin:0;
+    color:#ffffff;
+    letter-spacing:1px;
+    margin-top:2px;
 }
