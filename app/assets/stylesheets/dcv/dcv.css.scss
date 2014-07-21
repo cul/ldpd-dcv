@@ -7,7 +7,7 @@ input {
 #outer-wrapper {
   padding:0 10px 2em 10px;
   margin-bottom:2em;
-  background-color:#202020;
+  background-color:rgb(36,36,36);
   border:1px solid #333;
   border-top:0;
 }
@@ -123,6 +123,20 @@ input {
       background-color:#000;
       color:#fff;
     }
+	&::-webkit-input-placeholder { /* WebKit browsers */
+		color:    #bbc;
+	}
+	&:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+		color:    #bbc;
+		opacity:  1;
+	}
+	&::-moz-placeholder { /* Mozilla Firefox 19+ */
+		color:    #bbc;
+		opacity:  1;
+	}
+	&:-ms-input-placeholder { /* Internet Explorer 10+ */
+		color:    #bbc;
+	}
   }
   .input-group-addon {
     background-color:#666;
