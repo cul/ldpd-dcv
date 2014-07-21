@@ -277,10 +277,12 @@ DCV.SearchResults.setSearchMode = function(searchMode) {
 DCV.SearchResults.setSearchDateGraphVisibility = function(showOrHide) {
   if (showOrHide == 'hide') {
     $('#search-results-date-graph').addClass('hidden');
+    $('#date-graph-toggle').addClass('btn-default').removeClass('btn-success');
     createCookie(DCV.SearchResults.CookieNames.searchDateGraphVisiblity, showOrHide, 1);
   } else {
     $('#search-results-date-graph').removeClass('hidden');
     DCV.DateRangeGraphSelector.resizeCanvas();
+    $('#date-graph-toggle').addClass('btn-success').removeClass('btn-default');
     createCookie(DCV.SearchResults.CookieNames.searchDateGraphVisiblity, showOrHide, 1);
   }
 }
