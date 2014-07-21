@@ -11,6 +11,44 @@ input {
   border:1px solid #333;
   border-top:0;
 }
+#topnavbar {
+  min-height: 50px; 
+  background: rgb(68, 68, 68);
+  border-top: 5px solid #002b7f;
+  border-bottom: 1px solid #222222;
+  border-top-color: rgb(0, 0, 0);
+  color:#fff;
+  #navbar-container {
+    padding:0;
+  }
+  #cul_top-nosearch {
+    padding-left:0;padding-right:10px;height:38px;background: rgb(0, 0, 0);
+    #crowndown-nosearch {
+      height:39px;margin-lef:-10px;padding-left:0;margin-top:-1px;background: rgb(0, 0, 0);
+      .dropdown-toggle {
+        background: transparent url(//cdn.cul.columbia.edu/ldpd-toolkit/img/crown-bts-24x24.png) no-repeat 4px 30%;
+		padding-right: 4px;
+		padding-left: 34px;
+		font-size: 103%;
+		line-height: 120%;
+		letter-spacing: 0;
+		font-weight: normal;
+		font-family: TrajanProRegular, trajan, serif;
+		margin-top: 2px;
+      }
+    }
+    #cul_top-right {
+      margin-top:-3px;
+    }
+    .dropdown-menu {
+      background-color:#000;
+      margin-top:-3px;
+    }
+  }
+  a {
+    color:#fff;
+  }
+}
 #site-banner {
   padding:0 12px 1.4em;
   margin:0 -12px 20px;
@@ -57,6 +95,12 @@ input {
   }
 }
 @media (min-width: 768px) {
+  #topnavbar {
+    .topbarlogo {
+      display:inline-block;
+      letter-spacing:0;
+    }
+  }
   #site-banner {
     #site-banner-inner {
       margin-bottom:.1em;
@@ -67,18 +111,24 @@ input {
     }
   }
 }
-@media (max-width: 490px) {
-  .topbarlogo {
-    display:none;
-  }
-}
 @media (max-width: 991px) {
-  .topbarlogo {
-    font-size:72%;
-    letter-spacing:0;
+  #topnavbar {
+    .topbarlogo {
+      display:inline-block;
+      letter-spacing:0;
+    }
   }
 }
 @media (min-width: 992px) {
+  #topnavbar {
+	  .topbarlogo {
+		display:inline-block;
+		margin:0;
+		color:#ffffff;
+		letter-spacing:1px;
+		margin-top:2px;
+	  }
+  }
   #site-banner {
     #site-banner-inner {
       margin-bottom:.3em;
@@ -100,6 +150,15 @@ input {
   #outer-wrapper, #navbar-container {
     width:1190px;
   }
+  #topnavbar {
+	  .topbarlogo {
+		display:inline-block;
+		margin:0;
+		color:#ffffff;
+		letter-spacing:1px;
+		margin-top:2px;
+	  }
+  }
   #site-banner {
     padding: 0 23px 1.4em;
     margin: 0 -23px 20px;
@@ -117,6 +176,19 @@ input {
        }
      }
     }
+  }
+}
+@media (max-width: 600px) {
+  #topnavbar {
+		font-size:76%;
+    line-height:17px;
+  }
+}
+@media (max-width: 481px) {
+  #topnavbar {
+	  .topbarlogo {
+		display:none;
+	  }
   }
 }
 #search-navbar {
@@ -603,9 +675,3 @@ h2[itemprop="name"] {
     font-style: normal;
 }
 
-.topbarlogo {
-    margin:0;
-    color:#ffffff;
-    letter-spacing:1px;
-    margin-top:2px;
-}
