@@ -2,9 +2,11 @@
 
 <div class="col-sm-3 document <%= render_document_class document %>" itemscope itemtype="<%= document.itemtype %>">
   <div class="tombstone" data-number-of-members=<%= document[:cul_number_of_members_isi] || -1 %>>
-	<%= link_to_document(document, :counter => counter_in_results, label: image_tag(thumb_url(document.id), {class: 'img-square'}), class: 'thumbnail') %>
+	<%= link_to_document(document, :counter => (@do_not_link_to_search ? nil : counter_in_results), label: image_tag(thumb_url(document.id), {class: 'img-square'}), class: 'thumbnail') %>
 		<div class="index-show-tombstone-fields">
-			<h3 class="index_title ellipsis"><%= t('blacklight.search.documents.counter', :counter => counter_in_results) %><%= link_to_document(document, :counter => counter_in_results) %></h3>
+			<h3 class="index_title ellipsis"><%= t('blacklight.search.documents.counter', :counter => counter_in_results) %>
+				<%= link_to_document(document, :counter => (@do_not_link_to_search ? nil : counter_in_results)) %>
+			</h3>
 			<%= '<div class="ellipsis">'.html_safe + document['lib_repo_ssim'][0] + '</div>'.html_safe if document['lib_repo_ssim'].present? %>
 			<%= '<div class="ellipsis">'.html_safe + document['lib_format_ssm'][0] + '</div>'.html_safe if document['lib_format_ssm'].present? %>
 		</div>

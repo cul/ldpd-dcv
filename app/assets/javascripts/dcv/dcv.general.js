@@ -81,9 +81,17 @@ $(function() {
 
   $('.child-scroll').niceScroll({cursorminheight: "46", cursorcolor:"#111", cursorborder:"1px solid #ccc", autohidemode: false, cursorborderradius: "2px", cursorwidth: "8"});
 
-  DCV.SearchResults.setSearchMode(readCookie(DCV.SearchResults.CookieNames.searchMode));
-  DCV.SearchResults.setSearchDateGraphVisibility(readCookie(DCV.SearchResults.CookieNames.searchDateGraphVisiblity));
-
+  //If we're on the search result page...
+  if($('#search-result-container').length > 0) {
+    DCV.SearchResults.setSearchMode(readCookie(DCV.SearchResults.CookieNames.searchMode));
+    DCV.SearchResults.setSearchDateGraphVisibility(readCookie(DCV.SearchResults.CookieNames.searchDateGraphVisiblity));
+  }
+  
+  //If we're on the home page
+  if($('#search-result-container').length > 0) {
+    DCV.SearchResults.setSearchMode(readCookie(DCV.SearchResults.CookieNames.searchMode));
+    DCV.SearchResults.setSearchDateGraphVisibility(readCookie(DCV.SearchResults.CookieNames.searchDateGraphVisiblity));
+  }
 
 });
 
