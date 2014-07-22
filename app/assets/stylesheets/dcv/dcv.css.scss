@@ -39,7 +39,6 @@ input {
       }
     }
     #cul_top-right {
-        font-size:13px!important;
     }
     .dropdown-menu {
       background-color:#000;
@@ -214,6 +213,9 @@ input {
 	font-size:80%;
     line-height:17px;
   }
+      #cul_top-right .dropdown-toggle{
+        margin-top:-1px;
+      }
 }
 @media (max-width: 501px) {
   #topnavbar {
