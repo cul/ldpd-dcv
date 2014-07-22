@@ -13,12 +13,12 @@ input {
 }
 #topnavbar {
   min-height: 50px; 
+  font-size:13px;
+  color:#eee;
   background: rgb(68, 68, 68);
   border-top: 5px solid #002b7f;
   border-bottom: 1px solid #222222;
   border-top-color: rgb(0, 0, 0);
-  font-size:13px;
-  color:#eee;
   #navbar-container {
     padding:0;
   }
@@ -569,9 +569,9 @@ h2[itemprop="name"] {
   }
 }
 #child_gallery {
-  background-color:#111;
   padding-top:1em;
   margin-top:1em;
+  background-color:#111;
   border:1px solid #333;
   border-width:1px 0;
   .child-scroll {
@@ -642,18 +642,18 @@ h2[itemprop="name"] {
 }
 
 #sidebar-date-range-selector input.sliderValue {
-  width: 29%;
   display:inline-block;
+  width: 29%;
   text-align: center;
 }
 
 #sidebar-date-range-selector #sidebar-date-range-set-btn {
-  width:30%;
   float:right;
+  width:30%;
 }
 
 .page_links {
-  padding: 3px 12px 3px 0px !important;
+  padding: 3px 12px 3px 0 !important;
 }
 
 #show-tools-dropdown {

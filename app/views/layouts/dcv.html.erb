@@ -57,35 +57,5 @@
     </div><!--/.row-->
   </div><!--/#outer-wrapper-->
 
-  <!-- CULTNBW START -->
-  <ul id="cultnbw-custom-right" style="display:none;">
-   <li class="dropdown menu"><a class="dropdown-toggle menu" data-toggle="dropdown" href="#">Help <b class="caret"></b></a>
-    <ul class="dropdown-menu menu-dropdown">
-     <li><a href="<%= about_url %>">About</a></li>
-     <li><a >Ask a Librarian</a></li>
-     <li><a >Suggestions and Feedback</a></li>
-     <li><a href="http://hours.library.columbia.edu">Library Hours</a></li>
-     <li><a href="http://www.columbia.edu/about_columbia/map/">Maps and Locations</a></li>
-     <li><a >Terms of Use</a></li>
-    </ul>
-   </li>
-  </ul><!--//cultnbw-custom-right-->
-  <!-- Navbar fix for compatibility with turbolinks -->
-  <script type="text/javascript" data-turbolinks-eval="false">
-	if (typeof(jQuery) != 'undefined') {
-		$(document).on('page:receive', function(){
-		  if (typeof(LDPDTKW) != 'undefined') {
-			LDPDTKW.cachedNavbar = $('#cultnbw').remove();
-		  }
-		});
-		$(document).on('page:update', function(){
-		  if (typeof(LDPDTKW) != 'undefined') {
-			$('body').prepend(LDPDTKW.cachedNavbar);
-		  }
-		});
-	}
-  </script>
-  <!-- /CULTNBW END -->
-
   </body>
 </html>
