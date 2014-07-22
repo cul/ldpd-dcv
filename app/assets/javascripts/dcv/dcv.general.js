@@ -257,6 +257,7 @@ DCV.SearchResults.setSearchMode = function(searchMode) {
 
   if (searchMode == 'grid') {
       $('#content .col-sm-3').removeClass('col-sm-12').removeClass('list-view');
+      $('#content .col-sm-3').find('h3').addClass('ellipsis');
       $('#content .col-sm-3 .tombstone').removeClass('row');
       $('#content .col-sm-3').find('[data-lv="lv"]').contents().unwrap();
       $('#content .col-sm-3 .thumbnail').removeClass('col-sm-2');
@@ -266,6 +267,7 @@ DCV.SearchResults.setSearchMode = function(searchMode) {
       createCookie(DCV.SearchResults.CookieNames.searchMode, 'grid', 1);
   } else if (searchMode == 'list') {
       $('#content .col-sm-3').addClass('col-sm-12').addClass('list-view');
+      $('#content .col-sm-3').find('h3').removeClass('ellipsis');
       $('#content .col-sm-3 .tombstone').addClass('row').wrapInner('<div data-lv="lv" class="col-sm-12" />');
       $('#content .col-sm-3 .thumbnail').addClass('col-sm-2');
       $('#content .index-show-tombstone-fields').addClass('hidden');

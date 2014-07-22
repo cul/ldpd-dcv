@@ -14,7 +14,7 @@
       <div class="input-group-btn">
 		<%= link_to '<i class="glyphicon glyphicon-remove"></i>'.html_safe, start_over_path, :title => 'Start Over', :class => 'btn btn-default reset-btn' if query_has_constraints? %>
         <button class="btn btn-primary search-btn" type="submit">
-          <%= (current_page?(root_url)? t('blacklight.search.form.submit') : '') %>
+          <span class="hidden-xs"><%= (current_page?(root_url)? t('blacklight.search.form.submit') : '') %></span>
           <span class="glyphicon glyphicon-search icon-white"></span>
         </button>
       </div>
