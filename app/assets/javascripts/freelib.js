@@ -15,7 +15,6 @@
 //= require ./freelib/purl
 //= require ./freelib/jquery.colorbox-min
 //= require ./freelib/jquery.tiny-draggable.min
-//= require ./freelib/jquery.nicescroll.min
 
 function ensureArray(_obj) {
   if( Object.prototype.toString.call( _obj ) === '[object Array]' ) {
