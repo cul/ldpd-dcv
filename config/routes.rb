@@ -4,6 +4,7 @@ Dcv::Application.routes.draw do
   get '/browse' => 'catalog#browse'
   get '/welcome' => 'welcome#home'
 
+  get '/about' => 'catalog#about', as: :about
   get '/catalog/get_random_item' => 'catalog#get_random_item'
   get '/catalog/:pid/mods' => 'catalog#mods', as: :item_mods
 

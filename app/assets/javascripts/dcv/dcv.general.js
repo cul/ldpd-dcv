@@ -1,4 +1,7 @@
 $(function() {
+
+  DCV.SearchResults.setCookieDefaults();
+
   // quick hack to get openseadragon height to be viewport height
   $('#zoom-content').height($(window).height()-120);
   /* rand banner img */
@@ -23,40 +26,15 @@ $(function() {
     return false;
   });
   $('body').on('click', '#list-mode', function() {
-      $('.search-result-display').hide();
-      $('#search-results-standard').show();
-      $('.result-type-button').removeClass('btn-success').addClass('btn-default');
-      $('.results-pagination').show();
-
-      $('#content .col-sm-3').addClass('col-sm-12').addClass('list-view');
-      $('#content .col-sm-3 .thumbnail').addClass('col-sm-2');
-      $('#content .index-show-tombstone-fields').addClass('hidden');
-      $('#content .index-show-list-fields').removeClass('hidden');
-      $(this).addClass('btn-success');
+      DCV.SearchResults.setSearchMode('list');
   });
   $('body').on('click', '#grid-mode', function() {
-      $('.search-result-display').hide();
-      $('#search-results-standard').show();
-      $('.result-type-button').removeClass('btn-success').addClass('btn-default');
-      $('.results-pagination').show();
-
-      $('#content .col-sm-3').removeClass('col-sm-12').removeClass('list-view');
-      $('#content .col-sm-3 .thumbnail').removeClass('col-sm-2');
-      $('#content .index-show-list-fields').addClass('hidden');
-      $('#content .index-show-tombstone-fields').removeClass('hidden');
-      $(this).addClass('btn-success');
+    DCV.SearchResults.setSearchMode('grid');
   });
-  $('body').on('click', '#date-graph-mode', function() {
-    $('.search-result-display').hide();
-    $('#search-results-date-graph').show();
-    $('.result-type-button').removeClass('btn-success').addClass('btn-default');
-    $('.results-pagination').hide();
 
-    DCV.DateRangeGraphSelector.resizeCanvas();
-    $(this).addClass('btn-success');
+  $('body').on('click', '#date-graph-toggle', function() {
+    DCV.SearchResults.toggleSearchDateGraphVisibility();
   });
-  //Hide search-results-date-graph by default
-  $('#search-results-date-graph').hide();
 
   $('body').on('click', '#unzoom-mode', function(){
      // hide the zooming stuff
@@ -97,12 +75,54 @@ $(function() {
   })
 
   //Date Range Graph Setup
+  //Activate date graphif cookie is set
   DCV.DateRangeGraphSelector.init();
   DCV.DateRangeSlider.init();
 
-  $('.child-scroll').niceScroll({cursorminheight: "46", cursorcolor:"#111", cursorborder:"1px solid #ccc", autohidemode: false, cursorborderradius: "2px", cursorwidth: "8"});
+  // need better solution
+  //$('.child-scroll').niceScroll({cursorminheight: "46", cursorcolor:"#111", cursorborder:"1px solid #ccc", autohidemode: false, cursorborderradius: "2px", cursorwidth: "8"});
+
+  //If we're on the search result page...
+  if($('#search-result-container').length > 0) {
+    DCV.SearchResults.setSearchMode(readCookie(DCV.SearchResults.CookieNames.searchMode));
+    DCV.SearchResults.setSearchDateGraphVisibility(readCookie(DCV.SearchResults.CookieNames.searchDateGraphVisiblity));
+  }
+
+  //If we're on the home page
+  if($('#search-result-container').length > 0) {
+    DCV.SearchResults.setSearchMode(readCookie(DCV.SearchResults.CookieNames.searchMode));
+    DCV.SearchResults.setSearchDateGraphVisibility(readCookie(DCV.SearchResults.CookieNames.searchDateGraphVisiblity));
+  }
+
+  //If we're on an item show page, load download links
+  if($('#item-show').length > 0) {
+    loadDownloadsForItemShowPage();
+  }
 
 });
+
+function loadDownloadsForItemShowPage() {
+
+  $('#item-show-downloads li.bsDownload').remove();
+  $('#item-show-downloads li.bsDownload').append('<li class="placeholder"><a href="#">Loading downloads...</a></li>');
+
+  var bsUrl = $('#favorite-child img').attr('data-bytestreams')
+  loadByteStreams(bsUrl, function(data){
+    $('#item-show-downloads li.placeholder').remove();
+    $('#item-show-downloads').append(getListItemContentFromBytestreamsData(data));
+  });
+}
+
+
+function getListItemContentFromBytestreamsData(data) {
+  var li_html = '';
+  for(var i=0;i<data.length;i++){
+    dlName = data[i]["title"] + '.' + data[i]["url"].match(/\.([^.]+)$/)[1];
+    dlName += ' (' + data[i]["width"] + 'x' + data[i]["length"] + ')';
+    li_html += '<li class="bsDownload"><a href="' + data[i]["url"] + '" target="_blank"><span class="glyphicon glyphicon-download"></span> ' + dlName + '</a></li>'
+  }
+  return li_html;
+}
 
 //initialPage is an optional parameter
 function initTiles(initialPage) {
@@ -134,7 +154,10 @@ function initZoomingViewer(tileSources) {
       prefixUrl:     "",
       springStiffness:        10,
       showReferenceStrip:     (tileSources.length > 1),
-      autoHideControls:       false,
+      autoHideControls:       true,
+      controlsFadeDelay: 100,
+      controlsFadeLength: 500,
+      referenceStripSizeRatio: 0.15,
       showNavigator:  true,
       tileSources: tileSources,
       initialPage: DCV.zoomingViewerInitialPage,
@@ -204,7 +227,7 @@ function handleImageChange(event) {
 function loadByteStreams(bsUrl, handler) {
   if (!$.bytestreams) $.bytestreams = {};
   if ($.bytestreams[bsUrl]) {
-    if (handler) handler.call(this,data);
+    if (handler) handler.call(this,$.bytestreams[bsUrl]);
   } else {
     $.ajax({
       dataType: "json",
@@ -219,13 +242,7 @@ function loadByteStreams(bsUrl, handler) {
 
 function setDownloads(data) {
   $('#dlwrapper ul.dropdown-menu').each(function(list){
-    li_html = '';
-    for(var i=0;i<data.length;i++){
-      dlName = data[i]["title"] + '.' + data[i]["url"].match(/\.([^.]+)$/)[1];
-      dlName += ' (' + data[i]["width"] + 'x' + data[i]["length"] + ')';
-      li_html += '<li><a href="' + data[i]["url"] + '" target="_blank">' + dlName + '</a></li>'
-    }
-    $(this).html(li_html);
+    $(this).html(getListItemContentFromBytestreamsData(data));
   });
 }
 function favoriteChild(child) {
@@ -233,19 +250,92 @@ function favoriteChild(child) {
   var screenImg = $('#favorite-child img').first();
   var dataCounter = $(child).attr('data-counter');
   var dataSequence = $(child).attr('data-sequence');
+  var bytestreamsUrl = $(child).attr('data-bytestreams');
   var ccap = $(child).next('.caption').find('h5').text();
   if (screenUrl != screenImg.attr('src')) {
     screenImg.attr('src', screenUrl);
     screenImg.attr('data-counter', dataCounter);
     screenImg.attr('data-sequence', dataSequence);
+    screenImg.attr('data-bytestreams', bytestreamsUrl);
     $('#ct').html(ccap); // should redo above and fire this after ajax success
   }
+  loadDownloadsForItemShowPage();
 }
 //** CULTNBW START **/
   CULh_colorfg = '#000000'; // topnavbar foreground color. hex value. ex: #002B7F
   CULh_colorbg = '#444444'; // topnavbar background color. hex value. ex: #779BC3
   CULh_nobs = 1; // uncomment to NOT load our bootstrap javascript file and or use your own (v2.3.x required)
 //** /CULTNBW END **/
+
+
+
+/*********************
+ * Search Results *
+ *********************/
+DCV.SearchResults = {};
+
+DCV.SearchResults.CookieNames = {};
+DCV.SearchResults.CookieNames.searchMode = 'search_mode';
+DCV.SearchResults.CookieNames.searchDateGraphVisiblity = 'search_date_graph_visibility';
+
+DCV.SearchResults.setCookieDefaults = function() {
+  //Do not show date graph by default
+  if (readCookie(DCV.SearchResults.CookieNames.searchDateGraphVisiblity) == null) {
+    createCookie(DCV.SearchResults.CookieNames.searchDateGraphVisiblity, 'hide', 1);
+  }
+  //Start in grid mode by default
+  if (readCookie(DCV.SearchResults.CookieNames.searchMode) == null) {
+    createCookie(DCV.SearchResults.CookieNames.searchMode, 'grid', 1);
+  }
+};
+
+DCV.SearchResults.setSearchMode = function(searchMode) {
+  $('.result-type-button').removeClass('btn-success').addClass('btn-default');
+
+  if (searchMode == 'grid') {
+      $('#content .col-sm-3').removeClass('col-sm-12').removeClass('list-view');
+      $('#content .col-sm-3').find('h3').addClass('ellipsis');
+      $('#content .col-sm-3 .tombstone').removeClass('row');
+      //$('#content .col-sm-3').find('[data-lv="lv"]').contents().unwrap();
+      $('#content .col-sm-3 .thumbnail').removeClass('col-sm-2');
+      $('#content .index-show-list-fields').addClass('hidden');
+      $('#content .index-show-tombstone-fields').removeClass('hidden');
+      $('#grid-mode').addClass('btn-success');
+      createCookie(DCV.SearchResults.CookieNames.searchMode, 'grid', 1);
+  } else if (searchMode == 'list') {
+      $('#content .col-sm-3').addClass('col-sm-12').addClass('list-view');
+      $('#content .col-sm-3').find('h3').removeClass('ellipsis');
+      //$('#content .col-sm-3 .tombstone').addClass('row').wrapInner('<div data-lv="lv" class="col-sm-12" />');
+      $('#content .col-sm-3 .thumbnail').addClass('col-sm-2');
+      $('#content .index-show-tombstone-fields').addClass('hidden');
+      $('#content .index-show-list-fields').removeClass('hidden');
+      $('#list-mode').addClass('btn-success');
+      createCookie(DCV.SearchResults.CookieNames.searchMode, 'list', 1);
+  } else {
+    alert('Invalid search mode: ' + searchMode);
+  }
+}
+
+DCV.SearchResults.setSearchDateGraphVisibility = function(showOrHide) {
+  if (showOrHide == 'hide') {
+    $('#search-results-date-graph').addClass('hidden');
+    $('#date-graph-toggle').addClass('btn-default').removeClass('btn-success');
+    createCookie(DCV.SearchResults.CookieNames.searchDateGraphVisiblity, showOrHide, 1);
+  } else {
+    $('#search-results-date-graph').removeClass('hidden');
+    DCV.DateRangeGraphSelector.resizeCanvas();
+    $('#date-graph-toggle').addClass('btn-success').removeClass('btn-default');
+    createCookie(DCV.SearchResults.CookieNames.searchDateGraphVisiblity, showOrHide, 1);
+  }
+}
+
+DCV.SearchResults.toggleSearchDateGraphVisibility = function() {
+  if($('#search-results-date-graph').hasClass('hidden')) {
+    DCV.SearchResults.setSearchDateGraphVisibility('show');
+  } else {
+    DCV.SearchResults.setSearchDateGraphVisibility('hide');
+  }
+}
 
 
 /*********************
@@ -275,7 +365,7 @@ DCV.ZoomingImageModal.show = function(){
       loadByteStreams(bsUrl);
     },
   });
-  $('#colorbox').tinyDraggable({handle:'#cboxTitle', exclude:'input, textarea, a, button, i'});
+  //$('#colorbox').tinyDraggable({handle:'#cboxTitle', exclude:'input, textarea, a, button, i'});
 
   return false;
 };
@@ -288,4 +378,36 @@ DCV.ZoomingImageModal.openInNewWindow = function() {
 DCV.ZoomingImageModal.getCurrentZoomUrl = function() {
   var currentChild = $('#favorite-child img');
   return currentChild.attr('data-zoom-url') + '?initial_page=' + currentChild.attr('data-sequence');
+}
+
+/***********
+ * COOKIES *
+ ***********/
+
+function createCookie(name, value, days) {
+    var expires;
+
+    if (days) {
+        var date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        expires = "; expires=" + date.toGMTString();
+    } else {
+        expires = "";
+    }
+    document.cookie = escape(name) + "=" + escape(value) + expires + "; path=/";
+}
+
+function readCookie(name) {
+    var nameEQ = escape(name) + "=";
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) === 0) return unescape(c.substring(nameEQ.length, c.length));
+    }
+    return null;
+}
+
+function eraseCookie(name) {
+    createCookie(name, "", -1);
 }

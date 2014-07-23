@@ -4,13 +4,12 @@ source 'https://rubygems.org'
 gem 'rails', '4.0.4'
 gem 'actionpack-action_caching'
 # Hydra stack
+gem 'nokogiri', '~> 1.6.3'
 gem 'blacklight', '>= 5.4.0'
 gem 'hydra-head', '~>7'
 
 # Columbia Hydra models
-#gem 'cul_scv_hydra', :path => '../cul_scv_hydra'
-#gem 'cul_scv_hydra', '>= 0.15.1'
-gem 'cul_scv_hydra', :github => 'elo2112/cul_scv_hydra'
+gem 'cul_scv_hydra', '>= 0.16.0'
 
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'

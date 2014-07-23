@@ -12,25 +12,22 @@ module Dcv::Catalog::SearchParamsLogicBehavior
   end
 
   def date_range_filter(solr_parameters, user_parameters)
-    if user_parameters[:start_year].present?
-      start_year = Dcv::Utils::StringUtils.zero_pad_year(user_parameters[:start_year])
-      if start_year.start_with?('-')
-        # Handle negative BCE Date
-        solr_parameters[:fq] << "lib_start_date_year_ssi:([-0001 TO #{start_year}] OR [0000 TO 9999])"
-      else
-        solr_parameters[:fq] << "lib_start_date_year_ssi:[#{start_year} TO 9999]"
-      end
+
+    start_year = user_parameters[:start_year].present? ? user_parameters[:start_year].to_i : nil
+    end_year = user_parameters[:end_year].present? ? user_parameters[:end_year].to_i : nil
+
+    final_date_fq = nil
+
+    if start_year.present? && end_year.present?
+      final_date_fq = "(lib_start_date_year_itsi:[#{start_year} TO #{end_year}] OR lib_end_date_year_itsi:[#{start_year} TO #{end_year}])"
+    elsif start_year.present?
+      final_date_fq = "(lib_start_date_year_ssi:[#{start_year} TO *]) OR (lib_end_date_year_ssi:[#{start_year} TO *])"
+    elsif end_year.present?
+      final_date_fq = "(lib_start_date_year_ssi:[* TO #{end_year}]) OR (lib_end_date_year_ssi:[* TO #{end_year}])"
     end
 
-    if user_parameters[:end_year].present?
-      end_year = Dcv::Utils::StringUtils.zero_pad_year(user_parameters[:end_year])
-      if end_year.start_with?('-')
-        # Handle negative BCE Date
-        solr_parameters[:fq] << "lib_end_date_year_ssi:[#{end_year} TO -9999]"
-      else
-        solr_parameters[:fq] << "lib_end_date_year_ssi:[0000 TO #{end_year}]"
-      end
-    end
+    solr_parameters[:fq] << final_date_fq if final_date_fq.present?
+
   end
 
 end

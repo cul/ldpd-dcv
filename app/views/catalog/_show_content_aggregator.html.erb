@@ -19,7 +19,7 @@
      <% end -%>
    <div id="favorite-child">
     <% if child = structured_children.first -%>
-        <img onclick="$('.item-cbox').click();" src="<%= child[:screen] || resolve_catalog_bytestream_content_url(catalog_id: child[:id], bytestream_id: 'web850') %>.png" data-counter="1" data-sequence="0" data-zoom-url="<%= details_url(id: document[:id], layout:(request.path.split('/')[1])) %>"/>
+        <img onclick="$('.item-cbox').click();" src="<%= child[:screen] || resolve_catalog_bytestream_content_url(catalog_id: child[:id], bytestream_id: 'web850') %>.png" data-counter="1" data-sequence="0" data-zoom-url="<%= details_url(id: document[:id], layout:(request.path.split('/')[1])) %>" data-bytestreams="<%= resolve_catalog_bytestreams_url(catalog_id: structured_children.first[:id], :format=>'json') %>"/>
     <% end -%>
    </div>
 <%= render_document_partials @document, ['gallery'] %>

@@ -5,15 +5,81 @@ input {
   /*color: #202020;*/
 }
 #outer-wrapper {
-  padding:0 10px 2em 10px;
+  padding-top:0;
+  padding-bottom:2em;
   margin-bottom:2em;
-  background-color:#202020;
+  background-color:rgb(36,36,36);
   border:1px solid #333;
   border-top:0;
 }
+#topnavbar {
+  min-height: 50px; 
+  font-size:13px;
+  color:#eee;
+  background: rgb(68, 68, 68);
+  border-top: 5px solid #002b7f;
+  border-bottom: 1px solid #222222;
+  border-top-color: rgb(0, 0, 0);
+  #navbar-container {
+    padding:0;
+  }
+  #cul_top-nosearch {
+    padding-left:0;padding-right:10px;height:38px;background: rgb(0, 0, 0);
+    #crowndown-nosearch {
+      height:39px;margin-lef:-10px;padding-left:0;margin-top:-1px;background: rgb(0, 0, 0);
+      .dropdown-toggle {
+        background: transparent url(//cdn.cul.columbia.edu/ldpd-toolkit/img/crown-bts-24x24.png) no-repeat 4px 30%;
+		padding-right: 4px;
+		padding-left: 34px;
+		font-size: 103%;
+		line-height: 120%;
+		letter-spacing: 0;
+		font-weight: normal;
+		font-family: TrajanProRegular, trajan, serif;
+		margin-top: 2px;
+      }
+    }
+    #cul_top-right {
+    }
+    .dropdown-menu {
+      background-color:#000;
+      margin-top:-3px;
+      i.icon-crown-white {
+        display: inline-block;
+        width: 14px;
+        height: 14px;
+        background-position: -14px 0;
+        background-image: url(//cdn.cul.columbia.edu/ldpd-toolkit/img/crown-icon-sprite.png) !important;
+        line-height: 14px;
+        vertical-align: text-top;
+        margin-top: 1px;
+      }
+      & li a:hover {
+        text-decoration: none;
+        color: #ffffff;
+        background-color: #0081c2;
+        background-image: -moz-linear-gradient(top, #0088cc, #0077b3);
+        background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#0088cc), to(#0077b3));
+        background-image: -webkit-linear-gradient(top, #0088cc, #0077b3);
+        background-image: -o-linear-gradient(top, #0088cc, #0077b3);
+        background-image: linear-gradient(to bottom, #0088cc, #0077b3);
+        background-repeat: repeat-x;
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff0088cc', endColorstr='#ff0077b3', GradientType=0);
+        background-color: #2a2aa5;
+        color: #ffffff !important;
+      }
+    }
+  }
+  a {
+    color:#eee;
+    &:hover {
+      color:#fff;
+    }
+  }
+}
 #site-banner {
-  padding:0 12px 1.4em;
-  margin:0 -12px 20px;
+  padding:0 13px 1.4em;
+  margin:0 -13px 20px -14px;
   background-color:#111;
   border-bottom:1px solid #333;
   &.slim {
@@ -57,6 +123,12 @@ input {
   }
 }
 @media (min-width: 768px) {
+  #topnavbar {
+    .topbarlogo {
+      display:inline-block;
+      letter-spacing:0;
+    }
+  }
   #site-banner {
     #site-banner-inner {
       margin-bottom:.1em;
@@ -67,7 +139,23 @@ input {
     }
   }
 }
+@media (max-width: 991px) {
+  #topnavbar {
+    .topbarlogo {
+      display:inline-block;
+      letter-spacing:0;
+    }
+  }
+}
 @media (min-width: 992px) {
+  #topnavbar {
+	  .topbarlogo {
+		display:inline-block;
+		margin:0;
+		letter-spacing:1px;
+		margin-top:2px;
+	  }
+  }
   #site-banner {
     #site-banner-inner {
       margin-bottom:.3em;
@@ -87,7 +175,23 @@ input {
 }
 @media (min-width: 1200px) {
   #outer-wrapper {
+    padding:0 10px 2em 10px;
+  }
+  #outer-wrapper, #navbar-container {
     width:1190px;
+  }
+  #topnavbar {
+	  .topbarlogo {
+		display:inline-block;
+		margin:0;
+        font-size:16px;
+        line-height:18px;
+		letter-spacing:0;
+        #topbarslash {
+          padding-left: .2em;
+          padding-right: .2em;
+        }
+	  }
   }
   #site-banner {
     padding: 0 23px 1.4em;
@@ -108,6 +212,22 @@ input {
     }
   }
 }
+@media (max-width: 600px) {
+  #topnavbar {
+	font-size:80%;
+    line-height:17px;
+  }
+      #cul_top-right .dropdown-toggle{
+        margin-top:-1px;
+      }
+}
+@media (max-width: 501px) {
+  #topnavbar {
+	  .topbarlogo {
+		display:none;
+	  }
+  }
+}
 #search-navbar {
   margin-top:-6px;
   margin-bottom:0;
@@ -123,6 +243,20 @@ input {
       background-color:#000;
       color:#fff;
     }
+	&::-webkit-input-placeholder { /* WebKit browsers */
+		color:    #bbc;
+	}
+	&:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+		color:    #bbc;
+		opacity:  1;
+	}
+	&::-moz-placeholder { /* Mozilla Firefox 19+ */
+		color:    #bbc;
+		opacity:  1;
+	}
+	&:-ms-input-placeholder { /* Internet Explorer 10+ */
+		color:    #bbc;
+	}
   }
   .input-group-addon {
     background-color:#666;
@@ -441,14 +575,22 @@ h2[itemprop="name"] {
   }
 }
 #child_gallery {
-  background-color:#111;
   padding-top:1em;
   margin-top:1em;
+  background-color:#111;
   border:1px solid #333;
   border-width:1px 0;
   .child-scroll {
-    height:210px;
-    overflow:auto;
+    //height:210px;
+    //overflow:auto;
+    .thumbnail {
+      height:130px;
+      width:99%;
+      img {
+        height:99%;
+        max-width:99%;
+      }
+    }
   }
 }
 #colorbox {
@@ -514,18 +656,18 @@ h2[itemprop="name"] {
 }
 
 #sidebar-date-range-selector input.sliderValue {
-  width: 29%;
   display:inline-block;
+  width: 29%;
   text-align: center;
 }
 
 #sidebar-date-range-selector #sidebar-date-range-set-btn {
-  width:30%;
   float:right;
+  width:30%;
 }
 
 .page_links {
-  padding: 3px 12px 3px 0px !important;
+  padding: 3px 12px 3px 0 !important;
 }
 
 #show-tools-dropdown {
@@ -554,9 +696,27 @@ h2[itemprop="name"] {
   }
 }
 
-#digital_projects {
+#digital_projects, #digital_exhibitions {
   h3 {
     font-size: 1.1em;
     margin-top:0px;
   }
 }
+
+#search-index-tools {
+  .search-index-tool-group {
+    margin-left:5px;
+  }
+}
+
+@font-face {
+    font-family: 'TrajanProRegular';
+    src: url('//cdn.cul.columbia.edu/ldpd-toolkit/fonts/trajanpro-regular-webfont.eot');
+    src: url('//cdn.cul.columbia.edu/ldpd-toolkit/fonts/trajanpro-regular-webfont.eot?#iefix') format('embedded-opentype'),
+    url('//cdn.cul.columbia.edu/ldpd-toolkit/fonts/trajanpro-regular-webfont.woff') format('woff'),
+    url('//cdn.cul.columbia.edu/ldpd-toolkit/fonts/trajanpro-regular-webfont.ttf') format('truetype'),
+    url('//cdn.cul.columbia.edu/ldpd-toolkit/fonts/trajanpro-regular-webfont.svg#TrajanProRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+

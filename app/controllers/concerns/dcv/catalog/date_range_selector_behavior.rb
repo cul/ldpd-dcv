@@ -45,7 +45,7 @@ module Dcv::Catalog::DateRangeSelectorBehavior
     max_number_of_segments = 50
     date_range_field_name = 'lib_date_year_range_si'
 
-    year_range_response = get_facet_field_response(date_range_field_name, params, {'facet.limit' => '1000000'})
+    year_range_response = get_facet_field_response(date_range_field_name, params, {'facet.limit' => '1000000000'})
     year_range_facet_values = []
 
     year_split_regex = /(-?\d\d\d\d)-(-?\d\d\d\d)/
@@ -86,27 +86,34 @@ module Dcv::Catalog::DateRangeSelectorBehavior
     end
 
     # Generate segments
-    if end_of_range == start_of_range
-      number_of_segments = 1
-      segment_size = 1
-    else
+    range_size = end_of_range - start_of_range
+    segment_size = 1
 
-      if (end_of_range - start_of_range) < max_number_of_segments
-         number_of_segments = (end_of_range - start_of_range)
-         segment_size = 1
-      else
-        number_of_segments = max_number_of_segments
-        segment_size = ((end_of_range - start_of_range)/number_of_segments.to_f)
-        #number_of_segments = ((end_of_range - start_of_range)/segment_size).ceil+1
-      end
+    if range_size < 20
+      number_of_segments = range_size
+      #segment_size = 1
+    elsif range_size < 100
+      number_of_segments = 40
+      #segment_size = 5
+    elsif range_size < 1000
+      number_of_segments = 30
+      #segment_size = 50
+    elsif range_size < 10000
+      number_of_segments = 30
+      #segment_size = 100
+    else
+      number_of_segments = 30
+      #segment_size = 1000
     end
 
     segments = []
     highest_segment_count_value = 0
+    #number_of_segments = (range_size.to_f/segment_size.to_f).round(0)
+    segment_size = range_size.to_f/number_of_segments.to_f
 
     number_of_segments.times {|i|
 
-      start_of_segment_range = earliest_start_year+i*segment_size
+      start_of_segment_range = start_of_range+i*segment_size
       end_of_segment_range = start_of_segment_range + segment_size
       new_segment = {}
       new_segment[:start] = start_of_segment_range.round(0)
@@ -132,48 +139,10 @@ module Dcv::Catalog::DateRangeSelectorBehavior
       earliest_start_year: earliest_start_year,
       latest_end_year: latest_end_year,
       highest_segment_count_value: highest_segment_count_value,
+      number_of_segments: number_of_segments,
       years_per_segment: segment_size,
       segments: segments
     }
-
-    #earliest_start_date_year = start_date_year_facet_values.keys[0].to_i
-    #
-    #end_date_year_response = get_facet_field_response('lib_end_date_year_si', params, {"facet.limit" => '1000000'})
-    #end_date_year_facet_values = {}
-    #end_date_year_response['facet_counts']['facet_fields']['lib_end_date_year_si'].each_slice(2){|facet_and_count|
-    #  end_date_year_facet_values[facet_and_count[0]] = facet_and_count[1]
-    #}
-    #latest_end_date_year = end_date_year_facet_values.keys[end_date_year_facet_values.length-1].to_i
-    #
-    #if earliest_start_date_year.blank? && latest_end_date_year.blank?
-    #  @date_year_segment_data = {
-    #    'results_found' => false
-    #  }
-    #  return
-    #end
-    #
-    ## If only a start date or only an end date, make earliest_start_date_year and latest_end_date_year equal for this response
-    #
-    #earliest_start_date_year = latest_end_date_year if earliest_start_date_year.blank?
-    #latest_end_date_year = earliest_start_date_year if latest_end_date_year.blank?
-    #
-    #segment_size = (latest_end_date_year - earliest_start_date_year)/max_number_of_segments
-    #if segment_size < 1
-    #  segment_size = (latest_end_date_year - earliest_start_date_year)
-    #else
-    #  segment_size = max_number_of_segments
-    #end
-    #
-    ## Generate segments
-    #segments = []
-    #
-    #
-    #@date_year_segment_data = {
-    #  'results_found' => true,
-    #  'minYear' => earliest_start_date_year,
-    #  'maxYear' => latest_end_date_year,
-    #  'segments' => segments
-    #}
 
   end
 

@@ -6,7 +6,7 @@ module Dcv::Catalog::BrowseListBehavior
   BROWSE_LISTS = {
     'lib_name_sim' => {:display_label => 'Names', :short_description => 'People, corporate bodies and events that are represented in or by our items.'},
     'lib_format_sim' => {:display_label => 'Formats', :short_description => 'Original formats of our digitally-presented items.'},
-    'lib_repo_sim' => {:display_label => 'Repositories', :short_description => 'Archives where our items are stored.'}
+    'lib_repo_sim' => {:display_label => 'Library Locations', :short_description => 'Archives where our items are stored.'}
   }
 
   # Browse List Logic
