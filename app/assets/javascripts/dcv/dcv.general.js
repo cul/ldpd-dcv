@@ -126,6 +126,7 @@ function initZoomingViewer(tileSources) {
       prefixUrl:     "",
       springStiffness:        10,
       showReferenceStrip:     (tileSources.length > 1),
+      referenceStripSizeRatio: 0.15,
       autoHideControls:       false,
       showNavigator:  true,
       tileSources: tileSources,
@@ -337,7 +338,7 @@ DCV.ZoomingImageModal.show = function(){
       loadByteStreams(bsUrl);
     },
   });
-  $('#colorbox').tinyDraggable({handle:'#cboxTitle', exclude:'input, textarea, a, button, i'});
+  //$('#colorbox').tinyDraggable({handle:'#cboxTitle', exclude:'input, textarea, a, button, i'});
 
   return false;
 };
