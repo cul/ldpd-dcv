@@ -17,7 +17,7 @@
     <%= opensearch_description_tag application_name, opensearch_catalog_path(:format => 'xml', :only_path => false) %>
     <%= favicon_link_tag asset_path('favicon.ico') %>
 
-    <script>
+    <script data-turbolinks-eval="false">
       var DCV = {}; // DCV Namespace
     </script>
 
@@ -35,13 +35,14 @@
     <![endif]-->
 
   <!-- prototype styles -->
-  <style>
+  <style data-turbolinks-eval="false">
     html,body.home {
       height:100%;
       padding-top:0!important;
     }
     a:hover { text-decoration:none; }
     h4 { border-bottom:1px solid #888; }
+    #topnavbar { background-color:rgba(100,100,100,.4); }
     #topnavbar, #pane-1 .cover, .culpanel { display:none; }
     #topnavbar:hover { opacity:1!important; }
     #navholder { position:relative; }
@@ -169,7 +170,9 @@ circle.child {
   <!-- end prototype styles -->
 
   </head>
-  <body class="<%= render_body_class %> dcv <%= params[:action] %>">
+  <body class="<%= render_body_class %> dcv <%= params[:action] %>" data-no-turbolink>
+<%= render :partial => 'shared/topnavbar' %>
+
     <div id="home" class="bgParallax" data-speed="2">
 <div style="position:absolute;bottom:40px;left:2px;z-index:15;display:none;">
      <ul class="bgslider-captions list-unstyled" style="font-size:110%;text-align:left;z-index:15;margin-bottom:10px;color:rgba(255,255,255,.6);">
@@ -222,7 +225,7 @@ circle.child {
   <div class="culinner">
     <div class="culpanel alignleft">
         <h4 class="lead">DISCOVER PROJECTS        <%= link_to 'Browse projects &raquo;'.html_safe, browse_url(list:'projects'), class: 'browse-link pull-right' %></h4>
-        <div class="">
+        <div style="max-height:500px;overflow-y:auto;" class="child-scroll">
           <%= render template: 'pages/digital_projects' -%>
         </div>
     </div>
@@ -230,52 +233,20 @@ circle.child {
 </div>
 
 
-<ul id="cultnbw-custom-right" style="display:none;">
- <li class="dropdown menu"><a class="dropdown-toggle menu" data-toggle="dropdown" href="#">Help <b class="caret"></b></a>
-  <ul class="dropdown-menu menu-dropdown">
-   <li><a href="http://library.columbia.edu">Exa Drop One</a></li>
-   <li><a href="http://library.columbia.edu">Exa Drop Two & Foo</a></li>
-   <li><a href="http://library.columbia.edu">Exa Drop Three</a></li>                                                        
-  </ul>
- </li>
-</ul><!--//cultnbw-custom-right-->
-
-<div class="hide" id="culnavitems">
+<li id="culnavitems" class="dropdown menu pull-left"><a class="dropdown-toggle menu" data-toggle="dropdown" href="#">DCV <b class="caret"></b></a>
+<ul class="dropdown-menu menu-dropdown dropdown-menu-right">
 <li><a href="#home" class="scrollto">Home</a></li>
 <li><a href="#about" class="scrollto">About</a></li>
 <li><a href="#explore" class="scrollto">Explore</a></li>
 <li><a href="#discover" class="scrollto">Discover</a></li>
 <li><%= link_to 'Browse', browse_url %></li>
-</div>
+</ul>
+</li>
 
 
-<!-- CULTNBW START -->
-  <script type="text/javascript" data-turbolinks-eval="false">
-    CULh_colorfg = '#000000'; // topnavbar foreground color. hex value. ex: #002B7F
-    CULh_colorbg = 'rgba(100,100,100,.4)'; // topnavbar background color. hex value. ex: #779BC3
-    CULh_nobs = 1; // uncomment to NOT load our bootstrap javascript file and or use your own (v2.3.x required)
-  </script>
-  <script src="//cdn.cul.columbia.edu/ldpd-toolkit/widgets/cultnbw.min.js" data-turbolinks-eval="false"></script>
-  <!-- Navbar fix for compatibility with turbolinks -->
-  <script type="text/javascript" data-turbolinks-eval="false">
-	if (typeof(jQuery) != 'undefined') {
-		$(document).on('page:receive', function(){
-		  if (typeof(LDPDTKW) != 'undefined') {
-			LDPDTKW.cachedNavbar = $('#cultnbw').remove();
-		  }
-		});
-		$(document).on('page:update', function(){
-		  if (typeof(LDPDTKW) != 'undefined') {
-			$('body').prepend(LDPDTKW.cachedNavbar);
-		  }
-		});
-	}
-  </script>
-  <!-- /CULTNBW END -->
-
-<script>
+<script data-turbolinks-eval="false">
 $(window).load(function() {
-  $('#culnavitems li').hide().prependTo($('#cul_top-right'));
+  $('#culnavitems').hide().prependTo($('#cul_top-right'));
   $(window).scroll(function(){
     if($(this).scrollTop()>=$('#home').height()/1.6){
        $('#topnavbar').css('opacity','1');

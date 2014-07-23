@@ -153,7 +153,8 @@ An online presentation of almost 1400 photographs  from the Community Service So
 
 				<div class="row">
 					<div class="col-sm-3">
-						<% dcv_search_link = digital_project[:facet_value].present? ? search_action_path(:f => {'lib_project_sim' => [digital_project[:facet_value]]}) : nil %>
+						<% dcv_search_link = digital_project[:facet_value].present? ? search_action_path(:controller => :catalog, :f => {'lib_project_sim' => [digital_project[:facet_value]]}) : nil %>
+						<%= link_to image_tag('digital_projects_page/' + digital_project[:image], :class => 'thumbnail img-responsive'), dcv_search_link, :style => 'margin:0px auto;' %>
 
 						<div class="aligncenter">
 							<% if dcv_search_link.present? %>

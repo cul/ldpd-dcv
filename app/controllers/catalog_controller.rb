@@ -223,6 +223,7 @@ class CatalogController < ApplicationController
   end
   def browse
     do_home()
+  end
   def about
     # no op
   end
