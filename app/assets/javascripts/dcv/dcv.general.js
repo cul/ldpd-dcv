@@ -86,14 +86,42 @@ $(function() {
     DCV.SearchResults.setSearchMode(readCookie(DCV.SearchResults.CookieNames.searchMode));
     DCV.SearchResults.setSearchDateGraphVisibility(readCookie(DCV.SearchResults.CookieNames.searchDateGraphVisiblity));
   }
-  
+
   //If we're on the home page
   if($('#search-result-container').length > 0) {
     DCV.SearchResults.setSearchMode(readCookie(DCV.SearchResults.CookieNames.searchMode));
     DCV.SearchResults.setSearchDateGraphVisibility(readCookie(DCV.SearchResults.CookieNames.searchDateGraphVisiblity));
   }
 
+  //If we're on an item show page, load download links
+  if($('#item-show').length > 0) {
+    loadDownloadsForItemShowPage();
+  }
+
 });
+
+function loadDownloadsForItemShowPage() {
+
+  $('#item-show-downloads li.bsDownload').remove();
+  $('#item-show-downloads li.bsDownload').append('<li class="placeholder"><a href="#">Loading downloads...</a></li>');
+
+  var bsUrl = $('#favorite-child img').attr('data-bytestreams')
+  loadByteStreams(bsUrl, function(data){
+    $('#item-show-downloads li.placeholder').remove();
+    $('#item-show-downloads').append(getListItemContentFromBytestreamsData(data));
+  });
+}
+
+
+function getListItemContentFromBytestreamsData(data) {
+  var li_html = '';
+  for(var i=0;i<data.length;i++){
+    dlName = data[i]["title"] + '.' + data[i]["url"].match(/\.([^.]+)$/)[1];
+    dlName += ' (' + data[i]["width"] + 'x' + data[i]["length"] + ')';
+    li_html += '<li class="bsDownload"><a href="' + data[i]["url"] + '" target="_blank"><span class="glyphicon glyphicon-download"></span> ' + dlName + '</a></li>'
+  }
+  return li_html;
+}
 
 //initialPage is an optional parameter
 function initTiles(initialPage) {
@@ -195,7 +223,7 @@ function handleImageChange(event) {
 function loadByteStreams(bsUrl, handler) {
   if (!$.bytestreams) $.bytestreams = {};
   if ($.bytestreams[bsUrl]) {
-    if (handler) handler.call(this,data);
+    if (handler) handler.call(this,$.bytestreams[bsUrl]);
   } else {
     $.ajax({
       dataType: "json",
@@ -210,13 +238,7 @@ function loadByteStreams(bsUrl, handler) {
 
 function setDownloads(data) {
   $('#dlwrapper ul.dropdown-menu').each(function(list){
-    li_html = '';
-    for(var i=0;i<data.length;i++){
-      dlName = data[i]["title"] + '.' + data[i]["url"].match(/\.([^.]+)$/)[1];
-      dlName += ' (' + data[i]["width"] + 'x' + data[i]["length"] + ')';
-      li_html += '<li><a href="' + data[i]["url"] + '" target="_blank">' + dlName + '</a></li>'
-    }
-    $(this).html(li_html);
+    $(this).html(getListItemContentFromBytestreamsData(data));
   });
 }
 function favoriteChild(child) {
@@ -224,13 +246,16 @@ function favoriteChild(child) {
   var screenImg = $('#favorite-child img').first();
   var dataCounter = $(child).attr('data-counter');
   var dataSequence = $(child).attr('data-sequence');
+  var bytestreamsUrl = $(child).attr('data-bytestreams');
   var ccap = $(child).next('.caption').find('h5').text();
   if (screenUrl != screenImg.attr('src')) {
     screenImg.attr('src', screenUrl);
     screenImg.attr('data-counter', dataCounter);
     screenImg.attr('data-sequence', dataSequence);
+    screenImg.attr('data-bytestreams', bytestreamsUrl);
     $('#ct').html(ccap); // should redo above and fire this after ajax success
   }
+  loadDownloadsForItemShowPage();
 }
 //** CULTNBW START **/
   CULh_colorfg = '#000000'; // topnavbar foreground color. hex value. ex: #002B7F
