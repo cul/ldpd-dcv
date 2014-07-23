@@ -157,6 +157,7 @@ function initZoomingViewer(tileSources) {
       autoHideControls:       true,
       controlsFadeDelay: 100,
       controlsFadeLength: 500,
+      referenceStripSizeRatio: 0.15,
       showNavigator:  true,
       tileSources: tileSources,
       initialPage: DCV.zoomingViewerInitialPage,
@@ -364,7 +365,7 @@ DCV.ZoomingImageModal.show = function(){
       loadByteStreams(bsUrl);
     },
   });
-  $('#colorbox').tinyDraggable({handle:'#cboxTitle', exclude:'input, textarea, a, button, i'});
+  //$('#colorbox').tinyDraggable({handle:'#cboxTitle', exclude:'input, textarea, a, button, i'});
 
   return false;
 };
