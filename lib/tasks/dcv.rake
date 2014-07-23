@@ -17,8 +17,7 @@ namespace :dcv do
       current = 0
       pids.each do |pid|
         current += 1
-        # active_fedora_object = ActiveFedora::Base.find(pid, :cast => true)
-        active_fedora_object = GenericResource.find(pid, :cast => true)
+        active_fedora_object = ActiveFedora::Base.find(pid, :cast => true)
         active_fedora_object.update_index
         Rails.logger.info "indexed #{current} of #{len}"
         sleep(3) if current % 100 == 0

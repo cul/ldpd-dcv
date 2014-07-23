@@ -10,7 +10,7 @@ module Dcv::ChildrenHelperBehavior
     children[:page] = opts.fetch(:page, 0).to_i
     offset = children[:per_page] * children[:page]
     rows = children[:per_page]
-    fl = ['id',"active_fedora_model_ssi",'identifier_ssim','rels_int_profile_tesim','rft_id_ss']
+    fl = ['id',"active_fedora_model_ssi",'dc_identifier_ssim','identifier_ssim','rels_int_profile_tesim','rft_id_ss']
     title_field = nil
     begin
       fl << (title_field = document_show_link_field).to_s
@@ -44,7 +44,7 @@ module Dcv::ChildrenHelperBehavior
       child[:title] = title
     end
     if doc["active_fedora_model_ssi"] == 'GenericResource'
-      child[:contentids] = doc['identifier_ssim']
+      child[:contentids] = doc['dc_identifier_ssim']
       rels_int = JSON.load(doc.fetch('rels_int_profile_tesim',[]).join(''))
       unless rels_int.blank?
         #child[:rels_int] = rels_int
