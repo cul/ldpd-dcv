@@ -198,7 +198,7 @@ GEM
     net-ssh (2.9.0)
     net-ssh-gateway (1.2.0)
       net-ssh (>= 2.6.5)
-    nokogiri (1.6.3)
+    nokogiri (1.6.3.1)
       mini_portile (= 0.6.0)
     nom-xml (0.5.1)
       activesupport
@@ -378,7 +378,7 @@ DEPENDENCIES
   jquery-turbolinks
   jquery-ui-rails
   mysql2 (= 0.3.11)
-  nokogiri (= 1.6.3)
+  nokogiri (~> 1.6.3)
   rails (= 4.0.4)
   rspec-rails
   sass-rails (~> 4.0.2)
