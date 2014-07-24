@@ -85,7 +85,7 @@ An online presentation of almost 1400 photographs  from the Community Service So
 		{
 			:name => "John Jay Papers",
 			:image => 'john_jay.png',
-			:facet_value => 'John Jay Papers',
+			:facet_value => 'The Papers of John Jay',
 			:external_url => 'http://www.columbia.edu/cgi-bin/cul/resolve?AVE8231',
 			:description => "An online index and text database of correspondence, memos, diaries, etc. written by or to the American statesman John Jay (1745-1829)."
 		},
@@ -154,7 +154,7 @@ An online presentation of almost 1400 photographs  from the Community Service So
 				<div class="row">
 					<div class="col-sm-3">
 						<% dcv_search_link = digital_project[:facet_value].present? ? search_action_path(:controller => :catalog, :f => {'lib_project_sim' => [digital_project[:facet_value]]}) : nil %>
-						<%= link_to image_tag('digital_projects_page/' + digital_project[:image], :class => 'thumbnail img-responsive'), dcv_search_link, :style => 'margin:0px auto;' %>
+						<%= link_to image_tag('digital_projects_page/' + digital_project[:image], :class => 'thumbnail img-responsive'), (dcv_search_link.present? ? dcv_search_link : digital_project[:external_url]), :style => 'margin:0px auto;' %>
 
 						<div class="aligncenter">
 							<% if dcv_search_link.present? %>
