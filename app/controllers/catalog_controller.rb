@@ -124,16 +124,16 @@ class CatalogController < ApplicationController
       field.label = 'All Fields'
       field.default = true
       field.solr_parameters = {
-        :qf => ['all_text_teim'],
-        :pf => ['all_text_teim']
+        :qf => [solr_name('all_text', :searchable, type: :text)],
+        :pf => [solr_name('all_text', :searchable, type: :text)]
       }
     end
 
     config.add_search_field solr_name('search_title_info_search_title', :searchable, type: :text) do |field|
       field.label = 'Title'
       field.solr_parameters = {
-        :qf => [solr_name('search_title_info_search_title', :searchable, type: :text)],
-        :pf => [solr_name('search_title_info_search_title', :searchable, type: :text)]
+        :qf => [solr_name('title', :searchable, type: :text)],
+        :pf => [solr_name('title', :searchable, type: :text)]
       }
     end
 
@@ -226,7 +226,7 @@ class CatalogController < ApplicationController
         list_of_ids_to_retrieve << docs[0]['id']
       end
     end
-
+    [0..50].each {|x| p self.class.solr_name('search_title_info_search_title', :searchable, type: :text) }
     @do_not_link_to_search = true
     (@response, @document_list) = get_search_results({:per_page => number_of_items_to_show}, {:fq => 'id:(' + list_of_ids_to_retrieve.map{|id| id.gsub(':', '\:')}.join(' OR ') + ')'})
   end
