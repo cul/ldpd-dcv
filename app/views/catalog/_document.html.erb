@@ -12,7 +12,7 @@
 		</div>
 		<div class="col-sm-9 index_title index-show-list-fields hidden">
 			<h3 class="index_title ellipsis"><%= t('blacklight.search.documents.counter', :counter => counter_in_results) %><%= link_to_document(document, :counter => counter_in_results) %></h3>
-			<%= render :partial => 'show_default', :locals => {:document => document } %>
+			<%= render :partial => 'index_default', :locals => {:document => document } %>
 		</div>
 		<div class="clearfix"></div>
   </div>

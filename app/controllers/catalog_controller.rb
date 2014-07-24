@@ -73,24 +73,39 @@ class CatalogController < ApplicationController
 
     # solr fields to be displayed in the index (search results) view
     #   The ordering of the field names is the order of the display
-    config.add_index_field solr_name('lib_collection', :displayable, type: :string), :label => 'Collection'
-    config.add_index_field solr_name('title_display', :displayable, type: :string), :label => 'Title'
-
-    #Repository --- location/physicalLocation
-    #Names --- name/namePart
-    #Title --- titleInfo/title
-    #Department --- location/sublocation
-    #Shelf Location --- location/shelfLocator
-    #Date --- originInfo/date [free text]
-    #Item In Project --- location/url access="object in context"
+    #config.add_index_field solr_name('title_display', :displayable, type: :string), :label => 'Title'
+    config.add_index_field solr_name('lib_repo', :symbol, type: :string), :label => 'Library Location'
+    config.add_index_field solr_name('lib_name', :displayable, type: :string), :label => 'Name'
+    config.add_index_field solr_name('location_sublocation', :displayable, type: :string), :label => 'Department'
+    config.add_index_field solr_name('location_shelf_locator', :displayable, type: :string), :label => 'Shelf Location'
+    config.add_index_field solr_name('lib_date_textual', :displayable, type: :string), :label => 'Date'
+    config.add_index_field solr_name('location_url', :displayable, type: :string), :label => 'Item in Project'
 
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display
     config.add_show_field solr_name('title_display', :displayable, type: :string), :label => 'Title'
-    config.add_show_field solr_name('identifier', :symbol), :label => 'Identifier'
-    config.add_show_field solr_name('lib_format', :displayable), :label => 'Format'
+    config.add_show_field solr_name('lib_repo', :symbol, type: :string), :label => 'Library Location'
     config.add_show_field solr_name('lib_name', :displayable), :label => 'Name'
-    config.add_show_field solr_name('lib_collection', :displayable), :label=>"Collection"
+    config.add_show_field solr_name('lib_format', :displayable), :label => 'Format'
+    config.add_show_field solr_name('lib_project', :displayable), :label => 'Digital Project'
+    config.add_show_field solr_name('lib_collection', :displayable), :label => 'Collection'
+    config.add_show_field solr_name('lib_date_textual', :displayable, type: :string), :label => 'Date'
+    config.add_show_field solr_name('language_language_term_text', :symbol), :label => 'Language'
+    config.add_show_field solr_name('lib_non_date_notes', :displayable, type: :string), :label => 'Note'
+    config.add_show_field solr_name('lib_date_notes', :displayable, type: :string), :label => 'Date Note'
+    config.add_show_field solr_name('location_sublocation', :displayable, type: :string), :label => 'Department'
+    config.add_show_field solr_name('location_shelf_locator', :displayable, type: :string), :label => 'Shelf Location'
+    config.add_show_field solr_name('physical_description_extent', :displayable, type: :string), :label => 'Extent'
+    config.add_show_field solr_name('subject_topic', :symbol, type: :string), :label => 'Subject'
+    config.add_show_field solr_name('access_condition', :symbol, type: :string), :label => 'Rights'
+    config.add_show_field solr_name('abstract', :displayable, type: :string), :label => 'Description'
+    config.add_show_field solr_name('table_of_contents', :displayable, type: :string), :label => 'Contents'
+    config.add_show_field solr_name('lib_part', :displayable, type: :string), :label => 'Part'
+    config.add_show_field solr_name('origin_info_publisher', :displayable, type: :string), :label => 'Publisher'
+    config.add_show_field solr_name('origin_info_place', :displayable, type: :string), :label => 'Place'
+    config.add_show_field solr_name('origin_info_edition', :displayable, type: :string), :label => 'Edition'
+    config.add_show_field solr_name('identifier', :symbol), :label => 'Identifier'
+    config.add_show_field solr_name('location_url', :displayable, type: :string), :label => 'Item in Project'
 
     # "fielded" search configuration. Used by pulldown among other places.
     # For supported keys in hash, see rdoc for Blacklight::SearchFields

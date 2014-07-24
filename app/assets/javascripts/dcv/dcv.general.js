@@ -154,7 +154,7 @@ function initZoomingViewer(tileSources) {
       prefixUrl:     "",
       springStiffness:        10,
       showReferenceStrip:     (tileSources.length > 1),
-      autoHideControls:       true,
+      autoHideControls:       false,
       controlsFadeDelay: 100,
       controlsFadeLength: 500,
       referenceStripSizeRatio: 0.15,
