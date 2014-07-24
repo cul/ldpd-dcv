@@ -1,8 +1,9 @@
 <div id="zoom-gallery" data-url="<%= children_url(document[:id], :per_page=>999) %>">
-  <div id="zoom-toolbar" class="btn-toolbar">
-    <%= render 'zoom/controls' -%>
+  <div id="zoom-content" class="openseadragon">
+	  <div id="zoom-toolbar" class="btn-toolbar">
+		<%= render 'zoom/controls' -%>
+	  </div>
   </div>
-  <div id="zoom-content" class="openseadragon"></div>
 </div>
 <div id="children-links" style="visibility: hidden;">
   <% structured_children.each_with_index do |child, ix| -%>

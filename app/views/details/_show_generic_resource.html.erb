@@ -1,8 +1,9 @@
 <div id="zoom-gallery" data-url="<%= child_url(parent_id: document['cul_member_of_ssim'].first.split('/')[-1], id: params[:id], :format=>'json') %>">
-  <div id="zoom-toolbar" class="btn-toolbar">
-    <%= render 'zoom/controls' -%>
+  <div id="zoom-content" class="openseadragon">
+	  <div id="zoom-toolbar" class="btn-toolbar">
+		<%= render 'zoom/controls' -%>
+	  </div>
   </div>
-  <div id="zoom-content" class="openseadragon"></div>
 </div>
 <div id="children-links" style="visibility: hidden;">
     <a rel="child" data-src="<%= catalog_url(id: params[:id]) %>.json" data-id="<%=params[:id]%>" data-bytestreams="<%= bytestreams_url(catalog_id: params[:id], :format=>'json') %>" data-rftId="<%= document['rft_id_ss'] -%>"></a>
