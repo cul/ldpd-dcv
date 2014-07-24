@@ -98,6 +98,9 @@
       padding:20px;
       border:0;
     }
+    #menuholder { 
+      font-size:80%;
+    }
     @media (min-width: 768px) {
       .culpanel { width:740px; }
     }
@@ -222,10 +225,11 @@ circle.child {
 </div>
 
 <div id="discover" class="bgParallax" data-speed="3">
-  <div class="culinner">
-    <div class="culpanel alignleft">
-        <h4 class="lead">DISCOVER PROJECTS        <%= link_to 'Browse projects &raquo;'.html_safe, browse_url(list:'projects'), class: 'browse-link pull-right' %></h4>
-        <div style="max-height:500px;overflow-y:auto;" class="child-scroll">
+  <div class="culinner container">
+    <div class="culpanel alignleft row">
+        <h4 class="lead">DISCOVER PROJECTS <%= link_to 'Browse projects &raquo;'.html_safe, browse_url(list:'projects'), class: 'browse-link pull-right' %></h4>
+        <div class="col-md-12" style="max-height:520px;overflow-y:auto;" class="child-scroll">
+          <% @per_row = 2 %>
           <%= render template: 'pages/digital_projects' -%>
         </div>
     </div>
@@ -233,15 +237,17 @@ circle.child {
 </div>
 
 
-<li id="culnavitems" class="dropdown menu pull-left"><a class="dropdown-toggle menu" data-toggle="dropdown" href="#">DCV <b class="caret"></b></a>
-<ul class="dropdown-menu menu-dropdown dropdown-menu-right">
-<li><a href="#home" class="scrollto">Home</a></li>
-<li><a href="#about" class="scrollto">About</a></li>
-<li><a href="#explore" class="scrollto">Explore</a></li>
-<li><a href="#discover" class="scrollto">Discover</a></li>
-<li><%= link_to 'Browse', browse_url %></li>
+<ul class="hide">
+	<li id="culnavitems" class="dropdown menu pull-left"><a class="dropdown-toggle menu" data-toggle="dropdown" href="#">DLC <b class="caret"></b></a>
+	<ul class="dropdown-menu menu-dropdown dropdown-menu-right">
+	<li><a href="#home" class="scrollto">Home</a></li>
+	<li><a href="#about" class="scrollto">About</a></li>
+	<li><a href="#explore" class="scrollto">Explore</a></li>
+	<li><a href="#discover" class="scrollto">Discover</a></li>
+	<li><%= link_to 'Browse', browse_url %></li>
+	</ul>
+	</li>
 </ul>
-</li>
 
 
 <script data-turbolinks-eval="false">
@@ -321,6 +327,7 @@ $(document).ready(function() {
   $('body').on('click', '.scrollto', function() {
   var where = $(this).attr('href');
     $('body,html').animate({ scrollTop: $(where).offset().top /*- $('#topnavbar').height()*/ }, 900, 'swing');
+    $('#culnavitems').removeClass('open');
     return false;
   });
 
