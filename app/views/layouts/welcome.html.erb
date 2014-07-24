@@ -136,6 +136,36 @@
     color: white;
     text-transform: uppercase;
   }  
+  #spinner {
+    position:fixed;
+    top:46%;
+    left:48%;
+    font-size: 14px;
+    text-transform:uppercase;
+  }
+  .icon-spin {
+    display:block;
+    margin-bottom:8px;
+    font-size: 28px;
+    color:#eee;
+	-moz-animation: spin 2s infinite linear;
+	-o-animation: spin 2s infinite linear;
+	-webkit-animation: spin 2s infinite linear;
+	animation: spin 2s infinite linear;
+  }
+	@-moz-keyframes spin {
+		from { -moz-transform: rotate(0deg); }
+		to { -moz-transform: rotate(360deg); }
+	}
+	@-webkit-keyframes spin {
+		from { -webkit-transform: rotate(0deg); }
+		to { -webkit-transform: rotate(360deg); }
+	}
+	@keyframes spin {
+		from {transform:rotate(0deg);}
+		to {transform:rotate(360deg);}
+	}
+
   /* D3 Styles */
   text {
   font-size: 66%;
@@ -176,6 +206,7 @@ circle.child {
   <body class="<%= render_body_class %> dcv <%= params[:action] %>" data-no-turbolink>
 <%= render :partial => 'shared/topnavbar' %>
 
+       <div id="spinner" style="text-align:center;"><i class="glyphicon glyphicon-refresh icon-spin icon-large"></i>Loading</div>
     <div id="home" class="bgParallax" data-speed="2">
 <div style="position:absolute;bottom:40px;left:2px;z-index:15;display:none;">
      <ul class="bgslider-captions list-unstyled" style="font-size:110%;text-align:left;z-index:15;margin-bottom:10px;color:rgba(255,255,255,.6);">
@@ -252,6 +283,7 @@ circle.child {
 
 <script data-turbolinks-eval="false">
 $(window).load(function() {
+  $('#spinner').remove();
   $('#culnavitems').hide().prependTo($('#cul_top-right'));
   $(window).scroll(function(){
     if($(this).scrollTop()>=$('#home').height()/1.6){
