@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/cul/cul_scv_hydra.git
-  revision: d6a93d4918818ec3dd7f577a33b6bc78463773e5
+  revision: 4907654c67972615ec180593450c342abae0396a
   specs:
     cul_scv_hydra (0.16.1)
       active-fedora (>= 7.0.2)
