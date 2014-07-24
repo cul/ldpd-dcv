@@ -20,6 +20,7 @@ DCV.Bubbles = function(container){
   this.setRadius(0.9*(h));
 };
 DCV.Bubbles.searchFor = function(node) {
+  if (!node.field) return false;
   var clause = 'f%5B' + node.field + '%5D%5B%5D=' + node.name;
   if (node.parent && node.parent.field) {
     return DCV.Bubbles.searchFor(node.parent) + '&' + clause;
@@ -28,9 +29,15 @@ DCV.Bubbles.searchFor = function(node) {
   }
 }
 DCV.Bubbles.modal = function(node,link){
-  window.console.log(DCV.Bubbles.searchFor(node) + '&limit=' + node.size);
-  $(link).attr('href','/catalog?' + DCV.Bubbles.searchFor(node));
-  $(link).html("(show " + node.name + " items)");
+  var search = DCV.Bubbles.searchFor(node);
+  window.console.log(search + '&limit=' + node.size);
+  if (!search) {
+    $(link).attr('href','/catalog');
+    $(link).html("");
+  } else {
+    $(link).attr('href','/catalog?' + search);
+    $(link).html("(show " + node.name + " items)");
+  }
   d3.event.stopPropagation();
 }
 DCV.Bubbles.prototype = {r: null, w: 1280, h: 800, node: null, root: null}
