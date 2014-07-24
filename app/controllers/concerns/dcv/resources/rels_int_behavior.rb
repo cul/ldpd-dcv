@@ -10,8 +10,8 @@ module Dcv::Resources::RelsIntBehavior
         id = k
         mime_type = v['format'].first
         next if mime_type =~ /jp2$/
-        width = v['exif_image_width'].first.to_i
-        length = v['exif_image_length'].first.to_i
+        width = (v['exif_image_width'] || v['image_width'] ||[ ]).first.to_i
+        length = (v['exif_image_length'] || v['image_length'] || []).first.to_i
         size = (v['extent'] || []).first.to_i
         url = url_for_content(id, mime_type)
         results << {
