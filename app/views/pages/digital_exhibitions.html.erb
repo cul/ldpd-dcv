@@ -44,7 +44,7 @@
 				<div class="row">
 					<div class="col-sm-3">
 						<% dcv_search_link = digital_exhibition[:facet_value].present? ? search_action_path(:f => {'lib_project_sim' => [digital_exhibition[:facet_value]]}) : nil %>
-						<%= link_to image_tag('digital_exhibitions_page/' + digital_exhibition[:image], :class => 'thumbnail img-responsive'), dcv_search_link, :style => 'margin:0px auto;' %>
+						<%= link_to image_tag('digital_exhibitions_page/' + digital_exhibition[:image], :class => 'thumbnail img-responsive'), (dcv_search_link.present? ? dcv_search_link : digital_exhibition[:external_url]), :style => 'margin:0px auto;' %>
 
 						<div class="aligncenter">
 							<% if dcv_search_link.present? %>
