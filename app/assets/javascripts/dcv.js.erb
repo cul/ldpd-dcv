@@ -2,3 +2,63 @@
 //= require 'dcv/dcv.general'
 //= require 'dcv/dcv.date-range'
 //= require 'dcv/dcv.squares'
+function mosaicDemo(container) {
+  var width = Math.max($(container).parent().width(),$(container).width());
+  var height = Math.max($(container).parent().height(),$(container).height());
+  var winHeight = $(window).height();
+  height = Math.floor(winHeight * .75);
+  console.log(container + " was my container selector of " + width + ' x ' + height);
+
+  var total = Math.floor((12*height)/width) * 12;
+  var assets = "<%= asset_url("digital_projects_page/chinese_paper_gods.png").split('/')[0...-1].join('/') %>/";
+  var thumbs = "/thumbs/";
+
+  console.log("got here total: " + total);
+  for (var i=0; i< total; i++) {
+    $(container).append('<div class="col-xs-1 brick"> \
+  <img class="img-responsive" style="display:none;" src="' + assets + 'chinese_paper_gods.png" />\
+</div>');
+  }
+  if (total == 0) return;
+  var cimg_names = Dcv.Squares.CPG.random(Math.ceil(total/2));
+  var rimg_names = Dcv.Squares.RICOP.random(Math.floor(total/2));
+
+
+  var imgs = $(".brick img");
+  var cix = -1;
+
+  imgs.each(
+    function(){
+      cix++;
+      var ix = (cix%2 == 0) ? (cix/2) : Math.floor(cix/2);
+      var img_name = (cix%2 == 0) ? cimg_names[ix] : rimg_names[ix];
+      var id_name = img_name.split('.')[0].replace('_',':');
+      var proj = (cix%2 == 0) ? 'cpg' : 'ricop';
+      if (cix < total) {
+          if (typeof(img_name) == 'undefined') {window.console.log(ix + ': no image name: ' + rimg_names[ix] + ", length: " + rimg_names.length);
+        }
+        $(this).attr('src',assets + proj +'/50/' + img_name);
+        $(this).attr('data-default',assets + proj +'/50/' + img_name);
+        $(this).attr('data-detail',assets + proj +'/100/' + img_name);
+        $(this).attr('data-scaled',thumbs + id_name);
+        $(this).hide();
+        //$(this).attr('data-object-id', img_name.substring(0,img_name.lastIndexOf('.')).replace('_',':'));
+        $(this).hover(
+            function(){
+            $(this).attr('src', $(this).attr('data-detail'));
+          },
+          function(){
+            $(this).attr('src', $(this).attr('data-default'));
+          }
+        );
+        $(this).on('click', window.mosaicClick);
+      }
+
+    }
+  );
+  $(window).load(function(){$(container + " .img-responsive").fadeIn();});
+}
+
+function mosaicClick() {
+	$('#burrito').attr('src',$(this).attr('data-scaled'));
+}

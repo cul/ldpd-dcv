@@ -1,10 +1,10 @@
 if (typeof(Dcv) == 'undefined') Dcv = function(){};
 Dcv.Squares = Dcv.Squares || function(){}; 
-Dcv.Squares.random = function(_img_array) {
+Dcv.Squares.random = function(_img_array, limit) {
 	var imgs = {};
-    while (Object.keys(imgs).length < 60){ // magic 12x5 grid
+    while (Object.keys(imgs).length < limit){ // magic 12x5 grid
     	var ix = Math.floor(Math.random() * (_img_array.length + 1));
-    	if (ix > 59) continue;
+    	if (ix > limit -1) continue;
     	imgs[_img_array[ix]] = _img_array[ix] + ".jpg"
     }
     var img_names = [];
@@ -14,12 +14,12 @@ Dcv.Squares.random = function(_img_array) {
     return img_names;
 }
 Dcv.Squares.CPG = function(){};
-Dcv.Squares.CPG.random = function() {
-	return Dcv.Squares.random(Dcv.Squares.CPG.Images);
+Dcv.Squares.CPG.random = function(limit) {
+	return Dcv.Squares.random(Dcv.Squares.CPG.Images,limit);
 }
 Dcv.Squares.RICOP = function(){};
-Dcv.Squares.RICOP.random = function() {
-	return Dcv.Squares.random(Dcv.Squares.RICOP.Images);
+Dcv.Squares.RICOP.random = function(limit) {
+	return Dcv.Squares.random(Dcv.Squares.RICOP.Images,limit);
 }
 Dcv.Squares.CPG.Images = [
 "ldpd_114015",

@@ -5,4 +5,6 @@ class PagesController < ApplicationController
   def collections
   end
 
+  def wall
+  end
 end

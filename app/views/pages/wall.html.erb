@@ -1,0 +1,39 @@
+  <script type="text/javascript">
+    function porthole(port_id) {
+      return function(){
+        var src = $(this).attr('data-detail');
+        $(port_id + ' img').attr('src',src);
+        var obj_id = $(this).attr('data-object-id');
+        $(port_id + ' a[rel="object"]').attr('href','catalog/' + obj_id);
+        $(port_id).attr('style','visibility:inherit;');
+      }
+    }
+    $(document).ready(function(){ mosaicDemo('body')});
+  </script>
+  <style>
+  .project-wall {
+    width: 60%;
+    margin-bottom: 2em;
+  }
+  .brick {
+    overflow: hidden;
+    border: thin solid black;
+    padding: 0;
+  }
+  img.img-responsive {
+      width: 100%;
+      opacity: .8;
+  }
+  img.img-responsive:hover {
+  	opacity: 1;
+  }
+  .porthole {
+    /* visibility: hidden; */
+    position:absolute;
+    margin-left:-150px;
+    width:100px;
+  }
+  .porthole img {
+    width:100%;
+  }
+  </style>

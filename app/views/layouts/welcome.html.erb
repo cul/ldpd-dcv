@@ -57,8 +57,9 @@
       height:100%;
     }
     #discover {
-      background-image:url(<%= image_path('dcv/ldpd.treasures.243.jpg')%>);
-      background-position:center center;
+      background-color: #111;
+      /*background-image:url(<%= image_path('dcv/ldpd.treasures.243.jpg')%>);
+      background-position:center center;*/
     }
     #explore {
       background-image:url(<%= image_path('dcv/rbml_0819r.jpg')%>);
@@ -198,6 +199,18 @@ circle.child {
   /** pointer-events: none; **/
 }
 
+.brick {
+    overflow: hidden;
+    border: thin solid black;
+    padding: 0;
+  }
+    img.img-responsive {
+      width: 100%;
+      opacity: .8;
+  }
+  img.img-responsive:hover {
+    opacity: 1;
+  }
 
   </style>
   <!-- end prototype styles -->
@@ -261,9 +274,23 @@ circle.child {
   <div class="culinner container">
     <div class="culpanel alignleft row">
         <h4 class="lead">DISCOVER PROJECTS <%= link_to 'Browse projects &raquo;'.html_safe, browse_url(list:'projects'), class: 'browse-link pull-right' %></h4>
-        <div class="col-md-12" style="max-height:520px;overflow-y:auto;" class="child-scroll">
+        <div id="project-info" class="col-md-12">
+          <div style="height:25%;margin-bottom:6px;border:1px solid #444;border-left:0;border-right:0;padding:6px 0 6px 0;">
+            <div class="row">
+              <div class="col-md-3">
+                <div data-style="border:1px solid #888;" style="padding:3px;">
+                  <img id="burrito" style="max-width:100%; padding:0; max-height:100%;" src="<%=  asset_url("digital_projects_page/chinese_paper_gods.png")%>" />
+                </div>
+              </div>
+              <div class="col-md-9">
+                <h5>Chinese Paper Gods</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12" id="discover-content" data-style="max-height:520px;overflow-y:auto;">
           <%# @per_row = 2 %>
-          <%= render template: 'pages/digital_projects', :locals => { :per_row => 2 } -%>
+          <%#= render template: 'pages/digital_projects', :locals => { :per_row => 2 } -%>
         </div>
     </div>
   </div>
@@ -363,6 +390,7 @@ $(document).ready(function() {
     return false;
   });
 
+  mosaicDemo('#discover-content');
 });
 
 $('div.bgParallax-OFF').each(function(){
