@@ -4,20 +4,49 @@
   <script type="text/javascript" src="assets/application.js"></script>
   <script type="text/javascript" src="assets/dcv.js"></script>
   <script type="text/javascript">
+    function porthole(port_id) {
+      return function(){
+        var src = $(this).attr('data-detail');
+        $(port_id + ' img').attr('src',src);
+        var obj_id = $(this).attr('data-object-id');
+        $(port_id + ' a[rel="object"]').attr('href','catalog/' + obj_id);
+        $(port_id).attr('style','visibility:inherit;');
+      }
+    }
     $(document).ready(function(){
       var imgs = $("#cpg .row .col-md-1 img");
-      var ix = 0;
-      var img_names = Dcv.Squares.CPG.random();
-      imgs.each(function(){
-        $(this).attr('src','assets/digital_projects_page/cpg/50/' + img_names[ix++]);
-      })
+      var cix = -1;
+      var cimg_names = Dcv.Squares.CPG.random();
+      imgs.each(
+        function(){
+          cix++;
+          var img_name = cimg_names[cix];
+          if (cix < cimg_names.length) {
+            window.console.log('' + cix + ' of ' + cimg_names.length + ' ' + img_name);
+            $(this).attr('src','assets/digital_projects_page/cpg/50/' + img_name);
+            $(this).attr('data-detail','assets/digital_projects_page/cpg/100/' + img_name);
+            $(this).attr('data-object-id', img_name.substring(0,img_name.lastIndexOf('.')).replace('_',':'));
+            $(this).on('click',porthole('#cpg-porthole'));
+          }
+        }
+      );
       imgs = $("#ricop .row .col-md-1 img");
-      ix = 0;
+      var rix = -1;
       window.console.log("loading " + imgs.length + " images");
-      img_names = Dcv.Squares.RICOP.random();
-      imgs.each(function(){
-        $(this).attr('src','assets/digital_projects_page/ricop/50/' + img_names[ix++]);
-      })
+      var rimg_names = Dcv.Squares.RICOP.random();
+      imgs.each(
+        function(){
+          rix++;
+          if (rix < rimg_names.length) {
+            var img_name = rimg_names[rix];
+            window.console.log('' + rix + ' of ' + rimg_names.length + ' ' + img_name);
+            $(this).attr('src','assets/digital_projects_page/ricop/50/' + img_name);
+            $(this).attr('data-detail','assets/digital_projects_page/ricop/100/' + img_name);
+            $(this).attr('data-object-id', img_name.substring(0,img_name.lastIndexOf('.')).replace('_',':'));
+            $(this).on('click',porthole('#ricop-porthole'));
+          }
+        }
+      );
     });
   </script>
 	<link rel="stylesheet" type="text/css" href="assets/application.css"></style>
@@ -39,11 +68,22 @@
   .col-md-1 > img {
       width: 100%;
   }
+  .porthole {
+    /* visibility: hidden; */
+    position:absolute;
+    margin-left:-150px;
+    width:100px;
+  }
+  .porthole img {
+    width:100%;
+  }
   </style>
 </head>
 <body>
 	<h1>test</h1>
 <div class="container-fluid project-wall" id="cpg">
+  <div id="cpg-porthole" class="porthole">
+    <img src="assets/digital_projects_page/chinese_paper_gods.png" class="img-circle"/><a href=""></a></div>
   <div class="row">
     <div class="col-md-1">
       <img src="assets/digital_projects_page/chinese_paper_gods.png" />
@@ -236,6 +276,9 @@
   </div>
 </div>
 <div class="container-fluid project-wall" id="ricop">
+  <div id="ricop-porthole" class="porthole">
+    <img src="assets/digital_exhibitions_page/russian_corps.png" class="img-circle"/>
+  </div>
   <div class="row">
     <div class="col-md-1">
       <img src="assets/digital_exhibitions_page/russian_corps.png" />
