@@ -204,16 +204,17 @@ circle.child {
 
   </head>
   <body class="<%= render_body_class %> dcv <%= params[:action] %>" data-no-turbolink>
-<%= render :partial => 'shared/topnavbar' %>
+    <%= render :partial => 'shared/topnavbar' %>
 
-       <div id="spinner" style="text-align:center;"><i class="glyphicon glyphicon-refresh icon-spin icon-large"></i>Loading</div>
+    <div id="spinner" style="text-align:center;"><i class="glyphicon glyphicon-refresh icon-spin icon-large"></i>Loading</div>
+
     <div id="home" class="bgParallax" data-speed="2">
-<div style="position:absolute;bottom:40px;left:2px;z-index:15;display:none;">
-     <ul class="bgslider-captions list-unstyled" style="font-size:110%;text-align:left;z-index:15;margin-bottom:10px;color:rgba(255,255,255,.6);">
-       <li>Title: <a href="#">Amazing Image Title</a></li>
-       <li>Location: <a href="#">Rare Book &amp; Manuscript Library</a></li>
-     </ul>
-</div>
+	<div style="position:absolute;bottom:40px;left:2px;z-index:15;display:none;">
+		 <ul class="bgslider-captions list-unstyled" style="font-size:110%;text-align:left;z-index:15;margin-bottom:10px;color:rgba(255,255,255,.6);">
+		   <li>Title: <a href="#">Amazing Image Title</a></li>
+		   <li>Location: <a href="#">Rare Book &amp; Manuscript Library</a></li>
+		 </ul>
+	</div>
      <div class="culinner">
 		<%= yield %>
      </div>
@@ -223,15 +224,14 @@ circle.child {
        <li data-target="#carousel-example-generic" data-slide-to="2"></li>
        <li data-target="#carousel-example-generic" data-slide-to="3"></li>
      </ol>
-  <div class="hide">
-  <a class="left carousel-control" href="#prev" role="button" data-slide="prev">
-    <span class="glyphicon glyphicon-chevron-left"></span>
-  </a>
-  <a class="right carousel-control" href="#next" role="button" data-slide="next">
-    <span class="glyphicon glyphicon-chevron-right"></span>
-  </a>
-  </div>
-</div>
+	  <div class="carousel-controls">
+		  <a class="left carousel-control" href="#prev" role="button" data-slide="prev">
+			<span class="glyphicon glyphicon-chevron-left hide"></span>
+		  </a>
+		  <a class="right carousel-control" href="#next" role="button" data-slide="next">
+			<span class="glyphicon glyphicon-chevron-right hide"></span>
+		  </a>
+	  </div>
     </div>
 
 <div id="about" class="bgParallax" data-speed="4">
@@ -317,9 +317,9 @@ $(document).ready(function() {
 
   /* home bg carousel */
   var $bgimgs = [
-    "<%= image_path('dcv/1836760843_267e9c947f_o-sepc.jpg')%>", 
-    "<%= image_path('dcv/columbia_university_library___night_by_never4getthis-d57w6dl-cropped.jpg')%>",
     "<%= image_path('dcv/1836760843_267e9c947f_o.jpg')%>",
+    "<%= image_path('dcv/columbia_university_library___night_by_never4getthis-d57w6dl-cropped.jpg')%>",
+    "<%= image_path('dcv/1836760843_267e9c947f_o-sepc.jpg')%>", 
     "<%= image_path('dcv/ldpd-112745.jpg')%>"
   ]; 
   $("#home").bgswitcher({ 
