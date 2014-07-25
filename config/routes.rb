@@ -49,6 +49,7 @@ Dcv::Application.routes.draw do
 
   get ':layout/:id/details' => 'details#show', as: :details
 
+  get '/squares/:id/:scale' => 'squares#show', as: :squares
   #get 'resolve/catalog/*catalog_id/bytestreams/:id/content(.:format)' => 'resolve/bytestreams#content',
   # as: :resolve_bytestream_content #,
    #constraints: { catalog_id: /[^\/]+/ }

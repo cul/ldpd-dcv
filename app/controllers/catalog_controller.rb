@@ -63,6 +63,9 @@ class CatalogController < ApplicationController
 
     config.add_facet_field solr_name('lc1_letter', :facetable), :label => 'Call Number'
 
+    # hidden facets to prevent nil pointers
+    config.add_facet_field solr_name('lib_repo', :symbol, type: :string), label: 'Library Location', show: false
+
     # Have BL send all facet field names to Solr, which has been the default
     # previously. Simply remove these lines if you'd rather use Solr request
     # handler defaults, or have no facets.
