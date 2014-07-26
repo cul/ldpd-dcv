@@ -16,7 +16,7 @@ function mosaicDemo(container) {
   console.log("got here total: " + total);
   for (var i=0; i< total; i++) {
     $(container).append('<div class="col-xs-1 brick"> \
-  <img class="img-responsive" style="display:none;" src="' + assets + 'chinese_paper_gods.png" />\
+  <img class="img-responsive" src="' + assets + 'chinese_paper_gods.png" />\
 </div>');
   }
   if (total == 0) return;
@@ -41,7 +41,7 @@ function mosaicDemo(container) {
         $(this).attr('data-default',assets + proj +'/50/' + img_name);
         $(this).attr('data-detail',assets + proj +'/100/' + img_name);
         $(this).attr('data-scaled',thumbs + id_name);
-        $(this).hide();
+        //$(this).hide();
         //$(this).attr('data-object-id', img_name.substring(0,img_name.lastIndexOf('.')).replace('_',':'));
         $(this).hover(
             function(){

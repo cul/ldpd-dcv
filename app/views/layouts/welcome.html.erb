@@ -92,7 +92,7 @@
       /*box-shadow:0 0 86px rgba(255,255,255,.4);*/
     }
     #about .culpanel {
-      padding:50px 220px;
+      padding:50px 10%;
     } 
     #home .culpanel {
       width:768px;
@@ -139,12 +139,17 @@
   }  
   .updown {
     position:fixed;
-    z-index:15;
-    bottom:30px;
+    z-index:25;
+    bottom:24px;
     right:20px;
-    font-size:1.1em;
+    font-size:1.16em;
     text-align:center;
-    opacity:.5;
+  }
+  .updown a {
+      color:rgba(255,255,255,.4);
+  }
+  .updown a:hover {
+      color:rgba(255,255,255,.7);
   }
   #spinner {
     position:fixed;
@@ -230,17 +235,26 @@ circle.child {
 
     <div id="spinner" style="text-align:center;"><i class="glyphicon glyphicon-refresh icon-spin icon-large"></i>Loading</div>
 
-    <div id="home" class="section bgParallax" data-speed="2">
     <div class="updown hide-until-load">
-           <a data-id="prev" href="#"><i class="glyphicon glyphicon-arrow-up"></i></a><br>
-           <a data-id="next" href="#"><i class="glyphicon glyphicon-arrow-down"></i></a>
+           <a id="prev" href="#"><i class="glyphicon glyphicon-arrow-up"></i></a><br>
+           <a id="next" href="#"><i class="glyphicon glyphicon-arrow-down"></i></a>
     </div>
-	<div class="hide-until-load" style="position:absolute;bottom:30px;left:2px;z-index:15;">
-		 <ul class="bgslider-captions list-unstyled" style="font-size:110%;text-align:left;z-index:15;margin-bottom:10px;color:rgba(255,255,255,.6);">
-		   <li>Title: <a href="#">Amazing Image Title</a></li>
-		   <li>Location: <a href="#">Rare Book &amp; Manuscript Library</a></li>
-		 </ul>
+
+    <div id="home" class="section bgParallax" data-speed="2">
+
+<!--
+	<div class="hide-until-load" style="position:absolute;bottom:24px;left:0px;z-index:15;width:98%;">
+		<div class="container">
+			<div class="row">
+				 <ul class="bgslider-captions list-unstyled" style="font-size:110%;text-align:left;z-index:15;margin-bottom:10px;color:rgba(255,255,255,.6);">
+				   <li>Title: <a href="#">Amazing Image Title</a></li>
+				   <li>Location: <a href="#">Rare Book &amp; Manuscript Library</a></li>
+				 </ul>
+			</div>
+		</div>
 	</div>
+-->
+
      <div class="culinner">
 		<%= yield %>
      </div>
@@ -248,7 +262,7 @@ circle.child {
        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
        <li data-target="#carousel-example-generic" data-slide-to="1"></li>
        <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-       <li data-target="#carousel-example-generic" data-slide-to="3"></li>
+       <!--li data-target="#carousel-example-generic" data-slide-to="3"></li-->
      </ol>
 	  <div class="carousel-controls">
 		  <a class="left carousel-control" href="#prev" role="button" data-slide="prev">
@@ -274,9 +288,15 @@ circle.child {
               </div>
               <div class="col-sm-10">
                <div style="">
-                <h4 class="">Chinese Paper Gods</h4>
-                <p class="lead">An online visual catalog of over 200 woodcuts used in folk religious practices in Beijing and other parts of China in the 1930s.</p>
-                <p><a href="/catalog?f%5Blib_project_sim%5D%5B%5D=Chinese+paper+gods">View Content &raquo;</a></p>
+                <form id="mosaic-switch" action="#">
+					<select name="mosaic-project" id="mosaic-project" class="pull-right btn btn-default alignleft" style="font-size:.8em;padding:0;margin:0;">
+					  <option value="cpg">Chinese Paper Gods</option>
+					  <option value="ricp">Russian Imperial Corps of Pages</option>
+					</select>
+                </form>
+                <h4 id="mosaic-project-title">Chinese Paper Gods</h4>
+                <p id="mosaic-project-blurb" class="lead">An online visual catalog of over 200 woodcuts used in folk religious practices in Beijing and other parts of China in the 1930s.</p>
+                <p><a id="mosaic-project-link" href="/catalog?f%5Blib_project_sim%5D%5B%5D=Chinese+paper+gods">View Content &raquo;</a></p>
                </div>
               </div>
             </div>
@@ -331,20 +351,23 @@ $(window).load(function() {
   $('#culnavitems').hide().prependTo($('#cul_top-right'));
   $(window).scroll(function(){
     if($(this).scrollTop()>=$('#home').height()/1.6){
-       $('#topnavbar').css('opacity','1');
+        //$('#topnavbar').css('opacity','1');
         $('#cul_top-right > li:not(:last-child)').show();
         $('#menuholder li:not(:last-child)').show();
     } else {
-       $('#topnavbar').css('opacity','0.3');
+        //$('#topnavbar').css('opacity','0.3');
         $('#cul_top-right > li:not(:last-child)').hide();
         $('#menuholder li:not(:last-child)').show();
     }
   });
   $('#topnavbar, #pane-1 .cover, .culpanel, .hide-until-load').fadeIn(900);
 
+/*
   if($(window).scrollTop()<$('#home').height()/1.6) {
     $('#topnavbar').fadeTo('slow','0.3');
   }
+*/
+
   var wtop = $('#topnavbar').height();
   if($(this).scrollTop()>=wtop){
       $('#cul_top-right > li:not(:last-child)').show();
@@ -362,7 +385,7 @@ $(document).ready(function() {
     "<%= image_path('dcv/1836760843_267e9c947f_o.jpg')%>",
     "<%= image_path('dcv/columbia_university_library___night_by_never4getthis-d57w6dl-cropped.jpg')%>",
     "<%= image_path('dcv/1836760843_267e9c947f_o-sepc.jpg')%>", 
-    "<%= image_path('dcv/ldpd-112745.jpg')%>"
+    /*"<%= image_path('dcv/ldpd-112745.jpg')%>"*/
   ]; 
   $("#home").bgswitcher({ 
 	images: $bgimgs,
@@ -406,15 +429,16 @@ $(document).ready(function() {
     $('#culnavitems').removeClass('open');
     return false;
   });
+
   $('.updown').on('click', 'a', function(e) {
-      var t = $(this).attr('data-id'),
-      $par = $(this).parent().parent('.section');
+      var t = $(this).attr('id'),
+      $par = $('.section.current');
 
     if (t === 'next' && $par.next('div.section').length > 0) {
         var $next = $par.next('.section');
         var top = $next.offset().top;
         
-        $('body').animate({
+        $('body,html').animate({
           scrollTop: top     
         }, function () {
         });
@@ -422,7 +446,7 @@ $(document).ready(function() {
         var $prev = $par.prev('.section');
         var top = $prev.offset().top;
         
-        $('body').animate({
+        $('body,html').animate({
           scrollTop: top     
         }, function () {
         });
@@ -430,8 +454,49 @@ $(document).ready(function() {
     return false;
   });
 
+  var projMap = {
+    'cpg' : {
+        'title' : 'Chinese Paper Gods',
+        'thumb' : '<%=  asset_url("digital_projects_page/chinese_paper_gods.png")%>',
+        'link' : '/catalog?f%5Blib_project_sim%5D%5B%5D=Chinese+paper+gods',
+        'blurb' : 'An online visual catalog of over 200 woodcuts used in folk religious practices in Beijing and other parts of China in the 1930s.'
+    },
+    'ricp' : {
+        'title' : 'Russian Imperial Corps of Pages',
+        'thumb' : '<%=  asset_url("digital_exhibitions_page/russian_corps.png")%>',
+        'link' : '/catalog?f%5Blib_project_sim%5D%5B%5D=Russian+Corps+of+Pages',
+        'blurb' : 'An online exhibition catalog containing selections from the Columbia University Libraries exhibition, "The Russian Imperial Corps of Pages."'
+    }
+  };
+
+  $('#mosaic-project').change(function(e) {
+    var $proj = $(this).val();
+    var $projtitle = projMap[$proj]['title'];
+    var $projthumb = projMap[$proj]['thumb'];
+    var $projblurb = projMap[$proj]['blurb'];
+    var $projlink = projMap[$proj]['link'];
+    $('#mosaic-project-title').html($projtitle);
+    $('#mosaic-project-blurb').html($projblurb);
+    $('#mosaic-project-link').attr('href',$projlink);
+    $('#burrito').css('background-image','url('+$projthumb+')');
+    $('#discover-content').empty();
+    e.preventDefault();
+    mosaicDemo('#discover-content');
+  });
+
   mosaicDemo('#discover-content');
 });
+
+$(window).scroll(function() {
+    var windowTop = Math.max($('body').scrollTop(), $('html').scrollTop());
+    $('.section').each(function (index) {
+        if (windowTop > ($(this).position().top - 100))
+        {
+            $('.section.current').removeClass('current');
+            $('.section:eq(' + index + ')').addClass('current');
+        }
+    });
+}).scroll();
 
 $('div.bgParallax-OFF').each(function(){
 	var $obj = $(this);
