@@ -41,9 +41,9 @@
       padding-top:0!important;
     }
     a:hover { text-decoration:none; }
-    h4 { border-bottom:1px solid #888; }
+    h4.lead { border-bottom:1px solid #888; }
     #topnavbar { background-color:rgba(100,100,100,.4); }
-    #topnavbar, #pane-1 .cover, .culpanel { display:none; }
+    #topnavbar, #pane-1 .cover, .culpanel, .hide-until-load { display:none; }
     #topnavbar:hover { opacity:1!important; }
     #navholder { position:relative; }
     .bgParallax {
@@ -58,8 +58,8 @@
     }
     #discover {
       background-color: #111;
-      /*background-image:url(<%= image_path('dcv/ldpd.treasures.243.jpg')%>);
-      background-position:center center;*/
+      background-image:url(<%= image_path('dcv/ldpd.treasures.243.jpg')%>);
+      background-position:center center;
     }
     #explore {
       background-image:url(<%= image_path('dcv/rbml_0819r.jpg')%>);
@@ -137,6 +137,16 @@
     color: white;
     text-transform: uppercase;
   }  
+  .updown {
+    display:none!important;
+    position:fixed;
+    z-index:15;
+    bottom:30px;
+    right:20px;
+    font-size:1.1em;
+    text-align:center;
+    opacity:.5;
+  }
   #spinner {
     position:fixed;
     top:46%;
@@ -221,8 +231,12 @@ circle.child {
 
     <div id="spinner" style="text-align:center;"><i class="glyphicon glyphicon-refresh icon-spin icon-large"></i>Loading</div>
 
-    <div id="home" class="bgParallax" data-speed="2">
-	<div style="position:absolute;bottom:40px;left:2px;z-index:15;display:none;">
+    <div id="home" class="section bgParallax" data-speed="2">
+    <div class="updown hide-until-load">
+           <a data-id="prev" href="#"><i class="glyphicon glyphicon-arrow-up"></i></a><br>
+           <a data-id="next" href="#"><i class="glyphicon glyphicon-arrow-down"></i></a>
+    </div>
+	<div class="hide-until-load" style="position:absolute;bottom:30px;left:2px;z-index:15;">
 		 <ul class="bgslider-captions list-unstyled" style="font-size:110%;text-align:left;z-index:15;margin-bottom:10px;color:rgba(255,255,255,.6);">
 		   <li>Title: <a href="#">Amazing Image Title</a></li>
 		   <li>Location: <a href="#">Rare Book &amp; Manuscript Library</a></li>
@@ -231,7 +245,7 @@ circle.child {
      <div class="culinner">
 		<%= yield %>
      </div>
-     <ol class="carousel-indicators">
+     <ol class="carousel-indicators hide-until-load">
        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
        <li data-target="#carousel-example-generic" data-slide-to="1"></li>
        <li data-target="#carousel-example-generic" data-slide-to="2"></li>
@@ -247,18 +261,37 @@ circle.child {
 	  </div>
     </div>
 
-<div id="about" class="bgParallax" data-speed="4">
-  <div class="culinner">
-    <div class="culpanel">
-        <h4 class="lead alignleft">ABOUT DIGITAL LIBRARY COLLECTIONS</h4>
-        <div class="lead alignjustify">
-        Digital Library Collections is a gateway to many of the digital projects that <a href="http://library.columbia.edu">Columbia University Libraries / Information Services</a> has completed over the past ten years. It includes scans of photographs, posters, objects, manuscripts and other archival material from our special and archival collections. The site will continue to grow as more of our special collections are digitized and cataloged. (It does not at present include digitized books, however; these can be located by searching the CLIO catalog.) All site content is intended to be used for education and research.
+<div id="discover" class="section bgParallax" data-speed="3">
+  <div class="culinner container" style="padding-top:60px;">
+    <div class="culpanel alignleft row">
+     <h4 class="lead">DISCOVER PROJECTS <%= link_to 'Browse projects &raquo;'.html_safe, browse_url(list:'projects'), class: 'browse-link pull-right' %></h4>
+        <div id="project-info" class="col-sm-12" style="padding:0;">
+          <div style="height:150px;margin-bottom:5px;">
+            <div class="row">
+              <div class="col-sm-2">
+                <div data-style="border:1px solid #888;" style="padding:2px;background-color:#1d1d1d;background-position:center center;background-repeat:no-repeat;background-size:100%;background-image:url('<%= asset_url("digital_projects_page/chinese_paper_gods.png")%>');height:150px;width:100%;" id="burrito">
+                  <!--img data-id="burrito" style="max-width:100%; padding:0; max-height:100%;" src="<%=  asset_url("digital_projects_page/chinese_paper_gods.png")%>" /-->
+                </div>
+              </div>
+              <div class="col-sm-10">
+               <div style="">
+                <h4 class="">Chinese Paper Gods</h4>
+                <p class="lead">An online visual catalog of over 200 woodcuts used in folk religious practices in Beijing and other parts of China in the 1930s.</p>
+                <p><a href="/catalog?f%5Blib_project_sim%5D%5B%5D=Chinese+paper+gods">View Content &raquo;</a></p>
+               </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12" id="discover-content" data-style="max-height:520px;overflow-y:auto;" style="padding:0;position:relative;">
+          <%# @per_row = 2 %>
+          <%#= render template: 'pages/digital_projects', :locals => { :per_row => 2 } -%>
         </div>
     </div>
   </div>
 </div>
 
-<div id="explore" class="bgParallax" data-speed="6">
+<div id="explore" class="section bgParallax" data-speed="6">
   <div class="culinner">
     <div class="culpanel">
         <h4 class="lead alignleft">EXPLORE FORMATS        <%= link_to 'Browse formats &raquo;'.html_safe, browse_url(list:'lib_format_sim'), class: 'browse-link pull-right' %>
@@ -270,27 +303,12 @@ circle.child {
   </div>
 </div>
 
-<div id="discover" class="bgParallax" data-speed="3">
-  <div class="culinner container">
-    <div class="culpanel alignleft row">
-        <h4 class="lead">DISCOVER PROJECTS <%= link_to 'Browse projects &raquo;'.html_safe, browse_url(list:'projects'), class: 'browse-link pull-right' %></h4>
-        <div id="project-info" class="col-md-12">
-          <div style="height:25%;margin-bottom:6px;border:1px solid #444;border-left:0;border-right:0;padding:6px 0 6px 0;">
-            <div class="row">
-              <div class="col-md-3">
-                <div data-style="border:1px solid #888;" style="padding:3px;">
-                  <img id="burrito" style="max-width:100%; padding:0; max-height:100%;" src="<%=  asset_url("digital_projects_page/chinese_paper_gods.png")%>" />
-                </div>
-              </div>
-              <div class="col-md-9">
-                <h5>Chinese Paper Gods</h5>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-12" id="discover-content" data-style="max-height:520px;overflow-y:auto;">
-          <%# @per_row = 2 %>
-          <%#= render template: 'pages/digital_projects', :locals => { :per_row => 2 } -%>
+<div id="about" class="section bgParallax" data-speed="4">
+  <div class="culinner">
+    <div class="culpanel">
+        <h4 class="lead alignleft">ABOUT DIGITAL LIBRARY COLLECTIONS</h4>
+        <div class="lead alignjustify">
+        Digital Library Collections is a gateway to many of the digital projects that <a href="http://library.columbia.edu">Columbia University Libraries / Information Services</a> has completed over the past ten years. It includes scans of photographs, posters, objects, manuscripts and other archival material from our special and archival collections. The site will continue to grow as more of our special collections are digitized and cataloged. (It does not at present include digitized books, however; these can be located by searching the CLIO catalog.) All site content is intended to be used for education and research.
         </div>
     </div>
   </div>
@@ -300,8 +318,8 @@ circle.child {
 	<li id="culnavitems" class="dropdown menu pull-left"><a class="dropdown-toggle menu" data-toggle="dropdown" href="#">DLC <b class="caret"></b></a>
 		<ul class="dropdown-menu menu-dropdown dropdown-menu-right">
 			<li><a href="#home" class="scrollto">Search</a></li>
-			<li><a href="#explore" class="scrollto">Explore</a></li>
 			<li><a href="#discover" class="scrollto">Discover</a></li>
+			<li><a href="#explore" class="scrollto">Explore</a></li>
 			<li><a href="#about" class="scrollto">About</a></li>
 		</ul>
 	</li>
@@ -323,7 +341,7 @@ $(window).load(function() {
         $('#menuholder li:not(:last-child)').show();
     }
   });
-  $('#topnavbar, #pane-1 .cover, .culpanel').fadeIn(900);
+  $('#topnavbar, #pane-1 .cover, .culpanel, .hide-until-load').fadeIn(900);
 
   if($(window).scrollTop()<$('#home').height()/1.6) {
     $('#topnavbar').fadeTo('slow','0.3');
@@ -387,6 +405,29 @@ $(document).ready(function() {
   var where = $(this).attr('href');
     $('body,html').animate({ scrollTop: $(where).offset().top /*- $('#topnavbar').height()*/ }, 900, 'swing');
     $('#culnavitems').removeClass('open');
+    return false;
+  });
+  $('.updown').on('click', 'a', function(e) {
+      var t = $(this).attr('data-id'),
+      $par = $(this).parent().parent('.section');
+
+    if (t === 'next' && $par.next('div.section').length > 0) {
+        var $next = $par.next('.section');
+        var top = $next.offset().top;
+        
+        $('body').animate({
+          scrollTop: top     
+        }, function () {
+        });
+    } else if (t === 'prev' && $par.prev('div.section').length > 0) {
+        var $prev = $par.prev('.section');
+        var top = $prev.offset().top;
+        
+        $('body').animate({
+          scrollTop: top     
+        }, function () {
+        });
+    } 
     return false;
   });
 

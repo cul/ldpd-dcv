@@ -6,7 +6,7 @@ function mosaicDemo(container) {
   var width = Math.max($(container).parent().width(),$(container).width());
   var height = Math.max($(container).parent().height(),$(container).height());
   var winHeight = $(window).height();
-  height = Math.floor(winHeight * .75);
+  height = Math.floor(winHeight * .55);
   console.log(container + " was my container selector of " + width + ' x ' + height);
 
   var total = Math.floor((12*height)/width) * 12;
@@ -60,5 +60,6 @@ function mosaicDemo(container) {
 }
 
 function mosaicClick() {
-	$('#burrito').attr('src',$(this).attr('data-scaled'));
+	//$('#burrito').attr('src',$(this).attr('data-scaled'));
+	$('#burrito').css('background-image','url('+$(this).attr('data-scaled')+')');
 }
