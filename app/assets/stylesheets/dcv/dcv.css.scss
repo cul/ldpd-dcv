@@ -259,8 +259,13 @@ input {
 	}
   }
   .input-group-addon {
+    padding-top: 0; 
+    padding-bottom: 0;
+    margin-top: 0px;
+    margin-bottom: 0px; 
     background-color:#666;
     border-color:#ccc;
+    font-size:1em;
   }
   .search-btn, .reset-btn {
     border-color:#ccc;
