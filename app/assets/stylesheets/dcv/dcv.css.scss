@@ -266,6 +266,11 @@ input {
     background-color:#666;
     border-color:#ccc;
     font-size:1em;
+    #search_field {
+      background-color:transparent;
+      border:0;
+      color:#fff;
+    }
   }
   .search-btn, .reset-btn {
     border-color:#ccc;
