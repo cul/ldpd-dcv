@@ -73,6 +73,9 @@ $(function() {
     $(this).parent().find('i.more').removeClass('glyphicon-chevron-down');
     $(this).parent().find('i.more').addClass('glyphicon-chevron-right');
   })
+  $('#toggle-metadata-control').on('click', function(e){
+    $('#title-accordion').find('.accordion-toggle').trigger('click');
+  });
 
   //Date Range Graph Setup
   //Activate date graphif cookie is set
