@@ -36,8 +36,12 @@
     background-color: #ccc;
 }
 #zoom-toolbar {
+  margin-bottom:.5em;
   margin-left:2px;
 }
-#title-accordion .panel-heading {
-  padding-left:0;
+#title-accordion {
+    margin-bottom:0;
+	.panel-heading {
+	  padding-left:0;
+	}
 }
