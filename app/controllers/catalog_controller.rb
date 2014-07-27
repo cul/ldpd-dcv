@@ -81,7 +81,7 @@ class CatalogController < ApplicationController
     config.add_index_field solr_name('location_sublocation', :displayable, type: :string), :label => 'Department'
     config.add_index_field solr_name('location_shelf_locator', :displayable, type: :string), :label => 'Shelf Location'
     config.add_index_field solr_name('lib_date_textual', :displayable, type: :string), :label => 'Date'
-    config.add_index_field solr_name('location_url', :displayable, type: :string), :label => 'Item in Project'
+    config.add_index_field solr_name('location_url', :displayable, type: :string), :label => 'Item in Context'
 
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display
@@ -107,7 +107,7 @@ class CatalogController < ApplicationController
     config.add_show_field solr_name('origin_info_place', :displayable, type: :string), :label => 'Place'
     config.add_show_field solr_name('origin_info_edition', :displayable, type: :string), :label => 'Edition'
     config.add_show_field solr_name('identifier', :symbol), :label => 'Identifier'
-    config.add_show_field solr_name('location_url', :displayable, type: :string), :label => 'Item in Project'
+    config.add_show_field solr_name('location_url', :displayable, type: :string), :label => 'Item in Context'
 
     # "fielded" search configuration. Used by pulldown among other places.
     # For supported keys in hash, see rdoc for Blacklight::SearchFields
