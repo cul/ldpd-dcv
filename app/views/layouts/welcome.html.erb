@@ -463,16 +463,16 @@ $(document).ready(function() {
 
   var projMap = {
     'cpg' : {
-        'title' : 'Chinese Paper Gods',
-        'thumb' : '<%=  asset_url("digital_projects_page/chinese_paper_gods.png")%>',
-        'link' : '/catalog?f%5Blib_project_sim%5D%5B%5D=Chinese+paper+gods',
-        'blurb' : 'An online visual catalog of over 200 woodcuts used in folk religious practices in Beijing and other parts of China in the 1930s.'
+      'title' : 'Chinese Paper Gods',
+      'thumb' : '<%=  asset_url("digital_projects_page/chinese_paper_gods.png")%>',
+      'link' : '/catalog?f%5Blib_project_sim%5D%5B%5D=Chinese+paper+gods',
+      'blurb' : 'An online visual catalog of over 200 woodcuts used in folk religious practices in Beijing and other parts of China in the 1930s.'
     },
     'ricp' : {
-        'title' : 'Russian Imperial Corps of Pages',
-        'thumb' : '<%=  asset_url("digital_exhibitions_page/russian_corps.png")%>',
-        'link' : '/catalog?f%5Blib_project_sim%5D%5B%5D=Russian+Corps+of+Pages',
-        'blurb' : 'An online exhibition catalog containing selections from the Columbia University Libraries exhibition, "The Russian Imperial Corps of Pages."'
+      'title' : 'Russian Imperial Corps of Pages',
+      'thumb' : '<%=  asset_url("digital_exhibitions_page/russian_corps.png")%>',
+      'link' : '/catalog?f%5Blib_project_sim%5D%5B%5D=Russian+Corps+of+Pages',
+      'blurb' : 'An online exhibition catalog containing selections from the Columbia University Libraries exhibition, "The Russian Imperial Corps of Pages."'
     }
   };
 
@@ -482,12 +482,11 @@ $(document).ready(function() {
     var $projthumb = projMap[$proj]['thumb'];
     var $projblurb = projMap[$proj]['blurb'];
     var $projlink = projMap[$proj]['link'];
+    $('#discover-content').empty();
     $('#mosaic-project-title').html($projtitle);
     $('#mosaic-project-blurb').html($projblurb);
     $('#mosaic-project-link').attr('href',$projlink);
     $('#burrito').css('background-image','url('+$projthumb+')');
-    $('#discover-content').empty();
-    e.preventDefault();
     mosaicDemo('#discover-content');
   });
 
