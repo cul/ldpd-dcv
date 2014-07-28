@@ -258,7 +258,7 @@ circle.child {
            <a id="next" href="#"><i class="glyphicon glyphicon-arrow-down"></i></a>
     </div>
 
-    <div id="home" class="section bgParallax" data-speed="2">
+<div id="home" class="section bgParallax" data-speed="2">
 
 	<div id="slidecaps"> 
 				 <ul class="hide-until-load bgslider-captions list-unstyled" style="font-size:95%;text-align:left;margin-bottom:10px;">
@@ -270,6 +270,7 @@ circle.child {
      <div class="culinner">
 		<%= yield %>
      </div>
+
 	  <div class="carousel-controls">
 		  <a class="left carousel-control" href="#prev" role="button" data-slide="prev">
 			<span class="glyphicon glyphicon-chevron-left hide"></span>
@@ -278,7 +279,8 @@ circle.child {
 			<span class="glyphicon glyphicon-chevron-right hide"></span>
 		  </a>
 	  </div>
-    </div>
+
+</div>
 
 <div id="discover" class="section bgParallax" data-speed="3">
   <div class="culinner container" style="padding-top:60px;">
@@ -368,7 +370,7 @@ $(window).load(function() {
   });
   $('#topnavbar, #pane-1 .cover, .culpanel, .hide-until-load').fadeIn(900);
   $('.carousel-indicators li').first().addClass('active');
-  $('#slide-title').html($('.carousel-indicators').find('li.active').attr('data-titlessm'));
+  $('#slide-title').attr('href', $('.carousel-indicators').find('li.active').attr('data-caturl')).html($('.carousel-indicators').find('li.active').attr('data-titlessm'));
   $('#slide-projssm').html($('.carousel-indicators').find('li.active').attr('data-projssm'));
 
 /*
@@ -418,25 +420,33 @@ $(document).ready(function() {
   for (i = 0; i < $bgimgs.length; i++) { 
     var hash = $bgimgs[i].split('.')[0].replace('_',':')+'.json';
     var n = 0;
-    $.getJSON('/catalog/'+hash.split("/")[3], function (result) {
-      dproj = result['response']['document']['lib_project_ssm'][0];
-      dproj = dproj.replace(/(['])/g, "&apos;").replace(/(["])/g, "&quot;");
-      dt = result['response']['document']['title_display_ssm'][0];
-      dt = dt.replace(/(['])/g, "&apos;").replace(/(["])/g, "&quot;");
-      //(i === 0) ? 
-      //indicators.append("<li data-titlessm='"+dt+"' data-target='#homeCarousel' data-slide-to='"+i+"' class='active'></li> ") : 
-      indicators.append("<li data-titlessm='"+dt+"' data-projssm= '"+dproj+"' data-target='#homeCarousel' data-slide-to='"+n+"'></li> ");
-      n++;
+    //$.getJSON('/catalog/'+hash.split("/")[3], function (result) {
+    $.ajax({ 
+      url: '/catalog/'+hash.split("/")[3],
+      dataType: 'json',
+      async: false,
+      success: function(result) {
+		  caturl = '/catalog/'+hash.split('/')[3].slice(0, -5);
+		  dproj = result['response']['document']['lib_project_ssm'][0];
+		  dproj = dproj.replace(/(['])/g, "&apos;").replace(/(["])/g, "&quot;");
+		  dt = result['response']['document']['title_display_ssm'][0];
+		  dt = dt.replace(/(['])/g, "&apos;").replace(/(["])/g, "&quot;");
+		  //(i === 0) ? 
+		  //indicators.append("<li data-titlessm='"+dt+"' data-target='#homeCarousel' data-slide-to='"+i+"' class='active'></li> ") : 
+		  indicators.append("<li data-caturl='"+caturl+"' data-titlessm='"+dt+"' data-projssm= '"+dproj+"' data-target='#homeCarousel' data-slide-to='"+n+"'></li> ");
+		  n++;
+      }
     });
   };   
   $('.bgswitcher').addClass('bgParallax').attr('data-speed','2');
   $("#home .carousel-indicators").on("click", 'li', function() {
     $(this).parent().find('.active').removeClass('active')
     $('#home').bgswitcher("select", $(this).index());
-    $('#slide-title').html($(this).attr('data-titlessm'));
+    $('#slide-title').attr('href', $(this).attr('data-caturl')).html($(this).attr('data-titlessm'));
     $('#slide-projssm').html($(this).attr('data-projssm'));
     $(this).addClass('active');
   });
+
   $("#home .carousel-control").on("click", function() {
     var nextprev = $(this).attr('data-slide');
     $('#home').bgswitcher(nextprev);
@@ -455,10 +465,11 @@ $(document).ready(function() {
        $('#home .carousel-indicators li:last').addClass('active');
      }
     }
-    $('#slide-title').html($('.carousel-indicators li.active').attr('data-titlessm'));
+    $('#slide-title').attr('href', $('.carousel-indicators').find('li.active').attr('data-caturl')).html($('.carousel-indicators li.active').attr('data-titlessm'));
     $('#slide-projssm').html($('.carousel-indicators li.active').attr('data-projssm'));
     return false;
   });
+
   /* /END home bg carousel */
 
   parallasse();
