@@ -22,15 +22,15 @@
             <div id="facet-localContent" class="panel-collapse facet-content collapse">
               <div class="panel-body">
                 <ul class="facet-values list-unstyled">
-                  <li>
+                  <li id="dcv-yes">
                     <span class="facet-label">
-                      <a href="">Yes</a>
+                      <a href="" onclick="DCV.Browse.PseudoFacet.onClickLocal(); return false;">Yes</a>
                     </span>
                     <span class="facet-count"><%= ( controller.digital_projects.inject(0) {|m,p| p[:facet_value] ? m+=1 : m } ) -%></span>
                   </li>
-                  <li>
+                  <li id="dcv-no">
                     <span class="facet-label">
-                      <a href="">No</a>
+                      <a href="" onclick="DCV.Browse.PseudoFacet.onClickExternal(); return false;">No</a>
                     </span>
                     <span class="facet-count"><%= ( controller.digital_projects.inject(0) {|m,p| p[:facet_value] ? m : m+=1 } ) -%></span>
                   </li>
@@ -47,8 +47,8 @@
 
 		<div class="inner">
       <h2 class="sr-only top-content-title">Browse Projects</h2>
-      <div id="appliedParams" class="clearfix constraints-container inner" style="line-height: normal;">
-<strong>Digital Library Collections</strong> is a gateway to many of the digital projects that Columbia University Libraries / Information Services has completed over the past ten years. Some of these projects are housed entirely within this site, while others have also been published as independent external exhibitions.  Below, you'll find everything that we offer.</div>
+      <div id="appliedParams" class="clearfix inner contstraints-container" style="line-height: normal;">
+<strong>Digital Library Collections</strong> is a gateway to many of the digital projects that Columbia University Libraries / Information Services has completed over the past ten years. Some of these projects are housed entirely within this site, while others have also been published as independent external exhibitions.  Below, you'll find everything that we offer.<div id="pseudo-facet" style="padding:0.5em 0 0 0;"></div></div>
         <div id="search-results">
           <div class="row">
             <%= render :partial=>'project',:collection=> controller.digital_projects, :as=> :project, :locals=> {:row_offset=> 0} %>
