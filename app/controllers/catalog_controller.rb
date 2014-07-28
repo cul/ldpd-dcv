@@ -102,11 +102,11 @@ class CatalogController < ApplicationController
     config.add_show_field solr_name('abstract', :displayable, type: :string), :label => 'Description'
     config.add_show_field solr_name('table_of_contents', :displayable, type: :string), :label => 'Contents'
     config.add_show_field solr_name('lib_part', :displayable, type: :string), :label => 'Part'
-    config.add_show_field solr_name('origin_info_publisher', :displayable, type: :string), :label => 'Publisher'
+    config.add_show_field solr_name('lib_publisher', :displayable, type: :string), :label => 'Publisher'
     config.add_show_field solr_name('origin_info_place', :displayable, type: :string), :label => 'Place'
     config.add_show_field solr_name('origin_info_edition', :displayable, type: :string), :label => 'Edition'
     config.add_show_field solr_name('identifier', :symbol), :label => 'Identifier'
-    config.add_show_field solr_name('location_url', :displayable, type: :string), :label => 'Item in Context'
+    config.add_show_field solr_name('lib_item_in_context_url', :displayable, type: :string), :label => 'Item in Context'
 
     # "fielded" search configuration. Used by pulldown among other places.
     # For supported keys in hash, see rdoc for Blacklight::SearchFields
