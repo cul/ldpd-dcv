@@ -417,6 +417,7 @@ $(document).ready(function() {
   var proj = '';
   for (i = 0; i < $bgimgs.length; i++) { 
     var hash = $bgimgs[i].split('.')[0].replace('_',':')+'.json';
+    var n = 0;
     $.getJSON('/catalog/'+hash.split("/")[3], function (result) {
       dproj = result['response']['document']['lib_project_ssm'][0];
       dproj = dproj.replace(/(['])/g, "&apos;").replace(/(["])/g, "&quot;");
@@ -424,7 +425,8 @@ $(document).ready(function() {
       dt = dt.replace(/(['])/g, "&apos;").replace(/(["])/g, "&quot;");
       //(i === 0) ? 
       //indicators.append("<li data-titlessm='"+dt+"' data-target='#homeCarousel' data-slide-to='"+i+"' class='active'></li> ") : 
-      indicators.append("<li data-titlessm='"+dt+"' data-projssm= '"+dproj+"' data-target='#homeCarousel' data-slide-to='"+i+"'></li> ");
+      indicators.append("<li data-titlessm='"+dt+"' data-projssm= '"+dproj+"' data-target='#homeCarousel' data-slide-to='"+n+"'></li> ");
+      n++;
     });
   };   
   $('.bgswitcher').addClass('bgParallax').attr('data-speed','2');
