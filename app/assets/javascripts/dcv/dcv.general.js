@@ -357,7 +357,7 @@ DCV.ModsDownloadModal.show = function(displayUrl, downloadUrl){
     iframe:true,
     preloading: false,
     current:"{current} of {total}",
-    title: '<a href="' + downloadUrl + '"><span class="glyphicon glyphicon-download"></span> Download XML</a>'
+    title: '<a href="' + downloadUrl + '" data-no-turbolink="true"><span class="glyphicon glyphicon-download"></span> Download XML</a>'
   });
 
   return false;
