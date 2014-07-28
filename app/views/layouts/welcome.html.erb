@@ -387,12 +387,19 @@ $(window).load(function() {
 $(document).ready(function() {
 
   /* home bg carousel */
-  var $bgimgs = [
+  var $bgimgs = shuffle([
+    "<%= image_path('dcv/ldpd_85504.jpg')%>",
+    "<%= image_path('dcv/ldpd_111727.jpg')%>",
+    "<%= image_path('dcv/ldpd_113600.jpg')%>",
+    "<%= image_path('dcv/ldpd_113939.jpg')%>",
+    "<%= image_path('dcv/ldpd_114725.jpg')%>",
+    "<%= image_path('dcv/ldpd_134685.jpg')%>",
+    "<%= image_path('dcv/ldpd_136160.jpg')%>" /* ,
     "<%= image_path('dcv/1836760843_267e9c947f_o.jpg')%>",
     "<%= image_path('dcv/columbia_university_library___night_by_never4getthis-d57w6dl-cropped.jpg')%>",
     "<%= image_path('dcv/1836760843_267e9c947f_o-sepc.jpg')%>", 
-    /*"<%= image_path('dcv/ldpd-112745.jpg')%>"*/
-  ]; 
+    "<%= image_path('dcv/ldpd-112745.jpg')%>"*/
+  ]); 
   $("#home").bgswitcher({ 
 	images: $bgimgs,
     start: false,
@@ -535,6 +542,12 @@ function parallasse() {
 //		document.createElement("section");
 }
 
+//+ Jonas Raoni Soares Silva
+//@ http://jsfromhell.com/array/shuffle [v1.0]
+function shuffle(o){ //v1.0
+    for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
+    return o;
+};
 </script>
 
   </body>
