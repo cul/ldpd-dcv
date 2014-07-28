@@ -1,7 +1,8 @@
 Dcv::Application.routes.draw do
   root :to => "catalog#home"
 
-  get '/browse' => 'catalog#browse'
+  get '/browse/:action' => 'browse', as: :browse
+
   get '/welcome' => 'welcome#home'
 
   get '/about' => 'catalog#about', as: :about

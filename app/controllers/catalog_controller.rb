@@ -12,6 +12,7 @@ class CatalogController < ApplicationController
   include Dcv::Catalog::PivotFacetDataBehavior
   include Dcv::Catalog::ModsDisplayBehavior
 
+  before_action :refresh_browse_lists_cache, only: [:home, :browse]
   # These before_filters apply the hydra access controls
   #before_filter :enforce_show_permissions, :only=>:show
   # This applies appropriate access controls to all solr queries
@@ -186,10 +187,7 @@ class CatalogController < ApplicationController
   end
 
   def do_home
-    if Rails.env == 'development' || ! Rails.cache.exist?(BROWSE_LISTS_KEY)
-      refresh_browse_lists_cache
-    end
-    @browse_lists = Rails.cache.read(BROWSE_LISTS_KEY)
+    refresh_browse_lists_cache
 
     number_of_items_to_show = 8
 
