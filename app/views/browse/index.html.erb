@@ -1,0 +1,37 @@
+<div class="row">
+
+  <div id="content" class="col-md-12">
+
+    <div id="home-page-tabs" class="inner">
+      <!-- Nav tabs -->
+      <% active_tab = params[:list] || 'projects' -%>
+      <ul class="nav nav-tabs">
+        <li class="<%= 'active' if active_tab == 'projects' %>"><a href="#projects" data-toggle="tab">Projects</a></li>
+        <% @browse_lists.each do |facet_name, data| %>
+          <li class="<%= 'active' if active_tab == facet_name %>"><a href="#tab_<%= facet_name %>" data-toggle="tab"><%= data['display_label'] %></a></li>
+        <% end %>
+      </ul>
+
+      <!-- Tab panes -->
+      <div class="tab-content">
+        <div class="tab-pane fade<%= ' in active' if active_tab == 'projects' %>" id="projects">
+          <%= render template: 'pages/projects_and_exhibitions' -%>
+        </div>
+        <% @browse_lists.each do |facet_name, data| %>
+          <div class="tab-pane fade<%= ' in active' if active_tab == facet_name %>" id="tab_<%= facet_name %>">
+            <small><%= data['short_description'] %></small>
+            <br /><br />
+            <ul class="nopad-rl cols-two">
+              <% data['value_pairs'].each do |value, count| %>
+                <% search_link = search_action_path(:f => {facet_name => [value]}) %>
+                <li><%= link_to value, search_link %> (<%= count %>)</li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+      </div>
+    </div> <!--/.inner-->
+
+  </div>
+
+</div>
