@@ -69,14 +69,22 @@
       background-image:url(<%= image_path('dcv/rbml_css_0912r.png')%>);
     }
     #home { 
-      background-image:url(<%= image_path('dcv/1836760843_267e9c947f_o-sepc.jpg')%>);
+      /*background-image:url(<%= image_path('dcv/1836760843_267e9c947f_o-sepc.jpg')%>);*/
+      background-image:url(<%= image_path('dcv/1836760843_267e9c947f_o.jpg')%>);
     }
-    #home a { color:#ddd; }
+    #home a { color:#fff; }
     #home .carousel-indicators {
       left:0;
       margin-left:0;
       padding-left:15px;
       width:100%;
+    }
+    #home .carousel-indicators li {
+      box-shadow:0 0 1px rgba(0,0,0,.3);
+    }
+    #slidecaps { position:absolute;bottom:20px;left:10px;z-index:26;display:inline-block;/*width:98%;*/ }
+    #home .bgslider-captions {
+      text-shadow:0 0 1px rgba(0,0,0,.9);
     }
     .culinner {
       display:table-cell;
@@ -128,12 +136,13 @@
     .alignleft { text-align:left; }
     .alignjustify { text-align:justify; }
     .trajanpro { font-family: "trajan pro", trajan, serif; }
+    .text-dim { color:rgba(255,255,255,.7); }
     .bgParallax {
 		margin: 0 auto;
         padding-top:60px;
 		width: 100%;
 		min-height: 100%;
-		text-shadow:0 0 10px rgba(0,0,0,0.7);
+		/*text-shadow:0 0 10px rgba(0,0,0,0.7);*/
 		background-position: 50% 0;
 		background-repeat: no-repeat;
         background-size:cover;
@@ -153,11 +162,11 @@
     text-align:center;
   }
   .updown a {
-    color:rgba(255,255,255,.4);
-    text-shadow:0 0 10px rgba(0,0,0,0.9);
+    color:rgba(255,255,255,.8);
+    text-shadow:0 0 1px rgba(0,0,0,0.9);
   }
   .updown a:hover {
-    color:rgba(255,255,255,.7);
+    color:#429cec; /*rgba(155,155,255,.9);*/
   }
   #spinner {
     position:fixed;
@@ -250,28 +259,16 @@ circle.child {
 
     <div id="home" class="section bgParallax" data-speed="2">
 
-<!--
-	<div class="hide-until-load" style="position:absolute;bottom:24px;left:0px;z-index:15;width:98%;">
-		<div class="container">
-			<div class="row">
-				 <ul class="bgslider-captions list-unstyled" style="font-size:110%;text-align:left;z-index:15;margin-bottom:10px;color:rgba(255,255,255,.6);">
-				   <li>Title: <a href="#">Amazing Image Title</a></li>
-				   <li>Location: <a href="#">Rare Book &amp; Manuscript Library</a></li>
+	<div id="slidecaps"> 
+				 <ul class="hide-until-load bgslider-captions list-unstyled" style="font-size:95%;text-align:left;margin-bottom:10px;">
+				   <li><span class="text-dim">Title:</span> <a id="slide-title" href="#"></a></li>
+				   <li><span class="text-dim">Project:</span> <a id="slide-projssm" href="#"></a></li>
 				 </ul>
-			</div>
-		</div>
 	</div>
--->
 
      <div class="culinner">
 		<%= yield %>
      </div>
-     <ol class="carousel-indicators hide-until-load">
-       <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-       <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-       <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-       <!--li data-target="#carousel-example-generic" data-slide-to="3"></li-->
-     </ol>
 	  <div class="carousel-controls">
 		  <a class="left carousel-control" href="#prev" role="button" data-slide="prev">
 			<span class="glyphicon glyphicon-chevron-left hide"></span>
@@ -359,20 +356,25 @@ $(window).load(function() {
   $('#culnavitems').hide().prependTo($('#cul_top-right'));
   $(window).scroll(function(){
     if($(this).scrollTop()>=$('#home').height()/1.6){
-        $('#topnavbar').css('opacity','1');
+        //$('#topnavbar').css('opacity','1');
         $('#cul_top-right > li:not(:last-child)').show();
         $('#menuholder li:not(:last-child)').show();
     } else {
-        $('#topnavbar').css('opacity','0.3');
+        //$('#topnavbar').css('opacity','0.3');
         $('#cul_top-right > li:not(:last-child)').hide();
         $('#menuholder li:not(:last-child)').show();
     }
   });
   $('#topnavbar, #pane-1 .cover, .culpanel, .hide-until-load').fadeIn(900);
+  $('.carousel-indicators li').first().addClass('active');
+  $('#slide-title').html($('.carousel-indicators').find('li.active').attr('data-titlessm'));
+  $('#slide-projssm').html($('.carousel-indicators').find('li.active').attr('data-projssm'));
 
+/*
   if($(window).scrollTop()<$('#home').height()/1.6) {
     $('#topnavbar').fadeTo('slow','0.3');
   }
+*/
 
   var wtop = $('#topnavbar').height();
   if($(this).scrollTop()>=wtop){
@@ -387,7 +389,7 @@ $(window).load(function() {
 $(document).ready(function() {
 
   /* home bg carousel */
-  var $bgimgs = shuffle([
+  var $bgimgs = [
     "<%= image_path('dcv/ldpd_85504.jpg')%>",
     "<%= image_path('dcv/ldpd_111727.jpg')%>",
     "<%= image_path('dcv/ldpd_113600.jpg')%>",
@@ -399,17 +401,37 @@ $(document).ready(function() {
     "<%= image_path('dcv/columbia_university_library___night_by_never4getthis-d57w6dl-cropped.jpg')%>",
     "<%= image_path('dcv/1836760843_267e9c947f_o-sepc.jpg')%>", 
     "<%= image_path('dcv/ldpd-112745.jpg')%>"*/
-  ]); 
+  ]; 
   $("#home").bgswitcher({ 
 	images: $bgimgs,
     start: false,
+    shuffle: true,
 	loop: true,
     effect: "fade"
   });
+  var homeCarousel = $("#home");
+  homeCarousel.append("<ol class='carousel-indicators hide-until-load'></ol>");
+  var indicators = $(".carousel-indicators"); 
+  var dt = '';
+  var proj = '';
+  for (i = 0; i < $bgimgs.length; i++) { 
+    var hash = $bgimgs[i].split('.')[0].replace('_',':')+'.json';
+    $.getJSON('/catalog/'+hash.split("/")[3], function (result) {
+      dproj = result['response']['document']['lib_project_ssm'][0];
+      dproj = dproj.replace(/(['])/g, "&apos;").replace(/(["])/g, "&quot;");
+      dt = result['response']['document']['title_display_ssm'][0];
+      dt = dt.replace(/(['])/g, "&apos;").replace(/(["])/g, "&quot;");
+      //(i === 0) ? 
+      //indicators.append("<li data-titlessm='"+dt+"' data-target='#homeCarousel' data-slide-to='"+i+"' class='active'></li> ") : 
+      indicators.append("<li data-titlessm='"+dt+"' data-projssm= '"+dproj+"' data-target='#homeCarousel' data-slide-to='"+i+"'></li> ");
+    });
+  };   
   $('.bgswitcher').addClass('bgParallax').attr('data-speed','2');
-  $("#home .carousel-indicators li").on("click", function() {
+  $("#home .carousel-indicators").on("click", 'li', function() {
     $(this).parent().find('.active').removeClass('active')
     $('#home').bgswitcher("select", $(this).index());
+    $('#slide-title').html($(this).attr('data-titlessm'));
+    $('#slide-projssm').html($(this).attr('data-projssm'));
     $(this).addClass('active');
   });
   $("#home .carousel-control").on("click", function() {
@@ -430,6 +452,8 @@ $(document).ready(function() {
        $('#home .carousel-indicators li:last').addClass('active');
      }
     }
+    $('#slide-title').html($('.carousel-indicators li.active').attr('data-titlessm'));
+    $('#slide-projssm').html($('.carousel-indicators li.active').attr('data-projssm'));
     return false;
   });
   /* /END home bg carousel */
@@ -511,16 +535,6 @@ $(window).scroll(function() {
     });
 }).scroll();
 
-$('div.bgParallax-OFF').each(function(){
-	var $obj = $(this);
-	$(window).scroll(function() {
-		var yPos = -($(window).scrollTop() / $obj.data('speed')); 
-		var bgpos = '50% '+ yPos + 'px';
-		$obj.css('background-position', bgpos );
-	}); 
-});
-
-
 function parallasse() {
 		var $window = $(window);
 		//$('section[data-type="background"]').each(function() {
@@ -542,12 +556,6 @@ function parallasse() {
 //		document.createElement("section");
 }
 
-//+ Jonas Raoni Soares Silva
-//@ http://jsfromhell.com/array/shuffle [v1.0]
-function shuffle(o){ //v1.0
-    for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
-    return o;
-};
 </script>
 
   </body>
