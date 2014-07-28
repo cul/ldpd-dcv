@@ -342,6 +342,28 @@ DCV.SearchResults.toggleSearchDateGraphVisibility = function() {
 
 
 /*********************
+ * MODS Modal *
+ *********************/
+
+DCV.ModsDownloadModal = {};
+DCV.ModsDownloadModal.show = function(displayUrl, downloadUrl){
+
+  $.colorbox({
+    href: displayUrl,
+    height:"90%",
+    width:"90%",
+    opacity:".6",
+    fixed:true,
+    iframe:true,
+    preloading: false,
+    current:"{current} of {total}",
+    title: '<a href="' + downloadUrl + '"><span class="glyphicon glyphicon-download"></span> Download XML</a>'
+  });
+
+  return false;
+};
+
+/*********************
  * ZoomingImage Modal *
  *********************/
 

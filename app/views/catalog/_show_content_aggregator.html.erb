@@ -1,28 +1,31 @@
 <div class="row" id="child_items">
   <div id="item-description" class="col-md-3">
-   <div class="inner">
+  <div class="inner">
     <dl class="dl-vertical">
-      <% document_show_fields(document).each do |solr_fname, field| -%>
-        <% if should_render_show_field? document, field -%>
+      <% document_show_fields(document).each do |solr_fname, field| %>
+        <% if should_render_show_field? document, field %>
           <dt class="blacklight-<%= solr_fname.parameterize %>"><%= render_document_show_field_label document, :field => solr_fname %></dt>
           <dd class="blacklight-<%= solr_fname.parameterize %>"><%= render_document_show_field_value document, :field => solr_fname %></dd>
-        <% end -%>
-      <% end -%>
+        <% end %>
+      <% end %>
     </dl>
    </div>
+    <div class="inner">
+    <%= link_to '<span class="glyphicon glyphicon-file"></span> Display XML'.html_safe, item_mods_path(:pid => @document.id), :'data-no-turbolink' => true, :'data-display-url' => item_mods_path(:pid => @document.id, :type => 'formatted_text'), :'data-download-url' => item_mods_path(:pid => @document.id, :type => 'download'), :onclick => 'return DCV.ModsDownloadModal.show($(this).attr("data-display-url"), $(this).attr("data-download-url"));' %>
+    </div>
   </div>
   <div class="col-md-9">
    <div class="inner">
-     <h3 class="nomar"><%= document_show_html_title -%></h3>
-     <% if ct = structured_children.first -%>
+     <h3 class="nomar"><%= document_show_html_title %></h3>
+     <% if ct = structured_children.first %>
        <p id="ct"><%= ct[:title] %></p>
-     <% end -%>
-   <div id="favorite-child">
-    <% if child = structured_children.first -%>
+     <% end %>
+    <div id="favorite-child">
+      <% if child = structured_children.first %>
         <img onclick="$('.item-cbox').click();" src="<%= child[:screen] || resolve_catalog_bytestream_content_url(catalog_id: child[:id], bytestream_id: 'web850') %>.png" data-counter="1" data-sequence="0" data-zoom-url="<%= details_url(id: document[:id], layout:(request.path.split('/')[1])) %>" data-bytestreams="<%= resolve_catalog_bytestreams_url(catalog_id: structured_children.first[:id], :format=>'json') %>"/>
-    <% end -%>
-   </div>
-<%= render_document_partials @document, ['gallery'] %>
-   </div>
+      <% end %>
+    </div>
+    <%= render_document_partials @document, ['gallery'] %>
+    </div>
   </div>
 </div>
