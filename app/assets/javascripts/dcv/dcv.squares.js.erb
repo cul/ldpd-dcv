@@ -1,12 +1,13 @@
 if (typeof(Dcv) == 'undefined') Dcv = function(){};
-Dcv.Squares = Dcv.Squares || function(){}; 
+Dcv.Squares = Dcv.Squares || function(){};
 Dcv.Squares.random = function(_img_array, limit) {
 	var imgs = {};
+    limit = Math.min(limit, _img_array.length);
     while (Object.keys(imgs).length < limit){ // magic 12x5 grid
     	var ix = Math.floor(Math.random() * (_img_array.length + 1));
-    	if (ix > limit -1) continue;
+    	if (ix > limit - 1) continue;
         var name = _img_array[ix]['name'];
-    	imgs[name] = _img_array[ix]
+				imgs[name] = _img_array[ix];
     }
     var img_names = [];
     for (var i in imgs) {

@@ -3,7 +3,7 @@
 //= require 'dcv/dcv.date-range'
 //= require 'dcv/dcv.squares'
 //= require 'dcv/dcv.browse'
-function mosaicDemo(container) {
+function mosaicDemo(container, proj) {
   var width = Math.max($(container).parent().width(),$(container).width());
   var height = Math.max($(container).parent().height(),$(container).height());
   var winHeight = $(window).height();
@@ -11,6 +11,7 @@ function mosaicDemo(container) {
 
   var total = Math.floor((12*height)/width) * 12;
   var assets = "<%= asset_url("digital_projects_page/chinese_paper_gods.png").split('/')[0...-1].join('/') %>/";
+
   var thumbs = "/thumbs/";
 
   for (var i=0; i< total; i++) {
@@ -19,9 +20,13 @@ function mosaicDemo(container) {
 </div>');
   }
   if (total == 0) return;
-  var cimg_names = Dcv.Squares.CPG.random(Math.ceil(total/2));
-  var rimg_names = Dcv.Squares.RICOP.random(Math.floor(total/2));
 
+  var all_img_names = {
+    'cpg' : Dcv.Squares.CPG,
+    'ricop' : Dcv.Squares.RICOP
+  }
+
+  img_names = all_img_names[proj].random(Math.ceil(total));
 
   var imgs = $(".brick img");
   var cix = -1;
@@ -29,12 +34,12 @@ function mosaicDemo(container) {
   imgs.each(
     function(){
       cix++;
-      var ix = (cix%2 == 0) ? (cix/2) : Math.floor(cix/2);
-      var img_name = (cix%2 == 0) ? cimg_names[ix] : rimg_names[ix];
-      var id_name = img_name['name'].split('.')[0].replace('_',':');
-      var proj = (cix%2 == 0) ? 'cpg' : 'ricop';
+
+      var img_name = img_names[cix%img_names.length];
+      var id_name = img_name['id'];
+
       if (cix < total) {
-          if (typeof(img_name) == 'undefined') {window.console.log(ix + ': no image name: ' + rimg_names[ix] + ", length: " + rimg_names.length);
+          if (typeof(img_name) == 'undefined') {window.console.log(ix + ': no image name: ' + img_names[ix] + ", length: " + img_names.length);
         }
         $(this).attr('src',img_name['small']);
         $(this).attr('data-default',img_name['small']);

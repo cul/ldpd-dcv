@@ -69,7 +69,7 @@
       /*background-image:url(<%= image_path('dcv/rbml_css_0912r.png')%>);*/
       background-image:url(<%= image_path('dcv/1836760843_267e9c947f_o.jpg')%>);
     }
-    #home { 
+    #home {
       /*background-image:url(<%= image_path('dcv/1836760843_267e9c947f_o-sepc.jpg')%>);*/
       background-image:url(<%= image_path('dcv/1836760843_267e9c947f_o.jpg')%>);
     }
@@ -113,13 +113,13 @@
     }
     #about .culpanel {
       padding:50px 10%;
-    } 
+    }
     #home .culpanel {
       width:768px;
       padding:20px;
     }
     #menuholder a:hover { color:#429cec; }
-    #menuholder { 
+    #menuholder {
       font-size:85%;
     }
     @media (min-width: 768px) {
@@ -157,7 +157,7 @@
     font-size: 70%;
     color: white;
     text-transform: uppercase;
-  }  
+  }
   .updown {
     position:fixed;
     z-index:25;
@@ -264,7 +264,7 @@ circle.child {
 
 <div id="home" class="section bgParallax" data-speed="2">
 
-	<div id="slidecaps"> 
+	<div id="slidecaps">
 				 <ul class="hide-until-load bgslider-captions list-unstyled" style="font-size:95%;text-align:left;margin-bottom:10px;">
 				   <li><span class="text-dim">Title:</span> <a id="slide-title" href="#"></a></li>
 				   <li><span class="text-dim">Project:</span> <a id="slide-projssm" href="#"></a></li>
@@ -303,7 +303,7 @@ circle.child {
                 <form id="mosaic-switch" action="#">
 					<select name="mosaic-project" id="mosaic-project" class="pull-right btn btn-default alignleft" style="font-size:.8em;padding:0;margin:0;">
 					  <option value="cpg">Chinese Paper Gods</option>
-					  <option value="ricp">Russian Imperial Corps of Pages</option>
+					  <option value="ricop">Russian Imperial Corps of Pages</option>
 					</select>
                 </form>
                 <h4 id="mosaic-project-title">Chinese Paper Gods</h4>
@@ -387,7 +387,7 @@ $(window).load(function() {
   if($(this).scrollTop()>=wtop){
       $('#cul_top-right > li:not(:last-child)').show();
       $('#menuholder li:not(:last-child)').show();
-  } 
+  }
 
   new DCV.Bubbles("div#bubbles").chart("<%= flare_data_url(format: 'json', fields: 'lib_format_sim,lib_repo_ssim,lib_collection_sim')%>");
 
@@ -449,13 +449,13 @@ $(document).ready(function() {
     /*
     "<%= image_path('dcv/1836760843_267e9c947f_o.jpg')%>",
     "<%= image_path('dcv/columbia_university_library___night_by_never4getthis-d57w6dl-cropped.jpg')%>",
-    "<%= image_path('dcv/1836760843_267e9c947f_o-sepc.jpg')%>", 
+    "<%= image_path('dcv/1836760843_267e9c947f_o-sepc.jpg')%>",
     "<%= image_path('dcv/ldpd-112745.jpg')%>"*/
   ];
 
   var imgs = [];
   for(var i = 0; i < $bgimgs.length; i++) { imgs[i] = $bgimgs[i]['image']}
-  $("#home").bgswitcher({ 
+  $("#home").bgswitcher({
 	images: imgs,
     start: false,
     shuffle: false,
@@ -464,12 +464,12 @@ $(document).ready(function() {
   });
   var homeCarousel = $("#home");
   homeCarousel.append("<ol class='carousel-indicators hide-until-load'></ol>");
-  var indicators = $(".carousel-indicators"); 
+  var indicators = $(".carousel-indicators");
   var dt = '';
   var proj = '';
-  for (var i = 0; i < $bgimgs.length; i++) { 
+  for (var i = 0; i < $bgimgs.length; i++) {
     indicators.append("<li data-caturl='"+$bgimgs[i]['item-link']+"' data-titlessm='"+$bgimgs[i]['title']+"' data-projssm= '"+$bgimgs[i]['project']+"' data-target='#homeCarousel' data-slide-to='"+i+"' data-searchurl='" + $bgimgs[i]['project-link'] + "'></li> ");
-  };   
+  };
   $('.bgswitcher').addClass('bgParallax').attr('data-speed','2');
   $("#home .carousel-indicators").on("click", 'li', function() {
     $(this).parent().find('.active').removeClass('active')
@@ -521,20 +521,20 @@ $(document).ready(function() {
     if (t === 'next' && $par.next('div.section').length > 0) {
         var $next = $par.next('.section');
         var top = $next.offset().top;
-        
+
         $('body,html').animate({
-          scrollTop: top     
+          scrollTop: top
         }, function () {
         });
     } else if (t === 'prev' && $par.prev('div.section').length > 0) {
         var $prev = $par.prev('.section');
         var top = $prev.offset().top;
-        
+
         $('body,html').animate({
-          scrollTop: top     
+          scrollTop: top
         }, function () {
         });
-    } 
+    }
     return false;
   });
 
@@ -545,7 +545,7 @@ $(document).ready(function() {
       'link' : '/catalog?f%5Blib_project_sim%5D%5B%5D=Chinese+paper+gods',
       'blurb' : 'An online visual catalog of over 200 woodcuts used in folk religious practices in Beijing and other parts of China in the 1930s.'
     },
-    'ricp' : {
+    'ricop' : {
       'title' : 'Russian Imperial Corps of Pages',
       'thumb' : '<%=  asset_url("digital_projects_page/russian_corps.png")%>',
       'link' : '/catalog?f%5Blib_project_sim%5D%5B%5D=Russian+Corps+of+Pages',
@@ -564,10 +564,11 @@ $(document).ready(function() {
     $('#mosaic-project-blurb').html($projblurb);
     $('#mosaic-project-link').attr('href',$projlink);
     $('#burrito').css('background-image','url('+$projthumb+')');
-    mosaicDemo('#discover-content');
+    mosaicDemo('#discover-content', $proj);
   });
 
-  mosaicDemo('#discover-content');
+  mosaicDemo('#discover-content', 'cpg');
+
 });
 
 $(window).scroll(function() {
