@@ -21,7 +21,7 @@ DCV.Bubbles = function(container){
 };
 DCV.Bubbles.searchFor = function(node) {
   if (!node.field) return false;
-  var clause = 'f%5B' + node.field + '%5D%5B%5D=' + node.name;
+  var clause = 'f%5B' + node.field + '%5D%5B%5D=' + encodeURIComponent(node.name);
   if (node.parent && node.parent.field) {
     return DCV.Bubbles.searchFor(node.parent) + '&' + clause;
   } else {
