@@ -375,7 +375,6 @@ $(window).load(function() {
   $('#topnavbar, #pane-1 .cover, .culpanel, .hide-until-load').fadeIn(900);
   $('.carousel-indicators li').first().addClass('active');
   $('#slide-title').attr('href', $('.carousel-indicators').find('li.active').attr('data-caturl')).html($('.carousel-indicators').find('li.active').attr('data-titlessm'));
-  window.console.log($('.carousel-indicators').find('li.active').attr('data-searchurl'));
   $('#slide-projssm').attr('href', $('.carousel-indicators').find('li.active').attr('data-searchurl')).html($('.carousel-indicators').find('li.active').attr('data-projssm'));
 
 /*
@@ -404,14 +403,50 @@ $(document).ready(function() {
       'project' : 'Jewels in her Crown',
       'item-link' : "<%= catalog_url(id: 'ldpd:113670') -%>",
       'project-link' : "<%= catalog_index_url(:'f[lib_project_sim][]'=> 'Jewels in her Crown') -%>"
-    }
+    },
+    {
+      'image' : "<%= image_path('dcv/ldpd_134685.jpg')%>",
+      'title' : 'Footbridge over Little White River, Rosebud Reservation, South Dakota',
+      'project' : 'G.E.E. Lindquist Native American Photographs',
+      'item-link' : "<%= catalog_url(id: 'ldpd:134685') -%>",
+      'project-link' : "<%= catalog_index_url(:'f[lib_project_sim][]'=> 'Lindquist Photographs') -%>"
+    },
+    {
+      'image' : "<%= image_path('dcv/ldpd_85504.jpg')%>",
+      'title' : 'Document, 1821 June 29',
+      'project' : 'The Papers of John Jay',
+      'item-link' : "<%= catalog_url(id: 'ldpd:85504') -%>",
+      'project-link' : "<%= catalog_index_url(:'f[lib_project_sim][]'=> 'The Papers of John Jay') -%>"
+    },
+    {
+      'image' : "<%= image_path('dcv/ldpd_114725.jpg')%>",
+      'title' : 'Zhong Kui',
+      'project' : 'Chinese Paper Gods',
+      'item-link' : "<%= catalog_url(id: 'ldpd:114725') -%>",
+      'project-link' : "<%= catalog_index_url(:'f[lib_project_sim][]'=> 'Chinese paper gods') -%>"
+    },
+    {
+      'image' : "<%= image_path('dcv/ldpd_111727.jpg')%>",
+      'title' : 'Drawing of an air battle',
+      'project' : 'Children&apos;s Drawings of the Spanish Civil War',
+      'item-link' : "<%= catalog_url(id: 'ldpd:111727') -%>",
+      'project-link' : "<%= catalog_index_url(:'f[lib_project_sim][]'=> 'Spanish Civil War') -%>"
+    },
+    {
+      'image' : "<%= image_path('dcv/ldpd_113939.jpg')%>",
+      'title' : 'Coronation. Photograph, Ceremonial Departure',
+      'project' : 'Russian Imperial Corps of Pages',
+      'item-link' : "<%= catalog_url(id: 'ldpd:113939') -%>",
+      'project-link' : "<%= catalog_index_url(:'f[lib_project_sim][]'=> 'Russian Corps of Pages') -%>"
+    },
+    {
+      'image' : "<%= image_path('dcv/ldpd_136160.jpg')%>",
+      'title' : 'Boys Playing in Open Fire Hydrants, Lower East Side',
+      'project' : 'Community Service Society Photographs',
+      'item-link' : "<%= catalog_url(id: 'ldpd:136160') -%>",
+      'project-link' : "<%= catalog_index_url(:'f[lib_project_sim][]'=> 'Community Service Society Photographs') -%>"
+    },
     /*
-    "<%= image_path('dcv/ldpd_85504.jpg')%>",
-    "<%= image_path('dcv/ldpd_111727.jpg')%>",
-    "<%= image_path('dcv/ldpd_113939.jpg')%>",
-    "<%= image_path('dcv/ldpd_114725.jpg')%>",
-    "<%= image_path('dcv/ldpd_134685.jpg')%>",
-    "<%= image_path('dcv/ldpd_136160.jpg')%>" /* ,
     "<%= image_path('dcv/1836760843_267e9c947f_o.jpg')%>",
     "<%= image_path('dcv/columbia_university_library___night_by_never4getthis-d57w6dl-cropped.jpg')%>",
     "<%= image_path('dcv/1836760843_267e9c947f_o-sepc.jpg')%>", 
@@ -440,7 +475,7 @@ $(document).ready(function() {
     $(this).parent().find('.active').removeClass('active')
     $('#home').bgswitcher("select", $(this).index());
     $('#slide-title').attr('href', $(this).attr('data-caturl')).html($(this).attr('data-titlessm'));
-    $('#slide-projssm').html($(this).attr('data-projssm'));
+    $('#slide-projssm').attr('href', $(this).attr('data-searchurl')).html($(this).attr('data-projssm'));
     $(this).addClass('active');
   });
 
@@ -463,7 +498,7 @@ $(document).ready(function() {
      }
     }
     $('#slide-title').attr('href', $('.carousel-indicators').find('li.active').attr('data-caturl')).html($('.carousel-indicators li.active').attr('data-titlessm'));
-    $('#slide-projssm').html($('.carousel-indicators li.active').attr('data-projssm'));
+    $('#slide-projssm').attr('href', $('.carousel-indicators').find('li.active').attr('data-searchurl')).html($('.carousel-indicators li.active').attr('data-projssm'));
     return false;
   });
 
