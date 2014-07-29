@@ -173,7 +173,7 @@ An online presentation of almost 1400 photographs  from the Community Service So
 			<div class="col-md-<%= col_size %>">
 
 				<div class="row">
-					<div class="col-sm-3">
+					<div class="col-sm-2">
 						<% dcv_search_link = digital_project[:facet_value].present? ? search_action_path(:f => {'lib_project_sim' => [digital_project[:facet_value]]}) : nil %>
 						<%= link_to image_tag('digital_projects_page/' + digital_project[:image], :class => 'thumbnail img-responsive'), (dcv_search_link.present? ? dcv_search_link : digital_project[:external_url]), :style => 'margin:0px auto;' %>
 
@@ -189,7 +189,7 @@ An online presentation of almost 1400 photographs  from the Community Service So
 							<% end %>
 						</div>
 					</div>
-					<div class="col-sm-9">
+					<div class="col-sm-10">
 						<h3><%= digital_project[:name] %></h3>
 						<%= digital_project[:description] %>
 					</div>

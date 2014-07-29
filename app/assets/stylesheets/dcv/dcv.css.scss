@@ -95,7 +95,7 @@ input {
   #site-banner-left {
     margin-top:20px;
     background-color:#000;
-    background-image:image-url('dcv/1836760843_267e9c947f_o-sm.jpg'); //! CC by-nc-sa, https://www.flickr.com/photos/mmj171188/1836760843/ 
+    background-image:image-url('dcv/1836760843_267e9c947f_o-sm.jpg'); //! CC by-nc-sa, https://www.flickr.com/photos/mmj171188/1836760843/
     background-repeat:no-repeat;
     background-position:center center;
     background-size:104%;
@@ -334,8 +334,17 @@ h2[itemprop="name"] {
   height: 150px;
   .thumbnail {
     height:100px;
+		text-align: center;
   }
 }
+
+#content #digital_projects .col-sm-2 {
+  height: auto;
+	.thumbnail {
+    height:auto;
+	}
+}
+
 #content .col-sm-3.document {
   height: 200px;
   margin-bottom:2em;
@@ -722,6 +731,13 @@ h2[itemprop="name"] {
 
 #search-results ul li {
   word-wrap:break-word;
+}
+
+#search-results {
+	.img-responsive {
+		width:auto;
+		height:auto;
+	}
 }
 
 @font-face {
