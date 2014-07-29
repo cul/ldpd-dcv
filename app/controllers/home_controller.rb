@@ -30,8 +30,8 @@ class HomeController < ApplicationController
 
     number_of_items_to_show = 8
 
-    # Use list of repositories from previous query and select a random one
-    repositories_and_counts = @browse_lists['lib_repo_sim']['value_pairs'].dup
+    # Don't rely on @browse_lists for the repository values because they might be removed at some point
+    repositories_and_counts = get_all_facet_values_and_counts('lib_repo_sim')['value_pairs']
     if repositories_and_counts.length > number_of_items_to_show
       selected_repository_keys = repositories_and_counts.keys.shuffle[0, number_of_items_to_show]
     else
