@@ -205,9 +205,14 @@
 
   /* D3 Styles */
   text {
-  font-size: 66%;
   pointer-events: none;
 }
+  text.small {
+    font-size: 66%;
+  }
+  text.large {
+    font-size: 80%;
+  }
 
 text.parent {
   fill: #333;
@@ -389,7 +394,7 @@ $(window).load(function() {
       $('#menuholder li:not(:last-child)').show();
   }
 
-  new DCV.Bubbles("div#bubbles").chart("<%= flare_data_url(format: 'json', fields: 'lib_format_sim,lib_repo_ssim,lib_collection_sim')%>");
+  new DCV.Bubbles("div#bubbles").chart("<%= flare_data_url(format: 'json', fields: 'lib_format_sim,lib_repo_sim,lib_collection_sim')%>");
 
 });
 
@@ -416,7 +421,7 @@ $(document).ready(function() {
       'title' : 'Document, 1821 June 29',
       'project' : 'The Papers of John Jay',
       'item-link' : "<%= catalog_url(id: 'ldpd:85504') -%>",
-      'project-link' : "<%= catalog_index_url(:'f[lib_project_sim][]'=> 'The Papers of John Jay') -%>"
+      'project-link' : "<%= catalog_index_url(:'f[lib_project_sim][]'=> 'John Jay Papers') -%>"
     },
     {
       'image' : "<%= image_path('dcv/ldpd_114725.jpg')%>",
