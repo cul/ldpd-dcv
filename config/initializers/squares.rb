@@ -5,12 +5,8 @@ module Dcv
     def initialize(name, prefix)
       @name = name
       @id = name.sub(/_/,':')
-      @small = asset_path("digital_projects_page/#{prefix}/50/#{name}.jpg")
-      @small.sub!(/^\/images/,'/assets')
-      @small = "/assets#{@small}" unless @small =~ /^\/assets/
-      @medium = asset_path("digital_projects_page/#{prefix}/100/#{name}.jpg")
-      @medium.sub!(/^\/images/,'/assets')
-      @medium = "/assets#{@medium}" unless @medium =~ /^\/assets/
+      @small = "/#{prefix}/50/#{name}.jpg"
+      @medium = "/#{prefix}/100/#{name}.jpg"
     end
     def inspect
       return "{'name':'#{@name}', 'id':'#{@id}','small':'#{@small}', 'medium':'#{@medium}'}"
