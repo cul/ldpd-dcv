@@ -375,7 +375,8 @@ $(window).load(function() {
   $('#topnavbar, #pane-1 .cover, .culpanel, .hide-until-load').fadeIn(900);
   $('.carousel-indicators li').first().addClass('active');
   $('#slide-title').attr('href', $('.carousel-indicators').find('li.active').attr('data-caturl')).html($('.carousel-indicators').find('li.active').attr('data-titlessm'));
-  $('#slide-projssm').html($('.carousel-indicators').find('li.active').attr('data-projssm'));
+  window.console.log($('.carousel-indicators').find('li.active').attr('data-searchurl'));
+  $('#slide-projssm').attr('href', $('.carousel-indicators').find('li.active').attr('data-searchurl')).html($('.carousel-indicators').find('li.active').attr('data-projssm'));
 
 /*
   if($(window).scrollTop()<$('#home').height()/1.6) {
@@ -397,9 +398,16 @@ $(document).ready(function() {
 
   /* home bg carousel */
   var $bgimgs = [
+    {
+      'image' : "<%= image_path('dcv/ldpd_113670.jpg')%>",
+      'title' : 'Autograph album',
+      'project' : 'Jewels in her Crown',
+      'item-link' : "<%= catalog_url(id: 'ldpd:113670') -%>",
+      'project-link' : "<%= catalog_index_url(:'f[lib_project_sim][]'=> 'Jewels in her Crown') -%>"
+    }
+    /*
     "<%= image_path('dcv/ldpd_85504.jpg')%>",
     "<%= image_path('dcv/ldpd_111727.jpg')%>",
-    "<%= image_path('dcv/ldpd_113600.jpg')%>",
     "<%= image_path('dcv/ldpd_113939.jpg')%>",
     "<%= image_path('dcv/ldpd_114725.jpg')%>",
     "<%= image_path('dcv/ldpd_134685.jpg')%>",
@@ -408,12 +416,15 @@ $(document).ready(function() {
     "<%= image_path('dcv/columbia_university_library___night_by_never4getthis-d57w6dl-cropped.jpg')%>",
     "<%= image_path('dcv/1836760843_267e9c947f_o-sepc.jpg')%>", 
     "<%= image_path('dcv/ldpd-112745.jpg')%>"*/
-  ]; 
+  ];
+
+  var imgs = [];
+  for(var i = 0; i < $bgimgs.length; i++) { imgs[i] = $bgimgs[i]['image']}
   $("#home").bgswitcher({ 
-	images: $bgimgs,
+	images: imgs,
     start: false,
-    shuffle: true,
-	loop: true,
+    shuffle: false,
+	  loop: true,
     effect: "fade"
   });
   var homeCarousel = $("#home");
@@ -421,26 +432,8 @@ $(document).ready(function() {
   var indicators = $(".carousel-indicators"); 
   var dt = '';
   var proj = '';
-  for (i = 0; i < $bgimgs.length; i++) { 
-    var hash = $bgimgs[i].split('.')[0].replace('_',':')+'.json';
-    var n = 0;
-    //$.getJSON('/catalog/'+hash.split("/")[3], function (result) {
-    $.ajax({ 
-      url: '/catalog/'+hash.split("/")[3],
-      dataType: 'json',
-      async: false,
-      success: function(result) {
-		  caturl = '/catalog/'+hash.split('/')[3].slice(0, -5);
-		  dproj = result['response']['document']['lib_project_ssm'][0];
-		  dproj = dproj.replace(/(['])/g, "&apos;").replace(/(["])/g, "&quot;");
-		  dt = result['response']['document']['title_display_ssm'][0];
-		  dt = dt.replace(/(['])/g, "&apos;").replace(/(["])/g, "&quot;");
-		  //(i === 0) ? 
-		  //indicators.append("<li data-titlessm='"+dt+"' data-target='#homeCarousel' data-slide-to='"+i+"' class='active'></li> ") : 
-		  indicators.append("<li data-caturl='"+caturl+"' data-titlessm='"+dt+"' data-projssm= '"+dproj+"' data-target='#homeCarousel' data-slide-to='"+n+"'></li> ");
-		  n++;
-      }
-    });
+  for (var i = 0; i < $bgimgs.length; i++) { 
+    indicators.append("<li data-caturl='"+$bgimgs[i]['item-link']+"' data-titlessm='"+$bgimgs[i]['title']+"' data-projssm= '"+$bgimgs[i]['project']+"' data-target='#homeCarousel' data-slide-to='"+i+"' data-searchurl='" + $bgimgs[i]['project-link'] + "'></li> ");
   };   
   $('.bgswitcher').addClass('bgParallax').attr('data-speed','2');
   $("#home .carousel-indicators").on("click", 'li', function() {
