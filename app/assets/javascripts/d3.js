@@ -15,9 +15,10 @@
 window.DCV = window.DCV || function(){};
 DCV.Bubbles = function(container){
   this.container = container;
-  this.w = w = $(container).width() || 800;
-  this.h = h = w/2.35;
-  this.setRadius(0.9*(h));
+  this.w = $(container).width() || 800;
+  window.console.log("setting width to " + this.w);
+  this.h = 1.1 * (this.w/2.35);
+  this.setRadius(0.9*(this.h));
 };
 DCV.Bubbles.searchFor = function(node) {
   if (!node.field) return false;
@@ -74,7 +75,7 @@ DCV.Bubbles.prototype.draw = function(data) {
   this.vis.selectAll("text")
     .data(nodes).enter()
     .append("svg:text")
-    .attr("class", function(d) { return d.children ? "parent" : "child"; })
+    .attr("class", function(d) { return ((d.children ? "parent" : "child") + " small"); })
     .attr("x", function(d) { return d.x; })
     .attr("y", function(d) { return d.y; })
     .attr("dy", ".35em")
@@ -86,11 +87,17 @@ DCV.Bubbles.prototype.draw = function(data) {
     .style("opacity", function(d) { return d.r > 20 ? 1 : 0; })
     .style("pointer-events", function(d) { return (d.depth > 1) ? "none" : "all"})
     .style("visibility", function(d){ return d.depth != 1 ? "hidden" : "visible"; })
-    .text(function(d) { return d.name; })
+    .text(function(d) { return DCV.Bubbles.nameForRadius(d.name,d.r); })
     .on("click", function(d){DCV.Bubbles.modal(d, $(_this.container).children('.zoom-label').children('a'));});
 
   d3.select(this.container).on("click", function() {return _this.zoom(root)});
   $(this.container).children('.zoom-label').html(this.root.name + " <a rel=\"catalog\" href=\"\"></a>");
+}
+DCV.Bubbles.nameForRadius = function(name, r) {
+  var limit = Math.floor(2.5*r);
+  if (name.length > limit) {
+    return name.substring(0,limit) + "...";
+  } else return name;
 }
 DCV.Bubbles.prototype.chart = function(dataUrl) {
   var drawer = this;
@@ -133,6 +140,7 @@ DCV.Bubbles.prototype.zoom = function(d, i) {
   t.selectAll("text")
     .attr("x", function(d) { return x(d.x); })
     .attr("y", function(d) { return y(d.y); })
+    .text(function(d) { return DCV.Bubbles.nameForRadius(d.name,k*d.r); })
     .style("opacity", function(d) { return k * d.r > 20 ? 1 : 0; })
     .style("visibility",
       function(d){
