@@ -1,7 +1,7 @@
 Dcv::Application.routes.draw do
-  root :to => "catalog#home"
+  root :to => "home#index"
 
-  get '/about' => 'catalog#about', as: :about
+  get '/about' => 'pages#about', as: :about
   get '/catalog/get_random_item' => 'catalog#get_random_item'
   get '/catalog/:pid/mods' => 'catalog#mods', as: :item_mods
   blacklight_for :catalog, :lindquist, :css
