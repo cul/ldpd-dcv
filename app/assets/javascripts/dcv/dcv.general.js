@@ -157,7 +157,7 @@ function initZoomingViewer(tileSources) {
       prefixUrl:     "",
       springStiffness:        10,
       showReferenceStrip:     (tileSources.length > 1),
-      autoHideControls:       false,
+      autoHideControls:       true,
       controlsFadeDelay: 100,
       controlsFadeLength: 500,
       referenceStripSizeRatio: 0.15,
@@ -340,6 +340,28 @@ DCV.SearchResults.toggleSearchDateGraphVisibility = function() {
   }
 }
 
+
+/*********************
+ * MODS Modal *
+ *********************/
+
+DCV.ModsDownloadModal = {};
+DCV.ModsDownloadModal.show = function(displayUrl, downloadUrl){
+
+  $.colorbox({
+    href: displayUrl,
+    height:"90%",
+    width:"90%",
+    opacity:".6",
+    fixed:true,
+    iframe:true,
+    preloading: false,
+    current:"{current} of {total}",
+    title: '<a href="' + downloadUrl + '" data-no-turbolink="true"><span class="glyphicon glyphicon-download"></span> Download XML</a>'
+  });
+
+  return false;
+};
 
 /*********************
  * ZoomingImage Modal *

@@ -1,11 +1,10 @@
 Dcv::Application.routes.draw do
-  root :to => "catalog#home"
+  root :to => "home#index"
 
   get '/browse/:action' => 'browse', as: :browse
-
   get '/welcome' => 'welcome#home'
+  get '/about' => 'pages#about', as: :about
 
-  get '/about' => 'catalog#about', as: :about
   get '/catalog/get_random_item' => 'catalog#get_random_item'
   get '/catalog/:pid/mods' => 'catalog#mods', as: :item_mods
 

@@ -48,8 +48,8 @@ module Dcv::ChildrenHelperBehavior
       rels_int = JSON.load(doc.fetch('rels_int_profile_tesim',[]).join(''))
       unless rels_int.blank?
         #child[:rels_int] = rels_int
-        width = rels_int["info:fedora/#{child[:id]}/content"].fetch('exif_image_width',[0]).first.to_i
-        length = rels_int["info:fedora/#{child[:id]}/content"].fetch('exif_image_length',[0]).first.to_i
+        width = rels_int["info:fedora/#{child[:id]}/content"].fetch('image_width',[0]).first.to_i
+        length = rels_int["info:fedora/#{child[:id]}/content"].fetch('image_length',[0]).first.to_i
         child[:width] = width if width > 0
         child[:length] = length if length > 0
       end
@@ -60,8 +60,8 @@ module Dcv::ChildrenHelperBehavior
         base_rft = 'file:' + base_rft unless base_rft =~ /(file|https?)\:\//
         child[:rft_id] = CGI.escape(base_rft)
         puts rels_int.inspect
-        child[:width] ||= rels_int["info:fedora/#{child[:id]}/#{zoom}"].fetch('exif_image_width',[0]).first.to_i
-        child[:length] ||= rels_int["info:fedora/#{child[:id]}/#{zoom}"].fetch('exif_image_length',[0]).first.to_i
+        child[:width] ||= rels_int["info:fedora/#{child[:id]}/#{zoom}"].fetch('image_width',[0]).first.to_i
+        child[:length] ||= rels_int["info:fedora/#{child[:id]}/#{zoom}"].fetch('image_length',[0]).first.to_i
       end
     end
     return child

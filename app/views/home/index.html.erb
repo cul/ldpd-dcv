@@ -17,10 +17,10 @@
 					<% end %>
 					<li><a href="#projects" data-toggle="tab">Projects</a></li>
 				</ul>
-	
+
 				<!-- Tab panes -->
 				<div class="tab-content">
-					<%= render template: 'pages/sample_items' -%>
+					<%= render template: 'home/sample_items' -%>
 					<% @browse_lists.each do |facet_name, data| %>
 						<%= render template: "pages/#{facet_name}", locals: {facet_name: facet_name, data: data} -%>
 					<% end %>
