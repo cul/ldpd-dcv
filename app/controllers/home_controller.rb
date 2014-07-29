@@ -22,6 +22,13 @@ class HomeController < ApplicationController
     DcvBlacklightConfigurator.configure(config)
   end
 
+  # Overrides the Blacklight::Controller provided #search_action_url.
+  # By default, any search action from a Blacklight::Catalog controller
+  # should use the current controller when constructing the route.
+  def search_action_url options = {}
+    url_for(options.merge(:action => 'index', :controller=>'catalog'))
+  end
+
   def index
     if Rails.env == 'development' || ! Rails.cache.exist?(BROWSE_LISTS_KEY)
       refresh_browse_lists_cache
