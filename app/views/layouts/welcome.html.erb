@@ -42,9 +42,13 @@
     }
     a:hover { text-decoration:none; }
     h4.lead { border-bottom:1px solid #888; }
-    #topnavbar { background-color:rgba(100,100,100,.4); }
+    #topnavbar { background-color:rgba(100,100,100,.4); min-height:44px; }
+    #topnavbar * { text-shadow:0 0 2px #000; }
     #topnavbar, #pane-1 .cover, .culpanel, .hide-until-load { display:none; }
     #topnavbar:hover { opacity:1!important; }
+    #navbar-container { width:99%; }
+    #cul_top-nosearch, #crowndown-nosearch { background:transparent !important; }
+    #topnavbar #cul_top-nosearch .dropdown-menu { background:rgba(0,0,0,.3); margin-top:0; }
     #navholder { position:relative; }
     .bgParallax {
       background-size:cover;
@@ -102,7 +106,7 @@
       margin:0 auto;
     }
     .culpanel {
-      width:1190px;
+      width:99%;
       min-height:340px;
       vertical-align:middle;
       background-color:rgba(0,0,0,.5);
@@ -112,16 +116,18 @@
       /*box-shadow:0 0 86px rgba(255,255,255,.4);*/
     }
     #about .culpanel {
+      max-width:1200px;
       padding:50px 10%;
     }
     #home .culpanel {
-      width:768px;
+      max-width:768px;
       padding:20px;
     }
     #menuholder a:hover { color:#429cec; }
     #menuholder {
       font-size:85%;
     }
+/*
     @media (min-width: 768px) {
       .culpanel { width:740px; }
     }
@@ -131,6 +137,7 @@
     @media (min-width: 1200px) {
       .culpanel { width:1190px; }
     }
+*/
     .blurb {
       font-size:.9em;
       text-transform:uppercase;
