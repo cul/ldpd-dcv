@@ -122,7 +122,16 @@ input {
     }
   }
 }
+
+#content #digital_projects h3 {
+  margin-top:1em;
+}
+
 @media (min-width: 768px) {
+  #content #digital_projects h3 {
+    margin-top:auto;
+  }
+  
   #topnavbar {
     .topbarlogo {
       display:inline-block;
@@ -217,9 +226,9 @@ input {
 	font-size:80%;
     line-height:17px;
   }
-      #cul_top-right .dropdown-toggle{
-        margin-top:-1px;
-      }
+  #cul_top-right .dropdown-toggle{
+    margin-top:-1px;
+  }
 }
 @media (max-width: 501px) {
   #topnavbar {
@@ -342,6 +351,7 @@ h2[itemprop="name"] {
   height: auto;
 	.thumbnail {
     height:auto;
+    width:100%;
 	}
 }
 
