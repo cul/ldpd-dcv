@@ -10,13 +10,13 @@ function mosaicDemo(container, proj) {
   height = Math.floor(winHeight * .55);
 
   var total = Math.floor((12*height)/width) * 12;
-  var assets = "<%= asset_url("digital_projects_page/chinese_paper_gods.png").split('/')[0...-1].join('/') %>/";
+  var assets = "<%= asset_url("digital_projects_page/chinese_paper_gods.jpeg").split('/')[0...-1].join('/') %>/";
 
   var thumbs = "/thumbs/";
 
   for (var i=0; i< total; i++) {
     $(container).append('<div class="col-xs-1 brick"> \
-  <img class="img-responsive" src="' + assets + 'chinese_paper_gods.png" />\
+  <img class="img-responsive" src="' + assets + 'chinese_paper_gods.jpeg" />\
 </div>');
   }
   if (total == 0) return;
