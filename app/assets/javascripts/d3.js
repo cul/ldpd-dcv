@@ -17,7 +17,7 @@ DCV.Bubbles = function(container){
   this.container = container;
   this.w = $(container).width() || 800;
   window.console.log("setting width to " + this.w);
-  this.h = 1.0 * (this.w/2.35);
+  this.h = 0.9 * (this.w/2.35);
   this.setRadius(0.9*(this.h));
 };
 DCV.Bubbles.searchFor = function(node) {
