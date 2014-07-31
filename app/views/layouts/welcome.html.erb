@@ -339,7 +339,7 @@ circle.child {
     <div class="culpanel row">
         <h4 class="lead alignleft">EXPLORE FORMATS        <%= link_to 'Browse formats &raquo;'.html_safe, browse_url(action:'formats'), class: 'browse-link pull-right' %>
 </h4>
-        <div class="alignjustify" id="bubbles">
+        <div class="alignjustify" id="bubbles" style="width:100%;">
 <h5 class="zoom-label">Flare code size circle packing</h5>
         </div>
     </div>
@@ -402,6 +402,15 @@ $(window).load(function() {
   }
 
   new DCV.Bubbles("div#bubbles").chart("<%= flare_data_url(format: 'json', fields: 'lib_format_sim,lib_repo_sim,lib_collection_sim')%>");
+
+  $(window).on('resize', function() {
+	var  svg = $("#bubble-box").get(0);
+	//var w = svg.width.baseVal.value;
+	//var h = svg.height.baseVal.value;
+	//svg.setAttribute('viewBox', '0 0 '+w+' '+h);
+	svg.setAttribute('width', '100%');
+	svg.setAttribute('height', '100%');
+  });
 
 });
 

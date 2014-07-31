@@ -156,11 +156,3 @@ DCV.Bubbles.prototype.zoom = function(d, i) {
   DCV.Bubbles.modal(node, $(this.container).children('.zoom-label').children('a'));
   d3.event.stopPropagation();
 }
-
-$(window).on("resize", function() {
-  var aspect = 2.35 / 1,
-    chart = $("#bubble-box");
-    var targetWidth = chart.parent().width()-50;
-    chart.attr("width", targetWidth);
-    chart.attr("height", targetWidth / aspect);
-});
