@@ -17,7 +17,7 @@ DCV.Bubbles = function(container){
   this.container = container;
   this.w = $(container).width() || 800;
   window.console.log("setting width to " + this.w);
-  this.h = 0.8 * (this.w/2.35);
+  this.h = 1.0 * (this.w/2.35);
   this.setRadius(0.9*(this.h));
 };
 DCV.Bubbles.searchFor = function(node) {
@@ -54,8 +54,11 @@ DCV.Bubbles.prototype.setRadius = function(r) {
 DCV.Bubbles.prototype.draw = function(data) {
   this.root = root = data;
   this.vis = d3.select(this.container).insert("svg:svg", "h2")
+  .attr("id", "bubble-box")
   .attr("width", this.w)
   .attr("height", this.h)
+  .attr("viewBox", "0 0 "+this.w+" "+this.h)
+  .attr("preserveAspectRatio", "xMidYMid")
   .append("svg:g")
   .attr("transform", "translate(" + (this.w - this.r) / 2 + "," + (this.h - this.r) / 2 + ")");
   var nodes = this.pack.nodes(this.root);
@@ -153,3 +156,11 @@ DCV.Bubbles.prototype.zoom = function(d, i) {
   DCV.Bubbles.modal(node, $(this.container).children('.zoom-label').children('a'));
   d3.event.stopPropagation();
 }
+
+$(window).on("resize", function() {
+  var aspect = 2.35 / 1,
+    chart = $("#bubble-box");
+    var targetWidth = chart.parent().width()-50;
+    chart.attr("width", targetWidth);
+    chart.attr("height", targetWidth / aspect);
+});
