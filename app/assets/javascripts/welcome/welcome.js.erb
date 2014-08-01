@@ -1,0 +1,256 @@
+<% default_url_options[:host] = 'placeholder.fake' %>
+$(window).load(function() {
+  $('#spinner').remove();
+  $('#culnavitems').hide().prependTo($('#cul_top-right'));
+  $(window).scroll(function(){
+    if($(this).scrollTop()>=$('#home').height()/1.6){
+        //$('#topnavbar').css('opacity','1');
+        $('#cul_top-right > li:not(:last-child)').show();
+        $('#menuholder li:not(:last-child)').show();
+    } else {
+        //$('#topnavbar').css('opacity','0.3');
+        $('#cul_top-right > li:not(:last-child)').hide();
+        $('#menuholder li:not(:last-child)').show();
+    }
+  });
+  $('#topnavbar, #pane-1 .cover, .culpanel, .hide-until-load').fadeIn(900);
+  $('.carousel-indicators li').first().addClass('active');
+  $('#slide-title').attr('href', $('.carousel-indicators').find('li.active').attr('data-caturl')).html($('.carousel-indicators').find('li.active').attr('data-titlessm'));
+  $('#slide-projssm').attr('href', $('.carousel-indicators').find('li.active').attr('data-searchurl')).html($('.carousel-indicators').find('li.active').attr('data-projssm'));
+
+/*
+  if($(window).scrollTop()<$('#home').height()/1.6) {
+    $('#topnavbar').fadeTo('slow','0.3');
+  }
+*/
+
+  var wtop = $('#topnavbar').height();
+  if($(this).scrollTop()>=wtop){
+      $('#cul_top-right > li:not(:last-child)').show();
+      $('#menuholder li:not(:last-child)').show();
+  }
+
+  new DCV.Bubbles("div#bubbles").chart("<%= flare_data_path(format: 'json', fields: 'lib_format_sim,lib_repo_sim,lib_collection_sim')%>");
+
+/*
+  $(window).on('resize', function() {
+	var  svg = $("#bubble-box").get(0);
+	//var w = svg.width.baseVal.value;
+	//var h = svg.height.baseVal.value;
+	//svg.setAttribute('viewBox', '0 0 '+w+' '+h);
+	svg.setAttribute('width', '100%');
+	svg.setAttribute('height', '100%');
+  });
+*/
+
+});
+
+$(document).ready(function() {
+
+  /* home bg carousel */
+  var $bgimgs = [
+    {
+      'image' : "<%= image_path('dcv/ldpd_113670.jpg')%>",
+      'title' : 'Autograph album',
+      'project' : 'Jewels in her Crown',
+      'item-link' : "<%= catalog_url(id: 'ldpd:113670') %>",
+      'project-link' : "<%= catalog_index_url(:'f[lib_project_sim][]'=> 'Jewels in her Crown') %>"
+    },
+    {
+      'image' : "<%= image_path('dcv/ldpd_134685.jpg')%>",
+      'title' : 'Footbridge over Little White River, Rosebud Reservation, South Dakota',
+      'project' : 'G.E.E. Lindquist Native American Photographs',
+      'item-link' : "<%= catalog_url(id: 'ldpd:134685') %>",
+      'project-link' : "<%= catalog_index_url(:'f[lib_project_sim][]'=> 'Lindquist Photographs') %>"
+    },
+    {
+      'image' : "<%= image_path('dcv/ldpd_85504.jpg')%>",
+      'title' : 'Document, 1821 June 29',
+      'project' : 'The Papers of John Jay',
+      'item-link' : "<%= catalog_url(id: 'ldpd:85504') %>",
+      'project-link' : "<%= catalog_index_url(:'f[lib_project_sim][]'=> 'John Jay Papers') %>"
+    },
+    {
+      'image' : "<%= image_path('dcv/ldpd_114725.jpg')%>",
+      'title' : 'Zhong Kui',
+      'project' : 'Chinese Paper Gods',
+      'item-link' : "<%= catalog_url(id: 'ldpd:114725') %>",
+      'project-link' : "<%= catalog_index_url(:'f[lib_project_sim][]'=> 'Chinese paper gods') %>"
+    },
+    {
+      'image' : "<%= image_path('dcv/ldpd_111727.jpg')%>",
+      'title' : 'Drawing of an air battle',
+      'project' : 'Children&apos;s Drawings of the Spanish Civil War',
+      'item-link' : "<%= catalog_url(id: 'ldpd:111727') %>",
+      'project-link' : "<%= catalog_index_url(:'f[lib_project_sim][]'=> 'Spanish Civil War') %>"
+    },
+    {
+      'image' : "<%= image_path('dcv/ldpd_113939.jpg')%>",
+      'title' : 'Coronation. Photograph, Ceremonial Departure',
+      'project' : 'Russian Imperial Corps of Pages',
+      'item-link' : "<%= catalog_url(id: 'ldpd:113939') %>",
+      'project-link' : "<%= catalog_index_url(:'f[lib_project_sim][]'=> 'Russian Corps of Pages') %>"
+    },
+    {
+      'image' : "<%= image_path('dcv/ldpd_136160.jpg')%>",
+      'title' : 'Boys Playing in Open Fire Hydrants, Lower East Side',
+      'project' : 'Community Service Society Photographs',
+      'item-link' : "<%= catalog_url(id: 'ldpd:136160') %>",
+      'project-link' : "<%= catalog_index_url(:'f[lib_project_sim][]'=> 'Community Service Society Photographs') %>"
+    },
+    /*
+    "<%= image_path('dcv/1836760843_267e9c947f_o.jpg')%>",
+    "<%= image_path('dcv/columbia_university_library___night_by_never4getthis-d57w6dl-cropped.jpg')%>",
+    "<%= image_path('dcv/1836760843_267e9c947f_o-sepc.jpg')%>",
+    "<%= image_path('dcv/ldpd-112745.jpg')%>"*/
+  ];
+
+  var imgs = [];
+  for(var i = 0; i < $bgimgs.length; i++) { imgs[i] = $bgimgs[i]['image']}
+  $("#home").bgswitcher({
+	images: imgs,
+    start: false,
+    shuffle: false,
+	  loop: true,
+    effect: "fade"
+  });
+  var homeCarousel = $("#home");
+  homeCarousel.append("<ol class='carousel-indicators hide-until-load'></ol>");
+  var indicators = $(".carousel-indicators");
+  var dt = '';
+  var proj = '';
+  for (var i = 0; i < $bgimgs.length; i++) {
+    indicators.append("<li data-caturl='"+$bgimgs[i]['item-link']+"' data-titlessm='"+$bgimgs[i]['title']+"' data-projssm= '"+$bgimgs[i]['project']+"' data-target='#homeCarousel' data-slide-to='"+i+"' data-searchurl='" + $bgimgs[i]['project-link'] + "'></li> ");
+  };
+  $('.bgswitcher').addClass('bgParallax').attr('data-speed','2');
+  $("#home .carousel-indicators").on("click", 'li', function() {
+    $(this).parent().find('.active').removeClass('active')
+    $('#home').bgswitcher("select", $(this).index());
+    $('#slide-title').attr('href', $(this).attr('data-caturl')).html($(this).attr('data-titlessm'));
+    $('#slide-projssm').attr('href', $(this).attr('data-searchurl')).html($(this).attr('data-projssm'));
+    $(this).addClass('active');
+  });
+
+  $("#home .carousel-control").on("click", function() {
+    var nextprev = $(this).attr('data-slide');
+    $('#home').bgswitcher(nextprev);
+    if (nextprev == 'next') {
+     var $next = $('#home .carousel-indicators li').parent().find('.active').removeClass('active').next();
+     if ($next.length) {
+       $next.addClass('active');
+     } else {
+       $('#home .carousel-indicators li:first').addClass('active');
+     }
+    } else {
+     var $prev = $('#home .carousel-indicators li').parent().find('.active').removeClass('active').prev();
+     if ($prev.length) {
+       $prev.addClass('active');
+     } else {
+       $('#home .carousel-indicators li:last').addClass('active');
+     }
+    }
+    $('#slide-title').attr('href', $('.carousel-indicators').find('li.active').attr('data-caturl')).html($('.carousel-indicators li.active').attr('data-titlessm'));
+    $('#slide-projssm').attr('href', $('.carousel-indicators').find('li.active').attr('data-searchurl')).html($('.carousel-indicators li.active').attr('data-projssm'));
+    return false;
+  });
+
+  /* /END home bg carousel */
+
+  parallasse();
+
+  $('body').on('click', '.scrollto', function() {
+    var where = $(this).attr('href');
+    $('body,html').animate({ scrollTop: $(where).offset().top /*- $('#topnavbar').height()*/ }, 900, 'swing');
+    $('#culnavitems').removeClass('open');
+    $(this).blur();
+    return false;
+  });
+
+  $('.updown').on('click', 'a', function(e) {
+      var t = $(this).attr('id'),
+      $par = $('.section.current');
+
+    if (t === 'next' && $par.next('div.section').length > 0) {
+        var $next = $par.next('.section');
+        var top = $next.offset().top;
+
+        $('body,html').animate({
+          scrollTop: top
+        }, function () {
+        });
+    } else if (t === 'prev' && $par.prev('div.section').length > 0) {
+        var $prev = $par.prev('.section');
+        var top = $prev.offset().top;
+
+        $('body,html').animate({
+          scrollTop: top
+        }, function () {
+        });
+    }
+    return false;
+  });
+
+  var projMap = {
+    'cpg' : {
+      'title' : 'Chinese Paper Gods',
+      'thumb' : '<%=  asset_url("digital_projects_page/chinese_paper_gods.jpeg")%>',
+      'link' : '/catalog?f%5Blib_project_sim%5D%5B%5D=Chinese+paper+gods',
+      'blurb' : 'An online visual catalog of over 200 woodcuts used in folk religious practices in Beijing and other parts of China in the 1930s.'
+    },
+    'ricop' : {
+      'title' : 'Russian Imperial Corps of Pages',
+      'thumb' : '<%=  asset_url("digital_projects_page/russian_corps.jpeg")%>',
+      'link' : '/catalog?f%5Blib_project_sim%5D%5B%5D=Russian+Corps+of+Pages',
+      'blurb' : 'An online exhibition catalog containing selections from the Columbia University Libraries exhibition, "The Russian Imperial Corps of Pages."'
+    }
+  };
+
+  $('#mosaic-project').change(function(e) {
+    var $proj = $(this).val();
+    var $projtitle = projMap[$proj]['title'];
+    var $projthumb = projMap[$proj]['thumb'];
+    var $projblurb = projMap[$proj]['blurb'];
+    var $projlink = projMap[$proj]['link'];
+    $('#discover-content').empty();
+    $('#mosaic-project-title').html($projtitle);
+    $('#mosaic-project-blurb').html($projblurb);
+    $('#mosaic-project-link').attr('href',$projlink);
+    $('#burrito').css('background-image','url('+$projthumb+')');
+    mosaicDemo('#discover-content', $proj);
+  });
+
+  mosaicDemo('#discover-content', 'cpg');
+
+});
+
+$(window).scroll(function() {
+    var windowTop = Math.max($('body').scrollTop(), $('html').scrollTop());
+    $('.section').each(function (index) {
+        if (windowTop > ($(this).position().top - 100))
+        {
+            $('.section.current').removeClass('current');
+            $('.section:eq(' + index + ')').addClass('current');
+        }
+    });
+}).scroll();
+
+function parallasse() {
+		var $window = $(window);
+		//$('section[data-type="background"]').each(function() {
+		$('.bgParallax').each(function() {
+			//$(this).css('background-attachment', 'fixed').css('background-position', '50% -800px');
+			var $bgobj = $(this); // assigning the object
+			$(window).scroll(function() {
+				// Scroll the background at var speed
+				// the yPos is a negative value because we're scrolling it UP!
+				var yPos = -(($window.scrollTop() - $bgobj.offset().top) / $bgobj.data('speed'));
+				var coords = '50% ' + yPos.toFixed(0) + 'px';
+				// Move the background
+				$bgobj.css({
+					backgroundPosition: coords
+				});
+			});
+		});
+//		document.createElement("article");
+//		document.createElement("section");
+}

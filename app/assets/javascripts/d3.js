@@ -55,8 +55,8 @@ DCV.Bubbles.prototype.draw = function(data) {
   this.root = root = data;
   this.vis = d3.select(this.container).insert("svg:svg", "h2")
   .attr("id", "bubble-box")
-  .attr("width", this.w)
-  .attr("height", this.h)
+  .attr("width", '100%')
+  .attr("height", '100%')
   .attr("viewBox", "0 0 "+this.w+" "+this.h)
   .attr("preserveAspectRatio", "xMidYMid")
   .append("svg:g")
