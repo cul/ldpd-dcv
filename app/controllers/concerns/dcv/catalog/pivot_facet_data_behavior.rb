@@ -60,7 +60,7 @@ module Dcv::Catalog::PivotFacetDataBehavior
 
   def build_child(facet)
     return (facet['pivot'] and facet['pivot'].length > 1) ?
-     {name:facet['value'], field:facet['field'], children: facet['pivot'].map{|p|build_child(p)}} :
+     {name:facet['value'], field:facet['field'], size: facet['count'], children: facet['pivot'].map{|p|build_child(p)}} :
      {name: facet['value'], field:facet['field'], size: facet['count']}
   end
 
