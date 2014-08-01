@@ -14,11 +14,14 @@
 
 window.DCV = window.DCV || function(){};
 DCV.Bubbles = function(container){
+  var win_width = $(window).width();
+  var win_height = $(window).height();
+  var win_ratio =  win_width/win_height;
   this.container = container;
   this.w = $(container).width() || 800;
   window.console.log("setting width to " + this.w);
-  this.h = 1.1 * (this.w/2.35);
-  this.setRadius(0.9*(this.h));
+  this.h = (win_ratio > 1.2) ?  0.9 * (this.w/2.35) : Math.max(Math.floor(0.75*win_height), this.w);
+  this.setRadius(Math.min(this.w, this.h));
 };
 DCV.Bubbles.searchFor = function(node) {
   if (!node.field) return false;
@@ -54,8 +57,11 @@ DCV.Bubbles.prototype.setRadius = function(r) {
 DCV.Bubbles.prototype.draw = function(data) {
   this.root = root = data;
   this.vis = d3.select(this.container).insert("svg:svg", "h2")
-  .attr("width", this.w)
-  .attr("height", this.h)
+  .attr("id", "bubble-box")
+  .attr("width", '100%')
+  .attr("height", '100%')
+  .attr("viewBox", "0 0 "+this.w+" "+this.h)
+  .attr("preserveAspectRatio", "xMidYMid")
   .append("svg:g")
   .attr("transform", "translate(" + (this.w - this.r) / 2 + "," + (this.h - this.r) / 2 + ")");
   var nodes = this.pack.nodes(this.root);
@@ -80,24 +86,27 @@ DCV.Bubbles.prototype.draw = function(data) {
     .attr("y", function(d) { return d.y; })
     .attr("dy", ".35em")
     .attr("text-anchor", "middle")
-    .attr("title", function(d) {return d.name;})
+    .attr("title", function(d) {return DCV.Bubbles.nameForRadius(d,1);})
     .style("display","block")
     .style("overflow","hidden")
-    .style("text-overflow","ellipsis")
+    .style("font-size", function(d) {return DCV.Bubbles.textSizeForNode(d,1);})
     .style("opacity", function(d) { return d.r > 20 ? 1 : 0; })
     .style("pointer-events", function(d) { return (d.depth > 1) ? "none" : "all"})
     .style("visibility", function(d){ return d.depth != 1 ? "hidden" : "visible"; })
-    .text(function(d) { return DCV.Bubbles.nameForRadius(d.name,d.r); })
+    .text(function(d) { return DCV.Bubbles.nameForRadius(d,1); })
     .on("click", function(d){DCV.Bubbles.modal(d, $(_this.container).children('.zoom-label').children('a'));});
 
   d3.select(this.container).on("click", function() {return _this.zoom(root)});
   $(this.container).children('.zoom-label').html(this.root.name + " <a rel=\"catalog\" href=\"\"></a>");
 }
-DCV.Bubbles.nameForRadius = function(name, r) {
-  var limit = Math.floor(2.5*r);
-  if (name.length > limit) {
-    return name.substring(0,limit) + "...";
-  } else return name;
+DCV.Bubbles.textSizeForNode = function(d,k) {
+  return (Math.log(2*d.r*k/d.name.length)/Math.log(10)) + 'em';
+}
+DCV.Bubbles.nameForRadius = function(d,k) {
+  var limit = Math.floor(2.5*d.r*k);
+  if (d.name.length > limit) {
+    return d.name.substring(0,limit) + "...";
+  } else return d.name + ' (' + d.size +')';
 }
 DCV.Bubbles.prototype.chart = function(dataUrl) {
   var drawer = this;
@@ -140,8 +149,9 @@ DCV.Bubbles.prototype.zoom = function(d, i) {
   t.selectAll("text")
     .attr("x", function(d) { return x(d.x); })
     .attr("y", function(d) { return y(d.y); })
-    .text(function(d) { return DCV.Bubbles.nameForRadius(d.name,k*d.r); })
+    .text(function(d) { return DCV.Bubbles.nameForRadius(d,k); })
     .style("opacity", function(d) { return k * d.r > 20 ? 1 : 0; })
+    .style("font-size", function(d) {return DCV.Bubbles.textSizeForNode(d,k);})
     .style("visibility",
       function(d){
         return unhide(d) ? "visible" : "hidden";
