@@ -1,6 +1,6 @@
 en:
   blacklight:
-    application_name: 'Columbia Digital Collections'
+    application_name: 'Columbia Digital Library Collections'
     search:
       facets:
         title: 'Refine Your Search'

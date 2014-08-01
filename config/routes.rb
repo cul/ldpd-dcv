@@ -6,7 +6,8 @@ Dcv::Application.routes.draw do
   get '/about' => 'pages#about', as: :about
 
   get '/catalog/get_random_item' => 'catalog#get_random_item'
-  get '/catalog/:pid/mods' => 'catalog#mods', as: :item_mods
+  get '/catalog/:id/mods' => 'catalog#mods', as: :item_mods
+  get '/catalog/:id/citation/:type' => 'catalog#citation', as: :item_citation
 
   get '/data/flare' => 'catalog#get_pivot_facet_data', as: :flare_data
 

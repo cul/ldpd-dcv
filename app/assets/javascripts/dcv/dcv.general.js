@@ -341,9 +341,9 @@ DCV.SearchResults.toggleSearchDateGraphVisibility = function() {
 }
 
 
-/*********************
+/**************
  * MODS Modal *
- *********************/
+ **************/
 
 DCV.ModsDownloadModal = {};
 DCV.ModsDownloadModal.show = function(displayUrl, downloadUrl){
@@ -358,6 +358,29 @@ DCV.ModsDownloadModal.show = function(displayUrl, downloadUrl){
     preloading: false,
     current:"{current} of {total}",
     title: '<a href="' + downloadUrl + '" data-no-turbolink="true"><span class="glyphicon glyphicon-download"></span> Download XML</a>'
+  });
+
+  return false;
+};
+
+/******************
+ * Citation Modal *
+ ******************/
+
+DCV.CitationDisplayModal = {};
+DCV.CitationDisplayModal.show = function(citationDisplayUrl, modalLabel){
+
+  $.colorbox({
+    href: citationDisplayUrl,
+    height:"90%",
+    maxHeight:'300px',
+    width:"90%",
+    opacity:".6",
+    fixed:true,
+    iframe:true,
+    preloading: false,
+    current:"{current} of {total}",
+    title: modalLabel
   });
 
   return false;

@@ -9,3 +9,7 @@
 .ellipsis {
   display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
 }
+
+body.empty {
+  padding:10px;
+}

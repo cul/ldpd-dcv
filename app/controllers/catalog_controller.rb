@@ -11,6 +11,7 @@ class CatalogController < ApplicationController
   include Dcv::Catalog::RandomItemBehavior
   include Dcv::Catalog::PivotFacetDataBehavior
   include Dcv::Catalog::ModsDisplayBehavior
+  include Dcv::Catalog::CitationDisplayBehavior
 
   before_action :refresh_browse_lists_cache, only: [:home, :browse]
   # These before_filters apply the hydra access controls
