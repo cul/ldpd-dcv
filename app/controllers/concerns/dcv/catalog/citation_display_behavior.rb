@@ -21,10 +21,6 @@ module Dcv::Catalog::CitationDisplayBehavior
 
       @citation_type_label = VALID_CITATION_TYPES[type]
 
-
-
-      puts 'document: ' + @document.inspect
-
       names_string = @document['lib_name_ssm'] ? @document['lib_name_ssm'].join(', ') : nil
       title_string = @document['title_display_ssm'] ? @document['title_display_ssm'].join(' ') : nil
       textual_date_string = @document['lib_date_textual_ssm'] ? @document['lib_date_textual_ssm'].join(' ') : nil
