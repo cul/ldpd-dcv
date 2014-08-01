@@ -32,8 +32,8 @@ $(window).load(function() {
 
   new DCV.Bubbles("div#bubbles").chart("<%= flare_data_path(format: 'json', fields: 'lib_format_sim,lib_repo_sim,lib_collection_sim')%>");
 
-/*
-  $(window).on('resize', function() {
+
+  $(window).on('resize2', function() {
 	var  svg = $("#bubble-box").get(0);
 	//var w = svg.width.baseVal.value;
 	//var h = svg.height.baseVal.value;
@@ -41,7 +41,6 @@ $(window).load(function() {
 	svg.setAttribute('width', '100%');
 	svg.setAttribute('height', '100%');
   });
-*/
 
 });
 
