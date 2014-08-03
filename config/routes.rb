@@ -2,7 +2,7 @@ Dcv::Application.routes.draw do
   root :to => "home#index"
 
   get '/browse/:action' => 'browse', as: :browse
-  get '/welcome' => 'welcome#home'
+  get '/explore' => 'welcome#home'
   get '/about' => 'pages#about', as: :about
 
   get '/catalog/get_random_item' => 'catalog#get_random_item'
