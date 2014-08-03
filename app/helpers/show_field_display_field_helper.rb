@@ -1,4 +1,4 @@
-module FacetTranslationHelper
+module ShowFieldDisplayFieldHelper
   
   def show_field_project_to_facet_link(args)
     facet_field_name = :lib_project_sim
@@ -7,7 +7,7 @@ module FacetTranslationHelper
     facet_value = I18n.t('ldpd.short.project.' + display_value, default: display_value)
     
     url_for_facet_search = search_action_path(:f => {facet_field_name => [facet_value]})
-    return ('<a href="' + url_for_facet_search + '">' + display_value + '</a>').html_safe
+    return link_to(display_value, url_for_facet_search)
   end
   
   def show_field_repository_to_facet_link(args)
@@ -27,7 +27,13 @@ module FacetTranslationHelper
     end
     
     url_for_facet_search = search_action_path(:f => {facet_field_name => [facet_value]})
-    return ('<a href="' + url_for_facet_search + '">' + display_value + '</a>').html_safe
+    return link_to(display_value, url_for_facet_search)
+  end
+  
+  def link_to_url_value(args)
+    url_value = args[:document][args[:field]][0]
+    
+    return link_to(url_value, url_value)
   end
   
 end
