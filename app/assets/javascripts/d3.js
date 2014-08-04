@@ -13,14 +13,20 @@
 //= require ./d3/d3.v3.min
 
 window.DCV = window.DCV || function(){};
-DCV.Bubbles = function(container){
+DCV.panelContentDimensions = function(container) {
   var win_width = $(window).width();
   var win_height = $(window).height();
   var win_ratio =  win_width/win_height;
+  var w = $(container).width() || 800;
+  var h = (win_ratio > 1.2) ?  0.9 * (w/2.35) : Math.max(Math.floor(0.75*win_height), 0.8*w);
+  window.console.log("returning width " + w + " height " + h);
+  return [w, h];
+}
+DCV.Bubbles = function(container){
   this.container = container;
-  this.w = $(container).width() || 800;
-  window.console.log("setting width to " + this.w);
-  this.h = (win_ratio > 1.2) ?  0.9 * (this.w/2.35) : Math.max(Math.floor(0.75*win_height), this.w);
+  var dims = DCV.panelContentDimensions(container);
+  this.w = dims[0];
+  this.h = dims[1];
   this.setRadius(Math.min(this.w, this.h));
 };
 DCV.Bubbles.searchFor = function(node) {

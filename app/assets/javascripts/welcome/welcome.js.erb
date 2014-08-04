@@ -30,20 +30,23 @@ $(window).load(function() {
       $('#menuholder li:not(:last-child)').show();
   }
 
-  new DCV.Bubbles("div#bubbles").chart("<%= flare_data_path(format: 'json', fields: 'lib_format_sim,lib_repo_sim,lib_collection_sim')%>");
+  var bubbles = new DCV.Bubbles("div#bubbles");
+  bubbles.chart("<%= flare_data_path(format: 'json', fields: 'lib_format_sim,lib_repo_sim,lib_collection_sim')%>");
 
-
-  $(window).on('resize2', function() {
+/*
+  $(window).on('resize', function() {
 	var  svg = $("#bubble-box").get(0);
+  var dims = DCV.panelContentDimensions("#bubble-box");
+  bubbles.w = dims[0];
+  bubbles.h = dims[1];
 	//var w = svg.width.baseVal.value;
 	//var h = svg.height.baseVal.value;
-	//svg.setAttribute('viewBox', '0 0 '+w+' '+h);
 	svg.setAttribute('width', '100%');
 	svg.setAttribute('height', '100%');
   });
+*/
 
 });
-
 $(document).ready(function() {
 
   /* home bg carousel */
