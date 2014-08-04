@@ -4,7 +4,14 @@ module ShowFieldDisplayFieldHelper
     facet_field_name = :lib_project_sim
     
     display_value = args[:document][args[:field]][0]
-    facet_value = I18n.t('ldpd.short.project.' + display_value, default: display_value)
+    
+    full_project_names_to_short_project_names = I18n.t('ldpd.short.project').stringify_keys
+    
+    if full_project_names_to_short_project_names.has_key?(display_value)
+      facet_value = full_project_names_to_short_project_names[display_value]
+    else
+      facet_value = display_value
+    end
     
     url_for_facet_search = search_action_path(:f => {facet_field_name => [facet_value]})
     return link_to(display_value, url_for_facet_search)
@@ -14,8 +21,8 @@ module ShowFieldDisplayFieldHelper
     
     facet_field_name = :lib_repo_sim
     
-    long_repo_names_to_marc_codes = I18n.t('ldpd.long.repo').invert
-    marc_codes_to_short_repo_names = I18n.t('ldpd.short.repo')
+    long_repo_names_to_marc_codes = I18n.t('ldpd.long.repo').stringify_keys.invert
+    marc_codes_to_short_repo_names = I18n.t('ldpd.short.repo').stringify_keys
     
     display_value = args[:document][args[:field]][0]
     facet_value = display_value # by default
