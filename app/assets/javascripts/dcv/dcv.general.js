@@ -356,8 +356,31 @@ DCV.ModsDownloadModal.show = function(displayUrl, downloadUrl){
     fixed:true,
     iframe:true,
     preloading: false,
-    current:"{current} of {total}",
     title: '<a href="' + downloadUrl + '" data-no-turbolink="true"><span class="glyphicon glyphicon-download"></span> Download XML</a>'
+  });
+
+  return false;
+};
+
+/**************
+ * Feedback Modal *
+ **************/
+
+DCV.FeedbackModal = {};
+DCV.FeedbackModal.show = function(){
+
+  $.colorbox({
+    href: '//culwcm.cul.columbia.edu/dcv_feedback?current_page=' + document.URL + '&window_width=' + $(window).width() + '&window_height=' + $(window).height(),
+    height:"500px",
+    width:"700px",
+    maxHeight:"90%",
+    maxWidth:"90%",
+    opacity:".6",
+    fixed:true,
+    iframe:true,
+    preloading: false,
+    current: false,
+    title: false
   });
 
   return false;
