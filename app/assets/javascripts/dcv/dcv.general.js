@@ -370,7 +370,7 @@ DCV.FeedbackModal = {};
 DCV.FeedbackModal.show = function(){
 
   $.colorbox({
-    href: '//culwcm.cul.columbia.edu/dcv_feedback?current_page=' + document.URL + '&window_width=' + $(window).width() + '&window_height=' + $(window).height(),
+    href: '//culwcm.cul.columbia.edu/dcv_feedback?current_page=' + encodeURIComponent(document.URL) + '&window_width=' + $(window).width() + '&window_height=' + $(window).height(),
     height:"500px",
     width:"700px",
     maxHeight:"90%",
