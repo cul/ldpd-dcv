@@ -22,7 +22,7 @@
 <div id="home" class="section bgParallax" data-speed="2">
 
 	<div id="slidecaps">
-				 <ul class="hide-until-load bgslider-captions list-unstyled" style="font-size:95%;text-align:left;margin-bottom:10px;">
+				 <ul class="hide-until-load bgslider-captions list-unstyled hidden-xs" style="font-size:95%;text-align:left;margin-bottom:10px;">
 				   <li><span class="text-dim">Title:</span> <a id="slide-title" href="#"></a></li>
 				   <li><span class="text-dim">Project:</span> <a id="slide-projssm" href="#"></a></li>
 				 </ul>
@@ -32,7 +32,7 @@
 		<%= yield %>
      </div>
 
-	  <div class="carousel-controls">
+	  <div class="carousel-controls hidden-xs">
 		  <a class="left carousel-control" href="#prev" role="button" data-slide="prev">
 			<span class="glyphicon glyphicon-chevron-left hide"></span>
 		  </a>
@@ -48,10 +48,10 @@
     <div class="culpanel alignleft row">
      <h4 class="lead">DISCOVER PROJECTS <%= link_to 'Browse projects &raquo;'.html_safe, browse_url(action:'projects'), class: 'browse-link pull-right' %></h4>
         <div id="project-info" class="col-sm-12" style="padding:0;">
-          <div style="height:150px;margin-bottom:5px;">
+          <div style="height:160px;margin-bottom:5px;">
             <div class="row">
               <div class="col-sm-2">
-                <div data-style="border:1px solid #888;" style="padding:2px;background-color:#1d1d1d;background-position:center center;background-repeat:no-repeat;background-size:100%;background-image:url('<%= asset_url("digital_projects_page/chinese_paper_gods.jpeg")%>');height:150px;width:100%;" id="burrito">
+                <div data-style="border:1px solid #888;" style="padding:2px;background-color:#1d1d1d;background-position:center center;background-repeat:no-repeat;background-size:100%;background-image:url('<%= asset_url("digital_projects_page/chinese_paper_gods.jpeg")%>');height:160px;width:100%;" id="burrito">
                   <!--img data-id="burrito" style="max-width:100%; padding:0; max-height:100%;" src="<%=  asset_url("digital_projects_page/chinese_paper_gods.jpeg")%>" /-->
                 </div>
               </div>
@@ -79,10 +79,10 @@
   </div>
 </div>
 
-<div id="explore" class="section bgParallax" data-speed="6">
+<div id="visualize" class="section bgParallax" data-speed="6">
   <div class="culinner container">
     <div class="culpanel row">
-        <h4 class="lead alignleft">EXPLORE FORMATS        <%= link_to 'Browse formats &raquo;'.html_safe, browse_url(action:'formats'), class: 'browse-link pull-right' %>
+        <h4 class="lead alignleft">VISUALIZE FORMATS        <%= link_to 'Browse formats &raquo;'.html_safe, browse_url(action:'formats'), class: 'browse-link pull-right' %>
 </h4>
         <div class="alignjustify" id="bubbles" style="width:100%;">
 <h5 class="zoom-label">Flare code size circle packing</h5>
@@ -91,13 +91,23 @@
   </div>
 </div>
 
-<div id="about" class="section bgParallax" data-speed="4">
+<div id="colophon" class="section bgParallax" data-speed="4">
   <div class="culinner container">
     <div class="culpanel row">
         <h4 class="lead alignleft">ABOUT DIGITAL LIBRARY COLLECTIONS</h4>
         <div class="lead alignjustify">
         Digital Library Collections is a gateway to many of the digital projects that <a href="http://library.columbia.edu">Columbia University Libraries / Information Services</a> has completed over the past ten years. It includes scans of photographs, posters, objects, manuscripts and other archival material from our special and archival collections. The site will continue to grow as more of our special collections are digitized and cataloged. (It does not at present include digitized books, however; these can be located by searching the CLIO catalog.) All site content is intended to be used for education and research.
         </div>
+        <p class="small alignleft"><a href="https://www.flickr.com/photos/mmj171188/1836760843">"Empty steps, 1 AM"</a> by <a href="https://www.flickr.com/photos/mmj171188/">Mira (on the wall)</a> is licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/2.0/">CC BY NC SA 2.0</a>.</p>
+        <hr>
+        <div class="row">
+		  <div class="col-sm-6">
+			<p class="alignleft small">535 West 114th St. New York, NY 10027 Telephone (212) 854-7309 Fax (212) 854-9099</p>
+		  </div>
+		  <div class="col-sm-6 text-right">
+			<p class="alignright small">Terms of Use | <a href="#" onclick="return DCV.FeedbackModal.show();">Suggestions &amp; Feedback</a></p>
+		  </div>
+	    </div>
     </div>
   </div>
 </div>
@@ -107,8 +117,8 @@
 		<ul class="dropdown-menu menu-dropdown dropdown-menu-right">
 			<li><a href="#home" class="scrollto">Search</a></li>
 			<li><a href="#discover" class="scrollto">Discover</a></li>
-			<li><a href="#explore" class="scrollto">Explore</a></li>
-			<li><a href="#about" class="scrollto">About</a></li>
+			<li><a href="#visualize" class="scrollto">Visualize</a></li>
+			<li><a href="#colophon" class="scrollto">Colophon</a></li>
 		</ul>
 	</li>
 </ul>

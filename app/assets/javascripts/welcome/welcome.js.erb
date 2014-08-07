@@ -30,20 +30,31 @@ $(window).load(function() {
       $('#menuholder li:not(:last-child)').show();
   }
 
-  new DCV.Bubbles("div#bubbles").chart("<%= flare_data_path(format: 'json', fields: 'lib_format_sim,lib_repo_sim,lib_collection_sim')%>");
+  var bubbles = new DCV.Bubbles("div#bubbles");
+  bubbles.chart("<%= flare_data_path(format: 'json', fields: 'lib_format_sim,lib_repo_sim,lib_collection_sim')%>");
 
 
-  $(window).on('resize2', function() {
+  $(window).on('resize', function() {
+    var svg = $('#bubbles').find('svg');
+    var wh = $(window).height();
+    if (svg.height() > wh) {
+      svg.height(wh-240);
+    }
+  });
+/*
+  $(window).on('resize', function() {
 	var  svg = $("#bubble-box").get(0);
+  var dims = DCV.panelContentDimensions("#bubble-box");
+  bubbles.w = dims[0];
+  bubbles.h = dims[1];
 	//var w = svg.width.baseVal.value;
 	//var h = svg.height.baseVal.value;
-	//svg.setAttribute('viewBox', '0 0 '+w+' '+h);
 	svg.setAttribute('width', '100%');
 	svg.setAttribute('height', '100%');
   });
+*/
 
 });
-
 $(document).ready(function() {
 
   /* home bg carousel */
@@ -52,50 +63,50 @@ $(document).ready(function() {
       'image' : "<%= image_path('dcv/ldpd_113670.jpg')%>",
       'title' : 'Autograph album',
       'project' : 'Jewels in her Crown',
-      'item-link' : "<%= catalog_url(id: 'ldpd:113670') %>",
-      'project-link' : "<%= catalog_index_url(:'f[lib_project_sim][]'=> 'Jewels in her Crown') %>"
+      'item-link' : "<%= catalog_path(id: 'ldpd:113670') %>",
+      'project-link' : "<%= catalog_index_path(:'f[lib_project_sim][]'=> 'Jewels in her Crown') %>"
     },
     {
       'image' : "<%= image_path('dcv/ldpd_134685.jpg')%>",
       'title' : 'Footbridge over Little White River, Rosebud Reservation, South Dakota',
       'project' : 'G.E.E. Lindquist Native American Photographs',
-      'item-link' : "<%= catalog_url(id: 'ldpd:134685') %>",
-      'project-link' : "<%= catalog_index_url(:'f[lib_project_sim][]'=> 'Lindquist Photographs') %>"
+      'item-link' : "<%= catalog_path(id: 'ldpd:134685') %>",
+      'project-link' : "<%= catalog_index_path(:'f[lib_project_sim][]'=> 'Lindquist Photographs') %>"
     },
     {
       'image' : "<%= image_path('dcv/ldpd_85504.jpg')%>",
       'title' : 'Document, 1821 June 29',
       'project' : 'The Papers of John Jay',
-      'item-link' : "<%= catalog_url(id: 'ldpd:85504') %>",
-      'project-link' : "<%= catalog_index_url(:'f[lib_project_sim][]'=> 'John Jay Papers') %>"
+      'item-link' : "<%= catalog_path(id: 'ldpd:85504') %>",
+      'project-link' : "<%= catalog_index_path(:'f[lib_project_sim][]'=> 'John Jay Papers') %>"
     },
     {
       'image' : "<%= image_path('dcv/ldpd_114725.jpg')%>",
       'title' : 'Zhong Kui',
       'project' : 'Chinese Paper Gods',
-      'item-link' : "<%= catalog_url(id: 'ldpd:114725') %>",
-      'project-link' : "<%= catalog_index_url(:'f[lib_project_sim][]'=> 'Chinese paper gods') %>"
+      'item-link' : "<%= catalog_path(id: 'ldpd:114725') %>",
+      'project-link' : "<%= catalog_index_path(:'f[lib_project_sim][]'=> 'Chinese paper gods') %>"
     },
     {
       'image' : "<%= image_path('dcv/ldpd_111727.jpg')%>",
       'title' : 'Drawing of an air battle',
       'project' : 'Children&apos;s Drawings of the Spanish Civil War',
-      'item-link' : "<%= catalog_url(id: 'ldpd:111727') %>",
-      'project-link' : "<%= catalog_index_url(:'f[lib_project_sim][]'=> 'Spanish Civil War') %>"
+      'item-link' : "<%= catalog_path(id: 'ldpd:111727') %>",
+      'project-link' : "<%= catalog_index_path(:'f[lib_project_sim][]'=> 'Spanish Civil War') %>"
     },
     {
       'image' : "<%= image_path('dcv/ldpd_113939.jpg')%>",
       'title' : 'Coronation. Photograph, Ceremonial Departure',
       'project' : 'Russian Imperial Corps of Pages',
-      'item-link' : "<%= catalog_url(id: 'ldpd:113939') %>",
-      'project-link' : "<%= catalog_index_url(:'f[lib_project_sim][]'=> 'Russian Corps of Pages') %>"
+      'item-link' : "<%= catalog_path(id: 'ldpd:113939') %>",
+      'project-link' : "<%= catalog_index_path(:'f[lib_project_sim][]'=> 'Russian Corps of Pages') %>"
     },
     {
       'image' : "<%= image_path('dcv/ldpd_136160.jpg')%>",
       'title' : 'Boys Playing in Open Fire Hydrants, Lower East Side',
       'project' : 'Community Service Society Photographs',
-      'item-link' : "<%= catalog_url(id: 'ldpd:136160') %>",
-      'project-link' : "<%= catalog_index_url(:'f[lib_project_sim][]'=> 'Community Service Society Photographs') %>"
+      'item-link' : "<%= catalog_path(id: 'ldpd:136160') %>",
+      'project-link' : "<%= catalog_index_path(:'f[lib_project_sim][]'=> 'Community Service Society Photographs') %>"
     },
     /*
     "<%= image_path('dcv/1836760843_267e9c947f_o.jpg')%>",
@@ -114,7 +125,7 @@ $(document).ready(function() {
     effect: "fade"
   });
   var homeCarousel = $("#home");
-  homeCarousel.append("<ol class='carousel-indicators hide-until-load'></ol>");
+  homeCarousel.append("<ol class='carousel-indicators hide-until-load hidden-xs'></ol>");
   var indicators = $(".carousel-indicators");
   var dt = '';
   var proj = '';

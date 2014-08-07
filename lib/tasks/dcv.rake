@@ -1,9 +1,11 @@
 namespace :dcv do
 
-  task :test => :environment do
-    puts 'This is just a test rake task'
+  namespace :rails_cache => :environment do
+    task :clear => :environment do
+      Rails.cache.clear
+    end
   end
-  
+
   namespace :index do
     task :list => :environment do
       list = ENV['list']
@@ -25,11 +27,30 @@ namespace :dcv do
       end
     end
   end
-  
-  namespace :rails_cache do
-    task :clear => :environment do
-      Rails.cache.clear
+
+  namespace :css do
+    task :fix => :environment do
+      open('caggs_css.txt') do |blob|
+        i = 0
+        j = 0
+        blob.each do |line|
+          line.strip!
+          obj = ContentAggregator.find(line)
+          mods = obj.datastreams['descMetadata']
+          old_content = mods.content
+          new_content = old_content.gsub(/\<originInfo/,'<mods:originInfo')
+          new_content ||= old_content
+          new_content = new_content.gsub(/\/originInfo/,'/mods:originInfo') || new_content
+          if new_content
+            mods.content = new_content
+            obj.save
+            j = j + 1
+          end
+          i = i + 1
+          p "processed #{i} of 1348 modifying #{j}\n"
+        end
+      end
     end
   end
-  
+>>>>>>> e026608ab1d572fde8dd21962ef5ea3eb1d0ffda
 end

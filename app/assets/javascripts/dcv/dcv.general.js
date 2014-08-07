@@ -173,6 +173,9 @@ function initZoomingViewer(tileSources) {
       showSequenceControl:  (tileSources.length > 1)
     });
     $.zoomingViewer.addHandler('open',handleImageChange,null);
+    $.zoomingViewer.addHandler('full-screen', function() {
+      $('#zoom-full-control > i').toggleClass('glyphicon-resize-small');
+    });
   }
 }
 
