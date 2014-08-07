@@ -131,7 +131,7 @@ input {
   #content #digital_projects h3 {
     margin-top:auto;
   }
-  
+
   #topnavbar {
     .topbarlogo {
       display:inline-block;
@@ -622,6 +622,9 @@ h2[itemprop="name"] {
     }
   }
 }
+
+#colorbox.cul-no-colorbox-title-bar  #cboxLoadedContent {height:100% !important;}
+
 #colorbox {
 	#cboxClose {
 	  top:0;
