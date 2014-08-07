@@ -3,6 +3,7 @@ namespace :dcv do
   task :test => :environment do
     puts 'This is just a test rake task'
   end
+  
   namespace :index do
     task :list => :environment do
       list = ENV['list']
@@ -24,4 +25,11 @@ namespace :dcv do
       end
     end
   end
+  
+  namespace :rails_cache do
+    task :clear => :environment do
+      Rails.cache.clear
+    end
+  end
+  
 end
