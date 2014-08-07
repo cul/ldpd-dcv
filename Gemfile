@@ -22,6 +22,9 @@ gem 'mysql2', '0.3.11'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.2'
 
+# Use colorbox-rails so that colorbox works with turbolinks
+gem 'colorbox-rails'
+
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 
