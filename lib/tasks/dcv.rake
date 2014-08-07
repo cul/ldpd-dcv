@@ -1,6 +1,6 @@
 namespace :dcv do
 
-  namespace :rails_cache => :environment do
+  namespace :rails_cache do
     task :clear => :environment do
       Rails.cache.clear
     end
