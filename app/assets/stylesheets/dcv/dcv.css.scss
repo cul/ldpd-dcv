@@ -339,6 +339,29 @@ h2[itemprop="name"] {
     margin-top:2em;
   }
 }
+#home-sidebar-news {
+  font-size:90%;
+  h6 {
+    color:#999;
+  }
+  hr {
+    border-color:#555;
+  }
+  img {
+    width:80px;
+    height:80px;
+    margin-right:1em;
+  }
+}
+#home-sidebar-about {
+  margin-top:1em;
+  font-size:88%;
+  text-align:center;
+  text-transform:uppercase;
+  a {
+    color:#eee;
+  }
+}
 #home-page-tabs {
   .nav-tabs {
     font-size:.815em;
