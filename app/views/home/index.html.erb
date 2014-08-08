@@ -1,8 +1,18 @@
 <div class="row">
   <div id="sidebar" class="col-md-3">
-    <div class="inner">
-      <p><strong>The Digital Library Collections (DLC)</strong> website is a gateway to digital projects and online exhibitions that have been published on the web by Columbia University Libraries / Information Services (CUL/IS). The site includes scans of photographs, posters, objects, manuscripts and other material from our special and archival collections. <a href="<%= about_url %>">Learn more &raquo;</a></p>
-    </div>
+    <div class="inner"> 
+       <div id="home-sidebar-news">
+		  <h6>STAFF BETA</h6>
+		  <p>Welcome to the Staff Beta Release version of the new Digital Library Collections (DLC) website.  CUL/IS staff are invited during the month of August to review this new site and offer suggestions and feedback. Please first take a look at the <a href="https://wiki.cul.columbia.edu/display/PDCV/DLC%3A+Staff+Beta+Release+Info+Page">Release Info/FAQ</a> page.</p>
+		  <hr>
+		  <h6>NEW CONTENT</h6>
+		  <p><a href="<%= search_action_path(:f => {'lib_project_sim' => ['Community Service Society Photographs']})  %>"><img src="<%= asset_url('dcv/sidebar-post-css-thumb.jpg'); %>" class="pull-left" alt="Community Service Society Photographs"></a>More than 1400 photographs from the Community Service Society Records collection are now available in the DLC, offering a view of pressing social issues of late 19th- and early 20th-century New York. <a href="<%= search_action_path(:f => {'lib_project_sim' => ['Community Service Society Photographs']})  %>">View this content &raquo;</a></p>
+		  <div class="clearfix"></div>
+		 </div> 
+      </div> 
+      <div id="home-sidebar-about">
+          <p><a href="<%= about_url %>">Learn more about the DLC &raquo;</a></p>
+      </div>
   </div>
 
   <div id="content" class="col-md-9">
