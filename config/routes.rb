@@ -4,7 +4,7 @@ Dcv::Application.routes.draw do
   get '/browse/:action' => 'browse', as: :browse
   get '/explore' => 'welcome#home'
   get '/about' => 'pages#about', as: :about
-  get '/terms_of_use' => 'pages#terms_of_use', as: :terms_of_use
+  get '/terms_of_use' => redirect('http://library.columbia.edu/about/policies/copyright-online-collections.html'), as: :terms_of_use
 
   get '/catalog/get_random_item' => 'catalog#get_random_item'
   get '/catalog/:id/mods' => 'catalog#mods', as: :item_mods
