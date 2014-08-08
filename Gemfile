@@ -9,7 +9,7 @@ gem 'blacklight', '>= 5.4.0'
 gem 'hydra-head', '~>7'
 
 # Columbia Hydra models
-gem 'cul_scv_hydra', '>= 0.16.5'
+gem 'cul_scv_hydra', '>= 0.16.6'
 #gem 'cul_scv_hydra', :github => 'cul/cul_scv_hydra'
 #gem 'cul_scv_hydra', :path => '../cul_scv_hydra'
 
@@ -21,6 +21,9 @@ gem 'mysql2', '0.3.11'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.2'
+
+# Use colorbox-rails so that colorbox works with turbolinks
+gem 'colorbox-rails'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'

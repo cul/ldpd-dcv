@@ -2,7 +2,7 @@
   <div id="nav" class="col-md-12">
     <%= render 'sort_and_per_page' %>
   </div>
-	<div id="sidebar" class="col-md-3" data-no-turbolink>
+	<div id="sidebar" class="col-md-3">
 		<div class="inner">
 			<%= render 'search_sidebar' %>
 		</div>
@@ -32,7 +32,7 @@
 
 			<div id="search-result-container">
 				<div id="documents col-sm-8">
-	
+
 					<%- if @response.empty? %>
 						<%= render "zero_results" %>
 					<%- else %>

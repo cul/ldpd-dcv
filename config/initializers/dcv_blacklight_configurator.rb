@@ -3,7 +3,7 @@ class DcvBlacklightConfigurator
   def self.solr_name(*args)
     ActiveFedora::SolrService.solr_name(*args)
   end
-  
+
   def test
     #code
   end
@@ -48,7 +48,7 @@ class DcvBlacklightConfigurator
     config.add_facet_field ActiveFedora::SolrService.solr_name('lib_name', :facetable), :label => 'Name', :limit => 10
     config.add_facet_field ActiveFedora::SolrService.solr_name('lib_format', :facetable), :label => 'Format', :limit => 10
     config.add_facet_field ActiveFedora::SolrService.solr_name('language_language_term_text', :symbol), :label => 'Language', :limit => 10
-    config.add_facet_field 'format_ssi', :label => 'System Format'
+    config.add_facet_field 'format_ssi', :label => 'System Format' if ['development', 'test', 'dcv_dev', 'dcv_private_dev'].include?(Rails.env)
 
     config.add_facet_field ActiveFedora::SolrService.solr_name('lc1_letter', :facetable), :label => 'Call Number'
 

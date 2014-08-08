@@ -374,6 +374,7 @@ DCV.FeedbackModal.show = function(){
 
   $.colorbox({
     href: '//culwcm.cul.columbia.edu/dcv_feedback?current_page=' + encodeURIComponent(document.URL) + '&window_width=' + $(window).width() + '&window_height=' + $(window).height(),
+    className: 'cul-no-colorbox-title-bar',
     height:"500px",
     width:"700px",
     maxHeight:"90%",

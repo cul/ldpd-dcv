@@ -1,8 +1,11 @@
 namespace :dcv do
 
-  task :test => :environment do
-    puts 'This is just a test rake task'
+  namespace :rails_cache do
+    task :clear => :environment do
+      Rails.cache.clear
+    end
   end
+
   namespace :index do
     task :list => :environment do
       list = ENV['list']
@@ -24,6 +27,7 @@ namespace :dcv do
       end
     end
   end
+
   namespace :css do
     task :fix => :environment do
       open('caggs_css.txt') do |blob|
@@ -48,4 +52,5 @@ namespace :dcv do
       end
     end
   end
+
 end

@@ -23,3 +23,4 @@
 //
 // jQuery UI
 //= require jquery.ui.all
+//= require colorbox-rails
