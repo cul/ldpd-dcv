@@ -345,7 +345,9 @@ h2[itemprop="name"] {
     color:#999;
   }
   hr {
+    margin:1em auto;
     border-color:#555;
+    border-style:dotted;
   }
   img {
     width:80px;
@@ -359,7 +361,11 @@ h2[itemprop="name"] {
   text-align:center;
   text-transform:uppercase;
   a {
-    color:#eee;
+    color:#ddd;
+    text-decoration:none;
+    &:hover {
+      color:#fff;
+    }
   }
 }
 #home-page-tabs {
