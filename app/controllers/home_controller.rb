@@ -38,7 +38,7 @@ class HomeController < ApplicationController
     number_of_items_to_show = 8
 
     # Don't rely on @browse_lists for the repository values because they might be removed at some point
-    repositories_and_counts = get_all_facet_values_and_counts('lib_repo_sim')['value_pairs']
+    repositories_and_counts = get_all_facet_values_and_counts('lib_repo_short_ssim')['value_pairs']
     if repositories_and_counts.length > number_of_items_to_show
       selected_repository_keys = repositories_and_counts.keys.shuffle[0, number_of_items_to_show]
     else
@@ -59,7 +59,7 @@ class HomeController < ApplicationController
         :fl => 'id',
         :qt => 'search',
         :fq => [
-          'lib_repo_sim:"' + repository_to_query + '"', # Need quotes because values can contain spaces
+          'lib_repo_short_ssim:"' + repository_to_query + '"', # Need quotes because values can contain spaces
           '-active_fedora_model_ssi:GenericResource' # Not retrieving file assets
         ],
         :rows => 1,
@@ -76,7 +76,11 @@ class HomeController < ApplicationController
     end
 
     @do_not_link_to_search = true
-    (@response, @document_list) = get_search_results({:per_page => number_of_items_to_show}, {:fq => 'id:(' + list_of_ids_to_retrieve.map{|id| id.gsub(':', '\:')}.join(' OR ') + ')'})
+    if list_of_ids_to_retrieve.present?
+      (@response, @document_list) = get_search_results({:per_page => number_of_items_to_show}, {:fq => 'id:(' + list_of_ids_to_retrieve.map{|id| id.gsub(':', '\:')}.join(' OR ') + ')'})
+    else
+      @document_list = []
+    end
   end
 
 end

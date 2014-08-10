@@ -31,12 +31,14 @@
 				<!-- Tab panes -->
 				<div class="tab-content">
 					<%= render template: 'home/sample_items' -%>
-					<% @browse_lists.each do |facet_name, data| %>
-						<%= render template: "pages/#{facet_name}", locals: {facet_name: facet_name, data: data} -%>
+					<% if @browse_lists.present? %>
+						<% @browse_lists.each do |facet_name, data| %>
+							<%= render template: "pages/#{facet_name}", locals: {facet_name: facet_name, data: data} if data['value_pairs'].present? %>
+						<% end %>
+						<div class="tab-pane fade" id="projects">
+							<%= render template: 'pages/projects_and_exhibitions' -%>
+						</div>
 					<% end %>
-					<div class="tab-pane fade" id="projects">
-						<%= render template: 'pages/projects_and_exhibitions' -%>
-					</div>
 				</div>
 			</div> <!--/.inner-->
 		</div>

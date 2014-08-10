@@ -26,7 +26,7 @@ module Dcv::Catalog::CitationDisplayBehavior
       textual_date_string = @document['lib_date_textual_ssm'] ? @document['lib_date_textual_ssm'].join(' ') : nil
       format_singular_string = @document['lib_format_ssm'] ? @document['lib_format_ssm'].join(' ').capitalize.singularize : nil
       collection_string = @document['lib_collection_ssm'] ? @document['lib_collection_ssm'].join(' ') : nil
-      repository_string = @document['lib_repo_ssim'] ? @document['lib_repo_ssim'].join(' ') : nil
+      repository_string = @document['lib_repo_full_ssim'] ? @document['ib_repo_full_ssim'].join(' ') : nil
       application_name_string = t('blacklight.application_name')
       today_date_string = Time.now.strftime("%d %b %Y")
       item_url_string = url_for({:action => 'show', :id => id})

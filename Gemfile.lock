@@ -1,3 +1,17 @@
+GIT
+  remote: git://github.com/cul/cul_scv_hydra.git
+  revision: 77fd338ae95ed1898089a900cbaabfcf4ccad083
+  specs:
+    cul_scv_hydra (0.16.6)
+      active-fedora (~> 7.0.2)
+      active_fedora_finders (>= 0.5.0)
+      active_fedora_relsint
+      blacklight
+      cul_image_props
+      httpclient
+      hydra-head (~> 7)
+      mods
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -80,15 +94,6 @@ GEM
       rails (>= 3.1.1)
     cul_image_props (0.3.5)
       nokogiri
-    cul_scv_hydra (0.16.6)
-      active-fedora (~> 7.0.2)
-      active_fedora_finders (>= 0.5.0)
-      active_fedora_relsint
-      blacklight
-      cul_image_props
-      httpclient
-      hydra-head (~> 7)
-      mods
     daemons (1.1.9)
     deprecation (0.1.0)
       activesupport
@@ -374,7 +379,7 @@ DEPENDENCIES
   coderay
   coffee-rails (~> 4.0.0)
   colorbox-rails
-  cul_scv_hydra (>= 0.16.6)
+  cul_scv_hydra!
   devise
   devise-guests (~> 0.3)
   hydra-head (~> 7)

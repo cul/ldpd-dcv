@@ -52,8 +52,7 @@ class WelcomeController < ApplicationController
 
     config.add_facet_field solr_name('lib_project', :facetable), :label => 'Digital Project', :limit => 10
     config.add_facet_field solr_name('lib_collection', :facetable), :label => 'Collection', :limit => 10
-    config.add_facet_field 'lib_repo_ssim', :label => 'Repository', :sort => 'index', :limit => 10, :show => false
-    config.add_facet_field solr_name('lib_repo', :facetable), :label => 'Repository', :sort => 'index', :limit => 10
+    config.add_facet_field solr_name('lib_repo_short', :facetable), :label => 'Repository', :sort => 'index', :limit => 10
     config.add_facet_field solr_name('lib_name', :facetable), :label => 'Name', :limit => 10
     config.add_facet_field solr_name('lib_format', :facetable), :label => 'Format', :limit => 10
     config.add_facet_field solr_name('language_language_term_text', :facetable), :label => 'Language', :limit => 10
@@ -169,7 +168,7 @@ class WelcomeController < ApplicationController
     number_of_items_to_show = 8
 
     # Use list of repositories from previous query and select a random one
-    repositories_and_counts = @browse_lists['lib_repo_sim']['value_pairs'].dup
+    repositories_and_counts = @browse_lists['lib_repo_short_ssim']['value_pairs'].dup
     if repositories_and_counts.length > number_of_items_to_show
       selected_repository_keys = repositories_and_counts.keys.shuffle[0, number_of_items_to_show]
     else
@@ -190,7 +189,7 @@ class WelcomeController < ApplicationController
         :fl => 'id',
         :qt => 'search',
         :fq => [
-          'lib_repo_sim:"' + repository_to_query + '"', # Need quotes because values can contain spaces
+          'lib_repo_short_ssim:"' + repository_to_query + '"', # Need quotes because values can contain spaces
           '-active_fedora_model_ssi:GenericResource' # Not retrieving file assets
         ],
         :rows => 1,

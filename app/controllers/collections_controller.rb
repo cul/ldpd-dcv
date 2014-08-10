@@ -69,7 +69,7 @@ class CollectionsController < ApplicationController
     # :show may be set to false if you don't want the facet to be drawn in the
     # facet bar
     config.add_facet_field solr_name('lib_collection', :facetable), :label => 'Collection'
-    config.add_facet_field solr_name('lib_repo', :facetable), :label => 'Repository'
+    config.add_facet_field solr_name('lib_repo_long', :symbol), :label => 'Repository'
     config.add_facet_field solr_name('lib_format', :facetable), :label => 'Format'
     config.add_facet_field solr_name('lc1_letter', :facetable), :label => 'Call Number'
 
@@ -88,7 +88,7 @@ class CollectionsController < ApplicationController
     config.add_index_field solr_name('author', :stored_searchable, type: :string), :label => 'Author'
     config.add_index_field solr_name('author_vern', :stored_searchable, type: :string), :label => 'Author'
     config.add_index_field solr_name('lib_format', :displayable), :label => 'Format'
-    config.add_index_field solr_name('lib_repo', :displayable), :label => 'Repository'
+    config.add_index_field solr_name('lib_repo_long', :symbol), :label => 'Repository'
     config.add_index_field solr_name('language', :stored_searchable, type: :string), :label => 'Language'
     config.add_index_field solr_name('published', :stored_searchable, type: :string), :label => 'Published'
     config.add_index_field solr_name('published_vern', :stored_searchable, type: :string), :label => 'Published'
