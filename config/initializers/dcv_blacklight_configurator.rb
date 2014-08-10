@@ -44,7 +44,7 @@ class DcvBlacklightConfigurator
 
     config.add_facet_field ActiveFedora::SolrService.solr_name('lib_project', :facetable), :label => 'Digital Project', :limit => 10
     config.add_facet_field ActiveFedora::SolrService.solr_name('lib_collection', :facetable), :label => 'Collection', :limit => 10
-    config.add_facet_field ActiveFedora::SolrService.solr_name('lib_repo_short', :facetable), :label => 'Library Location', :sort => 'index', :limit => 10
+    config.add_facet_field ActiveFedora::SolrService.solr_name('lib_repo_short', :symbol), :label => 'Library Location', :sort => 'index', :limit => 10
     config.add_facet_field ActiveFedora::SolrService.solr_name('lib_name', :facetable), :label => 'Name', :limit => 10
     config.add_facet_field ActiveFedora::SolrService.solr_name('lib_format', :facetable), :label => 'Format', :limit => 10
     config.add_facet_field ActiveFedora::SolrService.solr_name('language_language_term_text', :symbol), :label => 'Language', :limit => 10
@@ -68,12 +68,12 @@ class DcvBlacklightConfigurator
     config.add_index_field ActiveFedora::SolrService.solr_name('location_sublocation', :displayable, type: :string), :label => 'Department'
     config.add_index_field ActiveFedora::SolrService.solr_name('location_shelf_locator', :displayable, type: :string), :label => 'Shelf Location'
     config.add_index_field ActiveFedora::SolrService.solr_name('lib_date_textual', :displayable, type: :string), :label => 'Date'
-    config.add_index_field ActiveFedora::SolrService.solr_name('location_url', :displayable, type: :string), :label => 'Item in Context'
+    config.add_index_field ActiveFedora::SolrService.solr_name('lib_item_in_context_url', :displayable, type: :string), :label => 'Item in Context', :helper_method => :link_to_url_value
 
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display
     config.add_show_field ActiveFedora::SolrService.solr_name('title_display', :displayable, type: :string), :label => 'Title', :separator => '; '
-    config.add_show_field ActiveFedora::SolrService.solr_name('lib_repo_long', :symbol, type: :string), :label => 'Library Location', :separator => '; ', :helper_method => :show_field_repository_to_facet_link
+    config.add_show_field ActiveFedora::SolrService.solr_name('lib_repo_full', :symbol, type: :string), :label => 'Library Location', :separator => '; ', :helper_method => :show_field_repository_to_facet_link
     config.add_show_field ActiveFedora::SolrService.solr_name('lib_name', :displayable), :label => 'Name', :separator => '; ', :link_to_search => ActiveFedora::SolrService.solr_name('lib_name', :facetable)
     config.add_show_field ActiveFedora::SolrService.solr_name('lib_format', :displayable), :label => 'Format', :separator => '; ', :link_to_search => ActiveFedora::SolrService.solr_name('lib_format', :facetable)
     config.add_show_field ActiveFedora::SolrService.solr_name('lib_project', :displayable), :label => 'Digital Project', :separator => '; ', :helper_method => :show_field_project_to_facet_link
@@ -94,7 +94,6 @@ class DcvBlacklightConfigurator
     config.add_show_field ActiveFedora::SolrService.solr_name('origin_info_place', :displayable, type: :string), :label => 'Place', :separator => '; '
     config.add_show_field ActiveFedora::SolrService.solr_name('origin_info_edition', :displayable, type: :string), :label => 'Edition', :separator => '; '
     config.add_show_field ActiveFedora::SolrService.solr_name('identifier', :symbol), :label => 'Identifier', :separator => '; '
-    config.add_show_field ActiveFedora::SolrService.solr_name('lib_item_in_context_url', :displayable, type: :string), :label => 'Item in Context', :separator => '; ', :helper_method => :link_to_url_value
 
     # "fielded" search configuration. Used by pulldown among other places.
     # For supported keys in hash, see rdoc for Blacklight::SearchFields

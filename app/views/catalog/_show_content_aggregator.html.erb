@@ -11,7 +11,9 @@
     </dl>
    </div>
     <div class="inner">
-    <%= link_to '<span class="glyphicon glyphicon-file"></span> Display XML'.html_safe, item_mods_path(:pid => @document.id), :'data-no-turbolink' => true, :'data-display-url' => item_mods_path(:pid => @document.id, :type => 'formatted_text'), :'data-download-url' => item_mods_path(:pid => @document.id, :type => 'download'), :onclick => 'return DCV.ModsDownloadModal.show($(this).attr("data-display-url"), $(this).attr("data-download-url"));' %>
+    <%= link_to '<span class="glyphicon glyphicon-file"></span> Display XML Metadata'.html_safe, item_mods_path(:pid => @document.id), :'data-no-turbolink' => true, :'data-display-url' => item_mods_path(:pid => @document.id, :type => 'formatted_text'), :'data-download-url' => item_mods_path(:pid => @document.id, :type => 'download'), :onclick => 'return DCV.ModsDownloadModal.show($(this).attr("data-display-url"), $(this).attr("data-download-url"));' %>
+    <br />
+    <%= link_to '<span class="glyphicon glyphicon-globe"></span> View Item In Context'.html_safe, @document['lib_item_in_context_url_ssm'][0] if document['lib_item_in_context_url_ssm'].present? %>
     </div>
   </div>
   <div class="col-md-9">

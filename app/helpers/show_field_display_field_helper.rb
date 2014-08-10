@@ -5,7 +5,7 @@ module ShowFieldDisplayFieldHelper
 
     display_value = args[:document][args[:field]][0]
 
-    full_project_names_to_short_project_names = I18n.t('ldpd.short.project').stringify_keys
+    full_project_names_to_short_project_names = HashWithIndifferentAccess.new(I18n.t('ldpd.short.project'))
 
     if full_project_names_to_short_project_names.has_key?(display_value)
       facet_value = full_project_names_to_short_project_names[display_value]
@@ -21,16 +21,12 @@ module ShowFieldDisplayFieldHelper
 
     facet_field_name = :lib_repo_short_ssim
 
-    long_repo_names_to_marc_codes = I18n.t('ldpd.full.repo').stringify_keys.invert
-    marc_codes_to_short_repo_names = I18n.t('ldpd.short.repo').stringify_keys
+    full_repo_names_to_short_repo_names = get_full_repo_names_to_short_repo_names()
 
     display_value = args[:document][args[:field]][0]
     facet_value = display_value # by default
-    if long_repo_names_to_marc_codes.has_key?(display_value)
-      repo_code = long_repo_names_to_marc_codes[display_value]
-      if marc_codes_to_short_repo_names.has_key?(repo_code)
-        facet_value = marc_codes_to_short_repo_names[repo_code]
-      end
+    if full_repo_names_to_short_repo_names.has_key?(display_value)
+      facet_value = full_repo_names_to_short_repo_names[display_value]
     end
 
     url_for_facet_search = search_action_path(:f => {facet_field_name => [facet_value]})
@@ -41,6 +37,32 @@ module ShowFieldDisplayFieldHelper
     url_value = args[:document][args[:field]][0]
 
     return link_to(url_value, url_value)
+  end
+  
+  def get_full_repo_names_to_short_repo_names
+    full_repo_names_to_marc_codes = HashWithIndifferentAccess.new(I18n.t('ldpd.full.repo').invert)
+    marc_codes_to_short_repo_names = HashWithIndifferentAccess.new(I18n.t('ldpd.short.repo'))
+    
+    new_hash = {}
+    
+    full_repo_names_to_marc_codes.each {|key, value|
+      new_hash[key] = marc_codes_to_short_repo_names[value]
+    }
+    
+    return new_hash
+  end
+  
+  def get_long_repo_names_to_short_repo_names
+    full_repo_names_to_marc_codes = HashWithIndifferentAccess.new(I18n.t('ldpd.long.repo').invert)
+    marc_codes_to_short_repo_names = HashWithIndifferentAccess.new(I18n.t('ldpd.short.repo'))
+    
+    new_hash = {}
+    
+    full_repo_names_to_marc_codes.each {|key, value|
+      new_hash[key] = marc_codes_to_short_repo_names[value]
+    }
+    
+    return new_hash
   end
 
 end

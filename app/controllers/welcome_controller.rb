@@ -52,7 +52,7 @@ class WelcomeController < ApplicationController
 
     config.add_facet_field solr_name('lib_project', :facetable), :label => 'Digital Project', :limit => 10
     config.add_facet_field solr_name('lib_collection', :facetable), :label => 'Collection', :limit => 10
-    config.add_facet_field solr_name('lib_repo_short', :facetable), :label => 'Repository', :sort => 'index', :limit => 10
+    config.add_facet_field solr_name('lib_repo_short', :symbol), :label => 'Repository', :sort => 'index', :limit => 10
     config.add_facet_field solr_name('lib_name', :facetable), :label => 'Name', :limit => 10
     config.add_facet_field solr_name('lib_format', :facetable), :label => 'Format', :limit => 10
     config.add_facet_field solr_name('language_language_term_text', :facetable), :label => 'Language', :limit => 10
