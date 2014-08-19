@@ -21,12 +21,20 @@ module Dcv::Catalog::CitationDisplayBehavior
 
       @citation_type_label = VALID_CITATION_TYPES[type]
 
-      names_string = @document['lib_name_ssm'] ? @document['lib_name_ssm'].join(', ') : nil
+      single_name_for_citation = @document['lib_name_ssm'].present? ? @document['lib_name_ssm'][0] : nil
+
+      # If the name ends with a date, attempt to remove the date via regex
+      name_regex = /(.+)(,\W\d{1,4}\W*-\W*\d{1,4}.*)/
+      # It name matches regex, get first capture group only
+      if name_regex =~ single_name_for_citation
+        single_name_for_citation = single_name_for_citation.match(name_regex).captures[0]
+      end
+
       title_string = @document['title_display_ssm'] ? @document['title_display_ssm'].join(' ') : nil
       textual_date_string = @document['lib_date_textual_ssm'] ? @document['lib_date_textual_ssm'].join(' ') : nil
       format_singular_string = @document['lib_format_ssm'] ? @document['lib_format_ssm'].join(' ').capitalize.singularize : nil
       collection_string = @document['lib_collection_ssm'] ? @document['lib_collection_ssm'].join(' ') : nil
-      repository_string = @document['lib_repo_full_ssim'] ? @document['ib_repo_full_ssim'].join(' ') : nil
+      repository_string = @document['lib_repo_full_ssim'] ? @document['lib_repo_full_ssim'].join(' ') : nil
       application_name_string = t('blacklight.application_name')
       today_date_string = Time.now.strftime("%d %b %Y")
       item_url_string = url_for({:action => 'show', :id => id})
@@ -35,7 +43,7 @@ module Dcv::Catalog::CitationDisplayBehavior
 
       if type == 'apa'
 
-        @citation_text += ensure_ends_with_period!(names_string) + ' ' if names_string.present?
+        @citation_text += ensure_ends_with_period!(single_name_for_citation) + ' ' if single_name_for_citation.present?
         @citation_text += "(#{textual_date_string}). " if textual_date_string.present?
         @citation_text += "#{title_string}. " if title_string.present?
         @citation_text += "<em>#{application_name_string} [Columbia University Libraries]</em>. "
@@ -44,7 +52,7 @@ module Dcv::Catalog::CitationDisplayBehavior
 
       elsif type == 'chicago' # DONE!
 
-        @citation_text += ensure_ends_with_period!(names_string) + ' ' if names_string.present?
+        @citation_text += ensure_ends_with_period!(single_name_for_citation) + ' ' if single_name_for_citation.present?
         @citation_text += "\"#{title_string}.\" " if title_string.present?
         @citation_text += "#{format_singular_string}. " if format_singular_string.present?
         @citation_text += "#{textual_date_string}. " if textual_date_string.present?
@@ -53,7 +61,7 @@ module Dcv::Catalog::CitationDisplayBehavior
 
       elsif type == 'mla' # DONE!
 
-        @citation_text += ensure_ends_with_period!(names_string) + ' ' if names_string.present?
+        @citation_text += ensure_ends_with_period!(single_name_for_citation) + ' ' if single_name_for_citation.present?
         @citation_text += "<em>#{title_string}.</em> " if title_string.present?
         @citation_text += "#{textual_date_string}. " if textual_date_string.present?
         @citation_text += "#{format_singular_string}. " if format_singular_string.present?
