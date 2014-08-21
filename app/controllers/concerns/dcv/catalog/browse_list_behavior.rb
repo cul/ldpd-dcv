@@ -99,7 +99,7 @@ module Dcv::Catalog::BrowseListBehavior
 		{
 			:name => "G.E.E. Lindquist Native American Photographs",
 			:image => 'lindquist.jpeg',
-			:facet_value => 'Lindquist Photographs',
+			:facet_value => 'G.E.E. Lindquist Native American Photographs',
 			:external_url => 'http://lindquist.cul.columbia.edu',
 			:description => "Online presentation of photographs, postcards, negatives, and lantern slides from the G.E.E. Lindquist Papers archival collection at The Burke Library. They depict the people, places, and practices of Native Americans and their communities in the period from 1909-1953."
 		},
