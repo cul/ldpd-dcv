@@ -5,7 +5,7 @@
 <meta name="HandheldFriendly" content="True">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-<!-- 
+<!--
 DLC VERSION: <%= render :file => Rails.root.to_s+'/VERSION' %> -->
 
 <!-- Mobile IE allows us to activate ClearType technology for smoothing fonts for easy reading -->
@@ -29,6 +29,10 @@ DLC VERSION: <%= render :file => Rails.root.to_s+'/VERSION' %> -->
 <!--[if lt IE 9]>
 	<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
+
+<script type="text/javascript">var switchTo5x=true;</script>
+<script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+<script type="text/javascript">stLight.options({publisher: "b2e73e99-b999-4cdb-8a0e-14bdbc67b15a", doNotHash: false, doNotCopy: false, hashAddressBar: false});</script>
 
 <% if Rails.env == 'dcv_private_test' %>
 	<script>
