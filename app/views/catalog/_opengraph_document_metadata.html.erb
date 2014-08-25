@@ -1,0 +1,6 @@
+<%= '<meta property="og:title" content="'.html_safe + document_show_html_title + '" />'.html_safe %>
+<meta property="og:type" content="image" />
+<%= '<meta property="og:url" content="'.html_safe + url_for(:action=>'show', :id => @document, :host => request.host) + '" />'.html_safe %>
+<%# TODO: <meta property="og:image" content="http://sharethis.com/images/logo.jpg" /> %>
+<%= '<meta property="og:description" content="'.html_safe + @document['abstract_ssm'][0] + '" />'.html_safe if @document['abstract_ssm'].present? %>
+<%= '<meta property="og:site_name" content="'.html_safe + application_name + '" />'.html_safe %>

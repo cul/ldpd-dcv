@@ -22,7 +22,7 @@ gem 'mysql2', '0.3.11'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.2'
 
-# Use colorbox-rails so that colorbox works with turbolinks
+# Use colorbox-rails gem for dialogs
 gem 'colorbox-rails'
 
 # Use Uglifier as compressor for JavaScript assets
@@ -40,10 +40,6 @@ gem 'jquery-ui-rails'
 
 # Pretty printing
 gem 'coderay'
-
-# Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
-gem 'turbolinks'
-gem 'jquery-turbolinks'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
