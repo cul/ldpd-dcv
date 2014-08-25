@@ -175,6 +175,7 @@ function initZoomingViewer(tileSources) {
     $.zoomingViewer.addHandler('open',handleImageChange,null);
     $.zoomingViewer.addHandler('full-screen', function() {
       $('#zoom-full-control > i').toggleClass('glyphicon-resize-small');
+      $('#toggle-metadata-control').toggleClass('hidden');
     });
   }
 }
