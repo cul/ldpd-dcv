@@ -1,0 +1,6 @@
+<%= '<meta itemprop="name" content="'.html_safe + CGI::escape(document['title_display_ssm'][0]) + '">'.html_safe if document['title_display_ssm'].present? %>
+<%= '<meta itemprop="description" content="'.html_safe + CGI::escape(document['abstract_ssm'][0]) + '">'.html_safe if document['abstract_ssm'].present? %>
+<%= '<meta itemprop="dateCreated" content="'.html_safe + CGI::escape(document['origin_info_date_created_start_ssm'][0]) + '">'.html_safe if document['origin_info_date_created_start_ssm'].present? %>
+<%= '<meta itemprop="keywords" content="'.html_safe + CGI::escape(document['subject_topic_ssim'].join('; ')) + '">'.html_safe if document['subject_topic_ssim'].present? %>
+<%= '<meta itemprop="genre" content="'.html_safe + CGI::escape(document['lib_format_ssm'].join('; ')) + '">'.html_safe if document['lib_format_ssm'].present? %>
+
