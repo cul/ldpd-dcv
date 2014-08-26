@@ -16,10 +16,10 @@
 
 			<div class="col-md-<%= col_size %>">
 
-				<div class="row">
+				<div class="row" itemscope itemtype="http://schema.org/Intangible">
 					<div class="col-sm-2">
 						<% dcv_search_link = digital_project[:facet_value].present? ? search_action_path(:f => {'lib_project_short_ssim' => [digital_project[:facet_value]]}) : nil %>
-						<%= link_to image_tag('digital_projects_page/' + digital_project[:image], :class => 'thumbnail img-responsive'), (dcv_search_link.present? ? dcv_search_link : digital_project[:external_url]), :style => 'margin:0px auto;' %>
+						<%= link_to image_tag('digital_projects_page/' + digital_project[:image], :class => 'thumbnail img-responsive', :itemprop => 'image'), (dcv_search_link.present? ? dcv_search_link : digital_project[:external_url]), :style => 'margin:0px auto;' %>
 
 						<div class="aligncenter">
 							<% if dcv_search_link.present? %>
@@ -29,13 +29,13 @@
 								<br />
 							<% end %>
 							<% if digital_project[:external_url].present? %>
-								<small><%= link_to 'Jump to Project Site', digital_project[:external_url] %></small>
+								<small itemprop="url"><%= link_to 'Jump to Project Site', digital_project[:external_url] %></small>
 							<% end %>
 						</div>
 					</div>
 					<div class="col-sm-10">
-						<h3><%= digital_project[:name] %></h3>
-						<%= digital_project[:description] %>
+						<h3 itemprop="name"><%= digital_project[:name] %></h3>
+						<span itemprop="description"><%= digital_project[:description] %></span>
 					</div>
 				</div>
 

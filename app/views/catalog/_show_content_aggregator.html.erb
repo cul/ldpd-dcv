@@ -2,10 +2,19 @@
   <div id="item-description" class="col-md-3">
   <div class="inner">
     <dl class="dl-vertical">
+      <%
+        itemprop_fields = {
+          'title_display_ssm' => 'name',
+          'abstract_ssm' => 'description'
+        }
+      %>
       <% document_show_fields(document).each do |solr_fname, field| %>
         <% if should_render_show_field? document, field %>
+          <%
+          itemprop_label = itemprop_fields.include?(solr_fname) ? itemprop_fields[solr_fname] : nil
+          %>
           <dt class="blacklight-<%= solr_fname.parameterize %>"><%= render_document_show_field_label document, :field => solr_fname %></dt>
-          <dd class="blacklight-<%= solr_fname.parameterize %>"><%= render_document_show_field_value document, :field => solr_fname %></dd>
+          <dd class="blacklight-<%= solr_fname.parameterize %>" <%= "itemprop=\"#{itemprop_label}\"".html_safe if itemprop_label.present? %>><%= render_document_show_field_value document, :field => solr_fname %></dd>
         <% end %>
       <% end %>
     </dl>
@@ -24,7 +33,7 @@
      <% end %>
     <div id="favorite-child">
       <% if child = structured_children.first %>
-        <img onclick="$('.item-cbox').click();" src="<%= child[:screen] || resolve_catalog_bytestream_content_url(catalog_id: child[:id], bytestream_id: 'web850') %>.png" data-counter="1" data-sequence="0" data-zoom-url="<%= details_url(id: document[:id], layout:(request.path.split('/')[1])) %>" data-bytestreams="<%= resolve_catalog_bytestreams_url(catalog_id: structured_children.first[:id], :format=>'json') %>"/>
+        <img itemprop="contentUrl" onclick="$('.item-cbox').click();" src="<%= child[:screen] || resolve_catalog_bytestream_content_url(catalog_id: child[:id], bytestream_id: 'web850') %>.png" data-counter="1" data-sequence="0" data-zoom-url="<%= details_url(id: document[:id], layout:(request.path.split('/')[1])) %>" data-bytestreams="<%= resolve_catalog_bytestreams_url(catalog_id: structured_children.first[:id], :format=>'json') %>"/>
       <% end %>
     </div>
     <%= render_document_partials @document, ['gallery'] %>

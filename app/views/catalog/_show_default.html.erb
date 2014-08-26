@@ -4,7 +4,7 @@
     <% if should_render_show_field? document, field %>
 			<li>
 	    <strong><%= render_document_show_field_label document, :field => solr_fname %></strong>
-	    <%= render_document_show_field_value document, :field => solr_fname %>
+	    <span><%= render_document_show_field_value document, :field => solr_fname %></span>
 			</li>
     <% end -%>
   <% end -%>
