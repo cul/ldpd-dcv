@@ -82,6 +82,11 @@ input {
   margin:0 -13px 20px -14px;
   background-color:#111;
   border-bottom:1px solid #333;
+  #site-banner-inner {
+    .col-sm-3 > a {
+      display:inline-block;
+    }
+  }
   &.slim {
     margin-bottom:.5em;
     #site-banner-inner {
