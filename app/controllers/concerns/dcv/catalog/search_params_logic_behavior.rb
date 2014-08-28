@@ -19,11 +19,11 @@ module Dcv::Catalog::SearchParamsLogicBehavior
     final_date_fq = nil
 
     if start_year.present? && end_year.present?
-      final_date_fq = "(lib_start_date_year_itsi:[#{start_year} TO #{end_year}] OR lib_end_date_year_itsi:[#{start_year} TO #{end_year}])"
+      final_date_fq = "(lib_start_date_year_itsi:[#{start_year} TO #{end_year}]) OR (lib_end_date_year_itsi:[#{start_year} TO #{end_year}])"
     elsif start_year.present?
-      final_date_fq = "(lib_start_date_year_ssi:[#{start_year} TO *]) OR (lib_end_date_year_ssi:[#{start_year} TO *])"
+      final_date_fq = "(lib_start_date_year_itsi:[#{start_year} TO *]) OR (lib_end_date_year_itsi:[#{start_year} TO *])"
     elsif end_year.present?
-      final_date_fq = "(lib_start_date_year_ssi:[* TO #{end_year}]) OR (lib_end_date_year_ssi:[* TO #{end_year}])"
+      final_date_fq = "(lib_start_date_year_itsi:[* TO #{end_year}]) OR (lib_end_date_year_itsi:[* TO #{end_year}])"
     end
 
     solr_parameters[:fq] << final_date_fq if final_date_fq.present?
