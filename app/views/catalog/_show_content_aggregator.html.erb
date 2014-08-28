@@ -11,9 +11,7 @@
     </dl>
    </div>
     <div class="inner">
-    <%= link_to '<span class="glyphicon glyphicon-file"></span> Display XML Metadata'.html_safe, item_mods_path(:pid => @document.id), :'data-no-turbolink' => true, :'data-display-url' => item_mods_path(:pid => @document.id, :type => 'formatted_text'), :'data-download-url' => item_mods_path(:pid => @document.id, :type => 'download'), :onclick => 'return DCV.ModsDownloadModal.show($(this).attr("data-display-url"), $(this).attr("data-download-url"));' %>
-    <br />
-    <%= link_to '<span class="glyphicon glyphicon-globe"></span> View Item In Context'.html_safe, @document['lib_item_in_context_url_ssm'][0] if document['lib_item_in_context_url_ssm'].present? %>
+      <%= link_to '<span class="glyphicon glyphicon-file"></span> Display XML Metadata'.html_safe, item_mods_path(:pid => @document.id), :'data-no-turbolink' => true, :'data-display-url' => item_mods_path(:pid => @document.id, :type => 'formatted_text'), :'data-download-url' => item_mods_path(:pid => @document.id, :type => 'download'), :onclick => 'return DCV.ModsDownloadModal.show($(this).attr("data-display-url"), $(this).attr("data-download-url"));' %>
     </div>
   </div>
   <div class="col-md-9">
@@ -25,6 +23,11 @@
     <div id="favorite-child">
       <% if child = structured_children.first %>
         <img itemprop="contentUrl" onclick="$('.item-cbox').click();" src="<%= child[:screen] || resolve_catalog_bytestream_content_url(catalog_id: child[:id], bytestream_id: 'web850') %>.png" data-counter="1" data-sequence="0" data-zoom-url="<%= details_url(id: document[:id], layout:(request.path.split('/')[1])) %>" data-bytestreams="<%= resolve_catalog_bytestreams_url(catalog_id: structured_children.first[:id], :format=>'json') %>"/>
+      <% end %>
+      <% if document['lib_item_in_context_url_ssm'].present? %>
+        <div id="item-in-context-container">
+          <%= link_to '<span class="glyphicon glyphicon-globe"></span> View Item In Context'.html_safe, @document['lib_item_in_context_url_ssm'][0], :class => 'btn btn-default btn-sm' %>
+        </div>
       <% end %>
     </div>
     <%= render_document_partials @document, ['gallery'] %>
