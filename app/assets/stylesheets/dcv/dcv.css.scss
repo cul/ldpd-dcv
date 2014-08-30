@@ -85,6 +85,7 @@ input {
   #site-banner-inner {
     .col-sm-3 > a {
       display:inline-block;
+      max-width:100%;
     }
   }
   &.slim {
@@ -642,9 +643,6 @@ h2[itemprop="name"] {
     cursor: pointer; /* Backup pointer in case browser doesn't support zoom pointer */
     cursor: -moz-zoom-in; cursor: -webkit-zoom-in; cursor: zoom-in;
   }
-}
-#item-in-context-container {
-	margin-top:15px;
 }
 #child_gallery {
   padding-top:1em;
