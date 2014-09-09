@@ -19,7 +19,7 @@ class HomeController < ApplicationController
   layout 'dcv'
 
   configure_blacklight do |config|
-    DcvBlacklightConfigurator.configure(config)
+    Dcv::Configurators::DcvBlacklightConfigurator.configure(config)
   end
 
   # Overrides the Blacklight::Controller provided #search_action_url.

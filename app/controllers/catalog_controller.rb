@@ -22,7 +22,7 @@ class CatalogController < ApplicationController
   layout 'dcv'
 
   configure_blacklight do |config|
-    DcvBlacklightConfigurator.configure(config)
+    Dcv::Configurators::DcvBlacklightConfigurator.configure(config)
   end
 
   def get_solr_response_for_app_id(id=nil, extra_controller_params={})
