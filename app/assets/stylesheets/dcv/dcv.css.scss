@@ -285,6 +285,10 @@ input {
       background-color:transparent;
       border:0;
       color:#fff;
+      option { /* fix windows chrome bug */
+        background-color:#666;
+        color:#fff;
+      }
     }
   }
   .search-btn, .reset-btn {
