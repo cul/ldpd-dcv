@@ -12,7 +12,15 @@ Dcv::Application.routes.draw do
 
   get '/data/flare' => 'catalog#get_pivot_facet_data', as: :flare_data
 
-  blacklight_for :catalog, :lindquist, :css
+  # Dynamic routes for all subsites
+  blacklight_for *([:catalog].concat(SUBSITES.keys.map{|key| key.to_sym})) # Using * operator to turn the array of values into a set of arguments for the blacklight_for method
+  SUBSITES.each {|subsite_key, data|
+    resources(:solr_document, {only: [:show], path: subsite_key.to_s, controller: subsite_key.to_s}) do
+      member do
+        post "track"
+      end
+    end
+  }
 
   get '/users/do_wind_login' => 'users#do_wind_login', as: :do_wind_login
   devise_for :users
@@ -21,18 +29,6 @@ Dcv::Application.routes.draw do
 
   resources :bytestreams, path: '/catalog/:catalog_id/bytestreams' do
     get 'content' => 'bytestreams#content'
-  end
-
-  resources(:solr_document, {only: [:show], path: 'lindquist', controller: 'lindquist'}) do
-    member do
-      post "track"
-    end
-  end
-
-  resources(:solr_document, {only: [:show], path: 'css', controller: 'css'}) do
-    member do
-      post "track"
-    end
   end
 
   resources :thumbs, only: [:show]

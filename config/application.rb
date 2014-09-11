@@ -23,14 +23,14 @@ module Dcv
 
     # Custom precompiled asset manifests
     config.assets.precompile += [
-        'dcv.css',
         'welcome.js', 'welcome.css',
         'print.css',
-        'lindquist.css',
-        'css.css',
-        'dcv.js',
         'freelib.js',
         'd3.js']
+
+    # And include styles for all sub-sites
+    config.assets.precompile += YAML.load_file("#{Rails.root.to_s}/config/subsites.yml")[Rails.env].keys.map{|prefix| prefix + '.css'}
+    config.assets.precompile += YAML.load_file("#{Rails.root.to_s}/config/subsites.yml")[Rails.env].keys.map{|prefix| prefix + '.js'}
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.

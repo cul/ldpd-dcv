@@ -1,0 +1,17 @@
+all_environments: &all_environments
+  durst:
+    restricted: false
+    layout: 'durst'
+  lindquist:
+    restricted: false
+    layout: 'lindquist'
+    
+development: *all_environments
+test: *all_environments
+prod: *all_environments
+dcv_private_dev: *all_environments
+dcv_private_test: *all_environments
+dcv_private_prod: *all_environments
+dcv_dev: *all_environments
+dcv_test: *all_environments
+dcv_prod: *all_environments

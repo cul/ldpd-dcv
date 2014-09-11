@@ -1,4 +1,4 @@
-class LindquistController < SubsitesController
+class DurstController < SubsitesController
 
   configure_blacklight do |config|
     Dcv::Configurators::DurstBlacklightConfigurator.configure(config)

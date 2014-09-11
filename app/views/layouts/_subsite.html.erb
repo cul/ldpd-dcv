@@ -1,13 +1,12 @@
-<% subsite_key = 'lindquist' %>
 <!DOCTYPE html>
 <html lang="en" class="no-js">
   <head>
 		<%= render partial: 'shared/head_html' %>
   </head>
-  <body class="<%= render_body_class %> <%= subsite_key %> <%= params[:action] %>" style="padding-top: 50px;">
+  <body class="<%= render_body_class %> <%= subsite_prefix %> <%= params[:action] %>" style="padding-top: 50px;">
 
   <%= render :partial => 'shared/topnavbar' %>
-	<%= stylesheet_link_tag subsite_key %>
+	<%= stylesheet_link_tag subsite_prefix %>
 
   <div id="outer-wrapper" class="container">
     <div class="row">
