@@ -127,10 +127,6 @@ class DetailsController < ApplicationController
     config.index.thumbnail_method = :thumbnail_for_doc
   end
 
-  def collection_layout
-    CUSTOM_COLLECTIONS.fetch(params[:layout], DEFAULT_COLLECTION)['layout']
-  end
-
   def show
   	id = params[:id]
     @response, @document = get_solr_response_for_doc_id(params[:id])

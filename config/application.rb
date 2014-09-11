@@ -23,6 +23,8 @@ module Dcv
 
     # Custom precompiled asset manifests
     config.assets.precompile += [
+        'dcv.css',
+        'dcv.js',
         'welcome.js', 'welcome.css',
         'print.css',
         'freelib.js',
