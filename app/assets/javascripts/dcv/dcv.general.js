@@ -260,11 +260,14 @@ function favoriteChild(child) {
   var bytestreamsUrl = $(child).attr('data-bytestreams');
   var ccap = $(child).next('.caption').find('h5').text();
   if (screenUrl != screenImg.attr('src')) {
+    $('#ct').html('<span style="color:#555;">Loading...</span>');
+    screenImg[0].onload = function(){
+      screenImg.attr('data-counter', dataCounter);
+      screenImg.attr('data-sequence', dataSequence);
+      screenImg.attr('data-bytestreams', bytestreamsUrl);
+      $('#ct').html(ccap);
+    };
     screenImg.attr('src', screenUrl);
-    screenImg.attr('data-counter', dataCounter);
-    screenImg.attr('data-sequence', dataSequence);
-    screenImg.attr('data-bytestreams', bytestreamsUrl);
-    $('#ct').html(ccap); // should redo above and fire this after ajax success
   }
   loadDownloadsForItemShowPage();
 }
