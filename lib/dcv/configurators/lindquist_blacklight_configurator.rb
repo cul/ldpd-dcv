@@ -75,7 +75,7 @@ class Dcv::Configurators::LindquistBlacklightConfigurator
     config.add_show_field ActiveFedora::SolrService.solr_name('lib_date_notes', :displayable, type: :string), :label => 'Date Note'
     config.add_show_field ActiveFedora::SolrService.solr_name('location_sublocation', :displayable, type: :string), :label => 'Department', :separator => '; '
     config.add_show_field ActiveFedora::SolrService.solr_name('location_shelf_locator', :displayable, type: :string), :label => 'Shelf Location', :separator => '; '
-    config.add_show_field ActiveFedora::SolrService.solr_name('physical_description_extent', :displayable, type: :string), :label => 'Description', :separator => '; '
+    config.add_show_field ActiveFedora::SolrService.solr_name('physical_description_extent', :displayable, type: :string), :label => 'Physical Description', :separator => '; '
     config.add_show_field ActiveFedora::SolrService.solr_name('lib_all_subjects', :displayable, type: :string), :label => 'Subjects', :separator => '; '
     config.add_show_field ActiveFedora::SolrService.solr_name('access_condition', :symbol, type: :string), :label => 'Rights', :separator => '; '
     config.add_show_field ActiveFedora::SolrService.solr_name('abstract', :displayable, type: :string), :label => 'Description', :separator => '; '
