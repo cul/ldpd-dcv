@@ -695,6 +695,12 @@ h2[itemprop="name"] {
       }
     }
   }
+	a.document.selected {
+		border-color: #429cec;
+		-moz-box-shadow: 0 0 3px #fff;
+		-webkit-box-shadow: 0 0 3px #fff;
+		box-shadow: 0px 0px 3px #fff;
+	}
 }
 
 #colorbox.cul-no-colorbox-title-bar  #cboxLoadedContent {height:100% !important;}

@@ -261,6 +261,8 @@ function favoriteChild(child) {
   var ccap = $(child).next('.caption').find('h5').text();
   if (screenUrl != screenImg.attr('src')) {
     $('#ct').html('<span style="color:#555;">Loading...</span>');
+    $('#child_gallery a.document').removeClass('selected');
+    $(child).addClass('selected');
     screenImg[0].onload = function(){
       screenImg.attr('data-counter', dataCounter);
       screenImg.attr('data-sequence', dataSequence);
