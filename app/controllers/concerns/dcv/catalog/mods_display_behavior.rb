@@ -6,7 +6,7 @@ module Dcv::Catalog::ModsDisplayBehavior
     begin
       obj = ActiveFedora::Base.find(params[:id])
       if obj.respond_to?(:descMetadata) && obj.descMetadata.present?
-        xml_content = obj.descMetadata.content
+        xml_content = Nokogiri::XML(obj.descMetadata.content) {|config| config.default_xml.noblanks}.to_xml(:indent => 2)
         if params[:type] == 'formatted_text'
           xml_content = '<!DOCTYPE html><html><head><title>XML View</title></head><body style="border:1px solid #aaa;padding:0px 10px;"><div style="overflow: auto;">' + CodeRay.scan(xml_content, :xml).div() + '</div></body></html>'
           render text: xml_content
