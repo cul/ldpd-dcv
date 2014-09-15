@@ -30,7 +30,13 @@ module ShowFieldDisplayFieldHelper
     end
 
     url_for_facet_search = search_action_path(:f => {facet_field_name => [facet_value]})
-    return link_to(display_value, url_for_facet_search)
+
+    if display_value == 'Non-Columbia Location' && args[:document].get('lib_repo_text_ssm').present?
+      return (args[:document].get('lib_repo_text_ssm') + '<br />' + link_to("(#{display_value})", url_for_facet_search)).html_safe
+    else
+      return link_to(display_value, url_for_facet_search)
+    end
+
   end
 
   def link_to_url_value(args)
