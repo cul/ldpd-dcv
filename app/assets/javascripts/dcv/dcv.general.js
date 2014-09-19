@@ -50,6 +50,7 @@ $(function() {
   $('body').on('click', '#inset-zoom-mode', function(){
     switchToZoom();
   });
+
   $('#search-navbar').find('.reset-btn').hover(function() {
       $('#appliedParams').find('.remove').addClass('btn-danger');
     }, function() {
@@ -348,6 +349,36 @@ DCV.SearchResults.toggleSearchDateGraphVisibility = function() {
     DCV.SearchResults.setSearchDateGraphVisibility('hide');
   }
 }
+
+/**************
+ * Proj Modal *
+ **************/
+
+DCV.ProjModal = {};
+DCV.ProjModal.show = function(displayUrl, downloadUrl){
+
+  $.colorbox({
+    href: displayUrl,
+    maxHeight:"90%",
+    maxWidth:"90%",
+    opacity:".6",
+    fixed:true,
+    inline:true,
+    preloading: false,
+    title: downloadUrl,
+    onClosed: function() {
+         $(displayUrl).addClass('hide');
+    },
+    onOpen: function() {
+         $(displayUrl).removeClass('hide');
+    },
+    onComplete: function() {
+            $.colorbox.resize();
+    }
+  });
+
+  return false;
+};
 
 
 /**************

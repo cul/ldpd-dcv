@@ -3,9 +3,10 @@
 		<p><strong>Digital Library Collections</strong> is a gateway to many of the digital projects that Columbia University Libraries / Information Services has completed over the past ten years. Some of these projects are housed entirely within this site, while others have also been published as independent external exhibitions.  Below, you'll find everything that we offer.</p>
 
 		<%
-		per_row = 1
+		per_row = 4
 		col_size = 12/per_row
 		col_counter = 0
+        proj_counter = 0
 		%>
 
 		<% controller.digital_projects.each do |digital_project| %>
@@ -14,14 +15,17 @@
 				<div class="row">
 			<% end %>
 
-			<div class="col-md-<%= col_size %>">
+			<div class="col-sm-<%= col_size %>">
 
 				<div class="row" itemscope itemtype="http://schema.org/CreativeWork">
-					<div class="col-sm-2">
+					<div class="col-sm-12">
 						<% dcv_search_link = digital_project[:facet_value].present? ? search_action_path(:f => {'lib_project_short_ssim' => [digital_project[:facet_value]]}) : nil %>
 						<%= link_to image_tag('digital_projects_page/' + digital_project[:image], :class => 'thumbnail img-responsive', :itemprop => 'image'), (dcv_search_link.present? ? dcv_search_link : digital_project[:external_url]), :style => 'margin:0px auto;' %>
 
-						<div class="aligncenter">
+						<div class="">
+					    	<div itemprop="name"><%= digital_project[:name] %></div>
+                            <small><a href="#" data-proj-more="#proj-<%=proj_counter%>" data-proj-title="<%= digital_project[:name] %>" onclick="return DCV.ProjModal.show($(this).attr('data-proj-more'), $(this).attr('data-proj-title'));">More Information</a></small>
+                            <br>
 							<% if dcv_search_link.present? %>
 								<small><%= link_to 'View Content', dcv_search_link %></small>
 							<% end %>
@@ -29,19 +33,19 @@
 								<br />
 							<% end %>
 							<% if digital_project[:external_url].present? %>
-								<small itemprop="url"><%= link_to 'Jump to Project Site', digital_project[:external_url] %></small>
+								<small itemprop="url"><%= link_to 'View Project Site', digital_project[:external_url] %></small>
 							<% end %>
 						</div>
-					</div>
-					<div class="col-sm-10">
-						<h3 itemprop="name"><%= digital_project[:name] %></h3>
-						<span itemprop="description"><%= digital_project[:description] %></span>
+					    <div id="proj-<%=proj_counter%>" class="hide">
+					    	<div style="color:black;padding:30px;font-size:110%;" itemprop="description"><%= digital_project[:description] %></div>
+					    </div>
 					</div>
 				</div>
 
 			</div>
 
 			<% col_counter += 1 %>
+			<% proj_counter += 1 %>
 			<% if col_counter == per_row %>
 				</div>
 				<% col_counter = 0 %>
