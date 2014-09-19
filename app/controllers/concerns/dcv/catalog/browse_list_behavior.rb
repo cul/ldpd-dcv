@@ -61,7 +61,7 @@ module Dcv::Catalog::BrowseListBehavior
 		{
 			:name => "Chinese Paper Gods",
 			:image => 'chinese_paper_gods.jpeg',
-			:facet_value => 'Chinese paper gods',
+			:facet_value => 'Chinese Paper Gods',
 			:external_url => 'http://www.columbia.edu/cgi-bin/cul/resolve?clio6257012',
 			:description => "An online visual catalog of over 200 woodcuts used in folk religious practices in Beijing and other parts of China in the 1930s."
 		},
@@ -80,7 +80,7 @@ module Dcv::Catalog::BrowseListBehavior
 		{
 			:name => "Community Service Society Photographs",
 			:image => 'community_service_society.jpeg',
-			:facet_value => 'Community Service Society Photographs',
+			:facet_value => 'Community Service Society',
 			:external_url => 'http://css.cul.columbia.edu',
 			:description => "An online presentation of almost 1400 photographs from the Community Service Society Records at Columbia University's Rare Book & Manuscript Library. They offer representations of pressing social issues in late-19th- and early-20th-century New York."
 		},
@@ -99,7 +99,7 @@ module Dcv::Catalog::BrowseListBehavior
 		{
 			:name => "G.E.E. Lindquist Native American Photographs",
 			:image => 'lindquist.jpeg',
-			:facet_value => 'G.E.E. Lindquist Native American Photographs',
+			:facet_value => 'Lindquist Photographs',
 			:external_url => 'http://lindquist.cul.columbia.edu',
 			:description => "Online presentation of photographs, postcards, negatives, and lantern slides from the G.E.E. Lindquist Papers archival collection at The Burke Library. They depict the people, places, and practices of Native Americans and their communities in the period from 1909-1953."
 		},
@@ -124,14 +124,14 @@ module Dcv::Catalog::BrowseListBehavior
         {
             :name => "Jewels in Her Crown: Treasures from the Special Collections of Columbia's Libraries",
             :image => 'jewels_in_her_crown.jpeg',
-            :facet_value => 'Jewels in her Crown',
+            :facet_value => 'Jewels in Her Crown',
             :external_url => 'http://www.columbia.edu/cgi-bin/cul/resolve?clio4887511',
             :description => "An online version of the exhibition held in Rare Book and Manuscript Galleries from October 8, 2004 - January 28, 2005, the site brings together for the first time objects selected from all eleven special collections within Columbia University Libraries and affiliates. Mounted in conjunction with the 250th anniversary of Columbia, this exhibition celebrates both the rich collections of books, drawings, manuscripts and other research materials gathered since King's College had its start near Trinity Church in lower Manhattan in 1754 and also the generosity of the donors whose gifts have made possible the work of students and scholars for many generations."
         },
 		{
 			:name => "John Jay Papers",
 			:image => 'john_jay.jpeg',
-			:facet_value => 'John Jay Papers',
+			:facet_value => 'Jay Papers',
 			:external_url => 'http://www.columbia.edu/cgi-bin/cul/resolve?AVE8231',
 			:description => "An online index and text database of correspondence, memos, diaries, etc. written by or to the American statesman John Jay (1745-1829)."
 		},
