@@ -1,4 +1,5 @@
 body {
+    color:#111;
     background-color: #D0DDF0;
     /*
     background-image: url(asset_path("durst/durst-6120.jpg"));
@@ -7,7 +8,6 @@ body {
     background-position: center top;
     background-size: cover;
     */
-    color:#111;
 }
 #topnavbar {
     background:#86878C;
@@ -20,22 +20,22 @@ body {
     }
 }
 #site-banner {
-    padding: 0 1.4em 1.0em;
+    padding: 0 1.4em 1em;
     margin:0 -1.75em 20px;
     background-color:#3D3F3E;
     #site-banner-inner {
     }
 }
 #site-title {
-    font-family: trajan pro;
     display:inline-block;
-    color: #fff;
-    font-weight: 100;
-    font-size: 1.98em;
-    vertical-align:bottom;
     padding-top:8px;
     padding-bottom: 0;
+    font-family: trajan pro;
+    font-size: 1.98em;
+    font-weight: 100;
+    color: #fff;
     text-decoration:none;
+    vertical-align:bottom;
 }
 @media (max-width:1200px) {
     #site-title {
@@ -43,8 +43,8 @@ body {
     }
 }
 #outer-wrapper {
-    background-color:#F3F3F3;
     overflow:hidden;
+    background-color:#F3F3F3;
 }
 #main-container {
     padding-top:1.3em;
@@ -57,11 +57,11 @@ body {
     }
 }
 #secondary-nav {
-    background: #CFCFCF;
+    height: 24px;
     padding:0 12px 0;
     margin: 0 -24px 0;
-    height: 24px;
     line-height: 3px;
+    background: #CFCFCF;
     border: 1px solid #888;
     border-right: 0;
     border-left: 0;
@@ -76,21 +76,21 @@ body {
     }
 }
 #content .col-sm-3.document {
-}
-#content .col-sm-3.document.list-view {
-    border-color:#ccc;
-}
-#content .col-sm-3.document .thumbnail, #content .col-sm-3.document .tombstone {
-    height:auto;
+	&.list-view {
+		border-color:#ccc;
+	}
+	.thumbnail, .tombstone {
+		height:auto;
+	}
 }
 a, a:hover, .dropdown a {
     color:#591300;
 }
 .btn-primary, #topnavbar #cul_top-nosearch .dropdown-menu li a:hover {
-    background-color:#591300;
     background:#591300;
+    background-color:#591300;
 }
 .btn-primary:hover {
-    background-color:#6a2400;
     background:#6a2400;
+    background-color:#6a2400;
 }
