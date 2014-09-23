@@ -48,6 +48,9 @@ body {
 }
 #main-container {
     padding-top:1.3em;
+    .inner {
+        padding:1em;
+    }
     .inner, #facets .panel-default, .panel-default > .panel-heading {
         background-color:#fff;
     }
@@ -55,6 +58,10 @@ body {
         color:#888;
         border:0;
     }
+}
+#facets {
+    margin-right:-1em;
+    margin-left:-1em;
 }
 #secondary-nav {
     height: 24px;
