@@ -93,6 +93,12 @@ body {
 #previousNextDocument {
     .btn-default { color:#fff; }
 }
+.pagination>li>a, .pagination>li>span {
+    background-color: transparent;
+}
+.pagination>.disabled>span, .pagination>.disabled>span:hover, .pagination>.disabled>span:focus, .pagination>.disabled>a, .pagination>.disabled>a:hover, .pagination>.disabled>a:focus {
+    background-color: rgba(0,0,0,.2);
+}
 #child_gallery {
     background-color:transparent;
 }
