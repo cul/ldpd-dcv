@@ -19,7 +19,7 @@
     <div class="row">
      <div id="site-banner-inner">
       <div class="col-sm-6">
-       <%= link_to 'Seymour B. Durst Old York Library', root_path+'durst', { :id => 'site-title' } %>
+       <%= link_to '<span class="hidden-xs">Seymour B. </span>Durst Old York Library'.html_safe, root_path+'durst', { :id => 'site-title' } %>
       </div>
       <div class="col-sm-6">
         <div id="search-navbar" class="navbar navbar-default slim" role="navigation">
@@ -31,15 +31,12 @@
   </div>
 <div id="secondary-nav">
  <div class="subnav">
-		  <a id="show_utils_btn" class="btn btn-mini pull-right hidden-desktop" data-toggle="collapse" data-target="#user_util_links">
-              <i class="icon-tasks opacity_75"></i>
-          </a>
 <div class="row">
 <div class="col-sm-8">
 <ul class="nav nav-pills pull-left" style="
     font-size: 12px;
 ">
-  <li class="hidden-phone"><a href="/" class="opacity_50" style="
+  <li class="hidden-phone"><a href="<%=root_path+'durst'%>" class="opacity_50" style="
     line-height: 0;
     margin-top: -7px;
     padding-right: 22px;

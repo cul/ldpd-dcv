@@ -102,6 +102,9 @@ body {
 #child_gallery {
     background-color:transparent;
 }
+.carousel-inner > .item > img, .carousel-inner > .item > a > img {
+    max-height: 100%;
+}
 a, a:hover, .dropdown a {
     color:#591300;
 }
