@@ -184,7 +184,7 @@ module Dcv::Catalog::BrowseListBehavior
 			:name => "Frances Perkins: The Woman Behind the New Deal",
 			:image => 'frances_perkins.jpg',
 			:external_url => 'http://www.columbia.edu/cgi-bin/cul/resolve?lweb0136',
-			:description => "Frances Perkins (1880-1965) is no longer a household name, yet she was one of the most influential women of the twentieth century. Government official for New York State and the federal government, including Industrial Commissioner of the State of New York from 1929-1932, Perkins was named Secretary of Labor by Franklin Delano Roosevelt in 1933. As FDR’s friend and ally, Perkins would help the president fight the economic ravages caused by the Great Depression and make great strides toward improving workplace conditions."
+			:description => "Frances Perkins (1880-1965) is no longer a household name, yet she was one of the most influential women of the twentieth century. Government official for New York State and the federal government, including Industrial Commissioner of the State of New York from 1929-1932, Perkins was named Secretary of Labor by Franklin Delano Roosevelt in 1933. As FDR's friend and ally, Perkins would help the president fight the economic ravages caused by the Great Depression and make great strides toward improving workplace conditions."
 		},
 		{
 			:name => "G.E.E. Lindquist Native American Photographs",
@@ -313,13 +313,13 @@ module Dcv::Catalog::BrowseListBehavior
 			:name => "Photographs from the Community Service Society Records, 1900-1920",
 			:image => 'photographs_from_css.jpg',
 			:external_url => 'http://www.columbia.edu/cgi-bin/cul/resolve?clio9124689',
-			:description => "An exhibit of photographs (by Jessie Tarbox Beals, Lewis Hine, and others) and publications used in the “scientific charity” movement by the Association for Improving the Condition of the Poor, founded in 1843, and the New York Charity Organization Society, founded in 1882, which are today merged and known as the Community Service Society (CSS). Their innovative methods were later incorporated into the practices of social work, government welfare programs, and philanthropic organizations."
+			:description => "An exhibit of photographs (by Jessie Tarbox Beals, Lewis Hine, and others) and publications used in the \"scientific charity\" movement by the Association for Improving the Condition of the Poor, founded in 1843, and the New York Charity Organization Society, founded in 1882, which are today merged and known as the Community Service Society (CSS). Their innovative methods were later incorporated into the practices of social work, government welfare programs, and philanthropic organizations."
 		},
 		{
 			:name => "Political Ecologies in the Renaissance",
 			:image => 'political_ecologies.jpg',
 			:external_url => 'http://www.columbia.edu/cgi-bin/cul/resolve?clio8626724',
-			:description => "This exhibition brings together eleven scientific texts from Columbia’s Rare Book and Manuscript Library. It features canonical and non-canonical science books and covers seven topics: mining, magnetism, navigation, astronomy, the art of war, hydraulics and hydrostatics, and astrology."
+			:description => "This exhibition brings together eleven scientific texts from Columbia's Rare Book and Manuscript Library. It features canonical and non-canonical science books and covers seven topics: mining, magnetism, navigation, astronomy, the art of war, hydraulics and hydrostatics, and astrology."
 		},
 		{
 			:name => "Quran in East and West: Manuscripts and Printed Books",
@@ -399,7 +399,7 @@ module Dcv::Catalog::BrowseListBehavior
 			:name => "Wilbert Webster White Papers",
 			:image => 'white_papers.jpg',
 			:external_url => 'http://www.columbia.edu/cgi-bin/cul/resolve?clio7665773',
-			:description => "Dr. Wilbert Webster White was the founder in 1900 and President, 1900-1939, of Bible Teachers’ College, now New York Theological Seminary. He was renowned for his development of an inductive system of Bible Study, emphasizing knowledge of the Bible rather than knowledge about the Bible. His Papers contain an Address by him on the Biblio-centric Curriculum. Dr. White's papers, along with the records of Biblical Seminary and New York Theological Seminary, now form part of The Burke Library Archives (Columbia University Libraries) and present a remarkable resource for researchers."
+			:description => "Dr. Wilbert Webster White was the founder in 1900 and President, 1900-1939, of Bible Teachers' College, now New York Theological Seminary. He was renowned for his development of an inductive system of Bible Study, emphasizing knowledge of the Bible rather than knowledge about the Bible. His Papers contain an Address by him on the Biblio-centric Curriculum. Dr. White's papers, along with the records of Biblical Seminary and New York Theological Seminary, now form part of The Burke Library Archives (Columbia University Libraries) and present a remarkable resource for researchers."
 		},
 	]
 
