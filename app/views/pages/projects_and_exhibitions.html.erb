@@ -37,7 +37,7 @@
 							<% end %>
 						</div>
 					    <div id="proj-<%=proj_counter%>" class="hide">
-					    	<div style="color:black;padding:30px;font-size:110%;" itemprop="description"><%= digital_project[:description] %></div>
+					    	<div style="color:black;padding:30px;font-size:110%;" itemprop="description"><%= digital_project[:description].html_safe %></div>
 					    </div>
 					</div>
 				</div>
