@@ -1,6 +1,6 @@
 <div class="row">
   <div id="sidebar" class="col-md-3">
-    <div class="inner"> 
+    <div class="inner">
        <div id="home-sidebar-news">
 		  <h6>STAFF BETA</h6>
 		  <p>Welcome to the Staff Beta Release version of the new Digital Library Collections (DLC) website.  CUL/IS staff are invited during the month of August to review this new site and offer suggestions and feedback. Please first take a look at the <a href="https://wiki.cul.columbia.edu/display/PDCV/DLC%3A+Staff+Beta+Release+Info+Page">Release Info/FAQ</a> page.</p>
@@ -8,8 +8,8 @@
 		  <h6>NEW CONTENT</h6>
 		  <p><a href="<%= search_action_path(:f => {'lib_project_short_ssim' => ['Community Service Society Photographs']})  %>"><img src="<%= asset_url('dcv/sidebar-post-css-thumb.jpg'); %>" class="pull-left" alt="Community Service Society Photographs"></a>More than 1400 photographs from the Community Service Society Records collection are now available in the DLC, offering a view of pressing social issues of late 19th- and early 20th-century New York. <a href="<%= search_action_path(:f => {'lib_project_short_ssim' => ['Community Service Society Photographs']})  %>">View this content &raquo;</a></p>
 		  <div class="clearfix"></div>
-		 </div> 
-      </div> 
+		 </div>
+      </div>
       <div id="home-sidebar-about">
           <p><a href="<%= about_url %>">Learn more about the DLC &raquo;</a></p>
       </div>
@@ -21,24 +21,24 @@
 			<div id="home-page-tabs" class="inner">
 				<!-- Nav tabs -->
 				<ul class="nav nav-tabs">
-					<li class="active"><a href="#sample_items" data-toggle="tab">Sample Items</a></li>
+					<li class="active"><a href="#projects" data-toggle="tab">Projects</a></li>
 					<% @browse_lists.each do |facet_name, data| %>
 						<li><a href="#tab_<%= facet_name %>" data-toggle="tab"><%= data['display_label'] %></a></li>
 					<% end %>
-					<li><a href="#projects" data-toggle="tab">Projects</a></li>
+					<li><a href="#sample_items" data-toggle="tab">Sample Items</a></li>
 				</ul>
 
 				<!-- Tab panes -->
 				<div class="tab-content">
-					<%= render template: 'home/sample_items' -%>
+					<div class="tab-pane fadein active" id="projects">
+						<%= render template: 'pages/projects_and_exhibitions' %>
+					</div>
 					<% if @browse_lists.present? %>
 						<% @browse_lists.each do |facet_name, data| %>
 							<%= render template: "pages/#{facet_name}", locals: {facet_name: facet_name, data: data} if data['value_pairs'].present? %>
 						<% end %>
-						<div class="tab-pane fade" id="projects">
-							<%= render template: 'pages/projects_and_exhibitions' -%>
-						</div>
 					<% end %>
+					<%= render template: 'home/sample_items' %>
 				</div>
 			</div> <!--/.inner-->
 		</div>

@@ -7,7 +7,7 @@ class ScreenImagesController < ApplicationController
   include Cul::Scv::Hydra::Controller
 
   caches_action :show, :expires_in => 0.days
-  
+
   respond_to :png, :jpeg, :gif
 
   layout 'dcv'
@@ -27,12 +27,12 @@ class ScreenImagesController < ApplicationController
     resources = resources_for_document
     resource = nil
     resources.each do |r|
-      if r[:length] and r[:width] 
+      if r[:length] and r[:width]
         w = r[:width].to_i
         l = r[:length].to_i
         if (w <= 1200 and l <=1200)
           if resource.nil?
-            resource = r 
+            resource = r
           else
             resource = r if w > resource[:width].to_i
           end
@@ -48,6 +48,8 @@ class ScreenImagesController < ApplicationController
     ds = Cul::Scv::Fedora.ds_for_opts(ds_parms)
     size = params[:file_size] || params['file_size']
     size ||= ds.dsSize
+
+    ###########################
     unless size and size.to_i > 0
       response.headers["Transfer-Encoding"] = ["chunked"]
     else
@@ -63,6 +65,24 @@ class ScreenImagesController < ApplicationController
         end
       end
     end
+    ###########################
+    # TODO: Eventually use new Rails streaming method
+#    if size and size.to_i > 0
+#			response.headers["Content-Length"] = size
+#		end
+#    bytes = 0
+#    repo = ActiveFedora::Base.connection_for_pid(ds_parms[:pid])
+#    repo.datastream_dissemination(ds_parms) do |res|
+#			begin
+#				res.read_body do |seg|
+#					response.stream.write seg
+#					bytes += seg.length
+#				end
+#			ensure
+#				response.stream.close
+#			end
+#		end
+		###########################
 
   end
 

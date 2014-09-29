@@ -65,6 +65,8 @@ class BytestreamsController < ApplicationController
     ds = Cul::Scv::Fedora.ds_for_opts(ds_parms)
     size = params[:file_size] || params['file_size']
     size ||= ds.dsSize
+
+    ###########################
     unless size and size.to_i > 0
       response.headers["Transfer-Encoding"] = ["chunked"]
     else
@@ -80,6 +82,25 @@ class BytestreamsController < ApplicationController
         end
       end
     end
+    ###########################
+    # TODO: Eventually use new Rails streaming method
+#    if size and size.to_i > 0
+#			response.headers["Content-Length"] = size
+#		end
+#    bytes = 0
+#    repo = ActiveFedora::Base.connection_for_pid(ds_parms[:pid])
+#    repo.datastream_dissemination(ds_parms) do |res|
+#			begin
+#				res.read_body do |seg|
+#					response.stream.write seg
+#					bytes += seg.length
+#				end
+#			ensure
+#				response.stream.close
+#			end
+#		end
+		###########################
+
   end
 
 end

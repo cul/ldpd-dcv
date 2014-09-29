@@ -17,7 +17,7 @@ gem 'cul_scv_hydra', '>= 0.16.12'
 gem 'sqlite3'
 
 # Use mysql2 gem for mysql connections
-gem 'mysql2', '0.3.11'
+gem 'mysql2', '0.3.13'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.2'
