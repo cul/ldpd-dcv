@@ -30,26 +30,52 @@
   <div id="content" class="col-md-6">
 
                         <div class="home inner">
-                  <h6>MAP SEARCH</h6>
-      <a href="#" id="mapholder-link"><img id="mapholder" src="<%= asset_path("durst/durst_10272127_001.jpg") %>" alt="..."></a>
+                  <h6 class="hide">MAP SEARCH</h6>
+                     <div id="mapholder-div">
+                     <figure>
+				      <a href="#" id="mapholder-link"><img id="mapholder" src="<%= asset_path("durst/durst_10272127_001.jpg") %>" alt="..."></a>
+                      <figcaption>
+							<span>Map Search</span>
+							<a href="#">Perform a Map Search</a>
+					  </figcaption>
+					 </figure>
 <iframe id="durst_osm" class="hide" width="100%" height="420" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.openstreetmap.org/export/embed.html?bbox=-73.97026062011719%2C40.80313871105938%2C-73.95225763320923%2C40.81483234091447&amp;layer=mapnik&amp;marker=40.80899%2C-73.96125" style="border: 0"></iframe>
+                        </div> 
                         </div> <!--/.inner-->
   </div>
 
   <div id="dhss" class="col-md-3">
         <div class="home inner">
-                <h6>IMAGE SEARCH</h6>
+                <h6 class="hide">IMAGE SEARCH</h6>
 			    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
 			    <!-- Wrapper for slides -->
 				  <div class="carousel-inner">
 					<div class="item active">
+                     <figure>
 					  <img src="<%= asset_path("durst/cathedralofcomme00coch_1_0001.jpg") %>" alt="...">
+                      <figcaption>
+							<span>Image Search</span>
+							<a href="#">Take a look</a>
+					  </figcaption>
+					 </figure>
 					</div>
 					<div class="item">
+                     <figure>
 					  <img src="<%= asset_path("durst/guidetonewyorkaq00dorn_0001.jpg") %>" alt="...">
+                      <figcaption>
+							<span>Image Search</span>
+							<a href="#">Take a look</a>
+					  </figcaption>
+					 </figure>
 					</div>
 					<div class="item">
+                     <figure>
 					  <img src="<%= asset_path("durst/radiocitytheatre00roth_0001.jpg") %>" alt="...">
+                      <figcaption>
+							<span>Image Search</span>
+							<a href="#">Take a look</a>
+					  </figcaption>
+					 </figure>
 					</div>
 				  </div>
 			     </div>
