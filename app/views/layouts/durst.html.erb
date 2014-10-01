@@ -23,7 +23,7 @@
       </div>
       <div class="col-sm-6">
         <div id="search-navbar" class="navbar navbar-default slim" role="navigation">
-          <%= render_search_bar  %>
+          <%= render_search_bar(false)  %>
         </div>
       </div>
      </div>
@@ -75,7 +75,7 @@
 
 	  <%= render partial: 'shared/ajax_modal' %>
 
-	  <div id="main-container" class="container"> 
+	  <div id="main-container" class="container">
 		<%= render :partial=>'/flash_msg', layout: 'shared/flash_messages' %>
 
 		<%= yield %>

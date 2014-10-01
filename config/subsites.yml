@@ -1,10 +1,14 @@
 all_environments: &all_environments
-  durst:
-    restricted: false
-    layout: 'durst'
-  lindquist:
-    restricted: false
-    layout: 'lindquist'
+  public:
+    durst:
+      layout: 'durst'
+    ifp:
+      layout: 'ifp'
+    lindquist:
+      layout: 'lindquist'
+  restricted:
+    ifp:
+      layout: 'ifp'
     
 development: *all_environments
 test: *all_environments

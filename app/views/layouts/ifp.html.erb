@@ -1,0 +1,33 @@
+<% subsite_key = 'lindquist' %>
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+  <head>
+		<%= render partial: 'shared/head_html' %>
+  </head>
+  <body class="<%= render_body_class %> <%= subsite_key %> <%= params[:action] %>" style="padding-top: 50px;">
+
+  <%= render :partial => 'shared/topnavbar' %>
+	<%= stylesheet_link_tag subsite_key %>
+  <%= javascript_include_tag subsite_key %>
+
+  <div id="outer-wrapper" class="container">
+    <div class="row">
+
+	  <%= render partial: 'shared/header_navbar' %>
+
+	  <%= render partial: 'shared/ajax_modal' %>
+
+	  <div id="main-container" class="container">
+		<%= render :partial=>'/flash_msg', layout: 'shared/flash_messages' %>
+
+		<%= yield %>
+
+	  </div>
+
+	  <%= render :partial => 'shared/footer' %>
+
+    </div><!--/.row-->
+  </div><!--/#outer-wrapper-->
+
+  </body>
+</html>
