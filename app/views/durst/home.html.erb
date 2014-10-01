@@ -1,38 +1,59 @@
 <div class="row">
   <div id="sidebar" class="col-md-3">
-    <div class="inner"> 
+    <div class="home inner"> 
        <div id="home-sidebar-news">
-                  <h6>ABOUT THE COLLECTION</h6>
-                  <p>Welcome to the Seymour B. Durst Old York Library Digital Library Collections (DLC) website. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec enim libero, varius et molestie ullamcorper, vestibulum sed leo. Proin eros turpis, ullamcorper quis mollis id, tempor ac quam. <a href="#">Learn More &raquo;</a></p>
+                  <h6>ABOUT THE NEW YORK COLLECTION</h6>
+                  <p>Welcome to the Seymour B. Durst Old York Library Digital Library Collections (DLC) website.. <a href="#">Learn More &raquo;</a></p>
                   <div class="clearfix"></div>
-                 </div> 
-      </div> 
+
+                  <h6>RECENT NEWS</h6>
+                  <ul class="list-unstyled">
+                  <li>
+                    <a href="#">Exciting News Post Title 1</a> <br><small>MM/DD/YYYY</small><br>
+                    <p>More New Content added.. <a href="#">More &raquo;</a></p>
+                  </li>
+                  <li>
+                    <a href="#">News Post Title 2</a> <br><small>MM/DD/YYYY</small><br>
+                    <p>New Content added.. <a href="#">More &raquo;</a></p>
+                  </li>
+                  </ul>
+                  <div class="clearfix"></div>
+
+                  <h6>BROWSE BY</h6>
+					<!-- TEMP CODE/TEMP PARTIAL. WILL BE DYNAMIC -->
+				    <%= render :partial => 'temp_home_facets' %>
+				    <!-- /TEMP CODE./TEMP PARTIAL WILL BE DYNAMIC -->
+       </div> 
+    </div> 
   </div>
 
-  <div id="content" class="col-md-9">
+  <div id="content" class="col-md-6">
 
-                        <div class="inner">
-<iframe id="durst_osm" width="100%" height="420" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.openstreetmap.org/export/embed.html?bbox=-73.97026062011719%2C40.80313871105938%2C-73.95225763320923%2C40.81483234091447&amp;layer=mapnik&amp;marker=40.80899%2C-73.96125" style="border: 0"></iframe>
+                        <div class="home inner">
+                  <h6>MAP SEARCH</h6>
+      <a href="#" id="mapholder-link"><img id="mapholder" src="<%= asset_path("durst/durst_10272127_001.jpg") %>" alt="..."></a>
+<iframe id="durst_osm" class="hide" width="100%" height="420" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.openstreetmap.org/export/embed.html?bbox=-73.97026062011719%2C40.80313871105938%2C-73.95225763320923%2C40.81483234091447&amp;layer=mapnik&amp;marker=40.80899%2C-73.96125" style="border: 0"></iframe>
                         </div> <!--/.inner-->
   </div>
 
-  <div id="dhss" class="hide col-md-3">
-                        <div class="inner">
-<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-  <!-- Wrapper for slides -->
-  <div class="carousel-inner">
-    <div class="item active">
-      <img src="<%= asset_path("durst/cathedralofcomme00coch_1_0001.jpg") %>" alt="...">
-    </div>
-    <div class="item">
-      <img src="<%= asset_path("durst/guidetonewyorkaq00dorn_0001.jpg") %>" alt="...">
-    </div>
-    <div class="item">
-      <img src="<%= asset_path("durst/radiocitytheatre00roth_0001.jpg") %>" alt="...">
-    </div>
-  </div>
-
-  </div>
-                        </div> <!--/.inner-->
+  <div id="dhss" class="col-md-3">
+        <div class="home inner">
+                <h6>IMAGE SEARCH</h6>
+			    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+			    <!-- Wrapper for slides -->
+				  <div class="carousel-inner">
+					<div class="item active">
+					  <img src="<%= asset_path("durst/cathedralofcomme00coch_1_0001.jpg") %>" alt="...">
+					</div>
+					<div class="item">
+					  <img src="<%= asset_path("durst/guidetonewyorkaq00dorn_0001.jpg") %>" alt="...">
+					</div>
+					<div class="item">
+					  <img src="<%= asset_path("durst/radiocitytheatre00roth_0001.jpg") %>" alt="...">
+					</div>
+				  </div>
+			     </div>
+        </div> <!--/.inner-->
+   </div><!--/#dhss-->
 
 </div>

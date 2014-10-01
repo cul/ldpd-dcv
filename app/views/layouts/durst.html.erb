@@ -29,48 +29,43 @@
      </div>
     </div><!--/row-->
   </div>
-<div id="secondary-nav">
- <div class="subnav">
-<div class="row">
-<div class="col-sm-8">
-<ul class="nav nav-pills pull-left" style="
-    font-size: 12px;
-">
-  <li class="hidden-phone"><a href="<%=root_path+'durst'%>" class="opacity_50" style="
-    line-height: 0;
-    margin-top: -7px;
-    padding-right: 22px;
-"><i class="glyphicon glyphicon-home"></i></a></li>
-  <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Learn More <b class="caret"></b></a>
-		<ul class="dropdown-menu">
-			<li><a href="/about">About the Archive</a></li>
-			<li><a href="/faq">FAQ</a></li>
-		</ul>
-	</li>
-	<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Seymour's Favorites </a>
-		<ul class="dropdown-menu">
-			<li><a href="/owner_nomination">Site Owner Nomination Form</a></li>
-			<li><a href="/public_nomination">Public Nomination Form</a></li>
-		</ul>
-	</li>
-  <li><a href="/contact">The Mind of the Man</a></li>
-</ul>
-</div><!--/-->
-  <div id="navbar_right_wrapper" class="col-sm-3 pull-right" style="
-    font-size: 12px;
-    text-align: right;
-">
-    <ul class="nav nav-pills pull-right nav-collapse" id="user_util_links">
-      <li class="inline">
-<!--a href="/search_history">Search History</a-->
-<a class="hide text-primary" href="#" id="durst-alt-home">[toggle durst alt layout]</a>
-</li>
+	<div id="secondary-nav">
+		 <div class="subnav">
+			<div class="row">
+				<div class="col-sm-8">
+				<ul class="nav nav-pills pull-left" style="
+					font-size: 12px;
+				">
+				  <li class="hidden-phone"><a href="<%=root_path+'durst'%>" class="opacity_50" style="
+					line-height: 0;
+					margin-top: -7px;
+					padding-right: 22px;
+				"><i class="glyphicon glyphicon-home"></i></a></li>
+				  <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Learn More <b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><a href="/about">About the Collection</a></li>
+							<li><a href="/faq">MOTM</a></li>
+							<li><a href="/faq">Favorites</a></li>
+							<li><a href="/faq">FAQ</a></li>
+						</ul>
+					</li>
+				</ul>
+				</div><!--/-->
+				  <div id="navbar_right_wrapper" class="col-sm-3 pull-right" style="
+					font-size: 12px;
+					text-align: right;
+				">
+					<ul class="nav nav-pills pull-right nav-collapse" id="user_util_links">
+					  <li class="inline">
+				<!--a href="/search_history">Search History</a-->
+				<a class="hide text-primary" href="#" id="durst-alt-home">[toggle durst alt layout]</a>
+				</li>
 
-    </ul>
-  </div>
-</div><!--/row-->
- </div><!--/subnav-->
-</div>
+					</ul>
+				  </div>
+			</div><!--/row-->
+		 </div><!--/subnav-->
+	</div>
 </div>
 
 	  <%= render partial: 'shared/ajax_modal' %>

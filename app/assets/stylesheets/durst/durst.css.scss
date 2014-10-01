@@ -11,13 +11,17 @@ body {
 }
 #topnavbar {
     background:#86878C;
-    border-top-color:#3D3F3E;
+    border-top-color:#2D2F2E;
     #cul_top-nosearch {
-        background-color:#3D3F3E;
+        background-color:#2D2F2E;
         #crowndown-nosearch, .dropdown-menu {
-            background:#3D3F3E;
+            background:#2D2F2E;
         }
     }
+    #navbar-container {
+    }
+}
+footer.container {
 }
 #site-banner {
     padding: 0 1.4em 1em;
@@ -50,8 +54,20 @@ body {
     padding-top:1.3em;
     .inner {
         padding:1em;
+      &.home {
+        padding:0;
+        border:0;
+        background:transparent;
+        background-color:transparent;
+      }
+      h6 {
+        color:#999;
+      }
     }
     .inner, #facets .panel-default, .panel-default > .panel-heading {
+      &.home {
+        background-color:transparent;
+      }
         background-color:#fff;
     }
     #facets .panel-default, .panel-default > .panel-heading {
@@ -62,6 +78,19 @@ body {
 #facets {
     margin-right:-1em;
     margin-left:-1em;
+    .top-panel-heading, .panel { 
+       background-color:transparent!important;
+       box-shadow:none;
+    }
+    .panel .panel-heading {
+      margin-right:1em;
+      margin-left:1em;
+      padding:.2em 0;
+      background-color:rgba(255,255,255,.3)!important;
+    }
+    .panel-body {
+      border:0;
+    }
 }
 #secondary-nav {
     height: 24px;
@@ -81,6 +110,12 @@ body {
         background-color:rgba(0,0,0,.1);
       }
     }
+}
+#content {
+  #mapholder {
+    width:100%;
+    height:auto;
+  }
 }
 #content .col-sm-3.document {
 	&.list-view {
@@ -103,7 +138,7 @@ body {
     background-color:transparent;
 }
 .carousel-inner > .item > img, .carousel-inner > .item > a > img {
-    max-height: 100%;
+    width: 100%;
 }
 a, a:hover, .dropdown a {
     color:#591300;
