@@ -1,6 +1,6 @@
 body {
     color:#111;
-    background-color: #D0DDF0;
+    background-color:#eee; //#4E5663; // #D0DDF0;
     /*
     background-image: url(asset_path("durst/durst-6120.jpg"));
     background-attachment: fixed;
@@ -11,13 +11,17 @@ body {
 }
 #topnavbar {
     background:#86878C;
-    border-top-color:#3D3F3E;
+    border-top-color:#222;
     #cul_top-nosearch {
-        background-color:#3D3F3E;
+        background-color:#222;
         #crowndown-nosearch, .dropdown-menu {
-            background:#3D3F3E;
+            background:#222;
         }
     }
+    #navbar-container {
+    }
+}
+footer.container {
 }
 #site-banner {
     padding: 0 1.4em 1em;
@@ -45,13 +49,26 @@ body {
 #outer-wrapper {
     overflow:hidden;
     background-color:#F3F3F3;
+    border-color:#bbb;
 }
 #main-container {
     padding-top:1.3em;
     .inner {
         padding:1em;
+      &.home {
+        padding:0;
+        border:0;
+        background:transparent;
+        background-color:transparent;
+      }
+      h6 {
+        color:#999;
+      }
     }
     .inner, #facets .panel-default, .panel-default > .panel-heading {
+      &.home {
+        background-color:transparent;
+      }
         background-color:#fff;
     }
     #facets .panel-default, .panel-default > .panel-heading {
@@ -62,6 +79,19 @@ body {
 #facets {
     margin-right:-1em;
     margin-left:-1em;
+    .top-panel-heading, .panel { 
+       background-color:transparent!important;
+       box-shadow:none;
+    }
+    .panel .panel-heading {
+      margin-right:1em;
+      margin-left:1em;
+      padding:.2em 0;
+      background-color:rgba(255,255,255,.3)!important;
+    }
+    .panel-body {
+      border:0;
+    }
 }
 #secondary-nav {
     height: 24px;
@@ -78,9 +108,20 @@ body {
     li {
       border-left:1px solid #eee;
       & a:hover, &.open a.dropdown-toggle {
-        background-color:rgba(0,0,0,.1);
+        background-color:transparent; //rgba(0,0,0,.1);
+        color:#8c3522;
       }
     }
+}
+#content {
+  #mapholder {
+    width:100%;
+    height:auto;
+  }
+  #mapholder-div {
+     position:relative;
+     overflow:hidden;
+  }
 }
 #content .col-sm-3.document {
 	&.list-view {
@@ -102,9 +143,48 @@ body {
 #child_gallery {
     background-color:transparent;
 }
-.carousel-inner > .item > img, .carousel-inner > .item > a > img {
-    max-height: 100%;
-}
+ figure { 
+   position:relative; 
+   margin:0;
+   text-align:center;
+   figcaption {
+    z-index:999;
+	position: absolute;
+	left: 0;
+	padding: 20px;
+	background: rgba(183,183,183,.7);
+	color: #fff;
+	height: 60px;
+	width: 100%;
+	top: auto;
+	bottom: 0;
+	opacity: 0;
+	-webkit-transform: translateY(100%);
+	-moz-transform: translateY(100%);
+	-ms-transform: translateY(100%);
+	transform: translateY(100%);
+	-webkit-backface-visibility: hidden;
+	-moz-backface-visibility: hidden;
+	backface-visibility: hidden;
+	-webkit-transition: -webkit-transform 0.4s, opacity 0.1s 0.3s;
+	-moz-transition: -moz-transform 0.4s, opacity 0.1s 0.3s;
+	transition: transform 0.4s, opacity 0.1s 0.3s;
+   }
+   &:hover figcaption {
+     opacity: 1;
+	-webkit-transform: translateY(0px);
+	-moz-transform: translateY(0px);
+	-ms-transform: translateY(0px);
+	transform: translateY(0px);
+	-webkit-transition: -webkit-transform 0.4s, opacity 0.1s;
+	-moz-transition: -moz-transform 0.4s, opacity 0.1s;
+	transition: transform 0.4s, opacity 0.1s;
+   }
+ }
+	.carousel-inner > .item > img, .carousel-inner > .item > a > img {
+        position:relative;
+		width: 100%;
+	}
 a, a:hover, .dropdown a {
     color:#591300;
 }

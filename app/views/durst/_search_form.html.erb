@@ -1,5 +1,3 @@
-DURST!
-
   <%= form_tag search_action_url, :method => :get, :class => 'clearfix' do %>
     <%= render_hash_as_hidden_fields(params_for_search().except(:q, :search_field, :qt, :page, :utf8)) %>
 
@@ -12,7 +10,7 @@ DURST!
       </span>
       <% end %>
       <label for="q" class="sr-only"><%= t('blacklight.search.form.q') %></label>
-      <%= text_field_tag :q, params[:q], :placeholder => (!query_has_constraints? ? 'Start a new search&hellip;'.html_safe : 'Modify current search&hellip;'.html_safe), :class => "search_q q form-control", :id => "q", :tabindex => "1" %>
+      <%= text_field_tag :q, params[:q], :placeholder => (!query_has_constraints? ? 'Search Postcards, Maps, Photographs, Books, Etc&hellip;'.html_safe : 'Modify current search&hellip;'.html_safe), :class => "search_q q form-control", :id => "q", :tabindex => "1" %>
       <div class="input-group-btn">
 		<%= link_to '<i class="glyphicon glyphicon-remove"></i>'.html_safe, start_over_path, :title => 'Start Over', :class => 'btn btn-default reset-btn' if query_has_constraints? %>
         <button class="btn btn-primary search-btn" type="submit">
@@ -23,4 +21,3 @@ DURST!
     </div>
 
   <% end %>
-DURST!
