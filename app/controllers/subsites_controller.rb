@@ -17,6 +17,6 @@ class SubsitesController < ApplicationController
     self.class.parent_prefixes << 'catalog' # haaaaaaack to not reproduce templates
   end
 
-  layout Proc.new { |controller| SUBSITES[self.controller_name]['layout'] }
+  layout Proc.new { |controller| SUBSITES['public'][self.controller_name]['layout'] }
 
 end
