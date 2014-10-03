@@ -31,6 +31,13 @@ footer.container {
     background-color:#3D3F3E;
     #site-banner-inner {
     }
+    #search-navbar #q {
+      background-color:#eee;
+      color:#000;
+      &:focus {
+         background-color:#fff;
+      }
+    }
 }
 #site-title {
     display:inline-block;
