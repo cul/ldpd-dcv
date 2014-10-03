@@ -22,6 +22,8 @@ body {
     }
 }
 footer.container {
+    font-size:.85em;
+    color:#999;
 }
 #site-banner {
     padding: 0 1.4em 1em;
@@ -130,6 +132,11 @@ footer.container {
 	.thumbnail, .tombstone {
 		height:auto;
 	}
+}
+#dhig {
+    .thumbnail {
+        margin-bottom:1em;
+    }
 }
 #previousNextDocument {
     .btn-default { color:#fff; }
