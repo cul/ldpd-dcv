@@ -9,6 +9,8 @@ Bundler.require(*Rails.groups)
 module Dcv
   class Application < Rails::Application
 
+    config.middleware.use Rack::Deflater # Use GZip on responses whenever possible
+
     config.generators do |g|
       g.test_framework :rspec, :spec => true
     end
