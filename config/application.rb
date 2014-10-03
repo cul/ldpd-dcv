@@ -30,9 +30,14 @@ module Dcv
         'freelib.js',
         'd3.js']
 
-    # And include styles for all sub-sites
-    config.assets.precompile += YAML.load_file("#{Rails.root.to_s}/config/subsites.yml")[Rails.env].keys.map{|prefix| prefix + '.css'}
-    config.assets.precompile += YAML.load_file("#{Rails.root.to_s}/config/subsites.yml")[Rails.env].keys.map{|prefix| prefix + '.js'}
+    # And include styles for all subsite layouts
+    subsite_data = YAML.load_file("#{Rails.root.to_s}/config/subsites.yml")[Rails.env]
+    unique_layouts = []
+    unique_layouts += subsite_data['public'].values.map{|prefix| prefix['layout']}
+    unique_layouts += subsite_data['restricted'].values.map{|prefix| prefix['layout']}
+    unique_layouts.uniq!
+    config.assets.precompile += unique_layouts.map{|prefix| prefix + '.css'}
+    config.assets.precompile += unique_layouts.map{|prefix| prefix + '.js'}
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
