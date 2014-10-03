@@ -199,6 +199,12 @@ footer.container {
         position:relative;
 		width: 100%;
 	}
+    .carousel-inner .dhp-img-holder {
+        height:100%;
+        background-size:cover;
+        background-repeat:no-repeat;
+        background-position:center center;
+    }
 a, a:hover, .dropdown a {
     color:#591300;
 }
