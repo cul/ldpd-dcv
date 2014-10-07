@@ -48,6 +48,22 @@ $(function() {
 */
    return false;
  });
+
+ // full width layout switcher for dev/proto only.
+ var isFullWidth = false;
+ $('body').on('click', '#durst-full-width', function() {
+   if (isFullWidth == false) {
+     $('.container').removeClass('container').addClass('container-fluid').css('width','98%');
+     isFullWidth = true;
+   } else {
+     $('.container-fluid').removeClass('container-fluid').addClass('container').css('width','');
+     isFullWidth = false;
+   }
+     $('span',this).toggleClass('glyphicon-resize-small');
+   $(window).trigger('resize');
+   return false;
+ });
+
 });
 $(window).load(function() {
    if ($('#dhss').height() > 0) {
