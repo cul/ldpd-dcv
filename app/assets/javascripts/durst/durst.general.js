@@ -54,6 +54,7 @@ $(function() {
  $('body').on('click', '#durst-full-width', function() {
    if (isFullWidth == false) {
      $('.container').removeClass('container').addClass('container-fluid').css('width','98%');
+     $('#site-banner').parent().css('width','');
      isFullWidth = true;
    } else {
      $('.container-fluid').removeClass('container-fluid').addClass('container').css('width','');
