@@ -121,6 +121,9 @@ footer.container {
         color:#8c3522;
       }
     }
+    a {
+        color:#333;
+    }
 }
 #content {
   #mapholder {
@@ -206,7 +209,7 @@ footer.container {
         background-position:center center;
     }
 a, a:hover, .dropdown a {
-    color:#591300;
+    color:#990000; //#591300;
 }
 .btn-primary, #topnavbar #cul_top-nosearch .dropdown-menu li a:hover {
     background:#591300;
