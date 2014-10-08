@@ -160,54 +160,16 @@ footer.container {
 #child_gallery {
     background-color:transparent;
 }
- figure { 
-   position:relative; 
-   margin:0;
-   text-align:center;
-   figcaption {
-    z-index:999;
-	position: absolute;
-	left: 0;
-	padding: 20px;
-	background: rgba(183,183,183,.7);
-	color: #fff;
-	height: 60px;
+.carousel-inner > .item > img, .carousel-inner > .item > a > img {
+    position:relative;
 	width: 100%;
-	top: 0;
-	bottom: auto;
-	opacity: 0;
-	-webkit-transform: translateY(-100%);
-	-moz-transform: translateY(-100%);
-	-ms-transform: translateY(-100%);
-	transform: translateY(-100%);
-	-webkit-backface-visibility: hidden;
-	-moz-backface-visibility: hidden;
-	backface-visibility: hidden;
-	-webkit-transition: -webkit-transform 0.4s, opacity 0.1s 0.3s;
-	-moz-transition: -moz-transform 0.4s, opacity 0.1s 0.3s;
-	transition: transform 0.4s, opacity 0.1s 0.3s;
-   }
-   &:hover figcaption {
-     opacity: 1;
-	-webkit-transform: translateY(0px);
-	-moz-transform: translateY(0px);
-	-ms-transform: translateY(0px);
-	transform: translateY(0px);
-	-webkit-transition: -webkit-transform 0.4s, opacity 0.1s;
-	-moz-transition: -moz-transform 0.4s, opacity 0.1s;
-	transition: transform 0.4s, opacity 0.1s;
-   }
- }
-	.carousel-inner > .item > img, .carousel-inner > .item > a > img {
-        position:relative;
-		width: 100%;
-	}
-    .carousel-inner .dhp-img-holder {
-        height:100%;
-        background-size:cover;
-        background-repeat:no-repeat;
-        background-position:center center;
-    }
+}
+.carousel-inner .dhp-img-holder {
+    height:100%;
+    background-size:cover;
+    background-repeat:no-repeat;
+    background-position:center center;
+}
 a, a:hover, .dropdown a {
     color:#990000; //#591300;
 }
