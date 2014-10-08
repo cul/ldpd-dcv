@@ -99,7 +99,7 @@ function homeMap() {
     var mapurl='http://server.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer/tile/{z}/{y}/{x}';
     map = L.map('durst_osm').setView([40.7830, -73.9052], 12);
     L.tileLayer(mapurl, {
-    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>. Tiles &copy; Esri&mdash;National Geographic.',
+    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>. Tiles &copy; Esri&mdash;National Geographic, Esri, DeLorme, NAVTEQ, UNEP-WCMC, USGS, NASA, ESA, METI, NRCAN, GEBCO, NOAA, iPC.',
     maxZoom: 18
     }).addTo(map);
     marker = L.marker([40.80830, -73.96130]).addTo(map);
