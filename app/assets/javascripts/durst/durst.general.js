@@ -94,12 +94,19 @@ window.onresize = function(){
 var map;
 var marker;
 function homeMap() {
-    var osmUrl='http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+    //var mapurl='http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+    //var mapurl='http://otile1.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpg';
+    var mapurl='http://server.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer/tile/{z}/{y}/{x}';
     map = L.map('durst_osm').setView([40.7830, -73.9052], 12);
-    L.tileLayer(osmUrl, {
-    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+    L.tileLayer(mapurl, {
+    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>. Tiles &copy; Esri&mdash;National Geographic.',
     maxZoom: 18
     }).addTo(map);
     marker = L.marker([40.80830, -73.96130]).addTo(map);
-    marker.bindPopup('<div><h5>Avery Library</h5><address> <p>300 Avery<br> 1172 Amsterdam Avenue<br> M.C. 0301<br> New York, NY 10027 </p> <p> Telephone: (212) 854-6199<br> Email: <a href="mailto:avery@library.columbia.edu">avery@library.columbia.edu</a></p> <p> </p><div class="info-link"> <a href="http://library.columbia.edu/indiv/avery.html">Website</a> &mdash; <a href="http://hours.library.columbia.edu/?library=avery">Hours</a></div> </address> <img style="max-width:100%!important;" src="http://library.columbia.edu/content/dam/locations/avery.jpg" class=""></div>');
+    marker.bindPopup('<div><h5>Avery Library</h5><address> <p>300 Avery<br> 1172 Amsterdam Avenue<br> M.C. 0301<br> New York, NY 10027 </p> <p> Telephone: (212) 854-6199<br> Email: <a href="mailto:avery@library.columbia.edu">avery@library.columbia.edu</a></p> <p> </p><div class="info-link"> <a href="http://library.columbia.edu/indiv/avery.html">Website</a> &mdash; <a href="http://hours.library.columbia.edu/?library=avery">Hours</a></div> </address> <img style="max-height:115px;max-width:100%!important;" src="http://library.columbia.edu/content/dam/locations/avery.jpg" class=""></div>');
+    map.on('popupopen', function(e) {
+      var px = map.project(e.popup._latlng);
+      px.y -= e.popup._container.clientHeight/2
+      map.panTo(map.unproject(px),{animate: true});
+    });
 }
