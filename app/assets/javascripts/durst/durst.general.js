@@ -1,22 +1,24 @@
 $(function() {
 
- if ($('#carousel-example-generic').length) {  $('#durst-search-home, #durst-image-home').removeClass('hide'); }
+ if ($('#carousel-example-generic').length) {  $('#durst-search-home, #durst-image-home').removeClass('hidden'); }
  $('body').on('click', '#durst-search-home, #mapholder-link', function() {
-   $('#content,#dhss').removeClass('hide');
+   $('#content,#dhss').removeClass('hidden');
    if ($('#content').hasClass('col-md-9')) {
      $('#content').removeClass('col-md-9').addClass('col-md-6');
-     $('#mapholder-link').removeClass('hide');
-     $('#durst_osm').addClass('hide');
-     $('#dhss').removeClass('hide');
+     $('#mapholder-link').removeClass('hidden');
+     $('#durst_osm').addClass('hidden');
+     $('#dhss').removeClass('hidden');
    } else {
      $('#content').removeClass('col-md-6').addClass('col-md-9');
-     $('#mapholder-link').addClass('hide');
-     $('#durst_osm').removeClass('hide').attr('src', $('#durst_osm').attr('src'));
-     $('#dhss').addClass('hide');
+     $('#mapholder-link').addClass('hidden');
+     $('#durst_osm').removeClass('hidden').attr('src', $('#durst_osm').attr('src'));
+     $('#dhss').addClass('hidden');
    }
-   $('#dhig').addClass('hide');
+   $('#dhig').addClass('hidden');
    clearTimeout(dorsz);
    dorsz = setTimeout(resizedw, 100);
+   $(window).trigger('resize');
+map._onResize(); 
    return false;
  });
 
@@ -24,23 +26,23 @@ $(function() {
 /*
    if ($('#content').hasClass('col-md-9')) {
      $('#content').removeClass('col-md-9').addClass('col-md-6');
-     $('#mapholder-link').removeClass('hide');
-     $('#durst_osm').addClass('hide');
+     $('#mapholder-link').removeClass('hidden');
+     $('#durst_osm').addClass('hidden');
    } else {
      $('#content').removeClass('col-md-6').addClass('col-md-9');
-     $('#mapholder-link').addClass('hide');
-     $('#durst_osm').removeClass('hide').attr('src', $('#durst_osm').attr('src'));
+     $('#mapholder-link').addClass('hidden');
+     $('#durst_osm').removeClass('hidden').attr('src', $('#durst_osm').attr('src'));
    }
 */
-   if ($('#dhig').hasClass('hide')) {
-     $('#dhss,#content').addClass('hide');
-     $('#dhig').removeClass('hide');
+   if ($('#dhig').hasClass('hidden')) {
+     $('#dhss,#content').addClass('hidden');
+     $('#dhig').removeClass('hidden');
    } else {
-     $('#content').removeClass('hide');
+     $('#content').removeClass('hidden');
        if ($('#content').hasClass('col-md-6')) {
-         $('#dhss').removeClass('hide');
+         $('#dhss').removeClass('hidden');
        }
-     $('#dhig').addClass('hide');
+     $('#dhig').addClass('hidden');
    }
 /*
    clearTimeout(dorsz);
@@ -65,19 +67,22 @@ $(function() {
    return false;
  });
 
-});
+ homeMap();
+}); //ready
+
 $(window).load(function() {
    if ($('#dhss').height() > 0) {
-     $('#dhss').find('.inner img, .inner div').height($('#content .inner img').height());
-     $('#durst_osm').height($('#content .inner img').height());
+     $('.carousel-control').removeClass('hidden');
+     $('#dhss').find('.inner img, .inner div').height($('#mapholder').height());
+     $('#durst_osm').height($('#mapholder').height());
    }
 });
 
 function resizedw(){
     // Haven't resized in 100ms!
    if ($('#dhss').height() > 0) {
-     $('#dhss').find('.inner img, .inner div').height($('#content .inner img').height());
-     $('#durst_osm').height($('#content .inner img').height());
+     $('#dhss').find('.inner img, .inner div').height($('#mapholder').height());
+     $('#durst_osm').height($('#mapholder').height());
    }
 }
 var dorsz;
@@ -85,3 +90,16 @@ window.onresize = function(){
   clearTimeout(dorsz);
   dorsz = setTimeout(resizedw, 100);
 };
+
+var map;
+var marker;
+function homeMap() {
+    var osmUrl='http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+    map = L.map('durst_osm').setView([40.7830, -73.9052], 12);
+    L.tileLayer(osmUrl, {
+    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+    maxZoom: 18
+    }).addTo(map);
+    marker = L.marker([40.80830, -73.96130]).addTo(map);
+    marker.bindPopup('<div><h5>Avery Library</h5><address> <p>300 Avery<br> 1172 Amsterdam Avenue<br> M.C. 0301<br> New York, NY 10027 </p> <p> Telephone: (212) 854-6199<br> Email: <a href="mailto:avery@library.columbia.edu">avery@library.columbia.edu</a></p> <p> </p><div class="info-link"> <a href="http://library.columbia.edu/indiv/avery.html">Website</a> &mdash; <a href="http://hours.library.columbia.edu/?library=avery">Hours</a></div> </address> <img style="max-width:100%!important;" src="http://library.columbia.edu/content/dam/locations/avery.jpg" class=""></div>');
+}
