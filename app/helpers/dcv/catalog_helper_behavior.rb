@@ -26,8 +26,7 @@ module Dcv::CatalogHelperBehavior
 
         nodes = nodes.map do |node|
           node_id = (node['CONTENTIDS'])
-
-          node_thumbnail = resolve_thumb_url(id: node_id)
+          node_thumbnail = catalog_resolve_asset_path(id: node_id, size: 256, type: 'scaled', format: 'jpg')
           {id: node_id, title: node['LABEL'], thumbnail: node_thumbnail, order: node['ORDER'].to_i}
         end
         nodes
