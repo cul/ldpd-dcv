@@ -60,6 +60,7 @@ function activeNav() {
    }
      $('span',this).toggleClass('glyphicon-resize-small');
    $(window).trigger('resize');
+   map._onResize(); 
    return false;
  });
 
