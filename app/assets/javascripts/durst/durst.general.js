@@ -103,7 +103,7 @@ function homeMap() {
     maxZoom: 18
     }).addTo(map);
     marker = L.marker([40.80830, -73.96130]).addTo(map);
-    marker.bindPopup('<div><h5>Avery Library</h5><address> <p>300 Avery<br> 1172 Amsterdam Avenue<br> M.C. 0301<br> New York, NY 10027 </p> <p> Telephone: (212) 854-6199<br> Email: <a href="mailto:avery@library.columbia.edu">avery@library.columbia.edu</a></p> <p> </p><div class="info-link"> <a href="http://library.columbia.edu/indiv/avery.html">Website</a> &mdash; <a href="http://hours.library.columbia.edu/?library=avery">Hours</a></div> </address> <img style="max-height:115px;max-width:100%!important;" src="http://library.columbia.edu/content/dam/locations/avery.jpg" class=""></div>');
+    marker.bindPopup('<div><h5>Avery Library</h5><address class="nomar">300 Avery<br>1172 Amsterdam Avenue<br> M.C. 0301<br> New York, NY 10027 <br>Telephone: <a href="tel:2128546199">(212) 854-6199</a><br>Email: <a href="mailto:avery@library.columbia.edu">avery@library.columbia.edu</a><div class="info-link"><a href="http://library.columbia.edu/locations/avery.html">Website</a></div></address><img style="max-height:120px;max-width:100%!important;" src="http://library.columbia.edu/content/dam/locations/avery.jpg"></div>');
     map.on('popupopen', function(e) {
       var px = map.project(e.popup._latlng);
       px.y -= e.popup._container.clientHeight/2
