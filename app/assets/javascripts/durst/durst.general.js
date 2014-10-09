@@ -2,6 +2,7 @@ $(function() {
 
  if ($('#carousel-example-generic').length) {  $('#durst-search-home, #durst-image-home').removeClass('hidden'); }
  $('body').on('click', '#durst-search-home, #mapholder-link', function() {
+   $('#user_util_links').find('a.active').removeClass('active');
    $('#content,#dhss').removeClass('hidden');
    if ($('#content').hasClass('col-md-9')) {
      $('#content').removeClass('col-md-9').addClass('col-md-6');
@@ -13,6 +14,7 @@ $(function() {
      $('#mapholder-link').addClass('hidden');
      $('#durst_osm').removeClass('hidden').attr('src', $('#durst_osm').attr('src'));
      $('#dhss').addClass('hidden');
+     $(this).addClass('active');
    }
    $('#dhig').addClass('hidden');
    clearTimeout(dorsz);
@@ -23,6 +25,7 @@ map._onResize();
  });
 
  $('body').on('click', '#durst-image-home', function() {
+   $('#user_util_links').find('a.active').removeClass('active');
 /*
    if ($('#content').hasClass('col-md-9')) {
      $('#content').removeClass('col-md-9').addClass('col-md-6');
@@ -37,6 +40,7 @@ map._onResize();
    if ($('#dhig').hasClass('hidden')) {
      $('#dhss,#content').addClass('hidden');
      $('#dhig').removeClass('hidden');
+     $(this).addClass('active');
    } else {
      $('#content').removeClass('hidden');
        if ($('#content').hasClass('col-md-6')) {

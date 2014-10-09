@@ -116,7 +116,7 @@ footer.container {
     }
     li {
       border-left:1px solid #eee;
-      & a:hover, &.open a.dropdown-toggle {
+      & a:hover, &.open a.dropdown-toggle, a.active {
         background-color:transparent; //rgba(0,0,0,.1);
         color:#8c3522;
       }
