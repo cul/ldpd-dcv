@@ -31,6 +31,13 @@ footer.container {
     background-color:#3D3F3E;
     #site-banner-inner {
     }
+    #search-navbar #q {
+      background-color:#eee;
+      color:#000;
+      &:focus {
+         background-color:#fff;
+      }
+    }
 }
 #site-title {
     display:inline-block;
@@ -50,7 +57,7 @@ footer.container {
 }
 #outer-wrapper {
     overflow:hidden;
-    background-color:#F3F3F3;
+    background-color:#FCFCFC;
     border-color:#bbb;
 }
 #main-container {
@@ -109,10 +116,13 @@ footer.container {
     }
     li {
       border-left:1px solid #eee;
-      & a:hover, &.open a.dropdown-toggle {
+      & a:hover, &.open a.dropdown-toggle, a.active {
         background-color:transparent; //rgba(0,0,0,.1);
         color:#8c3522;
       }
+    }
+    a {
+        color:#333;
     }
 }
 #content {
@@ -150,50 +160,21 @@ footer.container {
 #child_gallery {
     background-color:transparent;
 }
- figure { 
-   position:relative; 
-   margin:0;
-   text-align:center;
-   figcaption {
-    z-index:999;
-	position: absolute;
-	left: 0;
-	padding: 20px;
-	background: rgba(183,183,183,.7);
-	color: #fff;
-	height: 60px;
+.carousel-inner > .item > img, .carousel-inner > .item > a > img {
+    position:relative;
 	width: 100%;
-	top: auto;
-	bottom: 0;
-	opacity: 0;
-	-webkit-transform: translateY(100%);
-	-moz-transform: translateY(100%);
-	-ms-transform: translateY(100%);
-	transform: translateY(100%);
-	-webkit-backface-visibility: hidden;
-	-moz-backface-visibility: hidden;
-	backface-visibility: hidden;
-	-webkit-transition: -webkit-transform 0.4s, opacity 0.1s 0.3s;
-	-moz-transition: -moz-transform 0.4s, opacity 0.1s 0.3s;
-	transition: transform 0.4s, opacity 0.1s 0.3s;
-   }
-   &:hover figcaption {
-     opacity: 1;
-	-webkit-transform: translateY(0px);
-	-moz-transform: translateY(0px);
-	-ms-transform: translateY(0px);
-	transform: translateY(0px);
-	-webkit-transition: -webkit-transform 0.4s, opacity 0.1s;
-	-moz-transition: -moz-transform 0.4s, opacity 0.1s;
-	transition: transform 0.4s, opacity 0.1s;
-   }
- }
-	.carousel-inner > .item > img, .carousel-inner > .item > a > img {
-        position:relative;
-		width: 100%;
-	}
+}
+.carousel-inner .dhp-img-holder {
+    height:100%;
+    background-size:cover;
+    background-repeat:no-repeat;
+    background-position:center center;
+}
+.carousel-control {
+	color:rgba(255,255,255,.6);
+}
 a, a:hover, .dropdown a {
-    color:#591300;
+    color:#990000; //#591300;
 }
 .btn-primary, #topnavbar #cul_top-nosearch .dropdown-menu li a:hover {
     background:#591300;

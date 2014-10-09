@@ -159,6 +159,7 @@ GEM
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
     kgio (2.9.2)
+    leaflet-rails (0.7.4)
     libv8 (3.16.14.3)
     linkeddata (1.1.1)
       equivalent-xml (>= 0.4.0)
@@ -377,6 +378,7 @@ DEPENDENCIES
   jettywrapper
   jquery-rails (>= 3.0)
   jquery-ui-rails
+  leaflet-rails
   mysql2 (= 0.3.13)
   nokogiri (~> 1.6.3)
   rails (= 4.0.4)
