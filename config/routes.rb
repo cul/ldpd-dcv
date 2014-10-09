@@ -28,6 +28,11 @@ Dcv::Application.routes.draw do
   SUBSITES['public'].each do |subsite_key, data|
     get "#{subsite_key}/asset/:id/:type/:size" => "#{subsite_key}#asset", as: subsite_key + '_asset'
     get "#{subsite_key}/resolve/asset/:id/:type/:size" => "#{subsite_key}#resolve_asset", as: subsite_key + '_resolve_asset', constraints: { id: /[^\?]+/ }
+    resources(:solr_document, {only: [:show], path: subsite_key.to_s, controller: subsite_key.to_s}) do
+      member do
+        post "track"
+      end
+    end
   end
 
   namespace "restricted" do
@@ -35,6 +40,11 @@ Dcv::Application.routes.draw do
     SUBSITES['restricted'].each do |subsite_key, data|
       get "#{subsite_key}/asset/:id/:type/:size" => "#{subsite_key}#asset", as: subsite_key + '_asset'
       get "#{subsite_key}/resolve/asset/:id/:type/:size" => "#{subsite_key}#resolve_asset", as: subsite_key + '_resolve_asset', constraints: { id: /[^\?]+/ }
+      resources(:solr_document, {only: [:show], path: subsite_key.to_s, controller: subsite_key.to_s}) do
+        member do
+          post "track"
+        end
+      end
     end
   end
 
