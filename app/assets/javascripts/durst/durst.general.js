@@ -2,7 +2,6 @@ $(function() {
 
  if ($('#carousel-example-generic').length) {  $('#durst-search-home, #durst-image-home').removeClass('hidden'); }
  $('body').on('click', '#durst-search-home, #mapholder-link', function() {
-   $('#user_util_links').find('a.active').removeClass('active');
    $('#content,#dhss').removeClass('hidden');
    if ($('#content').hasClass('col-md-9')) {
      $('#content').removeClass('col-md-9').addClass('col-md-6');
@@ -14,33 +13,20 @@ $(function() {
      $('#mapholder-link').addClass('hidden');
      $('#durst_osm').removeClass('hidden').attr('src', $('#durst_osm').attr('src'));
      $('#dhss').addClass('hidden');
-     $(this).addClass('active');
    }
    $('#dhig').addClass('hidden');
    clearTimeout(dorsz);
    dorsz = setTimeout(resizedw, 100);
    $(window).trigger('resize');
-map._onResize(); 
+   map._onResize(); 
+   activeNav();
    return false;
  });
 
  $('body').on('click', '#durst-image-home', function() {
-   $('#user_util_links').find('a.active').removeClass('active');
-/*
-   if ($('#content').hasClass('col-md-9')) {
-     $('#content').removeClass('col-md-9').addClass('col-md-6');
-     $('#mapholder-link').removeClass('hidden');
-     $('#durst_osm').addClass('hidden');
-   } else {
-     $('#content').removeClass('col-md-6').addClass('col-md-9');
-     $('#mapholder-link').addClass('hidden');
-     $('#durst_osm').removeClass('hidden').attr('src', $('#durst_osm').attr('src'));
-   }
-*/
    if ($('#dhig').hasClass('hidden')) {
      $('#dhss,#content').addClass('hidden');
      $('#dhig').removeClass('hidden');
-     $(this).addClass('active');
    } else {
      $('#content').removeClass('hidden');
        if ($('#content').hasClass('col-md-6')) {
@@ -48,12 +34,18 @@ map._onResize();
        }
      $('#dhig').addClass('hidden');
    }
-/*
-   clearTimeout(dorsz);
-   dorsz = setTimeout(resizedw, 100);
-*/
+   activeNav();
    return false;
  });
+function activeNav() {
+    $('#user_util_links').find('a.active').removeClass('active');
+    if ($('#content').hasClass('col-md-9') && !$('#content').hasClass('hidden')) {
+        $('#durst-search-home').addClass('active');
+    }
+    if (!$('#dhig').hasClass('hidden')) {
+        $('#durst-image-home').addClass('active');
+    }
+}
 
  // full width layout switcher for dev/proto only.
  var isFullWidth = false;
