@@ -38,7 +38,7 @@ $(function() {
    return false;
  });
 function activeNav() {
-    $('#user_util_links').find('a.active').removeClass('active');
+    $('#user_util_links').find('a').removeClass('active').blur();
     if ($('#content').hasClass('col-md-9') && !$('#content').hasClass('hidden')) {
         $('#durst-search-home').addClass('active');
     }
