@@ -11,3 +11,4 @@
 // about supported directives.
 //
 //= require './durst/durst.general.js'
+//= require 'leaflet'
