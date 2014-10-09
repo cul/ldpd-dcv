@@ -92,7 +92,7 @@ var marker;
 function homeMap() {
     //var mapurl='http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
     //var mapurl='http://otile1.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpg';
-    var mapurl='http://server.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer/tile/{z}/{y}/{x}';
+    var mapurl='//server.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer/tile/{z}/{y}/{x}';
     map = L.map('durst_osm').setView([40.7730, -73.8402], 11);
     L.tileLayer(mapurl, {
     attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>. Tiles &copy; Esri&mdash;National Geographic, Esri, DeLorme, NAVTEQ, UNEP-WCMC, USGS, NASA, ESA, METI, NRCAN, GEBCO, NOAA, iPC.',
