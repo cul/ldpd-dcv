@@ -11,9 +11,9 @@
   <%= render :partial => 'shared/topnavbar' %>
 
   <div id="outer-wrapper" class="container">
-    <div class="row">
+		<div class="row">
 
-	  <%#= render partial: 'shared/header_navbar' %>
+		<%#= render partial: 'shared/header_navbar' %>
 		<div class="container">
 			<div id="site-banner" class="slim" style="margin-bottom:0;">
 				<div class="row">
@@ -43,48 +43,44 @@
 						"><i class="glyphicon glyphicon-home"></i></a></li>
 							<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">LEARN MORE <b class="caret"></b></a>
 								<ul class="dropdown-menu">
-									<li><a href="/about">About the Collection</a></li>
-									<li><a href="/faq">MOTM</a></li>
-									<li><a href="/faq">Favorites</a></li>
-									<li><a href="/faq">FAQ</a></li>
+									<li><a href="#">About the Collection</a></li>
+									<li><a href="#">About the Project</a></li>
 								</ul>
-							</li>
-						</ul>
-						</div><!--/-->
-							<div id="navbar_right_wrapper" class="col-sm-3 pull-right" style="
-							font-size: 12px;
-							text-align: right;
-						">
-							<ul class="nav nav-pills pull-right nav-collapse" id="user_util_links">
-								<li class="inline">
-								<a class="hidden" href="#" id="durst-search-home" title="Toggle Map Search View" style="line-height: 0; margin-top: -7px;"><span class="glyphicon glyphicon-map-marker"></span></a>
-								</li>
-								<li class="inline">
-								<a class="hidden" href="#" id="durst-image-home" title="Toggle Image Search View" style="line-height: 0; margin-top: -7px;"><span class="glyphicon glyphicon-picture"></span></a>
-								</li>
-								<li class="inline">
-								<a class="text-warning" href="#" id="durst-full-width" title="Toggle Full Width ALT View [dev only]" data-toggle="tooltip" style="line-height: 0; margin-top: -7px;"><span class="glyphicon glyphicon-resize-full"></span></a>
-								</li>
-							</ul>
-							</div>
-					</div><!--/row-->
-				 </div><!--/subnav-->
-			</div>
-		</div>
+								</div><!--/-->
+									<div id="navbar_right_wrapper" class="col-sm-3 pull-right" style="
+									font-size: 12px;
+									text-align: right;
+								">
+									<ul class="nav nav-pills pull-right nav-collapse" id="user_util_links">
+										<li class="inline">
+										<a class="hidden" href="#" id="durst-search-home" title="Toggle Map Search View" style="line-height: 0; margin-top: -7px;"><span class="glyphicon glyphicon-map-marker"></span></a>
+										</li>
+										<li class="inline">
+										<a class="hidden" href="#" id="durst-image-home" title="Toggle Image Search View" style="line-height: 0; margin-top: -7px;"><span class="glyphicon glyphicon-picture"></span></a>
+										</li>
+										<li class="inline">
+										<a class="text-warning" href="#" id="durst-full-width" title="Toggle Full Width ALT View [dev only]" data-toggle="tooltip" style="line-height: 0; margin-top: -7px;"><span class="glyphicon glyphicon-resize-full"></span></a>
+										</li>
+									</ul>
+									</div>
+							</div><!--/row-->
+						 </div><!--/subnav-->
+					</div>
+				</div>
 
-	  <%= render partial: 'shared/ajax_modal' %>
+				<%= render partial: 'shared/ajax_modal' %>
 
-	  <div id="main-container" class="container">
-		<%= render :partial=>'/flash_msg', layout: 'shared/flash_messages' %>
+				<div id="main-container" class="container">
+				<%= render :partial=>'/flash_msg', layout: 'shared/flash_messages' %>
 
-		<%= yield %>
+				<%= yield %>
 
-	  </div>
+				</div>
 
-	  <%= render :partial => 'shared/footer' %>
+				<%= render :partial => 'shared/footer' %>
 
-    </div><!--/.row-->
-  </div><!--/#outer-wrapper-->
+		</div><!--/.row-->
+	</div><!--/#outer-wrapper-->
 
   </body>
 </html>
