@@ -3,7 +3,7 @@
 <% structured_children.each_with_index do |child, ix| -%>
   <div class="col-sm-<%= (structured_children.length <= 2) ? '6' : '3' %>">
   	<article>
-      <a rel="item-link" class="tocontent post thumbnail document blacklight-photographs <%= ix == 0 ? 'selected' : '' %>" data-original-title="<%= child[:title] %>" data-sequence="<%= ix %>" data-counter="<%= child[:order] %>" href="<%= catalog_resolve_asset_path(id: child[:id], size: 768, type: 'scaled', format: 'jpg') %>" data-bytestreams="<%= resolve_catalog_bytestreams_url(catalog_id: child[:id], :format=>'json') %>" onclick="favoriteChild(this); return false;" data-id="<%=child[:id]%>">
+      <a rel="item-link" class="tocontent post thumbnail document blacklight-photographs <%= ix == 0 ? 'selected' : '' %>" data-original-title="<%= child[:title] %>" data-sequence="<%= ix %>" data-counter="<%= child[:order] %>" href="<%= catalog_resolve_asset_path(id: child[:id], size: 768, type: 'scaled', format: 'jpg') %>" data-info-url="<%= catalog_resolve_asset_info_path(id: child[:id], format: 'jpg') %>" data-bytestreams="<%= resolve_catalog_bytestreams_url(catalog_id: child[:id], :format=>'json') %>" onclick="favoriteChild(this); return false;" data-id="<%=child[:id]%>">
       	<img src="<%= catalog_resolve_asset_path(id: child[:id], size: 256, type: 'scaled', format: 'jpg') %>" />
       </a>
       <div class="caption">

@@ -100,31 +100,40 @@ $(function() {
 
   //If we're on an item show page, load download links
   if($('#item-show').length > 0) {
-    loadDownloadsForItemShowPage();
+    loadDownloadsForItemShowPage($('#favorite-child img').attr('data-info-url'));
   }
 
 });
 
-function loadDownloadsForItemShowPage() {
+function loadDownloadsForItemShowPage(infoUrl) {
 
-  $('#item-show-downloads li.bsDownload').remove();
-  $('#item-show-downloads li.bsDownload').append('<li class="placeholder"><a href="#">Loading downloads...</a></li>');
+  $('#item-show-downloads li.downloadItem').remove();
+  $('#item-show-downloads li.downloadItem').append('<li class="placeholder"><a href="#">Loading downloads...</a></li>');
 
-  var bsUrl = $('#favorite-child img').attr('data-bytestreams')
-  loadByteStreams(bsUrl, function(data){
-    $('#item-show-downloads li.placeholder').remove();
-    $('#item-show-downloads').append(getListItemContentFromBytestreamsData(data));
+  $.ajax({
+    dataType: "json",
+    url: infoUrl,
+    success: function(data){
+      $('#item-show-downloads li.placeholder').remove();
+      $('#item-show-downloads').append(getListItemContentFromInfoRequestData(data));
+    }
   });
 }
 
 
-function getListItemContentFromBytestreamsData(data) {
+function getListItemContentFromInfoRequestData(data) {
   var li_html = '';
-  for(var i=0;i<data.length;i++){
-    dlName = data[i]["title"] + '.' + data[i]["url"].match(/\.([^.]+)$/)[1];
-    dlName += ' (' + data[i]["width"] + 'x' + data[i]["length"] + ')';
-    li_html += '<li class="bsDownload"><a href="' + data[i]["url"] + '" target="_blank"><span class="glyphicon glyphicon-download"></span> ' + dlName + '</a></li>'
+
+  if (data['available']) {
+    scaledImages = data['scaled']['sizes'];
+    for(var i=0;i<scaledImages.length;i++){
+      dlName = scaledImages[i]['width'] + ' x ' + scaledImages[i]['height'];
+      li_html += '<li class="downloadItem"><a href="' + scaledImages[i]["url"] + '" target="_blank"><span class="glyphicon glyphicon-download"></span> ' + dlName + '</a></li>'
+    }
+  } else {
+    li_html += '<li class="downloadItem"><a href="#">Downloads currently unavailable.  Please check back later.</a></li>'
   }
+
   return li_html;
 }
 
@@ -227,9 +236,11 @@ function handleImageChange(event) {
   $("#children-links a[rel='child']").each(function(){
     if ($(this).attr('data-rftId') == src.imageID) {
       bsUrl = $(this).attr('data-bytestreams');
-      loadByteStreams(bsUrl, setDownloads);
+      dataInfoUrl = $(this).attr('data-info-url');
+      loadByteStreams(bsUrl);
+      loadDownloadsForItemShowPage(dataInfoUrl);
     }
-  })
+  });
 }
 
 function loadByteStreams(bsUrl, handler) {
@@ -248,17 +259,13 @@ function loadByteStreams(bsUrl, handler) {
   }
 }
 
-function setDownloads(data) {
-  $('#dlwrapper ul.dropdown-menu').each(function(list){
-    $(this).html(getListItemContentFromBytestreamsData(data));
-  });
-}
 function favoriteChild(child) {
   var screenUrl = $(child).attr('href');
   var screenImg = $('#favorite-child img').first();
   var dataCounter = $(child).attr('data-counter');
   var dataSequence = $(child).attr('data-sequence');
   var bytestreamsUrl = $(child).attr('data-bytestreams');
+  var infoUrl = $(child).attr('data-info-url');
   var ccap = $(child).next('.caption').find('h5').text();
   if (screenUrl != screenImg.attr('src')) {
     $('#ct').html('<span style="color:#555;">Loading...</span>');
@@ -268,11 +275,12 @@ function favoriteChild(child) {
       screenImg.attr('data-counter', dataCounter);
       screenImg.attr('data-sequence', dataSequence);
       screenImg.attr('data-bytestreams', bytestreamsUrl);
+      screenImg.attr('data-info-url', infoUrl);
       $('#ct').html(ccap);
+      loadDownloadsForItemShowPage(infoUrl);
     };
     screenImg.attr('src', screenUrl);
   }
-  loadDownloadsForItemShowPage();
 }
 //** CULTNBW START **/
   CULh_colorfg = '#000000'; // topnavbar foreground color. hex value. ex: #002B7F

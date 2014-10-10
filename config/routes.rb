@@ -1,13 +1,6 @@
 Dcv::Application.routes.draw do
   root :to => "home#index"
 
-  #concern :asset_resolvable do
-  #  collection do
-  #    #get 'asset/:id/:type/:size', action: 'asset', as: 'asset'
-  #    #get 'resolve/asset/:id/:type/:size', action: 'resolve_asset', as: 'resolve_asset'
-  #  end
-  #end
-
   get '/browse/:action' => 'browse', as: :browse
   get '/explore' => 'welcome#home'
   get '/about' => 'pages#about', as: :about
@@ -22,12 +15,17 @@ Dcv::Application.routes.draw do
   # Dynamic routes for catalog controller and all subsites
   blacklight_for *([:catalog].concat(SUBSITES['public'].keys.map{|key| key.to_sym})) # Using * operator to turn the array of values into a set of arguments for the blacklight_for method
 
-  get "catalog/asset/:id/:type/:size" => "catalog#asset" , as: 'catalog_asset'
-  get "catalog/resolve/asset/:id/:type/:size" => "catalog#resolve_asset", as: 'catalog_resolve_asset', constraints: { id: /[^\?]+/ }
+  get "catalog/asset/:id/:type/:size.:format" => "catalog#asset" , as: 'catalog_asset'
+  get "catalog/resolve/asset/:id/:type/:size.:format" => "catalog#resolve_asset", as: 'catalog_resolve_asset', constraints: { id: /[^\?]+/ }
+  get "catalog/asset/:id.:format" => "catalog#asset_info", as: 'catalog_asset_info'
+  get "catalog/resolve/asset/:id.:format" => "catalog#resolve_asset_info", as: 'catalog_resolve_asset_info', constraints: { id: /[^\?]+/ }
 
   SUBSITES['public'].each do |subsite_key, data|
-    get "#{subsite_key}/asset/:id/:type/:size" => "#{subsite_key}#asset", as: subsite_key + '_asset'
-    get "#{subsite_key}/resolve/asset/:id/:type/:size" => "#{subsite_key}#resolve_asset", as: subsite_key + '_resolve_asset', constraints: { id: /[^\?]+/ }
+    get "#{subsite_key}/asset/:id/:type/:size.:format" => "#{subsite_key}#asset", as: subsite_key + '_asset'
+    get "#{subsite_key}/resolve/asset/:id/:type/:size.:format" => "#{subsite_key}#resolve_asset", as: subsite_key + '_resolve_asset', constraints: { id: /[^\?]+/ }
+    get "#{subsite_key}/asset/:id.:format" => "#{subsite_key}#asset_info", as: subsite_key + '_asset_info'
+    get "#{subsite_key}/resolve/asset/:id.:format" => "#{subsite_key}#resolve_asset_info", as: subsite_key + '_resolve_asset_info', constraints: { id: /[^\?]+/ }
+
     resources(:solr_document, {only: [:show], path: subsite_key.to_s, controller: subsite_key.to_s}) do
       member do
         post "track"
@@ -38,8 +36,10 @@ Dcv::Application.routes.draw do
   namespace "restricted" do
     blacklight_for *((SUBSITES['restricted'].keys.map{|key| key.to_sym})) # Using * operator to turn the array of values into a set of arguments for the blacklight_for method
     SUBSITES['restricted'].each do |subsite_key, data|
-      get "#{subsite_key}/asset/:id/:type/:size" => "#{subsite_key}#asset", as: subsite_key + '_asset'
-      get "#{subsite_key}/resolve/asset/:id/:type/:size" => "#{subsite_key}#resolve_asset", as: subsite_key + '_resolve_asset', constraints: { id: /[^\?]+/ }
+      get "#{subsite_key}/asset/:id/:type/:size.:format" => "#{subsite_key}#asset", as: subsite_key + '_asset'
+      get "#{subsite_key}/resolve/asset/:id/:type/:size.:format" => "#{subsite_key}#resolve_asset", as: subsite_key + '_resolve_asset', constraints: { id: /[^\?]+/ }
+      get "#{subsite_key}/asset/:id.:format" => "#{subsite_key}#asset_info", as: subsite_key + '_asset_info'
+      get "#{subsite_key}/resolve/asset/:id.:format" => "#{subsite_key}#resolve_asset_info", as: subsite_key + '_resolve_asset_info', constraints: { id: /[^\?]+/ }
       resources(:solr_document, {only: [:show], path: subsite_key.to_s, controller: subsite_key.to_s}) do
         member do
           post "track"

@@ -15,15 +15,21 @@ module Dcv::Catalog::AssetResolverBehavior
   end
 
   def asset
-    #get_solr_response_for_app_id
     redirect_to(DCV_CONFIG['cdn_url'] + "/images/#{params[:id]}/#{params[:type]}/#{params[:size]}.#{params[:format]}")
-    #redirect_to('https://dcv-private-test.cul.columbia.edu/thumbs/ldpd:138211')
   end
 
   def resolve_asset
     get_solr_response_for_app_id
     redirect_to(DCV_CONFIG['cdn_url'] + "/images/#{@document.id}/#{params[:type]}/#{params[:size]}.#{params[:format]}")
-    #redirect_to('https://dcv-private-test.cul.columbia.edu/thumbs/ldpd:138211')
+  end
+
+  def asset_info
+    redirect_to(DCV_CONFIG['cdn_url'] + "/images/#{params[:id]}.#{params[:format]}")
+  end
+
+  def resolve_asset_info
+    get_solr_response_for_app_id
+    redirect_to(DCV_CONFIG['cdn_url'] + "/images/#{@document.id}.#{params[:format]}")
   end
 
 end
