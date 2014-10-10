@@ -6,5 +6,5 @@
   </div>
 </div>
 <div id="children-links" style="visibility: hidden;">
-    <a rel="child" data-src="<%= catalog_url(id: params[:id]) %>.json" data-id="<%=params[:id]%>" data-info-url="<%= catalog_resolve_asset_info_path(id: params[:id], format: 'jpg') %>" data-bytestreams="<%= bytestreams_url(catalog_id: params[:id], :format=>'json') %>" data-rftId="<%= document['rft_id_ss'] -%>"></a>
+    <a rel="child" data-src="<%= catalog_url(id: params[:id]) %>.json" data-id="<%=params[:id]%>" data-info-url="<%= catalog_resolve_asset_info_path(id: params[:id], format: 'png') %>" data-bytestreams="<%= bytestreams_url(catalog_id: params[:id], :format=>'json') %>" data-rftId="<%= document['rft_id_ss'] -%>"></a>
 </div>

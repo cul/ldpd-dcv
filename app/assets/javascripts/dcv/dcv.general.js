@@ -127,7 +127,7 @@ function getListItemContentFromInfoRequestData(data) {
   if (data['available']) {
     scaledImages = data['scaled']['sizes'];
     for(var i=0;i<scaledImages.length;i++){
-      dlName = scaledImages[i]['width'] + ' x ' + scaledImages[i]['height'];
+      dlName = 'PNG (' + scaledImages[i]['width'] + ' x ' + scaledImages[i]['height'] + ')';
       li_html += '<li class="downloadItem"><a href="' + scaledImages[i]["url"] + '?download=true' + '" target="_blank"><span class="glyphicon glyphicon-download"></span> ' + dlName + '</a></li>'
     }
   } else {
