@@ -128,7 +128,7 @@ function getListItemContentFromInfoRequestData(data) {
     scaledImages = data['scaled']['sizes'];
     for(var i=0;i<scaledImages.length;i++){
       dlName = scaledImages[i]['width'] + ' x ' + scaledImages[i]['height'];
-      li_html += '<li class="downloadItem"><a href="' + scaledImages[i]["url"] + '" target="_blank"><span class="glyphicon glyphicon-download"></span> ' + dlName + '</a></li>'
+      li_html += '<li class="downloadItem"><a href="' + scaledImages[i]["url"] + '?download=true' + '" target="_blank"><span class="glyphicon glyphicon-download"></span> ' + dlName + '</a></li>'
     }
   } else {
     li_html += '<li class="downloadItem"><a href="#">Downloads currently unavailable.  Please check back later.</a></li>'
