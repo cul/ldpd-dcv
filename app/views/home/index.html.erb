@@ -25,7 +25,6 @@
 					<% @browse_lists.each do |facet_name, data| %>
 						<li><a href="#tab_<%= facet_name %>" data-toggle="tab"><%= data['display_label'] %></a></li>
 					<% end %>
-					<li><a href="#sample_items" data-toggle="tab">Sample Items</a></li>
 				</ul>
 
 				<!-- Tab panes -->
@@ -38,7 +37,6 @@
 							<%= render template: "pages/#{facet_name}", locals: {facet_name: facet_name, data: data} if data['value_pairs'].present? %>
 						<% end %>
 					<% end %>
-					<%= render template: 'home/sample_items' %>
 				</div>
 			</div> <!--/.inner-->
 		</div>

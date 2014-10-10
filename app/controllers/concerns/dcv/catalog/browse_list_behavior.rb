@@ -165,7 +165,7 @@ module Dcv::Catalog::BrowseListBehavior
 		{
 			:name => "Cuneiform Digital Library Initiative",
 			:image => 'cuneiform.jpeg',
-			:external_url => 'http://www.columbia.edu/cgi-bin/cul/resolve?clio10430744',
+			:external_url => 'http://cdli.ucla.edu/collections/columbia/columbia.html',
 			:description => "CDLI is an online catalog of more than 230,000 cuneiform tablets with over  75,000 images. Columbia's ca. 500 tablets are included in this collection and may be browsed <a href='http://cdli.ucla.edu/collections/columbia/columbia.html'>here</a>."
 		},
 		{
@@ -236,6 +236,12 @@ module Dcv::Catalog::BrowseListBehavior
 			:facet_value => 'Jay Papers',
 			:external_url => 'http://www.columbia.edu/cgi-bin/cul/resolve?AVE8231',
 			:description => "An online index and text database of correspondence, memos, diaries, etc. written by or to the American statesman John Jay (1745-1829)."
+		},
+		{
+			:name => "John H. Yardley Collection of Architectural Letterheads",
+			:image => 'yardley.jpg',
+			:external_url => 'http://www.columbia.edu/cgi-bin/cul/resolve?clio10976901',
+			:description => "This collection provides a unique view of New York City's evolution during the 19th and 20th centuries. Selected for their illustrations of buildings in lower Manhattan, these pieces of stationery include rare images of the city's commercial architecture, much of which is no longer extant."
 		},
 		{
 			:name => "Joseph Urban Stage Design Models and Documents",

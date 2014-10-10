@@ -401,8 +401,8 @@ h2[itemprop="name"] {
 }
 
 #content .col-sm-3.document {
-  height: 200px;
-  margin-bottom:2em;
+
+  margin-bottom:1em;
   .tombstone {
     height:100%;
     font-size:1em;
@@ -418,9 +418,6 @@ h2[itemprop="name"] {
     .index_title {
       margin-top:1em;
     }
-  }
-  .thumbnail {
-    height:150px;
   }
   &.list-view {
     height:auto;
@@ -818,6 +815,9 @@ h2[itemprop="name"] {
     font-size: 1.1em;
     margin-top:0px;
   }
+	.project-image-link {
+		display:inline-block;
+	}
 }
 
 #search-index-tools {
