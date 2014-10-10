@@ -6,8 +6,7 @@
 			<h3 class="index_title ellipsis"><%= t('blacklight.search.documents.counter', :counter => counter_in_results) %>
 				<%= link_to_document(document, :counter => (@do_not_link_to_search ? nil : counter_in_results)) %>
 			</h3>
-			<%= '<div class="ellipsis">'.html_safe + document['lib_repo_short_ssim'][0] + '</div>'.html_safe if document['lib_repo_short_ssim'].present? %>
-			<%= '<div class="ellipsis">'.html_safe + document['lib_format_ssm'][0].singularize.capitalize + '</div>'.html_safe if document['lib_format_ssm'].present? %>
+			<%= '<div class="ellipsis">'.html_safe + document['lib_name_ssm'][0] + '</div>'.html_safe if document['lib_name_ssm'].present? %>
 		</div>
 		<div class="col-sm-9 index_title index-show-list-fields hidden">
 			<h3 class="index_title ellipsis"><%= t('blacklight.search.documents.counter', :counter => counter_in_results) %><%= link_to_document(document, :counter => counter_in_results) %></h3>
