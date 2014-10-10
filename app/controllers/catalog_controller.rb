@@ -1,16 +1,6 @@
-require 'blacklight/catalog'
-
 class CatalogController < ApplicationController
 
-  include Blacklight::Catalog
-  include Hydra::Controller::ControllerBehavior
-  include Dcv::Catalog::SearchParamsLogicBehavior
-  include Dcv::Catalog::BrowseListBehavior
-  include Dcv::Catalog::DateRangeSelectorBehavior
-  include Dcv::Catalog::RandomItemBehavior
-  include Dcv::Catalog::PivotFacetDataBehavior
-  include Dcv::Catalog::ModsDisplayBehavior
-  include Dcv::Catalog::CitationDisplayBehavior
+  include Dcv::CatalogIncludes
 
   before_action :refresh_browse_lists_cache, only: [:home, :browse]
   # These before_filters apply the hydra access controls
@@ -30,8 +20,13 @@ class CatalogController < ApplicationController
     id.gsub!(':','\:')
     id.gsub!('/','\/')
     p = blacklight_config.default_document_solr_params.merge(extra_controller_params)
-    p[:fq] = "identifier_ssim:#{(id)}"
+    p[:fq] = "dc_identifier_ssim:#{(id)}"
     solr_response = find(blacklight_config.document_solr_path, p)
+    if solr_response.docs.empty?
+      # ba2213 thought this was a good interim until we can verify that all docs have DC:identifier set appropriately
+      p[:fq] = "identifier_ssim:#{(id)}"
+      solr_response = find(blacklight_config.document_solr_path, p)
+    end
     raise Blacklight::Exceptions::InvalidSolrID.new if solr_response.docs.empty?
     document = SolrDocument.new(solr_response.docs.first, solr_response)
     @response, @document = [solr_response, document]

@@ -33,11 +33,7 @@ module Dcv::ChildrenHelperBehavior
       fl << (title_field = document_show_link_field).to_s
     rescue
     end
-    opts = {controller: :thumbs, id: doc['id'], action: :show}
-    opts[:only_path] = true
-    child = {id: doc['id'], thumbnail: url_for(opts)}
-    opts[:controller] = :screen_images
-    child[:screen] = url_for(opts)
+    child = {id: doc['id'], thumbnail: catalog_asset_path(id: doc['id'], size: 768, type: 'scaled', format: 'jpg')}
     if title_field
       title = doc[title_field.to_s]
       title = title.first if title.is_a? Array

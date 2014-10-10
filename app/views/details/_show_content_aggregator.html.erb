@@ -1,12 +1,18 @@
-<div id="zoom-gallery" data-url="<%= children_url(document[:id], :per_page=>999) %>">
-  <div id="zoom-content" class="openseadragon">
-	  <div id="zoom-toolbar" class="btn-toolbar">
-		<%= render 'zoom/controls' -%>
-	  </div>
-  </div>
-</div>
-<div id="children-links" style="visibility: hidden;">
-  <% structured_children.each_with_index do |child, ix| -%>
-    <a rel="child" data-src="<%= resolve_catalog_url(id: CGI.escape(child[:id])) %>.json" data-id="<%=child[:id]%>" data-bytestreams="<%= resolve_catalog_bytestreams_url(catalog_id: child[:id], :format=>'json') %>" data-rftId="<%= child[:rft_id]-%>"></a>
-  <% end -%>
-</div>
+<% puts 'structured_children: ' + structured_children.inspect %>
+
+<% if false %>
+	rft_id_ss
+<% else %>
+	<div id="zoom-gallery" data-url="<%= children_url(document[:id], :per_page=>999) %>">
+		<div id="zoom-content" class="openseadragon">
+			<div id="zoom-toolbar" class="btn-toolbar">
+			<%= render 'zoom/controls' -%>
+			</div>
+		</div>
+	</div>
+	<div id="children-links" style="visibility: hidden;">
+		<% structured_children.each_with_index do |child, ix| -%>
+			<a rel="child" data-src="<%= resolve_catalog_url(id: CGI.escape(child[:id])) %>.json" data-id="<%=child[:id]%>" data-bytestreams="<%= resolve_catalog_bytestreams_url(catalog_id: child[:id], :format=>'json') %>" data-rftId="<%= child[:rft_id]-%>"></a>
+		<% end -%>
+	</div>
+<% end %>

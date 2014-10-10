@@ -157,6 +157,12 @@ module Dcv::Catalog::BrowseListBehavior
 			:description => "This online exhibition and its companion, \"Literature Humanities,\" celebrate the Core as the cornerstone of a Columbia education. Highlights include Galileo's Starry Messenger (1610); John Jay's manuscript of Number 5 of The Federalist Papers (1788); and Mary Wollstonecraft's A Vindication of the Rights of Woman (1792)."
 		},
 		{
+			:name => "Core Curriculum: Literature Humanities",
+			:image => 'core_curriculum_literature_humanities.jpg',
+			:external_url => 'http://www.columbia.edu/cgi-bin/cul/resolve?clio9124743',
+			:description => "A companion to \"Core Curriculum: Contemporary Civilization,\" highlights of this exhibition include a papyrus fragment of Homer’s Iliad dating from the 1st century BCE; a copy of Homer’s Works (1517) owned by Martin Luther; Shakespeare’s first folio Works (1623); and Virginia Woolf’s To the Lighthouse (1926)."
+		},
+		{
 			:name => "Cuneiform Digital Library Initiative",
 			:image => 'cuneiform.jpeg',
 			:external_url => 'http://www.columbia.edu/cgi-bin/cul/resolve?clio10430744',
@@ -194,7 +200,7 @@ module Dcv::Catalog::BrowseListBehavior
 			:description => "Photographs, postcards, negatives, and lantern slides from the G.E.E. Lindquist Papers archival collection at The Burke Library. They depict the people, places, and practices of Native Americans and their communities from 1909-1953."
 		},
 		{
-			:name => "Greene &amp; Greene Architectural Records and Papers Collection",
+			:name => "Greene & Greene Architectural Records and Papers Collection",
 			:image => 'greene.jpeg',
 			:external_url => 'http://www.columbia.edu/cgi-bin/cul/resolve?clio4278328',
 			:description => "An online collection guide and image database of architectural designs and drawings by Charles Sumner Greene and Henry Mather Greene, architects of the American Arts and Crafts Movement."
@@ -372,7 +378,7 @@ module Dcv::Catalog::BrowseListBehavior
 		},
 
 		{
-			:name => "Type to Print: the Book &amp; the Type Specimen Book",
+			:name => "Type to Print: the Book & the Type Specimen Book",
 			:image => 'type_to_print.jpg',
 			:external_url => 'http://www.columbia.edu/cgi-bin/cul/resolve?clio10450214',
 			:description => "An online companion to an exhibit celebrating the 60th anniversary of the American Type Founders collection at the Rare Book & Manuscript Library, Columbia University."

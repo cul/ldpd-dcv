@@ -1,6 +1,13 @@
 Dcv::Application.routes.draw do
   root :to => "home#index"
 
+  #concern :asset_resolvable do
+  #  collection do
+  #    #get 'asset/:id/:type/:size', action: 'asset', as: 'asset'
+  #    #get 'resolve/asset/:id/:type/:size', action: 'resolve_asset', as: 'resolve_asset'
+  #  end
+  #end
+
   get '/browse/:action' => 'browse', as: :browse
   get '/explore' => 'welcome#home'
   get '/about' => 'pages#about', as: :about
@@ -12,33 +19,33 @@ Dcv::Application.routes.draw do
 
   get '/data/flare' => 'catalog#get_pivot_facet_data', as: :flare_data
 
-  # Dynamic routes for all subsites
+  # Dynamic routes for catalog controller and all subsites
   blacklight_for *([:catalog].concat(SUBSITES['public'].keys.map{|key| key.to_sym})) # Using * operator to turn the array of values into a set of arguments for the blacklight_for method
 
-  SUBSITES['public'].each {|subsite_key, data|
+  get "catalog/asset/:id/:type/:size" => "catalog#asset" , as: 'catalog_asset'
+  get "catalog/resolve/asset/:id/:type/:size" => "catalog#resolve_asset", as: 'catalog_resolve_asset', constraints: { id: /[^\?]+/ }
+
+  SUBSITES['public'].each do |subsite_key, data|
+    get "#{subsite_key}/asset/:id/:type/:size" => "#{subsite_key}#asset", as: subsite_key + '_asset'
+    get "#{subsite_key}/resolve/asset/:id/:type/:size" => "#{subsite_key}#resolve_asset", as: subsite_key + '_resolve_asset', constraints: { id: /[^\?]+/ }
     resources(:solr_document, {only: [:show], path: subsite_key.to_s, controller: subsite_key.to_s}) do
       member do
         post "track"
       end
     end
-  }
+  end
 
   namespace "restricted" do
-    #resources = SUBSITES['restricted'].keys.map{|key| (key).to_sym}
-    #raise_no_blacklight_secret_key unless Blacklight.secret_key
-    #options = {}#{only: []}
-    #resources.map!(&:to_sym)
-    #Blacklight::Routes.new(self, options.merge(resources: resources)).draw
-
     blacklight_for *((SUBSITES['restricted'].keys.map{|key| key.to_sym})) # Using * operator to turn the array of values into a set of arguments for the blacklight_for method
-
-    SUBSITES['restricted'].each {|subsite_key, data|
+    SUBSITES['restricted'].each do |subsite_key, data|
+      get "#{subsite_key}/asset/:id/:type/:size" => "#{subsite_key}#asset", as: subsite_key + '_asset'
+      get "#{subsite_key}/resolve/asset/:id/:type/:size" => "#{subsite_key}#resolve_asset", as: subsite_key + '_resolve_asset', constraints: { id: /[^\?]+/ }
       resources(:solr_document, {only: [:show], path: subsite_key.to_s, controller: subsite_key.to_s}) do
         member do
           post "track"
         end
       end
-    }
+    end
   end
 
   get '/users/do_wind_login' => 'users#do_wind_login', as: :do_wind_login
@@ -50,23 +57,17 @@ Dcv::Application.routes.draw do
     get 'content' => 'bytestreams#content'
   end
 
-  resources :thumbs, only: [:show]
-
-  resources :screens, only: [:show], controller: :screen_images
-
   namespace :resolve do
     resources :catalog, only: [:show], constraints: { id: /[^\?]+/ } do
       resources :bytestreams, only: [:index, :show] do
         get 'content'=> 'bytestreams#content'
       end
     end
-    resources :thumbs, only: [:show], constraints: { id: /[^\?]+/ }
     resources :bytestreams, path: 'catalog/:catalog_id/bytestreams', only: [:index, :show], constraints: { id: /[^\/]+/ }
   end
 
   get ':layout/:id/details' => 'details#show', as: :details
 
-  get '/squares/:id/:scale' => 'squares#show', as: :squares
   #get 'resolve/catalog/*catalog_id/bytestreams/:id/content(.:format)' => 'resolve/bytestreams#content',
   # as: :resolve_bytestream_content #,
    #constraints: { catalog_id: /[^\/]+/ }
