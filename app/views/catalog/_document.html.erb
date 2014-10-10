@@ -16,3 +16,10 @@
 		<div class="clearfix"></div>
   </div>
 </div>
+
+<% if @items_per_row_counter % 4 == 0 %>
+	<div class="clearfix"></div>
+	<% @items_per_row_counter = 1 %>
+<% else %>
+	<% @items_per_row_counter += 1 %>
+<% end %>
