@@ -147,7 +147,8 @@ function initTiles(initialPage) {
   }
 
   if (!$.tileSources){
-    $.djUrl = "http://dvorak.cul.columbia.edu:8888/view/";
+    //$.djUrl = "http://dvorak.cul.columbia.edu:8888/view/";  //Uncomment when we use Dvorak
+    $.djUrl = "http://iris.cul.columbia.edu:8888/view/";
     if ($('#zoom-gallery').attr('data-url')) {
       setTilesFromQuery($('#zoom-gallery').attr('data-url'))
     } else {
@@ -219,7 +220,8 @@ function setTilesFromQuery(dataUrl){
         if (child && child['rft_id']) {
           $(this).attr('data-rftId',child['rft_id'])
           //sources[sources.length] = new OpenSeadragon.DjTileSource($.djUrl, child['rft_id']);
-          sources[sources.length] = new OpenSeadragon.CalculatedDjTileSource($.djUrl, child['id'], child['width'], child['length']);
+          sources[sources.length] = new OpenSeadragon.CalculatedDjTileSource($.djUrl, child['rft_id'], child['width'], child['length']);
+          //sources[sources.length] = new OpenSeadragon.CalculatedDjTileSource($.djUrl, child['id'], child['width'], child['length']); //Uncomment when we use Dvorak
         }
       });
       $.tileSources = sources;
