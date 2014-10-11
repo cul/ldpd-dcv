@@ -27,7 +27,7 @@ function ensureArray(_obj) {
 }
 
 function init_seadragon_rft(_id, _rft, _showNav) {
-  var ts = new OpenSeadragon.DjTileSource("http://iris.cul.columbia.edu:8888/view/", _rft);
+  var ts = new OpenSeadragon.DjTileSource("http://dvorak.cul.columbia.edu:8888/view/", _rft);
   init_seadragon_tilesource(_id, ts, _showNav);
 }
 
