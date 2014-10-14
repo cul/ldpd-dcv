@@ -22,3 +22,6 @@
 // jQuery UI
 //= require jquery.ui.all
 //= require colorbox-rails
+//
+// OpenSeadragon
+// require openseadragon
