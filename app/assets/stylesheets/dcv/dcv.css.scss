@@ -680,6 +680,14 @@ h2[itemprop="name"] {
   background-color:#111;
   border:1px solid #333;
   border-width:1px 0;
+  .thumbnail {
+    height:130px;
+    width:99%;
+    img {
+      //height:99%;
+      max-width:99%;
+    }
+  }
   .child-scroll {
     //height:210px;
     //overflow:auto;
@@ -687,7 +695,7 @@ h2[itemprop="name"] {
       height:130px;
       width:99%;
       img {
-        height:99%;
+        //height:99%;
         max-width:99%;
       }
     }
