@@ -76,6 +76,12 @@ module Dcv::Catalog::BrowseListBehavior
 			:description => "Contains over 1,300 items of printed ephemera with architectural imagery from 1850-1920, spanning more than 350 cities and towns in forty-five states."
 		},
 		{
+			:name => "Books",
+			:image => 'ebook.jpeg',
+			:external_url => 'http://library.columbia.edu/find/ebooks.html',
+			:description => "Columbia's digitized books, including rare and out-of-print content, are available in <a href='http://www.columbia.edu/cgi-bin/cul/resolve?clio8498670'>Hathi Trust</a> and also the <a href='https://archive.org/details/ColumbiaUniversityLibraries'>Internet Archive</a>.  All digitized titles are cataloged and linked in <a href='http://www.columbia.edu/cgi-bin/cul/resolve?clio'>CLIO</a>."
+		},
+		{
 			:name => "Butler 75: Butler Library's 75th Anniversary, 1934-2009",
 			:image => 'butler75.jpg',
 			:external_url => 'http://www.columbia.edu/cgi-bin/cul/resolve?clio8586236',
@@ -173,12 +179,6 @@ module Dcv::Catalog::BrowseListBehavior
 			:image => 'digital_scriptorium.jpeg',
 			:external_url => 'http://www.columbia.edu/cgi-bin/cul/resolve?clio4091801',
 			:description => "The Digital Scriptorium makes available cataloging and selected digital images from medieval and early Renaissance manuscript collections housed in U.S. collections. It includes images from some 1,442 Columbia manuscripts from the <a href='http://ucblibrary4.berkeley.edu:8088/xtf22/search?rmode=digscript&smode=bid&bid=20&docsPerPage=30'>Rare Books &amp; Manuscript Library</a> and <a href='http://ucblibrary4.berkeley.edu:8088/xtf22/search?rmode=digscript&smode=bid&bid=22&docsPerPage=30'>Burke Library</a>."
-		},
-		{
-			:name => "Digitized Books",
-			:image => 'ebook.jpeg',
-			:external_url => 'http://www.columbia.edu/cgi-bin/cul/resolve?clio8498670',
-			:description => "Columbia's digitized books, including rare and out-of-print content, are available in <a href='http://www.columbia.edu/cgi-bin/cul/resolve?clio8498670'>Hathi Trust</a> and also the <a href='https://archive.org/details/ColumbiaUniversityLibraries'>Internet Archive</a>.  All digitized titles are cataloged and linked in <a href='http://www.columbia.edu/cgi-bin/cul/resolve?clio'>CLIO</a>."
 		},
 		{
 			:name => "Dramatic Museum Realia",
