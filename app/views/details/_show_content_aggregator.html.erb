@@ -1,7 +1,7 @@
 <% puts 'structured_children: ' + structured_children.inspect %>
 
 <% if zoomable_image_exists?(document[:id]) %>
-	<div id="zoom-gallery" data-url="<%= children_url(document[:id], :per_page=>999) %>">
+	<div id="zoom-gallery" data-url="<%= children_path(document[:id], :per_page=>999) %>">
 		<div id="zoom-content" class="openseadragon">
 			<div id="zoom-toolbar" class="btn-toolbar">
 			<%= render 'zoom/controls' -%>
