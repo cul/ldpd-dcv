@@ -10,7 +10,7 @@
 	</div>
 	<div id="children-links" style="visibility: hidden;">
 		<% structured_children.each_with_index do |child, ix| -%>
-			<a rel="child" data-src="<%= resolve_catalog_url(id: CGI.escape(child[:id])) %>.json" data-id="<%=child[:id]%>" data-info-url="<%= catalog_resolve_asset_info_path(id: child[:id], format: 'png') %>" data-bytestreams="<%= resolve_catalog_bytestreams_path(catalog_id: child[:id], :format=>'json') %>" data-rftId="<%= child[:rft_id]-%>"></a>
+			<a rel="child" data-src="<%= resolve_catalog_url(id: CGI.escape(child[:id])) %>.json" data-id="<%=child[:id]%>" data-info-url="<%= catalog_resolve_asset_info_path(id: child[:id], image_format: 'png') %>" data-bytestreams="<%= resolve_catalog_bytestreams_path(catalog_id: child[:id], :format=>'json') %>" data-rftId="<%= child[:rft_id]-%>"></a>
 		<% end -%>
 	</div>
 <% else %>

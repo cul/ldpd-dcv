@@ -24,12 +24,12 @@ module Dcv::Catalog::AssetResolverBehavior
   end
 
   def asset_info
-    redirect_to(DCV_CONFIG['cdn_url'] + "/images/#{params[:id]}.#{params[:format]}")
+    redirect_to(DCV_CONFIG['cdn_url'] + "/images/#{params[:id]}/#{params[:image_format]}.json")
   end
 
   def resolve_asset_info
     get_solr_response_for_app_id
-    redirect_to(DCV_CONFIG['cdn_url'] + "/images/#{@document.id}.#{params[:format]}")
+    redirect_to(DCV_CONFIG['cdn_url'] + "/images/#{@document.id}/#{params[:image_format]}.json")
   end
 
 end

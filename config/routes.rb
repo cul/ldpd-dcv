@@ -17,14 +17,14 @@ Dcv::Application.routes.draw do
 
   get "catalog/asset/:id/:type/:size.:format" => "catalog#asset" , as: 'catalog_asset'
   get "catalog/resolve/asset/:id/:type/:size.:format" => "catalog#resolve_asset", as: 'catalog_resolve_asset', constraints: { id: /[^\?]+/ }
-  get "catalog/asset/:id.:format" => "catalog#asset_info", as: 'catalog_asset_info'
-  get "catalog/resolve/asset/:id.:format" => "catalog#resolve_asset_info", as: 'catalog_resolve_asset_info', constraints: { id: /[^\?]+/ }
+  get "catalog/asset/:id/:image_format.json" => "catalog#asset_info", as: 'catalog_asset_info'
+  get "catalog/resolve/asset/:id/:image_format.json" => "catalog#resolve_asset_info", as: 'catalog_resolve_asset_info', constraints: { id: /[^\?]+/ }
 
   SUBSITES['public'].each do |subsite_key, data|
     get "#{subsite_key}/asset/:id/:type/:size.:format" => "#{subsite_key}#asset", as: subsite_key + '_asset'
     get "#{subsite_key}/resolve/asset/:id/:type/:size.:format" => "#{subsite_key}#resolve_asset", as: subsite_key + '_resolve_asset', constraints: { id: /[^\?]+/ }
-    get "#{subsite_key}/asset/:id.:format" => "#{subsite_key}#asset_info", as: subsite_key + '_asset_info'
-    get "#{subsite_key}/resolve/asset/:id.:format" => "#{subsite_key}#resolve_asset_info", as: subsite_key + '_resolve_asset_info', constraints: { id: /[^\?]+/ }
+    get "#{subsite_key}/asset/:id/:image_format.json" => "#{subsite_key}#asset_info", as: subsite_key + '_asset_info'
+    get "#{subsite_key}/resolve/asset/:id/:image_format.json" => "#{subsite_key}#resolve_asset_info", as: subsite_key + '_resolve_asset_info', constraints: { id: /[^\?]+/ }
 
     resources(:solr_document, {only: [:show], path: subsite_key.to_s, controller: subsite_key.to_s}) do
       member do
@@ -38,8 +38,8 @@ Dcv::Application.routes.draw do
     SUBSITES['restricted'].each do |subsite_key, data|
       get "#{subsite_key}/asset/:id/:type/:size.:format" => "#{subsite_key}#asset", as: subsite_key + '_asset'
       get "#{subsite_key}/resolve/asset/:id/:type/:size.:format" => "#{subsite_key}#resolve_asset", as: subsite_key + '_resolve_asset', constraints: { id: /[^\?]+/ }
-      get "#{subsite_key}/asset/:id.:format" => "#{subsite_key}#asset_info", as: subsite_key + '_asset_info'
-      get "#{subsite_key}/resolve/asset/:id.:format" => "#{subsite_key}#resolve_asset_info", as: subsite_key + '_resolve_asset_info', constraints: { id: /[^\?]+/ }
+      get "#{subsite_key}/asset/:id/:image_format.json" => "#{subsite_key}#asset_info", as: subsite_key + '_asset_info'
+      get "#{subsite_key}/resolve/asset/:id/:image_format.json" => "#{subsite_key}#resolve_asset_info", as: subsite_key + '_resolve_asset_info', constraints: { id: /[^\?]+/ }
       resources(:solr_document, {only: [:show], path: subsite_key.to_s, controller: subsite_key.to_s}) do
         member do
           post "track"
