@@ -99,14 +99,13 @@ $(function() {
   }
 
   //If we're on an item show page, load download links
-  if($('#item-show').length > 0) {
+  if($('#item-show-downloads').length > 0) {
     loadDownloadsForItemShowPage($('#favorite-child img').attr('data-info-url'));
   }
 
 });
 
 function loadDownloadsForItemShowPage(infoUrl) {
-
   $('#item-show-downloads li.downloadItem').remove();
   $('#item-show-downloads li.downloadItem').append('<li class="placeholder"><a href="#">Loading downloads...</a></li>');
 
