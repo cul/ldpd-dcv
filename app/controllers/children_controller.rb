@@ -31,7 +31,7 @@ class ChildrenController < ApplicationController
 
   def index
     respond_to do |format|
-      format.any do 
+      format.any do
         opts = {}
         opts[:per_page] = params.fetch('per_page', '10')
         opts[:page] = params.fetch('page', '0')

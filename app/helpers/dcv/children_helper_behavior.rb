@@ -1,4 +1,7 @@
 module Dcv::ChildrenHelperBehavior
+
+  include Dcv::CdnHelper
+
   def document_children_from_model(opts={})
     # get the model class
     klass = @document['active_fedora_model_ssi'].constantize
@@ -33,7 +36,7 @@ module Dcv::ChildrenHelperBehavior
       fl << (title_field = document_show_link_field).to_s
     rescue
     end
-    child = {id: doc['id'], thumbnail: catalog_asset_path(id: doc['id'], size: 768, type: 'scaled', format: 'jpg')}
+    child = {id: doc['id'], thumbnail: get_asset_url(id: doc['id'], size: 768, type: 'scaled', format: 'jpg')}
     if title_field
       title = doc[title_field.to_s]
       title = title.first if title.is_a? Array

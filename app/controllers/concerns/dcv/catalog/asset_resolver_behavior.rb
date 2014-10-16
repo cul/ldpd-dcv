@@ -1,35 +1,28 @@
 module Dcv::Catalog::AssetResolverBehavior
   extend ActiveSupport::Concern
 
-  def get_solr_response_for_app_id(id=nil, extra_controller_params={})
-    id ||= params[:id]
+  included do
+    helper_method :identifier_to_pid
+  end
+
+  def identifier_to_pid(identifier_to_convert)
+    id = identifier_to_convert.dup # Don't want to modify the passed-in object because it might be used again outside of this method
     id.sub!(/apt\:\/columbia/,'apt://columbia') # TOTAL HACK
     id.gsub!(':','\:')
     id.gsub!('/','\/')
-    p = blacklight_config.default_document_solr_params.merge(extra_controller_params)
-    p[:fq] = "identifier_ssim:#{(id)}"
+    p = blacklight_config.default_document_solr_params
+    p[:fq] = "dc_identifier_ssim:#{(id)}"
     solr_response = find(blacklight_config.document_solr_path, p)
+    raise 'error' if solr_response.docs.empty?
+    if solr_response.docs.empty?
+      # ba2213 thought this was a good interim until we can verify that all docs have DC:identifier set appropriately
+      p[:fq] = "identifier_ssim:#{(id)}"
+      solr_response = find(blacklight_config.document_solr_path, p)
+    end
     raise Blacklight::Exceptions::InvalidSolrID.new if solr_response.docs.empty?
     document = SolrDocument.new(solr_response.docs.first, solr_response)
     @response, @document = [solr_response, document]
-  end
-
-  def asset
-    redirect_to(DCV_CONFIG['cdn_url'] + "/images/#{params[:id]}/#{params[:type]}/#{params[:size]}.#{params[:format]}")
-  end
-
-  def resolve_asset
-    get_solr_response_for_app_id
-    redirect_to(DCV_CONFIG['cdn_url'] + "/images/#{@document.id}/#{params[:type]}/#{params[:size]}.#{params[:format]}")
-  end
-
-  def asset_info
-    redirect_to(DCV_CONFIG['cdn_url'] + "/images/#{params[:id]}/#{params[:image_format]}.json")
-  end
-
-  def resolve_asset_info
-    get_solr_response_for_app_id
-    redirect_to(DCV_CONFIG['cdn_url'] + "/images/#{@document.id}/#{params[:image_format]}.json")
+    return @document.id
   end
 
 end
