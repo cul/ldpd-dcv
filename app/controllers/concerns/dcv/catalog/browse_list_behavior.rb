@@ -48,12 +48,14 @@ module Dcv::Catalog::BrowseListBehavior
     {
 			:name => "Avery's Architectural Ephemera Collections",
 			:image => 'avery_architectural_ephemera.jpeg',
+			:facet_value => "Avery’s Architectural Ephemera Collections",
 			:external_url => 'http://www.columbia.edu/cgi-bin/cul/resolve?clio10813843',
 			:description => "Avery Classics is home to one of the largest special collections of rare architectural materials in the world. In addition to books, manuscripts, and photographs, the department includes a significant collection of ephemera. This exhibit describes some of the brochures, pamphlets, advertising materials, postcards, and other forms of architectural ephemera within Avery Classics."
 		},
     {
 			:name => "Avery's Architectural Novelties",
 			:image => 'avery_architectural_novelties.jpg',
+			:facet_value => "Avery’s Architectural Novelties",
 			:external_url => 'http://www.columbia.edu/cgi-bin/cul/resolve?clio9427856',
 			:description => "This exhibition highlights a selection of architectural novelties from the Avery Classics collection, displaying items that are both comprehensive and eccentric in their treatment of architecture."
 		},
@@ -72,6 +74,7 @@ module Dcv::Catalog::BrowseListBehavior
 		{
 			:name => "Biggert Collection of Architectural Vignettes on Commercial Stationery",
 			:image => 'biggert.jpeg',
+			:facet_value => 'Biggert collection of architectural vignettes on commercial stationery',
 			:external_url => 'http://www.columbia.edu/cgi-bin/cul/resolve?clio7887951',
 			:description => "Contains over 1,300 items of printed ephemera with architectural imagery from 1850-1920, spanning more than 350 cities and towns in forty-five states."
 		},
@@ -202,12 +205,14 @@ module Dcv::Catalog::BrowseListBehavior
 		{
 			:name => "Greene & Greene Architectural Records and Papers Collection",
 			:image => 'greene.jpeg',
+			:facet_value => 'Greene & Greene Architectural Records and Papers Collection',
 			:external_url => 'http://www.columbia.edu/cgi-bin/cul/resolve?clio4278328',
 			:description => "An online collection guide and image database of architectural designs and drawings by Charles Sumner Greene and Henry Mather Greene, architects of the American Arts and Crafts Movement."
 		},
 		{
 			:name => "Hugh Ferriss Architectural Drawings and Papers Collection",
 			:image => 'ferriss.jpeg',
+			:facet_value => 'Hugh Ferriss Architectural Drawings',
 			:external_url => 'http://library.columbia.edu/locations/avery/da/collections/ferriss.html',
 			:description => "This collection was donated to Avery Library by his family after Ferriss' death, and has been supplemented by several later additions from other sources. All 363 original drawings in the collection have been photographed and digitized."
 		},
@@ -246,6 +251,7 @@ module Dcv::Catalog::BrowseListBehavior
 		{
 			:name => "Joseph Urban Stage Design Models and Documents",
 			:image => 'urban.jpeg',
+			:facet_value => 'Joseph Urban Stage Design Models & Documents Stabilization & Access Project',
 			:external_url => 'http://www.columbia.edu/cgi-bin/cul/resolve?clio5299290',
 			:description => "A virtual collection of high-quality digital images of set models, drawings, documents and more for over 260 New York theater and opera productions."
 		},
@@ -264,12 +270,14 @@ module Dcv::Catalog::BrowseListBehavior
 		{
 			:name => "Korean Independence Outbreak Movement",
 			:image => 'korean_independence.jpg',
+			:facet_value => 'Korean Independence',
 			:external_url => 'http://www.columbia.edu/cgi-bin/cul/resolve?clio7688161',
 			:description => "Commonly referred to as the Samil Movement (literally \"three one\") for its historical date on March 1, 1919, the Korean Independence Movement was one of the earliest and most significant displays of nonviolent demonstration against Japanese rule in Korea."
 		},
 		{
 			:name => "Lehman Papers: Special Correspondence Series",
 			:image => 'lehman_papers.jpeg',
+			:facet_value => 'Lehman Correspondence',
 			:external_url => 'http://www.columbia.edu/cgi-bin/cul/resolve?lweb0107',
 			:description => "A searchable database of selected correspondence to and from New York Governor and U.S. Senator Herbert H. Lehman (1878-1963)."
 		},
