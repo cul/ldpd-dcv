@@ -96,6 +96,17 @@ input {
         max-width:100%;
         margin-top:1.4em;
       }
+      .col-sm-3 > a {
+        display: block;
+        padding-top: 8px;
+        padding-bottom: 0;
+        font-family: 'TrajanProRegular', 'trajan pro', trajan, serif;
+        font-size: 1.80em;
+        font-weight: 100;
+        color: #f5f5f5;
+        text-decoration: none;
+        vertical-align: bottom;
+      }
     }
   }
   #site-banner-left {
@@ -149,6 +160,16 @@ input {
       margin-bottom:.1em;
       overflow:hidden;
     }
+    &.slim {
+      #site-banner-inner {
+        .col-sm-3 > a {
+          display: inline-block;
+          padding-top: 16px;
+          padding-bottom: 0;
+          font-size: .96em;
+        }
+      }
+    }
     #site-banner-left {
       height:80px;
     }
@@ -184,6 +205,12 @@ input {
        img {
          margin-top:1.2em;
        }
+      .col-sm-3 > a {
+        display: inline-block;
+        padding-top: 12px;
+        padding-bottom: 0;
+        font-size: 1.27em;
+      }
      }
     }
   }
@@ -225,6 +252,12 @@ input {
          height:21px;
          width:auto;
        }
+      .col-sm-3 > a {
+        display: inline-block;
+        padding-top: 8px;
+        padding-bottom: 0;
+        font-size: 1.58em;
+      }
      }
     }
   }
