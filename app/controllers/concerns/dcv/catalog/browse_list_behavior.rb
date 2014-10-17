@@ -42,7 +42,7 @@ module Dcv::Catalog::BrowseListBehavior
     {
 			:name => "APIS: Advanced Papyrological Information System",
 			:image => 'apis.jpeg',
-			:external_url => 'http://www.columbia.edu/cgi-bin/cul/resolve?ATK2059',
+			:external_url => 'http://www.papyri.info/search?DATE_MODE=LOOSE&DOCS_PER_PAGE=15&COLLECTION=columbia',
 			:description => "APIS is a component of the larger Papyrological Navigator database, a worldwide aggregation of digital images, metadata, translations and transcriptions of papyri and ostraca (clay tablets).  A listing of Columbia's ca. 5,800 papyri and ostraca can be viewed <a href='http://www.papyri.info/search?DATE_MODE=LOOSE&DOCS_PER_PAGE=15&COLLECTION=columbia'>here</a>."
 		},
     {
