@@ -17,7 +17,7 @@
 							<small><a href="#" data-proj-more="#proj-<%=proj_counter%>" data-proj-title="<%= digital_project[:name] %>" onclick="return DCV.ProjModal.show($(this).attr('data-proj-more'), $(this).attr('data-proj-title'));">More Information</a></small>
 							<br>
 							<% if dcv_search_link.present? %>
-								<small><%= link_to 'View Content', dcv_search_link %></small>
+								<small><%= link_to 'Browse Content', dcv_search_link %></small>
 							<% end %>
 							<% if dcv_search_link.present? && digital_project[:external_url].present? %>
 								<br />

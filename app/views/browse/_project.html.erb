@@ -6,14 +6,14 @@
 	<%= link_to image_tag('digital_projects_page/' + project[:image], :class => 'thumbnail img-responsive'), (dcv_search_link.present? ? dcv_search_link : project[:external_url]), :style => 'margin:0px auto;' %>
 		<div class="index-show-tombstone-fields">
 			<h3 class="index_title ellipsis"><%= project[:name] %></h3>
-			<%= '<div class="ellipsis">'.html_safe + link_to('View Content', dcv_search_link) + '</div>'.html_safe if dcv_search_link.present? %>
+			<%= '<div class="ellipsis">'.html_safe + link_to('Browse Content', dcv_search_link) + '</div>'.html_safe if dcv_search_link.present? %>
 			<%= '<div class="ellipsis">'.html_safe + link_to('Jump to Project Site', project[:external_url]) + '</div>'.html_safe if project[:external_url].present? %>
 		</div>
 		<div class="col-sm-9 index_title index-show-list-fields hidden">
 			<h3 class="index_title ellipsis"><%= project[:name] %></h3>
 		<ul>
 			<li><%= project[:description].html_safe %></li>
-			<%= '<li>'.html_safe + link_to('View Content', dcv_search_link) + '</li>'.html_safe if dcv_search_link.present? %>
+			<%= '<li>'.html_safe + link_to('Browse Content', dcv_search_link) + '</li>'.html_safe if dcv_search_link.present? %>
 			<%= '<li>'.html_safe + link_to('Jump to Project Site', project[:external_url]) + '</li>'.html_safe if project[:external_url].present? %>
 		</ul>
 		</div>
