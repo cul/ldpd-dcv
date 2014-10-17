@@ -13,7 +13,6 @@ module Dcv::Catalog::AssetResolverBehavior
     p = blacklight_config.default_document_solr_params
     p[:fq] = "dc_identifier_ssim:#{(id)}"
     solr_response = find(blacklight_config.document_solr_path, p)
-    raise 'error' if solr_response.docs.empty?
     if solr_response.docs.empty?
       # ba2213 thought this was a good interim until we can verify that all docs have DC:identifier set appropriately
       p[:fq] = "identifier_ssim:#{(id)}"

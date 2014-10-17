@@ -138,7 +138,6 @@ function getListItemContentFromInfoRequestData(data) {
 
 //initialPage is an optional parameter
 function initTiles(initialPage) {
-
   if (typeof(initialPage) != 'undefined') {
     DCV.zoomingViewerInitialPage = initialPage;
   } else {
@@ -200,6 +199,8 @@ function setTilesFromQuery(dataUrl){
       var children = data['children'] || [data];
       var children_map = {};
 
+      var foundZoomingImage = true;
+
       for (var i=0; i<children.length; i++) {
         var child = children[i];
         children_map[child['id']] = child;
@@ -225,10 +226,17 @@ function setTilesFromQuery(dataUrl){
           sources[sources.length] = new OpenSeadragon.CalculatedDjTileSource($.djUrl, child['rft_id'], child['width'], child['length']);
           //sources[sources.length] = new OpenSeadragon.CalculatedDjTileSource($.djUrl, child['id'], child['width'], child['length']); //Uncomment when we use Dvorak djatoka
           //sources[sources.length] = $.djUrl + 'images/' + child['id'] + '.dzi'; //Uncomment if we use repository cache for DZI
+        } else {
+          foundZoomingImage = false;
         }
       });
-      $.tileSources = sources;
-      initZoomingViewer($.tileSources);
+
+      if (foundZoomingImage) {
+        $.tileSources = sources;
+        initZoomingViewer($.tileSources);
+      } else {
+        $('#zoom-gallery').html('The zoomable version of this image is not yet available.');
+      }
     }
   });
 }

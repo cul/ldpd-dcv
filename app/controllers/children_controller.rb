@@ -35,12 +35,12 @@ class ChildrenController < ApplicationController
         opts = {}
         opts[:per_page] = params.fetch('per_page', '10')
         opts[:page] = params.fetch('page', '0')
-        render json: children(params['parent_id'], opts)
+        render json: children(params['parent_id'], opts), :content_type => 'application/json' # Yes, content_type seems redundant here, but the header wasn't getting sent.
       end
     end
   end
 
   def show
-    render json: child(params['id'])
+    render json: child(params['id']), :content_type => 'application/json' # Yes, content_type seems redundant here, but the header wasn't getting sent.
   end
 end

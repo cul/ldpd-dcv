@@ -17,7 +17,7 @@
    </div>
   </div>
   <div class="col-md-9">
-  <img src="<%= screen_url(document[:id], format: 'png') %>"  style="width:100%;" />
+  <img src="<%= get_asset_url(id: document[:id], type: 'scaled', size: 768, format: 'png') %>"  style="width:100%;" />
   <div class="caption">
     <div class="documentHeader">
       <a rel="document-link" data-src="<%= resolve_catalog_url(id: CGI.escape(document[:id])) %>.json" data-id="<%=document[:id]%>"><i class="icon-zoom-in"></i></a>
