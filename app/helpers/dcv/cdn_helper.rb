@@ -30,4 +30,12 @@ module Dcv::CdnHelper
     return DCV_CONFIG['cdn_url'] + "/images/#{identifier_to_pid(conditions[:id])}/#{conditions[:image_format]}.json"
   end
 
+  def get_iiif_zoom_info_url(conditions)
+    return  DCV_CONFIG['cdn_url'] + "/iiif/#{conditions[:id]}/info.json"
+  end
+
+  def get_resolved_iiif_zoom_info_url(conditions)
+    return  DCV_CONFIG['cdn_url'] + "/iiif/#{identifier_to_pid(conditions[:id])}/info.json"
+  end
+
 end

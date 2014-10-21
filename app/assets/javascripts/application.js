@@ -24,4 +24,4 @@
 //= require colorbox-rails
 //
 // OpenSeadragon
-// require openseadragon
+//= require openseadragon
