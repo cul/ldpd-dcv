@@ -278,15 +278,7 @@ DCV.ZoomingImageModal.show = function(){
     fixed:true,
     iframe:true,
     preloading: false,
-    current:"{current} of {total}",
-    title: function(){
-      var otit = $(this).data('original-title');
-      return otit;
-    },
-    onComplete: function(){
-      var bsUrl = $(this).attr('data-bytestreams');
-      loadByteStreams(bsUrl);
-    },
+    current:"{current} of {total}"
   });
   //$('#colorbox').tinyDraggable({handle:'#cboxTitle', exclude:'input, textarea, a, button, i'});
 
