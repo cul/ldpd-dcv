@@ -236,7 +236,7 @@ module Dcv::Catalog::BrowseListBehavior
 			:description => "An online version of the exhibition held in Rare Book and Manuscript Galleries from October 8, 2004 - January 28, 2005, the site brings together for the first time objects selected from all eleven special collections within Columbia University Libraries and affiliates. Mounted in conjunction with the 250th anniversary of Columbia, this exhibition celebrates both the rich collections of books, drawings, manuscripts and other research materials gathered since King's College had its start near Trinity Church in lower Manhattan in 1754 and also the generosity of the donors whose gifts have made possible the work of students and scholars for many generations."
 		},
 		{
-			:name => "John Jay Papers",
+			:name => "Papers of John Jay",
 			:image => 'john_jay.jpeg',
 			:facet_value => 'Jay Papers',
 			:external_url => 'http://www.columbia.edu/cgi-bin/cul/resolve?AVE8231',
@@ -249,17 +249,17 @@ module Dcv::Catalog::BrowseListBehavior
 			:description => "This collection provides a unique view of New York City's evolution during the 19th and 20th centuries. Selected for their illustrations of buildings in lower Manhattan, these pieces of stationery include rare images of the city's commercial architecture, much of which is no longer extant."
 		},
 		{
+			:name => "Joseph Pulitzer and The World",
+			:image => 'joseph_pulitzer.jpg',
+			:external_url => 'http://www.columbia.edu/cgi-bin/cul/resolve?clio9225138',
+			:description => "An exhibition of the papers of Joseph Pulitzer and of his newspaper, The World, held by the Rare Book & Manuscript Library. The exhibition contains a variety of materials that show the working life of this truly remarkable individual. Included are letters, documents, ledgers, newspapers, photographs, and realia concerning his life, as well as material documenting Pulitzer's role in the founding of Columbia's School of Journalism and the creation of the Pulitzer Prizes."
+		},
+		{
 			:name => "Joseph Urban Stage Design Models and Documents",
 			:image => 'urban.jpeg',
 			:facet_value => 'Joseph Urban Stage Design Models & Documents Stabilization & Access Project',
 			:external_url => 'http://www.columbia.edu/cgi-bin/cul/resolve?clio5299290',
 			:description => "A virtual collection of high-quality digital images of set models, drawings, documents and more for over 260 New York theater and opera productions."
-		},
-		{
-			:name => "Joseph Pulitzer and The World",
-			:image => 'joseph_pulitzer.jpg',
-			:external_url => 'http://www.columbia.edu/cgi-bin/cul/resolve?clio9225138',
-			:description => "An exhibition of the papers of Joseph Pulitzer and of his newspaper, The World, held by the Rare Book & Manuscript Library. The exhibition contains a variety of materials that show the working life of this truly remarkable individual. Included are letters, documents, ledgers, newspapers, photographs, and realia concerning his life, as well as material documenting Pulitzer's role in the founding of Columbia's School of Journalism and the creation of the Pulitzer Prizes."
 		},
 		{
 			:name => "Judging a Book by its Cover: Gold Stamped Publishers' Bindings of the 19th Century",
@@ -275,7 +275,7 @@ module Dcv::Catalog::BrowseListBehavior
 			:description => "Commonly referred to as the Samil Movement (literally \"three one\") for its historical date on March 1, 1919, the Korean Independence Movement was one of the earliest and most significant displays of nonviolent demonstration against Japanese rule in Korea."
 		},
 		{
-			:name => "Lehman Papers: Special Correspondence Series",
+			:name => "Lehman Special Correspondence Files",
 			:image => 'lehman_papers.jpeg',
 			:facet_value => 'Lehman Correspondence',
 			:external_url => 'http://www.columbia.edu/cgi-bin/cul/resolve?lweb0107',
