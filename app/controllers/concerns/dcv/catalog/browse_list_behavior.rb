@@ -74,7 +74,7 @@ module Dcv::Catalog::BrowseListBehavior
 		{
 			:name => "Biggert Collection of Architectural Vignettes on Commercial Stationery",
 			:image => 'biggert.jpeg',
-			:facet_value => 'Biggert collection of architectural vignettes on commercial stationery',
+			:facet_value => 'Biggert Collection',
 			:external_url => 'http://www.columbia.edu/cgi-bin/cul/resolve?clio7887951',
 			:description => "Contains over 1,300 items of printed ephemera with architectural imagery from 1850-1920, spanning more than 350 cities and towns in forty-five states."
 		},
@@ -205,7 +205,7 @@ module Dcv::Catalog::BrowseListBehavior
 		{
 			:name => "Greene & Greene Architectural Records and Papers Collection",
 			:image => 'greene.jpeg',
-			:facet_value => 'Greene & Greene Architectural Records and Papers Collection',
+			:facet_value => 'Greene & Greene',
 			:external_url => 'http://www.columbia.edu/cgi-bin/cul/resolve?clio4278328',
 			:description => "An online collection guide and image database of architectural designs and drawings by Charles Sumner Greene and Henry Mather Greene, architects of the American Arts and Crafts Movement."
 		},
@@ -257,7 +257,7 @@ module Dcv::Catalog::BrowseListBehavior
 		{
 			:name => "Joseph Urban Stage Design Models and Documents",
 			:image => 'urban.jpeg',
-			:facet_value => 'Joseph Urban Stage Design Models & Documents Stabilization & Access Project',
+			:facet_value => 'Urban Stage Design',
 			:external_url => 'http://www.columbia.edu/cgi-bin/cul/resolve?clio5299290',
 			:description => "A virtual collection of high-quality digital images of set models, drawings, documents and more for over 260 New York theater and opera productions."
 		},
