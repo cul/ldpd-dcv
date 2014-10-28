@@ -494,6 +494,7 @@ h2[itemprop="name"] {
   text-align:right;
 }
 #sidebar {
+  clear:both;
   .panel-default {
     border-color:#666;
     border-style:solid;
@@ -522,6 +523,15 @@ h2[itemprop="name"] {
   h4 {
     padding-left:.9em;
     font-weight:100;
+	@media (max-width: 768px) {
+		position: relative;
+		float: left;
+		margin-left: 5px;
+		padding: 10px;
+		margin-top: -2px;
+		margin-bottom: -2px;
+        font-weight:300;
+	}
   }
   .panel {
     margin-bottom:.5em;
@@ -543,6 +553,10 @@ h2[itemprop="name"] {
     padding-left:0px;
     padding-top:0px;
     padding-right:0px;
+    border:0;
+	@media (max-width: 768px) {
+      min-height:2.3em;
+    }
   }
   .facet_limit-active > .panel-heading {
     background-color:rgba(123,123,123,.25);
@@ -570,6 +584,7 @@ h2[itemprop="name"] {
     }
   }
   #facet-panel-collapse {
+    clear:both;
     margin-bottom: 10px;
   }
 }
