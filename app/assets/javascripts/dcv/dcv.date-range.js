@@ -130,6 +130,9 @@ DCV.DateRangeGraphSelector.render = function() {
   ctx.clearRect ( 0 , 0 , c.width , c.height ); //clear canvas
 
   var segmentColors = ['#333', '#666'];
+  var textYOffset = c.height/7;
+  var fontSize = c.height/9;
+  var textXOffset = fontSize/6+1;
 
   ctx.lineWidth   = 1;
   ctx.strokeStyle = '#666666';
@@ -160,7 +163,7 @@ DCV.DateRangeGraphSelector.render = function() {
       proportionalHeight = proportionalHeight+(centerWeighting*(.5-proportionalHeight));
     }
     ctx.fillStyle = DCV.DateRangeGraphSelector.getColorFromRangeAndIntensity([52, 52, 52], [105, 105, 105], proportionalHeight);
-    ctx.fillRect(  padding+i*segmentWidth, c.height-1, segmentWidth, -c.height*proportionalHeight);
+    ctx.fillRect(  padding+i*segmentWidth, c.height-1, segmentWidth, (-c.height+(fontSize*1.5))*proportionalHeight);
 
     //Segment dividing lines
     ctx.strokeStyle = '#222';
@@ -173,7 +176,7 @@ DCV.DateRangeGraphSelector.render = function() {
 
   // Render text separately so that it's always on top of the bars
 
-  var dateMarkersToRender = [0, .25, .50, .75]; // End is always makred
+  var dateMarkersToRender = [0, .25, .50, .75]; // End is always marked
   var dateMarkerCounter = 0;
 
   for(var i = 0; i < numSegments; i++) {
@@ -192,10 +195,6 @@ DCV.DateRangeGraphSelector.render = function() {
       ctx.stroke();
 
       //Draw year
-
-      var textYOffset = c.height/7;
-      var fontSize = c.height/9;
-      var textXOffset = fontSize/6+1;
 
       //if (segment['start'].toString().substring(0, 1) == '-') {
       //  var textToRender = segment['start'].toString().substring(1) + ' BCE';
