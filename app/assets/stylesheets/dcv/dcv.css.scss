@@ -439,7 +439,7 @@ h2[itemprop="name"] {
 }
 
 #content .col-sm-3.document {
-  margin-bottom:1em;
+  margin-bottom:1.55em;
 
   .tombstone {
     height:100%;
@@ -733,6 +733,9 @@ h2[itemprop="name"] {
   background-color:#111;
   border:1px solid #333;
   border-width:1px 0;
+  .col-sm-3 {
+    margin-bottom:1em;
+  }
   .thumbnail {
     height:130px;
     width:99%;
