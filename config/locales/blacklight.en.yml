@@ -4,3 +4,5 @@ en:
     search:
       facets:
         title: 'Refine Your Search'
+      filters:
+        title: 'Showing results for:'
