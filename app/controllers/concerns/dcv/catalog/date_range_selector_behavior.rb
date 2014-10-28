@@ -120,10 +120,11 @@ module Dcv::Catalog::DateRangeSelectorBehavior
       new_segment[:end] = end_of_segment_range.round(0)
       new_segment[:count] = 0
 
+
       year_range_facet_values.each {|val|
         start_year = val[:start_year]
-        end_year = val[:start_year]
-        if (start_year >= start_of_segment_range && start_year <= end_of_segment_range) || (end_year >= start_of_segment_range && end_year <= end_of_segment_range)
+        end_year = val[:end_year]
+        if (start_year <= end_of_segment_range) && (end_year >= start_of_segment_range)
           new_segment[:count] += val[:count]
         end
       }
