@@ -17,7 +17,7 @@
   <div class="tab-content">
   <% tab_map.each do |codepoint, value_pairs| -%>
     <div class="tab-pane <%= 'active' if first == codepoint %>" id="tab-<%= codepoint %>">
-      <ul class="nopad-rl cols-two">
+      <ul class="nopad-rl cols-two list-unstyled">
         <% value_pairs.each do |value, count| %>
           <% search_link = search_action_path(:controller => :catalog, :f => {facet_name => [value]}) %>
           <li><%= link_to value, search_link %> (<%= count %>)</li>

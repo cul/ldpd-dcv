@@ -2,7 +2,7 @@
 <div class="tab-pane fade<%= 'in active' if active_tab == facet_name %>" id="tab_<%= facet_name %>">
   <small><%= data['short_description'] %></small>
   <br /><br />
-  <ul class="nopad-rl cols-two">
+  <ul class="nopad-rl cols-two list-unstyled">
     <% data['value_pairs'].each do |value, count| %>
       <% search_link = search_action_path(:f => {facet_name => [value]}) %>
       <li><%= link_to value, search_link %> (<%= count %>)</li>

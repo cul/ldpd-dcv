@@ -2,7 +2,7 @@
 <div class="tab-pane fade<%= 'in active' if active_tab == facet_name %>" id="tab_<%= facet_name %>">
   <small><%= data['short_description'] %></small>
   <br /><br />
-  <ul class="nopad-rl cols-two">
+  <ul class="nopad-rl cols-two list-unstyled">
     <% long_repo_names_to_short_repo_names = get_long_repo_names_to_short_repo_names() %>
     <% data['value_pairs'].each do |value, count| %>
       <% facet_value = long_repo_names_to_short_repo_names[value] %>
