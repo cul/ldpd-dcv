@@ -142,6 +142,9 @@ footer.container {
     color: #ddd;
   } 
 }
+#content .col-sm-3.document.list-view .thumbnail.col-sm-2 {
+    max-height: 100%;
+}
 #content .col-sm-3.document {
 	&.list-view {
 		border-color:#ccc;

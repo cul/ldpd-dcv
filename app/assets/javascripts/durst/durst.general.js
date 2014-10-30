@@ -93,6 +93,11 @@ window.onresize = function(){
 
 var map;
 var marker;
+var planes = [
+ ['<div><h5>Avery Library</h5><address class="nomar">300 Avery<br>1172 Amsterdam Avenue<br> M.C. 0301<br> New York, NY 10027 <br>Telephone: <a href="tel:2128546199">(212) 854-6199</a><br>Email: <a href="mailto:avery@library.columbia.edu">avery@library.columbia.edu</a><div class="info-link"><a href="http://library.columbia.edu/locations/avery.html">Website</a></div></address><img style="max-height:120px;max-width:100%!important;" src="http://library.columbia.edu/content/dam/locations/avery.jpg"></div>', 40.80830, -73.96130],
+ ['<div> <a class="thumbnail" href="/durst/ldpd:134338"><img style="max-height:120px;max-width:100%!important;" alt="256" class="img-square" itemprop="thumbnailUrl" src="https://repository-cache.cul.columbia.edu/images/ldpd:134338/square/256.jpg"></a> <div class="index-show-tombstone-fields"> <h5><a href="/durst/ldpd:134338">Alaskan Indian Girl at Chemawa School, Oregon</a> </h5> <div class="ellipsis">Lindquist, G. E. E. (Gustavus Elmer Emanuel), 1886-1967</div> </div> <div class="clearfix"></div> </div>', 40.81730, -73.91402],
+ ['<div> <a class="thumbnail" href="/durst/ldpd:134634"><img style="max-height:120px;max-width:100%!important;" alt="256" class="img-square" itemprop="thumbnailUrl" src="https://repository-cache.cul.columbia.edu/images/ldpd:134634/square/256.jpg"></a> <div class="index-show-tombstone-fields"> <h5><a href="/durst/ldpd:134634">All Saints Episcopal Church, Rosebud Reservation, South Dakota</a></h5> <div class="ellipsis">Lindquist, G. E. E. (Gustavus Elmer Emanuel), 1886-1967</div> </div> <div class="clearfix"></div> </div>', 40.77730, -73.90402]
+]
 function homeMap() {
     //var mapurl='http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
     //var mapurl='http://otile1.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpg';
@@ -102,8 +107,15 @@ function homeMap() {
     attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>. Tiles &copy; Esri.',
     maxZoom: 18
     }).addTo(map);
+    /*
     marker = L.marker([40.80830, -73.96130]).addTo(map);
     marker.bindPopup('<div><h5>Avery Library</h5><address class="nomar">300 Avery<br>1172 Amsterdam Avenue<br> M.C. 0301<br> New York, NY 10027 <br>Telephone: <a href="tel:2128546199">(212) 854-6199</a><br>Email: <a href="mailto:avery@library.columbia.edu">avery@library.columbia.edu</a><div class="info-link"><a href="http://library.columbia.edu/locations/avery.html">Website</a></div></address><img style="max-height:120px;max-width:100%!important;" src="http://library.columbia.edu/content/dam/locations/avery.jpg"></div>');
+    */
+    for (var i = 0; i < planes.length; i++) {
+			marker = new L.marker([planes[i][1],planes[i][2]])
+				.bindPopup(planes[i][0])
+				.addTo(map);
+    }
     map.on('popupopen', function(e) {
       var px = map.project(e.popup._latlng);
       px.y -= e.popup._container.clientHeight/2
