@@ -23,6 +23,9 @@ $(function() {
    return false;
  });
 
+ $('body').on('click', '.dhp-img-holder', function() {
+   $('#durst-image-home').trigger('click'); 
+ });
  $('body').on('click', '#durst-image-home', function() {
    if ($('#dhig').hasClass('hidden')) {
      $('#dhss,#content').addClass('hidden');
