@@ -138,6 +138,9 @@ footer.container {
     border-width:0 0 1px 0;
     box-shadow:none;
   }
+  .appliedFilter .filterName:after {
+    color: #ddd;
+  } 
 }
 #content .col-sm-3.document {
 	&.list-view {
