@@ -1,5 +1,6 @@
-<%= '<meta itemprop="name" content="'.html_safe + CGI::escape(document['title_display_ssm'][0]) + '">'.html_safe if document['title_display_ssm'].present? %>
-<%= '<meta itemprop="description" content="'.html_safe + CGI::escape(document['abstract_ssm'][0]) + '">'.html_safe if document['abstract_ssm'].present? %>
-<%= '<meta itemprop="dateCreated" content="'.html_safe + CGI::escape(document['origin_info_date_created_start_ssm'][0]) + '">'.html_safe if document['origin_info_date_created_start_ssm'].present? %>
-<%= '<meta itemprop="keywords" content="'.html_safe + CGI::escape(document['lib_all_subjects_ssm'].join('; ')) + '">'.html_safe if document['lib_all_subjects_ssm'].present? %>
-<%= '<meta itemprop="genre" content="'.html_safe + CGI::escape(document['lib_format_ssm'].join('; ')) + '">'.html_safe if document['lib_format_ssm'].present? %>
+<%#= '<meta itemprop="name" content="'.html_safe + CGI::escape(document['title_display_ssm'][0]) + '">'.html_safe if document['title_display_ssm'].present? %>
+<%= '<meta itemprop="description" content="'.html_safe + CGI::escapeHTML(document['abstract_ssm'][0]) + '">'.html_safe if document['abstract_ssm'].present? %>
+<%= '<meta itemprop="dateCreated" content="'.html_safe + CGI::escapeHTML(document['origin_info_date_created_start_ssm'][0]) + '">'.html_safe if document['origin_info_date_created_start_ssm'].present? %>
+<%= '<meta itemprop="keywords" content="'.html_safe + CGI::escapeHTML(document['lib_all_subjects_ssm'].join('; ')) + '">'.html_safe if document['lib_all_subjects_ssm'].present? %>
+<%= '<meta itemprop="genre" content="'.html_safe + CGI::escapeHTML(document['lib_format_ssm'].join('; ')) + '">'.html_safe if document['lib_format_ssm'].present? %>
+<%= '<meta itemprop="creator" content="'.html_safe + CGI::escapeHTML(document['lib_name_ssm'].join('; ')) + '">'.html_safe if document['lib_name_ssm'].present? %>
