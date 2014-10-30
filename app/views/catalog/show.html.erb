@@ -13,6 +13,8 @@
 			<div id="document" class="document <%= render_document_class %>" itemscope  itemtype="<%= @document.itemtype %>">
 				<div id="doc_<%= @document.id.to_s.parameterize %>">
 
+				<%= render :partial => 'catalog/schema_org_document_metadata', :locals => {:document => @document } %>
+
 				<% # bookmark/folder functions -%>
 				<%= render_document_partials @document, blacklight_config.view_config(:show).partials %>
 
@@ -21,7 +23,6 @@
 
 			<%= render :partial => 'catalog/opengraph_document_metadata' %>
 			<%= render :partial => 'catalog/openurl_coins_document_metadata' %>
-			<%= render :partial => 'catalog/schema_org_document_metadata', :locals => {:document => @document } %>
 
 		</div>
 
