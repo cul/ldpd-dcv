@@ -67,7 +67,9 @@ function activeNav() {
    return false;
  });
 
- homeMap();
+ if ($('#durst_osm').length) {
+   homeMap();
+ }
 }); //ready
 
 $(window).load(function() {
