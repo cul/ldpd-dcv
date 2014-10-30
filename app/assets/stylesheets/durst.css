@@ -11,4 +11,6 @@
  *= require_self
  *= require_tree './durst'
  *= require 'leaflet'
+ *= require 'leaflet.markercluster'
+ *= require 'leaflet.markercluster.default'
 */

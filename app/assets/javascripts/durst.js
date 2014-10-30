@@ -12,3 +12,4 @@
 //
 //= require './durst/durst.general.js'
 //= require 'leaflet'
+//= require 'leaflet.markercluster'
