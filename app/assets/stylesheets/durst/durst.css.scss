@@ -134,6 +134,16 @@ footer.container {
      position:relative;
      overflow:hidden;
   }
+  #appliedParams {
+    border-width:0 0 1px 0;
+    box-shadow:none;
+  }
+  .appliedFilter .filterName:after {
+    color: #ddd;
+  } 
+}
+#content .col-sm-3.document.list-view .thumbnail.col-sm-2 {
+    max-height: 100%;
 }
 #content .col-sm-3.document {
 	&.list-view {
@@ -150,6 +160,14 @@ footer.container {
 }
 #previousNextDocument {
     .btn-default { color:#fff; }
+}
+.pagination > li > a, .pagination > li > span { 
+    color: #591300;
+}
+.pagination > .active > a, .pagination > .active > a:hover, .pagination > .active > a:focus, .pagination > .active > span, .pagination > .active > span:hover, .pagination > .active > span:focus {
+	color: white;
+	background-color: #591300;
+	border-color: #591300;
 }
 .pagination>li>a, .pagination>li>span {
     background-color: transparent;
@@ -169,6 +187,9 @@ footer.container {
     background-size:cover;
     background-repeat:no-repeat;
     background-position:center center;
+    &:hover {
+      cursor:pointer;
+    }
 }
 .carousel-control {
 	color:rgba(255,255,255,.6);
