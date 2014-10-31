@@ -104,10 +104,11 @@ var planes = [
 function homeMap() {
     //'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
     //'http://otile1.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpg';
+		//tiles = L.tileLayer('//server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
 
-		tiles = L.tileLayer('//server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
+		tiles = L.tileLayer('//{s}.www.toolserver.org/tiles/bw-mapnik/{z}/{x}/{y}.png', {
 				maxZoom: 18,
-				attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>. Tiles &copy; Esri.'
+				attribution: '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>.'
 			}),
 		latlng = L.latLng(40.7730, -73.8402);
 
