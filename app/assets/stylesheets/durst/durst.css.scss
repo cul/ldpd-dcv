@@ -133,6 +133,7 @@ footer.container {
   #mapholder-div {
      position:relative;
      overflow:hidden;
+     border:1px solid #888;
   }
   #appliedParams {
     border-width:0 0 1px 0;
@@ -152,6 +153,11 @@ footer.container {
 	.thumbnail, .tombstone {
 		height:auto;
 	}
+}
+#dhss {
+  #carousel-example-generic {
+     border:1px solid #888;
+  }
 }
 #dhig {
     .thumbnail {
