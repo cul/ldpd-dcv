@@ -9,7 +9,7 @@ class Dcv::Configurators::DurstBlacklightConfigurator
     config.show.route = { controller: 'durst' }
 
     config.default_solr_params = {
-      :fq => 'lib_project_short_ssim:"Lindquist Photographs"',
+      :fq => 'lib_project_short_ssim:"Durst"',
       :qt => 'search',
       :rows => 20
     }
