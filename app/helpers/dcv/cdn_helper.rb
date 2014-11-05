@@ -38,4 +38,15 @@ module Dcv::CdnHelper
     return  DCV_CONFIG['cdn_url'] + "/iiif/#{identifier_to_pid(conditions[:id])}/info.json"
   end
 
+  # Placeholder image methods
+
+  # Returns 256x256 placeholder image
+  def get_non_image_thumbnail_url(type)
+    # TODO: Handle different types
+    # TODO: Actually use a real placeholder image when we have one
+
+    # For now, always return the same image
+    return image_url('durst/Durst019-lr.jpg')
+  end
+
 end

@@ -1,0 +1,34 @@
+<%
+	# NOTE: THIS FILE IS TEMPORARY!  The customizations below are only for the November 2014 Durst demo!
+%>
+
+<% counter_in_results = document_counter + row_offset + 1 + @response.params[:start].to_i -%>
+<div class="col-sm-3 document <%= render_document_class document %>" itemscope itemtype="<%= document.itemtype %>">
+  <div class="tombstone" data-number-of-members=<%= document[:cul_number_of_members_isi] || -1 %>>
+	<%=
+		link_to_document(document, :counter => (@do_not_link_to_search ? nil : counter_in_results), label:
+			# Main change is here in the image_tag() method call below!
+			image_tag((document['image_filename_ssm'].blank? ? get_non_image_thumbnail_url('book') : document['image_filename_ssm'][0]), {class: 'img-square', itemprop: 'thumbnailUrl'}),
+			class: 'thumbnail')
+		%>
+		<div class="index-show-tombstone-fields">
+			<h3 class="index_title ellipsis"><%= t('blacklight.search.documents.counter', :counter => counter_in_results) %>
+				<%= link_to_document(document, :counter => (@do_not_link_to_search ? nil : counter_in_results)) %>
+			</h3>
+			<%= '<div class="ellipsis">'.html_safe + document['lib_name_ssm'][0] + '</div>'.html_safe if document['lib_name_ssm'].present? %>
+		</div>
+		<div class="col-sm-9 index_title index-show-list-fields hidden">
+			<h3 class="index_title ellipsis"><%= t('blacklight.search.documents.counter', :counter => counter_in_results) %><%= link_to_document(document, :counter => counter_in_results) %></h3>
+			<%= render :partial => 'catalog/index_default', :locals => {:document => document } %>
+			<%= render :partial => 'catalog/schema_org_document_metadata', :locals => {:document => document } %>
+		</div>
+		<div class="clearfix"></div>
+  </div>
+</div>
+
+<% if @items_per_row_counter % 4 == 0 %>
+	<div class="clearfix"></div>
+	<% @items_per_row_counter = 1 %>
+<% else %>
+	<% @items_per_row_counter += 1 %>
+<% end %>
