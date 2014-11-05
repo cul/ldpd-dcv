@@ -2,7 +2,7 @@ module Dcv::Catalog::SearchParamsLogicBehavior
   extend ActiveSupport::Concern
 
   included do
-    CatalogController.solr_search_params_logic += [:file_assets_filter, :date_range_filter]
+    self.solr_search_params_logic += [:file_assets_filter, :date_range_filter]
   end
 
   def file_assets_filter(solr_parameters, user_parameters)

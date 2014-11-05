@@ -13,12 +13,12 @@ Dcv::Application.routes.draw do
   get '/data/flare' => 'catalog#get_pivot_facet_data', as: :flare_data
 
   # Dynamic routes for catalog controller and all subsites
-  blacklight_for *([:catalog].concat(SUBSITES['public'].keys.map{|key| key.to_sym})) # Using * operator to turn the array of values into a set of arguments for the blacklight_for method
+  blacklight_for *(SUBSITES['public'].keys.map{|key| key.to_sym}) # Using * operator to turn the array of values into a set of arguments for the blacklight_for method
 
-  get "catalog/asset/:id/:type/:size.:format" => "catalog#asset" , as: 'catalog_asset'
-  get "catalog/resolve/asset/:id/:type/:size.:format" => "catalog#resolve_asset", as: 'catalog_resolve_asset', constraints: { id: /[^\?]+/ }
-  get "catalog/asset/:id/:image_format.json" => "catalog#asset_info", as: 'catalog_asset_info'
-  get "catalog/resolve/asset/:id/:image_format.json" => "catalog#resolve_asset_info", as: 'catalog_resolve_asset_info', constraints: { id: /[^\?]+/ }
+  #get "catalog/asset/:id/:type/:size.:format" => "catalog#asset" , as: 'catalog_asset'
+  #get "catalog/resolve/asset/:id/:type/:size.:format" => "catalog#resolve_asset", as: 'catalog_resolve_asset', constraints: { id: /[^\?]+/ }
+  #get "catalog/asset/:id/:image_format.json" => "catalog#asset_info", as: 'catalog_asset_info'
+  #get "catalog/resolve/asset/:id/:image_format.json" => "catalog#resolve_asset_info", as: 'catalog_resolve_asset_info', constraints: { id: /[^\?]+/ }
 
   SUBSITES['public'].each do |subsite_key, data|
     get "#{subsite_key}/asset/:id/:type/:size.:format" => "#{subsite_key}#asset", as: subsite_key + '_asset'

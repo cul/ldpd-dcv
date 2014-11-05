@@ -5,11 +5,8 @@ class DurstController < SubsitesController
   end
 
   def index
-    if has_search_parameters?
-      super
-    else
-      render 'home'
-    end
+    super
+    render 'home' unless has_search_parameters?
   end
 
 end

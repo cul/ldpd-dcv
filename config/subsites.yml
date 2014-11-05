@@ -1,5 +1,10 @@
 all_environments: &all_environments
   public:
+    catalog:
+      layout: 'dcv'
+      date_search:
+        sidebar: false
+        timeline: false
     durst:
       layout: 'durst'
     ifp:

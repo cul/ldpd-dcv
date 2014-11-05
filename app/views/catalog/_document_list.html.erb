@@ -1,7 +1,11 @@
 <% # container for all documents in index view -%>
-<div id="search-results-date-graph" class="search-result-display hidden">
-  <%= render 'date_range_selector' %>
-</div>
+
+<% if controller.subsite_config['date_search'].present? && controller.subsite_config['date_search'].fetch('timeline', false) %>
+  <div id="search-results-date-graph" class="search-result-display hidden">
+    <%= render 'date_range_selector' %>
+  </div>
+<% end %>
+
 <div id="search-results">
   <div class="row">
     <% @items_per_row_counter = 1 %>

@@ -11,8 +11,10 @@
       <button id="grid-mode" type="button" class="btn btn-success result-type-button" title="grid view"><i class="glyphicon glyphicon-th"></i></button>
       <button id="list-mode" type="button" class="btn btn-default result-type-button" title="list view"><i class="glyphicon glyphicon-th-list"></i></button>
     </div>
-    <div id="date-toggle" class="btn-group btn-group-xs pull-right search-index-tool-group">
-      <button id="date-graph-toggle" type="button" class="btn btn-default result-type-button" title="timeline view"><i class="glyphicon glyphicon-stats"></i></button>
-    </div>
+    <% if controller.subsite_config['date_search'].present? && controller.subsite_config['date_search'].fetch('timeline', false) %>
+      <div id="date-toggle" class="btn-group btn-group-xs pull-right search-index-tool-group">
+        <button id="date-graph-toggle" type="button" class="btn btn-default result-type-button" title="timeline view"><i class="glyphicon glyphicon-stats"></i></button>
+      </div>
+    <% end %>
   </div>
 </div>
