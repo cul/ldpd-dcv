@@ -18,13 +18,13 @@ $(function() {
    clearTimeout(dorsz);
    dorsz = setTimeout(resizedw, 100);
    $(window).trigger('resize');
-   map._onResize(); 
+   map._onResize();
    activeNav();
    return false;
  });
 
  $('body').on('click', '.dhp-img-holder', function() {
-   $('#durst-image-home').trigger('click'); 
+   $('#durst-image-home').trigger('click');
  });
  $('body').on('click', '#durst-image-home', function() {
    if ($('#dhig').hasClass('hidden')) {
@@ -63,7 +63,7 @@ function activeNav() {
    }
      $('span',this).toggleClass('glyphicon-resize-small');
    $(window).trigger('resize');
-   map._onResize(); 
+   map._onResize();
    return false;
  });
 
@@ -96,12 +96,6 @@ window.onresize = function(){
 var map;
 var marker;
 var tiles;
-var planes = [
- //['<div><h5>Avery Library</h5><address class="nomar">300 Avery<br>1172 Amsterdam Avenue<br> M.C. 0301<br> New York, NY 10027 <br>Telephone: <a href="tel:2128546199">(212) 854-6199</a><br>Email: <a href="mailto:avery@library.columbia.edu">avery@library.columbia.edu</a><div class="info-link"><a href="http://library.columbia.edu/locations/avery.html">Website</a></div></address><img style="max-height:160px;max-width:100%!important;" src="http://library.columbia.edu/content/dam/locations/avery.jpg"></div>', 40.80830, -73.96130],
- ['<h6>3 items found:</h6><div style="max-height:220px;max-width:220px;overflow:auto;"><div> <a class="thumbnail" href="/durst/ldpd:132415"><img style="height:120px;max-width:90%!important;" alt="256" class="img-square" itemprop="thumbnailUrl" src="https://repository-cache.cul.columbia.edu/images/ldpd:132415/square/256.jpg"></a> <div class="index-show-tombstone-fields"> <h5 class="ellipsis"><a href="/durst/ldpd:132415">Auditorium, Pyramid Lake Reservation, Nixon, Nevada</a> </h5> <div class="ellipsis">Lindquist, G. E. E. (Gustavus Elmer Emanuel), 1886-1967</div> </div> <div class="clearfix"></div> </div> <hr> <div> <a class="thumbnail" href="/durst/ldpd:134634"><img style="height:120px;max-width:90%!important;" alt="256" class="img-square" itemprop="thumbnailUrl" src="https://repository-cache.cul.columbia.edu/images/ldpd:134634/square/256.jpg"></a> <div class="index-show-tombstone-fields"> <h5 class="ellipsis"><a href="/durst/ldpd:134634">All Saints Episcopal Church, Rosebud Reservation, South Dakota</a></h5> <div class="ellipsis">Lindquist, G. E. E. (Gustavus Elmer Emanuel), 1886-1967</div> </div> <hr> <div> <a class="thumbnail" href="/durst/ldpd:134338"><img style="height:120px;max-width:100%!important;" alt="256" class="img-square" itemprop="thumbnailUrl" src="https://repository-cache.cul.columbia.edu/images/ldpd:134338/square/256.jpg"></a> <div class="index-show-tombstone-fields"> <h5 class="ellipsis"><a href="/durst/ldpd:134338">Alaskan Indian Girl at Chemawa School, Oregon</a> </h5> <div class="ellipsis">Lindquist, G. E. E. (Gustavus Elmer Emanuel), 1886-1967</div> </div> <div class="clearfix"></div> </div> <div class="clearfix"></div> </div>',  40.80830, -73.96130],
- ['<div style="max-width:220px;"> <a class="thumbnail" href="/durst/ldpd:134338"><img style="height:120px;max-width:100%!important;" alt="256" class="img-square" itemprop="thumbnailUrl" src="https://repository-cache.cul.columbia.edu/images/ldpd:134338/square/256.jpg"></a> <div class="index-show-tombstone-fields"> <h5 class="ellipsis"><a href="/durst/ldpd:134338">Alaskan Indian Girl at Chemawa School, Oregon</a> </h5> <div class="ellipsis">Lindquist, G. E. E. (Gustavus Elmer Emanuel), 1886-1967</div> </div> <div class="clearfix"></div> </div>', 40.81730, -73.91402],
- ['<div style="max-width:220px;"> <a class="thumbnail" href="/durst/ldpd:134634"><img style="height:120px;max-width:100%!important;" alt="256" class="img-square" itemprop="thumbnailUrl" src="https://repository-cache.cul.columbia.edu/images/ldpd:134634/square/256.jpg"></a> <div class="index-show-tombstone-fields"> <h5 class="ellipsis"><a href="/durst/ldpd:134634">All Saints Episcopal Church, Rosebud Reservation, South Dakota</a></h5> <div class="ellipsis">Lindquist, G. E. E. (Gustavus Elmer Emanuel), 1886-1967</div> </div> <div class="clearfix"></div> </div>', 40.77730, -73.90402]
-]
 function homeMap() {
     //'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
     //'http://otile1.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpg';
@@ -111,19 +105,45 @@ function homeMap() {
 				maxZoom: 18,
 				attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>.'
 			}),
-		latlng = L.latLng(40.7730, -73.8402);
+
+		latlng = L.latLng(DCV.centerLat, DCV.centerLong);
 
 		map = L.map('durst_osm', {center: latlng, zoom: 11, layers: [tiles]});
 
-		markers = L.markerClusterGroup();
-		
-		for (var i = 0; i < planes.length; i++) {
-			var a = planes[i];
-			var title = a[0];
-			var marker = L.marker(new L.LatLng(a[1], a[2]), { title: title });
-			marker.bindPopup(title);
+		markers = L.markerClusterGroup({spiderfyOnMaxZoom: false});
+
+		for (var i = 0; i < DCV.mapPlanes.length; i++) {
+			var a = DCV.mapPlanes[i];
+			var marker = L.marker(new L.LatLng(a['lat'], a['long']), { title: a['title'] });
+			marker.bindPopup(
+				'<a href="' + a['item_link'] + '" class="thumbnail"><img style="margin:0 auto;height:120px;max-width:100%!important;" src="' + a['thumbnail_url'] + '" /></a>' + '<br />' + '<a href="' + a['item_link'] + '">' + a['title'] + '</a>'
+			);
 			markers.addLayer(marker);
 		}
+
+		markers.on('clusterclick', function (a) {
+
+			if (map.getZoom() == map.getMaxZoom()) {
+					var allItemHtml = '';
+					var childMarkers = a.layer.getAllChildMarkers();
+
+					allItemHtml += '<h6>' + childMarkers.length + ' items found</h6>';
+					allItemHtml += '<div style="max-height:200px;max-width:200px; overflow:auto;">'
+
+					for(var i = 0; i < childMarkers.length; i++) {
+						var marker = childMarkers[i];
+						allItemHtml += marker.getPopup().getContent() + '<hr />';
+					}
+
+					allItemHtml += '</div>';
+
+					L.popup()
+					.setLatLng(a.layer.getAllChildMarkers()[0].getLatLng())
+					.setContent(allItemHtml)
+					.openOn(map);
+			}
+		});
+
 		map.on('popupopen', function(e) {
 		  var px = map.project(e.popup._latlng);
 		  px.y -= e.popup._container.clientHeight/2

@@ -1,4 +1,4 @@
-<%= render 'facets' %>
+<%= render partial: 'facets', locals: {hide_refine_heading: (defined?(hide_refine_heading) ? hide_refine_heading : false)} %>
 <!--
 <div class="checkbox">
 	<label><%= check_box_tag :show_file_assets_checkbox, params[:show_file_assets] == 'toggle', nil, :checked => params[:show_file_assets] == 'true', :'data-new-location' => CGI.escape(url_for(params.merge(:show_file_assets => (params[:show_file_assets] == 'true' ? 'false' : 'true')))) %> Show File Assets</label>

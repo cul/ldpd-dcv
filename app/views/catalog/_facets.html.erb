@@ -10,10 +10,10 @@
       <span class="icon-bar"></span>
     </button>
 
-  <h4>
-  	<%= t('blacklight.search.facets.title') %>
-  </h4>
-    </div>
+		<% unless defined?(hide_refine_heading) && hide_refine_heading %>
+		<h4><%= t('blacklight.search.facets.title') %></h4>
+		<% end %>
+  </div>
 
   <div id="facet-panel-collapse" class="collapse panel-group">
     <%= render_facet_partials %>
