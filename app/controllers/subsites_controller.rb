@@ -19,4 +19,11 @@ class SubsitesController < ApplicationController
     return controller_path.start_with?('restricted/')
   end
 
+  def show
+    params[:format] = 'html'
+
+    super
+
+  end
+
 end

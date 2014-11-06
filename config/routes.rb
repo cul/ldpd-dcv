@@ -26,7 +26,7 @@ Dcv::Application.routes.draw do
     get "#{subsite_key}/asset/:id/:image_format.json" => "#{subsite_key}#asset_info", as: subsite_key + '_asset_info'
     get "#{subsite_key}/resolve/asset/:id/:image_format.json" => "#{subsite_key}#resolve_asset_info", as: subsite_key + '_resolve_asset_info', constraints: { id: /[^\?]+/ }
 
-    resources(:solr_document, {only: [:show], path: subsite_key.to_s, controller: subsite_key.to_s}) do
+    resources(:solr_document, {only: [:show], path: subsite_key.to_s, controller: subsite_key.to_s, :format => 'html'}) do
       member do
         post "track"
       end

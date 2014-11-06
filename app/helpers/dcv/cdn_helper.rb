@@ -41,12 +41,11 @@ module Dcv::CdnHelper
   # Placeholder image methods
 
   # Returns 256x256 placeholder image
-  def get_non_image_thumbnail_url(type)
-    # TODO: Handle different types
-    # TODO: Actually use a real placeholder image when we have one
+  def get_placeholder_thumbnail_url(type)
+    # TODO: Handle different types of placeholder images (book, audio, etc.)
 
     # For now, always return the same image
-    return image_url('durst/Durst019-lr.jpg')
+    return image_url('book-placeholder.png')
   end
 
 end

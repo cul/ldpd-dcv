@@ -8,8 +8,8 @@
 	<%=
 		link_to_document(document, :counter => (@do_not_link_to_search ? nil : counter_in_results), label:
 			# Main change is here in the image_tag() method call below!
-			image_tag((document['image_filename_ssm'].blank? ? get_non_image_thumbnail_url('book') : document['image_filename_ssm'][0]), {class: 'img-square', itemprop: 'thumbnailUrl'}),
-			class: 'thumbnail')
+			image_tag((document['image_filename_ssm'].blank? ? get_placeholder_thumbnail_url('book') : 'https://ldpd.cul.columbia.edu/durst-temp-images/thumbs/' + document['image_filename_ssm'][0].gsub(/\.[Tt][Ii][Ff][Ff]*/, '.jpg')), {class: 'img-square', itemprop: 'thumbnailUrl'}),
+			class: 'thumbnail' + (document['image_filename_ssm'].blank? ? ' placeholder' : ''))
 		%>
 		<div class="index-show-tombstone-fields">
 			<h3 class="index_title ellipsis"><%= t('blacklight.search.documents.counter', :counter => counter_in_results) %>
