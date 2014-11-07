@@ -69,6 +69,24 @@ footer.container {
         border:0;
         background:transparent;
         background-color:transparent;
+        #imgholder-div {
+          .thumbnail {
+            position:relative;
+            padding:0;
+            h3 {
+              position:absolute;
+              width:100%;
+              text-align:center;
+              text-shadow:1px 1px 1px #600;
+              padding:12px 0;
+              color:white;
+              top:32%;
+              border:1px solid #444;
+              border-width:1px 0;
+              background:rgba(0,0,0,.3);
+            }
+          }
+        }
       }
       h6 {
         color:#999;
