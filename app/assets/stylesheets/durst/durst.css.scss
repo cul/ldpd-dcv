@@ -161,6 +161,10 @@ footer {
      position:relative;
      overflow:hidden;
      border:1px solid #888;
+     #durst_osm {
+       width:100%;
+       height:420px;
+     }
   }
   #appliedParams {
     border-width:0 0 1px 0;
@@ -190,6 +194,12 @@ footer {
     .thumbnail {
         margin-bottom:1em;
     }
+}
+#sidebar {
+  #durst_osm {
+    width:100%;
+    height:250px;
+  }
 }
 #previousNextDocument {
     .btn-default { color:#fff; }
