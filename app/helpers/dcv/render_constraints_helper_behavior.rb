@@ -6,7 +6,12 @@ module Dcv::RenderConstraintsHelperBehavior
   # @param [Hash] query parameters
   # @return [Boolean]
   def query_has_constraints?(localized_params = params)
-    !(localized_params[:q].blank? and localized_params[:f].blank? and localized_params[:start_year].blank? and localized_params[:end_year].blank?)
+    !(localized_params[:q].blank? and
+      localized_params[:f].blank? and
+      localized_params[:start_year].blank? and
+      localized_params[:end_year].blank? and
+      localized_params[:lat].blank? and
+      localized_params[:long].blank?)
   end
 
 end

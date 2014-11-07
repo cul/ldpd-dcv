@@ -2,7 +2,7 @@ module Dcv::Catalog::SearchParamsLogicBehavior
   extend ActiveSupport::Concern
 
   included do
-    self.solr_search_params_logic += [:file_assets_filter, :date_range_filter]
+    self.solr_search_params_logic += [:file_assets_filter, :date_range_filter, :lat_long_filter]
   end
 
   def file_assets_filter(solr_parameters, user_parameters)
@@ -27,6 +27,17 @@ module Dcv::Catalog::SearchParamsLogicBehavior
     end
 
     solr_parameters[:fq] << final_date_fq if final_date_fq.present?
+
+  end
+
+  def lat_long_filter(solr_parameters, user_parameters)
+    lat = user_parameters[:lat].present? ? user_parameters[:lat].to_f : nil
+    long = user_parameters[:long].present? ? user_parameters[:long].to_f : nil
+
+    if lat && long
+      solr_parameters[:fq] << "{!geofilt pt=#{lat},#{long} sfield=geo d=.0001}"
+    end
+
 
   end
 

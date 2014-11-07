@@ -3,8 +3,8 @@ all_environments: &all_environments
     catalog:
       layout: 'dcv'
       date_search:
-        sidebar: false
-        timeline: false
+        sidebar: true
+        timeline: true
     durst:
       layout: 'durst'
     ifp:

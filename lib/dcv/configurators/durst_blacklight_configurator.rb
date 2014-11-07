@@ -83,11 +83,12 @@ class Dcv::Configurators::DurstBlacklightConfigurator
     config.add_show_field ActiveFedora::SolrService.solr_name('lib_part', :displayable, type: :string), :label => 'Part', :separator => '; '
     config.add_show_field ActiveFedora::SolrService.solr_name('lib_publisher', :displayable, type: :string), :label => 'Publisher', :separator => '; '
 
-    config.add_show_field ActiveFedora::SolrService.solr_name('lib_hierarchical_geographic_city', :displayable, type: :symbol), :label => 'City', :separator => '; '
+    config.add_show_field ActiveFedora::SolrService.solr_name('lib_hierarchical_geographic_city', :symbol, type: :string), :label => 'City', :separator => '; '
     config.add_show_field ActiveFedora::SolrService.solr_name('lib_hierarchical_geographic_borough', :symbol, type: :string), :label => 'Borough', :separator => '; '
-    config.add_show_field ActiveFedora::SolrService.solr_name('lib_hierarchical_geographic_neighborhood', :displayable, type: :symbol), :label => 'Neighborhood', :separator => '; '
-    config.add_show_field ActiveFedora::SolrService.solr_name('lib_direction', :displayable, type: :symbol), :label => 'Direction', :separator => '; '
-    config.add_show_field ActiveFedora::SolrService.solr_name('lib_address', :displayable, type: :displayable), :label => 'Address', :separator => '; '
+    config.add_show_field ActiveFedora::SolrService.solr_name('lib_hierarchical_geographic_neighborhood', :symbol, type: :string), :label => 'Neighborhood', :separator => '; '
+    config.add_show_field ActiveFedora::SolrService.solr_name('lib_direction', :symbol, type: :string), :label => 'Direction', :separator => '; '
+    config.add_show_field ActiveFedora::SolrService.solr_name('lib_address', :symbol, type: :string), :label => 'Address', :separator => '; '
+    config.add_show_field 'geo', :label => 'Coordinates', :separator => '; ' if Rails.env.development?
 
     config.add_show_field ActiveFedora::SolrService.solr_name('origin_info_place', :displayable, type: :string), :label => 'Place', :separator => '; '
     config.add_show_field ActiveFedora::SolrService.solr_name('origin_info_edition', :displayable, type: :string), :label => 'Edition', :separator => '; '

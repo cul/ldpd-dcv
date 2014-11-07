@@ -123,16 +123,29 @@ function homeMap() {
 
 		markers.on('clusterclick', function (a) {
 
+			var maxItemsToShow = 5;
+
 			if (map.getZoom() == map.getMaxZoom()) {
 					var allItemHtml = '';
 					var childMarkers = a.layer.getAllChildMarkers();
 
-					allItemHtml += '<h6>' + childMarkers.length + ' items found</h6>';
+					var viewAllUrl = '/durst?utf8=✓&search_field=all_text_teim&q=&lat=' + childMarkers[0].getLatLng().lat + '&long=' + childMarkers[0].getLatLng().lng;
+
+					allItemHtml += '<h6>' + childMarkers.length + ' items found <a class="pull-right" href="' + viewAllUrl + '">View all &raquo &nbsp;</a></h6>';
 					allItemHtml += '<div style="max-height:200px;max-width:200px; overflow:auto;">'
 
-					for(var i = 0; i < childMarkers.length; i++) {
+					var numItemsToShow = childMarkers.length;
+					if (childMarkers.length > maxItemsToShow) {
+						numItemsToShow = maxItemsToShow;
+					}
+
+					for(var i = 0; i < numItemsToShow; i++) {
 						var marker = childMarkers[i];
 						allItemHtml += marker.getPopup().getContent() + '<hr />';
+					}
+
+					if (childMarkers.length > maxItemsToShow) {
+						allItemHtml += '<a href="' + viewAllUrl + '">Click here to see the rest &raquo;</a><br />';
 					}
 
 					allItemHtml += '</div>';
