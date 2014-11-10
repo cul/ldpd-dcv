@@ -164,6 +164,16 @@ footer {
      #durst_osm {
        width:100%;
        height:420px;
+      .leaflet-popup-content {
+        hr {
+          margin:10px 0;
+        }
+        .thumbnail img {
+          margin:0 auto;
+          max-width:100%;
+          height:120px;
+        }
+      }
      }
   }
   #appliedParams {
@@ -204,6 +214,11 @@ footer {
       max-height:240px;
       hr {
         margin:10px 0;
+      }
+      .leaflet-popup-content {
+        .thumbnail img {
+          height:100px;
+        }
       }
     }
     .leaflet-control-attribution {

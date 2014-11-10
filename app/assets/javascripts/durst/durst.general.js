@@ -116,7 +116,7 @@ function homeMap() {
 			var a = DCV.mapPlanes[i];
 			var marker = L.marker(new L.LatLng(a['lat'], a['long']), { title: a['title'] });
 			marker.bindPopup(
-				'<a href="' + a['item_link'] + '" class="thumbnail"><img style="margin:0 auto;height:120px;max-width:100%!important;" src="' + a['thumbnail_url'] + '" /></a>' + '<br />' + '<a href="' + a['item_link'] + '">' + a['title'] + '</a>'
+				'<a href="' + a['item_link'] + '" class="thumbnail"><img src="' + a['thumbnail_url'] + '" /></a>' + '<br />' + '<a href="' + a['item_link'] + '">' + a['title'] + '</a>'
 			);
 			markers.addLayer(marker);
 		}
