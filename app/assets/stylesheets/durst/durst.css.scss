@@ -198,7 +198,21 @@ footer {
 #sidebar {
   #durst_osm {
     width:100%;
-    height:250px;
+    height:260px;
+    .leaflet-popup-content-wrapper {
+      max-width:210px;
+      max-height:240px;
+      hr {
+        margin:10px 0;
+      }
+    }
+    .leaflet-control-attribution {
+      height:1.25em;
+      &:hover {
+        height:auto;
+        background:rgba(255, 255, 255, 0.9);
+      }
+    }
   }
 }
 #previousNextDocument {
