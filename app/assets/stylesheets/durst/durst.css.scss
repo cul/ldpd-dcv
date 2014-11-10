@@ -207,7 +207,11 @@ footer {
       }
     }
     .leaflet-control-attribution {
-      height:1.25em;
+      height:1.5em;
+      font-size:75%;
+      a {
+        color:#600!important;
+      }
       &:hover {
         height:auto;
         background:rgba(255, 255, 255, 0.9);
@@ -253,6 +257,9 @@ footer {
 }
 a, a:hover, .dropdown a {
     color:#990000; //#591300;
+}
+.leaflet-control-attribution a, .leaflet-popup-content a {
+    color: #990000!important;
 }
 .btn-primary, #topnavbar #cul_top-nosearch .dropdown-menu li a:hover {
     background:#591300;
