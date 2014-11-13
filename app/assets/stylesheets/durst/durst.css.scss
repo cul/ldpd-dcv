@@ -46,15 +46,16 @@ footer {
     padding-top:8px;
     padding-bottom: 0;
     font-family: 'TrajanProRegular', 'trajan pro', trajan, serif;
-    font-size: 1.98em;
+    font-size:160%;
     font-weight: 100;
     color: #fff;
     text-decoration:none;
     vertical-align:bottom;
 }
-@media (max-width:1200px) {
+@media (min-width:1200px) {
     #site-title {
-      font-size:160%;
+      padding-top:6px;
+      font-size: 1.98em;
     }
 }
 #outer-wrapper {
