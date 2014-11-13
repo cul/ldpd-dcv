@@ -115,9 +115,11 @@ function homeMap() {
 		for (var i = 0; i < DCV.mapPlanes.length; i++) {
 			var a = DCV.mapPlanes[i];
 			var marker = L.marker(new L.LatLng(a['lat'], a['long']), { title: a['title'] });
+            if (!$('#durst_osm').hasClass('no-popup')) {
 			marker.bindPopup(
 				'<a href="' + a['item_link'] + '" class="thumbnail"><img src="' + a['thumbnail_url'] + '" /></a>' + '<br />' + '<a href="' + a['item_link'] + '">' + a['title'] + '</a>'
 			);
+            }
 			markers.addLayer(marker);
 		}
 

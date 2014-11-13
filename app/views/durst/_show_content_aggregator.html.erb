@@ -4,6 +4,15 @@
 
 <div class="row" id="child_items">
   <div id="item-description" class="col-md-3">
+	<div class="inner" style="margin-bottom:1em;">
+		<script>
+			DCV.centerLat = 40.7400;
+			DCV.centerLong = -73.9802;
+			DCV.mapPlanes = <%= get_map_data_for_document_list([document]).to_json.html_safe %>;
+		</script>
+		<div id="durst_osm" class="no-popup"></div>
+	  <div class="clearfix"></div>
+	</div>
   <div class="inner">
     <dl class="dl-vertical">
       <% document_show_fields(document).each do |solr_fname, field| %>
