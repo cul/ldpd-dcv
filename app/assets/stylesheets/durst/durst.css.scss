@@ -43,19 +43,49 @@ footer {
 }
 #site-title {
     display:inline-block;
-    padding-top:8px;
+    padding-top:4px;
     padding-bottom: 0;
-    font-family: 'TrajanProRegular', 'trajan pro', trajan, serif;
+    margin-bottom:2px;
+    font-family: "helvetica neue", sans-serif; //'TrajanProRegular', 'trajan pro', trajan, serif;
     font-size:160%;
-    font-weight: 100;
+    font-weight: 200;
+    line-height:1;
     color: #fff;
+    text-align:left;
     text-decoration:none;
+    text-transform:uppercase;
     vertical-align:bottom;
+}
+#site-banner-subtitle {
+    padding: 0;
+    margin: 0;
+    font-family: 'TrajanProRegular', 'trajan pro', trajan, serif;
+    font-size: 17px;
+    line-height: 1;
+    color:#fff;
+    text-align:left;
+
+}
+@media (min-width:768px) {
+    #site-banner-subtitle {
+      font-size:14px;
+    }
 }
 @media (min-width:1200px) {
     #site-title {
-      padding-top:6px;
+      padding-top:1px;
       font-size: 1.98em;
+      letter-spacing:1px;
+    }
+    #site-banner-subtitle {
+      font-size:18px;
+      letter-spacing: 1px;
+    }
+}
+@media(max-width:640px) {
+    #site-title, #site-banner-subtitle {
+      display:block;
+      text-align:center;
     }
 }
 #outer-wrapper {
