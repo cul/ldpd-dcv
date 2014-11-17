@@ -14,7 +14,6 @@ $(function() {
      $('#durst_osm').removeClass('hidden').attr('src', $('#durst_osm').attr('src'));
      $('#dhss').addClass('hidden');
    }
-   $('#dhig').addClass('hidden');
    clearTimeout(dorsz);
    dorsz = setTimeout(resizedw, 100);
    $(window).trigger('resize');
@@ -26,30 +25,16 @@ $(function() {
  $('body').on('click', '.dhp-img-holder', function() {
    $('#durst-image-home').trigger('click');
  });
- $('body').on('click', '#durst-image-home', function() {
-   if ($('#dhig').hasClass('hidden')) {
-     $('#dhss,#content').addClass('hidden');
-     $('#dhig').removeClass('hidden');
-   } else {
-     $('#content').removeClass('hidden');
-       if ($('#content').hasClass('col-md-6')) {
-         $('#dhss').removeClass('hidden');
-       }
-     $('#dhig').addClass('hidden');
-   }
-   activeNav();
-   return false;
- });
  $('body').on('click', '#format_filter input', function(e) {
    e.stopPropagation();
+ });
+ $('body').on('click', '.dhp-img-holder', function() {
+   window.location = $('#carousel-example-generic').attr('data-format-search-url');
  });
 function activeNav() {
     $('#user_util_links').find('a').removeClass('active').blur();
     if ($('#content').hasClass('col-md-9') && !$('#content').hasClass('hidden')) {
         $('#durst-search-home').addClass('active');
-    }
-    if (!$('#dhig').hasClass('hidden')) {
-        $('#durst-image-home').addClass('active');
     }
 }
 

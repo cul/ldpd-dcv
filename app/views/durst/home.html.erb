@@ -45,45 +45,10 @@
                     </div> <!--/.inner-->
   </div>
 
-  <div id="dhig" class="col-md-9 hidden">
-        <div class="home inner">
-                <h6 class="">FIND IMAGES</h6>
-                <div id="imgholder-div" class="">
-                    <div class="row">
-                          <div class="col-sm-6">
-                            <a href="/durst?f%5Blib_format_sim%5D%5B%5D=books" class="thumbnail">
-                              <h3>BOOKS</h3>
-                              <img alt="books" style="max-height:256px;" src="<%= asset_path("book-placeholder.png") %>">
-                            </a>
-                          </div>
-                          <div class="col-sm-6">
-                            <a href="/durst?f%5Blib_format_sim%5D%5B%5D=prints" class="thumbnail">
-                              <h3>PRINTS</h3>
-                              <img alt="prints" src="<%= asset_path("durst/durst_10570981_001.jpg") %>">
-                            </a>
-                          </div>
-                    </div><!--/row-->
-                    <div class="row">
-                          <div class="col-sm-6">
-                            <a href="/durst?f%5Blib_format_sim%5D%5B%5D=objects" class="thumbnail">
-                              <h3>OBJECTS</h3>
-                              <img alt="objects" src="<%= asset_path("durst/durst_10609822_001.jpg") %>">
-                            </a>
-                          </div>
-                          <div class="col-sm-6">
-                            <a href="/durst?f%5Blib_format_sim%5D%5B%5D=postcards" class="thumbnail">
-                              <h3>POSTCARDS</h3>
-                              <img alt="postcards" src="<%= asset_path("durst/6087.jpg") %>">
-                            </a>
-                          </div>
-                        </div><!--/row-->
-                </div><!--imgholder-->
-        </div><!--/home-->
-  </div><!--/dhig-->
   <div id="dhss" class="col-md-3">
         <div class="home inner">
                 <h6 class="">FIND IMAGES</h6>
-			    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+			    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-format-search-url="/durst?q=&amp;search_field=all_text_teim<%= durst_format_list().reject{|k,v|k=="books"}.map{|key,display_value| "&f[lib_format_sim][]=#{key}"}.join("")%>">
 			    <!-- Wrapper for slides -->
 				  <div class="carousel-inner">
 					<div class="item active">
