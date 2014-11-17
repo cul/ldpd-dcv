@@ -21,7 +21,7 @@
               <span class="caret"></span>
               <span class="sr-only">Toggle Dropdown</span>
             </button>
-            <ul class="dropdown-menu dropdown-menu-left" role="menu" style="padding-left:1em;">
+            <ul id="format_filter" class="dropdown-menu dropdown-menu-left" role="menu" style="padding-left:1em;">
               <li>Limit search to:</li>
               <% durst_format_list.each do | key, display_label | %>
                 <li><input type="checkbox" name="f[lib_format_sim][]" <%= params[:f] && params[:f]['lib_format_sim'].include?(key) ? 'checked="checked"' : '' %> value="<%= key %>"> <%= display_label %></li>

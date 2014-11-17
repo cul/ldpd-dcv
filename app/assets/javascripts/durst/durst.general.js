@@ -40,6 +40,9 @@ $(function() {
    activeNav();
    return false;
  });
+ $('body').on('click', '#format_filter input', function(e) {
+   e.stopPropagation();
+ });
 function activeNav() {
     $('#user_util_links').find('a').removeClass('active').blur();
     if ($('#content').hasClass('col-md-9') && !$('#content').hasClass('hidden')) {
