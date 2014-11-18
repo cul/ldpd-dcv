@@ -254,17 +254,21 @@ footer {
       }
     }
     .leaflet-control-attribution {
-      height:1.5em;
-      font-size:75%;
+      //height:1.5em;
+      font-size:85%;
       a {
         color:#600!important;
       }
       &:hover {
-        height:auto;
+        //height:auto;
         background:rgba(255, 255, 255, 0.9);
       }
     }
   }
+}
+#map-attrib-icon {
+  margin-left:.25em;
+  cursor:pointer;
 }
 #previousNextDocument {
     .btn-default { color:#fff; }

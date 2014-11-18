@@ -58,6 +58,10 @@ function activeNav() {
  if ($('#durst_osm').length) {
    homeMap();
  }
+ $('body').on('click', '#map-attrib-icon', function() {
+   $('#map-attrib-text').toggleClass('hidden');
+ });
+
 }); //ready
 
 $(window).load(function() {
@@ -66,6 +70,9 @@ $(window).load(function() {
      $('#dhss').find('.inner img, .inner div').height($('#mapholder').height());
      $('#durst_osm').height($('#mapholder').height());
    }
+   $('.leaflet-control-attribution').wrapInner('<span id="map-attrib-text" class="hidden"/>').append(
+     '<div id="map-attrib-icon" class="pull-right text-danger"><i class="glyphicon glyphicon-info-sign"></i></div>'
+   );
 });
 
 function resizedw(){
@@ -91,7 +98,7 @@ function homeMap() {
 
 		tiles = L.tileLayer('http://{s}.tile.stamen.com/toner-lite/{z}/{x}/{y}.png', {
 				maxZoom: 18,
-				attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>.'
+				attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors.'
 			}),
 
 		latlng = L.latLng(DCV.centerLat, DCV.centerLong);
