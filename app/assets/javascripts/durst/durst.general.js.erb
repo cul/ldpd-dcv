@@ -28,6 +28,17 @@ $(function() {
  $('body').on('click', '#format_filter input', function(e) {
    e.stopPropagation();
  });
+ var oph = $('#q').attr('placeholder');
+ $('body').on('change', '#format_filter input', function(e) {
+    var nph = $('#format_filter input:checkbox:checked').map(function() {
+      return $(this).closest('li').text();
+    }).get();
+	if ( nph.length > 0 ) {
+	  $('#q').attr('placeholder', 'Search'+nph);
+	} else {
+	  $('#q').attr('placeholder', oph);
+	}
+ });
  $('body').on('click', '.dhp-img-holder', function() {
    window.location = $('#carousel-example-generic').attr('data-format-search-url');
  });
