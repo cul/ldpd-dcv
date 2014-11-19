@@ -1,5 +1,6 @@
 <%
 	# NOTE: THIS FILE IS TEMPORARY!  The customizations below are only for the November 2014 Durst demo!
+    favImgPresent = document['image_filename_ssm'].present?
 %>
 
 <div class="row" id="child_items">
@@ -13,7 +14,7 @@
 		<div id="durst_osm" class="no-popup"></div>
 	  <div class="clearfix"></div>
 	</div>
-    <% if document['image_filename_ssm'].present? %>
+    <% if favImgPresent %>
       <% # TEMP OVERRIDE FOR PLACEHOLDER DURST IMAGES %>
   <div class="inner">
     <dl class="dl-vertical">
@@ -33,13 +34,13 @@
   <div class="col-md-9">
    <div class="inner">
      <h3 id="doc-item-title" class="nomar">
-       <%= document['image_filename_ssm'].present? ? '' : '<i class="glyphicon glyphicon-book pull-left"></i>&nbsp;'.html_safe %>
+       <%= '<i class="glyphicon glyphicon-book pull-left"></i>&nbsp;'.html_safe if !favImgPresent %>
        <%= document_show_html_title %>
      </h3>
      <% if ct = structured_children.first %>
        <p id="ct"><%= ct[:title] %></p>
      <% end %>
-    <% if document['image_filename_ssm'].present? %>
+    <% if favImgPresent %>
       <% # TEMP OVERRIDE FOR PLACEHOLDER DURST IMAGES %>
       <div id="favorite-child">
           <br />
@@ -48,7 +49,7 @@
     <% end %>
     <%= render_document_partials @document, ['gallery'] %>
     </div>
-    <% if !document['image_filename_ssm'].present? %>
+    <% if !favImgPresent %>
       <% # TEMP OVERRIDE FOR PLACEHOLDER DURST IMAGES %>
   <div class="inner" style="margin-top:1em;">
     <dl class="dl-horizontal">
