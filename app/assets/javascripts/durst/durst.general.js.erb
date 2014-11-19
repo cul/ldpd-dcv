@@ -1,6 +1,6 @@
 $(function() {
 
- if ($('#carousel-example-generic').length) {  $('#durst-search-home, #durst-image-home').removeClass('hidden'); }
+ if ($('#carousel-example-generic').length) {  $('#durst-search-home, #durst-image-search, #durst-book-search').removeClass('hidden'); }
  $('body').on('click', '#durst-search-home, #mapholder-link', function() {
    $('#content,#dhss').removeClass('hidden');
    if ($('#content').hasClass('col-md-9')) {
@@ -39,7 +39,7 @@ $(function() {
 	  $('#q').attr('placeholder', oph);
 	}
  });
- $('body').on('click', '.dhp-img-holder', function() {
+ $('body').on('click', '.dhp-img-holder, #durst-image-search', function() {
    window.location = $('#carousel-example-generic').attr('data-format-search-url');
  });
 function activeNav() {
