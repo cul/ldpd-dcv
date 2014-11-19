@@ -182,6 +182,9 @@ footer {
     }
     a {
         color:#333;
+		&:focus {
+		  background-color: transparent;
+		}
     }
 }
 #content {
