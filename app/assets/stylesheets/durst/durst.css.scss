@@ -272,6 +272,11 @@ footer {
     }
   }
 }
+@media (max-width:990px) {
+  #item-description {
+    margin-bottom:1em;
+  }
+}
 #map-attrib-icon {
   margin-left:.25em;
   cursor:pointer;
