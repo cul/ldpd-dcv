@@ -1,26 +1,26 @@
 $(function() {
 
- if ($('#carousel-example-generic').length) {  $('#durst-search-home, #durst-image-search, #durst-book-search').removeClass('hidden'); }
- $('body').on('click', '#durst-search-home, #mapholder-link', function() {
-   $('#content,#dhss').removeClass('hidden');
-   if ($('#content').hasClass('col-md-9')) {
-     $('#content').removeClass('col-md-9').addClass('col-md-6');
-     $('#mapholder-link').removeClass('hidden');
-     $('#durst_osm').addClass('hidden');
-     $('#dhss').removeClass('hidden');
-   } else {
-     $('#content').removeClass('col-md-6').addClass('col-md-9');
-     $('#mapholder-link').addClass('hidden');
-     $('#durst_osm').removeClass('hidden').attr('src', $('#durst_osm').attr('src'));
-     $('#dhss').addClass('hidden');
-   }
-   clearTimeout(dorsz);
-   dorsz = setTimeout(resizedw, 100);
-   $(window).trigger('resize');
-   map._onResize();
-   activeNav();
-   return false;
- });
+ //if ($('#carousel-example-generic').length) {  $('#durst-search-home, #durst-image-search, #durst-book-search').removeClass('hidden'); }
+ //$('body').on('click', '#durst-search-home, #mapholder-link', function() {
+ //  $('#content,#dhss').removeClass('hidden');
+ //  if ($('#content').hasClass('col-md-9')) {
+ //    $('#content').removeClass('col-md-9').addClass('col-md-6');
+ //    $('#mapholder-link').removeClass('hidden');
+ //    $('#durst_osm').addClass('hidden');
+ //    $('#dhss').removeClass('hidden');
+ //  } else {
+ //    $('#content').removeClass('col-md-6').addClass('col-md-9');
+ //    $('#mapholder-link').addClass('hidden');
+ //    $('#durst_osm').removeClass('hidden').attr('src', $('#durst_osm').attr('src'));
+ //    $('#dhss').addClass('hidden');
+ //  }
+ //  clearTimeout(dorsz);
+ //  dorsz = setTimeout(resizedw, 100);
+ //  $(window).trigger('resize');
+ //  map._onResize();
+ //  activeNav();
+ //  return false;
+ //});
 
  $('body').on('click', '.dhp-img-holder', function() {
    $('#durst-image-home').trigger('click');
@@ -39,15 +39,15 @@ $(function() {
 	  $('#q').attr('placeholder', oph);
 	}
  });
- $('body').on('click', '.dhp-img-holder, #durst-image-search', function() {
+ $('body').on('click', '.dhp-img-holder', function() {
    window.location = $('#carousel-example-generic').attr('data-format-search-url');
  });
-function activeNav() {
-    $('#user_util_links').find('a').removeClass('active').blur();
-    if ($('#content').hasClass('col-md-9') && !$('#content').hasClass('hidden')) {
-        $('#durst-search-home').addClass('active');
-    }
-}
+//function activeNav() {
+//    $('#user_util_links').find('a').removeClass('active').blur();
+//    if ($('#content').hasClass('col-md-9') && !$('#content').hasClass('hidden')) {
+//        $('#durst-search-home').addClass('active');
+//    }
+//}
 
  // full width layout switcher for dev/proto only.
  var isFullWidth = false;
@@ -103,6 +103,14 @@ var map;
 var marker;
 var tiles;
 function homeMap() {
+
+	 if($('#durst_osm.full-map-search').length > 0) {
+		$(window).on('resize', function(){
+		 $('#durst_osm.full-map-search').height($(window).height()-300);
+		});
+		$('#durst_osm.full-map-search').height($(window).height()-300);
+	 }
+
     //'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
     //'http://otile1.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpg';
 		//tiles = L.tileLayer('//server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {

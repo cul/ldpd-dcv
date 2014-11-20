@@ -41,7 +41,7 @@
 							</script>
 
 							  <div id="durst_osm" class="hidden"></div>
-							  <a href="#" id="mapholder-link"><img id="mapholder" src="<%= asset_path("durst/durst_10272127_001.jpg") %>" alt="..."></a>
+							  <a href="<%= durst_map_search_path %>" id="mapholder-link"><img id="mapholder" src="<%= asset_path("durst/durst_10272127_001.jpg") %>" alt="..."></a>
 						</div>
                     </div> <!--/.inner-->
   </div>
@@ -49,7 +49,7 @@
   <div id="dhss" class="col-md-3">
         <div class="home inner">
                 <h6 class="">FIND IMAGES</h6>
-			    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-format-search-url="/durst?q=&amp;search_field=all_text_teim<%= durst_format_list().reject{|k,v|k=="books"}.map{|key,display_value| "&f[lib_format_sim][]=#{key}"}.join("")%>">
+			    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-format-search-url="<%= durst_image_search_url %>">
 			    <!-- Wrapper for slides -->
 				  <div class="carousel-inner">
 					<div class="item active">

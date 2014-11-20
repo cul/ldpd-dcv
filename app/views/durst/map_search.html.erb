@@ -1,0 +1,13 @@
+<div id="content">
+	<h6 class="">FIND BY LOCATION</h6>
+	<script>
+		DCV.mapPlanes = <%= get_map_data_for_document_list(@document_list).to_json.html_safe %>;
+		DCV.mapCoordinateSearchUrl = '<%= CGI.escape(url_for(params.merge(:action => 'index', :lat => '_lat_', :long => '_long_', :search_field => params[:search_field] || 'all_text_teim', :q => params[:q] || ''))) %>';
+		DCV.centerLat = 40.7570;
+		DCV.centerLong = -73.9810;
+	</script>
+
+	<div id="mapholder-div">
+		<div id="durst_osm" class="full-map-search"></div>
+	</div>
+</div>

@@ -211,6 +211,10 @@ footer {
         }
       }
      }
+
+     #durst_osm.full-map-search {
+        height:400px;
+     }
   }
   #appliedParams {
     border-width:0 0 1px 0;
@@ -218,7 +222,7 @@ footer {
   }
   .appliedFilter .filterName:after {
     color: #ddd;
-  } 
+  }
 }
 #content .col-sm-3.document.list-view .thumbnail.col-sm-2 {
     max-height: 100%;
@@ -285,7 +289,7 @@ footer {
 #previousNextDocument {
     .btn-default { color:#fff; }
 }
-.pagination > li > a, .pagination > li > span { 
+.pagination > li > a, .pagination > li > span {
     color: #591300;
 }
 .pagination > .active > a, .pagination > .active > a:hover, .pagination > .active > a:focus, .pagination > .active > span, .pagination > .active > span:hover, .pagination > .active > span:focus {

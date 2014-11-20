@@ -7,8 +7,11 @@
   <div id="item-description" class="col-md-3">
 	<div class="inner" style="margin-bottom:1em;">
 		<script>
-			DCV.centerLat = 40.7400;
-			DCV.centerLong = -73.9802;
+
+      <% latlong = document['geo'].present? ? document['geo'][0].split(',') : ['40.7400', '-73.9802'] %>
+
+			DCV.centerLat = <%= latlong[0] %>;
+			DCV.centerLong = <%= latlong[1] %>;
 			DCV.mapPlanes = <%= get_map_data_for_document_list([document]).to_json.html_safe %>;
 			DCV.mapCoordinateSearchUrl = '<%= CGI.escape(url_for(params.merge(:lat => '_lat_', :long => '_long_', :search_field => params[:search_field] || 'all_text_teim', :q => params[:q] || ''))) %>';
 		</script>

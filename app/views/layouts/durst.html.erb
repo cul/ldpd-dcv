@@ -61,13 +61,13 @@
 								">
 									<ul class="nav nav-pills pull-right nav-collapse" id="user_util_links">
 										<li class="inline">
-										<a class="hidden" href="#" id="durst-search-home" title="Toggle Map Search View" style="line-height: 0; margin-top: -7px;"><span class="glyphicon glyphicon-map-marker"></span></a>
+										<a href="<%= durst_map_search_path %>" id="durst-search-home" title="Map Search" style="line-height: 0; margin-top: -7px;"><span class="glyphicon glyphicon-map-marker"></span></a>
 										</li>
 										<li class="inline">
-										<a class="hidden" href="#" id="durst-image-search" title="Perform an Image Search" style="line-height: 0; margin-top: -7px;"><span class="glyphicon glyphicon-picture"></span></a>
+										<a href="<%= durst_image_search_url %>" id="durst-image-search" title="Perform an Image Search" style="line-height: 0; margin-top: -7px;"><span class="glyphicon glyphicon-picture"></span></a>
 										</li>
 										<li class="inline">
-										<a class="hidden" href="/durst?f%5Blib_format_sim%5D%5B%5D=books" id="durst-book-search" title="Perform a Book Search" style="line-height: 0; margin-top: -7px;"><span class="glyphicon glyphicon-book"></span></a>
+										<a href="<%= durst_book_search_url %>" id="durst-book-search" title="Perform a Book Search" style="line-height: 0; margin-top: -7px;"><span class="glyphicon glyphicon-book"></span></a>
 										</li>
 										<!--li class="inline">
 										<a class="text-warning" href="#" id="durst-full-width" title="Toggle Full Width ALT View [dev only]" data-toggle="tooltip" style="line-height: 0; margin-top: -7px;"><span class="glyphicon glyphicon-resize-full"></span></a>
