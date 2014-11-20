@@ -18,19 +18,6 @@
 		<div id="durst_osm" class="no-popup"></div>
 	  <div class="clearfix"></div>
 	</div>
-    <% if fav_img_present %>
-      <% # TEMP OVERRIDE FOR PLACEHOLDER DURST IMAGES %>
-  <div class="inner">
-    <dl class="dl-vertical">
-      <% document_show_fields(document).each do |solr_fname, field| %>
-        <% if should_render_show_field? document, field %>
-          <dt class="blacklight-<%= solr_fname.parameterize %>"><%= render_document_show_field_label document, :field => solr_fname %></dt>
-          <dd class="blacklight-<%= solr_fname.parameterize %>"><%= render_document_show_field_value document, :field => solr_fname %></dd>
-        <% end %>
-      <% end %>
-    </dl>
-   </div>
-    <% end %>
     <div class="inner">
       <%= link_to '<span class="glyphicon glyphicon-file"></span> Display XML Metadata'.html_safe, item_mods_path(:pid => @document.id), :'data-no-turbolink' => true, :'data-display-url' => item_mods_path(:pid => @document.id, :type => 'formatted_text'), :'data-download-url' => item_mods_path(:pid => @document.id, :type => 'download'), :onclick => 'return DCV.ModsDownloadModal.show($(this).attr("data-display-url"), $(this).attr("data-download-url"));' %>
     </div>
@@ -47,24 +34,57 @@
     <% if fav_img_present %>
       <% # TEMP OVERRIDE FOR PLACEHOLDER DURST IMAGES %>
       <div id="favorite-child">
-          <br />
-          <img itemprop="contentUrl" src="<%= 'https://ldpd.cul.columbia.edu/durst-temp-images/768/' + document['image_filename_ssm'][0].gsub(/\.[Tt][Ii][Ff][Ff]*/, '.jpg') %>" data-counter="1" data-sequence="0" />
+        <br />
+        <img itemprop="contentUrl" src="<%= 'https://ldpd.cul.columbia.edu/durst-temp-images/768/' + document['image_filename_ssm'][0].gsub(/\.[Tt][Ii][Ff][Ff]*/, '.jpg') %>" data-counter="1" data-sequence="0" />
+      </div>
+      <div id="item-information">
+        <% if fav_img_present %>
+
+          <% # TEMP OVERRIDE FOR PLACEHOLDER DURST IMAGES %>
+          <div class="inner">
+
+              <%
+                counter = 0
+                short_display_field_count = 3
+              %>
+              <div id="item-short-display-fields" class="row">
+              <% document_show_fields(document).each do |solr_fname, field| %>
+                <% if should_render_show_field? document, field %>
+                  <% if counter == short_display_field_count %>
+                    </div>
+                    <hr />
+                    <div class="aligncenter"><a href="#" id="item-long-disply-toggle" class="btn btn-link btn-xs">See More &raquo;</a></div>
+                    <div id="item-long-display-fields" class="row hidden">
+                  <% end %>
+                  <div class="col-md-3 blacklight-<%= solr_fname.parameterize %>"><strong><%= render_document_show_field_label document, :field => solr_fname %></strong></div>
+                  <div class="col-md-9 blacklight-<%= solr_fname.parameterize %>"><%= render_document_show_field_value document, :field => solr_fname %></div>
+                  <div class="clearfix"></div>
+                  <% counter += 1 %>
+                <% end %>
+              <% end %>
+              </div>
+
+          </div>
+
+        <% end %>
       </div>
     <% end %>
     <%= render_document_partials @document, ['gallery'] %>
     </div>
     <% if !fav_img_present %>
+
       <% # TEMP OVERRIDE FOR PLACEHOLDER DURST IMAGES %>
-  <div class="inner" style="margin-top:1em;">
-    <dl class="dl-horizontal">
-      <% document_show_fields(document).each do |solr_fname, field| %>
-        <% if should_render_show_field? document, field %>
-          <dt class="blacklight-<%= solr_fname.parameterize %>"><%= render_document_show_field_label document, :field => solr_fname %></dt>
-          <dd class="blacklight-<%= solr_fname.parameterize %>"><%= render_document_show_field_value document, :field => solr_fname %></dd>
-        <% end %>
-      <% end %>
-    </dl>
-   </div>
+      <div class="inner" style="margin-top:1em;">
+        <dl class="dl-horizontal">
+          <% document_show_fields(document).each do |solr_fname, field| %>
+            <% if should_render_show_field? document, field %>
+              <dt class="blacklight-<%= solr_fname.parameterize %>"><%= render_document_show_field_label document, :field => solr_fname %></dt>
+              <dd class="blacklight-<%= solr_fname.parameterize %>"><%= render_document_show_field_value document, :field => solr_fname %></dd>
+            <% end %>
+          <% end %>
+        </dl>
+      </div>
+
     <% end %>
   </div>
 </div>
