@@ -1,5 +1,5 @@
   <%= form_tag search_action_url, :method => :get, :class => 'clearfix' do %>
-    <% params_for_new_search = params_for_search().except(:q, :search_field, :qt, :page, :utf8) 
+    <% params_for_new_search = params_for_search().except(:q, :search_field, :qt, :page, :utf8)
        params_for_new_search[:f] = params_for_new_search[:f].except(:lib_format_sim) if params_for_new_search.has_key?(:f)
     %>
     <%= render_hash_as_hidden_fields(params_for_new_search) %>
@@ -16,15 +16,15 @@
 -->
       <%# end %>
 		<div class="input-group-btn">
-            
-            <button id="format_type_select" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" style="border-color:#ccc;margin-right:-1px;"><span style="font-size:85%;">Formats</span>             
+
+            <button id="format_type_select" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" style="border-color:#ccc;margin-right:-1px;"><span style="font-size:85%;">Formats</span>
               <span class="caret"></span>
               <span class="sr-only">Toggle Dropdown</span>
             </button>
             <ul id="format_filter" class="dropdown-menu dropdown-menu-left" role="menu" style="padding-left:1em;">
               <li>Limit search to:</li>
               <% durst_format_list.each do | key, display_label | %>
-                <li><input type="checkbox" name="f[lib_format_sim][]" <%= params[:f] && params[:f]['lib_format_sim'].include?(key) ? 'checked="checked"' : '' %> value="<%= key %>"> <%= display_label %></li>
+                <li><input type="checkbox" name="f[lib_format_sim][]" <%= (params[:f] && params[:f]['lib_format_sim'] && params[:f]['lib_format_sim'].include?(key)) ? 'checked="checked"' : '' %> value="<%= key %>"> <%= display_label %></li>
               <% end %>
             </ul>
 		</div>
