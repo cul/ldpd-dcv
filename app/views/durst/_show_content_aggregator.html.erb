@@ -18,6 +18,17 @@
 		<div id="durst_osm" class="no-popup"></div>
 	  <div class="clearfix"></div>
 	</div>
+  <div class="inner" style="margin-bottom:1em;">
+    <% geo_fields_to_show = {'lib_hierarchical_geographic_city_ssim' => 'City', 'lib_hierarchical_geographic_borough_ssim' => 'Borough', 'lib_hierarchical_geographic_neighborhood_ssim' => 'Neighborhood', 'lib_address_ssm' => 'Address'} %>
+    <dl class="dl-vertical">
+      <% geo_fields_to_show.each do |field_name, display_label|  %>
+        <% if document[field_name].present? %>
+          <dt><%= display_label %></dt>
+          <dd><%= document[field_name].join(';') %></dd>
+        <% end %>
+      <% end %>
+    </dl>
+  </div>
     <div class="inner">
       <%= link_to '<span class="glyphicon glyphicon-file"></span> Display XML Metadata'.html_safe, item_mods_path(:pid => @document.id), :'data-no-turbolink' => true, :'data-display-url' => item_mods_path(:pid => @document.id, :type => 'formatted_text'), :'data-download-url' => item_mods_path(:pid => @document.id, :type => 'download'), :onclick => 'return DCV.ModsDownloadModal.show($(this).attr("data-display-url"), $(this).attr("data-download-url"));' %>
     </div>
@@ -55,6 +66,7 @@
                     <hr />
                     <div class="aligncenter"><a href="#" id="item-long-disply-toggle" class="btn btn-link btn-xs">See More &raquo;</a></div>
                     <div id="item-long-display-fields" class="row hidden">
+                    <div class="col-md-12"><hr /></div>
                   <% end %>
                   <div class="col-md-3 blacklight-<%= solr_fname.parameterize %>"><strong><%= render_document_show_field_label document, :field => solr_fname %></strong></div>
                   <div class="col-md-9 blacklight-<%= solr_fname.parameterize %>"><%= render_document_show_field_value document, :field => solr_fname %></div>

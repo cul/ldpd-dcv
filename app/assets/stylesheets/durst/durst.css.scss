@@ -280,6 +280,9 @@ footer {
 
 #item-information {
     font-size:.9em;
+    .inner {
+        padding-bottom:1.5em;
+    }
 }
 
 @media (max-width:990px) {
