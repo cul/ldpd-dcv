@@ -9,8 +9,7 @@ module Dcv::MapDataHelper
           row = {
             lat: lat_and_long[0].strip, long: lat_and_long[1].strip, title: document['title_display_ssm'][0], popup_html: '<div>Cool <small style="color:blue;">html</small></div>',
             thumbnail_url: (document['image_filename_ssm'].blank? ? get_placeholder_thumbnail_url('book') : 'https://ldpd.cul.columbia.edu/durst-temp-images/thumbs/' + document['image_filename_ssm'][0].gsub(/\.[Tt][Ii][Ff][Ff]*/, '.jpg')),
-            item_link: '/durst/' + document.id,
-            #search_link: '/durst?utf8=✓&search_field=all_text_teim&q=&lat=' + lat_and_long[0] + '&long=' + lat_and_long[1]
+            item_link: '/durst/' + document.id
           }
           coordinate_output << row
         end

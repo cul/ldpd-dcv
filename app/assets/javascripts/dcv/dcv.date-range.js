@@ -84,9 +84,9 @@ DCV.DateRangeGraphSelector.init = function() {
           var newStartYearFilter = $('#date-range-canvas').attr('data-new-start-year-filter');
           var newEndYearFilter = $('#date-range-canvas').attr('data-new-end-year-filter');
           if (newStartYearFilter != 'NaN' && newStartYearFilter != 'NaN') {
-            var redirecUrl = decodeURIComponent(DCV.newDateFilterTemplateUrl).replace('_start_year_', newStartYearFilter).replace('_end_year_', newEndYearFilter);
+            var redirectUrl = decodeURIComponent(DCV.newDateFilterTemplateUrl).replace('_start_year_', newStartYearFilter).replace('_end_year_', newEndYearFilter);
             DCV.DateRangeGraphSelector.clearSelectedRegionIndicator();
-            window.location = redirecUrl;
+            window.location = redirectUrl;
           }
         }
       });

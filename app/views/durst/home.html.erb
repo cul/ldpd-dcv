@@ -35,6 +35,7 @@
 
 							<script>
 								DCV.mapPlanes = <%= get_map_data_for_document_list(@document_list).to_json.html_safe %>;
+								DCV.mapCoordinateSearchUrl = '<%= CGI.escape(url_for(params.merge(:lat => '_lat_', :long => '_long_', :search_field => params[:search_field] || 'all_text_teim', :q => params[:q] || ''))) %>';
 								DCV.centerLat = 40.7730;
 								DCV.centerLong = -73.8402;
 							</script>
