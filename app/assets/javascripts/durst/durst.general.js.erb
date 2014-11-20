@@ -137,7 +137,7 @@ function homeMap() {
 					var allItemHtml = '';
 					var childMarkers = a.layer.getAllChildMarkers();
 
-					var viewAllUrl = '/durst?utf8=✓&search_field=all_text_teim&q=&lat=' + childMarkers[0].getLatLng().lat + '&long=' + childMarkers[0].getLatLng().lng;
+					var viewAllUrl = decodeURIComponent(DCV.mapCoordinateSearchUrl).replace('_lat_', childMarkers[0].getLatLng().lat).replace('_long_', childMarkers[0].getLatLng().lng);
 
 					allItemHtml += '<h6>' + childMarkers.length + ' items found <a class="pull-right" href="' + viewAllUrl + '">View all &raquo &nbsp;</a></h6>';
 					allItemHtml += '<div style="max-height:200px;max-width:200px; overflow:auto;">'

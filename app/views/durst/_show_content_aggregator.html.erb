@@ -10,6 +10,7 @@
 			DCV.centerLat = 40.7400;
 			DCV.centerLong = -73.9802;
 			DCV.mapPlanes = <%= get_map_data_for_document_list([document]).to_json.html_safe %>;
+			DCV.mapCoordinateSearchUrl = '<%= CGI.escape(url_for(params.merge(:lat => '_lat_', :long => '_long_', :search_field => params[:search_field] || 'all_text_teim', :q => params[:q] || ''))) %>';
 		</script>
 		<div id="durst_osm" class="no-popup"></div>
 	  <div class="clearfix"></div>

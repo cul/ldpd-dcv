@@ -2,7 +2,7 @@ module Dcv::Catalog::SearchParamsLogicBehavior
   extend ActiveSupport::Concern
 
   included do
-    self.solr_search_params_logic += [:file_assets_filter, :date_range_filter, :lat_long_filter]
+    self.solr_search_params_logic += [:file_assets_filter, :date_range_filter, :lat_long_filter, :multiselect_facet_feature]
   end
 
   def file_assets_filter(solr_parameters, user_parameters)
@@ -37,7 +37,78 @@ module Dcv::Catalog::SearchParamsLogicBehavior
     if lat && long
       solr_parameters[:fq] << "{!geofilt pt=#{lat},#{long} sfield=geo d=.0001}"
     end
+  end
 
+  # For facet fields with value ":multiselect => true", make them work like fq's with OR logic
+  def multiselect_facet_feature(solr_parameters, user_parameters)
+
+    blacklight_config.facet_fields.each {|field_name, facet_field|
+      # Only apply this to multiselect fields (as configured in the blacklight config)
+      if facet_field[:multiselect]
+        if params[:f] && params[:f][field_name]
+          values = []
+          # Delete individual fq entries for EACH facet value
+          params[:f][field_name].each {|value|
+            solr_parameters['fq'].delete_if{|key,value| key.start_with?('{!raw f=' + field_name + '}')}
+            values << value
+          }
+          # And combine all of this facet's fq values into a single OR fq
+          solr_parameters['fq'] << '{!tag=' + facet_field.ex + '}' + field_name + ':("' + values.join('" OR "') + '")'
+        end
+      end
+    }
+
+    # How this works (using the lib_format_sim as an example):
+
+    # In blacklight config (note the ":multiselect => true" addition):
+    # config.add_facet_field ActiveFedora::SolrService.solr_name('lib_format', :facetable), :label => 'Format', :limit => 10, :sort => 'count', :multiselect => true, :ex => 'lib_format-tag'
+
+    #{
+    #  "facet.field"=>[
+    #      "{!ex=lib_format}lib_format_sim",
+    #      "lib_hierarchical_geographic_borough_ssim",
+    #      "lib_hierarchical_geographic_neighborhood_ssim",
+    #      "lib_hierarchical_geographic_city_ssim",
+    #      "{!ex=lib_format}lib_format_sim",
+    #      "lib_hierarchical_geographic_borough_ssim",
+    #      "lib_hierarchical_geographic_neighborhood_ssim",
+    #      "lib_hierarchical_geographic_city_ssim"
+    #  ],
+    #  "facet.query"=>[
+    #
+    #  ],
+    #  "facet.pivot"=>[
+    #
+    #  ],
+    #  "fq"=>[
+    #      "lib_project_short_ssim:\"Durst\"",
+    #      "-active_fedora_model_ssi:GenericResource",
+    #      "{!tag=lib_format}lib_format_sim:(\"books\" OR \"prints\")"
+    #  ],
+    #  "hl.fl"=>[
+    #
+    #  ],
+    #  "qt"=>"search",
+    #  "rows"=>20,
+    #  "qf"=>[
+    #      "all_text_teim"
+    #  ],
+    #  "pf"=>[
+    #      "all_text_teim"
+    #  ],
+    #  "q"=>"",
+    #  "spellcheck.q"=>"",
+    #  "facet"=>true,
+    #  "f.lib_format_sim.facet.sort"=>"count",
+    #  "f.lib_format_sim.facet.limit"=>11,
+    #  "f.lib_hierarchical_geographic_borough_ssim.facet.sort"=>"count",
+    #  "f.lib_hierarchical_geographic_borough_ssim.facet.limit"=>11,
+    #  "f.lib_hierarchical_geographic_neighborhood_ssim.facet.sort"=>"count",
+    #  "f.lib_hierarchical_geographic_neighborhood_ssim.facet.limit"=>11,
+    #  "f.lib_hierarchical_geographic_city_ssim.facet.sort"=>"count",
+    #  "f.lib_hierarchical_geographic_city_ssim.facet.limit"=>11,
+    #  "sort"=>"score desc, title_si asc, lib_date_dtsi desc"
+    #}
 
   end
 
