@@ -283,7 +283,7 @@ footer {
 }
 
 #item-information {
-  font-size:.9em;
+  font-size:.95em;
   padding:1em;
 }
 
@@ -335,6 +335,9 @@ footer {
 a, a:hover, .dropdown a {
     color:#990000; //#591300;
 }
+.nodec {
+  text-decoration:none!important;
+}
 .leaflet-control-attribution a, .leaflet-popup-content a {
     color: #990000!important;
 }
@@ -346,3 +349,16 @@ a, a:hover, .dropdown a {
     background:#6a2400;
     background-color:#6a2400;
 }
+.caretup {
+display: inline-block;
+width: 0;
+height: 0;
+margin-left: 2px;
+vertical-align: middle;
+border-top: 0;
+border-bottom: 4px solid;
+border-right: 4px solid transparent;
+border-left: 4px solid transparent;
+content: "";
+}
+

@@ -64,10 +64,7 @@
               <% if should_render_show_field? document, field %>
                 <% if counter == short_display_field_count %>
                   </div>
-                  <hr />
-                  <div class="aligncenter"><a href="#" id="item-long-disply-toggle" class="btn btn-link btn-xs">See More &raquo;</a></div>
                   <div id="item-long-display-fields" class="row hidden">
-                  <div class="col-md-12"><hr /></div>
                 <% end %>
                 <div class="col-md-3 blacklight-<%= solr_fname.parameterize %>"><strong><%= render_document_show_field_label document, :field => solr_fname %></strong></div>
                 <div class="col-md-9 blacklight-<%= solr_fname.parameterize %>"><%= render_document_show_field_value document, :field => solr_fname %></div>
@@ -76,6 +73,7 @@
               <% end %>
             <% end %>
             </div>
+                  <div class="aligncenter"><hr><a href="#" id="item-long-disply-toggle" class="text-muted small nodec">See More <b class="caret"></b></a></div>
 
         <% end %>
       </div>
