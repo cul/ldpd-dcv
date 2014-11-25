@@ -66,8 +66,8 @@
                 <% if counter == short_display_field_count %>
                   </dl>
                   </div>
-                  <div id="item-long-display-fields">
-                  <dl class="dl-horizontal hidden">
+                  <div id="item-long-display-fields" class="hidden">
+                  <dl class="dl-horizontal">
                 <% end %>
                 <dt class="blacklight-<%= solr_fname.parameterize %>"><%= render_document_show_field_label document, :field => solr_fname %></dt>
                 <dd class="blacklight-<%= solr_fname.parameterize %>"><%= render_document_show_field_value document, :field => solr_fname %></dd>
