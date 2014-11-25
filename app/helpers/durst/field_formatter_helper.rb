@@ -8,14 +8,15 @@ module Durst::FieldFormatterHelper
     if as_dl
       return (
         '<dl class="dl-horizontal">' +
-        urls.map{|url| '<dt>Online <span class="glyphicon glyphicon-link"></span>:</dt><dd>' + link_to('click here for full-text'.html_safe, url, target: '_blank') + '</dd>' }.join('') +
-        clio_ids.map{|clio_id| '<dt>Print <span class="glyphicon glyphicon-link"></span>:</dt><dd>' + link_to('check availability'.html_safe, 'http://clio.columbia.edu/catalog/' + clio_id, target: '_blank') + '</dd>' }.join('') +
+        (urls.length == 0 ? '' : '<dt>Online:</dt><dd> ' + urls.map{|url| link_to('click here for full-text <span class="glyphicon glyphicon-new-window"></span>'.html_safe, url, target: '_blank') }.join('</dd><dt></dt><dd>') + '</dd>') +
+        (clio_ids.length == 0 ? '' : '<dt>Catalog Record:</dt><dd> ' + clio_ids.map{|clio_id| link_to('check availability <span class="glyphicon glyphicon-new-window"></span>'.html_safe, 'http://clio.columbia.edu/catalog/' + clio_id, target: '_blank') }.join('</dd><dt></dt><dd>') + '</dd>') +
         '</dl>'
       ).html_safe
     else
       return (
-        urls.map{|url| '<strong>Online <span class="glyphicon glyphicon-link"></span>:</strong> ' + link_to('click here for full-text'.html_safe, url, target: '_blank') + '<br />' }.join('') +
-        clio_ids.map{|clio_id| '<strong>Print <span class="glyphicon glyphicon-link"></span>:</strong> ' + link_to('check availability'.html_safe, 'http://clio.columbia.edu/catalog/' + clio_id, target: '_blank') + '<br />' }.join('')
+        (urls.length == 0 ? '' : '<strong>Online:</strong> ' + urls.map{|url| link_to('click here for full-text <span class="glyphicon glyphicon-new-window"></span>'.html_safe, url, target: '_blank') }.join('; ')) +
+        (urls.length > 0 && clio_ids.length > 0 ? '<br />' : '') +
+        (clio_ids.length == 0 ? '' : '<strong>Catalog Record:</strong> ' + clio_ids.map{|clio_id| link_to('check availability <span class="glyphicon glyphicon-new-window"></span>'.html_safe, 'http://clio.columbia.edu/catalog/' + clio_id, target: '_blank')}.join('; '))
       ).html_safe
     end
 

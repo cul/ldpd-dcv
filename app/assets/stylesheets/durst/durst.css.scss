@@ -251,6 +251,13 @@ footer {
         margin-bottom:1em;
     }
 }
+
+#item-content {
+  dl {
+    margin-bottom:0;
+  }
+}
+
 #sidebar, #item-description {
   #durst_osm {
     width:100%;

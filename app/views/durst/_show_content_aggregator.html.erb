@@ -33,7 +33,7 @@
       <%= link_to '<span class="glyphicon glyphicon-file"></span> Display XML Metadata'.html_safe, item_mods_path(:pid => @document.id), :'data-no-turbolink' => true, :'data-display-url' => item_mods_path(:pid => @document.id, :type => 'formatted_text'), :'data-download-url' => item_mods_path(:pid => @document.id, :type => 'download'), :onclick => 'return DCV.ModsDownloadModal.show($(this).attr("data-display-url"), $(this).attr("data-download-url"));' %>
     </div>
   </div>
-  <div class="col-md-9">
+  <div id="item-content" class="col-md-9">
    <div class="inner">
      <h3 id="doc-item-title" class="nomar">
        <%= '<i class="glyphicon glyphicon-book pull-left"></i>&nbsp;'.html_safe if !fav_img_present %>
@@ -77,7 +77,11 @@
               </dl>
               <%= render_online_and_print_links(document) %>
             </div>
-                  <div class="aligncenter" style="margin-top:5px;"><a href="#" id="item-long-disply-toggle" class="text-muted small nodec">See More Information <b class="caret"></b></a><hr></div>
+
+            <% if counter > short_display_field_count %>
+              <div class="aligncenter" style="margin-top:5px;"><a href="#" id="item-long-disply-toggle" class="text-muted small nodec">See More Information <b class="caret"></b></a><hr></div>
+            <% end %>
+
 
         <% end %>
       </div>
