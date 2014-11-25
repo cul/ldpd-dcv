@@ -88,6 +88,9 @@ footer {
       display:block;
       text-align:center;
     }
+    .break-phone {
+      display:block;
+    }
 }
 #outer-wrapper {
     overflow:hidden;
@@ -286,8 +289,8 @@ footer {
 }
 
 #item-information {
-  font-size:.95em;
   padding:1em;
+  font-size:.95em;
 }
 
 @media (max-width:990px) {
@@ -359,8 +362,8 @@ height: 0;
 margin-left: 2px;
 vertical-align: middle;
 border-top: 0;
-border-bottom: 4px solid;
 border-right: 4px solid transparent;
+border-bottom: 4px solid;
 border-left: 4px solid transparent;
 content: "";
 }
