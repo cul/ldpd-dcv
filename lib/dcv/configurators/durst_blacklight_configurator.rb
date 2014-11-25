@@ -42,7 +42,6 @@ class Dcv::Configurators::DurstBlacklightConfigurator
     config.add_facet_fields_to_solr_request! # Required for facet queries
 
     config.add_facet_field ActiveFedora::SolrService.solr_name('lib_format', :facetable), :label => 'Format', :limit => 10, :sort => 'count', :multiselect => true, :ex => 'lib_format-tag'
-
     config.add_facet_field ActiveFedora::SolrService.solr_name('lib_hierarchical_geographic_borough', :symbol), :label => 'Borough', :limit => 10, :sort => 'count'
     config.add_facet_field ActiveFedora::SolrService.solr_name('lib_hierarchical_geographic_neighborhood', :symbol), :label => 'Neighborhood', :limit => 10, :sort => 'count'
     config.add_facet_field ActiveFedora::SolrService.solr_name('lib_hierarchical_geographic_city', :symbol), :label => 'City', :limit => 10, :sort => 'count'
@@ -59,37 +58,20 @@ class Dcv::Configurators::DurstBlacklightConfigurator
     #   The ordering of the field names is the order of the display
     #config.add_index_field ActiveFedora::SolrService.solr_name('title_display', :displayable, type: :string), :label => 'Title'
     config.add_index_field ActiveFedora::SolrService.solr_name('lib_name', :displayable, type: :string), :label => 'Name'
-    config.add_index_field ActiveFedora::SolrService.solr_name('location_sublocation', :displayable, type: :string), :label => 'Department'
-    config.add_index_field ActiveFedora::SolrService.solr_name('location_shelf_locator', :displayable, type: :string), :label => 'Shelf Location'
-    config.add_index_field ActiveFedora::SolrService.solr_name('lib_date_textual', :displayable, type: :string), :label => 'Date'
-    config.add_index_field ActiveFedora::SolrService.solr_name('lib_item_in_context_url', :displayable, type: :string), :label => 'Item in Context', :helper_method => :link_to_url_value
+    config.add_index_field ActiveFedora::SolrService.solr_name('lib_published_string', :displayable, type: :string), :label => 'Published', :separator => '<br />'.html_safe
 
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display
-    #config.add_show_field ActiveFedora::SolrService.solr_name('title_display', :displayable, type: :string), :label => 'Title', :separator => '<br />'.html_safe.html_safe
+    config.add_show_field ActiveFedora::SolrService.solr_name('title_display', :displayable, type: :string), :label => 'Title', :separator => '<br />'.html_safe.html_safe
     config.add_show_field ActiveFedora::SolrService.solr_name('alternative_title', :displayable, type: :string), :label => 'Alternative Titles', :separator => '<br />'.html_safe
-    config.add_show_field ActiveFedora::SolrService.solr_name('lib_name', :displayable), :label => 'Name', :separator => '<br />'.html_safe, :link_to_search => ActiveFedora::SolrService.solr_name('lib_name', :facetable)
-    config.add_show_field ActiveFedora::SolrService.solr_name('lib_format', :displayable), :label => 'Format', :separator => '<br />'.html_safe, :link_to_search => ActiveFedora::SolrService.solr_name('lib_format', :facetable)
-    #config.add_show_field ActiveFedora::SolrService.solr_name('lib_collection', :displayable), :label => 'Collection', :separator => '<br />'.html_safe, :link_to_search => ActiveFedora::SolrService.solr_name('lib_collection', :facetable)
-    config.add_show_field ActiveFedora::SolrService.solr_name('lib_date_textual', :displayable, type: :string), :label => 'Date', :separator => '<br />'.html_safe
-    config.add_show_field ActiveFedora::SolrService.solr_name('lib_non_date_notes', :displayable, type: :string), :label => 'Note', :separator => '<br />'.html_safe
-    config.add_show_field ActiveFedora::SolrService.solr_name('lib_date_notes', :displayable, type: :string), :label => 'Date Note'
-    config.add_show_field ActiveFedora::SolrService.solr_name('location_sublocation', :displayable, type: :string), :label => 'Department', :separator => '<br />'.html_safe
-    config.add_show_field ActiveFedora::SolrService.solr_name('location_shelf_locator', :displayable, type: :string), :label => 'Shelf Location', :separator => '<br />'.html_safe
+    config.add_show_field ActiveFedora::SolrService.solr_name('lib_name', :displayable), :label => 'Name', :separator => '<br />'.html_safe
+    config.add_show_field ActiveFedora::SolrService.solr_name('origin_info_edition', :displayable, type: :string), :label => 'Edition', :separator => '<br />'.html_safe
+    config.add_show_field ActiveFedora::SolrService.solr_name('lib_published_string', :displayable, type: :string), :label => 'Published', :separator => '<br />'.html_safe
     config.add_show_field ActiveFedora::SolrService.solr_name('physical_description_extent', :displayable, type: :string), :label => 'Physical Description', :separator => '<br />'.html_safe
     config.add_show_field ActiveFedora::SolrService.solr_name('lib_all_subjects', :displayable, type: :string), :label => 'Subjects', :separator => '<br />'.html_safe
-    config.add_show_field ActiveFedora::SolrService.solr_name('access_condition', :symbol, type: :string), :label => 'Rights', :separator => '<br />'.html_safe
-    config.add_show_field ActiveFedora::SolrService.solr_name('abstract', :displayable, type: :string), :label => 'Summary', :separator => '<br />'.html_safe
     config.add_show_field ActiveFedora::SolrService.solr_name('table_of_contents', :displayable, type: :string), :label => 'Contents', :separator => '<br />'.html_safe
-    config.add_show_field ActiveFedora::SolrService.solr_name('lib_part', :displayable, type: :string), :label => 'Part', :separator => '<br />'.html_safe
-    config.add_show_field ActiveFedora::SolrService.solr_name('lib_publisher', :displayable, type: :string), :label => 'Publisher', :separator => '<br />'.html_safe
-
-    config.add_show_field ActiveFedora::SolrService.solr_name('lib_direction', :symbol, type: :string), :label => 'Direction', :separator => '<br />'.html_safe
-
-    config.add_show_field ActiveFedora::SolrService.solr_name('origin_info_place', :displayable, type: :string), :label => 'Place', :separator => '<br />'.html_safe
-    config.add_show_field ActiveFedora::SolrService.solr_name('origin_info_edition', :displayable, type: :string), :label => 'Edition', :separator => '<br />'.html_safe
-    config.add_show_field ActiveFedora::SolrService.solr_name('identifier', :symbol), :label => 'Identifier', :separator => '<br />'.html_safe
-
+    config.add_show_field ActiveFedora::SolrService.solr_name('abstract', :displayable, type: :string), :label => 'Summary', :separator => '<br />'.html_safe
+    config.add_show_field ActiveFedora::SolrService.solr_name('lib_format', :displayable), :label => 'Format', :separator => '<br />'.html_safe
 
     # "fielded" search configuration. Used by pulldown among other places.
     # For supported keys in hash, see rdoc for Blacklight::SearchFields
@@ -135,8 +117,8 @@ class Dcv::Configurators::DurstBlacklightConfigurator
     # label in pulldown is followed by the name of the SOLR field to sort by and
     # whether the sort is ascending or descending (it must be asc or desc
     # except in the relevancy case).
-    config.add_sort_field 'score desc, title_si asc, lib_date_dtsi desc', :label => 'relevance'
     config.add_sort_field 'title_si asc, lib_date_dtsi desc', :label => 'title'
+    config.add_sort_field 'score desc, title_si asc, lib_date_dtsi desc', :label => 'relevance'
 
     # If there are more than this many search results, no spelling ("did you
     # mean") suggestion is offered.
