@@ -59,19 +59,24 @@
               counter = 0
               short_display_field_count = 3
             %>
+            <div>
             <dl id="item-short-display-fields" class="dl-horizontal" style="margin-bottom:0;">
             <% document_show_fields(document).each do |solr_fname, field| %>
               <% if should_render_show_field? document, field %>
                 <% if counter == short_display_field_count %>
                   </dl>
-                  <dl id="item-long-display-fields" class="dl-horizontal hidden">
+                  </div>
+                  <div id="item-long-display-fields">
+                  <dl class="dl-horizontal hidden">
                 <% end %>
                 <dt class="blacklight-<%= solr_fname.parameterize %>"><%= render_document_show_field_label document, :field => solr_fname %></dt>
                 <dd class="blacklight-<%= solr_fname.parameterize %>"><%= render_document_show_field_value document, :field => solr_fname %></dd>
                 <% counter += 1 %>
               <% end %>
             <% end %>
-            </dl>
+              </dl>
+              <%= render_online_and_print_links(document) %>
+            </div>
                   <div class="aligncenter" style="margin-top:5px;"><a href="#" id="item-long-disply-toggle" class="text-muted small nodec">See More Information <b class="caret"></b></a><hr></div>
 
         <% end %>
@@ -91,6 +96,7 @@
             <% end %>
           <% end %>
         </dl>
+        <%= render_online_and_print_links(document) %>
       </div>
 
     <% end %>
