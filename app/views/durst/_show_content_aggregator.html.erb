@@ -19,12 +19,19 @@
 	  <div class="clearfix"></div>
 	</div>
   <div class="inner" style="margin-bottom:1em;">
-    <% geo_fields_to_show = {'lib_hierarchical_geographic_city_ssim' => 'City', 'lib_hierarchical_geographic_borough_ssim' => 'Borough', 'lib_hierarchical_geographic_neighborhood_ssim' => 'Neighborhood', 'lib_address_ssm' => 'Address'} %>
+    <% geo_facet_fields_to_show = {'lib_hierarchical_geographic_neighborhood_ssim' => 'Neighborhood', 'lib_hierarchical_geographic_borough_ssim' => 'Borough', 'lib_hierarchical_geographic_city_ssim' => 'City'} %>
+    <% geo_non_facet_fields_to_show = {'lib_address_ssm' => 'Address', 'geo' => 'Coordinates'} %>
     <dl class="dl-vertical">
-      <% geo_fields_to_show.each do |field_name, display_label|  %>
+      <% geo_facet_fields_to_show.each do |field_name, display_label|  %>
         <% if document[field_name].present? %>
           <dt><%= display_label %></dt>
-          <dd><%= document[field_name].join(';') %></dd>
+          <dd><%= document[field_name].map{|val| ('<a href="' + durst_facet_search_url(field_name, val) + '">' + val + '</a>').html_safe}.join('<br />').html_safe %></dd>
+        <% end %>
+      <% end %>
+      <% geo_non_facet_fields_to_show.each do |field_name, display_label|  %>
+        <% if document[field_name].present? %>
+          <dt><%= display_label %></dt>
+          <dd><%= document[field_name].join('<br />').html_safe %></dd>
         <% end %>
       <% end %>
     </dl>

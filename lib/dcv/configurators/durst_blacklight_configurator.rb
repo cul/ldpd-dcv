@@ -42,8 +42,8 @@ class Dcv::Configurators::DurstBlacklightConfigurator
     config.add_facet_fields_to_solr_request! # Required for facet queries
 
     config.add_facet_field ActiveFedora::SolrService.solr_name('lib_format', :facetable), :label => 'Format', :limit => 10, :sort => 'count', :multiselect => true, :ex => 'lib_format-tag'
-    config.add_facet_field ActiveFedora::SolrService.solr_name('lib_hierarchical_geographic_borough', :symbol), :label => 'Borough', :limit => 10, :sort => 'count'
     config.add_facet_field ActiveFedora::SolrService.solr_name('lib_hierarchical_geographic_neighborhood', :symbol), :label => 'Neighborhood', :limit => 10, :sort => 'count'
+    config.add_facet_field ActiveFedora::SolrService.solr_name('lib_hierarchical_geographic_borough', :symbol), :label => 'Borough', :limit => 10, :sort => 'count'
     config.add_facet_field ActiveFedora::SolrService.solr_name('lib_hierarchical_geographic_city', :symbol), :label => 'City', :limit => 10, :sort => 'count'
 
     # Have BL send all facet field names to Solr, which has been the default
