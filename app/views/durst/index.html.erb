@@ -53,6 +53,27 @@
 							<%= render_document_index %>
 						<%- end %>
 					<%- end %>
+
+                    <div id="extended-search-results" class="hidden">
+                        <div class="row">
+<div class="col-sm-12">
+  <h4>Search Other Sources for: <span class="text-danger"><%=params[:q]%></span></h4>
+  <p>Try your search in one of these related resources. (Search results will display in a new window.)</p>
+  <hr>
+	  <ul class="list-unstyled">
+	    <li style="margin-bottom:.75em;"><a class="btn btn-lg btn-link pull-right" data-target="blank" href="http://www.archive-it.org/explore?q=<%=params[:q]%>&amp;amp;page=1&amp;amp;show=Collections" target="_blank"><span class="glyphicon glyphicon-circle-arrow-right text-danger"></span></a>
+         <a data-exitmsg="You are now leaving the DLC" data-target="blank" href="http://www.archive-it.org/explore?q=<%=params[:q]%>&amp;amp;page=1&amp;amp;show=Collections" target="_blank">Archive-It</a><br>
+		<span>All web archives created by Archive-It partner institutions, including Columbia University.</span>
+       </li>
+        <li style="margin-bottom:.75em;">
+	   <a class="btn btn-lg btn-link pull-right" data-target="blank" href="http://www.hurisearch.org/?q=<%=params[:q]%>&amp;amp;ql=&amp;amp;ngo=1&amp;amp;nhri=1&amp;amp;academic=1&amp;amp;igo=1" target="_blank"><span class="glyphicon glyphicon-circle-arrow-right text-danger"></span></a>
+        <a data-exitmsg="You are now leaving the DLC" data-target="blank" href="http://www.hurisearch.org/?q=<%=params[:q]%>&amp;amp;ql=&amp;amp;ngo=1&amp;amp;nhri=1&amp;amp;academic=1&amp;amp;igo=1" target="_blank">HuriSearch</a><br>
+       <span>Custom live web search engine for over 5,000 human rights websites powered by Huridocs.</span>
+</li>
+	</ul>
+</div>
+                        </div>
+                    </div>
 				</div>
 			</div>
 
