@@ -9,6 +9,9 @@ body {
     background-size: cover;
     */
 }
+a, a:hover, .dropdown a {
+    color:#990000; //#591300;
+}
 #topnavbar {
     background:#86878C;
     border-top-color:#222;
@@ -162,6 +165,9 @@ footer {
     }
     .panel-body {
       border:0;
+    }
+    a {
+      text-decoration:none;
     }
 }
 #secondary-nav {
@@ -344,9 +350,6 @@ footer {
 }
 .carousel-control {
 	color:rgba(255,255,255,.4);
-}
-a, a:hover, a:focus, .dropdown a {
-    color:#990000; //#591300;
 }
 .nodec {
   text-decoration:none!important;
