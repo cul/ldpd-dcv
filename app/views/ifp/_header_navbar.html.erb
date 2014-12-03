@@ -1,0 +1,18 @@
+<div class="container">
+  <div id="site-banner">
+	<div class="row">
+        <div id="site-banner-inner">
+            <div class="col-sm-6">
+                     <%= link_to 'Ford Foundation <span class="break-phone">International Fellowship Program Records</span>'.html_safe, root_path+'ifp', { :id => 'site-title' } %>
+                     <div id="site-banner-subtitle" class="trajanpro hidden">Avery Architectural &amp; Fine Arts Library</div>
+            </div>
+            <div class="col-sm-6">
+                        <div id="search-navbar" class="navbar navbar-default slim" role="navigation">
+                            <%= render_search_bar(false)  %>
+                        </div>
+            </div>
+         </div>
+	</div><!--/row-->
+  </div>
+
+</div>
