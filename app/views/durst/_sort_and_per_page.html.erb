@@ -1,0 +1,21 @@
+<div id="sortAndPerPage" style="border-bottom:0; margin-bottom:0;">
+  <%= render :partial => "paginate_compact", :object => @response %>
+
+  <div id="search-index-tools" class="pull-right">
+    <div id="search-widgets" class="btn-group btn-group-xs search-widgets pull-right search-index-tool-group">
+      <%= render :partial => 'sort_widget' %>
+      <%= render :partial => 'per_page_widget' %>
+      <%= render :partial => 'view_type_group' %>
+    </div>
+    <div id="view-options" class="hidden-xs btn-group btn-group-xs pull-right search-index-tool-group">
+      <button id="grid-mode" type="button" class="btn btn-success result-type-button" title="grid view"><i class="glyphicon glyphicon-th"></i></button>
+      <button id="list-mode" type="button" class="btn btn-default result-type-button" title="list view"><i class="glyphicon glyphicon-th-list"></i></button>
+      <button id="extended-search-mode" type="button" class="btn btn-default result-type-button" title="extended search"><i class="glyphicon glyphicon-link"></i></button>
+    </div>
+    <% if controller.subsite_config['date_search'].present? && controller.subsite_config['date_search'].fetch('timeline', false) %>
+      <div id="date-toggle" class="btn-group btn-group-xs pull-right search-index-tool-group">
+        <button id="date-graph-toggle" type="button" class="btn btn-default result-type-button" title="timeline view"><i class="glyphicon glyphicon-stats"></i></button>
+      </div>
+    <% end %>
+  </div>
+</div>

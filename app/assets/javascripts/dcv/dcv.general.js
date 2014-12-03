@@ -136,7 +136,7 @@ DCV.SearchResults.setSearchMode = function(searchMode) {
       $('#list-mode').addClass('btn-success');
       createCookie(DCV.SearchResults.CookieNames.searchMode, 'list', 1);
   } else {
-    alert('Invalid search mode: ' + searchMode);
+    //alert('Invalid search mode: ' + searchMode);
   }
 }
 

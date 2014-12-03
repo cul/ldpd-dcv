@@ -42,6 +42,9 @@ $(function() {
  $('body').on('click', '.dhp-img-holder', function() {
    window.location = $('#carousel-example-generic').attr('data-format-search-url');
  });
+ $('body').on('click', '#extended-search-mode', function() {
+    DCV.SearchResults.setSearchMode('extended');
+ });
 //function activeNav() {
 //    $('#user_util_links').find('a').removeClass('active').blur();
 //    if ($('#content').hasClass('col-md-9') && !$('#content').hasClass('hidden')) {
@@ -208,4 +211,20 @@ function homeMap() {
 
 		map.addLayer(markers);
 
+}
+
+
+var oldDCVSearchMode = DCV.SearchResults.setSearchMode;
+DCV.SearchResults.setSearchMode = function(searchMode) {
+  var ret = oldDCVSearchMode.apply(this, arguments);
+  if (searchMode == 'extended') {
+    $('#search-results, .results-pagination, #appliedParams').addClass('hidden');
+    $('#extended-search-results').removeClass('hidden');
+    $('#extended-search-mode').addClass('btn-success');
+  } else {
+    $('#extended-search-mode').removeClass('btn-success');
+    $('#extended-search-results').addClass('hidden');
+    $('#search-results, .results-pagination, #appliedParams').removeClass('hidden');
+  }
+  return ret;
 }
