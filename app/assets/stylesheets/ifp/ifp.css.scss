@@ -1,3 +1,5 @@
+$ifpblue:#2a778f;
+
 body {
     color:#111;
     background-color:#eee; //#4E5663; // #D0DDF0;
@@ -10,7 +12,7 @@ body {
     */
 }
 a, a:hover, .dropdown a {
-    color:#2a778f; //#591300;
+    color:$ifpblue; //#591300;
 }
 #topnavbar {
     background:#86878C;
@@ -33,11 +35,11 @@ footer {
 #site-banner {
     padding: 1em 1.4em;
     margin:0 -1.75em 20px;
-    background-color:#2a778f;
+    background-color:$ifpblue;
     #site-banner-inner {
       overflow:visible;
       .titlesub {
-        color:#e5e5e5;
+        color:darken(#ffffff, 10%);
       }
     }
     #search-navbar #q {
@@ -57,7 +59,7 @@ footer {
     font-size:160%;
     font-weight: 200;
     line-height:1;
-    color: #fff;
+    color: #ffffff;
     text-align:left;
     text-decoration:none;
     text-transform:uppercase;
@@ -130,7 +132,7 @@ footer {
               background:rgba(0,0,0,.2);
             }
             &:hover {
-              border-color:#2a778f;
+              border-color:$ifpblue;
               h3 {
                 background:rgba(0,0,0,.25);
               }
@@ -358,7 +360,7 @@ footer {
   text-decoration:none!important;
 }
 .leaflet-control-attribution a, .leaflet-popup-content a {
-    color: #2a778f!important;
+    color: $ifpblue!important;
 }
 /*
 .btn-primary, #topnavbar #cul_top-nosearch .dropdown-menu li a:hover {
