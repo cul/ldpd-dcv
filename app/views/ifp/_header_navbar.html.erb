@@ -14,5 +14,60 @@
          </div>
 	</div><!--/row-->
   </div>
+            <div id="secondary-nav">
+                 <div class="subnav">
+                    <div class="row">
+                        <div class="col-sm-8">
+                        <ul class="nav nav-pills pull-left" style="font-size: 11px;">
+                            <li class="hidden-phone"><a href="<%=root_path+'ifp'%>" class="opacity_50" style="
+                                line-height: 0;
+                                margin-top: -6px;
+                                padding-right: 22px;"><i class="glyphicon glyphicon-home"></i></a>
+                            </li>
+                            <li class="hidden-phone"><a href="<%=root_path+'ifp'%>#help" title="Collection Help" class="opacity_50" style="
+                                line-height: 0;
+                                margin-top: -6px;
+                                padding-right: 22px;
+                                padding-left: 22px;"><i class="glyphicon glyphicon-question-sign"></i></a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle hidden-xs" data-toggle="dropdown">LEARN MORE <b class="caret"></b></a>
+                                <a href="#" class="dropdown-toggle visible-xs opacity_50" style="
+                                    line-height: 0;
+                                    margin-top: -6px;
+                                    padding-right: 22px;
+                                    padding-left: 22px;" 
+                                    data-toggle="dropdown"><i class="glyphicon glyphicon-info-sign"></i><b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">About the collection</a></li>
+                                    <li><a href="#">About the project</a></li>
+                                    <li><a href="#">Acknowledgements</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                        </div><!--/-->
+                                    <div id="navbar_right_wrapper" class="col-sm-3 pull-right hidden" style="
+                                    font-size: 12px;
+                                    text-align: right;
+                                ">
+                                    <ul class="nav nav-pills pull-right nav-collapse" id="user_util_links">
+                                        <li class="inline">
+                                        <a href="<%= durst_map_search_path %>" id="durst-search-home" title="Map Search" style="line-height: 0; margin-top: -7px;"><span class="glyphicon glyphicon-map-marker"></span></a>
+                                        </li>
+                                        <li class="inline">
+                                        <a href="<%= durst_image_search_url %>" id="durst-image-search" title="Perform an Image Search" style="line-height: 0; margin-top: -7px;"><span class="glyphicon glyphicon-picture"></span></a>
+                                        </li>
+                                        <li class="inline">
+                                        <a href="<%= durst_book_search_url %>" id="durst-book-search" title="Perform a Book Search" style="line-height: 0; margin-top: -7px;"><span class="glyphicon glyphicon-book"></span></a>
+                                        </li>
+                                        <!--li class="inline">
+                                        <a class="text-warning" href="#" id="durst-full-width" title="Toggle Full Width ALT View [dev only]" data-toggle="tooltip" style="line-height: 0; margin-top: -7px;"><span class="glyphicon glyphicon-resize-full"></span></a>
+                                        </li-->
+                                    </ul>
+                                    </div>
+                            </div><!--/row-->
+                         </div><!--/subnav-->
+                    </div>
+                </div>
 
 </div>

@@ -27,7 +27,7 @@ footer {
 }
 #site-banner {
     padding: 1em 1.4em;
-    margin:0 -1.75em 20px;
+    margin:0 -1.75em 0;
     background-color:$ifpblue;
     #site-banner-inner {
       overflow:visible;
@@ -200,10 +200,8 @@ footer {
     padding:0 12px 0;
     margin: 0 -24px 0;
     line-height: 3px;
-    background: #CFCFCF;
-    border: 1px solid #888;
-    border-right: 0;
-    border-left: 0;
+    background: #eee;
+    border-bottom: 1px solid #333;
     li:first-child {
       border-left:0;
     }
