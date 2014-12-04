@@ -2,14 +2,7 @@ $ifpblue:#2a778f;
 
 body {
     color:#111;
-    background-color:#eee; //#4E5663; // #D0DDF0;
-    /*
-    background-image: url(asset_path("durst/durst-6120.jpg"));
-    background-attachment: fixed;
-    background-repeat: no-repeat;
-    background-position: center top;
-    background-size: cover;
-    */
+    background-color:#fafafa; //#4E5663; // #D0DDF0;
 }
 a, a:hover, .dropdown a {
     color:$ifpblue; //#591300;
@@ -79,12 +72,39 @@ footer {
     #site-banner-subtitle {
       font-size:14px;
     }
+    #site-title {
+      font-size: 1.28em;
+      letter-spacing:1px;
+      padding-top:1px;
+        padding-left:62px;
+        background-image:url(asset_path("ifp/IFP-square-logo.png"));
+        background-size:auto 100%;
+        background-repeat:no-repeat;
+        background-position:left center;
+    }
+}
+@media (min-width:992px) {
+    #site-title {
+      font-size: 1.60em;
+      letter-spacing:1px;
+      padding-top:1px;
+        padding-left:52px;
+        background-image:url(asset_path("ifp/IFP-square-logo.png"));
+        background-size:auto 100%;
+        background-repeat:no-repeat;
+        background-position:left center;
+    }
 }
 @media (min-width:1200px) {
     #site-title {
       padding-top:1px;
-      font-size: 1.85em;
+      font-size: 1.96em;
       letter-spacing:1px;
+        padding-left:62px;
+        background-image:url(asset_path("ifp/IFP-square-logo.png"));
+        background-size:auto 100%;
+        background-repeat:no-repeat;
+        background-position:left center;
     }
     #site-banner-subtitle {
       font-size:18px;
