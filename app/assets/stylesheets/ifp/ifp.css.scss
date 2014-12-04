@@ -35,12 +35,18 @@ footer {
         color:darken(#ffffff, 10%);
       }
     }
-    #search-navbar #q {
-      background-color:#eee;
-      color:#000;
-      &:focus {
-         background-color:#fff;
-      }
+    #search-navbar {
+		.input-group-addon {
+          background-color:#999;
+          font-size:.9em;
+        }
+		#q {
+		  background-color:#eee;
+		  color:#000;
+		  &:focus {
+			 background-color:#fff;
+		  }
+		}
     }
 }
 #site-title {
