@@ -88,6 +88,11 @@ footer {
         background-repeat:no-repeat;
         background-position:left center;
     }
+    #secondary-nav {
+		#partner-dropdown {
+		  width:420px;
+		}
+    }
 }
 @media (min-width:992px) {
     #site-title {
@@ -124,6 +129,16 @@ footer {
     }
     .break-phone {
       display:block;
+    }
+}
+@media(max-width:769px) {
+    .blacklight-ifp-partner {
+      #content {
+        .img-responsive {
+          padding-right:0;
+          padding-left:0;
+        }
+      }
     }
 }
 #outer-wrapper {
@@ -227,6 +242,12 @@ footer {
     }
     #navbar_right_wrapper {
       padding-left:0;
+    }
+    #partner-dropdown {
+      min-width:280px;
+      li {
+        border-color:transparent;
+      }
     }
 }
 #content {
