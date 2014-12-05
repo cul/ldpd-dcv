@@ -81,7 +81,14 @@ class UsersController < ApplicationController
           session[:signed_in_using_uni] = true # TODO use this session variable to know when to do a Wind logout upon Devise logout
           #flash[:notice] = 'You are now logged in.'
 
-          redirect_to root_path, :status => 302
+          if session[:post_login_redirect_url].present?
+            redirect_url = session[:post_login_redirect_url]
+            session.delete(:post_login_redirect_url)
+          else
+            redirect_url = root_path
+          end
+
+          redirect_to redirect_url, :status => 302
         else
           render :inline => 'Access denied.  Library affiliation is required.'
           #redirect_to(WIND_CONFIG['logout_uri'] + '?passthrough=1&destination=' + URI::escape(root_url))
