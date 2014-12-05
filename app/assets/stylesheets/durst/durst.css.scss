@@ -9,8 +9,11 @@ body {
     background-size: cover;
     */
 }
-a, a:hover, .dropdown a {
+a, a:hover, a:focus, .dropdown a {
     color:#990000; //#591300;
+}
+a:focus {
+    text-decoration: none;
 }
 #topnavbar {
     background:#86878C;
@@ -165,6 +168,9 @@ footer {
     }
     .panel-body {
       border:0;
+    }
+    .panel-title a:focus {
+      color:inherit;
     }
     a {
       text-decoration:none;
