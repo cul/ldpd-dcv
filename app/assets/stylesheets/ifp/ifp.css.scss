@@ -54,7 +54,7 @@ footer {
     padding-top:4px;
     padding-bottom: 0;
     margin-bottom:2px;
-    font-family: "helvetica neue", sans-serif; //'TrajanProRegular', 'trajan pro', trajan, serif;
+    font-family: "helvetica neue", helvetica, sans-serif; //'TrajanProRegular', 'trajan pro', trajan, serif;
     font-size:160%;
     font-weight: 200;
     line-height:1;
@@ -96,7 +96,7 @@ footer {
 }
 @media (min-width:992px) {
     #site-title {
-      font-size: 1.60em;
+      font-size: 1.50em;
       letter-spacing:1px;
       padding-top:1px;
         padding-left:52px;
@@ -109,7 +109,7 @@ footer {
 @media (min-width:1200px) {
     #site-title {
       padding-top:1px;
-      font-size: 1.96em;
+      font-size: 1.85em;
       letter-spacing:1px;
         padding-left:62px;
         background-image:url(asset_path("ifp/IFP-square-logo.png"));
