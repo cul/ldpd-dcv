@@ -39,14 +39,14 @@
                                     padding-left: 22px;" 
                                     data-toggle="dropdown"><i class="glyphicon glyphicon-info-sign"></i><b class="caret"></b></a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="#">About the collection</a></li>
-                                    <li><a href="#">About the project</a></li>
+                                    <li><a href="<%=ifp_about_the_ifp_path()%>">About the IFP</a></li>
+                                    <li><a href="#">About the Collection</a></li>
                                     <li><a href="#">Acknowledgements</a></li>
                                 </ul>
                             </li>
                         </ul>
                         </div><!--/-->
-                                    <div id="navbar_right_wrapper" class="col-sm-3 pull-right <%=params[:action]=='partner'?'':'hidden'%>" style="
+                                    <div id="navbar_right_wrapper" class="col-sm-3 pull-right <%=params[:action]!='index'?'':'hidden'%>" style="
                                     font-size: 12px;
                                     text-align: right;
                                 ">

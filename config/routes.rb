@@ -15,10 +15,10 @@ Dcv::Application.routes.draw do
   # Durst subsite routes
   get 'durst/map_search' => 'durst#map_search', as: :durst_map_search
 
-  # IFP subsute routes
+  # IFP subsite routes
   get 'ifp/partner/:key' => 'ifp#partner', as: :ifp_partner
-  get 'ifp/about/about_page_1' => 'ifp#about_page_1', as: :ifp_about_page1
-  get 'ifp/about/about_page_2' => 'ifp#about_page_2', as: :ifp_about_page2
+  get 'ifp/about/about_the_ifp' => 'ifp#about_the_ifp', as: :ifp_about_the_ifp
+  get 'ifp/about/about_the_collection' => 'ifp#about_the_collection', as: :ifp_the_collection
 
   # Dynamic routes for catalog controller and all subsites
   blacklight_for *(SUBSITES['public'].keys.map{|key| key.to_sym}) # Using * operator to turn the array of values into a set of arguments for the blacklight_for method
