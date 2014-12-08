@@ -21,4 +21,10 @@ class IfpController < SubsitesController
     end
   end
 
+  def about_page_1
+  end
+
+  def about_page_2
+  end
+
 end
