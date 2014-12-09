@@ -231,7 +231,7 @@ footer {
       max-height:22px;
       & a:hover, &.open a.dropdown-toggle, a.active {
         background-color:transparent; //rgba(0,0,0,.1);
-        color:#8c3522;
+        color:$ifpblue;
       }
     }
     a {
