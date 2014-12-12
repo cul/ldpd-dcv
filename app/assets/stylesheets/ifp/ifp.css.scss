@@ -195,6 +195,19 @@ footer {
         color:#888;
         border:0;
     }
+    #partner-sidebar {
+      li {
+        width:129px;
+		margin-bottom:1em;
+        border-color:transparent;
+		font-size:85%;
+        img {
+          width:45px;
+          height:auto;
+          margin-right:3px;
+        }
+      }
+    }
 }
 #facets {
     margin-right:-1em;
@@ -246,7 +259,15 @@ footer {
     #partner-dropdown {
       min-width:280px;
       li {
+        width:129px;
+		margin-bottom:1em;
         border-color:transparent;
+		font-size:85%;
+        img {
+          width:45px;
+          height:auto;
+          margin-right:3px;
+        }
       }
     }
 }
