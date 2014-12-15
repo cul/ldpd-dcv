@@ -1,0 +1,32 @@
+  <div id="right-sidebar" class="col-lg-3">
+      <h6 class="">PARTNER INFORMATION</h6>
+      <% partner_data = @ifp_office_sidebar_data[ params[:key].to_sym ] %>
+      <% keys_to_display_labels = { 
+		office: "Office",
+        browse_digital_records: "Browse Digital Records", 
+		finding_aid: "Finding Aid",
+		web_archive: "Web Archive",
+		ifp_community: "IFP Community",
+		ifp_partners: "IFP Partners",
+		alumni_organization: "Alumni Organization",
+      }  %>
+      <dl>
+      <% 
+        partner_data.each do | key, value | 
+			%><dt><%= keys_to_display_labels[key] ? keys_to_display_labels[key] : key.to_s %></dt><%
+            %><dd><%
+			case key
+			when :ifp_partners
+              value.each do | individual_partner |
+                %>&bull; <%= link_to individual_partner[:name], individual_partner[:link] %><br><%
+              end
+			when :web_archive, :ifp_community, :alumni_organization
+			  %><%= link_to value, value %><% 
+			else
+			  %><%= value %><% 
+			end 
+            %></dd><%
+        end 
+      %>
+      </dl>
+  </div><!--/#right-sidebar-->

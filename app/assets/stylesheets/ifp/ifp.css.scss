@@ -337,7 +337,16 @@ footer {
     margin-bottom:0;
   }
 }
-
+#right-sidebar {
+  dl {
+    dt {
+    }
+    dd {
+      margin-left:.5em;
+      word-wrap: break-word;
+    }
+  }
+}
 #sidebar, #item-description {
   #durst_osm {
     width:100%;
