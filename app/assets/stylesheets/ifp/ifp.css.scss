@@ -105,6 +105,12 @@ footer {
         background-repeat:no-repeat;
         background-position:left center;
     }
+    #partner-image-grid {
+			  a:first-child .lead {
+                top:25%!important;
+                font-size:110%!important;
+			  }
+    }
 }
 @media (min-width:1200px) {
     #site-title {
@@ -120,6 +126,12 @@ footer {
     #site-banner-subtitle {
       font-size:18px;
       letter-spacing: 1px;
+    }
+    #partner-image-grid {
+			  a:first-child .lead {
+                top:15%!important;
+                font-size:140%!important;
+			  }
     }
 }
 @media(max-width:640px) {
@@ -335,6 +347,59 @@ footer {
 #item-content {
   dl {
     margin-bottom:0;
+  }
+}
+#partner-image-grid {
+  text-shadow:1px 1px 2px #fff;
+  font-weight:400;
+  text-transform:uppercase;
+  text-align:center;
+  letter-spacing:2px;
+  a {
+    position:relative;
+    display:block;
+    vertical-align:bottom;
+    color:#fff;
+    overflow:hidden;
+    background-size:cover;
+    width:100%;
+    height:160px;
+    &:hover {
+      span {
+        background-color:rgba(255,255,255,.8);
+      }
+    }
+    span {
+      position:absolute;
+      color:#000;
+      top:45%;
+      text-align:center;
+      width:100%;
+      background-color:rgba(255,255,255,.5);
+      display:inline-block;
+    }
+    &:first-child {
+      .lead {
+        display:inline-block;
+        background-color:transparent;
+        color:#fff;
+        text-shadow:1px 1px 1px #111;
+        text-align:left;
+        padding:.5em;
+        position:absolute;
+        top:15%;
+        font-size:140%;
+      }
+      position:relative;
+      display:block;
+      vertical-align:bottom;
+      color:#fff;
+      text-align:left;
+      overflow:hidden;
+      background-color:#2a778f;
+      color:white;
+      width:100%;
+    }
   }
 }
 #home-global-data {
