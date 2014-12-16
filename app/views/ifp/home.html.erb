@@ -56,7 +56,10 @@
                   <h6>ABOUT THE IFP</h6>
                   <p>The IFP program began in November 2000 with four pilot sites. In Asia, the program was initiated in Vietnam.  In Africa, the first competition was held in West Africa (Ghana, Nigeria and Senegal).  In Latin America, IFP began in the Andean Region as Southern Cone (Chile and Peru).  Russia was the final pilot site.  The first 96 Fellows from these countries were named in 2001.  In February 2002, 173 new Fellows from the pilot site countries and from India, China, Kenya, Tanzania, Uganda, Mexico and Guatemala were announced.  During 2002, the program expanded to seven additional countries and territories: Brazil, Egypt, Indonesia, Mozambique, Palestine, Philippines and South Africa.  For the selections in 2003, the program expanded to Thailand.<br><a href="<%=ifp_about_the_ifp_path()%>" class="btn btn-primary btn-xs">Learn More &raquo;</a></p>
     </div>
-<%= @ifp_office_sidebar_data[:global].inspect %>
+    <div class="home inner" style="margin-bottom:1.5em;">
+        <hr>
+        <iframe class="" width="100%" height="315" src="//www.youtube.com/embed/5fI_d398vOg" frameborder="0" allowfullscreen></iframe>
+    </div>
   </div>
 
   <div class="col-md-6">
@@ -64,8 +67,36 @@
                   <h6>ABOUT THE COLLECTION</h6>
                   <p>The archives cover the issues of social justice, community development, and access to higher education, and include paper and digital documentation and audiovisual materials on the more than 3,300 IFP fellows as well as comprehensive planning and adminstrative files of the program.</p>
     </div>
-    <div class="home inner">
-        <iframe class="" width="100%" height="315" src="//www.youtube.com/embed/5fI_d398vOg" frameborder="0" allowfullscreen></iframe>
+    <div id="home-global-data" class="home well well-sm"> 
+      <% partner_data = @ifp_office_sidebar_data[:global] %>
+      <% keys_to_display_labels = {
+        office: "Office",
+        browse_digital_records: "Browse Digital Records",
+        finding_aid: "Finding Aid",
+        web_archive: "Web Archive",
+        ifp_community: "IFP Community",
+        ifp_partners: "IFP Partners",
+        alumni_organization: "Alumni Organization",
+      }  %>
+      <dl class="nomar-b">
+      <%
+        partner_data.each do | key, value |
+            %><dt><%= keys_to_display_labels[key] ? keys_to_display_labels[key] : key.to_s %></dt><%
+            %><dd><%
+            case key
+            when :ifp_partners
+              value.each do | individual_partner |
+                %>&bull; <%= link_to individual_partner[:name], individual_partner[:link] %><br><%
+              end
+            when :web_archive, :ifp_community, :alumni_organization
+              %><%= link_to value, value %><%
+            else
+              %><%= value %><%
+            end
+            %></dd><%
+        end
+      %>
+      </dl>
     </div>
   </div>
 </div><!--/row-->

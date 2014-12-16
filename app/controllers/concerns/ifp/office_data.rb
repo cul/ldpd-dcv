@@ -12,8 +12,8 @@ module Ifp::OfficeData
 			:ifp_partners => [{ :name => "Carlos Chagas Foundation", :link => "http://www.fcc.org.br" }]
 		},
 		chile: {
-			:office => "Chile",
-			:browse_digital_records => "Link to DLC-IFP: Chile",
+			:office => "Chile and Peru",
+			:browse_digital_records => "Link to DLC-IFP: Chile and Peru",
 			:finding_aid => "Link to series IV.2",
 			:web_archive => "https://archive-it.org/collections/2766;?fc=websiteGroup%3AFord+Foundation+International+Fellowship+Program&fc=meta_Coverage%3AChile",
 			:ifp_community => "http://www.fordifp.org/Chile/en-us/home.aspx",
@@ -112,8 +112,8 @@ module Ifp::OfficeData
 			:ifp_partners => [{ :name => "AMIDEAST", :link => "www.amideast.org/" }]
 		},
 		peru: {
-			:office => "Peru",
-			:browse_digital_records => "Link to DLC-IFP: Peru",
+			:office => "Chile and Peru",
+			:browse_digital_records => "Link to DLC-IFP: Chile and Peru",
 			:finding_aid => "Link to series IV.15",
 			:web_archive => "https://archive-it.org/collections/2766;?fc=websiteGroup%3AFord+Foundation+International+Fellowship+Program&fc=meta_Coverage%3APeru",
 			:ifp_community => "http://www.fordifp.org/Peru/en-us/home.aspx",
@@ -187,12 +187,18 @@ module Ifp::OfficeData
 			:ifp_partners => [{ :name => "Center for Educational Exchange with Viet Nam (CEEVN)", :link => "http://ceevn.acls.org/" }]
 		},
 		global: {
-			:office => "GLOBAL",
+			#:office => "GLOBAL",
 			:browse_digital_records => "Link to DLC-IFP",
 			:finding_aid => "Link to F. Aid",
 			:web_archive => "https://archive-it.org/collections/2766;?fc=websiteGroup%3AFord+Foundation+International+Fellowship+Program",
 			:ifp_community => "http://www.fordifp.org/",
-			:ifp_partners => { :name => "Institute for International Education", :link => "www.iie.org" }
+			:ifp_partners => [{ :name => "Institute for International Education", :link => "www.iie.org" }]
+		},
+		secretariat: {
+			:office => "Secretariat",
+			:browse_digital_records => "Link to DLC-IFP",
+			:finding_aid => "Link to F. Aid",
+			:ifp_partners => [{ :name => "Institute for International Education", :link => "www.iie.org" }]
 		}
 	}
 

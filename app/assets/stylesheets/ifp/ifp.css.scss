@@ -337,7 +337,14 @@ footer {
     margin-bottom:0;
   }
 }
-#right-sidebar {
+#home-global-data {
+  &.well {
+    background-color:#fafafa;
+    border-radius:0;
+    font-size:99%;
+  }
+}
+#right-sidebar, #home-global-data {
   dl {
     dt {
     }
