@@ -17,8 +17,8 @@ module Ifp::OfficeData
 			:finding_aid => "Link to series IV.2",
 			:web_archive => "https://archive-it.org/collections/2766;?fc=websiteGroup%3AFord+Foundation+International+Fellowship+Program&fc=meta_Coverage%3AChile",
 			:ifp_community => "http://www.fordifp.org/Chile/en-us/home.aspx",
-			:ifp_partners => [{ :name => "EQUITAS Foundation", :link => "www.fundacionequitas.org" }],
-			:alumni_organization => "www.alumniifpchile.cl"
+			:ifp_partners => [{ :name => "EQUITAS Foundation", :link => "http://www.fundacionequitas.org" }],
+			:alumni_organization => "http://www.alumniifpchile.cl"
 		},
 		china: {
 			:office => "China",
@@ -34,7 +34,7 @@ module Ifp::OfficeData
 			:finding_aid => "Link to series IV.4",
 			:web_archive => "https://archive-it.org/collections/2766;?fc=websiteGroup%3AFord+Foundation+International+Fellowship+Program&fc=meta_Coverage%3AEgypt",
 			:ifp_community => "http://www.fordifp.org/Egypt/en-us/home.aspx",
-			:ifp_partners => [{ :name => "AMIDEAST", :link => "www.amideast.org" }]
+			:ifp_partners => [{ :name => "AMIDEAST", :link => "http://www.amideast.org" }]
 		},
 		ghana: {
 			:office => "Ghana",
@@ -42,7 +42,7 @@ module Ifp::OfficeData
 			:finding_aid => "Link to series IV.5",
 			:web_archive => "https://archive-it.org/collections/2766;?fc=websiteGroup%3AFord+Foundation+International+Fellowship+Program&fc=meta_Coverage%3AGhana",
 			:ifp_community => "http://www.fordifp.org/Ghana/en-us/home.aspx",
-			:ifp_partners => [{ :name => "Association of African Universities", :link => "www.aau.org" }]
+			:ifp_partners => [{ :name => "Association of African Universities", :link => "http://www.aau.org" }]
 		},
 		guatemala: {
 			:office => "Guatemala",
@@ -51,7 +51,7 @@ module Ifp::OfficeData
 			:web_archive => "https://archive-it.org/collections/2766;?fc=websiteGroup%3AFord+Foundation+International+Fellowship+Program&fc=meta_Coverage%3AGuatemala",
 			:ifp_community => "http://www.fordifp.org/Guatemala/en-us/home.aspx",
 			:ifp_partners => [{ :name => "Regional Research Center of Mesoamerica (CIRMA)", :link => "http://cirma.org.gt/" }],
-			:alumni_organization => "www.ifpguatemala.org",
+			:alumni_organization => "http://www.ifpguatemala.org",
 		},
 		india: {
 			:office => "India",
@@ -67,8 +67,8 @@ module Ifp::OfficeData
 			:finding_aid => "Link to series IV.8",
 			:web_archive => "https://archive-it.org/collections/2766;?fc=websiteGroup%3AFord+Foundation+International+Fellowship+Program&fc=meta_Coverage%3AIndonesia",
 			:ifp_community => "http://www.fordifp.org/Indonesia/en-us/home.aspx",
-			:ifp_partners => [{ :name => "Indonesian International Education Foundation (IIEF)", :link => "www.iief.or.id/" }],
-			:alumni_organization => "www.isjn.or.id/",
+			:ifp_partners => [{ :name => "Indonesian International Education Foundation (IIEF)", :link => "http://www.iief.or.id/" }],
+			:alumni_organization => "http://www.isjn.or.id/",
 		},
 		kenya: {
 			:office => "Kenya",
@@ -76,7 +76,7 @@ module Ifp::OfficeData
 			:finding_aid => "Link to series IV.9",
 			:web_archive => "https://archive-it.org/collections/2766;?fc=websiteGroup%3AFord+Foundation+International+Fellowship+Program&fc=meta_Coverage%3AKenya",
 			:ifp_community => "http://www.fordifp.org/Kenya/en-us/home.aspx",
-			:ifp_partners => [{ :name => "Forum for African Women Educationalists (FAWE)", :link => "www.fawe.org/" }]
+			:ifp_partners => [{ :name => "Forum for African Women Educationalists (FAWE)", :link => "http://www.fawe.org/" }]
 		},
 		mexico: {
 			:office => "Mexico",
@@ -84,7 +84,7 @@ module Ifp::OfficeData
 			:finding_aid => "Link to series IV.10",
 			:web_archive => "https://archive-it.org/collections/2766;?fc=websiteGroup%3AFord+Foundation+International+Fellowship+Program&fc=meta_Coverage%3AMexico",
 			:ifp_community => "http://www.fordifp.org/Mexico/en-us/home.aspx",
-			:ifp_partners => [{ :name => "Center for Research and Higher Studies in Social Anthropology (CIESAS)", :link => "www.ciesas.edu.mx" }]
+			:ifp_partners => [{ :name => "Center for Research and Higher Studies in Social Anthropology (CIESAS)", :link => "http://www.ciesas.edu.mx" }]
 		},
 		mozambique: {
 			:office => "Mozambique",
@@ -92,7 +92,7 @@ module Ifp::OfficeData
 			:finding_aid => "Link to series IV.11",
 			:web_archive => "https://archive-it.org/collections/2766;?fc=websiteGroup%3AFord+Foundation+International+Fellowship+Program&fc=meta_Coverage%3AMozambique",
 			:ifp_community => "http://www.fordifp.org/Mozambique/en-us/home.aspx",
-			:ifp_partners => [{ :name => "Africa-America Institute", :link => "www.aaionline.org/" }]
+			:ifp_partners => [{ :name => "Africa-America Institute", :link => "http://www.aaionline.org/" }]
 		},
 		nigeria: {
 			:office => "Nigeria",
@@ -100,7 +100,7 @@ module Ifp::OfficeData
 			:finding_aid => "Link to series IV.12",
 			:web_archive => "https://archive-it.org/collections/2766;?fc=websiteGroup%3AFord+Foundation+International+Fellowship+Program&fc=meta_Coverage%3ANigeria",
 			:ifp_community => "http://www.fordifp.org/Nigeria/en-us/home.aspx",
-			:ifp_partners => [{ :name => "Association of African Universities", :link => "www.aau.org" }, 
+			:ifp_partners => [{ :name => "Association of African Universities", :link => "http://www.aau.org" }, 
                 { :name => "Pathfinder International", :link => "http://www.pathfinder.org/" }]
 		},
 		palestine: {
@@ -109,7 +109,7 @@ module Ifp::OfficeData
 			:finding_aid => "Link to series IV.13",
 			:web_archive => "https://archive-it.org/collections/2766;?fc=websiteGroup%3AFord+Foundation+International+Fellowship+Program&fc=meta_Coverage%3APalestine",
 			:ifp_community => "http://www.fordifp.org/Palestine /en-us/home.aspx",
-			:ifp_partners => [{ :name => "AMIDEAST", :link => "www.amideast.org/" }]
+			:ifp_partners => [{ :name => "AMIDEAST", :link => "http://www.amideast.org/" }]
 		},
 		peru: {
 			:office => "Chile and Peru",
@@ -117,8 +117,8 @@ module Ifp::OfficeData
 			:finding_aid => "Link to series IV.15",
 			:web_archive => "https://archive-it.org/collections/2766;?fc=websiteGroup%3AFord+Foundation+International+Fellowship+Program&fc=meta_Coverage%3APeru",
 			:ifp_community => "http://www.fordifp.org/Peru/en-us/home.aspx",
-			:ifp_partners => [ { :name => "EQUITAS Foundation", :link => "www.fundacionequitas.org/" },
-			    { :name => "Institute of Peruvian Studies (IEP)", :link => "www.iep.org.pe/" } ],
+			:ifp_partners => [ { :name => "EQUITAS Foundation", :link => "http://www.fundacionequitas.org/" },
+			    { :name => "Institute of Peruvian Studies (IEP)", :link => "http://www.iep.org.pe/" } ],
 			:alumni_organization => "http://www.alumnifordperu.org",
 		},
 		philippines: {
@@ -126,7 +126,7 @@ module Ifp::OfficeData
 			:browse_digital_records => "Link to DLC-IFP: Philippines",
 			:finding_aid => "Link to series IV.14",
 			:ifp_community => "http://www.fordifp.org/Philippines/en-us/home.aspx",
-			:ifp_partners => [{ :name => "The Philippine Social Science Council (PSSC)", :link => "www.pssc.org.ph" }]
+			:ifp_partners => [{ :name => "The Philippine Social Science Council (PSSC)", :link => "http://www.pssc.org.ph" }]
 		},
 		russia: {
 			:office => "Russia",
@@ -134,7 +134,7 @@ module Ifp::OfficeData
 			:finding_aid => "Link to series IV.16",
 			:web_archive => "https://archive-it.org/collections/2766;?fc=websiteGroup%3AFord+Foundation+International+Fellowship+Program&fc=meta_Coverage%3ARussia",
 			:ifp_community => "http://www.fordifp.org/Russia/en-us/home.aspx",
-			:ifp_partners => [{ :name => "IIE Moscow Office", :link => "www.iie.org/Offices/Moscow" }]
+			:ifp_partners => [{ :name => "IIE Moscow Office", :link => "http://www.iie.org/Offices/Moscow" }]
 		},
 		senegal: {
 			:office => "Senegal",
@@ -142,8 +142,8 @@ module Ifp::OfficeData
 			:finding_aid => "Link to series IV.17",
 			:web_archive => "https://archive-it.org/collections/2766;?fc=websiteGroup%3AFord+Foundation+International+Fellowship+Program&fc=meta_Coverage%3ASenegal",
 			:ifp_community => "http://www.fordifp.org/Senegal/en-us/home.aspx",
-			:ifp_partners => [{ :name => "Association of African Universities", :link => "www.aau.org" }, 
-                { :name => "West African Research Center (WARC)", :link => "www.warccroa.org" }]
+			:ifp_partners => [{ :name => "Association of African Universities", :link => "http://www.aau.org" }, 
+                { :name => "West African Research Center (WARC)", :link => "http://www.warccroa.org" }]
 		},
 		southafrica: {
 			:office => "South Africa",
@@ -151,7 +151,7 @@ module Ifp::OfficeData
 			:finding_aid => "Link to series IV.18",
 			:web_archive => "https://archive-it.org/collections/2766;?fc=websiteGroup%3AFord+Foundation+International+Fellowship+Program&fc=meta_Coverage%3ASouth Africa",
 			:ifp_community => "http://www.fordifp.org/South Africa/en-us/home.aspx",
-			:ifp_partners => [{ :name => "Africa-America Institute", :link => "www.aaionline.org/," }]
+			:ifp_partners => [{ :name => "Africa-America Institute", :link => "http://www.aaionline.org/," }]
 		},
 		tanzania: {
 			:office => "Tanzania",
@@ -159,7 +159,7 @@ module Ifp::OfficeData
 			:finding_aid => "Link to series IV.19",
 			:web_archive => "https://archive-it.org/collections/2766;?fc=websiteGroup%3AFord+Foundation+International+Fellowship+Program&fc=meta_Coverage%3ATanzania",
 			:ifp_community => "http://www.fordifp.org/Tanzania/en-us/home.aspx",
-			:ifp_partners => [{ :name => "Economic and Social Research Foundation", :link => "www.esrftz.org" }],
+			:ifp_partners => [{ :name => "Economic and Social Research Foundation", :link => "http://www.esrftz.org" }],
 			:alumni_organization => "http://www.ifponline.org/tabid/135/cid/Tanzania/default.aspx",
 		},
 		thailand: {
@@ -168,7 +168,7 @@ module Ifp::OfficeData
 			:finding_aid => "Link to series IV.20",
 			:web_archive => "https://archive-it.org/collections/2766;?fc=websiteGroup%3AFord+Foundation+International+Fellowship+Program&fc=meta_Coverage%3AThailand",
 			:ifp_community => "http://www.fordifp.org/Thailand/en-us/home.aspx",
-			:ifp_partners => [{ :name => "Asian Scholarship Foundation", :link => "www.asianscholarship.org" }]
+			:ifp_partners => [{ :name => "Asian Scholarship Foundation", :link => "http://www.asianscholarship.org" }]
 		},
 		uganda: {
 			:office => "Uganda",
@@ -192,13 +192,13 @@ module Ifp::OfficeData
 			:finding_aid => "Link to F. Aid",
 			:web_archive => "https://archive-it.org/collections/2766;?fc=websiteGroup%3AFord+Foundation+International+Fellowship+Program",
 			:ifp_community => "http://www.fordifp.org/",
-			:ifp_partners => [{ :name => "Institute for International Education", :link => "www.iie.org" }]
+			:ifp_partners => [{ :name => "Institute for International Education", :link => "http://www.iie.org" }]
 		},
 		secretariat: {
 			:office => "Secretariat",
 			:browse_digital_records => "Link to DLC-IFP",
 			:finding_aid => "Link to F. Aid",
-			:ifp_partners => [{ :name => "Institute for International Education", :link => "www.iie.org" }]
+			:ifp_partners => [{ :name => "Institute for International Education", :link => "http://www.iie.org" }]
 		}
 	}
 
