@@ -366,16 +366,19 @@ footer {
     height:160px;
     &:hover {
       span {
-        background-color:rgba(255,255,255,.8);
+        //background-color:rgba(255,255,255,.8);
+        background-color:$ifpblue;
       }
     }
     span {
       position:absolute;
-      color:#000;
+      color:#fff;
+      font-weight:200;
+      text-shadow:none;
       top:45%;
       text-align:center;
       width:100%;
-      background-color:rgba(255,255,255,.5);
+      background-color:rgba(42,119,143,.5);
       display:inline-block;
     }
     &:first-child {
