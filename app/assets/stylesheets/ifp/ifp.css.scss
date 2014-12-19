@@ -146,11 +146,34 @@ footer {
 @media(max-width:769px) {
     .blacklight-ifp-partner {
       #content {
+        margin-bottom:2em;
         .img-responsive {
           padding-right:0;
           padding-left:0;
         }
       }
+    }
+    .nopad-xs {
+      padding:0;
+    }
+    .nopad-tb-xs {
+      padding-top:0;
+      padding-bottom:0;
+    }
+    .nopad-rl-xs {
+      padding-right:0;
+      padding-left:0;
+    }
+    .nomar-xs {
+      margin:0;
+    }
+    .nomar-tb-xs {
+      margin-top:0;
+      margin-bottom:0;
+    }
+    .nomar-rl-xs {
+      margin-right:0;
+      margin-left:0;
     }
 }
 #outer-wrapper {
