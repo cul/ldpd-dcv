@@ -1,13 +1,21 @@
+<% partner_data = ifp_partner_data( params[:key].to_sym ) %>
 <div class="row">
   <div id="content" class="col-lg-9">
-    <h2 class="nomar-t"><img style="margin-right:3px;width:auto;max-height:60px;" src="<%= asset_path("ifp/office-flags/mexico.png") %>" alt=""> Mexico</h2>
-	<p>
-    <img alt="" src="<%= asset_path("ifp/partner_pics/mexico-01.jpg") %>" class="pull-right col-sm-5 col-xs-12 img-responsive">
-For Mexico, the Ford Foundation has joined forces with the Center for Research and Higher Studies in Social Anthropology (CIESAS) as an International Partner to give the program a local identity and a strong institutional basis. The IIE office for Latin America played an important role in the project as well. In 2002-2010, the Mexican office selected 225 Fellows. The IFP program in Mexico started in 2002 and was aimed at supporting indigenous students. The goal was to help educating indigenous researchers and professionals with high academic standards who can actively participate in solving the problems facing the country, develop new fields of knowledge and commit to improving social and economic conditions of the indigenous population.
-	</p>
-	<p>
-The IFP office was closed in June 2013. 11.25 l. f. of paper materials arrived in July 2013 and the set of digital materials was received in September. The materials include administrative program files, fellow files, audiovisual materials and archived websites. 186 fellows gave their consent to granting researchers access to their files. The materials are in English and Spanish.
-	</p>
+    <h2 class="nomar-t"><img style="margin-right:3px;width:auto;max-height:60px;" src="<%= partner_data[:rep_flag] %>" alt=""> <%= partner_data[:heading] %></h2>
+    <div class="partner-text-excerpt visible-xs lead"><%= partner_data[:text_excerpt].html_safe %></div><!--patner-text-excerpt-->
+    <div class="pull-right col-sm-5 col-xs-12 nopad-rl-xs">
+      <img alt="" src="<%= partner_data[:rep_image] %>" class="img-responsive">
+      <br>
+      <div class="embed-responsive embed-responsive-4by3">
+        <iframe class="embed-responsive-item" src="//www.youtube.com/embed/<%=partner_data[:rep_vid]%>" frameborder="0" allowfullscreen></iframe>
+      </div>
+    </div>
+    <div class="partner-text">
+      <%= partner_data[:text_full].html_safe %>
+    </div><!--/partner-text-->
+  <div class="clearfix"></div>
+
+<%#=ifp_partner_data(params[:key])%>
   </div><!--/#content-->
   <%= render partial: "ifp/partner/office_sidebar" %>
 </div><!--/row-->

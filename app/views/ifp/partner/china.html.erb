@@ -1,13 +1,21 @@
+<% partner_data = ifp_partner_data( params[:key].to_sym ) %>
 <div class="row">
   <div id="content" class="col-lg-9">
-    <h2 class="nomar-t"><img style="margin-right:3px;width:auto;max-height:60px;" src="<%= asset_path("ifp/office-flags/china.png") %>" alt=""> China</h2>
-	<p>
-    <img alt="" src="<%= asset_path("ifp/partner_pics/china-01.jpg") %>" class="pull-right col-sm-5 col-xs-12 img-responsive">
-Ford Foundation International Fellowship Program in China started in 2001 and selected its last cohort in 2010 with the Beijing Office of the Institute of International Education, as its International Partner institution. The program was focused on the social groups with lack of opportunity to study: the poor, minorities, women and persons with disabilities. To this end, the project did not fund applicants who lived or worked in Beijing, Shanghai, Tianjin, Guangzhou, Nanjing, Shenzhen, Hong Kong, Macao and Taiwan. The IFP office in China selected a total of 355 fellows from 27 provinces, municipalities and autonomous regions. The website of the program also houses the still-active "IFP China Fellows Resource Platform" - a growing collection of information about the IFP China Fellows and Alumni and a networking resource.
-	</p>
-	<p>
-The IFP China office was closed in 2013. The archive received 4.3 GB of digital materials and 43.75 l.f. of paper materials in July 2013. The documents include outreach materials, selection records and interview materials, post selection activities , publications and media coverage, alumni-related materials, photos, PowerPoint presentations, multimedia and internal correspondence in English and Chinese, as well as website captures. 238 Chinese fellows gave their consent to open most of their files to researchers in the Reading Room.
-	</p>
+    <h2 class="nomar-t"><img style="margin-right:3px;width:auto;max-height:60px;" src="<%= partner_data[:rep_flag] %>" alt=""> <%= partner_data[:heading] %></h2>
+    <div class="partner-text-excerpt visible-xs lead"><%= partner_data[:text_excerpt].html_safe %></div><!--patner-text-excerpt-->
+    <div class="pull-right col-sm-5 col-xs-12 nopad-rl-xs">
+      <img alt="" src="<%= partner_data[:rep_image] %>" class="img-responsive">
+      <br>
+      <div class="embed-responsive embed-responsive-4by3">
+        <iframe class="embed-responsive-item" src="//www.youtube.com/embed/<%=partner_data[:rep_vid]%>" frameborder="0" allowfullscreen></iframe>
+      </div>
+    </div>
+    <div class="partner-text">
+      <%= partner_data[:text_full].html_safe %>
+    </div><!--/partner-text-->
+  <div class="clearfix"></div>
+
+<%#=ifp_partner_data(params[:key])%>
   </div><!--/#content-->
   <%= render partial: "ifp/partner/office_sidebar" %>
 </div><!--/row-->

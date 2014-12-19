@@ -1,19 +1,21 @@
+<% partner_data = ifp_partner_data( params[:key].to_sym ) %>
 <div class="row">
   <div id="content" class="col-lg-9">
-    <h2 class="nomar-t"><img style="margin-right:3px;width:auto;max-height:60px;" src="<%= asset_path("ifp/office-flags/uganda.png") %>" alt=""> Uganda</h2>
-	<p>
-    <img alt="" src="<%= asset_path("ifp/partner_pics/uganda-01.jpg") %>" class="pull-right col-sm-5 col-xs-12 img-responsive">
-Ford Foundation International Fellowships Program (IFP) in Uganda was launched in 2001. The Association for Higher Education Advancement & Development (AHEAD), registered in 2004 to work on a range of programs in higher education, leadership and youth development, has become the program’s International Partner in Uganda.  
-	</p>
-	<p>
-126 fellows from Uganda, selected in 2001-2010, have enrolled in universities in the United States, Canada, United Kingdom, Australia, continental Europe, Uganda, Kenya and South Africa. AHEAD has also conducted an IFP-funded two year legacy building project for IFP in Uganda, working with alumni to assist them in consolidating their efforts towards social justice activities that directly affect their communities. AHEAD also works on integrating the lessons learned from IFP into national education agenda. 
-	</p>
-	<p>
-The Uganda IFP program closed its operations in June 2013. 5 l.f of paper records arrived in May 2013, and 60 MB of digital materials were received in July 2013. 
-	</p>
-	<p>
-The records of Uganda IFP office include administrative program files, fellow files, audiovisual materials and archived websites.  69 fellows gave their consent to open their materials for research. The materials are in English (?).
-	</p>
+    <h2 class="nomar-t"><img style="margin-right:3px;width:auto;max-height:60px;" src="<%= partner_data[:rep_flag] %>" alt=""> <%= partner_data[:heading] %></h2>
+    <div class="partner-text-excerpt visible-xs lead"><%= partner_data[:text_excerpt].html_safe %></div><!--patner-text-excerpt-->
+    <div class="pull-right col-sm-5 col-xs-12 nopad-rl-xs">
+      <img alt="" src="<%= partner_data[:rep_image] %>" class="img-responsive">
+      <br>
+      <div class="embed-responsive embed-responsive-4by3">
+        <iframe class="embed-responsive-item" src="//www.youtube.com/embed/<%=partner_data[:rep_vid]%>" frameborder="0" allowfullscreen></iframe>
+      </div>
+    </div>
+    <div class="partner-text">
+      <%= partner_data[:text_full].html_safe %>
+    </div><!--/partner-text-->
+  <div class="clearfix"></div>
+
+<%#=ifp_partner_data(params[:key])%>
   </div><!--/#content-->
   <%= render partial: "ifp/partner/office_sidebar" %>
 </div><!--/row-->

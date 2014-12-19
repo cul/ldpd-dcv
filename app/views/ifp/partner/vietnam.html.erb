@@ -1,13 +1,21 @@
+<% partner_data = ifp_partner_data( params[:key].to_sym ) %>
 <div class="row">
   <div id="content" class="col-lg-9">
-    <h2 class="nomar-t"><img style="margin-right:3px;width:auto;max-height:60px;" src="<%= asset_path("ifp/office-flags/vietnam.png") %>" alt=""> Vietnam</h2>
-	<p>
-    <img alt="" src="<%= asset_path("ifp/partner_pics/vietnam-01.jpg") %>" class="pull-right col-sm-5 col-xs-12 img-responsive">
-IFP program in Vietnam was launched in 2001 and recruited its last cohort in 2010. It was administered in Hanoi by the IFP international partner, the Center for Educational Exchange with Viet Nam (CEEVN). 266 IFP fellows in Vietnam included men and women from 49 provinces and four main cities. The majority of fellows looked for Master and Ph. D. - level education in development, education, environment and health, and 62% went to programs in North America. The alumni of the program have formed the IFP Vietnam Alumni organization, whose active website is also being archived as part of this collection.
-	</p>
-	<p>
-The CEEVN IFP office in Vietnam was closed in June 2013. 10 l.f of paper records arrived in three installments in April through July 2013. Digital materials (4.38 GB) were received in June 2013. The records include office files, publicity materials, theses and dissertation of the fellows. 248 fellows gave their consent to open their materials for research access. The documents are in English and Vietnamese.
-	</p>
+    <h2 class="nomar-t"><img style="margin-right:3px;width:auto;max-height:60px;" src="<%= partner_data[:rep_flag] %>" alt=""> <%= partner_data[:heading] %></h2>
+    <div class="partner-text-excerpt visible-xs lead"><%= partner_data[:text_excerpt].html_safe %></div><!--patner-text-excerpt-->
+    <div class="pull-right col-sm-5 col-xs-12 nopad-rl-xs">
+      <img alt="" src="<%= partner_data[:rep_image] %>" class="img-responsive">
+      <br>
+      <div class="embed-responsive embed-responsive-4by3">
+        <iframe class="embed-responsive-item" src="//www.youtube.com/embed/<%=partner_data[:rep_vid]%>" frameborder="0" allowfullscreen></iframe>
+      </div>
+    </div>
+    <div class="partner-text">
+      <%= partner_data[:text_full].html_safe %>
+    </div><!--/partner-text-->
+  <div class="clearfix"></div>
+
+<%#=ifp_partner_data(params[:key])%>
   </div><!--/#content-->
   <%= render partial: "ifp/partner/office_sidebar" %>
 </div><!--/row-->

@@ -1,13 +1,21 @@
+<% partner_data = ifp_partner_data( params[:key].to_sym ) %>
 <div class="row">
   <div id="content" class="col-lg-9">
-    <h2 class="nomar-t"><img style="margin-right:3px;width:auto;max-height:60px;" src="<%= asset_path("ifp/office-flags/india.png") %>" alt=""> India</h2>
-	<p>
-    <img alt="" src="<%= asset_path("ifp/partner_pics/india-01.jpg") %>" class="pull-right col-sm-5 col-xs-12 img-responsive">
-In 2001 the Ford Foundation appointed a team to develop and manage the IFP in India. In close consultation with the New Delhi office of the Ford Foundation and with the advice of experienced academics and social scientists, the IFP India team launched the Program in April 2001 and housed its operations at the United States India Educational Foundation (USIEF), New Delhi, the IFP International Partner. IFP India aimed to support individuals from disadvantaged groups that lacked access to higher education due to various forms of socio-economic deprivation, including those living in geographically remote areas. After an initial all-India intake, the India program concentrated on specific states including Bihar, Chhattisgarh, Gujarat, Jharkhand, Jammu and Kashmir, Madhya Pradesh, Orissa, Rajasthan, Uttarakhand and Uttar Pradesh. Selection of Fellows was by an independent selection panel of Indian citizens, from academia and civil society, to which the IFP team acted as secretariat. Many of the 330 Fellows came from small towns and rural areas across India, many were first generation literates, 47% were women, 13% came from Scheduled Caste, 13% from Scheduled Tribes, 26% per cent from Other Backward Classes, 34% belonged to religious minority groups, 4% had physical challenges. 45% of IFP Fellows from India went to graduate schools in the United States, 45% to the UK, while the remaining studied at universities in Europe, Asia and in Australia. After the fellows’ return to India, the IFP has helped alumni to re-integrate into their home environments with the support of the alumni networks across the states of India.
-	</p>
-	<p>
-263 IFP India Fellows gave their consent to granting researchers access to their files. Digital materials, including program files, mail, and fellow files, and totaling 75.5 GB arrived in July 2013. Paper records, totalling 35 l.f., came in 5 shipments in May-June 2013. The materials are in English
-	</p>
+    <h2 class="nomar-t"><img style="margin-right:3px;width:auto;max-height:60px;" src="<%= partner_data[:rep_flag] %>" alt=""> <%= partner_data[:heading] %></h2>
+    <div class="partner-text-excerpt visible-xs lead"><%= partner_data[:text_excerpt].html_safe %></div><!--patner-text-excerpt-->
+    <div class="pull-right col-sm-5 col-xs-12 nopad-rl-xs">
+      <img alt="" src="<%= partner_data[:rep_image] %>" class="img-responsive">
+      <br>
+      <div class="embed-responsive embed-responsive-4by3">
+        <iframe class="embed-responsive-item" src="//www.youtube.com/embed/<%=partner_data[:rep_vid]%>" frameborder="0" allowfullscreen></iframe>
+      </div>
+    </div>
+    <div class="partner-text">
+      <%= partner_data[:text_full].html_safe %>
+    </div><!--/partner-text-->
+  <div class="clearfix"></div>
+
+<%#=ifp_partner_data(params[:key])%>
   </div><!--/#content-->
   <%= render partial: "ifp/partner/office_sidebar" %>
 </div><!--/row-->

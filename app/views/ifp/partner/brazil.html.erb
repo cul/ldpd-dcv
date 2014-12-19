@@ -1,23 +1,21 @@
+<% partner_data = ifp_partner_data( params[:key].to_sym ) %>
 <div class="row">
   <div id="content" class="col-lg-9">
-    <h2 class="nomar-t"><img style="margin-right:3px;width:auto;max-height:60px;" src="<%= asset_path("ifp/office-flags/brazil.png") %>" alt=""> Brazil</h2>
-    <div class="partner-text-excerpt visible-xs lead"><%= 'this is the partner excerpt text' %></div><!--patner-text-excerpt-->
+    <h2 class="nomar-t"><img style="margin-right:3px;width:auto;max-height:60px;" src="<%= partner_data[:rep_flag] %>" alt=""> <%= partner_data[:heading] %></h2>
+    <div class="partner-text-excerpt visible-xs lead"><%= partner_data[:text_excerpt].html_safe %></div><!--patner-text-excerpt-->
     <div class="pull-right col-sm-5 col-xs-12 nopad-rl-xs">
-      <img alt="" src="<%= asset_path("ifp/partner_pics/brazil-01.jpg") %>" class="img-responsive">
+      <img alt="" src="<%= partner_data[:rep_image] %>" class="img-responsive">
       <br>
       <div class="embed-responsive embed-responsive-4by3">
-        <%= render partial: "ifp/partner/office_vid" %>
+        <iframe class="embed-responsive-item" src="//www.youtube.com/embed/<%=partner_data[:rep_vid]%>" frameborder="0" allowfullscreen></iframe>
       </div>
     </div>
     <div class="partner-text">
-	<p>
-	The International Scholarship Program for Graduate Ford Foundation in Brazil, in operation between 2002 and 2009, conducted eight rounds of selection for scholarships that allowed awardees to attaing master's and doctoral degrees.  The Carlos Chagas Foundation, a private nonprofit organization, founded in 1964 and dedicated to the assessment of cognitive and professional skills and research in education, was selected to run the IFP program in Brazil as an international partner. The IFP Brazil Office was headed by Fulvia Rosemberg, a researcher in the Department of Educational Research of the Carlos Chagas Foundation. The IFP program in Brazil had some distinctive features stemming from its context of intense ongoing national debate over affirmative action in higher education. Thus, the IFP program in Brazil was presented, since its launch, as an affirmative action program, to the extent that their target audience is people underrepresented in graduate school. The goal of the program is to provide preferential treatment to certain social groups that due to the social structure of the country, would normally have the least possibility of access, retention and success in postgraduate education. Each year, the IFP has offered about 40 scholarships for master's (24 months) and Doctorate (up to 36 months), to the social groups with the worst indicators of access to postgraduate education, according to National Household Survey of 2003.  Another characteristic of the IFP program in Brazil was its attempt to balance the respect for local practices with adjusting the process to the international rules governing the program. By the time the office was closed in 2013, the program in Brazil graduated 306 IFP fellows.
-	</p>
-	<p>
-	The documents are in English and Portugese Digital materials were received in August 2013 and comprised 2.71 GB of office files, images, presentations, and publications. The paper materials was received in two installments; the first and largest shipment (16.25 l.f.) was received in August 2012, and the other (1.25 l.f.) -  in May 2013. As part of the IFP archiving program, the IFP Brazil website (known as programabolsa) has been harvested semiannually starting in 2012 and until late 2013. 270 Brazilian fellows gave their consent to open most of their files to researchers in the Reading Room.  
-	</p>
+      <%= partner_data[:text_full].html_safe %>
     </div><!--/partner-text-->
   <div class="clearfix"></div>
+
+<%#=ifp_partner_data(params[:key])%>
   </div><!--/#content-->
   <%= render partial: "ifp/partner/office_sidebar" %>
 </div><!--/row-->

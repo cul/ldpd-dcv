@@ -1,14 +1,21 @@
+<% partner_data = ifp_partner_data( params[:key].to_sym ) %>
 <div class="row">
   <div id="content" class="col-lg-9">
-    <h2 class="nomar-t"><img style="margin-right:3px;width:auto;max-height:60px;" src="<%= asset_path("ifp/office-flags/mozambique.png") %>" alt=""> Mozambique</h2>
-	<p>
-    <img alt="" src="<%= asset_path("ifp/partner_pics/mozambique-01.jpg") %>" class="pull-right col-sm-5 col-xs-12 img-responsive">
-The first awards of the International Fellowships Program to Mozambican citizens were allocated in 2002. Until the end of the program 8 cohorts were set up covering for 119 beneficiaries of the program The program in South Africa and Mozambique was coordinated by the IFP Partner, Africa-America Institute in South Africa. 16 IFP fellows studied in country, and 101 IFP fellows and alumni from Mozambique studied abroad. In December 12, 2009 the International Fellowships Program Association of Mozambique (IFP ALUMNI) was born. The objective of the Association is to seek the academic, professional, social and general welfare of all members, as well as to support community development in Mozambique. 
-	</p>
-	<p>
-The office was closed in December 2012, with 25 l.f. of paper materials arriving in December 2012, and 3.13 GB of digital materials - in January 2013.  
-The materials include administrative program files, fellow files and audiovisual materials 93 fellows  gave their consent to granting researchers access to their files. The documents are in English and French (?). Mozambique program had no separate website, and the online activities of its alumni group can be found on the corresponding page central IFP website, www.fordifp.net.
-	</p>
+    <h2 class="nomar-t"><img style="margin-right:3px;width:auto;max-height:60px;" src="<%= partner_data[:rep_flag] %>" alt=""> <%= partner_data[:heading] %></h2>
+    <div class="partner-text-excerpt visible-xs lead"><%= partner_data[:text_excerpt].html_safe %></div><!--patner-text-excerpt-->
+    <div class="pull-right col-sm-5 col-xs-12 nopad-rl-xs">
+      <img alt="" src="<%= partner_data[:rep_image] %>" class="img-responsive">
+      <br>
+      <div class="embed-responsive embed-responsive-4by3">
+        <iframe class="embed-responsive-item" src="//www.youtube.com/embed/<%=partner_data[:rep_vid]%>" frameborder="0" allowfullscreen></iframe>
+      </div>
+    </div>
+    <div class="partner-text">
+      <%= partner_data[:text_full].html_safe %>
+    </div><!--/partner-text-->
+  <div class="clearfix"></div>
+
+<%#=ifp_partner_data(params[:key])%>
   </div><!--/#content-->
   <%= render partial: "ifp/partner/office_sidebar" %>
 </div><!--/row-->

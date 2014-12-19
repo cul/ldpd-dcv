@@ -1,13 +1,21 @@
+<% partner_data = ifp_partner_data( params[:key].to_sym ) %>
 <div class="row">
   <div id="content" class="col-lg-9">
-    <h2 class="nomar-t"><img style="margin-right:3px;width:auto;max-height:60px;" src="<%= asset_path("ifp/office-flags/philippines.png") %>" alt=""> Philippines</h2>
-	<p>
-    <img alt="" src="<%= asset_path("ifp/partner_pics/philippines-01.jpg") %>" class="pull-right col-sm-5 col-xs-12 img-responsive">
-The Philippine Social Science Council (PSSC), an associational membership organization, established in 1968, served as the IFP Philippines International Partner. Philippines IFP office selected 222 fellows for Ph. D. and Master-level training. The program in Philippines likely never had an operational website, but had a page at http://www.fordifp.org/philippines/en-us/home.aspx. In 2008, the fellows, who had returned to Philippines after completing their studies, founded the International Fellowships Program-Philippines Alumni Association (IFPPAA). The IFPAA is committed to contributing the Ford Foundation’s goal of social development and justice by conducting research and undertaking socially relevant academic projects.
-	</p>
-	<p>
-The Philippines IFP office closed in November 2012. The archive received 19 l. f. of paper records in November 2012 and 165.11 GB digital materials in December 2012.  The archived documents include administrative program files, fellow files, publicity materials and audiovisual materials. 203 fellows consented to provide researchers with access to their files. The paper shipment also included 57 DVDs of IFP Philippines events; the contents of the optical disks were transferred and grouped with other digital materials of the IFP office. The materials are in English and Tagalog. 
-	</p>
+    <h2 class="nomar-t"><img style="margin-right:3px;width:auto;max-height:60px;" src="<%= partner_data[:rep_flag] %>" alt=""> <%= partner_data[:heading] %></h2>
+    <div class="partner-text-excerpt visible-xs lead"><%= partner_data[:text_excerpt].html_safe %></div><!--patner-text-excerpt-->
+    <div class="pull-right col-sm-5 col-xs-12 nopad-rl-xs">
+      <img alt="" src="<%= partner_data[:rep_image] %>" class="img-responsive">
+      <br>
+      <div class="embed-responsive embed-responsive-4by3">
+        <iframe class="embed-responsive-item" src="//www.youtube.com/embed/<%=partner_data[:rep_vid]%>" frameborder="0" allowfullscreen></iframe>
+      </div>
+    </div>
+    <div class="partner-text">
+      <%= partner_data[:text_full].html_safe %>
+    </div><!--/partner-text-->
+  <div class="clearfix"></div>
+
+<%#=ifp_partner_data(params[:key])%>
   </div><!--/#content-->
   <%= render partial: "ifp/partner/office_sidebar" %>
 </div><!--/row-->

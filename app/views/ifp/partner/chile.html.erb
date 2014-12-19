@@ -1,13 +1,21 @@
+<% partner_data = ifp_partner_data( params[:key].to_sym ) %>
 <div class="row">
   <div id="content" class="col-lg-9">
-    <h2 class="nomar-t"><img style="margin-right:3px;width:auto;max-height:60px;" src="<%= asset_path("ifp/office-flags/chile.png") %>" alt=""> Chile</h2>
-	<p>
-    <img alt="" src="<%= asset_path("ifp/partner_pics/chile-01.jpg") %>" class="pull-right col-sm-5 col-xs-12 img-responsive">
-IFP for the Andean Region and Southern Cone (IFP AR &amp; SC), implemented in Chile and Peru, was among the four pilot IFP programs; it began in November 2000 and formed its first fellow cohort in 2001. The coordination of the program was the responsibility of EQUITAS Foundation, the IFP International Partner that also administered the program in Chile. Founded in 2002, the Foundation EQUITAS (previously known as International Foundation Scholarship Fund) is a non-profit organization whose main objective is to contribute to building more equitable and democratic societies, through research, development and dissemination of measures affirmative action toward greater social and cultural integration. Between 2001 and 2010, 145 Fellows from Chile were selected for the program. Total number of fellows in the IFP AR&amp;SC reached 363, as of February 2013; 271 or them consented to provide researchers access to their files.
-	</p>
-	<p>
-The Chile and Peru IFP program closed its operations in 2013. The archive received 12.5 l.f. of paper materials for IFP-Chile in April 2013 and digital materials for Chile and Peru (2.69 GB) was received as a single set of files in June 2013; The materials include administrative program files, fellow files, , images, presentations, publications, multimedia, and archived websites in English and Spanish.
-	</p>
+    <h2 class="nomar-t"><img style="margin-right:3px;width:auto;max-height:60px;" src="<%= partner_data[:rep_flag] %>" alt=""> <%= partner_data[:heading] %></h2>
+    <div class="partner-text-excerpt visible-xs lead"><%= partner_data[:text_excerpt].html_safe %></div><!--patner-text-excerpt-->
+    <div class="pull-right col-sm-5 col-xs-12 nopad-rl-xs">
+      <img alt="" src="<%= partner_data[:rep_image] %>" class="img-responsive">
+      <br>
+      <div class="embed-responsive embed-responsive-4by3">
+        <iframe class="embed-responsive-item" src="//www.youtube.com/embed/<%=partner_data[:rep_vid]%>" frameborder="0" allowfullscreen></iframe>
+      </div>
+    </div>
+    <div class="partner-text">
+      <%= partner_data[:text_full].html_safe %>
+    </div><!--/partner-text-->
+  <div class="clearfix"></div>
+
+<%#=ifp_partner_data(params[:key])%>
   </div><!--/#content-->
   <%= render partial: "ifp/partner/office_sidebar" %>
 </div><!--/row-->

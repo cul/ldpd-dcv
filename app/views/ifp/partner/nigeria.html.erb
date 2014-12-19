@@ -1,13 +1,21 @@
+<% partner_data = ifp_partner_data( params[:key].to_sym ) %>
 <div class="row">
   <div id="content" class="col-lg-9">
-    <h2 class="nomar-t"><img style="margin-right:3px;width:auto;max-height:60px;" src="<%= asset_path("ifp/office-flags/nigeria.png") %>" alt=""> Nigeria</h2>
-	<p>
-    <img alt="" src="<%= asset_path("ifp/partner_pics/nigeria-01.jpg") %>" class="pull-right col-sm-5 col-xs-12 img-responsive">
-The Ford Foundation International Fellowships Program in West Africa has been coordinated by the Association of African Universities (AAU), with its headquarters in Accra, Ghana, the apex organization and forum for consultation, exchange of information and co-operation among institutions of higher education in Africa. The Nigerian component of the program was also facilitated by Pathfinder Internatonal, a global non-profit organization with headquarters in Watertown, Massachusetts that focuses on reproductive health, family planning, HIV/AIDS prevention and care, and related health services. Pathfinder has managed the program in Nigeria by supporting the recruitment, selection, preparation for studies abroad, and ongoing monitoring and support for a total of 175 fellows, selected between 2001 and 2010. Upon their return, fellows joined the Nigeria IFP Alumni Association. 
-	</p>
-	<p>
-The Nigerian Office sent in 11.25 l. f. of paper records in May 2013, before it closed its doors in June of the same year. 13.0 GB of digital materials arrived in October 2013. 82 fellows gave their consent to granting researchers access to their files. The materials include administrative program files, fellow files, audiovisual materials and archived websites. The documents are predominantly in English. 
-	</p>
+    <h2 class="nomar-t"><img style="margin-right:3px;width:auto;max-height:60px;" src="<%= partner_data[:rep_flag] %>" alt=""> <%= partner_data[:heading] %></h2>
+    <div class="partner-text-excerpt visible-xs lead"><%= partner_data[:text_excerpt].html_safe %></div><!--patner-text-excerpt-->
+    <div class="pull-right col-sm-5 col-xs-12 nopad-rl-xs">
+      <img alt="" src="<%= partner_data[:rep_image] %>" class="img-responsive">
+      <br>
+      <div class="embed-responsive embed-responsive-4by3">
+        <iframe class="embed-responsive-item" src="//www.youtube.com/embed/<%=partner_data[:rep_vid]%>" frameborder="0" allowfullscreen></iframe>
+      </div>
+    </div>
+    <div class="partner-text">
+      <%= partner_data[:text_full].html_safe %>
+    </div><!--/partner-text-->
+  <div class="clearfix"></div>
+
+<%#=ifp_partner_data(params[:key])%>
   </div><!--/#content-->
   <%= render partial: "ifp/partner/office_sidebar" %>
 </div><!--/row-->
