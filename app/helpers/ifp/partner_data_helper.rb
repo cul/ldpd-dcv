@@ -22,7 +22,7 @@ The documents are in English and Portugese Digital materials were received in Au
         :heading => 'Chile',
         :rep_flag => asset_path("ifp/office-flags/chile.png"),
         :rep_image => asset_path('ifp/partner_pics/chile-01.jpg'),
-        :rep_vid => "j3FAzPfdEeY",
+        :rep_vid => "5fI_d398vOg",
         :text_excerpt => "IFP for the Andean Region and Southern Cone (IFP AR &amp; SC), implemented in Chile and Peru, was among the four pilot IFP programs; it began in November 2000 and formed its first fellow cohort in 2001.",
         :text_full => "
 <p>
@@ -37,7 +37,7 @@ The Chile and Peru IFP program closed its operations in 2013. The archive receiv
         :heading => 'China',
         :rep_flag => asset_path("ifp/office-flags/china.png"),
         :rep_image => asset_path('ifp/partner_pics/china-01.jpg'),
-        :rep_vid => "j3FAzPfdEeY",
+        :rep_vid => "5fI_d398vOg",
         :text_excerpt => "Ford Foundation International Fellowship Program in China started in 2001 and selected its last cohort in 2010 with the Beijing Office of the Institute of International Education, as its International Partner institution.",
         :text_full => "
 <p>
@@ -52,7 +52,7 @@ The IFP China office was closed in 2013. The archive received 4.3 GB of digital 
         :heading => 'Egypt',
         :rep_flag => asset_path("ifp/office-flags/egypt.png"),
         :rep_image => asset_path('ifp/partner_pics/egypt-01.jpg'),
-        :rep_vid => "j3FAzPfdEeY",
+        :rep_vid => "5fI_d398vOg",
         :text_excerpt => "The America-Mideast Educational and Training Services (AMIDEAST), located in Cairo served as the host institution and the international IFP Partner, running the program in Egypt and Palestine in 2001-2012.",
         :text_full => "
 <p>
@@ -67,7 +67,7 @@ The Egyptian IFP office was closed on June 30, 2013. Digital materials on a hard
         :heading => 'Ghana',
         :rep_flag => asset_path("ifp/office-flags/ghana.png"),
         :rep_image => asset_path('ifp/partner_pics/ghana-01.jpg'),
-        :rep_vid => "j3FAzPfdEeY",
+        :rep_vid => "5fI_d398vOg",
         :text_excerpt => "The Ford Foundation International Fellowships Programs in Ghana, Nigeria and Senegal was coordinated by the Association of African Universities.",
         :text_full => "
 	<p>
@@ -82,7 +82,7 @@ Digital materials on a flash drive (4.92 GB) were delivered in July 2013 and con
         :heading => 'Guatemala',
         :rep_flag => asset_path("ifp/office-flags/guatemala.png"),
         :rep_image => asset_path('ifp/partner_pics/guatemala-01.jpg'),
-        :rep_vid => "j3FAzPfdEeY",
+        :rep_vid => "5fI_d398vOg",
         :text_excerpt => "The IFP program in Guatemala, since its inception in 2001 was under technical and administrative management of the Regional Research Center of Mesoamerica (CIRMA), an IFP international partner.",
         :text_full => "
 	<p>
@@ -97,7 +97,7 @@ The full set of digital materials from Guatemala office has never been received;
         :heading => 'India',
         :rep_flag => asset_path("ifp/office-flags/india.png"),
         :rep_image => asset_path('ifp/partner_pics/india-01.jpg'),
-        :rep_vid => "j3FAzPfdEeY",
+        :rep_vid => "5fI_d398vOg",
         :text_excerpt => "In 2001 the Ford Foundation appointed a team to develop and manage the IFP in India.",
         :text_full => "
 	<p>
@@ -112,7 +112,7 @@ In 2001 the Ford Foundation appointed a team to develop and manage the IFP in In
         :heading => 'Indonesia',
         :rep_flag => asset_path("ifp/office-flags/indonesia.png"),
         :rep_image => asset_path('ifp/partner_pics/indonesia-01.jpg'),
-        :rep_vid => "j3FAzPfdEeY",
+        :rep_vid => "5fI_d398vOg",
         :text_excerpt => "The Indonesian International Education Foundation (IIEF) - an Indonesian not-for-profit organization that promotes the development of the Indonesian people through international education served as the IFP International Partner in Indonesia.",
         :text_full => "
 	<p>
@@ -128,7 +128,7 @@ The IFP office in Indonesia closed its operations in 2013. 267 fellows gave thei
         :heading => 'Kenya',
         :rep_flag => asset_path("ifp/office-flags/kenya.png"),
         :rep_image => asset_path('ifp/partner_pics/kenya-01.jpg'),
-        :rep_vid => "j3FAzPfdEeY",
+        :rep_vid => "5fI_d398vOg",
         :text_excerpt => "The IFP Program in Kenya was hosted by Forum for African Women Educationalists (FAWE).",
         :text_full => "
 	<p>
@@ -143,7 +143,7 @@ Paper files arrived in two installments: 6.25 l.f. in May 2013 and another 1.25 
         :heading => 'Mexico',
         :rep_flag => asset_path("ifp/office-flags/mexico.png"),
         :rep_image => asset_path('ifp/partner_pics/mexico-01.jpg'),
-        :rep_vid => "j3FAzPfdEeY",
+        :rep_vid => "5fI_d398vOg",
         :text_excerpt => "For Mexico, the Ford Foundation has joined forces with the Center for Research and Higher Studies in Social Anthropology (CIESAS) as an International Partner to give the program a local identity and a strong institutional basis.",
         :text_full => "
 	<p>
@@ -158,7 +158,7 @@ The IFP office was closed in June 2013. 11.25 l. f. of paper materials arrived i
         :heading => 'Mozambique',
         :rep_flag => asset_path("ifp/office-flags/mozambique.png"),
         :rep_image => asset_path('ifp/partner_pics/mozambique-01.jpg'),
-        :rep_vid => "j3FAzPfdEeY",
+        :rep_vid => "5fI_d398vOg",
         :text_excerpt => "The first awards of the International Fellowships Program to Mozambican citizens were allocated in 2002.",
         :text_full => "
 	<p>
@@ -174,7 +174,7 @@ The materials include administrative program files, fellow files and audiovisual
         :heading => 'Nigeria',
         :rep_flag => asset_path("ifp/office-flags/nigeria.png"),
         :rep_image => asset_path('ifp/partner_pics/nigeria-01.jpg'),
-        :rep_vid => "j3FAzPfdEeY",
+        :rep_vid => "5fI_d398vOg",
         :text_excerpt => "The Ford Foundation International Fellowships Program in West Africa has been coordinated by the Association of African Universities (AAU), with its headquarters in Accra, Ghana, the apex organization and forum for consultation, exchange of information and co-operation among institutions of higher education in Africa.",
         :text_full => "
 	<p>
@@ -189,7 +189,7 @@ The Nigerian Office sent in 11.25 l. f. of paper records in May 2013, before it 
         :heading => 'Palestine',
         :rep_flag => asset_path("ifp/office-flags/palestine.png"),
         :rep_image => asset_path('ifp/partner_pics/palestine-01.jpg'),
-        :rep_vid => "j3FAzPfdEeY",
+        :rep_vid => "5fI_d398vOg",
         :text_excerpt => "The America-Mideast Educational and Training Services (AMIDEAST), Cairo - a leading American non-profit organization engaged in international education, training and development activities in the Middle East and North Africa - was the Ford IFP International Partner in the Middle East, responsible for the programs in Egypt and Palestine.",
         :text_full => "
 	<p>
@@ -205,7 +205,7 @@ The Palestinian Office shipped to the archives 5 l. f. of paper records in Octob
         :heading => 'Peru',
         :rep_flag => asset_path("ifp/office-flags/peru.png"),
         :rep_image => asset_path('ifp/partner_pics/peru-01.jpg'),
-        :rep_vid => "j3FAzPfdEeY",
+        :rep_vid => "5fI_d398vOg",
         :text_excerpt => "IFP for the Andean Region and Southern Cone (IFP AR &amp; SC), implemented in Chile and Peru, was among the four pilot IFP programs; it began in November 2000 and formed its first fellow cohort in 2001.",
         :text_full => "
 	<p>
@@ -220,7 +220,7 @@ Chile and Peru IFP office was closed down in June 2013. 6.25 l.f of paper record
         :heading => 'Philippines',
         :rep_flag => asset_path("ifp/office-flags/philippines.png"),
         :rep_image => asset_path('ifp/partner_pics/philippines-01.jpg'),
-        :rep_vid => "j3FAzPfdEeY",
+        :rep_vid => "5fI_d398vOg",
         :text_excerpt => "The Philippine Social Science Council (PSSC), an associational membership organization, established in 1968, served as the IFP Philippines International Partner.",
         :text_full => "
 	<p>
@@ -235,7 +235,7 @@ The Philippines IFP office closed in November 2012. The archive received 19 l. f
         :heading => 'Russia',
         :rep_flag => asset_path("ifp/office-flags/russia.png"),
         :rep_image => asset_path('ifp/partner_pics/russia-01.jpg'),
-        :rep_vid => "j3FAzPfdEeY",
+        :rep_vid => "5fI_d398vOg",
         :text_excerpt => "The IFP program in Russia was among the four pilot IFP programs.",
         :text_full => "
 	<p>
@@ -250,7 +250,7 @@ The Russian IFP office in Moscow was the first international office to close in 
         :heading => 'Secretariat',
         :rep_flag => asset_path("ifp/office-flags/secretariat.png"),
         :rep_image => asset_path('ifp/partner_pics/secretariat-01.jpg'),
-        :rep_vid => "j3FAzPfdEeY",
+        :rep_vid => "5fI_d398vOg",
         :text_excerpt => "One of the major innovations of IFP is a decentralized operational structure linking implementing organizations in the twenty-two IFP participating countries with the IFP Secretariat in New York City, which managed the program as a whole to maintain 
 global consistency of policy and implementation.",
         :text_full => "
@@ -268,7 +268,7 @@ Mary Zurbuchen (Director for Asia and Russia); Rob Oppegard (Director of Finance
         :heading => 'Senegal',
         :rep_flag => asset_path("ifp/office-flags/senegal.png"),
         :rep_image => asset_path('ifp/partner_pics/senegal-01.jpg'),
-        :rep_vid => "j3FAzPfdEeY",
+        :rep_vid => "5fI_d398vOg",
         :text_excerpt => "Senegal, along with Ghana and Nigeria, was among the pilot IFP programs that started in November 2001 and selected its first cohort of fellows in 2001.",
         :text_full => "
 	<p>
@@ -283,7 +283,7 @@ The IFP office in Senegal was closed in June 2013, with 3.75 l.f of paper record
         :heading => 'South Africa',
         :rep_flag => asset_path("ifp/office-flags/southafrica.png"),
         :rep_image => asset_path('ifp/partner_pics/southafrica-01.jpg'),
-        :rep_vid => "j3FAzPfdEeY",
+        :rep_vid => "5fI_d398vOg",
         :text_excerpt => "The program in South Africa and Mozambique was coordinated by Africa-America Institute in South Africa as an IFP International Partner.",
         :text_full => "
 	<p>
@@ -298,7 +298,7 @@ The IFP office in South Africa was closed in June 2013. The RBML archive receive
         :heading => 'Tanzania',
         :rep_flag => asset_path("ifp/office-flags/tanzania.png"),
         :rep_image => asset_path('ifp/partner_pics/tanzania-01.jpg'),
-        :rep_vid => "j3FAzPfdEeY",
+        :rep_vid => "5fI_d398vOg",
         :text_excerpt => "The program in Tanzania was coordinated by the IFP International Partner, Economic and Social Research Foundation.",
         :text_full => "
 	<p>
@@ -313,7 +313,7 @@ The program in Tanzania was coordinated by the IFP International Partner, Econom
         :heading => 'Thailand',
         :rep_flag => asset_path("ifp/office-flags/thailand.png"),
         :rep_image => asset_path('ifp/partner_pics/thailand-01.jpg'),
-        :rep_vid => "j3FAzPfdEeY",
+        :rep_vid => "5fI_d398vOg",
         :text_excerpt => "The Asian Scholarship Foundation under the Royal Patronage of H.R.H. Princess Maha Chakri Sirindhorn (ASF) was the Ford International Partner in Thailand and administered the International Fellowships Program in Thailand since 2003.",
         :text_full => "
 	<p>
@@ -328,7 +328,7 @@ The IFP office in Thailand was closed in 2013. 10 l.f of paper records arrived i
         :heading => 'Uganda',
         :rep_flag => asset_path("ifp/office-flags/uganda.png"),
         :rep_image => asset_path('ifp/partner_pics/uganda-01.jpg'),
-        :rep_vid => "j3FAzPfdEeY",
+        :rep_vid => "5fI_d398vOg",
         :text_excerpt => "Ford Foundation International Fellowships Program (IFP) in Uganda was launched in 2001.",
         :text_full => "
 	<p>
@@ -349,7 +349,7 @@ The records of Uganda IFP office include administrative program files, fellow fi
         :heading => 'Vietnam',
         :rep_flag => asset_path("ifp/office-flags/vietnam.png"),
         :rep_image => asset_path('ifp/partner_pics/vietnam-01.jpg'),
-        :rep_vid => "j3FAzPfdEeY",
+        :rep_vid => "5fI_d398vOg",
         :text_excerpt => "IFP program in Vietnam was launched in 2001 and recruited its last cohort in 2010.",
         :text_full => "
 	<p>
