@@ -13,11 +13,8 @@ class IfpController < SubsitesController
   end
 
   def partner
-    #if params[:key].index('..') == nil && File.exists?(Rails.root.join("app", "views", 'ifp/partner', "#{params[:key]}.html.erb"))
-      #partial_file_path = 'ifp/partner/'+params[:key]
-    if params[:key].index('..') == nil && view_context.ifp_partner_data(params[:key])
-      partial_file_path = 'ifp/partner/index'
-      render partial_file_path
+    if Ifp::PartnerDataHelper::PARTNER_DATA.has_key?(params[:key].to_sym)
+      render 'ifp/partner/index'
     else
       render 'ifp/partner/not_found'
     end
