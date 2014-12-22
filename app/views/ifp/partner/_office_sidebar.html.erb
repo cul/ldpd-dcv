@@ -17,9 +17,9 @@
 		%><dd><%
 		case key
 		when :ifp_partners
+		  bull = (value.count > 1? '&bull; ' : '') 
 		  value.each do | individual_partner |
-			(value.each.count > 1? '&bull;' : '') 
-            %> <%= link_to individual_partner[:name], individual_partner[:link] %><br><%
+            %> <%= bull.html_safe %><%= link_to individual_partner[:name], individual_partner[:link] %><br><%
 		  end
 		when :web_archive
 		  %><%= link_to 'IFP Web Archive - ' + partner_heading[:heading], value %><%
