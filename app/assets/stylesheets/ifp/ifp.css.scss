@@ -445,6 +445,13 @@ footer {
 #right-sidebar, #home-global-data {
   dl {
     dt {
+      margin-top:.5em;
+      text-transform:uppercase;
+      font-size:.85em;
+      color:#888;
+      &:first-child {
+        margin-top:0;
+      }
     }
     dd {
       margin-left:.5em;
