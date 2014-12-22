@@ -50,7 +50,7 @@ module Ifp::PartnerDataHelper
 			:heading => 'Egypt',
 			:rep_flag => "ifp/office-flags/egypt.png",
 			:rep_image => 'ifp/partner_pics/egypt-01.jpg',
-			:rep_vid => "5fI_d398vOg",
+			:rep_vid => "uE7Mp-6g2ws",
 			:text_excerpt => "The America-Mideast Educational and Training Services (AMIDEAST), located in Cairo served as the host institution and the international IFP Partner, running the program in Egypt and Palestine in 2001-2012.",
 			:text_full => "
 	<p>
@@ -65,7 +65,7 @@ module Ifp::PartnerDataHelper
 			:heading => 'Ghana',
 			:rep_flag => "ifp/office-flags/ghana.png",
 			:rep_image => 'ifp/partner_pics/ghana-01.jpg',
-			:rep_vid => "5fI_d398vOg",
+			:rep_vid => "mk2c_-s0ijY",
 			:text_excerpt => "The Ford Foundation International Fellowships Programs in Ghana, Nigeria and Senegal was coordinated by the Association of African Universities.",
 			:text_full => "
 		<p>
@@ -95,7 +95,7 @@ module Ifp::PartnerDataHelper
 			:heading => 'India',
 			:rep_flag => "ifp/office-flags/india.png",
 			:rep_image => 'ifp/partner_pics/india-01.jpg',
-			:rep_vid => "5fI_d398vOg",
+			:rep_vid => "VHF8KwQYQwA",
 			:text_excerpt => "In 2001 the Ford Foundation appointed a team to develop and manage the IFP in India.",
 			:text_full => "
 		<p>
@@ -126,7 +126,7 @@ module Ifp::PartnerDataHelper
 			:heading => 'Kenya',
 			:rep_flag => "ifp/office-flags/kenya.png",
 			:rep_image => 'ifp/partner_pics/kenya-01.jpg',
-			:rep_vid => "5fI_d398vOg",
+			:rep_vid => "k1LpXivf15c",
 			:text_excerpt => "The IFP Program in Kenya was hosted by Forum for African Women Educationalists (FAWE).",
 			:text_full => "
 		<p>
@@ -281,7 +281,7 @@ module Ifp::PartnerDataHelper
 			:heading => 'South Africa',
 			:rep_flag => "ifp/office-flags/southafrica.png",
 			:rep_image => 'ifp/partner_pics/southafrica-01.jpg',
-			:rep_vid => "5fI_d398vOg",
+			:rep_vid => "DXpnqHuWAds",
 			:text_excerpt => "The program in South Africa and Mozambique was coordinated by Africa-America Institute in South Africa as an IFP International Partner.",
 			:text_full => "
 		<p>
@@ -296,7 +296,7 @@ module Ifp::PartnerDataHelper
 			:heading => 'Tanzania',
 			:rep_flag => "ifp/office-flags/tanzania.png",
 			:rep_image => 'ifp/partner_pics/tanzania-01.jpg',
-			:rep_vid => "5fI_d398vOg",
+			:rep_vid => "rdLgEgCslPE",
 			:text_excerpt => "The program in Tanzania was coordinated by the IFP International Partner, Economic and Social Research Foundation.",
 			:text_full => "
 		<p>
