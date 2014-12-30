@@ -7,6 +7,15 @@ body {
 a, a:hover, .dropdown a {
     color:$ifpblue; //#591300;
 }
+a {
+  color:$ifpblue;
+  &.thumbnail {
+    background-color:transparent;
+    &:hover {
+      border-color:$ifpblue;
+    }
+  }
+}
 #topnavbar {
     background:#86878C;
     border-top-color:#222;
