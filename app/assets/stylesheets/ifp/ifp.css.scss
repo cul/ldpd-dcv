@@ -10,6 +10,7 @@ a, a:hover, .dropdown a {
 a {
   color:$ifpblue;
   &.thumbnail {
+    border-color:#ccc;
     background-color:transparent;
     &:hover {
       border-color:$ifpblue;
