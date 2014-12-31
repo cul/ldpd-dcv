@@ -1,4 +1,5 @@
   <% partner_heading = ifp_partner_data( params[:key] ) %>
+  <div class="well well-sm">
   <h6 class="hidden">PARTNER INFORMATION</h6>
   <% partner_data = ifp_office_sidebar_data(params[:key].to_sym) %>
   <% keys_to_display_labels = {
@@ -10,7 +11,7 @@
 			ifp_partners: "IFP Partners",
 			alumni_organization: "Alumni Organization",
   }  %>
-  <dl>
+  <dl class="nomar">
   <%
 	partner_data.each do | key, value |
 		%><dt><%= keys_to_display_labels[key] ? keys_to_display_labels[key] : key.to_s %></dt><%
@@ -34,3 +35,4 @@
 	end
   %>
   </dl>
+  </div>
