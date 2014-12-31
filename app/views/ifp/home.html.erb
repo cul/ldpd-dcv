@@ -1,5 +1,5 @@
 <div class="row">
-  <div id="content" class="col-lg-9">
+  <div id="content" class="col-lg-12">
 
                     <div class="home inner">
 
@@ -51,7 +51,7 @@
 
                     </div> <!--/.inner-->
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-md-4">
     <div class="home inner">
                   <h6>ABOUT THE IFP</h6>
                   <p>The IFP program began in November 2000 with four pilot sites. In Asia, the program was initiated in Vietnam.  In Africa, the first competition was held in West Africa (Ghana, Nigeria and Senegal).  In Latin America, IFP began in the Andean Region as Southern Cone (Chile and Peru).  Russia was the final pilot site.  The first 96 Fellows from these countries were named in 2001.  In February 2002, 173 new Fellows from the pilot site countries and from India, China, Kenya, Tanzania, Uganda, Mexico and Guatemala were announced.  During 2002, the program expanded to seven additional countries and territories: Brazil, Egypt, Indonesia, Mozambique, Palestine, Philippines and South Africa.  For the selections in 2003, the program expanded to Thailand.<br><a href="<%=ifp_about_the_ifp_path()%>" class="btn btn-primary btn-xs">Learn More &raquo;</a></p>
@@ -64,7 +64,7 @@
     </div>
   </div>
 
-  <div class="col-md-6">
+  <div class="col-md-4">
     <div class="home inner">
                   <h6>ABOUT THE COLLECTION</h6>
                   <p>The archives cover the issues of social justice, community development, and access to higher education, and include paper and digital documentation and audiovisual materials on the more than 3,300 IFP fellows as well as comprehensive planning and adminstrative files of the program.</p>
@@ -101,15 +101,16 @@
       </dl>
     </div>
   </div>
+
+  <div class="col-md-4">
+     <div class="home inner">
+        <h6 class="">INTERNATIONAL PARTNERS</h6>
+        <ul id="partner-sidebar" class="list-unstyled list-inline"><%= render :partial => 'partners_flags_list' %></ul>
+     </div> <!--/.inner-->
+  </div><!--/-->
+
 </div><!--/row-->
 
   </div>
-
-  <div class="col-lg-3">
-        <div class="home inner">
-            <h6 class="">INTERNATIONAL PARTNERS</h6>
-            <ul id="partner-sidebar" class="list-unstyled list-inline"><%= render :partial => 'partners_flags_list' %></ul>
-        </div> <!--/.inner-->
-   </div><!--/#dhss-->
 
 </div>
