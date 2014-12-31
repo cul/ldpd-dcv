@@ -510,7 +510,7 @@ module Ifp::PartnerDataHelper
 			:finding_aid => "Link to series IV.18",
 			:web_archive => "https://archive-it.org/collections/2766;?fc=websiteGroup%3AFord+Foundation+International+Fellowship+Program&fc=meta_Coverage%3ASouth Africa",
 			:ifp_community => "http://www.fordifp.org/southafrica/Home.aspx",
-			:ifp_partners => [{ :name => "Africa-America Institute", :link => "http://www.aaionline.org/," }]
+			:ifp_partners => [{ :name => "Africa-America Institute", :link => "http://www.aaionline.org/" }]
 		},
 		tanzania: {
 			:office => "Tanzania",
