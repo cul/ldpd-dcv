@@ -23,7 +23,9 @@
 		  end
 		when :web_archive
 		  %><%= link_to 'IFP Web Archive - ' + partner_heading[:heading], value %><%
-		when :ifp_community, :alumni_organization
+		when :ifp_community
+		  %><%= link_to 'IFP Legacy Website - ' + partner_heading[:heading], value %><%
+		when :alumni_organization
 		  %><%= link_to value, value %><%
 		else
 		  %><%= value %><%
