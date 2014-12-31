@@ -106,21 +106,26 @@
       }  %>
       <dl class="nomar-b">
       <%
-        partner_data.each do | key, value |
-            %><dt><%= keys_to_display_labels[key] ? keys_to_display_labels[key] : key.to_s %></dt><%
-            %><dd><%
-            case key
-            when :ifp_partners
-              value.each do | individual_partner |
-                %>&bull; <%= link_to individual_partner[:name], individual_partner[:link] %><br><%
-              end
-            when :web_archive, :ifp_community, :alumni_organization
-              %><%= link_to value, value %><%
-            else
-              %><%= value %><%
-            end
-            %></dd><%
-        end
+		partner_data.each do | key, value |
+			%><dt><%= keys_to_display_labels[key] ? keys_to_display_labels[key] : key.to_s %></dt><%
+			%><dd><%
+			case key
+			when :ifp_partners
+			  bull = (value.count > 1? '&bull; ' : '')
+			  value.each do | individual_partner |
+				%> <%= bull.html_safe %><%= link_to individual_partner[:name], individual_partner[:link] %><br><%
+			  end
+			when :web_archive
+			  %><%= link_to 'IFP Web Archive', value %><%
+			when :ifp_community
+			  %><%= link_to 'IFP Legacy Website', value %><%
+			when :alumni_organization
+			  %><%= link_to value, value %><%
+			else
+			  %><%= value %><%
+			end
+			%></dd><%
+		end
       %>
       </dl>
     </div>
