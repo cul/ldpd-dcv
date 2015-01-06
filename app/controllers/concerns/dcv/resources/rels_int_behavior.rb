@@ -1,8 +1,13 @@
 module Dcv::Resources::RelsIntBehavior
   def resources_for_document(document=@document)
     model = document['active_fedora_model_ssi']
+    profile = document['object_profile_ssm'].first
+    profile = profile ? JSON.load(profile) : {}
+    ds_profiles = profile["datastreams"]
     if model == 'GenericResource'
-      streams = JSON.load(document['rels_int_profile_tesim'][0])
+      streams = document['rels_int_profile_tesim'] ?
+        JSON.load(document['rels_int_profile_tesim'][0]) :
+        {}
       results = []
       streams.each do |k,v|
         next unless v["format_of"] and v["format_of"].first =~ /content$/
@@ -17,6 +22,16 @@ module Dcv::Resources::RelsIntBehavior
         results << {
           id: id, title: title, mime_type: mime_type, length: length,
           width: width, size: size, url: url}
+      end
+      unless document['dc_type_ssm'].include? 'StillImage'
+        if ds_profiles && ds_profiles["content"]
+          content = ds_profiles["content"]
+          label = content["dsLabel"].split('/').last
+          results << {
+            id: 'content', title: label,
+            mime_type: content["dsMIME"], url: url_for_content("info:fedora/#{document[:id]}/content", File.extname(label).sub(/^\./,''))
+          }
+        end
       end
       return results
 

@@ -65,6 +65,42 @@ module Dcv::ChildrenHelperBehavior
     end
     return child
   end
+
+  def url_to_proxy(opts)
+    method = opts[:proxy_id] ? "#{controller_name}_proxy_url".to_sym : "#{controller_name}_url".to_sym
+    send(method, opts)
+  end
+  def url_to_preview(pid)
+    method = "#{controller_name}_preview_url".to_sym
+    send method, id: pid
+  end
+  def proxy_node(node)
+    label = node['extent'] ? "#{node['label_ssi']} (#{proxy_extent(node)})" : node['label_ssi']
+    if node["type_ssim"].include? RDF::NFO[:'#FileDataObject']
+      # file
+      content_tag(:li,nil, class: ['fs-file',html_class_for_filename(node['label_ssi'])]) do
+        if node['pid']
+          c = download_link(node, label)
+          c += content_tag(:a, 'Preview', href: '#', 'data-url'=>url_to_preview(node['pid']), class: 'preview') do 
+            content_tag(:i,nil,class:'glyphicon glyphicon-info-sign')
+          end
+          c
+        end
+      end
+    else
+      # folder
+      content_tag(:li, nil, class: 'fs-directory') do
+        content_tag(:a, label, href: url_to_proxy({id: node['proxyIn_ssi'].sub('info:fedora/',''), proxy_id: node['id']}))
+      end
+    end
+  end
+
+  def download_link(node, label)
+    args = {catalog_id: node['pid'], filename:node['label_ssi'], bytestream_id: 'content'}
+    href = bytestream_content_url(args) #, "download")
+    content_tag(:a, label, href: href)
+  end
+
   #TODO: replace this with Cul::Scv::Fedora::FakeObject
   class IdProxy < Cul::Scv::Fedora::DummyObject
     def internal_uri

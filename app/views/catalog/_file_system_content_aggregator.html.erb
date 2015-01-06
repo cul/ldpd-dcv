@@ -1,0 +1,12 @@
+<%- ix = -1 %>
+<%- breadcrumbs() do |breadcrumb| %>
+  <%- unless (ix += 1) == 0 %>
+    <%="&#187;"%>
+  <%- end %>
+  <%= link_to(breadcrumb[:label], url_to_proxy(breadcrumb)) %>
+<%- end %>
+<ul class="file-system">
+<%- proxies() do |proxy| %>
+  <%= proxy_node(proxy) %>
+<%- end %>
+</ul>
