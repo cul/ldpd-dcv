@@ -10,11 +10,14 @@ namespace :dcv do
     task :list => :environment do
       list = ENV['list']
       pids = []
-      open(list) do |blob|
-        blob.each do |line|
-          pids << line.strip
+      if list
+        open(list) do |blob|
+          blob.each do |line|
+            pids << line.strip
+          end
         end
       end
+      pids << ENV['pid'] if ENV['pid']
       Rails.logger.level = Logger::INFO
       len = pids.length
       current = 0

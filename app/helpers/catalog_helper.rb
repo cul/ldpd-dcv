@@ -1,6 +1,8 @@
 module CatalogHelper
   include Blacklight::CatalogHelperBehavior
   include Dcv::CatalogHelperBehavior
+  include Cul::Hydra::OreProxiesHelperBehavior
+  include Cul::Hydra::StructMetadataHelperBehavior
   include Dcv::Resources::RelsIntBehavior
 
   def has_thumbnail? document

@@ -1,6 +1,7 @@
 class SubsitesController < ApplicationController
 
   include Dcv::CatalogIncludes
+  include Cul::Hydra::ApplicationIdBehavior
 
   def initialize(*args)
     super(*args)
@@ -26,4 +27,8 @@ class SubsitesController < ApplicationController
 
   end
 
+  def preview
+    @response, @document = get_solr_response_for_doc_id(params[:id], fl:'*')
+    render layout: 'preview'
+  end
 end

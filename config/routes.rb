@@ -24,11 +24,14 @@ Dcv::Application.routes.draw do
   blacklight_for *(SUBSITES['public'].keys.map{|key| key.to_sym}) # Using * operator to turn the array of values into a set of arguments for the blacklight_for method
 
   SUBSITES['public'].each do |subsite_key, data|
+    resources subsite_key, only: [:show]
     get "#{subsite_key}/asset/:id/:type/:size.:format" => "#{subsite_key}#asset", as: subsite_key + '_asset'
     get "#{subsite_key}/resolve/asset/:id/:type/:size.:format" => "#{subsite_key}#resolve_asset", as: subsite_key + '_resolve_asset', constraints: { id: /[^\?]+/ }
     get "#{subsite_key}/asset/:id/:image_format.json" => "#{subsite_key}#asset_info", as: subsite_key + '_asset_info'
     get "#{subsite_key}/resolve/asset/:id/:image_format.json" => "#{subsite_key}#resolve_asset_info", as: subsite_key + '_resolve_asset_info', constraints: { id: /[^\?]+/ }
-
+    get "#{subsite_key}/previews/:id" => "#{subsite_key}#preview", as: subsite_key + '_preview', constraints: { id: /[^\?]+/ }
+    get "#{subsite_key}/:id/proxies" => "#{subsite_key}#show", as: "#{subsite_key}_root_proxies".to_sym
+    get "#{subsite_key}/:id/proxies/*proxy_id" => "#{subsite_key}#show", as: "#{subsite_key}_proxy".to_sym
     resources(:solr_document, {only: [:show], path: subsite_key.to_s, controller: subsite_key.to_s, :format => 'html'}) do
       member do
         post "track"
@@ -39,10 +42,14 @@ Dcv::Application.routes.draw do
   namespace "restricted" do
     blacklight_for *((SUBSITES['restricted'].keys.map{|key| key.to_sym})) # Using * operator to turn the array of values into a set of arguments for the blacklight_for method
     SUBSITES['restricted'].each do |subsite_key, data|
+      resources subsite_key, only: [:show]
       get "#{subsite_key}/asset/:id/:type/:size.:format" => "#{subsite_key}#asset", as: subsite_key + '_asset'
       get "#{subsite_key}/resolve/asset/:id/:type/:size.:format" => "#{subsite_key}#resolve_asset", as: subsite_key + '_resolve_asset', constraints: { id: /[^\?]+/ }
       get "#{subsite_key}/asset/:id/:image_format.json" => "#{subsite_key}#asset_info", as: subsite_key + '_asset_info'
       get "#{subsite_key}/resolve/asset/:id/:image_format.json" => "#{subsite_key}#resolve_asset_info", as: subsite_key + '_resolve_asset_info', constraints: { id: /[^\?]+/ }
+      #get "#{subsite_key}/previews/:id" => "#{subsite_key}#preview", as: subsite_key + '_preview', constraints: { id: /[^\?]+/ }
+      #get "#{subsite_key}/:id/proxies" => "#{subsite_key}#show", as: "#{subsite_key}_root_proxies".to_sym
+      #get "#{subsite_key}/:id/proxies/*proxy_id" => "#{subsite_key}#show", as: "#{subsite_key}_proxy".to_sym
       resources(:solr_document, {only: [:show], path: subsite_key.to_s, controller: subsite_key.to_s}) do
         member do
           post "track"

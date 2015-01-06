@@ -9,9 +9,10 @@ gem 'blacklight', '>= 5.4.0'
 gem 'hydra-head', '~>7'
 
 # Columbia Hydra models
-gem 'cul_scv_hydra', '>= 0.19.2'
+gem 'cul_scv_hydra', '>= 0.21.0'
 #gem 'cul_scv_hydra', :github => 'cul/cul_scv_hydra'
-#gem 'cul_scv_hydra', :path => '../cul_scv_hydra'
+#gem 'cul_scv_hydra', :path => '../../cul_scv_hydra'
+gem 'active-triples', '~> 0.2.2'
 
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'

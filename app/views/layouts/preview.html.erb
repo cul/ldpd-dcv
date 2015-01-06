@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+  <head>
+    <%= render partial: 'shared/head_html' %>
+    <%= stylesheet_link_tag 'dcv' %>
+  </head>
+  <body class="<%= render_body_class %> blacklight-dcv %> <%= params[:action] %>" onload="initTiles(<%= params[:initial_page] if params[:initial_page] %>);">
+
+  <div id="main-container" class="container">
+    <%= render :partial=>'/flash_msg', layout: 'shared/flash_messages' %>
+
+    <div class="row">
+      <%= yield %>
+    </div>
+  </div>
+
+  </body>
+</html>

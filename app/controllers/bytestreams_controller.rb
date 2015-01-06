@@ -60,16 +60,17 @@ class BytestreamsController < ApplicationController
       render :status => 404
     end
     ds_parms = {pid: params[:catalog_id], dsid: params[:bytestream_id]}
-    response.headers["Last-Modified"] = Time.now.to_s
+    response.headers["Last-Modified"] = Time.now.httpdate
     puts ds_parms.inspect()
     ds = Cul::Scv::Fedora.ds_for_opts(ds_parms)
     size = params[:file_size] || params['file_size']
     size ||= ds.dsSize
-
+    label = ds.dsLabel.split('/').last
+    if label
+      response.headers["Content-Disposition"] = "filename=#{label}"
+    end
     ###########################
-    unless size and size.to_i > 0
-      response.headers["Transfer-Encoding"] = ["chunked"]
-    else
+    if size and size.to_i > 0
       response.headers["Content-Length"] = [size]
     end
     response.headers["Content-Type"] = ds.mimeType
