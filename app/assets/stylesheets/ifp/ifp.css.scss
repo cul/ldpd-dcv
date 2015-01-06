@@ -7,6 +7,16 @@ body {
 a, a:hover, .dropdown a {
     color:$ifpblue; //#591300;
 }
+a {
+  color:$ifpblue;
+  &.thumbnail {
+    border-color:#ccc;
+    background-color:transparent;
+    &:hover {
+      border-color:$ifpblue;
+    }
+  }
+}
 #topnavbar {
     background:#86878C;
     border-top-color:#222;
@@ -109,6 +119,7 @@ footer {
 			  a:first-child .lead {
                 top:25%!important;
                 font-size:110%!important;
+                cursor:text;
 			  }
     }
 }
@@ -148,9 +159,15 @@ footer {
       #content {
         margin-bottom:2em;
         .img-responsive {
+          width:100%;
           padding-right:0;
           padding-left:0;
         }
+		.partner-text {
+		  padding-top:1em;
+		  margin-top:1em;
+          clear:both;
+		}
       }
     }
     .nopad-xs {
@@ -232,14 +249,14 @@ footer {
     }
     #partner-sidebar {
       li {
-        width:129px;
-		margin-bottom:.5em;
+        width:70px;
+		margin-bottom:.75em;
         border-color:transparent;
-		font-size:85%;
+		font-size:70%;
+        text-align:center;
         img {
-          width:45px;
+          width:100%;
           height:auto;
-          margin-right:3px;
         }
       }
     }
@@ -437,8 +454,19 @@ footer {
   }
 }
 #right-sidebar, #home-global-data {
+  .well {
+    background-color:#fafafa;
+  }
   dl {
     dt {
+      margin-top:.5em;
+      text-transform:uppercase;
+      font-size:.85em;
+      font-weight:normal;
+      color:#888;
+      &:first-child {
+        margin-top:0;
+      }
     }
     dd {
       margin-left:.5em;

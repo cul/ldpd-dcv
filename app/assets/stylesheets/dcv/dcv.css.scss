@@ -7,6 +7,12 @@ input {
 .btn.active {
     background-color: #5CB85C;
 }
+
+.mediaelement-player.thumbnail {
+	border-color: #ccc;
+	background-color: transparent;
+}
+
 #outer-wrapper {
   padding-top:0;
   padding-bottom:2em;

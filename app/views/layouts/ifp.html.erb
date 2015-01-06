@@ -17,14 +17,14 @@
 
 	  <%= render partial: 'shared/ajax_modal' %>
 
-	  <div id="main-container" class="">
+	  <div id="main-container" class="col-md-12">
 		<%= render :partial=>'/flash_msg', layout: 'shared/flash_messages' %>
 
 		<%= yield %>
 
 	  </div>
 
-	  <%= render :partial => 'shared/footer' %>
+	  <%= render :partial => 'ifp/footer' %>
 
     </div><!--/.row-->
   </div><!--/#outer-wrapper-->

@@ -1,13 +1,15 @@
 <% partner_data = ifp_partner_data( params[:key] ) %>
 <div class="row">
-  <div id="content" class="col-lg-9">
+  <div id="content" class="col-md-9">
     <h2 class="nomar-t"><img style="margin-right:3px;width:auto;max-height:60px;" src="<%= asset_path(partner_data[:rep_flag]) %>" alt=""> <%= partner_data[:heading] %></h2>
     <div class="partner-text-excerpt visible-xs lead"><%= partner_data[:text_excerpt].html_safe %></div><!--patner-text-excerpt-->
     <div class="pull-right col-sm-5 col-xs-12 nopad-rl-xs">
-      <img alt="" src="<%= asset_path(partner_data[:rep_image]) %>" class="img-responsive">
+      <a href="<%= asset_path(partner_data[:rep_image]) %>" class="thumbnail preview-modal" data-title="IFP <%= partner_data[:heading] %>">
+        <img alt="" src="<%= asset_path(partner_data[:rep_image]) %>" class="img-responsive">
+      </a>
       <% if partner_data[:wowza_vid].present? %>
         <br />
-        <div class="mediaelement-player">
+        <div class="mediaelement-player thumbnail">
           <video width="320" height="180" style="width:100%;height:100%;" poster="<%= asset_path(partner_data[:rep_image]) %>" controls="controls" preload="none">
               <source type="video/mpd" src="rtmp://firehose.cul.columbia.edu:1935/dlc/mp4:<%= partner_data[:wowza_vid] %>/manifest.mpd" />
               <source type="video/rtmp" src="rtmp://firehose.cul.columbia.edu:1935/dlc/mp4:<%= partner_data[:wowza_vid] %>" />
@@ -20,14 +22,13 @@
           </video>
         </div>
       <% end %>
-
     </div>
     <div class="partner-text">
       <%= partner_data[:text_full].html_safe %>
     </div><!--/partner-text-->
-  <div class="clearfix"></div>
-
-<%#=ifp_partner_data(params[:key])%>
+    <div class="clearfix"></div>
   </div><!--/#content-->
-  <%= render partial: "ifp/partner/office_sidebar" %>
+  <div id="right-sidebar" class="col-md-3">
+    <%= render partial: "ifp/partner/office_sidebar" %>
+  </div><!--/right-sidebar-->
 </div><!--/row-->
