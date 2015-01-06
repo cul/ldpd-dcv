@@ -9,17 +9,8 @@
       </a>
       <% if partner_data[:wowza_vid].present? %>
         <br />
-        <div class="mediaelement-player thumbnail">
-          <video width="320" height="180" style="width:100%;height:100%;" poster="<%= asset_path(partner_data[:rep_image]) %>" controls="controls" preload="none">
-              <source type="video/mpd" src="rtmp://firehose.cul.columbia.edu:1935/dlc/mp4:<%= partner_data[:wowza_vid] %>/manifest.mpd" />
-              <source type="video/rtmp" src="rtmp://firehose.cul.columbia.edu:1935/dlc/mp4:<%= partner_data[:wowza_vid] %>" />
-
-              <!-- Flash fallback for non-HTML5 browsers without JavaScript -->
-              <object width="320" height="180" type="application/x-shockwave-flash" data="<%= asset_path('mediaelement_rails/flashmediaelement.swf') %>">
-                  <param name="movie" value="<%= asset_path('mediaelement_rails/flashmediaelement.swf') %>" />
-                  <param name="flashvars" value="controls=true&amp;file=rtmp://firehose.cul.columbia.edu:1935/dlc/mp4:<%= partner_data[:wowza_vid] %>" />
-              </object>
-          </video>
+        <div class="thumbnail mediaelement-wrapper">
+          <%= render_media_element_player('dlc', partner_data[:wowza_vid]) %>
         </div>
       <% end %>
     </div>
