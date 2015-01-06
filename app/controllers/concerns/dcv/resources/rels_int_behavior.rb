@@ -13,7 +13,10 @@ module Dcv::Resources::RelsIntBehavior
         next unless v["format_of"] and v["format_of"].first =~ /content$/
         title = k.split('/')[-1]
         id = k
-        mime_type = v['format'].first
+        dsid = id.to_s.split('/').last
+        ds_props = ds_profiles[dsid]
+        mime_type = ds_props['dsMIME'] if ds_props
+        mime_type ||= v['format'].first
         next if mime_type =~ /jp2$/
         width = (v['exif_image_width'] || v['image_width'] ||[ ]).first.to_i
         length = (v['exif_image_length'] || v['image_length'] || []).first.to_i
