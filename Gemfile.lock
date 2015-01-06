@@ -184,9 +184,6 @@ GEM
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
-    mediaelement_rails (0.8.0)
-      jquery-rails (>= 1.0)
-      railties (>= 3.1)
     mediashelf-loggable (0.4.9)
     mime-types (1.25.1)
     mini_portile (0.6.0)
@@ -385,7 +382,6 @@ DEPENDENCIES
   jquery-ui-rails
   leaflet-markercluster-rails
   leaflet-rails
-  mediaelement_rails
   mysql2 (= 0.3.13)
   nokogiri (~> 1.6.3)
   rails (= 4.0.4)

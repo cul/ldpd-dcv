@@ -22,6 +22,11 @@ DLC VERSION: <%= render :file => Rails.root.to_s+'/VERSION' %> -->
 <%= opensearch_description_tag application_name, opensearch_catalog_path(:format => 'xml', :only_path => false) %>
 <%= favicon_link_tag asset_path('favicon.ico') %>
 
+<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+	<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
 <%= stylesheet_link_tag "dcv" %>
 <%= stylesheet_link_tag "print", media: 'print' %>
 <%= javascript_include_tag "application" %>
@@ -29,10 +34,13 @@ DLC VERSION: <%= render :file => Rails.root.to_s+'/VERSION' %> -->
 <%= csrf_meta_tags %>
 <%= content_for(:head) %>
 
-<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
-<!--[if lt IE 9]>
-	<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
-<![endif]-->
+<!-- MediaElement -->
+<script src="/mediaelement/mediaelement-and-player.min.js"></script>
+<link rel="stylesheet" href="/mediaelement/mediaelementplayer.css" /></code>
+
+<!-- JW Player: Probably want to remove this if we decide not to use it -->
+​<script src="/jwplayer/jwplayer.js" ></script>
+<script >jwplayer.key="o2AdyUuGZ5eTv/WHIgu8tlpppOwsIONjVQG9qQ==";</script>
 
 <!-- ShareThis -->
 <script type="text/javascript">var switchTo5x=true;</script>

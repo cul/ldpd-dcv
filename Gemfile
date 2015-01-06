@@ -38,9 +38,6 @@ gem 'therubyracer', platforms: :ruby
 gem 'jquery-rails', '>= 3.0'
 gem 'jquery-ui-rails'
 
-# Mediaelement player
-gem "mediaelement_rails"
-
 # Pretty printing
 gem 'coderay'
 

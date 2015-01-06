@@ -83,7 +83,8 @@
     <div class="home inner" style="margin-bottom:1.5em;">
         <hr>
 				<div class="thumbnail mediaelement-wrapper">
-					<%=  render_media_element_player('dlc', ifp_partner_data('secretariat')[:wowza_vid]) %>
+					<% secretariat_data = ifp_partner_data('secretariat') %>
+					<%= render_media_element_player('dlc', secretariat_data[:wowza_vid], asset_path(secretariat_data[:rep_image])) %>
 				</div>
     </div>
   </div>
