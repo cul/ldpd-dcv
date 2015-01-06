@@ -12,5 +12,12 @@
  *= require ./blacklight
  *= require jquery.ui.all
  *= require colorbox-rails
+ *
+ * MediaElement
+ *= require mediaelement_rails
+ *
+ * Optional MediaElement Skin
+ *= require mediaelement_rails/mejs-skins
+ *
  *= require_tree './dcv'
 */

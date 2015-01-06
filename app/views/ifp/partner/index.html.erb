@@ -5,10 +5,22 @@
     <div class="partner-text-excerpt visible-xs lead"><%= partner_data[:text_excerpt].html_safe %></div><!--patner-text-excerpt-->
     <div class="pull-right col-sm-5 col-xs-12 nopad-rl-xs">
       <img alt="" src="<%= asset_path(partner_data[:rep_image]) %>" class="img-responsive">
-      <br>
-      <div class="embed-responsive embed-responsive-4by3">
-        <iframe class="embed-responsive-item" src="//www.youtube.com/embed/<%=partner_data[:rep_vid]%>" frameborder="0" allowfullscreen></iframe>
-      </div>
+      <% if partner_data[:wowza_vid].present? %>
+        <br />
+        <div class="mediaelement-player">
+          <video width="320" height="180" style="width:100%;height:100%;" poster="<%= asset_path(partner_data[:rep_image]) %>" controls="controls" preload="none">
+              <source type="video/mpd" src="rtmp://firehose.cul.columbia.edu:1935/dlc/mp4:<%= partner_data[:wowza_vid] %>/manifest.mpd" />
+              <source type="video/rtmp" src="rtmp://firehose.cul.columbia.edu:1935/dlc/mp4:<%= partner_data[:wowza_vid] %>" />
+
+              <!-- Flash fallback for non-HTML5 browsers without JavaScript -->
+              <object width="320" height="180" type="application/x-shockwave-flash" data="<%= asset_path('mediaelement_rails/flashmediaelement.swf') %>">
+                  <param name="movie" value="<%= asset_path('mediaelement_rails/flashmediaelement.swf') %>" />
+                  <param name="flashvars" value="controls=true&amp;file=rtmp://firehose.cul.columbia.edu:1935/dlc/mp4:<%= partner_data[:wowza_vid] %>" />
+              </object>
+          </video>
+        </div>
+      <% end %>
+
     </div>
     <div class="partner-text">
       <%= partner_data[:text_full].html_safe %>

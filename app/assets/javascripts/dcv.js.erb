@@ -5,6 +5,21 @@
 //= require 'dcv/dcv.browse'
 //= require 'dcv/dcv.show'
 //= require 'dcv/dcv.show.zooming_and_downloads'
+
+
+
+
+$(document).ready(function(){
+
+	$('.mediaelement-player video').mediaelementplayer({
+		success: function (mediaElement, domObject) {
+			//Optional triggers when the video has loaded
+		},
+	});
+
+});
+
+
 function mosaicDemo(container, proj) {
   var width = Math.max($(container).parent().width(),$(container).width());
   var height = Math.max($(container).parent().height(),$(container).height());

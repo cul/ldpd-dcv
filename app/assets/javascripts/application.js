@@ -25,3 +25,6 @@
 //
 // OpenSeadragon
 //= require openseadragon
+//
+// MediaElement Player
+//= require mediaelement_rails
