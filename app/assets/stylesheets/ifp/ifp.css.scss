@@ -587,3 +587,10 @@ border-left: 4px solid transparent;
 content: "";
 }
 
+ul.file-system a:hover {
+background: #eee;
+color:$ifpblue;
+}
+ul.file-system .preview:hover {
+background:transparent;
+}
