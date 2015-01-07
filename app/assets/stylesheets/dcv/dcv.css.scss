@@ -11,6 +11,11 @@ input {
 .mediaelement-wrapper.thumbnail {
 	border-color: #ccc;
 	background-color: transparent;
+
+	.caption {
+		color:inherit;
+	}
+
 }
 
 #outer-wrapper {
