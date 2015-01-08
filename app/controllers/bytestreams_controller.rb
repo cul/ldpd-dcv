@@ -10,7 +10,7 @@ class BytestreamsController < ApplicationController
   include Cul::Scv::Hydra::Resolver
   include Dcv::CatalogHelperBehavior
   include ChildrenHelper
-  caches_action :content, :expires_in => 7.days
+  #caches_action :content, :expires_in => 7.days
 
   respond_to :json
 
