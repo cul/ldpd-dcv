@@ -50,7 +50,7 @@ Dcv::Application.routes.draw do
       #get "#{subsite_key}/previews/:id" => "#{subsite_key}#preview", as: subsite_key + '_preview', constraints: { id: /[^\?]+/ }
       #get "#{subsite_key}/:id/proxies" => "#{subsite_key}#show", as: "#{subsite_key}_root_proxies".to_sym
       #get "#{subsite_key}/:id/proxies/*proxy_id" => "#{subsite_key}#show", as: "#{subsite_key}_proxy".to_sym
-      resources(:solr_document, {only: [:show], path: subsite_key.to_s, controller: subsite_key.to_s}) do
+      resources(:solr_document, {only: [:show], path: subsite_key.to_s, controller: subsite_key.to_s, :format => 'html'}) do
         member do
           post "track"
         end

@@ -410,7 +410,7 @@ module Ifp::PartnerDataHelper
 	IFP_OFFICE_SIDEBAR_DATA = {
 		brazil: {
 			:office => "Brazil",
-			:browse_digital_records => "Link to DLC-IFP: Brazil",
+			:browse_digital_record_pids => [],
 			:finding_aid => "Link to series IV.1",
 			:web_archive => "https://archive-it.org/collections/2766;?fc=websiteGroup%3AFord+Foundation+International+Fellowship+Program&fc=meta_Coverage%3ABrazil",
 			:ifp_community => "http://www.fordifp.org/brazil/en-us/home.aspx",
@@ -418,7 +418,7 @@ module Ifp::PartnerDataHelper
 		},
 		chile: {
 			:office => "Chile and Peru",
-			:browse_digital_records => "Link to DLC-IFP: Chile and Peru",
+			:browse_digital_record_pids => ["ldpd:493861"],
 			:finding_aid => "Link to series IV.2",
 			:web_archive => "https://archive-it.org/collections/2766;?fc=websiteGroup%3AFord+Foundation+International+Fellowship+Program&fc=meta_Coverage%3AChile",
 			:ifp_community => "http://www.fordifp.org/Chile/en-us/home.aspx",
@@ -427,7 +427,7 @@ module Ifp::PartnerDataHelper
 		},
 		china: {
 			:office => "China",
-			:browse_digital_records => "Link to DLC-IFP: China",
+			:browse_digital_record_pids => [],
 			:finding_aid => "Link to series IV.3",
 			:web_archive => "https://archive-it.org/collections/2766;?fc=websiteGroup%3AFord+Foundation+International+Fellowship+Program&fc=meta_Coverage%3AChina",
 			:ifp_community => "http://www.fordifp.org/China/en-us/home.aspx",
@@ -435,7 +435,7 @@ module Ifp::PartnerDataHelper
 		},
 		egypt: {
 			:office => "Egypt",
-			:browse_digital_records => "Link to DLC-IFP: Egypt",
+			:browse_digital_record_pids => [],
 			:finding_aid => "Link to series IV.4",
 			:web_archive => "https://archive-it.org/collections/2766;?fc=websiteGroup%3AFord+Foundation+International+Fellowship+Program&fc=meta_Coverage%3AEgypt",
 			:ifp_community => "http://www.fordifp.org/Egypt/en-us/home.aspx",
@@ -443,7 +443,7 @@ module Ifp::PartnerDataHelper
 		},
 		ghana: {
 			:office => "Ghana",
-			:browse_digital_records => "Link to DLC-IFP: Ghana",
+			:browse_digital_record_pids => [],
 			:finding_aid => "Link to series IV.5",
 			:web_archive => "https://archive-it.org/collections/2766;?fc=websiteGroup%3AFord+Foundation+International+Fellowship+Program&fc=meta_Coverage%3AGhana",
 			:ifp_community => "http://www.fordifp.org/Ghana/en-us/home.aspx",
@@ -451,7 +451,7 @@ module Ifp::PartnerDataHelper
 		},
 		guatemala: {
 			:office => "Guatemala",
-			:browse_digital_records => "Link to DLC-IFP: Guatemala",
+			:browse_digital_record_pids => [],
 			:finding_aid => "Link to series IV.6",
 			:web_archive => "https://archive-it.org/collections/2766;?fc=websiteGroup%3AFord+Foundation+International+Fellowship+Program&fc=meta_Coverage%3AGuatemala",
 			:ifp_community => "http://www.fordifp.org/Guatemala/en-us/home.aspx",
@@ -460,7 +460,7 @@ module Ifp::PartnerDataHelper
 		},
 		india: {
 			:office => "India",
-			:browse_digital_records => "Link to DLC-IFP: India",
+			:browse_digital_record_pids => [],
 			:finding_aid => "Link to series IV.7",
 			:web_archive => "https://archive-it.org/collections/2766;?fc=websiteGroup%3AFord+Foundation+International+Fellowship+Program&fc=meta_Coverage%3AIndia",
 			:ifp_community => "http://www.fordifp.org/India/en-us/home.aspx",
@@ -468,7 +468,7 @@ module Ifp::PartnerDataHelper
 		},
 		indonesia: {
 			:office => "Indonesia",
-			:browse_digital_records => "Link to DLC-IFP: Indonesia",
+			:browse_digital_record_pids => [],
 			:finding_aid => "Link to series IV.8",
 			:web_archive => "https://archive-it.org/collections/2766;?fc=websiteGroup%3AFord+Foundation+International+Fellowship+Program&fc=meta_Coverage%3AIndonesia",
 			:ifp_community => "http://www.fordifp.org/Indonesia/en-us/home.aspx",
@@ -477,7 +477,7 @@ module Ifp::PartnerDataHelper
 		},
 		kenya: {
 			:office => "Kenya",
-			:browse_digital_records => "Link to DLC-IFP: Kenya",
+			:browse_digital_record_pids => [],
 			:finding_aid => "Link to series IV.9",
 			:web_archive => "https://archive-it.org/collections/2766;?fc=websiteGroup%3AFord+Foundation+International+Fellowship+Program&fc=meta_Coverage%3AKenya",
 			:ifp_community => "http://www.fordifp.org/Kenya/en-us/home.aspx",
@@ -485,7 +485,7 @@ module Ifp::PartnerDataHelper
 		},
 		mexico: {
 			:office => "Mexico",
-			:browse_digital_records => "Link to DLC-IFP: Mexico",
+			:browse_digital_record_pids => [],
 			:finding_aid => "Link to series IV.10",
 			:web_archive => "https://archive-it.org/collections/2766;?fc=websiteGroup%3AFord+Foundation+International+Fellowship+Program&fc=meta_Coverage%3AMexico",
 			:ifp_community => "http://www.fordifp.org/Mexico/en-us/home.aspx",
@@ -493,7 +493,7 @@ module Ifp::PartnerDataHelper
 		},
 		mozambique: {
 			:office => "Mozambique",
-			:browse_digital_records => "Link to DLC-IFP: Mozambique",
+			:browse_digital_record_pids => [],
 			:finding_aid => "Link to series IV.11",
 			:web_archive => "https://archive-it.org/collections/2766;?fc=websiteGroup%3AFord+Foundation+International+Fellowship+Program&fc=meta_Coverage%3AMozambique",
 			:ifp_community => "http://www.fordifp.org/Mozambique/en-us/home.aspx",
@@ -501,7 +501,7 @@ module Ifp::PartnerDataHelper
 		},
 		nigeria: {
 			:office => "Nigeria",
-			:browse_digital_records => "Link to DLC-IFP: Nigeria",
+			:browse_digital_record_pids => [],
 			:finding_aid => "Link to series IV.12",
 			:web_archive => "https://archive-it.org/collections/2766;?fc=websiteGroup%3AFord+Foundation+International+Fellowship+Program&fc=meta_Coverage%3ANigeria",
 			:ifp_community => "http://www.fordifp.org/Nigeria/en-us/home.aspx",
@@ -510,7 +510,7 @@ module Ifp::PartnerDataHelper
 		},
 		palestine: {
 			:office => "Palestine",
-			:browse_digital_records => "Link to DLC-IFP: Palestine",
+			:browse_digital_record_pids => [],
 			:finding_aid => "Link to series IV.13",
 			:web_archive => "https://archive-it.org/collections/2766;?fc=websiteGroup%3AFord+Foundation+International+Fellowship+Program&fc=meta_Coverage%3APalestine",
 			:ifp_community => "http://www.fordifp.org/Palestine /en-us/home.aspx",
@@ -518,7 +518,7 @@ module Ifp::PartnerDataHelper
 		},
 		peru: {
 			:office => "Chile and Peru",
-			:browse_digital_records => "Link to DLC-IFP: Chile and Peru",
+			:browse_digital_record_pids => [],
 			:finding_aid => "Link to series IV.15",
 			:web_archive => "https://archive-it.org/collections/2766;?fc=websiteGroup%3AFord+Foundation+International+Fellowship+Program&fc=meta_Coverage%3APeru",
 			:ifp_community => "http://www.fordifp.org/Peru/en-us/home.aspx",
@@ -528,14 +528,14 @@ module Ifp::PartnerDataHelper
 		},
 		philippines: {
 			:office => "Philippines",
-			:browse_digital_records => "Link to DLC-IFP: Philippines",
+			:browse_digital_record_pids => [],
 			:finding_aid => "Link to series IV.14",
 			:ifp_community => "http://www.fordifp.org/Philippines/en-us/home.aspx",
 			:ifp_partners => [{ :name => "The Philippine Social Science Council (PSSC)", :link => "http://www.pssc.org.ph" }]
 		},
 		russia: {
 			:office => "Russia",
-			:browse_digital_records => "Link to DLC-IFP: Russia",
+			:browse_digital_record_pids => [],
 			:finding_aid => "Link to series IV.16",
 			:web_archive => "https://archive-it.org/collections/2766;?fc=websiteGroup%3AFord+Foundation+International+Fellowship+Program&fc=meta_Coverage%3ARussia",
 			:ifp_community => "http://www.fordifp.org/Russia/en-us/home.aspx",
@@ -543,7 +543,7 @@ module Ifp::PartnerDataHelper
 		},
 		senegal: {
 			:office => "Senegal",
-			:browse_digital_records => "Link to DLC-IFP: Senegal",
+			:browse_digital_record_pids => [],
 			:finding_aid => "Link to series IV.17",
 			:web_archive => "https://archive-it.org/collections/2766;?fc=websiteGroup%3AFord+Foundation+International+Fellowship+Program&fc=meta_Coverage%3ASenegal",
 			:ifp_community => "http://www.fordifp.org/Senegal/en-us/home.aspx",
@@ -552,7 +552,7 @@ module Ifp::PartnerDataHelper
 		},
 		southafrica: {
 			:office => "South Africa",
-			:browse_digital_records => "Link to DLC-IFP: South Africa",
+			:browse_digital_record_pids => [],
 			:finding_aid => "Link to series IV.18",
 			:web_archive => "https://archive-it.org/collections/2766;?fc=websiteGroup%3AFord+Foundation+International+Fellowship+Program&fc=meta_Coverage%3ASouth Africa",
 			:ifp_community => "http://www.fordifp.org/southafrica/Home.aspx",
@@ -560,7 +560,7 @@ module Ifp::PartnerDataHelper
 		},
 		tanzania: {
 			:office => "Tanzania",
-			:browse_digital_records => "Link to DLC-IFP: Tanzania",
+			:browse_digital_record_pids => [],
 			:finding_aid => "Link to series IV.19",
 			:web_archive => "https://archive-it.org/collections/2766;?fc=websiteGroup%3AFord+Foundation+International+Fellowship+Program&fc=meta_Coverage%3ATanzania",
 			:ifp_community => "http://www.fordifp.org/Tanzania/en-us/home.aspx",
@@ -569,7 +569,7 @@ module Ifp::PartnerDataHelper
 		},
 		thailand: {
 			:office => "Thailand",
-			:browse_digital_records => "Link to DLC-IFP: Thailand",
+			:browse_digital_record_pids => [],
 			:finding_aid => "Link to series IV.20",
 			:web_archive => "https://archive-it.org/collections/2766;?fc=websiteGroup%3AFord+Foundation+International+Fellowship+Program&fc=meta_Coverage%3AThailand",
 			:ifp_community => "http://www.fordifp.org/Thailand/en-us/home.aspx",
@@ -577,7 +577,7 @@ module Ifp::PartnerDataHelper
 		},
 		uganda: {
 			:office => "Uganda",
-			:browse_digital_records => "Link to DLC-IFP: Uganda",
+			:browse_digital_record_pids => ["ldpd:493830"],
 			:finding_aid => "Link to series IV.21",
 			:web_archive => "https://archive-it.org/collections/2766;?fc=websiteGroup%3AFord+Foundation+International+Fellowship+Program&fc=meta_Coverage%3AUganda",
 			:ifp_community => "http://www.fordifp.org/Uganda/en-us/home.aspx",
@@ -585,7 +585,7 @@ module Ifp::PartnerDataHelper
 		},
 		vietnam: {
 			:office => "Vietnam",
-			:browse_digital_records => "Link to DLC-IFP: Vietnam",
+			:browse_digital_record_pids => [],
 			:finding_aid => "Link to series IV.22",
 			:web_archive => "https://archive-it.org/collections/2766;?fc=websiteGroup%3AFord+Foundation+International+Fellowship+Program&fc=meta_Coverage%3AVietnam",
 			:ifp_community => "http://www.fordifp.org/Vietnam/en-us/home.aspx",
@@ -593,7 +593,7 @@ module Ifp::PartnerDataHelper
 		},
 		global: {
 			#:office => "GLOBAL",
-			:browse_digital_records => "Link to DLC-IFP",
+			:browse_digital_record_pids => [],
 			:finding_aid => "Link to F. Aid",
 			:web_archive => "https://archive-it.org/collections/2766;?fc=websiteGroup%3AFord+Foundation+International+Fellowship+Program",
 			:ifp_community => "http://www.fordifp.org/",
@@ -601,7 +601,7 @@ module Ifp::PartnerDataHelper
 		},
 		secretariat: {
 			:office => "Secretariat",
-			:browse_digital_records => "Link to DLC-IFP",
+			:browse_digital_record_pids => [],
 			:finding_aid => "Link to F. Aid",
 			:ifp_partners => [{ :name => "Institute for International Education", :link => "http://www.iie.org" }]
 		}

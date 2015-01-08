@@ -4,7 +4,7 @@
   <% partner_data = ifp_office_sidebar_data(params[:key].to_sym) %>
   <% keys_to_display_labels = {
 			office: "Office",
-	browse_digital_records: "Browse Digital Records",
+		  browse_digital_record_pids: "Browse Digital Records",
 			finding_aid: "Finding Aid",
 			web_archive: "Web Archive",
 			ifp_community: "IFP Community",
@@ -14,24 +14,31 @@
   <dl class="nomar">
   <%
 	partner_data.each do | key, value |
-		%><dt><%= keys_to_display_labels[key] ? keys_to_display_labels[key] : key.to_s %></dt><%
-		%><dd><%
-		case key
-		when :ifp_partners
-		  bull = (value.count > 1? '&bull; ' : '') 
-		  value.each do | individual_partner |
-            %> <%= bull.html_safe %><%= link_to individual_partner[:name], individual_partner[:link] %><br><%
-		  end
-		when :web_archive
-		  %><%= link_to 'IFP Web Archive - ' + partner_heading[:heading], value %><%
-		when :ifp_community
-		  %><%= link_to 'IFP Legacy Website - ' + partner_heading[:heading], value %><%
-		when :alumni_organization
-		  %><%= link_to value, value %><%
-		else
-		  %><%= value %><%
+		if value.present?
+		  %><dt><%= keys_to_display_labels[key] ? keys_to_display_labels[key] : key.to_s %></dt><%
+				%><dd><%
+				case key
+				when :ifp_partners
+					bull = (value.count > 1? '&bull; ' : '')
+					value.each do | individual_partner |
+								%> <%= bull.html_safe %><%= link_to individual_partner[:name], individual_partner[:link] %><br><%
+					end
+				when :browse_digital_record_pids
+						next if value.blank?
+						value.each_with_index {|pid, index|
+								%><%= link_to 'Browse ' + partner_heading[:heading] + ' Records' + (value.length > 1 ? ' [Part ' + (index+1).to_s + ']' : ''), url_for(controller:'catalog', action: 'show', id: pid) %><%
+						}
+				when :web_archive
+					%><%= link_to 'IFP Web Archive - ' + partner_heading[:heading], value %><%
+				when :ifp_community
+					%><%= link_to 'IFP Legacy Website - ' + partner_heading[:heading], value %><%
+				when :alumni_organization
+					%><%= link_to value, value %><%
+				else
+					%><%= value %><%
+				end
+				%></dd><%
 		end
-		%></dd><%
 	end
   %>
   </dl>
