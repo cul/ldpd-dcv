@@ -14,7 +14,6 @@ DCV.Filesystem.fileHandler = function(){
   return false;
 }
 DCV.Filesystem.bindHandlers = function() {
-  window.console.log("bindHandlers")
   //$('LI.fs-directory A').bind('click', DCV.Filesystem.folderHandler);
   $('LI.fs-file A.preview').bind('click', DCV.Filesystem.fileHandler);
 }

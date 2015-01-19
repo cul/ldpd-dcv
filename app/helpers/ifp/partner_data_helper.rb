@@ -451,7 +451,7 @@ module Ifp::PartnerDataHelper
 		},
 		guatemala: {
 			:office => "Guatemala",
-			:browse_digital_record_pids => [],
+			:browse_digital_record_pids => ["ldpd:494395"],
 			:finding_aid => "Link to series IV.6",
 			:web_archive => "https://archive-it.org/collections/2766;?fc=websiteGroup%3AFord+Foundation+International+Fellowship+Program&fc=meta_Coverage%3AGuatemala",
 			:ifp_community => "http://www.fordifp.org/Guatemala/en-us/home.aspx",
@@ -510,7 +510,7 @@ module Ifp::PartnerDataHelper
 		},
 		palestine: {
 			:office => "Palestine",
-			:browse_digital_record_pids => [],
+			:browse_digital_record_pids => ["ldpd:494633"],
 			:finding_aid => "Link to series IV.13",
 			:web_archive => "https://archive-it.org/collections/2766;?fc=websiteGroup%3AFord+Foundation+International+Fellowship+Program&fc=meta_Coverage%3APalestine",
 			:ifp_community => "http://www.fordifp.org/Palestine /en-us/home.aspx",
@@ -518,7 +518,7 @@ module Ifp::PartnerDataHelper
 		},
 		peru: {
 			:office => "Chile and Peru",
-			:browse_digital_record_pids => [],
+			:browse_digital_record_pids => ["ldpd:493861"],
 			:finding_aid => "Link to series IV.15",
 			:web_archive => "https://archive-it.org/collections/2766;?fc=websiteGroup%3AFord+Foundation+International+Fellowship+Program&fc=meta_Coverage%3APeru",
 			:ifp_community => "http://www.fordifp.org/Peru/en-us/home.aspx",
@@ -552,7 +552,7 @@ module Ifp::PartnerDataHelper
 		},
 		southafrica: {
 			:office => "South Africa",
-			:browse_digital_record_pids => [],
+			:browse_digital_record_pids => ["ldpd:495022"],
 			:finding_aid => "Link to series IV.18",
 			:web_archive => "https://archive-it.org/collections/2766;?fc=websiteGroup%3AFord+Foundation+International+Fellowship+Program&fc=meta_Coverage%3ASouth Africa",
 			:ifp_community => "http://www.fordifp.org/southafrica/Home.aspx",
@@ -560,7 +560,7 @@ module Ifp::PartnerDataHelper
 		},
 		tanzania: {
 			:office => "Tanzania",
-			:browse_digital_record_pids => [],
+			:browse_digital_record_pids => ["ldpd:494831"],
 			:finding_aid => "Link to series IV.19",
 			:web_archive => "https://archive-it.org/collections/2766;?fc=websiteGroup%3AFord+Foundation+International+Fellowship+Program&fc=meta_Coverage%3ATanzania",
 			:ifp_community => "http://www.fordifp.org/Tanzania/en-us/home.aspx",
@@ -593,7 +593,7 @@ module Ifp::PartnerDataHelper
 		},
 		global: {
 			#:office => "GLOBAL",
-			:browse_digital_record_pids => [],
+			#:browse_digital_record_pids => [],
 			:finding_aid => "Link to F. Aid",
 			:web_archive => "https://archive-it.org/collections/2766;?fc=websiteGroup%3AFord+Foundation+International+Fellowship+Program",
 			:ifp_community => "http://www.fordifp.org/",

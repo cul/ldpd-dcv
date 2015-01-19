@@ -26,7 +26,7 @@
 				when :browse_digital_record_pids
 						next if value.blank?
 						value.each_with_index {|pid, index|
-								%><%= link_to 'Browse ' + partner_heading[:heading] + ' Records' + (value.length > 1 ? ' [Part ' + (index+1).to_s + ']' : ''), url_for(controller:'catalog', action: 'show', id: pid) %><%
+								%><%= link_to 'Browse ' + partner_heading[:heading] + ' Records' + (value.length > 1 ? ' [Part ' + (index+1).to_s + ']' : ''), url_for(controller:controller_name, action: 'show', id: pid) %><%
 						}
 				when :web_archive
 					%><%= link_to 'IFP Web Archive - ' + partner_heading[:heading], value %><%

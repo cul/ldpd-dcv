@@ -5,6 +5,7 @@
     <a class="btn btn-default" href="<%= @document['lib_item_in_context_url_ssm'][0] %>" target="_blank" title="Item in Context"><i class="glyphicon glyphicon-globe"></i></a>
   <% end %>
 <% end -%>
+<%- unless document['dc_type_ssm'].include? 'FileSystem' %>
 <div class="btn-group btn-group-xs">
   <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" title="Downloads">
   <i class="glyphicon glyphicon-download-alt"></i> <span class="caret"></span>
@@ -12,6 +13,7 @@
   </button>
   <ul id="downloads-list" class="dropdown-menu pull-right" role="menu"></ul>
 </div>
+<% end -%>
 <div class="btn-group btn-group-xs">
   <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" title="Citations">
   <i class="glyphicon glyphicon-book"></i> <span class="caret"></span>

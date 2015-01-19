@@ -125,6 +125,7 @@ function favoriteChild(child) {
 }
 
 function loadDownloadsForItemShowPage(infoUrl) {
+  if (!infoUrl) return;
   $('#downloads-list li.downloadItem').remove();
   $('#downloads-list li.downloadItem').append('<li class="placeholder"><a href="#">Loading downloads...</a></li>');
   $.ajax({

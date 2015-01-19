@@ -68,6 +68,7 @@ module Dcv::ChildrenHelperBehavior
 
   def url_to_proxy(opts)
     method = opts[:proxy_id] ? "#{controller_name}_proxy_url".to_sym : "#{controller_name}_url".to_sym
+    #opts = opts.merge(proxy_id:opts[:proxy_id].sub('.','%2E')) if opts[:proxy_id]
     send(method, opts.merge(label:nil))
   end
   def url_to_preview(pid)
