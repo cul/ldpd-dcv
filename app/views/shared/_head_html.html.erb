@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
 
 <% # Do not index search result pages %>
-<% if params[:q] && params[:search_field] %>
+<% if query_has_constraints? || (params[:q] && params[:search_field]) %>
 <meta name="robots" content="noindex" />
 <% end %>
 
