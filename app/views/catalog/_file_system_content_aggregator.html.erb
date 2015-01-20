@@ -1,4 +1,5 @@
 <%- ix = -1 %>
+<div class="fs-crumbs well well-sm">
 <%- breadcrumbs() do |breadcrumb| %>
   <%- unless (ix += 1) == 0 %>
     <%="&#187;".html_safe %>
@@ -11,6 +12,7 @@
   <%="&#187;".html_safe %>
   <span class="fs-directory"><%= last %></span>
 <%end%>
+</div>
 <ul class="file-system">
 <%- proxies() do |proxy| %>
   <%= proxy_node(proxy) %>
