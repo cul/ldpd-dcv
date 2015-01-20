@@ -587,13 +587,33 @@ border-left: 4px solid transparent;
 content: "";
 }
 
-ul.file-system a:hover {
-background: #eee;
-color:$ifpblue;
-}
-ul.file-system .preview:hover {
-background:transparent;
+ul.file-system {
+    overflow:auto;
+    li {
+      //position:relative;
+      padding-top:4px;
+      padding-bottom:4px;
+      background-position:left center;
+      &:nth-child(even) {
+        background-color:#fbfbfb;
+      }
+    }
+    a {
+		&:hover {
+		  background: #eee;
+		  color:$ifpblue;
+		}
+	}
+    .preview {
+      //position:absolute;
+      //right:0;
+      color:darken($ifpblue,8%);
+	  &:hover {
+	    background:transparent;
+	  }
+	}
 }
 .fs-crumbs {
+  margin-bottom:1em;
   background-color:#fafafa;
 }
