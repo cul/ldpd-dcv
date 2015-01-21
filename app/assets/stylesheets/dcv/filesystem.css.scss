@@ -5,6 +5,9 @@
 	.fs-directory, .fs-file {
 	  padding-left:20px;
 	}
+    th[data-sort]{
+      cursor:pointer;
+    }
 }
 
 .fs-children { display: none;}

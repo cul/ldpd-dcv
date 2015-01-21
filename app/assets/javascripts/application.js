@@ -26,3 +26,6 @@
 // OpenSeadragon
 //= require openseadragon
 //
+// stupidtable
+//= require stupidtable
+//
