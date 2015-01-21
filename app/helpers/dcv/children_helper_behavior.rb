@@ -82,10 +82,10 @@ module Dcv::ChildrenHelperBehavior
       # file
       if node['pid'] 
         content_tag(:tr,nil) do
-          c = ('<td>'+download_link(node, label, ['fs-file',html_class_for_filename(node['label_ssi'])])+' '+ 
+          c = ('<td data-title="Filename">'+download_link(node, label, ['fs-file',html_class_for_filename(node['label_ssi'])])+' '+ 
             link_to('<span class="glyphicon glyphicon-info-sign"></span>'.html_safe, '#', 'data-url'=>url_to_preview(node['pid']), class: 'preview')+
             '</td>').html_safe
-          c += ('<td>'+filesize+'</td>').html_safe
+          c += ('<td data-title="Size">'+filesize+'</td>').html_safe
           #c += content_tag(:a, 'Preview', href: '#', 'data-url'=>url_to_preview(node['pid']), class: 'preview') do 
           #  content_tag(:i,nil,class:'glyphicon glyphicon-info-sign')
           #end
@@ -95,8 +95,8 @@ module Dcv::ChildrenHelperBehavior
     else
       # folder
       content_tag(:tr, nil) do
-        c = ('<td>'+link_to(label, url_to_proxy({id: node['proxyIn_ssi'].sub('info:fedora/',''), proxy_id: node['id']}), class: 'fs-directory')+'</td>').html_safe
-        c += ('<td>'+filesize+'</td>').html_safe
+        c = ('<td data-title="Filename">'+link_to(label, url_to_proxy({id: node['proxyIn_ssi'].sub('info:fedora/',''), proxy_id: node['id']}), class: 'fs-directory')+'</td>').html_safe
+        c += ('<td data-title="Size">'+filesize+'</td>').html_safe
         #content_tag(:a, label, href: url_to_proxy({id: node['proxyIn_ssi'].sub('info:fedora/',''), proxy_id: node['id']}))
       end
     end

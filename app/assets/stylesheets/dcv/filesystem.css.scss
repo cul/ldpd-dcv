@@ -26,3 +26,48 @@
 .text_xml { background: url(asset_path('cul_hydra/filesystem/code.png')) left top no-repeat; }
 .application_pdf { background: url(asset_path('cul_hydra/filesystem/pdf.png')) left top no-repeat; }
 .application_zip { background: url(asset_path('cul_hydra/filesystem/zip.png')) left top no-repeat; }
+
+@media
+only screen and (max-width: 760px),
+(min-device-width: 768px) and (max-device-width: 1024px)  {
+
+  table.file-system {
+        display: block;
+    /* Force table to not be like tables anymore */
+    table, thead, tbody, th, td, tr {
+        display: block;
+    }
+
+    /* Hide table headers (but not display: none;, for accessibility) */
+    thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    tr { border: 1px solid #ccc; }
+
+    td {
+        /* Behave  like a "row" */
+        border: none;
+        border-bottom: 1px solid #eee;
+        position: relative;
+        padding-left: 33%!important;
+        word-break: break-word;
+    }
+
+    td:before {
+        /* Now like a table header */
+        position: absolute;
+        /* Top/left values mimic padding */
+        top: 6px;
+        left: 6px;
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+    }
+
+    /* Label the data */
+      td:before { content: attr(data-title); }
+  }
+}
