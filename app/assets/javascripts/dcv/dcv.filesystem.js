@@ -15,7 +15,7 @@ DCV.Filesystem.fileHandler = function(){
 }
 DCV.Filesystem.bindHandlers = function() {
   //$('LI.fs-directory A').bind('click', DCV.Filesystem.folderHandler);
-  $('LI.fs-file A.preview').bind('click', DCV.Filesystem.fileHandler);
+  $('.file-system .preview').bind('click', DCV.Filesystem.fileHandler);
 }
 DCV.Filesystem.modalPreview = function(dataUrl){
 
@@ -25,7 +25,7 @@ DCV.Filesystem.modalPreview = function(dataUrl){
     height:"75%",
     width:"75%",
     maxHeight:"90%",
-    maxWidth:"90%",
+    maxWidth:"1180px",
     opacity:".6",
     fixed:true,
     iframe:true,

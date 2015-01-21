@@ -929,3 +929,7 @@ h2[itemprop="name"] {
     font-weight: normal;
     font-style: normal;
 }
+
+.table-striped > tbody > tr:nth-child(odd) > td, .table-striped > tbody > tr:nth-child(odd) > th {
+  background-color: lighten(#000000, 15%);
+} 

@@ -1,55 +1,28 @@
 /* Core Styles */
-UL.file-system, UL.file-system UL {
-  line-height: 18px;
-  padding: 0;
-  margin: 0;
+
+
+.file-system, .fs-crumbs {
+	.fs-directory, .fs-file {
+	  padding-left:20px;
+	}
 }
 
-SPAN.fs-directory {
-  padding: 0px;
-  padding-left: 20px;
-  margin: 0;
-  white-space: nowrap;
-  background: url(asset_path('cul_hydra/filesystem/directory.png')) left top no-repeat;
-}
-
-
-UL.file-system LI {
-  list-style: none;
-  padding: 0px;
-  padding-left: 20px;
-  margin: 0;
-  white-space: nowrap;
-}
-
-UL.file-system A {
-  color: inherit;
-  text-decoration: none;
-  display: inline-block;
-  padding: 0 2px;
-  width:auto;
-}
-
-UL.file-system A:hover {
-  background: #333;
-}
-
-UL.fs-children { display: none;}
-LI.fs-directory { background: url(asset_path('cul_hydra/filesystem/directory.png')) left top no-repeat; }
-LI.fs-expanded { background: url(asset_path('cul_hydra/filesystem/folder_open.png')) left top no-repeat; }
-LI.fs-file { background: url(asset_path('cul_hydra/filesystem/file.png')) left top no-repeat; }
-LI.fs-wait { background: url(asset_path('cul_hydra/filesystem/spinner.gif')) left top no-repeat; }
+.fs-children { display: none;}
+.fs-directory { background: url(asset_path('cul_hydra/filesystem/directory.png')) left top no-repeat; }
+.fs-expanded { background: url(asset_path('cul_hydra/filesystem/folder_open.png')) left top no-repeat; }
+.fs-file { background: url(asset_path('cul_hydra/filesystem/file.png')) left top no-repeat; }
+.fs-wait { background: url(asset_path('cul_hydra/filesystem/spinner.gif')) left top no-repeat; }
 /* MIME Types */
-LI.text_css { background: url(asset_path('cul_hydra/filesystem/css.png')) left top no-repeat; }
-LI.application_octet-stream { background: url(asset_path('cul_hydra/filesystem/application.png')) left top no-repeat; }
-LI.text_html { background: url(asset_path('cul_hydra/filesystem/html.png')) left top no-repeat; }
-LI.text_javascript { background: url(asset_path('cul_hydra/filesystem/script.png')) left top no-repeat; }
-LI.application_json { background: url(asset_path('cul_hydra/filesystem/script.png')) left top no-repeat; }
-LI.image_jpeg { background: url(asset_path('cul_hydra/filesystem/picture.png')) left top no-repeat; }
-LI.image_gif { background: url(asset_path('cul_hydra/filesystem/picture.png')) left top no-repeat; }
-LI.image_png { background: url(asset_path('cul_hydra/filesystem/picture.png')) left top no-repeat; }
-LI.image_png { background: url(asset_path('cul_hydra/filesystem/picture.png')) left top no-repeat; }
-LI.image_tiff { background: url(asset_path('cul_hydra/filesystem/picture.png')) left top no-repeat; }
-LI.text_xml { background: url(asset_path('cul_hydra/filesystem/code.png')) left top no-repeat; }
-LI.application_pdf { background: url(asset_path('cul_hydra/filesystem/zip.png')) left top no-repeat; }
-LI.application_zip { background: url(asset_path('cul_hydra/filesystem/zip.png')) left top no-repeat; }
+.text_css { background: url(asset_path('cul_hydra/filesystem/css.png')) left top no-repeat; }
+.application_octet-stream { background: url(asset_path('cul_hydra/filesystem/application.png')) left top no-repeat; }
+.text_html { background: url(asset_path('cul_hydra/filesystem/html.png')) left top no-repeat; }
+.text_javascript { background: url(asset_path('cul_hydra/filesystem/script.png')) left top no-repeat; }
+.application_json { background: url(asset_path('cul_hydra/filesystem/script.png')) left top no-repeat; }
+.image_jpeg { background: url(asset_path('cul_hydra/filesystem/picture.png')) left top no-repeat; }
+.image_gif { background: url(asset_path('cul_hydra/filesystem/picture.png')) left top no-repeat; }
+.image_png { background: url(asset_path('cul_hydra/filesystem/picture.png')) left top no-repeat; }
+.image_png { background: url(asset_path('cul_hydra/filesystem/picture.png')) left top no-repeat; }
+.image_tiff { background: url(asset_path('cul_hydra/filesystem/picture.png')) left top no-repeat; }
+.text_xml { background: url(asset_path('cul_hydra/filesystem/code.png')) left top no-repeat; }
+.application_pdf { background: url(asset_path('cul_hydra/filesystem/pdf.png')) left top no-repeat; }
+.application_zip { background: url(asset_path('cul_hydra/filesystem/zip.png')) left top no-repeat; }

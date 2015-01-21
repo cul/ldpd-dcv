@@ -76,30 +76,36 @@ module Dcv::ChildrenHelperBehavior
     send method, id: pid
   end
   def proxy_node(node)
-    label = node['extent'] ? "#{node['label_ssi']} (#{proxy_extent(node)})" : node['label_ssi']
+    filesize = node['extent'] ? proxy_extent(node).html_safe : ''
+    label = node['label_ssi']
     if node["type_ssim"].include? RDF::NFO[:'#FileDataObject']
       # file
-      content_tag(:li,nil, class: ['fs-file',html_class_for_filename(node['label_ssi'])]) do
-        if node['pid']
-          c = download_link(node, label)
-          c += content_tag(:a, 'Preview', href: '#', 'data-url'=>url_to_preview(node['pid']), class: 'preview') do 
-            content_tag(:i,nil,class:'glyphicon glyphicon-info-sign')
-          end
+      if node['pid'] 
+        content_tag(:tr,nil) do
+          c = ('<td>'+download_link(node, label, ['fs-file',html_class_for_filename(node['label_ssi'])])+' '+ 
+            link_to('<span class="glyphicon glyphicon-info-sign"></span>'.html_safe, '#', 'data-url'=>url_to_preview(node['pid']), class: 'preview')+
+            '</td>').html_safe
+          c += ('<td>'+filesize+'</td>').html_safe
+          #c += content_tag(:a, 'Preview', href: '#', 'data-url'=>url_to_preview(node['pid']), class: 'preview') do 
+          #  content_tag(:i,nil,class:'glyphicon glyphicon-info-sign')
+          #end
           c
         end
       end
     else
       # folder
-      content_tag(:li, nil, class: 'fs-directory') do
-        content_tag(:a, label, href: url_to_proxy({id: node['proxyIn_ssi'].sub('info:fedora/',''), proxy_id: node['id']}))
+      content_tag(:tr, nil) do
+        c = ('<td>'+link_to(label, url_to_proxy({id: node['proxyIn_ssi'].sub('info:fedora/',''), proxy_id: node['id']}), class: 'fs-directory')+'</td>').html_safe
+        c += ('<td>'+filesize+'</td>').html_safe
+        #content_tag(:a, label, href: url_to_proxy({id: node['proxyIn_ssi'].sub('info:fedora/',''), proxy_id: node['id']}))
       end
     end
   end
 
-  def download_link(node, label)
+  def download_link(node, label, attr_class)
     args = {catalog_id: node['pid'], filename:node['label_ssi'], bytestream_id: 'content'}
     href = bytestream_content_url(args) #, "download")
-    content_tag(:a, label, href: href)
+    content_tag(:a, label, href: href, class: attr_class)
   end
 
   #TODO: replace this with Cul::Scv::Fedora::FakeObject

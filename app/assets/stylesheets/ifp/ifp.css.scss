@@ -587,6 +587,7 @@ border-left: 4px solid transparent;
 content: "";
 }
 
+/*
 ul.file-system {
     overflow:auto;
     li {
@@ -612,7 +613,16 @@ ul.file-system {
 	  }
 	}
 }
+*/
 .fs-crumbs {
   margin-bottom:1em;
   background-color:#fafafa;
+  border-color: #ddd!important;
+  border-radius:0;
+}
+.table-striped > tbody > tr:nth-child(odd) > td, .table-striped > tbody > tr:nth-child(odd) > th {
+background-color: darken(#ffffff, 4%);
+}
+.table-bordered, .table-bordered > thead > tr > th, .table-bordered > thead > tr > td, .table-bordered > tbody > tr > th, .table-bordered > tbody > tr > td, .table-bordered > tfoot > tr > th, .table-bordered > tfoot > tr > td {
+border-color: #ddd;
 }

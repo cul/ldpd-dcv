@@ -1,20 +1,24 @@
-<%- ix = -1 %>
-<div class="fs-crumbs well well-sm">
-<%- breadcrumbs() do |breadcrumb| %>
-  <%- unless (ix += 1) == 0 %>
+<% ix = -1 %>
+<div class="inner fs-crumbs well well-sm">
+<% breadcrumbs() do |breadcrumb| %>
+  <% unless (ix += 1) == 0 %>
     <%="&#187;".html_safe %>
-  <%- end %>
-  <%= content_tag( :span, class: "fs-directory") do %>
-  <%- link_to(breadcrumb[:label], url_to_proxy(breadcrumb), class: "fs-directory") %>
-  <%-end%>
-<%- end %>
+  <% end %>
+  <%= link_to(breadcrumb[:label], url_to_proxy(breadcrumb), class: "fs-directory") %>
+<% end %>
 <% if params[:proxy_id] && last = params[:proxy_id].split('/').last %>
   <%="&#187;".html_safe %>
   <span class="fs-directory"><%= last %></span>
 <%end%>
 </div>
-<ul class="file-system">
-<%- proxies() do |proxy| %>
+<table class="file-system table table-striped table-bordered">
+<thead>
+<tr>
+ <th>Filename</th>
+ <th>Size</th>
+</tr>
+</thead>
+<% proxies() do |proxy| %>
   <%= proxy_node(proxy) %>
-<%- end %>
-</ul>
+<% end %>
+</table>
