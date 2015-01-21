@@ -591,9 +591,8 @@ ul.file-system {
     overflow:auto;
     li {
       //position:relative;
-      padding-top:4px;
-      padding-bottom:4px;
-      background-position:left center;
+      padding:4px 0 4px 30px;
+      background-position:10px center;
       &:nth-child(even) {
         background-color:#fbfbfb;
       }
