@@ -29,7 +29,7 @@
         <%= '<a href="#" class="previous-child" onclick="return DCV.Show.FavoriteChildNavigation.next(this);"><span class="glyphicon glyphicon-chevron-right"></span></a>'.html_safe if structured_children.length > 1 %>
       <% end %>
     </div>
-    <%= render_document_partials @document, @document['dc_type_ssm'].collect{|x| x.underscore} %>
+    <%= render_document_partials @document, (document['dc_type_ssm'].present? && document['dc_type_ssm'].include?('FileSystem') ? @document['dc_type_ssm'].collect{|x| x.underscore} : ['gallery']) %>
     </div>
   </div>
 </div>

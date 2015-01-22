@@ -26,7 +26,7 @@ module Dcv::Resources::RelsIntBehavior
           id: id, title: title, mime_type: mime_type, length: length,
           width: width, size: size, url: url}
       end
-      unless document['dc_type_ssm'].include? 'StillImage'
+      unless document['dc_type_ssm'].present? && document['dc_type_ssm'].include?('StillImage')
         if ds_profiles && ds_profiles["content"]
           content = ds_profiles["content"]
           label = content["dsLabel"].split('/').last
