@@ -1,0 +1,31 @@
+<%# default partial to display solr document fields in catalog show view -%>
+<div class="row">
+  <div id="item-description" class="col-md-3" data-no-turbolink>
+   <div class="inner">
+    <dl class="dl-vertical">
+      <% document_show_fields(document).each do |solr_fname, field| -%>
+        <% if should_render_show_field? document, field -%>
+          <dt class="blacklight-<%= solr_fname.parameterize %>"><%= render_document_show_field_label document, :field => solr_fname %></dt>
+          <dd class="blacklight-<%= solr_fname.parameterize %>"><%= render_document_show_field_value document, :field => solr_fname %></dd>
+        <% end -%>
+      <% end -%>
+    <% unless (parent_links = link_to_resource_in_context(document)).empty? %>
+      <dt>Resource in Context:</dt>
+      <dd><%= link_to_resource_in_context(document).join(',').html_safe %></dd>
+    <% end -%>
+    </dl>
+   </div>
+  </div>
+  <div class="col-md-9">
+<% if document['dc_type_ssm'].first.eql? 'StillImage' %>
+  <img src="<%= get_asset_url(id: document[:id], type: 'scaled', size: 768, format: 'png') %>"  style="width:100%;" />
+<% end %>
+  <div class="caption">
+    <div class="documentHeader">
+      <a rel="document-link" data-src="<%= resolve_catalog_url(id: CGI.escape(document[:id])) %>.json" data-id="<%=document[:id]%>"><i class="icon-zoom-in"></i></a>
+      <div class="documentFunctions">
+      </div>
+    </div>
+  </div>
+  </div>
+</div>

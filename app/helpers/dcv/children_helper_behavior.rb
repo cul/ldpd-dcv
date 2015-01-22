@@ -75,6 +75,10 @@ module Dcv::ChildrenHelperBehavior
     method = "#{controller_name}_preview_url".to_sym
     send method, id: pid
   end
+  def url_to_item(pid)
+    method = "#{controller_name}_url".to_sym
+    send method, id: pid
+  end
   def proxy_node(node)
     filesize = node['extent'] ? proxy_extent(node).html_safe : ''
     label = node['label_ssi']
@@ -83,7 +87,7 @@ module Dcv::ChildrenHelperBehavior
       if node['pid'] 
         content_tag(:tr,nil) do
           c = ('<td data-title="Name">'+download_link(node, label, ['fs-file',html_class_for_filename(node['label_ssi'])])+' '+ 
-            link_to('<span class="glyphicon glyphicon-info-sign"></span>'.html_safe, '#', 'data-url'=>url_to_preview(node['pid']), class: 'preview')+
+            link_to('<span class="glyphicon glyphicon-info-sign"></span>'.html_safe, url_to_item(node['pid']), title: 'Item permanent link')+
             '</td>').html_safe
           c += ('<td data-title="Size" data-sort-value="'+node['extent'].join(",").to_s+'">'+filesize+'</td>').html_safe
           #c += content_tag(:a, 'Preview', href: '#', 'data-url'=>url_to_preview(node['pid']), class: 'preview') do 
