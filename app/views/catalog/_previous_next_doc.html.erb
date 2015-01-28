@@ -1,12 +1,18 @@
 <% #Using the Bootstrap Pagination class  -%>
   <div id="previousNextDocument">
-    <% if @previous_document || @next_document %>
-      <div class="page_links previous-and-next btn-group btn-group-xs">
-        <%= link_back_to_catalog(label: '<i class="glyphicon glyphicon-fast-backward"></i> '.html_safe, class: 'btn btn-default', title: 'return to search' ) %>
-        <span class="btn btn-default" style="pointer-events:none;"><%= item_page_entry_info %></span>
-        <%= button_to_previous_document @previous_document, class: 'btn btn-default', title: 'previous search result' %>
-        <%= button_to_next_document @next_document, class: 'btn btn-default', title: 'next search result' %>
+    <% if params[:return_to_filesystem].present? %>
+	  <div class="page_links previous-and-next btn-group btn-group-xs">
+        <%= link_to('<i class="glyphicon glyphicon-fast-backward"></i>'.html_safe, params[:return_to_filesystem], class: 'btn btn-default', title: 'Browse digital records') %>   
       </div>
+    <% else %>
+		<% if @previous_document || @next_document %>
+		  <div class="page_links previous-and-next btn-group btn-group-xs">
+			<%= link_back_to_catalog(label: '<i class="glyphicon glyphicon-fast-backward"></i> '.html_safe, class: 'btn btn-default', title: 'return to search' ) %>
+			<span class="btn btn-default" style="pointer-events:none;"><%= item_page_entry_info %></span>
+			<%= button_to_previous_document @previous_document, class: 'btn btn-default', title: 'previous search result' %>
+			<%= button_to_next_document @next_document, class: 'btn btn-default', title: 'next search result' %>
+		  </div>
+		<% end %>
     <% end %>
     <%= render 'show_tools' %>
   </div>
