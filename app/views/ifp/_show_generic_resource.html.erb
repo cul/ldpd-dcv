@@ -18,6 +18,10 @@
   </div>
   <div class="col-md-9">
     <div class="inner">
+      <div id="favorite-child">
+        <img onclick="alert('Coming soon');return false;" itemprop="contentUrl" src="<%= get_asset_url(id: document.id, size: 768, type: 'scaled', format: 'jpg') %>" class="">
+      </div>
+
 <% if document['dc_type_ssm'].first.eql? 'StillImage' %>
   <img src="<%= get_asset_url(id: document[:id], type: 'scaled', size: 768, format: 'png') %>"  style="width:100%;" />
 <% end %>
