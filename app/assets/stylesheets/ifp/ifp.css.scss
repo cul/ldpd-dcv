@@ -5,7 +5,7 @@ body {
     background-color:#fafafa; //#4E5663; // #D0DDF0;
 }
 a, a:hover, .dropdown a {
-    color:$ifpblue; //#591300;
+    color:$ifpblue; //$ifpblue;
 }
 a {
   color:$ifpblue;
@@ -526,12 +526,12 @@ footer {
     .btn-default { color:#fff; }
 }
 .pagination > li > a, .pagination > li > span {
-    color: #591300;
+    color: $ifpblue;
 }
 .pagination > .active > a, .pagination > .active > a:hover, .pagination > .active > a:focus, .pagination > .active > span, .pagination > .active > span:hover, .pagination > .active > span:focus {
 	color: white;
-	background-color: #591300;
-	border-color: #591300;
+	background-color: $ifpblue;
+	border-color: $ifpblue;
 }
 .pagination>li>a, .pagination>li>span {
     background-color: transparent;
@@ -566,8 +566,8 @@ footer {
 }
 /*
 .btn-primary, #topnavbar #cul_top-nosearch .dropdown-menu li a:hover {
-    background:#591300;
-    background-color:#591300;
+    background:$ifpblue;
+    background-color:$ifpblue;
 }
 .btn-primary:hover {
     background:#6a2400;
