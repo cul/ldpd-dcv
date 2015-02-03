@@ -445,7 +445,7 @@ module Ifp::PartnerDataHelper
 			:office => "Ghana",
 			:browse_digital_record_pids => [],
 			:finding_aid => [{ :name => "Link to series IV.5", :id => 13 }],
-			:web_archive => "https://archive-it.org/collections/2766;?fc=websiteGroup%3AFord+Foundation+International+Fellowship+Program&fc=meta_Coverage%3AGhana",
+			:web_archive => "https://archive-it.org/collections/2766;?q=ghana&show=ArchivedPages&collectionIds=2766&host=fordifp.net&hitsPerDupe=0",
 			:ifp_community => "http://www.fordifp.org/Ghana/en-us/home.aspx",
 			:ifp_partners => [{ :name => "Association of African Universities", :link => "http://www.aau.org" }]
 		},
@@ -480,7 +480,7 @@ module Ifp::PartnerDataHelper
 			:browse_digital_record_pids => [],
 			:finding_aid => [{ :name => "Link to series IV.9", :id => 25 }],
 			:web_archive => "https://archive-it.org/collections/2766;?fc=websiteGroup%3AFord+Foundation+International+Fellowship+Program&fc=meta_Coverage%3AKenya",
-			:ifp_community => "http://www.fordifp.org/Kenya/en-us/home.aspx",
+			:ifp_community => "http://www.fordifp.org/kenya/Home.aspx",
 			:ifp_partners => [{ :name => "Forum for African Women Educationalists (FAWE)", :link => "http://www.fawe.org/" }]
 		},
 		mexico: {
@@ -513,7 +513,7 @@ module Ifp::PartnerDataHelper
 			:browse_digital_record_pids => ["ldpd:494633"],
 			:finding_aid => [{ :name => "Link to series IV.13", :id => 37 }],
 			:web_archive => "https://archive-it.org/collections/2766;?fc=websiteGroup%3AFord+Foundation+International+Fellowship+Program&fc=meta_Coverage%3APalestine",
-			:ifp_community => "http://www.fordifp.org/Palestine /en-us/home.aspx",
+			:ifp_community => "http://www.fordifp.org/Palestine/en-us/home.aspx",
 			:ifp_partners => [{ :name => "AMIDEAST", :link => "http://www.amideast.org/" }]
 		},
 		peru: {
@@ -537,7 +537,7 @@ module Ifp::PartnerDataHelper
 			:office => "Russia",
 			:browse_digital_record_pids => [],
 			:finding_aid => [{ :name => "Link to series IV.16", :id => 46 }],
-			:web_archive => "https://archive-it.org/collections/2766;?fc=websiteGroup%3AFord+Foundation+International+Fellowship+Program&fc=meta_Coverage%3ARussia",
+			:web_archive => "https://archive-it.org/collections/2766;?fc=websiteGroup%3AFord+Foundation+International+Fellowship+Program&fc=meta_Coverage%3ARussia+%28Federation%29",
 			:ifp_community => "http://www.fordifp.org/Russia/en-us/home.aspx",
 			:ifp_partners => [{ :name => "IIE Moscow Office", :link => "http://www.iie.org/Offices/Moscow" }]
 		},
@@ -572,7 +572,7 @@ module Ifp::PartnerDataHelper
 			:browse_digital_record_pids => [],
 			:finding_aid => [{ :name => "Link to series IV.20", :id => 58 }],
 			:web_archive => "https://archive-it.org/collections/2766;?fc=websiteGroup%3AFord+Foundation+International+Fellowship+Program&fc=meta_Coverage%3AThailand",
-			:ifp_community => "http://www.fordifp.org/Thailand/en-us/home.aspx",
+			:ifp_community => "http://www.fordifp.org/thailand/Home.aspx",
 			:ifp_partners => [{ :name => "Asian Scholarship Foundation", :link => "http://www.asianscholarship.org" }]
 		},
 		uganda: {
