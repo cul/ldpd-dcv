@@ -43,7 +43,7 @@
 				when :ifp_community
 					%><%= link_to 'IFP Legacy Website - ' + partner_heading[:heading], value %><%
 				when :alumni_organization
-					%><%= link_to value, value %><%
+					%><%= link_to partner_heading[:heading] + ' IFP Alumni', value %><%
 				else
 					%><%= value %><%
 				end

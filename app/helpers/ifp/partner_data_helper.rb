@@ -445,7 +445,6 @@ module Ifp::PartnerDataHelper
 			:office => "Ghana",
 			:browse_digital_record_pids => [],
 			:finding_aid => [{ :name => "Link to series IV.5", :id => 13 }],
-			:web_archive => "https://archive-it.org/collections/2766;?q=ghana&show=ArchivedPages&collectionIds=2766&host=fordifp.net&hitsPerDupe=0",
 			:ifp_community => "http://www.fordifp.org/Ghana/en-us/home.aspx",
 			:ifp_partners => [{ :name => "Association of African Universities", :link => "http://www.aau.org" }]
 		},
