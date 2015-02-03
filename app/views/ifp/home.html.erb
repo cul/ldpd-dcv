@@ -109,6 +109,10 @@
 			  value.each do | individual_partner |
 				%> <%= bull.html_safe %><%= link_to individual_partner[:name], individual_partner[:link] %><br><%
 			  end
+            when :finding_aid
+              value.each do | individual_partner |
+              %> <%= link_to individual_partner[:name], 'http://findingaids.cul.columbia.edu/staging/ead/nnc-rb/ldpd_9489034/dsc/4/' %><%
+              end
 			when :web_archive
 			  %><%= link_to 'IFP Web Archive', value %><%
 			when :ifp_community
