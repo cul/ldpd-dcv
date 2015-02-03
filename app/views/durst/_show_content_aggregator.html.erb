@@ -73,7 +73,7 @@
                 <% if counter == short_display_field_count %>
                   </dl>
                   </div>
-                  <div id="item-long-display-fields" class="hidden">
+                  <div id="item-long-display-fields" class="">
                   <dl class="dl-horizontal">
                 <% end %>
                 <dt class="blacklight-<%= solr_fname.parameterize %>"><%= render_document_show_field_label document, :field => solr_fname %></dt>
@@ -85,9 +85,11 @@
               <%= render_online_and_print_links(document) %>
             </div>
 
+<!--
             <% if counter > short_display_field_count %>
               <div class="aligncenter" style="margin-top:5px;"><a href="#" id="item-long-disply-toggle" class="text-muted small nodec">See More Information <b class="caret"></b></a><hr></div>
             <% end %>
+-->
 
 
         <% end %>
