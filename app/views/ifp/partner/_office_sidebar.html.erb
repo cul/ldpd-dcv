@@ -1,10 +1,12 @@
   <% partner_heading = ifp_partner_data( params[:key] ) %>
+  <% partner_finding_aid_base_url = 'http://findingaids.cul.columbia.edu/staging/ead/nnc-rb/ldpd_9489034/dsc/4/#subseries' %>
+  <% secretariat_finding_aid_base_url = 'http://findingaids.cul.columbia.edu/staging/ead/nnc-rb/ldpd_9489034/dsc/1/#subseries2' %>
   <div class="well well-sm">
   <h6 class="hidden">PARTNER INFORMATION</h6>
   <% partner_data = ifp_office_sidebar_data(params[:key].to_sym) %>
   <% keys_to_display_labels = {
 			office: "Office",
-		  browse_digital_record_pids: "Browse Digital Records",
+			browse_digital_record_pids: "Browse Digital Records",
 			finding_aid: "Finding Aid",
 			web_archive: "Web Archive",
 			ifp_community: "IFP Community",
@@ -23,17 +25,25 @@
 					value.each do | individual_partner |
 								%> <%= bull.html_safe %><%= link_to individual_partner[:name], individual_partner[:link] %><br><%
 					end
+				when :finding_aid
+					value.each do | individual_partner |
+                        if params[:key] == 'secretariat'
+								%> <%= link_to individual_partner[:name], secretariat_finding_aid_base_url %><%
+                        else
+								%> <%= link_to individual_partner[:name], partner_finding_aid_base_url+individual_partner[:id].to_s %><%
+                        end
+					end
 				when :browse_digital_record_pids
 						next if value.blank?
 						value.each_with_index {|pid, index|
-								%><%= link_to 'Browse ' + partner_heading[:heading] + ' Records' + (value.length > 1 ? ' [Part ' + (index+1).to_s + ']' : ''), url_for(controller:controller_name, action: 'show', id: pid) %><%
+								%><%= link_to 'Browse ' + partner_data[:office] + ' Records' + (value.length > 1 ? ' [Part ' + (index+1).to_s + ']' : ''), url_for(controller:controller_name, action: 'show', id: pid) %><%
 						}
 				when :web_archive
 					%><%= link_to 'IFP Web Archive - ' + partner_heading[:heading], value %><%
 				when :ifp_community
 					%><%= link_to 'IFP Legacy Website - ' + partner_heading[:heading], value %><%
 				when :alumni_organization
-					%><%= link_to value, value %><%
+					%><%= link_to partner_heading[:heading] + ' IFP Alumni', value %><%
 				else
 					%><%= value %><%
 				end
