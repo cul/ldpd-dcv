@@ -172,6 +172,12 @@ module Dcv::Catalog::BrowseListBehavior
 			:description => "A companion to \"Core Curriculum: Contemporary Civilization,\" highlights of this exhibition include a papyrus fragment of Homer’s Iliad dating from the 1st century BCE; a copy of Homer’s Works (1517) owned by Martin Luther; Shakespeare’s first folio Works (1623); and Virginia Woolf’s To the Lighthouse (1926)."
 		},
 		{
+			:name => "Cornelius Vander Starr, His Life and Work",
+			:image => 'cornelius_vander_starr.jpg',
+			:external_url => 'http://www.columbia.edu/cgi-bin/cul/resolve?clio11161412',
+			:description => "The photographs in this exhibition are in the possession of The Starr Foundation, and show in a nutshell, the career of Cornelius Vander Starr (1892-1968) who was a prototype of the classic American success story.  Starting from humble beginnings he rose to the top in American business, founding what would become the AIG insurance conglomerate.  What made C.V. Starr stand out in his day was that, starting in Shanghai, China, and subsequently around the world, wherever he founded branches of his various companies, he used local talent to run those companies rather than relying on American managers.  Starr’s commitment to scholarship and a better understanding of Asia eventually led to the establishment of The Starr Foundation which, to this day is supporting those same interests."
+		},
+		{
 			:name => "Cuneiform Digital Library Initiative",
 			:image => 'cuneiform.jpeg',
 			:external_url => 'http://cdli.ucla.edu/collections/columbia/columbia.html',
@@ -383,6 +389,12 @@ module Dcv::Catalog::BrowseListBehavior
 			:image => 'stonewall_and_beyond.jpg',
 			:external_url => 'http://www.columbia.edu/cgi-bin/cul/resolve?AUZ6592',
 			:description => "The online edition of a Columbia University Libraries general exhibition on gay and lesbian history and culture, held from May 25 to September 17, 1994 in conjunction with the international celebration of the twenty-fifth anniversary of the \"Stonewall Riots\" in New York City."
+		},
+		{
+			:name => "Sydney Howard Gay's \"Record of Fugitives\"",
+			:image => 'record_of_fugitives.jpg',
+			:external_url => 'http://www.columbia.edu/cgi-bin/cul/resolve?clio11223783',
+			:description => "In 1855 and 1856, Sydney Howard Gay, a key operative in the underground railroad in New York City, decided for unknown reasons to meticulously record the arrival of fugitive slaves at his office.  The resulting two volumes are a treasure trove of information about how and why slaves escaped, who assisted them, and where they were sent from New York. This website explores this important artifact in detail, displaying the journals in their entirety, and offering additional annotations and analytical commentary by Eric Foner, DeWitt Clinton Professor of History at Columbia University."
 		},
 		{
 			:name => "Tibet Mirror",
