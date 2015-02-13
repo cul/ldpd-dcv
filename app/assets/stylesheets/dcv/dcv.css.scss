@@ -486,6 +486,7 @@ h2[itemprop="name"] {
     .tombstone {
       display:table;
       width:100%;
+      word-wrap:break-word;
       .index-show-tombstone-fields {
         font-size:1em;
         h3 {
