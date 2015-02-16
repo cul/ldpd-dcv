@@ -35,9 +35,13 @@
 					end
 				when :browse_digital_record_pids
 						next if value.blank?
-						value.each_with_index {|pid, index|
-								%><%= link_to 'Browse ' + partner_data[:office] + ' Records' + (value.length > 1 ? ' [Part ' + (index+1).to_s + ']' : ''), url_for(controller:controller_name, action: 'show', id: pid) %><%
-						}
+                        if value == [0]
+                          %>in process<%
+                        else
+							value.each_with_index {|pid, index|
+									%><%= link_to 'Browse ' + partner_data[:office] + ' Records' + (value.length > 1 ? ' [Part ' + (index+1).to_s + ']' : ''), url_for(controller:controller_name, action: 'show', id: pid) %><%
+							}
+                        end
 				when :web_archive
 					%><%= link_to 'IFP Web Archive - ' + partner_heading[:heading], value %><%
 				when :ifp_community
