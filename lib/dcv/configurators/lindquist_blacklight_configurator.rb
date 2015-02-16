@@ -9,7 +9,7 @@ class Dcv::Configurators::LindquistBlacklightConfigurator
     config.show.route = { controller: 'lindquist' }
 
     config.default_solr_params = {
-      :fq => 'lib_project_short_ssim:"G.E.E. Lindquist Native American Photographs"',
+      :fq => ['lib_project_short_ssim:"G.E.E. Lindquist Native American Photographs"', '-active_fedora_model_ssi:GenericResource'],
       :qt => 'search',
       :rows => 20
     }

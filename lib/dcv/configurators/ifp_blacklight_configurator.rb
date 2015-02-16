@@ -9,7 +9,11 @@ class Dcv::Configurators::IfpBlacklightConfigurator
     config.show.route = { controller: 'ifp' }
 
     config.default_solr_params = {
-      :fq => 'lib_project_short_ssim:"Jay Papers"',
+      :fq => [
+        'publisher_ssim:"info:fedora/cul:rfj6q573w6"', # Include content published to the public IFP site
+        'active_fedora_model_ssi:GenericResource', # Only include GenericResources in searches
+        '-dc_type_sim:FileSystem' # Ignore FileSystem resources in searches
+      ],
       :qt => 'search',
       :rows => 20
     }
@@ -41,10 +45,9 @@ class Dcv::Configurators::IfpBlacklightConfigurator
 
     config.add_facet_fields_to_solr_request! # Required for facet queries
 
-    config.add_facet_field ActiveFedora::SolrService.solr_name('lib_name', :facetable), :label => 'Name', :limit => 10, :sort => 'count'
-    config.add_facet_field ActiveFedora::SolrService.solr_name('lib_format', :facetable), :label => 'Format', :limit => 10, :sort => 'count'
+    config.add_facet_field ActiveFedora::SolrService.solr_name('contributor', :symbol), :label => 'Office', :limit => 10, :sort => 'count'
+    config.add_facet_field ActiveFedora::SolrService.solr_name('dc_type', :facetable), :label => 'Resource Type', :limit => 10, :sort => 'count'
 
-    config.add_facet_field ActiveFedora::SolrService.solr_name('lc1_letter', :facetable), :label => 'Call Number', :sort => 'count'
 
     # Have BL send all facet field names to Solr, which has been the default
     # previously. Simply remove these lines if you'd rather use Solr request
@@ -101,30 +104,30 @@ class Dcv::Configurators::IfpBlacklightConfigurator
     # or can be specified manually to be different.
 
     # All Text search configuration, used by main search pulldown.
-    config.add_search_field ActiveFedora::SolrService.solr_name('all_text', :searchable, type: :text) do |field|
-      field.label = 'All Fields'
+    config.add_search_field ActiveFedora::SolrService.solr_name('fulltext', :searchable, type: :text) do |field|
+      field.label = 'Fulltext'
       field.default = true
       field.solr_parameters = {
-        :qf => [ActiveFedora::SolrService.solr_name('all_text', :searchable, type: :text)],
-        :pf => [ActiveFedora::SolrService.solr_name('all_text', :searchable, type: :text)]
+        :qf => [ActiveFedora::SolrService.solr_name('fulltext', :searchable, type: :text)],
+        :pf => [ActiveFedora::SolrService.solr_name('fulltext', :searchable, type: :text)]
       }
     end
 
-    config.add_search_field ActiveFedora::SolrService.solr_name('search_title_info_search_title', :searchable, type: :text) do |field|
-      field.label = 'Title'
-      field.solr_parameters = {
-        :qf => [ActiveFedora::SolrService.solr_name('title', :searchable, type: :text)],
-        :pf => [ActiveFedora::SolrService.solr_name('title', :searchable, type: :text)]
-      }
-    end
-
-    config.add_search_field ActiveFedora::SolrService.solr_name('lib_name', :searchable, type: :text) do |field|
-      field.label = 'Name'
-      field.solr_parameters = {
-        :qf => [ActiveFedora::SolrService.solr_name('lib_name', :searchable, type: :text)],
-        :pf => [ActiveFedora::SolrService.solr_name('lib_name', :searchable, type: :text)]
-      }
-    end
+    #config.add_search_field ActiveFedora::SolrService.solr_name('search_title_info_search_title', :searchable, type: :text) do |field|
+    #  field.label = 'Title'
+    #  field.solr_parameters = {
+    #    :qf => [ActiveFedora::SolrService.solr_name('title', :searchable, type: :text)],
+    #    :pf => [ActiveFedora::SolrService.solr_name('title', :searchable, type: :text)]
+    #  }
+    #end
+    #
+    #config.add_search_field ActiveFedora::SolrService.solr_name('lib_name', :searchable, type: :text) do |field|
+    #  field.label = 'Name'
+    #  field.solr_parameters = {
+    #    :qf => [ActiveFedora::SolrService.solr_name('lib_name', :searchable, type: :text)],
+    #    :pf => [ActiveFedora::SolrService.solr_name('lib_name', :searchable, type: :text)]
+    #  }
+    #end
 
     # "sort results by" select (pulldown)
     # label in pulldown is followed by the name of the SOLR field to sort by and

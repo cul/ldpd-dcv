@@ -2,14 +2,14 @@ module Dcv::Catalog::SearchParamsLogicBehavior
   extend ActiveSupport::Concern
 
   included do
-    self.solr_search_params_logic += [:file_assets_filter, :date_range_filter, :lat_long_filter, :multiselect_facet_feature]
+    self.solr_search_params_logic += [:date_range_filter, :lat_long_filter, :multiselect_facet_feature]
   end
 
-  def file_assets_filter(solr_parameters, user_parameters)
-    unless user_parameters[:show_file_assets] == 'true'
-      solr_parameters[:fq] << '-active_fedora_model_ssi:GenericResource'
-    end
-  end
+  #def file_assets_filter(solr_parameters, user_parameters)
+  #  unless user_parameters[:show_file_assets] == 'true'
+  #    solr_parameters[:fq] << '-active_fedora_model_ssi:GenericResource'
+  #  end
+  #end
 
   def date_range_filter(solr_parameters, user_parameters)
 

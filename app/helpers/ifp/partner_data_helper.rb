@@ -568,7 +568,7 @@ module Ifp::PartnerDataHelper
 		},
 		thailand: {
 			:office => "Thailand",
-			:browse_digital_record_pids => 0,
+			:browse_digital_record_pids => ["ldpd:495325"],
 			:finding_aid => [{ :name => "Link to series IV.20", :id => 58 }],
 			:web_archive => "https://archive-it.org/collections/2766;?fc=websiteGroup%3AFord+Foundation+International+Fellowship+Program&fc=meta_Coverage%3AThailand",
 			:ifp_community => "http://www.fordifp.org/thailand/Home.aspx",
