@@ -364,6 +364,8 @@ footer {
 }
 #content .document {
 	&.list-view {
+        margin-bottom:1em;
+        min-height:inherit;
 		border-color:#ccc;
 	}
 	.thumbnail, .tombstone {
