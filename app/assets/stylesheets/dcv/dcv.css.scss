@@ -457,6 +457,13 @@ h2[itemprop="name"] {
 #content .document {
   margin-bottom:1.55em;
 
+	.fulltext-snippet {
+		font-size:.9em;
+		code {
+			background: #ffff33;
+		}
+	}
+
   .tombstone {
     height:100%;
     font-size:1em;
@@ -933,4 +940,4 @@ h2[itemprop="name"] {
 
 .table-striped > tbody > tr:nth-child(odd) > td, .table-striped > tbody > tr:nth-child(odd) > th {
   background-color: lighten(#000000, 15%);
-} 
+}

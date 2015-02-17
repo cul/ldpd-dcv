@@ -12,6 +12,12 @@
 			<h3 class="index_title ellipsis"><%= t('blacklight.search.documents.counter', :counter => counter_in_results) %><%= link_to_document(document, :counter => counter_in_results) %></h3>
 			<%= render :partial => 'catalog/index_default', :locals => {:document => document } %>
 			<%= render :partial => 'catalog/schema_org_document_metadata', :locals => {:document => document } %>
+			<% if document.solr_response['highlighting'].present? && document.solr_response['highlighting'][document['id']].present? && document.solr_response['highlighting'][document['id']]['fulltext_tesim'].present? %>
+				<% snippet = document.solr_response['highlighting'][document['id']]['fulltext_tesim'].map{|line| line.strip}.join('&hellip;').strip %>
+				<div class="fulltext-snippet">
+					&hellip;<%= snippet.gsub(/^(&nbsp;|\s)+/, '').gsub(/(&nbsp;|\s)+$/, '').html_safe %>&hellip;
+				</div>
+			<% end %>
 		</div>
 		<div class="clearfix"></div>
   </div>
