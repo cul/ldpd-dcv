@@ -45,6 +45,19 @@ module ShowFieldDisplayFieldHelper
     return link_to(url_value, url_value)
   end
 
+  def file_size_formatter(args)
+    size_in_bytes = args[:document][args[:field]][0].to_i
+    if size_in_bytes > 1000000000
+      return (size_in_bytes/1000000000).to_s + ' GB'
+    elsif size_in_bytes > 1000000
+      return (size_in_bytes/1000000).to_s + ' MB'
+    elsif size_in_bytes > 1000
+      return (size_in_bytes/1000).to_s + ' kB'
+    else
+      return (size_in_bytes).to_s + ' B'
+    end
+  end
+
 
 
 
