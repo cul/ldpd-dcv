@@ -72,3 +72,5 @@
     :foaf_zooming: zoomingImage
   http://www.w3.org/1999/02/22-rdf-syntax-ns#:
     :rdf_type: type
+  http://www.loc.gov/premis/rdf/v1#:
+    :original_name: hasOriginalName
