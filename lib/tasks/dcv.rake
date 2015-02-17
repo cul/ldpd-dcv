@@ -17,7 +17,7 @@ namespace :dcv do
           end
         end
       end
-      pids << ENV['pid'] if ENV['pid']
+      pids.concat ENV['pid'].split(',') if ENV['pid']
       Rails.logger.level = Logger::INFO
       len = pids.length
       current = 0
