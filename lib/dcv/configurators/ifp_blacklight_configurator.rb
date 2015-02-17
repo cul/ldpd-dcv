@@ -113,8 +113,8 @@ class Dcv::Configurators::IfpBlacklightConfigurator
       field.label = 'Fulltext'
       field.default = true
       field.solr_parameters = {
-        :qf => ['fulltext_tesim'],
-        :pf => ['fulltext_tesim']
+        :qf => ['original_name_tesim^10.0','fulltext_tesim^1.0'],
+        :pf => ['original_name_tesim^100.0','fulltext_tesim^10.0']
       }
     end
 
