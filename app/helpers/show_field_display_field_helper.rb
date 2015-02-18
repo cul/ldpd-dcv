@@ -47,12 +47,13 @@ module ShowFieldDisplayFieldHelper
 
   def dirname_prefixed_with_slash(args)
     path = args[:document][args[:field]][0]
-    if path.start_with?('/')
-      return File.dirname(path)
-    else
-      return '/' + File.dirname(path)
-    end
 
+    path = '/' + path unless path.start_with?('/')
+
+    dirname = File.dirname(path)
+    dirname = '/' if dirname == '.'
+
+    return dirname
   end
 
 
