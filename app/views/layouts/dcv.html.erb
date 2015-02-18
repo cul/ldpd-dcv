@@ -3,7 +3,7 @@
   <head>
 		<%= render partial: 'shared/head_html' %>
   </head>
-  <body class="<%= render_body_class %> dcv <%= params[:action] %>" style="padding-top: 50px;">
+  <body class="<%= render_body_class %> dcv <%= render_subsite_body_classes %> <%= params[:action] %>" style="padding-top: 50px;">
 
   <%= render :partial => 'shared/topnavbar' %>
 

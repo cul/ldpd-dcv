@@ -1,12 +1,11 @@
-<% subsite_key = 'durst' %>
 <!DOCTYPE html>
 <html lang="en" class="no-js">
   <head>
 		<%= render partial: 'shared/head_html' %>
-		<%= stylesheet_link_tag subsite_key %>
-		<%= javascript_include_tag subsite_key %>
+		<%= stylesheet_link_tag subsite_layout %>
+		<%= javascript_include_tag subsite_layout %>
   </head>
-  <body class="<%= render_body_class %> <%= subsite_key %> <%= params[:action] %>" style="padding-top: 50px;">
+  <body class="<%= render_body_class %> <%= render_subsite_body_classes %> <%= params[:action] %>" style="padding-top: 50px;">
 
   <%= render :partial => 'shared/topnavbar' %>
 
@@ -52,7 +51,7 @@
 									line-height: 0;
 									margin-top: -6px;
 									padding-right: 22px;
-									padding-left: 22px;" 
+									padding-left: 22px;"
 									data-toggle="dropdown"><i class="glyphicon glyphicon-info-sign"></i><b class="caret"></b></a>
 								<ul class="dropdown-menu">
 									<li><a href="#">About the collection</a></li>

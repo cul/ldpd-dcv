@@ -58,3 +58,11 @@ DLC VERSION: <%= render :file => Rails.root.to_s+'/VERSION' %> -->
 		ga('send', 'pageview');
 	</script>
 <% end %>
+
+<% if controller.is_a?(SubsitesController) %>
+<script>
+	window.DCV = window.DCV || {};
+	DCV.subsite_key = '<%= subsite_key %>';
+	DCV.subsite_layout = '<%= subsite_layout %>';
+</script>
+<% end %>

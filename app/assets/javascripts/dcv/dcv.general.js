@@ -1,7 +1,5 @@
 $(function() {
 
-  DCV.SearchResults.setCookieDefaults();
-
   // quick hack to get openseadragon height to be viewport height
   $('#zoom-content').height($(window).height()-120);
   /* rand banner img */
@@ -24,16 +22,6 @@ $(function() {
   $('body').on('click', '.tocontent', function() {
     $('body,html').animate({ scrollTop: $('#content').offset().top - $('#topnavbar').height() }, 500, 'swing');
     return false;
-  });
-  $('body').on('click', '#list-mode', function() {
-      DCV.SearchResults.setSearchMode('list');
-  });
-  $('body').on('click', '#grid-mode', function() {
-    DCV.SearchResults.setSearchMode('grid');
-  });
-
-  $('body').on('click', '#date-graph-toggle', function() {
-    DCV.SearchResults.toggleSearchDateGraphVisibility();
   });
 
   $('#search-navbar').find('.reset-btn').hover(function() {
@@ -71,18 +59,6 @@ $(function() {
   // need better solution
   //$('.child-scroll').niceScroll({cursorminheight: "46", cursorcolor:"#111", cursorborder:"1px solid #ccc", autohidemode: false, cursorborderradius: "2px", cursorwidth: "8"});
 
-  //If we're on the search result page...
-  if($('#search-result-container').length > 0) {
-    DCV.SearchResults.setSearchMode(readCookie(DCV.SearchResults.CookieNames.searchMode));
-    DCV.SearchResults.setSearchDateGraphVisibility(readCookie(DCV.SearchResults.CookieNames.searchDateGraphVisiblity));
-  }
-
-  //If we're on the home page
-  if($('#search-result-container').length > 0) {
-    DCV.SearchResults.setSearchMode(readCookie(DCV.SearchResults.CookieNames.searchMode));
-    DCV.SearchResults.setSearchDateGraphVisibility(readCookie(DCV.SearchResults.CookieNames.searchDateGraphVisiblity));
-  }
-
 });
 
 //** CULTNBW START **/
@@ -91,75 +67,6 @@ $(function() {
   CULh_nobs = 1; // uncomment to NOT load our bootstrap javascript file and or use your own (v2.3.x required)
 //** /CULTNBW END **/
 
-
-
-/*********************
- * Search Results *
- *********************/
-DCV.SearchResults = {};
-
-DCV.SearchResults.CookieNames = {};
-DCV.SearchResults.CookieNames.searchMode = 'search_mode';
-DCV.SearchResults.CookieNames.searchDateGraphVisiblity = 'search_date_graph_visibility';
-
-DCV.SearchResults.setCookieDefaults = function() {
-  //Do not show date graph by default
-  if (readCookie(DCV.SearchResults.CookieNames.searchDateGraphVisiblity) == null) {
-    createCookie(DCV.SearchResults.CookieNames.searchDateGraphVisiblity, 'hide', 1);
-  }
-  //Start in grid mode by default
-  if (readCookie(DCV.SearchResults.CookieNames.searchMode) == null) {
-    createCookie(DCV.SearchResults.CookieNames.searchMode, 'grid', 1);
-  }
-};
-
-DCV.SearchResults.setSearchMode = function(searchMode) {
-  $('.result-type-button').removeClass('btn-success').addClass('btn-default');
-
-  if (searchMode == 'grid') {
-      $('#content .document').removeClass('col-sm-12').removeClass('list-view');
-      $('#content .document').find('h3').addClass('ellipsis');
-      $('#content .document .tombstone').removeClass('row');
-      //$('#content .col-sm-3').find('[data-lv="lv"]').contents().unwrap();
-      $('#content .document .thumbnail').removeClass('col-sm-2');
-      $('#content .index-show-list-fields').addClass('hidden');
-      $('#content .index-show-tombstone-fields').removeClass('hidden');
-      $('#grid-mode').addClass('btn-success');
-      createCookie(DCV.SearchResults.CookieNames.searchMode, 'grid', 1);
-  } else if (searchMode == 'list') {
-      $('#content .document').addClass('col-sm-12').addClass('list-view');
-      $('#content .document').find('h3').removeClass('ellipsis');
-      //$('#content .col-sm-3 .tombstone').addClass('row').wrapInner('<div data-lv="lv" class="col-sm-12" />');
-      $('#content .document .thumbnail').addClass('col-sm-2');
-      $('#content .index-show-tombstone-fields').addClass('hidden');
-      $('#content .index-show-list-fields').removeClass('hidden');
-      $('#list-mode').addClass('btn-success');
-      createCookie(DCV.SearchResults.CookieNames.searchMode, 'list', 1);
-  } else {
-    //alert('Invalid search mode: ' + searchMode);
-  }
-}
-
-DCV.SearchResults.setSearchDateGraphVisibility = function(showOrHide) {
-  if (showOrHide == 'hide') {
-    $('#search-results-date-graph').addClass('hidden');
-    $('#date-graph-toggle').addClass('btn-default').removeClass('btn-success');
-    createCookie(DCV.SearchResults.CookieNames.searchDateGraphVisiblity, showOrHide, 1);
-  } else {
-    $('#search-results-date-graph').removeClass('hidden');
-    DCV.DateRangeGraphSelector.resizeCanvas();
-    $('#date-graph-toggle').addClass('btn-success').removeClass('btn-default');
-    createCookie(DCV.SearchResults.CookieNames.searchDateGraphVisiblity, showOrHide, 1);
-  }
-}
-
-DCV.SearchResults.toggleSearchDateGraphVisibility = function() {
-  if($('#search-results-date-graph').hasClass('hidden')) {
-    DCV.SearchResults.setSearchDateGraphVisibility('show');
-  } else {
-    DCV.SearchResults.setSearchDateGraphVisibility('hide');
-  }
-}
 
 /**************
  * Proj Modal *
@@ -302,13 +209,14 @@ DCV.ZoomingImageModal.getCurrentZoomUrl = function() {
 function createCookie(name, value, days) {
     var expires;
 
-    if (days) {
-        var date = new Date();
-        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-        expires = "; expires=" + date.toGMTString();
-    } else {
-        expires = "";
+    if (!days) {
+      days = 2000;
     }
+
+    var date = new Date();
+    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+    expires = "; expires=" + date.toGMTString();
+
     document.cookie = escape(name) + "=" + escape(value) + expires + "; path=/";
 }
 
