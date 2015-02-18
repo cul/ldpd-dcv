@@ -26,6 +26,9 @@ namespace :util do
 				'ldpd:495021' => 'South Africa',
 				'ldpd:495324' => 'Thailand',
 				'ldpd:493860' => 'Chile and Peru',
+				'ldpd:497042' => 'Kenya',
+				'ldpd:496363' => 'Senegal',
+				'ldpd:495804' => 'Ghana'
 			}
 
 			office_name = ifp_pid_to_office_mapping[pid]
@@ -36,23 +39,27 @@ namespace :util do
 			end
 
 			Cul::Scv::Hydra::Indexer.descend_from(pid, nil, false) do |pid|
-				obj = ActiveFedora::Base.find(pid)
+				begin
+					obj = ActiveFedora::Base.find(pid)
 
-				# Add project
-				obj.clear_relationship(:is_constituent_of)
-				obj.add_relationship(:is_constituent_of, 'info:fedora/cul:7d7wm37q33')
+					# Add project
+					obj.clear_relationship(:is_constituent_of)
+					obj.add_relationship(:is_constituent_of, 'info:fedora/cul:7d7wm37q33')
 
-				# Add publish target, unless this is a BagAggregator
-				unless obj.is_a?(BagAggregator)
-					obj.clear_relationship(:publisher)
-					obj.add_relationship(:publisher, 'info:fedora/cul:rfj6q573w6') # public publish target
-					obj.add_relationship(:publisher, 'info:fedora/cul:xwdbrv15p4') # private publish target
+					# Add publish target, unless this is a BagAggregator
+					unless obj.is_a?(BagAggregator)
+						obj.clear_relationship(:publisher)
+						obj.add_relationship(:publisher, 'info:fedora/cul:rfj6q573w6') # public publish target
+						obj.add_relationship(:publisher, 'info:fedora/cul:xwdbrv15p4') # private publish target
+					end
+
+					# Add Office Name as string literal
+					obj.clear_relationship(:contributor)
+					obj.add_relationship(:contributor, office_name, true)
+					obj.save
+				rescue Exception => e
+					puts "Encountered problem with #{pid}.  Skipping record.  Exception: #{e.message}"
 				end
-
-				# Add Office Name as string literal
-				obj.clear_relationship(:contributor)
-				obj.add_relationship(:contributor, office_name, true)
-				obj.save
 			end
 
     end

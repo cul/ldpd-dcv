@@ -443,7 +443,7 @@ module Ifp::PartnerDataHelper
 		},
 		ghana: {
 			:office => "Ghana",
-			:browse_digital_record_pids => 0,
+			:browse_digital_record_pids => ['ldpd:495805'],
 			:finding_aid => [{ :name => "Link to series IV.5", :id => 13 }],
 			:ifp_community => "http://www.fordifp.org/Ghana/en-us/home.aspx",
 			:ifp_partners => [{ :name => "Association of African Universities", :link => "http://www.aau.org" }]
@@ -476,7 +476,7 @@ module Ifp::PartnerDataHelper
 		},
 		kenya: {
 			:office => "Kenya",
-			:browse_digital_record_pids => 0,
+			:browse_digital_record_pids => ['ldpd:497043'],
 			:finding_aid => [{ :name => "Link to series IV.9", :id => 25 }],
 			:web_archive => "https://archive-it.org/collections/2766;?fc=websiteGroup%3AFord+Foundation+International+Fellowship+Program&fc=meta_Coverage%3AKenya",
 			:ifp_community => "http://www.fordifp.org/kenya/Home.aspx",
@@ -542,7 +542,7 @@ module Ifp::PartnerDataHelper
 		},
 		senegal: {
 			:office => "Senegal",
-			:browse_digital_record_pids => 0,
+			:browse_digital_record_pids => ['ldpd:496364'],
 			:finding_aid => [{ :name => "Link to series IV.17", :id => 49 }],
 			:web_archive => "https://archive-it.org/collections/2766;?fc=websiteGroup%3AFord+Foundation+International+Fellowship+Program&fc=meta_Coverage%3ASenegal",
 			:ifp_community => "http://www.fordifp.org/Senegal/en-us/home.aspx",
