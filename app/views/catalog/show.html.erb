@@ -3,8 +3,7 @@
 	<div id="content" class="<%= @document.more_like_this.empty? ? 'col-md-12' : 'col-md-9' %> show-document">
 
 	<div id="item-show">
-
-		  <%= render 'previous_next_doc' %>
+		  <%= render 'previous_next_doc' unless @document['dc_type_ssm'].present? && @document['dc_type_ssm'].first == 'FileSystem' %>
 
 			<% @page_title = t('blacklight.search.show.title', :document_title => document_show_html_title, :application_name => application_name).html_safe -%>
 			<% content_for(:head) { render_link_rel_alternates } -%>

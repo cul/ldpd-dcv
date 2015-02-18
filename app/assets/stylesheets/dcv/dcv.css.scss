@@ -459,8 +459,11 @@ h2[itemprop="name"] {
 
 	.fulltext-snippet {
 		font-size:.9em;
-		code {
+		.highlight {
 			background: #ffff33;
+			color:#c72048;
+			padding:2px 3px 1px;
+			border-radius:3px;
 		}
 	}
 

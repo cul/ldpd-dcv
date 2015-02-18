@@ -21,8 +21,8 @@ class Dcv::Configurators::IfpBlacklightConfigurator
       :'hl.fragsize'    => 300,
       :'hl.usePhraseHighlighter' => true,
       :'hl.maxAnalyzedChars' => 1000000,
-      :'hl.simple.pre'  => '<code>',
-      :'hl.simple.post' => '</code>',
+      :'hl.simple.pre'  => '<span class="highlight">',
+      :'hl.simple.post' => '</span>',
     }
 
     config.per_page = [20,60,100]
@@ -67,9 +67,8 @@ class Dcv::Configurators::IfpBlacklightConfigurator
     # solr fields to be displayed in the index (search results) view
     #   The ordering of the field names is the order of the display
     #config.add_index_field ActiveFedora::SolrService.solr_name('title_display', :displayable, type: :string), :label => 'Title'
+    config.add_index_field ActiveFedora::SolrService.solr_name('original_name', :symbol), :label => 'Folder Path', :helper_method => :dirname_prefixed_with_slash
     config.add_index_field ActiveFedora::SolrService.solr_name('contributor', :symbol, type: :string), :label => 'Office'
-    config.add_index_field ActiveFedora::SolrService.solr_name('extent', :symbol), :label => 'File Size', :helper_method => :file_size_formatter
-    #config.add_index_field ActiveFedora::SolrService.solr_name('lib_item_in_context_url', :displayable, type: :string), :label => 'Item in Context', :helper_method => :link_to_url_value
 
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display
