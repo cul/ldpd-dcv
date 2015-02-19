@@ -9,6 +9,7 @@ all_environments: &all_environments
       layout: 'durst'
     ifp:
       layout: 'ifp'
+      show_original_file_download: true
     lindquist:
       layout: 'lindquist'
   restricted:

@@ -8,7 +8,24 @@
           <img alt="" class="img-responsive" src="<%= get_asset_url(id: document[:id], type: 'scaled', size: 256, format: 'png') %>" />
         </div>
         <div id="file-download-and-info" class="aligncenter">
-          <%= link_to '<span class="glyphicon glyphicon-download"></span> Download'.html_safe, bytestream_content_url({catalog_id: document['id'], filename: document['label_ssi'], bytestream_id: 'content'}), class: 'btn btn-primary btn-sm' %>
+          <% if controller.subsite_config['show_original_file_download'] %>
+            <%= link_to '<span class="glyphicon glyphicon-download"></span> Download Original'.html_safe, bytestream_content_url({catalog_id: document['id'], filename: document['label_ssi'], bytestream_id: 'content', download: true}), class: 'btn btn-primary btn-sm' %>
+
+            <!--
+            <div class="dropdown">
+              <button class="btn btn-default dropdown-toggle" type="button" id="resource-downloads" data-toggle="dropdown" aria-expanded="true">
+                <span class="glyphicon glyphicon-download"></span>
+                Download
+                <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu textalignleft" role="menu" aria-labelledby="resource-downloads">
+                <% resources_as_list_items(document, "").each do |item| %>
+                  <%= item %>
+                <% end %>
+              </ul>
+            </div>
+            -->
+          <% end %>
           <%= '<h5 class="border-bottom">Size</h5> '.html_safe + byte_size_to_text_string(document['extent_ssim'].first.to_i) if document['extent_ssim'].present? %>
           <%= '<h5 class="border-bottom">MIME Type</h5> '.html_safe + document['dc_format_ssm'].first if document['dc_format_ssm'].present? %>
         </div>

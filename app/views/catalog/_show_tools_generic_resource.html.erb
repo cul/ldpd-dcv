@@ -5,9 +5,5 @@
 <div class="btn-group btn-group-xs">
   <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" title="Download file"><i class="glyphicon glyphicon-download"></i> <span class="caret"></span>
       <span class="sr-only">Toggle Dropdown</span></button>
-  <ul class="dropdown-menu dropdown-menu-right" role="menu">
-  <% resources_as_list_items(document, "").each do |item| -%>
-    <%= item %>
-  <% end -%>
-  </ul>
+  <ul id="downloads-list" class="dropdown-menu dropdown-menu-right" role="menu"></ul>
 </div>

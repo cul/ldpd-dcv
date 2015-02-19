@@ -84,22 +84,6 @@ function handleImageChange(event) {
   });
 }
 
-//function loadByteStreams(bsUrl, handler) {
-//  if (!$.bytestreams) $.bytestreams = {};
-//  if ($.bytestreams[bsUrl]) {
-//    if (handler) handler.call(this,$.bytestreams[bsUrl]);
-//  } else {
-//    $.ajax({
-//      dataType: "json",
-//      url: bsUrl,
-//      success: function(data){
-//        $.bytestreams[bsUrl] = data;
-//        if (handler) handler.call(this,data);
-//      }
-//    });
-//  }
-//}
-
 function favoriteChild(child) {
   var screenUrl = $(child).attr('href');
   var screenImg = $('#favorite-child img').first();

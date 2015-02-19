@@ -65,9 +65,9 @@ class BytestreamsController < ApplicationController
     ds = Cul::Scv::Fedora.ds_for_opts(ds_parms)
     size = params[:file_size] || params['file_size']
     size ||= ds.dsSize
-    label = ds.dsLabel.split('/').last
+    label = ds.dsLabel.present? ? ds.dsLabel.split('/').last : 'file'
     if label
-      response.headers["Content-Disposition"] = "filename=#{label}"
+      response.headers["Content-Disposition"] = (params['download'].to_s == 'true' ? 'attachment; ' : '') + "filename=#{label}"
     end
     ###########################
     if size and size.to_i > 0
