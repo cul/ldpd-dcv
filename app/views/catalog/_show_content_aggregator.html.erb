@@ -20,7 +20,7 @@
     </div>
   <% end %>
 
-  <div class="<%= is_filesystem_view ? 'col-md-12' : 'col-md-9' %>">
+  <div class="<%= is_filesystem_view ? 'col-md-12 filesystem' : 'col-md-9' %>">
    <div class="inner">
      <h3 id="doc-item-title" class="nomar"><%= document_show_html_title %></h3>
      <% if ct = structured_children.first %>
