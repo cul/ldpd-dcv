@@ -15,13 +15,14 @@
 
 			<% snippet = '' %>
 			<% if document.solr_response['highlighting'].present? && document.solr_response['highlighting'][document['id']].present? %>
-				<% if document.solr_response['highlighting'][document['id']]['original_name_tesim'].present? %>
-					<% snippet += document.solr_response['highlighting'][document['id']]['original_name_tesim'].map{|line| line.strip}.join('&hellip;').strip %>
-				<% end %>
-				<% if document.solr_response['highlighting'][document['id']]['fulltext_tesim'].present? %>
-					<% snippet += 'hellip' if snippet.present? %>
-					<% snippet += document.solr_response['highlighting'][document['id']]['fulltext_tesim'].map{|line| line.strip}.join('&hellip;').strip %>
-				<% end %>
+				<%
+					document.solr_response['highlighting'][document['id']].each do |key, arr_value|
+						if snippet.present?
+							snippet += '&hellip;'
+						end
+						snippet += arr_value.join('&hellip;') if arr_value.present?
+					end
+				%>
 			<% end %>
 			<% if snippet.present? %>
 				<div class="fulltext-snippet">

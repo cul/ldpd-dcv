@@ -17,7 +17,7 @@ class Dcv::Configurators::IfpBlacklightConfigurator
       :qt => 'search',
       :rows => 20,
       :'hl' => true,
-      :'hl.fl' => 'fulltext_tesim',
+      :'hl.fl' => 'original_name_tesim,fulltext_tesim',
       :'hl.fragsize'    => 300,
       :'hl.usePhraseHighlighter' => true,
       :'hl.maxAnalyzedChars' => 1000000,
