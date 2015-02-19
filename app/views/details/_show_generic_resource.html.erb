@@ -8,5 +8,11 @@
 </div>
 <% end %>
 <div id="children-links" style="visibility: hidden;">
-    <a rel="child" data-src="<%= catalog_url(id: params[:id]) %>.json" data-id="<%=params[:id]%>" data-info-url="<%= get_resolved_asset_info_url(id: params[:id], image_format: 'png') %>" data-bytestreams="<%= bytestreams_path(catalog_id: params[:id], :format=>'json') %>" data-rftId="<%= document['rft_id_ss'] -%>"></a>
+    <a rel="child"
+		data-src="<%= catalog_url(id: CGI.escape(params[:id])) %>.json"
+		data-id="<%=params[:id]%>"
+		data-zoom-info-url="<%= get_iiif_zoom_info_url(id: params[:id]) %>"
+		data-info-url="<%= get_asset_info_url(id: params[:id], image_format: 'png') %>"
+		data-bytestreams="<%= bytestreams_path(catalog_id: params[:id], :format=>'json') %>"
+		data-rftId="<%= document['rft_id'] -%>"></a>
 </div>

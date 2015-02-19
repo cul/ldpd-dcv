@@ -712,12 +712,12 @@ h2[itemprop="name"] {
 #child_items .dl-vertical dd {
   margin-left:1em;
 }
-#child_items #doc-item-title {
+#doc-item-title {
+	margin:0;
   font-size:18px;
 }
 #favorite-child {
   max-height:600px;
-  margin-bottom:1em;
   text-align:center;
 	padding-left:35px;
 	padding-right:35px;
@@ -943,4 +943,46 @@ h2[itemprop="name"] {
 
 .table-striped > tbody > tr:nth-child(odd) > td, .table-striped > tbody > tr:nth-child(odd) > th {
   background-color: lighten(#000000, 15%);
+}
+
+#show-generic-resource {
+
+    .inner {
+        border-color:#bbb;
+    }
+
+    .dl-horizontal {
+        word-break: break-word;
+    }
+
+    #sidebar-thumb {
+        margin:.5em 0;
+        padding:0 1em;
+
+        img {
+            margin:0 auto;
+        }
+
+        #file-download-and-info {
+            margin-top:1em;
+
+            .border-bottom {
+                padding-bottom:.5em;
+                margin-bottom:.5em;
+                margin-top:1em;
+                border-bottom:1px solid #ccc;
+            }
+        }
+    }
+
+    #generic-resource-title {
+        margin-bottom:1em;
+    }
+
+    #generic-resource-content {
+        margin-bottom:1em;
+        #favorite-child {
+            padding:1em 0;
+        }
+    }
 }

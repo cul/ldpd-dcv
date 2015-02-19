@@ -2,7 +2,6 @@
 <html lang="en" class="no-js">
   <head>
     <%= render partial: 'shared/head_html' %>
-    <%= stylesheet_link_tag 'dcv' %>
   </head>
   <body class="<%= render_body_class %> blacklight-dcv dcv <%= params[:action] %>" onload="initTiles(<%= params[:initial_page] if params[:initial_page] %>);">
 
