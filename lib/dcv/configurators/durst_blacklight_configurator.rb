@@ -9,7 +9,10 @@ class Dcv::Configurators::DurstBlacklightConfigurator
     config.show.route = { controller: 'durst' }
 
     config.default_solr_params = {
-      :fq => ['lib_project_short_ssim:"Durst"','-active_fedora_model_ssi:GenericResource'],
+      :fq => [
+        'is_constituent_of_ssim:"info:fedora/cul:7h44j0zpcs"', # Include content in the Durst Project
+        '-active_fedora_model_ssi:GenericResource', # Do not include GenericResources in searches
+      ],
       :qt => 'search',
       :rows => 20
     }

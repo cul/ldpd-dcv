@@ -9,7 +9,8 @@ class Dcv::Configurators::DcvBlacklightConfigurator
     config.default_solr_params = {
       :fq => [
         '-active_fedora_model_ssi:GenericResource', # Don't show GenericResources in search results
-        '-is_constituent_of_ssim:"info:fedora/cul:7d7wm37q33"' # Don't include IFP project content in search results
+        '-is_constituent_of_ssim:"info:fedora/cul:7d7wm37q33"', # Don't include IFP project content in search results
+        '-is_constituent_of_ssim:"info:fedora/cul:7h44j0zpcs"' # Don't include Durst project content in search results
       ],
       :qt => 'search',
       :rows => 20
