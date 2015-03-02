@@ -1,5 +1,9 @@
 module Durst::FieldFormatterHelper
 
+	def capitalize_values(value)
+		return value.capitalize
+  end
+
 	def render_online_and_print_links(document, as_dl=true)
 
     urls = document['location_url_ssm'] || []

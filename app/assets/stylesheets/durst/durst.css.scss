@@ -104,6 +104,11 @@ footer {
     border-color:#bbb;
 }
 #main-container {
+
+    .thumbnail {
+        background-color:#fff;
+    }
+
     padding-top:1.3em;
     .inner {
         padding:1em;
@@ -346,7 +351,13 @@ footer {
     background-color: rgba(0,0,0,.2);
 }
 #child_gallery {
+    .document img {
+        max-height:150px;
+    }
+
     background-color:transparent;
+    border-color:#aaa;
+    border-bottom:0;
 }
 .carousel-inner > .item > img, .carousel-inner > .item > a > img {
     position:relative;
@@ -390,4 +401,3 @@ border-bottom: 4px solid;
 border-left: 4px solid transparent;
 content: "";
 }
-

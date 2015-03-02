@@ -10,6 +10,7 @@ class Dcv::Configurators::DurstBlacklightConfigurator
 
     config.default_solr_params = {
       :fq => [
+        'object_state_ssi:A', # Active items only
         'is_constituent_of_ssim:"info:fedora/cul:7h44j0zpcs"', # Include content in the Durst Project
         '-active_fedora_model_ssi:GenericResource', # Do not include GenericResources in searches
       ],
@@ -44,7 +45,7 @@ class Dcv::Configurators::DurstBlacklightConfigurator
 
     config.add_facet_fields_to_solr_request! # Required for facet queries
 
-    config.add_facet_field ActiveFedora::SolrService.solr_name('lib_format', :facetable), :label => 'Format', :limit => 10, :sort => 'count', :multiselect => true, :ex => 'lib_format-tag'
+    config.add_facet_field ActiveFedora::SolrService.solr_name('lib_format', :facetable), :label => 'Format', :limit => 10, :sort => 'count', :multiselect => true, :ex => 'lib_format-tag', :helper_method => :capitalize_values
     config.add_facet_field ActiveFedora::SolrService.solr_name('lib_hierarchical_geographic_neighborhood', :symbol), :label => 'Neighborhood', :limit => 10, :sort => 'count'
     config.add_facet_field ActiveFedora::SolrService.solr_name('lib_hierarchical_geographic_borough', :symbol), :label => 'Borough', :limit => 10, :sort => 'count'
     config.add_facet_field ActiveFedora::SolrService.solr_name('lib_hierarchical_geographic_city', :symbol), :label => 'City', :limit => 10, :sort => 'count'
@@ -61,7 +62,7 @@ class Dcv::Configurators::DurstBlacklightConfigurator
     #   The ordering of the field names is the order of the display
     #config.add_index_field ActiveFedora::SolrService.solr_name('title_display', :displayable, type: :string), :label => 'Title'
     config.add_index_field ActiveFedora::SolrService.solr_name('lib_name', :displayable, type: :string), :label => 'Name'
-    config.add_index_field ActiveFedora::SolrService.solr_name('lib_published_string', :displayable, type: :string), :label => 'Published', :separator => '<br />'.html_safe
+    config.add_index_field ActiveFedora::SolrService.solr_name('lib_format', :displayable, type: :string), :label => 'Format'
 
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display

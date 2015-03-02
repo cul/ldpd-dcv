@@ -1,27 +1,49 @@
-<%
-	# NOTE: THIS FILE IS TEMPORARY!  The customizations below are only for the November 2014 Durst demo!
-%>
-
 <% counter_in_results = document_counter + row_offset + 1 + @response.params[:start].to_i -%>
 <div class="col-sm-2 document <%= render_document_class document %>" itemscope itemtype="<%= document.itemtype %>">
   <div class="tombstone" data-number-of-members=<%= document[:cul_number_of_members_isi] || -1 %>>
-	<%=
-		link_to_document(document, :counter => (@do_not_link_to_search ? nil : counter_in_results), label:
-			# Main change is here in the image_tag() method call below!
-			image_tag((document['image_filename_ssm'].blank? ? get_placeholder_thumbnail_url('book') : 'https://ldpd.cul.columbia.edu/durst-temp-images/thumbs/' + document['image_filename_ssm'][0].gsub(/\.[Tt][Ii][Ff][Ff]*/, '.jpg')), {class: 'img-square', itemprop: 'thumbnailUrl'}),
-			class: 'thumbnail' + (document['image_filename_ssm'].blank? ? ' placeholder' : ''))
+		<%
+			if document['lib_format_ssm'].present? && document['lib_format_ssm'].include?('books')
+				image_url_for_document = image_url('book-placeholder.png')
+			else
+				image_url_for_document = get_asset_url(id: document.id, size: 256, type: 'square', format: 'jpg')
+			end
+		%>
+		<%=
+			link_to_document(
+				document, :counter => (@do_not_link_to_search ? nil : counter_in_results),
+				label: image_tag(image_url_for_document, {class: 'img-square', itemprop: 'thumbnailUrl'}),
+				class: 'thumbnail'
+			)
 		%>
 		<div class="index-show-tombstone-fields">
 			<h3 class="index_title ellipsis"><%= t('blacklight.search.documents.counter', :counter => counter_in_results) %>
 				<%= link_to_document(document, :counter => (@do_not_link_to_search ? nil : counter_in_results)) %>
 			</h3>
 			<%= '<div class="ellipsis">'.html_safe + document['lib_name_ssm'][0] + '</div>'.html_safe if document['lib_name_ssm'].present? %>
+			<%= '<div class="ellipsis">'.html_safe + document['lib_format_ssm'][0] + '</div>'.html_safe if document['lib_format_ssm'].present? %>
 		</div>
 		<div class="col-sm-9 index_title index-show-list-fields hidden">
-			<h3 class="index_title ellipsis"><%= t('blacklight.search.documents.counter', :counter => counter_in_results) %><%= link_to_document(document, :counter => counter_in_results) %></h3>
-			<%= render :partial => 'catalog/index_default', :locals => {:document => document } %>
-			<%= render_online_and_print_links(document, false) %>
+			<h3 class="index_title ellipsis"><%= t('blacklight.search.documents.counter', :counter => counter_in_results) %><%= link_to_document(document, :counter => counter_in_results) %> <%= '<small>&bull; '.html_safe + byte_size_to_text_string(document['extent_ssim'].first.to_i) + '</small>'.html_safe if document['extent_ssim'].present? %></h3>
+			<%= render :partial => 'index_default', :locals => {:document => document } %>
 			<%= render :partial => 'catalog/schema_org_document_metadata', :locals => {:document => document } %>
+
+			<% snippet = '' %>
+			<% if document.solr_response['highlighting'].present? && document.solr_response['highlighting'][document['id']].present? %>
+				<%
+					document.solr_response['highlighting'][document['id']].each do |key, arr_value|
+						if snippet.present?
+							snippet += '&hellip;'
+						end
+						snippet += arr_value.join('&hellip;') if arr_value.present?
+					end
+				%>
+			<% end %>
+			<% if snippet.present? %>
+				<div class="fulltext-snippet">
+					&hellip;<%= snippet.gsub(/^(&nbsp;|\s)+/, '').gsub(/(&nbsp;|\s)+$/, '').html_safe %>&hellip;
+				</div>
+			<% end %>
+
 		</div>
 		<div class="clearfix"></div>
   </div>

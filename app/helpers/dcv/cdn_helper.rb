@@ -38,14 +38,4 @@ module Dcv::CdnHelper
     return  DCV_CONFIG['cdn_url'] + "/iiif/#{identifier_to_pid(conditions[:id])}/info.json"
   end
 
-  # Placeholder image methods
-
-  # Returns 256x256 placeholder image
-  def get_placeholder_thumbnail_url(type)
-    # TODO: Handle different types of placeholder images (book, audio, etc.)
-
-    # For now, always return the same image
-    return image_url('book-placeholder.png')
-  end
-
 end
