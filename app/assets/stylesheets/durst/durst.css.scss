@@ -173,6 +173,9 @@ footer {
     }
     .panel-body {
       border:0;
+      .facet-values li .selected {
+        color:#444;
+      }
     }
     .panel-title a:focus {
       color:inherit;
