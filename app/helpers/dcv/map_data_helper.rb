@@ -1,6 +1,9 @@
 module Dcv::MapDataHelper
 
   def get_map_data_for_document_list(document_list)
+
+    start_time = Time.now
+
     coordinate_output = []
     document_list.each do |document|
       if document['geo'].present?
@@ -14,7 +17,7 @@ module Dcv::MapDataHelper
           end
 
           row = {
-            lat: lat_and_long[0].strip, long: lat_and_long[1].strip, title: document['title_display_ssm'][0], popup_html: '<div>Cool <small style="color:blue;">html</small></div>',
+            lat: lat_and_long[0].strip, long: lat_and_long[1].strip, title: document['title_display_ssm'][0],
             thumbnail_url: image_url_for_document,
             item_link: '/durst/' + document.id
           }
@@ -22,6 +25,9 @@ module Dcv::MapDataHelper
         end
       end
     end
+
+    puts 'Processed and formatted map data in ' + (Time.now - start_time).to_s + ' seconds'
+
     return coordinate_output
   end
 
