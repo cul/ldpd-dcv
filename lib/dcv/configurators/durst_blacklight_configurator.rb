@@ -18,7 +18,7 @@ class Dcv::Configurators::DurstBlacklightConfigurator
       :rows => 20
     }
 
-    config.per_page = [20,60,100]
+    config.per_page = [24,60,108]
     # solr field configuration for search results/index views
     config.index.title_field = solr_name('title_display', :displayable, type: :string)
     config.index.display_type_field = ActiveFedora::SolrService.solr_name('has_model', :symbol)
@@ -62,6 +62,7 @@ class Dcv::Configurators::DurstBlacklightConfigurator
     #   The ordering of the field names is the order of the display
     #config.add_index_field ActiveFedora::SolrService.solr_name('title_display', :displayable, type: :string), :label => 'Title'
     config.add_index_field ActiveFedora::SolrService.solr_name('lib_name', :displayable, type: :string), :label => 'Name'
+    #config.add_index_field ActiveFedora::SolrService.solr_name('lib_published_string', :displayable, type: :string), :label => 'Published'
     config.add_index_field ActiveFedora::SolrService.solr_name('lib_format', :displayable, type: :string), :label => 'Format'
 
     # solr fields to be displayed in the show (single result) view
@@ -70,7 +71,7 @@ class Dcv::Configurators::DurstBlacklightConfigurator
     config.add_show_field ActiveFedora::SolrService.solr_name('alternative_title', :displayable, type: :string), :label => 'Alternative Titles', :separator => '<br />'.html_safe
     config.add_show_field ActiveFedora::SolrService.solr_name('lib_name', :displayable), :label => 'Name', :separator => '<br />'.html_safe
     config.add_show_field ActiveFedora::SolrService.solr_name('origin_info_edition', :displayable, type: :string), :label => 'Edition', :separator => '<br />'.html_safe
-    config.add_show_field ActiveFedora::SolrService.solr_name('lib_published_string', :displayable, type: :string), :label => 'Published', :separator => '<br />'.html_safe
+    #config.add_show_field ActiveFedora::SolrService.solr_name('lib_published_string', :displayable, type: :string), :label => 'Published', :separator => '<br />'.html_safe
     config.add_show_field ActiveFedora::SolrService.solr_name('physical_description_extent', :displayable, type: :string), :label => 'Physical Description', :separator => '<br />'.html_safe
     config.add_show_field ActiveFedora::SolrService.solr_name('lib_all_subjects', :displayable, type: :string), :label => 'Subjects', :separator => '<br />'.html_safe
     config.add_show_field ActiveFedora::SolrService.solr_name('table_of_contents', :displayable, type: :string), :label => 'Contents', :separator => '<br />'.html_safe

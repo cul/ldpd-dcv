@@ -15,8 +15,8 @@
 			<div class="clearfix"></div>
 		</div>
 		<div class="inner" style="margin-bottom:1em;">
-			<% geo_facet_fields_to_show = {'lib_hierarchical_geographic_neighborhood_ssim' => 'Neighborhood', 'lib_hierarchical_geographic_borough_ssim' => 'Borough', 'lib_hierarchical_geographic_city_ssim' => 'City'} %>
-			<% geo_non_facet_fields_to_show = {'lib_address_ssm' => 'Address', 'geo' => 'Coordinates'} %>
+			<% geo_facet_fields_to_show = {'subject_hierarchical_geographic_neighborhood_ssim' => 'Neighborhood', 'subject_hierarchical_geographic_borough_ssim' => 'Borough', 'subject_hierarchical_geographic_city_ssim' => 'City'} %>
+			<% geo_non_facet_fields_to_show = {'subject_hierarchical_geographic_street_ssim' => 'Address', 'geo' => 'Coordinates'} %>
 			<dl class="dl-vertical">
 				<% geo_facet_fields_to_show.each do |field_name, display_label|  %>
 					<% if document[field_name].present? %>
