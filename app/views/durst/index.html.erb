@@ -7,6 +7,12 @@
 			<%= render 'search_sidebar' %>
 		</div>
 		<div class="inner" style="margin-top:1em;">
+			<% if @document_list.length > 0 %>
+				<h6 class="nomar-t">Mapped Results:
+								<%= (@response.params[:start].to_i + 1).to_s + ' - ' + 
+								(@response.params[:start].to_i + @document_list.length).to_s  %>
+				</h6>
+			<% end %>
 			<script>
 				DCV.centerLat = <%= params[:lat].present? ? params[:lat] : '40.7400' %>;
 				DCV.centerLong = <%= params[:long].present? ? params[:long] : '-73.9802' %>;
