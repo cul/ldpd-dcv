@@ -6,8 +6,8 @@ module Durst::FieldFormatterHelper
 
 	def render_online_and_print_links(document, as_dl=true)
 
-    urls = document['location_url_ssm'] || []
-    clio_ids = document['bib_id_physical_ssm'] || []
+    urls = document['lib_non_item_in_context_url_ssm'] || []
+    clio_ids = document['clio_ssim'] || []
 
     if as_dl
       return (
