@@ -4,7 +4,7 @@ module Durst::FieldFormatterHelper
 		return value.capitalize
   end
 
-	def render_online_and_print_links(document, as_dl=true)
+	def render_url_and_catalog_links(document, as_dl=true)
 
     urls = document['lib_non_item_in_context_url_ssm'] || []
     clio_ids = document['clio_ssim'] || []
