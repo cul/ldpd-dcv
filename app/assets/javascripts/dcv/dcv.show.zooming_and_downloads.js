@@ -50,6 +50,7 @@ function initZoomingViewer(tileSources) {
     controlsFadeDelay: 100,
     controlsFadeLength: 500,
     referenceStripSizeRatio: 0.15,
+    maxZoomPixelRatio: 3,
     showNavigator:  true,
     tileSources: tileSources,
     initialPage: DCV.zoomingViewerInitialPage,
