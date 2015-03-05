@@ -408,3 +408,26 @@ content: "";
 #ajax-modal .modal-content {
   background-color: #fff;
 }
+
+/* DURST-24 LOL */
+#extended-search-mode {
+-webkit-animation: myfirst 3s; /* Chrome, Safari, Opera */
+    animation: myfirst 3s;
+}
+/* Chrome, Safari, Opera */
+@-webkit-keyframes myfirst {
+    0% {background: gray; color:white;}
+    25% {background: white; color:gray;}
+    50% {background: gray;color:white;}
+    75% {background: white;color:gray;}
+    100% {background: gray;color:white;}
+}
+
+/* Standard syntax */
+@keyframes myfirst {
+    0% {background: gray; color:white;}
+    25% {background: white; color:gray;}
+    50% {background: gray;color:white;}
+    75% {background: white;color:gray;}
+    100% {background: gray;color:white;}
+}
