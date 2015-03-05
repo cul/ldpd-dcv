@@ -14,8 +14,8 @@
 				</h6>
 			<% end %>
 			<script>
-				DCV.centerLat = <%= params[:lat].present? ? params[:lat] : '40.7400' %>;
-				DCV.centerLong = <%= params[:long].present? ? params[:long] : '-73.9802' %>;
+				DCV.centerLat = <%= params[:lat].present? ? params[:lat] : 'null' %>;
+				DCV.centerLong = <%= params[:long].present? ? params[:long] : 'null' %>;
 				DCV.mapPlanes = <%= get_map_data_for_document_list(@document_list).to_json.html_safe %>;
 				DCV.mapCoordinateSearchUrl = '<%= CGI.escape(url_for(params.merge(:lat => '_lat_', :long => '_long_', :search_field => params[:search_field] || 'all_text_teim', :q => params[:q] || ''))) %>';
 			</script>
