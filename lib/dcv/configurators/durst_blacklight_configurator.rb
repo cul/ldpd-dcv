@@ -15,10 +15,12 @@ class Dcv::Configurators::DurstBlacklightConfigurator
         '-active_fedora_model_ssi:GenericResource', # Do not include GenericResources in searches
       ],
       :qt => 'search',
-      :rows => 20
     }
 
     config.per_page = [24,60,108]
+    config.default_per_page = 24
+    config.max_per_page = 108
+
     # solr field configuration for search results/index views
     config.index.title_field = solr_name('title_display', :displayable, type: :string)
     config.index.display_type_field = ActiveFedora::SolrService.solr_name('has_model', :symbol)

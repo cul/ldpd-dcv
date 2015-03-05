@@ -15,7 +15,6 @@ class Dcv::Configurators::IfpBlacklightConfigurator
         '-dc_type_sim:FileSystem' # Ignore FileSystem resources in searches
       ],
       :qt => 'search',
-      :rows => 20,
       :'hl' => true,
       :'hl.fl' => 'original_name_tesim,fulltext_tesim',
       :'hl.fragsize'    => 300,
@@ -25,7 +24,10 @@ class Dcv::Configurators::IfpBlacklightConfigurator
       :'hl.simple.post' => '</span>',
     }
 
+    config.default_per_page = 20
     config.per_page = [20,60,100]
+    config.max_per_page = 100
+    
     # solr field configuration for search results/index views
     config.index.title_field = solr_name('title_display', :displayable, type: :string)
     config.index.display_type_field = ActiveFedora::SolrService.solr_name('has_model', :symbol)
