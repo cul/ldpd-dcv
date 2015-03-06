@@ -148,17 +148,24 @@ function homeMap() {
 		tiles = L.tileLayer('http://{s}.tile.stamen.com/toner-lite/{z}/{x}/{y}.png', {
 				maxZoom: 18,
 				attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors.'
-			}),
+			});
 
-		latlng = L.latLng(DCV.centerLat, DCV.centerLong);
+        if ( DCV.centerLat && DCV.centerLong ) {
+			var latlng = L.latLng(DCV.centerLat, DCV.centerLong);
+		} else {
+			var latlng = L.latLng('40.7400', '-73.9802');
+		}
 
 		map = L.map('durst_osm', {center: latlng, zoom: 11, layers: [tiles]});
 
 		markers = L.markerClusterGroup({spiderfyOnMaxZoom: false});
 
+        var allPoints = [];
+
 		for (var i = 0; i < DCV.mapPlanes.length; i++) {
 			var a = DCV.mapPlanes[i];
 			var marker = L.marker(new L.LatLng(a['lat'], a['long']), { title: a['title'] });
+            allPoints.push([a['lat'],a['long']]);
             if (!$('#durst_osm').hasClass('no-popup')) {
 			marker.bindPopup(
 				'<a href="' + a['item_link'] + '" class="thumbnail"><img src="' + a['thumbnail_url'] + '" /></a>' + '<br />' + '<a href="' + a['item_link'] + '">' + a['title'] + '</a>'
@@ -166,6 +173,9 @@ function homeMap() {
             }
 			markers.addLayer(marker);
 		}
+        if ( !DCV.centerLat && !DCV.centerLong ) {
+			map.fitBounds(allPoints);
+        }
 
 		markers.on('clusterclick', function (a) {
 
