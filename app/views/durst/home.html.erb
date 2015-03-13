@@ -18,22 +18,12 @@
 
   <div id="content" class="col-md-6">
 
-                    <div class="home inner">
-					  <h6 class="">FIND BY LOCATION</h6>
-
-						<div id="mapholder-div">
-
-							<script>
-								DCV.mapPlanes = <%= get_map_data_for_document_list(@document_list).to_json.html_safe %>;
-								DCV.mapCoordinateSearchUrl = '<%= CGI.escape(url_for(params.merge(:lat => '_lat_', :long => '_long_', :search_field => params[:search_field] || 'all_text_teim', :q => params[:q] || ''))) %>';
-								DCV.centerLat = 40.7730;
-								DCV.centerLong = -73.8402;
-							</script>
-
-							  <div id="durst_osm" class="hidden"></div>
-							  <a href="<%= durst_map_search_path %>" id="mapholder-link"><img id="mapholder" src="<%= asset_path("durst/durst_10272127_001.jpg") %>" alt="..."></a>
-						</div>
-                    </div> <!--/.inner-->
+		<div class="home inner">
+			<h6 class="">FIND BY LOCATION</h6>
+			<div id="mapholder-div">
+				<a href="<%= durst_map_search_path %>" id="mapholder-link"><img id="mapholder" src="<%= asset_path("durst/durst_10272127_001.jpg") %>" alt="..."></a>
+			</div>
+    </div> <!--/.inner-->
   </div>
 
   <div id="dhss" class="col-md-3">

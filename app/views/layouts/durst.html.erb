@@ -4,6 +4,12 @@
 		<%= render partial: 'shared/head_html' %>
 		<%= stylesheet_link_tag subsite_layout %>
 		<%= javascript_include_tag subsite_layout %>
+
+		<script>
+			DCV.bookIconUrl = decodeURIComponent('<%= CGI.escape(image_url('book-placeholder.png')) %>');
+			DCV.mapImageThumbTemplate = decodeURIComponent('<%= CGI.escape(get_asset_url(id: '_document_id_', size: 256, type: 'square', format: 'jpg')) %>');
+		</script>
+
   </head>
   <body class="<%= render_body_class %> <%= render_subsite_body_classes %> <%= params[:action] %>" style="padding-top: 50px;">
 

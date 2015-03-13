@@ -8,7 +8,7 @@
 
 				DCV.centerLat = <%= latlong[0] %>;
 				DCV.centerLong = <%= latlong[1] %>;
-				DCV.mapPlanes = <%= get_map_data_for_document_list([document]).to_json.html_safe %>;
+				DCV.mapPlanes = <%= extract_map_data_from_document_list([document]).to_json.html_safe %>;
 				DCV.mapCoordinateSearchUrl = '<%= CGI.escape(url_for(params.merge(:lat => '_lat_', :long => '_long_', :search_field => params[:search_field] || 'all_text_teim', :q => params[:q] || ''))) %>';
 			</script>
 			<div id="durst_osm" class="no-popup"></div>

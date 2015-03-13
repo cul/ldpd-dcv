@@ -164,18 +164,27 @@ function homeMap() {
 
 		for (var i = 0; i < DCV.mapPlanes.length; i++) {
 			var a = DCV.mapPlanes[i];
-			var marker = L.marker(new L.LatLng(a['lat'], a['long']), { title: a['title'] });
-            allPoints.push([a['lat'],a['long']]);
-            if (!$('#durst_osm').hasClass('no-popup')) {
-			marker.bindPopup(
-				'<a href="' + a['item_link'] + '" class="thumbnail"><img src="' + a['thumbnail_url'] + '" /></a>' + '<br />' + '<a href="' + a['item_link'] + '">' + a['title'] + '</a>'
-			);
-            }
+
+			var latAndLong = a['c'].split(',');
+			var lat = latAndLong[0];
+			var lng = latAndLong[1];
+			var title = a['t'];
+			var itemLink = '/durst/' + a['id'];
+			var thumbnailUrl = a['b'] == 'y' ? DCV.bookIconUrl : DCV.mapImageThumbTemplate.replace('_document_id_', a['id']);
+
+			var marker = L.marker(new L.LatLng(lat, lng), { title: title });
+			allPoints.push([lat,lng]);
+			if (!$('#durst_osm').hasClass('no-popup')) {
+				marker.bindPopup(
+					'<a href="' + itemLink + '" class="thumbnail"><img src="' + thumbnailUrl + '" /></a>' + '<br />' + '<a href="' + itemLink + '">' + title + '</a>'
+				);
+			}
 			markers.addLayer(marker);
 		}
-        if ( !DCV.centerLat && !DCV.centerLong ) {
+
+		if ( !DCV.centerLat && !DCV.centerLong ) {
 			map.fitBounds(allPoints);
-        }
+		}
 
 		markers.on('clusterclick', function (a) {
 
@@ -185,7 +194,7 @@ function homeMap() {
 					var allItemHtml = '';
 					var childMarkers = a.layer.getAllChildMarkers();
 
-					var viewAllUrl = decodeURIComponent(DCV.mapCoordinateSearchUrl).replace('_lat_', childMarkers[0].getLatLng().lat).replace('_long_', childMarkers[0].getLatLng().lng);
+					var viewAllUrl = DCV.mapCoordinateSearchUrl.replace('_lat_', childMarkers[0].getLatLng().lat).replace('_long_', childMarkers[0].getLatLng().lng);
 
 					allItemHtml += '<h6>' + childMarkers.length + ' items found <a class="pull-right" href="' + viewAllUrl + '">View all &raquo &nbsp;</a></h6>';
 					allItemHtml += '<div style="max-height:200px;max-width:200px; overflow:auto;">'
