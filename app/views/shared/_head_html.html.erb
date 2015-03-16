@@ -34,18 +34,8 @@ DLC VERSION: <%= render :file => Rails.root.to_s+'/VERSION' %> -->
 <%= csrf_meta_tags %>
 <%= content_for(:head) %>
 
-<!-- MediaElement -->
-<script src="/mediaelement/mediaelement-and-player.min.js"></script>
+<!-- MediaElement CSS -->
 <link rel="stylesheet" href="/mediaelement/mediaelementplayer.css" />
-
-<!-- JW Player: Probably want to remove this if we decide not to use it -->
-<script src="/jwplayer/jwplayer.js" ></script>
-<script >jwplayer.key="o2AdyUuGZ5eTv/WHIgu8tlpppOwsIONjVQG9qQ==";</script>
-
-<!-- ShareThis -->
-<script type="text/javascript">var switchTo5x=true;</script>
-<script type="text/javascript" src="https://ws.sharethis.com/button/buttons.js"></script>
-<script type="text/javascript">stLight.options({publisher: "b2e73e99-b999-4cdb-8a0e-14bdbc67b15a", doNotHash: false, doNotCopy: false, hashAddressBar: false, onhover: false});</script>
 
 <% if Rails.env == 'dcv_private_test' || Rails.env == 'dcv_prod' %>
 	<script>
