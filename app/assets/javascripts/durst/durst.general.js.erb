@@ -68,7 +68,8 @@ $(function() {
  });
 
  if ($('#durst_osm').length) {
-   homeMap();
+	 $('#durst_osm').html('<h2 style="margin:.5em;color:#ccc;">Loading...</h2>');
+   setTimeout(function(){ homeMap(); }, 100); //Better user experience if this is asynchronous.
  }
  $('body').on('click', '#map-attrib-icon', function() {
    $('#map-attrib-text').toggleClass('hidden');
@@ -132,6 +133,7 @@ window.onresize = function(){
 var map;
 var marker;
 var tiles;
+
 function homeMap() {
 
 	 if($('#durst_osm.full-map-search').length > 0) {
@@ -157,8 +159,10 @@ function homeMap() {
 			var latlng = L.latLng('40.7400', '-73.9802');
 		}
 
-		tiles.on('load', function(){
-			markers = L.markerClusterGroup({spiderfyOnMaxZoom: false});
+		map = L.map('durst_osm', {center: latlng, zoom: 11, layers: [tiles]});
+
+		//tiles.on('load', function(){
+			var markers = L.markerClusterGroup({spiderfyOnMaxZoom: false});
 
 			var allPoints = [];
 
@@ -229,9 +233,7 @@ function homeMap() {
 			});
 
 			map.addLayer(markers);
-		});
-
-		map = L.map('durst_osm', {center: latlng, zoom: 11, layers: [tiles]});
+		//});
 
 		//Load points after initial map setup is complete
 		//map.on('load', function(){
