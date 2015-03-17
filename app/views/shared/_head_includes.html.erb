@@ -42,3 +42,31 @@ DLC VERSION: <%= render :file => Rails.root.to_s+'/VERSION' %> -->
 	DCV.subsite_layout = '<%= subsite_layout %>';
 </script>
 <% end %>
+
+
+
+<% # Probbly want to move stuff below to the footer %>
+
+
+
+<%= javascript_include_tag "application" %>
+<%= javascript_include_tag "dcv" %>
+<!-- MediaElement JS -->
+<script src="/mediaelement/mediaelement-and-player.min.js"></script>
+
+<% if Rails.env == 'dcv_private_test' || Rails.env == 'dcv_prod' %>
+	<script>
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+		ga('create', 'UA-796949-25', 'auto');
+		ga('send', 'pageview');
+	</script>
+<% end %>
+
+<!-- ShareThis -->
+<script type="text/javascript">var switchTo5x=true;</script>
+<script type="text/javascript" src="https://ws.sharethis.com/button/buttons.js"></script>
+<script type="text/javascript">stLight.options({publisher: "b2e73e99-b999-4cdb-8a0e-14bdbc67b15a", doNotHash: false, doNotCopy: false, hashAddressBar: false, onhover: false});</script>

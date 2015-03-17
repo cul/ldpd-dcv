@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" class="no-js">
   <head>
-		<%= render partial: 'shared/head_html' %>
+		<%= render partial: 'shared/head_includes' %>
 		<%= stylesheet_link_tag subsite_layout %>
+		<%= javascript_include_tag subsite_layout %>
   </head>
   <body class="<%= render_body_class %> <%= render_subsite_body_classes %> <%= params[:action] %>" style="padding-top: 50px;">
 
@@ -28,7 +29,6 @@
   </div><!--/#outer-wrapper-->
 
 	<%= render :partial => 'shared/footer_includes' %>
-	<%= javascript_include_tag subsite_layout %>
 
   </body>
 </html>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" class="no-js">
   <head>
-    <%= render partial: 'shared/head_html' %>
+    <%= render partial: 'shared/head_includes' %>
   </head>
   <body class="<%= render_body_class %> blacklight-dcv %> dcv catalog <%= params[:action] %>" onload="initTiles(<%= params[:initial_page] if params[:initial_page] %>);">
 
