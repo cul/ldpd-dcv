@@ -11,7 +11,8 @@ module Dcv::RenderConstraintsHelperBehavior
       localized_params[:start_year].blank? and
       localized_params[:end_year].blank? and
       localized_params[:lat].blank? and
-      localized_params[:long].blank?)
+      localized_params[:long].blank? and
+      localized_params[:durst_favorites].blank?)
   end
 
 end

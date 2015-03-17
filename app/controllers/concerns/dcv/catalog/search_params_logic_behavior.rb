@@ -2,7 +2,7 @@ module Dcv::Catalog::SearchParamsLogicBehavior
   extend ActiveSupport::Concern
 
   included do
-    self.solr_search_params_logic += [:date_range_filter, :lat_long_filter, :multiselect_facet_feature]
+    self.solr_search_params_logic += [:date_range_filter, :lat_long_filter, :multiselect_facet_feature, :durst_favorite_filter]
   end
 
   #def file_assets_filter(solr_parameters, user_parameters)
@@ -110,6 +110,18 @@ module Dcv::Catalog::SearchParamsLogicBehavior
     #  "sort"=>"score desc, title_si asc, lib_date_dtsi desc"
     #}
 
+  end
+
+  def durst_favorite_filter(solr_parameters, user_parameters)
+    if user_parameters[:durst_favorites].present? && user_parameters[:durst_favorites].to_s == 'true'
+
+      favorite_pids = [
+        'cul:51c59zw3rx', 'cul:cfxpnvx0mh', 'cul:34tmpg4f5t', 'cul:9cnp5hqc0h'
+      ].map{|pid| pid.gsub(':', '\:')}
+      params[:search_field] = 'all_text_teim' if params[:search_field].blank?
+      solr_parameters[:fq] << "id:(#{favorite_pids.join(' OR ')})"
+
+    end
   end
 
 end

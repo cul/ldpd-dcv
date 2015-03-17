@@ -26,8 +26,8 @@
         %>
 
         <%= render_constraint_element('Date Range', date_range_text, {:remove => url_for(params.except(:start_year, :end_year))}) if params[:start_year] && params[:end_year] %>
-
         <%= render_constraint_element('Coordinates', (params[:lat] + ',' + params[:long]), {:remove => url_for(params.except(:lat, :long))}) if params[:lat] && params[:long] %>
+        <%= render_constraint_element('Show', 'Durst Favorites', {:remove => url_for(params.except(:durst_favorites))}) if params[:durst_favorites] %>
 
       </div>
 <% end %>

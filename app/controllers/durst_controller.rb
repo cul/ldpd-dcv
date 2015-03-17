@@ -29,6 +29,10 @@ class DurstController < SubsitesController
   def help
   end
 
+  def favorites
+    redirect_to '/durst?durst_favorites=true&search_field=all_text_teim'
+  end
+
   private
 
   def extract_map_data_from_document_list(document_list)
