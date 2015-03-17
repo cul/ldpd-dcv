@@ -14,7 +14,7 @@ class DurstController < SubsitesController
   end
 
   def map_search
-    
+
     @map_data_json = Rails.cache.fetch('map_data_json')
     if @map_data_json.nil?
       (@response, @document_list) = get_search_results(params, {:rows => 100000, :fl => 'id, geo, lib_format_ssm, title_display_ssm'}) # Calling get_search_results manually so that we always plot all points for the home page map
@@ -24,6 +24,9 @@ class DurstController < SubsitesController
       Rails.cache.write('map_data_json', @map_data_json, expires_in: cache_expiration_time)
     end
 
+  end
+
+  def help
   end
 
   private

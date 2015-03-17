@@ -24,10 +24,19 @@ module Dcv::CatalogHelperBehavior
         ns = {'mets'=>'http://www.loc.gov/METS/'}
         nodes = struct.xpath('//mets:div[@ORDER]', ns).sort {|a,b| a['ORDER'].to_i <=> b['ORDER'].to_i }
 
+        counter = 1
         nodes = nodes.map do |node|
           node_id = (node['CONTENTIDS'])
           node_thumbnail = get_resolved_asset_url(id: node_id, size: 256, type: 'scaled', format: 'jpg')
-          {id: node_id, title: node['LABEL'], thumbnail: node_thumbnail, order: node['ORDER'].to_i}
+
+          if subsite_layout == 'durst'
+            title = "Image #{counter}"
+            counter += 1
+          else
+            title = node['LABEL']
+          end
+
+          {id: node_id, title: title, thumbnail: node_thumbnail, order: node['ORDER'].to_i}
         end
         nodes
       else

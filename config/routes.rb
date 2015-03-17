@@ -14,6 +14,7 @@ Dcv::Application.routes.draw do
 
   # Durst subsite routes
   get 'durst/map_search' => 'durst#map_search', as: :durst_map_search
+  get 'durst/help' => 'durst#help', as: :durst_help
 
   # IFP subsite routes
   get 'ifp/partner/:key' => 'ifp#partner', as: :ifp_partner
