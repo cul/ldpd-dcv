@@ -2,58 +2,64 @@ module ShowFieldDisplayFieldHelper
 
   def show_field_project_to_facet_link(args)
     facet_field_name = :lib_project_short_ssim
-
-    display_value = args[:document][args[:field]][0]
-
     full_project_names_to_short_project_names = get_full_project_names_to_short_project_names
 
-    if full_project_names_to_short_project_names.has_key?(display_value)
-      facet_value = full_project_names_to_short_project_names[display_value]
-    else
-      facet_value = display_value
-    end
+    display_values = args[:document][args[:field]]
+    display_values.map {|display_value|
+      if full_project_names_to_short_project_names.has_key?(display_value)
+        facet_value = full_project_names_to_short_project_names[display_value]
+      else
+        facet_value = display_value
+      end
 
-    url_for_facet_search = search_action_path(:f => {facet_field_name => [facet_value]})
-    return link_to(display_value, url_for_facet_search)
+      url_for_facet_search = search_action_path(:f => {facet_field_name => [facet_value]})
+      return link_to(display_value, url_for_facet_search)
+    }
   end
 
   def show_field_repository_to_facet_link(args)
 
     facet_field_name = :lib_repo_short_ssim
-
     full_repo_names_to_short_repo_names = get_full_repo_names_to_short_repo_names()
 
-    display_value = args[:document][args[:field]][0]
-    facet_value = display_value # by default
-    if full_repo_names_to_short_repo_names.has_key?(display_value)
-      facet_value = full_repo_names_to_short_repo_names[display_value]
-    end
+    display_values = args[:document][args[:field]]
 
-    url_for_facet_search = search_action_path(:f => {facet_field_name => [facet_value]})
+    display_values.map {|display_value|
+      facet_value = display_value # by default
+      if full_repo_names_to_short_repo_names.has_key?(display_value)
+        facet_value = full_repo_names_to_short_repo_names[display_value]
+      end
 
-    if display_value == 'Non-Columbia Location' && args[:document].get('lib_repo_text_ssm').present?
-      return (args[:document].get('lib_repo_text_ssm') + '<br />' + link_to("(#{display_value})", url_for_facet_search)).html_safe
-    else
-      return link_to(display_value, url_for_facet_search)
-    end
+      url_for_facet_search = search_action_path(:f => {facet_field_name => [facet_value]})
+
+      if display_value == 'Non-Columbia Location' && args[:document].get('lib_repo_text_ssm').present?
+        return (args[:document].get('lib_repo_text_ssm') + '<br />' + link_to("(#{display_value})", url_for_facet_search)).html_safe
+      else
+        return link_to(display_value, url_for_facet_search)
+      end
+    }
 
   end
 
   def link_to_url_value(args)
-    url_value = args[:document][args[:field]][0]
+    values = args[:document][args[:field]]
 
-    return link_to(url_value, url_value)
+    values.map {|value|
+      link_to(value, value)
+    }
   end
 
   def dirname_prefixed_with_slash(args)
-    path = args[:document][args[:field]][0]
+    values = args[:document][args[:field]]
 
-    path = '/' + path unless path.start_with?('/')
+    values.map {|value|
+      value = '/' + value unless value.start_with?('/')
 
-    dirname = File.dirname(path)
-    dirname = '/' if dirname == '.'
+      dirname = File.dirname(value)
+      dirname = '/' if dirname == '.'
 
-    return dirname
+      return dirname
+    }
   end
 
 
