@@ -4,6 +4,24 @@ module Durst::FieldFormatterHelper
 		return value.capitalize
   end
 
+	def split_complex_subject_into_links(args)
+    value = args[:document][args[:field]][0]
+
+    links = []
+    previous_subjects = []
+
+    value.split('--').each do |single_subject|
+			links << link_to(single_subject, search_action_path({
+					:q => '"' + "#{previous_subjects.join(' ')} #{single_subject}".strip + '"',
+					:search_field => 'all_text_teim'
+				})
+			)
+			previous_subjects << single_subject
+		end
+
+    return links.join(' > ').html_safe
+  end
+
 	def render_url_and_catalog_links(document, as_dl=true)
 
     urls = document['lib_non_item_in_context_url_ssm'] || []

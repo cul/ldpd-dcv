@@ -75,7 +75,7 @@ class Dcv::Configurators::DurstBlacklightConfigurator
     config.add_show_field ActiveFedora::SolrService.solr_name('origin_info_edition', :displayable, type: :string), :label => 'Edition', :separator => '<br />'.html_safe
     #config.add_show_field ActiveFedora::SolrService.solr_name('lib_published_string', :displayable, type: :string), :label => 'Published', :separator => '<br />'.html_safe
     config.add_show_field ActiveFedora::SolrService.solr_name('physical_description_extent', :displayable, type: :string), :label => 'Physical Description', :separator => '<br />'.html_safe
-    config.add_show_field ActiveFedora::SolrService.solr_name('lib_all_subjects', :displayable, type: :string), :label => 'Subjects', :separator => '<br />'.html_safe
+    config.add_show_field ActiveFedora::SolrService.solr_name('lib_all_subjects', :displayable, type: :string), :label => 'Subjects', :separator => '<br />'.html_safe, :helper_method => :split_complex_subject_into_links
     config.add_show_field ActiveFedora::SolrService.solr_name('table_of_contents', :displayable, type: :string), :label => 'Contents', :separator => '<br />'.html_safe
     config.add_show_field ActiveFedora::SolrService.solr_name('abstract', :displayable, type: :string), :label => 'Summary', :separator => '<br />'.html_safe
     config.add_show_field ActiveFedora::SolrService.solr_name('lib_format', :displayable), :label => 'Format', :separator => '<br />'.html_safe
