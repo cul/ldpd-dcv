@@ -1,31 +1,34 @@
 //colors
-$gray: gray;
-$white: white;
-$color_woodsmoke_approx: #111;
-$color_gallery_approx: #eee;
-$color_red_berry_approx: #990000;
-$color_monsoon_approx: #86878c;
-$color_log_cabin_approx: #222;
-$color_mountain_mist_approx: #999;
-$color_cape_cod_approx: #3d3f3e;
-$black: #000;
-$color_alabaster_approx: #fcfcfc;
-$color_pink_swan_approx: #bbb;
-$color_lonestar_approx: #600;
-$color_tundora_approx: #444;
-$black_20: rgba(0, 0, 0, 0.2);
-$black_25: rgba(0, 0, 0, 0.25);
-$color_suva_gray_approx: #888;
-$white_30: rgba(255, 255, 255, 0.3);
-$color_celeste_approx: #cfcfcf;
-$color_burnt_umber_approx: #8c3522;
-$color_mine_shaft_approx: #333;
-$color_alto_approx: #ddd;
-$white_90: rgba(255, 255, 255, 0.9);
-$color_indian_tan_approx: #591300;
-$color_silver_chalice_approx: #aaa;
-$white_40: rgba(255, 255, 255, 0.4);
-$color_cedar_wood_finish_approx: #6a2400;
+$color_0: gray;
+$color_1: white;
+$color_2: #111;
+$color_3: #eee;
+$color_4: #990000;
+$color_5: #86878c;
+$color_6: #222;
+$color_7: #999;
+$color_8: #3d3f3e;
+$color_9: #000;
+$color_10: #fff;
+$color_11: #fcfcfc;
+$color_12: #bbb;
+$color_13: #600;
+$color_14: #444;
+$color_15: rgba(0, 0, 0, 0.2);
+$color_16: #900;
+$color_17: rgba(0, 0, 0, 0.25);
+$color_18: #888;
+$color_19: rgba(255, 255, 255, 0.3);
+$color_20: #cfcfcf;
+$color_21: #8c3522;
+$color_22: #333;
+$color_23: #ddd;
+$color_24: #ccc;
+$color_25: rgba(255, 255, 255, 0.9);
+$color_26: #591300;
+$color_27: #aaa;
+$color_28: rgba(255, 255, 255, 0.4);
+$color_29: #6a2400;
 
 //fonts
 $font_0: helvetica neue;
@@ -42,39 +45,39 @@ $url_0: url(asset_path("durst/durst-6120.jpg"));
 //original selectors
 //.pagination > .active > a, .pagination > .active > a:hover, .pagination > .active > a:focus, .pagination > .active > span, .pagination > .active > span:hover, .pagination > .active > span:focus
 %extend_1 {
-	color: $white;
-	background-color: $color_indian_tan_approx;
-	border-color: $color_indian_tan_approx;
+	color: $color_1;
+	background-color: $color_26;
+	border-color: $color_26;
 }
 
 
 body {
-	color: $color_woodsmoke_approx;
-	background-color: $color_gallery_approx;
+	color: $color_2;
+	background-color: $color_3;
 }
 a {
-	color: $color_red_berry_approx;
+	color: $color_4;
 	&:hover {
-		color: $color_red_berry_approx;
+		color: $color_4;
 	}
 	&:focus {
-		color: $color_red_berry_approx;
+		color: $color_4;
 		text-decoration: none;
 	}
 }
 #topnavbar {
-	background: $color_monsoon_approx;
-	border-top-color: $color_log_cabin_approx;
+	background: $color_5;
+	border-top-color: $color_6;
 	#cul_top-nosearch {
-		background-color: $color_log_cabin_approx;
+		background-color: $color_6;
 		#crowndown-nosearch {
-			background: $color_log_cabin_approx;
+			background: $color_6;
 		}
 		.dropdown-menu {
-			background: $color_log_cabin_approx;
+			background: $color_6;
 			li a:hover {
-				background: $color_indian_tan_approx;
-				background-color: $color_indian_tan_approx;
+				background: $color_26;
+				background-color: $color_26;
 			}
 		}
 	}
@@ -82,15 +85,15 @@ a {
 #site-banner {
 	padding: 0 1.4em 1em;
 	margin: 0 -1.75em 20px;
-	background-color: $color_cape_cod_approx;
+	background-color: $color_8;
 	#site-banner-inner {
 		overflow: visible;
 	}
 	#search-navbar #q {
-		background-color: $color_gallery_approx;
-		color: $black;
+		background-color: $color_3;
+		color: $color_9;
 		&:focus {
-			background-color: $white;
+			background-color: $color_10;
 		}
 	}
 }
@@ -103,7 +106,7 @@ a {
 	font-size: 160%;
 	font-weight: 200;
 	line-height: 1;
-	color: $white;
+	color: $color_10;
 	text-align: left;
 	text-decoration: none;
 	text-transform: uppercase;
@@ -115,7 +118,7 @@ a {
 	font-family: $font_2, $font_3, $font_4, $font_5;
 	font-size: 17px;
 	line-height: 1;
-	color: $white;
+	color: $color_10;
 	text-align: left;
 }
 @media(min-width: 768px) {
@@ -149,17 +152,17 @@ a {
 }
 #outer-wrapper {
 	overflow: hidden;
-	background-color: $color_alabaster_approx;
-	border-color: $color_pink_swan_approx;
+	background-color: $color_11;
+	border-color: $color_12;
 }
 #main-container {
 	padding-top: 1.3em;
 	.thumbnail {
-		background-color: $white;
+		background-color: $color_10;
 	}
 	.inner {
 		padding: 1em;
-		background-color: $white;
+		background-color: $color_10;
 		&.home {
 			padding: 0;
 			border: 0;
@@ -169,42 +172,43 @@ a {
 			#imgholder-div .thumbnail {
 				position: relative;
 				padding: 0;
-				background-color: $white;
+				background-color: $color_10;
 				h3 {
 					position: absolute;
 					width: 100%;
 					text-align: center;
-					text-shadow: 1px 1px 1px $color_lonestar_approx;
+					//Instead of the line below you could use @includetext-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+					text-shadow: 1px 1px 1px $color_13;
 					padding: 12px 0;
-					color: $white;
+					color: $color_10;
 					top: 32%;
-					border: 1px solid $color_tundora_approx;
+					border: 1px solid $color_14;
 					border-width: 1px 0;
-					background: $black_20;
+					background: $color_15;
 				}
 				&:hover {
-					border-color: $color_red_berry_approx;
+					border-color: $color_16;
 					h3 {
-						background: $black_25;
+						background: $color_17;
 					}
 				}
 			}
 		}
 		h6 {
-			color: $color_mountain_mist_approx;
+			color: $color_7;
 		}
 	}
 	#facets .panel-default {
-		background-color: $white;
-		color: $color_suva_gray_approx;
+		background-color: $color_10;
+		color: $color_18;
 		border: 0;
 		&.home {
 			background-color: transparent;
 		}
 	}
 	.panel-default > .panel-heading {
-		background-color: $white;
-		color: $color_suva_gray_approx;
+		background-color: $color_10;
+		color: $color_18;
 		border: 0;
 		&.home {
 			background-color: transparent;
@@ -216,22 +220,24 @@ a {
 	margin-left: -1em;
 	.top-panel-heading {
 		background-color: transparent !important;
+		//Instead of the line below you could use @includebox-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
 		box-shadow: none;
 	}
 	.panel {
 		background-color: transparent !important;
+		//Instead of the line below you could use @includebox-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
 		box-shadow: none;
 		.panel-heading {
 			margin-right: 1em;
 			margin-left: 1em;
 			padding: .2em 0;
-			background-color: $white_30 !important;
+			background-color: $color_19 !important;
 		}
 	}
 	.panel-body {
 		border: 0;
 		.facet-values li .selected {
-			color: $color_tundora_approx;
+			color: $color_14;
 		}
 	}
 	a {
@@ -246,12 +252,12 @@ a {
 	padding: 0 12px;
 	margin: 0 -24px;
 	line-height: 3px;
-	background: $color_celeste_approx;
-	border: 1px solid $color_suva_gray_approx;
+	background: $color_20;
+	border: 1px solid $color_18;
 	border-right: 0;
 	border-left: 0;
 	li {
-		border-left: 1px solid $color_gallery_approx;
+		border-left: 1px solid $color_3;
 		max-height: 22px;
 		&:first-child {
 			border-left: 0;
@@ -259,20 +265,20 @@ a {
 		a {
 			&:hover {
 				background-color: transparent;
-				color: $color_burnt_umber_approx;
+				color: $color_21;
 			}
 			&.active {
 				background-color: transparent;
-				color: $color_burnt_umber_approx;
+				color: $color_21;
 			}
 		}
 		&.open a.dropdown-toggle {
 			background-color: transparent;
-			color: $color_burnt_umber_approx;
+			color: $color_21;
 		}
 	}
 	a {
-		color: $color_mine_shaft_approx;
+		color: $color_22;
 		&:focus {
 			background-color: transparent;
 		}
@@ -289,7 +295,7 @@ a {
 	#mapholder-div {
 		position: relative;
 		overflow: hidden;
-		border: 1px solid $color_suva_gray_approx;
+		border: 1px solid $color_18;
 		#durst_osm {
 			width: 100%;
 			height: 420px;
@@ -299,7 +305,7 @@ a {
 					margin: 10px 0;
 				}
 				.thumbnail {
-					background-color: $white;
+					background-color: $color_10;
 					img {
 						margin: 0 auto;
 						max-width: 100%;
@@ -314,11 +320,12 @@ a {
 	}
 	#appliedParams {
 		border-width: 0 0 1px 0;
+		//Instead of the line below you could use @includebox-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
 		box-shadow: none;
 	}
 	.document {
 		&.list-view {
-			border-color: $color_celeste_approx;
+			border-color: $color_24;
 			.thumbnail.col-sm-2 {
 				max-height: 100%;
 			}
@@ -334,7 +341,7 @@ a {
 		}
 	}
 	.appliedFilter .filterName:after {
-		color: $color_alto_approx;
+		color: $color_23;
 	}
 }
 #doc-item-title {
@@ -354,7 +361,7 @@ a {
 }
 #child_gallery {
 	background-color: transparent;
-	border-color: $color_silver_chalice_approx;
+	border-color: $color_27;
 	border-bottom: 0;
 	.document img {
 		max-height: 150px;
@@ -382,17 +389,17 @@ a {
 	}
 }
 .carousel-control {
-	color: $white_40;
+	color: $color_28;
 }
 .nodec {
 	text-decoration: none !important;
 }
 .btn-primary {
-	background: $color_indian_tan_approx;
-	background-color: $color_indian_tan_approx;
+	background: $color_26;
+	background-color: $color_26;
 	&:hover {
-		background: $color_cedar_wood_finish_approx;
-		background-color: $color_cedar_wood_finish_approx;
+		background: $color_29;
+		background-color: $color_29;
 	}
 }
 .caretup {
@@ -415,57 +422,57 @@ a {
 }
 @-webkit-keyframes myfirst {
 	0% {
-		background: $gray;
-		color: $white;
+		background: $color_0;
+		color: $color_1;
 	}
 	25% {
-		background: $white;
-		color: $gray;
+		background: $color_1;
+		color: $color_0;
 	}
 	50% {
-		background: $gray;
-		color: $white;
+		background: $color_0;
+		color: $color_1;
 	}
 	75% {
-		background: $white;
-		color: $gray;
+		background: $color_1;
+		color: $color_0;
 	}
 	100% {
-		background: $gray;
-		color: $white;
+		background: $color_0;
+		color: $color_1;
 	}
 }
 @keyframes myfirst {
 	0% {
-		background: $gray;
-		color: $white;
+		background: $color_0;
+		color: $color_1;
 	}
 	25% {
-		background: $white;
-		color: $gray;
+		background: $color_1;
+		color: $color_0;
 	}
 	50% {
-		background: $gray;
-		color: $white;
+		background: $color_0;
+		color: $color_1;
 	}
 	75% {
-		background: $white;
-		color: $gray;
+		background: $color_1;
+		color: $color_0;
 	}
 	100% {
-		background: $gray;
-		color: $white;
+		background: $color_0;
+		color: $color_1;
 	}
 }
 .dropdown a {
-	color: $color_red_berry_approx;
+	color: $color_4;
 }
 footer.container {
 	font-size: .85em;
-	color: $color_mountain_mist_approx;
+	color: $color_7;
 }
 #dhss #carousel-example-generic {
-	border: 1px solid $color_suva_gray_approx;
+	border: 1px solid $color_18;
 }
 #dhig .thumbnail {
 	margin-bottom: 1em;
@@ -483,7 +490,7 @@ footer.container {
 			margin: 10px 0;
 		}
 		.leaflet-popup-content .thumbnail {
-			background-color: $white;
+			background-color: $color_10;
 			img {
 				height: 100px;
 			}
@@ -492,10 +499,10 @@ footer.container {
 	.leaflet-control-attribution {
 		font-size: 85%;
 		a {
-			color: $color_lonestar_approx !important;
+			color: $color_13 !important;
 		}
 		&:hover {
-			background: $white_90;
+			background: $color_25;
 		}
 	}
 }
@@ -509,7 +516,7 @@ footer.container {
 			margin: 10px 0;
 		}
 		.leaflet-popup-content .thumbnail {
-			background-color: $white;
+			background-color: $color_10;
 			img {
 				height: 100px;
 			}
@@ -518,24 +525,24 @@ footer.container {
 	.leaflet-control-attribution {
 		font-size: 85%;
 		a {
-			color: $color_lonestar_approx !important;
+			color: $color_13 !important;
 		}
 		&:hover {
-			background: $white_90;
+			background: $color_25;
 		}
 	}
 }
 #previousNextDocument .btn-default {
-	color: $white;
+	color: $color_10;
 }
 .pagination > {
 	li > {
 		a {
-			color: $color_indian_tan_approx;
+			color: $color_26;
 			background-color: transparent;
 		}
 		span {
-			color: $color_indian_tan_approx;
+			color: $color_26;
 			background-color: transparent;
 		}
 	}
@@ -561,31 +568,31 @@ footer.container {
 	}
 	.disabled > {
 		span {
-			background-color: $black_20;
+			background-color: $color_15;
 			&:hover {
-				background-color: $black_20;
+				background-color: $color_15;
 			}
 			&:focus {
-				background-color: $black_20;
+				background-color: $color_15;
 			}
 		}
 		a {
-			background-color: $black_20;
+			background-color: $color_15;
 			&:hover {
-				background-color: $black_20;
+				background-color: $color_15;
 			}
 			&:focus {
-				background-color: $black_20;
+				background-color: $color_15;
 			}
 		}
 	}
 }
 .leaflet-control-attribution a {
-	color: $color_red_berry_approx !important;
+	color: $color_4 !important;
 }
 .leaflet-popup-content a {
-	color: $color_red_berry_approx !important;
+	color: $color_4 !important;
 }
 #ajax-modal .modal-content {
-	background-color: $white;
+	background-color: $color_10;
 }
