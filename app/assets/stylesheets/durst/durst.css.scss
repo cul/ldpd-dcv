@@ -177,7 +177,6 @@ a {
 					position: absolute;
 					width: 100%;
 					text-align: center;
-					//Instead of the line below you could use @includetext-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
 					text-shadow: 1px 1px 1px $color_13;
 					padding: 12px 0;
 					color: $color_10;
@@ -220,12 +219,10 @@ a {
 	margin-left: -1em;
 	.top-panel-heading {
 		background-color: transparent !important;
-		//Instead of the line below you could use @includebox-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
 		box-shadow: none;
 	}
 	.panel {
 		background-color: transparent !important;
-		//Instead of the line below you could use @includebox-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
 		box-shadow: none;
 		.panel-heading {
 			margin-right: 1em;
@@ -320,7 +317,6 @@ a {
 	}
 	#appliedParams {
 		border-width: 0 0 1px 0;
-		//Instead of the line below you could use @includebox-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
 		box-shadow: none;
 	}
 	.document {
