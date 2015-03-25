@@ -73,7 +73,6 @@ $url_7: url(//cdn.cul.columbia.edu/ldpd-toolkit/fonts/trajanpro-regular-webfont.
 %extend_2 {
 	padding: 4px;
 	border: 1px solid $color_33;
-	//Instead of the line below you could use @includeborder-radius($radius, $vertical-radius)
 	border-radius: 3px;
 }
 
@@ -261,7 +260,6 @@ input {
 				background: $color_26;
 				color: $color_27;
 				padding: 2px 3px 1px;
-				//Instead of the line below you could use @includeborder-radius($radius, $vertical-radius)
 				border-radius: 3px;
 			}
 		}
@@ -514,7 +512,6 @@ h2[itemprop="name"] {
 	line-height: 1;
 	background-color: $color_0;
 	border-color: $color_20;
-	//Instead of the line below you could use @includeborder-radius($radius, $vertical-radius)
 	border-radius: 0;
 	img {
 		width: auto;
@@ -700,7 +697,6 @@ h2[itemprop="name"] {
 			.result_url {
 				font-size: 110%;
 				color: $color_23;
-				//Instead of the line below you could use @includeword-break($value)
 				word-break: break-word;
 			}
 			.result_aka {
@@ -769,7 +765,6 @@ h2[itemprop="name"] {
 			left: 10px;
 			margin-right: -35px;
 			&:hover {
-				//Instead of the line below you could use @includetext-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
 				text-shadow: 0 0 5px $color_9;
 			}
 		}
@@ -778,7 +773,6 @@ h2[itemprop="name"] {
 			right: 10px;
 			margin-left: -35px;
 			&:hover {
-				//Instead of the line below you could use @includetext-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
 				text-shadow: 0 0 5px $color_9;
 			}
 		}
@@ -809,7 +803,6 @@ h2[itemprop="name"] {
 	}
 	a.document.selected {
 		border-color: $color_36;
-		//Instead of the line below you could use @includebox-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
 		box-shadow: 0 0 3px $color_9;
 	}
 }
@@ -817,7 +810,6 @@ h2[itemprop="name"] {
 	#cboxClose {
 		top: 0;
 		background-color: $color_9;
-		//Instead of the line below you could use @includeborder-bottom-left-radius($radius)
 		border-bottom-left-radius: 4px;
 	}
 	#cboxCurrent {
@@ -828,7 +820,6 @@ h2[itemprop="name"] {
 		height: 1.8em;
 		line-height: 22px;
 		padding: 2px 6px;
-		//Instead of the line below you could use @includeborder-bottom-right-radius($radius)
 		border-bottom-right-radius: 4px;
 	}
 	#dlwrapper {
@@ -845,9 +836,7 @@ h2[itemprop="name"] {
 		.dropdown-menu {
 			margin-bottom: 4px;
 			border: none;
-			//Instead of the line below you could use @includeborder-top-left-radius($radius)
 			border-top-left-radius: 6px;
-			//Instead of the line below you could use @includebox-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
 			box-shadow: none;
 			a {
 				color: $color_36;
@@ -890,15 +879,12 @@ h2[itemprop="name"] {
 	padding-bottom: 0;
 }
 .cols-one {
-	//Instead of the line below you could use @includecolumn-count($count)
 	column-count: 1;
 }
 .cols-two {
-	//Instead of the line below you could use @includecolumn-count($count)
 	column-count: 2;
 }
 .cols-three {
-	//Instead of the line below you could use @includecolumn-count($count)
 	column-count: 3;
 }
 #item-description {
@@ -964,7 +950,6 @@ h2[itemprop="name"] {
 		border-color: $color_29;
 	}
 	.dl-horizontal {
-		//Instead of the line below you could use @includeword-break($value)
 		word-break: break-word;
 	}
 	#sidebar-thumb {
