@@ -36,12 +36,34 @@ $(document).ready(function(){
 
 	$('#list-mode').on('click', function() {
 		DCV.SearchResults.setSearchMode(DCV.SearchResults.SearchMode.LIST);
+        $('#return-to-results').addClass('hidden');
+        if ($('.extended-search-mode').hasClass('hidden')) {
+			$('.extended-search-mode').removeClass('hidden');
+		}
 	});
 	$('#grid-mode').on('click', function() {
 		DCV.SearchResults.setSearchMode(DCV.SearchResults.SearchMode.GRID);
+        $('#return-to-results').addClass('hidden');
+        if ($('.extended-search-mode').hasClass('hidden')) {
+			$('.extended-search-mode').removeClass('hidden');
+		}
 	});
-	$('#extended-search-mode').on('click', function() {
+	$('#extended-search-mode, button.extended-search-mode').on('click', function() {
 		DCV.SearchResults.setSearchMode(DCV.SearchResults.SearchMode.EXTENDED);
+        $('.extended-search-mode').addClass('hidden');
+        $('#return-to-results').removeClass('hidden');
+	});
+	$('#return-to-results').on('click', function() {
+		var currentSearchMode = readCookie(DCV.subsite_layout + '_' + DCV.SearchResults.CookieNames.searchMode);
+		if (currentSearchMode == null) {
+			DCV.SearchResults.setSearchMode(searchConfig.defaultSearchMode);
+		} else {
+			DCV.SearchResults.setSearchMode(currentSearchMode);
+		}
+		$(this).addClass('hidden');
+        if ($('.extended-search-mode').hasClass('hidden')) {
+			$('.extended-search-mode').removeClass('hidden');
+		}
 	});
 	$('#date-graph-toggle').on('click', function() {
 		DCV.SearchResults.toggleSearchDateGraphVisibility();

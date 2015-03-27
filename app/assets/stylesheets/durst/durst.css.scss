@@ -53,7 +53,7 @@ body {
 	color: $color_2;
 	background-color: $color_3;
 }
-a {
+a, .btn-link {
 	color: $color_4;
 	&:hover {
 		color: $color_4;
@@ -410,53 +410,6 @@ a {
 }
 #durst-help-img {
 	margin-left: .5em;
-}
-#extended-search-mode {
-	animation: myfirst 3s;
-}
-@-webkit-keyframes myfirst {
-	0% {
-		background: $color_0;
-		color: $color_1;
-	}
-	25% {
-		background: $color_1;
-		color: $color_0;
-	}
-	50% {
-		background: $color_0;
-		color: $color_1;
-	}
-	75% {
-		background: $color_1;
-		color: $color_0;
-	}
-	100% {
-		background: $color_0;
-		color: $color_1;
-	}
-}
-@keyframes myfirst {
-	0% {
-		background: $color_0;
-		color: $color_1;
-	}
-	25% {
-		background: $color_1;
-		color: $color_0;
-	}
-	50% {
-		background: $color_0;
-		color: $color_1;
-	}
-	75% {
-		background: $color_1;
-		color: $color_0;
-	}
-	100% {
-		background: $color_0;
-		color: $color_1;
-	}
 }
 .dropdown a {
 	color: $color_4;

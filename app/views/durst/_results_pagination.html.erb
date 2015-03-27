@@ -1,0 +1,27 @@
+<% if @response.total_pages > 1 %>
+ <div class="results-pagination row record-padding">
+  <div class="col-md-9">
+    <div>
+      <%= paginate @response, :outer_window => 2, :theme => 'dcv' %>
+    </div>
+  </div>
+  <div class="col-md-3">
+	<% if @response.params[:q].present? %>
+		<div class="text-right">
+			<button title="extended search" class="pagination btn btn-sm btn-link extended-search-mode" type="button">Search Other Sources &raquo;</button>
+		</div>
+	<% end %>
+  </div>
+ </div>
+<% else %>	
+	<% if @response.params[:q].present? %>
+	<div class="text-right">
+		<button title="extended search" class="pagination btn btn-sm btn-link extended-search-mode" type="button">Search Other Sources &raquo;</button>
+	</div>
+	<% end %>
+<% end %>
+<%# if @response.params[:q].present? %>
+	<div class="text-right">
+		<button title="return to results" class="pagination btn btn-sm btn-link hidden" id="return-to-results" type="button">&laquo; Return to Results</button>
+	</div>
+<%# end %>
