@@ -96,6 +96,7 @@ a, .btn-link {
 	}
 }
 #site-title {
+    position: relative;
 	display: inline-block;
 	padding-top: 4px;
 	padding-bottom: 0;
@@ -109,6 +110,14 @@ a, .btn-link {
 	text-decoration: none;
 	text-transform: uppercase;
 	vertical-align: bottom;
+    #beta {
+		position:absolute;
+		top:-0.9em;
+		right:0;
+		margin-left:1.5em;
+		font-size:40%;
+		color:$color_11;
+    }
 }
 #site-banner-subtitle {
 	padding: 0;
