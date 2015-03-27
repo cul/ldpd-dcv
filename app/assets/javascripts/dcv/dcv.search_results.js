@@ -36,34 +36,16 @@ $(document).ready(function(){
 
 	$('#list-mode').on('click', function() {
 		DCV.SearchResults.setSearchMode(DCV.SearchResults.SearchMode.LIST);
-        $('#return-to-results').addClass('hidden');
-        if ($('.extended-search-mode').hasClass('hidden')) {
-			$('.extended-search-mode').removeClass('hidden');
-		}
 	});
 	$('#grid-mode').on('click', function() {
 		DCV.SearchResults.setSearchMode(DCV.SearchResults.SearchMode.GRID);
-        $('#return-to-results').addClass('hidden');
-        if ($('.extended-search-mode').hasClass('hidden')) {
-			$('.extended-search-mode').removeClass('hidden');
-		}
 	});
 	$('#extended-search-mode, button.extended-search-mode').on('click', function() {
 		DCV.SearchResults.setSearchMode(DCV.SearchResults.SearchMode.EXTENDED);
-        $('.extended-search-mode').addClass('hidden');
-        $('#return-to-results').removeClass('hidden');
 	});
+
 	$('#return-to-results').on('click', function() {
-		var currentSearchMode = readCookie(DCV.subsite_layout + '_' + DCV.SearchResults.CookieNames.searchMode);
-		if (currentSearchMode == null) {
-			DCV.SearchResults.setSearchMode(searchConfig.defaultSearchMode);
-		} else {
-			DCV.SearchResults.setSearchMode(currentSearchMode);
-		}
-		$(this).addClass('hidden');
-        if ($('.extended-search-mode').hasClass('hidden')) {
-			$('.extended-search-mode').removeClass('hidden');
-		}
+		DCV.SearchResults.setSearchMode(DCV.SearchResults.getCurrentSearchMode());
 	});
 	$('#date-graph-toggle').on('click', function() {
 		DCV.SearchResults.toggleSearchDateGraphVisibility();
@@ -79,7 +61,7 @@ $(document).ready(function(){
 			$('.result-type-button').hide();
 		}
 
-		var currentSearchMode = readCookie(DCV.subsite_layout + '_' + DCV.SearchResults.CookieNames.searchMode);
+		var currentSearchMode = DCV.SearchResults.getCurrentSearchMode();
 		if (currentSearchMode == null) {
 			DCV.SearchResults.setSearchMode(searchConfig.defaultSearchMode);
 		} else {
@@ -95,6 +77,10 @@ $(document).ready(function(){
   }
 
 });
+
+DCV.SearchResults.getCurrentSearchMode = function(){
+	return readCookie(DCV.subsite_layout + '_' + DCV.SearchResults.CookieNames.searchMode);
+};
 
 
 
@@ -128,6 +114,8 @@ DCV.SearchResults.setSearchMode = function(searchMode) {
 			$('#search-results, .results-pagination, #appliedParams').addClass('hidden');
 	    $('#extended-search-results').removeClass('hidden');
 	    $('#extended-search-mode').addClass('btn-success');
+			$('.extended-search-mode').addClass('hidden');
+      $('#return-to-results').removeClass('hidden');
 			//BUT DO NOT SET A COOKIE FOR EXTENDED MODE!  We don't want this mode to persist between page refreshes.
   } else {
     console.log('Invalid search mode: ' + searchMode);
@@ -138,6 +126,8 @@ DCV.SearchResults.setSearchMode = function(searchMode) {
 			$('#extended-search-mode').removeClass('btn-success');
 	    $('#extended-search-results').addClass('hidden');
 	    $('#search-results, .results-pagination, #appliedParams').removeClass('hidden');
+			$('#return-to-results').addClass('hidden');
+			$('.extended-search-mode').removeClass('hidden');
 	}
 }
 
