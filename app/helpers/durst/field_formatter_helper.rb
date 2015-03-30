@@ -51,15 +51,15 @@ module Durst::FieldFormatterHelper
 	def combined_field_published_string(args)
 		# Note: This helper will only run when a publisher is present.
 
-    textual_date = args[:document]['lib_date_textual_ssm'].present? ? args[:document]['lib_date_textual_ssm'].first.strip : ''
     publisher = args[:document]['lib_publisher_ssm'].present? ? args[:document]['lib_publisher_ssm'].first.strip : ''
     origin_info_place = args[:document]['origin_info_place_for_display_ssm'].present? ? args[:document]['origin_info_place_for_display_ssm'].first.strip : ''
+    date_to_display = args[:document]['lib_date_year_range_ss'].present? ? args[:document]['lib_date_year_range_ss'].first.strip : ''
 
-		combined_string = "#{origin_info_place} : #{publisher}, #{textual_date}".strip
+		combined_string = "#{origin_info_place} : #{publisher}, #{date_to_display}".strip
 
 		# If combined_string begins with a colon, that means no origin_info_place was present.  Remove leading colon.
 		combined_string = combined_string[1...combined_string.length].strip if combined_string.start_with?(':')
-		# If combined_string ends with a colon, that means no textual_date was present.  Remove trailing comma
+		# If combined_string ends with a colon, that means no date_to_display was present.  Remove trailing comma
 		combined_string = combined_string[0...combined_string.length-1].strip if combined_string.end_with?(',')
 
 		return combined_string
