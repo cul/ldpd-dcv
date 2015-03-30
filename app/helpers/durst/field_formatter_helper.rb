@@ -53,15 +53,7 @@ module Durst::FieldFormatterHelper
 
     publisher = args[:document]['lib_publisher_ssm'].present? ? args[:document]['lib_publisher_ssm'].first.strip : ''
     origin_info_place = args[:document]['origin_info_place_for_display_ssm'].present? ? args[:document]['origin_info_place_for_display_ssm'].first.strip : ''
-    date_to_display = args[:document]['lib_date_year_range_ss'].present? ? args[:document]['lib_date_year_range_ss'].strip : ''
-
-    # If the starts and end of the year range are the same, compress them into one year
-    if date_to_display.index('-')
-			start_and_end = date_to_display.split('-')
-			if start_and_end[0] == start_and_end[1]
-				date_to_display = start_and_end[0]
-			end
-		end
+    date_to_display = args[:document]['lib_date_textual_ssm'].present? ? args[:document]['lib_date_textual_ssm'].first.strip : ''
 
 		combined_string = "#{origin_info_place} : #{publisher}, #{date_to_display}".strip
 
