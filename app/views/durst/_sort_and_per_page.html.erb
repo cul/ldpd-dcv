@@ -11,7 +11,7 @@
       <button id="grid-mode" type="button" class="btn btn-success result-type-button" title="grid view"><i class="glyphicon glyphicon-th"></i></button>
       <button id="list-mode" type="button" class="btn btn-default result-type-button" title="list view"><i class="glyphicon glyphicon-th-list"></i></button>
       <% if @response.params[:q].present? %>
-        <button id="extended-search-mode" type="button" class="btn btn-default result-type-button" title="extended search"><i class="glyphicon glyphicon-link"></i></button>
+        <button id="extended-search-mode" type="button" class="btn btn-default result-type-button" title="Search Other Sources"><i class="glyphicon glyphicon-link"></i></button>
       <% end %>
     </div>
     <% if controller.subsite_config['date_search'].present? && controller.subsite_config['date_search'].fetch('timeline', false) %>
