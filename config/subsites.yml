@@ -15,6 +15,9 @@ all_environments: &all_environments
   restricted:
     ifp:
       layout: 'ifp'
+    universityseminars:
+      layout: 'universityseminars'
+      show_original_file_download: true
     
 development: *all_environments
 test: *all_environments

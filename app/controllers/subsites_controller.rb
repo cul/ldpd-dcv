@@ -3,14 +3,21 @@ class SubsitesController < ApplicationController
   include Dcv::CatalogIncludes
   include Cul::Hydra::ApplicationIdBehavior
 
-  def initialize(*args)
-    super(*args)
-    self.class.parent_prefixes << 'catalog' # haaaaaaack to not reproduce templates
-  end
+  before_filter :set_view_path
 
   layout Proc.new { |controller|
     self.subsite_layout
   }
+
+  def initialize(*args)
+    super(*args)
+    self.class.parent_prefixes << self.subsite_layout # haaaaaaack to not reproduce templates
+    self.class.parent_prefixes << 'catalog' # haaaaaaack to not reproduce templates
+  end
+
+  def set_view_path
+    self.prepend_view_path('ifp')
+  end
 
   def subsite_config
     return SUBSITES[(self.class.restricted? ? 'restricted' : 'public')][self.controller_name]
@@ -37,5 +44,12 @@ class SubsitesController < ApplicationController
   def subsite_layout
     SUBSITES[(self.class.restricted? ? 'restricted' : 'public')][self.controller_name]['layout']
   end
+
+  ## Override render so that we look in the subsite_layout view directory first
+  #def render(*args)
+  #  options = args.extract_options!
+  #  options[:template] = "/mycustomfolder/#{params[:action]}"
+  #  super(*(args << options))
+  #end
 
 end

@@ -1,4 +1,4 @@
-class Dcv::Configurators::Restricted::IfpBlacklightConfigurator
+class Dcv::Configurators::Restricted::UniversityseminarsBlacklightConfigurator
 
   def self.solr_name(*args)
     ActiveFedora::SolrService.solr_name(*args)
@@ -6,11 +6,11 @@ class Dcv::Configurators::Restricted::IfpBlacklightConfigurator
 
   def self.configure(config)
 
-    config.show.route = { controller: 'restricted/ifp' }
+    config.show.route = { controller: 'restricted/universityseminars' }
 
     config.default_solr_params = {
       :fq => [
-        'publisher_ssim:"info:fedora/cul:xwdbrv15p4"',  # Include content published to the private IFP site
+        'publisher_ssim:"info:fedora/cul:rfj6q573w6"', # Include content published to the public IFP site
         'active_fedora_model_ssi:GenericResource', # Only include GenericResources in searches
         '-dc_type_sim:FileSystem' # Ignore FileSystem resources in searches
       ],

@@ -3,11 +3,12 @@ SUBSITES = YAML.load_file("#{Rails.root.to_s}/config/subsites.yml")[Rails.env]
 # Certain sites shouldn't be present on prod
 if Rails.env == 'dcv_prod'
 
-  # Don't show IFP in public for now
-  SUBSITES['public'].delete('ifp')
+  # Disable the following restricted subsites in prod
   SUBSITES['restricted'].delete('ifp')
+  SUBSITES['restricted'].delete('universityseminars')
 
-  # Don't show Durst in public for now
+  # Disable the following public subsites in prod
+  SUBSITES['public'].delete('ifp')
   SUBSITES['public'].delete('durst')
 
 end
