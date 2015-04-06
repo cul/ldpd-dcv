@@ -13,7 +13,7 @@ gem 'cul_scv_hydra', '>= 0.22.9.7'
 #gem 'cul_scv_hydra', :github => 'cul/cul_scv_hydra'
 #gem 'cul_scv_hydra', :path => '../cul_scv_hydra'
 gem 'active-triples', '~> 0.2.2'
-
+gem 'rdf-rdfxml', git: 'https://github.com/ruby-rdf/rdf-rdfxml', branch: 'develop'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 
