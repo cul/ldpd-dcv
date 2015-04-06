@@ -584,7 +584,7 @@ module Ifp::PartnerDataHelper
 		},
 		vietnam: {
 			:office => "Vietnam",
-			:browse_digital_record_pids => 0,
+			:browse_digital_record_pids => ['ldpd:499461'],
 			:finding_aid => [{ :name => "Link to series IV.22", :id => 64 }],
 			:web_archive => "https://archive-it.org/collections/2766;?fc=websiteGroup%3AFord+Foundation+International+Fellowship+Program&fc=meta_Coverage%3AVietnam",
 			:ifp_community => "http://www.fordifp.org/Vietnam/en-us/home.aspx",
