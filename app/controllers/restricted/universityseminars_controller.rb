@@ -5,9 +5,8 @@ class Restricted::UniversityseminarsController < SubsitesController
   end
 
   def index
-    if has_search_parameters?
-      super
-    else
+	super
+    unless has_search_parameters?
       render 'home'
     end
   end
