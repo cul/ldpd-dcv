@@ -141,11 +141,7 @@ a {
 		font-size: 1.28em;
 		letter-spacing: 1px;
 		padding-top: 1px;
-		padding-left: 62px;
-		background-image: $url_0;
-		background-size: auto 100%;
-		background-repeat: no-repeat;
-		background-position: left center;
+		padding-left: 0;
 	}
 	#secondary-nav #partner-dropdown {
 		width: 420px;
@@ -156,11 +152,7 @@ a {
 		font-size: 1.50em;
 		letter-spacing: 1px;
 		padding-top: 1px;
-		padding-left: 52px;
-		background-image: $url_0;
-		background-size: auto 100%;
-		background-repeat: no-repeat;
-		background-position: left center;
+		padding-left: 0;
 	}
 	#partner-image-grid a:first-child .lead {
 		top: 25% !important;
@@ -173,11 +165,7 @@ a {
 		padding-top: 1px;
 		font-size: 1.85em;
 		letter-spacing: 1px;
-		padding-left: 62px;
-		background-image: $url_0;
-		background-size: auto 100%;
-		background-repeat: no-repeat;
-		background-position: left center;
+		padding-left: 0;
 	}
 	#site-banner-subtitle {
 		font-size: 18px;
@@ -387,6 +375,11 @@ a {
 	}
 }
 #content {
+	#facet-panel-collapse {
+		.panel-body {
+			background-color:white;
+		}
+	}
 	#mapholder {
 		width: 100%;
 		height: auto;
