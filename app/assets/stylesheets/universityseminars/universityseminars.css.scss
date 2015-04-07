@@ -147,6 +147,17 @@ a {
 	#secondary-nav #partner-dropdown {
 		width: 420px;
 	}
+	#main-container {
+	    .inner {
+	        &.home {
+			    .sidenav { 
+				    .top-panel-heading {
+					    display:none;
+					}
+				}
+			}
+		}
+	}
 }
 @media(min-width: 992px) {
 	#site-title {
@@ -243,6 +254,12 @@ a {
 			background: transparent;
 			background-color: transparent;
 			background-color: transparent;
+            .sidenav { 
+				.panel-title {
+					font-size:.8em;
+					text-transform:uppercase;
+				}
+			}
 			#imgholder-div .thumbnail {
 				position: relative;
 				padding: 0;
