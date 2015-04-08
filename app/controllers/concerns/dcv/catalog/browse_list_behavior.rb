@@ -433,6 +433,12 @@ module Dcv::Catalog::BrowseListBehavior
 			:external_url => 'http://www.columbia.edu/cgi-bin/cul/resolve?clio7665773',
 			:description => "Dr. Wilbert Webster White was the founder in 1900 and President, 1900-1939, of Bible Teachers' College, now New York Theological Seminary. He was renowned for his development of an inductive system of Bible Study, emphasizing knowledge of the Bible rather than knowledge about the Bible. His Papers contain an Address by him on the Biblio-centric Curriculum. Dr. White's papers, along with the records of Biblical Seminary and New York Theological Seminary, now form part of The Burke Library Archives (Columbia University Libraries) and present a remarkable resource for researchers."
 		},
+		{
+			:name => "WWI Pamphlets 1913-1920",
+			:image => 'wwi_pamphlets.jpg',
+			:external_url => 'http://www.columbia.edu/cgi-bin/cul/resolve?clio10796153',
+			:description => "A collection of World War I pamphlets from Columbia University Libraries."
+		},
 	]
 
   def digital_projects
