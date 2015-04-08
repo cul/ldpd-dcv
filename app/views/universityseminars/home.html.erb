@@ -1,3 +1,40 @@
 <div id="content">
-	University Seminars
+<div class="home inner">
+     <img class="img-responsive" alt="" src="/assets/universityseminars/home-ss/slide-<%= rand(0..2) %>.jpg">
+</div>
+ <div class="row">
+  <div class="col-md-8">
+    <div class="home inner">
+                  <h6>ABOUT THE UNIVERSITY SEMINARS</h6>
+<p>
+Founded in 1944 by Frank Tannenbaum, The University Seminars are groups of professors and experts from Columbia University and elsewhere. Seminars gather monthly to work together on problems that cross the boundaries between university departments.
+</p>
+<p>
+Tannenbaum believed that uniformity imposed from above would destroy the seminars.  He stated, “The University Seminar is an independent universe. Its boundaries are limited only by its horizons.” Because of this belief, some seminars are tight, restricted discussion groups that study unfashionable problems; others are more broad-based discussions where eminent visitors share new ideas.  All seminars are by invitation and closed to the general public.
+</p>
+<p>
+When Tannenbaum died in 1969, there were fifty seminars. There are now over 90.  Three of original five are still active: Peace, Religion, and The Renaissance.
+</p>
+<p>
+In 2003, then Director Robert L. Belknap conceived and, over several years implemented, the project of scanning 50 years of the pre-digital meeting minutes of the seminars. Under his supervision, over a half million pages were scanned and preserved.  In 2011, Summer Hart was hired to work with Bob Belknap and Bob Pollack to preserve and unify the various components of the collection.
+</p>
+<p>
+The University Seminar’s archive is a valuable compilation of intellectual history now spanning 70 years.
+</p>
+<p>
+<a href="/restricted/universityseminars/about_the_ifp" class="btn btn-primary btn-xs">Learn More »</a>
+</p>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+     <div class="home inner">
+        <h6 class="">BROWSE THE COLLECTION</h6>
+
+			<%= render partial: 'search_sidebar', locals: {hide_refine_heading: true, is_home_view: true} %>
+
+     </div> <!--/.inner-->
+  </div><!--/-->
+
+</div>
 </div>

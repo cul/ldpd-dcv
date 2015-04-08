@@ -1,7 +1,7 @@
 //colors
 $color_0: #111;
 $color_1: #fafafa;
-$color_2: #2a778f;
+$color_2: #779bc3; //#2a778f;
 $color_3: #ccc;
 $color_4: #86878c;
 $color_5: #222;
@@ -117,11 +117,12 @@ a {
 	font-family: $font_0, $font_1, $font_2;
 	font-size: 160%;
 	font-weight: 200;
-	line-height: 1;
+	line-height: 2;
 	color: $color_10;
 	text-align: left;
 	text-decoration: none;
 	text-transform: uppercase;
+    text-shadow: 0 0 2px $color_5;
 	vertical-align: bottom;
 }
 #site-banner-subtitle {
@@ -141,14 +142,21 @@ a {
 		font-size: 1.28em;
 		letter-spacing: 1px;
 		padding-top: 1px;
-		padding-left: 62px;
-		background-image: $url_0;
-		background-size: auto 100%;
-		background-repeat: no-repeat;
-		background-position: left center;
+		padding-left: 0;
 	}
 	#secondary-nav #partner-dropdown {
 		width: 420px;
+	}
+	#main-container {
+	    .inner {
+	        &.home {
+			    .sidenav { 
+				    .top-panel-heading {
+					    display:none;
+					}
+				}
+			}
+		}
 	}
 }
 @media(min-width: 992px) {
@@ -156,11 +164,7 @@ a {
 		font-size: 1.50em;
 		letter-spacing: 1px;
 		padding-top: 1px;
-		padding-left: 52px;
-		background-image: $url_0;
-		background-size: auto 100%;
-		background-repeat: no-repeat;
-		background-position: left center;
+		padding-left: 0;
 	}
 	#partner-image-grid a:first-child .lead {
 		top: 25% !important;
@@ -173,11 +177,7 @@ a {
 		padding-top: 1px;
 		font-size: 1.85em;
 		letter-spacing: 1px;
-		padding-left: 62px;
-		background-image: $url_0;
-		background-size: auto 100%;
-		background-repeat: no-repeat;
-		background-position: left center;
+		padding-left: 0;
 	}
 	#site-banner-subtitle {
 		font-size: 18px;
@@ -254,6 +254,12 @@ a {
 			background: transparent;
 			background-color: transparent;
 			background-color: transparent;
+            .sidenav { 
+				.panel-title {
+					font-size:.8em;
+					text-transform:uppercase;
+				}
+			}
 			#imgholder-div .thumbnail {
 				position: relative;
 				padding: 0;
@@ -387,6 +393,11 @@ a {
 	}
 }
 #content {
+	#facet-panel-collapse {
+		.panel-body {
+			background-color:$color_10;
+		}
+	}
 	#mapholder {
 		width: 100%;
 		height: auto;
