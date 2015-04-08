@@ -1,6 +1,6 @@
 <% # main container for facets/limits menu -%>
 <% if has_facet_values?  %>
-<div <%= defined?(is_home_view) && is_home_view ? '' : 'id="facets"'.html_safe %> class="facets sidenav">
+<div <%= defined?(no_id_attr) && no_id_attr ? '' : 'id="facets"'.html_safe %> class="facets sidenav">
 
   <div class="top-panel-heading panel-heading">
     <button type="button" class="facets-toggle" data-toggle="collapse" data-target="#facet-panel-collapse">
