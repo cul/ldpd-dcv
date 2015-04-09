@@ -14,7 +14,7 @@ module Dcv::Authenticated::AccessControl
         # Allow access
       else
         session[:post_login_redirect_url] = request.original_url if params[:controller] != 'devise'
-        redirect_to :controller => 'users', :action => 'do_wind_login'
+        redirect_to :controller => '/users', :action => 'do_wind_login'
       end
     end
   end
