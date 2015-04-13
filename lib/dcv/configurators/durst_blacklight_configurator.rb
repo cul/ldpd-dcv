@@ -51,6 +51,9 @@ class Dcv::Configurators::DurstBlacklightConfigurator
     config.add_facet_field ActiveFedora::SolrService.solr_name('subject_hierarchical_geographic_neighborhood', :symbol), :label => 'Neighborhood', :limit => 10, :sort => 'count'
     config.add_facet_field ActiveFedora::SolrService.solr_name('subject_hierarchical_geographic_borough', :symbol), :label => 'Borough', :limit => 10, :sort => 'count'
     config.add_facet_field ActiveFedora::SolrService.solr_name('subject_hierarchical_geographic_city', :symbol), :label => 'City', :limit => 10, :sort => 'count'
+    #Hidden facets
+    config.add_facet_field ActiveFedora::SolrService.solr_name('durst_subjects', :symbol), :label => 'Durst Subject', show: false
+
 
     # Have BL send all facet field names to Solr, which has been the default
     # previously. Simply remove these lines if you'd rather use Solr request

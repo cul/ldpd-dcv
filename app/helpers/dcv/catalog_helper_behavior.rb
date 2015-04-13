@@ -27,7 +27,10 @@ module Dcv::CatalogHelperBehavior
         counter = 1
         nodes = nodes.map do |node|
           node_id = (node['CONTENTIDS'])
+
+
           node_thumbnail = get_resolved_asset_url(id: node_id, size: 256, type: 'scaled', format: 'jpg')
+          
 
           if subsite_layout == 'durst'
             title = "Image #{counter}"

@@ -18,10 +18,13 @@ module Dcv::Catalog::AssetResolverBehavior
       p[:fq] = "identifier_ssim:#{(id)}"
       solr_response = find(blacklight_config.document_solr_path, p)
     end
-    raise Blacklight::Exceptions::InvalidSolrID.new if solr_response.docs.empty?
-    document = SolrDocument.new(solr_response.docs.first, solr_response)
-    @response, @document = [solr_response, document]
-    return @document.id
+    if solr_response.docs.empty?
+      return nil
+    else
+      document = SolrDocument.new(solr_response.docs.first, solr_response)
+      @response, @document = [solr_response, document]
+      return @document.id
+    end
   end
 
 end
