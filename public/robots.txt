@@ -2,6 +2,6 @@
 #
 # To ban all spiders from the entire site uncomment the next two lines:
 User-agent: *
-Disallow: /durst/
-Disallow: /ifp/
-Disallow: /restricted/
+Disallow: /durst
+Disallow: /ifp
+Disallow: /restricted
