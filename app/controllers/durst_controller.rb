@@ -42,6 +42,9 @@ class DurstController < SubsitesController
   def acknowledgements
   end
 
+  def old_york_library_collection_categories
+  end
+
   private
 
   def extract_map_data_from_document_list(document_list)
