@@ -33,6 +33,15 @@ class DurstController < SubsitesController
     redirect_to '/durst?durst_favorites=true&search_field=all_text_teim'
   end
 
+  def about_the_collection
+  end
+
+  def about_the_project
+  end
+
+  def acknowledgements
+  end
+
   private
 
   def extract_map_data_from_document_list(document_list)
