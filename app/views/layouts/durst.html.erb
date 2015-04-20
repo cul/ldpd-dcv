@@ -45,11 +45,19 @@
 								margin-top: -6px;
 								padding-right: 22px;"><i class="glyphicon glyphicon-home"></i></a>
 							</li>
-							<li class="hidden-phone"><a href="<%= durst_help_path %>" title="Collection Help" class="opacity_50" style="
-								line-height: 0;
-								margin-top: -6px;
-								padding-right: 22px;
-								padding-left: 22px;"><i class="glyphicon glyphicon-question-sign"></i></a>
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle hidden-xs" data-toggle="dropdown">HELP <b class="caret"></b></a>
+								<a href="#" title="Help" class="dropdown-toggle visible-xs opacity_50" style="
+									line-height: 0;
+									margin-top: -6px;
+									padding-right: 22px;
+									padding-left: 22px;"
+									data-toggle="dropdown"><i class="glyphicon glyphicon-question-sign"></i><b class="caret"></b></a>
+								<ul class="dropdown-menu">
+									<li><a href="<%= durst_help_path %>">Search Tips</a></li>
+									<li><a href="<%= durst_help_path %>#glossary">Glossary</a></li>
+									<li><a href="#" onclick="return DCV.FeedbackModal.show();">Contact</a></li>
+								</ul>
 							</li>
 							<li class="dropdown">
 								<a href="#" class="dropdown-toggle hidden-xs" data-toggle="dropdown">LEARN MORE <b class="caret"></b></a>
@@ -60,9 +68,9 @@
 									padding-left: 22px;"
 									data-toggle="dropdown"><i class="glyphicon glyphicon-info-sign"></i><b class="caret"></b></a>
 								<ul class="dropdown-menu">
-									<li><a href="#">About the collection</a></li>
-									<li><a href="#">About the project</a></li>
-									<li><a href="#">Acknowledgements</a></li>
+									<li><a href="<%= durst_about_the_collection_path %>">About the collection</a></li>
+									<li><a href="<%= durst_about_the_project_path %>">About the project</a></li>
+									<li><a href="<%= durst_acknowledgements_path %>">Acknowledgements</a></li>
 								</ul>
                             </li>
                         </ul>
