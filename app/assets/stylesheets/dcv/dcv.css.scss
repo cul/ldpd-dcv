@@ -728,6 +728,12 @@ h2[itemprop="name"] {
 	}
 	.dl-vertical dd {
 		margin-left: 1em;
+		ul {
+			padding-left:0;
+			li.coordinates {
+				padding:.25em;
+			}
+		}
 	}
 }
 #secondary {

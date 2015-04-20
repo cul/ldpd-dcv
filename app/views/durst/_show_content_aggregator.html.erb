@@ -14,20 +14,20 @@
 			<div id="durst_osm" class="no-popup"></div>
 			<div class="clearfix"></div>
 		</div>
-		<div class="inner" style="margin-bottom:1em;">
+		<div class="inner" style="margin-bottom:1em;padding-bottom:0;">
 			<% geo_facet_fields_to_show = {'subject_hierarchical_geographic_neighborhood_ssim' => 'Neighborhood', 'subject_hierarchical_geographic_borough_ssim' => 'Borough', 'subject_hierarchical_geographic_city_ssim' => 'City'} %>
 			<% geo_non_facet_fields_to_show = {'subject_hierarchical_geographic_street_ssim' => 'Address', 'geo' => 'Coordinates'} %>
 			<dl class="dl-vertical">
 				<% geo_facet_fields_to_show.each do |field_name, display_label|  %>
 					<% if document[field_name].present? %>
 						<dt><%= display_label %></dt>
-						<dd><%= document[field_name].map{|val| ('<a href="' + durst_facet_search_url(field_name, val) + '">' + val + '</a>').html_safe}.join('<br />').html_safe %></dd>
+						<dd><ul><%= document[field_name].uniq.map{|val| ('<li><a href="' + durst_facet_search_url(field_name, val) + '">' + val + '</a></li>').html_safe}.join('').html_safe %></ul></dd>
 					<% end %>
 				<% end %>
 				<% geo_non_facet_fields_to_show.each do |field_name, display_label|  %>
 					<% if document[field_name].present? %>
 						<dt><%= display_label %></dt>
-						<dd><%= document[field_name].join((field_name == 'geo' ? '<br /><br />' : '<br />')).html_safe %></dd>
+						<dd><ul><%= document[field_name].uniq.map{|val| "<li#{(field_name == 'geo' ? ' class="coordinates"' : '')}>#{val}</li>" }.join('').html_safe %></ul></dd>
 					<% end %>
 				<% end %>
 			</dl>
@@ -66,12 +66,20 @@
 
 			<div class="inner" style="margin-top:1em;">
 				<dl class="dl-horizontal">
+					
 					<% document_show_fields(document).each do |solr_fname, field| %>
-						<% if should_render_show_field? document, field %>
+						<% if solr_fname.to_s == 'dynamically_generated_published_field' %>
+							<% publisher_field_value = combined_field_published_string(document) %>
+							<% if publisher_field_value.present? %>
+							<dt><%= render_document_show_field_label document, :field => solr_fname %></dt>
+							<dd><%= publisher_field_value %></dd>
+							<% end %>
+						<% elsif should_render_show_field?(document, field) %>
 							<dt class="blacklight-<%= solr_fname.parameterize %>"><%= render_document_show_field_label document, :field => solr_fname %></dt>
 							<dd class="blacklight-<%= solr_fname.parameterize %>"><%= render_document_show_field_value document, :field => solr_fname %></dd>
 						<% end %>
 					<% end %>
+					
 				</dl>
 				<%= render_url_and_catalog_links(document) %>
 			</div>

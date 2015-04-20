@@ -72,10 +72,12 @@ class Dcv::Configurators::DurstBlacklightConfigurator
 
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display
+    
+    # Note: We have a more complex layout that doesn't work with the basic, easy blacklight show fields, so there's no point to filling these out
     config.add_show_field ActiveFedora::SolrService.solr_name('title_display', :displayable, type: :string), :label => 'Title', :separator => '<br />'.html_safe.html_safe
     config.add_show_field ActiveFedora::SolrService.solr_name('alternative_title', :displayable, type: :string), :label => 'Alternative Titles', :separator => '<br />'.html_safe
     config.add_show_field ActiveFedora::SolrService.solr_name('lib_name', :displayable), :label => 'Name', :separator => '<br />'.html_safe
-    config.add_show_field ActiveFedora::SolrService.solr_name('lib_publisher', :displayable, type: :string), :label => 'Published', :helper_method => :combined_field_published_string
+    config.add_show_field 'dynamically_generated_published_field', :label => 'Published'
     config.add_show_field ActiveFedora::SolrService.solr_name('origin_info_edition', :displayable, type: :string), :label => 'Edition', :separator => '<br />'.html_safe
     config.add_show_field ActiveFedora::SolrService.solr_name('physical_description_extent', :displayable, type: :string), :label => 'Physical Description', :separator => '<br />'.html_safe
     config.add_show_field ActiveFedora::SolrService.solr_name('lib_all_subjects', :displayable, type: :string), :label => 'Subjects', :separator => '<br />'.html_safe, :helper_method => :split_complex_subject_into_links

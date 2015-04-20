@@ -44,22 +44,21 @@ module Durst::FieldFormatterHelper
       ).html_safe
     end
 
-
-
 	end
+	
+	def combined_field_published_string(document)
 
-	def combined_field_published_string(args)
-		# Note: This helper will only run when a publisher is present.
-
-    publisher = args[:document]['lib_publisher_ssm'].present? ? args[:document]['lib_publisher_ssm'].first.strip : ''
-    origin_info_place = args[:document]['origin_info_place_for_display_ssm'].present? ? args[:document]['origin_info_place_for_display_ssm'].first.strip : ''
-    date_to_display = args[:document]['lib_date_textual_ssm'].present? ? args[:document]['lib_date_textual_ssm'].first.strip : ''
+    publisher = document['lib_publisher_ssm'].present? ? document['lib_publisher_ssm'].first.strip : ''
+    origin_info_place = document['origin_info_place_for_display_ssm'].present? ? document['origin_info_place_for_display_ssm'].first.strip : ''
+    date_to_display = document['lib_date_textual_ssm'].present? ? document['lib_date_textual_ssm'].first.strip : ''
 
 		combined_string = "#{origin_info_place} : #{publisher}, #{date_to_display}".strip
 
-		# If combined_string begins with a colon, that means no origin_info_place was present.  Remove leading colon.
+		# If combined_string begins with a colon, that means that origin_info_place was not present.  Remove leading colon.
 		combined_string = combined_string[1...combined_string.length].strip if combined_string.start_with?(':')
-		# If combined_string ends with a colon, that means no date_to_display was present.  Remove trailing comma
+		# If combined string contains ': ,', that means that lib_publisher_ssm was not present.  Remove that snippet if it exists.
+		combined_string = combined_string.gsub(': ,', '')
+		# If combined_string ends with a colon, that means date_to_display was not present.  Remove trailing comma
 		combined_string = combined_string[0...combined_string.length-1].strip if combined_string.end_with?(',')
 
 		return combined_string
