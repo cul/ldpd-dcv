@@ -346,6 +346,11 @@ a, .btn-link {
 	.appliedFilter .filterName:after {
 		color: $color_21;
 	}
+	#motm-list {
+		> li {
+			margin-bottom:1em;
+		}
+	}
 }
 #doc-item-title {
 	padding: .25em;
