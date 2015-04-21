@@ -1,0 +1,10 @@
+en:
+    pcdm:
+        file_genre:
+            Archive: "Archive (ZIP, TAR)"
+            StructuredText: "Structured Text/Data"
+            UnstructuredText: "Plain Text"
+            Markup: "Mark-Up Text (XML,SGML)"
+            Media: "Multimedia Files"
+            PageDescription: "Documents"
+            Presentation: "Presentation/Slideshow"

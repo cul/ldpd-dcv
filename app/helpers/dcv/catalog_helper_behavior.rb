@@ -102,4 +102,7 @@ module Dcv::CatalogHelperBehavior
     end
   end
 
+  def pcdm_file_genre_display value
+    t("pcdm.file_genre.#{value}")
+  end
 end
