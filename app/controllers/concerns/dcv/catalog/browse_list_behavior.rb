@@ -39,6 +39,12 @@ module Dcv::Catalog::BrowseListBehavior
 			:external_url => 'http://www.columbia.edu/cgi-bin/cul/resolve?clio8683372',
 			:description => "The occupation of five buildings in April 1968 marked a sea change in the relationships among Columbia University administration, its faculty, its student body, and its neighbors. Featuring original documents, photographs, and audio from the University Archives, this online exhibition examines the causes, actions, and aftermath of a protest that captivated the campus, the nation, and the world."
 		},
+		{
+			:name => "A Church is Born: Church of South India Inauguration",
+			:image => 'a_church_is_born.jpeg',
+			:external_url => 'http://www.columbia.edu/cgi-bin/cul/resolve?clio11373281',
+			:description => "The unification of the Church of South India in September 1947, depicted here through a filmstrip and commentary, is considered one of the most important in the Church Union movement. For the first time after centuries of division, churches with various ministries were brought together in a collective Episcopal Church. The reconciliation it reached between Anglicans and other denominations on the doctrine of apostolic succession is often cited as a landmark in the ecumenical movement. This exhibit depicts not only the road to unification in South India, but also the efforts that the Burke Library at Union Theological Seminary took to trace the history and ownership of the collection, while preserving and making the film available to researchers."
+		},
     {
 			:name => "APIS: Advanced Papyrological Information System",
 			:image => 'apis.jpeg',
@@ -196,6 +202,12 @@ module Dcv::Catalog::BrowseListBehavior
 			:description => "A website with images and descriptions of over 500 puppets, masks, historical theater models and stage designs.  Gathered for documentary and pedagogical purposes, the objects range in date from the 18th well into the 20th centuries, and are from countries all around the globe."
 		},
 		{
+			:name => "Early Modern Futures",
+			:image => 'early_modern_futures.jpeg',
+			:external_url => 'http://www.columbia.edu/cgi-bin/cul/resolve?clio11376130',
+			:description => "This exhibition accompanies the Early Modern Futures conference held on April 24, 2015 as well as a physical exhibition in the Rare Book & Manuscript Library. Early Modern Futures seeks to spark a conversation about the many ways in which early modern literature practices prospective historical thinking. It asks how beliefs about future events (from the eschatological to the economic to the genealogical) shaped peoples actions in the present; how early modernity analogized historical and prospective thinking; and how various textual and literary forms--whether records, scripts, manuals, genres, or editions--sought to represent the future and even anticipate their own reception."
+		},
+		{
 			:name => "Frances Perkins: The Woman Behind the New Deal",
 			:image => 'frances_perkins.jpg',
 			:external_url => 'http://www.columbia.edu/cgi-bin/cul/resolve?lweb0136',
@@ -240,13 +252,6 @@ module Dcv::Catalog::BrowseListBehavior
 			:facet_value => 'Jewels in Her Crown',
 			:external_url => 'http://www.columbia.edu/cgi-bin/cul/resolve?clio4887511',
 			:description => "An online version of the exhibition held in Rare Book and Manuscript Galleries from October 8, 2004 - January 28, 2005, the site brings together for the first time objects selected from all eleven special collections within Columbia University Libraries and affiliates. Mounted in conjunction with the 250th anniversary of Columbia, this exhibition celebrates both the rich collections of books, drawings, manuscripts and other research materials gathered since King's College had its start near Trinity Church in lower Manhattan in 1754 and also the generosity of the donors whose gifts have made possible the work of students and scholars for many generations."
-		},
-		{
-			:name => "Papers of John Jay",
-			:image => 'john_jay.jpeg',
-			:facet_value => 'Jay Papers',
-			:external_url => 'http://www.columbia.edu/cgi-bin/cul/resolve?AVE8231',
-			:description => "An online index and text database of correspondence, memos, diaries, etc. written by or to the American statesman John Jay (1745-1829)."
 		},
 		{
 			:name => "John H. Yardley Collection of Architectural Letterheads",
@@ -328,6 +333,13 @@ module Dcv::Catalog::BrowseListBehavior
 			:image => 'plimpton.jpg',
 			:external_url => 'http://www.columbia.edu/cgi-bin/cul/resolve?lweb0116',
 			:description => "Drawn exclusively from the Plimpton Collection, this exhibition includes manuscripts and books from medieval times through the early 20th century, including many of the manuscripts and books that were used to illustrate George Arthur Plimpton's The Education of Shakespeare and The Education of Chaucer, and David Eugene Smith's Rara Arithmetica. Additional sections of the exhibition deal with handwriting and education for women, two of Plimpton's particular interests."
+		},
+		{
+			:name => "Papers of John Jay",
+			:image => 'john_jay.jpeg',
+			:facet_value => 'Jay Papers',
+			:external_url => 'http://www.columbia.edu/cgi-bin/cul/resolve?AVE8231',
+			:description => "An online index and text database of correspondence, memos, diaries, etc. written by or to the American statesman John Jay (1745-1829)."
 		},
 		{
 			:name => "People in the Books: Hebraica and Judaica Manuscripts from Columbia University Libraries",
