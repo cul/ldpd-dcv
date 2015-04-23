@@ -39,12 +39,6 @@ module Dcv::Catalog::BrowseListBehavior
 			:external_url => 'http://www.columbia.edu/cgi-bin/cul/resolve?clio8683372',
 			:description => "The occupation of five buildings in April 1968 marked a sea change in the relationships among Columbia University administration, its faculty, its student body, and its neighbors. Featuring original documents, photographs, and audio from the University Archives, this online exhibition examines the causes, actions, and aftermath of a protest that captivated the campus, the nation, and the world."
 		},
-		{
-			:name => "A Church is Born: Church of South India Inauguration",
-			:image => 'a_church_is_born.jpeg',
-			:external_url => 'http://www.columbia.edu/cgi-bin/cul/resolve?clio11373281',
-			:description => "The unification of the Church of South India in September 1947, depicted here through a filmstrip and commentary, is considered one of the most important in the Church Union movement. For the first time after centuries of division, churches with various ministries were brought together in a collective Episcopal Church. The reconciliation it reached between Anglicans and other denominations on the doctrine of apostolic succession is often cited as a landmark in the ecumenical movement. This exhibit depicts not only the road to unification in South India, but also the efforts that the Burke Library at Union Theological Seminary took to trace the history and ownership of the collection, while preserving and making the film available to researchers."
-		},
     {
 			:name => "APIS: Advanced Papyrological Information System",
 			:image => 'apis.jpeg',
@@ -133,6 +127,12 @@ module Dcv::Catalog::BrowseListBehavior
 			:image => 'choosing_sides.jpg',
 			:external_url => 'http://www.columbia.edu/cgi-bin/cul/resolve?clio7888001',
 			:description => "Group Research was an independent organization that documented and publicized the activities of \"extremist\" political groups in the United States from the early 1960s to the mid-1990s. This exhibit draws from Group Research's archive to showcase the role that visual media played in creating the modern American conservative movement during those years. Included are more than fifty images from items like newsletters, posters, record covers, and bumper stickers that represented such notable right-wing groups as the John Birch Society, the Christian Crusade, and the Citizens' Councils of America."
+		},
+		{
+			:name => "A Church is Born: Church of South India Inauguration",
+			:image => 'a_church_is_born.jpeg',
+			:external_url => 'http://www.columbia.edu/cgi-bin/cul/resolve?clio11373281',
+			:description => "The unification of the Church of South India in September 1947, depicted here through a filmstrip and commentary, is considered one of the most important in the Church Union movement. For the first time after centuries of division, churches with various ministries were brought together in a collective Episcopal Church. The reconciliation it reached between Anglicans and other denominations on the doctrine of apostolic succession is often cited as a landmark in the ecumenical movement. This exhibit depicts not only the road to unification in South India, but also the efforts that the Burke Library at Union Theological Seminary took to trace the history and ownership of the collection, while preserving and making the film available to researchers."
 		},
 		{
 			:name => "Columbia Historical Corporate Reports: Digitized Reports from Watson Library's Collection",
