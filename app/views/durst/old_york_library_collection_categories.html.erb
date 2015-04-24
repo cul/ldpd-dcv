@@ -6,7 +6,16 @@
 
 
 <ul id="motm-list" class="list-unstyled">
+	
+<li><%= link_to('Almanacs', durst_subject_search_url('Almanacs')) %></li>
+
+<li><%= link_to('Art', durst_subject_search_url('Art')) %>
+<ul>
+<li><%= link_to('Art (Entertainment)', durst_subject_search_url('Art (Entertainment)')) %></li>
+<li><%= link_to('Art (Music)', durst_subject_search_url('Art (Music)')) %></li>
 <li><%= link_to('Art (Theater)', durst_subject_search_url('Art (Theater)')) %> - Theatre histories, vaudeville, plays, programs, scrapbooks.</li>
+</ul>
+</li>
 
 <li><%= link_to('Atlas', durst_subject_search_url('Atlas')) %> - Books containing maps/streets indices. Most are oversize books.</li>
 
@@ -28,6 +37,8 @@
 <li><%= link_to('Celebration', durst_subject_search_url('Celebration')) %> - Special events such as building/statue dedications, Hudson-Fulton Celebration, tributes. </li>
 
 <li><%= link_to('Cities', durst_subject_search_url('Cities')) %></li>
+
+<li><%= link_to('City Architecture', durst_subject_search_url('City Architecture')) %></li>
 
 <li><%= link_to('Commerce', durst_subject_search_url('Commerce')) %> - Markets &amp; economies, industries, trades, retain stores, unions, labor, some relevant biographies.
 <ul>
@@ -159,8 +170,8 @@
 
 <li><strong>Press</strong> - Press, media, journalism, and printing trades 
 <ul>
-<li><%= link_to('Press (Planning)', durst_subject_search_url('Press (Planning)')) %></li>
 <li><%= link_to('Press (Periodical)', durst_subject_search_url('Press (Periodical)')) %> - Bound periodicals </li>
+<li><%= link_to('Press (Planning)', durst_subject_search_url('Press (Planning)')) %></li>
 </ul>
 </li>
 
@@ -187,9 +198,10 @@
 
 <li><%= link_to('Views', durst_subject_search_url('Views')) %> - NYC illustrations, photographs, posters. </li>
 
+<li><%= link_to('Women', durst_subject_search_url('Women')) %> - Histories by and/or about women.</li>
+
 <li><%= link_to("World's Fair", durst_subject_search_url("World's Fair")) %> - This includes the 1939 and 1964 World's Fairs in NYC and a few items relating to the NY Exposition at the Crystal Palace in 1853 &amp; Columbia Exposition of 1893. </li>
 
-<li><%= link_to('Women', durst_subject_search_url('Women')) %> - Histories by and/or about women.</li>
 <li><%= link_to('Zoning', durst_subject_search_url('Zoning')) %> - Part of planning. </li>
 </ul>
 
