@@ -1,6 +1,6 @@
 <% if show_sort_and_per_page? and !blacklight_config.per_page.blank? %>
 
-<div id="per-page-dropdown" class="btn-group btn-group-xs">
+<div id="per_page-dropdown" class="btn-group btn-group-xs">
   <span class="sr-only"><%= t('blacklight.search.per_page.title') %></span>
 	<%= link_to("<i class=\"glyphicon glyphicon-resize-vertical\"></i> #{current_per_page} <span class=\"caret\"></span>".html_safe, "#", :class=> "btn btn-default dropdown-toggle", :'data-toggle'=>"dropdown", :title=>t(:'blacklight.search.per_page.button_label', :count => current_per_page)) %>
   <ul class="dropdown-menu dropdown-menu-right" role="menu">
