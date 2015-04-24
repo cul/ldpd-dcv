@@ -20,7 +20,7 @@
 //= require bootstrap-sprockets
 //
 // jQuery UI
-//= require jquery.ui.all
+//= require jquery-ui
 //= require colorbox-rails
 //
 // OpenSeadragon
