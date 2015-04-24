@@ -1,5 +1,5 @@
 <% if show_sort_and_per_page? and !active_sort_fields.blank? %>
-<div id="sort-dropdown" class="btn-group btn-group-xs">
+<div id="sort-results-dropdown" class="btn-group btn-group-xs">
   <%= link_to('<i class="glyphicon glyphicon-sort-by-alphabet"></i> <span class="caret"></span>'.html_safe, "#", :class=>"btn btn-default dropdown-toggle", :'data-toggle'=>"dropdown", :title=>t('blacklight.search.sort.label', :field =>current_sort_field.label)) %>
 
   <ul class="dropdown-menu dropdown-menu-right" role="menu">
