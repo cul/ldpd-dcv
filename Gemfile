@@ -5,11 +5,11 @@ gem 'rails', '4.0.4'
 gem 'actionpack-action_caching'
 # Hydra stack
 gem 'nokogiri', '~> 1.6.3'
-gem 'blacklight', '>= 5.4.0'
+gem 'blacklight', '~> 5.4.0'
 gem 'hydra-head', '~>7'
 
 # Columbia Hydra models
-gem 'cul_scv_hydra', '>= 0.22.9.8'
+gem 'cul_scv_hydra', '>= 0.22.9.10'
 #gem 'cul_scv_hydra', :github => 'cul/cul_scv_hydra'
 #gem 'cul_scv_hydra', :path => '../cul_scv_hydra'
 gem 'active-triples', '~> 0.2.2'
