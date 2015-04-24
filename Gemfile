@@ -5,7 +5,7 @@ gem 'rails', '4.0.4'
 gem 'actionpack-action_caching'
 # Hydra stack
 gem 'nokogiri', '~> 1.6.3'
-gem 'blacklight', '>= 5.4.0'
+gem 'blacklight', '~> 5.4.0'
 gem 'hydra-head', '~>7'
 
 # Columbia Hydra models
