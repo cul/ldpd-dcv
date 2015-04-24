@@ -114,6 +114,7 @@ module Dcv::Catalog::SearchParamsLogicBehavior
 
   def durst_favorite_filter(solr_parameters, user_parameters)
     if user_parameters[:durst_favorites].present? && user_parameters[:durst_favorites].to_s == 'true'
+      params[:search_field] = 'all_text_teim' if params[:search_field].blank?
       solr_parameters[:fq] << 'cul_member_of_ssim:"info:fedora/cul:nvx0k6djr1"' # cul:nvx0k6djr1 is the pid of the "Seymour's Favorites" Group
     end
   end
