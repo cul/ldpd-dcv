@@ -1,11 +1,19 @@
 <%# default partial to display solr document fields in catalog index view -%>
 <ul>
-  <% index_fields(document).each do |solr_fname, field| -%>
-    <% if should_render_index_field? document, field %>
+  <% index_fields(document).each do |solr_fname, field| %>
+    <% if solr_fname.to_s == 'dynamically_generated_published_field' %>
+			<% publisher_field_value = combined_field_published_string(document) %>
+			<% if publisher_field_value.present? %>
+				<li>
+				<strong><%= render_index_field_label document, :field => solr_fname %></strong>
+				<%= publisher_field_value %>
+				</li>
+			<% end %>
+		<% elsif should_render_index_field? document, field %>
 			<li>
 	    <strong><%= render_index_field_label document, :field => solr_fname %></strong>
 	    <%= render_index_field_value document, :field => solr_fname %>
 			</li>
-    <% end -%>
-  <% end -%>
+    <% end %>
+  <% end %>
 </ul>

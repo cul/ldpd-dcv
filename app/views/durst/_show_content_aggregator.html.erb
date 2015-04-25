@@ -70,7 +70,7 @@
 					<% document_show_fields(document).each do |solr_fname, field| %>
 						<% if solr_fname.to_s == 'dynamically_generated_published_field' %>
 							<% publisher_field_value = combined_field_published_string(document) %>
-							<% if publisher_field_value.present? %>
+							<% if true || publisher_field_value.present? %>
 							<dt><%= render_document_show_field_label document, :field => solr_fname %></dt>
 							<dd><%= publisher_field_value %></dd>
 							<% end %>

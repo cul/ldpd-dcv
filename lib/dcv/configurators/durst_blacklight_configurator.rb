@@ -67,7 +67,7 @@ class Dcv::Configurators::DurstBlacklightConfigurator
     #   The ordering of the field names is the order of the display
     #config.add_index_field ActiveFedora::SolrService.solr_name('title_display', :displayable, type: :string), :label => 'Title'
     config.add_index_field ActiveFedora::SolrService.solr_name('primary_name', :displayable, type: :string), :label => 'Name'
-    config.add_index_field ActiveFedora::SolrService.solr_name('lib_publisher', :displayable, type: :string), :label => 'Published', :helper_method => :combined_field_published_string
+    config.add_index_field 'dynamically_generated_published_field', :label => 'Published'
     config.add_index_field ActiveFedora::SolrService.solr_name('lib_format', :displayable, type: :string), :label => 'Format'
 
     # solr fields to be displayed in the show (single result) view
