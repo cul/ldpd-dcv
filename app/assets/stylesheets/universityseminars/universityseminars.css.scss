@@ -139,9 +139,9 @@ a {
 		font-size: 14px;
 	}
 	#site-title {
-		font-size: 1.28em;
+		font-size: 1.05em;
 		letter-spacing: 1px;
-		padding-top: 1px;
+		padding-top: 8px;
 		padding-left: 0;
 	}
 	#secondary-nav #partner-dropdown {
@@ -161,9 +161,9 @@ a {
 }
 @media(min-width: 992px) {
 	#site-title {
-		font-size: 1.50em;
+		font-size: 1.40em;
 		letter-spacing: 1px;
-		padding-top: 1px;
+		padding-top: 3px;
 		padding-left: 0;
 	}
 	#partner-image-grid a:first-child .lead {
@@ -175,7 +175,7 @@ a {
 @media(min-width: 1200px) {
 	#site-title {
 		padding-top: 1px;
-		font-size: 1.85em;
+		font-size: 1.75em;
 		letter-spacing: 1px;
 		padding-left: 0;
 	}
