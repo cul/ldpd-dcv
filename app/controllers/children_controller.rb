@@ -5,7 +5,7 @@ class ChildrenController < ApplicationController
 
   include Dcv::NonCatalog
   include Hydra::Controller::ControllerBehavior
-  include Cul::Scv::Hydra::Resolver
+  include Cul::Hydra::Resolver
   include ChildrenHelper
 
   respond_to :json

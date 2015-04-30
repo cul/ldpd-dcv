@@ -9,9 +9,8 @@ gem 'blacklight', '~> 5.4.0'
 gem 'hydra-head', '~>7'
 
 # Columbia Hydra models
-gem 'cul_scv_hydra', '>= 0.22.9.10'
-#gem 'cul_scv_hydra', :github => 'cul/cul_scv_hydra'
-#gem 'cul_scv_hydra', :path => '../cul_scv_hydra'
+gem 'cul_hydra', '>= 0.22.9.10'
+#gem 'cul_hydra', :path => '../cul_hydra'
 gem 'active-triples', '~> 0.2.2'
 
 # Use sqlite3 as the database for Active Record
@@ -42,6 +41,10 @@ gem 'jquery-ui-rails'
 
 # Pretty printing
 gem 'coderay'
+
+# Use resque for background jobs
+#gem 'resque', '~> 2.0.0.pre.1', github: 'resque/resque'
+gem 'resque', '~> 1.0'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'

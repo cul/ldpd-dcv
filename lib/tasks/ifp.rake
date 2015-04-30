@@ -38,7 +38,7 @@ namespace :util do
 				next
 			end
 
-			Cul::Scv::Hydra::Indexer.descend_from(pid, nil, false) do |pid|
+			Cul::Hydra::Indexer.descend_from(pid, nil, false) do |pid|
 				begin
 					obj = ActiveFedora::Base.find(pid)
 

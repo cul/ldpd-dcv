@@ -19,7 +19,7 @@ module Dcv::CatalogHelperBehavior
   def structured_children
     @structured_children ||= begin
       if @document['structured_bsi'] == true
-        struct = Cul::Scv::Fedora.ds_for_uri("info:fedora/#{@document['id']}/structMetadata")
+        struct = Cul::Hydra::Fedora.ds_for_uri("info:fedora/#{@document['id']}/structMetadata")
         struct = Nokogiri::XML(struct.content)
         ns = {'mets'=>'http://www.loc.gov/METS/'}
         nodes = struct.xpath('//mets:div[@ORDER]', ns).sort {|a,b| a['ORDER'].to_i <=> b['ORDER'].to_i }

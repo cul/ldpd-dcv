@@ -7,7 +7,7 @@ class BytestreamsController < ApplicationController
   include Dcv::NonCatalog
   include Hydra::Controller::ControllerBehavior
   include Dcv::Resources::RelsIntBehavior
-  include Cul::Scv::Hydra::Resolver
+  include Cul::Hydra::Resolver
   include Dcv::CatalogHelperBehavior
   include ChildrenHelper
   #caches_action :content, :expires_in => 7.days
@@ -62,7 +62,7 @@ class BytestreamsController < ApplicationController
     ds_parms = {pid: params[:catalog_id], dsid: params[:bytestream_id]}
     response.headers["Last-Modified"] = Time.now.httpdate
     puts ds_parms.inspect()
-    ds = Cul::Scv::Fedora.ds_for_opts(ds_parms)
+    ds = Cul::Hydra::Fedora.ds_for_opts(ds_parms)
     size = params[:file_size] || params['file_size']
     size ||= ds.dsSize
     label = ds.dsLabel.present? ? ds.dsLabel.split('/').last : 'file'

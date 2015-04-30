@@ -57,6 +57,7 @@ namespace :deploy do
     run "ln -nfs #{deploy_to}shared/dcv.yml #{release_path}/config/dcv.yml"
     run "ln -nfs #{deploy_to}shared/default_user_accounts.yml #{release_path}/config/default_user_accounts.yml"
     run "ln -nfs #{deploy_to}shared/initializer_secrets.yml #{release_path}/config/initializer_secrets.yml"
+    run "ln -nfs #{deploy_to}shared/resque.yml #{release_path}/config/resque.yml"
     run "mkdir -p #{release_path}/db"
     run "ln -nfs #{deploy_to}shared/#{rails_env}.sqlite3 #{release_path}/db/#{rails_env}.sqlite3"
   end
@@ -66,6 +67,11 @@ namespace :deploy do
   task :assets do
     run "cd #{release_path}; RAILS_ENV=#{rails_env} bundle exec rake assets:clean assets:precompile"
   end
+  
+  desc "Restart Resque Workers"
+  task :restart_workers, :roles => :worker do
+    run_remote_rake "resque:restart_workers"
+  end
 
 end
 
@@ -73,3 +79,19 @@ end
 
 after 'deploy:update_code', 'deploy:symlink_shared'
 before "deploy:create_symlink", "deploy:assets"
+
+
+
+
+# For resetting Resque workers
+
+after 'deploy:restart', 'deploy:restart_workers'
+
+def run_remote_rake(rake_cmd)
+  rake_args = ENV['RAKE_ARGS'].to_s.split(',')
+
+  cmd = "cd #{fetch(:latest_release)} && bundle exec #{fetch(:rake, "rake")} RAILS_ENV=#{fetch(:rails_env, "production")} #{rake_cmd}"
+  cmd += "['#{rake_args.join("','")}']" unless rake_args.empty?
+  run cmd
+  set :rakefile, nil if exists?(:rakefile)
+end

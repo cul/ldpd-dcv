@@ -26,7 +26,28 @@ class SubsitesController < ApplicationController
   def self.restricted?
     return controller_path.start_with?('restricted/')
   end
+  
+  # POST /subsite/index_object
+  def index_object
+    pid = params[:pid]
+    api_key = params[:api_key]
+    
+    if api_key == DCV_CONFIG['remote_request_api_key']
+      # Queue for reindex
+      # Since we only have one solr index right now, all index requests to go the main core
+      Dcv::Queue.index_object({'pid' => pid, 'subsite_keys' => ['catalog']})
+      render json: {
+        "success" => true
+      }
+    else
+      render json: {
+        "error" => "Invalid credentials"
+      },
+      status: 401
+    end
+  end
 
+  # GET /subsite/:id
   def show
     params[:format] = 'html'
     super
@@ -44,12 +65,5 @@ class SubsitesController < ApplicationController
   def subsite_layout
     SUBSITES[(self.class.restricted? ? 'restricted' : 'public')][self.controller_name]['layout']
   end
-
-  ## Override render so that we look in the subsite_layout view directory first
-  #def render(*args)
-  #  options = args.extract_options!
-  #  options[:template] = "/mycustomfolder/#{params[:action]}"
-  #  super(*(args << options))
-  #end
 
 end

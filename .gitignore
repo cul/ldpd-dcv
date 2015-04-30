@@ -14,6 +14,7 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+/log/resque*
 
 # Ignore local Guardfile customation file
 config/local_guardfile_customizations.yml
@@ -31,6 +32,7 @@ wind.yml
 initializer_secrets.yml
 dcv.yml
 default_user_accounts.yml
+resque.yml
 
 # Ignore OS-specific
 .DS_Store

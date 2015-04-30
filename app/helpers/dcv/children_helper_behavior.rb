@@ -112,8 +112,8 @@ module Dcv::ChildrenHelperBehavior
     content_tag(:a, label, href: href, class: attr_class)
   end
 
-  #TODO: replace this with Cul::Scv::Fedora::FakeObject
-  class IdProxy < Cul::Scv::Fedora::DummyObject
+  #TODO: replace this with Cul::Hydra::Fedora::FakeObject
+  class IdProxy < Cul::Hydra::Fedora::DummyObject
     def internal_uri
       @uri ||= "info:fedora/#{@pid}"
     end
