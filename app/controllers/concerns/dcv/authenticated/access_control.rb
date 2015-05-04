@@ -3,7 +3,7 @@ module Dcv::Authenticated::AccessControl
 
   included do
     if DCV_CONFIG.blank? || DCV_CONFIG['require_authentication'].nil? || DCV_CONFIG['require_authentication']
-      before_filter :require_authenticated_user!
+      before_filter :require_authenticated_user!, except: [:index_object]
     end
   end
 
