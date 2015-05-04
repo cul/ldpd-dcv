@@ -55,7 +55,7 @@ Dcv::Application.routes.draw do
       SUBSITES['restricted'].each do |subsite_key, data|
         resources subsite_key, only: [:show] do
           collection do
-            get 'index_object'
+            post 'index_object'
           end
         end
         get "#{subsite_key}/previews/:id" => "#{subsite_key}#preview", as: subsite_key + '_preview', constraints: { id: /[^\?]+/ }

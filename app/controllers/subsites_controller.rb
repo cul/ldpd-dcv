@@ -4,6 +4,7 @@ class SubsitesController < ApplicationController
   include Cul::Hydra::ApplicationIdBehavior
 
   before_filter :set_view_path
+  protect_from_forgery :except => [:index_object] # No CSRF token required for reindex
 
   layout Proc.new { |controller|
     self.subsite_layout
