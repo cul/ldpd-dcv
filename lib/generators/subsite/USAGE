@@ -1,0 +1,29 @@
+Description:
+    NOTE: THIS GENERATOR IS NOT COMPLETE!  It will not work.
+    Generates the required files for a new subsite.  Pass the --restricted option for a restricted subsite.
+
+Example:
+    rails generate subsite my_subsite false
+
+    This will create:
+        app/controllers/my_subsite_controller.rb
+        lib/dcv/configurators/my_subsite_configurator.rb
+        app/views/my_subsite/
+        app/views/my_subsite/home.html.erb
+        
+        app/assets/stylesheets/my_subsite.scss
+        app/assets/stylesheets/my_subsite/
+        app/assets/stylesheets/my_subsite/my_subsite.scss
+        app/assets/javascripts/my_subsite.js
+        app/assets/javascripts/my_subsite/
+        app/assets/javascripts/my_subsite/my_subsite.js
+        
+        
+        app/views/layouts/my_subsite.html.erb
+        
+        
+    After the generator runs, you should add an additional entry to subsites.yml:
+    my_subsite:
+      layout: 'my_subsite'
+      
+    And make sure to restart your rails server so that the new routes are automatically picked up.

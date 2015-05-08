@@ -1,0 +1,25 @@
+<div id="content">
+<div class="home inner">
+     <img class="img-responsive" alt="" src="<%= asset_path("universityseminars/home-ss/slide-" + rand(0..3).to_s + ".jpg") %>">
+</div>
+ <div class="row">
+  <div class="col-md-8">
+    <div class="home inner">
+		<h6>ABOUT THE PAPERS OF JOHN JAY</h6>
+			<p>
+			 John Jay Papers
+			</p>
+			<p>
+			 <a href="#" class="btn btn-primary btn-xs">Learn More »</a>
+			</p>
+    </div>
+  </div>
+  <div class="col-md-4">
+     <div class="home inner">
+        <h6 class="">BROWSE THE COLLECTION</h6>
+				<%= render partial: 'search_sidebar', locals: {hide_refine_heading: true, no_id_attr: true} %>
+     </div> <!--/.inner-->
+  </div><!--/-->
+
+</div>
+</div>

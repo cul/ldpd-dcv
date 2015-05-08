@@ -6,7 +6,4 @@ class CatalogController < SubsitesController
     Dcv::Configurators::DcvBlacklightConfigurator.configure(config)
   end
 
-  def browse
-  end
-
 end
