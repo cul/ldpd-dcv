@@ -84,7 +84,7 @@ GEM
     colorbox-rails (0.1.2)
       jquery-rails
       rails (>= 3.1.1)
-    cul_hydra (1.0.1)
+    cul_hydra (1.0.2)
       active-fedora (~> 7.0)
       active-triples (~> 0.2.2)
       active_fedora_finders (>= 0.5.0)
@@ -400,7 +400,7 @@ DEPENDENCIES
   coderay
   coffee-rails (~> 4.0.0)
   colorbox-rails
-  cul_hydra (>= 1.0.1)
+  cul_hydra (>= 1.0.2)
   devise
   devise-guests (~> 0.3)
   hydra-head (~> 7)

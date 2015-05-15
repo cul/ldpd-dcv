@@ -9,7 +9,7 @@ gem 'blacklight', '~> 5.4.0'
 gem 'hydra-head', '~>7'
 
 # Columbia Hydra models
-gem 'cul_hydra', '>= 1.0.1'
+gem 'cul_hydra', '>= 1.0.2'
 #gem 'cul_hydra', :path => '../cul_hydra'
 gem 'active-triples', '~> 0.2.2'
 
