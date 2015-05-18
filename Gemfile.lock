@@ -204,7 +204,7 @@ GEM
       nom-xml
     mono_logger (1.1.0)
     multi_json (1.10.0)
-    mysql2 (0.3.13)
+    mysql2 (0.3.14)
     net-http-persistent (2.9.4)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
@@ -411,7 +411,7 @@ DEPENDENCIES
   leaflet-markercluster-rails
   leaflet-rails
   libv8 (>= 3.16.14.7)
-  mysql2 (= 0.3.13)
+  mysql2 (= 0.3.14)
   nokogiri (~> 1.6.3)
   rails (= 4.0.4)
   resque (~> 1.0)

@@ -17,7 +17,7 @@ gem 'active-triples', '~> 0.2.2'
 gem 'sqlite3'
 
 # Use mysql2 gem for mysql connections
-gem 'mysql2', '0.3.13'
+gem 'mysql2', '0.3.14'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.2'
