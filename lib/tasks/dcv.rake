@@ -55,5 +55,56 @@ namespace :dcv do
       end
     end
   end
+  
+  namespace :util do
+    task :add_dcv_publish_target => :environment do
+			
+			start_time = Time.now
+			
+			dcv_publish_target = 'cul:vmcvdnck2d'
+			
+			list = ENV['list']
+      pids = []
+      if list
+        open(list) do |blob|
+          blob.each do |line|
+            pids << line.strip
+          end
+        end
+      end
+			
+			total = pids.length
+			puts "Found #{total} pids."
+			counter = 0
+
+			pids.each do |pid|
+				counter += 1
+				
+				begin
+					obj = ActiveFedora::Base.find(pid)
+					# Preserve other publishers, if present.  Add new publisher if it's not already present.
+					current_publishers = obj.relationships(:publisher)
+					unless current_publishers.include?('info:fedora/' + dcv_publish_target)
+						current_publishers << 'info:fedora/' + dcv_publish_target
+						
+						obj.clear_relationship(:publisher)
+						current_publishers.each do |publisher|
+							obj.add_relationship(:publisher, publisher)
+						end
+						
+						obj.save({update_index: false})
+					end
+				rescue SystemExit, Interrupt => e
+					# Allow system interrupt (ctrl+c)
+					raise e
+				rescue Exception => e
+					Rails.logger.error "Encountered problem with #{pid}.  Skipping record.  Exception: #{e.message}"
+				end
+				
+				puts "Added DLC publish target to #{pid} | #{counter} of #{total} | #{Time.now - start_time} seconds"
+			end
+			
+    end
+  end
 
 end

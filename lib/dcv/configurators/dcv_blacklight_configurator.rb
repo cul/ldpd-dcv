@@ -9,10 +9,8 @@ class Dcv::Configurators::DcvBlacklightConfigurator
     config.default_solr_params = {
       :fq => [
         'object_state_ssi:A', # Active items only
+        'publisher_ssim:"info:fedora/cul:vmcvdnck2d"', # Only include objects with the DLC Catalog (public) publish target
         '-active_fedora_model_ssi:GenericResource', # Don't show GenericResources in search results
-        '-is_constituent_of_ssim:"info:fedora/cul:7d7wm37q33"', # Don't include IFP project content in search results
-        '-is_constituent_of_ssim:"info:fedora/cul:7h44j0zpcs"', # Don't include Durst project content in search results
-        '-publisher_ssim:"info:fedora/cul:s7h44j0zxt"' # Don't include USem project content in search results
       ],
       :qt => 'search'
     }

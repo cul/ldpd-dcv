@@ -27,7 +27,7 @@ namespace :util do
 						obj.add_relationship(:publisher, publisher)
 					end
 					
-					obj.save
+					obj.save({update_index: false})
 				rescue SystemExit, Interrupt => e
 					# Allow system interrupt (ctrl+c)
 					raise e
