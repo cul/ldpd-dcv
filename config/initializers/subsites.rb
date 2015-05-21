@@ -10,5 +10,6 @@ if Rails.env == 'dcv_prod'
 
   # Disable the following public subsites in prod
   #SUBSITES['public'].delete('subsite_name')
+  SUBSITES['public'].delete('jay')
 
 end
