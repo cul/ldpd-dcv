@@ -1,5 +1,15 @@
 <div id="content">
-<div class="home inner"> 
+<div id="hometn" class="home inner"> 
+        <div class="row">
+            <div class="col-sm-6">
+                            <%= link_to 'The Papers of John Jay'.html_safe, jay_index_path, { :id => 'site-title' } %>
+            </div>
+            <div class="col-sm-6">
+                            <div id="search-navbar" class="navbar navbar-default slim" role="navigation">
+                                    <%= render_search_bar(false)  %>
+                            </div>
+            </div>
+		</div>
 		<img class="img-responsive" alt="" src="<%= asset_path("jay/jaytilesbanner.png") %>">
 </div>
  <div class="row">

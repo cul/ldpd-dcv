@@ -109,6 +109,22 @@ a {
 		}
 	}
 }
+#hometn {
+	.img-responsive {
+		margin-top:1em;
+	}
+	#site-title {
+		color:#222;
+		text-shadow:none;
+	}
+	#search-navbar .input-group-addon {
+		background-color:#aaa;
+	}
+	#search-navbar #q {
+		color:#222;
+		background-color:white;
+	}
+}
 #site-title {
 	display: inline-block;
 	padding-top: 4px;
