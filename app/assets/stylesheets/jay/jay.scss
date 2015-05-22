@@ -88,7 +88,7 @@ a {
 #site-banner {
 	padding: 1em 1.4em;
 	margin: 0 -1.75em 0;
-	background-color: $color_2;
+	background-color: $color_10;
 	#site-banner-inner {
 		overflow: visible;
 		.titlesub {
@@ -109,6 +109,22 @@ a {
 		}
 	}
 }
+#hometn {
+	.img-responsive {
+		margin-top:1em;
+	}
+	#site-title {
+		color:#222;
+		text-shadow:none;
+	}
+	#search-navbar .input-group-addon {
+		background-color:#aaa;
+	}
+	#search-navbar #q {
+		color:$color_5;
+		background-color:$color_8;
+	}
+}
 #site-title {
 	display: inline-block;
 	padding-top: 4px;
@@ -118,11 +134,11 @@ a {
 	font-size: 160%;
 	font-weight: 200;
 	line-height: 2;
-	color: $color_10;
+	color: $color_5;
 	text-align: left;
 	text-decoration: none;
 	text-transform: uppercase;
-    text-shadow: 0 0 2px $color_5;
+    text-shadow: none; //0 0 2px $color_5;
 	vertical-align: bottom;
 }
 #site-banner-subtitle {
