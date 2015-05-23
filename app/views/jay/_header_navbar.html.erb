@@ -1,9 +1,10 @@
+<% unless !has_search_parameters? %>
 <div class="container">
   <div id="site-banner">
 	<div class="row">
         <div id="site-banner-inner">
             <div class="col-sm-6">
-							<%= link_to 'Papers of John Jay -- <strong><em>Site in progress</em></strong>'.html_safe, jay_index_path, { :id => 'site-title' } %>
+							<%= link_to 'The Papers of John Jay'.html_safe, jay_index_path, { :id => 'site-title' } %>
             </div>
             <div class="col-sm-6">
 							<div id="search-navbar" class="navbar navbar-default slim" role="navigation">
@@ -50,3 +51,4 @@
                     </div>
 
 </div>
+<% end %>
