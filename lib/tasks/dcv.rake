@@ -29,6 +29,29 @@ namespace :dcv do
         sleep(3) if current % 100 == 0
       end
     end
+    
+    task :queue => :environment do
+      list = ENV['list']
+      pids = []
+      if list
+        open(list) do |blob|
+          blob.each do |line|
+            pids << line.strip
+          end
+        end
+      end
+      pids.concat ENV['pid'].split(',') if ENV['pid']
+      len = pids.length
+      current = 0
+      pids.each do |pid|
+        current += 1
+        # Queue for reindex
+				# Since we only have one solr index right now, all index requests to go the main core and the 'subsite_keys' value does nothing
+				Dcv::Queue.index_object({'pid' => pid, 'subsite_keys' => ['catalog']})
+        puts "Queued #{current} of #{len}"
+      end
+    end
+    
   end
 
   namespace :css do

@@ -35,7 +35,7 @@ class SubsitesController < ApplicationController
     
     if api_key == DCV_CONFIG['remote_request_api_key']
       # Queue for reindex
-      # Since we only have one solr index right now, all index requests to go the main core
+      # Since we only have one solr index right now, all index requests to go the main core and the 'subsite_keys' value does nothing
       Dcv::Queue.index_object({'pid' => pid, 'subsite_keys' => ['catalog']})
       render json: {
         "success" => true
