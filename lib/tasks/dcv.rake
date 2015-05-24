@@ -8,6 +8,13 @@ namespace :dcv do
 
   namespace :index do
     task :list => :environment do
+			
+			# -- Don't do debug-level ActiveFedora logging --
+			# initialize the fedora connection if necessary
+			connection = (ActiveFedora::Base.fedora_connection[0] ||= ActiveFedora::RubydoraConnection.new(ActiveFedora.config.credentials)).connection
+			# the logger accessor is private
+			(connection.api.send :logger).level = Logger::INFO
+			
       list = ENV['list']
       pids = []
       if list
@@ -21,11 +28,11 @@ namespace :dcv do
       Rails.logger.level = Logger::INFO
       len = pids.length
       current = 0
+      start_time = Time.now
       pids.each do |pid|
         current += 1
-        active_fedora_object = ActiveFedora::Base.find(pid, :cast => true)
-        active_fedora_object.update_index
-        Rails.logger.info "indexed #{current} of #{len}"
+        Cul::Hydra::Indexer.index_pid(pid)
+        puts "Processed #{pid} | #{current} of #{len} | #{Time.now - start_time} seconds"
         sleep(3) if current % 100 == 0
       end
     end

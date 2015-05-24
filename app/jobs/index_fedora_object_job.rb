@@ -8,8 +8,9 @@ class IndexFedoraObjectJob
 		pid = conditions['pid']
 		subsite_keys = conditions['subsite_keys']
 		puts "Indexing #{pid} to #{subsite_keys.join(', ')} at #{queue_time_string}"
-		obj = ActiveFedora::Base.find(pid)
-		obj.update_index
+		#obj = ActiveFedora::Base.find(pid)
+		#obj.update_index
+		Cul::Hydra::Indexer.index_pid(pid)
   end
 
 end
