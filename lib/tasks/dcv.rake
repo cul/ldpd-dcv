@@ -31,7 +31,9 @@ namespace :dcv do
       start_time = Time.now
       pids.each do |pid|
         current += 1
-        Cul::Hydra::Indexer.index_pid(pid)
+				#obj = ActiveFedora::Base.find(pid)
+				#obj.update_index
+				Cul::Hydra::Indexer.index_pid(pid)
         puts "Processed #{pid} | #{current} of #{len} | #{Time.now - start_time} seconds"
         sleep(3) if current % 100 == 0
       end
