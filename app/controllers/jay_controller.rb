@@ -14,4 +14,13 @@ class JayController < SubsitesController
   def about
   end
 
+  def collection
+  end
+
+  def bibliography
+  end
+
+  def participating_institutions
+  end
+
 end

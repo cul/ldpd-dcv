@@ -105,13 +105,13 @@ a {
 			font-size: .9em;
 		}
 		#q {
-			background-color: $color_8;
+			background-color: darken($color_10,1%);
 			color: $color_9;
 			&:focus {
 				background-color: $color_10;
 			}
 		}
-		#q, .search-btn {
+		#q, .search-btn, .reset-btn {
 			border-color:$color_12;
 		}
 	}
@@ -804,4 +804,10 @@ footer.container {
 }
 #search-results .index_title small {
 	font-size: .8em;
+}
+
+#ajax-modal .modal-content {
+  color: $color_15;
+  background-color: $color_10;
+  border-color: $color_15;
 }
