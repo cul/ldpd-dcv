@@ -119,6 +119,7 @@ a {
 #hometn {
 	.img-responsive {
 		margin-top:1em;
+		margin-bottom:.5em;
 	}
 	#site-title {
 		color:$color_2;
@@ -129,7 +130,10 @@ a {
 	}
 	#search-navbar #q {
 		color:$color_5;
-		background-color:$color_8;
+		background-color:darken($color_10,5%);
+		&:focus {
+                background-color: $color_10;
+        }
 	}
 }
 #site-title {
