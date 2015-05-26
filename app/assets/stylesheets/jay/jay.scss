@@ -91,7 +91,7 @@ a {
 	background-color: $color_10;
 	background-image:$url_0;
 	background-repeat:no-repeat;
-	background-position:center center;
+	background-position:center top;
 	background-size:cover;
 	#site-banner-inner {
 		overflow: visible;
@@ -158,6 +158,9 @@ a {
 	text-align: left;
 }
 @media(min-width: 768px) {
+	#site-banner {
+		background-position:center center;
+	}
 	#site-banner-subtitle {
 		font-size: 14px;
 	}
@@ -727,6 +730,10 @@ footer.container {
 	&:hover {
 		background-color:darken($color_2, 10%);
 		border-color:lighten($color_2,30%);
+	}
+	&:active, &:focus {
+		background-color:lighten($color_2, 10%);
+		border-color:darken($color_2,30%);
 	}
 }
 .pagination > {
