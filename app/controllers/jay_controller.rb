@@ -11,4 +11,7 @@ class JayController < SubsitesController
     end
   end
 
+  def about
+  end
+
 end

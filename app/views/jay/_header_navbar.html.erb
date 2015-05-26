@@ -1,4 +1,4 @@
-<% unless !has_search_parameters? %>
+<% unless !has_search_parameters? && params[:action] == 'index' %>
 <div class="container">
   <div id="site-banner">
 	<div class="row">
@@ -24,7 +24,7 @@
                                 margin-top: -6px;
                                 padding-right: 22px;"><i class="glyphicon glyphicon-home"></i></a>
                             </li>
-                            <li class="hidden-phone"><a href="#" title="About Jay Papers" class="opacity_50" style="
+                            <li class="hidden-phone"><a href="<%=jay_about_path()%>" title="About The Jay Papers" class="opacity_50" style="
                                 line-height: 0;
                                 margin-top: -6px;
                                 padding-right: 22px;
