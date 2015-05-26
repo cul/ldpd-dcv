@@ -32,7 +32,7 @@ $font_5: trajan;
 $font_6: serif;
 
 //urls
-$url_0: url(asset_path("ifp/IFP-square-logo.png"));
+$url_0: url(asset_path("jay/ldpd-18104.png"));
 
 //@extend-elements
 //original selectors
@@ -89,6 +89,10 @@ a {
 	padding: 1em 1.4em;
 	margin: 0 -1.75em 0;
 	background-color: $color_10;
+	background-image:$url_0;
+	background-repeat:no-repeat;
+	background-position:center center;
+	background-size:cover;
 	#site-banner-inner {
 		overflow: visible;
 		.titlesub {
@@ -107,6 +111,9 @@ a {
 				background-color: $color_10;
 			}
 		}
+		#q, .search-btn {
+			border-color:$color_12;
+		}
 	}
 }
 #hometn {
@@ -114,7 +121,7 @@ a {
 		margin-top:1em;
 	}
 	#site-title {
-		color:#222;
+		color:$color_2;
 		text-shadow:none;
 	}
 	#search-navbar .input-group-addon {
@@ -134,11 +141,11 @@ a {
 	font-size: 160%;
 	font-weight: 200;
 	line-height: 2;
-	color: $color_5;
+	color: $color_2;
 	text-align: left;
 	text-decoration: none;
 	text-transform: uppercase;
-    text-shadow: none; //0 0 2px $color_5;
+    text-shadow: 0 0 2px $color_10;
 	vertical-align: bottom;
 }
 #site-banner-subtitle {
@@ -713,6 +720,14 @@ footer.container {
 }
 #previousNextDocument .btn-default {
 	color: $color_10;
+}
+.btn-primary {
+	background-color:$color_2;
+	border-color:lighten($color_2,20%);
+	&:hover {
+		background-color:darken($color_2, 10%);
+		border-color:lighten($color_2,30%);
+	}
 }
 .pagination > {
 	li > {
