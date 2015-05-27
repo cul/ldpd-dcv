@@ -64,7 +64,12 @@ namespace :resque do
     ##  make sure log/resque_err, log/resque_stdout are writable.
     ops = {:pgroup => true, :err => [(Rails.root + "log/resque_err").to_s, "a"],
                             :out => [(Rails.root + "log/resque_stdout").to_s, "a"]}
-    env_vars = {"QUEUES" => queue_names.join(','), 'RAILS_ENV' => Rails.env.to_s, 'TERM_CHILD' => '1'}
+    env_vars = {
+      "QUEUES" => queue_names.join(','),
+      'RAILS_ENV' => Rails.env.to_s,
+      'TERM_CHILD' => '1',
+      'INTERVAL' => '0.5' # The default interval is 5 (seconds), but we expect to send a lot of quick reindexing jobs to DLC, so we need a more frequent job polling frequency per worker
+    }
 
     pids = []
     count.times do
