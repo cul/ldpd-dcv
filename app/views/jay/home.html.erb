@@ -15,25 +15,44 @@
  <div class="row">
   <div class="col-md-8">
     <div class="home inner">
-		<h6>ABOUT THE PAPERS OF JOHN JAY</h6>
+		<h5>ABOUT THE PAPERS OF JOHN JAY</h5>
 			<!--img class="mg-responsive pull-right col-xs-5" alt="" src="<%= asset_path("jay/463px-John_Jay-Gilbert_Stuart_portrait.jpg") %>"-->
 			<p>
 			<em>The Papers of John Jay</em> is an image database and indexing tool comprising some 13,000 documents (more than 30,000 page images) scanned chiefly from photocopies of original documents. Most of the source material was assembled by Columbia University's John Jay publication project staff during the 1960s and 1970s under the direction of the late Professor Richard B. Morris. These photocopies were originally intended to be used as source texts for documents to be included in a planned four-volume letterpress series entitled <em>The Selected Unpublished Papers of John Jay</em>.
 			</p>
 			<p>
-Unfortunately only two volumes of the series appeared before Morris's death in 1989, <em>John Jay: The Making of a Revolutionary, Unpublished Papers 1745-1780 (New York: Harper &amp; Row, 1975)</em> and <em>John Jay: The Winning of the Peace, Unpublished Papers, 1780-1784  (New York: Harper &amp; Row, 1980)</em>. 
-			</p>
-			<p>
-When the project closed in 1996, the photocopied documents were transferred to the Rare Book and Manuscript Library.   Shortly thereafter Elaine Sloan, then University Librarian, established an Advisory Board, consisting of Barbara Black, George Welwood Murray Professor of Legal History at Columbia; Patricia Bonomi, Professor of History Emerita at New York University;  Barbara Oberg, then editor of the Benjamin Franklin Papers at Yale University; and Herbert Sloan, Professor of History at Barnard College, and convened by Gouverneur Morris Professor of History Richard L. Bushman, to make recommendations about the future of the project.
-			</p>
-			<p>
 			 <a href="<%=jay_about_path()%>" class="btn btn-primary btn-xs">Learn More »</a>
 			</p>
+			<div class="row">
+				<div class="col-sm-6">
+								<h5>BACKGROUND MATERIAL</h5>
+								<ul class="list-unstyled">
+									<li><a href="<%=jay_biography_path()%>">Biographical Essay</a></li>
+									<li><a href="<%=jay_jay_constitution_path()%>">Jay and the Constitution</a></li>
+									<li><a href="<%=jay_jayandny_path()%>">Jay and New York</a></li>
+									<li><a href="<%=jay_jaytreaty_path()%>">The Jay Treaty</a></li>
+									<li><a href="<%=jay_jayandfrance_path()%>">Jay and France</a></li>
+									<li><a href="<%=jay_jayandslavery_path()%>">Jay and Slavery</a></li>
+									<li><a href="http://library.columbia.edu/locations/rbml/units/jayprint.html">Jay Print Project</a></li>
+									<li><a href="http://www.columbia.edu/cu/lweb/conferences/2004/john_jay/">Legacy Conference</a></li>
+								</ul>
+				</div>
+				<div class="col-sm-6">
+								<h5>ABOUT THE PROJECT</h5>
+								<ul class="list-unstyled">
+									<li><a href="<%=jay_about_path()%>">History &amp; Description</a></li>
+									<li><a href="<%=jay_collection_path()%>">Source Collections</a></li>
+									<li><a href="<%=jay_bibliography_path()%>">Bibliography</a></li>
+									<li><a href="http://library.columbia.edu/about/policies/copyright-online-collections.html">Rights &amp; Permissions</a></li>
+									<li><a href="<%=jay_participating_institutions_path()%>">Participating Institutions</a></li>
+								</ul>
+				</div>
+			</div>
     </div>
   </div>
   <div class="col-md-4">
      <div class="home inner">
-        <h6 class="">BROWSE THE COLLECTION</h6>
+        <h5 class="">BROWSE THE COLLECTION</h5>
 				<%= render partial: 'search_sidebar', locals: {hide_refine_heading: true, no_id_attr: true} %>
      </div> <!--/.inner-->
   </div><!--/-->
