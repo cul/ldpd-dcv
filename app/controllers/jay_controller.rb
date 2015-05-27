@@ -23,4 +23,11 @@ class JayController < SubsitesController
   def participating_institutions
   end
 
+  def biography
+  end
+
+  def jay_constitution
+  end
+
+
 end

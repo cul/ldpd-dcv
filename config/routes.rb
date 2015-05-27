@@ -35,6 +35,8 @@ Dcv::Application.routes.draw do
   get 'jay/collection' => 'jay#collection', as: :jay_collection
   get 'jay/bibliography' => 'jay#bibliography', as: :jay_bibliography
   get 'jay/participating_institutions' => 'jay#participating_institutions', as: :jay_participating_institutions
+  get 'jay/biography' => 'jay#biography', as: :jay_biography
+  get 'jay/jay_constitution' => 'jay#jay_constitution', as: :jay_jay_constitution
 
   # Dynamic routes for catalog controller and all subsites
   blacklight_for *(SUBSITES['public'].keys.map{|key| key.to_sym}) # Using * operator to turn the array of values into a set of arguments for the blacklight_for method
