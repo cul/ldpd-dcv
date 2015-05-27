@@ -32,5 +32,8 @@ class JayController < SubsitesController
   def jay_jayandny
   end
 
+  def jay_jaytreaty
+  end
+
 
 end
