@@ -102,13 +102,13 @@ class Dcv::Configurators::Restricted::IfpBlacklightConfigurator
     # urls.  A display label will be automatically calculated from the :key,
     # or can be specified manually to be different.
 
-    # All Text search configuration, used by main search pulldown.
+    # Fulltext search configuration, used by main search pulldown.
     config.add_search_field ActiveFedora::SolrService.solr_name('fulltext', :searchable, type: :text) do |field|
       field.label = 'Fulltext'
       field.default = true
       field.solr_parameters = {
-        :qf => [ActiveFedora::SolrService.solr_name('fulltext', :searchable, type: :text)],
-        :pf => [ActiveFedora::SolrService.solr_name('fulltext', :searchable, type: :text)]
+        :qf => ['original_name_tesim^10.0','fulltext_tesim^1.0'],
+        :pf => ['original_name_tesim^100.0','fulltext_tesim^10.0']
       }
     end
 

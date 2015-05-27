@@ -111,15 +111,15 @@ class Dcv::Configurators::JayBlacklightConfigurator
     # or can be specified manually to be different.
 
     # All Text search configuration, used by main search pulldown.
-    config.add_search_field ActiveFedora::SolrService.solr_name('fulltext', :searchable, type: :text) do |field|
-      field.label = 'Fulltext'
+    config.add_search_field ActiveFedora::SolrService.solr_name('all_text', :searchable, type: :text) do |field|
+      field.label = 'All Fields'
       field.default = true
       field.solr_parameters = {
-        :qf => [ActiveFedora::SolrService.solr_name('fulltext', :searchable, type: :text)],
-        :pf => [ActiveFedora::SolrService.solr_name('fulltext', :searchable, type: :text)]
+        :qf => [ActiveFedora::SolrService.solr_name('all_text', :searchable, type: :text)],
+        :pf => [ActiveFedora::SolrService.solr_name('all_text', :searchable, type: :text)]
       }
     end
-    
+
     config.add_search_field ActiveFedora::SolrService.solr_name('search_title_info_search_title', :searchable, type: :text) do |field|
       field.label = 'Title'
       field.solr_parameters = {
