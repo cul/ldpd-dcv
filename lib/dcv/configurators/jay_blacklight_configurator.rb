@@ -156,8 +156,11 @@ class Dcv::Configurators::JayBlacklightConfigurator
     # label in pulldown is followed by the name of the SOLR field to sort by and
     # whether the sort is ascending or descending (it must be asc or desc
     # except in the relevancy case).
-    config.add_sort_field 'score desc, title_si asc, lib_date_dtsi desc', :label => 'relevance'
-    config.add_sort_field 'title_si asc, lib_date_dtsi desc', :label => 'title'
+    config.add_sort_field 'score desc, title_si asc', :label => 'relevance'
+    config.add_sort_field 'title_si asc', :label => 'title'
+    config.add_sort_field 'lib_start_date_year_itsi asc', :label => 'date (earliest to latest)'
+    config.add_sort_field 'lib_start_date_year_itsi desc', :label => 'date (latest to earliest)'
+    
 
     # If there are more than this many search results, no spelling ("did you
     # mean") suggestion is offered.
