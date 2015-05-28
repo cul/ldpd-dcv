@@ -1,0 +1,49 @@
+<% counter_in_results = document_counter + row_offset + 1 + @response.params[:start].to_i -%>
+<div class="col-sm-3 document <%= render_document_class document %>" itemscope itemtype="<%= document.itemtype %>">
+  <div class="tombstone" data-number-of-members=<%= document[:cul_number_of_members_isi] || -1 %>>
+	<%= link_to_document(document, :counter => (@do_not_link_to_search ? nil : counter_in_results), label: image_tag(get_asset_url(id: document.id, size: 256, type: 'square', format: 'jpg'), {class: 'img-square', itemprop: 'thumbnailUrl'}), class: 'thumbnail') %>
+		<div class="index-show-tombstone-fields">
+			<h3 class="index_title ellipsis"><%= t('blacklight.search.documents.counter', :counter => counter_in_results) %>
+				<%= link_to_document(document, :counter => (@do_not_link_to_search ? nil : counter_in_results)) %>
+			</h3>
+			<%= '<div class="ellipsis">'.html_safe + document['lib_name_ssm'][0] + '</div>'.html_safe if document['lib_name_ssm'].present? %>
+		</div>
+		<div class="col-sm-9 index_title index-show-list-fields hidden">
+			<h3 class="index_title ellipsis">
+				<%= t('blacklight.search.documents.counter', :counter => counter_in_results) %>
+				<%#= link_to_document(document, :counter => counter_in_results) %> 
+				<%= link_to document['dc_title_ssm'][0], bytestream_content_url({catalog_id: document['id'], filename: document['label_ssi'], bytestream_id: 'content', download: true}), class: '' %>
+				<%= '<small>&bull; '.html_safe + byte_size_to_text_string(document['extent_ssim'].first.to_i) + ', ' + (document['dc_format_ssm'].first if document['dc_format_ssm'].present?) + ' &bull;</small>'.html_safe if document['extent_ssim'].present? %>
+				<%= link_to_document(document, :counter => (@do_not_link_to_search ? nil : counter_in_results), label: '<span class="glyphicon glyphicon-info-sign"></span>'.html_safe, title: 'Document Permanent Link' ) %>
+			</h3>
+			<%= render :partial => 'index_default', :locals => {:document => document } %>
+			<%= render :partial => 'catalog/schema_org_document_metadata', :locals => {:document => document } %>
+
+			<% snippet = '' %>
+			<% if document.solr_response['highlighting'].present? && document.solr_response['highlighting'][document['id']].present? %>
+				<%
+					document.solr_response['highlighting'][document['id']].each do |key, arr_value|
+						if snippet.present?
+							snippet += '&hellip;'
+						end
+						snippet += arr_value.join('&hellip;') if arr_value.present?
+					end
+				%>
+			<% end %>
+			<% if snippet.present? %>
+				<div class="fulltext-snippet">
+					&hellip;<%= snippet.gsub(/^(&nbsp;|\s)+/, '').gsub(/(&nbsp;|\s)+$/, '').html_safe %>&hellip;
+				</div>
+			<% end %>
+
+		</div>
+		<div class="clearfix"></div>
+  </div>
+</div>
+
+<% if @items_per_row_counter % 4 == 0 %>
+	<div class="clearfix"></div>
+	<% @items_per_row_counter = 1 %>
+<% else %>
+	<% @items_per_row_counter += 1 %>
+<% end %>
