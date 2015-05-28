@@ -10,7 +10,7 @@ class Dcv::Configurators::JayBlacklightConfigurator
 
     config.default_solr_params = {
       :fq => [
-        'lib_project_full_ssim:"Papers of John Jay"',
+        'is_constituent_of_ssim:"info:fedora/cul:rjdfn2z3d0"', # Include content in the Jay Project
         '-active_fedora_model_ssi:GenericResource'
       ],
       :qt => 'search',

@@ -10,9 +10,7 @@ class Dcv::Configurators::DcvBlacklightConfigurator
       :fq => [
         'object_state_ssi:A', # Active items only
         '-active_fedora_model_ssi:GenericResource', # Don't show GenericResources in search results
-        '-is_constituent_of_ssim:"info:fedora/cul:7d7wm37q33"', # Don't include IFP project content in search results
-        '-is_constituent_of_ssim:"info:fedora/cul:7h44j0zpcs"', # Don't include Durst project content in search results
-        '-publisher_ssim:"info:fedora/cul:s7h44j0zxt"' # Don't include USem project content in search results
+        'publisher_ssim:"info:fedora/cul:vmcvdnck2d"' # Include only DLC content in search results
       ],
       :qt => 'search'
     }
