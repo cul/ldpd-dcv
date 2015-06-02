@@ -5,7 +5,9 @@
 			if document['lib_format_ssm'].present? && document['lib_format_ssm'].include?('books')
 				image_url_for_document = image_url('book-placeholder.png')
 			else
-				image_url_for_document = get_asset_url(id: document.id, size: 256, type: 'square', format: 'jpg')
+				# Try to use representative_generic_resource_pid_ssi, but fall back to resource pid if not present
+				representative_image_pid = document['representative_generic_resource_pid_ssi'].present? ? document['representative_generic_resource_pid_ssi'] : document.id
+				image_url_for_document = get_asset_url(id: representative_image_pid, size: 256, type: 'square', format: 'jpg')
 			end
 		%>
 		<%=
