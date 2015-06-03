@@ -48,7 +48,7 @@
 		</div>
 
 		<div id="item-content">
-			<% if ! is_book %>
+			<% if structured_children.present? %>
 				<div class="inner" style="margin-top:1em;">
 					<% if ct = structured_children.first %>
 						<p id="ct"><%= ct[:title] %></p>
