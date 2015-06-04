@@ -29,6 +29,14 @@ DCV.SearchResults.configForLayout = {
 	ifp: {
 		defaultSearchMode: DCV.SearchResults.SearchMode.LIST,
 		availableSearchModes: [DCV.SearchResults.SearchMode.LIST]
+	},
+	universityseminars: {
+		defaultSearchMode: DCV.SearchResults.SearchMode.GRID,
+		availableSearchModes: [DCV.SearchResults.SearchMode.GRID, DCV.SearchResults.SearchMode.LIST]
+	},
+	jay: {
+		defaultSearchMode: DCV.SearchResults.SearchMode.GRID,
+		availableSearchModes: [DCV.SearchResults.SearchMode.GRID, DCV.SearchResults.SearchMode.LIST]
 	}
 };
 
