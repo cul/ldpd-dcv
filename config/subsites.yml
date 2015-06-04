@@ -23,7 +23,7 @@ all_environments: &all_environments
     universityseminars:
       layout: 'universityseminars'
       show_original_file_download: true
-    
+
 development: *all_environments
 test: *all_environments
 prod: *all_environments
@@ -32,4 +32,23 @@ dcv_private_test: *all_environments
 dcv_private_prod: *all_environments
 dcv_dev: *all_environments
 dcv_test: *all_environments
-dcv_prod: *all_environments
+dcv_prod:
+  public:
+    catalog:
+      layout: 'dcv'
+      date_search:
+        sidebar: true
+        timeline: true
+    durst:
+      layout: 'durst'
+    ifp:
+      layout: 'ifp'
+      show_original_file_download: true
+    jay:
+      layout: 'jay'
+      date_search:
+        sidebar: true
+        timeline: true
+    lindquist:
+      layout: 'lindquist'
+  restricted:
