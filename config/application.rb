@@ -35,8 +35,8 @@ module Dcv
     # And include styles for all subsite layouts
     subsite_data = YAML.load_file("#{Rails.root.to_s}/config/subsites.yml")[Rails.env]
     unique_layouts = []
-    unique_layouts += subsite_data['public'].values.map{|prefix| prefix['layout']}
-    unique_layouts += subsite_data['restricted'].values.map{|prefix| prefix['layout']}
+    unique_layouts += (subsite_data['public'].values || []).map{|prefix| prefix['layout']}
+    unique_layouts += (subsite_data['restricted'].values || []).map{|prefix| prefix['layout']}
     unique_layouts.uniq!
     config.assets.precompile += unique_layouts.map{|layout| layout + '.css'}
     config.assets.precompile += unique_layouts.map{|layout| layout + '.js'}

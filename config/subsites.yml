@@ -52,3 +52,6 @@ dcv_prod:
     lindquist:
       layout: 'lindquist'
   restricted:
+    universityseminars:
+      layout: 'universityseminars'
+      show_original_file_download: true
