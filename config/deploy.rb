@@ -1,6 +1,8 @@
 set :default_stage, "dcv_dev"
 set :stages, %w(dcv_dev dcv_test dcv_prod dcv_private_dev dcv_private_test dcv_private_prod)
 
+set :keep_releases, 2 # Only keep 2 releases at a time
+
 require 'capistrano/ext/multistage'
 require 'bundler/capistrano'
 require 'date'
@@ -79,7 +81,7 @@ end
 
 after 'deploy:update_code', 'deploy:symlink_shared'
 before "deploy:create_symlink", "deploy:assets"
-
+after "deploy:update", "deploy:cleanup" # Clean up old releases, set by :keep_releases
 
 
 
