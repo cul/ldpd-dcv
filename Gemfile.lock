@@ -84,7 +84,7 @@ GEM
     colorbox-rails (0.1.2)
       jquery-rails
       rails (>= 3.1.1)
-    cul_hydra (1.0.6)
+    cul_hydra (1.0.7)
       active-fedora (~> 7.0)
       active-triples (~> 0.2.2)
       active_fedora_finders (>= 0.5.0)
@@ -96,6 +96,7 @@ GEM
       mods
       rdf (>= 1.1.5)
       sparql (= 1.1.4)
+      thread
     cul_image_props (0.3.5)
       nokogiri
     daemons (1.1.9)
@@ -368,6 +369,7 @@ GEM
       libv8 (~> 3.16.14.0)
       ref
     thor (0.19.1)
+    thread (0.2.0)
     thread_safe (0.3.3)
     tilt (1.4.1)
     treetop (1.4.15)
@@ -400,7 +402,7 @@ DEPENDENCIES
   coderay
   coffee-rails (~> 4.0.0)
   colorbox-rails
-  cul_hydra (>= 1.0.6)
+  cul_hydra (>= 1.0.7)
   devise
   devise-guests (~> 0.3)
   hydra-head (~> 7)
