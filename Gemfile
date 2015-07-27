@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.0.4'
+gem 'rails', '4.2.1'
 gem 'actionpack-action_caching'
 # Hydra stack
 gem 'nokogiri', '~> 1.6.3'
@@ -10,6 +10,7 @@ gem 'hydra-head', '~>7'
 
 # Columbia Hydra models
 gem 'cul_hydra', '>= 1.0.7'
+gem 'cul_omniauth', '~>0.3'
 #gem 'cul_hydra', :path => '../cul_hydra'
 gem 'active-triples', '~> 0.2.2'
 
