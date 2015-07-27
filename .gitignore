@@ -33,6 +33,7 @@ initializer_secrets.yml
 dcv.yml
 default_user_accounts.yml
 resque.yml
+roles.yml
 
 # Ignore OS-specific
 .DS_Store
