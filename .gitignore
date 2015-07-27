@@ -25,6 +25,7 @@ config/local_guardfile_customizations.yml
 *\.swp
 
 # Ignore config files with sensitive data
+cas.yml
 database.yml
 fedora.yml
 solr.yml
