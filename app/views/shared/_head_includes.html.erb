@@ -27,7 +27,7 @@ DLC VERSION: <%= render :file => Rails.root.to_s+'/VERSION' %> -->
 	<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
-<%= stylesheet_link_tag "dcv" %>
+<%= stylesheet_link_tag "dcv", media: 'all'  %>
 <%= stylesheet_link_tag "print", media: 'print' %>
 <%= csrf_meta_tags %>
 <%= content_for(:head) %>
