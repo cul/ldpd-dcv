@@ -1,25 +1,2 @@
-//body:after { content: 'Printing is currently disabled during this beta period.' }
-
-body {
-	padding-top:0!important;
-}
-#topnavbar { 
-	display:none; 
-}
-#outer-wrapper {
-	border-top-width:1px;
-	border-top-style:solid;
-}
-.navbar { display:block; }
-#search-results {
-	.document:not(.list-view), .document.list-view .thumbnail {
-		width:16.6666666667%;
-		float:left;
-	}
-	.col-sm-9 { float:left; width:75%; }
-	.thumbnail {
-		background-color:transparent!important;
-	}
-}
-a:after { content:''; }
-a[href]:after { content: none !important; }
+#outer-wrapper, #topnavbar { display:none; }
+body:after { content: 'Printing is currently disabled during this beta period.' }
