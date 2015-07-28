@@ -3,20 +3,16 @@ module Dcv::Authenticated::AccessControl
 
   included do
     if DCV_CONFIG.blank? || DCV_CONFIG['require_authentication'].nil? || DCV_CONFIG['require_authentication']
-      before_filter :require_authenticated_user!, except: [:index_object]
+      before_filter :require_user, except: [:index_object]
     end
   end
 
-  def require_authenticated_user!
+  def redirect_to_login
+    redirect_to user_omniauth_authorize_path(provider: omniauth_provider_key, url:session[:return_to])
+  end
 
-    if ! user_signed_in?
-      if (params[:controller] == 'devise/sessions') || (params[:controller] == 'users' && params[:action] == 'do_wind_login')
-        # Allow access
-      else
-        session[:post_login_redirect_url] = request.original_url if params[:controller] != 'devise'
-        redirect_to :controller => '/users', :action => 'do_wind_login'
-      end
-    end
+  def omniauth_provider_key
+    @omniauth_provider_key ||= Dcv::Application.cas_configuration_opts[:provider]
   end
 
 end

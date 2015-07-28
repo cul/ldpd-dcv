@@ -2,8 +2,11 @@ class SubsitesController < ApplicationController
 
   include Dcv::CatalogIncludes
   include Cul::Hydra::ApplicationIdBehavior
+  include Cul::Omniauth::AuthorizingController
+  include Cul::Omniauth::RemoteIpAbility
 
   before_filter :set_view_path
+  before_filter :authorize_action, only:[:index, :preview, :show]
   protect_from_forgery :except => [:index_object] # No CSRF token required for reindex
 
   layout Proc.new { |controller|
@@ -12,12 +15,34 @@ class SubsitesController < ApplicationController
 
   def initialize(*args)
     super(*args)
-    self.class.parent_prefixes << self.subsite_layout # haaaaaaack to not reproduce templates
-    self.class.parent_prefixes << 'catalog' # haaaaaaack to not reproduce templates
+    self._prefixes << self.subsite_layout # haaaaaaack to not reproduce templates
+    self._prefixes << 'catalog' # haaaaaaack to not reproduce templates
   end
 
   def set_view_path
-    self.prepend_view_path('ifp')
+    self.prepend_view_path(self.subsite_layout)
+  end
+
+  # Override to prepend restricted if necessary
+  def authorize_action
+    action = "#{controller_name.to_s}##{params[:action].to_s}"
+    action = 'restricted_' + action if self.class.restricted?
+    proxy = Cul::Omniauth::AbilityProxy.new(document_id: params[:id],remote_ip: request.remote_ip)
+    if can? action.to_sym, proxy
+      return true
+    else
+      if current_user
+        action = "#{controller_name.to_s}#index"
+        action = 'restricted_' + action if self.class.restricted?
+        err_url = (can? action.to_sym, proxy) ?
+          url_for(controller: controller_name, action: :index) : nil
+        access_denied(err_url)
+        return false
+      end
+    end
+    store_location
+    redirect_to_login
+    return false
   end
 
   def subsite_config

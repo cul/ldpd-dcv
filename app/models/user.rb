@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
 
   include Blacklight::User
+  include Cul::Omniauth::Users
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
@@ -18,6 +19,14 @@ class User < ActiveRecord::Base
 
   def is_admin?
     return self.is_admin
+  end
+  def role_symbols
+    @roles ||= [:"#{self.login}"]
+  end
+  def role? role_sym
+    return true if role_sym.eql? :*
+    return true if role_sym.eql? :"#{self.login}"
+    return false
   end
 
 end

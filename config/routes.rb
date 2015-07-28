@@ -2,6 +2,17 @@ require 'resque/server'
 
 Dcv::Application.routes.draw do
   root :to => "home#index"
+
+  devise_for :users, skip: [:sessions], controllers: {
+    omniauth_callbacks: "users/omniauth_callbacks",
+  }
+
+  devise_scope :user do
+    get 'sign_in', :to => 'users/sessions#new', :as => :new_user_session
+    get 'sign_out', :to => 'users/sessions#destroy', :as => :destroy_user_session
+  end
+
+  resources :sessions, controller: 'users/sessions'
   
   mount Resque::Server.new, at: "/resque"
 
@@ -61,6 +72,8 @@ Dcv::Application.routes.draw do
     end
   end
 
+  get '/restricted' => 'home#restricted', as: :restricted
+
   if SUBSITES['restricted'].present?
     namespace "restricted" do
       blacklight_for *((SUBSITES['restricted'].keys.map{|key| key.to_sym})) # Using * operator to turn the array of values into a set of arguments for the blacklight_for method
@@ -81,9 +94,6 @@ Dcv::Application.routes.draw do
       end
     end
   end
-
-  get '/users/do_wind_login' => 'users#do_wind_login', as: :do_wind_login
-  devise_for :users
 
   resources :children, path: 'catalog/:parent_id/children', only: [:index, :show]
 
