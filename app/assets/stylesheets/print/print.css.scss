@@ -26,6 +26,9 @@ a[href]:after { content: none !important; }
 
 // for chrome and ff
 @media(max-width: 992px) {
+	.noprint-sm {
+		display:none;
+	}
 	#search-results {
 		.col-sm-9 { 
 			width:75%; 
@@ -50,13 +53,11 @@ a[href]:after { content: none !important; }
 				float:left;
 			}
 		}
+		#sidebar, #dhss, h6 {
+			display:none;
+		}
 	}
 	#facets {
 		display:none;
-	}
-	.blacklight-durst {
-		.noprint-sm, #sidebar, #dhss, h6 {
-			display:none;
-		}
 	}
 }
