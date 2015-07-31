@@ -1,7 +1,7 @@
 <div class="row" id="child_items">
 
 	<div id="item-description" class="col-md-3">
-		<div class="inner" style="margin-bottom:1em;">
+		<div class="inner noprint-sm" style="margin-bottom:1em;">
 			<script>
 
 				<% latlong = document['geo'].present? ? document['geo'][0].split(',') : ['40.7400', '-73.9802'] %>
@@ -32,7 +32,7 @@
 				<% end %>
 			</dl>
 		</div>
-    <div class="inner">
+    <div class="inner noprint-sm">
       <%= link_to '<span class="glyphicon glyphicon-file"></span> Display XML Metadata'.html_safe, item_mods_path(:pid => @document.id), :'data-no-turbolink' => true, :'data-display-url' => item_mods_path(:pid => @document.id, :type => 'formatted_text'), :'data-download-url' => item_mods_path(:pid => @document.id, :type => 'download'), :onclick => 'return DCV.ModsDownloadModal.show($(this).attr("data-display-url"), $(this).attr("data-download-url"));' %>
     </div>
   </div>

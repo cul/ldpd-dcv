@@ -55,10 +55,7 @@ a[href]:after { content: none !important; }
 		display:none;
 	}
 	.blacklight-durst {
-		#sidebar {
-			display:none;
-		}
-		#dhss, h6 {
+		.noprint-sm, #sidebar, #dhss, h6 {
 			display:none;
 		}
 	}
