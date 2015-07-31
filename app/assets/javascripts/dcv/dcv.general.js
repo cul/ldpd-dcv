@@ -127,10 +127,14 @@ DCV.ModsDownloadModal.show = function(displayUrl, downloadUrl){
 DCV.FeedbackModal = {};
 DCV.FeedbackModal.show = function(){
 
+  var feedbackUrl = window.CULh_feedback_url || 'https://feedback.cul.columbia.edu/feedback_submission/dlc';
+  
+  console.log(feedbackUrl);
+
   $.colorbox({
-    href: '//culwcm.cul.columbia.edu/dcv_feedback?current_page=' + encodeURIComponent(document.URL) + '&window_width=' + $(window).width() + '&window_height=' + $(window).height(),
+    href: feedbackUrl + '?submitted_from_page=' + encodeURIComponent(document.URL) + '&window_width=' + $(window).width() + '&window_height=' + $(window).height(),
     className: 'cul-no-colorbox-title-bar',
-    height:"500px",
+    height:"478px",
     width:"700px",
     maxHeight:"90%",
     maxWidth:"90%",
