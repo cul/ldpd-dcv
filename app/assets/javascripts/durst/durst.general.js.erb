@@ -191,7 +191,7 @@ function homeMap() {
 
 			markers.on('clusterclick', function (a) {
 
-				var maxItemsToShow = 5;
+				var maxItemsToShow = 1;
 
 				if (map.getZoom() == map.getMaxZoom()) {
 						var allItemHtml = '';
@@ -200,7 +200,7 @@ function homeMap() {
 						var viewAllUrl = DCV.mapCoordinateSearchUrl.replace('_lat_', childMarkers[0].getLatLng().lat).replace('_long_', childMarkers[0].getLatLng().lng);
 
 						allItemHtml += '<h6>' + childMarkers.length + ' items found <a class="pull-right" href="' + viewAllUrl + '">View all &raquo &nbsp;</a></h6>';
-						allItemHtml += '<div style="max-height:200px;max-width:200px; overflow:auto;">'
+						allItemHtml += '<div style="max-height:200px;max-width:200px;width:auto;overflow:auto;">'
 
 						var numItemsToShow = childMarkers.length;
 						if (childMarkers.length > maxItemsToShow) {
