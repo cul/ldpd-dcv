@@ -588,10 +588,10 @@ module Ifp::PartnerDataHelper
 		global: {
 			#:office => "GLOBAL",
 			#:browse_digital_record_pids => 0,
-			:finding_aid => [{ :name => "Link to Collection Guide", :id => 0 }],
+			:finding_aid => [{ :name => "Link to IFP Collection Guide", :id => 0 }],
 			:web_archive => "https://archive-it.org/collections/2766;?fc=websiteGroup%3AFord+Foundation+International+Fellowship+Program",
 			:ifp_community => "http://www.fordifp.org/",
-			:ifp_partners => [{ :name => "Institute for International Education", :link => "http://www.iie.org" }]
+			:ifp_partners => [{ :name => "Institute for International Education", :link => "http://www.iie.org/Research-and-Publications/IFP-Alumni-Tracking-Study" }]
 		},
 		secretariat: {
 			:office => "Secretariat",

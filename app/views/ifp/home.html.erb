@@ -91,7 +91,7 @@
     <div id="home-global-data" class="home well well-sm">
 			<% partner_data = ifp_office_sidebar_data(:global) %>
       <dl class="nomar-b">
-				<dt>Finding Aid</dt>
+				<dt>Collection Guide (Finding Aid)</dt>
 				<dd>
 					<%
 					partner_data[:finding_aid].each do | finding_aid |
@@ -99,7 +99,7 @@
 					end
 					%>
 				</dd>
-				<dt>Web Archive</dt>
+				<dt>Archived IFP Websites</dt>
 				<dd>
 					<%= link_to 'IFP Web Archive', partner_data[:web_archive] %>
 				</dd>
