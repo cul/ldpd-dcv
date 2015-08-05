@@ -89,40 +89,31 @@
                   <p>The archives cover the issues of social justice, community development, and access to higher education, and include paper and digital documentation and audiovisual materials on the more than 3,300 IFP Fellows as well as comprehensive planning and adminstrative files of the program.</p>
     </div>
     <div id="home-global-data" class="home well well-sm">
-      <% partner_data = ifp_office_sidebar_data(:global) %>
-      <% keys_to_display_labels = {
-        office: "Office",
-        browse_digital_record_pids: "Browse Digital Records",
-        finding_aid: "Collection Guide (Finding Aid)",
-        web_archive: "Archived IFP Websites",
-        ifp_community: "IFP Community",
-        ifp_partners: "IFP Partners",
-      }  %>
+			<% partner_data = ifp_office_sidebar_data(:global) %>
       <dl class="nomar-b">
-      <%
-		partner_data.each do | key, value |
-			%><dt><%= keys_to_display_labels[key] ? keys_to_display_labels[key] : key.to_s %></dt><%
-			%><dd><%
-			case key
-			when :ifp_partners
-			  bull = (value.count > 1? '&bull; ' : '')
-			  value.each do | individual_partner |
-				%> <%= bull.html_safe %><%= link_to individual_partner[:name], individual_partner[:link] %><br><%
-			  end
-            when :finding_aid
-              value.each do | individual_partner |
-              %> <%= link_to individual_partner[:name], 'http://findingaids.cul.columbia.edu/staging/ead/nnc-rb/ldpd_9489034/summary' %><%
-              end
-			when :web_archive
-			  %><%= link_to 'IFP Web Archive', value %><%
-			when :ifp_community
-			  %><%= link_to 'IFP Legacy Website', value %><%
-			else
-			  %><%= value %><%
-			end
-			%></dd><%
-		end
-      %>
+				<dt>Finding Aid</dt>
+				<dd>
+					<%
+					partner_data[:finding_aid].each do | finding_aid |
+						%><%= link_to finding_aid[:name], 'http://findingaids.cul.columbia.edu/staging/ead/nnc-rb/ldpd_9489034/summary' %><%
+					end
+					%>
+				</dd>
+				<dt>Web Archive</dt>
+				<dd>
+					<%= link_to 'IFP Web Archive', partner_data[:web_archive] %>
+				</dd>
+				<dt>IFP Community</dt>
+				<dd>
+					<%= link_to 'IFP Legacy Website', partner_data[:ifp_community] %>
+					<%
+						if partner_data[:ifp_partners].present?
+							partner_data[:ifp_partners].each do |ifp_partner|
+								%><br /><%= link_to ifp_partner[:name], ifp_partner[:link] %><%
+							end
+						end
+					%>
+				</dd>
       </dl>
     </div>
   </div>
