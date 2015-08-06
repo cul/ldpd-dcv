@@ -532,6 +532,10 @@ a {
 			word-wrap: break-word;
 		}
 	}
+	.square-bullets {
+		list-style:square;
+		padding-left:1em;
+	}
 }
 #item-information {
 	padding: 1em;

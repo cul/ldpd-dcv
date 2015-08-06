@@ -31,15 +31,17 @@
 								<%= link_to 'IFP Web Archive - ' + ifp_partner_data( params[:key] )[:heading], partner_data[:web_archive] %>
 							</dd>
 							<dt>IFP Community</dt>
-							<dd>
-								<%= link_to 'IFP Legacy Website - ' + ifp_partner_data( params[:key] )[:heading], partner_data[:ifp_community] %>
+							<dd class="nomar">
+								<ul class="square-bullets">
+								<li><%= link_to 'IFP Legacy Website - ' + ifp_partner_data( params[:key] )[:heading], partner_data[:ifp_community] %></li>
 								<%
 									if partner_data[:ifp_partners].present?
 										partner_data[:ifp_partners].each do |ifp_partner|
-											%><br /><%= link_to ifp_partner[:name], ifp_partner[:link] %><%
+											%><li><%= link_to ifp_partner[:name], ifp_partner[:link] %></li><%
 										end
 									end
 								%>
+								</ul>
 							</dd>
 				  </dl>
 			</dl>
