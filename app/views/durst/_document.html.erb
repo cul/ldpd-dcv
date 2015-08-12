@@ -3,7 +3,17 @@
   <div class="tombstone" data-number-of-members=<%= document[:cul_number_of_members_isi] || -1 %>>
 		<%
 			if document['lib_format_ssm'].present? && document['lib_format_ssm'].include?('books')
-				image_url_for_document = image_url('book-placeholder.png')
+				if document['lib_non_item_in_context_url_ssm'].present?
+					image_url_for_document = image_url('book-placeholder-e.png')
+				else
+					image_url_for_document = image_url('book-placeholder.png')
+				end
+			elsif document['lib_format_ssm'].present? && document['lib_format_ssm'].include?('maps') && document['representative_generic_resource_pid_ssi'].blank?
+				if document['lib_non_item_in_context_url_ssm'].present?
+					image_url_for_document = image_url('map-placeholder-e.png')
+				else
+					image_url_for_document = image_url('map-placeholder.png')
+				end
 			else
 				# Try to use representative_generic_resource_pid_ssi, but fall back to resource pid if not present
 				representative_image_pid = document['representative_generic_resource_pid_ssi'].present? ? document['representative_generic_resource_pid_ssi'] : document.id
