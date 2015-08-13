@@ -121,6 +121,11 @@ input {
 	border-top-color: $color_0;
 	#navbar-container {
 		padding: 0;
+		.navlist-padded {
+			position: relative;
+			display: block;
+			padding: 10px 15px;
+		}
 	}
 	#cul_top-nosearch {
 		padding-left: 0;

@@ -1,15 +1,17 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.0.4'
+gem 'rails', '4.2.1'
 gem 'actionpack-action_caching'
 # Hydra stack
 gem 'nokogiri', '~> 1.6.3'
-gem 'blacklight', '~> 5.4.0'
+gem 'blacklight', '~> 5.7.2'
 gem 'hydra-head', '~>7'
 
 # Columbia Hydra models
 gem 'cul_hydra', '>= 1.0.7'
+gem 'cul_omniauth', '~>0.4.1'
+#gem 'cul_omniauth', :path=>'/Users/ba2213/Github/cul/cul_omniauth', :branch=>'master'
 #gem 'cul_hydra', :path => '../cul_hydra'
 gem 'active-triples', '~> 0.2.2'
 

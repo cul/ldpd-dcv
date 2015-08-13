@@ -85,5 +85,10 @@ class HomeController < ApplicationController
     #  @document_list = []
     #end
   end
-
+  def restricted
+    if Rails.env == 'development' || ! Rails.cache.exist?(BROWSE_LISTS_KEY)
+      refresh_browse_lists_cache
+    end
+    @browse_lists = Rails.cache.read(BROWSE_LISTS_KEY)
+  end
 end

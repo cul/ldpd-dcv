@@ -10,8 +10,8 @@ class Dcv::Configurators::Restricted::UniversityseminarsBlacklightConfigurator
 
     config.default_solr_params = {
       :fq => [
-        'publisher_ssim:"info:fedora/cul:rfj6q573w6"', # Include content published to the public IFP site
-        'active_fedora_model_ssi:GenericResource', # Only include GenericResources in searches
+        'publisher_ssim:"info:fedora/cul:s7h44j0zxt"', # Include content published to the public IFP site
+        '-active_fedora_model_ssi:GenericResource', # Only include GenericResources in searches
         '-dc_type_sim:FileSystem' # Ignore FileSystem resources in searches
       ],
       :qt => 'search',
@@ -45,8 +45,13 @@ class Dcv::Configurators::Restricted::UniversityseminarsBlacklightConfigurator
 
     config.add_facet_fields_to_solr_request! # Required for facet queries
 
-    config.add_facet_field ActiveFedora::SolrService.solr_name('contributor', :symbol), :label => 'Office', :limit => 10, :sort => 'count'
-    config.add_facet_field ActiveFedora::SolrService.solr_name('dc_type', :facetable), :label => 'Resource Type', :limit => 10, :sort => 'count'
+    config.add_facet_field ActiveFedora::SolrService.solr_name('primary_name', :facetable), { 
+      :label => "Seminar Numbers", :limit => 10, :sort => "index"}
+    config.add_facet_field "subject_topic_sim", :label => "Seminar Titles", :limit => 10, :sort => "index"
+    config.add_facet_field ActiveFedora::SolrService.solr_name('physical_description_form_local', :facetable), :label => "Document Types", :limit => 10, :sort => "index"
+    config.add_facet_field ActiveFedora::SolrService.solr_name('language_language_term_text', :symbol), :label => "Languages", :limit => 10, :sort => "index"
+    config.add_facet_field "lib_date_dtsi", :label => "Dates", :limit => 10, :sort => "index"
+    config.add_facet_field ActiveFedora::SolrService.solr_name('physical_description_form_aat', :facetable), :label => "Library Formats", :limit => 10, :sort => "index"
 
     # Have BL send all facet field names to Solr, which has been the default
     # previously. Simply remove these lines if you'd rather use Solr request
