@@ -13,6 +13,6 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   def affiliations(user, affils)
-    return unless user && user.login
+    return unless user && user.uid
   end
 end

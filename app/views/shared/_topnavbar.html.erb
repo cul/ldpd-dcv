@@ -18,18 +18,30 @@
 					</ul>
 				</div><!--/col-sm-9-->
 				<div class="col-sm-3">
-				  <ul id="cul_top-right" class="nav pull-right">
-				   <li class="dropdown menu pull-left"><a class="dropdown-toggle menu" data-toggle="dropdown" href="#">Help <b class="caret"></b></a>
-					<ul class="dropdown-menu menu-dropdown dropdown-menu-right">
-					 <li><%= link_to 'About', about_path %></li>
-					 <li><a href="http://library.columbia.edu/research/askalibrarian.html">Ask a Librarian</a></li>
-					 <li><a href="#" onclick="return DCV.FeedbackModal.show();">Suggestions &amp; Feedback</a></li>
-					 <li><a href="http://hours.library.columbia.edu">Library Hours</a></li>
-					 <li><a href="http://www.columbia.edu/about_columbia/map/">Maps and Locations</a></li>
-					 <li><%= link_to 'Terms of Use', terms_of_use_path %></li>
-					</ul>
-				   </li>
-				  </ul>
+					<ul id="cul_top-right" class="nav pull-right">
+						<li class="dropdown menu pull-left"><a class="dropdown-toggle menu" data-toggle="dropdown" href="#">Help <b class="caret"></b></a>
+							<ul class="dropdown-menu menu-dropdown dropdown-menu-right">
+								<li><%= link_to 'About', about_path %></li>
+								<li><a href="http://library.columbia.edu/research/askalibrarian.html">Ask a Librarian</a></li>
+								<li><a href="#" onclick="return DCV.FeedbackModal.show();">Suggestions &amp; Feedback</a></li>
+								<li><a href="http://hours.library.columbia.edu">Library Hours</a></li>
+								<li><a href="http://www.columbia.edu/about_columbia/map/">Maps and Locations</a></li>
+								<li><%= link_to 'Terms of Use', terms_of_use_path %></li>
+							</ul>
+						</li>
+					</ul><!--
+					<ul id="cul_top-login" class="nav pull-right">
+						<li class="dropdown menu pull-left">-->
+					<div class="nav pull-right navlist-padded">
+						<% if current_user %>
+							<%= current_user.uid %>
+							<%= link_to '(Log Out)', destroy_user_session_url(provider: current_user.provider) %>
+						<% else %>
+							<%= link_to 'Log In', user_omniauth_authorize_url(provider: controller.omniauth_provider_key) %>
+						<% end %>
+						<!--</li>
+					</ul>-->
+					</div>
 				</div><!--/col-sm-3-->
 			</div><!--/row-->
 		</div><!-- /cul_top-nosearch -->
