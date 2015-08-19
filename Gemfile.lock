@@ -1,3 +1,14 @@
+GIT
+  remote: git://github.com/cul/cul_omniauth.git
+  revision: 7cabcaba546b67665781403d9f2ae78f3aa027af
+  branch: master
+  specs:
+    cul_omniauth (0.4.2)
+      cancan
+      devise-guests (~> 0.3)
+      omniauth-cas
+      rails (~> 4.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -116,11 +127,6 @@ GEM
       thread
     cul_image_props (0.3.5)
       nokogiri
-    cul_omniauth (0.4.1)
-      cancan
-      devise-guests (~> 0.3)
-      omniauth-cas
-      rails (~> 4.1)
     daemons (1.1.9)
     deprecation (0.2.2)
       activesupport
@@ -447,7 +453,7 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   colorbox-rails
   cul_hydra (>= 1.0.7)
-  cul_omniauth (~> 0.4.1)
+  cul_omniauth!
   devise
   devise-guests (~> 0.3)
   hydra-head (~> 7)
