@@ -5,7 +5,7 @@ class AddOmniauthToUsers < ActiveRecord::Migration
     add_column :users, :uid, :string
     add_index :users, :uid
     User.all.each do |user|
-      user.provider = :saml
+      user.provider = :saml if user.email.split('@').last.eql?('columbia.edu')
       user.uid = user.email.split('@').first
       user.save!
     end
