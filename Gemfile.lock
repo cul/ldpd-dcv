@@ -116,7 +116,7 @@ GEM
       thread
     cul_image_props (0.3.5)
       nokogiri
-    cul_omniauth (0.4.1)
+    cul_omniauth (0.4.2)
       cancan
       devise-guests (~> 0.3)
       omniauth-cas
@@ -447,7 +447,7 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   colorbox-rails
   cul_hydra (>= 1.0.7)
-  cul_omniauth (~> 0.4.1)
+  cul_omniauth (~> 0.4.2)
   devise
   devise-guests (~> 0.3)
   hydra-head (~> 7)
