@@ -10,9 +10,9 @@ gem 'hydra-head', '~>7'
 
 # Columbia Hydra models
 gem 'cul_hydra', '>= 1.0.7'
-gem 'cul_omniauth', '~>0.4.1'
-#gem 'cul_omniauth', :path=>'/Users/ba2213/Github/cul/cul_omniauth', :branch=>'master'
 #gem 'cul_hydra', :path => '../cul_hydra'
+#gem 'cul_omniauth', '~>0.4.1'
+gem 'cul_omniauth', :git=>'git://github.com/cul/cul_omniauth.git', :branch=>'master'
 gem 'active-triples', '~> 0.2.2'
 
 # Use sqlite3 as the database for Active Record
