@@ -14,6 +14,11 @@ class User < ActiveRecord::Base
   validates :email, presence: true
   validates :encrypted_password, presence: true, on: :create
 
+  before_validation(on: :create) do
+    self.encrypted_password = self.password
+    self.email = "#{self.uid}@columbia.edu"
+  end
+
   def password
     @password || Devise.friendly_token[0,20]
   end
