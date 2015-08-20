@@ -6,6 +6,7 @@ class SubsitesController < ApplicationController
   include Cul::Omniauth::RemoteIpAbility
 
   before_filter :set_view_path
+  before_filter :store_unless_user
   before_filter :authorize_action, only:[:index, :preview, :show]
   protect_from_forgery :except => [:index_object] # No CSRF token required for reindex
 

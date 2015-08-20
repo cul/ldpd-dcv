@@ -15,4 +15,9 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def affiliations(user, affils)
     return unless user && user.uid
   end
+
+  def after_sign_out_path_for(resource_name)
+    session['logout_redirect_url'] || super
+  end
+
 end

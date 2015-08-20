@@ -16,4 +16,8 @@ class ApplicationController < ActionController::Base
   def render_unauthorized!
     render 'pages/unauthorized', :status => :unauthorized
   end
+
+  def store_unless_user
+    store_location unless current_user
+  end
 end

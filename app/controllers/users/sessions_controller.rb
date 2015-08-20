@@ -24,6 +24,13 @@ class Users::SessionsController < Devise::SessionsController
     end
   end
 
+  def after_sign_out_path_for(resource)
+    service = (params[:restricted].to_s =~ /true/i) ? restricted_url : root_url
+    if current_user && current_user.provider == 'saml'
+      service = OmniAuth::Strategies::SAML.new.logout_url(service)
+    end
+    service
+  end
   protected
 
   def auth_hash
