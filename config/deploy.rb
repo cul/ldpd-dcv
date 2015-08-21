@@ -69,7 +69,7 @@ namespace :deploy do
 
   desc "Compile assets"
   task :assets do
-    run "cd #{release_path}; RAILS_ENV=#{rails_env} bundle exec rake assets:clean assets:precompile"
+    run "cd #{release_path}; RAILS_ENV=#{rails_env} bundle exec rake db:migrate assets:clean assets:precompile"
   end
   
   desc "Restart Resque Workers"
