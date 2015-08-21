@@ -1,11 +1,12 @@
 class Users::SessionsController < Devise::SessionsController
-
+  TRUE_REGEX = /true/i
+  SAML_REGEX = /^saml$/i
   # override so that database_authenticatable can be removed
   def new_session_path(scope)
     new_user_session_path
   end
   def omniauth_provider_key
-    @omniauth_provider_key ||= Dcv::Application.cas_configuration_opts[:provider]
+    @omniauth_provider_key ||= Rails.application.class.cas_configuration_opts[:provider]
   end
 
   # updates the search counter (allows the show view to paginate)
@@ -25,15 +26,16 @@ class Users::SessionsController < Devise::SessionsController
   end
 
   def after_sign_out_path_for(resource)
-    service = (params[:restricted].to_s =~ /true/i) ? restricted_url : root_url
-    if current_user && current_user.provider == 'saml'
-      service = OmniAuth::Strategies::SAML.new.logout_url(service)
+    service = (params[:restricted].to_s =~ TRUE_REGEX) ? restricted_url : root_url
+    if omniauth_provider_key =~ SAML_REGEX
+      #TODO offload this into a factory class in application
+      service = OmniAuth::Strategies::SAML.new(Rails.application,Rails.application.class.cas_configuration_opts).logout_url(service)
     end
     service
   end
   protected
 
   def auth_hash
-    request.env['omniauth.auth']
+    request.env.fetch(Cul::Omniauth::Callbacks::OMNIAUTH_REQUEST_KEY,{})
   end
 end
