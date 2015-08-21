@@ -1,5 +1,6 @@
 class Users::SessionsController < Devise::SessionsController
-
+  TRUE_REGEX = /true/i
+  SAML_REGEX = /^saml$/i
   # override so that database_authenticatable can be removed
   def new_session_path(scope)
     new_user_session_path
@@ -25,9 +26,9 @@ class Users::SessionsController < Devise::SessionsController
   end
 
   def after_sign_out_path_for(resource)
-    service = (params[:restricted].to_s =~ /true/i) ? restricted_url : root_url
-    if current_user && current_user.provider == 'saml'
-      service = OmniAuth::Strategies::SAML.new.logout_url(service)
+    service = (params[:restricted].to_s =~ TRUE_REGEX) ? restricted_url : root_url
+    if resource && (resource.provider =~ SAML_REGEX)
+      service = Devise.omniauth_configs[:saml].strategy.logout_url(service)
     end
     service
   end
