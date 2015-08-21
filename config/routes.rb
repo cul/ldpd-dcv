@@ -73,6 +73,7 @@ Dcv::Application.routes.draw do
   end
 
   get '/restricted' => 'home#restricted', as: :restricted
+  get '/restricted/projects', to: redirect('/restricted')
 
   if SUBSITES['restricted'].present?
     namespace "restricted" do
