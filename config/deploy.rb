@@ -60,6 +60,8 @@ namespace :deploy do
     run "ln -nfs #{deploy_to}shared/default_user_accounts.yml #{release_path}/config/default_user_accounts.yml"
     run "ln -nfs #{deploy_to}shared/initializer_secrets.yml #{release_path}/config/initializer_secrets.yml"
     run "ln -nfs #{deploy_to}shared/resque.yml #{release_path}/config/resque.yml"
+    run "ln -nfs #{deploy_to}shared/roles.yml #{release_path}/config/roles.yml"
+    run "ln -nfs #{deploy_to}shared/cas.yml #{release_path}/config/cas.yml"
     run "mkdir -p #{release_path}/db"
     run "ln -nfs #{deploy_to}shared/#{rails_env}.sqlite3 #{release_path}/db/#{rails_env}.sqlite3"
   end
@@ -67,7 +69,7 @@ namespace :deploy do
 
   desc "Compile assets"
   task :assets do
-    run "cd #{release_path}; RAILS_ENV=#{rails_env} bundle exec rake assets:clean assets:precompile"
+    run "cd #{release_path}; RAILS_ENV=#{rails_env} bundle exec rake db:migrate assets:clean assets:precompile"
   end
   
   desc "Restart Resque Workers"

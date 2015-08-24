@@ -13,7 +13,7 @@ module Dcv::ChildrenHelperBehavior
     children[:page] = opts.fetch(:page, 0).to_i
     offset = children[:per_page] * children[:page]
     rows = children[:per_page]
-    fl = ['id',"active_fedora_model_ssi",'dc_identifier_ssim','identifier_ssim','rels_int_profile_tesim','rft_id_ss']
+    fl = ['id',"active_fedora_model_ssi",'dc_identifier_ssim','dc_type_ssm','identifier_ssim','rels_int_profile_tesim','rft_id_ss','label_ssi']
     title_field = nil
     begin
       fl << (title_field = document_show_link_field).to_s

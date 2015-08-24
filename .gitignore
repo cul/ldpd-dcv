@@ -25,6 +25,7 @@ config/local_guardfile_customizations.yml
 *\.swp
 
 # Ignore config files with sensitive data
+cas.yml
 database.yml
 fedora.yml
 solr.yml
@@ -33,6 +34,7 @@ initializer_secrets.yml
 dcv.yml
 default_user_accounts.yml
 resque.yml
+roles.yml
 
 # Ignore OS-specific
 .DS_Store

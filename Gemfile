@@ -1,16 +1,18 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.0.4'
+gem 'rails', '4.2.1'
 gem 'actionpack-action_caching'
 # Hydra stack
 gem 'nokogiri', '~> 1.6.3'
-gem 'blacklight', '~> 5.4.0'
+gem 'blacklight', '~> 5.7.2'
 gem 'hydra-head', '~>7'
 
 # Columbia Hydra models
 gem 'cul_hydra', '>= 1.0.7'
 #gem 'cul_hydra', :path => '../cul_hydra'
+gem 'cul_omniauth', '~>0.4.2'
+#gem 'cul_omniauth', :git=>'git://github.com/cul/cul_omniauth.git', :branch=>'master'
 gem 'active-triples', '~> 0.2.2'
 
 # Use sqlite3 as the database for Active Record
@@ -20,7 +22,7 @@ gem 'sqlite3'
 gem 'mysql2', '0.3.18'
 
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 4.0.2'
+gem 'sass-rails', '~> 5.0.0'
 
 # Use colorbox-rails gem for dialogs
 gem 'colorbox-rails'

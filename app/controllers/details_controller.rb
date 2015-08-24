@@ -3,7 +3,7 @@ class DetailsController < ApplicationController
 
   layout 'details'
 
-  parent_prefixes << 'catalog' # haaaaaaack to not reproduce templates
+  _prefixes << 'catalog' # haaaaaaack to not reproduce templates
 
   configure_blacklight do |config|
     config.default_solr_params = {

@@ -23,10 +23,13 @@ all_environments: &all_environments
     universityseminars:
       layout: 'universityseminars'
       show_original_file_download: true
+      date_search:
+        sidebar: true
+        timeline: true
 
 development: *all_environments
 test: *all_environments
-prod: *all_environments
+production: *all_environments
 dcv_private_dev: *all_environments
 dcv_private_test: *all_environments
 dcv_private_prod: *all_environments
@@ -55,3 +58,6 @@ dcv_prod:
     universityseminars:
       layout: 'universityseminars'
       show_original_file_download: true
+      date_search:
+        sidebar: true
+        timeline: true
