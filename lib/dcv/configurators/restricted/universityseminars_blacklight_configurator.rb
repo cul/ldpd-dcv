@@ -50,8 +50,6 @@ class Dcv::Configurators::Restricted::UniversityseminarsBlacklightConfigurator
     config.add_facet_field "subject_topic_sim", :label => "Seminar Titles", :limit => 10, :sort => "index"
     config.add_facet_field ActiveFedora::SolrService.solr_name('physical_description_form_local', :facetable), :label => "Document Types", :limit => 10, :sort => "index"
     config.add_facet_field ActiveFedora::SolrService.solr_name('language_language_term_text', :symbol), :label => "Languages", :limit => 10, :sort => "index"
-    config.add_facet_field "lib_date_dtsi", :label => "Dates", :limit => 10, :sort => "index"
-    config.add_facet_field ActiveFedora::SolrService.solr_name('physical_description_form_aat', :facetable), :label => "Library Formats", :limit => 10, :sort => "index"
 
     # Have BL send all facet field names to Solr, which has been the default
     # previously. Simply remove these lines if you'd rather use Solr request
