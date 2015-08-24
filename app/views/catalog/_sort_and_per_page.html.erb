@@ -8,8 +8,8 @@
       <%= render :partial => 'view_type_group' %>
     </div>
     <div id="view-options" class="hidden-xs btn-group btn-group-xs pull-right search-index-tool-group">
-      <button id="grid-mode" type="button" class="btn btn-success result-type-button" title="grid view"><i class="glyphicon glyphicon-th"></i></button>
-      <button id="list-mode" type="button" class="btn btn-default result-type-button" title="list view"><i class="glyphicon glyphicon-th-list"></i></button>
+      <%= search_mode_button(:grid) %>
+      <%= search_mode_button(:list) %>
     </div>
     <% if controller.subsite_config['date_search'].present? && controller.subsite_config['date_search'].fetch('timeline', false) %>
       <div id="date-toggle" class="btn-group btn-group-xs pull-right search-index-tool-group">

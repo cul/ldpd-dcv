@@ -31,7 +31,7 @@ DCV.SearchResults.configForLayout = {
 		availableSearchModes: [DCV.SearchResults.SearchMode.LIST]
 	},
 	universityseminars: {
-		defaultSearchMode: DCV.SearchResults.SearchMode.GRID,
+		defaultSearchMode: DCV.SearchResults.SearchMode.LIST,
 		availableSearchModes: [DCV.SearchResults.SearchMode.GRID, DCV.SearchResults.SearchMode.LIST]
 	},
 	jay: {
@@ -82,7 +82,7 @@ $(document).ready(function(){
 		} else {
 			DCV.SearchResults.setSearchDateGraphVisibility(currentSearchDateGraphVisiblity);
 		}
-  }
+	}
 
 });
 
@@ -93,49 +93,50 @@ DCV.SearchResults.getCurrentSearchMode = function(){
 
 
 DCV.SearchResults.setSearchMode = function(searchMode) {
-
+    if (DCV.SearchResults.getCurrentSearchMode == searchMode) {
+    	return;
+    }
 	$('.result-type-button').removeClass('btn-success').addClass('btn-default');
 
-  if (searchMode == DCV.SearchResults.SearchMode.GRID) {
-      $('#content .document').removeClass('col-sm-12').removeClass('list-view');
-      $('#content .document').find('h3').addClass('ellipsis');
-      $('#content .document .tombstone').removeClass('row');
-      $('#content .document .thumbnail').removeClass('col-sm-2').removeClass('col-sm-1');
-      $('#content .index-show-list-fields').addClass('hidden');
-      $('#content .index-show-tombstone-fields').removeClass('hidden');
-      $('#grid-mode').addClass('btn-success');
-      createCookie(DCV.subsite_layout + '_' + DCV.SearchResults.CookieNames.searchMode, searchMode);
-  } else if (searchMode == DCV.SearchResults.SearchMode.LIST) {
-      $('#content .document').addClass('col-sm-12').addClass('list-view');
-      $('#content .document').find('h3').removeClass('ellipsis');
-			if(DCV.subsite_layout == 'ifp') {
-				//IFP uses smaller thumbnails
-				$('#content .document .thumbnail').addClass('col-sm-1');
-			} else {
-				$('#content .document .thumbnail').addClass('col-sm-2');
-			}
-			$('#content .index-show-tombstone-fields').addClass('hidden');
-      $('#content .index-show-list-fields').removeClass('hidden');
-      $('#list-mode').addClass('btn-success');
-      createCookie(DCV.subsite_layout + '_' + DCV.SearchResults.CookieNames.searchMode, searchMode);
-  } else if (searchMode == DCV.SearchResults.SearchMode.EXTENDED) {
-			$('#search-results, .results-pagination, #appliedParams').addClass('hidden');
-	    $('#extended-search-results').removeClass('hidden');
-	    $('#extended-search-mode').addClass('btn-success');
-			$('.extended-search-mode').addClass('hidden');
-      $('#return-to-results').removeClass('hidden');
-			//BUT DO NOT SET A COOKIE FOR EXTENDED MODE!  We don't want this mode to persist between page refreshes.
-  } else {
-    console.log('Invalid search mode: ' + searchMode);
-  }
+	if (searchMode == DCV.SearchResults.SearchMode.GRID) {
+		$('#content .document').removeClass('col-sm-12').removeClass('list-view').addClass('col-sm-3');
+		$('#content .document').find('h3').addClass('ellipsis');
+		$('#content .document .thumbnail').removeClass('col-sm-2').removeClass('col-sm-1');
+		$('#content .index-show-list-fields').addClass('hidden');
+		$('#content .index-show-tombstone-fields').removeClass('hidden');
+		$('#grid-mode').addClass('btn-success');
+		createCookie(DCV.subsite_layout + '_' + DCV.SearchResults.CookieNames.searchMode, searchMode);
+	} else if (searchMode == DCV.SearchResults.SearchMode.LIST) {
+		$('#content .document').addClass('col-sm-12').addClass('list-view').removeClass('col-sm-3');
+		$('#content .document').find('h3').removeClass('ellipsis');
+		if(DCV.subsite_layout == 'ifp') {
+			//IFP uses smaller thumbnails
+			$('#content .document .thumbnail').addClass('col-sm-1');
+		} else {
+			$('#content .document .thumbnail').addClass('col-sm-2');
+		}
+		$('#content .index-show-list-fields').removeClass('hidden');
+		$('#content .index-show-tombstone-fields').addClass('hidden');
+		$('#list-mode').addClass('btn-success');
+		createCookie(DCV.subsite_layout + '_' + DCV.SearchResults.CookieNames.searchMode, searchMode);
+	} else if (searchMode == DCV.SearchResults.SearchMode.EXTENDED) {
+		$('#search-results, .results-pagination, #appliedParams').addClass('hidden');
+		$('#extended-search-results').removeClass('hidden');
+		$('#extended-search-mode').addClass('btn-success');
+		$('.extended-search-mode').addClass('hidden');
+		$('#return-to-results').removeClass('hidden');
+		//BUT DO NOT SET A COOKIE FOR EXTENDED MODE!  We don't want this mode to persist between page refreshes.
+	} else {
+		console.log('Invalid search mode: ' + searchMode);
+	}
 
 	//Undo EXTENDED mode changes, if necessary
 	if (searchMode != DCV.SearchResults.SearchMode.EXTENDED) {
-			$('#extended-search-mode').removeClass('btn-success');
-	    $('#extended-search-results').addClass('hidden');
-	    $('#search-results, .results-pagination, #appliedParams').removeClass('hidden');
-			$('#return-to-results').addClass('hidden');
-			$('.extended-search-mode').removeClass('hidden');
+		$('#extended-search-mode').removeClass('btn-success');
+		$('#extended-search-results').addClass('hidden');
+		$('#search-results, .results-pagination, #appliedParams').removeClass('hidden');
+		$('#return-to-results').addClass('hidden');
+		$('.extended-search-mode').removeClass('hidden');
 	}
 }
 

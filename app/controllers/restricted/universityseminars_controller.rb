@@ -11,4 +11,8 @@ class Restricted::UniversityseminarsController < SubsitesController
     end
   end
 
+  def thumb_url(document={})
+    super
+  end
+
 end

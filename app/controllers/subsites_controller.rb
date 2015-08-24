@@ -52,7 +52,11 @@ class SubsitesController < ApplicationController
   end
 
   def subsite_config
-    return SUBSITES[(self.class.restricted? ? 'restricted' : 'public')][self.controller_name]
+    return SUBSITES[(self.class.restricted? ? 'restricted' : 'public')].fetch(self.controller_name,{})
+  end
+
+  def default_search_mode
+    subsite_config.fetch('default_search_mode',:grid)
   end
 
   def self.restricted?
@@ -115,6 +119,10 @@ class SubsitesController < ApplicationController
 
   def subsite_layout
     SUBSITES[(self.class.restricted? ? 'restricted' : 'public')][self.controller_name]['layout']
+  end
+
+  def thumb_url(document={})
+    get_asset_url(id: document['id'], size: 256, format: 'jpg', type: 'square')
   end
 
 end
