@@ -4,11 +4,11 @@
   <% unless (ix += 1) == 0 %>
     <%="&#187;".html_safe %>
   <% end %>
-  <%= link_to(breadcrumb[:label], url_to_proxy(breadcrumb), class: "fs-directory") %>
+  <%= link_to(URI.decode(breadcrumb[:label]), url_to_proxy(breadcrumb), class: "fs-directory") %>
 <% end %>
 <% if params[:proxy_id] && last = params[:proxy_id].split('/').last %>
   <%="&#187;".html_safe %>
-  <span class="fs-directory"><%= last %></span>
+  <span class="fs-directory"><%= URI.decode(last) %></span>
 <%end%>
 </div>
 <table class="file-system table table-striped table-bordered">
