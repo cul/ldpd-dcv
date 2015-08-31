@@ -66,6 +66,40 @@ module Dcv::ChildrenHelperBehavior
     return child
   end
 
+  def structured_children
+    @structured_children ||= begin
+      if @document['structured_bsi'] == true
+        struct = Cul::Hydra::Fedora.ds_for_uri("info:fedora/#{@document['id']}/structMetadata")
+        struct = Nokogiri::XML(struct.content)
+        ns = {'mets'=>'http://www.loc.gov/METS/'}
+        nodes = struct.xpath('//mets:div[@ORDER]', ns).sort {|a,b| a['ORDER'].to_i <=> b['ORDER'].to_i }
+
+        counter = 1
+        nodes = nodes.map do |node|
+          node_id = (node['CONTENTIDS'])
+
+
+          node_thumbnail = get_resolved_asset_url(id: node_id, size: 256, type: 'scaled', format: 'jpg')
+
+          if subsite_layout == 'durst'
+            title = "Image #{counter}"
+            counter += 1
+          else
+            title = node['LABEL']
+          end
+
+          {id: node_id, title: title, thumbnail: node_thumbnail, order: node['ORDER'].to_i}
+        end
+        nodes
+      else
+        nodes = document_children_from_model[:children]
+        # just assign the order they came in, since there's no structure
+        nodes.each_with_index {|node, ix| node[:order] = ix + 1}
+        nodes
+      end
+    end
+  end
+
   def url_to_proxy(opts)
     method = opts[:proxy_id] ? "#{controller_name}_proxy_url".to_sym : "#{controller_name}_url".to_sym
     #opts = opts.merge(proxy_id:opts[:proxy_id].sub('.','%2E')) if opts[:proxy_id]
