@@ -142,7 +142,7 @@ class Dcv::Configurators::Restricted::UniversityseminarsBlacklightConfigurator
     # mean") suggestion is offered.
     config.spell_max = 5
 
-    config.index.thumbnail_method = :thumbnail_for_doc
+    config.index.thumbnail_method = :thumbnail_placeholder
 
   end
 
