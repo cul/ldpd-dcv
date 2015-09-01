@@ -67,7 +67,6 @@ class Dcv::Configurators::Restricted::UniversityseminarsBlacklightConfigurator
     config.add_index_field ActiveFedora::SolrService.solr_name('location_shelf_locator', :displayable, type: :string), :label => 'Shelf Location'
     config.add_index_field ActiveFedora::SolrService.solr_name('lib_date_textual', :displayable, type: :string), :label => 'Date'
     config.add_index_field ActiveFedora::SolrService.solr_name('lib_item_in_context_url', :displayable, type: :string), :label => 'Item in Context', :helper_method => :link_to_url_value
-
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display
     config.add_show_field ActiveFedora::SolrService.solr_name('title_display', :displayable, type: :string), :label => 'Title', :separator => '; '
@@ -105,12 +104,14 @@ class Dcv::Configurators::Restricted::UniversityseminarsBlacklightConfigurator
     # or can be specified manually to be different.
 
     # All Text search configuration, used by main search pulldown.
-    config.add_search_field ActiveFedora::SolrService.solr_name('fulltext', :searchable, type: :text) do |field|
+    config.add_search_field ActiveFedora::SolrService.solr_name('fulltext', :stored_searchable, type: :text) do |field|
       field.label = 'Fulltext'
       field.default = true
       field.solr_parameters = {
-        :qf => [ActiveFedora::SolrService.solr_name('fulltext', :searchable, type: :text)],
-        :pf => [ActiveFedora::SolrService.solr_name('fulltext', :searchable, type: :text)]
+        :hl => true,
+        :qf => [ActiveFedora::SolrService.solr_name('fulltext', :stored_searchable, type: :text)],
+        :pf => [ActiveFedora::SolrService.solr_name('fulltext', :stored_searchable, type: :text)],
+        :'hl.fl' => ActiveFedora::SolrService.solr_name('fulltext', :stored_searchable, type: :text)
       }
     end
 

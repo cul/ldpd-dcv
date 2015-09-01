@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/cul/cul_hydra.git
-  revision: c89f9c75b6951a21e90e739e2ea9d623732ba3db
+  revision: b710d7d274a1015e7c259e0674cb319e783971b2
   branch: pcdm
   specs:
     cul_hydra (1.1.0)
