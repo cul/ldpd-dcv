@@ -1,6 +1,6 @@
   <% partner_heading = ifp_partner_data( params[:key] ) %>
   <% partner_finding_aid_base_url = 'http://findingaids.cul.columbia.edu/staging/ead/nnc-rb/ldpd_9489034/dsc/4/#subseries' %>
-  <% secretariat_finding_aid_base_url = 'http://findingaids.cul.columbia.edu/staging/ead/nnc-rb/ldpd_9489034/dsc/1/#subseries2' %>
+  <% secretariat_finding_aid_base_url = 'http://findingaids.cul.columbia.edu/staging/ead/nnc-rb/ldpd_9489034/dsc/1/#series0' %>
   <div class="well well-sm">
   <h6 class="hidden">PARTNER INFORMATION</h6>
   <% partner_data = ifp_office_sidebar_data(params[:key].to_sym) %>
@@ -22,7 +22,11 @@
 							<dd>
 								<%
 								partner_data[:finding_aid].each do | finding_aid |
-									%><%= link_to finding_aid[:name], 'http://findingaids.cul.columbia.edu/staging/ead/nnc-rb/ldpd_9489034/summary' %><%
+									if params[:key] == 'secretariat'
+										%> <%= link_to finding_aid[:name], secretariat_finding_aid_base_url %><%
+									else
+										%><%= link_to finding_aid[:name], partner_finding_aid_base_url+finding_aid[:id].to_s %><%
+									end
 								end
 								%>
 							</dd>
