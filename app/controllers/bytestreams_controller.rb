@@ -67,7 +67,7 @@ class BytestreamsController < ApplicationController
     size ||= ds.dsSize
     label = ds.dsLabel.present? ? ds.dsLabel.split('/').last : 'file'
     if label
-      response.headers["Content-Disposition"] = (params['download'].to_s == 'true' ? 'attachment; ' : '') + "filename=#{label}"
+      response.headers["Content-Disposition"] = label_to_content_disposition(label,(params['download'].to_s == 'true'))
     end
     ###########################
     if size and size.to_i > 0
@@ -104,4 +104,11 @@ class BytestreamsController < ApplicationController
 
   end
 
+  # translate a label into a rfc5987 encoded header value
+  # see also http://tools.ietf.org/html/rfc5987#section-4.1
+  def label_to_content_disposition(label,attachment=false)
+    value = attachment ? 'attachment; ' : ''
+    value << "filename*=utf-8''#{label.gsub(' ','%20').gsub(',','%2C')}"
+    value
+  end
 end
