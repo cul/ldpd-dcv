@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
 
   include Blacklight::User
   include Cul::Omniauth::Users
+  include Cul::Omniauth::Users::ConfiguredRoles
 
   attr_accessor :password 
   # Include default devise modules. Others available are:
@@ -34,7 +35,7 @@ class User < ActiveRecord::Base
   def role? role_sym
     return true if role_sym.eql? :*
     return true if role_sym.eql? :"#{self.uid}"
-    return false
+    return role_members(role_sym).detect {|member| self.role?(member.to_sym)}
   end
 
 end
