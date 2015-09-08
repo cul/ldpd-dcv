@@ -9,7 +9,7 @@ gem 'blacklight', '~> 5.7.2'
 gem 'hydra-head', '~>7'
 
 # Columbia Hydra models
-gem 'cul_hydra', '~> 1.2'
+gem 'cul_hydra', '~> 1.3'
 gem 'cul_omniauth', '~>0.5.0'
 gem 'active-triples', '~> 0.2.2'
 
