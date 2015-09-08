@@ -429,7 +429,7 @@ The CEEVN IFP office in Vietnam was closed in June 2013. 10 linear feet of paper
 		},
 		egypt: {
 			:office => "Egypt",
-			:browse_digital_record_pids => 0,
+			:browse_digital_record_pids => ["ldpd:500981"],
 			:finding_aid => [{ :name => "Link to series IV.4", :id => 10 }],
 			:web_archive => "https://archive-it.org/collections/2766;?fc=websiteGroup%3AFord+Foundation+International+Fellowship+Program&fc=meta_Coverage%3AEgypt",
 			:ifp_community => "http://www.fordifp.org/Egypt/en-us/home.aspx",
@@ -595,14 +595,44 @@ The CEEVN IFP office in Vietnam was closed in June 2013. 10 linear feet of paper
 			:ifp_partners => [{ :name => "Institute for International Education", :link => "http://www.iie.org" }]
 		}
 	}
-
+	IFP_OFFICE_ONSITE_DATA = {
+		egypt: {
+			browse_digital_record_pids: ["ldpd:500982"]
+		}
+    }
+    IFP_OFFICE_ONSITE_SIDEBAR_DATA = IFP_OFFICE_SIDEBAR_DATA.map do |k,v|
+    	[k,v.merge(IFP_OFFICE_ONSITE_DATA.fetch(k,{}))]
+    end.to_h
   def ifp_partner_data(partner)
 		return PARTNER_DATA[partner.to_sym]
   end
 
 
   def ifp_office_sidebar_data(partner)
-    IFP_OFFICE_SIDEBAR_DATA[partner.to_sym]
+  	if controller.restricted?
+      IFP_OFFICE_ONSITE_SIDEBAR_DATA[partner.to_sym]
+  	else
+      IFP_OFFICE_SIDEBAR_DATA[partner.to_sym]
+    end
   end
 
+  def link_to_partner(key)
+  	# ifp_partner_path(:key => 'uganda')
+  	label = image_tag(asset_path("ifp/office-flags/#{key}-f.png"),alt:"#{key} files")
+  	label << key.capitalize.html_safe
+  	if controller.restricted?
+  		link_to label, restricted_ifp_partner_path(key: key)
+  	else
+  		link_to label, ifp_partner_path(key: key)
+  	end
+  end
+  def link_to_ifp_home
+  	label = 'Ford Foundation'.html_safe
+  	label << content_tag(:span, class: "break-phone titlesub") do
+  		'International Fellowships Program Archive'
+  	end
+  	path = controller.restricted? ? root_path + 'restricted/ifp' :
+  	                                root_path + 'ifp'
+  	link_to label, path, { :id => 'site-title' }
+  end
 end

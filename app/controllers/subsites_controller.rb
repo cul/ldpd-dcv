@@ -24,6 +24,10 @@ class SubsitesController < ApplicationController
     self.prepend_view_path(self.subsite_layout)
   end
 
+  def restricted?
+    self.class.restricted?
+  end
+
   # Override to prepend restricted if necessary
   def authorize_action
     if self.class.restricted?

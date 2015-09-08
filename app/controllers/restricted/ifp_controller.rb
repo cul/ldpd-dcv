@@ -12,4 +12,12 @@ class Restricted::IfpController < SubsitesController
     end
   end
 
+  def partner
+    if Ifp::PartnerDataHelper::PARTNER_DATA.has_key?(params[:key].to_sym)
+      render 'ifp/partner/index'
+    else
+      render 'ifp/partner/not_found'
+    end
+  end
+
 end
