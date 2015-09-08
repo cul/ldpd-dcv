@@ -602,7 +602,7 @@ The CEEVN IFP office in Vietnam was closed in June 2013. 10 linear feet of paper
     }
     IFP_OFFICE_ONSITE_SIDEBAR_DATA = IFP_OFFICE_SIDEBAR_DATA.map do |k,v|
     	[k,v.merge(IFP_OFFICE_ONSITE_DATA.fetch(k,{}))]
-    end.to_h
+    end.inject({}) {|m,v| m[v[0]] = v[1]; m }
   def ifp_partner_data(partner)
 		return PARTNER_DATA[partner.to_sym]
   end
