@@ -8,6 +8,8 @@ class BytestreamsController < ApplicationController
   include Hydra::Controller::ControllerBehavior
   include Dcv::Resources::RelsIntBehavior
   include Cul::Hydra::Resolver
+  include Cul::Omniauth::AuthorizingController
+  include Cul::Omniauth::RemoteIpAbility
   include Dcv::CatalogHelperBehavior
   include ChildrenHelper
   #caches_action :content, :expires_in => 7.days
@@ -58,7 +60,10 @@ class BytestreamsController < ApplicationController
     @response, @document = get_solr_response_for_doc_id(params[:catalog_id])
     if @document.nil?
       render :status => 404
+      return
     end
+    return unless authorize_document
+
     ds_parms = {pid: params[:catalog_id], dsid: params[:bytestream_id]}
     response.headers["Last-Modified"] = Time.now.httpdate
     puts ds_parms.inspect()

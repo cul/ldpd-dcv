@@ -101,7 +101,9 @@ module Dcv::ChildrenHelperBehavior
   end
 
   def url_to_proxy(opts)
-    method = opts[:proxy_id] ? "#{controller_name}_proxy_url".to_sym : "#{controller_name}_url".to_sym
+    method = opts[:proxy_id] ? "#{controller_name}_proxy_url" : "#{controller_name}_url"
+    method = "restricted_" + method if controller.restricted?
+    method = method.to_sym
     #opts = opts.merge(proxy_id:opts[:proxy_id].sub('.','%2E')) if opts[:proxy_id]
     send(method, opts.merge(label:nil))
   end
