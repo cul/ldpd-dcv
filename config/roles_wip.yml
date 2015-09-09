@@ -1,0 +1,145 @@
+_all_environments:
+  '*':
+    can:
+      'documents#show':
+        if:
+          publisher:
+            in?:
+              - 'info:fedora/cul:vmcvdnck2d'
+      'restricted_universityseminars#*':
+        if:
+          remote_ip:
+            in?:
+              - '127.0.0.1'
+              - '::1'
+              - '128.59.156.168'
+      'restricted_universityseminars_previews#*':
+        if:
+          remote_ip:
+            in?:
+              - '127.0.0.1'
+              - '::1'
+              - '128.59.156.168'
+      'catalog#*': []
+      'catalog_previews#*': []
+      'durst#*': []
+      'durst_previews#*': []
+      'ifp#*': []
+      'ifp_previews#*': []
+      'jay#*': []
+      'jay_previews#*': []
+      'lindquist#*': []
+      'lindquist_previews#*': []
+#DPTS
+  'rc3':
+    can:
+      'home#restricted': []
+      'restricted_universityseminars#*': []
+      'restricted_universityseminars_previews#*': []
+      'documents#show':
+        if:
+          publisher:
+            in?:
+              - 'info:fedora/cul:s7h44j0zxt'
+  'spd1':
+    can:
+      'home#restricted': []
+      'restricted_universityseminars#*': []
+      'restricted_universityseminars_previews#*': []
+      'documents#show':
+        if:
+          publisher:
+            in?:
+              - 'info:fedora/cul:s7h44j0zxt'
+  'ba2213':
+    can:
+      'home#restricted': []
+      'restricted_universityseminars#*': []
+      'restricted_universityseminars_previews#*': []
+      'documents#show':
+        if:
+          publisher:
+            in?:
+              - 'info:fedora/cul:s7h44j0zxt'
+#RBML
+  'jg2138':
+    can:
+      'home#restricted': []
+      'restricted_universityseminars#*': []
+      'restricted_universityseminars_previews#*': []
+      'documents#show':
+        if:
+          publisher:
+            in?:
+              - 'info:fedora/cul:s7h44j0zxt'
+  'jkw19':
+    can:
+      'home#restricted': []
+      'restricted_universityseminars#*': []
+      'restricted_universityseminars_previews#*': []
+      'documents#show':
+        if:
+          publisher:
+            in?:
+              - 'info:fedora/cul:s7h44j0zxt'
+  'smq2109':
+    can:
+      'home#restricted': []
+      'restricted_universityseminars#*': []
+      'restricted_universityseminars_previews#*': []
+      'documents#show':
+        if:
+          publisher:
+            in?:
+              - 'info:fedora/cul:s7h44j0zxt'
+#USEM
+  'sh3040':
+    can:
+      'home#restricted': []
+      'restricted_universityseminars#*': []
+      'restricted_universityseminars_previews#*': []
+      'documents#show':
+        if:
+          publisher:
+            in?:
+              - 'info:fedora/cul:s7h44j0zxt'
+  'pfg2106':
+    can:
+      'home#restricted': []
+      'restricted_universityseminars#*': []
+      'restricted_universityseminars_previews#*': []
+      'documents#show':
+        if:
+          publisher:
+            in?:
+              - 'info:fedora/cul:s7h44j0zxt'
+  'an2113':
+    can:
+      'home#restricted': []
+      'restricted_universityseminars#*': []
+      'restricted_universityseminars_previews#*': []
+      'documents#show':
+        if:
+          publisher:
+            in?:
+              - 'info:fedora/cul:s7h44j0zxt'
+  'ga2030':
+    can:
+      'home#restricted': []
+      'restricted_universityseminars#*': []
+      'restricted_universityseminars_previews#*': []
+      'documents#show':
+        if:
+          publisher:
+            in?:
+              - 'info:fedora/cul:s7h44j0zxt'
+  'rep3':
+    can:
+      'home#restricted': []
+      'restricted_universityseminars#*': []
+      'restricted_universityseminars_previews#*': []
+      'documents#show':
+        if:
+          publisher:
+            in?:
+              - 'info:fedora/cul:s7h44j0zxt'
