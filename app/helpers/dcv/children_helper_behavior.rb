@@ -108,11 +108,15 @@ module Dcv::ChildrenHelperBehavior
     send(method, opts.merge(label:nil))
   end
   def url_to_preview(pid)
-    method = "#{controller_name}_preview_url".to_sym
+    method = "#{controller_name}_preview_url"
+    method = "restricted_" + method if controller.restricted?
+    method = method.to_sym
     send method, id: pid
   end
   def url_to_item(pid,additional_params={})
-    method = "#{controller_name}_url".to_sym
+    method = "#{controller_name}_url"
+    method = "restricted_" + method if controller.restricted?
+    method = method.to_sym
     send method, {id: pid}.merge(additional_params)
   end
   def proxy_node(node)
