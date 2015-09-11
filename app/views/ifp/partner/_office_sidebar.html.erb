@@ -12,8 +12,8 @@
 								if partner_data[:browse_digital_record_pids] == 0 
 									%>in process<%
 								else 
-									partner_data[:browse_digital_record_pids].each_with_index {|pid, index|
-										%><%= link_to 'Browse ' + partner_data[:office] + ' Records' + (partner_data[:browse_digital_record_pids].length > 1 ? ' [Part ' + (index+1).to_s + ']' : ''), url_for(controller:controller_name, action: 'show', id: pid) %><%
+									partner_data[:browse_digital_record_pids].each_with_index {|dig_rec, index|
+										%><%= link_to 'Browse ' + dig_rec.fetch(:label,partner_data[:office]) + ' Records' + (partner_data[:browse_digital_record_pids].length > 1 ? ' [Part ' + (index+1).to_s + ']' : ''), url_for(controller:controller_name, action: 'show', id: dig_rec[:pid]) %><%
 									}
 								end
 								%>
