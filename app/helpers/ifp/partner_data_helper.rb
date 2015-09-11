@@ -586,7 +586,7 @@ The CEEVN IFP office in Vietnam was closed in June 2013. 10 linear feet of paper
 			:finding_aid => [{ :name => "Link to IFP Collection Guide", :id => 0 }],
 			:web_archive => "https://archive-it.org/collections/2766;?fc=websiteGroup%3AFord+Foundation+International+Fellowship+Program",
 			:ifp_community => "http://www.fordifp.org/",
-			:ifp_partners => [{ :name => "Institute for International Education", :link => "http://www.iie.org/Research-and-Publications/IFP-Alumni-Tracking-Study" }]
+			:ifp_partners => [{ :name => "IFP Alumni Tracking Study", :link => "http://www.iie.org/Research-and-Publications/IFP-Alumni-Tracking-Study" }]
 		},
 		secretariat: {
 			:office => "Secretariat",
