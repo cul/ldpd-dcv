@@ -412,7 +412,7 @@ The CEEVN IFP office in Vietnam was closed in June 2013. 10 linear feet of paper
 			:ifp_partners => [{ :name => "Carlos Chagas Foundation", :link => "http://www.fcc.org.br" }]
 		},
 		chile: {
-			:office => "Chile and Peru",
+			:office => "Chile",
 			:browse_digital_record_pids => ["ldpd:493861"],
 			:finding_aid => [{ :name => "Link to series IV.2", :id => 4 }],
 			:web_archive => "https://archive-it.org/collections/2766;?fc=websiteGroup%3AFord+Foundation+International+Fellowship+Program&fc=meta_Coverage%3AChile",
@@ -508,7 +508,7 @@ The CEEVN IFP office in Vietnam was closed in June 2013. 10 linear feet of paper
 			:ifp_partners => [{ :name => "AMIDEAST", :link => "http://www.amideast.org/" }]
 		},
 		peru: {
-			:office => "Chile and Peru",
+			:office => "Peru",
 			:browse_digital_record_pids => ["ldpd:493861"],
 			:finding_aid => [{ :name => "Link to series IV.14", :id => 40 }],
 			:web_archive => "https://archive-it.org/collections/2766;?fc=websiteGroup%3AFord+Foundation+International+Fellowship+Program&fc=meta_Coverage%3APeru",
