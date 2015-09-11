@@ -629,7 +629,7 @@ The CEEVN IFP office in Vietnam was closed in June 2013. 10 linear feet of paper
   def link_to_ifp_home
   	label = 'Ford Foundation'.html_safe
   	label << content_tag(:span, class: "break-phone titlesub") do
-  		'International Fellowships Program Archive'
+  		' International Fellowships Program Archive'
   	end
   	path = controller.restricted? ? root_path + 'restricted/ifp' :
   	                                root_path + 'ifp'
