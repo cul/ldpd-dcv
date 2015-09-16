@@ -15,7 +15,12 @@ class Dcv::Configurators::Restricted::UniversityseminarsBlacklightConfigurator
         '-dc_type_sim:FileSystem' # Ignore FileSystem resources in searches
       ],
       :qt => 'search',
-      :rows => 20
+      :rows => 20,
+      :'hl.fragsize'    => 300,
+      :'hl.usePhraseHighlighter' => true,
+      :'hl.maxAnalyzedChars' => 1000000,
+      :'hl.simple.pre'  => '<span class="highlight">',
+      :'hl.simple.post' => '</span>',
     }
 
     config.per_page = [20,60,100]
