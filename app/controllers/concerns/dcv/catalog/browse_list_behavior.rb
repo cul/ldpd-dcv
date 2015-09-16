@@ -241,7 +241,7 @@ module Dcv::Catalog::BrowseListBehavior
 			:description => "The Human Rights Web Archive @ Columbia University is a searchable collection of archived copies of human rights websites created by non-governmental organizations, national human rights institutions, tribunals and individuals. New websites are added to the collection regularly."
 		},
 		{
-			:name => "Images from Stokes Iconography of Manhattan Island, 1498-1909",
+			:name => "Iconography of Manhattan Island: Illustrations from the Publication",
 			:image => 'stokes_iconography.jpg',
 			:external_url => 'http://www.columbia.edu/cgi-bin/cul/resolve?lweb0138',
 			:description => "Images from Columbia University Libraries 2008 electronic publication of: Stokes, I. N. Phelps. The iconography of Manhattan Island, 1498-1909. Vols. 1-6. New York : Robert H. Dodd, 1915-1928."
