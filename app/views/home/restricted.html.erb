@@ -4,12 +4,6 @@
        <div id="home-sidebar-news">
           <h6>RESTRICTED CONTENT</h6>
             <p>This is the provisional home page for restricted content.</p>
-            <hr>
-          <h6>SEMINARS</h6>
-          <p><a href="<%= restricted_universityseminars_index_path()  %>"><img src="<%= asset_url('dcv/sidebar-post-usem-thumb.jpg'); %>" class="pull-left" alt="University Seminars"></a>Founded in 1944 by Frank Tannenbaum, The University Seminars are groups of professors and experts from Columbia University and elsewhere. Seminars gather monthly to work together on problems that cross the boundaries between university departments. <a href="<%= restricted_universityseminars_index_path()  %>">View this content &raquo;</a></p>
-            <hr>
-          <h6>Ford IFP</h6>
-          <p><a href="<%= restricted_ifp_index_path()  %>"><img src="<%= asset_url('ifp/IFP-square-logo.png'); %>" class="pull-left" alt="Ford IFP"></a>The archives cover the issues of social justice, community development, and access to higher education, and include paper and digital documentation and audiovisual materials on the more than 4,300 IFP Fellows as well as comprehensive planning and administrative files of the program. <a href="<%= restricted_ifp_index_path()  %>">View this content &raquo;</a></p>
           <div class="clearfix"></div>
          </div>
       </div>
@@ -21,26 +15,35 @@
   <div id="content" class="col-md-9">
         <div id="home-page-content">
 
-            <div id="home-page-tabs" class="inner">
-                <!-- Nav tabs -->
-                <ul class="nav nav-tabs">
-                    <li class="active"><a href="#projects" data-toggle="tab">Projects</a></li>
-                    <% @browse_lists.each do |facet_name, data| %>
-                        <li><a href="#tab_<%= facet_name %>" data-toggle="tab"><%= data['display_label'] %></a></li>
-                    <% end %>
-                </ul>
+            <div id="home-page-restricted" class="inner">
 
-                <!-- Tab panes -->
-                <div class="tab-content">
-                    <div class="tab-pane fadein active" id="projects">
-                        <%= render template: 'pages/projects_and_exhibitions' %>
+                <div class="content">
+                    <div class="" id="projects">
+
+					  <div class="col-sm-6">
+						<div class="row">
+							<div class="col-sm-12">
+							  <h6>University Seminars</h6>
+							  <p><a class="project-image-link" href="<%= restricted_universityseminars_index_path()  %>"><img src="<%= asset_url('digital_projects_page/usem.jpg'); %>" class="thumbnail img-responsive col-sm-4" alt="University Seminars" style="margin-right:1em;"></a>
+								Founded in 1944 by Frank Tannenbaum, The University Seminars are groups of professors and experts from Columbia University and elsewhere. Seminars gather monthly to work together on problems that cross the boundaries between university departments. <a style="display:inline-block;" href="<%= restricted_universityseminars_index_path()  %>">View this content &raquo;</a></p>
+							</div>
+						</div>
+					  </div>
+
+            <hr class="visible-xs">
+					  <div class="col-sm-6">
+						<div class="row">
+							<div class="col-sm-12">
+							  <h6>Ford IFP</h6>
+								<p><a class="project-image-link" href="<%= restricted_ifp_index_path()  %>"><img src="<%= asset_url('ifp/IFP-square-logo.png'); %>" class="thumbnail img-responsive col-sm-4" alt="Ford IFP" style="margin-right:1em;"></a>
+								The archives cover the issues of social justice, community development, and access to higher education, and include paper and digital documentation and audiovisual materials on the more than 4,300 IFP Fellows as well as comprehensive planning and administrative files of the program. <a style="display:inline-block;" href="<%= restricted_ifp_index_path()  %>">View this content &raquo;</a></p>
+							</div>
+						</div>
+					  </div>
+
                     </div>
-                    <% if @browse_lists.present? %>
-                        <% @browse_lists.each do |facet_name, data| %>
-                            <%= render template: "pages/#{facet_name}", locals: {facet_name: facet_name, data: data} if data['value_pairs'].present? %>
-                        <% end %>
-                    <% end %>
                 </div>
+				<div class="clearfix"></div>
             </div> <!--/.inner-->
         </div>
   </div>
