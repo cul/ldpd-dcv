@@ -238,3 +238,19 @@ function readCookie(name) {
 function eraseCookie(name) {
     createCookie(name, "", -1);
 }
+
+
+/***********
+ * ON LOAD *
+ ***********/
+
+$(window).on('load', function() {
+    if ( $('body').hasClass('blacklight-home-restricted') ) {
+        var rinner = $('#content').find('.inner:first');
+        var sidebar = $('#sidebar').find('.inner:first');
+        if (sidebar.height() > rinner.height()) {
+            rinner.height(sidebar.height());
+        }
+    }
+});
+
