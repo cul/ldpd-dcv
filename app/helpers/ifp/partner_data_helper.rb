@@ -405,7 +405,7 @@ The CEEVN IFP office in Vietnam was closed in June 2013. 10 linear feet of paper
 	IFP_OFFICE_SIDEBAR_DATA = {
 		brazil: {
 			:office => "Brazil",
-			:browse_digital_record_pids => 0,
+			:browse_digital_record_pids => [{pid:"ldpd:504474"}],
 			:finding_aid => [{ :name => "Link to series IV.1", :id => 1 }],
 			:web_archive => "https://archive-it.org/collections/2766;?fc=websiteGroup%3AFord+Foundation+International+Fellowship+Program&fc=meta_Coverage%3ABrazil",
 			:ifp_community => "http://www.fordifp.org/brazil/en-us/home.aspx",
@@ -518,7 +518,7 @@ The CEEVN IFP office in Vietnam was closed in June 2013. 10 linear feet of paper
 		},
 		philippines: {
 			:office => "Philippines",
-			:browse_digital_record_pids => 0,
+			:browse_digital_record_pids => [{pid:"ldpd:506094"}],
 			:finding_aid => [{ :name => "Link to series IV.15", :id => 43 }],
 			:ifp_community => "http://www.fordifp.org/Philippines/en-us/home.aspx",
 			:ifp_partners => [{ :name => "The Philippine Social Science Council (PSSC)", :link => "http://www.pssc.org.ph" }]
@@ -596,8 +596,50 @@ The CEEVN IFP office in Vietnam was closed in June 2013. 10 linear feet of paper
 		}
 	}
 	IFP_OFFICE_ONSITE_DATA = {
+		brazil: {
+			browse_digital_record_pids: [{pid:"ldpd:503556"}]
+		},
+		chile: {
+			browse_digital_record_pids: [{pid:"ldpd:503557"}]
+		},
 		egypt: {
 			browse_digital_record_pids: [{pid:"ldpd:500982"}]
+		},
+		ghana: {
+			browse_digital_record_pids: [{pid:"ldpd:503558"}]
+		},
+		guatemala: {
+			browse_digital_record_pids: [{pid:"ldpd:503559"}]
+		},
+		kenya: {
+			browse_digital_record_pids: [{pid:"ldpd:503560"}]
+		},
+		mozambique: {
+			browse_digital_record_pids: [{pid:"ldpd:503561"}]
+		},
+		palestine: {
+			browse_digital_record_pids: [{pid:"ldpd:503562"}]
+		},
+		peru: {
+			browse_digital_record_pids: [{pid:"ldpd:503557"}]
+		},
+		philippines: {
+			browse_digital_record_pids: [{pid:"ldpd:503563"}]
+		},
+		senegal: {
+			browse_digital_record_pids: [{pid:"ldpd:503564"}]
+		},
+		southafrica: {
+			browse_digital_record_pids: [{pid:"ldpd:503565"}]
+		},
+		tanzania: {
+			browse_digital_record_pids: [{pid:"ldpd:503566"}]
+		},
+		uganda: {
+			browse_digital_record_pids: [{pid:"ldpd:503567"}]
+		},
+		vietnam: {
+			browse_digital_record_pids: [{pid:"ldpd:503568"}]
 		}
     }
     IFP_OFFICE_ONSITE_SIDEBAR_DATA = IFP_OFFICE_SIDEBAR_DATA.map do |k,v|
