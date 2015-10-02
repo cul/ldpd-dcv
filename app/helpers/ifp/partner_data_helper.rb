@@ -405,7 +405,7 @@ The CEEVN IFP office in Vietnam was closed in June 2013. 10 linear feet of paper
 	IFP_OFFICE_SIDEBAR_DATA = {
 		brazil: {
 			:office => "Brazil",
-			:browse_digital_record_pids => [{pid:"ldpd:504474"}],
+			:browse_digital_record_pids => [{pid:"ldpd:504475"}],
 			:finding_aid => [{ :name => "Link to series IV.1", :id => 1 }],
 			:web_archive => "https://archive-it.org/collections/2766;?fc=websiteGroup%3AFord+Foundation+International+Fellowship+Program&fc=meta_Coverage%3ABrazil",
 			:ifp_community => "http://www.fordifp.org/brazil/en-us/home.aspx",
@@ -518,7 +518,7 @@ The CEEVN IFP office in Vietnam was closed in June 2013. 10 linear feet of paper
 		},
 		philippines: {
 			:office => "Philippines",
-			:browse_digital_record_pids => [{pid:"ldpd:506094"}],
+			:browse_digital_record_pids => [{pid:"ldpd:506095"}],
 			:finding_aid => [{ :name => "Link to series IV.15", :id => 43 }],
 			:ifp_community => "http://www.fordifp.org/Philippines/en-us/home.aspx",
 			:ifp_partners => [{ :name => "The Philippine Social Science Council (PSSC)", :link => "http://www.pssc.org.ph" }]
