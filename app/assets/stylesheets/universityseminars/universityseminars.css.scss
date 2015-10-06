@@ -97,8 +97,9 @@ a {
 	}
 	#search-navbar {
 		.input-group-addon {
-			background-color: $color_6;
-			font-size: .9em;
+                        display:none; // because there is only fulltext
+			//background-color: $color_6;
+			//font-size: .9em;
 		}
 		#q {
 			background-color: $color_8;
