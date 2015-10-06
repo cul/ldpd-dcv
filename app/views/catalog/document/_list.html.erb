@@ -17,16 +17,18 @@
 			<% if document.solr_response['highlighting'].present? && document.solr_response['highlighting'][document['id']].present? %>
 				<%
 					document.solr_response['highlighting'][document['id']].each do |key, arr_value|
-						if snippet.present?
-							snippet += '&hellip;'
+						if arr_value.present?
+							if snippet.length > 0
+								snippet += '&hellip;'
+							end
+							snippet += arr_value.join('&hellip;')
 						end
-						snippet += arr_value.join('&hellip;') if arr_value.present?
 					end
 				%>
 			<% end %>
 			<% if snippet.present? %>
 				<div class="fulltext-snippet">
-					&hellip;<%= snippet.gsub(/^(&nbsp;|\s)+/, '').gsub(/(&nbsp;|\s)+$/, '').html_safe %>&hellip;
+					&hellip;<%= render_snippet_with_post_processing(snippet).html_safe %>&hellip;
 				</div>
 			<% end %>
 

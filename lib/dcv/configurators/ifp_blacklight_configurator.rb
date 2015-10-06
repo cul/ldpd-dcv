@@ -20,8 +20,8 @@ class Dcv::Configurators::IfpBlacklightConfigurator
       :'hl.fragsize'    => 300,
       :'hl.usePhraseHighlighter' => true,
       :'hl.maxAnalyzedChars' => 1000000,
-      :'hl.simple.pre'  => '<span class="highlight">',
-      :'hl.simple.post' => '</span>',
+      :'hl.simple.pre'  => Dcv::HighlightedSnippetHelper::SNIPPET_HTML_WRAPPER_PRE,
+      :'hl.simple.post' => Dcv::HighlightedSnippetHelper::SNIPPET_HTML_WRAPPER_POST,
     }
 
     config.default_per_page = 20

@@ -26,7 +26,7 @@
 			<% end %>
 			<% if snippet.present? %>
 				<div class="fulltext-snippet">
-					&hellip;<%= snippet.gsub(/^(&nbsp;|\s)+/, '').gsub(/(&nbsp;|\s)+$/, '').html_safe %>&hellip;
+					&hellip;<%= render_snippet_with_post_processing(snippet).html_safe %>&hellip;
 				</div>
 			<% end %>
 
