@@ -10,6 +10,10 @@ module Dcv::SubsiteHelper
   def subsite_layout
     return controller.respond_to?(:subsite_layout) ? controller.subsite_layout : DEFAULT_SUBSITE_LAYOUT
   end
+  
+  def subsite_alert_message
+    return controller.subsite_config['alert_message'].present? ? controller.subsite_config['alert_message'] : ''
+  end
 
   def render_subsite_body_classes
     s_key = subsite_key

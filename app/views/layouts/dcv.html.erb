@@ -19,6 +19,7 @@
 
 	  <div id="main-container" class="container">
 			<%= render :partial=>'/flash_msg', layout: 'shared/flash_messages' %>
+			<%= render partial: 'shared/alert' %>
 			<%= yield %>
 	  </div>
 

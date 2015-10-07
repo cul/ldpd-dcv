@@ -8,6 +8,7 @@ all_environments: &all_environments
     durst:
       layout: 'durst'
     ifp:
+      #alert_message: 'This is an alert message'
       layout: 'ifp'
       show_original_file_download: true
     jay:
