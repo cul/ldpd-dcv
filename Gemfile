@@ -76,8 +76,11 @@ gem "devise"
 gem "devise-guests", "~> 0.3"
 
 group :development, :test do
-  gem "rspec-rails"
-  gem "jettywrapper"
+  gem 'rspec-rails', '~> 3.1'
+  gem 'capybara'
+  gem 'poltergeist' # For headless-browser JavaScript testing
+  gem 'factory_girl_rails', '>= 4.4.1'
+  gem 'jettywrapper', '>= 1.5.1'
 end
 
 # Use Thin for local development

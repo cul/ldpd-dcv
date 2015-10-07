@@ -12,7 +12,7 @@ module Dcv::HighlightedSnippetHelper
     highlight_end_placeholder = '!!!HIGHLIGHT-END!!!'
     
     #Temporary replace the snippet highlighting html with something that won't be escaped
-    snippet.gsub!(/<span class="highlight">(.+)<\/span>/, highlight_start_placeholder + '\1' + highlight_end_placeholder)
+    snippet.gsub!(/<span class="highlight">(.+?)<\/span>/, highlight_start_placeholder + '\1' + highlight_end_placeholder)
     
     #Remove html tags
     snippet = ActionView::Base.full_sanitizer.sanitize(snippet)
