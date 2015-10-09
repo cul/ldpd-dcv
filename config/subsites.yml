@@ -2,6 +2,7 @@ all_environments: &all_environments
   public:
     catalog:
       layout: 'dcv'
+      #alert_message: 'This is an alert message'
       date_search:
         sidebar: true
         timeline: true

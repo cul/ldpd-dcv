@@ -1,7 +1,7 @@
 module Dcv::SubsiteHelper
 
   DEFAULT_SUBSITE_LAYOUT = 'dcv'
-  DEFAULT_SUBSITE_KEY = 'dcv'
+  DEFAULT_SUBSITE_KEY = 'catalog'
 
   def subsite_key
     return controller.respond_to?(:subsite_key) ? controller.subsite_key : DEFAULT_SUBSITE_KEY
@@ -12,7 +12,11 @@ module Dcv::SubsiteHelper
   end
   
   def subsite_alert_message
-    return controller.subsite_config['alert_message'].present? ? controller.subsite_config['alert_message'] : ''
+    if controller.respond_to?(:subsite_config)
+      return controller.subsite_config['alert_message'].present? ? controller.subsite_config['alert_message'] : ''
+    else
+      return SUBSITES['public'][DEFAULT_SUBSITE_KEY]['alert_message'].present? ? SUBSITES['public'][DEFAULT_SUBSITE_KEY]['alert_message'] : ''
+    end
   end
 
   def render_subsite_body_classes
