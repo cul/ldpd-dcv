@@ -11926,7 +11926,11 @@ module Jay::UrlConversionHelper
 	  }
 
     def jay_url_converter(jid)
-         root_path + 'jay/' + URL_CONVERSION_DATA[jid]
+        if URL_CONVERSION_DATA[jid]
+            root_path + 'jay/' + URL_CONVERSION_DATA[jid]
+        else
+            '#UNKNOWN_ID'
+        end
     end
 
 end
