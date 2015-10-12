@@ -10,7 +10,7 @@ gem 'hydra-head', '~>7'
 
 # Columbia Hydra models
 gem 'cul_hydra', '~> 1.3'
-gem 'cul_omniauth', '~>0.5.0'
+gem 'cul_omniauth', '~>0.5.2'
 gem 'active-triples', '~> 0.2.2'
 
 # Use sqlite3 as the database for Active Record
