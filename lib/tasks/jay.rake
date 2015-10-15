@@ -92,6 +92,61 @@ end
 
 namespace :util do
   namespace :jay do
+    
+    task :map_identifiers_to_pids => :environment do
+      
+      Dlc::Index.log_level = Logger::INFO
+      
+      path_to_outfile = ENV['outfile']
+    
+      if path_to_outfile.blank?
+        puts 'Error: Missing required argument: outfile=/path/to/outfile.csv'
+        next
+      end
+      
+      pids = Cul::Hydra::RisearchMembers.get_project_constituent_pids('cul:rjdfn2z3d0', false)
+      total = pids.length
+      
+      File.open(path_to_outfile, 'w') { |file|
+        pids.each_with_index do |pid, i|
+          obj = ActiveFedora::Base.find(pid)
+          if obj.datastreams['DC'] && obj.datastreams['DC'].dc_identifier
+            jay_identifier = obj.datastreams['DC'].dc_identifier.select{|element| element.start_with?('columbia.jay')}.first
+            file.write("#{jay_identifier},#{pid}\n")
+          end
+          puts "Processed #{i+1} of #{total}" if (i+1)%100 == 0
+        end
+      }
+      
+    end
+    
+    task :add_publish_targets => :environment do
+      
+      Dlc::Index.log_level = Logger::INFO
+      
+      # Find all Jay project records
+      pids = Cul::Hydra::RisearchMembers.get_project_constituent_pids('cul:rjdfn2z3d0', false)
+      total = pids.length
+      puts "Found #{total} project members."
+      
+      # And add the Jay publish target to any project members that don't have the publish target
+      num_records_modified = 0
+      
+      pids.each_with_index do |pid, i|
+        obj = ActiveFedora::Base.find(pid)
+        if obj.relationships(:publisher).blank?
+          puts 'Found missing publisher: ' + pid
+          obj.add_relationship(:publisher, 'info:fedora/cul:vmcvdnck2d')
+          obj.save
+          num_records_modified += 1
+        end
+        puts "Processed #{i+1} of #{total}" if (i+1)%100 == 0
+      end
+      
+      puts "Done. Modified #{num_records_modified} records."
+      
+    end
+    
     task :load_mods => :environment do
       jay_prefix = ENV['jay_mods_dir']
       manifest = Util::Jay.mods_manifest(File.join(jay_prefix, 'manifest.txt'))
