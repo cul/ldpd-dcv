@@ -99,7 +99,13 @@ DCV.SearchResults.setSearchMode = function(searchMode) {
 	$('.result-type-button').removeClass('btn-success').addClass('btn-default');
 
 	if (searchMode == DCV.SearchResults.SearchMode.GRID) {
-		$('#content .document').removeClass('col-sm-12').removeClass('list-view').addClass('col-sm-3');
+		$('#content .document').removeClass('col-sm-12').removeClass('list-view');
+		if(DCV.subsite_layout == 'durst') {
+			//Durst uses smaller thumbnails
+			$('#content .document').addClass('col-sm-2');
+		} else {
+			$('#content .document').addClass('col-sm-3');
+		}
 		$('#content .document').find('h3').addClass('ellipsis');
 		$('#content .document .thumbnail').removeClass('col-sm-2').removeClass('col-sm-1');
 		$('#content .index-show-list-fields').addClass('hidden');
