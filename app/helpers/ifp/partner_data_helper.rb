@@ -635,6 +635,9 @@ The CEEVN IFP office in Vietnam was closed in June 2013. 10 linear feet of paper
 		tanzania: {
 			browse_digital_record_pids: [{pid:"ldpd:503566"}]
 		},
+		thailand: {
+			browse_digital_record_pids: [{pid:"ldpd:503569"}]
+		},
 		uganda: {
 			browse_digital_record_pids: [{pid:"ldpd:503567"}]
 		},
