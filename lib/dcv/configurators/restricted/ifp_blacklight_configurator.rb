@@ -46,7 +46,7 @@ class Dcv::Configurators::Restricted::IfpBlacklightConfigurator
     config.add_facet_fields_to_solr_request! # Required for facet queries
 
     config.add_facet_field ActiveFedora::SolrService.solr_name('contributor', :symbol), :label => 'Office', :limit => 10, :sort => 'count'
-    config.add_facet_field ActiveFedora::SolrService.solr_name('dc_type', :facetable), :label => 'Resource Type', :limit => 10, :sort => 'count'
+    config.add_facet_field ActiveFedora::SolrService.solr_name('dc_type', :facetable), :label => 'Resource Type', :limit => 10, :sort => 'count', :helper_method => :pcdm_file_genre_display
 
     # Have BL send all facet field names to Solr, which has been the default
     # previously. Simply remove these lines if you'd rather use Solr request
