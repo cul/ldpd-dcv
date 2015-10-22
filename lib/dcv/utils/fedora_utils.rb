@@ -28,7 +28,34 @@ module Dcv::Utils::FedoraUtils
     return JSON(risearch_response.body)
 
   end
+  def self.to_uri(subject)
+    if subject.is_a? ActiveFedora::Base
+      return "info:fedora/#{subject.pid}"
+    end
+    if subject.is_a? ActiveFedora::Datastream
+      return "info:fedora/#{subject.pid}/#{subject.dsid}"
+    end
+    return subject.to_s 
+  end
+  def self.add_relationship(subject,predicate,object,is_literal=false)
+    params = {}
+    params[:subject] = to_uri(subject)
+    params[:predicate] = to_uri(predicate)
+    params[:object] = object.to_s
+    params[:isLiteral] = is_literal.to_s.downcase
+    uri = URI.parse(
+      ActiveFedora.config.credentials[:url] +
+      "/objects/#{subject.pid}/relationships/new")
+    uri.query = URI.encode_www_form(params)
+    Net::HTTP.start(uri.host, uri.port) do |http|
+      http.use_ssl = true if uri.scheme == 'https'
+      http.verify_mode = OpenSSL::SSL::VERIFY_NONE # if uri.scheme == 'https' && uri.host == 'localhost'
 
+      request = Net::HTTP::Post.new(uri.request_uri)
+      request.basic_auth(ActiveFedora.config.credentials[:user], ActiveFedora.config.credentials[:password])
+      return http.request(request).status
+    end
+  end
   def self.get_top_level_all_content_fedora_object
     begin
       top_level_all_content_fedora_object = BagAggregator.find(HYACINTH_CONFIG['top_level_all_content_fedora_object_id'])
