@@ -1,6 +1,7 @@
 	<div id="digital_projects">
 		<h2 class="hide">Projects</h2>
 
+		<% all_proj_counter = 0 %>
 		<% proj_counter = 0 %>
 
 		<div class="row">
@@ -36,6 +37,11 @@
 				<% proj_counter += 1 %>
 				<%= '<div class="clearfix"></div><br />'.html_safe if proj_counter % 4 == 0 %>
 			<% end %>
+				<% all_proj_counter += 1 %>
 		<% end %>
 	</div>
+</div>
+<div>
+	<hr>
+		<p class="text-small">Displaying <%= proj_counter %> Searchable Collections of <%= all_proj_counter %> total Collections. See <a onclick="window.open(this.href);return false;" href="http://library.columbia.edu/find/digital-collections.html">All Collections <i class="glyphicon glyphicon-new-window"></i></a>  on the Libraries' website.</p>
 </div>

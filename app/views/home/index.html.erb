@@ -32,7 +32,6 @@
                 <div class="tab-content">
                     <div class="tab-pane fadein active" id="projects">
                         <%= render template: 'pages/projects_and_exhibitions' %>
-						<div><hr><p class="text-small">See <a onclick="window.open(this.href);return false;" href="http://library.columbia.edu/find/digital-collections.html">All Collections <i class="glyphicon glyphicon-new-window"></i></a>  on the Libraries' website.</p></div>
                     </div>
                     <% if @browse_lists.present? %>
                         <% @browse_lists.each do |facet_name, data| %>
