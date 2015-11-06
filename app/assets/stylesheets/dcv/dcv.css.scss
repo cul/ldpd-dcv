@@ -1019,6 +1019,12 @@ h2[itemprop="name"] {
 	font-size: .815em;
 	text-transform: uppercase;
 }
+#home-page-tabs .non-tab {
+	> a {
+		text-transform:none;
+		border:0;
+	}
+}
 .index-show-list-fields ul {
 	padding-left: 0;
 	list-style: none;
