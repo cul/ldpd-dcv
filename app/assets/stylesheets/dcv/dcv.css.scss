@@ -941,6 +941,7 @@ h2[itemprop="name"] {
 	}
 	.project-image-link {
 		display: block;
+		margin-bottom:.5em;
 	}
 }
 #search-results {
@@ -1022,15 +1023,31 @@ h2[itemprop="name"] {
 			border-style:dotted;
 		}
 	}
-}
-#home-page-tabs .nav-tabs {
-	font-size: .815em;
-	text-transform: uppercase;
-}
-#home-page-tabs .non-tab {
-	> a {
-		text-transform:none;
-		border:0;
+	#home-page-tabs {
+			.nav-tabs {
+				font-size: .815em;
+				text-transform: uppercase;
+			}
+			.non-tab {
+				> a {
+					text-transform:none;
+					border:0;
+				}
+			}
+			h3 {
+				margin-top:.5em;
+				font-size:103%;
+				line-height:1.5;
+				a {
+					&:hover {
+						text-decoration:none;
+					}
+				}
+			}
+			.proj-nav {
+				.btn {
+				}
+			}
 	}
 }
 .index-show-list-fields ul {
@@ -1063,4 +1080,12 @@ h2[itemprop="name"] {
 }
 #search-index-tools .search-index-tool-group {
 	margin-left: 5px;
+}
+.btn-dark {
+    color: $color_9;
+    background-color: $color_0;
+    border-color: $color_24;
+	&:hover {
+		background-color:$color_4;
+	}
 }
