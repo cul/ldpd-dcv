@@ -7,4 +7,4 @@
     remote:        data-remote
 -%>
 <% tag_class="btn btn-default #{'disabled' if current_page.last?}" -%>
-<%= link_to '<i class="glyphicon glyphicon-arrow-right"></i>'.html_safe, url, :rel => 'next', :remote => remote, title: raw(t 'views.pagination.next'), class: tag_class %>
+<%= link_to '<i class="glyphicon glyphicon-arrow-right"></i>'.html_safe, url, :rel => 'next', :remote => remote, :"data-toggle" => 'tooltip', title: raw(t 'views.pagination.next'), class: tag_class %>

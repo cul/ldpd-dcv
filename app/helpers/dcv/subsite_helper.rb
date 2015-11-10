@@ -49,7 +49,7 @@ module Dcv::SubsiteHelper
     classes = 'btn result-type-button'
     classes << ((mode == subsite_search_mode) ? ' btn-success' : ' btn-default')
     icon_classes = (mode == :list) ? 'glyphicon glyphicon-th-list' : 'glyphicon glyphicon-th'
-    content_tag(:button, type: 'button', class: classes, title: "#{mode} view", id: "#{mode}-mode") do
+    content_tag(:button, type: 'button', class: classes, :"data-toggle" => "tooltip", title: "#{mode} view", id: "#{mode}-mode") do
       content_tag(:i, nil, class: icon_classes)
     end
   end

@@ -13,7 +13,7 @@
     </div>
     <% if controller.subsite_config['date_search'].present? && controller.subsite_config['date_search'].fetch('timeline', false) %>
       <div id="date-toggle" class="btn-group btn-group-xs pull-right search-index-tool-group">
-        <button id="date-graph-toggle" type="button" class="btn btn-default result-type-button" title="timeline view"><i class="glyphicon glyphicon-stats"></i></button>
+        <button id="date-graph-toggle" type="button" class="btn btn-default result-type-button" data-toggle="tooltip" title="timeline view"><i class="glyphicon glyphicon-stats"></i></button>
       </div>
     <% end %>
   </div>

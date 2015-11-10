@@ -1,12 +1,12 @@
 <% if structured_children.first %>
-  <a class="btn btn-default item-cbox" data-original-title="<%= document_show_html_title %>" title="Zoom in" href="#" onclick="return DCV.ZoomingImageModal.show();"><i class="glyphicon glyphicon-eye-open"></i></a>
-  <a class="btn btn-default" href="#" data-original-title="<%= document_show_html_title %>" title="Open in new window" onclick="return DCV.ZoomingImageModal.openInNewWindow();"><i class="glyphicon glyphicon-new-window"></i></a>
+  <a class="btn btn-default item-cbox" data-original-title="<%= document_show_html_title %>" data-toggle="tooltip" title="Zoom in" href="#" onclick="return DCV.ZoomingImageModal.show();"><i class="glyphicon glyphicon-eye-open"></i></a>
+  <a class="btn btn-default" href="#" data-original-title="<%= document_show_html_title %>" data-toggle="tooltip" title="Open in new window" onclick="return DCV.ZoomingImageModal.openInNewWindow();"><i class="glyphicon glyphicon-new-window"></i></a>
   <% if document['lib_item_in_context_url_ssm'].present? %>
-    <a class="btn btn-default" href="<%= @document['lib_item_in_context_url_ssm'][0] %>" target="_blank" title="Item in Context"><i class="glyphicon glyphicon-globe"></i></a>
+    <a class="btn btn-default" href="<%= @document['lib_item_in_context_url_ssm'][0] %>" target="_blank" data-toggle="tooltip" title="Item in Context"><i class="glyphicon glyphicon-globe"></i></a>
   <% end %>
 <% end %>
 <div class="btn-group btn-group-xs">
-  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" title="Citations">
+  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" data-tt="tooltip" title="Citations">
   <i class="glyphicon glyphicon-book"></i> <span class="caret"></span>
   <span class="sr-only">Toggle Dropdown</span>
   </button>
