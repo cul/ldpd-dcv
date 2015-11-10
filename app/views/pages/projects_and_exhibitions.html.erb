@@ -19,10 +19,8 @@
 									<% if dcv_search_link.present? %>
 										<%= link_to '<span class="glyphicon glyphicon-search"></span>'.html_safe, dcv_search_link, :class => 'btn btn-dark btn-xs', :title => 'Browse Content', :role => 'button' %>
 									<% end %>
-									<% if dcv_search_link.present? && digital_project[:external_url].present? %>
-									<% end %>
 									<% if digital_project[:external_url].present? %>
-										<%= link_to '<span class="glyphicon glyphicon-new-window"></span>'.html_safe, digital_project[:external_url], :itemprop => 'url', :title => 'View Project Site', :role => 'button', :class => 'btn btn-dark btn-xs', :onclick => 'window.open(this.href);return false;' %>
+										<%= link_to '<span class="glyphicon glyphicon-new-window"></span>'.html_safe, digital_project[:external_url], :itemprop => 'url', :title => 'View Project Site (external)', :role => 'button', :class => 'btn btn-dark btn-xs', :onclick => 'window.open(this.href);return false;' %>
 									<% end %>
 								</div>
 								<div itemprop="name"><h3><%= link_to digital_project[:name], dcv_search_link, :title => 'Browse Content' %></h3></div>
