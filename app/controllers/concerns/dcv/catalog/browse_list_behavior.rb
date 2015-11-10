@@ -166,6 +166,12 @@ module Dcv::Catalog::BrowseListBehavior
 			:description => "An online presentation of almost 1400 photographs from the Community Service Society Records at Columbia University's Rare Book &amp; Manuscript Library. They offer representations of pressing social issues in late-19th- and early-20th-century New York."
 		},
 		{
+			:name => "Construction and Evolution of Union Theological Seminary Campus",
+			:image => 'construction_and_evolution_uts.jpg',
+			:external_url => 'http://www.columbia.edu/cgi-bin/cul/resolve?clio11612867',
+			:description => "This exhibit features images from a small collection of photographs documenting the construction of Union Theological Seminary located in the Morningside Heights neighborhood of New York City. The third location for the Seminary, the buildings were constructed from 1908-1910. The collection is housed at the Burke Library at Union Theological Seminary, Columbia University in the City of New York."
+		},
+		{
 			:name => "Core Curriculum: Contemporary Civilization",
 			:image => 'core_curriculum_contemporary_civ.jpg',
 			:external_url => 'http://www.columbia.edu/cgi-bin/cul/resolve?clio9124725',
