@@ -100,6 +100,11 @@ $url_7: url(//cdn.cul.columbia.edu/ldpd-toolkit/fonts/trajanpro-regular-webfont.
 
 body {
 	background-color: $color_0;
+	color:$color_5;
+	&.citation {
+		background-color:$color_9;
+		color:$color_0;
+	}
 }
 input {
 }
