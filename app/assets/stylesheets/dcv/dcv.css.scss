@@ -1050,6 +1050,7 @@ h2[itemprop="name"] {
 				line-height:1.5;
 				a {
 					&:hover {
+						color:lighten($color_36, 20%);
 						text-decoration:none;
 					}
 				}
