@@ -556,7 +556,12 @@ h2[itemprop="name"] {
 	img {
 		width: 80px;
 		height: 80px;
-		margin-right: 1em;
+		margin-left: .5em;
+	}
+	.collection-title {
+		font-size:1.18em;
+		font-weight:400;
+		color:$color_9;
 	}
 }
 #home-sidebar-about {

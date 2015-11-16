@@ -10,7 +10,8 @@ featured_proj = controller.digital_projects.select { |proj| proj[:facet_value].p
             <p>The Digital Library Collections (DLC) website is a gateway to digital projects and online exhibitions that have been published on the web by Columbia University Libraries/Information Services (CUL/IS). The site includes scans of photographs, posters, objects, manuscripts and other material from our special and archival collections. <a href="<%= about_url %>">More &raquo;</a></p>
             <hr>
           <h6>COLLECTION SPOTLIGHT</h6>
-          <p><strong><%= featured_proj[:name] %></strong><br><a href="<%= search_action_path(:f => {'lib_project_short_ssim' => [featured_proj[:facet_value]]})  %>"><img src="<%= asset_url('digital_projects_page/' + featured_proj[:image]); %>" class="pull-right" alt="<%= featured_proj[:name] %>"></a><%= featured_proj[:description].html_safe %> <a href="<%= search_action_path(:f => {'lib_project_short_ssim' => [featured_proj[:facet_value]]})  %>">View <em><%= featured_proj[:facet_value] %></em> &raquo;</a></p>
+          <div class="collection-title"><%= featured_proj[:name] %></div>
+		  <p><a href="<%= search_action_path(:f => {'lib_project_short_ssim' => [featured_proj[:facet_value]]})  %>"><img src="<%= asset_url('digital_projects_page/' + featured_proj[:image]); %>" class="thumbnail pull-right" alt="<%= featured_proj[:name] %>"></a><%= featured_proj[:description].html_safe %> <a href="<%= search_action_path(:f => {'lib_project_short_ssim' => [featured_proj[:facet_value]]})  %>">View <em><%= featured_proj[:facet_value] %></em> &raquo;</a></p>
           <div class="clearfix"></div>
          </div>
       </div>
