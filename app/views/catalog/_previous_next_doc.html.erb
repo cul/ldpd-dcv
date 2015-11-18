@@ -7,7 +7,7 @@
     <% else %>
 		<% if @previous_document || @next_document %>
 		  <div class="page_links previous-and-next btn-group btn-group-xs">
-			<%= link_back_to_catalog(label: '<i class="glyphicon glyphicon-fast-backward"></i> '.html_safe, class: 'btn btn-default', :"data-toggle" => 'tooltip', title: 'return to search' ) %>
+			<%= link_back_to_catalog(label: '<i class="glyphicon glyphicon-fast-backward"></i> '.html_safe, class: 'btn btn-default', :"data-toggle" => 'tooltip', title: 'Back to results' ) %>
 			<span class="btn btn-default" style="pointer-events:none;"><%= item_page_entry_info %></span>
 			<%= button_to_previous_document @previous_document, class: 'btn btn-default', :"data-toggle" => 'tooltip', title: 'previous search result' %>
 			<%= button_to_next_document @next_document, class: 'btn btn-default', :"data-toggle" => 'tooltip', title: 'next search result' %>
