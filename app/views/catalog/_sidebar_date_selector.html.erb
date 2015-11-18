@@ -5,7 +5,7 @@
   <div class="panel panel-default facet_limit date-range <%= 'facet_limit-active' if date_filter_is_active %>">
     <div class="collapsed collapse-toggle panel-heading" data-toggle="collapse" data-target="#date-range-filter">
       <h5 class="panel-title">
-        <a data-no-turbolink="true" href="#">Year</a>
+        <a data-no-turbolink="true" href="#">Date Range</a>
       </h5>
     </div>
     <div id="date-range-filter" class="panel-collapse facet-content <%= date_filter_is_active ? 'in' : 'collapse' %>">
@@ -22,7 +22,7 @@
             <input type="text" class="sliderValue form-control input-sm" data-index="0" placeholder="YYYY" maxlength="4" value="<%= params[:start_year] if params[:start_year] %>" />
             -
             <input type="text" class="sliderValue form-control input-sm" data-index="1" placeholder="YYYY" maxlength="4" value="<%= params[:end_year] if params[:end_year] %>" />
-            <input id="sidebar-date-range-set-btn" type="submit" class="btn btn-default btn-sm" value="Set &raquo;" />
+            <input id="sidebar-date-range-set-btn" type="submit" class="btn btn-default btn-sm" value="Search &raquo;" />
           </div>
 
           <div id="sidebar-date-range-slider" class="hidden"></div>
