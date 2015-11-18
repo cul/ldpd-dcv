@@ -11,7 +11,13 @@
       </dl>
    </div>
     <div class="inner">
-      <%= link_to '<span class="glyphicon glyphicon-file"></span> Display XML Metadata'.html_safe, item_mods_path(:pid => @document.id), :'data-no-turbolink' => true, :'data-display-url' => item_mods_path(:pid => @document.id, :type => 'formatted_text'), :'data-download-url' => item_mods_path(:pid => @document.id, :type => 'download'), :onclick => 'return DCV.ModsDownloadModal.show($(this).attr("data-display-url"), $(this).attr("data-download-url"));' %>
+		<ul class="list-unstyled">
+		  <% if document['lib_item_in_context_url_ssm'].present? %>
+			<li><a class="" href="<%= @document['lib_item_in_context_url_ssm'][0] %>" target="_blank" data-toggle="tooltip" title="Item in Context"><i class="glyphicon glyphicon-globe"></i> Item in Context</a></li>
+		  <% end %>
+			<li><a href="http://library.columbia.edu/services/preservation/publications_policy.html"><span class="glyphicon glyphicon-tag"></span> Order a Reproduction</a></li>
+			<li><%= link_to '<span class="glyphicon glyphicon-file"></span> Display XML Metadata'.html_safe, item_mods_path(:pid => @document.id), :'data-no-turbolink' => true, :'data-display-url' => item_mods_path(:pid => @document.id, :type => 'formatted_text'), :'data-download-url' => item_mods_path(:pid => @document.id, :type => 'download'), :onclick => 'return DCV.ModsDownloadModal.show($(this).attr("data-display-url"), $(this).attr("data-download-url"));' %></li>
+		</ul>
     </div>
   </div>
   <div class="col-md-9">
