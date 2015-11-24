@@ -19,7 +19,9 @@
     <div class="tab-pane <%= 'active' if first == codepoint %>" id="tab-<%= codepoint %>">
       <ul class="nopad-rl cols-two list-unstyled">
         <% value_pairs.each do |value, count| %>
-          <% search_link = search_action_path(:controller => :catalog, :f => {facet_name => [value]}) %>
+          <%# search_link = search_action_path(:controller => :catalog, :f => {facet_name => [value]}) %>
+          <% # Note: Building URL manually for speed purposes, since we have 14,000+ URLS to build in the containing loops %>
+          <% search_link = '/catalog?f%5B' + facet_name + '%5D%5B%5D=' + CGI.escape(value) %>
           <li><%= link_to value, search_link %> (<%= count %>)</li>
         <% end -%>
       </ul>
