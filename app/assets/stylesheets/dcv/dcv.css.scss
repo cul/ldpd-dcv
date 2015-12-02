@@ -1093,6 +1093,16 @@ h2[itemprop="name"] {
 		color: $color_25;
 		opacity: 1;
 	}
+	.sort_options {
+		.btn {
+			background-color:inherit;
+			color:$color_20;
+			&.active {
+				background-color:$color_1;
+				color:$color_5;
+			}
+		}
+	}
 }
 #search-index-tools .search-index-tool-group {
 	margin-left: 5px;
