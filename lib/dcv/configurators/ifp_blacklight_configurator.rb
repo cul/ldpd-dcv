@@ -15,6 +15,7 @@ class Dcv::Configurators::IfpBlacklightConfigurator
         '-dc_type_sim:FileSystem' # Ignore FileSystem resources in searches
       ],
       :qt => 'search',
+      :rows => 20,
       :'hl' => true,
       :'hl.fl' => 'original_name_tesim,fulltext_tesim',
       :'hl.fragsize'    => 300,
