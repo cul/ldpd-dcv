@@ -30,7 +30,8 @@ featured_proj = controller.digital_projects.select { |proj| proj[:facet_value].p
                     <% @browse_lists.each do |facet_name, data| %>
                         <li><a href="#tab_<%= facet_name %>" data-toggle="tab"><%= data['display_label'] %></a></li>
                     <% end %>
-					<li class="pull-right non-tab"><a onclick="window.open(this.href);return false;" data-toggle="tooltip" data-placement="left" href="http://library.columbia.edu/find/digital-collections.html" title="See All Digital Collections on the Libraries' Website">All Collections <i class="glyphicon glyphicon-new-window"></i></a></li>
+                    <li class="pull-right"><a href="#other-collections" data-toggle="tab">Other Collections</a></li>
+					<!--li class="pull-right non-tab"><a onclick="window.open(this.href);return false;" data-toggle="tooltip" data-placement="left" href="http://library.columbia.edu/find/digital-collections.html" title="See Other Digital Collections">Other Collections <i class="glyphicon glyphicon-new-window"></i></a></li-->
                 </ul>
 
                 <!-- Tab panes -->
@@ -43,6 +44,9 @@ featured_proj = controller.digital_projects.select { |proj| proj[:facet_value].p
                             <%= render template: "pages/#{facet_name}", locals: {facet_name: facet_name, data: data} if data['value_pairs'].present? %>
                         <% end %>
                     <% end %>
+                    <div class="tab-pane fadein" id="other-collections">
+                        <%= render template: 'pages/projects_and_exhibitions', :locals => { other_projects: true } %>
+                    </div>
                 </div>
             </div> <!--/.inner-->
         </div>
