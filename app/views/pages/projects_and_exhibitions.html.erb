@@ -44,11 +44,11 @@
 	</div>
 <% else %>
 
-		<p class="small">Please also visit our other collections not currently featured in the DLC.<p>
+		<p class="small">An alphabetical listing of all digital collections. Items marked with <strong class="text-small smaltext-small small">[EXT]</strong> are not yet featured in the DLC and will direct you to an external site.</p>
 
         <div class="row">
         <% controller.digital_projects.each do |digital_project| %>
-            <% unless digital_project[:facet_value].present? %>
+            <%# unless digital_project[:facet_value].present? %>
                 <div class="col-sm-3">
                     <div class="row" itemscope itemtype="http://schema.org/CreativeWork">
                         <div class="col-sm-12">
@@ -64,7 +64,11 @@
                                         <%= link_to '<span class="glyphicon glyphicon-new-window"></span>'.html_safe, digital_project[:external_url], :itemprop => 'url', :"data-toggle" => 'tooltip', :title => 'View Project Site (external)', :role => 'button', :class => 'btn btn-dark btn-xs', :onclick => 'window.open(this.href);return false;' %>
                                     <% end %>
                                 </div>
-                                <div itemprop="name"><h3><%= link_to digital_project[:name], dcv_search_link, :title => 'Browse Content' %></h3></div>
+                                <div itemprop="name"><h3>
+									<% unless digital_project[:facet_value].present? %>
+										<span class="text-small small" data-toggle="tooltip" title="External site">[EXT]</span>
+									<% end %>
+									<%= link_to digital_project[:name], dcv_search_link, :title => 'Browse Content' %></h3></div>
                             </div>
                             <div id="proj-<%=proj_counter%>" class="hide">
                                 <div style="color:black;padding:30px;font-size:110%;" itemprop="description"><%= digital_project[:description].html_safe %></div>
@@ -76,7 +80,7 @@
 
                 <% proj_counter += 1 %>
                 <%= '<div class="clearfix"></div><br />'.html_safe if proj_counter % 4 == 0 %>
-            <% end %>
+            <%# end %>
                 <% all_proj_counter += 1 %>
         <% end %>
     </div>
