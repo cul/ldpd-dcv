@@ -421,7 +421,7 @@ The CEEVN IFP office in Vietnam was closed in June 2013. 10 linear feet of paper
 		},
 		china: {
 			:office => "China",
-			:browse_digital_record_pids => 0,
+			:browse_digital_record_pids => [{pid:"ldpd:522597"}],
 			:finding_aid => [{ :name => "Link to series IV.3", :id => 7 }],
 			:web_archive => "https://archive-it.org/collections/2766;?fc=websiteGroup%3AFord+Foundation+International+Fellowship+Program&fc=meta_Coverage%3AChina",
 			:ifp_community => "http://www.fordifp.org/China/en-us/home.aspx",
@@ -476,7 +476,7 @@ The CEEVN IFP office in Vietnam was closed in June 2013. 10 linear feet of paper
 		},
 		mexico: {
 			:office => "Mexico",
-			:browse_digital_record_pids => 0,
+			:browse_digital_record_pids => [{pid:'ldpd:524243'}],
 			:finding_aid => [{ :name => "Link to series IV.10", :id => 28 }],
 			:web_archive => "https://archive-it.org/collections/2766;?fc=websiteGroup%3AFord+Foundation+International+Fellowship+Program&fc=meta_Coverage%3AMexico",
 			:ifp_community => "http://www.fordifp.org/Mexico/en-us/home.aspx",
@@ -484,7 +484,7 @@ The CEEVN IFP office in Vietnam was closed in June 2013. 10 linear feet of paper
 		},
 		mozambique: {
 			:office => "Mozambique",
-			:browse_digital_record_pids => 0,
+			:browse_digital_record_pids => [{pid:'ldpd:516724'}],
 			:finding_aid => [{ :name => "Link to series IV.11", :id => 31 }],
 			:web_archive => "https://archive-it.org/collections/2766;?fc=websiteGroup%3AFord+Foundation+International+Fellowship+Program&fc=meta_Coverage%3AMozambique",
 			:ifp_community => "http://www.fordifp.org/Mozambique/en-us/home.aspx",
@@ -525,7 +525,7 @@ The CEEVN IFP office in Vietnam was closed in June 2013. 10 linear feet of paper
 		},
 		russia: {
 			:office => "Russia",
-			:browse_digital_record_pids => 0,
+			:browse_digital_record_pids => [{pid:"ldpd:509081"}],
 			:finding_aid => [{ :name => "Link to series IV.16", :id => 46 }],
 			:web_archive => "https://archive-it.org/collections/2766;?fc=websiteGroup%3AFord+Foundation+International+Fellowship+Program&fc=meta_Coverage%3ARussia+%28Federation%29",
 			:ifp_community => "http://www.fordifp.org/Russia/en-us/home.aspx",
@@ -602,6 +602,9 @@ The CEEVN IFP office in Vietnam was closed in June 2013. 10 linear feet of paper
 		chile: {
 			browse_digital_record_pids: [{pid:"ldpd:503557"}]
 		},
+		china: {
+			browse_digital_record_pids: [{pid:"ldpd:509080"}]
+		},
 		egypt: {
 			browse_digital_record_pids: [{pid:"ldpd:500982"}]
 		},
@@ -614,8 +617,11 @@ The CEEVN IFP office in Vietnam was closed in June 2013. 10 linear feet of paper
 		kenya: {
 			browse_digital_record_pids: [{pid:"ldpd:503560"}]
 		},
+		mexico: {
+			browse_digital_record_pids: [{pid:"ldpd:509078"}]
+		},
 		mozambique: {
-			browse_digital_record_pids: [{pid:"ldpd:503561"}]
+			browse_digital_record_pids: [{pid:"ldpd:509079"}]
 		},
 		palestine: {
 			browse_digital_record_pids: [{pid:"ldpd:503562"}]
@@ -625,6 +631,9 @@ The CEEVN IFP office in Vietnam was closed in June 2013. 10 linear feet of paper
 		},
 		philippines: {
 			browse_digital_record_pids: [{pid:"ldpd:503563"}]
+		},
+		russia: {
+			browse_digital_record_pids: [{pid:"ldpd:509077"}]
 		},
 		senegal: {
 			browse_digital_record_pids: [{pid:"ldpd:503564"}]
