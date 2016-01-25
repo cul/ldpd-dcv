@@ -64,11 +64,14 @@
                                         <%= link_to '<span class="glyphicon glyphicon-new-window"></span>'.html_safe, digital_project[:external_url], :itemprop => 'url', :"data-toggle" => 'tooltip', :title => 'View Project Site (external)', :role => 'button', :class => 'btn btn-dark btn-xs', :onclick => 'window.open(this.href);return false;' %>
                                     <% end %>
                                 </div>
-                                <div itemprop="name"><h3>
-									<% unless digital_project[:facet_value].present? %>
-										<span class="text-small small" data-toggle="tooltip" title="External site">[EXT]</span>
-									<% end %>
-									<%= link_to digital_project[:name], dcv_search_link, :title => 'Browse Content' %></h3></div>
+                                <div itemprop="name">
+									<h3>
+										<% unless digital_project[:facet_value].present? %>
+											<span class="text-small small" data-toggle="tooltip" title="External site">[EXT]</span>
+										<% end %>
+										<%= link_to digital_project[:name], (dcv_search_link.present? ? dcv_search_link : digital_project[:external_url]) %>
+									</h3>
+								</div>
                             </div>
                             <div id="proj-<%=proj_counter%>" class="hide">
                                 <div style="color:black;padding:30px;font-size:110%;" itemprop="description"><%= digital_project[:description].html_safe %></div>
