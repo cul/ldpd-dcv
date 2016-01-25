@@ -2,9 +2,9 @@ source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.1'
+gem 'sprockets-rails', '2.3.2' # Temporarily locking to 2.3.2 because of DCV-397
+gem 'sprockets', '2.11.0' # Temporarily locking to 2.11.0 because of DCV-397
 gem 'actionpack-action_caching'
-gem 'sprockets-rails', '2.3.3' # Temporarily locking to 2.3.3 because of DCV-397
-
 # Hydra stack
 gem 'nokogiri', '~> 1.6.3'
 gem 'blacklight', '~> 5.7.2'
