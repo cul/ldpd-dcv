@@ -3,6 +3,8 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.1'
 gem 'actionpack-action_caching'
+gem 'sprockets-rails', '2.3.3' # Temporarily locking to 2.3.3 because of DCV-397
+
 # Hydra stack
 gem 'nokogiri', '~> 1.6.3'
 gem 'blacklight', '~> 5.7.2'
@@ -32,8 +34,8 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-gem 'therubyracer', '>= 0.12.1',  platforms: :ruby
-gem 'libv8', '>= 3.16.14.7' # Min version for compiling on Mac OS 10.10
+gem 'therubyracer', '>= 0.12.2',  platforms: :ruby
+gem 'libv8', '>= 3.16.14.13' # Min version for Mac OS 10.11
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails', '>= 3.0'
