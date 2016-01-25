@@ -214,6 +214,12 @@ module Dcv::Catalog::BrowseListBehavior
 			:description => "This exhibition accompanies the Early Modern Futures conference held on April 24, 2015 as well as a physical exhibition in the Rare Book & Manuscript Library. Early Modern Futures seeks to spark a conversation about the many ways in which early modern literature practices prospective historical thinking. It asks how beliefs about future events (from the eschatological to the economic to the genealogical) shaped peoples actions in the present; how early modernity analogized historical and prospective thinking; and how various textual and literary forms--whether records, scripts, manuals, genres, or editions--sought to represent the future and even anticipate their own reception."
 		},
 		{
+			:name => "Ford IFP Archive",
+			:image => 'IFP-square-logo.png',
+			:external_url => 'https://dlc.library.columbia.edu/ifp',
+			:description => "The archives cover the issues of social justice, community development, and access to higher education, and include paper and digital documentation and audiovisual materials on the more than 4,300 IFP Fellows as well as comprehensive planning and administrative files of the program."
+		},
+		{
 			:name => "Frances Perkins: The Woman Behind the New Deal",
 			:image => 'frances_perkins.jpg',
 			:external_url => 'http://www.columbia.edu/cgi-bin/cul/resolve?lweb0136',
@@ -395,6 +401,12 @@ module Dcv::Catalog::BrowseListBehavior
 			:image => 'diaghilev_and_beyond.jpg',
 			:external_url => 'http://www.columbia.edu/cgi-bin/cul/resolve?clio10379406',
 			:description => "The diversity and splendor of Sergei Diaghilev's world of Russian ballet and opera seasons in Paris was on display at the Chang Octagon Exhibition Room, Rare Book & Manuscript Library, March 16 through June 26, 2009. The exhibition features selections from the Bakhmeteff Archive and Rare Book and Manuscript Library collections."
+		},
+		{
+			:name => "Seymour B. Durst Old York Library",
+			:image => 'durst.jpg',
+			:external_url => 'https://dlc.library.columbia.edu/durst',
+			:description => "The Seymour B. Durst Old York Library collection at the Avery Architectural & Fine Arts Library consists of more than 40,000 objects including historic photographs, maps, pamphlets, postcards, books, and New York City memorabilia from the 18th century to the 1980s."
 		},
 		{
 			:name => "Shakespeare and the Book",
