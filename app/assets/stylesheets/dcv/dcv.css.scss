@@ -288,6 +288,11 @@ input {
 			.index_title {
 				margin-top: .5em;
 			}
+			.thumbnail {
+				.img-square { 
+					background-color:$color_4; 
+				}
+			}
 		}
 		&.list-view {
 			height: auto;
