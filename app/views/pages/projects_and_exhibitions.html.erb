@@ -44,7 +44,7 @@
 	</div>
 <% else %>
 
-		<p class="small">An alphabetical listing of all digital collections. Items marked with <strong class="text-small smaltext-small small">[EXT]</strong> are not yet featured in the DLC and will direct you to an external site.</p>
+		<p class="small">All our digital library collections are listed below. <span class="glyphicon glyphicon-search"></span> indicates that a collection is viewable in the DLC and <span class="glyphicon glyphicon-new-window"></span> indicates that it is viewable in an external site. Note that some are available both in the DLC and externally.</p>
 
         <div class="row">
         <% controller.digital_projects.each do |digital_project| %>
@@ -53,7 +53,7 @@
                     <div class="row" itemscope itemtype="http://schema.org/CreativeWork">
                         <div class="col-sm-12">
                             <% dcv_search_link = digital_project[:facet_value].present? ? search_action_path(:f => {'lib_project_short_ssim' => [digital_project[:facet_value]]}) : nil %>
-                            <%= link_to image_tag('digital_projects_page/' + digital_project[:image], :class => 'thumbnail img-responsive', :itemprop => 'image'), (dcv_search_link.present? ? dcv_search_link : digital_project[:external_url]), class: 'project-image-link' %>
+                            <%= image_tag('digital_projects_page/' + digital_project[:image], :class => 'thumbnail img-responsive', :itemprop => 'image', :style => 'margin-bottom:.5em;') %>
                             <div>
                                 <div class=" proj-jav btn-group btn-group-justified" role="group">
                                     <a class="btn btn-dark btn-xs" role="button" data-toggle="tooltip" title="More Information" href="#" data-proj-more="#proj-<%=proj_counter%>" data-proj-title="<%= digital_project[:name] %>" onclick="return DCV.ProjModal.show($(this).attr('data-proj-more'), $(this).attr('data-proj-title'));"><span class="glyphicon glyphicon-info-sign"></span></a>
@@ -66,10 +66,7 @@
                                 </div>
                                 <div itemprop="name">
 									<h3>
-										<% unless digital_project[:facet_value].present? %>
-											<span class="text-small small" data-toggle="tooltip" title="External site">[EXT]</span>
-										<% end %>
-										<%= link_to digital_project[:name], (dcv_search_link.present? ? dcv_search_link : digital_project[:external_url]) %>
+										<%= digital_project[:name] %>
 									</h3>
 								</div>
                             </div>
