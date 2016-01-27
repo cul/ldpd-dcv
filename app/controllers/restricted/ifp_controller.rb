@@ -2,6 +2,7 @@ class Restricted::IfpController < SubsitesController
 
   configure_blacklight do |config|
     Dcv::Configurators::Restricted::IfpBlacklightConfigurator.configure(config)
+    Dcv::Configurators::FullTextConfigurator.configure(config)
   end
 
   def index

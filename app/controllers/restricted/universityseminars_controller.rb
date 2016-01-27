@@ -2,6 +2,7 @@ class Restricted::UniversityseminarsController < SubsitesController
 
   configure_blacklight do |config|
     Dcv::Configurators::Restricted::UniversityseminarsBlacklightConfigurator.configure(config)
+    Dcv::Configurators::FullTextConfigurator.configure(config)
   end
 
   def index
