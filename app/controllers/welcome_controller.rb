@@ -160,10 +160,10 @@ class WelcomeController < ApplicationController
   end
 
   def do_home
-    if Rails.env == 'development' || ! Rails.cache.exist?(BROWSE_LISTS_KEY)
+    if Rails.env == 'development' || ! Rails.cache.exist?(BROWSE_LISTS_KEY_PREFIX + controller_name)
       refresh_browse_lists_cache
     end
-    @browse_lists = Rails.cache.read(BROWSE_LISTS_KEY)
+    @browse_lists = Rails.cache.read(BROWSE_LISTS_KEY_PREFIX + controller_name)
 
     number_of_items_to_show = 8
 
@@ -202,7 +202,6 @@ class WelcomeController < ApplicationController
       if docs.length > 0
         # Append single document id to list_of_ids_to_retrieve
         list_of_ids_to_retrieve << docs[0]['id']
-        puts 'list_of_ids_to_retrieve: ' + list_of_ids_to_retrieve.inspect
       end
     end
 

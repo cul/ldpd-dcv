@@ -114,8 +114,7 @@ class Dcv::Configurators::Restricted::UniversityseminarsBlacklightConfigurator
       field.solr_parameters = {
         :hl => true,
         :qf => [ActiveFedora::SolrService.solr_name('fulltext', :stored_searchable, type: :text)],
-        :pf => [ActiveFedora::SolrService.solr_name('fulltext', :stored_searchable, type: :text)],
-        :'hl.fl' => ActiveFedora::SolrService.solr_name('fulltext', :stored_searchable, type: :text)
+        :pf => [ActiveFedora::SolrService.solr_name('fulltext', :stored_searchable, type: :text)]
       }
     end
 

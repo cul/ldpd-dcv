@@ -16,13 +16,6 @@ class Dcv::Configurators::IfpBlacklightConfigurator
       ],
       :qt => 'search',
       :rows => 20,
-      :'hl' => true,
-      :'hl.fl' => 'original_name_tesim,fulltext_tesim',
-      :'hl.fragsize'    => 300,
-      :'hl.usePhraseHighlighter' => true,
-      :'hl.maxAnalyzedChars' => 1000000,
-      :'hl.simple.pre'  => Dcv::HighlightedSnippetHelper::SNIPPET_HTML_WRAPPER_PRE,
-      :'hl.simple.post' => Dcv::HighlightedSnippetHelper::SNIPPET_HTML_WRAPPER_POST,
     }
 
     config.default_per_page = 20
