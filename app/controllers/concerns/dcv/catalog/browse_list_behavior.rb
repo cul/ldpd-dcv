@@ -3,7 +3,7 @@ module Dcv::Catalog::BrowseListBehavior
   extend ActiveSupport::Concern
 
   # Browse list items must be accessible as facets from in solr (i.e. like facets)
-  BROWSE_LISTS_KEY = 'browse_lists'
+  BROWSE_LISTS_KEY_PREFIX = 'browse_lists_'
   BROWSE_LISTS = {
     'lib_name_sim' => {:display_label => 'Names', :short_description => 'People, corporate bodies and events that are represented in or by our items.'},
     'lib_format_sim' => {:display_label => 'Formats', :short_description => 'Original formats of our digitally-presented items.'},
@@ -11,16 +11,24 @@ module Dcv::Catalog::BrowseListBehavior
   }
 
   # Browse List Logic
+  
+  def browse_lists_cache_key
+		return BROWSE_LISTS_KEY_PREFIX + controller_name
+	end
+  
+  def get_browse_lists
+		refresh_browse_lists_cache if Rails.env == 'development' || ! Rails.cache.exist?(browse_lists_cache_key)
+    return Rails.cache.read(browse_lists_cache_key)
+	end
 
   def refresh_browse_lists_cache
-    if Rails.env == 'development' || ! Rails.cache.exist?(BROWSE_LISTS_KEY)
-      Rails.cache.write(BROWSE_LISTS_KEY, get_browse_lists);
+    if Rails.env == 'development' || ! Rails.cache.exist?(browse_lists_cache_key)
+      Rails.cache.write(browse_lists_cache_key, generate_browse_lists, expires_in: 24.hours);
     end
-    @browse_lists = Rails.cache.read(BROWSE_LISTS_KEY)
+    @browse_lists = Rails.cache.read(browse_lists_cache_key)
   end
 
-  def get_browse_lists
-
+  def generate_browse_lists
     hash_to_return = {}
 
     BROWSE_LISTS.each do |facet_field_name, options|
@@ -480,15 +488,13 @@ module Dcv::Catalog::BrowseListBehavior
 
     values_and_counts = {}
 
-    response = rsolr.get 'select', :params => {
+    response = rsolr.get 'select', :params => self.blacklight_config.default_solr_params.merge({
       :q  => '*:*',
-      :qt => 'search',
       :rows => 0,
-      :facet => true,
       :'facet.sort' => 'index', # We want Solr to order facets based on their type (alphabetically, numerically, etc.)
       :'facet.field' => [facet_field_name],
       ('f.' + facet_field_name + '.facet.limit').to_sym => -1,
-    }
+    })
 
     facet_response = response['facet_counts']['facet_fields'][facet_field_name]
     values_and_counts['value_pairs'] = {}

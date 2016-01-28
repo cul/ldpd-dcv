@@ -15,6 +15,7 @@ class HomeController < ApplicationController
 
   before_filter :authorize_action, only:[:restricted]
   before_filter :store_unless_user
+  before_filter :set_browse_lists
 
   layout 'dcv'
 
@@ -30,16 +31,15 @@ class HomeController < ApplicationController
   end
 
   def index
-    if Rails.env == 'development' || ! Rails.cache.exist?(BROWSE_LISTS_KEY)
-      refresh_browse_lists_cache
-    end
-    @browse_lists = Rails.cache.read(BROWSE_LISTS_KEY)
-
   end
+  
   def restricted
-    if Rails.env == 'development' || ! Rails.cache.exist?(BROWSE_LISTS_KEY)
-      refresh_browse_lists_cache
-    end
-    @browse_lists = Rails.cache.read(BROWSE_LISTS_KEY)
   end
+  
+  private
+  
+  def set_browse_lists
+    @browse_lists = get_browse_lists
+  end
+  
 end
