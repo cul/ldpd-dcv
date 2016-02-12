@@ -1056,8 +1056,9 @@ h2[itemprop="name"] {
 			}
 			h3 {
 				margin-top:.5em;
-				font-size:103%;
-				line-height:1.5;
+				font-size:1em;
+				font-weight:normal;
+				line-height:1.4;
 				a {
 					&:hover {
 						color:lighten($color_36, 20%);
