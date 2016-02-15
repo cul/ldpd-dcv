@@ -450,6 +450,7 @@ module Dcv::Catalog::BrowseListBehavior
 		{
 			:name => "Varsity Show: A Columbia Tradition",
 			:image => 'varsity_show.jpg',
+			:facet_value => 'Varsity Show: A Columbia Tradition',
 			:external_url => 'http://www.columbia.edu/cgi-bin/cul/resolve?clio8225262',
 			:description => "Initially conceived as a fundraiser for the University's athletics teams, The Varsity Show has grown into Columbia University's oldest performing arts tradition. This online exhibition, highlighting the history and some of the more notable elements of this tradition, is an expansion of a physical exhibit created by the University Archives in 2004 to mark the 110th anniversary of The Varsity Show."
 		},
