@@ -131,7 +131,7 @@ function getListItemContentFromInfoRequestData(data) {
     scaledImages = data['scaled']['sizes'];
 	var sizes = [ 'thumb', 'small', 'medium', 'large' ];
     for(var i=0;i<scaledImages.length;i++){
-      dlName = sizes[i] + ' (' + scaledImages[i]['width'] + ' x ' + scaledImages[i]['height'] + ') .png';
+      dlName = sizes[i] + ' (' + scaledImages[i]['width'] + ' x ' + scaledImages[i]['height'] + ')';
       li_html += '<li class="downloadItem"><a href="' + scaledImages[i]["url"] + '?download=true' + '" target="_blank"><span class="glyphicon glyphicon-download"></span> ' + dlName + '</a></li>'
     }
   } else {
