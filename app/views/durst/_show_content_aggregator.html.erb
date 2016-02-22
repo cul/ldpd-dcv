@@ -38,6 +38,7 @@
   </div>
 
 	<% is_book = document['lib_format_ssm'].present? && document['lib_format_ssm'].include?('books') %>
+	<% is_postcard = document['lib_format_ssm'].present? && document['lib_format_ssm'].include?('postcards') %>
 
 	<div class="col-md-9">
 		<div class="inner">
@@ -66,7 +67,6 @@
 
 			<div class="inner" style="margin-top:1em;">
 				<dl class="dl-horizontal">
-					
 					<% document_show_fields(document).each do |solr_fname, field| %>
 						<% if solr_fname.to_s == 'dynamically_generated_published_field' %>
 							<% publisher_field_value = combined_field_published_string(document) %>
@@ -79,9 +79,9 @@
 							<dd class="blacklight-<%= solr_fname.parameterize %>"><%= render_document_show_field_value document, :field => solr_fname %></dd>
 						<% end %>
 					<% end %>
-					
 				</dl>
 				<%= render_url_and_catalog_links(document) %>
+				<%= render_durst_location_information(document) if is_postcard %>
 			</div>
 
 		</div>
