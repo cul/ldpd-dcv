@@ -78,10 +78,13 @@ module Util
       end
     end
     def self.log_level(level)
-      # initialize the fedora connection if necessary
-      connection = (ActiveFedora::Base.fedora_connection[0] ||= ActiveFedora::RubydoraConnection.new(ActiveFedora.config.credentials)).connection
-      # the logger accessor is private
-      (connection.api.send :logger).level = level
+      # Update (2016-02-22): (connection.api.send :logger) returns nil, but we aren't
+      # seeing debug level ActiveFedora logging anymore, so we should be okay without this.
+      
+      ## initialize the fedora connection if necessary
+      #connection = (ActiveFedora::Base.fedora_connection[0] ||= ActiveFedora::RubydoraConnection.new(ActiveFedora.config.credentials)).connection
+      ## the logger accessor is private
+      #(connection.api.send :logger).level = level
     end
   end
 end

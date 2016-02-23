@@ -22,11 +22,15 @@ module Dlc
   end
   module Index
     def self.log_level=(level)
-      # -- Don't do debug-level ActiveFedora logging --
-      # initialize the fedora connection if necessary
-      connection = (ActiveFedora::Base.fedora_connection[0] ||= ActiveFedora::RubydoraConnection.new(ActiveFedora.config.credentials)).connection
-      # the logger accessor is private
-      (connection.api.send :logger).level = level
+      
+      # Update (2016-02-22): (connection.api.send :logger) returns nil, but we aren't
+      # seeing debug level ActiveFedora logging anymore, so we should be okay without this.
+      
+      ## -- Don't do debug-level ActiveFedora logging --
+      ## initialize the fedora connection if necessary
+      #connection = (ActiveFedora::Base.fedora_connection[0] ||= ActiveFedora::RubydoraConnection.new(ActiveFedora.config.credentials)).connection
+      ## the logger accessor is private
+      #(connection.api.send :logger).level = level
 
       Rails.logger.level = level
     end
@@ -49,6 +53,30 @@ namespace :dcv do
         puts "Processed #{pid} | #{current} of #{len} | #{Time.now - start_time} seconds"
         sleep(3) if current % 100 == 0
       end
+    end
+    
+    # Same as list task, but multithreaded
+    # Note: This is experimental.
+    task :list_multithreaded => :environment do
+      Dlc::Index.log_level = Logger::INFO
+      start_time = Time.now
+      threads = (ENV['threads'] || 1).to_i
+      
+      puts "Performing multithreaded indexing with #{threads} threads."
+      
+      pool = Thread.pool(threads)
+      mutex = Mutex.new
+      async_counter = 0
+      Dlc::Pids.each(nil,ENV['list']) do |pid,current,len|
+        pool.process {
+          Cul::Hydra::Indexer.index_pid(pid)
+          mutex.synchronize do
+            async_counter += 1
+            puts "Processed #{pid} | #{async_counter} of #{len} | #{Time.now - start_time} seconds"
+          end
+        }
+      end
+      pool.shutdown
     end
 
     task :queue => :environment do
