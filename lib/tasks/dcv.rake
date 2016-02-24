@@ -68,6 +68,15 @@ namespace :dcv do
       mutex = Mutex.new
       async_counter = 0
       Dlc::Pids.each(nil,ENV['list']) do |pid,current,len|
+        
+        # Synchronously	process	first row to reduce risk of autoloading	issues
+        if current == 1
+          Cul::Hydra::Indexer.index_pid(pid)
+          async_counter += 1
+          puts "Processed #{pid} | #{async_counter} of #{len} | #{Time.now - start_time} seconds"
+          next
+        end
+        
         pool.process {
           Cul::Hydra::Indexer.index_pid(pid)
           mutex.synchronize do
