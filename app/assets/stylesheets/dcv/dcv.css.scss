@@ -100,6 +100,11 @@ $url_7: url(//cdn.cul.columbia.edu/ldpd-toolkit/fonts/trajanpro-regular-webfont.
 
 body {
 	background-color: $color_0;
+	color:$color_5;
+	&.citation {
+		background-color:$color_9;
+		color:$color_0;
+	}
 }
 input {
 }
@@ -282,6 +287,11 @@ input {
 			}
 			.index_title {
 				margin-top: .5em;
+			}
+			.thumbnail {
+				.img-square { 
+					background-color:$color_4; 
+				}
 			}
 		}
 		&.list-view {
@@ -551,7 +561,12 @@ h2[itemprop="name"] {
 	img {
 		width: 80px;
 		height: 80px;
-		margin-right: 1em;
+		margin-left: .5em;
+	}
+	.collection-title {
+		color:$color_9;
+		font-size:1.15em;
+		font-style:italic;
 	}
 }
 #home-sidebar-about {
@@ -941,6 +956,7 @@ h2[itemprop="name"] {
 	}
 	.project-image-link {
 		display: block;
+		margin-bottom:.5em;
 	}
 }
 #search-results {
@@ -1015,9 +1031,49 @@ h2[itemprop="name"] {
 		margin-top: 2em;
 	}
 }
-#home-page-tabs .nav-tabs {
-	font-size: .815em;
-	text-transform: uppercase;
+#home-page-content {
+	.inner {
+		hr {
+			border-color:#666;
+			border-style:dotted;
+		}
+	}
+	#home-page-tabs {
+			.nav-tabs {
+				font-size: .815em;
+				text-transform: uppercase;
+				.active {
+					a {
+						color:$color_25;
+					}
+				}
+			}
+			.non-tab {
+				> a {
+					text-transform:none;
+					border:0;
+				}
+			}
+			h3 {
+				margin-top:.5em;
+				font-size:1em;
+				font-weight:normal;
+				line-height:1.4;
+				a {
+					&:hover {
+						color:lighten($color_36, 20%);
+						text-decoration:none;
+					}
+				}
+			}
+			.proj-nav {
+				.btn {
+				}
+			}
+			.small {
+				color:inherit;
+			}
+	}
 }
 .index-show-list-fields ul {
 	padding-left: 0;
@@ -1046,7 +1102,31 @@ h2[itemprop="name"] {
 		color: $color_25;
 		opacity: 1;
 	}
+	.sort_options {
+		.btn {
+			background-color:inherit;
+			color:$color_20;
+			&.active {
+				background-color:$color_1;
+				color:$color_5;
+			}
+		}
+	}
 }
 #search-index-tools .search-index-tool-group {
 	margin-left: 5px;
+}
+.btn-dark {
+    color: $color_9;
+    background-color: $color_0;
+    border-color: $color_24;
+	&:hover {
+		background-color:$color_4;
+	}
+}
+.inline {
+	display:inline;
+}
+.inline-block {
+	display:inline-block;
 }

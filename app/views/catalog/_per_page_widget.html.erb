@@ -2,7 +2,7 @@
 
 <div id="per_page-dropdown" class="btn-group btn-group-xs">
   <span class="sr-only"><%= t('blacklight.search.per_page.title') %></span>
-	<%= link_to("<i class=\"glyphicon glyphicon-resize-vertical\"></i> #{current_per_page} <span class=\"caret\"></span>".html_safe, "#", :class=> "btn btn-default dropdown-toggle", :'data-toggle'=>"dropdown", :title=>t(:'blacklight.search.per_page.button_label', :count => current_per_page)) %>
+	<%= link_to("<i class=\"glyphicon glyphicon-resize-vertical\"></i> #{current_per_page} <span class=\"caret\"></span>".html_safe, "#", :class=> "btn btn-default dropdown-toggle", :'data-toggle'=>"dropdown", :"data-tt" => 'tooltip', :title=>t(:'blacklight.search.per_page.button_label', :count => current_per_page)) %>
   <ul class="dropdown-menu dropdown-menu-right" role="menu">
     <%- per_page_options_for_select.each do |(label, count)| %>
       <% label = "#{label} <i class=\"glyphicon glyphicon-ok\"></i>".html_safe if count == current_per_page -%>
