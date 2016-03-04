@@ -6,7 +6,7 @@
   <% first = data['value_pairs'].first[0].codepoints.first %>
   <% tab_map = {} -%>
   <% data['value_pairs'].each do |value, count| -%>
-    <%- codepoint = value.codepoints.first -%>
+    <%- codepoint = value.downcase.codepoints.first -%>
     <% unless tab_map.include? codepoint -%>
       <li class="<%= 'active' if codepoint == first %>"><a href="#tab-<%= codepoint %>" role="tab" data-toggle="tab"><%= value[0] %></a></li>
       <% tab_map[codepoint] = [] %>
@@ -19,7 +19,7 @@
     <% tab_map.each do |codepoint, value_pairs| -%>
       <div class="tab-pane <%= 'active' if first == codepoint %>" id="tab-<%= codepoint %>">
         <ul class="nopad-rl cols-two list-unstyled">
-          <% value_pairs.each do |value, count| %>
+          <% value_pairs.sort_by{|value, count| value.downcase }.each do |value, count| %>
             <%# search_link = search_action_path(:controller => :catalog, :f => {facet_name => [value]}) %>
             <% # Note: Building URL via template for speed purposes, since we have 14,000+ URLS to build in the containing loops %>
             <% search_link = search_link_template.gsub('__to_be_replaced__', CGI.escape(value)) %>
