@@ -12,7 +12,7 @@
 		data-src="<%= catalog_url(id: CGI.escape(params[:id])) %>.json"
 		data-id="<%=params[:id]%>"
 		data-zoom-info-url="<%= get_iiif_zoom_info_url(id: params[:id]) %>"
-		data-info-url="<%= get_asset_info_url(id: params[:id], image_format: 'png') %>"
+		data-info-url="<%= get_asset_info_url(id: params[:id], image_format: 'jpg') %>"
 		data-bytestreams="<%= bytestreams_path(catalog_id: params[:id], :format=>'json') %>"
 		data-rftId="<%= document['rft_id'] -%>"></a>
 </div>
