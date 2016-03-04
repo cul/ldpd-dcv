@@ -57,7 +57,7 @@
 					<div id="favorite-child">
 					 <% if child = structured_children.first %>
 						 <%= '<a href="#" class="next-child" onclick="return DCV.Show.FavoriteChildNavigation.previous(this);"><span class="glyphicon glyphicon-chevron-left"></span></a>'.html_safe if structured_children.length > 1 %>
-						 <img itemprop="contentUrl" onclick="$('.item-cbox').click();" src="<%= get_resolved_asset_url(id: child[:id], size: 768, type: 'scaled', format: 'jpg') %>" data-counter="1" data-sequence="0" data-zoom-url="<%= details_path(id: document[:id], layout:(request.path.split('/')[1])) %>" data-info-url="<%= get_resolved_asset_info_url(id: structured_children.first[:id], image_format: 'png') %>" data-bytestreams="<%= resolve_catalog_bytestreams_path(catalog_id: structured_children.first[:id], :format=>'json') %>"/>
+						 <img itemprop="contentUrl" onclick="$('.item-cbox').click();" src="<%= get_resolved_asset_url(id: child[:id], size: 768, type: 'scaled', format: 'jpg') %>" data-counter="1" data-sequence="0" data-zoom-url="<%= details_path(id: document[:id], layout:(request.path.split('/')[1])) %>" data-info-url="<%= get_resolved_asset_info_url(id: structured_children.first[:id], image_format: 'jpg') %>" data-bytestreams="<%= resolve_catalog_bytestreams_path(catalog_id: structured_children.first[:id], :format=>'json') %>"/>
 						 <%= '<a href="#" class="previous-child" onclick="return DCV.Show.FavoriteChildNavigation.next(this);"><span class="glyphicon glyphicon-chevron-right"></span></a>'.html_safe if structured_children.length > 1 %>
 					 <% end %>
 					</div>
