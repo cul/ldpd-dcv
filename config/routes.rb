@@ -41,6 +41,7 @@ Dcv::Application.routes.draw do
   get 'restricted/ifp/partner/:key' => 'restricted/ifp#partner', as: :restricted_ifp_partner
   get 'ifp/about/about_the_ifp' => 'ifp#about_the_ifp', as: :ifp_about_the_ifp
   get 'ifp/about/about_the_collection' => 'ifp#about_the_collection', as: :ifp_the_collection
+  get 'ifp/research_awards' => 'ifp#research_awards', as: :ifp_research_awards
 
   # Jay subsite routes
   get 'jay/about' => 'jay#about', as: :jay_about

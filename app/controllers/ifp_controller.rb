@@ -27,4 +27,7 @@ class IfpController < SubsitesController
   def about_the_collection
   end
 
+  def research_awards
+  end
+
 end
