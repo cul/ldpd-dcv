@@ -1,8 +1,19 @@
 <% if structured_children.first %>
   <a class="btn btn-default item-cbox" data-original-title="<%= document_show_html_title %>" data-toggle="tooltip" title="Zoom in" href="#" onclick="return DCV.ZoomingImageModal.show();"><i class="glyphicon glyphicon-eye-open"></i></a>
   <a class="btn btn-default" href="#" data-original-title="<%= document_show_html_title %>" data-toggle="tooltip" title="Open in new window" onclick="return DCV.ZoomingImageModal.openInNewWindow();"><i class="glyphicon glyphicon-new-window"></i></a>
-  <% if document['lib_item_in_context_url_ssm'].present? %>
-    <a class="btn btn-default" href="<%= @document['lib_item_in_context_url_ssm'][0] %>" target="_blank" data-toggle="tooltip" title="Item in Context"><i class="glyphicon glyphicon-globe"></i></a>
+  <% if document.get_item_in_context_urls.present? %>
+    <div class="btn-group btn-group-xs">
+      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" data-tt="tooltip" title="Item in Context">
+      <i class="glyphicon glyphicon-globe"></i> <span class="caret"></span>
+      <span class="sr-only">Toggle Dropdown</span>
+      </button>
+      <ul id="item-in-context-list" class="dropdown-menu pull-right" role="menu">
+        <% item_in_context_urls = document.get_item_in_context_urls %>
+        <% item_in_context_urls.each_with_index do |url, i| %>
+          <li><a class="" href="<%= url %>" target="_blank" data-toggle="tooltip" title="Item in Context"><i class="glyphicon glyphicon-globe"></i> Item in Context <%= item_in_context_urls.length == 1 ? '' : "##{i+1}" %></a></li>
+        <% end %>
+      </ul>
+    </div>
   <% end %>
 <% end %>
 <div class="btn-group btn-group-xs">
