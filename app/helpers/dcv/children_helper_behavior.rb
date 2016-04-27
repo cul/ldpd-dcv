@@ -140,7 +140,11 @@ module Dcv::ChildrenHelperBehavior
     else
       # folder
       content_tag(:tr, nil) do
-        c = ('<td data-title="Name">'+link_to(label, url_to_proxy({id: node['proxyIn_ssi'].sub('info:fedora/',''), proxy_id: node['id']}), class: 'fs-directory')+'</td>').html_safe
+        folder_content_url = url_to_proxy({id: node['proxyIn_ssi'].sub('info:fedora/',''), proxy_id: node['id']})
+        c = ('<td data-title="Info" class="text-center">' +
+            '<span class="text-primary glyphicon glyphicon-info-sign opacity50"></span>' +
+            '</td>').html_safe
+        c += ('<td data-title="Name">'+link_to(label, folder_content_url, class: 'fs-directory')+'</td>').html_safe
         c += ('<td data-title="Size" data-sort-value="'+node['extent'].to_s+'">'+filesize+'</td>').html_safe
         #content_tag(:a, label, href: url_to_proxy({id: node['proxyIn_ssi'].sub('info:fedora/',''), proxy_id: node['id']}))
       end
