@@ -770,4 +770,9 @@ footer.container {
 			@extend %extend_2;	
 		}
 	}
+	@media (min-width: 992px) {
+		td[data-title="Actions"] {
+			text-align:center;
+		}
+	}
 }

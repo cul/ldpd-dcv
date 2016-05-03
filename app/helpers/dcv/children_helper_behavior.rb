@@ -126,7 +126,7 @@ module Dcv::ChildrenHelperBehavior
       # file
       if node['pid']
         content_tag(:tr,nil) do
-          c = '<td data-title="Info" class="text-center">'
+          c = '<td data-title="Actions" class="">'
           # permalink
           c += link_to('<span class="glyphicon glyphicon-link"></span>'.html_safe, url_to_item(node['pid'],{return_to_filesystem:request.original_url}), title: 'Item permanent link', class: 'btn btn-xs control-btn')
           # force download
@@ -170,7 +170,7 @@ module Dcv::ChildrenHelperBehavior
       # folder
       content_tag(:tr, nil) do
         folder_content_url = url_to_proxy({id: node['proxyIn_ssi'].sub('info:fedora/',''), proxy_id: node['id']})
-        c = ('<td data-title="Info" class="text-center">' +
+        c = ('<td data-title="Actions" class="">' +
             '<span class="text-primary glyphicon glyphicon-link btn-xs opacity50"></span>' +
             '</td>').html_safe
         c += ('<td data-title="Name">'+link_to(label, folder_content_url, class: 'fs-directory')+'</td>').html_safe
