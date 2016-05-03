@@ -127,8 +127,14 @@ module Dcv::ChildrenHelperBehavior
       if node['pid'] 
         content_tag(:tr,nil) do
           c = ('<td data-title="Info" class="text-center">' +
-            link_to('<span class="glyphicon glyphicon-info-sign"></span>'.html_safe, url_to_item(node['pid'],{return_to_filesystem:request.original_url}), title: 'Item permanent link') +
+				# permalink
+				link_to('<span class="glyphicon glyphicon-link"></span>'.html_safe, url_to_item(node['pid'],{return_to_filesystem:request.original_url}), title: 'Item permanent link', class: 'btn btn-xs control-btn') +
+				# force download
+				download_link(node, '<span class="glyphicon glyphicon-download-alt"></span>'.html_safe, ['btn btn-xs control-btn']) +
+				# preview in modal or direct link to asset
+				download_link(node, '<span class="glyphicon glyphicon-play"></span>'.html_safe, ['btn btn-xs control-btn']) +
             '</td>').html_safe
+		  # direct link to asset
           c += ('<td data-title="Name">' + download_link(node, label, ['fs-file',html_class_for_filename(node['label_ssi'])]) + '</td>').html_safe
           c += ('<td data-title="Size" data-sort-value="'+node['extent'].join(",").to_s+'">'+filesize+'</td>').html_safe
           #c += content_tag(:a, 'Preview', href: '#', 'data-url'=>url_to_preview(node['pid']), class: 'preview') do 
@@ -142,7 +148,7 @@ module Dcv::ChildrenHelperBehavior
       content_tag(:tr, nil) do
         folder_content_url = url_to_proxy({id: node['proxyIn_ssi'].sub('info:fedora/',''), proxy_id: node['id']})
         c = ('<td data-title="Info" class="text-center">' +
-            '<span class="text-primary glyphicon glyphicon-info-sign opacity50"></span>' +
+            '<span class="text-primary glyphicon glyphicon-link btn-xs opacity50"></span>' +
             '</td>').html_safe
         c += ('<td data-title="Name">'+link_to(label, folder_content_url, class: 'fs-directory')+'</td>').html_safe
         c += ('<td data-title="Size" data-sort-value="'+node['extent'].to_s+'">'+filesize+'</td>').html_safe

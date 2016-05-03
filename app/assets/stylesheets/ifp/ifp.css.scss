@@ -762,3 +762,12 @@ footer.container {
 #search-results .index_title small {
 	font-size: .8em;
 }
+.file-system {
+	.control-btn {
+		background-color:transparent;
+		color:$color_2;
+		&:hover {
+			@extend %extend_2;	
+		}
+	}
+}
