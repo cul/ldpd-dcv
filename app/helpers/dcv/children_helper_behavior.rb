@@ -124,17 +124,40 @@ module Dcv::ChildrenHelperBehavior
     label = node['label_ssi']
     if node["type_ssim"].include? RDF::NFO[:'#FileDataObject']
       # file
-      if node['pid'] 
+      if node['pid']
         content_tag(:tr,nil) do
-          c = ('<td data-title="Info" class="text-center">' +
-				# permalink
-				link_to('<span class="glyphicon glyphicon-link"></span>'.html_safe, url_to_item(node['pid'],{return_to_filesystem:request.original_url}), title: 'Item permanent link', class: 'btn btn-xs control-btn') +
-				# force download
-				download_link(node, '<span class="glyphicon glyphicon-download-alt"></span>'.html_safe, ['btn btn-xs control-btn']) +
-				# preview in modal or direct link to asset
-				download_link(node, '<span class="glyphicon glyphicon-play"></span>'.html_safe, ['btn btn-xs control-btn']) +
-            '</td>').html_safe
-		  # direct link to asset
+          c = '<td data-title="Info" class="text-center">'
+          # permalink
+          c += link_to('<span class="glyphicon glyphicon-link"></span>'.html_safe, url_to_item(node['pid'],{return_to_filesystem:request.original_url}), title: 'Item permanent link', class: 'btn btn-xs control-btn')
+          # force download
+          c += download_link(node, '<span class="glyphicon glyphicon-download-alt"></span>'.html_safe, ['btn btn-xs control-btn'], true)
+          
+          # Get asset dc type for this node's associated GenericResource
+          # Note: Solr lookup below for each node doc is very inefficient. Will optimize later.
+          if node['pid'].present?
+            response = Blacklight.solr.get 'select', :params => {
+              :q  => '*:*',
+              :fl => 'id,dc_type_ssm',
+              :qt => 'search',
+              :fq => [
+                'id:"' + node['pid'] + '"'
+              ],
+              :rows => 999999,
+              :facet => false
+            }
+            dc_type = ''
+            if response['response']['docs'].length == 1
+              dc_type = response['response']['docs'][0]['dc_type_ssm'][0]
+            end
+          end
+          if dc_type.present? && ['Audio', 'Image', 'Media', 'StructuredText', 'UnstructuredText', 'Video'].include?(dc_type) || node['label_ssi'].ends_with?('.pdf')
+            # preview in modal or direct link to asset
+            c += download_link(node, ('<span data-dc-type="' + dc_type + '" class="glyphicon glyphicon-play"></span>').html_safe, ['btn btn-xs control-btn'])
+          end
+          
+          c += '</td>'
+          c = c.html_safe
+          # direct link to asset
           c += ('<td data-title="Name">' + download_link(node, label, ['fs-file',html_class_for_filename(node['label_ssi'])]) + '</td>').html_safe
           c += ('<td data-title="Size" data-sort-value="'+node['extent'].join(",").to_s+'">'+filesize+'</td>').html_safe
           #c += content_tag(:a, 'Preview', href: '#', 'data-url'=>url_to_preview(node['pid']), class: 'preview') do 
@@ -173,9 +196,9 @@ module Dcv::ChildrenHelperBehavior
       "#{extent.to_i} items"
     end
   end
-  def download_link(node, label, attr_class)
+  def download_link(node, label, attr_class, force_download=false)
     args = {catalog_id: node['pid'], filename:node['label_ssi'], bytestream_id: 'content'}
-    href = bytestream_content_url(args) #, "download")
+    href = bytestream_content_url(args.merge(force_download ? {'download' => true} : {})) #, "download")
     content_tag(:a, label, href: href, class: attr_class)
   end
 
