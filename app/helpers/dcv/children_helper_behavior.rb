@@ -130,7 +130,7 @@ module Dcv::ChildrenHelperBehavior
           # permalink
           c += link_to('<span class="glyphicon glyphicon-link"></span>'.html_safe, url_to_item(node['pid'],{return_to_filesystem:request.original_url}), title: 'Item permanent link', class: 'btn btn-xs control-btn')
           # force download
-          c += download_link(node, '<span class="glyphicon glyphicon-download-alt"></span>'.html_safe, {class: 'btn btn-xs control-btn', title: 'Download'}, true)
+          c += download_link(node, '<span class="glyphicon glyphicon-download-alt"></span>'.html_safe, {class: 'btn btn-xs control-btn', title: 'Item download'}, true)
           
           # Get asset dc type for this node's associated GenericResource
           # Note: Solr lookup below for each node doc is very inefficient. Will optimize later.
@@ -152,7 +152,7 @@ module Dcv::ChildrenHelperBehavior
           end
           if dc_type.present? && ['Audio', 'Image', 'Media', 'StructuredText', 'UnstructuredText', 'Video'].include?(dc_type) || node['label_ssi'].ends_with?('.pdf')
             # preview in modal or direct link to asset
-            c += download_link(node, ('<span data-dc-type="' + dc_type + '" class="glyphicon glyphicon-play"></span>').html_safe, {class: 'btn btn-xs control-btn', title: 'Preview'})
+            c += download_link(node, ('<span data-dc-type="' + dc_type + '" class="glyphicon glyphicon-play"></span>').html_safe, {onclick: 'return DCV.PreviewModal.show("'+bytestream_content_url({catalog_id: node['pid'], filename:node['label_ssi'], bytestream_id: 'content'})+'", "Preview")', class: 'btn btn-xs control-btn', title: 'Item Preview'})
           end
           
           c += '</td>'
