@@ -152,7 +152,7 @@ module Dcv::ChildrenHelperBehavior
           end
           if dc_type.present? && ['Audio', 'Image', 'Media', 'StructuredText', 'UnstructuredText', 'Video'].include?(dc_type) || node['label_ssi'].ends_with?('.pdf')
             # preview in modal or direct link to asset
-            c += download_link(node, ('<span data-dc-type="' + dc_type + '" class="glyphicon glyphicon-play"></span>').html_safe, {onclick: 'return DCV.PreviewModal.show("'+bytestream_content_url({catalog_id: node['pid'], filename:node['label_ssi'], bytestream_id: 'content'})+'", "Preview")', class: 'btn btn-xs control-btn', title: 'Item Preview'})
+            c += download_link(node, ('<span data-dc-type="' + dc_type + '" class="glyphicon glyphicon-play"></span>').html_safe, {onclick: 'return DCV.PreviewModal.show("'+bytestream_content_url({catalog_id: node['pid'], filename:node['label_ssi'], bytestream_id: 'content'})+'", "'+node['label_ssi'].to_s+'")', class: 'btn btn-xs control-btn', title: 'Item Preview'})
           end
           
           c += '</td>'

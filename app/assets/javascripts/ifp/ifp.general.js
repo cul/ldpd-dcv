@@ -15,6 +15,19 @@ $(function() {
       return false;
     });
 
+/*
+// disabled until buy-in from above
+	// require double-clicks on fs-file and fs-directory
+	$('.fs-file, .fs-directory').on(
+		'click', function() {
+			return false;
+	});
+	$('.fs-file, .fs-directory').on(
+		'dblclick', function() {
+			window.location = $(this).attr('href');
+	});
+*/
+
 });
 
 /**************
@@ -26,8 +39,10 @@ DCV.PreviewModal.show = function(displayUrl, title){
 
   $.colorbox({
     href: displayUrl,
+    height:"80%",
     maxHeight:"80%",
-    maxWidth:"80%",
+    width:"80%",
+    maxWidth:"1180px",
     opacity:".3",
     fixed:true,
     preloading: false,

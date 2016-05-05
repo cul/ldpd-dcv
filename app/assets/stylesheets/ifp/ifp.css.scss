@@ -599,6 +599,13 @@ a {
 	border-color: $color_18 !important;
 	border-radius: 0;
 }
+/*
+// disabled until buy-in from above
+.fs-file, .fs-directory {
+	color:$color_0!important;
+	text-decoration:none!important;
+}
+*/
 .table-bordered {
 	border-color: $color_18;
 	> {
