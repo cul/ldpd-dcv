@@ -66,7 +66,6 @@ class BytestreamsController < ApplicationController
 
     ds_parms = {pid: params[:catalog_id], dsid: params[:bytestream_id]}
     response.headers["Last-Modified"] = Time.now.httpdate
-    puts ds_parms.inspect()
     ds = Cul::Hydra::Fedora.ds_for_opts(ds_parms)
     size = params[:file_size] || params['file_size']
     size ||= ds.dsSize
