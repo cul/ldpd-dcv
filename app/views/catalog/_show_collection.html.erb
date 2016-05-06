@@ -31,18 +31,20 @@
   <% end %>
 
   <div class="<%= is_filesystem_view ? 'col-md-12 filesystem' : 'col-md-9' %>">
-   <div class="inner">
-     <h3 id="doc-item-title" class="nomar"><%= document_show_html_title %></h3>
-     <% if ct = structured_children.first %>
-       <p id="ct"><%= ct[:title] %></p>
-     <% end %>
-    <div id="favorite-child">
-      <% if child = structured_children.first %>
-        <%= '<a href="#" class="next-child" onclick="return DCV.Show.FavoriteChildNavigation.previous(this);"><span class="glyphicon glyphicon-chevron-left"></span></a>'.html_safe if structured_children.length > 1 %>
-        <img itemprop="contentUrl" onclick="$('.item-cbox').click();" src="<%= get_resolved_asset_url(id: child[:id], size: 768, type: 'scaled', format: 'jpg') %>" data-counter="1" data-sequence="0" data-zoom-url="<%= details_path(id: document[:id], layout:(request.path.split('/')[1])) %>" data-info-url="<%= get_resolved_asset_info_url(id: structured_children.first[:id], image_format: 'jpg') %>" data-bytestreams="<%= resolve_catalog_bytestreams_path(catalog_id: structured_children.first[:id], :format=>'json') %>"/>
-        <%= '<a href="#" class="previous-child" onclick="return DCV.Show.FavoriteChildNavigation.next(this);"><span class="glyphicon glyphicon-chevron-right"></span></a>'.html_safe if structured_children.length > 1 %>
-      <% end %>
-    </div>
+    <div class="inner">
+      <h3 id="doc-item-title" class="nomar"><%= document_show_html_title %></h3>
+      <% unless is_filesystem_view %>
+        <% if ct = structured_children.first %>
+          <p id="ct"><%= ct[:title] %></p>
+        <% end %>
+        <div id="favorite-child">
+        <% if child = structured_children.first %>
+          <%= '<a href="#" class="next-child" onclick="return DCV.Show.FavoriteChildNavigation.previous(this);"><span class="glyphicon glyphicon-chevron-left"></span></a>'.html_safe if structured_children.length > 1 %>
+          <img itemprop="contentUrl" onclick="$('.item-cbox').click();" src="<%= get_resolved_asset_url(id: child[:id], size: 768, type: 'scaled', format: 'jpg') %>" data-counter="1" data-sequence="0" data-zoom-url="<%= details_path(id: document[:id], layout:(request.path.split('/')[1])) %>" data-info-url="<%= get_resolved_asset_info_url(id: structured_children.first[:id], image_format: 'jpg') %>" data-bytestreams="<%= resolve_catalog_bytestreams_path(catalog_id: structured_children.first[:id], :format=>'json') %>"/>
+          <%= '<a href="#" class="previous-child" onclick="return DCV.Show.FavoriteChildNavigation.next(this);"><span class="glyphicon glyphicon-chevron-right"></span></a>'.html_safe if structured_children.length > 1 %>
+        <% end %>
+      </div>
+    <% end %>
     <%= render_document_partials @document, (document['dc_type_ssm'].present? && document['dc_type_ssm'].include?('FileSystem') ? @document['dc_type_ssm'].collect{|x| x.underscore} : ['gallery']) %>
     </div>
   </div>
