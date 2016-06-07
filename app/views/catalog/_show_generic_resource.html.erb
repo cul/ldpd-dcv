@@ -8,8 +8,20 @@
           <img alt="" class="img-responsive" src="<%= get_asset_url(id: document[:id], type: 'scaled', size: 256, format: 'png') %>" />
         </div>
         <div id="file-download-and-info" class="aligncenter">
+          <% dc_type = document['dc_type_ssm'].present? ? document['dc_type_ssm'].first : '' %>
+          <% filename = document['dc_title_ssm'].present? ? document['dc_title_ssm'].first : '' %>
+          <% if dc_type.present? && ['Audio', 'Image', 'Media', 'StructuredText', 'UnstructuredText', 'Video'].include?(dc_type) || filename.ends_with?('.pdf') %>
+            <%= link_to(
+              ('<span data-dc-type="' + dc_type + '" class="glyphicon glyphicon-play"></span> View').html_safe,
+              bytestream_content_url({catalog_id: document['id'], filename: filename, bytestream_id: 'content'}),
+              {
+                class: 'btn btn-primary btn-sm',
+                title: 'Item Preview'
+              }
+            ) %>
+          <% end %>
           <% if can_download?(document) %>
-            <%= link_to '<span class="glyphicon glyphicon-download"></span> Download Original'.html_safe, bytestream_content_url({catalog_id: document['id'], filename: document['label_ssi'], bytestream_id: 'content', download: true}), class: 'btn btn-primary btn-sm' %>
+            <%= link_to '<span class="glyphicon glyphicon-download-alt"></span> Download'.html_safe, bytestream_content_url({catalog_id: document['id'], filename: document['label_ssi'], bytestream_id: 'content', download: true}), class: 'btn btn-primary btn-sm' %>
 
             <!--
             <div class="dropdown">
