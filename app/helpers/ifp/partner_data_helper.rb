@@ -689,4 +689,10 @@ The CEEVN IFP office in Vietnam was closed in June 2013. 10 linear feet of paper
   	                                root_path + 'ifp'
   	link_to label, path, { :id => 'site-title' }
   end
+
+  def onsite_only(args)
+    values = args[:document][args[:field]]
+
+    values.detect {|value| "info:fedora/cul:rfj6q573w6" == value }.nil? ? 'Yes' : 'No'
+  end
 end
