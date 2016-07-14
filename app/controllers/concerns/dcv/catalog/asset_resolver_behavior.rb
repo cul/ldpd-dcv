@@ -6,25 +6,26 @@ module Dcv::Catalog::AssetResolverBehavior
   end
 
   def identifier_to_pid(identifier_to_convert)
-    id = identifier_to_convert.dup # Don't want to modify the passed-in object because it might be used again outside of this method
-    id.sub!(/apt\:\/columbia/,'apt://columbia') # TOTAL HACK
-    id.gsub!(':','\:')
-    id.gsub!('/','\/')
-    p = blacklight_config.default_document_solr_params
-    p[:fq] = "dc_identifier_ssim:#{(id)}"
-    solr_response = find(blacklight_config.document_solr_path, p)
-    if solr_response.docs.empty?
-      # ba2213 thought this was a good interim until we can verify that all docs have DC:identifier set appropriately
-      p[:fq] = "identifier_ssim:#{(id)}"
+    @converted_ids ||= {}
+    @converted_ids[identifier_to_convert] ||= begin
+      id = identifier_to_convert.dup # Don't want to modify the passed-in object because it might be used again outside of this method
+      id.sub!(/apt\:\/columbia/,'apt://columbia') # TOTAL HACK
+      id.gsub!(':','\:')
+      id.gsub!('/','\/')
+      p = blacklight_config.default_document_solr_params
+      p[:fq] = "dc_identifier_ssim:#{(id)}"
       solr_response = find(blacklight_config.document_solr_path, p)
-    end
-    if solr_response.docs.empty?
-      return nil
-    else
-      document = SolrDocument.new(solr_response.docs.first, solr_response)
-      @response, @document = [solr_response, document]
-      return @document.id
+      if solr_response.docs.empty?
+        # ba2213 thought this was a good interim until we can verify that all docs have DC:identifier set appropriately
+        p[:fq] = "identifier_ssim:#{(id)}"
+        solr_response = find(blacklight_config.document_solr_path, p)
+      end
+      if solr_response.docs.empty?
+        nil
+      else
+        document = SolrDocument.new(solr_response.docs.first, solr_response)
+        document.id
+      end
     end
   end
-
 end

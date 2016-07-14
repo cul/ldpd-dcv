@@ -58,7 +58,6 @@ module Dcv::ChildrenHelperBehavior
         base_rft.sub!(/^info\:fedora\/datastreams/,ActiveFedora.config.credentials[:datastreams_root])
         base_rft = 'file:' + base_rft unless base_rft =~ /(file|https?)\:\//
         child[:rft_id] = CGI.escape(base_rft)
-        puts rels_int.inspect
         child[:width] ||= rels_int["info:fedora/#{child[:id]}/#{zoom}"].fetch('image_width',[0]).first.to_i
         child[:length] ||= rels_int["info:fedora/#{child[:id]}/#{zoom}"].fetch('image_length',[0]).first.to_i
       end
@@ -66,31 +65,72 @@ module Dcv::ChildrenHelperBehavior
     return child
   end
 
+  def structured_children_from_fedora
+      struct = Cul::Hydra::Fedora.ds_for_uri("info:fedora/#{@document['id']}/structMetadata")
+      struct = Nokogiri::XML(struct.content)
+      ns = {'mets'=>'http://www.loc.gov/METS/'}
+      nodes = struct.xpath('//mets:div[@ORDER]', ns).sort {|a,b| a['ORDER'].to_i <=> b['ORDER'].to_i }
+
+      counter = 1
+      nodes = nodes.map do |node|
+        node_id = (node['CONTENTIDS'])
+
+
+        node_thumbnail = get_resolved_asset_url(id: node_id, size: 256, type: 'scaled', format: 'jpg')
+
+        if subsite_layout == 'durst'
+          title = "Image #{counter}"
+          counter += 1
+        else
+          title = node['LABEL']
+        end
+
+        {id: node_id, title: title, thumbnail: node_thumbnail, order: node['ORDER'].to_i}
+      end
+      nodes
+  end
+
+  def structured_children_from_solr
+    fq = [
+      "proxyIn_ssi:\"info:fedora/#{@document['id']}\"",
+      "proxyFor_ssi:*"
+    ]
+    _params = {
+      q: '*:*',
+      fq: fq,
+      qt: 'search',
+      rows: 999999,
+      facet: false
+    }
+
+    response = Blacklight.solr.get 'select', params: _params
+    proxies = response['response']['docs']
+    proxies = Hash[proxies.map {|proxy| [proxy['proxyFor_ssi'], proxy]}]
+
+    _params[:q] = "{!join to=dc_identifier_ssim from=proxyFor_ssi}proxyIn_ssi:\"info:fedora/#{@document['id']}\""
+    _params.delete(:fq)
+
+    response = Blacklight.solr.get 'select', params: _params
+    kids = response['response']['docs']
+    kids.each do |kid|
+      kid['proxy_id'] = kid['dc_identifier_ssim'].detect { |key| proxies[key] }
+    end
+    kids.sort_by! {|kid| proxies[kid['proxy_id']]['index_ssi'].to_i}
+    order = 0
+    kids.map do |kid|
+      {
+        id: kid['id'],
+        order: (order += 1),
+        title: proxies[kid['proxy_id']]['label_ssi'] || "Image #{order}",
+        thumbnail: get_asset_url(id: kid['id'], size: 256, type: 'scaled', format: 'jpg'),
+      }
+    end
+  end
+
   def structured_children
     @structured_children ||= begin
       if @document['structured_bsi'] == true
-        struct = Cul::Hydra::Fedora.ds_for_uri("info:fedora/#{@document['id']}/structMetadata")
-        struct = Nokogiri::XML(struct.content)
-        ns = {'mets'=>'http://www.loc.gov/METS/'}
-        nodes = struct.xpath('//mets:div[@ORDER]', ns).sort {|a,b| a['ORDER'].to_i <=> b['ORDER'].to_i }
-
-        counter = 1
-        nodes = nodes.map do |node|
-          node_id = (node['CONTENTIDS'])
-
-
-          node_thumbnail = get_resolved_asset_url(id: node_id, size: 256, type: 'scaled', format: 'jpg')
-
-          if subsite_layout == 'durst'
-            title = "Image #{counter}"
-            counter += 1
-          else
-            title = node['LABEL']
-          end
-
-          {id: node_id, title: title, thumbnail: node_thumbnail, order: node['ORDER'].to_i}
-        end
-        nodes
+        structured_children_from_solr || structured_children_from_fedora
       else
         nodes = document_children_from_model[:children]
         # just assign the order they came in, since there's no structure

@@ -62,7 +62,6 @@ class Resolve::BytestreamsController < ApplicationController
     end
     ds_parms = {pid: @document[:id], dsid: params[:bytestream_id]}
     response.headers["Last-Modified"] = Time.now.to_s
-    puts ds_parms.inspect()
     ds = Cul::Hydra::Fedora.ds_for_opts(ds_parms)
     size = params[:file_size] || params['file_size']
     size ||= ds.dsSize
