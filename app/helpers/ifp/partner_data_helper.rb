@@ -414,7 +414,7 @@ The CEEVN IFP office in Vietnam was closed in June 2013. 10 linear feet of paper
 		chile: {
 			:office => "Chile",
 			:browse_digital_record_pids => [{pid:"ldpd:493861",label:"Chile and Peru"}],
-			:finding_aid => [{ :name => "Link to series IV.2", :id => 4 }],
+			:finding_aid => [{ :name => "Link to series IV.2", :id => 2 }],
 			:web_archive => "https://archive-it.org/collections/2766;?fc=websiteGroup%3AFord+Foundation+International+Fellowship+Program&fc=meta_Coverage%3AChile",
 			:ifp_community => "http://www.fordifp.org/Chile/en-us/home.aspx",
 			:ifp_partners => [{ :name => "EQUITAS Foundation", :link => "http://www.fundacionequitas.org" }],
@@ -422,7 +422,7 @@ The CEEVN IFP office in Vietnam was closed in June 2013. 10 linear feet of paper
 		china: {
 			:office => "China",
 			:browse_digital_record_pids => [{pid:"ldpd:522597"}],
-			:finding_aid => [{ :name => "Link to series IV.3", :id => 7 }],
+			:finding_aid => [{ :name => "Link to series IV.3", :id => 3 }],
 			:web_archive => "https://archive-it.org/collections/2766;?fc=websiteGroup%3AFord+Foundation+International+Fellowship+Program&fc=meta_Coverage%3AChina",
 			:ifp_community => "http://www.fordifp.org/China/en-us/home.aspx",
 			:ifp_partners => [{ :name => "IIE Beijing Office", :link => "http://www.iiebeijing.org/" }]
@@ -430,7 +430,7 @@ The CEEVN IFP office in Vietnam was closed in June 2013. 10 linear feet of paper
 		egypt: {
 			:office => "Egypt",
 			:browse_digital_record_pids => [{pid:"ldpd:500981"}],
-			:finding_aid => [{ :name => "Link to series IV.4", :id => 10 }],
+			:finding_aid => [{ :name => "Link to series IV.4", :id => 4 }],
 			:web_archive => "https://archive-it.org/collections/2766;?fc=websiteGroup%3AFord+Foundation+International+Fellowship+Program&fc=meta_Coverage%3AEgypt",
 			:ifp_community => "http://www.fordifp.org/Egypt/en-us/home.aspx",
 			:ifp_partners => [{ :name => "AMIDEAST", :link => "http://www.amideast.org" }]
@@ -438,14 +438,14 @@ The CEEVN IFP office in Vietnam was closed in June 2013. 10 linear feet of paper
 		ghana: {
 			:office => "Ghana",
 			:browse_digital_record_pids => [{pid:'ldpd:495805'}],
-			:finding_aid => [{ :name => "Link to series IV.5", :id => 13 }],
+			:finding_aid => [{ :name => "Link to series IV.5", :id => 5 }],
 			:ifp_community => "http://www.fordifp.org/Ghana/en-us/home.aspx",
 			:ifp_partners => [{ :name => "Association of African Universities", :link => "http://www.aau.org" }]
 		},
 		guatemala: {
 			:office => "Guatemala",
 			:browse_digital_record_pids => [{pid:"ldpd:494395"}],
-			:finding_aid => [{ :name => "Link to series IV.6", :id => 16 }],
+			:finding_aid => [{ :name => "Link to series IV.6", :id => 6 }],
 			:web_archive => "https://archive-it.org/collections/2766;?fc=websiteGroup%3AFord+Foundation+International+Fellowship+Program&fc=meta_Coverage%3AGuatemala",
 			:ifp_community => "http://www.fordifp.org/Guatemala/en-us/home.aspx",
 			:ifp_partners => [{ :name => "Regional Research Center of Mesoamerica (CIRMA)", :link => "http://cirma.org.gt/" }],
@@ -453,7 +453,7 @@ The CEEVN IFP office in Vietnam was closed in June 2013. 10 linear feet of paper
 		india: {
 			:office => "India",
 			:browse_digital_record_pids => [{pid: "ldpd:550800"}],
-			:finding_aid => [{ :name => "Link to series IV.7", :id => 19 }],
+			:finding_aid => [{ :name => "Link to series IV.7", :id => 7 }],
 			:web_archive => "https://archive-it.org/collections/2766;?fc=websiteGroup%3AFord+Foundation+International+Fellowship+Program&fc=meta_Coverage%3AIndia",
 			:ifp_community => "http://www.fordifp.org/India/en-us/home.aspx",
 			:ifp_partners => [{ :name => "United States India Educational Foundation (USIEF)", :link => "http://www.usief.org.in/" }]
@@ -461,7 +461,7 @@ The CEEVN IFP office in Vietnam was closed in June 2013. 10 linear feet of paper
 		indonesia: {
 			:office => "Indonesia",
 			:browse_digital_record_pids => [{pid: "ldpd:533265"}],
-			:finding_aid => [{ :name => "Link to series IV.8", :id => 22 }],
+			:finding_aid => [{ :name => "Link to series IV.8", :id => 8 }],
 			:web_archive => "https://archive-it.org/collections/2766;?fc=websiteGroup%3AFord+Foundation+International+Fellowship+Program&fc=meta_Coverage%3AIndonesia",
 			:ifp_community => "http://www.fordifp.org/Indonesia/en-us/home.aspx",
 			:ifp_partners => [{ :name => "Indonesian International Education Foundation (IIEF)", :link => "http://www.iief.or.id/" }],
@@ -469,7 +469,7 @@ The CEEVN IFP office in Vietnam was closed in June 2013. 10 linear feet of paper
 		kenya: {
 			:office => "Kenya",
 			:browse_digital_record_pids => [{pid:'ldpd:497043'}],
-			:finding_aid => [{ :name => "Link to series IV.9", :id => 25 }],
+			:finding_aid => [{ :name => "Link to series IV.9", :id => 9 }],
 			:web_archive => "https://archive-it.org/collections/2766;?fc=websiteGroup%3AFord+Foundation+International+Fellowship+Program&fc=meta_Coverage%3AKenya",
 			:ifp_community => "http://www.fordifp.org/kenya/Home.aspx",
 			:ifp_partners => [{ :name => "Forum for African Women Educationalists (FAWE)", :link => "http://www.fawe.org/" }]
@@ -477,7 +477,7 @@ The CEEVN IFP office in Vietnam was closed in June 2013. 10 linear feet of paper
 		mexico: {
 			:office => "Mexico",
 			:browse_digital_record_pids => [{pid:'ldpd:524243'}],
-			:finding_aid => [{ :name => "Link to series IV.10", :id => 28 }],
+			:finding_aid => [{ :name => "Link to series IV.10", :id => 10 }],
 			:web_archive => "https://archive-it.org/collections/2766;?fc=websiteGroup%3AFord+Foundation+International+Fellowship+Program&fc=meta_Coverage%3AMexico",
 			:ifp_community => "http://www.fordifp.org/Mexico/en-us/home.aspx",
 			:ifp_partners => [{ :name => "Center for Research and Higher Studies in Social Anthropology (CIESAS)", :link => "http://www.ciesas.edu.mx" }]
@@ -485,7 +485,7 @@ The CEEVN IFP office in Vietnam was closed in June 2013. 10 linear feet of paper
 		mozambique: {
 			:office => "Mozambique",
 			:browse_digital_record_pids => [{pid:'ldpd:516724'}],
-			:finding_aid => [{ :name => "Link to series IV.11", :id => 31 }],
+			:finding_aid => [{ :name => "Link to series IV.11", :id => 11 }],
 			:web_archive => "https://archive-it.org/collections/2766;?fc=websiteGroup%3AFord+Foundation+International+Fellowship+Program&fc=meta_Coverage%3AMozambique",
 			:ifp_community => "http://www.fordifp.org/Mozambique/en-us/home.aspx",
 			:ifp_partners => [{ :name => "Africa-America Institute", :link => "http://www.aaionline.org/" }]
@@ -493,7 +493,7 @@ The CEEVN IFP office in Vietnam was closed in June 2013. 10 linear feet of paper
 		nigeria: {
 			:office => "Nigeria",
 			:browse_digital_record_pids => [{pid:"ldpd:531970"}],
-			:finding_aid => [{ :name => "Link to series IV.12", :id => 34 }],
+			:finding_aid => [{ :name => "Link to series IV.12", :id => 12 }],
 			:web_archive => "https://archive-it.org/collections/2766;?fc=websiteGroup%3AFord+Foundation+International+Fellowship+Program&fc=meta_Coverage%3ANigeria",
 			:ifp_community => "http://www.fordifp.org/Nigeria/en-us/home.aspx",
 			:ifp_partners => [{ :name => "Association of African Universities", :link => "http://www.aau.org" },
@@ -502,7 +502,7 @@ The CEEVN IFP office in Vietnam was closed in June 2013. 10 linear feet of paper
 		palestine: {
 			:office => "Palestine",
 			:browse_digital_record_pids => [{pid:"ldpd:494633"}],
-			:finding_aid => [{ :name => "Link to series IV.13", :id => 37 }],
+			:finding_aid => [{ :name => "Link to series IV.13", :id => 13 }],
 			:web_archive => "https://archive-it.org/collections/2766;?fc=websiteGroup%3AFord+Foundation+International+Fellowship+Program&fc=meta_Coverage%3APalestine",
 			:ifp_community => "http://www.fordifp.org/Palestine/en-us/home.aspx",
 			:ifp_partners => [{ :name => "AMIDEAST", :link => "http://www.amideast.org/" }]
@@ -510,7 +510,7 @@ The CEEVN IFP office in Vietnam was closed in June 2013. 10 linear feet of paper
 		peru: {
 			:office => "Peru",
 			:browse_digital_record_pids => [{pid:"ldpd:493861",label:"Chile and Peru"}],
-			:finding_aid => [{ :name => "Link to series IV.14", :id => 40 }],
+			:finding_aid => [{ :name => "Link to series IV.14", :id => 14 }],
 			:web_archive => "https://archive-it.org/collections/2766;?fc=websiteGroup%3AFord+Foundation+International+Fellowship+Program&fc=meta_Coverage%3APeru",
 			:ifp_community => "http://www.fordifp.org/Peru/en-us/home.aspx",
 			:ifp_partners => [ { :name => "EQUITAS Foundation", :link => "http://www.fundacionequitas.org/" },
@@ -519,14 +519,14 @@ The CEEVN IFP office in Vietnam was closed in June 2013. 10 linear feet of paper
 		philippines: {
 			:office => "Philippines",
 			:browse_digital_record_pids => [{pid:"ldpd:506095"}],
-			:finding_aid => [{ :name => "Link to series IV.15", :id => 43 }],
+			:finding_aid => [{ :name => "Link to series IV.15", :id => 15 }],
 			:ifp_community => "http://www.fordifp.org/Philippines/en-us/home.aspx",
 			:ifp_partners => [{ :name => "The Philippine Social Science Council (PSSC)", :link => "http://www.pssc.org.ph" }]
 		},
 		russia: {
 			:office => "Russia",
 			:browse_digital_record_pids => [{pid:"ldpd:509081"}],
-			:finding_aid => [{ :name => "Link to series IV.16", :id => 46 }],
+			:finding_aid => [{ :name => "Link to series IV.16", :id => 16 }],
 			:web_archive => "https://archive-it.org/collections/2766;?fc=websiteGroup%3AFord+Foundation+International+Fellowship+Program&fc=meta_Coverage%3ARussia+%28Federation%29",
 			:ifp_community => "http://www.fordifp.org/Russia/en-us/home.aspx",
 			:ifp_partners => [{ :name => "IIE Moscow Office", :link => "http://www.iie.org/Offices/Moscow" }]
@@ -534,7 +534,7 @@ The CEEVN IFP office in Vietnam was closed in June 2013. 10 linear feet of paper
 		senegal: {
 			:office => "Senegal",
 			:browse_digital_record_pids => [{pid:'ldpd:496364'}],
-			:finding_aid => [{ :name => "Link to series IV.17", :id => 49 }],
+			:finding_aid => [{ :name => "Link to series IV.17", :id => 17 }],
 			:web_archive => "https://archive-it.org/collections/2766;?fc=websiteGroup%3AFord+Foundation+International+Fellowship+Program&fc=meta_Coverage%3ASenegal",
 			:ifp_community => "http://www.fordifp.org/Senegal/en-us/home.aspx",
 			:ifp_partners => [{ :name => "Association of African Universities", :link => "http://www.aau.org" },
@@ -543,7 +543,7 @@ The CEEVN IFP office in Vietnam was closed in June 2013. 10 linear feet of paper
 		southafrica: {
 			:office => "South Africa",
 			:browse_digital_record_pids => [{pid:"ldpd:495022"}],
-			:finding_aid => [{ :name => "Link to series IV.18", :id => 52 }],
+			:finding_aid => [{ :name => "Link to series IV.18", :id => 18 }],
 			:web_archive => "https://archive-it.org/collections/2766;?fc=websiteGroup%3AFord+Foundation+International+Fellowship+Program&fc=meta_Coverage%3ASouth Africa",
 			:ifp_community => "http://www.fordifp.org/southafrica/Home.aspx",
 			:ifp_partners => [{ :name => "Africa-America Institute", :link => "http://www.aaionline.org/" }]
@@ -551,7 +551,7 @@ The CEEVN IFP office in Vietnam was closed in June 2013. 10 linear feet of paper
 		tanzania: {
 			:office => "Tanzania",
 			:browse_digital_record_pids => [pid:"ldpd:494831"],
-			:finding_aid => [{ :name => "Link to series IV.19", :id => 55 }],
+			:finding_aid => [{ :name => "Link to series IV.19", :id => 19 }],
 			:web_archive => "https://archive-it.org/collections/2766;?fc=websiteGroup%3AFord+Foundation+International+Fellowship+Program&fc=meta_Coverage%3ATanzania",
 			:ifp_community => "http://www.fordifp.org/Tanzania/en-us/home.aspx",
 			:ifp_partners => [{ :name => "Economic and Social Research Foundation", :link => "http://www.esrftz.org" }],
@@ -559,7 +559,7 @@ The CEEVN IFP office in Vietnam was closed in June 2013. 10 linear feet of paper
 		thailand: {
 			:office => "Thailand",
 			:browse_digital_record_pids => [{pid:"ldpd:495325"}],
-			:finding_aid => [{ :name => "Link to series IV.20", :id => 58 }],
+			:finding_aid => [{ :name => "Link to series IV.20", :id => 20 }],
 			:web_archive => "https://archive-it.org/collections/2766;?fc=websiteGroup%3AFord+Foundation+International+Fellowship+Program&fc=meta_Coverage%3AThailand",
 			:ifp_community => "http://www.fordifp.org/thailand/Home.aspx",
 			:ifp_partners => [{ :name => "Asian Scholarship Foundation", :link => "http://www.asianscholarship.org" }]
@@ -567,7 +567,7 @@ The CEEVN IFP office in Vietnam was closed in June 2013. 10 linear feet of paper
 		uganda: {
 			:office => "Uganda",
 			:browse_digital_record_pids => [{pid:"ldpd:493830"}],
-			:finding_aid => [{ :name => "Link to series IV.21", :id => 61 }],
+			:finding_aid => [{ :name => "Link to series IV.21", :id => 21 }],
 			:web_archive => "https://archive-it.org/collections/2766;?fc=websiteGroup%3AFord+Foundation+International+Fellowship+Program&fc=meta_Coverage%3AUganda",
 			:ifp_community => "http://www.fordifp.org/Uganda/en-us/home.aspx",
 			:ifp_partners => [{ :name => "Association for Higher Education Advancement & Development (AHEAD)", :link => "http://ahead.or.ug/" }]
@@ -575,7 +575,7 @@ The CEEVN IFP office in Vietnam was closed in June 2013. 10 linear feet of paper
 		vietnam: {
 			:office => "Vietnam",
 			:browse_digital_record_pids => [{pid:'ldpd:499461'}],
-			:finding_aid => [{ :name => "Link to series IV.22", :id => 64 }],
+			:finding_aid => [{ :name => "Link to series IV.22", :id => 22 }],
 			:web_archive => "https://archive-it.org/collections/2766;?fc=websiteGroup%3AFord+Foundation+International+Fellowship+Program&fc=meta_Coverage%3AVietnam",
 			:ifp_community => "http://www.fordifp.org/Vietnam/en-us/home.aspx",
 			:ifp_partners => [{ :name => "Center for Educational Exchange with Viet Nam (CEEVN)", :link => "http://ceevn.acls.org/" }]
