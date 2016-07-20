@@ -69,9 +69,6 @@ end
 # Use unicorn as the app server
 gem 'unicorn'
 
-# Use Capistrano for deployment
-gem 'capistrano', '~> 2.12.0', group: :development
-
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
@@ -79,6 +76,16 @@ gem "devise"
 gem "devise-guests", "~> 0.3"
 
 group :development, :test do
+# Use Capistrano for deployment
+  gem 'capistrano', '~>3.x', require: false
+# Rails and Bundler integrations were moved out from Capistrano 3
+  gem 'capistrano-rails', '~> 1.1', require: false
+  gem 'capistrano-bundler', '~> 1.1', require: false
+  # "idiomatic support for your preferred ruby version manager"
+  gem 'capistrano-rvm', '~> 0.1', require: false
+  # The `deploy:restart` hook for passenger applications is now in a separate gem
+  # Just add it to your Gemfile and require it in your Capfile.
+  gem 'capistrano-passenger', '~> 0.1', require: false
   gem 'rspec-rails', '~> 3.1'
   gem 'capybara'
   gem 'poltergeist' # For headless-browser JavaScript testing
