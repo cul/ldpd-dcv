@@ -154,6 +154,116 @@ namespace :dcv do
       end
 
     end
+    
+    task :add_missing_dc_types => :environment do
+      
+      pids = [
+        'ldpd:357597',
+'ldpd:359416',
+'ldpd:359433',
+'ldpd:359443',
+'ldpd:357941',
+'ldpd:358197',
+'ldpd:357529',
+'ldpd:357541',
+'ldpd:357484',
+'ldpd:357839',
+'ldpd:357549',
+'ldpd:358087',
+'ldpd:358119',
+'ldpd:357676',
+'ldpd:357709',
+'ldpd:358209',
+'ldpd:357409',
+'ldpd:357447',
+'ldpd:357788',
+'ldpd:357468',
+'ldpd:357587',
+'ldpd:359630',
+'ldpd:358069',
+'ldpd:357623',
+'ldpd:358044',
+'ldpd:358004',
+'ldpd:357657',
+'ldpd:358100',
+'ldpd:357779',
+'ldpd:359559',
+'ldpd:357560',
+'ldpd:357858',
+'ldpd:357868',
+'ldpd:357752',
+'ldpd:358000',
+'ldpd:357719',
+'ldpd:357748',
+'ldpd:359493',
+'ldpd:357731',
+'ldpd:357642',
+'ldpd:357877',
+'ldpd:357866',
+'ldpd:358148',
+'ldpd:358138',
+'ldpd:357514',
+'ldpd:359345',
+'ldpd:357870',
+'ldpd:359591',
+'ldpd:359553',
+'ldpd:359396',
+'ldpd:359622',
+'ldpd:359375',
+'ldpd:357729',
+'ldpd:357573',
+'ldpd:357947',
+'ldpd:357845',
+'ldpd:357908',
+'ldpd:358213',
+'ldpd:357985',
+'ldpd:357498',
+'ldpd:358056',
+'ldpd:357663',
+'ldpd:357733',
+'ldpd:357805',
+'ldpd:357713',
+'ldpd:358079',
+'ldpd:357696',
+'ldpd:358058',
+'ldpd:357638',
+'ldpd:357673',
+'ldpd:358189',
+'ldpd:357843',
+'ldpd:357715',
+'ldpd:358117',
+'ldpd:358085',
+'ldpd:357721',
+'ldpd:357723',
+'ldpd:358071',
+'ldpd:358006',
+'ldpd:358048',
+'ldpd:357417',
+'ldpd:358038',
+'ldpd:357995',
+'ldpd:358060',
+'ldpd:357480',
+'ldpd:357512',
+'ldpd:357920',
+'ldpd:357993',
+'ldpd:358174',
+'ldpd:357989',
+'ldpd:357464',
+'ldpd:357661'
+      ]
+      
+      pids.each do |pid|
+        obj = ActiveFedora::Base.find(pid)
+        dc_type = obj.datastreams['DC'].dc_type[0].to_s
+        if dc_type.blank?
+          puts "#{pid}: blank"
+        else
+          puts "dc type NOT blank for #{pid}: #{dc_type}"
+        end
+        
+      end
+      
+    end
   end
 
 end
