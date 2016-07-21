@@ -439,6 +439,7 @@ The CEEVN IFP office in Vietnam was closed in June 2013. 10 linear feet of paper
 			:office => "Ghana",
 			:browse_digital_record_pids => [{pid:'ldpd:495805'}],
 			:finding_aid => [{ :name => "Link to series IV.5", :id => 5 }],
+			:web_archive => "https://archive-it.org/collections/2766;?fc=websiteGroup%3AFord+Foundation+International+Fellowship+Program&fc=meta_Coverage%3AGhana",
 			:ifp_community => "http://www.fordifp.org/Ghana/en-us/home.aspx",
 			:ifp_partners => [{ :name => "Association of African Universities", :link => "http://www.aau.org" }]
 		},
