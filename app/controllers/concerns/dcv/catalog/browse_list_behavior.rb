@@ -54,9 +54,21 @@ module Dcv::Catalog::BrowseListBehavior
 			:description => "APIS is a component of the larger Papyrological Navigator database, a worldwide aggregation of digital images, metadata, translations and transcriptions of papyri and ostraca (clay tablets).  A listing of Columbia's ca. 5,800 papyri and ostraca can be viewed <a href='http://www.papyri.info/search?DATE_MODE=LOOSE&DOCS_PER_PAGE=15&COLLECTION=columbia'>here</a>."
 		},
     {
+			:name => "A.J. Downing & His Legacy",
+			:image => 'aj_downing_legacy.jpg',
+			:external_url => 'http://www.columbia.edu/cgi-bin/cul/resolve?clio12042407',
+			:description => "Alexander Jackson Downing is known as the “father” of the American architectural pattern book. Through British publications, Downing saw both how books could transmit design ideas in words and pictures, and how modest houses with Romantic Revival design gestures could form the basis for an improved American housing for its middle classes, particularly in rural and small town settings. To further that end, he published three important works: A treatise on the theory and practice of landscape gardening (first issued in 1841); Cottage residences (first published 1842); and The architecture of country houses (first issued in 1852). This exhibition, originally mounted in Avery Library’s Classics Reading Room to celebrate the 200th anniversary of his birth, showcases several editions of Downing’s publications and those of his many successors. It offers a glimpse into the world of mid-19th century architectural publishing in the United States and reveals how Downing’s distillation of design ideas came to influence American housing for half a century."
+		},
+    {
+			:name => "Archibald Cox Oral History",
+			:image => 'cox_oral_history.jpg',
+			:external_url => 'http://www.columbia.edu/cu/lweb/digital/collections/oral_hist/cox/',
+			:description => "Archibald Cox stands out in American legal history as a leader of tremendous courage, expertise, and integrity. Widely known for his role as special prosecutor during Watergate, Cox served in a variety of federal-government positions from the 1940s to the mid-1960s. This oral-history interview focuses on Cox's tenure as solicitor general from 1961 to 1965, when he argued many landmark civil-rights cases before the Supreme Court."
+		},
+    {
 			:name => "Avery's Architectural Ephemera Collections",
 			:image => 'avery_architectural_ephemera.jpeg',
-			:facet_value => "Avery’s Architectural Ephemera Collections",
+			:facet_value => "Avery's Architectural Ephemera Collections",
 			:external_url => 'http://www.columbia.edu/cgi-bin/cul/resolve?clio10813843',
 			:description => "Avery Classics is home to one of the largest special collections of rare architectural materials in the world. In addition to books, manuscripts, and photographs, the department includes a significant collection of ephemera. This exhibit describes some of the brochures, pamphlets, advertising materials, postcards, and other forms of architectural ephemera within Avery Classics."
 		},
@@ -103,6 +115,12 @@ module Dcv::Catalog::BrowseListBehavior
 			:image => 'caste_india.jpg',
 			:external_url => 'http://www.columbia.edu/cgi-bin/cul/resolve?lweb0137',
 			:description => "This exhibit complements the conference, \"Caste and Contemporary India,\" that took place on October 16th and 17th, 2009, at Columbia University in honor of alumnus Dr. B. R. Ambedkar. The exhibit features a sampling of resources on issues of caste with reference to gender, politics, constitutional history, and religion in contemporary India."
+		},
+		{
+			:name => "Carnegie Corporation of New York Oral History Project",
+			:image => 'carnegie_oral_history.jpg',
+			:external_url => 'http://www.columbia.edu/cu/lweb/digital/collections/oral_hist/carnegie/',
+			:description => "This project was conducted in two phases. Phase One began in 1966 and was completed in 1974. The 479 hours of testimony and 9,948 pages of transcript gathered in this phase reflect the thinking of Corporation officers, staff members, and grantees and offer a rich portrait of the Corporation's evolution over the first 58 years of its existence. The interviewees discuss the organization's work in adult education, cognitive research, educational testing, library science, music education, national security, teacher education, and social-science research generally. Phase Two of the project, begun in 1996, traces the continuity of many of these programs across the second half of the twentieth century and the Corporation's expansion into global funding strategies in the areas of peace, scientific research, and international cooperation."
 		},
 		{
 			:name => "Chamber of Commerce of New York",
@@ -212,8 +230,9 @@ module Dcv::Catalog::BrowseListBehavior
 		{
 			:name => "Dramatic Museum Realia",
 			:image => 'dramatic_museum.jpg',
+			:facet_value => 'Dramatic Museum',
 			:external_url => 'http://www.columbia.edu/cgi-bin/cul/resolve?clio8556788',
-			:description => "A website with images and descriptions of over 500 puppets, masks, historical theater models and stage designs.  Gathered for documentary and pedagogical purposes, the objects range in date from the 18th well into the 20th centuries, and are from countries all around the globe."
+			:description => "A website with images and descriptions of over 500 puppets, masks, historical theater models and stage designs. Gathered for documentary and pedagogical purposes, the objects range in date from the 18th well into the 20th centuries, and are from countries all around the globe."
 		},
 		{
 			:name => "Early Modern Futures",
@@ -267,6 +286,12 @@ module Dcv::Catalog::BrowseListBehavior
 			:description => "Images from Columbia University Libraries 2008 electronic publication of: Stokes, I. N. Phelps. The iconography of Manhattan Island, 1498-1909. Vols. 1-6. New York : Robert H. Dodd, 1915-1928."
 		},
 		{
+			:name => "Italian Jewish Community Regulations",
+			:image => 'italian_broadsides.jpg',
+			:facet_value => 'Italian Jewish Community Regulations',
+			:description => "This collection contains about forty broadsides regarding communal and governmental regulations imposed in various Jewish communities throughout Italy from the 17th through the 19th centuries. Cities mentioned include Florence, Venice, Ferrara, Padua, Ancona, and others. Topics addressed are synagogue behavior, market regulations, municipal workers such as firefighters, and more."
+		},
+		{
 			:name => "Jewels in Her Crown: Treasures from the Special Collections of Columbia's Libraries",
 			:image => 'jewels_in_her_crown.jpeg',
 			:facet_value => 'Jewels in Her Crown',
@@ -295,6 +320,7 @@ module Dcv::Catalog::BrowseListBehavior
 		{
 			:name => "Judging a Book by its Cover: Gold Stamped Publishers' Bindings of the 19th Century",
 			:image => 'judging_a_book.jpg',
+			:facet_value => 'Judging a Book by its Cover',
 			:external_url => 'http://www.columbia.edu/cgi-bin/cul/resolve?clio8235351',
 			:description => "Since the invention of printing by movable type in the fifteenth century, books had been issued in folded-and-gathered printed sheets which the buyer then had bound to order. In the early nineteenth century, the development of case binding, a technique conducive to mass production, at last made possible the manufacture of books with uniform edition bindings. The advent of gold-stamped decoration, circa 1832, was the most important factor in the acceptance of publishers' bindings."
 		},
