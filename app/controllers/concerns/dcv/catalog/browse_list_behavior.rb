@@ -237,6 +237,7 @@ module Dcv::Catalog::BrowseListBehavior
 		{
 			:name => "Early Modern Futures",
 			:image => 'early_modern_futures.jpeg',
+			:facet_value => 'Early Modern Futures',
 			:external_url => 'http://www.columbia.edu/cgi-bin/cul/resolve?clio11376130',
 			:description => "This exhibition accompanies the Early Modern Futures conference held on April 24, 2015 as well as a physical exhibition in the Rare Book & Manuscript Library. Early Modern Futures seeks to spark a conversation about the many ways in which early modern literature practices prospective historical thinking. It asks how beliefs about future events (from the eschatological to the economic to the genealogical) shaped peoples actions in the present; how early modernity analogized historical and prospective thinking; and how various textual and literary forms--whether records, scripts, manuals, genres, or editions--sought to represent the future and even anticipate their own reception."
 		},
@@ -249,6 +250,7 @@ module Dcv::Catalog::BrowseListBehavior
 		{
 			:name => "Frances Perkins: The Woman Behind the New Deal",
 			:image => 'frances_perkins.jpg',
+			:facet_value => 'Frances Perkins: The Woman Behind the New Deal',
 			:external_url => 'http://www.columbia.edu/cgi-bin/cul/resolve?lweb0136',
 			:description => "Frances Perkins (1880-1965) is no longer a household name, yet she was one of the most influential women of the twentieth century. Government official for New York State and the federal government, including Industrial Commissioner of the State of New York from 1929-1932, Perkins was named Secretary of Labor by Franklin Delano Roosevelt in 1933. As FDR's friend and ally, Perkins would help the president fight the economic ravages caused by the Great Depression and make great strides toward improving workplace conditions."
 		},
