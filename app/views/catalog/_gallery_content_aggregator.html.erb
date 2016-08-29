@@ -11,7 +11,7 @@
           <a rel="item-link" data-src="<%= get_resolved_asset_url(id: child[:id]) %>.json" data-id="<%=child[:id]%>"><i class="icon-zoom-in"></i></a>
       	  <div class="documentFunctions">
           </div>
-      		<h5 class="index_title"><%= child[:title] %></h5>
+      		<h5 class="index_title"><%= child[:title] == document_show_html_title ? '&nbsp;'.html_safe : child[:title] %></h5>
       	</div>
       </div>
     </article>

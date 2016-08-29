@@ -27,7 +27,7 @@
    <div class="inner">
      <h3 id="doc-item-title" class="nomar"><%= document_show_html_title %></h3>
      <% if ct = structured_children.first %>
-       <p id="ct"><%= ct[:title] %></p>
+		   <p id="ct"><%= ct[:title] == document_show_html_title ? '&nbsp;'.html_safe : ct[:title] %></p>
      <% end %>
      <%= '<br />There are no images available for this record.'.html_safe if structured_children.blank? %>
       <div id="favorite-child">
