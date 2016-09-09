@@ -3,7 +3,6 @@ module Dcv::ChildrenHelperBehavior
   include Dcv::CdnHelper
 
   def document_children_from_model(opts={})
-    puts 'calling document_children_from_model !!!!!!'
     # get the model class
     klass = @document['active_fedora_model_ssi'].constantize
     # get a relation for :parts
@@ -69,7 +68,6 @@ module Dcv::ChildrenHelperBehavior
   def structured_children_from_fedora
       struct = Cul::Hydra::Fedora.ds_for_uri("info:fedora/#{@document['id']}/structMetadata")
       struct = Nokogiri::XML(struct.content)
-      puts '--- found struct content: ' + struct.inspect
       ns = {'mets'=>'http://www.loc.gov/METS/'}
       nodes = struct.xpath('//mets:div[@ORDER]', ns).sort {|a,b| a['ORDER'].to_i <=> b['ORDER'].to_i }
 
@@ -131,11 +129,9 @@ module Dcv::ChildrenHelperBehavior
   end
 
   def structured_children
-    puts 'called structured_children !!!!'
     @structured_children ||= begin
       puts "@document['structured_bsi']: #{@document['structured_bsi'].to_s}"
       if @document['structured_bsi'] == true
-        puts 'result: ' + structured_children_from_solr.inspect
         structured_children_from_solr || structured_children_from_fedora
       else
         nodes = document_children_from_model[:children]
