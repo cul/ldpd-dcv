@@ -121,7 +121,7 @@ GEM
     colorbox-rails (0.1.2)
       jquery-rails
       rails (>= 3.1.1)
-    cul_hydra (1.3.9)
+    cul_hydra (1.3.10)
       active-fedora (~> 7.0)
       active-triples (~> 0.2.2)
       active_fedora_finders (>= 0.5.0)
@@ -183,7 +183,7 @@ GEM
     htmlentities (4.3.4)
     http-cookie (1.0.2)
       domain_name (~> 0.5)
-    httpclient (2.7.1)
+    httpclient (2.8.2.3)
     hydra-access-controls (7.2.2)
       active-fedora (~> 7.0)
       activesupport
@@ -202,7 +202,7 @@ GEM
       hydra-core (= 7.2.2)
       rails (>= 3.2.6)
     i18n (0.7.0)
-    iso-639 (0.2.5)
+    iso-639 (0.2.8)
     jbuilder (1.5.3)
       activesupport (>= 3.0.0)
       multi_json (>= 1.2.0)
@@ -531,4 +531,4 @@ DEPENDENCIES
   unicorn
 
 BUNDLED WITH
-   1.11.2
+   1.12.5

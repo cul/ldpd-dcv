@@ -416,6 +416,7 @@ module Dcv::Catalog::BrowseListBehavior
 		{
 			:name => "Reading of Books and the Reading of Literature",
 			:image => 'reading_of_books.jpg',
+			:facet_value => 'Reading of Books',
 			:external_url => 'http://www.columbia.edu/cgi-bin/cul/resolve?clio9399444',
 			:description => "This online exhibition is meant to accompany a day-long symposium at Columbia University on April 27, 2012. The exhibition, along with the conference, focuses on the relation between literature and the media in which it is conveyed."
 		},
