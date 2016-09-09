@@ -309,6 +309,7 @@ module Dcv::Catalog::BrowseListBehavior
 		{
 			:name => "Joseph Pulitzer and The World",
 			:image => 'joseph_pulitzer.jpg',
+			:facet_value => 'Joseph Pulitzer and The World',
 			:external_url => 'http://www.columbia.edu/cgi-bin/cul/resolve?clio9225138',
 			:description => "An exhibition of the papers of Joseph Pulitzer and of his newspaper, The World, held by the Rare Book & Manuscript Library. The exhibition contains a variety of materials that show the working life of this truly remarkable individual. Included are letters, documents, ledgers, newspapers, photographs, and realia concerning his life, as well as material documenting Pulitzer's role in the founding of Columbia's School of Journalism and the creation of the Pulitzer Prizes."
 		},
