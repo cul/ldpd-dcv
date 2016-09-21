@@ -137,7 +137,7 @@ module Dcv::Catalog::BrowseListBehavior
 		{
 			:name => "Children's Drawings of the Spanish Civil War",
 			:image => 'spanish_civil_war_children_drawings.jpeg',
-			:facet_value => 'Spanish Civil War',
+			:facet_value => 'Children\'s Drawings of the Spanish Civil War',
 			:external_url => 'http://www.columbia.edu/cgi-bin/cul/resolve?clio4278351',
 			:description => "A virtual exhibition of drawings done by children evacuated to 'colonies' (camps) in war-free areas of Spain and in the south of France from war zones during the Spanish Civil War (1936-1939).   In addition to providing a poignant testimony to how children see and understand war, this exhibition reaches out to those who may have been evacuees and provides a way to contact others with memories of that era. The originals of the images displayed here are housed in the Avery Fine Arts and Architectural Library."
 		},
@@ -393,6 +393,7 @@ module Dcv::Catalog::BrowseListBehavior
 		{
 			:name => "People in the Books: Hebraica and Judaica Manuscripts from Columbia University Libraries",
 			:image => 'people_in_the_books.jpg',
+			:facet_value => 'People in the Books: Hebraica and Judaica Manuscripts from Columbia University Libraries',
 			:external_url => 'http://www.columbia.edu/cgi-bin/cul/resolve?clio9680681',
 			:description => "Columbia's collection of Judaica and Hebraica is the third largest in the country, and the largest of any non-religious institution. This is an online version of an exhibition held at the Rare Book & Manuscript Library from Sept. 12, 2012 through Jan. 25, 2013. The exhibit features highlights from the collection, spanning the 10th to the 20th centuries, and crossing the globe from India to the Caribbean. The exhibit focuses on the many stories inherent in each of the manuscripts."
 		},

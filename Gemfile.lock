@@ -229,7 +229,7 @@ GEM
     leaflet-markercluster-rails (0.7.0)
       railties (>= 3.1)
     leaflet-rails (0.7.4)
-    libv8 (3.16.14.13)
+    libv8 (3.16.14.15)
     link_header (0.0.8)
     linkeddata (1.1.1)
       equivalent-xml (>= 0.4.0)
@@ -514,7 +514,7 @@ DEPENDENCIES
   jquery-ui-rails
   leaflet-markercluster-rails
   leaflet-rails
-  libv8 (>= 3.16.14.13)
+  libv8 (>= 3.16.14.15)
   mysql2 (= 0.3.18)
   nokogiri (~> 1.6.3)
   poltergeist
