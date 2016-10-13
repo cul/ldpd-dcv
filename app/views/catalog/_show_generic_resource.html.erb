@@ -26,8 +26,11 @@
             </div>
             -->
           <% end %>
-          <%= '<h5 class="border-bottom">Size</h5> '.html_safe + byte_size_to_text_string(document['extent_ssim'].first.to_i) if document['extent_ssim'].present? %>
-          <%= '<h5 class="border-bottom">MIME Type</h5> '.html_safe + document['dc_format_ssm'].first if document['dc_format_ssm'].present? %>
+          <dl class="dl-vertical text-left">
+          <%= '<dt class="">Office:</dt> <dd>'.html_safe + document['contributor_ssim'].first if document['contributor_ssim'].present? %></dd>
+          <%= '<dt class="">Size:</dt> <dd>'.html_safe + byte_size_to_text_string(document['extent_ssim'].first.to_i) if document['extent_ssim'].present? %></dd>
+          <%= '<dt class="">MIME Type:</dt> <dd>'.html_safe + document['dc_format_ssm'].first if document['dc_format_ssm'].present? %></dd>
+          </dl>
         </div>
       </div>
      </div>
