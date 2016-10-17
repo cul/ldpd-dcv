@@ -10,21 +10,6 @@
         <div id="file-download-and-info" class="aligncenter">
           <% if can_download?(document) %>
             <%= link_to '<span class="glyphicon glyphicon-download"></span> Download Original'.html_safe, bytestream_content_url({catalog_id: document['id'], filename: document['label_ssi'], bytestream_id: 'content', download: true}), class: 'btn btn-primary btn-sm' %>
-
-            <!--
-            <div class="dropdown">
-              <button class="btn btn-default dropdown-toggle" type="button" id="resource-downloads" data-toggle="dropdown" aria-expanded="true">
-                <span class="glyphicon glyphicon-download"></span>
-                Download
-                <span class="caret"></span>
-              </button>
-              <ul class="dropdown-menu textalignleft" role="menu" aria-labelledby="resource-downloads">
-                <% resources_as_list_items(document, "").each do |item| %>
-                  <%= item %>
-                <% end %>
-              </ul>
-            </div>
-            -->
           <% end %>
           <dl class="dl-vertical text-left">
           <%= '<dt class="">Office:</dt> <dd>'.html_safe + document['contributor_ssim'].first if document['contributor_ssim'].present? %></dd>
@@ -57,11 +42,6 @@
             <div id="generic-resource-video">
               <div class="thumbnail mediaelement-wrapper">
                 <%= render_media_element_player('mediacache', document['service_dslocation_ss'].gsub('file:/ifs/cul/ldpd/', ''), 'image_poster_unavailable') %>
-                <!--
-                <div class="caption">
-                  <small>Video Title</small>
-                </div>
-                -->
               </div>
             </div>
         </div>
