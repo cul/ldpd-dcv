@@ -1,0 +1,19 @@
+<%
+rtmp_src = "rtmp://firehose.cul.columbia.edu:1935/#{wowza_project}/_definst_/mp3:#{media_path}"
+#TODO: When mediaelement flashplayer supports RTMP in audio element,
+#TODO: change this element to audio and update the jqeury handler to have both selectors
+%>
+<div class="mejs-ted">
+  <div class="mediaelement-player">
+    <video width="<%= width %>" height="<%= height %>" style="width:100%;height:100%;" poster="<%= poster_path %>" controls="controls" preload="none">
+        <source type="video/rtmp" src="<%= rtmp_src %>" />
+
+        <!-- Flash fallback for non-HTML5 browsers without JavaScript -->
+        <object width="<%= width %>" height="<%= height %>" type="application/x-shockwave-flash" data="/mediaelement/flashmediaelement.swf">
+            <param name="movie" value="/mediaelement/flashmediaelement.swf" />
+            <param name="flashvars" value="controls=true&amp;file=<%= rtmp_src %>" />
+            <param name="allowFullScreen" value="true" />
+        </object>
+    </video>
+  </div>
+</div>
