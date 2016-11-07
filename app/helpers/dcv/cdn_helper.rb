@@ -23,11 +23,13 @@ module Dcv::CdnHelper
   end
 
   def get_asset_info_url(conditions)
-    return  DCV_CONFIG['cdn_url'] + "/images/#{conditions[:id]}/#{conditions[:image_format]}.json"
+    #return  DCV_CONFIG['cdn_url'] + "/images/#{conditions[:id]}/#{conditions[:image_format]}.json"
+    get_iiif_zoom_info_url(conditions)
   end
 
   def get_resolved_asset_info_url(conditions)
-    return DCV_CONFIG['cdn_url'] + "/images/#{identifier_to_pid(conditions[:id])}/#{conditions[:image_format]}.json"
+    #return DCV_CONFIG['cdn_url'] + "/images/#{identifier_to_pid(conditions[:id])}/#{conditions[:image_format]}.json"
+    get_resolved_iiif_zoom_info_url(conditions)
   end
 
   def get_iiif_zoom_info_url(conditions)

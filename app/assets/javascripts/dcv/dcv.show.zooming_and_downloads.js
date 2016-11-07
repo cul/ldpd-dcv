@@ -127,15 +127,12 @@ function loadDownloadsForItemShowPage(infoUrl) {
 function getListItemContentFromInfoRequestData(data) {
   var li_html = '';
 
-  if (data['available']) {
-    scaledImages = data['scaled']['sizes'];
-	var sizes = [ 'thumb', 'small', 'medium', 'large' ];
-    for(var i=0;i<scaledImages.length;i++){
-      dlName = sizes[i] + ' (' + scaledImages[i]['width'] + ' x ' + scaledImages[i]['height'] + ')';
-      li_html += '<li class="downloadItem"><a href="' + scaledImages[i]["url"] + '?download=true' + '" target="_blank"><span class="glyphicon glyphicon-download"></span> ' + dlName + '</a></li>'
-    }
-  } else {
-    li_html += '<li class="downloadItem"><a href="#">Downloads currently unavailable.  Please check back later.</a></li>'
+  var sizes = data['sizes'];
+  var sizeNames = ['small', 'medium', 'large', 'x-Large', 'xx-Large', 'xxx-Large']; // Probably more possible sizes than we will offer
+  var iiifUrlTemplate = data['@id'] + '/full/_width_,_height_/0/native.jpg?download=true';
+  for(var i = 0;i < sizes.length; i++){
+    dlName = sizeNames[i] + ' (' + sizes[i]['width'] + ' x ' + sizes[i]['height'] + ')';
+    li_html += '<li class="downloadItem"><a href="' + iiifUrlTemplate.replace('_width_', sizes[i]['width']).replace('_height_', sizes[i]['height']) + '" target="_blank"><span class="glyphicon glyphicon-download"></span> ' + dlName + '</a></li>'
   }
 
   return li_html;
