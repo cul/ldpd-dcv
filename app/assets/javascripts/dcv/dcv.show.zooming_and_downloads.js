@@ -45,6 +45,7 @@ function initZoomingViewer(tileSources) {
     id:            "zoom-content",
     prefixUrl:     "",
     springStiffness:        10,
+    sequenceMode: true,
     showReferenceStrip:     (tileSources.length > 1),
     autoHideControls:       true,
     controlsFadeDelay: 100,
