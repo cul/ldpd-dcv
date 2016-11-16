@@ -6,7 +6,7 @@ class SubsitesController < ApplicationController
   include Cul::Omniauth::RemoteIpAbility
 
   before_filter :set_view_path
-  before_filter :store_unless_user
+  before_filter :store_unless_user, except: [:update, :destroy, :api_info]
   before_filter :authorize_action, only:[:index, :preview, :show]
   protect_from_forgery :except => [:index_object] # No CSRF token required for reindex
 
@@ -66,25 +66,47 @@ class SubsitesController < ApplicationController
   def self.restricted?
     return controller_path.start_with?('restricted/')
   end
-  
-  # POST /subsite/index_object
-  def index_object
-    pid = params[:pid]
-    api_key = params[:api_key]
 
-    if api_key == DCV_CONFIG['remote_request_api_key']
-      # Queue for reindex
-      # Since we only have one solr index right now, all index requests to go the main core and the 'subsite_keys' value does nothing
-      Dcv::Queue.index_object({'pid' => pid, 'subsite_keys' => ['catalog']})
-      render json: {
-        "success" => true
-      }
-    else
-      render json: {
-        "error" => "Invalid credentials"
-      },
-      status: 401
+  # PUT /subsite/publish/:id
+  def update
+    pid = params[:id]
+    unless (status = authenticate_publisher) == :ok
+      render status: status, json: {"error" => "Invalid credentials"}
+      return
     end
+    published_url = url_for(controller: controller_name, action: :show, id: pid)
+    logger.debug "reindexing #{pid}"
+    begin
+      IndexFedoraObjectJob.perform({'pid' => pid, 'subsite_keys' => [subsite_key]})
+    rescue ActiveFedora::ObjectNotFoundError
+      render status: :not_found, plain: ''
+      return
+    end
+    response.headers['Location'] = published_url
+    render json: {
+      "success" => true
+    }
+  end
+
+  # DELETE /subsite/publish/:id
+  def destroy
+    pid = params[:id]
+    unless (status = authenticate_publisher) == :ok
+      render status: status, json: {"error" => "Invalid credentials"}
+      return
+    end
+    rsolr.delete_by_id(pid)
+    rsolr.commit
+    render json: {
+      "success" => true
+    }
+  end
+
+  # GET /subsite/publish
+  def api_info
+    render json: {
+      "api_version" => "1.0.0"
+    }
   end
 
   # GET /subsite/:id
@@ -127,6 +149,16 @@ class SubsitesController < ApplicationController
 
   def thumb_url(document={})
     get_asset_url(id: document['id'], size: 256, format: 'jpg', type: 'square')
+  end
+
+  def authenticate_publisher
+    status = :unauthorized
+    authenticate_with_http_basic do |user, pass|
+      (subsite_config || {}).tap do |config|
+        status = (config['remote_request_api_user'] == user && config['remote_request_api_key'] == pass) ? :ok : :forbidden
+      end
+    end
+    status
   end
 
 end

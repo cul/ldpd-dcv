@@ -63,7 +63,9 @@ Dcv::Application.routes.draw do
   SUBSITES['public'].each do |subsite_key, data|
     resources subsite_key, only: [:show] do
       collection do
-        post 'index_object'
+        put 'publish/:id' => "#{subsite_key}#update"
+        delete 'publish/:id' => "#{subsite_key}#destroy"
+        get 'publish' => "#{subsite_key}#api_info"
       end
     end
     get "#{subsite_key}/previews/:id" => "#{subsite_key}#preview", as: subsite_key + '_preview', constraints: { id: /[^\?]+/ }
@@ -85,7 +87,9 @@ Dcv::Application.routes.draw do
       SUBSITES['restricted'].each do |subsite_key, data|
         resources subsite_key, only: [:show] do
           collection do
-            post 'index_object'
+            put 'publish/:id' => "#{subsite_key}#update"
+            delete 'publish/:id' => "#{subsite_key}#destroy"
+            get 'publish' => "#{subsite_key}#api_info"
           end
         end
         get "#{subsite_key}/previews/:id" => "#{subsite_key}#preview", as: subsite_key + '_preview', constraints: { id: /[^\?]+/ }
