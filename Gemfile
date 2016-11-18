@@ -61,6 +61,8 @@ gem 'leaflet-rails'
 
 gem 'leaflet-markercluster-rails'
 
+gem 'redcarpet'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
@@ -94,6 +96,8 @@ group :development, :test do
   gem 'poltergeist' # For headless-browser JavaScript testing
   gem 'factory_girl_rails', '>= 4.4.1'
   gem 'jettywrapper', '>= 1.5.1'
+  gem 'rubocop', require: false
+  gem 'rubocop-rspec', require: false
 end
 
 # Use Thin for local development
