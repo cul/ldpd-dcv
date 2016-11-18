@@ -13,7 +13,7 @@ Dcv::Application.routes.draw do
   end
 
   resources :sessions, controller: 'users/sessions'
-  
+
   mount Resque::Server.new, at: "/resque"
   
   # Dynamic robots.txt file
@@ -57,6 +57,7 @@ Dcv::Application.routes.draw do
   get 'jay/jayandfrance' => 'jay#jayandfrance', as: :jay_jayandfrance
   get 'jay/jayandslavery' => 'jay#jayandslavery', as: :jay_jayandslavery
 
+  resources 'sites', only: [:index, :show], param: :slug
   # Dynamic routes for catalog controller and all subsites
   blacklight_for *(SUBSITES['public'].keys.map{|key| key.to_sym}) # Using * operator to turn the array of values into a set of arguments for the blacklight_for method
 
@@ -83,6 +84,7 @@ Dcv::Application.routes.draw do
 
   if SUBSITES['restricted'].present?
     namespace "restricted" do
+      resources 'sites', only: [:index, :show], param: :slug
       blacklight_for *((SUBSITES['restricted'].keys.map{|key| key.to_sym})) # Using * operator to turn the array of values into a set of arguments for the blacklight_for method
       SUBSITES['restricted'].each do |subsite_key, data|
         resources subsite_key, only: [:show] do
