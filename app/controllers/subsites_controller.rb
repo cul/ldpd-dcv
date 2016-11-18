@@ -1,5 +1,6 @@
 class SubsitesController < ApplicationController
 
+  include Dcv::RestrictableController
   include Dcv::CatalogIncludes
   include Cul::Hydra::ApplicationIdBehavior
   include Cul::Omniauth::AuthorizingController
@@ -22,10 +23,6 @@ class SubsitesController < ApplicationController
 
   def set_view_path
     self.prepend_view_path(self.subsite_layout)
-  end
-
-  def restricted?
-    self.class.restricted?
   end
 
   # Override to prepend restricted if necessary
@@ -61,10 +58,6 @@ class SubsitesController < ApplicationController
 
   def default_search_mode
     subsite_config.fetch('default_search_mode',:grid)
-  end
-
-  def self.restricted?
-    return controller_path.start_with?('restricted/')
   end
 
   # PUT /subsite/publish/:id
