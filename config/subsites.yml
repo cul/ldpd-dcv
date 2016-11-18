@@ -33,11 +33,9 @@ all_environments: &all_environments
 development: *all_environments
 test: *all_environments
 production: *all_environments
-dcv_private_dev: *all_environments
-dcv_private_test: *all_environments
-dcv_private_prod: *all_environments
 dcv_dev: *all_environments
 dcv_test: *all_environments
+dcv_staging: *all_environments
 dcv_prod:
   public:
     catalog:
