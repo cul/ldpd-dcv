@@ -1,7 +1,7 @@
 <% counter_in_results = document_counter + row_offset + 1 + @response.params[:start].to_i -%>
 <div class="col-sm-3 document <%= render_document_class document %>" itemscope itemtype="<%= document.itemtype %>">
   <div class="tombstone" data-number-of-members=<%= document[:cul_number_of_members_isi] || -1 %>>
-	<%= link_to_document(document, :counter => (@do_not_link_to_search ? nil : counter_in_results), label: image_tag(get_asset_url(id: document.id, size: 256, type: 'square', format: 'jpg'), {class: 'img-square', itemprop: 'thumbnailUrl'}), class: 'thumbnail') %>
+	<%= link_to_document(document, :counter => (@do_not_link_to_search ? nil : counter_in_results), label: image_tag(get_asset_url(id: document.id, size: 256, type: 'featured', format: 'jpg'), {class: 'img-square', itemprop: 'thumbnailUrl'}), class: 'thumbnail') %>
 		<div class="index-show-tombstone-fields">
 			<h3 class="index_title ellipsis"><%= t('blacklight.search.documents.counter', :counter => counter_in_results) %>
 				<%= link_to_document(document, :counter => (@do_not_link_to_search ? nil : counter_in_results)) %>

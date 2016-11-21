@@ -10,7 +10,7 @@ module CatalogHelper
   end
 
   def thumbnail_url(document, options={})
-    get_asset_url(id: document.id, size: 256, type: 'square', format: 'jpg')
+    get_asset_url(id: document.id, size: 256, type: 'featured', format: 'jpg')
   end
 
   def thumbnail_for_doc(document, image_options={})

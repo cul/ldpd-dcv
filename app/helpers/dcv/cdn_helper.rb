@@ -12,11 +12,12 @@ module Dcv::CdnHelper
   end
 
   def get_asset_url(conditions)
-    return DCV_CONFIG['cdn_url'] + "/images/#{conditions[:id]}/#{conditions[:type]}/#{conditions[:size]}.#{conditions[:format]}"
+    return DCV_CONFIG['cdn_url'] + "/iiif/2/#{conditions[:id]}/#{conditions[:type]}/!#{conditions[:size]},#{conditions[:size]}/0/native.#{conditions[:format]}"
   end
 
   def get_resolved_asset_url(conditions)
-    return DCV_CONFIG['cdn_url'] + "/images/#{identifier_to_pid(conditions[:id])}/#{conditions[:type]}/#{conditions[:size]}.#{conditions[:format]}"
+    conditions[:id] = identifier_to_pid(conditions[:id])
+    return get_asset_url(conditions)
   end
 
   def get_asset_info_url(conditions)

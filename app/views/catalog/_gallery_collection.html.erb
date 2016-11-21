@@ -3,8 +3,8 @@
 <% structured_children.each_with_index do |child, ix| -%>
   <div class="col-sm-<%= (structured_children.length <= 2) ? '6' : '3' %>">
   	<article>
-      <a rel="item-link" class="tocontent post thumbnail document blacklight-photographs <%= ix == 0 ? 'selected' : '' %>" data-original-title="<%= child[:title] %>" data-sequence="<%= ix %>" data-counter="<%= child[:order] %>" href="<%= get_resolved_asset_url(id: child[:id], size: 768, type: 'scaled', format: 'jpg') %>" data-info-url="<%= get_resolved_asset_info_url(id: child[:id], image_format: 'jpg') %>" data-bytestreams="<%= resolve_catalog_bytestreams_path(catalog_id: child[:id], :format=>'json') %>" onclick="favoriteChild(this); return false;" data-id="<%=child[:id]%>">
-      	<img src="<%= get_resolved_asset_url(id: child[:id], size: 256, type: 'scaled', format: 'jpg') %>" />
+      <a rel="item-link" class="tocontent post thumbnail document blacklight-photographs <%= ix == 0 ? 'selected' : '' %>" data-original-title="<%= child[:title] %>" data-sequence="<%= ix %>" data-counter="<%= child[:order] %>" href="<%= get_resolved_asset_url(id: child[:id], size: 768, type: 'full', format: 'jpg') %>" data-info-url="<%= get_resolved_asset_info_url(id: child[:id], image_format: 'jpg') %>" data-bytestreams="<%= resolve_catalog_bytestreams_path(catalog_id: child[:id], :format=>'json') %>" onclick="favoriteChild(this); return false;" data-id="<%=child[:id]%>">
+      	<img src="<%= get_resolved_asset_url(id: child[:id], size: 256, type: 'full', format: 'jpg') %>" />
       </a>
       <div class="caption">
       	<div class="documentHeader">

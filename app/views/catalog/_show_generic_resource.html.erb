@@ -10,7 +10,7 @@ poster_path = asset_path(partner_data[:rep_flag])
 
       <div id="sidebar-thumb">
         <div class="inner aligncenter">
-          <img alt="" class="img-responsive" src="<%= get_asset_url(id: document[:id], type: 'scaled', size: 256, format: 'png') %>" />
+          <img alt="" class="img-responsive" src="<%= get_asset_url(id: document[:id], type: 'full', size: 256, format: 'png') %>" />
         </div>
         <div id="file-download-and-info" class="aligncenter">
           <% if can_download?(document) %>
@@ -37,7 +37,7 @@ poster_path = asset_path(partner_data[:rep_flag])
       <div id="generic-resource-content">
         <div class="inner">
             <div id="favorite-child">
-              <img itemprop="contentUrl" onclick="$('.item-cbox').click();" src="<%= get_asset_url(id: document[:id], size: 768, type: 'scaled', format: 'jpg') %>" data-counter="1" data-sequence="0" data-zoom-url="<%= details_path(id: document[:id], layout:(request.path.split('/')[1])) %>" data-info-url="<%= get_asset_info_url(id: document[:id], image_format: 'jpg') %>" data-bytestreams="<%= resolve_catalog_bytestreams_path(catalog_id: document[:id], :format=>'json') %>"/>
+              <img itemprop="contentUrl" onclick="$('.item-cbox').click();" src="<%= get_asset_url(id: document[:id], size: 768, type: 'full', format: 'jpg') %>" data-counter="1" data-sequence="0" data-zoom-url="<%= details_path(id: document[:id], layout:(request.path.split('/')[1])) %>" data-info-url="<%= get_asset_info_url(id: document[:id], image_format: 'jpg') %>" data-bytestreams="<%= resolve_catalog_bytestreams_path(catalog_id: document[:id], :format=>'json') %>"/>
             </div>
         </div>
       </div>

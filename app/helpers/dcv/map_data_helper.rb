@@ -13,7 +13,7 @@ module Dcv::MapDataHelper
   #        if document['lib_format_ssm'].present? && document['lib_format_ssm'].include?('books')
   #          image_url_for_document = image_url('book-placeholder.png')
   #        else
-  #          image_url_for_document = get_asset_url(id: document.id, size: 256, type: 'square', format: 'jpg')
+  #          image_url_for_document = get_asset_url(id: document.id, size: 256, type: 'featured', format: 'jpg')
   #        end
   #
   #        row = {

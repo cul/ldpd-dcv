@@ -126,7 +126,7 @@ class SubsitesController < ApplicationController
   end
 
   def thumb_url(document={})
-    get_asset_url(id: document['id'], size: 256, format: 'jpg', type: 'square')
+    get_asset_url(id: document['id'], size: 256, format: 'jpg', type: 'featured')
   end
 
 end

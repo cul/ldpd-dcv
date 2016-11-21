@@ -36,7 +36,7 @@ module Dcv::ChildrenHelperBehavior
       fl << (title_field = document_show_link_field).to_s
     rescue
     end
-    child = {id: doc['id'], thumbnail: get_asset_url(id: doc['id'], size: 768, type: 'scaled', format: 'jpg')}
+    child = {id: doc['id'], thumbnail: get_asset_url(id: doc['id'], size: 768, type: 'full', format: 'jpg')}
     if title_field
       title = doc[title_field.to_s]
       title = title.first if title.is_a? Array
@@ -52,7 +52,7 @@ module Dcv::ChildrenHelperBehavior
         child[:width] = width if width > 0
         child[:length] = length if length > 0
       end
-      if (base_rft = doc['rft_id_ss'])
+      if (ActiveFedora.config.credentials[:datastreams_root].present? && base_rft = doc['rft_id_ss'])
         zoom = rels_int["info:fedora/#{child[:id]}/content"].fetch('foaf_zooming',['zoom']).first
         zoom = zoom.split('/')[-1]
         base_rft.sub!(/^info\:fedora\/datastreams/,ActiveFedora.config.credentials[:datastreams_root])
@@ -76,7 +76,7 @@ module Dcv::ChildrenHelperBehavior
         node_id = (node['CONTENTIDS'])
 
 
-        node_thumbnail = get_resolved_asset_url(id: node_id, size: 256, type: 'scaled', format: 'jpg')
+        node_thumbnail = get_resolved_asset_url(id: node_id, size: 256, type: 'full', format: 'jpg')
 
         if subsite_layout == 'durst'
           title = "Image #{counter}"
@@ -123,7 +123,7 @@ module Dcv::ChildrenHelperBehavior
         id: kid['id'],
         order: (order += 1),
         title: proxies[kid['proxy_id']]['label_ssi'] || "Image #{order}",
-        thumbnail: get_asset_url(id: kid['id'], size: 256, type: 'scaled', format: 'jpg'),
+        thumbnail: get_asset_url(id: kid['id'], size: 256, type: 'full', format: 'jpg'),
       }
     end
   end
