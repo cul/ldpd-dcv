@@ -4,10 +4,12 @@ describe CatalogController, :type => :controller do
   before do
     @orig_config = SUBSITES['public']['catalog']
     SUBSITES['public']['catalog'] = {
+      'layout' => 'dcv',
       'remote_request_api_user' => 'clientapp',
       'remote_request_api_key' =>'goodtoken'
     }
     expect(controller).not_to be_nil
+    expect(controller.controller_name).not_to be_nil
     #controller.instance_variable_set(:@controller_name, 'catalog')
     #controller.class.instance_variable_set(:@controller_path, 'catalog')
     request.env['HTTP_AUTHORIZATION'] = credentials
