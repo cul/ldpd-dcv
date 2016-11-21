@@ -36,6 +36,9 @@ default_user_accounts.yml
 resque.yml
 roles.yml
 
+# Ignore local task file
+/lib/tasks/local.rake
+
 # Ignore OS-specific
 .DS_Store
 
