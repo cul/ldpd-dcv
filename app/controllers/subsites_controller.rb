@@ -52,8 +52,12 @@ class SubsitesController < ApplicationController
     return false
   end
 
+  def self.subsite_config
+    return SUBSITES[(self.restricted? ? 'restricted' : 'public')].fetch(self.controller_name,{})
+  end
+
   def subsite_config
-    return SUBSITES[(self.class.restricted? ? 'restricted' : 'public')].fetch(self.controller_name,{})
+    return self.class.subsite_config
   end
 
   def default_search_mode

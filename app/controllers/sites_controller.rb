@@ -16,8 +16,7 @@ class SitesController < ApplicationController
       :qt => 'search'
     }
 
-    # TODO: use restricted staff catalog value here?
-    publisher = self.restricted? ? 'info:fedora/cul:vmcvdnck2d' : 'info:fedora/cul:vmcvdnck2d'
+    publisher = self.restricted? ? SUBSITES['restricted']['uri'] : SUBSITES['public']['uri']
     config.default_solr_params[:fq] << "publisher_ssim:\"#{publisher}\""
     config.default_per_page = 20
     config.per_page = [20,60,100]

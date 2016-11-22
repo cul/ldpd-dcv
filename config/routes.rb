@@ -59,9 +59,10 @@ Dcv::Application.routes.draw do
 
   resources 'sites', only: [:index, :show], param: :slug
   # Dynamic routes for catalog controller and all subsites
-  blacklight_for *(SUBSITES['public'].keys.map{|key| key.to_sym}) # Using * operator to turn the array of values into a set of arguments for the blacklight_for method
+  subsite_keys = SUBSITES['public'].keys - ['uri']
+  blacklight_for *(subsite_keys.map(&:to_sym)) # Using * operator to turn the array of values into a set of arguments for the blacklight_for method
 
-  SUBSITES['public'].each do |subsite_key, data|
+  subsite_keys.each do |subsite_key, data|
     resources subsite_key, only: [:show] do
       collection do
         put 'publish/:id' => "#{subsite_key}#update"
@@ -85,8 +86,9 @@ Dcv::Application.routes.draw do
   if SUBSITES['restricted'].present?
     namespace "restricted" do
       resources 'sites', only: [:index, :show], param: :slug
-      blacklight_for *((SUBSITES['restricted'].keys.map{|key| key.to_sym})) # Using * operator to turn the array of values into a set of arguments for the blacklight_for method
-      SUBSITES['restricted'].each do |subsite_key, data|
+      subsite_keys = SUBSITES['restricted'].keys - ['uri']
+      blacklight_for *(subsite_keys.map(&:to_sym)) # Using * operator to turn the array of values into a set of arguments for the blacklight_for method
+      subsite_keys.each do |subsite_key, data|
         resources subsite_key, only: [:show] do
           collection do
             put 'publish/:id' => "#{subsite_key}#update"

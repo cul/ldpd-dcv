@@ -11,7 +11,6 @@ class Dcv::Configurators::DurstBlacklightConfigurator
     config.default_solr_params = {
       :fq => [
         'object_state_ssi:A', # Active items only
-        'publisher_ssim:"info:fedora/cul:sqv9s4mwg3"', # Include only Durst publish target content in search results
         '-active_fedora_model_ssi:GenericResource', # Do not include GenericResources in searches
       ],
       :qt => 'search',
