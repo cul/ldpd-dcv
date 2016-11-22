@@ -3,6 +3,10 @@ require 'redcarpet'
 class SitesController < ApplicationController
   include Dcv::RestrictableController
   include Dcv::CatalogIncludes
+  include Dcv::Catalog::BrowseListBehavior
+  include Dcv::CdnHelper
+
+  before_filter :get_browse_lists, only: :index
 
   layout Proc.new { |controller| 'dcv' }
 
@@ -62,7 +66,10 @@ class SitesController < ApplicationController
     fq << "slug_ssim:\"#{params[:slug]}\""
     (@response, @document_list) = get_search_results(params, {fq: fq})
     @document = @document_list.first
-
+    if @document.nil?
+      render status: :not_found, text: "#{params[:slug]} is not a subsite"
+      return
+    end
     respond_to do |format|
       format.json { render json: {response: {document: @document}}}
       format.html { }
@@ -84,5 +91,28 @@ class SitesController < ApplicationController
 
   def render_markdown(markdown)
     markdown_renderer.render(markdown).html_safe
+  end
+
+  # used in :index action
+  def digital_projects
+    @document_list.each.map do |solr_doc|
+      t = {
+        name: solr_doc.fetch('title_ssim',[]).first,
+        image: thumbnail_url(solr_doc),
+        external_url: solr_doc.fetch('source_ssim',[]).first || site_url(solr_doc.fetch('slug_ssim',[]).first),
+        description: solr_doc.fetch('abstract_ssim',[]).first
+      }
+      t[:facet_value] = solr_doc.fetch('short_title_ssim',[]).first if published_to_catalog?(solr_doc)
+      Rails.logger.info t.inspect
+      t
+    end
+  end
+
+  def published_to_catalog?(document={})
+    document && document.fetch('publisher_ssim',[]).include?(catalog_uri)
+  end
+
+  def catalog_uri
+    SUBSITES[self.restricted? ? 'restricted' : 'public'].fetch('catalog',{})['uri']
   end
 end

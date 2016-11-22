@@ -36,7 +36,7 @@ namespace :dcv do
 
   task reload_fixtures: :environment do
     rubydora = ActiveFedora::RubydoraConnection.new(ActiveFedora.config.credentials).connection
-    ['catalog','public','restricted'].each do |catalog_pid|
+    ['catalog','public','restricted','external','internal'].each do |catalog_pid|
       catalog_pid = "donotuse:#{catalog_pid}"
       catalog_foxml = begin
         fpath = File.join(Rails.root, "spec/fixtures/foxml/#{catalog_pid.gsub(':','_')}.xml")

@@ -17,15 +17,14 @@ module Dcv::Catalog::BrowseListBehavior
 	end
   
   def get_browse_lists
-		refresh_browse_lists_cache if Rails.env == 'development' || ! Rails.cache.exist?(browse_lists_cache_key)
-    return Rails.cache.read(browse_lists_cache_key)
-	end
+    refresh_browse_lists_cache if Rails.env == 'development' || ! Rails.cache.exist?(browse_lists_cache_key)
+    @browse_lists =  Rails.cache.read(browse_lists_cache_key)
+  end
 
   def refresh_browse_lists_cache
     if Rails.env == 'development' || ! Rails.cache.exist?(browse_lists_cache_key)
       Rails.cache.write(browse_lists_cache_key, generate_browse_lists, expires_in: 24.hours);
     end
-    @browse_lists = Rails.cache.read(browse_lists_cache_key)
   end
 
   def generate_browse_lists

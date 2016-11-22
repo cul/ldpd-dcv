@@ -1,7 +1,7 @@
 require 'resque/server'
 
 Dcv::Application.routes.draw do
-  root :to => "home#index"
+  root :to => "sites#index"
 
   devise_for :users, skip: [:sessions], controllers: {
     omniauth_callbacks: "users/omniauth_callbacks",
