@@ -10,12 +10,11 @@ class SitesController < ApplicationController
     config.default_solr_params = {
       :fq => [
         'object_state_ssi:A', # Active items only
-        'active_fedora_model_ssi:Concept' # Don't show GenericResources in search results
+        'active_fedora_model_ssi:Concept',
+        'dc_type_sim:"Publish Target"'
       ],
       :qt => 'search'
     }
-
-    # TODO: 'dc_type_ssim:"Publish Target"' (currently not indexed)
 
     # TODO: use restricted staff catalog value here?
     publisher = self.restricted? ? 'info:fedora/cul:vmcvdnck2d' : 'info:fedora/cul:vmcvdnck2d'
