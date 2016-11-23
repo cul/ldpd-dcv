@@ -45,6 +45,9 @@ gem 'jquery-ui-rails'
 # Pretty printing
 gem 'coderay'
 
+# For retrying code blocks that may return an error
+gem 'retriable', '~> 2.1'
+
 # Use resque for background jobs
 #gem 'resque', '~> 2.0.0.pre.1', github: 'resque/resque'
 gem 'resque', '~> 1.0'
@@ -86,7 +89,7 @@ group :development, :test do
   # The `deploy:restart` hook for passenger applications is now in a separate gem
   # Just add it to your Gemfile and require it in your Capfile.
   gem 'capistrano-passenger', '~> 0.1', require: false
-  gem 'rspec-rails', '~> 3.1'
+  gem 'rspec-rails', '~> 3.4.0'
   gem 'capybara'
   gem 'poltergeist' # For headless-browser JavaScript testing
   gem 'factory_girl_rails', '>= 4.4.1'

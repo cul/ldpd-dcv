@@ -381,6 +381,7 @@ GEM
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 4.0)
       netrc (~> 0.8)
+    retriable (2.1.0)
     rsolr (1.0.13)
       builder (>= 2.1.2)
     rspec-core (3.2.3)
@@ -523,6 +524,7 @@ DEPENDENCIES
   poltergeist
   rails (= 4.2.1)
   resque (~> 1.0)
+  retriable (~> 2.1)
   rspec-rails (~> 3.1)
   sass-rails (~> 5.0.0)
   sdoc
@@ -534,4 +536,4 @@ DEPENDENCIES
   unicorn
 
 BUNDLED WITH
-   1.13.3
+   1.13.6
