@@ -17,6 +17,7 @@ begin
     docs = solr_response['response']['docs']
     docs.each do |doc|
       restriction = doc['restriction_ssim'].blank? ? 'public' : 'restricted'
+      next unless doc['slug_ssim']
       slug = doc['slug_ssim'].first
       uri = "info:fedora/#{doc['id']}"
       if (slug == 'sites')
