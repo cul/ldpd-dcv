@@ -115,4 +115,13 @@ class SitesController < ApplicationController
   def catalog_uri
     SUBSITES[self.restricted? ? 'restricted' : 'public'].fetch('catalog',{})['uri']
   end
+
+  # Overrides the Blacklight::Controller provided #search_action_url.
+  # By default, any search action from a Blacklight::Catalog controller
+  # should use the current controller when constructing the route.
+  # see also HomeController
+  def search_action_url options = {}
+    url_for(options.merge(:action => 'index', :controller=>'catalog'))
+  end
+
 end
