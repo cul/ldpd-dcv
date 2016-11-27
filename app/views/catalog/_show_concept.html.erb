@@ -5,7 +5,7 @@
   <%- if image_pid -%>
     <p class="show-representative-image"><%= image_tag(get_asset_url(id: image_pid, size: 512, type: 'scaled', format: 'jpg'), :class => 'col-sm-4 pull-right', :itemprop => 'image') if image_pid %></p>
   <%- end -%>
-  <%= controller.render_markdown(Array(document['description_text_ssm']).join) unless document['description_text_ssm'].blank? %>
+  <%= document['description_text_ssm'].blank? ? Array(document['abstract_ssim']).join : controller.render_markdown(Array(document['description_text_ssm']).join)  %>
     <div id="show-concept-links" class="index-show-list-fields">
       <ul>
       <% dcv_search_link = search_action_path(:f => {'publisher_ssim' => "info:fedora/#{document[:id]}"}) %>
