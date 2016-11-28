@@ -22,9 +22,9 @@ class SitesController < ApplicationController
 
     publisher = self.restricted? ? SUBSITES['restricted']['uri'] : SUBSITES['public']['uri']
     config.default_solr_params[:fq] << "publisher_ssim:\"#{publisher}\""
-    config.default_per_page = 20
-    config.per_page = [20,60,100]
-    config.max_per_page = 100
+    config.default_per_page = 250
+    config.per_page = [20,60,100,250]
+    config.max_per_page = 250
 
     # solr field configuration for search results/index views
     config.index.title_field = solr_name('title', :facetable, type: :string)
