@@ -102,9 +102,3 @@
     :lineage: lineage
   http://www.w3.org/ns/ldp#:
     :ldp_contains: contains
-  http://purl.org/ontology/bibo/:
-    :short_title: shortTitle
-  http://www.bbc.co.uk/ontologies/coreconcepts/:
-    :slug: slug
-  https://schema.org/:
-    :schema_image: image
