@@ -17,6 +17,7 @@ class SitesController < ApplicationController
         'active_fedora_model_ssi:Concept',
         'dc_type_sim:"Publish Target"'
       ],
+      :sort => "title_si asc",
       :qt => 'search'
     }
 
@@ -44,6 +45,7 @@ class SitesController < ApplicationController
     config.add_show_field ActiveFedora::SolrService.solr_name('slug', :symbol, type: :string), :label => 'Slug'
     config.add_show_field ActiveFedora::SolrService.solr_name('source', :symbol, type: :string), :label => 'Site URL'
     config.add_show_field ActiveFedora::SolrService.solr_name('title', :symbol, type: :string), :label => 'Title'
+    config.add_sort_field 'title_si asc', :label => 'title'
   end
 
   def initialize(*args)
