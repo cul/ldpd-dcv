@@ -1,5 +1,4 @@
 SUBSITES = YAML.load_file("#{Rails.root.to_s}/config/subsites.yml")[Rails.env].with_indifferent_access
-SUBSITES['sites'] = {}.with_indifferent_access
 begin
   Rails.logger.info("loading sites from Solr")
   Blacklight.solr.tap do |rsolr|
