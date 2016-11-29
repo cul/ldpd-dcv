@@ -9,18 +9,6 @@ module CatalogHelper
     true
   end
 
-  def thumbnail_url(document, options={})
-    get_asset_url(id: document.id, size: 256, type: 'featured', format: 'jpg')
-  end
-
-  def thumbnail_for_doc(document, image_options={})
-    image_tag thumbnail_url(document), image_options
-  end
-
-  def thumbnail_placeholder(document, image_options={})
-    image_tag image_url('file-placeholder.png')
-  end
-
   def short_link(document, opts={})
     title = document[document_show_link_field(document)]
     title = title.first if title.is_a? Array

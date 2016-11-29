@@ -35,6 +35,7 @@ dcv.yml
 default_user_accounts.yml
 resque.yml
 roles.yml
+secrets.yml
 
 # Ignore local task file
 /lib/tasks/local.rake
@@ -45,3 +46,7 @@ roles.yml
 # Ignore elo2112-specific
 reference-files/*
 *.komodoproject
+
+# Ignore hydra-jetty
+/jetty
+/jetty-test

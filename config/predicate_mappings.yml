@@ -18,6 +18,7 @@
     :cul_has_member: hasMember
     :cul_member_of: memberOf
     :cul_metadata_for: metadataFor
+    :cul_obsolete_from: obsoleteFrom
   http://creativecommons.org/ns#:
     :cc_license: license
   info:fedora/fedora-system:def/relations-external#: 
@@ -54,11 +55,16 @@
     :y_sampling: ySamplingFrequency
     :sampling_unit: samplingFrequencyUnit
   http://purl.org/dc/terms/:
+    :abstract: abstract
+    :alternative: alternative
     :contributor: contributor
+    :description: description
     :extent: extent
     :format: format
     :format_of: isFormatOf
     :publisher: publisher
+    :source: source
+    :title: title
   http://www.w3.org/2003/12/exif/ns#:
     :image_width: imageWidth
     :image_length: imageLength
@@ -70,12 +76,13 @@
     :foaf_image: image
     :foaf_thumbnail: thumbnail
     :foaf_zooming: zoomingImage
+    :foaf_depicts: depicts
+    :foaf_depiction: depiction
   http://www.w3.org/1999/02/22-rdf-syntax-ns#:
     :rdf_type: type
   http://www.loc.gov/premis/rdf/v1#:
     :original_name: hasOriginalName
-  http://www.openarchives.org/ore/terms/:
-    :lineage: lineage
+    :restriction: hasRestriction
   http://pcdm.org/models#:
     :pcdm_has_file: hasFile
     :pcdm_file_of: fileOf
@@ -85,8 +92,13 @@
     :pcdm_related_file_of: relatedFileOf
     :pcdm_has_related_object: hasRelatedObject
     :pcdm_related_object_of: relatedObjectOf
-  http://www.iana.org/assignments/relation/:
-    :iana_describes: describes
-    :iana_described_by: describedby
+  http://purl.org/ontology/bibo/:
+    :short_title: shortTitle
+  http://www.bbc.co.uk/ontologies/coreconcepts/:
+    :slug: slug
+  https://schema.org/:
+    :schema_image: image
+  http://www.openarchives.org/ore/terms/:
+    :lineage: lineage
   http://www.w3.org/ns/ldp#:
     :ldp_contains: contains

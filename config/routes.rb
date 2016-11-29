@@ -1,7 +1,7 @@
 require 'resque/server'
 
 Dcv::Application.routes.draw do
-  root :to => "home#index"
+  root :to => "sites#index"
 
   devise_for :users, skip: [:sessions], controllers: {
     omniauth_callbacks: "users/omniauth_callbacks",
@@ -13,7 +13,7 @@ Dcv::Application.routes.draw do
   end
 
   resources :sessions, controller: 'users/sessions'
-  
+
   mount Resque::Server.new, at: "/resque"
   
   # Dynamic robots.txt file
@@ -57,10 +57,12 @@ Dcv::Application.routes.draw do
   get 'jay/jayandfrance' => 'jay#jayandfrance', as: :jay_jayandfrance
   get 'jay/jayandslavery' => 'jay#jayandslavery', as: :jay_jayandslavery
 
+  resources 'sites', only: [:index, :show], param: :slug
   # Dynamic routes for catalog controller and all subsites
-  blacklight_for *(SUBSITES['public'].keys.map{|key| key.to_sym}) # Using * operator to turn the array of values into a set of arguments for the blacklight_for method
+  subsite_keys = SUBSITES['public'].keys - ['uri']
+  blacklight_for *(subsite_keys.map(&:to_sym)) # Using * operator to turn the array of values into a set of arguments for the blacklight_for method
 
-  SUBSITES['public'].each do |subsite_key, data|
+  subsite_keys.each do |subsite_key, data|
     resources subsite_key, only: [:show] do
       collection do
         put 'publish/:id' => "#{subsite_key}#update"
@@ -83,8 +85,10 @@ Dcv::Application.routes.draw do
 
   if SUBSITES['restricted'].present?
     namespace "restricted" do
-      blacklight_for *((SUBSITES['restricted'].keys.map{|key| key.to_sym})) # Using * operator to turn the array of values into a set of arguments for the blacklight_for method
-      SUBSITES['restricted'].each do |subsite_key, data|
+      resources 'sites', only: [:index, :show], param: :slug
+      subsite_keys = SUBSITES['restricted'].keys - ['uri']
+      blacklight_for *(subsite_keys.map(&:to_sym)) # Using * operator to turn the array of values into a set of arguments for the blacklight_for method
+      subsite_keys.each do |subsite_key, data|
         resources subsite_key, only: [:show] do
           collection do
             put 'publish/:id' => "#{subsite_key}#update"

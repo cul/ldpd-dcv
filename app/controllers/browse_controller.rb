@@ -6,7 +6,7 @@ class BrowseController < ApplicationController
   layout 'dcv'
 
   def index
-  	@browse_lists = refresh_browse_lists_cache
+  	@browse_lists = get_browse_lists
   end
 
   def projects
@@ -16,7 +16,7 @@ class BrowseController < ApplicationController
   end
 
   def formats
-  	@browse_lists = refresh_browse_lists_cache
+  	@browse_lists = get_browse_lists
   end
 
   def libraries

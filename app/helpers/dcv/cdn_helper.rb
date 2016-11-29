@@ -38,4 +38,18 @@ module Dcv::CdnHelper
     return  DCV_CONFIG['cdn_url'] + "/iiif/#{identifier_to_pid(conditions[:id])}/info.json"
   end
 
+  def thumbnail_url(document, options={})
+    schema_image = Array(document[ActiveFedora::SolrService.solr_name('schema_image', :symbol)]).first
+
+    id = schema_image ? schema_image.split('/')[-1] : document.id
+    get_asset_url(id: id, size: 256, type: 'featured', format: 'jpg')
+  end
+
+  def thumbnail_for_doc(document, image_options={})
+    image_tag thumbnail_url(document), image_options
+  end
+
+  def thumbnail_placeholder(document, image_options={})
+    image_tag image_url('file-placeholder.png')
+  end
 end

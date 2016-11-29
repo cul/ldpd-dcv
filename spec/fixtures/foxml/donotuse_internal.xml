@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<foxml:digitalObject VERSION="1.1" PID="donotuse:internal"
+xmlns:foxml="info:fedora/fedora-system:def/foxml#"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="info:fedora/fedora-system:def/foxml# http://www.fedora.info/definitions/1/0/foxml1-1.xsd">
+<foxml:objectProperties>
+<foxml:property NAME="info:fedora/fedora-system:def/model#state" VALUE="Active"/>
+<foxml:property NAME="info:fedora/fedora-system:def/model#label" VALUE="Internal Project"/>
+<foxml:property NAME="info:fedora/fedora-system:def/model#ownerId" VALUE="fedoraAdmin"/>
+<foxml:property NAME="info:fedora/fedora-system:def/model#createdDate" VALUE="2015-05-05T15:14:53.852Z"/>
+<foxml:property NAME="info:fedora/fedora-system:def/view#lastModifiedDate" VALUE="2015-05-05T15:14:53.852Z"/>
+</foxml:objectProperties>
+<foxml:datastream ID="AUDIT" STATE="A" CONTROL_GROUP="X" VERSIONABLE="false">
+<foxml:datastreamVersion ID="AUDIT.0" LABEL="Audit Trail for this object" CREATED="2015-05-05T15:14:53.852Z" MIMETYPE="text/xml" FORMAT_URI="info:fedora/fedora-system:format/xml.fedora.audit">
+<foxml:xmlContent>
+<audit:auditTrail xmlns:audit="info:fedora/fedora-system:def/audit#">
+</audit:auditTrail>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+<foxml:datastream ID="DC" STATE="A" CONTROL_GROUP="X" VERSIONABLE="true">
+<foxml:datastreamVersion ID="DC1.0" LABEL="Dublin Core Record for this object" MIMETYPE="text/xml" FORMAT_URI="http://www.openarchives.org/OAI/2.0/oai_dc/">
+<foxml:xmlContent>
+<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+  <dc:title>Internal Project</dc:title>
+  <dc:type>Publish Target</dc:type>
+  <dc:identifier>donotuse:internal</dc:identifier>
+</oai_dc:dc>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+<foxml:datastream ID="RELS-EXT" STATE="A" CONTROL_GROUP="X" VERSIONABLE="true">
+<foxml:datastreamVersion ID="RELS-EXT.0" LABEL="Fedora Object-to-Object Relationship Metadata" MIMETYPE="application/rdf+xml">
+<foxml:xmlContent>
+<rdf:RDF xmlns:ns0="info:fedora/fedora-system:def/model#" xmlns:ns1="http://purl.oclc.org/NET/CUL/" xmlns:ns2="http://purl.org/dc/terms/" xmlns:ns3="http://www.bbc.co.uk/ontologies/coreconcepts/" xmlns:ns4="https://schema.org/" xmlns:ns5="http://purl.org/ontology/bibo/" xmlns:ns6="http://www.loc.gov/premis/rdf/v1#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/donotuse:internal">
+    <rdf:type rdf:resource="http://purl.oclc.org/NET/CUL/Aggregator"></rdf:type>
+    <ns0:hasModel rdf:resource="info:fedora/ldpd:Concept"></ns0:hasModel>
+    <ns2:title>Internal Library Project Online</ns2:title>
+    <ns5:shortTitle>Internal Project</ns5:shortTitle>
+    <ns2:abstract>This internal site only publishes content to the DLC.</ns2:abstract>
+    <ns2:description rdf:resource="info:fedora/donotuse:internal/description"></ns2:description>
+    <ns2:publisher rdf:resource="info:fedora/donotuse:public"></ns2:publisher>
+    <ns2:publisher rdf:resource="info:fedora/donotuse:catalog"></ns2:publisher>
+    <ns3:slug>internal_site</ns3:slug>
+    <ns4:image rdf:resource="info:fedora/cul:1c59zw3rf4"></ns4:image>
+  </rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+<foxml:datastream ID="description" STATE="A" CONTROL_GROUP="M" VERSIONABLE="true">
+<foxml:datastreamVersion ID="description.0" LABEL="Textual Description of Concept" MIMETYPE="text/markdown">
+  <foxml:binaryContent>VGhlIERpZ2l0YWwgTGlicmFyeSBDb2xsZWN0aW9ucyAoRExDKSB3ZWJzaXRl
+IGlzIGEgZ2F0ZXdheSB0byBkaWdpdGFsIHJlcHJvZHVjdGlvbnMgYW5kIGRl
+c2NyaXB0aW9ucyBvZiBwaG90b2dyYXBocywgcG9zdGVycywgZHJhd2luZ3Ms
+IG9iamVjdHMsIGVwaGVtZXJhLCBhbmQgbWFudXNjcmlwdHMgYXMgd2VsbCBh
+cyBvdGhlciBhcmNoaXZhbCBtYXRlcmlhbCBmcm9tIENvbHVtYmlhJ3MgcmFy
+ZSBhbmQgc3BlY2lhbCBjb2xsZWN0aW9ucy4gSXQgd2lsbCBjb250aW51ZSB0
+byBncm93IGFzIG1vcmUgb2Ygb3VyIGVhcmxpZXIgZGlnaXRhbCBwcm9qZWN0
+cyBhcmUgbG9hZGVkIGluLCBhcyBtb3JlIG9mIG91ciBzcGVjaWFsIGNvbGxl
+Y3Rpb25zIGFyZSBkaWdpdGl6ZWQgYW5kIGRlc2NyaWJlZCwgYW5kIGFzIGh5
+YnJpZCBhbmQgYm9ybi1kaWdpdGFsIGFyY2hpdmFsIGNvbGxlY3Rpb25zIGFy
+ZSBhY3F1aXJlZC4gVGhlIERMQyB3ZWJzaXRlIGRvZXMgbm90IGF0IHByZXNl
+bnQgaW5jbHVkZSBzY2FucyBvZiBvdXIgcmFyZSBvciBvdXQtb2YtY29weXJp
+Z2h0IGRpZ2l0aXplZCBib29rcyBvciBkaWdpdGl6ZWQgbmV3c3BhcGVycywg
+aG93ZXZlcjsgdGhlc2UgYW5kIG90aGVyIGhpc3RvcmljYWwgZGlnaXRhbCBj
+b250ZW50IGNhbiBiZSBsb2NhdGVkIGJ5IHNlYXJjaGluZyBvdXIgW0NMSU9d
+KGh0dHA6Ly9jbGlvLmNvbHVtYmlhLmVkdS8pIGRpc2NvdmVyeSBzeXN0ZW0u
+CgpEaWdpdGFsIGNvbnRlbnQgaW4gdGhlIERMQyB3ZWJzaXRlIGNvbWVzIGFs
+bW9zdCBleGNsdXNpdmVseSBmcm9tIENvbHVtYmlhIFVuaXZlcnNpdHkgTGli
+cmFyaWVzJyBkaXN0aW5jdGl2ZSBjb2xsZWN0aW9ucywgbmFtZWx5OgoKLSBb
+QXZlcnkgQXJjaGl0ZWN0dXJhbCAmIEZpbmUgQXJ0cyBMaWJyYXJ5XShodHRw
+Oi8vbGlicmFyeS5jb2x1bWJpYS5lZHUvbG9jYXRpb25zL2F2ZXJ5Lmh0bWwp
+Ci0gW0J1cmtlIExpYnJhcnkgYXQgVW5pb24gVGhlb2xvZ2ljYWwgU2VtaW5h
+cnldKGh0dHA6Ly9saWJyYXJ5LmNvbHVtYmlhLmVkdS9sb2NhdGlvbnMvYnVy
+a2UuaHRtbCkKLSBbQy5WLiBTdGFyciBFYXN0IEFzaWFuIExpYnJhcnldKGh0
+dHA6Ly9saWJyYXJ5LmNvbHVtYmlhLmVkdS9sb2NhdGlvbnMvZWFzdGFzaWFu
+Lmh0bWwpCi0gW1JhcmUgQm9vayAmIE1hbnVzY3JpcHQgTGlicmFyeV0oaHR0
+cDovL2xpYnJhcnkuY29sdW1iaWEuZWR1L2xvY2F0aW9ucy9yYm1sLmh0bWwp
+CgpJdCBpcyBpbXBvcnRhbnQgdG8gbm90ZSB0aGF0IG1hbnkgY29sbGVjdGlv
+bnMgaW4gdGhlIERMQyBhbHNvIGhhdmUgc2VwYXJhdGUgY3VzdG9taXplZCB3
+ZWJzaXRlcyB3aGVyZSB0aGUgc2FtZSBjb250ZW50IGlzIGRpc3BsYXllZCB3
+aXRoaW4gYSBicm9hZGVyIG9yIHRoZW1hdGljIGNvbnRleHQuIFdoZXJlIHRo
+aXMgaXMgdGhlIGNhc2UsIGxpbmtzIGFyZSBwcm92aWRlZCBzbyB0aGF0IGNv
+bnRlbnQgY2FuIGJlIHZpZXdlZCBpbiBlaXRoZXIgY29udGV4dC4KCkNvbHVt
+YmlhIFVuaXZlcnNpdHkgaXMgcHJvdmlkaW5nIGFjY2VzcyB0byB0aGVzZSBt
+YXRlcmlhbHMgZm9yIGVkdWNhdGlvbmFsIGFuZCByZXNlYXJjaCBwdXJwb3Nl
+cyBvbmx5LiAgRm9yIGluc3RydWN0aW9ucyBhYm91dCBhYm91dCBvYnRhaW5p
+bmcgcmVwcm9kdWN0aW9ucyBvZiBvciByZXB1Ymxpc2hpbmcgdGhlIGl0ZW1z
+IGZvdW5kIGluIHRoaXMgc2l0ZSwgcGxlYXNlIHNlZSB0aGUgW1Rlcm1zIG9m
+IFVzZV0oL3Rlcm1zX29mX3VzZSkgcGFnZS4KCk1vcmUgaW5mb3JtYXRpb24g
+YWJvdXQgQ29sdW1iaWEncyBhcmNoaXZhbCBjb2xsZWN0aW9ucywgaW5jbHVk
+aW5nIGNvbGxlY3Rpb24gZmluZGluZyBhaWRzLCBtYXkgYmUgZm91bmQgd2l0
+aGluIG91ciBbQXJjaGl2YWwgQ29sbGVjdGlvbnMgUG9ydGFsXShodHRwOi8v
+d3d3LmNvbHVtYmlhLmVkdS9jZ2ktYmluL2N1bC9yZXNvbHZlLz9sd2ViMDEw
+NikuCgpIb21lIHBhZ2UgaW1hZ2UgY3JlZGl0OiAgWyJFbXB0eSBzdGVwcywg
+MSBBTSJdKGh0dHBzOi8vd3d3LmZsaWNrci5jb20vcGhvdG9zL21tajE3MTE4
+OC8xODM2NzYwODQzKSBieSBbTWlyYSAob24gdGhlIHdhbGwpXShodHRwczov
+L3d3dy5mbGlja3IuY29tL3Bob3Rvcy9tbWoxNzExODgvKSBpcyBsaWNlbnNl
+ZCB1bmRlciBbQ0MgQlkgTkMgU0EgMi4wXShodHRwczovL2NyZWF0aXZlY29t
+bW9ucy5vcmcvbGljZW5zZXMvYnktbmMtc2EvMi4wLyku
+</foxml:binaryContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+</foxml:digitalObject>

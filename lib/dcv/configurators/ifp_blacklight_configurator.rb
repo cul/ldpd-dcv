@@ -10,7 +10,6 @@ class Dcv::Configurators::IfpBlacklightConfigurator
 
     config.default_solr_params = {
       :fq => [
-        'publisher_ssim:"info:fedora/cul:rfj6q573w6"', # Include content published to the public IFP site
         'active_fedora_model_ssi:GenericResource', # Only include GenericResources in searches
         '-dc_type_sim:FileSystem' # Ignore FileSystem resources in searches
       ],

@@ -9,8 +9,7 @@ class Dcv::Configurators::DcvBlacklightConfigurator
     config.default_solr_params = {
       :fq => [
         'object_state_ssi:A', # Active items only
-        '-active_fedora_model_ssi:GenericResource', # Don't show GenericResources in search results
-        'publisher_ssim:"info:fedora/cul:vmcvdnck2d"' # Include only DLC content in search results
+        '-active_fedora_model_ssi:GenericResource' # Don't show GenericResources in search results
       ],
       :qt => 'search'
     }

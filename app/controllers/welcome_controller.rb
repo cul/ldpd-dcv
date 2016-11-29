@@ -160,10 +160,7 @@ class WelcomeController < ApplicationController
   end
 
   def do_home
-    if Rails.env == 'development' || ! Rails.cache.exist?(BROWSE_LISTS_KEY_PREFIX + controller_name)
-      refresh_browse_lists_cache
-    end
-    @browse_lists = Rails.cache.read(BROWSE_LISTS_KEY_PREFIX + controller_name)
+    get_browse_lists
 
     number_of_items_to_show = 8
 
