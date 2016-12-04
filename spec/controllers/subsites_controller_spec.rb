@@ -5,14 +5,13 @@ describe CatalogController, :type => :controller do
     @orig_config = SUBSITES['public']['catalog']
     SUBSITES['public']['catalog'] = {
       'layout' => 'dcv',
-      'remote_request_api_user' => 'clientapp',
       'remote_request_api_key' =>'goodtoken'
     }
     expect(controller).not_to be_nil
     expect(controller.controller_name).not_to be_nil
     #controller.instance_variable_set(:@controller_name, 'catalog')
     #controller.class.instance_variable_set(:@controller_path, 'catalog')
-    request.env['HTTP_AUTHORIZATION'] = credentials
+    request.env['HTTP_AUTHORIZATION'] = api_key
     allow(IndexFedoraObjectJob).to receive(:perform).
       with(hash_including('pid' => 'baad:id')).
       and_raise(ActiveFedora::ObjectNotFoundError)
@@ -28,25 +27,21 @@ describe CatalogController, :type => :controller do
       put :update, params
       response.status
     end
-    context 'no credentials' do
-      let(:credentials) { nil }
+    context 'no api_key' do
+      let(:api_key) { nil }
       let(:params) { { id: 'good:id' } }
       it { is_expected.to eql(401) }
     end
-    context 'invalid credentials' do
-      let(:credentials) do
-        user = SUBSITES['public']['catalog']['remote_request_api_user']
-        pw = SUBSITES['public']['catalog']['remote_request_api_key'] + "bad"
-        ActionController::HttpAuthentication::Basic.encode_credentials(user,pw)
+    context 'invalid api_key' do
+      let(:api_key) do
+        ActionController::HttpAuthentication::Token.encode_credentials(SUBSITES['public']['catalog']['remote_request_api_key'] + "bad")
       end
       let(:params) { { id: 'good:id' } }
       it { is_expected.to eql(403) }
     end
-    context 'valid credentials' do
-      let(:credentials) do
-        user = SUBSITES['public']['catalog']['remote_request_api_user']
-        pw = SUBSITES['public']['catalog']['remote_request_api_key']
-        ActionController::HttpAuthentication::Basic.encode_credentials(user,pw)
+    context 'valid api_key' do
+      let(:api_key) do
+        ActionController::HttpAuthentication::Token.encode_credentials(SUBSITES['public']['catalog']['remote_request_api_key'])
       end
       context 'bad doc id' do
         let(:params) { { id: 'baad:id' } }
@@ -82,30 +77,26 @@ describe CatalogController, :type => :controller do
       delete :destroy, params
       response.status
     end
-    context 'no credentials' do
-      let(:credentials) { nil }
+    context 'no api_key' do
+      let(:api_key) { nil }
       let(:params) { { id: 'good:id' } }
       it { is_expected.to eql(401) }
     end
-    context 'invalid credentials' do
-      let(:credentials) do
-        user = SUBSITES['public']['catalog']['remote_request_api_user']
-        pw = SUBSITES['public']['catalog']['remote_request_api_key'] + "bad"
-        ActionController::HttpAuthentication::Basic.encode_credentials(user,pw)
+    context 'invalid api_key' do
+      let(:api_key) do
+        ActionController::HttpAuthentication::Token.encode_credentials(SUBSITES['public']['catalog']['remote_request_api_key'] + "bad")
       end
       let(:params) { { id: 'good:id' } }
       it { is_expected.to eql(403) }
     end
-    context 'valid credentials' do
+    context 'valid api_key' do
       before do
         allow(rsolr).to receive(:delete_by_id).with('baad:id').and_return(bad_id_response)
         allow(rsolr).to receive(:delete_by_id).with('good:id').and_return(good_id_response)
         allow(rsolr).to receive(:commit)
       end
-      let(:credentials) do
-        user = SUBSITES['public']['catalog']['remote_request_api_user']
-        pw = SUBSITES['public']['catalog']['remote_request_api_key']
-        ActionController::HttpAuthentication::Basic.encode_credentials(user,pw)
+      let(:api_key) do
+        ActionController::HttpAuthentication::Token.encode_credentials(SUBSITES['public']['catalog']['remote_request_api_key'])
       end
       context 'bad doc id' do
         let(:params) { { id: 'baad:id' } }

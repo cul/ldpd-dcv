@@ -150,9 +150,9 @@ class SubsitesController < ApplicationController
 
   def authenticate_publisher
     status = :unauthorized
-    authenticate_with_http_basic do |user, pass|
+    authenticate_with_http_token do |token, other_options|
       (subsite_config || {}).tap do |config|
-        status = (config['remote_request_api_user'] == user && config['remote_request_api_key'] == pass) ? :ok : :forbidden
+        status = (config['remote_request_api_key'] == token) ? :ok : :forbidden
       end
     end
     status
