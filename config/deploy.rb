@@ -37,15 +37,16 @@ set :keep_releases, 3
 set :passenger_restart_with_touch, true
 
 set :linked_files, fetch(:linked_files, []).push(
-  "config/database.yml",
-  "config/default_user_accounts.yml",
-  "config/initializer_secrets.yml",
-  "config/solr.yml",
-  "config/fedora.yml",
   "config/cas.yml",
+  "config/database.yml",
   "config/dcv.yml",
+  "config/default_user_accounts.yml",
+  "config/fedora.yml",
+  "config/initializer_secrets.yml",
   "config/resque.yml",
   "config/roles.yml",
+  "config/solr.yml",
+  "config/subsites.yml",
   "config/wind.yml"
 )
 

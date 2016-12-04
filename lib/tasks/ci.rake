@@ -185,6 +185,32 @@ namespace :dcv do
         }
       end
       File.open(dcv_yml_file, 'w') {|f| f.write dcv_yml.to_yaml }
+      
+      # subsites.yml
+      subsites_yml_file = File.join(Rails.root, 'config/subsites.yml')
+      FileUtils.touch(subsites_yml_file) # Create if it doesn't exist
+      subsites_yml = YAML.load_file(subsites_yml_file) || {}
+      ['development', 'test'].each do |env_name|
+        subsites_yml[env_name] ||= {
+          'public' => {
+            'catalog' => {
+              'layout' => 'dcv',
+              'remote_request_api_key' => 'sample_key',
+              'date_search' => {
+                'sidebar' => true,
+                'timeline' => true
+              }
+            }
+          },
+          'restricted' => {
+            'ifp' => {
+              'layout' => 'ifp',
+              'show_original_file_download' => true
+            }
+          }
+        }
+      end
+      File.open(subsites_yml_file, 'w') {|f| f.write subsites_yml.to_yaml }
     end
   end
 end
