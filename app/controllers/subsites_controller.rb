@@ -9,7 +9,7 @@ class SubsitesController < ApplicationController
   before_filter :set_view_path
   before_filter :store_unless_user, except: [:update, :destroy, :api_info]
   before_filter :authorize_action, only:[:index, :preview, :show]
-  protect_from_forgery :except => [:index_object] # No CSRF token required for reindex
+  protect_from_forgery :except => [:update, :destroy, :api_info] # No CSRF token required for publishing actions
 
   layout Proc.new { |controller|
     self.subsite_layout
@@ -150,9 +150,9 @@ class SubsitesController < ApplicationController
 
   def authenticate_publisher
     status = :unauthorized
-    authenticate_with_http_basic do |user, pass|
+    authenticate_with_http_token do |token, other_options|
       (subsite_config || {}).tap do |config|
-        status = (config['remote_request_api_user'] == user && config['remote_request_api_key'] == pass) ? :ok : :forbidden
+        status = (config['remote_request_api_key'] == token) ? :ok : :forbidden
       end
     end
     status
