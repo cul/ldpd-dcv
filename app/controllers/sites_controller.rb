@@ -46,6 +46,16 @@ class SitesController < ApplicationController
     config.add_show_field ActiveFedora::SolrService.solr_name('source', :symbol, type: :string), :label => 'Site URL'
     config.add_show_field ActiveFedora::SolrService.solr_name('title', :symbol, type: :string), :label => 'Title'
     config.add_sort_field 'title_si asc', :label => 'title'
+    
+    # Need to include default search field so that blank searches work from home page
+    config.add_search_field ActiveFedora::SolrService.solr_name('all_text', :searchable, type: :text) do |field|
+      field.label = 'All Fields'
+      field.default = true
+      field.solr_parameters = {
+        :qf => [ActiveFedora::SolrService.solr_name('all_text', :searchable, type: :text)],
+        :pf => [ActiveFedora::SolrService.solr_name('all_text', :searchable, type: :text)]
+      }
+    end
   end
 
   def initialize(*args)
