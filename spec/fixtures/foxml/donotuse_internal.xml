@@ -36,7 +36,6 @@ xsi:schemaLocation="info:fedora/fedora-system:def/foxml# http://www.fedora.info/
   <rdf:Description rdf:about="info:fedora/donotuse:internal">
     <rdf:type rdf:resource="http://purl.oclc.org/NET/CUL/Aggregator"></rdf:type>
     <ns0:hasModel rdf:resource="info:fedora/ldpd:Concept"></ns0:hasModel>
-    <ns2:title>Internal Library Project Online</ns2:title>
     <ns5:shortTitle>Internal Project</ns5:shortTitle>
     <ns2:abstract>This internal site only publishes content to the DLC.</ns2:abstract>
     <ns2:description rdf:resource="info:fedora/donotuse:internal/description"></ns2:description>

@@ -40,7 +40,6 @@ namespace :dcv do
       catalog_pid = "donotuse:#{catalog_pid}"
       catalog_foxml = begin
         fpath = File.join(Rails.root, "spec/fixtures/foxml/#{catalog_pid.gsub(':','_')}.xml")
-
         foxml = File.read(fpath)
         foxml
       end
@@ -48,7 +47,15 @@ namespace :dcv do
         rubydora.purge_object :pid=>catalog_pid
       rescue RestClient::NotFound; end # it's ok not to exist
       rubydora.ingest(:file=>StringIO.new(catalog_foxml), :pid=>catalog_pid)
-      ActiveFedora::Base.find(catalog_pid).update_index
+      fedora_object = ActiveFedora::Base.find(catalog_pid)
+      # Set MODS for publish target titles
+      mods_xml = begin
+        fpath = File.join(Rails.root, "spec/fixtures/mods/#{catalog_pid.gsub(':','_')}_mods.xml")
+        mods = File.read(fpath)
+        mods
+      end
+      fedora_object.descMetadata.content = mods_xml
+      fedora_object.save(update_index: true)
     end
   end
   desc "CI build"

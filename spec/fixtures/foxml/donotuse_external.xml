@@ -36,7 +36,6 @@ xsi:schemaLocation="info:fedora/fedora-system:def/foxml# http://www.fedora.info/
   <rdf:Description rdf:about="info:fedora/donotuse:external">
     <rdf:type rdf:resource="http://purl.oclc.org/NET/CUL/Aggregator"></rdf:type>
     <ns0:hasModel rdf:resource="info:fedora/ldpd:Concept"></ns0:hasModel>
-    <ns2:title>External Library Project Online</ns2:title>
     <ns5:shortTitle>External Project</ns5:shortTitle>
     <ns2:source rdf:resource="https://external.library.columbia.edu"></ns2:source>
     <ns2:abstract>This external site does not publish content to the DLC.</ns2:abstract>

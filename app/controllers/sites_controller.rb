@@ -99,7 +99,7 @@ class SitesController < ApplicationController
   def digital_projects
     @document_list.each.map do |solr_doc|
       t = {
-        name: solr_doc.fetch('title_ssim',[]).first,
+        name: solr_doc.fetch('title_display_ssm',[]).first,
         image: thumbnail_url(solr_doc),
         external_url: solr_doc.fetch('source_ssim',[]).first || site_url(solr_doc.fetch('slug_ssim',[]).first),
         description: solr_doc.fetch('abstract_ssim',[]).first

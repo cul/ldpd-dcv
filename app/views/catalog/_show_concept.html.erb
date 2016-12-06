@@ -10,7 +10,7 @@
     <%= document['description_text_ssm'].blank? ? Array(document['abstract_ssim']).join : controller.render_markdown(Array(document['description_text_ssm']).join)  %>
     <div id="show-concept-links" class="index-show-list-fields">
       <ul>
-      <% dcv_search_link = document[:short_title_ssim].present? ? search_action_path(:f => {'lib_project_short_ssim' => document[:short_title_ssim].first}) : nil %>
+      <% dcv_search_link = document[:short_title_ssim].present? ? search_action_path(:f => {'lib_project_short_ssim' => [document[:short_title_ssim].first]}) : nil %>
       <% if dcv_search_link && controller.published_to_catalog?(document) %>
         <li><%= link_to("Browse: #{document_show_html_title} content in the DLC", dcv_search_link) %></li>
       <% end %>
