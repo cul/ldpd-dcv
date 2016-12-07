@@ -160,7 +160,7 @@ class WelcomeController < ApplicationController
   end
 
   def do_home
-    get_browse_lists
+    get_catalog_browse_lists
 
     number_of_items_to_show = 8
 

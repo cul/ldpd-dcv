@@ -6,7 +6,7 @@ class SitesController < ApplicationController
   include Dcv::Catalog::BrowseListBehavior
   include Dcv::CdnHelper
 
-  before_filter :get_browse_lists, only: :index
+  before_filter :set_browse_lists, only: :index
 
   layout Proc.new { |controller| 'dcv' }
 
@@ -134,6 +134,10 @@ class SitesController < ApplicationController
   # see also HomeController
   def search_action_url options = {}
     url_for(options.merge(:action => 'index', :controller=>'catalog'))
+  end
+  
+  def set_browse_lists
+    @browse_lists = get_catalog_browse_lists
   end
 
 end

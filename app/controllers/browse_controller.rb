@@ -1,12 +1,12 @@
 class BrowseController < ApplicationController
   include Dcv::Catalog::BrowseListBehavior
 
-  before_action :refresh_browse_lists_cache
+  before_action :refresh_catalog_browse_lists_cache
 
   layout 'dcv'
 
   def index
-  	@browse_lists = get_browse_lists
+  	@browse_lists = get_catalog_browse_lists
   end
 
   def projects
@@ -16,7 +16,7 @@ class BrowseController < ApplicationController
   end
 
   def formats
-  	@browse_lists = get_browse_lists
+  	@browse_lists = get_catalog_browse_lists
   end
 
   def libraries

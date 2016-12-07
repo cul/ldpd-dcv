@@ -6,7 +6,7 @@ module Dcv::Catalog::RandomItems
     number_of_items_to_show = 8
     
     # Don't rely on @browse_lists for the repository values because they might be removed at some point
-    repositories_and_counts = get_all_facet_values_and_counts('lib_repo_short_ssim')['value_pairs']
+    repositories_and_counts = get_all_catalog_facet_values_and_counts('lib_repo_short_ssim')['value_pairs']
     if repositories_and_counts.length > number_of_items_to_show
      selected_repository_keys = repositories_and_counts.keys.shuffle[0, number_of_items_to_show]
     else

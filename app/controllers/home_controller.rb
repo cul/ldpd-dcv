@@ -39,7 +39,7 @@ class HomeController < ApplicationController
   private
   
   def set_browse_lists
-    @browse_lists = get_browse_lists
+    @browse_lists = get_catalog_browse_lists
   end
   
 end

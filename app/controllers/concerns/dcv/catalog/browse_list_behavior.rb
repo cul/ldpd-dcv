@@ -16,22 +16,22 @@ module Dcv::Catalog::BrowseListBehavior
 		return BROWSE_LISTS_KEY_PREFIX + controller_name
 	end
   
-  def get_browse_lists
-    refresh_browse_lists_cache if Rails.env == 'development' || ! Rails.cache.exist?(browse_lists_cache_key)
+  def get_catalog_browse_lists
+    refresh_catalog_browse_lists_cache if Rails.env == 'development' || ! Rails.cache.exist?(browse_lists_cache_key)
     @browse_lists =  Rails.cache.read(browse_lists_cache_key)
   end
 
-  def refresh_browse_lists_cache
+  def refresh_catalog_browse_lists_cache
     if Rails.env == 'development' || ! Rails.cache.exist?(browse_lists_cache_key)
-      Rails.cache.write(browse_lists_cache_key, generate_browse_lists, expires_in: 24.hours);
+      Rails.cache.write(browse_lists_cache_key, generate_catalog_browse_lists, expires_in: 24.hours);
     end
   end
 
-  def generate_browse_lists
+  def generate_catalog_browse_lists
     hash_to_return = {}
 
     BROWSE_LISTS.each do |facet_field_name, options|
-      hash_to_return[facet_field_name] = get_all_facet_values_and_counts(facet_field_name)
+      hash_to_return[facet_field_name] = get_all_catalog_facet_values_and_counts(facet_field_name)
       hash_to_return[facet_field_name]['display_label'] = options[:display_label]
       hash_to_return[facet_field_name]['short_description'] = options[:short_description]
     end
@@ -39,12 +39,12 @@ module Dcv::Catalog::BrowseListBehavior
     return hash_to_return
   end
 
-  def get_all_facet_values_and_counts(facet_field_name)
+  def get_all_catalog_facet_values_and_counts(facet_field_name)
     rsolr = RSolr.connect :url => YAML.load_file('config/solr.yml')[Rails.env]['url']
 
     values_and_counts = {}
 
-    response = rsolr.get 'select', :params => self.blacklight_config.default_solr_params.merge({
+    response = rsolr.get 'select', :params => CatalogController.blacklight_config.default_solr_params.merge({
       :q  => '*:*',
       :rows => 0,
       :'facet.sort' => 'index', # We want Solr to order facets based on their type (alphabetically, numerically, etc.)
