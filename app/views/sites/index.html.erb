@@ -12,7 +12,7 @@ featured_proj = controller.digital_projects.select { |proj| proj[:facet_value].p
           <%- if featured_proj.present? %>
           <h6>COLLECTION SPOTLIGHT</h6>
           <div class="collection-title"><%= featured_proj[:name] %></div>
-		  <p><a href="<%= search_action_path(:f => {'lib_project_short_ssim' => [featured_proj[:facet_value]]})  %>"><img src="<%= featured_proj[:image] %>" class="thumbnail pull-right" alt="<%= featured_proj[:name] %>"></a><%= featured_proj[:description].html_safe %> <a href="<%= search_action_path(:f => {'lib_project_short_ssim' => [featured_proj[:facet_value]]})  %>" class="inline-block">View this Collection &raquo;</a></p>
+		  <p><a href="<%= search_action_path(:f => {'lib_project_short_ssim' => [featured_proj[:facet_value]]})  %>"><img src="<%= featured_proj[:image] %>" class="thumbnail pull-right" alt="<%= featured_proj[:name] %>"></a><%= (featured_proj[:description] || '').html_safe %> <a href="<%= search_action_path(:f => {'lib_project_short_ssim' => [featured_proj[:facet_value]]})  %>" class="inline-block">View this Collection &raquo;</a></p>
           <%- end %>
           <div class="clearfix"></div>
          </div>
