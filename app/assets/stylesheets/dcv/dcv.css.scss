@@ -263,7 +263,7 @@ input {
 		}
 	}
 	.document {
-		margin-bottom: 1.55em;
+		margin-bottom: .25em;
 		.fulltext-snippet {
 			font-size: .9em;
 			.highlight {
@@ -807,6 +807,10 @@ h2[itemprop="name"] {
 			}
 		}
 	}
+	#favorite-child-item-in-context-url {
+		display:inline-block;
+		padding-top:1.2em;
+	}
 }
 #child_gallery {
 	padding-top: 1em;
@@ -814,7 +818,7 @@ h2[itemprop="name"] {
 	background-color: $color_14;
 	border: 1px solid $color_4;
 	border-width: 1px 0;
-	.col-sm-3 {
+	.child-container {
 		margin-bottom: 1em;
 	}
 	.thumbnail {

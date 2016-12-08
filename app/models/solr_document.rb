@@ -18,33 +18,39 @@ class SolrDocument
   # Recommendation: Use field names from Dublin Core
   use_extension( Blacklight::Solr::Document::DublinCore)
   
-  def get_item_in_context_urls()
-    @item_in_context_urls ||= aggregate_item_in_context_urls()
+  # Aggregate item in context urls for this solr doc and its children, returning a hash that maps pids to item in context urls
+  def self_and_child_pids_to_item_in_context_urls
+    return @self_and_child_pids_to_item_in_context_urls ||= begin
+      pids_to_urls = {}
+      pids_to_urls[self['id']] = item_in_context_url if item_in_context_url.present?
+      
+      pids_to_urls.merge(child_pids_to_item_in_context_urls)
+    end
   end
   
-  private
+  # Item in context url for this solr document. Might return nil if this doc has no item in context url.
+  def item_in_context_url
+    self['lib_item_in_context_url_ssm'].present? ? self['lib_item_in_context_url_ssm'].first : nil
+  end
   
-  # Aggregate item in context urls from this solr document and all direct member solr documents
-  def aggregate_item_in_context_urls()
-    urls = []
-    urls += self['lib_item_in_context_url_ssm'] if self['lib_item_in_context_url_ssm'].present?
-    
-    search_response = Blacklight.solr.get 'select', :params => {
-      :q  => '*:*',
-      :fl => 'lib_item_in_context_url_ssm',
-      :qt => 'search',
-      :fq => [
-        'cul_member_of_ssim:"info:fedora/' + self['id'] + '"',
-      ],
-      :rows => 999,
-      :facet => false
-    }
-    
-    search_response['response']['docs'].each do |doc|
-      urls += doc['lib_item_in_context_url_ssm'] if doc['lib_item_in_context_url_ssm'].present?
+  def child_pids_to_item_in_context_urls
+    return @child_pids_to_item_in_context_urls ||= begin
+      pids_to_urls = {}
+      search_response = Blacklight.solr.get 'select', :params => {
+        :q  => '*:*',
+        :fl => 'id,lib_item_in_context_url_ssm',
+        :qt => 'search',
+        :fq => [
+          'cul_member_of_ssim:"info:fedora/' + self['id'] + '"'
+        ],
+        :rows => 999,
+        :facet => false
+      }
+      search_response['response']['docs'].each do |doc|
+        pids_to_urls[doc['id']] = doc['lib_item_in_context_url_ssm'].first if doc['lib_item_in_context_url_ssm'].present?
+      end
+      pids_to_urls
     end
-    
-    urls
   end
 
 end

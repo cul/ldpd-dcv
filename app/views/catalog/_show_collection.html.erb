@@ -14,14 +14,8 @@
           <% end %>
         </dl>
      </div>
-      <div class="inner">
+     <div class="inner">
         <ul class="list-unstyled">
-          <% if document.get_item_in_context_urls.present? %>
-            <% item_in_context_urls = document.get_item_in_context_urls %>
-            <% item_in_context_urls.each_with_index do |url, i| %>
-              <li><a class="" href="<%= url %>" target="_blank" data-toggle="tooltip" title="Item in Context"><i class="glyphicon glyphicon-globe"></i> Item in Context <%= item_in_context_urls.length == 1 ? '' : "##{i+1}" %></a></li>
-            <% end %>
-          <% end %>
           <li><a href="http://library.columbia.edu/services/preservation/publications_policy.html"><span class="glyphicon glyphicon-tag"></span> Order a Reproduction</a></li>
           <li><%= link_to '<span class="glyphicon glyphicon-file"></span> Display XML Metadata'.html_safe, item_mods_path(:pid => @document.id), :'data-no-turbolink' => true, :'data-display-url' => item_mods_path(:pid => @document.id, :type => 'formatted_text'), :'data-download-url' => item_mods_path(:pid => @document.id, :type => 'download'), :onclick => 'return DCV.ModsDownloadModal.show($(this).attr("data-display-url"), $(this).attr("data-download-url"));' %></li>
         </ul>

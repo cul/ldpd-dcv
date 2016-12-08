@@ -93,7 +93,13 @@ function favoriteChild(child) {
   var dataSequence = $(child).attr('data-sequence');
   var bytestreamsUrl = $(child).attr('data-bytestreams');
   var infoUrl = $(child).attr('data-info-url');
-  var ccap = $(child).next('.caption').find('h5').text();
+  
+  var $childContainer = $(child).closest('.child-container');
+  var ccap = $childContainer.find('.caption').find('.index_title').text();
+  var itemInContextUrl = null;
+  if($childContainer.find('.item-in-context').find('.item-in-context-url').length > 0) {
+    itemInContextUrl = $childContainer.find('.item-in-context').find('.item-in-context-url').attr('href');
+  }
   if (screenUrl != screenImg.attr('src')) {
     $('#ct').html('<span style="color:#555;">Loading...</span>');
     $('#child_gallery a.document').removeClass('selected');
@@ -105,6 +111,12 @@ function favoriteChild(child) {
       screenImg.attr('data-info-url', infoUrl);
       $('#ct').html(ccap);
       loadDownloadsForItemShowPage(infoUrl);
+      if(itemInContextUrl == null) {
+        $('#favorite-child-item-in-context-url').hide();
+      } else {
+        $('#favorite-child-item-in-context-url').attr('href', itemInContextUrl);
+        $('#favorite-child-item-in-context-url').show();
+      }
     };
     screenImg.attr('src', screenUrl);
   }

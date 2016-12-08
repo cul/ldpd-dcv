@@ -12,12 +12,6 @@
    </div>
     <div class="inner">
 		<ul class="list-unstyled">
-		  <% if document.get_item_in_context_urls.present? %>
-        <% item_in_context_urls = document.get_item_in_context_urls %>
-        <% item_in_context_urls.each_with_index do |url, i| %>
-          <li><a class="" href="<%= url %>" target="_blank" data-toggle="tooltip" title="Item in Context"><i class="glyphicon glyphicon-globe"></i> Item in Context <%= item_in_context_urls.length == 1 ? '' : "##{i+1}" %></a></li>
-        <% end %>
-		  <% end %>
 			<li><a href="http://library.columbia.edu/services/preservation/publications_policy.html"><span class="glyphicon glyphicon-tag"></span> Order a Reproduction</a></li>
 			<li><%= link_to '<span class="glyphicon glyphicon-file"></span> Display XML Metadata'.html_safe, item_mods_path(:pid => @document.id), :'data-no-turbolink' => true, :'data-display-url' => item_mods_path(:pid => @document.id, :type => 'formatted_text'), :'data-download-url' => item_mods_path(:pid => @document.id, :type => 'download'), :onclick => 'return DCV.ModsDownloadModal.show($(this).attr("data-display-url"), $(this).attr("data-download-url"));' %></li>
 		</ul>
@@ -35,6 +29,17 @@
           <%= '<a href="#" class="next-child" onclick="return DCV.Show.FavoriteChildNavigation.previous(this);"><span class="glyphicon glyphicon-chevron-left"></span></a>'.html_safe if structured_children.length > 1 %>
           <img itemprop="contentUrl" onclick="$('.item-cbox').click();" src="<%= get_resolved_asset_url(id: child[:id], size: 768, type: 'full', format: 'jpg') %>" data-counter="1" data-sequence="0" data-zoom-url="<%= details_path(id: document[:id], layout:(request.path.split('/')[1])) %>" data-info-url="<%= get_resolved_asset_info_url(id: structured_children.first[:id], image_format: 'jpg') %>" data-bytestreams="<%= resolve_catalog_bytestreams_path(catalog_id: structured_children.first[:id], :format=>'json') %>"/>
           <%= '<a href="#" class="previous-child" onclick="return DCV.Show.FavoriteChildNavigation.next(this);"><span class="glyphicon glyphicon-chevron-right"></span></a>'.html_safe if structured_children.length > 1 %>
+					<div class="clearfix"></div>
+					<span id="favorite-child-item-in-context"><%
+						first_item_in_context_url = document.self_and_child_pids_to_item_in_context_urls.key?(child[:id]) ? document.self_and_child_pids_to_item_in_context_urls[child[:id]] : document.item_in_context_url
+						%><a
+							id="favorite-child-item-in-context-url"
+							style="<%= first_item_in_context_url.present? ? '' : 'display:none;' %>"
+							href="<%= first_item_in_context_url.present? ? first_item_in_context_url : '#' %>"
+							target="_blank"
+							data-toggle="tooltip"
+						title="Object in Context"> View Object in Context</a><%
+					%></span>
         <% end %>
       </div>
       <%= render_document_partials @document, ['gallery'] %>
