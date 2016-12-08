@@ -130,7 +130,6 @@ module Dcv::ChildrenHelperBehavior
 
   def structured_children
     @structured_children ||= begin
-      puts "@document['structured_bsi']: #{@document['structured_bsi'].to_s}"
       if @document['structured_bsi'] == true
         structured_children_from_solr || structured_children_from_fedora
       else
