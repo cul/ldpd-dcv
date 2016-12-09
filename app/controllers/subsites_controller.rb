@@ -90,6 +90,10 @@ class SubsitesController < ApplicationController
       render status: status, json: {"error" => "Invalid credentials"}
       return
     end
+    # TODO: If we eventually have different solr indexes for
+    # different subsites, make sure to use the correct solr
+    # url for each subsite. For now, it's safe to use our
+    # one and only Blacklight.solr url.
     Blacklight.solr.delete_by_id(pid)
     Blacklight.solr.commit
     render json: {
