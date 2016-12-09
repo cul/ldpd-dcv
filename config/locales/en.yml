@@ -20,4 +20,17 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  ldpd:
+    url:
+      repo:
+        "NyNyCAP": "http://library.columbia.edu/locations/avery/art-properties.html"
+        "NNC-A": "http://library.columbia.edu/locations/avery.html"
+        "NNBa": "http://library.barnard.edu/"
+        "NyNyCBL": "http://library.columbia.edu/locations/burke.html"
+        "NNC-EA": "http://library.columbia.edu/locations/eastasian.html"
+        "NNC-M": "http://library.cumc.columbia.edu/"
+        "NNC-L": "http://www.law.columbia.edu/library/"
+        "NyNyCMA": "http://library.columbia.edu/locations/music.html"
+        "NNC-RB": "http://library.columbia.edu/locations/rbml.html"
+        "NNC-UA": "http://library.columbia.edu/locations/cuarchives.html"
+
