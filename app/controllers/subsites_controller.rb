@@ -80,9 +80,7 @@ class SubsitesController < ApplicationController
       return
     end
     response.headers['Location'] = published_url
-    render json: {
-      "success" => true
-    }
+    render status: status, json: { "success" => true }
   end
 
   # DELETE /subsite/publish/:id
@@ -92,8 +90,8 @@ class SubsitesController < ApplicationController
       render status: status, json: {"error" => "Invalid credentials"}
       return
     end
-    rsolr.delete_by_id(pid)
-    rsolr.commit
+    Blacklight.solr.delete_by_id(pid)
+    Blacklight.solr.commit
     render json: {
       "success" => true
     }
