@@ -44,11 +44,26 @@ module ShowFieldDisplayFieldHelper
     }
   end
 
+  def show_date_field(args)
+    note_field = ActiveFedora::SolrService.solr_name('lib_date_notes', :displayable, type: :string)
+    values = args[:document][args[:field]]
+    notes = args[:document][note_field]
+    (Array(values) + Array(notes)).compact.join('; ')
+  end
+
   def link_to_url_value(args)
     values = args[:document][args[:field]]
 
     values.map {|value|
       link_to(value, value)
+    }
+  end
+
+  def link_to_clio(args)
+    values = args[:document][args[:field]]
+
+    values.map {|value|
+      link_to(value, "https://clio.columbia.edu/catalog/#{value}")
     }
   end
 
