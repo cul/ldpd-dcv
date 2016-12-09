@@ -93,13 +93,10 @@ function favoriteChild(child) {
   var dataSequence = $(child).attr('data-sequence');
   var bytestreamsUrl = $(child).attr('data-bytestreams');
   var infoUrl = $(child).attr('data-info-url');
+  var itemInContextUrl = $(child).is('[data-item-in-context-url]') ?  $(child).attr('data-item-in-context-url') : null;
   
   var $childContainer = $(child).closest('.child-container');
   var ccap = $childContainer.find('.caption').find('.index_title').text();
-  var itemInContextUrl = null;
-  if($childContainer.find('.item-in-context').find('.item-in-context-url').length > 0) {
-    itemInContextUrl = $childContainer.find('.item-in-context').find('.item-in-context-url').attr('href');
-  }
   if (screenUrl != screenImg.attr('src')) {
     $('#ct').html('<span style="color:#555;">Loading...</span>');
     $('#child_gallery a.document').removeClass('selected');
