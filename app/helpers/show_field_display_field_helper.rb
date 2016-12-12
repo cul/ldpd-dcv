@@ -35,10 +35,20 @@ module ShowFieldDisplayFieldHelper
       if display_value == 'Non-Columbia Location' && args[:document].get('lib_repo_text_ssm').present?
         return (args[:document].get('lib_repo_text_ssm') + '<br />' + link_to("(#{display_value})", url_for_facet_search)).html_safe
       else
-        return link_to(display_value, url_for_facet_search)
+        src = [link_to_repo_homepage(facet_value)]
+        src << '<em>' + 
+              link_to("Browse Location’s Digital Content",
+                      url_for_facet_search) + '</em>'
+        src.compact.join('<br />').html_safe
       end
     }
+  end
 
+  def show_date_field(args)
+    note_field = ActiveFedora::SolrService.solr_name('lib_date_notes', :displayable, type: :string)
+    values = args[:document][args[:field]]
+    notes = args[:document][note_field]
+    (Array(values) + Array(notes)).compact.join('; ')
   end
 
   def link_to_url_value(args)
@@ -46,6 +56,14 @@ module ShowFieldDisplayFieldHelper
 
     values.map {|value|
       link_to(value, value)
+    }
+  end
+
+  def link_to_clio(args)
+    values = args[:document][args[:field]]
+
+    values.map {|value|
+      link_to(value, "https://clio.columbia.edu/catalog/#{value}")
     }
   end
 
@@ -65,6 +83,31 @@ module ShowFieldDisplayFieldHelper
 
 
 
+  def get_short_repo_names_to_full_repo_names
+    short_repo_names_to_marc_codes = HashWithIndifferentAccess.new(I18n.t('ldpd.short.repo').invert)
+    marc_codes_to_full_repo_names = HashWithIndifferentAccess.new(I18n.t('ldpd.full.repo'))
+
+    new_hash = {}
+
+    short_repo_names_to_marc_codes.each {|key, value|
+      new_hash[key] = marc_codes_to_full_repo_names[value]
+    }
+
+    return new_hash
+  end
+
+  def get_short_repo_names_to_urls
+    short_repo_names_to_marc_codes = HashWithIndifferentAccess.new(I18n.t('ldpd.short.repo').invert)
+    marc_codes_to_urls = HashWithIndifferentAccess.new(I18n.t('ldpd.url.repo'))
+
+    new_hash = {}
+
+    short_repo_names_to_marc_codes.each {|key, value|
+      new_hash[key] = marc_codes_to_urls[value]
+    }
+
+    return new_hash
+  end
 
   def get_full_repo_names_to_short_repo_names
     full_repo_names_to_marc_codes = HashWithIndifferentAccess.new(I18n.t('ldpd.full.repo').invert)
@@ -105,4 +148,12 @@ module ShowFieldDisplayFieldHelper
     return new_hash
   end
 
+  # Link to a translated lib_repo_short_ssim value
+  # as a library location URL, if available
+  def link_to_repo_homepage(repo_short)
+    url = get_short_repo_names_to_urls[repo_short]
+    return unless url
+    label = get_short_repo_names_to_full_repo_names.fetch(repo_short, repo_short)
+    link_to(label, url)
+  end
 end
