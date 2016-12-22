@@ -36,7 +36,7 @@ module Dcv::ChildrenHelperBehavior
       fl << (title_field = document_show_link_field).to_s
     rescue
     end
-    child = {id: doc['id'], thumbnail: get_asset_url(id: doc['id'], size: 768, type: 'full', format: 'jpg')}
+    child = {id: doc['id'], pid: doc['id'], thumbnail: get_asset_url(id: doc['id'], size: 768, type: 'full', format: 'jpg')}
     if title_field
       title = doc[title_field.to_s]
       title = title.first if title.is_a? Array
@@ -76,8 +76,9 @@ module Dcv::ChildrenHelperBehavior
         node_id = (node['CONTENTIDS'])
 
 
-        node_thumbnail = get_resolved_asset_url(id: node_id, size: 256, type: 'full', format: 'jpg')
-
+        pid = identifier_to_pid(node_id)
+        node_thumbnail = get_asset_url(id: pid, size: 256, type: 'full', format: 'jpg')
+        
         if subsite_layout == 'durst'
           title = "Image #{counter}"
           counter += 1
@@ -85,7 +86,7 @@ module Dcv::ChildrenHelperBehavior
           title = node['LABEL']
         end
 
-        {id: node_id, title: title, thumbnail: node_thumbnail, order: node['ORDER'].to_i}
+        {id: node_id, title: title, thumbnail: node_thumbnail, pid: pid, order: node['ORDER'].to_i}
       end
       nodes
   end
@@ -121,6 +122,7 @@ module Dcv::ChildrenHelperBehavior
     kids.map do |kid|
       {
         id: kid['id'],
+        pid: kid['id'],
         order: (order += 1),
         title: proxies[kid['proxy_id']]['label_ssi'] || "Image #{order}",
         thumbnail: get_asset_url(id: kid['id'], size: 256, type: 'full', format: 'jpg'),
