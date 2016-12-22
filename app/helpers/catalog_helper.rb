@@ -9,13 +9,18 @@ module CatalogHelper
     true
   end
 
-  def short_link(document, opts={})
+  # truncate title to 30 characters if present
+  def short_title(document)
     title = document[document_show_link_field(document)]
     title = title.first if title.is_a? Array
-    if title.length > 30
+    if title && title.length > 30
       title = title[0..26] + '...'
     end
-    return link_to_document(document, {label: title}.merge(opts))
+    title
+  end
+
+  def short_link(document, opts={})
+    return link_to_document(short_title(document), {label: title}.merge(opts))
   end
 
   def resources_as_list_items(document=@document, css_class)
