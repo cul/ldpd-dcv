@@ -1,7 +1,7 @@
 <% counter_in_results = document_counter + row_offset + 1 + @response.params[:start].to_i -%>
 <div class="col-sm-12 list-view document <%= render_document_class document %>" itemscope itemtype="<%= document.itemtype %>">
   <div class="tombstone" data-number-of-members=<%= document[:cul_number_of_members_isi] || -1 %>>
-	<%= link_to_document(document, :counter => (@do_not_link_to_search ? nil : counter_in_results), label: render_thumbnail_tag(document, {class: 'img-square', itemprop: 'thumbnailUrl'},false), class: "thumbnail #{(subsite_layout.eql? 'ifp') ? 'col-sm-1' : 'col-sm-2'}") %>
+	<%= link_to_document(document, :counter => (@do_not_link_to_search ? nil : counter_in_results), label: render_thumbnail_tag(document, {class: 'img-square', itemprop: 'thumbnailUrl', alt: short_title(document)},false), class: "thumbnail #{(subsite_layout.eql? 'ifp') ? 'col-sm-1' : 'col-sm-2'}") %>
 		<div class="index-show-tombstone-fields hidden">
 			<h3 class="index_title"><%= t('blacklight.search.documents.counter', :counter => counter_in_results) %>
 				<%= link_to_document(document, :counter => (@do_not_link_to_search ? nil : counter_in_results)) %>
