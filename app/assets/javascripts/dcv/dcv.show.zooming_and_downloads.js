@@ -17,7 +17,8 @@ $(function() {
 
   //If we're on an page that should show downloads, load download links
   if($('#downloads-list').length > 0) {
-    loadDownloadsForItemShowPage($('#favorite-child img').attr('data-info-url'));
+    var infoReader = function(){ loadDownloadsForItemShowPage($(this).attr('data-info-url')) };
+    $('#favorite-child img').each(infoReader);
   }
 
 });
@@ -75,11 +76,10 @@ function initZoomingViewer(tileSources) {
 
 function handleImageChange(event) {
   var src = event.source;
-  var tile = event.tileSource;
   var dataId = "[none]";
   $("#children-links a[rel='child']").each(function(){
-    var iiifInfoUrl = $(this).attr('data-zoom-info-url').replace('/info.json', '');
-    if (iiifInfoUrl == src['@id']) {
+    var iiifInfoUrl = $(this).attr('data-zoom-info-url');
+    if (iiifInfoUrl == event.source) {
       dataInfoUrl = $(this).attr('data-info-url');
       loadDownloadsForItemShowPage(dataInfoUrl);
     }
