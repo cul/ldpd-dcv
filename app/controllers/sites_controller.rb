@@ -115,7 +115,6 @@ class SitesController < ApplicationController
         description: solr_doc.fetch('abstract_ssim',[]).first
       }
       t[:facet_value] = solr_doc.fetch('short_title_ssim',[]).first if published_to_catalog?(solr_doc)
-      Rails.logger.info t.inspect
       t
     end
   end
