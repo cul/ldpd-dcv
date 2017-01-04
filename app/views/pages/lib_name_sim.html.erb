@@ -7,7 +7,7 @@
   <% tab_map = {} -%>
   <% data['value_pairs'].each do |value, count| -%>
     <% # When sorting names, ignore leading non-letter characters and aggregate capital and lower case values into the same group. %>
-    <%- codepoint = value.gsub(/^\W/, '').downcase.codepoints.first -%>
+    <%- codepoint = first_sort_letter_for_string(value) -%>
     <% unless tab_map.include? codepoint -%>
       <li class="<%= 'active' if codepoint == first %>"><a href="#tab-<%= codepoint %>" role="tab" data-toggle="tab"><%= value[0] %></a></li>
       <% tab_map[codepoint] = [] %>
