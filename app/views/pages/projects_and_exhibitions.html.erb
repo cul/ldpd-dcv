@@ -1,11 +1,10 @@
-
-	<div id="digital_projects">
+<% all_projects = defined?(other_projects) && other_projects %>
+	<div id="<%= all_projects ? 'all_projects' : 'digital_projects' %>">
 		<h2 class="hide">Projects</h2>
 
 		<% all_proj_counter = 0 %>
 		<% proj_counter = 0 %>
-
-<% if not defined?(other_projects) && other_projects %>
+<% if !all_projects %>
 
 		<div class="row">
 		<% controller.digital_projects.each do |digital_project| %>
