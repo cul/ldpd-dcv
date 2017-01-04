@@ -6,7 +6,8 @@
   <% first = data['value_pairs'].first[0].codepoints.first %>
   <% tab_map = {} -%>
   <% data['value_pairs'].each do |value, count| -%>
-    <%- codepoint = value.downcase.codepoints.first -%>
+    <% # When sorting names, ignore leading non-letter characters and aggregate capital and lower case values into the same group. %>
+    <%- codepoint = value.gsub(/^\W/, '').downcase.codepoints.first -%>
     <% unless tab_map.include? codepoint -%>
       <li class="<%= 'active' if codepoint == first %>"><a href="#tab-<%= codepoint %>" role="tab" data-toggle="tab"><%= value[0] %></a></li>
       <% tab_map[codepoint] = [] %>
