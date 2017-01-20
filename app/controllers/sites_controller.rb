@@ -15,7 +15,8 @@ class SitesController < ApplicationController
       :fq => [
         'object_state_ssi:A', # Active items only
         'active_fedora_model_ssi:Concept',
-        'dc_type_sim:"Publish Target"'
+        'dc_type_sim:"Publish Target"',
+        '-slug_ssim:sites', # Do not include sites publish targets in this list
       ],
       :sort => "title_si asc",
       :qt => 'search'
@@ -47,13 +48,29 @@ class SitesController < ApplicationController
     config.add_show_field ActiveFedora::SolrService.solr_name('title', :symbol, type: :string), :label => 'Title'
     config.add_sort_field 'title_si asc', :label => 'title'
     
-    # Need to include default search field so that blank searches work from home page
+    # All Text search configuration, used by main search pulldown.
     config.add_search_field ActiveFedora::SolrService.solr_name('all_text', :searchable, type: :text) do |field|
       field.label = 'All Fields'
       field.default = true
       field.solr_parameters = {
         :qf => [ActiveFedora::SolrService.solr_name('all_text', :searchable, type: :text)],
         :pf => [ActiveFedora::SolrService.solr_name('all_text', :searchable, type: :text)]
+      }
+    end
+
+    config.add_search_field ActiveFedora::SolrService.solr_name('search_title_info_search_title', :searchable, type: :text) do |field|
+      field.label = 'Title'
+      field.solr_parameters = {
+        :qf => [ActiveFedora::SolrService.solr_name('title', :searchable, type: :text)],
+        :pf => [ActiveFedora::SolrService.solr_name('title', :searchable, type: :text)]
+      }
+    end
+
+    config.add_search_field ActiveFedora::SolrService.solr_name('lib_name', :searchable, type: :text) do |field|
+      field.label = 'Name'
+      field.solr_parameters = {
+        :qf => [ActiveFedora::SolrService.solr_name('lib_name', :searchable, type: :text)],
+        :pf => [ActiveFedora::SolrService.solr_name('lib_name', :searchable, type: :text)]
       }
     end
   end
@@ -107,7 +124,12 @@ class SitesController < ApplicationController
 
   # used in :index action
   def digital_projects
-    @document_list.each.map do |solr_doc|
+    @document_list.sort_by{|doc|
+      # Sort by title, ignoring articles
+      # Note: This is a bad way to do this. We shold be indexing the
+      # non-sort portion of the title into solr and sorting by that instead.
+      (doc['title_display_ssm'].present? ? doc['title_display_ssm'].first.gsub(/^[Aa]\s|[Aa]n\s|[Tt]he\s/, '') : '')
+    }.each.map do |solr_doc|
       t = {
         name: solr_doc.fetch('title_display_ssm',[]).first,
         image: thumbnail_url(solr_doc),
