@@ -1,8 +1,3 @@
-<%
-partner_key = document['contributor_ssim'].first.downcase
-partner_data = ifp_partner_data( partner_key ) || {} # TODO: Temporary fix for offices with spaces in name and chile+peru combo
-poster_path = asset_path(partner_data[:rep_flag])
-%>
 <div id="show-generic-resource">
   <div class="row">
     <div id="item-description" class="col-md-3" data-no-turbolink>
@@ -42,15 +37,20 @@ poster_path = asset_path(partner_data[:rep_flag])
         </div>
       </div>
       <% elsif ['Audio','Video'].include?(document['dc_type_ssm'].present? ?  document['dc_type_ssm'].first : nil) && document['service_dslocation_ss'].present? %>
-      <div id="generic-resource-content">
-        <div class="inner">
-            <div id="generic-resource-video">
-              <div class="mediaelement-wrapper">
-              <%= render :partial=>"catalog/generic_resource/#{document['dc_type_ssm'].first.downcase}", :locals=> {wowza_project: 'mediacache', media_path: document['service_dslocation_ss'].gsub('file:/ifs/cul/ldpd/', ''), poster_path: poster_path, width: 1024, height: 576} %>
+        <%
+        partner_key = document['contributor_ssim'].first.downcase
+        partner_data = ifp_partner_data( partner_key ) || {} # TODO: Temporary fix for offices with spaces in name and chile+peru combo
+        poster_path = asset_path(partner_data[:rep_flag])
+        %>
+        <div id="generic-resource-content">
+          <div class="inner">
+              <div id="generic-resource-video">
+                <div class="mediaelement-wrapper">
+                <%= render :partial=>"catalog/generic_resource/#{document['dc_type_ssm'].first.downcase}", :locals=> {wowza_project: 'mediacache', media_path: document['service_dslocation_ss'].gsub('file:/ifs/cul/ldpd/', ''), poster_path: poster_path, width: 1024, height: 576} %>
+                </div>
               </div>
-            </div>
+          </div>
         </div>
-      </div>
       <% end %>
       <div class="inner">
         <dl class="dl-horizontal">
