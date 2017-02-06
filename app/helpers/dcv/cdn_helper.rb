@@ -8,7 +8,7 @@ module Dcv::CdnHelper
     http.verify_mode = OpenSSL::SSL::VERIFY_NONE
     request = Net::HTTP::Get.new(uri.request_uri)
     response = http.request(request)
-    return response.code == '200'
+    return response.code == '200' && JSON.parse(response.body)['sizes'].present?
   end
 
   def get_asset_url(conditions)
