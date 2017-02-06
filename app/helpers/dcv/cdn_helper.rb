@@ -1,7 +1,7 @@
 module Dcv::CdnHelper
 
   def zoomable_image_exists_for_resource?(pid)
-    url_to_check = DCV_CONFIG['cdn_url'] + "/iiif/#{pid}/info.json"
+    url_to_check = DCV_CONFIG['cdn_url'] + "/iiif/2/#{pid}/info.json"
     uri = URI.parse(url_to_check)
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = true
@@ -31,11 +31,11 @@ module Dcv::CdnHelper
   end
 
   def get_iiif_zoom_info_url(conditions)
-    return  DCV_CONFIG['cdn_url'] + "/iiif/#{conditions[:id]}/info.json"
+    return  DCV_CONFIG['cdn_url'] + "/iiif/2/#{conditions[:id]}/info.json"
   end
 
   def get_resolved_iiif_zoom_info_url(conditions)
-    return  DCV_CONFIG['cdn_url'] + "/iiif/#{identifier_to_pid(conditions[:id])}/info.json"
+    return  DCV_CONFIG['cdn_url'] + "/iiif/2/#{identifier_to_pid(conditions[:id])}/info.json"
   end
 
   def thumbnail_url(document, options={})
