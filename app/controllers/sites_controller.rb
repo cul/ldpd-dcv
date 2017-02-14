@@ -74,6 +74,16 @@ class SitesController < ApplicationController
       }
     end
   end
+  
+  def index
+    respond_to do |format|
+      format.json {
+        (@response, @document_list) = get_search_results(params)
+        render json: digital_projects
+      }
+      format.any { super }
+    end
+  end
 
   def initialize(*args)
     super(*args)
