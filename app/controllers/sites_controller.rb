@@ -135,10 +135,10 @@ class SitesController < ApplicationController
   # used in :index action
   def digital_projects
     @document_list.sort_by{|doc|
-      # Sort by title, ignoring articles
+      # Sort by title, ignoring articles. Also strip leading and trailing whitespace.
       # Note: This is a bad way to do this. We shold be indexing the
       # non-sort portion of the title into solr and sorting by that instead.
-      (doc['title_display_ssm'].present? ? doc['title_display_ssm'].first.gsub(/^[Aa]\s|[Aa]n\s|[Tt]he\s/, '') : '')
+      (doc['title_display_ssm'].present? ? doc['title_display_ssm'].first.strip.gsub(/^[Aa]\s|[Aa]n\s|[Tt]he\s/, '').strip : '')
     }.each.map do |solr_doc|
       t = {
         name: solr_doc.fetch('title_display_ssm',[]).first,
