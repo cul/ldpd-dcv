@@ -28,12 +28,11 @@ featured_proj = controller.digital_projects.select { |proj| proj[:facet_value].p
             <div id="home-page-tabs" class="inner">
                 <!-- Nav tabs -->
                 <ul class="nav nav-tabs">
-                    <li class="active"><a href="#projects" data-toggle="tab">Selected Collections</a></li>
+                    <li class="active"><a href="#projects" data-toggle="tab">Searchable Collections</a></li>
                     <% @browse_lists.each do |facet_name, data| %>
                         <li><a href="#tab_<%= facet_name %>" data-toggle="tab"><%= data['display_label'] %></a></li>
                     <% end %>
-                    <li class="pull-right"><a href="#other-collections" data-toggle="tab">All Collections</a></li>
-					<!--li class="pull-right non-tab"><a onclick="window.open(this.href);return false;" data-toggle="tooltip" data-placement="left" href="http://library.columbia.edu/find/digital-collections.html" title="See All Digital Collections">All Collections <i class="glyphicon glyphicon-new-window"></i></a></li-->
+										<li class="pull-right non-tab"><a onclick="window.open(this.href);return false;" data-toggle="tooltip" data-placement="top" href="http://dev.library.columbia.edu/find/digital-library-collections.html" title="See All Digital Collections">All Collections <i class="glyphicon glyphicon-new-window"></i></a></li>
                 </ul>
 
                 <!-- Tab panes -->
