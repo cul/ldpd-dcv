@@ -14,11 +14,6 @@
 #   :oai_item_id => ["info:fedora/oai:example.edu:changeme:500"]
 #
 :predicate_mapping:
-  http://purl.oclc.org/NET/CUL/:
-    :cul_has_member: hasMember
-    :cul_member_of: memberOf
-    :cul_metadata_for: metadataFor
-    :cul_obsolete_from: obsoleteFrom
   http://creativecommons.org/ns#:
     :cc_license: license
   info:fedora/fedora-system:def/relations-external#: 
@@ -47,13 +42,18 @@
     :is_subset_of: isSubsetOf
   info:fedora/fedora-system:def/model#:
     :has_model: hasModel
-  http://purl.oclc.org/NET/CUL/RESOURCE/STILLIMAGE/BASIC/:
-    :cul_image_width: imageWidth
-    :cul_image_length: imageLength
   http://purl.oclc.org/NET/CUL/RESOURCE/STILLIMAGE/ASSESSMENT/:
     :x_sampling: xSamplingFrequency
     :y_sampling: ySamplingFrequency
     :sampling_unit: samplingFrequencyUnit
+  http://purl.oclc.org/NET/CUL/RESOURCE/STILLIMAGE/BASIC/:
+    :cul_image_width: imageWidth
+    :cul_image_length: imageLength
+  http://purl.oclc.org/NET/CUL/:
+    :cul_has_member: hasMember
+    :cul_member_of: memberOf
+    :cul_metadata_for: metadataFor
+    :cul_obsolete_from: obsoleteFrom
   http://purl.org/dc/terms/:
     :abstract: abstract
     :alternative: alternative
@@ -102,3 +102,5 @@
     :lineage: lineage
   http://www.w3.org/ns/ldp#:
     :ldp_contains: contains
+  http://iiif.io/api/image/2#:
+    :region_featured: regionFeatured
