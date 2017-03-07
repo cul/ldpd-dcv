@@ -11,12 +11,12 @@ describe SitesController, type: :feature do
   end
   describe "index" do
     before { visit root_url }
-    it "links to tabs" do
+    it "links to tabs and has external digital collections link" do
       expect(page).to have_xpath("/descendant::a[@href='#projects' and @data-toggle='tab']")
       expect(page).to have_xpath("/descendant::a[@href='#tab_lib_name_sim' and @data-toggle='tab']")
       expect(page).to have_xpath("/descendant::a[@href='#tab_lib_format_sim' and @data-toggle='tab']")
       expect(page).to have_xpath("/descendant::a[@href='#tab_lib_repo_long_sim' and @data-toggle='tab']")
-      expect(page).to have_xpath("/descendant::a[@href='#other-collections' and @data-toggle='tab']")
+      expect(page).to have_xpath("/descendant::a[@title='See All Digital Collections']")
     end
     context 'in the projects div' do
       it "links to internal_site" do
