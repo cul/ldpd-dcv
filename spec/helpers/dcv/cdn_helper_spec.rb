@@ -16,8 +16,8 @@ describe Dcv::CdnHelper, :type => :helper do
   let(:test_id) { 'test:1' }
   let(:image_id) { 'image:1' }
   before do
-    @original_config = DCV_CONFIG['cdn_url']
-    DCV_CONFIG['cdn_url'] = test_url
+    @original_config = DCV_CONFIG['cdn_urls']
+    DCV_CONFIG['cdn_urls'] = [test_url]
   end
   subject { helper.thumbnail_url(SolrDocument.new(document)) }
   context "document has a schema_image array" do

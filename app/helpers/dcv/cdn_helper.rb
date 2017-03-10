@@ -1,7 +1,7 @@
 module Dcv::CdnHelper
 
   def zoomable_image_exists_for_resource?(pid)
-    url_to_check = DCV_CONFIG['cdn_url'] + "/iiif/2/#{pid}/info.json"
+    url_to_check = Dcv::Utils::CdnUtils.random_cdn_url + "/iiif/2/#{pid}/info.json"
     uri = URI.parse(url_to_check)
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = true
@@ -12,7 +12,7 @@ module Dcv::CdnHelper
   end
 
   def get_asset_url(conditions)
-    return DCV_CONFIG['cdn_url'] + "/iiif/2/#{conditions[:id]}/#{conditions[:type]}/!#{conditions[:size]},#{conditions[:size]}/0/native.#{conditions[:format]}"
+    return Dcv::Utils::CdnUtils.random_cdn_url + "/iiif/2/#{conditions[:id]}/#{conditions[:type]}/!#{conditions[:size]},#{conditions[:size]}/0/native.#{conditions[:format]}"
   end
 
   def get_resolved_asset_url(conditions)
@@ -21,21 +21,19 @@ module Dcv::CdnHelper
   end
 
   def get_asset_info_url(conditions)
-    #return  DCV_CONFIG['cdn_url'] + "/images/#{conditions[:id]}/#{conditions[:image_format]}.json"
     get_iiif_zoom_info_url(conditions)
   end
 
   def get_resolved_asset_info_url(conditions)
-    #return DCV_CONFIG['cdn_url'] + "/images/#{identifier_to_pid(conditions[:id])}/#{conditions[:image_format]}.json"
     get_resolved_iiif_zoom_info_url(conditions)
   end
 
   def get_iiif_zoom_info_url(conditions)
-    return  DCV_CONFIG['cdn_url'] + "/iiif/2/#{conditions[:id]}/info.json"
+    return  Dcv::Utils::CdnUtils.random_cdn_url + "/iiif/2/#{conditions[:id]}/info.json"
   end
 
   def get_resolved_iiif_zoom_info_url(conditions)
-    return  DCV_CONFIG['cdn_url'] + "/iiif/2/#{identifier_to_pid(conditions[:id])}/info.json"
+    return  Dcv::Utils::CdnUtils.random_cdn_url + "/iiif/2/#{identifier_to_pid(conditions[:id])}/info.json"
   end
 
   def thumbnail_url(document, options={})

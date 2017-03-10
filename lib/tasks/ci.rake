@@ -188,7 +188,8 @@ namespace :dcv do
       ['development', 'test'].each do |env_name|
         dcv_yml[env_name] ||= {
           require_authentication: false,
-          cdn_url: 'http://localhost'
+          cdn_urls: ['http://localhost'],
+          num_load_balanced_cdn_urls: 0
         }
       end
       File.open(dcv_yml_file, 'w') {|f| f.write dcv_yml.to_yaml }
