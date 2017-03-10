@@ -28,6 +28,9 @@
 // OpenSeadragon
 //= require openseadragon
 //
+// OpenSeadragon override to make use of multiple CDN urls
+//= require openseadragon-cul-multicdn-override
+//
 // stupidtable
 //= require stupidtable
 //
