@@ -1,10 +1,20 @@
 <% counter_in_results = document_counter + row_offset + 1 + @response.params[:start].to_i -%>
 <div class="col-sm-3 document <%= render_document_class document %>" itemscope itemtype="<%= document.itemtype %>">
-  <div class="tombstone" data-number-of-members=<%= document[:cul_number_of_members_isi] || -1 %>>
-	<%= link_to_document(document, :counter => (@do_not_link_to_search ? nil : counter_in_results), label: render_thumbnail_tag(document, {class: 'img-square', itemprop: 'thumbnailUrl', alt: short_title(document)},false), class: 'thumbnail') %>
+	<% is_site_result = document['dc_type_ssm'].present? && document['dc_type_ssm'].include?('Publish Target') %>
+  <div class="tombstone <%= (is_site_result ? 'site-result' : '') %>" data-number-of-members=<%= document[:cul_number_of_members_isi] || -1 %>>
+		<% thumbnail_img_tag = render_thumbnail_tag(document, {class: 'img-square', itemprop: 'thumbnailUrl', alt: short_title(document)},false) %>
+		<% if is_site_result %>
+			<%= link_to_site_landing_page(document, label: thumbnail_img_tag, class: 'thumbnail') %>
+		<% else %>
+			<%= link_to_document(document, :counter => (@do_not_link_to_search ? nil : counter_in_results), label: thumbnail_img_tag, class: 'thumbnail') %>
+		<% end %>
 		<div class="index-show-tombstone-fields">
 			<h3 class="index_title ellipsis"><%= t('blacklight.search.documents.counter', :counter => counter_in_results) %>
-				<%= link_to_document(document, :counter => (@do_not_link_to_search ? nil : counter_in_results)) %>
+				<% if is_site_result %>
+					<%= link_to_site_landing_page(document) %>
+				<% else %>
+					<%= link_to_document(document, :counter => (@do_not_link_to_search ? nil : counter_in_results)) %>
+				<% end %>
 			</h3>
 			<%= '<div class="ellipsis">'.html_safe + document['lib_name_ssm'][0] + '</div>'.html_safe if document['lib_name_ssm'].present? %>
 		</div>
