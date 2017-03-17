@@ -45,12 +45,16 @@ module Dcv::Catalog::DateRangeSelectorBehavior
     max_number_of_segments = 50
     date_range_field_name = 'lib_date_year_range_si'
 
-    year_range_response = get_facet_field_response(date_range_field_name, params, {'facet.limit' => '1000000000'})
+    year_range_response = get_facet_field_response(date_range_field_name, params, {
+      'facet' => true,
+      'facet.limit' => '1000000000'
+    })
+    
     year_range_facet_values = []
 
     year_split_regex = /(-?\d\d\d\d)-(-?\d\d\d\d)/
 
-    if year_range_response['facet_counts']['facet_fields'][date_range_field_name].length == 0
+    unless year_range_response.fetch('facet_counts', {}).fetch('facet_fields', {})[date_range_field_name].present?
       @date_year_segment_data = nil
       return
     end

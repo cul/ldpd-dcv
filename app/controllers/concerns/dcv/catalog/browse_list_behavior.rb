@@ -52,11 +52,14 @@ module Dcv::Catalog::BrowseListBehavior
       ('f.' + facet_field_name + '.facet.limit').to_sym => -1,
     })
 
-    facet_response = response['facet_counts']['facet_fields'][facet_field_name]
-    values_and_counts['value_pairs'] = {}
-    facet_response.each_slice(2) do |value, count|
-      values_and_counts['value_pairs'][value] = count
-    end
+		values_and_counts['value_pairs'] = {}
+
+		if response.fetch('facet_counts', {}).fetch('facet_fields', {})[facet_field_name].present?
+			facet_response = response['facet_counts']['facet_fields'][facet_field_name]
+			facet_response.each_slice(2) do |value, count|
+				values_and_counts['value_pairs'][value] = count
+			end
+		end
 
     return values_and_counts
 
