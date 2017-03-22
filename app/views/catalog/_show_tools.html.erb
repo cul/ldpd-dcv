@@ -9,26 +9,4 @@
 -%>
 <div class="pull-right search-widgets btn-group btn-group-xs">
   <%= render_document_partials @document, ['show_tools'] %>
-  <div class="btn-group btn-group-xs">
-    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" data-tt="tooltip" title="Share this">
-      <i class="glyphicon glyphicon-share-alt"></i> <span class="caret"></span>
-      <span class="sr-only">Toggle Dropdown</span>
-    </button>
-
-    <ul id="share-options" class="dropdown-menu pull-right" role="menu">
-      <li class="hide">
-        <%= render_show_doc_actions @document %>
-      </li>
-      <li><a><span class='st_facebook' displayText='Facebook'></span></a></li>
-      <li><a><span class='st_twitter' displayText='Tweet'></span></a></li>
-      <li><a><span class='st_linkedin' displayText='LinkedIn'></span></a></li>
-      <li><a><span class='st_googleplus' displayText='Google +'></span></a></li>
-      <li><a><span class='st_email' displayText='Email'></span></a></li>
-      <li><a><span class='st_pinterest' displayText='Pinterest'></span></a></li>
-      <li><a><span class='st_tumblr' displayText='Tumblr'></span></a></li>
-      <li><a><span class='st_digg' displayText='Digg'></span></a></li>
-      <li><a><span class='st_delicious' displayText='Delicious'></span></a></li>
-      <li><a><span class='st_sharethis' displayText='ShareThis'></span></a></li>
-    </ul>
-  </div>
 </div>
