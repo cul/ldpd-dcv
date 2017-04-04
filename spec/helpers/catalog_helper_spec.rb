@@ -70,5 +70,9 @@ describe CatalogHelper, :type => :helper do
       # until we configure routes in this helper config
       it { is_expected.to be_a SolrDocument }
     end
+    context 'with nil' do
+      subject { helper.url_for_document(nil) }
+      it { is_expected.to be_nil }
+    end
   end
 end

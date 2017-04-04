@@ -17,8 +17,8 @@ module Dcv::DcvUrlHelper
   end
 
   def url_for_document(doc, options = {})
-    doc = SolrDocument.new(doc) unless doc.is_a? SolrDocument
-    if doc.site_result?
+    doc = SolrDocument.new(doc) unless doc.nil? or doc.is_a? SolrDocument
+    if doc.is_a?(SolrDocument) && doc.site_result?
       slug = doc['slug_ssim']
       is_restricted = doc['restriction_ssim'].present? && doc['restriction_ssim'].include?('Onsite')
       is_restricted ? restricted_site_path(slug) : site_path(slug)
