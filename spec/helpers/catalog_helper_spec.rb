@@ -41,4 +41,34 @@ describe CatalogHelper, :type => :helper do
       it { is_expected.to be_nil }
     end
   end
+  describe '#url_for_document' do
+    let(:slug) { 'sluggo' }
+    let(:document_show_link_field) { 'title_short' }
+    subject { helper.url_for_document(SolrDocument.new(document)) }
+    context 'with a site result' do
+      let(:document) do
+        {
+          'title_short' => '0123456789abc',
+          'title_long' => '0123456789abcdefghijklmnopqrstuvwxyz',
+          'title_long_array' => ['0123456789abcdefghijklmnopqrstuvwxyz'],
+          'dc_type_ssm' => ['Publish Target'],
+          'slug_ssim' => [slug]
+        }
+      end
+      it { is_expected.to eql('/sites/' + slug) }
+    end
+    context 'with a non-site result' do
+      let(:document) do
+        {
+          'title_short' => '0123456789abc',
+          'title_long' => '0123456789abcdefghijklmnopqrstuvwxyz',
+          'title_long_array' => ['0123456789abcdefghijklmnopqrstuvwxyz'],
+          'dc_type_ssm' => ['Unpublish Target'],
+          'slug_ssim' => [slug]
+        }
+      end
+      # until we configure routes in this helper config
+      it { is_expected.to be_a SolrDocument }
+    end
+  end
 end
