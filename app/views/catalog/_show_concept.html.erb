@@ -12,11 +12,11 @@
       <ul>
       <% dcv_search_link = document[:short_title_ssim].present? ? search_action_path(:f => {'lib_project_short_ssim' => [document[:short_title_ssim].first]}) : nil %>
       <% if dcv_search_link && controller.published_to_catalog?(document) %>
-        <li><%= link_to("Browse: #{document_show_html_title} content in the DLC", dcv_search_link) %></li>
+        <li><%= link_to("Browse: #{document_show_html_title} content in the DLC".html_safe, dcv_search_link) %></li>
       <% end %>
       <% target_link = document[:source_ssim].present? ? Array(document[:source_ssim]).first : nil %>
       <% if target_link %>
-        <li><%= link_to("Visit: #{document_show_html_title}", target_link) if target_link %></li>
+        <li><%= link_to("Visit: #{document_show_html_title}".html_safe, target_link) if target_link %></li>
       <% end %>
       </ul>
     </div>
