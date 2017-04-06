@@ -1,6 +1,8 @@
 class CatalogController < SubsitesController
 
   before_action :refresh_catalog_browse_lists_cache, only: [:home, :browse]
+  
+  self.solr_search_params_logic += [:hide_conceps_when_query_blank_filter]
 
   configure_blacklight do |config|
     Dcv::Configurators::DcvBlacklightConfigurator.configure(config)

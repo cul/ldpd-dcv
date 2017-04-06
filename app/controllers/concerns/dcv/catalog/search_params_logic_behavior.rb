@@ -10,6 +10,10 @@ module Dcv::Catalog::SearchParamsLogicBehavior
   #    solr_parameters[:fq] << '-active_fedora_model_ssi:GenericResource'
   #  end
   #end
+  
+  def hide_conceps_when_query_blank_filter(solr_parameters, user_parameters)
+    solr_parameters[:fq] << '-active_fedora_model_ssi:Concept' unless user_parameters[:q].present?
+  end
 
   def date_range_filter(solr_parameters, user_parameters)
 
