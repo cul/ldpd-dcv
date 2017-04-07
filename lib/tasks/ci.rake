@@ -180,6 +180,20 @@ namespace :dcv do
         }
       end
       File.open(cas_yml_file, 'w') {|f| f.write cas_yml.to_yaml }
+      
+      # roles.yml
+      roles_yml_file = File.join(Rails.root, 'config/roles.yml')
+      FileUtils.touch(roles_yml_file) # Create if it doesn't exist
+      roles_yml = YAML.load_file(roles_yml_file) || {
+        '_all_environments' => {
+          '*' => {
+            'can' => {
+              'catalog#*' => []
+            }
+          }
+        }
+      }
+      File.open(roles_yml_file, 'w') {|f| f.write roles_yml.to_yaml }
 
       # dcv.yml
       dcv_yml_file = File.join(Rails.root, 'config/dcv.yml')
