@@ -1135,3 +1135,25 @@ h2[itemprop="name"] {
 .inline-block {
 	display:inline-block;
 }
+
+#search-results {
+	.site-result a.thumbnail:hover {
+		text-decoration: none !important;
+	}
+	.site-result a.thumbnail::after {
+		content: 'Collection';
+		display:block;
+		color:#fff;
+		background-color:#6a6574;
+		border:1px solid #000;
+		border-width:1px 0 0;
+		text-align: center;
+		text-transform: uppercase;
+		height:21px;
+		margin-top:-21px;
+		line-height:20px;
+		position:relative;
+		font-weight:normal;
+		font-size:13px;
+	}
+}

@@ -9,8 +9,9 @@ class Dcv::Configurators::DcvBlacklightConfigurator
     config.default_solr_params = {
       :fq => [
         'object_state_ssi:A', # Active items only
-        'active_fedora_model_ssi:ContentAggregator', # Only show ContentAggregators in search results (not GenericResources, not BagAggregators, not Concepts)
+        'active_fedora_model_ssi:(ContentAggregator OR Concept)'
       ],
+      :bq => 'active_fedora_model_ssi:Concept^100', # Boost Concepts before all other results
       :qt => 'search'
     }
 

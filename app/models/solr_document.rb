@@ -53,4 +53,7 @@ class SolrDocument
     end
   end
 
+  def site_result?
+    self['dc_type_ssm'].present? && self['dc_type_ssm'].include?('Publish Target')
+  end
 end
