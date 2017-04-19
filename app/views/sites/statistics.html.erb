@@ -1,0 +1,30 @@
+<div class="row">
+  <div id="sidebar" class="col-md-3">
+    <div class="inner">
+      <h4>Digital Project Statistics</h4>
+			Some Item and Asset count statistics about searchable digital projects in DLC.
+    </div>
+  </div>
+
+  <div id="content" class="col-md-9">
+		<table class="table table-bordered table-condensed">
+			<tr>
+				<th>Digital Project</th>
+				<%= '<th>PID [dev]</th>'.html_safe if Rails.env.development? %>
+				<th>Items</th>
+				<th>Assets</th>
+			</tr>
+			<% @site_statistics.each do |site| %>
+				<tr>
+					<td><%= site[:publisher_title] %></td>
+					<%= "<td>#{site[:publisher_pid]}</td>".html_safe if Rails.env.development? %>
+					<td><%= site[:types_to_counts]['ContentAggregator'] || 0 %></td>
+					<td><%= site[:types_to_counts]['GenericResource'] || 0 %></td>
+				</tr>
+			<% end %>
+		</table>
+		
+  </div>
+
+</div>
+

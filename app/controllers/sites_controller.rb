@@ -124,6 +124,62 @@ class SitesController < ApplicationController
       end
     end
   end
+  
+  def statistics
+    @site_statistics = site_statistics_from_solr
+  end
+  
+  def site_statistics_from_solr
+    results = Blacklight.solr.get 'select', :params => {
+      :rows => 0,
+      :fl => '', # Don't need to return any fields because we're only using facet data
+      :qt => 'search',
+      :sort => 'id asc', # Sort for consistent order if we need to repeat the process mid-way through
+      :facet => true,
+      :fq => 'publisher_ssim:"' + SUBSITES['public']['catalog']['uri'] + '"',
+      :'facet.limit' => -1,
+      :'facet.pivot' => 'publisher_ssim,active_fedora_model_ssi'
+    }
+    
+    return [] unless results.fetch('facet_counts', {}).fetch('facet_pivot', {}).present?
+    
+    # Map publisher pids to titles
+    site_pids = results['facet_counts']['facet_pivot'].values[0].map{|site_pivot_facet_data| site_pivot_facet_data['value'].gsub('info:fedora/', '')}
+    publisher_pids_to_titles = {}
+    (Blacklight.solr.post 'select', :params => {
+      :rows => 99999,
+      :fl => 'id,title_display_ssm',
+      :fq => [
+        'id:("' + site_pids.join('" OR "') + '")',
+        'publisher_ssim:"' + SUBSITES['public']['catalog']['uri'] + '"', # Only find sites that have been published to the catalog publish target
+      ],
+      :qt => 'search',
+      :sort => 'id asc', # Sort for consistent order if we need to repeat the process mid-way through
+    })['response']['docs'].each do |doc|
+      publisher_pids_to_titles[doc['id']] = doc['title_display_ssm'][0]
+    end
+    
+    site_stats = []
+    results['facet_counts']['facet_pivot'].values[0].map do |site_pivot_facet_data|
+      publisher_pid = site_pivot_facet_data['value'].gsub('info:fedora/', '')
+      publisher_title = publisher_pids_to_titles[publisher_pid] || "[Title Unavailable: #{publisher_pid}]"
+      types_to_counts = Hash[site_pivot_facet_data['pivot'].map{|pivot_data| [pivot_data['value'], pivot_data['count']] }]
+      puts "#{publisher_pid} has title: #{publisher_title}"
+      site_stats << {
+        publisher_pid: publisher_pid,
+        publisher_title: publisher_title,
+        types_to_counts: types_to_counts
+      }
+    end
+    
+    site_stats.delete_if { |site|
+      # Delete site from list if its publish target pid doesn't appear in publisher_pids_to_titles
+      # (because only catalog-published publish targets are in publisher_pids_to_titles)
+      !publisher_pids_to_titles.include?(site[:publisher_pid])
+    }.sort_by! {|site|
+      site[:publisher_title] || ''
+    }
+  end
 
   def markdown_renderer
     @markdown_renderer ||= Redcarpet::Markdown.new(Redcarpet::Render::HTML,

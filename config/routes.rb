@@ -57,7 +57,12 @@ Dcv::Application.routes.draw do
   get 'jay/jayandfrance' => 'jay#jayandfrance', as: :jay_jayandfrance
   get 'jay/jayandslavery' => 'jay#jayandslavery', as: :jay_jayandslavery
 
-  resources 'sites', only: [:index, :show], param: :slug
+  resources 'sites', only: [:index, :show], param: :slug do
+    collection do
+      get 'statistics'
+    end
+  end
+  
   # Dynamic routes for catalog controller and all subsites
   subsite_keys = SUBSITES['public'].keys - ['uri']
   blacklight_for *(subsite_keys.map(&:to_sym)) # Using * operator to turn the array of values into a set of arguments for the blacklight_for method
