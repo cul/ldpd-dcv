@@ -50,7 +50,7 @@ module Dcv::Catalog::DateRangeSelectorBehavior
 
     year_split_regex = /(-?\d\d\d\d)-(-?\d\d\d\d)/
 
-    if year_range_response['facet_counts']['facet_fields'][date_range_field_name].length == 0
+    if year_range_response.fetch('facet_counts', {}).fetch('facet_fields', {}).fetch(date_range_field_name, {}).length == 0
       @date_year_segment_data = nil
       return
     end

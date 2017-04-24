@@ -11,11 +11,11 @@ module Dcv::Catalog::BrowseListBehavior
   }
 
   # Browse List Logic
-  
+
   def browse_lists_cache_key
 		return BROWSE_LISTS_KEY_PREFIX + controller_name
 	end
-  
+
   def get_catalog_browse_lists
     refresh_catalog_browse_lists_cache if Rails.env == 'development' || ! Rails.cache.exist?(browse_lists_cache_key)
     @browse_lists =  Rails.cache.read(browse_lists_cache_key)
@@ -52,10 +52,12 @@ module Dcv::Catalog::BrowseListBehavior
       ('f.' + facet_field_name + '.facet.limit').to_sym => -1,
     })
 
-    facet_response = response['facet_counts']['facet_fields'][facet_field_name]
-    values_and_counts['value_pairs'] = {}
-    facet_response.each_slice(2) do |value, count|
-      values_and_counts['value_pairs'][value] = count
+    if response.fetch('facet_counts', {}).fetch('facet_fields', {}).fetch(facet_field_name, {}).present?
+      facet_response = response['facet_counts']['facet_fields'][facet_field_name]
+      values_and_counts['value_pairs'] = {}
+      facet_response.each_slice(2) do |value, count|
+        values_and_counts['value_pairs'][value] = count
+      end
     end
 
     return values_and_counts
