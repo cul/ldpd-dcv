@@ -43,9 +43,9 @@ class Dcv::Configurators::JayBlacklightConfigurator
 
     config.add_facet_fields_to_solr_request! # Required for facet queries
 
-    
+
     config.add_facet_field ActiveFedora::SolrService.solr_name('lib_repo_short', :symbol), :label => 'Library Location', :sort => 'index', :limit => 10
-    config.add_facet_field ActiveFedora::SolrService.solr_name('lib_name', :facetable), :label => 'Name', :limit => 10, :sort => 'count'
+    config.add_facet_field ActiveFedora::SolrService.solr_name('lib_name', :facetable), :label => 'Name', :limit => 10, :sort => 'index'
     config.add_facet_field 'format_ssi', :label => 'System Format', :sort => 'count' if ['development', 'test', 'dcv_dev', 'dcv_private_dev'].include?(Rails.env)
 
     # Have BL send all facet field names to Solr, which has been the default
@@ -159,7 +159,7 @@ class Dcv::Configurators::JayBlacklightConfigurator
     config.add_sort_field 'title_si asc', :label => 'title'
     config.add_sort_field 'lib_start_date_year_itsi asc', :label => 'date (earliest to latest)'
     config.add_sort_field 'lib_start_date_year_itsi desc', :label => 'date (latest to earliest)'
-    
+
 
     # If there are more than this many search results, no spelling ("did you
     # mean") suggestion is offered.
