@@ -127,6 +127,10 @@ class SitesController < ApplicationController
   
   def statistics
     @site_statistics = site_statistics_from_solr
+    respond_to do |format|
+      format.json { render json: JSON.pretty_generate(@site_statistics) }
+      format.html
+    end
   end
   
   def site_statistics_from_solr
@@ -146,9 +150,10 @@ class SitesController < ApplicationController
     # Map publisher pids to titles
     site_pids = results['facet_counts']['facet_pivot'].values[0].map{|site_pivot_facet_data| site_pivot_facet_data['value'].gsub('info:fedora/', '')}
     publisher_pids_to_titles = {}
+    image_field = ActiveFedora::SolrService.solr_name('schema_image', :symbol, type: :string)
     (Blacklight.solr.post 'select', :params => {
       :rows => 99999,
-      :fl => 'id,title_display_ssm',
+      :fl => 'id,title_display_ssm,' + image_field,
       :fq => [
         'id:("' + site_pids.join('" OR "') + '")',
         'publisher_ssim:"' + SUBSITES['public']['catalog']['uri'] + '"', # Only find sites that have been published to the catalog publish target
@@ -156,22 +161,28 @@ class SitesController < ApplicationController
       :qt => 'search',
       :sort => 'id asc', # Sort for consistent order if we need to repeat the process mid-way through
     })['response']['docs'].each do |doc|
-      publisher_pids_to_titles[doc['id']] = doc['title_display_ssm'][0]
+      publisher_pids_to_titles[doc['id']] = {title: doc['title_display_ssm'][0], image: thumbnail_url(SolrDocument.new(doc)) }
     end
     
     site_stats = []
     results['facet_counts']['facet_pivot'].values[0].map do |site_pivot_facet_data|
       publisher_pid = site_pivot_facet_data['value'].gsub('info:fedora/', '')
-      publisher_title = publisher_pids_to_titles[publisher_pid] || "[Title Unavailable: #{publisher_pid}]"
+      publisher_title = "[Title Unavailable: #{publisher_pid}]"
+      publisher_image = ''
+      publisher_pids_to_titles.fetch(publisher_pid,{}).tap do |site_doc|
+        publisher_title = site_doc[:title] if site_doc[:title]
+        publisher_image = site_doc[:image] if site_doc[:image]
+      end
       types_to_counts = Hash[site_pivot_facet_data['pivot'].map{|pivot_data| [pivot_data['value'], pivot_data['count']] }]
       puts "#{publisher_pid} has title: #{publisher_title}"
       site_stats << {
         publisher_pid: publisher_pid,
         publisher_title: publisher_title,
-        types_to_counts: types_to_counts
+        types_to_counts: types_to_counts,
+        image: publisher_image
       }
     end
-    
+
     site_stats.delete_if { |site|
       # Delete site from list if its publish target pid doesn't appear in publisher_pids_to_titles
       # (because only catalog-published publish targets are in publisher_pids_to_titles)
