@@ -47,7 +47,7 @@ class SitesController < ApplicationController
     config.add_show_field ActiveFedora::SolrService.solr_name('source', :symbol, type: :string), :label => 'Site URL'
     config.add_show_field ActiveFedora::SolrService.solr_name('title', :symbol, type: :string), :label => 'Title'
     config.add_sort_field 'title_si asc', :label => 'title'
-    
+
     # All Text search configuration, used by main search pulldown.
     config.add_search_field ActiveFedora::SolrService.solr_name('all_text', :searchable, type: :text) do |field|
       field.label = 'All Fields'
@@ -74,7 +74,7 @@ class SitesController < ApplicationController
       }
     end
   end
-  
+
   def index
     respond_to do |format|
       format.json {
@@ -117,7 +117,7 @@ class SitesController < ApplicationController
       # export formats.
       @document.export_formats.each_key do | format_name |
         # It's important that the argument to send be a symbol;
-        # if it's a string, it makes Rails unhappy for unclear reasons. 
+        # if it's a string, it makes Rails unhappy for unclear reasons.
         format.send(format_name.to_sym) { render :text => @document.export_as(format_name), :layout => false }
       end
     end
@@ -139,7 +139,7 @@ class SitesController < ApplicationController
       # Note: This is a bad way to do this. We shold be indexing the
       # non-sort portion of the title into solr and sorting by that instead.
       (doc['title_display_ssm'].present? ? doc['title_display_ssm'].first.strip.gsub(/^[Aa]\s|[Aa]n\s|[Tt]he\s/, '').strip : '')
-    }.each.map do |solr_doc|
+    }.delete_if{|doc| doc['source_ssim'].blank? && doc['slug_ssim'].blank? }.each.map do |solr_doc|
       t = {
         name: solr_doc.fetch('title_display_ssm',[]).first,
         image: thumbnail_url(solr_doc),
@@ -166,7 +166,7 @@ class SitesController < ApplicationController
   def search_action_url options = {}
     url_for(options.merge(:action => 'index', :controller=>'catalog'))
   end
-  
+
   def set_browse_lists
     @browse_lists = get_catalog_browse_lists
   end
