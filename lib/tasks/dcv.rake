@@ -22,10 +22,10 @@ module Dlc
   end
   module Index
     def self.log_level=(level)
-      
+
       # Update (2016-02-22): (connection.api.send :logger) returns nil, but we aren't
       # seeing debug level ActiveFedora logging anymore, so we should be okay without this.
-      
+
       ## -- Don't do debug-level ActiveFedora logging --
       ## initialize the fedora connection if necessary
       #connection = (ActiveFedora::Base.fedora_connection[0] ||= ActiveFedora::RubydoraConnection.new(ActiveFedora.config.credentials)).connection
@@ -47,28 +47,31 @@ namespace :dcv do
   namespace :index do
     task :list => :environment do
       Dlc::Index.log_level = Logger::INFO
+
+      softcommit = (ENV['softcommit'] == 'false' ? false : true)
+
       start_time = Time.now
       Dlc::Pids.each(ENV['pid'],ENV['list']) do |pid,current,len|
-        Cul::Hydra::Indexer.index_pid(pid)
+        Cul::Hydra::Indexer.index_pid(pid, false, false, softcommit)
         puts "Processed #{pid} | #{current} of #{len} | #{Time.now - start_time} seconds"
         sleep(3) if current % 100 == 0
       end
     end
-    
+
     # Same as list task, but multithreaded
     # Note: This is experimental.
     task :list_multithreaded => :environment do
       Dlc::Index.log_level = Logger::INFO
       start_time = Time.now
       threads = (ENV['threads'] || 1).to_i
-      
+
       puts "Performing multithreaded indexing with #{threads} threads."
-      
+
       pool = Thread.pool(threads)
       mutex = Mutex.new
       async_counter = 0
       Dlc::Pids.each(nil,ENV['list']) do |pid,current,len|
-        
+
         # Synchronously	process	first row to reduce risk of autoloading	issues
         if current == 1
           Cul::Hydra::Indexer.index_pid(pid)
@@ -76,7 +79,7 @@ namespace :dcv do
           puts "Processed #{pid} | #{async_counter} of #{len} | #{Time.now - start_time} seconds"
           next
         end
-        
+
         pool.process {
           Cul::Hydra::Indexer.index_pid(pid)
           mutex.synchronize do
@@ -90,11 +93,14 @@ namespace :dcv do
 
     task :queue => :environment do
       Dlc::Index.log_level = Logger::INFO
+
+      softcommit = (ENV['softcommit'] == 'false' ? false : true)
+
       start_time = Time.now
       Dlc::Pids.each(ENV['pid'],ENV['list']) do |pid,current,len|
         # Queue for reindex
         # Since we only have one solr index right now, all index requests to go the main core and the 'subsite_keys' value does nothing
-        Dcv::Queue.index_object({'pid' => pid, 'subsite_keys' => ['catalog']})
+        Dcv::Queue.index_object({'pid' => pid, 'subsite_keys' => ['catalog'], 'softcommit' => softcommit})
         puts "Queued #{current} of #{len}"
       end
     end
@@ -130,7 +136,7 @@ namespace :dcv do
 
         puts "Added DLC publish target to #{pid} | #{counter} of #{total} | #{Time.now - start_time} seconds"
       end
-    end    
+    end
   end
 
 end
