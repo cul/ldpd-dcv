@@ -49,7 +49,7 @@ module Dcv::Catalog::DateRangeSelectorBehavior
       'facet' => true,
       'facet.limit' => '1000000000'
     })
-    
+
     year_range_facet_values = []
 
     year_split_regex = /(-?\d\d\d\d)-(-?\d\d\d\d)/

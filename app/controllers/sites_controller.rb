@@ -78,6 +78,8 @@ class SitesController < ApplicationController
   def index
     respond_to do |format|
       format.json {
+        response.headers['Access-Control-Allow-Origin'] = '*'
+        response.headers['Access-Control-Allow-Methods'] = 'GET'
         (@response, @document_list) = get_search_results(params)
         render json: digital_projects
       }

@@ -11,11 +11,11 @@ module Dcv::Catalog::BrowseListBehavior
   }
 
   # Browse List Logic
-  
+
   def browse_lists_cache_key
 		return BROWSE_LISTS_KEY_PREFIX + controller_name
 	end
-  
+
   def get_catalog_browse_lists
     refresh_catalog_browse_lists_cache if Rails.env == 'development' || ! Rails.cache.exist?(browse_lists_cache_key)
     @browse_lists =  Rails.cache.read(browse_lists_cache_key)

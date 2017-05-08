@@ -1143,16 +1143,17 @@ h2[itemprop="name"] {
 	.site-result a.thumbnail::after {
 		content: 'Collection';
 		display:block;
-		color:#000;
-		background-color:#FFD700;
-		border:1px solid #FFDE05;
-		border-width:1px 0px;
+		color:#fff;
+		background-color:#6a6574;
+		border:1px solid #000;
+		border-width:1px 0 0;
 		text-align: center;
+		text-transform: uppercase;
 		height:21px;
 		margin-top:-21px;
 		line-height:20px;
 		position:relative;
-		font-weight:bold;
+		font-weight:normal;
 		font-size:13px;
 	}
 }

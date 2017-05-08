@@ -20,7 +20,7 @@ class Dcv::Configurators::IfpBlacklightConfigurator
     config.default_per_page = 20
     config.per_page = [20,60,100]
     config.max_per_page = 100
-    
+
     # solr field configuration for search results/index views
     config.index.title_field = solr_name('title_display', :displayable, type: :string)
     config.index.display_type_field = ActiveFedora::SolrService.solr_name('has_model', :symbol)
@@ -47,8 +47,8 @@ class Dcv::Configurators::IfpBlacklightConfigurator
 
     config.add_facet_fields_to_solr_request! # Required for facet queries
 
-    config.add_facet_field ActiveFedora::SolrService.solr_name('contributor', :symbol), :label => 'Office', :limit => 10, :sort => 'count'
-    config.add_facet_field ActiveFedora::SolrService.solr_name('dc_type', :facetable), :label => 'Resource Type', :limit => 10, :sort => 'count', :helper_method => :pcdm_file_genre_display
+    config.add_facet_field ActiveFedora::SolrService.solr_name('contributor', :symbol), :label => 'Office', :limit => 10, :sort => 'index'
+    config.add_facet_field ActiveFedora::SolrService.solr_name('dc_type', :facetable), :label => 'Resource Type', :limit => 10, :sort => 'index', :helper_method => :pcdm_file_genre_display
 
 
     # Have BL send all facet field names to Solr, which has been the default
