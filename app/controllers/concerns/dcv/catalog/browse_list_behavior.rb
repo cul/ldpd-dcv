@@ -47,6 +47,7 @@ module Dcv::Catalog::BrowseListBehavior
     response = rsolr.get 'select', :params => CatalogController.blacklight_config.default_solr_params.merge({
       :q  => '*:*',
       :rows => 0,
+      :facet => true,
       :'facet.sort' => 'index', # We want Solr to order facets based on their type (alphabetically, numerically, etc.)
       :'facet.field' => [facet_field_name],
       ('f.' + facet_field_name + '.facet.limit').to_sym => -1,
