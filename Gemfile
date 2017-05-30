@@ -11,7 +11,7 @@ gem 'blacklight', '~> 5.7.2'
 gem 'hydra-head', '~>7'
 
 # Columbia Hydra models
-gem 'cul_hydra', '~> 1.4.7'
+gem 'cul_hydra', '~> 1.4.11'
 #gem 'cul_hydra', :path => '../cul_hydra'
 gem 'cul_omniauth', '~>0.5.2'
 gem 'active-triples', '~> 0.2.2'
