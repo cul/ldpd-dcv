@@ -51,7 +51,8 @@ class Dcv::Configurators::DcvBlacklightConfigurator
     config.add_facet_field ActiveFedora::SolrService.solr_name('lib_collection', :facetable), :label => 'Library Collection', :limit => 10, :sort => 'count'
     config.add_facet_field ActiveFedora::SolrService.solr_name('lib_repo_short', :symbol), :label => 'Library Location', :sort => 'index', :limit => 10
     config.add_facet_field ActiveFedora::SolrService.solr_name('lib_project_short', :symbol), :label => 'Digital Project', :limit => 10, :sort => 'count'
-    config.add_facet_field 'format_ssi', :label => 'System Format', :sort => 'count' if ['development', 'test', 'dcv_dev', 'dcv_private_dev'].include?(Rails.env)
+    config.add_facet_field 'format_ssi', :label => 'System Format', :sort => 'count' if ['development', 'test', 'dcv_dev'].include?(Rails.env)
+    config.add_facet_field 'publisher_ssim', :label => 'Publish Target (New)', :limit => 10, :sort => 'count', :helper_method => :publisher_transformer if ['development', 'test', 'dcv_dev'].include?(Rails.env)
 
     # Have BL send all facet field names to Solr, which has been the default
     # previously. Simply remove these lines if you'd rather use Solr request
