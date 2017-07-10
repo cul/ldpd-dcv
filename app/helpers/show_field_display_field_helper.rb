@@ -36,7 +36,7 @@ module ShowFieldDisplayFieldHelper
         return (args[:document].get('lib_repo_text_ssm') + '<br />' + link_to("(#{display_value})", url_for_facet_search)).html_safe
       else
         src = [link_to_repo_homepage(facet_value)]
-        src << '<em>' + 
+        src << '<em>' +
               link_to("Browse Location’s Digital Content",
                       url_for_facet_search) + '</em>'
         src.compact.join('<br />').html_safe
@@ -79,9 +79,6 @@ module ShowFieldDisplayFieldHelper
       return dirname
     }
   end
-
-
-
 
   def get_short_repo_names_to_full_repo_names
     short_repo_names_to_marc_codes = HashWithIndifferentAccess.new(I18n.t('ldpd.short.repo').invert)
@@ -156,4 +153,5 @@ module ShowFieldDisplayFieldHelper
     label = get_short_repo_names_to_full_repo_names.fetch(repo_short, repo_short)
     link_to(label, url)
   end
+
 end
