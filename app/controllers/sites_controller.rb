@@ -140,10 +140,10 @@ class SitesController < ApplicationController
       # Sort by title, ignoring articles. Also strip leading and trailing whitespace.
       # Note: This is a bad way to do this. We shold be indexing the
       # non-sort portion of the title into solr and sorting by that instead.
-      (doc['title_display_ssm'].present? ? doc['title_display_ssm'].first.strip.gsub(/^[Aa]\s|[Aa]n\s|[Tt]he\s/, '').strip : '')
+      (doc['title_ssm'].present? ? doc['title_ssm'].first.strip.gsub(/^[Aa]\s|[Aa]n\s|[Tt]he\s/, '').strip : '')
     }.delete_if{|doc| doc['source_ssim'].blank? && doc['slug_ssim'].blank? }.each.map do |solr_doc|
       t = {
-        name: solr_doc.fetch('title_display_ssm',[]).first,
+        name: solr_doc.fetch('title_ssm',[]).first,
         image: thumbnail_url(solr_doc),
         external_url: solr_doc.fetch('source_ssim',[]).first || site_url(solr_doc.fetch('slug_ssim',[]).first),
         description: solr_doc.fetch('abstract_ssim',[]).first
