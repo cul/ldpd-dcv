@@ -22,26 +22,40 @@
                 <div class="content">
                     <div class="" id="projects">
 
-					  <div class="col-sm-6">
-						<div class="row">
-							<div class="col-sm-12">
-							  <h4>University Seminars Digital Archive</h4>
-							  <p><a class="project-image-link" href="<%= restricted_universityseminars_index_path()  %>"><img src="<%= asset_url('digital_projects_page/usem.jpg'); %>" class="thumbnail img-responsive col-sm-5" alt="University Seminars" style="margin-right:1em;"></a>
-								Founded in 1944 by Frank Tannenbaum, The University Seminars are groups of professors and experts from Columbia University and elsewhere. Seminars gather monthly to work together on problems that cross the boundaries between university departments. <a style="display:block;" href="<%= restricted_universityseminars_index_path()  %>">View this content &raquo;</a></p>
-							</div>
-						</div>
-					  </div>
+          					  <div class="col-sm-6">
+            						<div class="row">
+            							<div class="col-sm-12">
+            							  <h4>Ford IFP Archive</h4>
+            								<p><a class="project-image-link" href="<%= restricted_ifp_index_path()  %>"><img src="<%= asset_url('ifp/IFP-square-logo.png'); %>" class="thumbnail img-responsive col-sm-5" alt="Ford IFP" style="margin-right:1em;"></a>
+            								The archives cover the issues of social justice, community development, and access to higher education, and include paper and digital documentation and audiovisual materials on the more than 4,300 IFP Fellows as well as comprehensive planning and administrative files of the program. <a style="display:block;" href="<%= restricted_ifp_index_path()  %>">View this content &raquo;</a></p>
+            							</div>
+            						</div>
+          					  </div>
 
-            <hr class="visible-xs">
-					  <div class="col-sm-6">
-						<div class="row">
-							<div class="col-sm-12">
-							  <h4>Ford IFP Archive</h4>
-								<p><a class="project-image-link" href="<%= restricted_ifp_index_path()  %>"><img src="<%= asset_url('ifp/IFP-square-logo.png'); %>" class="thumbnail img-responsive col-sm-5" alt="Ford IFP" style="margin-right:1em;"></a>
-								The archives cover the issues of social justice, community development, and access to higher education, and include paper and digital documentation and audiovisual materials on the more than 4,300 IFP Fellows as well as comprehensive planning and administrative files of the program. <a style="display:block;" href="<%= restricted_ifp_index_path()  %>">View this content &raquo;</a></p>
-							</div>
-						</div>
-					  </div>
+                      <hr class="visible-xs">
+
+                      <div class="col-sm-6">
+            						<div class="row">
+            							<div class="col-sm-12">
+            							  <h4>Thomas de Waal Interviews</h4>
+                            <% de_waal_search_link = restricted_catalog_index_path({search_field: 'all_text_teim', f: {lib_project_short_ssim: ['Thomas de Waal Interviews']}, q: ''}) %>
+            							  <p><a class="project-image-link" href="<%= de_waal_search_link %>"><img src="<%= asset_url('digital_projects_page/de_waal.jpg'); %>" class="thumbnail img-responsive col-sm-5" alt="University Seminars" style="margin-right:1em;"></a>
+            								Thomas de Waal conducted interviews with some sixty participants and policymakers during the struggle between former Soviet Republics Armenia and Azerbaijan over the disputed Nagorno-Karabakh region, and Russia’s conflict with the breakaway republic of Chechnya. These files are an important resource for scholars and journalists alike.<a style="display:block;" href="<%= de_waal_search_link %>">View this content &raquo;</a></p>
+            							</div>
+            						</div>
+            				  </div>
+
+                      <hr class="visible-xs">
+
+          					  <div class="col-sm-6">
+            						<div class="row">
+            							<div class="col-sm-12">
+            							  <h4>University Seminars Digital Archive</h4>
+            							  <p><a class="project-image-link" href="<%= restricted_universityseminars_index_path()  %>"><img src="<%= asset_url('digital_projects_page/usem.jpg'); %>" class="thumbnail img-responsive col-sm-5" alt="University Seminars" style="margin-right:1em;"></a>
+            								Founded in 1944 by Frank Tannenbaum, The University Seminars are groups of professors and experts from Columbia University and elsewhere. Seminars gather monthly to work together on problems that cross the boundaries between university departments. <a style="display:block;" href="<%= restricted_universityseminars_index_path() %>">View this content &raquo;</a></p>
+            							</div>
+            						</div>
+          					  </div>
 
                     </div>
                 </div>
