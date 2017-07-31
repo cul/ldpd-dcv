@@ -3,14 +3,12 @@
 		<% structured_children.each_with_index do |child, ix| -%>
 			<div class="col-sm-<%= (structured_children.length <= 2) ? '6' : '3' %>">
 				<article class="child-container">
-					<% item_in_context_url = document.self_and_child_pids_to_item_in_context_urls.key?(child[:id]) ? document.self_and_child_pids_to_item_in_context_urls[child[:id]] : document.item_in_context_url %>
-					<a rel="item-link" class="tocontent post thumbnail document blacklight-photographs <%= ix == 0 ? 'selected' : '' %>" data-original-title="<%= child[:title] %>" data-sequence="<%= ix %>" data-counter="<%= child[:order] %>" href="<%= get_resolved_asset_url(id: child[:id], size: 768, type: 'full', format: 'jpg') %>" data-info-url="<%= get_resolved_asset_info_url(id: child[:id], image_format: 'jpg') %>" data-bytestreams="<%= resolve_catalog_bytestreams_path(catalog_id: child[:id], :format=>'json') %>" onclick="favoriteChild(this); return false;" data-id="<%=child[:id]%>" <%= item_in_context_url.present? ? "data-item-in-context-url=\"#{item_in_context_url}\"".html_safe : '' %>>
+					<a rel="item-link" data-child-number="<%= ix %>" class="<%= ix == 0 ? 'selected' : '' %> tocontent post thumbnail document blacklight-photographs">
 						<img src="<%= get_resolved_asset_url(id: child[:id], size: 256, type: 'full', format: 'jpg') %>" alt="<%= child[:title] %>" />
 					</a>
 					<div class="caption aligncenter">
 						<div class="documentHeader">
 							<a rel="item-link" data-src="<%= get_resolved_asset_url(id: child[:id]) %>.json" data-id="<%=child[:id]%>"><i class="icon-zoom-in"></i></a>
-							<div class="documentFunctions"></div>
 							<div class="index_title">
 								<%= document['title_display_ssm'].present? && child[:title] == document['title_display_ssm'].first ? '&nbsp;'.html_safe : child[:title] %>
 							</div>

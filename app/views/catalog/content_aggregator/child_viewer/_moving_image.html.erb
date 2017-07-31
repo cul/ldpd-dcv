@@ -1,0 +1,9 @@
+<%# video_url = bytestream_content_path(catalog_id: child[:pid], bytestream_id: 'service') %>
+<% video_url = 'http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4' %>
+
+<%= render_media_element_progressive_download_video_player(
+  video_url,
+  get_resolved_asset_url(id: child[:id], size: 768, type: 'full', format: 'jpg'),
+  1024,
+  500)
+%>

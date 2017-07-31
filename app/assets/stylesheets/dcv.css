@@ -12,6 +12,7 @@
  *= require ./blacklight
  *= require jquery.ui.all
  *= require colorbox-rails
+ *= require ableplayer.min
  *
  *= require_tree './dcv'
 */

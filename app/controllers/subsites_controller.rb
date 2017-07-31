@@ -112,7 +112,7 @@ class SubsitesController < ApplicationController
   def show
     params[:format] = 'html'
 
-    @response, @document = get_solr_response_for_doc_id   
+    @response, @document = get_solr_response_for_doc_id
     return unless authorize_document
 
     respond_to do |format|
@@ -124,7 +124,7 @@ class SubsitesController < ApplicationController
       # export formats.
       @document.export_formats.each_key do | format_name |
         # It's important that the argument to send be a symbol;
-        # if it's a string, it makes Rails unhappy for unclear reasons. 
+        # if it's a string, it makes Rails unhappy for unclear reasons.
         format.send(format_name.to_sym) { render :text => @document.export_as(format_name), :layout => false }
       end
 
@@ -144,6 +144,10 @@ class SubsitesController < ApplicationController
 
   def subsite_layout
     SUBSITES[(self.class.restricted? ? 'restricted' : 'public')][self.controller_name]['layout']
+  end
+
+  def search_result_view_overrides
+    SUBSITES[(self.class.restricted? ? 'restricted' : 'public')][self.controller_name]['search_result_view_overrides'] || {}
   end
 
   def thumb_url(document={})

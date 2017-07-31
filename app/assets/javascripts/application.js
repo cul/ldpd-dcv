@@ -34,3 +34,6 @@
 // stupidtable
 //= require stupidtable
 //
+// ableplayer
+//= require ableplayer.min
+//

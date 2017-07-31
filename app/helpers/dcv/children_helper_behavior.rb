@@ -78,7 +78,7 @@ module Dcv::ChildrenHelperBehavior
 
         pid = identifier_to_pid(node_id)
         node_thumbnail = get_asset_url(id: pid, size: 256, type: 'full', format: 'jpg')
-        
+
         if subsite_layout == 'durst'
           title = "Image #{counter}"
           counter += 1
@@ -133,13 +133,39 @@ module Dcv::ChildrenHelperBehavior
   def structured_children
     @structured_children ||= begin
       if @document['structured_bsi'] == true
-        structured_children_from_solr || structured_children_from_fedora
+        children = structured_children_from_solr || structured_children_from_fedora
       else
-        nodes = document_children_from_model[:children]
+        children = document_children_from_model[:children]
         # just assign the order they came in, since there's no structure
-        nodes.each_with_index {|node, ix| node[:order] = ix + 1}
-        nodes
+        children.each_with_index {|child, ix| child[:order] = ix + 1}
       end
+
+      # Inject types from solr, using id lookup
+      child_ids = children.map {|child| child[:id]}
+      child_results = Blacklight.solr.get 'select', :params => {
+        :rows => child_ids.length,
+        :fl => ['dc_identifier_ssim', 'dc_type_ssm', 'id'],
+        :qt => 'search',
+        :fq => [
+          "dc_identifier_ssim:\"#{child_ids.join('" OR "')}\"",
+        ]
+      }
+      identifiers_to_dc_types = {}
+      identifiers_to_pids = {}
+      child_results['response']['docs'].each do |doc|
+        doc['dc_identifier_ssim'].each do |dc_identifier|
+          identifiers_to_dc_types[dc_identifier] = doc['dc_type_ssm'].first
+          identifiers_to_pids[dc_identifier] = doc['id']
+        end
+
+      end
+
+      children.each do |child|
+        child[:dc_type] = identifiers_to_dc_types[child[:id]] if identifiers_to_dc_types.key?(child[:id])
+        child[:pid] = identifiers_to_pids[child[:id]] if identifiers_to_pids.key?(child[:id])
+      end
+
+      children
     end
   end
 
@@ -167,13 +193,13 @@ module Dcv::ChildrenHelperBehavior
     label = node['label_ssi']
     if node["type_ssim"].include? RDF::NFO[:'#FileDataObject']
       # file
-      if node['pid'] 
+      if node['pid']
         content_tag(:tr,nil) do
-          c = ('<td data-title="Name">'+download_link(node, label, ['fs-file',html_class_for_filename(node['label_ssi'])])+' '+ 
+          c = ('<td data-title="Name">'+download_link(node, label, ['fs-file',html_class_for_filename(node['label_ssi'])])+' '+
             link_to('<span class="glyphicon glyphicon-info-sign"></span>'.html_safe, url_to_item(node['pid'],{return_to_filesystem:request.original_url}), title: 'More information')+
             '</td>').html_safe
           c += ('<td data-title="Size" data-sort-value="'+node['extent'].join(",").to_s+'">'+filesize+'</td>').html_safe
-          #c += content_tag(:a, 'Preview', href: '#', 'data-url'=>url_to_preview(node['pid']), class: 'preview') do 
+          #c += content_tag(:a, 'Preview', href: '#', 'data-url'=>url_to_preview(node['pid']), class: 'preview') do
           #  content_tag(:i,nil,class:'glyphicon glyphicon-info-sign')
           #end
           c

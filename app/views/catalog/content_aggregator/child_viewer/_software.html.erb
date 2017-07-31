@@ -1,0 +1,14 @@
+<!-- object data="<%= bytestream_content_url({catalog_id: child[:pid], filename: child[:label_ssi], bytestream_id: 'content', download: false}) %>" type="<%= child[:mime_type] %>" width="100%" height="1000px">
+ <p>Required plugin appears to be missing.
+ <%= link_to '<span class="glyphicon glyphicon-download"></span> Download Original'.html_safe, bytestream_content_url({catalog_id: child[:pid], filename: child[:label_ssi], bytestream_id: 'content', download: true}), class: 'btn btn-primary btn-sm' %>
+</object -->
+
+<div style="position:relative;">
+  <img src="<%= get_resolved_asset_url(id: child[:id], size: 768, type: 'full', format: 'jpg') %>" />
+  <p style="width:100%; text-align:center; position:absolute; bottom: 5%;">
+  <%= link_to '<span class="glyphicon glyphicon-download"></span> Download'.html_safe,
+    bytestream_content_url({catalog_id: child[:pid], filename: child[:label_ssi], bytestream_id: 'content', download: true}),
+    class: 'btn btn-primary btn-sm'
+  %>
+  </p>
+</div>

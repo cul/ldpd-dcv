@@ -18,34 +18,6 @@
     </div>
   </div>
   <div class="col-md-9">
-   <div class="inner">
-     <h3 id="doc-item-title" class="nomar"><%= document_show_html_title %></h3>
-     <% if ct = structured_children.first %>
-		   <p id="ct"><%= document['title_display_ssm'].present? && ct[:title] == document['title_display_ssm'].first ? '&nbsp;'.html_safe : ct[:title] %></p>
-     <% end %>
-     <%= '<br />There are no images available for this record.'.html_safe if structured_children.blank? %>
-      <div id="favorite-child">
-        <% if child = structured_children.first %>
-          <%= '<a href="#" class="next-child" onclick="return DCV.Show.FavoriteChildNavigation.previous(this);"><span class="glyphicon glyphicon-chevron-left"></span></a>'.html_safe if structured_children.length > 1 %>
-          <img itemprop="contentUrl" onclick="$('.item-cbox').click();" src="<%= get_resolved_asset_url(id: child[:id], size: 768, type: 'full', format: 'jpg') %>" data-counter="1" data-sequence="0" data-zoom-url="<%= details_path(id: document[:id], layout:(request.path.split('/')[1])) %>" data-info-url="<%= get_resolved_asset_info_url(id: structured_children.first[:id], image_format: 'jpg') %>" data-bytestreams="<%= resolve_catalog_bytestreams_path(catalog_id: structured_children.first[:id], :format=>'json') %>"/>
-          <%= '<a href="#" class="previous-child" onclick="return DCV.Show.FavoriteChildNavigation.next(this);"><span class="glyphicon glyphicon-chevron-right"></span></a>'.html_safe if structured_children.length > 1 %>
-					<div class="clearfix"></div>
-					<% if controller.subsite_key == 'catalog' || controller.subsite_key == 'restricted_catalog' %>
-						<% # Only show item in context URL if we're in the catalog controller, since it's the only subsite that isn't showing an item in its actual context %>
-						<span id="favorite-child-item-in-context"><%
-							first_item_in_context_url = document.self_and_child_pids_to_item_in_context_urls.key?(child[:id]) ? document.self_and_child_pids_to_item_in_context_urls[child[:id]] : document.item_in_context_url
-							%><a
-								id="favorite-child-item-in-context-url"
-								style="<%= first_item_in_context_url.present? ? '' : 'display:none;' %>"
-								href="<%= first_item_in_context_url.present? ? first_item_in_context_url : '#' %>"
-								target="_blank"
-								data-toggle="tooltip"
-							title="Object in Context"> View Object in Context</a><%
-						%></span>
-					<% end %>
-        <% end %>
-      </div>
-      <%= render_document_partials @document, ['gallery'] %>
-    </div>
+    <%= render partial: 'catalog/content_aggregator/content_aggregator_viewer', locals: { document: document } %>
   </div>
 </div>

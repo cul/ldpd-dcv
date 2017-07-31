@@ -52,6 +52,12 @@ $(document).ready(function(){
 		DCV.SearchResults.setSearchMode(DCV.SearchResults.SearchMode.EXTENDED);
 	});
 
+	if(DCV.search_result_view_override == 'list') {
+		DCV.SearchResults.setSearchMode(DCV.SearchResults.SearchMode.LIST);
+	} else if(DCV.search_result_view_override == 'grid') {
+		DCV.SearchResults.setSearchMode(DCV.SearchResults.SearchMode.GRID);
+	}
+
 	$('#return-to-results').on('click', function() {
 		DCV.SearchResults.setSearchMode(DCV.SearchResults.getCurrentSearchMode());
 	});

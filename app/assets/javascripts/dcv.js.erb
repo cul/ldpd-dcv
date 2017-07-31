@@ -4,16 +4,20 @@
 //= require 'dcv/dcv.general'
 //= require 'dcv/dcv.namespace'
 //= require 'dcv/dcv.search_results'
-//= require 'dcv/dcv.show'
 //= require 'dcv/dcv.show.zooming_and_downloads'
 //= require 'dcv/dcv.squares'
 
 
 
 $(document).ready(function(){
+  setupChildViewer();
+  setupDownloadButton();
 
-	$('.mediaelement-player video').each(function(){
+	$('.mediaelement-player video, video.mediaelement-player, audio.mediaelement-player').each(function(){
 		$(this).mediaelementplayer({
+      pluginPath: '/mediaelement/',
+      alwaysShowControls: true,
+      stretching: 'responsive',
 			success: function (mediaElement, domObject) {
 				//Optional triggers when the video has loaded
 
@@ -24,7 +28,7 @@ $(document).ready(function(){
 
 			},
 			error: function() {
-				console.log('errorz!');
+				console.log('mediaelement errorz!');
 			}
 		});
 
@@ -108,4 +112,130 @@ function mosaicDemo(container, proj) {
 function mosaicClick() {
 	//$('#burrito').attr('src',$(this).attr('data-scaled'));
 	$('#burrito').css('background-image','url('+$(this).attr('data-scaled')+')');
+}
+
+
+/**********************
+ * CHILD VIEWER STUFF *
+ **********************/
+
+function setupChildViewer() {
+  var $childCarouselElement = $('#child-viewer-carousel');
+  if($childCarouselElement.length == 0) { return; }
+
+  // Set up viewer carousel
+  $childCarouselElement.carousel({
+    interval: false // Do not automatically cycle
+  }).on('slid.bs.carousel', function(){
+    var $currentSlideElememt = $childCarouselElement.find('.item.active');
+    var childNumber = parseInt($currentSlideElememt.attr('data-child-number'));
+    //Remove selected class from previous gallery item
+    $('#child_gallery a[rel="item-link"].selected').removeClass('selected');
+    $('#child_gallery a[rel="item-link"][data-child-number="' + childNumber + '"]').addClass('selected');
+
+    //Update title, zoom links
+    $('#child-viewer-subtitle').html($currentSlideElememt.attr('data-child-title'));
+    if($currentSlideElememt.attr('data-is-image') == 'true') {
+      $('#child-zoom-modal-button').attr('href', $currentSlideElememt.attr('data-zoom-url')).show();
+      $('#child-zoom-new-window-button').attr('href', $currentSlideElememt.attr('data-zoom-url')).show();
+    } else {
+      $('#child-zoom-modal-button').hide();
+      $('#child-zoom-new-window-button').hide();
+    }
+
+    //Update download link
+    if($currentSlideElememt.attr('data-is-image') == 'true') {
+      $('#download-button').attr('data-download-content-url', ''); //Clear out previous download content url value if present
+      $('#download-button').attr('data-iiif-info-url', $currentSlideElememt.attr('data-iiif-info-url'))
+      $('#download-button-group').show();
+    } else if($currentSlideElememt.attr('data-download-content-url').length > 0) {
+      $('#download-button').attr('data-download-content-url', $currentSlideElememt.attr('data-download-content-url'));
+      $('#download-button-group').show();
+    } else {
+      $('#download-button-group').hide();
+    }
+
+    //Update item in context value, but don't show the link if it points to the current page
+    if($currentSlideElememt.attr('data-object-in-context-url').length > 0 && window.location.href != $currentSlideElememt.attr('data-object-in-context-url')) {
+      $('#child-viewer-object-in-context').html('View Object in Context').attr('href', $currentSlideElememt.attr('data-object-in-context-url'));
+    } else {
+      $('#child-viewer-object-in-context').html('&nbsp;').attr('href', '#');
+    }
+  });
+
+  //If carousel only has one item, hide left/right arrow controls
+  if($childCarouselElement.find('.item').length == 1) {
+    $childCarouselElement.find('.carousel-control').hide();
+  }
+
+  $childCarouselElement.on('click', 'img.zoomable', function(){
+    $('#child-zoom-modal-button').click(); //Clicking on the image itself is the same as clicking on the modal zoom button
+  });
+
+  // Set up viewer gallert links
+  $('#child_gallery a[rel="item-link"]').on('click', function(){
+		$childCarouselElement.carousel(parseInt($(this).attr('data-child-number')));
+	});
+
+  //Set up new window zoomable image button
+	$('#child-zoom-new-window-button').on('click', function(e){
+		e.preventDefault();
+		window.open($(this).attr('href'));
+	});
+
+  //Set up modal zoomable image button
+	$('#child-zoom-modal-button').on('click', function(e){
+		e.preventDefault();
+		$.colorbox({
+	    href: $(this).attr('href'),
+	    height:"90%",
+	    width:"90%",
+	    opacity:".6",
+	    fixed:true,
+	    iframe:true,
+	    preloading: false,
+	    title: '<a href="' + '#' + '"><span class="glyphicon glyphicon-download"></span> Download XML</a>'
+	  });
+	});
+
+  //Manually trigger slide load event for carousel so event function runs
+  $childCarouselElement.trigger('slid.bs.carousel');
+}
+
+function setupDownloadButton() {
+  if($('#download-button').length > 0) {
+    //Set up download button
+    $('#download-button').on('click', function(){
+
+      if($(this).attr('data-download-content-url').length > 0) {
+        $('#downloads-list').html('<li><a href="' + $(this).attr('data-download-content-url') + '"><span class="glyphicon glyphicon-download"></span> Download File</a></li>');
+      } else {
+        $('#downloads-list').html('<li>Loading...</li>');
+        var iiifImageInfoUrl = $(this).attr('data-iiif-info-url');
+
+        $.ajax({
+          dataType: "json",
+          url: iiifImageInfoUrl,
+          success: function(data){
+            $('#downloads-list').html('');
+            $('#downloads-list').append(getListItemContentFromInfoRequestData(data));
+          }
+        });
+      }
+    });
+  }
+}
+
+function getListItemContentFromInfoRequestData(data) {
+  var li_html = '';
+
+  var sizes = data['sizes'];
+  var sizeNames = ['small', 'medium', 'large', 'x-Large', 'xx-Large', 'xxx-Large']; // Probably more possible sizes than we will offer
+  var iiifUrlTemplate = data['@id'] + '/full/_width_,_height_/0/native.jpg?download=true';
+  for(var i = 0;i < sizes.length; i++){
+    dlName = sizeNames[i] + ' (' + sizes[i]['width'] + ' x ' + sizes[i]['height'] + ')';
+    li_html += '<li class="downloadItem"><a href="' + iiifUrlTemplate.replace('_width_', sizes[i]['width']).replace('_height_', sizes[i]['height']) + '" target="_blank"><span class="glyphicon glyphicon-download"></span> ' + dlName + '</a></li>'
+  }
+
+  return li_html;
 }
