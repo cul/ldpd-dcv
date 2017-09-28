@@ -21,6 +21,7 @@ module ApplicationHelper
         sort: 'id asc', # Sort for consistent order if we need to repeat the process mid-way through
         facet: true,
         fq: fq,
+        df: 'id',
         :'facet.field' => 'active_fedora_model_ssi',
         :'facet.limit' => -1,
         :'facet.pivot' => 'publisher_ssim,active_fedora_model_ssi'
