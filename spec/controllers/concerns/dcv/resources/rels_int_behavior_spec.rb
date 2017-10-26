@@ -24,11 +24,19 @@ describe Dcv::Resources::RelsIntBehavior, type: :unit do
   end
   describe '#resources_for_document' do
     let(:resource_keys) { subject.resources_for_document(document).collect {|x| x[:id] } }
-    it "returns a list of datastreams that are formats of the content datastream" do
-      expect(resource_keys).to include('content')
-      expect(resource_keys).to include('info:fedora/demo:1/file-reformat')
+    it "returns a list of datastreams that are content-bearing datastream" do
+      # it should link reformats indicated in RELS-INT
+      expect(resource_keys).to include('file-reformat')
+      # it should link other apparently content-bearing datastreams
+      expect(resource_keys).to include('thumbnail')
+      # the test object is an image, so don't link original
+      expect(resource_keys).not_to include('content')
+      # internal datastreams are explicitly excluded
+      expect(resource_keys).not_to include('RELS-EXT')
+      # metadata datastreams are explicitly excluded
+      expect(resource_keys).not_to include('descMetadata')
       # jp2 datastreams are explicitly excluded
-      expect(resource_keys).not_to include('info:fedora/demo:1/zoom')
+      expect(resource_keys).not_to include('zoom')
     end
   end
 end

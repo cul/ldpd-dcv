@@ -1,6 +1,7 @@
 ---
 id: demo:1
 active_fedora_model_ssi: GenericResource
+dc_type_ssm: StillImage
 object_profile_ssm:
   datastreams:
     content:
