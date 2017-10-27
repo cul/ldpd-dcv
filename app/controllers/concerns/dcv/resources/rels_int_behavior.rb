@@ -18,7 +18,8 @@ module Dcv::Resources::RelsIntBehavior
         label = ds_props["dsLabel"].split('/').last
         results[dsid].merge!( {
           id: dsid, title: label,
-          mime_type: ds_props["dsMIME"], url: url_for_content("info:fedora/#{document[:id]}/#{dsid}", File.extname(label).sub(/^\./,''))
+          mime_type: ds_props["dsMIME"],
+          url: url_for_content("info:fedora/#{document[:id]}/#{dsid}", label, ds_props["dsMIME"])
         })
       end
       # override the basic metadata if RELS-INT was indexed
@@ -55,9 +56,15 @@ module Dcv::Resources::RelsIntBehavior
     (dsid.present? and !INTERNAL_DSIDS.include?(dsid) and !METADATA_DSIDS.include?(dsid))
   end
 
-  def url_for_content(key, mime)
+  def url_for_content(key, dsLabel, mime)
     parts = key.split('/')
-    ext = mime.split('/')[-1].downcase
+    # Attempt to get extension from mime type
+    ext = mime.present? ? Rack::Mime::MIME_TYPES.invert[mime] : nil
+    # Fall back to filename extension, if present
+    ext = File.extname(dsLabel) if ext.nil? && dsLabel =~ /\.[A-Za-z0-9]+$/
+    # Fall back to bin extension if we cannot derive the mime type
+    ext = '.bin' if ext.nil?
+    ext = ext[1..-1]
     bytestream_content_url(catalog_id: parts[1], bytestream_id: parts[2], format: ext)
   end
 end

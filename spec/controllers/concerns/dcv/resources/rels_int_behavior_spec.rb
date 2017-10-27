@@ -4,7 +4,7 @@ describe Dcv::Resources::RelsIntBehavior, type: :unit do
   let(:test_class) do
     Class.new(ApplicationController) do
       include Dcv::Resources::RelsIntBehavior
-      def url_for_content(key, mime)
+      def url_for_content(key, dsLabel, mime)
         'localhost/' + key
       end
     end
