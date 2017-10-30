@@ -536,6 +536,7 @@ DEPENDENCIES
   leaflet-markercluster-rails
   leaflet-rails
   libv8 (>= 3.16.14.15)
+  mime-types
   mysql2 (= 0.3.18)
   nokogiri (~> 1.6.3)
   poltergeist
@@ -556,4 +557,4 @@ DEPENDENCIES
   unicorn
 
 BUNDLED WITH
-   1.14.3
+   1.15.4
