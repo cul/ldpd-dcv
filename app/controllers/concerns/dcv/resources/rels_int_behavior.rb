@@ -58,13 +58,25 @@ module Dcv::Resources::RelsIntBehavior
 
   def url_for_content(key, dsLabel, mime)
     parts = key.split('/')
-    # Attempt to get extension from mime type
-    ext = mime.present? ? Rack::Mime::MIME_TYPES.invert[mime] : nil
-    # Fall back to filename extension, if present
-    ext = File.extname(dsLabel) if ext.nil? && dsLabel =~ /\.[A-Za-z0-9]+$/
-    # Fall back to bin extension if we cannot derive the mime type
-    ext = '.bin' if ext.nil?
-    ext = ext[1..-1]
+
+    # Get extension from dsLabel if possible
+    ext = (dsLabel =~ /\.[A-Za-z0-9]+$/) ? File.extname(dsLabel)[1..-1] : nil
+
+    # If we can infer a label from the mime type, use that instead
+    if mime.present?
+      mime_type_object = MIME::Types[mime].first
+      if mime_type_object.present?
+        possible_extensions = mime_type_object.extensions
+        # If there is only one extension possibility for this mime type,
+        # OR if there are multiple possibilities and none of them match
+        # the mime type we got from the dsLabel, choose the first extension
+        ext = possible_extensions.first if possible_extensions.length == 1 || ! possible_extensions.include?(ext)
+      end
+    end
+
+    # Fall back to bin extension if we cannot determine the mime type
+    ext = 'bin' if ext.nil?
+
     bytestream_content_url(catalog_id: parts[1], bytestream_id: parts[2], format: ext)
   end
 end
