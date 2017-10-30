@@ -1,0 +1,107 @@
+---
+id: demo:1
+active_fedora_model_ssi: GenericResource
+dc_type_ssm: StillImage
+object_profile_ssm:
+  datastreams:
+    content:
+      dsLabel: example.jpg
+      dsVersionID: content.0
+      dsCreateDate: '2015-02-18T19:22:24Z'
+      dsState: A
+      dsMIME: image/jpeg
+      dsFormatURI: 
+      dsControlGroup: E
+      dsSize: 0
+      dsVersionable: true
+      dsInfoType: 
+      dsLocation: file:/preservation/bags/bag/data/objects/example.jpg
+      dsLocationType: URL
+      dsChecksumType: DISABLED
+      dsChecksum: none
+    file-reformat:
+      dsLabel: example-reformat.tif
+      dsVersionID: file-reformat.0
+      dsCreateDate: '2015-02-25T19:48:39Z'
+      dsState: A
+      dsMIME: image/tiff
+      dsFormatURI: 
+      dsControlGroup: E
+      dsSize: 0
+      dsVersionable: false
+      dsInfoType: 
+      dsLocation: file:/preservation/bags/bag/data/objects/example-reformat.tif
+      dsLocationType: URL
+      dsChecksumType: DISABLED
+      dsChecksum: none
+    zoom:
+      dsLabel: zoom.jp2
+      dsVersionID: zoom.0
+      dsCreateDate: '2015-05-20T03:03:02Z'
+      dsState: A
+      dsMIME: image/jp2
+      dsFormatURI: 
+      dsControlGroup: M
+      dsSize: 179874
+      dsVersionable: false
+      dsInfoType: 
+      dsLocation: demo:1+zoom+zoom.0
+      dsLocationType: INTERNAL_ID
+      dsChecksumType: DISABLED
+      dsChecksum: none
+    thumbnail:
+      dsLabel: thumbnail.jpg
+      dsVersionID: thumbnail.0
+      dsCreateDate: '2016-10-23T22:08:45Z'
+      dsState: A
+      dsMIME: image/jpeg
+      dsFormatURI: 
+      dsControlGroup: M
+      dsSize: 11355
+      dsVersionable: false
+      dsInfoType: 
+      dsLocation: demo:1+thumbnail+thumbnail.0
+      dsLocationType: INTERNAL_ID
+      dsChecksumType: DISABLED
+      dsChecksum: none
+    descMetadata: {}
+    rightsMetadata: {}
+    "AUDIT": {}
+    "DC": {}
+    "RELS-EXT": {}
+    "RELS-INT": {}
+rels_int_profile_tesim:
+  info:fedora/demo:1/file-reformat:
+    format_of:
+    - info:fedora/demo:1/content
+  info:fedora/demo:1/content:
+    extent:
+    - '94681'
+    format:
+    - image/jpeg
+    image_length:
+    - '600'
+    image_width:
+    - '800'
+    foaf_zooming:
+    - info:fedora/demo:1/zoom
+  info:fedora/demo:1/thumbnail:
+    extent:
+    - '13155'
+    format:
+    - jpg
+    image_length:
+    - '225'
+    image_width:
+    - '300'
+  info:fedora/demo:1/zoom:
+    extent:
+    - '189874'
+    format:
+    - jp2
+    format_of:
+    - info:fedora/demo:1/content
+    image_length:
+    - '600'
+    image_width:
+    - '800'
