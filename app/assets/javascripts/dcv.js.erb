@@ -207,7 +207,9 @@ function setupDownloadButton() {
     //Set up download button
     $('#download-button').on('click', function(){
 
-      if($(this).attr('data-download-content-url').length > 0) {
+      //If data-download-content-url is present, that means that we're offering a file download INSTEAD OF different image sizes
+
+      if(typeof($(this).attr('data-download-content-url')) != 'undefined' && $(this).attr('data-download-content-url').length > 0) {
         $('#downloads-list').html('<li><a href="' + $(this).attr('data-download-content-url') + '"><span class="glyphicon glyphicon-download"></span> Download File</a></li>');
       } else {
         $('#downloads-list').html('<li>Loading...</li>');
