@@ -27,6 +27,7 @@ gem 'mysql2', '0.3.18'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0.0'
+gem 'sass', '>= 3.5.3'
 
 # Use colorbox-rails gem for dialogs
 gem 'colorbox-rails'
