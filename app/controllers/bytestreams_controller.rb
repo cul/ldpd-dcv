@@ -109,33 +109,33 @@ class BytestreamsController < ApplicationController
     end
     length = to - from
     response.headers["Content-Range"] = "bytes #{from}-#{to}/#{size}"
+    puts 'response.headers["Content-Range"]: ' + response.headers["Content-Range"]
     response.headers["Content-Length"] = length.to_s
     response.status = 206 if from > 0 # When sending partial content rather than the entire file
 
-    self.response_body = Enumerator.new do |blk|
-      repo.datastream_dissemination(ds_parms.merge(:headers => {'Range' => "bytes=#{from}-#{size}"})) do |resp|
-        resp.read_body do |seg|
-          blk << seg
-        end
-      end
-    end
-
-    ## Rails 4 Streaming method
-    #
-    # repo.datastream_dissemination(ds_parms.merge(:headers => {'Range' => "bytes=#{from}-#{size}"})) do |resp|
-    #   begin
-    #     first_seg = true
+    # self.response_body = Enumerator.new do |blk|
+    #   repo.datastream_dissemination(ds_parms.merge(:headers => {'Range' => "bytes=#{from}-#{size}"})) do |resp|
     #     resp.read_body do |seg|
-    #       if first_seg
-    #         first_seg = false
-    #         puts 'First segment: ' + seg
-    #       end
-    #       response.stream.write seg
+    #       blk << seg
     #     end
-    #   ensure
-    #     response.stream.close
     #   end
     # end
+
+    # Rails 4 Streaming method
+    repo.datastream_dissemination(ds_parms.merge(:headers => {'Range' => "bytes=#{from}-#{size}"})) do |resp|
+      begin
+        # first_seg = true
+        resp.read_body do |seg|
+          # if first_seg
+          #   first_seg = false
+          #   puts 'Debug output first segment: ' + seg
+          # end
+          response.stream.write seg
+        end
+      ensure
+        response.stream.close
+      end
+    end
   end
 
   # translate a label into a rfc5987 encoded header value
