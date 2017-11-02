@@ -64,55 +64,76 @@ class BytestreamsController < ApplicationController
     end
     return unless authorize_document
 
-    ds_parms = {pid: params[:catalog_id], dsid: params[:bytestream_id]}
     response.headers["Last-Modified"] = Time.now.httpdate
+
+    ds_parms = {pid: params[:catalog_id], dsid: params[:bytestream_id]}
+
+    # Get connection to Fedora
+    repo = ActiveFedora::Base.connection_for_pid(ds_parms[:pid])
     ds = Cul::Hydra::Fedora.ds_for_opts(ds_parms)
+
+    # Get size, label and mimetype for this datastream
     size = params[:file_size] || params['file_size']
     size ||= ds.dsSize
+    if size.blank? || size == 0
+      # Get size of this datastream if we haven't already.  Note: dsSize property won't work for external datastreams
+      # From: https://github.com/samvera/rubydora/blob/1e6980aa1ae605677a5ab43df991578695393d86/lib/rubydora/datastream.rb#L423-L428
+      repo.datastream_dissemination(ds_parms) do |resp|
+        if content_length = response.headers[:content_length]
+          size = content_length.to_i
+        else
+          size = resp.body.length
+        end
+      end
+    end
     label = ds.dsLabel.present? ? ds.dsLabel.split('/').last : 'file'
     if label
       response.headers["Content-Disposition"] = label_to_content_disposition(label,(params['download'].to_s == 'true'))
     end
-    ###########################
-    if size and size.to_i > 0
-      response.headers["Content-Length"] = [size]
-    end
     response.headers["Content-Type"] = ds.mimeType
 
-    self.response_body = Enumerator.new do |blk|
-      repo = ActiveFedora::Base.connection_for_pid(ds_parms[:pid])
-      repo.datastream_dissemination(ds_parms) do |res|
-        res.read_body do |seg|
-          blk << seg
+    # Handle range requests
+    response.headers['Accept-Ranges'] = 'bytes' # Inform client that we accept range requests
+    length = size # no length specified by default
+    content_headers_for_fedora = {}
+    success = 200
+    if request.headers['Range'].present?
+      # Example Range header value: "bytes=18022400-37581888"
+      range_matchdata = request.headers['Range'].match(/bytes=(\d+)-(\d+)*/)
+      if range_matchdata
+        from = range_matchdata.captures[0].to_i
+        to = size - 1 # position for full size assumed by default
+        if range_matchdata.captures.length > 1 && range_matchdata.captures[1].present?
+          to = range_matchdata.captures[1].to_i
         end
+        length = to - from
+        success = 206
+        content_headers_for_fedora = {'Range' => "bytes=#{from}-#{to}"}
+        response.headers["Content-Range"] = "bytes #{from}-#{to}/#{size}"
+        response.headers["Cache-Control"] = 'no-cache'
       end
     end
-    ###########################
-    # TODO: Eventually use new Rails streaming method
-#    if size and size.to_i > 0
-#			response.headers["Content-Length"] = size
-#		end
-#    bytes = 0
-#    repo = ActiveFedora::Base.connection_for_pid(ds_parms[:pid])
-#    repo.datastream_dissemination(ds_parms) do |res|
-#			begin
-#				res.read_body do |seg|
-#					response.stream.write seg
-#					bytes += seg.length
-#				end
-#			ensure
-#				response.stream.close
-#			end
-#		end
-		###########################
 
+    response.headers["Content-Length"] = length.to_s
+
+    # Rails 4 Streaming method
+    repo.datastream_dissemination(ds_parms.merge(:headers => content_headers_for_fedora)) do |resp|
+      response.status = success
+      begin
+        resp.read_body do |seg|
+          response.stream.write seg
+        end
+      ensure
+        response.stream.close
+      end
+    end
   end
 
   # translate a label into a rfc5987 encoded header value
   # see also http://tools.ietf.org/html/rfc5987#section-4.1
   def label_to_content_disposition(label,attachment=false)
-    value = attachment ? 'attachment; ' : ''
-    value << "filename*=utf-8''#{label.gsub(' ','%20').gsub(',','%2C')}"
+    value = attachment ? 'attachment; ' : 'inline'
+    value << "; filename*=utf-8''#{label.gsub(' ','%20').gsub(',','%2C')}"
     value
   end
 end

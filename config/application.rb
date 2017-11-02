@@ -10,7 +10,7 @@ module Dcv
   class Application < Rails::Application
     include Cul::Omniauth::FileConfigurable
 
-    config.middleware.use Rack::Deflater # Use GZip on responses whenever possible
+    #config.middleware.use Rack::Deflater # Use GZip on responses whenever possible
 
     config.generators do |g|
       g.test_framework :rspec, :spec => true

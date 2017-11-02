@@ -289,8 +289,8 @@ input {
 				margin-top: .5em;
 			}
 			.thumbnail {
-				.img-square { 
-					background-color:$color_4; 
+				.img-square {
+					background-color:$color_4;
 				}
 			}
 		}
@@ -1090,9 +1090,6 @@ h2[itemprop="name"] {
 .filesystem #doc-item-title {
 	margin-bottom: .75em;
 }
-#item-show #share-options .stButton {
-	display: block !important;
-}
 #ajax-modal .modal-content {
 	color: $color_20;
 	background-color: $color_0;
@@ -1155,5 +1152,48 @@ h2[itemprop="name"] {
 		position:relative;
 		font-weight:normal;
 		font-size:13px;
+	}
+}
+
+/******************
+ * ITEM SHOW PAGE *
+ ******************/
+
+#child-viewer {
+
+	.btn {
+		border-radius:0 !important;
+	}
+	#child-viewer-title {
+		margin-top:0;
+		margin-bottom:0;
+		font-size:1.5em;
+	}
+
+	#child-viewer-carousel {
+		margin: 0 55px .5em;
+
+		.carousel-control {
+			width:55px;
+			margin:0 -65px;
+		}
+
+		.item {
+
+			.child-content {
+				text-align: center;
+				img {
+					max-height: 500px;
+    			max-width: 100%;
+					border: 1px solid #888;
+
+					&.zoomable {
+						cursor: -moz-zoom-in;
+						cursor: -webkit-zoom-in;
+						cursor: zoom-in;
+					}
+				}
+			}
+		}
 	}
 }

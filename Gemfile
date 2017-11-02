@@ -9,6 +9,9 @@ gem 'actionpack-action_caching'
 gem 'nokogiri', '~> 1.6.3'
 gem 'blacklight', '~> 5.7.2'
 gem 'hydra-head', '~>7'
+gem 'active-fedora', '>= 7.3.1'
+#gem 'rubydora', :path => '../rubydora'
+gem 'rubydora', :git => 'https://github.com/elohanlon/rubydora', branch: 'datastream_dissemination_with_headers'
 
 # Columbia Hydra models
 gem 'cul_hydra', '~> 1.4.11'
@@ -73,9 +76,6 @@ end
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
-# Use unicorn as the app server
-gem 'unicorn'
-
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
@@ -102,5 +102,11 @@ group :development, :test do
   gem 'rubocop-rspec', require: false
 end
 
+# Add unicorn as available app server
+#gem 'unicorn'
+
 # Use Thin for local development
 #gem "thin"
+
+# Use Puma for local development
+gem 'puma'

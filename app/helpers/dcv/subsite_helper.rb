@@ -10,7 +10,19 @@ module Dcv::SubsiteHelper
   def subsite_layout
     return controller.respond_to?(:subsite_layout) ? controller.subsite_layout : DEFAULT_SUBSITE_LAYOUT
   end
-  
+
+  def search_result_view_override_for_current_project_facet
+    return nil unless controller.respond_to?(:search_result_view_overrides)
+    search_result_view_overrides = controller.search_result_view_overrides
+
+    current_project_facet_value = params.fetch(:f, {}).fetch('lib_project_short_ssim', []).first
+    if search_result_view_overrides.key?(current_project_facet_value)
+      search_result_view_overrides[current_project_facet_value]
+    else
+      'none'
+    end
+  end
+
   def subsite_alert_message
     if controller.respond_to?(:subsite_config)
       return controller.subsite_config['alert_message'].present? ? controller.subsite_config['alert_message'] : ''

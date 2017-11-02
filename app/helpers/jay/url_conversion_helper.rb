@@ -2614,7 +2614,6 @@ module Jay::UrlConversionHelper
 						"columbia.jay.03988" => "ldpd:28658",
 						"columbia.jay.03986" => "ldpd:28680",
 						"columbia.jay.03987" => "ldpd:28666",
-						"columbia.jay.00125" => "ldpd:2872",
 						"columbia.jay.03979" => "ldpd:28700",
 						"columbia.jay.03985" => "ldpd:28688",
 						"columbia.jay.03978" => "ldpd:28704",
@@ -11726,7 +11725,7 @@ module Jay::UrlConversionHelper
 						"columbia.jay.03068" => "ldpd:87965",
 						"columbia.jay.01330" => "ldpd:88043",
 						"columbia.jay.00157" => "ldpd:88105",
-						"columbia.jay.00125" => "ldpd:88111",
+						"columbia.jay.00125" => "ldpd:88111", # Also duplicate "ldpd:2872" ?
 						"columbia.jay.02586" => "ldpd:87985",
 						"columbia.jay.00055" => "ldpd:88117",
 						"columbia.jay.04313" => "ldpd:87895",
