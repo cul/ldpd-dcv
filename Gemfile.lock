@@ -1,5 +1,7 @@
-PATH
-  remote: ../rubydora
+GIT
+  remote: git://github.com/elohanlon/rubydora.git
+  revision: c8f06c80cdb9fea30bb9717e97743025913bb990
+  branch: datastream_dissemination_with_headers
   specs:
     rubydora (2.0.0)
       activemodel

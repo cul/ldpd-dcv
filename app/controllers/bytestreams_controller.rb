@@ -94,42 +94,32 @@ class BytestreamsController < ApplicationController
 
     # Handle range requests
     response.headers['Accept-Ranges'] = 'bytes' # Inform client that we accept range requests
-    from = 0 # start from beginning of file by default
-    to = size # full size assumed by default
     length = size # no length specified by default
+    content_headers = {}
+    success = 200
     if request.headers['Range'].present?
       # Example Range header value: "bytes=18022400-37581888"
       range_matchdata = request.headers['Range'].match(/bytes=(\d+)-(\d+)*/)
       if range_matchdata
         from = range_matchdata.captures[0].to_i
+        to = size - 1 # position for full size assumed by default
         if range_matchdata.captures.length > 1 && range_matchdata.captures[1].present?
           to = range_matchdata.captures[1].to_i
         end
+        content_headers = {'Range' => "bytes=#{from}-#{to}"}
+        success = 206
+        response.headers["Content-Range"] = "bytes #{from}-#{to}/#{size}"
+        length = to - from
       end
     end
-    length = to - from
-    response.headers["Content-Range"] = "bytes #{from}-#{to}/#{size}"
-    puts 'response.headers["Content-Range"]: ' + response.headers["Content-Range"]
-    response.headers["Content-Length"] = length.to_s
-    response.status = 206 if from > 0 # When sending partial content rather than the entire file
 
-    # self.response_body = Enumerator.new do |blk|
-    #   repo.datastream_dissemination(ds_parms.merge(:headers => {'Range' => "bytes=#{from}-#{size}"})) do |resp|
-    #     resp.read_body do |seg|
-    #       blk << seg
-    #     end
-    #   end
-    # end
+    response.headers["Content-Length"] = length.to_s
 
     # Rails 4 Streaming method
-    repo.datastream_dissemination(ds_parms.merge(:headers => {'Range' => "bytes=#{from}-#{size}"})) do |resp|
+    repo.datastream_dissemination(ds_parms.merge(:headers => content_headers)) do |resp|
+      response.status = success
       begin
-        # first_seg = true
         resp.read_body do |seg|
-          # if first_seg
-          #   first_seg = false
-          #   puts 'Debug output first segment: ' + seg
-          # end
           response.stream.write seg
         end
       ensure
