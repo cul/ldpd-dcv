@@ -11,7 +11,7 @@ gem 'blacklight', '~> 5.7.2'
 gem 'hydra-head', '~>7'
 gem 'active-fedora', '>= 7.3.1'
 #gem 'rubydora', :path => '../rubydora'
-gem 'rubydora', github: 'elohanlon/rubydora', branch: 'datastream_dissemination_with_headers'
+gem 'rubydora', :git => 'https://github.com/elohanlon/rubydora', branch: 'datastream_dissemination_with_headers'
 
 # Columbia Hydra models
 gem 'cul_hydra', '~> 1.4.11'

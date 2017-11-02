@@ -1,5 +1,5 @@
 GIT
-  remote: git://github.com/elohanlon/rubydora.git
+  remote: https://github.com/elohanlon/rubydora
   revision: c8f06c80cdb9fea30bb9717e97743025913bb990
   branch: datastream_dissemination_with_headers
   specs:
@@ -571,4 +571,4 @@ DEPENDENCIES
   uglifier (>= 1.3.0)
 
 BUNDLED WITH
-   1.15.4
+   1.16.0
