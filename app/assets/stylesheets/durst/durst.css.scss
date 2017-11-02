@@ -398,6 +398,12 @@ a, .btn-link {
 }
 .carousel-control {
 	color: $color_26;
+	&.right, &.left {
+		background:transparent;
+		.glyphicon {
+			color:#000;
+		}
+	}
 }
 .carousel-fade {
 	.carousel-inner {
