@@ -27,6 +27,7 @@
       <!-- Wrapper for slides -->
       <div class="carousel-inner" role="listbox">
         <% structured_children.each_with_index do |child, ix| %>
+          <% next if child[:pid].blank? # Skip rendering of unpublished children %>
           <% child_title = child[:title].present? ? child[:title].strip : '' %>
           <% item_in_context_url = document.self_and_child_pids_to_item_in_context_urls.key?(child[:id]) ? document.self_and_child_pids_to_item_in_context_urls[child[:id]] : document.item_in_context_url %>
           <div class="item <%= ix == 0 ? 'active' : '' %>"
