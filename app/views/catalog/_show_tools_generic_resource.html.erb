@@ -1,9 +1,11 @@
 <% if @document['dc_type_ssm'].present? && @document['dc_type_ssm'].first.eql?('StillImage') %>
-  <a class="btn btn-default item-cbox" data-original-title="<%= document_show_html_title %>" data-toggle="tooltip" title="Zoom in" href="#" onclick="return DCV.ZoomingImageModal.show();"><i class="glyphicon glyphicon-eye-open"></i></a>
-  <a class="btn btn-default" data-toggle="tooltip" title="Open in new window" onclick="window.open('<%= details_url(id: document[:id], layout:(request.path.split('/')[1])) %>'); return false;"><i class="glyphicon glyphicon-new-window"></i></a>
+  <a class="btn btn-default item-cbox" data-original-title="<%= document_show_html_title %>" title="Zoom in" href="#" onclick="return DCV.ZoomingImageModal.show();"><i class="glyphicon glyphicon-eye-open"></i></a>
+  <a class="btn btn-default" href="#" data-original-title="<%= document_show_html_title %>" title="Open in new window" onclick="return DCV.ZoomingImageModal.openInNewWindow();"><i class="glyphicon glyphicon-new-window"></i></a>
   <div class="btn-group btn-group-xs">
-    <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" data-tt="tooltip" title="Download file"><i class="glyphicon glyphicon-download"></i> <span class="caret"></span>
-        <span class="sr-only">Toggle Dropdown</span></button>
-    <ul id="downloads-list" class="dropdown-menu dropdown-menu-right" role="menu"></ul>
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" title="Downloads">
+    <i class="glyphicon glyphicon-download-alt"></i> <span class="caret"></span>
+    <span class="sr-only">Toggle Dropdown</span>
+    </button>
+    <ul id="downloads-list" class="dropdown-menu pull-right" role="menu"></ul>
   </div>
 <% end %>

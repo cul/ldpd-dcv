@@ -577,6 +577,12 @@ a {
 }
 .carousel-control {
 	color: $color_21;
+	&.right, &.left {
+		background:transparent;
+		.glyphicon {
+			color:#000;
+		}
+	}
 }
 .nodec {
 	text-decoration: none !important;

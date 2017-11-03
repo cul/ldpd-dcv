@@ -179,7 +179,7 @@ a {
 	#main-container {
 	    .inner {
 	        &.home {
-			    .sidenav { 
+			    .sidenav {
 				    .top-panel-heading {
 					    display:none;
 					}
@@ -283,7 +283,7 @@ a {
 			background: transparent;
 			background-color: transparent;
 			background-color: transparent;
-            .sidenav { 
+            .sidenav {
 				.panel-title {
 					font-size:.8em;
 					text-transform:uppercase;
@@ -611,6 +611,12 @@ a {
 }
 .carousel-control {
 	color: $color_21;
+	&.right, &.left {
+		background:transparent;
+		.glyphicon {
+			color:#000;
+		}
+	}
 }
 .nodec {
 	text-decoration: none !important;
