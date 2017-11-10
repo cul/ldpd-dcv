@@ -106,7 +106,7 @@ class BytestreamsController < ApplicationController
         if range_matchdata.captures.length > 1 && range_matchdata.captures[1].present?
           to = range_matchdata.captures[1].to_i
         end
-        length = to - from
+        length = (to - from) + 1 # Adding 1 because to and from are zero-indexed
         success = 206
         content_headers_for_fedora = {'Range' => "bytes=#{from}-#{to}"}
         response.headers["Content-Range"] = "bytes #{from}-#{to}/#{size}"
