@@ -1176,6 +1176,11 @@ h2[itemprop="name"] {
 		.carousel-control {
 			width:55px;
 			margin:0 -65px;
+
+			.glyphicon-chevron-left,
+			.glyphicon-chevron-right {
+				top: 48.3%;
+			}
 		}
 
 		.item {
@@ -1183,7 +1188,7 @@ h2[itemprop="name"] {
 			.child-content {
 				text-align: center;
 				img {
-					max-height: 500px;
+					max-height: 397px;
     			max-width: 100%;
 					border: 1px solid #888;
 
