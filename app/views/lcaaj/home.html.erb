@@ -1,0 +1,50 @@
+<div id="content">
+<div id="hometn" class="home inner">
+        <div class="row">
+            <div class="col-sm-8">
+                            <%= link_to 'THE LANGUAGE AND CULTURE ARCHIVE OF ASHKENAZIC JEWRY'.html_safe, lcaaj_index_path, { :id => 'site-title' } %>
+            </div>
+            <div class="col-sm-4">
+                            <div id="search-navbar" class="navbar navbar-default slim" role="navigation">
+                                    <%= render_search_bar(false)  %>
+                            </div>
+            </div>
+		</div>
+		<img class="img-responsive" alt="" src="<%= asset_path("jay/jaytilesbanner.png") %>">
+</div>
+ <div class="row">
+  <div class="col-md-8">
+    <div class="home inner">
+		<h5>ABOUT THE LANGUAGE AND CULTURE ARCHIVE OF ASHKENAZIC JEWRY</h5>
+			<!--img class="mg-responsive pull-right col-xs-5" alt="" src="<%= asset_path("jay/463px-John_Jay-Gilbert_Stuart_portrait.jpg") %>"-->
+			<p>
+			     <em>The Language and Culture Archive of Ashkenazic Jewry</em> (LCAAJ), is an extraordinary resource for research in Yiddish studies, consists of 5,755 hours of audio tape field interviews with Yiddish speaking informants collected between 1959 and 1972 and ca. 100,000 pages of accompanying linguistic field notes. The Archive does not include transcriptions of the interviews.
+      </p>
+			<p class="hide">
+			 <a href="<%=lcaaj_about_path()%>" class="btn btn-primary btn-xs">Learn More »</a>
+			</p>
+			<div class="row">
+				<div class="col-sm-6">
+								<h5>BACKGROUND MATERIAL</h5>
+								<ul class="list-unstyled">
+									<li><a href="http://library.columbia.edu/locations/global/jewishstudies/lcaaj.html">Archive Information</a></li>
+								</ul>
+				</div>
+				<div class="col-sm-6">
+								<h5>ABOUT THE PROJECT</h5>
+								<ul class="list-unstyled">
+									<li><a href="<%=lcaaj_about_path()%>">History &amp; Description</a></li>
+								</ul>
+				</div>
+			</div>
+    </div>
+  </div>
+  <div class="col-md-4">
+     <div class="home inner">
+        <h5 class="">BROWSE THE COLLECTION</h5>
+				<%= render partial: 'search_sidebar', locals: {hide_refine_heading: true, no_id_attr: true} %>
+     </div> <!--/.inner-->
+  </div><!--/-->
+
+</div>
+</div>

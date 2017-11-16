@@ -1,0 +1,46 @@
+<% unless !has_search_parameters? && params[:action] == 'index' %>
+<div class="container">
+  <div id="site-banner">
+	<div class="row">
+        <div id="site-banner-inner">
+            <div class="col-sm-8">
+							<%= link_to 'The Language and Culture Archive of Ashkenazic Jewry'.html_safe, lcaaj_index_path, { :id => 'site-title' } %>
+            </div>
+            <div class="col-sm-4">
+							<div id="search-navbar" class="navbar navbar-default slim" role="navigation">
+									<%= render_search_bar(false)  %>
+							</div>
+            </div>
+         </div>
+	</div><!--/row-->
+  </div>
+            <div id="secondary-nav" class="">
+                 <div class="subnav">
+                    <div class="row">
+                        <div class="col-sm-12">
+                        <ul class="nav nav-pills pull-left" style="font-size: 11px;">
+                            <li class="hidden-phone"><a href="<%= lcaaj_index_path %>" class="opacity_50" style="
+                                line-height: 0;
+                                margin-top: -6px;
+                                padding-right: 22px;"><i class="glyphicon glyphicon-home"></i></a>
+                            </li>
+                                      <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Background Material <b class="caret"></b></a>
+                                        <ul class="dropdown-menu list-unstyled dropdown-menu-left">
+                    											<li><a href="http://library.columbia.edu/locations/global/jewishstudies/lcaaj.html">Archive Information</a></li>
+                    										</ul>
+                                      </li>
+                                      <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">About the Project <b class="caret"></b></a>
+                                        <ul class="dropdown-menu list-unstyled dropdown-menu-left">
+                    											<li><a href="<%=lcaaj_about_path()%>">History &amp; Description</a></li>
+                    										</ul>
+                                      </li>
+                        </ul>
+                        </div><!--/-->
+                            </div><!--/row-->
+                         </div><!--/subnav-->
+                    </div>
+
+</div>
+<% end %>

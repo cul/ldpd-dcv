@@ -15,7 +15,7 @@ Dcv::Application.routes.draw do
   resources :sessions, controller: 'users/sessions'
 
   mount Resque::Server.new, at: "/resque"
-  
+
   # Dynamic robots.txt file
   get '/robots.txt' => 'pages#robots'
 
@@ -56,6 +56,9 @@ Dcv::Application.routes.draw do
   get 'jay/jaytreaty' => 'jay#jaytreaty', as: :jay_jaytreaty
   get 'jay/jayandfrance' => 'jay#jayandfrance', as: :jay_jayandfrance
   get 'jay/jayandslavery' => 'jay#jayandslavery', as: :jay_jayandslavery
+
+  # LCAAJ subsite routes
+  get 'lcaaj/about' => 'lcaaj#about', as: :lcaaj_about
 
   resources 'sites', only: [:index, :show], param: :slug
   # Dynamic routes for catalog controller and all subsites
