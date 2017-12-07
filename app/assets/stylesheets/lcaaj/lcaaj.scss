@@ -1,7 +1,7 @@
 //colors
 $color_0: #111;
 $color_1: #fafafa;
-$color_2: #957A49; //#cd6141; //#779bc3; //#2a778f;
+$color_2: rgb(68,89,116);
 $color_3: #ccc;
 $color_4: #86878c;
 $color_5: #222;
@@ -32,7 +32,7 @@ $font_5: trajan;
 $font_6: serif;
 
 //urls
-$url_0: url(asset_path("jay/ldpd-18104.png"));
+//$url_0: url(asset_path("jay/ldpd-18104.png"));
 
 //@extend-elements
 //original selectors
@@ -72,7 +72,7 @@ a {
 	}
 }
 #topnavbar {
-	background: $color_4;
+	background: $color_2;
 	border-top-color: $color_5;
 	#cul_top-nosearch {
 		background-color: $color_5;
@@ -87,7 +87,7 @@ a {
 #site-banner {
 	padding: 1em 1.4em;
 	margin: 0 -1.75em 0;
-	background-color: $color_8; //$color_10;
+	background-color: lighten($color_2,64%);
 	//background-image:$url_0;
 	background-repeat:no-repeat;
 	background-position:center top;
@@ -141,11 +141,11 @@ a {
 	padding-bottom: 0;
 	margin-bottom: 2px;
 	font-family: $font_0, $font_1, $font_2;
-	font-size: 160%;
-	font-weight: 200;
-	line-height: 2;
+	font-size: 186%;
+	font-weight: 400;
+	line-height: 1.5;
 	color: $color_2;
-	text-align: left;
+	text-align: center;
 	text-decoration: none;
 	text-transform: uppercase;
     text-shadow: 0 0 2px $color_10;
@@ -168,10 +168,11 @@ a {
 		font-size: 14px;
 	}
 	#site-title {
-		font-size: 1.25em;
-		letter-spacing: 1px;
 		padding-top: 8px;
 		padding-left: 0;
+		font-size: 1.07em;
+		line-height: 2;
+		letter-spacing: 0;
 	}
 	#secondary-nav #partner-dropdown {
 		width: 420px;
@@ -190,10 +191,11 @@ a {
 }
 @media(min-width: 992px) {
 	#site-title {
-		font-size: 1.40em;
-		letter-spacing: 1px;
 		padding-top: 3px;
 		padding-left: 0;
+		font-size: 1.40em;
+		letter-spacing: 0;
+		text-align:left;
 	}
 	#partner-image-grid a:first-child .lead {
 		top: 25% !important;
@@ -204,8 +206,8 @@ a {
 @media(min-width: 1200px) {
 	#site-title {
 		padding-top: 1px;
-		font-size: 1.75em;
-		letter-spacing: 1px;
+		font-size: 1.74em;
+		letter-spacing: 0;
 		padding-left: 0;
 	}
 	#site-banner-subtitle {
@@ -220,7 +222,6 @@ a {
 @media(max-width: 640px) {
 	#site-title {
 		display: block;
-		text-align: center;
 	}
 	#site-banner-subtitle {
 		display: block;
