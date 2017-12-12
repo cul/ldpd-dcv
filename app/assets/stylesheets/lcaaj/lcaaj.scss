@@ -30,6 +30,8 @@ $font_3: TrajanProRegular;
 $font_4: trajan pro;
 $font_5: trajan;
 $font_6: serif;
+$font_b: "Arial Rounded MT Bold", "Helvetica Rounded", Arial, sans-serif;
+
 
 //urls
 //$url_0: url(asset_path("jay/ldpd-18104.png"));
@@ -59,7 +61,8 @@ body {
 	background-color: $color_1;
 }
 a {
-	color: $color_2;
+	color: lighten($color_2,8%);
+	font-family: $font_b;
 	&:hover {
 		color: $color_2;
 	}
@@ -141,7 +144,7 @@ a {
 	padding-bottom: 0;
 	margin-bottom: 2px;
 	font-family: $font_0, $font_1, $font_2;
-	font-size: 186%;
+	font-size: 198%;
 	font-weight: 400;
 	line-height: 1.5;
 	color: $color_2;
@@ -170,9 +173,10 @@ a {
 	#site-title {
 		padding-top: 8px;
 		padding-left: 0;
-		font-size: 1.07em;
+		font-size: 1.06em;
 		line-height: 2;
 		letter-spacing: 0;
+		text-align:left;
 	}
 	#secondary-nav #partner-dropdown {
 		width: 420px;
@@ -193,7 +197,7 @@ a {
 	#site-title {
 		padding-top: 3px;
 		padding-left: 0;
-		font-size: 1.40em;
+		font-size: 1.36em;
 		letter-spacing: 0;
 		text-align:left;
 	}
@@ -206,7 +210,7 @@ a {
 @media(min-width: 1200px) {
 	#site-title {
 		padding-top: 1px;
-		font-size: 1.74em;
+		font-size: 1.68em;
 		letter-spacing: 0;
 		padding-left: 0;
 	}
@@ -286,7 +290,8 @@ a {
 			background-color: transparent;
             .sidenav {
 				.panel-title {
-					font-size:.8em;
+					font-family: $font_b; //$font_0, $font_1, $font_2;
+					font-size:.9em;
 					text-transform:uppercase;
 				}
 			}
