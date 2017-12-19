@@ -296,6 +296,7 @@ a {
 					font-family: $font_b; //$font_0, $font_1, $font_2;
 					font-size:.9em;
 					text-transform:uppercase;
+					color:lighten($color_12,18%);
 				}
 			}
 			#imgholder-div .thumbnail {
