@@ -1,27 +1,5 @@
 $(function() {
 
- //if ($('#carousel-example-generic').length) {  $('#durst-search-home, #durst-image-search, #durst-book-search').removeClass('hidden'); }
- //$('body').on('click', '#durst-search-home, #mapholder-link', function() {
- //  $('#content,#dhss').removeClass('hidden');
- //  if ($('#content').hasClass('col-md-9')) {
- //    $('#content').removeClass('col-md-9').addClass('col-md-6');
- //    $('#mapholder-link').removeClass('hidden');
- //    $('#durst_osm').addClass('hidden');
- //    $('#dhss').removeClass('hidden');
- //  } else {
- //    $('#content').removeClass('col-md-6').addClass('col-md-9');
- //    $('#mapholder-link').addClass('hidden');
- //    $('#durst_osm').removeClass('hidden').attr('src', $('#durst_osm').attr('src'));
- //    $('#dhss').addClass('hidden');
- //  }
- //  clearTimeout(dorsz);
- //  dorsz = setTimeout(resizedw, 100);
- //  $(window).trigger('resize');
- //  map._onResize();
- //  activeNav();
- //  return false;
- //});
-
  $('body').on('click', '.dhp-img-holder', function() {
    $('#durst-image-home').trigger('click');
  });
@@ -43,30 +21,6 @@ $(function() {
    window.location = $('#carousel-example-generic').attr('data-format-search-url');
  });
 
-//function activeNav() {
-//    $('#user_util_links').find('a').removeClass('active').blur();
-//    if ($('#content').hasClass('col-md-9') && !$('#content').hasClass('hidden')) {
-//        $('#durst-search-home').addClass('active');
-//    }
-//}
-
- // full width layout switcher for dev/proto only.
- var isFullWidth = false;
- $('body').on('click', '#durst-full-width', function() {
-   if (isFullWidth == false) {
-     $('.container').removeClass('container').addClass('container-fluid').css('width','98%');
-     $('#site-banner').parent().css('width','');
-     isFullWidth = true;
-   } else {
-     $('.container-fluid').removeClass('container-fluid').addClass('container').css('width','');
-     isFullWidth = false;
-   }
-     $('span',this).toggleClass('glyphicon-resize-small');
-   $(window).trigger('resize');
-   map._onResize();
-   return false;
- });
-
  if ($('#durst_osm').length) {
 	 $('#durst_osm').html('<h2 style="margin:.5em;color:#ccc;">Loading...</h2>');
    setTimeout(function(){ homeMap(); }, 100); //Better user experience if this is asynchronous.
@@ -74,26 +28,6 @@ $(function() {
  $('body').on('click', '#map-attrib-icon', function() {
    $('#map-attrib-text').toggleClass('hidden');
  });
-
-/*
- if($('#item-long-display-fields').length > 0) {
-	 $('#item-long-display-fields').hide().removeClass('hidden');
-	 $('#item-long-disply-toggle').on('click', function(e){
-		e.preventDefault();
-		if ($('#item-long-display-fields').is(":visible") ) {
-			$('#item-long-display-fields').slideUp(400, function(){
-				$('#item-long-disply-toggle').html($('#item-long-disply-toggle').attr('data-original-content'));
-			});
-		} else {
-			$('#item-long-display-fields').slideDown(400, function(){
-				$('#item-long-disply-toggle').attr('data-original-content', $('#item-long-disply-toggle').html()).html('See Less Information <b class="caretup"></b>');
-				scrollToBottomOfPage();
-			});
-		}
-        $(this).blur();
-	});
- }
-*/
 
 }); //ready
 
@@ -135,18 +69,13 @@ var tiles;
 
 function homeMap() {
 
-	 if($('#durst_osm.full-map-search').length > 0) {
-		$(window).on('resize', function(){
-		 $('#durst_osm.full-map-search').height($(window).height()-300);
-		});
-		$('#durst_osm.full-map-search').height($(window).height()-300);
-	 }
+	  if($('#durst_osm.full-map-search').length > 0) {
+		  $(window).on('resize', function(){
+		    $('#durst_osm.full-map-search').height($(window).height()-300);
+		  });
+	    $('#durst_osm.full-map-search').height($(window).height()-300);
+	  }
 
-    //'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-    //'http://otile1.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpg';
-		//tiles = L.tileLayer('//server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
-
-		//tiles = L.tileLayer('//{s}.tile.stamen.com/toner-lite/{z}/{x}/{y}.png', {
 		tiles = L.tileLayer('https://stamen-tiles.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.png', {
 				maxZoom: 18,
 				attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors.'
@@ -232,17 +161,4 @@ function homeMap() {
 			});
 
 			map.addLayer(markers);
-		//});
-
-		//Load points after initial map setup is complete
-		//map.on('load', function(){
-
-		//});
-
-
-		setTimeout(function(){
-
-
-		}, 500);
-
 }
