@@ -19,8 +19,7 @@
 				DCV.mapPlanes = <%= extract_map_data_from_document_list(@document_list).to_json.html_safe %>;
 				DCV.mapCoordinateSearchUrl = decodeURIComponent('<%= CGI.escape(url_for(params.except(:utf8).merge(:lat => '_lat_', :long => '_long_', :search_field => params[:search_field] || 'all_text_teim', :q => params[:q] || ''))).html_safe %>');
 			</script>
-		  <!--<iframe id="durst_osm" width="100%" height="240" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.openstreetmap.org/export/embed.html?bbox=-73.97026062011719%2C40.80313871105938%2C-73.95225763320923%2C40.81483234091447&amp;layer=mapnik&amp;marker=40.80899%2C-73.96125" style="border: 0"></iframe> -->
-			<div id="durst_osm"></div>
+			<div id="cul-map-display-component"></div>
 		  <div class="clearfix"></div>
 		</div>
 	</div>

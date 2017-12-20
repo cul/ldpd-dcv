@@ -21,12 +21,12 @@
 		<div class="home inner">
 			<h6 class="">FIND BY LOCATION</h6>
 			<div id="mapholder-div">
-				<a href="<%= durst_map_search_path %>" id="mapholder-link"><img id="mapholder" src="<%= asset_path("durst/durst_10272127_001.jpg") %>" alt="..."></a>
+				<a href="<%= durst_map_search_path %>" id="mapholder-link"><img id="durst-map-image" src="<%= asset_path("durst/durst_10272127_001.jpg") %>" alt="..."></a>
 			</div>
     </div> <!--/.inner-->
   </div>
 
-  <div id="dhss" class="col-md-3">
+  <div id="durst-home-carousel-wrapper" class="col-md-3">
         <div class="home inner">
                 <h6 class="">FIND IMAGES</h6>
 			    <div id="carousel-example-generic" class="carousel slide carousel-fade" data-ride="carousel" data-format-search-url="<%= durst_image_search_url %>">
@@ -34,10 +34,10 @@
 				  <div class="carousel-inner">
 						<% slideshow_asset_pids = ['cul:18931zcrs0','cul:44j0zpc8d9','cul:t1g1jwstzh','cul:sn02v6wwzf','cul:t76hdr7szv','cul:5mkkwh7100','cul:37pvmcvdvm','cul:5dv41ns1zp','cul:p8cz8w9gqx','cul:nzs7h44j7v','cul:qrfj6q57bz','cul:gxd2547dg4','cul:w3r2280gkf','cul:15dv41ns4s','cul:zgmsbcc2mt','cul:3tx95x69t7','cul:kh18931zh4','cul:bk3j9kd540','cul:x95x69p8ms','cul:80gb5mkm23','cul:0p2ngf1vm7','cul:k98sf7m0h3','cul:xpnvx0k6pf','cul:w9ghx3ffhn','cul:z612jm642v','cul:n8pk0p2nn0','cul:0000000031','cul:d51c59zw7h','cul:2z34tmpg73','cul:tb2rbnzsdq','cul:9kd51c5b3q','cul:kd51c5b01h','cul:k0p2ngf20f','cul:4b8gtht79q','cul:8kprr4xh2z','cul:gmsbcc2fvq','cul:p2ngf1vhn3','cul:cjsxksn06f','cul:n2z34tmpmk','cul:7d7wm37pz4','cul:5hqbzkh1bj','cul:sj3tx95xbx','cul:mpg4f4qrjt','cul:8cz8w9gj11','cul:p5hqbzkh5k','cul:g1jwstqjt6','cul:905qfttf20','cul:2fqz612jpc','cul:4qrfj6q58r','cul:j9kd51c5jc','cul:8gtht76hkd','cul:j3tx95x6hs','cul:6t1g1jwt29','cul:6hdr7sqvhc','cul:qfttdz08qg','cul:bg79cnp5pw','cul:9w0vt4b8p2','cul:2280gb5mqv','cul:5mkkwh70xp','cul:hdr7sqv9zr','cul:2bvq83bk8s','cul:5hqbzkh1d6','cul:vx0k6djhjb','cul:d51c59zwb1','cul:3j9kd51cb5','cul:866t1g1k33','cul:7pvmcvdnjx','cul:d51c59zw9q','cul:jh9w0vt4j8','cul:2jm63xsj90','cul:6m905qfv13','cul:15dv41ns7b','cul:bk3j9kd55s','cul:1g1jwstqqv','cul:t4b8gthtf8'] %>
 						<% random_selection_of_asset_pids = slideshow_asset_pids.sample(10) %>
-						
+
 						<% random_selection_of_asset_pids.each_with_index do |pid, i| %>
 							<div class="item <%= i == 0 ? 'active' : '' %>">
-								<div class="dhp-img-holder" style="background-image:url(<%= get_asset_url({id: pid, type: 'full', size: 768, format: 'jpg'}) %>);"></div>
+								<div class="durst-carousel-img-holder" style="background-image:url(<%= get_asset_url({id: pid, type: 'full', size: 768, format: 'jpg'}) %>);"></div>
 							</div>
 						<% end %>
 				  </div>
@@ -49,6 +49,6 @@
           </a>
 			    </div>
         </div> <!--/.inner-->
-   </div><!--/#dhss-->
+   </div><!--/#durst-home-carousel-wrapper-->
 
 </div>

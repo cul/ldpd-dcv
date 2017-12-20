@@ -9,7 +9,7 @@
 				DCV.mapPlanes = <%= extract_map_data_from_document_list([document]).to_json.html_safe %>;
 				DCV.mapCoordinateSearchUrl = decodeURIComponent('<%= CGI.escape(url_for(params.except(:'utf8').merge(:lat => '_lat_', :long => '_long_', :search_field => params[:search_field] || 'all_text_teim', :q => params[:q] || ''))).html_safe %>');
 			</script>
-			<div id="durst_osm" class="no-popup"></div>
+			<div id="cul-map-display-component" class="no-popup"></div>
 			<div class="clearfix"></div>
 		</div>
 		<div class="inner" style="margin-bottom:1em;padding-bottom:0;">
