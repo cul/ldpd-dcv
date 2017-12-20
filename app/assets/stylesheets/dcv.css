@@ -13,6 +13,9 @@
  *= require jquery.ui.all
  *= require colorbox-rails
  *= require ableplayer.min
+ *= require 'leaflet'
+ *= require 'leaflet.markercluster'
+ *= require 'leaflet.markercluster.default'
  *
  *= require_tree './dcv'
 */

@@ -57,7 +57,7 @@ function initCulMapDisplayComponent() {
 			markers.addLayer(marker);
 		}
 
-		if ( !DCV.centerLat && !DCV.centerLong ) {
+		if ( !DCV.centerLat && !DCV.centerLong && allPoints.length > 0) {
 			map.fitBounds(allPoints);
 		}
 

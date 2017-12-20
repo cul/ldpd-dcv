@@ -11,6 +11,8 @@ class SubsitesController < ApplicationController
   before_filter :authorize_action, only:[:index, :preview, :show]
   protect_from_forgery :except => [:update, :destroy, :api_info] # No CSRF token required for publishing actions
 
+  helper_method :extract_map_data_from_document_list
+
   layout Proc.new { |controller|
     self.subsite_layout
   }
@@ -162,6 +164,41 @@ class SubsitesController < ApplicationController
       end
     end
     status
+  end
+
+  private
+
+  def extract_map_data_from_document_list(document_list)
+
+    # We want this data to be as compact as possible because we're sending a lot to the client
+
+    max_title_length = 50
+
+    map_data = []
+    document_list.each do |document|
+      if document['geo'].present?
+        document['geo'].each do |coordinates|
+
+          lat_and_long = coordinates.split(',')
+
+          is_book = document['lib_format_ssm'].present? && document['lib_format_ssm'].include?('books')
+
+          title = document['title_display_ssm'][0].gsub(/\s+/, ' ') # Compress multiple spaces and new lines into one
+          title = title[0,max_title_length].strip + '...' if title.length > max_title_length
+
+          row = {
+            id: document.id,
+            c: lat_and_long[0].strip + ',' + lat_and_long[1].strip,
+            t: title,
+            b: is_book ? 'y' : 'n',
+          }
+
+          map_data << row
+        end
+      end
+    end
+
+    return map_data
   end
 
 end

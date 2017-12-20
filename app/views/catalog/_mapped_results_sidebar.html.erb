@@ -1,0 +1,14 @@
+<% if @document_list.length > 0 %>
+  <h6 class="nomar-t">Mapped Results:
+          <%= (@response.params[:start].to_i + 1).to_s + ' - ' +
+          (@response.params[:start].to_i + @document_list.length).to_s  %>
+  </h6>
+<% end %>
+<script>
+  DCV.centerLat = <%= params[:lat].present? ? params[:lat] : 'null' %>;
+  DCV.centerLong = <%= params[:long].present? ? params[:long] : 'null' %>;
+  DCV.mapPlanes = <%= extract_map_data_from_document_list(@document_list).to_json.html_safe %>;
+  DCV.mapCoordinateSearchUrl = decodeURIComponent('<%= CGI.escape(url_for(params.except(:utf8).merge(:lat => '_lat_', :long => '_long_', :search_field => params[:search_field] || 'all_text_teim', :q => params[:q] || ''))).html_safe %>');
+</script>
+<div id="cul-map-display-component"></div>
+<div class="clearfix"></div>

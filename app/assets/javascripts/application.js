@@ -37,3 +37,6 @@
 // ableplayer
 //= require ableplayer.min
 //
+// leaflet + leaflet plugins
+//= require 'leaflet'
+//= require 'leaflet.markercluster'

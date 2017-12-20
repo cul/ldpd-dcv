@@ -30,6 +30,10 @@ DCV.SearchResults.configForLayout = {
 		defaultSearchMode: DCV.SearchResults.SearchMode.LIST,
 		availableSearchModes: [DCV.SearchResults.SearchMode.LIST]
 	},
+	lcaaj: {
+		defaultSearchMode: DCV.SearchResults.SearchMode.LIST,
+		availableSearchModes: [DCV.SearchResults.SearchMode.GRID, DCV.SearchResults.SearchMode.LIST]
+	},
 	universityseminars: {
 		defaultSearchMode: DCV.SearchResults.SearchMode.LIST,
 		availableSearchModes: [DCV.SearchResults.SearchMode.GRID, DCV.SearchResults.SearchMode.LIST]
@@ -39,6 +43,7 @@ DCV.SearchResults.configForLayout = {
 		availableSearchModes: [DCV.SearchResults.SearchMode.GRID, DCV.SearchResults.SearchMode.LIST]
 	}
 };
+DCV.SearchResults.configForLayout.default = DCV.SearchResults.configForLayout.dcv; // Set DCV layout as default
 
 $(document).ready(function(){
 
@@ -68,7 +73,12 @@ $(document).ready(function(){
 	//If we're on the search result page...
   if($('#search-results').length > 0) {
 
-		var searchConfig = DCV.SearchResults.configForLayout[DCV.subsite_layout];
+		if(DCV.SearchResults.configForLayout.hasOwnProperty(DCV.subsite_layout)) {
+			var searchConfig = DCV.SearchResults.configForLayout[DCV.subsite_layout];
+		} else {
+			var searchConfig = DCV.SearchResults.configForLayout.default;
+		}
+
 
 		if (searchConfig.availableSearchModes.length < 2) {
 			//If there are fewer than 2 search modes, hide all search mode buttons (because there are no choices for the user to make)

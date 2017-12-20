@@ -11,5 +11,3 @@
 // about supported directives.
 //
 //= require './durst/durst.general.js.erb'
-//= require 'leaflet'
-//= require 'leaflet.markercluster'
