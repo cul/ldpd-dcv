@@ -296,32 +296,6 @@ a, .btn-link {
 		width: 100%;
 		height: auto;
 	}
-	#mapholder-div {
-		position: relative;
-		overflow: hidden;
-		border: 1px solid $color_16;
-		#cul-map-display-component {
-			width: 100%;
-			height: 420px;
-			min-height: 240px;
-			.leaflet-popup-content {
-				hr {
-					margin: 10px 0;
-				}
-				.thumbnail {
-					background-color: $color_1;
-					img {
-						margin: 0 auto;
-						max-width: 100%;
-						height: 120px;
-					}
-				}
-			}
-			&.full-map-search {
-				height: 400px;
-			}
-		}
-	}
 	#appliedParams {
 		border-width: 0 0 1px 0;
 		box-shadow: none;
