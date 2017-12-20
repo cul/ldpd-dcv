@@ -24,3 +24,55 @@
     }
   }
 }
+#sidebar #cul-map-display-component {
+	width: 100%;
+	height: 260px;
+	.leaflet-popup-content-wrapper {
+		max-width: 210px;
+		max-height: 240px;
+		hr {
+			margin: 10px 0;
+		}
+		.leaflet-popup-content .thumbnail {
+			background-color: #ddd;
+			img {
+				height: 100px;
+			}
+		}
+	}
+	.leaflet-control-attribution {
+		font-size: 85%;
+		a {
+			color: #333 !important;
+		}
+		&:hover {
+			background: #eee;
+		}
+	}
+}
+#item-description #cul-map-display-component {
+	width: 100%;
+	height: 260px;
+	.leaflet-popup-content-wrapper {
+		max-width: 210px;
+		max-height: 240px;
+		hr {
+			margin: 10px 0;
+		}
+		.leaflet-popup-content .thumbnail {
+			background-color: #ddd;
+			img {
+				height: 100px;
+			}
+		}
+	}
+	.leaflet-control-attribution {
+		font-size: 85%;
+		a {
+			color: #333 !important;
+		}
+		&:hover {
+			background: #eee;
+		}
+	}
+}
