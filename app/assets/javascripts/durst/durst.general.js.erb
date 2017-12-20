@@ -1,30 +1,5 @@
 $(function() {
 
- //if ($('#carousel-example-generic').length) {  $('#durst-search-home, #durst-image-search, #durst-book-search').removeClass('hidden'); }
- //$('body').on('click', '#durst-search-home, #mapholder-link', function() {
- //  $('#content,#dhss').removeClass('hidden');
- //  if ($('#content').hasClass('col-md-9')) {
- //    $('#content').removeClass('col-md-9').addClass('col-md-6');
- //    $('#mapholder-link').removeClass('hidden');
- //    $('#durst_osm').addClass('hidden');
- //    $('#dhss').removeClass('hidden');
- //  } else {
- //    $('#content').removeClass('col-md-6').addClass('col-md-9');
- //    $('#mapholder-link').addClass('hidden');
- //    $('#durst_osm').removeClass('hidden').attr('src', $('#durst_osm').attr('src'));
- //    $('#dhss').addClass('hidden');
- //  }
- //  clearTimeout(dorsz);
- //  dorsz = setTimeout(resizedw, 100);
- //  $(window).trigger('resize');
- //  map._onResize();
- //  activeNav();
- //  return false;
- //});
-
- $('body').on('click', '.dhp-img-holder', function() {
-   $('#durst-image-home').trigger('click');
- });
  $('body').on('click', '#format_filter input', function(e) {
    e.stopPropagation();
  });
@@ -39,73 +14,17 @@ $(function() {
 	  $('#q').attr('placeholder', oph);
 	}
  });
- $('body').on('click', '.dhp-img-holder', function() {
+ $('body').on('click', '.durst-carousel-img-holder', function() {
    window.location = $('#carousel-example-generic').attr('data-format-search-url');
  });
-
-//function activeNav() {
-//    $('#user_util_links').find('a').removeClass('active').blur();
-//    if ($('#content').hasClass('col-md-9') && !$('#content').hasClass('hidden')) {
-//        $('#durst-search-home').addClass('active');
-//    }
-//}
-
- // full width layout switcher for dev/proto only.
- var isFullWidth = false;
- $('body').on('click', '#durst-full-width', function() {
-   if (isFullWidth == false) {
-     $('.container').removeClass('container').addClass('container-fluid').css('width','98%');
-     $('#site-banner').parent().css('width','');
-     isFullWidth = true;
-   } else {
-     $('.container-fluid').removeClass('container-fluid').addClass('container').css('width','');
-     isFullWidth = false;
-   }
-     $('span',this).toggleClass('glyphicon-resize-small');
-   $(window).trigger('resize');
-   map._onResize();
-   return false;
- });
-
- if ($('#durst_osm').length) {
-	 $('#durst_osm').html('<h2 style="margin:.5em;color:#ccc;">Loading...</h2>');
-   setTimeout(function(){ homeMap(); }, 100); //Better user experience if this is asynchronous.
- }
- $('body').on('click', '#map-attrib-icon', function() {
-   $('#map-attrib-text').toggleClass('hidden');
- });
-
-/*
- if($('#item-long-display-fields').length > 0) {
-	 $('#item-long-display-fields').hide().removeClass('hidden');
-	 $('#item-long-disply-toggle').on('click', function(e){
-		e.preventDefault();
-		if ($('#item-long-display-fields').is(":visible") ) {
-			$('#item-long-display-fields').slideUp(400, function(){
-				$('#item-long-disply-toggle').html($('#item-long-disply-toggle').attr('data-original-content'));
-			});
-		} else {
-			$('#item-long-display-fields').slideDown(400, function(){
-				$('#item-long-disply-toggle').attr('data-original-content', $('#item-long-disply-toggle').html()).html('See Less Information <b class="caretup"></b>');
-				scrollToBottomOfPage();
-			});
-		}
-        $(this).blur();
-	});
- }
-*/
 
 }); //ready
 
 $(window).load(function() {
-   if ($('#dhss').height() > 0) {
+   if ($('#durst-home-carousel-wrapper').height() > 0) {
      $('.carousel-control').removeClass('hidden');
-     $('#dhss').find('.inner img, .inner div').height($('#mapholder').height());
-     $('#durst_osm').height($('#mapholder').height());
+     $('#durst-home-carousel-wrapper').find('.inner img, .inner div').height($('#durst-map-image').height());
    }
-   $('.leaflet-control-attribution').wrapInner('<span id="map-attrib-text" class="hidden"/>').append(
-     '<div id="map-attrib-icon" class="pull-right text-danger"><i class="glyphicon glyphicon-copyright-mark"></i></div>'
-   );
 });
 
 function scrollToBottomOfPage(){
@@ -116,41 +35,47 @@ function scrollToBottomOfPage(){
  );
 };
 
-function resizedw(){
-    // Haven't resized in 100ms!
-   if ($('#dhss').height() > 0) {
-     $('#dhss').find('.inner img, .inner div').height($('#mapholder').height());
-     $('#durst_osm').height($('#mapholder').height());
-   }
-}
-var dorsz;
+// Resize the Durst home page carousel to match the height of the central image to the left of it
 window.onresize = function(){
-  clearTimeout(dorsz);
-  dorsz = setTimeout(resizedw, 100);
+  // In order to stop resize events from rapidly piling up and slowing down
+  // the browser, clear previously set timeout every time we get a resize event,
+  // and then create a new timeout.
+  if(typeof(window.durstHomeCarouselResizeTimeout) != 'undefined') {
+    clearTimeout(window.durstHomeCarouselResizeTimeout);
+  }
+  window.durstHomeCarouselResizeTimeout = setTimeout(function(){
+     if ($('#durst-home-carousel-wrapper').height() > 0) {
+       $('#durst-home-carousel-wrapper').find('.inner img, .inner div').height($('#durst-map-image').height());
+     }
+  }, 100);
 };
+
+
+// Map Display Component Stuff
+
+$(function() {
+  if ($('#cul-map-display-component').length) {
+ 	 $('#cul-map-display-component').html('<h2 style="margin:.5em;color:#ccc;">Loading...</h2>');
+    setTimeout(function(){ initCulMapDisplayComponent(); }, 100); //Better user experience if this is asynchronous.
+  }
+});
 
 var map;
 var marker;
 var tiles;
 
-function homeMap() {
+function initCulMapDisplayComponent() {
+	  if($('#cul-map-display-component.full-map-search').length > 0) {
+		  $(window).on('resize', function(){
+		    $('#cul-map-display-component.full-map-search').height($(window).height()-300);
+		  });
+	    $('#cul-map-display-component.full-map-search').height($(window).height()-300);
+	  }
 
-	 if($('#durst_osm.full-map-search').length > 0) {
-		$(window).on('resize', function(){
-		 $('#durst_osm.full-map-search').height($(window).height()-300);
-		});
-		$('#durst_osm.full-map-search').height($(window).height()-300);
-	 }
-
-    //'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-    //'http://otile1.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpg';
-		//tiles = L.tileLayer('//server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
-
-		//tiles = L.tileLayer('//{s}.tile.stamen.com/toner-lite/{z}/{x}/{y}.png', {
 		tiles = L.tileLayer('https://stamen-tiles.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.png', {
-				maxZoom: 18,
-				attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors.'
-			});
+			maxZoom: 18,
+			attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors.'
+		});
 
     if ( DCV.centerLat && DCV.centerLong ) {
 			var latlng = L.latLng(DCV.centerLat, DCV.centerLong);
@@ -158,91 +83,86 @@ function homeMap() {
 			var latlng = L.latLng('40.7400', '-73.9802');
 		}
 
-		map = L.map('durst_osm', {center: latlng, zoom: 11, layers: [tiles]});
+		map = L.map('cul-map-display-component', {center: latlng, zoom: 11, layers: [tiles]});
 
-		//tiles.on('load', function(){
-			var markers = L.markerClusterGroup({spiderfyOnMaxZoom: false});
 
-			var allPoints = [];
+		var markers = L.markerClusterGroup({spiderfyOnMaxZoom: false});
 
-			for (var i = 0; i < DCV.mapPlanes.length; i++) {
-				var a = DCV.mapPlanes[i];
+		var allPoints = [];
 
-				var latAndLong = a['c'].split(',');
-				var lat = latAndLong[0];
-				var lng = latAndLong[1];
-				var title = a['t'];
-				var itemLink = '/durst/' + a['id'];
-				var thumbnailUrl = a['b'] == 'y' ? DCV.bookIconUrl : DCV.mapImageThumbTemplate.replace('_document_id_', a['id']);
+		for (var i = 0; i < DCV.mapPlanes.length; i++) {
+			var a = DCV.mapPlanes[i];
 
-				var marker = L.marker(new L.LatLng(lat, lng), { title: title });
-				allPoints.push([lat,lng]);
-				if (!$('#durst_osm').hasClass('no-popup')) {
-					marker.bindPopup(
-						'<a href="' + itemLink + '" class="thumbnail"><img src="' + thumbnailUrl + '" /></a>' + '<br />' + '<a href="' + itemLink + '">' + title + '</a>'
-					);
-				}
-				markers.addLayer(marker);
+			var latAndLong = a['c'].split(',');
+			var lat = latAndLong[0];
+			var lng = latAndLong[1];
+			var title = a['t'];
+			var itemLink = '/durst/' + a['id'];
+			var thumbnailUrl = a['b'] == 'y' ? DCV.bookIconUrl : DCV.mapImageThumbTemplate.replace('_document_id_', a['id']);
+
+			var marker = L.marker(new L.LatLng(lat, lng), { title: title });
+			allPoints.push([lat,lng]);
+			if (!$('#cul-map-display-component').hasClass('no-popup')) {
+				marker.bindPopup(
+					'<a href="' + itemLink + '" class="thumbnail"><img src="' + thumbnailUrl + '" /></a>' + '<br />' + '<a href="' + itemLink + '">' + title + '</a>'
+				);
 			}
+			markers.addLayer(marker);
+		}
 
-			if ( !DCV.centerLat && !DCV.centerLong ) {
-				map.fitBounds(allPoints);
+		if ( !DCV.centerLat && !DCV.centerLong ) {
+			map.fitBounds(allPoints);
+		}
+
+		markers.on('clusterclick', function (a) {
+
+			var maxItemsToShow = 5;
+
+			if (map.getZoom() == map.getMaxZoom()) {
+					var allItemHtml = '';
+					var childMarkers = a.layer.getAllChildMarkers();
+
+					var viewAllUrl = DCV.mapCoordinateSearchUrl.replace('_lat_', childMarkers[0].getLatLng().lat).replace('_long_', childMarkers[0].getLatLng().lng);
+
+					allItemHtml += '<h6>' + childMarkers.length + ' items found <a class="pull-right" href="' + viewAllUrl + '">View all &raquo &nbsp;</a></h6>';
+					allItemHtml += '<div style="max-height:200px;max-width:200px;width:100%;overflow:auto;">'
+
+					var numItemsToShow = childMarkers.length;
+					if (childMarkers.length > maxItemsToShow) {
+						numItemsToShow = maxItemsToShow;
+					}
+
+					for(var i = 0; i < numItemsToShow; i++) {
+						var marker = childMarkers[i];
+						allItemHtml += marker.getPopup().getContent() + '<hr />';
+					}
+
+					if (childMarkers.length > maxItemsToShow) {
+						allItemHtml += '<a href="' + viewAllUrl + '">Click here to see the rest &raquo;</a><br />';
+					}
+
+					allItemHtml += '</div>';
+
+					L.popup()
+					.setLatLng(a.layer.getAllChildMarkers()[0].getLatLng())
+					.setContent(allItemHtml)
+					.openOn(map);
 			}
+		});
 
-			markers.on('clusterclick', function (a) {
+		map.on('popupopen', function(e) {
+			var px = map.project(e.popup._latlng);
+			px.y -= e.popup._container.clientHeight/2
+			map.panTo(map.unproject(px),{animate: true});
+		});
 
-				var maxItemsToShow = 5;
+		map.addLayer(markers);
 
-				if (map.getZoom() == map.getMaxZoom()) {
-						var allItemHtml = '';
-						var childMarkers = a.layer.getAllChildMarkers();
-
-						var viewAllUrl = DCV.mapCoordinateSearchUrl.replace('_lat_', childMarkers[0].getLatLng().lat).replace('_long_', childMarkers[0].getLatLng().lng);
-
-						allItemHtml += '<h6>' + childMarkers.length + ' items found <a class="pull-right" href="' + viewAllUrl + '">View all &raquo &nbsp;</a></h6>';
-						allItemHtml += '<div style="max-height:200px;max-width:200px;width:100%;overflow:auto;">'
-
-						var numItemsToShow = childMarkers.length;
-						if (childMarkers.length > maxItemsToShow) {
-							numItemsToShow = maxItemsToShow;
-						}
-
-						for(var i = 0; i < numItemsToShow; i++) {
-							var marker = childMarkers[i];
-							allItemHtml += marker.getPopup().getContent() + '<hr />';
-						}
-
-						if (childMarkers.length > maxItemsToShow) {
-							allItemHtml += '<a href="' + viewAllUrl + '">Click here to see the rest &raquo;</a><br />';
-						}
-
-						allItemHtml += '</div>';
-
-						L.popup()
-						.setLatLng(a.layer.getAllChildMarkers()[0].getLatLng())
-						.setContent(allItemHtml)
-						.openOn(map);
-				}
-			});
-
-			map.on('popupopen', function(e) {
-				var px = map.project(e.popup._latlng);
-				px.y -= e.popup._container.clientHeight/2
-				map.panTo(map.unproject(px),{animate: true});
-			});
-
-			map.addLayer(markers);
-		//});
-
-		//Load points after initial map setup is complete
-		//map.on('load', function(){
-
-		//});
-
-
-		setTimeout(function(){
-
-
-		}, 500);
-
+    // Collapse copyright and attribution info into clickable, expandable icon
+    $('.leaflet-control-attribution').wrapInner('<span id="map-attrib-text" class="hidden"/>').append(
+      '<div id="map-attrib-icon" class="pull-right text-danger"><i class="glyphicon glyphicon-copyright-mark"></i></div>'
+    );
+    $('body').on('click', '#map-attrib-icon', function() {
+      $('#map-attrib-text').toggleClass('hidden');
+    });
 }

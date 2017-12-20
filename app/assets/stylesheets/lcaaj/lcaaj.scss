@@ -437,32 +437,6 @@ a {
 			background-color:$color_10;
 		}
 	}
-	#mapholder {
-		width: 100%;
-		height: auto;
-	}
-	#mapholder-div {
-		position: relative;
-		overflow: hidden;
-		border: 1px solid $color_15;
-		#durst_osm {
-			width: 100%;
-			height: 420px;
-			.leaflet-popup-content {
-				hr {
-					margin: 10px 0;
-				}
-				.thumbnail img {
-					margin: 0 auto;
-					max-width: 100%;
-					height: 120px;
-				}
-			}
-			&.full-map-search {
-				height: 400px;
-			}
-		}
-	}
 	#appliedParams {
 		border-width: 0 0 1px 0;
 		box-shadow: none;
@@ -591,23 +565,10 @@ a {
 		margin-bottom: 1em;
 	}
 }
-#map-attrib-icon {
-	margin-left: .25em;
-	cursor: pointer;
-}
 #child_gallery {
 	background-color: transparent;
 }
 .carousel-inner {
-	.dhp-img-holder {
-		height: 100%;
-		background-position: center center;
-		background-repeat: no-repeat;
-		background-size: cover;
-		&:hover {
-			cursor: pointer;
-		}
-	}
 	> .item > {
 		img {
 			position: relative;
@@ -685,60 +646,11 @@ footer.container {
 	font-size: .85em;
 	color: $color_6;
 }
-#dhss #carousel-example-generic {
-	border: 1px solid $color_15;
-}
 #dhig .thumbnail {
 	margin-bottom: 1em;
 }
 #item-content dl {
 	margin-bottom: 0;
-}
-#sidebar #durst_osm {
-	width: 100%;
-	height: 260px;
-	.leaflet-popup-content-wrapper {
-		max-width: 210px;
-		max-height: 240px;
-		hr {
-			margin: 10px 0;
-		}
-		.leaflet-popup-content .thumbnail img {
-			height: 100px;
-		}
-	}
-	.leaflet-control-attribution {
-		font-size: 85%;
-		a {
-			color: $color_11 !important;
-		}
-		&:hover {
-			background: $color_20;
-		}
-	}
-}
-#item-description #durst_osm {
-	width: 100%;
-	height: 260px;
-	.leaflet-popup-content-wrapper {
-		max-width: 210px;
-		max-height: 240px;
-		hr {
-			margin: 10px 0;
-		}
-		.leaflet-popup-content .thumbnail img {
-			height: 100px;
-		}
-	}
-	.leaflet-control-attribution {
-		font-size: 85%;
-		a {
-			color: $color_11 !important;
-		}
-		&:hover {
-			background: $color_20;
-		}
-	}
 }
 #previousNextDocument .btn-default {
 	color: $color_10;

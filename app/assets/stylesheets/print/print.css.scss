@@ -3,8 +3,8 @@
 body {
 	padding-top:0!important;
 }
-#topnavbar { 
-	display:none; 
+#topnavbar {
+	display:none;
 }
 #outer-wrapper {
 	border-top-width:1px;
@@ -30,9 +30,9 @@ a[href]:after { content: none !important; }
 		display:none;
 	}
 	#search-results {
-		.col-sm-9 { 
-			width:75%; 
-			float:left; 
+		.col-sm-9 {
+			width:75%;
+			float:left;
 		}
 		.thumbnail {
 			background-color:transparent!important;
@@ -53,7 +53,7 @@ a[href]:after { content: none !important; }
 				float:left;
 			}
 		}
-		#sidebar, #dhss, h6 {
+		#sidebar, #durst-home-carousel-wrapper, h6 {
 			display:none;
 		}
 	}
