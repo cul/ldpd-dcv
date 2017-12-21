@@ -140,6 +140,11 @@ a {
                 background-color: $color_10;
         }
 	}
+	#secondary-nav {
+		margin-top:.75em;
+		border:1px solid $color_17;
+		border-width:1px 0;
+	}
 }
 #site-title {
 	display: inline-block;
