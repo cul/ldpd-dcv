@@ -2,8 +2,12 @@
 
 $(function() {
   if ($('#cul-map-display-component').length) {
- 	 $('#cul-map-display-component').html('<h2 style="margin:.5em;color:#ccc;">Loading...</h2>');
-    setTimeout(function(){ initCulMapDisplayComponent(); }, 100); //Better user experience if this is asynchronous.
+ 	 $('#cul-map-display-component').html('<h2 class="loading-text" style="margin:.5em;color:#ccc;">Loading...</h2>');
+    setTimeout(function(){
+      //Better user experience if this is asynchronous.
+      initCulMapDisplayComponent();
+      $('#cul-map-display-component .loading-text').html(''); //clear loading message
+    }, 100);
   }
 });
 
@@ -11,7 +15,7 @@ var map;
 var marker;
 var tiles;
 
-function initCulMapDisplayComponent() {
+function initCulMapDisplayComponent(callback) {
 	  if($('#cul-map-display-component.full-map-search').length > 0) {
 		  $(window).on('resize', function(){
 		    $('#cul-map-display-component.full-map-search').height($(window).height()-300);
@@ -20,18 +24,33 @@ function initCulMapDisplayComponent() {
 	  }
 
 		tiles = L.tileLayer('https://stamen-tiles.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.png', {
-			maxZoom: 18,
+			maxZoom: 13,
 			attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors.'
 		});
 
-    if ( DCV.centerLat && DCV.centerLong ) {
-			var latlng = L.latLng(DCV.centerLat, DCV.centerLong);
+    //Get map center coordinate
+    if (typeof(DCV.defaultCenterLat) !== 'undefined' && typeof(DCV.defaultCenterLong) !== 'undefined' &&
+      DCV.defaultCenterLat != null && DCV.defaultCenterLong != null) {
+      //If centerLat and centerLong are set, use those points for the center.
+			var defaultCenterLatLong = L.latLng(DCV.defaultCenterLat, DCV.defaultCenterLong);
+		} else if(DCV.mapPlanes.length > 0) {
+      //Use first point in mapPlanes data
+      var firstMapPlaneCoordinateLatAndLong = DCV.mapPlanes[0]['c'].split(',');
+			var defaultCenterLatLong = L.latLng(firstMapPlaneCoordinateLatAndLong[0], firstMapPlaneCoordinateLatAndLong[1]);
 		} else {
-			var latlng = L.latLng('40.7400', '-73.9802');
-		}
+      // Fall back to Columbia University coordinates (Why not? It looks better on a map than the middle of the Atlantic Ocean.)
+      var defaultCenterLatLong = L.latLng(40.8075, -73.9626);
+    }
 
-		map = L.map('cul-map-display-component', {center: latlng, zoom: 11, layers: [tiles]});
+    //Get map default zoom level
+    if ( typeof(DCV.mapDefaultZoomLevel) !== 'undefined') {
+      //If centerLat and centerLong are set, use those points for the center.
+			var defaultZoomLevel = DCV.mapDefaultZoomLevel;
+		} else {
+      var defaultZoomLevel = 11;
+    }
 
+		map = L.map('cul-map-display-component', {center: defaultCenterLatLong, zoom: defaultZoomLevel, layers: [tiles]});
 
 		var markers = L.markerClusterGroup({spiderfyOnMaxZoom: false});
 
@@ -57,7 +76,10 @@ function initCulMapDisplayComponent() {
 			markers.addLayer(marker);
 		}
 
-		if ( !DCV.centerLat && !DCV.centerLong && allPoints.length > 0) {
+    // Assuming that we're not forcing the map to use the default certer lat/long
+    // as our focus, and assuming that we have at least one point on the map, set
+    // the map bounds so that all plotted points are visible.
+		if (!DCV.forceUseDefaultCenter && allPoints.length > 0) {
 			map.fitBounds(allPoints);
 		}
 

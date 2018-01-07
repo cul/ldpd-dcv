@@ -59,6 +59,7 @@ Dcv::Application.routes.draw do
 
   # LCAAJ subsite routes
   get 'lcaaj/about' => 'lcaaj#about', as: :lcaaj_about
+  get 'lcaaj/map_search' => 'lcaaj#map_search', as: :lcaaj_map_search
 
   resources 'sites', only: [:index, :show], param: :slug
   # Dynamic routes for catalog controller and all subsites
