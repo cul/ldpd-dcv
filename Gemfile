@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.1'
+gem 'rails', '4.2.10'
 gem 'sprockets-rails', '2.3.2' # Temporarily locking to 2.3.2 because of DCV-397
 gem 'sprockets', '2.11.0' # Temporarily locking to 2.11.0 because of DCV-397
 gem 'actionpack-action_caching'
@@ -39,8 +39,8 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-gem 'therubyracer', '>= 0.12.2',  platforms: :ruby
-gem 'libv8', '>= 3.16.14.15' # Min version for Mac OS 10.11
+gem 'therubyracer', '>= 0.12.3',  platforms: :ruby
+gem 'libv8', '>= 3.16.14.19' # Min version for Mac OS 10.11, XCode 9.0, Ruby 2.4
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails', '>= 3.0'
@@ -53,8 +53,13 @@ gem 'coderay'
 gem 'retriable', '~> 2.1'
 
 # Use resque for background jobs
-#gem 'resque', '~> 2.0.0.pre.1', github: 'resque/resque'
-gem 'resque', '~> 1.0'
+# We're pinning resque to 1.26.x because 1.27 does an eager load operation
+# that doesn't work properly with the Blacklight gem dependency and raises:
+# ActiveSupport::Concern::MultipleIncludedBlocks: Cannot define multiple 'included' blocks for a Concern
+gem 'resque', '~> 1.26.0'
+# Need to lock to earlier version of redis gem because resque 1.26.0 is
+# calling Redis.connect, and this method no longer exists in redis gem >= 4.0
+gem 'redis', '< 4' # Need to lock to earlier version of redis gem because resque is calling Redis.connect, and this method no longer exists in redis gem >= 4.0
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
