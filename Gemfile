@@ -90,7 +90,7 @@ gem "devise-guests", "~> 0.3"
 
 group :development, :test do
 # Use Capistrano for deployment
-  gem 'capistrano', '~>3.x', require: false
+  gem 'capistrano', '~> 3.5.0', require: false
 # Rails and Bundler integrations were moved out from Capistrano 3
   gem 'capistrano-rails', '~> 1.1', require: false
   gem 'capistrano-bundler', '~> 1.1', require: false

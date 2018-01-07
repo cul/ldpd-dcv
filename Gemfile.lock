@@ -536,7 +536,7 @@ DEPENDENCIES
   active-triples (~> 0.2.2)
   blacklight (~> 5.7.2)
   bootstrap-sass (>= 3.2)
-  capistrano (~> 3.x)
+  capistrano (~> 3.5.0)
   capistrano-bundler (~> 1.1)
   capistrano-passenger (~> 0.1)
   capistrano-rails (~> 1.1)
