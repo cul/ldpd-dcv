@@ -24,9 +24,10 @@
     }
   }
 }
-#sidebar #cul-map-display-component {
+#sidebar #cul-map-display-component,
+#item-description #cul-map-display-component {
 	width: 100%;
-	height: 260px;
+	height: 260px !important;
 	.leaflet-popup-content-wrapper {
 		max-width: 210px;
 		max-height: 240px;

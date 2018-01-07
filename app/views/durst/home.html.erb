@@ -2,16 +2,16 @@
   <div id="sidebar" class="col-md-3">
     <div class="home inner">
        <div id="home-sidebar-news">
-                  <h6>ABOUT THE OLD YORK COLLECTION</h6>
-                  <p>The Seymour B. Durst Old York Library collection at the <a href="http://library.columbia.edu/indiv/avery/">Avery Architectural &amp; Fine Arts Library</a> consists of more than 40,000 objects including historic photographs, maps, pamphlets, postcards, books, and New York City memorabilia from the 18th century to the 1980s. <a href="<%= durst_about_the_collection_path %>">Learn More &raquo;</a></p>
+          <h6>ABOUT THE OLD YORK COLLECTION</h6>
+          <p>The Seymour B. Durst Old York Library collection at the <a href="http://library.columbia.edu/indiv/avery/">Avery Architectural &amp; Fine Arts Library</a> consists of more than 40,000 objects including historic photographs, maps, pamphlets, postcards, books, and New York City memorabilia from the 18th century to the 1980s. <a href="<%= durst_about_the_collection_path %>">Learn More &raquo;</a></p>
 
-                  <hr>
-                  <a style="font-size:90%" href="<%= durst_blank_search_url %>">BROWSE ALL &raquo;</a>
-                  <hr>
+          <hr>
+          <a style="font-size:90%" href="<%= durst_blank_search_url %>">BROWSE ALL &raquo;</a>
+          <hr>
 
-                  <h6 class="pull-left">FIND BY</h6>
-									<%= render partial: 'search_sidebar', locals: {hide_refine_heading: true} %>
-                  <div class="clearfix"></div>
+          <h6 class="pull-left">FIND BY</h6>
+					<%= render partial: 'facets', locals: {hide_refine_heading: true, no_id_attr: false} %>
+          <div class="clearfix"></div>
        </div>
     </div>
   </div>

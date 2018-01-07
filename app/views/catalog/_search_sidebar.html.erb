@@ -1,7 +1,9 @@
-<%= render partial: 'facets', locals: {hide_refine_heading: (defined?(hide_refine_heading) ? hide_refine_heading : false),
-no_id_attr: (defined?(no_id_attr) ? no_id_attr : false)} %>
-<!--
-<div class="checkbox">
-	<label><%= check_box_tag :show_file_assets_checkbox, params[:show_file_assets] == 'toggle', nil, :checked => params[:show_file_assets] == 'true', :'data-new-location' => CGI.escape(url_for(params.merge(:show_file_assets => (params[:show_file_assets] == 'true' ? 'false' : 'true')))) %> Show File Assets</label>
+<div class="inner">
+  <%= render partial: 'facets', locals: {hide_refine_heading: (defined?(hide_refine_heading) ? hide_refine_heading : false),
+  no_id_attr: (defined?(no_id_attr) ? no_id_attr : false)} %>
 </div>
--->
+<% if controller.subsite_config.fetch('map_search', {}).fetch('sidebar', false) %>
+  <div class="inner" style="margin-top:1em;">
+    <%= render 'mapped_results_sidebar' %>
+  </div>
+<% end %>
