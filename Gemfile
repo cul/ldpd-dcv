@@ -89,9 +89,9 @@ gem "devise"
 gem "devise-guests", "~> 0.3"
 
 group :development, :test do
-# Use Capistrano for deployment
+  # Use Capistrano for deployment
   gem 'capistrano', '~> 3.5.0', require: false
-# Rails and Bundler integrations were moved out from Capistrano 3
+  # Rails and Bundler integrations were moved out from Capistrano 3
   gem 'capistrano-rails', '~> 1.1', require: false
   gem 'capistrano-bundler', '~> 1.1', require: false
   # "idiomatic support for your preferred ruby version manager"
@@ -99,6 +99,8 @@ group :development, :test do
   # The `deploy:restart` hook for passenger applications is now in a separate gem
   # Just add it to your Gemfile and require it in your Capfile.
   gem 'capistrano-passenger', '~> 0.1', require: false
+  # Use net-ssh >= 4.2 to prevent warnings with Ruby 2.4
+  gem 'net-ssh', '>= 4.2'
   gem 'rspec-rails', '~> 3.4.0'
   gem 'capybara'
   gem 'poltergeist' # For headless-browser JavaScript testing
