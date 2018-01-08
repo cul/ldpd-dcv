@@ -15,7 +15,7 @@ var map;
 var marker;
 var tiles;
 
-function initCulMapDisplayComponent(callback) {
+function initCulMapDisplayComponent() {
 	  if($('#cul-map-display-component.full-map-search').length > 0) {
 		  $(window).on('resize', function(){
 		    $('#cul-map-display-component.full-map-search').height($(window).height()-300);
