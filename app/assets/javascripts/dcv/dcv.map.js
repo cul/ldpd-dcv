@@ -5,7 +5,7 @@ $(function() {
  	 $('#cul-map-display-component').html('<h2 class="loading-text" style="margin:.5em;color:#ccc;">Loading...</h2>');
     setTimeout(function(){
       //Better user experience if this is asynchronous.
-      initCulMapDisplayComponent();
+      initCulMapDisplayComponent($('#cul-map-display-component').attr('data-subsite-key'));
       $('#cul-map-display-component .loading-text').html(''); //clear loading message
     }, 100);
   }
@@ -15,7 +15,7 @@ var map;
 var marker;
 var tiles;
 
-function initCulMapDisplayComponent() {
+function initCulMapDisplayComponent(subsiteKey) {
 	  if($('#cul-map-display-component.full-map-search').length > 0) {
 		  $(window).on('resize', function(){
 		    $('#cul-map-display-component.full-map-search').height($(window).height()-300);
@@ -67,7 +67,7 @@ function initCulMapDisplayComponent() {
 			var lat = latAndLong[0];
 			var lng = latAndLong[1];
 			var title = a['t'];
-			var itemLink = '/durst/' + a['id'];
+			var itemLink = '/' + subsiteKey + '/' + a['id'];
 			var thumbnailUrl = a['b'] == 'y' ? DCV.bookIconUrl : DCV.mapImageThumbTemplate.replace('_document_id_', a['id']);
 
 			var marker = L.marker(new L.LatLng(lat, lng), { title: title });
