@@ -2,8 +2,6 @@ source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.10'
-#gem 'sprockets-rails', '2.3.2' # Temporarily locking to 2.3.2 because of DCV-397
-#gem 'sprockets', '2.11.0' # Temporarily locking to 2.11.0 because of DCV-397
 gem 'actionpack-action_caching'
 # Hydra stack
 gem 'nokogiri', '~> 1.6.3'
@@ -43,8 +41,8 @@ gem 'therubyracer', '>= 0.12.3',  platforms: :ruby
 gem 'libv8', '>= 3.16.14.19' # Min version for Mac OS 10.11, XCode 9.0, Ruby 2.4
 
 # Use jquery as the JavaScript library
-gem 'jquery-rails', '>= 3.0'
-gem 'jquery-ui-rails'
+gem 'jquery-rails', '~> 3.1.3'
+gem 'jquery-ui-rails', '~>4.0'
 
 # Pretty printing
 gem 'coderay'
@@ -83,7 +81,7 @@ end
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
-gem "devise"
+gem 'devise', '~>3.4'
 gem "devise-guests", "~> 0.3"
 
 group :development, :test do

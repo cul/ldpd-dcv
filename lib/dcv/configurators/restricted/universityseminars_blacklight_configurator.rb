@@ -52,7 +52,7 @@ class Dcv::Configurators::Restricted::UniversityseminarsBlacklightConfigurator
     config.add_facet_field ActiveFedora::SolrService.solr_name('primary_name', :facetable), { 
       :label => "Seminar Numbers", :limit => 10, :sort => "index"}
     config.add_facet_field "subject_topic_sim", :label => "Seminar Titles", :limit => 10, :sort => "index"
-    config.add_facet_field ActiveFedora::SolrService.solr_name('physical_description_form_local', :facetable), :label => "Document Types", :limit => 10, :sort => "index"
+    config.add_facet_field ActiveFedora::SolrService.solr_name('lib_format', :facetable), :label => "Document Types", :limit => 10, :sort => "index"
     config.add_facet_field ActiveFedora::SolrService.solr_name('language_language_term_text', :symbol), :label => "Languages", :limit => 10, :sort => "index"
 
     # Have BL send all facet field names to Solr, which has been the default
