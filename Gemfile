@@ -66,9 +66,7 @@ gem 'jbuilder', '~> 1.2'
 
 gem 'bootstrap-sass', '>= 3.2'
 
-gem 'leaflet-rails'
-
-gem 'leaflet-markercluster-rails'
+gem 'leaflet-rails', '~> 1.2.0'
 
 gem 'redcarpet'
 

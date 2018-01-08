@@ -50,7 +50,11 @@ function initCulMapDisplayComponent(callback) {
       var defaultZoomLevel = 11;
     }
 
-		map = L.map('cul-map-display-component', {center: defaultCenterLatLong, zoom: defaultZoomLevel, layers: [tiles]});
+		map = L.map('cul-map-display-component', {
+      center: defaultCenterLatLong,
+      zoom: defaultZoomLevel,
+      layers: [tiles]
+    });
 
 		var markers = L.markerClusterGroup({spiderfyOnMaxZoom: false});
 
@@ -73,7 +77,7 @@ function initCulMapDisplayComponent(callback) {
 					'<a href="' + itemLink + '" class="thumbnail"><img src="' + thumbnailUrl + '" /></a>' + '<br />' + '<a href="' + itemLink + '">' + title + '</a>'
 				);
 			}
-			markers.addLayer(marker);
+      markers.addLayer(marker);
 		}
 
     // Assuming that we're not forcing the map to use the default certer lat/long
