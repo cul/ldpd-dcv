@@ -292,35 +292,9 @@ a, .btn-link {
 	}
 }
 #content {
-	#mapholder {
+	#durst-map-image {
 		width: 100%;
 		height: auto;
-	}
-	#mapholder-div {
-		position: relative;
-		overflow: hidden;
-		border: 1px solid $color_16;
-		#durst_osm {
-			width: 100%;
-			height: 420px;
-			min-height: 240px;
-			.leaflet-popup-content {
-				hr {
-					margin: 10px 0;
-				}
-				.thumbnail {
-					background-color: $color_1;
-					img {
-						margin: 0 auto;
-						max-width: 100%;
-						height: 120px;
-					}
-				}
-			}
-			&.full-map-search {
-				height: 400px;
-			}
-		}
 	}
 	#appliedParams {
 		border-width: 0 0 1px 0;
@@ -376,7 +350,7 @@ a, .btn-link {
 	}
 }
 .carousel-inner {
-	.dhp-img-holder {
+	.durst-carousel-img-holder {
 		height: 100%;
 		background-position: center center;
 		background-repeat: no-repeat;
@@ -465,7 +439,7 @@ footer.container {
 	font-size: .85em;
 	color: $color_7;
 }
-#dhss #carousel-example-generic {
+#durst-home-carousel-wrapper #carousel-example-generic {
 	border: 1px solid $color_16;
 }
 #dhig .thumbnail {
@@ -474,7 +448,7 @@ footer.container {
 #item-content dl {
 	margin-bottom: 0;
 }
-#sidebar #durst_osm {
+#sidebar #cul-map-display-component {
 	width: 100%;
 	height: 260px;
 	.leaflet-popup-content-wrapper {
@@ -500,7 +474,7 @@ footer.container {
 		}
 	}
 }
-#item-description #durst_osm {
+#item-description #cul-map-display-component {
 	width: 100%;
 	height: 260px;
 	.leaflet-popup-content-wrapper {

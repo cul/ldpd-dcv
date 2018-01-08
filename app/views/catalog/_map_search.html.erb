@@ -1,0 +1,14 @@
+<script>
+  DCV.mapPlanes = <%= map_data_json.html_safe %>;
+  DCV.defaultCenterLat = <%= map_default_center_lat.present? ? map_default_center_lat : 'null' %>;
+  DCV.defaultCenterLong = <%= map_default_center_long.present? ? map_default_center_long : 'null' %>;
+  DCV.mapDefaultZoomLevel = <%= map_default_zoom_level %>;
+  DCV.mapImageThumbTemplate = decodeURIComponent('<%= CGI.escape(get_asset_url(id: '_document_id_', size: 256, type: 'featured', format: 'jpg')) %>');
+  DCV.forceUseDefaultCenter = <%= defined?(force_use_default_center) ? force_use_default_center : false %>;
+  // Note: DCV.bookIconUrl is only for the Durst subsite. Consider refactoring in a better way later, rather than having it here in a shared partial.
+  DCV.bookIconUrl = decodeURIComponent('<%= CGI.escape(image_url('book-placeholder.png')) %>');
+</script>
+
+<div id="cul-map-display-component-holder">
+  <div id="cul-map-display-component" data-subsite-key="<%= controller.subsite_key %>" class="full-map-search"></div>
+</div>

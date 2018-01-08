@@ -1,0 +1,16 @@
+<% if @document_list.length > 0 %>
+  <h6 class="nomar-t">Mapped Results:
+          <%= (@response.params[:start].to_i + 1).to_s + ' - ' +
+          (@response.params[:start].to_i + @document_list.length).to_s  %>
+  </h6>
+<% end %>
+<script>
+  DCV.mapCoordinateSearchUrl = decodeURIComponent('<%= CGI.escape(url_for(params.except(:utf8).merge(:lat => '_lat_', :long => '_long_', :search_field => params[:search_field] || 'all_text_teim', :q => params[:q] || ''))).html_safe %>');
+</script>
+<% map_search_settings = controller.subsite_config.fetch('map_search', {}) %>
+<%= render partial: 'map_search', locals: {
+  map_data_json: extract_map_data_from_document_list(@document_list).to_json.html_safe,
+  map_default_center_lat: params[:lat] || map_search_settings['default_lat'] || 0,
+  map_default_center_long: params[:long] || map_search_settings['default_long'] || 0,
+  map_default_zoom_level: map_search_settings['default_zoom'] || 11
+} %>

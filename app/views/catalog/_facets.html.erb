@@ -3,23 +3,24 @@
 <div <%= defined?(no_id_attr) && no_id_attr ? '' : 'id="facets"'.html_safe %> class="facets sidenav">
 
   <div class="top-panel-heading panel-heading">
-    <button type="button" class="facets-toggle" data-toggle="collapse" data-target="#facet-panel-collapse">
-      <span class="sr-only">Toggle facets</span>
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-    </button>
+    <% if has_search_parameters? %>
+      <button type="button" class="facets-toggle" data-toggle="collapse" data-target="#facet-panel-collapse">
+        <span class="sr-only">Toggle facets</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    <% end %>
 
-		<% unless defined?(hide_refine_heading) && hide_refine_heading %>
-		<h4><%= t('blacklight.search.facets.title') %></h4>
-		<% end %>
+        <% unless defined?(hide_refine_heading) && hide_refine_heading %>
+        <h4><%= t('blacklight.search.facets.title') %></h4>
+        <% end %>
   </div>
-
-  <div id="facet-panel-collapse" class="collapse panel-group">
+  <div id="facet-panel-collapse" class="<%= has_search_parameters? ? 'collapse' : '' %> panel-group">
     <%= render_facet_partials %>
     <%= render :partial => 'sidebar_date_selector' %>
   </div>
 </div>
 <% else %>
-	No facets available.
+    No facets available.
 <% end %>

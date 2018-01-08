@@ -9,15 +9,5 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
- *= require ./blacklight
- *= require jquery.ui.all
- *= require colorbox-rails
- *= require ableplayer.min
- *
- * leaflet + plugins
- *= require leaflet
- *= require MarkerCluster
- *= require MarkerCluster.Default
- *
- *= require_tree './dcv'
-*/
+ *= require_tree './lcaaj'
+ */

@@ -1,9 +1,7 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.8'
-gem 'sprockets-rails'
-gem 'sprockets', '~> 2.11.3'
+gem 'rails', '4.2.10'
 gem 'actionpack-action_caching'
 # Hydra stack
 gem 'nokogiri', '~> 1.6.3'
@@ -14,7 +12,7 @@ gem 'active-fedora', '>= 7.3.1'
 gem 'rubydora', :git => 'https://github.com/elohanlon/rubydora', branch: 'datastream_dissemination_with_headers'
 
 # Columbia Hydra models
-gem 'cul_hydra', '~> 1.4.11'
+gem 'cul_hydra', '~> 1.4.12'
 #gem 'cul_hydra', :path => '../cul_hydra'
 gem 'cul_omniauth', '~>0.5.2'
 gem 'active-triples', '~> 0.2.2'
@@ -39,8 +37,8 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-gem 'therubyracer', '>= 0.12.2',  platforms: :ruby
-gem 'libv8', '>= 3.16.14.15' # Min version for Mac OS 10.11
+gem 'therubyracer', '>= 0.12.3',  platforms: :ruby
+gem 'libv8', '>= 3.16.14.19' # Min version for Mac OS 10.11, XCode 9.0, Ruby 2.4
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails', '~> 3.1.3'
@@ -53,17 +51,20 @@ gem 'coderay'
 gem 'retriable', '~> 2.1'
 
 # Use resque for background jobs
-#gem 'resque', '~> 2.0.0.pre.1', github: 'resque/resque'
-gem 'resque', '~> 1.0'
+# We're pinning resque to 1.26.x because 1.27 does an eager load operation
+# that doesn't work properly with the Blacklight gem dependency and raises:
+# ActiveSupport::Concern::MultipleIncludedBlocks: Cannot define multiple 'included' blocks for a Concern
+gem 'resque', '~> 1.26.0'
+# Need to lock to earlier version of redis gem because resque 1.26.0 is
+# calling Redis.connect, and this method no longer exists in redis gem >= 4.0
+gem 'redis', '< 4' # Need to lock to earlier version of redis gem because resque is calling Redis.connect, and this method no longer exists in redis gem >= 4.0
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
 
 gem 'bootstrap-sass', '>= 3.2'
 
-gem 'leaflet-rails'
-
-gem 'leaflet-markercluster-rails'
+gem 'leaflet-rails', '~> 1.2.0'
 
 gem 'redcarpet'
 
@@ -84,9 +85,9 @@ gem 'devise', '~>3.4'
 gem "devise-guests", "~> 0.3"
 
 group :development, :test do
-# Use Capistrano for deployment
-  gem 'capistrano', '~>3.5.0', require: false
-# Rails and Bundler integrations were moved out from Capistrano 3
+  # Use Capistrano for deployment
+  gem 'capistrano', '~> 3.5.0', require: false
+  # Rails and Bundler integrations were moved out from Capistrano 3
   gem 'capistrano-rails', '~> 1.1', require: false
   gem 'capistrano-bundler', '~> 1.1', require: false
   # "idiomatic support for your preferred ruby version manager"
@@ -94,6 +95,8 @@ group :development, :test do
   # The `deploy:restart` hook for passenger applications is now in a separate gem
   # Just add it to your Gemfile and require it in your Capfile.
   gem 'capistrano-passenger', '~> 0.1', require: false
+  # Use net-ssh >= 4.2 to prevent warnings with Ruby 2.4
+  gem 'net-ssh', '>= 4.2'
   gem 'rspec-rails', '~> 3.4.0'
   gem 'capybara'
   gem 'poltergeist' # For headless-browser JavaScript testing
