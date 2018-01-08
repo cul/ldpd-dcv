@@ -9,11 +9,13 @@ class Dcv::Configurators::LcaajBlacklightConfigurator
     config.show.route = { controller: 'lcaaj' }
 
     config.default_solr_params = {
+      :defType => 'edismax',
       :fq => [
         '-active_fedora_model_ssi:GenericResource'
       ],
       :qt => 'search',
-      :rows => 20
+      :rows => 20,
+      :mm => 1
     }
 
     config.per_page = [20,60,100]
