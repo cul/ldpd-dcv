@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 gem 'rails', '4.2.10'
 gem 'actionpack-action_caching'
 # Hydra stack
-gem 'nokogiri', '~> 1.6.3'
+gem 'nokogiri', '~> 1.8.1'
 gem 'blacklight', '~> 5.7.2'
 gem 'hydra-head', '~>7'
 gem 'active-fedora', '>= 7.3.1'
@@ -26,6 +26,9 @@ gem 'mysql2', '0.3.18'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0.0'
 gem 'sass', '>= 3.5.3'
+
+# Ensure that rubyzip is >= 1.2.1 because of a security issue in earlier version
+gem 'rubyzip', '>= 1.2.1'
 
 # Use colorbox-rails gem for dialogs
 gem 'colorbox-rails'
@@ -102,8 +105,9 @@ group :development, :test do
   gem 'poltergeist' # For headless-browser JavaScript testing
   gem 'factory_girl_rails', '>= 4.4.1'
   gem 'jettywrapper', '>= 1.5.1'
-  gem 'rubocop', require: false
-  gem 'rubocop-rspec', require: false
+  gem 'rubocop', '~> 0.51.0', require: false
+  gem 'rubocop-rspec', '>= 1.20.1', require: false
+  gem 'rubocop-rails', '>= 1.1.0',  require: false
 end
 
 # Add unicorn as available app server
