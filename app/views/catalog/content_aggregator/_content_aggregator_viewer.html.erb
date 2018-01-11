@@ -20,7 +20,7 @@
       </div>
       <% if has_persistent_link?(document) %>
         <a id="draggable-iiif-button" class="btn btn-default grabbable" href="<%= '#?manifest=' + CGI::escape(get_manifest_url(document))%>" title="drag-n-drop iiif manifest" data-toggle="tooltip">
-          <img class="localicon-iiif" src="<%= asset_url('logo-iiif-34x30.png') %>" />
+          <%= image_tag('logo-iiif-34x30.png', class: "localicon-iiif") %>
         </a>
       <% end %>
     </div>
