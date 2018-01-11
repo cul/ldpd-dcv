@@ -391,6 +391,12 @@ a {
 	line-height: 3px;
 	//background: $color_8;
 	border-bottom: 1px solid $color_17;
+	.nav > li {
+		> a {
+			font-size:.85em;
+			text-transform:uppercase;
+		}
+	}
 	li {
 		border-left: 1px solid $color_8;
 		max-height: 22px;
