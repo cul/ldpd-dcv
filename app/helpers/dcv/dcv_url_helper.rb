@@ -26,4 +26,36 @@ module Dcv::DcvUrlHelper
       super
     end
   end
+
+  def has_persistent_link?(document)
+    document['ezid_doi_ssim'][0]
+  end
+
+  def persistent_link_to(label, document, opts = {})
+    link_to(label, persistent_url_for(document), opts)
+  end
+
+  def persistent_url_for(document)
+    document['ezid_doi_ssim'][0].to_s.sub(/^doi\:/,'https://doi.org/')
+  end
+
+  def local_blank_search_url
+    return url_for({controller: controller_name, action: 'index', search_field: 'all_text_teim', q: '' })
+  end
+
+  def local_image_search_url
+    return url_for({controller: controller_name, action: 'index', search_field: 'all_text_teim', q: '', 'f' => {'lib_format_sim' => (durst_format_list.keys.reject{|key| key == 'books'})}})
+  end
+
+  def local_book_search_url
+    return url_for({controller: controller_name, action: 'index', search_field: 'all_text_teim', q: '', 'f' => {'lib_format_sim' => ['books']}})
+  end
+
+  def local_facet_search_url(facet_field_name, value)
+    return url_for({controller: controller_name, action: 'index', search_field: 'all_text_teim', q: '', 'f' => {facet_field_name => [value]}})
+  end
+
+  def local_subject_search_url(subject_term_value)
+    return url_for({controller: controller_name, action: 'index', search_field: 'all_text_teim', q: '', 'f' => {'durst_subjects_ssim' => [subject_term_value]}})
+  end
 end
