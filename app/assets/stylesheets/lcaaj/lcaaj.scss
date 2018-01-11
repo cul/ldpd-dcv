@@ -475,6 +475,14 @@ a {
 		color: $color_18;
 	}
 }
+#content, #sortAndPerPage {
+	.btn-default {
+		color: $color_1; 
+		&:hover {
+			color:darken($color_10,6%);
+		}
+	}
+}
 #partner-image-grid {
 	margin-bottom: 1em;
 	font-weight: 400;
