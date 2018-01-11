@@ -56,13 +56,8 @@ $(function() {
   DCV.DateRangeGraphSelector.init();
   DCV.DateRangeSlider.init();
 
-  // need better solution
-  //$('.child-scroll').niceScroll({cursorminheight: "46", cursorcolor:"#111", cursorborder:"1px solid #ccc", autohidemode: false, cursorborderradius: "2px", cursorwidth: "8"});
-
-  // do fancy tooltips when data-toggle="tooltip" for top level DLC
-  if (DCV.subsite_layout === undefined || DCV.subsite_layout == 'dcv') {
-	$('[data-toggle="tooltip"], [data-tt="tooltip"]').tooltip({container: 'body'});
-  }
+  // do fancy tooltips when data-toggle="tooltip" is set on el
+  $('[data-toggle="tooltip"], [data-tt="tooltip"]').tooltip({container: 'body'});
 });
 
 //** CULTNBW START **/
