@@ -18,6 +18,11 @@
           <li><a href="#">Test 2</a></li>
         </ul>
       </div>
+      <% if has_persistent_link?(document) %>
+        <a id="draggable-iiif-button" class="btn btn-default grabbable" href="<%= '#?manifest=' + CGI::escape(get_manifest_url(document))%>" title="drag-n-drop iiif manifest" data-toggle="tooltip">
+          <img class="localicon-iiif" src="<%= asset_url('logo-iiif-34x30.png') %>" />
+        </a>
+      <% end %>
     </div>
     <h3 id="child-viewer-title"><%= parent_title %></h3>
     <p id="child-viewer-subtitle">&nbsp;</p>

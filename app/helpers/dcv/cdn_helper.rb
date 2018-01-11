@@ -11,6 +11,12 @@ module Dcv::CdnHelper
     return response.code == '200' && JSON.parse(response.body)['sizes'].present?
   end
 
+  def get_manifest_url(document, options = {})
+    doi = document['ezid_doi_ssim'][0]
+    doi = doi.sub(/^doi\:/,'') || doi
+    Dcv::Utils::CdnUtils.random_cdn_url + "/iiif/2/presentation/#{doi}/manifest"
+  end
+
   def get_asset_url(conditions)
     return Dcv::Utils::CdnUtils.random_cdn_url + "/iiif/2/#{conditions[:id]}/#{conditions[:type]}/!#{conditions[:size]},#{conditions[:size]}/0/native.#{conditions[:format]}"
   end

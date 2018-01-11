@@ -1208,3 +1208,25 @@ h2[itemprop="name"] {
 .mejs__cannotplay img {
 	display:none;
 }
+/* be like glyphicons with the iiif icon */
+.localicon-iiif {
+	height: 1em;
+	width: auto;
+}
+
+/* grabby styles for dragndrop icons */
+
+/* Apply a grabby hand to grabbable things */
+.grabbable:hover {
+  cursor: move; /* fallback if grab cursor is unsupported */
+  cursor: grab;
+  cursor: -moz-grab;
+  cursor: -webkit-grab;
+}
+
+ /* Apply a "closed-hand" cursor during drag operation. */
+.grabbable:active {
+  cursor: grabbing;
+  cursor: -moz-grabbing;
+  cursor: -webkit-grabbing;
+}
