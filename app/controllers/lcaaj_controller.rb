@@ -11,9 +11,49 @@ class LcaajController < SubsitesController
   end
 
   def index
+    # Export all search results if request format is CSV
+
 	  super
     unless has_search_parameters?
       render 'home'
+    end
+  end
+
+  def render_search_results_as_csv
+    field_keys_to_labels = Hash[blacklight_config.show_fields.map{|field_name, field| [field_name, field.label]}].except('lib_project_full_ssim', 'lib_collection_ssm', 'lib_repo_full_ssim', 'lib_name_ssm')
+
+    # Special handling for name fields
+    field_keys_to_labels['interviewer_name'] = 'Interviewer'
+    field_keys_to_labels['interviewee_name'] = 'Interviewee'
+
+    # Stream potentially large CSV response to keep memory usage low
+    response.status = 200
+    begin
+      response.stream.write CSV.generate_line(field_keys_to_labels.values)
+      @document_list.each do |document|
+
+        if document.key?('lib_name_ssm')
+          document['lib_name_ssm'].each do |name_value|
+            puts 'name_value: ' + name_value
+            if name_value.start_with?('Interviewer')
+              document['interviewer_name'] = [name_value]
+              next
+            elsif name_value.start_with?('Interviewee')
+              document['interviewee_name'] = [name_value]
+              next
+            end
+          end
+        end
+
+        response.stream.write CSV.generate_line(field_keys_to_labels.keys.map{ |field_key|
+          next '' unless document.has?(field_key)
+          values = document[field_key]
+          values.delete('manuscripts') if field_key == 'lib_format_ssm' # We don't want to include the 'manuscripts' value because other format value is more descriptive
+          values.first
+        })
+      end
+    ensure
+      response.stream.close
     end
   end
 
