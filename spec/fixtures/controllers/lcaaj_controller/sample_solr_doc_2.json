@@ -1,0 +1,143 @@
+{
+"system_create_dtsi": "2017-09-01T12:43:32Z",
+"system_modified_dtsi": "2018-01-03T11:33:59Z",
+"object_state_ssi": "A",
+"active_fedora_model_ssi": "ContentAggregator",
+"id": "cul:1ns1rn8qqw",
+"object_profile_ssm": [
+"{\"datastreams\":{\"RELS-EXT\":{\"dsLabel\":\"Fedora Object-to-Object Relationship Metadata\",\"dsVersionID\":\"RELS-EXT.9\",\"dsCreateDate\":\"2018-01-03T11:33:59Z\",\"dsState\":\"A\",\"dsMIME\":\"application/rdf+xml\",\"dsFormatURI\":null,\"dsControlGroup\":\"X\",\"dsSize\":892,\"dsVersionable\":true,\"dsInfoType\":null,\"dsLocation\":\"cul:1ns1rn8qqw+RELS-EXT+RELS-EXT.9\",\"dsLocationType\":null,\"dsChecksumType\":\"DISABLED\",\"dsChecksum\":\"none\"},\"hyacinth_core\":{\"dsLabel\":\"hyacinth_core\",\"dsVersionID\":\"hyacinth_core.4\",\"dsCreateDate\":\"2018-01-03T11:33:59Z\",\"dsState\":\"A\",\"dsMIME\":\"application/json\",\"dsFormatURI\":null,\"dsControlGroup\":\"M\",\"dsSize\":1882,\"dsVersionable\":true,\"dsInfoType\":null,\"dsLocation\":\"cul:1ns1rn8qqw+hyacinth_core+hyacinth_core.4\",\"dsLocationType\":\"INTERNAL_ID\",\"dsChecksumType\":\"DISABLED\",\"dsChecksum\":\"none\"},\"hyacinth_struct\":{\"dsLabel\":\"hyacinth_struct\",\"dsVersionID\":\"hyacinth_struct.1\",\"dsCreateDate\":\"2017-09-01T13:05:01Z\",\"dsState\":\"A\",\"dsMIME\":\"application/json\",\"dsFormatURI\":null,\"dsControlGroup\":\"M\",\"dsSize\":18,\"dsVersionable\":false,\"dsInfoType\":null,\"dsLocation\":\"cul:1ns1rn8qqw+hyacinth_struct+hyacinth_struct.1\",\"dsLocationType\":\"INTERNAL_ID\",\"dsChecksumType\":\"DISABLED\",\"dsChecksum\":\"none\"},\"rightsMetadata\":{},\"DC\":{\"dsLabel\":\"Dublin Core Record for this object\",\"dsVersionID\":\"DC.9\",\"dsCreateDate\":\"2018-01-03T11:33:59Z\",\"dsState\":\"A\",\"dsMIME\":\"text/xml\",\"dsFormatURI\":\"http://www.openarchives.org/OAI/2.0/oai_dc/\",\"dsControlGroup\":\"X\",\"dsSize\":516,\"dsVersionable\":true,\"dsInfoType\":null,\"dsLocation\":\"cul:1ns1rn8qqw+DC+DC.9\",\"dsLocationType\":null,\"dsChecksumType\":\"DISABLED\",\"dsChecksum\":\"none\"},\"descMetadata\":{\"dsLabel\":\"descMetadata\",\"dsVersionID\":\"descMetadata.2\",\"dsCreateDate\":\"2018-01-03T11:33:59Z\",\"dsState\":\"A\",\"dsMIME\":\"text/xml\",\"dsFormatURI\":null,\"dsControlGroup\":\"M\",\"dsSize\":3529,\"dsVersionable\":true,\"dsInfoType\":null,\"dsLocation\":\"cul:1ns1rn8qqw+descMetadata+descMetadata.2\",\"dsLocationType\":\"INTERNAL_ID\",\"dsChecksumType\":\"DISABLED\",\"dsChecksum\":\"none\"},\"structMetadata\":{\"dsLabel\":null,\"dsVersionID\":\"structMetadata.2\",\"dsCreateDate\":\"2018-01-03T11:33:59Z\",\"dsState\":\"A\",\"dsMIME\":\"text/xml\",\"dsFormatURI\":null,\"dsControlGroup\":\"M\",\"dsSize\":232,\"dsVersionable\":true,\"dsInfoType\":null,\"dsLocation\":\"cul:1ns1rn8qqw+structMetadata+structMetadata.2\",\"dsLocationType\":\"INTERNAL_ID\",\"dsChecksumType\":\"DISABLED\",\"dsChecksum\":\"none\"}},\"objLabel\":\"Eastern questionnaire, answer sheet for Interviewee 53244, page 176\",\"objOwnerId\":\"fedoraAdmin\",\"objModels\":[\"info:fedora/ldpd:ContentAggregator\",\"info:fedora/fedora-system:FedoraObject-3.0\"],\"objCreateDate\":\"2017-09-01T12:43:32Z\",\"objLastModDate\":\"2018-01-03T11:33:59Z\",\"objDissIndexViewURL\":\"http://repository.cul.columbia.edu:8080/fedora/objects/cul%3A1ns1rn8qqw/methods/fedora-system%3A3/viewMethodIndex\",\"objItemIndexViewURL\":\"http://repository.cul.columbia.edu:8080/fedora/objects/cul%3A1ns1rn8qqw/methods/fedora-system%3A3/viewItemIndex\",\"objState\":\"A\"}"
+],
+"dc_identifier_ssim": [
+"0097981",
+"cul:1ns1rn8qqw"
+],
+"dc_title_ssm": [
+"Eastern questionnaire, answer sheet for Interviewee 53244, page 176"
+],
+"dc_type_ssm": [
+"InteractiveResource"
+],
+"title_display_ssm": [
+"Eastern questionnaire, answer sheet for Interviewee 53244, page 176"
+],
+"lib_collection_ssm": [
+"Language and Culture Archive of Ashkenazic Jewry"
+],
+"subject_hierarchical_geographic_region_ssim": [
+"Grodno?"
+],
+"subject_hierarchical_geographic_city_ssim": [
+"Bobr"
+],
+"type_of_resource_ssm": [
+"text"
+],
+"physical_description_form_local_ssm": [
+"answer sheets"
+],
+"physical_description_extent_ssm": [
+"page 176"
+],
+"physical_description_digital_origin_ssm": [
+"reformatted digital"
+],
+"lib_format_ssm": [
+"manuscripts",
+"answer sheets"
+],
+"origin_info_date_created_ssm": [
+"1959"
+],
+"origin_info_date_created_start_ssm": [
+"1959"
+],
+"origin_info_date_created_end_ssm": [
+"1972"
+],
+"title_ssm": [
+"Eastern questionnaire, answer sheet for Interviewee 53244, page 176"
+],
+"lib_name_ssm": [
+"Interviewee 53244"
+],
+"location_shelf_locator_ssm": [
+"Box no. 175"
+],
+"lib_date_textual_ssm": [
+"Between 1959 and 1972"
+],
+"lib_non_date_notes_ssm": [
+"Dates inferred from collection date range.",
+"Eastern?"
+],
+"lib_repo_short_ssim": [
+"Rare Book & Manuscript Library"
+],
+"lib_repo_full_ssim": [
+"Rare Book & Manuscript Library, Columbia University"
+],
+"lib_project_short_ssim": [
+"Language and Culture Archive of Ashkenazic Jewry"
+],
+"lib_project_full_ssim": [
+"Language and Culture Archive of Ashkenazic Jewry"
+],
+"lib_start_date_year_itsi": 1959,
+"lib_end_date_year_itsi": 1972,
+"lib_date_year_range_ss": "1959-1972",
+"geo": [
+"54.327889,29.275507"
+],
+"structured_bsi": true,
+"rdf_type_ssim": [
+"http://purl.oclc.org/NET/CUL/Aggregator",
+"http://pcdm.org/models#Object"
+],
+"publisher_ssim": [
+"info:fedora/cul:stqjq2bx04"
+],
+"ezid_doi_ssim": [
+"doi:10.7916/D8PK1D9G"
+],
+"has_model_ssim": [
+"info:fedora/ldpd:ContentAggregator"
+],
+"is_constituent_of_ssim": [
+"info:fedora/cul:5mkkwh713z"
+],
+"descriptor_ssi": "mods",
+"identifier_ssim": [
+"0097981"
+],
+"format_ssi": "multipartitem",
+"index_type_label_ssi": "SINGLE PART",
+"cul_number_of_members_isi": 1,
+"representative_generic_resource_pid_ssi": "cul:cnp5hqc0rn",
+"fedora_pid_uri_ssi": "info:fedora/cul:1ns1rn8qqw",
+"timestamp": "2018-01-03T11:34:03.020Z",
+"lib_repo_long_sim": [
+"Rare Book & Manuscript Library"
+],
+"dc_type_sim": [
+"InteractiveResource"
+],
+"lib_name_sim": [
+"Interviewee 53244"
+],
+"physical_description_form_local_sim": [
+"answer sheets"
+],
+"lib_format_sim": [
+"answer sheets",
+"manuscripts"
+],
+"_version_": 1588570874728939500,
+"title_si": "Eastern questionnaire, answer sheet for Interviewee 53244, page 176",
+"lib_collection_sim": [
+"Language and Culture Archive of Ashkenazic Jewry"
+],
+"lib_shelf_sim": [
+"Box no. 175"
+],
+"lib_date_year_range_si": "1959-1972"
+}

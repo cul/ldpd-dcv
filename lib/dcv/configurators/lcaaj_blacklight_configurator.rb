@@ -163,7 +163,7 @@ class Dcv::Configurators::LcaajBlacklightConfigurator
     config.index.thumbnail_method = :thumbnail_for_doc
 
     # Respond to CSV
-    config.index.respond_to.csv = :render_search_results_as_csv
+    config.index.respond_to.csv = true
 
   end
 
