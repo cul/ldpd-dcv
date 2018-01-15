@@ -60,7 +60,7 @@ namespace :dcv do
   end
   desc "CI build"
   task :ci do
-    
+
     ENV['RAILS_ENV'] = 'test'
     Rails.env = ENV['RAILS_ENV']
 
@@ -71,13 +71,13 @@ namespace :dcv do
       puts 'No test jetty found.  Will download / unzip a copy now.'
       puts "\n"
     end
-    
+
     Rake::Task["jetty:clean"].invoke
     Rake::Task["dcv:ci:config_files"].invoke
     Rake::Task["dcv:ci:solr_cores"].invoke
 
     jetty_params = Jettywrapper.load_config.merge({jetty_home: Jettywrapper.jetty_dir})
-    
+
     error = Jettywrapper.wrap(jetty_params) do
       Rake::Task["dcv:reload_fixtures"].invoke
       Rake::Task["db:drop"].invoke
@@ -180,7 +180,7 @@ namespace :dcv do
         }
       end
       File.open(cas_yml_file, 'w') {|f| f.write cas_yml.to_yaml }
-      
+
       # roles.yml
       roles_yml_file = File.join(Rails.root, 'config/roles.yml')
       FileUtils.touch(roles_yml_file) # Create if it doesn't exist
@@ -207,7 +207,7 @@ namespace :dcv do
         }
       end
       File.open(dcv_yml_file, 'w') {|f| f.write dcv_yml.to_yaml }
-      
+
       # subsites.yml
       subsites_yml_file = File.join(Rails.root, 'config/subsites.yml')
       FileUtils.touch(subsites_yml_file) # Create if it doesn't exist
@@ -221,6 +221,16 @@ namespace :dcv do
               'date_search' => {
                 'sidebar' => true,
                 'timeline' => true
+              }
+            },
+            'lcaaj' => {
+              'layout' => 'lcaaj',
+              'remote_request_api_key' => 'sample_key',
+              'map_search' => {
+                'sidebar' => true,
+                'default_lat' => 52.8,
+                'default_long' => 21.5,
+                'default_zoom' => 5
               }
             }
           },
