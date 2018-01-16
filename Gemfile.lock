@@ -138,7 +138,7 @@ GEM
       rails (>= 3.1.1)
     concurrent-ruby (1.0.5)
     crass (1.0.3)
-    cul_hydra (1.4.12)
+    cul_hydra (1.4.13)
       active-fedora (~> 7.0)
       active-triples (~> 0.2.2)
       active_fedora_finders (>= 0.5.0)
@@ -180,6 +180,8 @@ GEM
     ebnf (0.3.9)
       rdf (~> 1.1)
       sxp (~> 0.1, >= 0.1.3)
+    edtf (3.0.4)
+      activesupport (>= 3.0, < 6.0)
     equivalent-xml (0.6.0)
       nokogiri (>= 1.4.3)
     erubis (2.7.0)
@@ -277,7 +279,8 @@ GEM
     mini_mime (1.0.0)
     mini_portile2 (2.3.0)
     minitest (5.11.1)
-    mods (2.1.0)
+    mods (2.3.1)
+      edtf
       iso-639
       nokogiri
       nom-xml (~> 0.6.0)
@@ -546,7 +549,7 @@ DEPENDENCIES
   coderay
   coffee-rails (~> 4.0.0)
   colorbox-rails
-  cul_hydra (~> 1.4.12)
+  cul_hydra (~> 1.4.13)
   cul_omniauth (~> 0.5.2)
   devise (~> 3.4)
   devise-guests (~> 0.3)
