@@ -142,7 +142,7 @@ module Dcv::ChildrenHelperBehavior
 
       # Inject types from solr, using id lookup
       child_ids = children.map {|child| child[:id]}
-      child_results = Blacklight.solr.get 'select', :params => {
+      child_results = Blacklight.solr.post 'select', :data => {
         :rows => child_ids.length,
         :fl => ['dc_identifier_ssim', 'dc_type_ssm', 'id'],
         :qt => 'search',
