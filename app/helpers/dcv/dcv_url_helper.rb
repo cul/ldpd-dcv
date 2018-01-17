@@ -5,7 +5,7 @@ module Dcv::DcvUrlHelper
     #document, label: thumbnail_img_tag, class: 'thumbnail'
     slug = document['slug_ssim']
     is_restricted = document['restriction_ssim'].present? && doc['restriction_ssim'].include?('Onsite')
-    
+
     if opts[:label].present?
       link_label = opts[:label]
     else
@@ -28,7 +28,7 @@ module Dcv::DcvUrlHelper
   end
 
   def has_persistent_link?(document)
-    document['ezid_doi_ssim'][0]
+    document['ezid_doi_ssim'].present?
   end
 
   def persistent_link_to(label, document, opts = {})
