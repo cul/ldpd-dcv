@@ -7,7 +7,7 @@ featured_proj = controller.digital_projects.select { |proj| proj[:facet_value].p
     <div class="inner">
        <div id="home-sidebar-news">
           <h6>WELCOME</h6>
-            <p>The Digital Library Collections (DLC) website is a gateway to digital reproductions and descriptions of photographs, posters, drawings, objects, ephemera, and manuscripts as well as other archival material from Columbia's rare and special collections.  The DLC repository includes nearly 300,000 unique images and documents, a portion of which are restricted to onsite viewing in the Libraries. <a href="<%= about_url %>">More &raquo;</a></p>
+            <p>The Digital Library Collections (DLC) website is a gateway to digital reproductions and descriptions of photographs, posters, drawings, objects, ephemera, and manuscripts as well as other archival material from Columbia's rare and special collections.  The DLC repository includes more than <%= rounded_down_and_formatted_dcv_asset_count %> unique images and documents, a portion of which are restricted to onsite viewing in the Libraries. <a href="<%= about_url %>">More &raquo;</a></p>
             <hr>
           <%- if featured_proj.present? %>
           <h6>COLLECTION SPOTLIGHT</h6>
