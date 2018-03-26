@@ -100,4 +100,26 @@ module Dcv::CatalogHelperBehavior
   def pcdm_file_genre_display value
     t("pcdm.file_genre.#{value}")
   end
+
+  def total_dcv_asset_count
+    Rails.cache.fetch('total_dcv_asset_count', expires_in: 12.hours) do
+      solr_params = {
+        qt: 'search',
+        rows: 0,
+        fq: ["active_fedora_model_ssi:GenericResource"],
+        facet: false
+      }
+      response = Blacklight.solr.get 'select', :params => solr_params
+      response['response']['numFound'].to_i
+    end
+  end
+
+  def rounded_down_and_formatted_dcv_asset_count
+    round_to_nearest = 5000 # e.g. round 12,345 down to nearest 5000: 10,000
+    exact_total = total_dcv_asset_count
+    return exact_total if exact_total < round_to_nearest
+
+    count_to_return = exact_total / round_to_nearest * round_to_nearest
+    number_with_delimiter(count_to_return.round(-3), :delimiter => ',')
+  end
 end
