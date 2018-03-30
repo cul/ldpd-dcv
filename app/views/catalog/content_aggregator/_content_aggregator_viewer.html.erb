@@ -5,7 +5,7 @@
     <h3 id="child-viewer-title"><%= parent_title %></h3>
     <% unless defined?(use_unavailable_image_placeholder) && use_unavailable_image_placeholder == false %>
       <div>
-        <img id="image-unavailable-img" class="img-responsive" src="<%= get_asset_url(id: 'placeholder:unavailable', size: 512, type: 'full', format: 'jpg') %>" />
+        <img id="image-unavailable-img" class="img-responsive" src="<%= get_asset_url(id: 'placeholder:unavailable', size: 256, type: 'full', format: 'jpg') %>" />
       </div>
     <% end %>
   <% else %>
