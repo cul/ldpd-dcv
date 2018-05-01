@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 gem 'rails', '4.2.10'
 gem 'actionpack-action_caching'
 # Hydra stack
-gem 'nokogiri', '~> 1.8.1'
+gem 'nokogiri', '~> 1.8.2'
 gem 'blacklight', '~> 5.7.2'
 gem 'hydra-head', '~>7'
 gem 'active-fedora', '>= 7.3.1'
@@ -12,7 +12,7 @@ gem 'active-fedora', '>= 7.3.1'
 gem 'rubydora', :git => 'https://github.com/elohanlon/rubydora', branch: 'datastream_dissemination_with_headers'
 
 # Columbia Hydra models
-gem 'cul_hydra', '~> 1.4.13'
+gem 'cul_hydra', '~> 1.4.15'
 #gem 'cul_hydra', :path => '../cul_hydra'
 gem 'cul_omniauth', '~>0.5.2'
 gem 'active-triples', '~> 0.2.2'
@@ -26,9 +26,6 @@ gem 'mysql2', '0.3.18'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0.0'
 gem 'sass', '>= 3.5.3'
-
-# Ensure that rubyzip is >= 1.2.1 because of a security issue in earlier version
-gem 'rubyzip', '>= 1.2.1'
 
 # Use colorbox-rails gem for dialogs
 gem 'colorbox-rails'
@@ -86,6 +83,11 @@ end
 
 gem 'devise', '~>3.4'
 gem "devise-guests", "~> 0.3"
+
+# Gem min versions that are only specified here because of vulnerabilities in earlier versions:
+gem 'rubyzip', '>= 1.2.1'
+gem 'rack-protection', '>= 1.5.5'
+gem 'loofah', '>= 2.2.1'
 
 group :development, :test do
   # Use Capistrano for deployment
