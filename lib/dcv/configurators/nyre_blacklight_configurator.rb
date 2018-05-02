@@ -45,7 +45,8 @@ class Dcv::Configurators::NyreBlacklightConfigurator
 
     config.add_facet_fields_to_solr_request! # Required for facet queries
 
-    config.add_facet_field ActiveFedora::SolrService.solr_name('lib_name', :facetable), :label => 'Name', :sort => 'index', :limit => 10
+    config.add_facet_field ActiveFedora::SolrService.solr_name('role_architect', :symbol), :label => 'Architect', :sort => 'index', :limit => 10
+    config.add_facet_field ActiveFedora::SolrService.solr_name('role_owner_agent', :symbol), :label => 'Owner/Agent', :sort => 'index', :limit => 10
     config.add_facet_field ActiveFedora::SolrService.solr_name('subject_hierarchical_geographic_region', :symbol), :label => 'Region', :sort => 'index', :limit => 10
     config.add_facet_field ActiveFedora::SolrService.solr_name('subject_hierarchical_geographic_city', :symbol), :label => 'City', :sort => 'index', :limit => 10
     config.add_facet_field 'format_ssi', :label => 'System Format', :sort => 'count' if ['development', 'test', 'dcv_dev', 'dcv_private_dev'].include?(Rails.env)
@@ -62,7 +63,8 @@ class Dcv::Configurators::NyreBlacklightConfigurator
     #   The ordering of the field names is the order of the display
     #config.add_index_field ActiveFedora::SolrService.solr_name('title_display', :displayable, type: :string), :label => 'Title'
     config.add_index_field ActiveFedora::SolrService.solr_name('lib_repo_long', :symbol, type: :string), :label => 'Library Location'
-    config.add_index_field ActiveFedora::SolrService.solr_name('lib_name', :displayable, type: :string), :label => 'Name'
+    config.add_index_field ActiveFedora::SolrService.solr_name('role_architect', :symbol, type: :string), :label => 'Architect'
+    config.add_index_field ActiveFedora::SolrService.solr_name('role_owner_agent', :symbol, type: :string), :label => 'Owner/Agent'
     config.add_index_field ActiveFedora::SolrService.solr_name('location_sublocation', :displayable, type: :string), :label => 'Department'
     config.add_index_field ActiveFedora::SolrService.solr_name('location_shelf_locator', :displayable, type: :string), :label => 'Shelf Location'
     config.add_index_field ActiveFedora::SolrService.solr_name('lib_date_textual', :displayable, type: :string), :label => 'Date'
@@ -76,7 +78,8 @@ class Dcv::Configurators::NyreBlacklightConfigurator
     #   The ordering of the field names is the order of the display
     config.add_show_field ActiveFedora::SolrService.solr_name('title_display', :displayable, type: :string), :label => 'Title', :separator => '; '
     config.add_show_field ActiveFedora::SolrService.solr_name('lib_repo_full', :symbol, type: :string), :label => 'Library Location', :separator => '; ', :helper_method => :show_field_repository_to_facet_link
-    config.add_show_field ActiveFedora::SolrService.solr_name('lib_name', :displayable), :label => 'Name', :separator => '; ', :link_to_search => ActiveFedora::SolrService.solr_name('lib_name', :facetable)
+    config.add_show_field ActiveFedora::SolrService.solr_name('role_architect', :symbol), :label => 'Architect', :separator => '; ', :link_to_search => ActiveFedora::SolrService.solr_name('role_architect', :symbol)
+    config.add_show_field ActiveFedora::SolrService.solr_name('role_owner_agent', :symbol), :label => 'Owner/Agent', :separator => '; ', :link_to_search => ActiveFedora::SolrService.solr_name('role_owner_agent', :symbol)
     config.add_show_field ActiveFedora::SolrService.solr_name('lib_format', :displayable), :label => 'Format', :separator => '; '
     config.add_show_field ActiveFedora::SolrService.solr_name('subject_hierarchical_geographic_region', :symbol), :label => 'Region', :separator => '; '
     config.add_show_field ActiveFedora::SolrService.solr_name('subject_hierarchical_geographic_city', :symbol), :label => 'City', :separator => '; '
@@ -121,11 +124,19 @@ class Dcv::Configurators::NyreBlacklightConfigurator
       }
     end
 
-    config.add_search_field ActiveFedora::SolrService.solr_name('lib_name', :searchable, type: :text) do |field|
-      field.label = 'Name'
+    config.add_search_field ActiveFedora::SolrService.solr_name('role_architect', :symbol, type: :text) do |field|
+      field.label = 'Architect'
       field.solr_parameters = {
-        :qf => [ActiveFedora::SolrService.solr_name('lib_name', :searchable, type: :text)],
-        :pf => [ActiveFedora::SolrService.solr_name('lib_name', :searchable, type: :text)]
+        :qf => [ActiveFedora::SolrService.solr_name('role_architect', :symbol, type: :text)],
+        :pf => [ActiveFedora::SolrService.solr_name('role_architect', :symbol, type: :text)]
+      }
+    end
+
+    config.add_search_field ActiveFedora::SolrService.solr_name('role_owner_agent', :symbol, type: :text) do |field|
+      field.label = 'Owner/Agent'
+      field.solr_parameters = {
+        :qf => [ActiveFedora::SolrService.solr_name('role_owner_agent', :symbol, type: :text)],
+        :pf => [ActiveFedora::SolrService.solr_name('role_owner_agent', :symbol, type: :text)]
       }
     end
 

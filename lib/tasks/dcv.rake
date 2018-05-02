@@ -94,9 +94,8 @@ namespace :dcv do
     task :queue => :environment do
       Dlc::Index.log_level = Logger::INFO
 
-      softcommit = (ENV['softcommit'] == 'false' ? false : true)
+      softcommit = (ENV['softcommit'] == 'true')
 
-      start_time = Time.now
       Dlc::Pids.each(ENV['pid'],ENV['list']) do |pid,current,len|
         # Queue for reindex
         # Since we only have one solr index right now, all index requests to go the main core and the 'subsite_keys' value does nothing
