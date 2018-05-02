@@ -61,6 +61,10 @@ Dcv::Application.routes.draw do
   get 'lcaaj/about' => 'lcaaj#about', as: :lcaaj_about
   get 'lcaaj/map_search' => 'lcaaj#map_search', as: :lcaaj_map_search
 
+  # NYRE subsite routes
+  get 'nyre/about' => 'nyre#about', as: :nyre_about
+  get 'nyre/map_search' => 'nyre#map_search', as: :nyre_map_search
+
   resources 'sites', only: [:index, :show], param: :slug
   # Dynamic routes for catalog controller and all subsites
   subsite_keys = SUBSITES['public'].keys - ['uri']
