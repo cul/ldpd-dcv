@@ -23,8 +23,9 @@ class NyreController < SubsitesController
 
   def map_search
   end
-
   def about
+  end
+  def aboutcollection
   end
 
   private

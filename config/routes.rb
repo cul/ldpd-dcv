@@ -63,6 +63,7 @@ Dcv::Application.routes.draw do
 
   # NYRE subsite routes
   get 'nyre/about' => 'nyre#about', as: :nyre_about
+  get 'nyre/about-collection' => 'nyre#aboutcollection', as: :nyre_aboutcollection
   get 'nyre/map_search' => 'nyre#map_search', as: :nyre_map_search
 
   resources 'sites', only: [:index, :show], param: :slug

@@ -1,7 +1,7 @@
 //colors
 $color_0: #111;
 $color_1: #fafafa;
-$color_2: rgb(68,89,116);
+$color_2: rgb(26,68,129);
 $color_3: #ccc;
 $color_4: #86878c;
 $color_5: #222;
@@ -93,7 +93,7 @@ a {
 #site-banner {
 	padding: 1em 1.4em;
 	margin: 0 -1.75em 0;
-	background-color: lighten($color_2,64%);
+	background-color: inherit;
 	//background-image:$url_0;
 	background-repeat:no-repeat;
 	background-position:center top;
@@ -440,6 +440,11 @@ a {
 				margin-right: 3px;
 			}
 		}
+	}
+	.home-icon {
+		line-height: 0;
+		margin-top: -6px;
+		padding-right: 22px;
 	}
 }
 #content {
