@@ -3,21 +3,14 @@
 		<div class="row">
 			<div class="col-sm-12">
 			<ul class="nav nav-pills pull-left">
-			  <li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Background<span class="hidden-xs"> Material</span> <b class="caret"></b></a>
-					<ul class="dropdown-menu list-unstyled dropdown-menu-left">
-						<li><a href="http://library.columbia.edu/locations/global/jewishstudies/lcaaj.html">Archive Information</a></li>
-						<li><a href="http://findingaids.cul.columbia.edu/ead/nnc-rb/ldpd_4079907/">Finding Aid</a></li>
-					</ul>
-  			</li>
+				<li class="hidden-xs"><a href="<%= nyre_index_path %>" class="home-icon"><i class="glyphicon glyphicon-home"></i></a></li>
 			<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown">About <span class="hidden-xs">the Project</span> <b class="caret"></b></a>
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">About <b class="caret"></b></a>
 					<ul class="dropdown-menu list-unstyled dropdown-menu-left">
-						<li><a href="<%=nyre_about_path()%>">History &amp; Description</a></li>
+						<li><a href="<%=nyre_about_path()%>">About the Collection and the Website</a></li>
+						<li><a href="<%=nyre_aboutcollection_path()%>">About the Collection: Overview &amp; History</a></li>
+						<li><a href="http://library.columbia.edu/about/policies/copyright-online-collections.html" target="_blank">Rights &amp; Permissions</a></li>
 					</ul>
-			</li>
-			<li>
-				<a href="http://guides.library.columbia.edu/lcaaj" target="_blank" rel="noopener noreferrer" title="LCAAJ Digital Archive User Guide (opens in new window)"><span class="hidden-xs">User </span>Guide</a>
 			</li>
 			</ul>
 			<ul class="nav nav-pills pull-right">
