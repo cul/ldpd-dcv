@@ -49,6 +49,7 @@ class Dcv::Configurators::NyreBlacklightConfigurator
     config.add_facet_field ActiveFedora::SolrService.solr_name('role_owner_agent', :symbol), :label => 'Owner/Agent', :sort => 'index', :limit => 10
     config.add_facet_field ActiveFedora::SolrService.solr_name('subject_hierarchical_geographic_region', :symbol), :label => 'Region', :sort => 'index', :limit => 10
     config.add_facet_field ActiveFedora::SolrService.solr_name('subject_hierarchical_geographic_city', :symbol), :label => 'City', :sort => 'index', :limit => 10
+    config.add_facet_field ActiveFedora::SolrService.solr_name('classification_other', :symbol), :label => 'Call Number', :sort => 'index', :limit => 10, show: false
     config.add_facet_field 'format_ssi', :label => 'System Format', :sort => 'count' if ['development', 'test', 'dcv_dev', 'dcv_private_dev'].include?(Rails.env)
 
     # Have BL send all facet field names to Solr, which has been the default
@@ -70,6 +71,7 @@ class Dcv::Configurators::NyreBlacklightConfigurator
     config.add_index_field ActiveFedora::SolrService.solr_name('lib_date_textual', :displayable, type: :string), :label => 'Date'
     config.add_index_field ActiveFedora::SolrService.solr_name('abstract', :displayable, type: :string), :label => 'Summary', :helper_method => :truncate_text_to_250
     config.add_index_field 'cul_number_of_members_isi', :label => 'Number of Images'
+    config.add_index_field ActiveFedora::SolrService.solr_name('classification_other', :symbol, type: :string), :label => 'Call Number', :link_to_search => ActiveFedora::SolrService.solr_name('classification_other', :symbol)
     #config.add_index_field ActiveFedora::SolrService.solr_name('lib_item_in_context_url', :displayable, type: :string), :label => 'Item in Context', :helper_method => :link_to_url_value
 
     # solr fields to be displayed in the show (single result) view
@@ -80,6 +82,7 @@ class Dcv::Configurators::NyreBlacklightConfigurator
     config.add_show_field ActiveFedora::SolrService.solr_name('lib_repo_full', :symbol, type: :string), :label => 'Library Location', :separator => '; ', :helper_method => :show_field_repository_to_facet_link
     config.add_show_field ActiveFedora::SolrService.solr_name('role_architect', :symbol), :label => 'Architect', :separator => '; ', :link_to_search => ActiveFedora::SolrService.solr_name('role_architect', :symbol)
     config.add_show_field ActiveFedora::SolrService.solr_name('role_owner_agent', :symbol), :label => 'Owner/Agent', :separator => '; ', :link_to_search => ActiveFedora::SolrService.solr_name('role_owner_agent', :symbol)
+    config.add_show_field ActiveFedora::SolrService.solr_name('classification_other', :symbol), :label => 'Call Number', :separator => '; ', :link_to_search => ActiveFedora::SolrService.solr_name('classification_other', :symbol)
     config.add_show_field ActiveFedora::SolrService.solr_name('lib_format', :displayable), :label => 'Format', :separator => '; '
     config.add_show_field ActiveFedora::SolrService.solr_name('subject_hierarchical_geographic_region', :symbol), :label => 'Region', :separator => '; '
     config.add_show_field ActiveFedora::SolrService.solr_name('subject_hierarchical_geographic_city', :symbol), :label => 'City', :separator => '; '
@@ -90,7 +93,7 @@ class Dcv::Configurators::NyreBlacklightConfigurator
     config.add_show_field ActiveFedora::SolrService.solr_name('location_shelf_locator', :displayable, type: :string), :label => 'Shelf Location', :separator => '; '
     config.add_show_field ActiveFedora::SolrService.solr_name('physical_description_extent', :displayable, type: :string), :label => 'Physical Description', :separator => '; '
     config.add_show_field ActiveFedora::SolrService.solr_name('identifier', :symbol), :label => 'Identifier', :separator => '; '
-    config.add_show_field ActiveFedora::SolrService.solr_name('ezid_doi', :symbol), :label => 'DOI', :separator => '; ', :show => false
+    config.add_show_field ActiveFedora::SolrService.solr_name('ezid_doi', :symbol), :label => 'DOI', :separator => '; '
 
     # "fielded" search configuration. Used by pulldown among other places.
     # For supported keys in hash, see rdoc for Blacklight::SearchFields
