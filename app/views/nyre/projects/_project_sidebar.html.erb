@@ -1,0 +1,16 @@
+<div id="item-description">
+  <div class="inner">
+    <h3><%= controller.resource.name || controller.resource.street_addresses[0] %></h3>
+    <dl class="dl-vertical">
+      <dt>Address(es)</dt><dd><%= controller.resource.street_addresses.join(", ") %></dd>
+      <% unless controller.resource.name.blank? %>
+        <dt>Building name</dt><dd><%= controller.resource.name %></dd>
+      <% end %>
+      <dt>Neighborhood(s)</dt><dd><%= controller.resource.neighborhoods.join(", ") %></dd>
+      <dt>Borough/Region</dt><dd><%= controller.resource.borough %></dd>
+      <dt>Architect</dt><dd><%= controller.resource.architect %></dd>
+      <dt>Owner/Agent</dt><dd><%= controller.resource.owner_agent %></dd>
+      <dt>Call Number</dt><dd><%= controller.resource.call_number %></dd>
+    </dl>
+  </div>
+</div>

@@ -1,0 +1,42 @@
+<div class="row">
+  <div id="nav" class="col-md-12">
+  </div>
+	<div id="sidebar" class="col-md-3">
+		<%= render 'project_sidebar' %>
+	</div>
+
+	<div id="content" class="col-md-9">
+
+		<div class="inner">
+
+			<h2 class="sr-only top-content-title"><%= application_name %></h2>
+
+			<% @page_title = t('blacklight.search.title', :application_name => application_name) %>
+
+			<% content_for(:head) do -%>
+			<%= render_opensearch_response_metadata %>
+			<%= auto_discovery_link_tag(:rss, url_for(params.merge(:format => 'rss')), :title => t('blacklight.search.rss_feed') ) %>
+			<%= auto_discovery_link_tag(:atom, url_for(params.merge(:format => 'atom')), :title => t('blacklight.search.atom_feed') ) %>
+			<% end -%>
+
+			<%= render 'search_header' %>
+
+			<div id="search-result-container">
+				<div>
+
+					<%- if @response.empty? %>
+						<%= render "zero_results" %>
+					<%- else %>
+						<%= render_document_index %>
+					<%- end %>
+				</div>
+			</div>
+
+			<%= render 'results_pagination' %>
+
+
+		</div> <!--/.inner-->
+
+	</div>
+
+</div>
