@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150813141519) do
+ActiveRecord::Schema.define(version: 20180507165923) do
 
   create_table "bookmarks", force: :cascade do |t|
     t.integer  "user_id",       null: false
@@ -24,6 +24,13 @@ ActiveRecord::Schema.define(version: 20150813141519) do
   end
 
   add_index "bookmarks", ["user_id"], name: "index_bookmarks_on_user_id"
+
+  create_table "nyre_projects", force: :cascade do |t|
+    t.string "call_number"
+    t.string "name"
+  end
+
+  add_index "nyre_projects", ["call_number"], name: "index_nyre_projects_on_call_number"
 
   create_table "searches", force: :cascade do |t|
     t.text     "query_params"

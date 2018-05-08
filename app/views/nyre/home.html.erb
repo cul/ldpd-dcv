@@ -1,0 +1,58 @@
+<div id="content">
+<div id="hometn" class="home inner">
+	<div id="site-banner" style="padding-top:0;padding-bottom:0;border:0;">
+        <div class="row">
+            <div class="col-sm-8">
+                            <%= link_to 'New York Real Estate Brochure Collection'.html_safe, nyre_index_path, { :id => 'site-title' } %>
+            </div>
+            <div class="col-sm-4">
+                            <div id="search-navbar" class="navbar navbar-default slim" role="navigation">
+                                    <%= render_search_bar(false)  %>
+                            </div>
+            </div>
+		</div>
+	</div>
+	<%= render 'secondary_nav' %>
+	<img class="img-responsive" alt="" src="<%= asset_path("nyre/nyre-collage.png") %>">
+	<div id="home-map-container">
+		<script>
+			DCV.mapCoordinateSearchUrl = decodeURIComponent('<%= CGI.escape(url_for(params.merge(:action => 'index', :lat => '_lat_', :long => '_long_', :search_field => params[:search_field] || 'all_text_teim', :q => params[:q] || ''))) %>');
+		</script>
+		<% map_search_settings = map_search_settings_for_subsite %>
+		<%#= render partial: 'map_search', locals: {
+			map_data_json: @map_data_json,
+			map_default_center_lat: map_search_settings['default_lat'] || 0,
+			map_default_center_long: map_search_settings['default_long'] || 0,
+			map_default_zoom_level: map_search_settings['default_zoom'] || 11,
+			force_use_default_center: true
+		} %>
+	</div>
+</div>
+ <div class="row">
+  <div class="col-md-8">
+    <div class="home inner">
+		<h4>ABOUT THE COLLECTION</h4>
+			<p>
+The New York Real Estate Brochure Collection was donated to Avery Architectural &amp; Fine Arts Library by Yale Robbins, Henry Robbins, and David Magier in 1986. The collection consists of over 9,200 advertising brochures, floor plans, price lists, and related materials that document residential and commercial real estate development in the five boroughs of New York and outlying vicinities from the 1920s to the 1970s. <%= link_to 'More information &raquo;'.html_safe, nyre_about_path %>
+			</p>
+    </div>
+	<hr>
+    <div class="home inner">
+		<h4>NEWS</h4>
+			<p>
+Christopher Gray in the <em>New York Times'</em> <strong>Streetscapes</strong> writes about the NYRE Brochure Collection (August 26, 2010).<br><a href="http://www.nytimes.com/2010/08/29/realestate/29scapes.html?_r=1&amp;ref=realestate">Read the article &raquo;</a>
+			</p>
+			<p>
+NYRE Brochure Collection site receives the <strong>Worldwide Books Award for Electronic Resources</strong><br><a href="http://library.columbia.edu/news/libraries/2010/20100528_nyre_arlis.html">Read more &raquo;</a>
+			</p>
+    </div>
+  </div>
+  <div class="col-md-4">
+     <div class="home inner">
+        <h5 class="">BROWSE THE COLLECTION</h5>
+        <%= render partial: 'facets', locals: {hide_refine_heading: true, no_id_attr: true} %>
+     </div> <!--/.inner-->
+  </div><!--/-->
+
+</div>
+</div>
