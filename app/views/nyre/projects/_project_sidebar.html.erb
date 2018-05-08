@@ -6,9 +6,15 @@
       <% unless controller.resource.name.blank? %>
         <dt>Building name</dt><dd><%= controller.resource.name %></dd>
       <% end %>
-      <dt>Neighborhood(s)</dt><dd><%= controller.resource.neighborhoods.join(", ") %></dd>
-      <dt>Borough/Region</dt><dd><%= controller.resource.borough %></dd>
-      <dt>Architect</dt><dd><%= controller.resource.architect %></dd>
+      <% unless controller.resource.neighborhoods.blank? %>
+        <dt>Neighborhood(s)</dt><dd><%= controller.resource.neighborhoods.join(", ") %></dd>
+      <% end %>
+      <% unless controller.resource.borough.blank? %>
+        <dt>Borough/Region</dt><dd><%= controller.resource.borough %></dd>
+      <% end %>
+      <% unless controller.resource.architect.blank? %>
+        <dt>Architect</dt><dd><%= controller.resource.architect %></dd>
+      <% end %>
       <dt>Owner/Agent</dt><dd><%= controller.resource.owner_agent %></dd>
       <dt>Call Number</dt><dd><%= controller.resource.call_number %></dd>
     </dl>
