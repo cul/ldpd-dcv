@@ -47,7 +47,8 @@ class Dcv::Configurators::NyreBlacklightConfigurator
 
     config.add_facet_field ActiveFedora::SolrService.solr_name('role_architect', :symbol), :label => 'Architect', :sort => 'index', :limit => 10
     config.add_facet_field ActiveFedora::SolrService.solr_name('role_owner_agent', :symbol), :label => 'Owner/Agent', :sort => 'index', :limit => 10
-    config.add_facet_field ActiveFedora::SolrService.solr_name('subject_hierarchical_geographic_region', :symbol), :label => 'Region', :sort => 'index', :limit => 10
+    config.add_facet_field ActiveFedora::SolrService.solr_name('subject_hierarchical_geographic_neighborhood', :symbol), :label => 'Neighborhood', :sort => 'index', :limit => 10
+    config.add_facet_field ActiveFedora::SolrService.solr_name('subject_hierarchical_geographic_borough', :symbol), :label => 'Borough', :sort => 'index', :limit => 10
     config.add_facet_field ActiveFedora::SolrService.solr_name('subject_hierarchical_geographic_city', :symbol), :label => 'City', :sort => 'index', :limit => 10
     config.add_facet_field ActiveFedora::SolrService.solr_name('classification_other', :symbol), :label => 'Call Number', :sort => 'index', :limit => 10, show: false
     config.add_facet_field 'format_ssi', :label => 'System Format', :sort => 'count' if ['development', 'test', 'dcv_dev', 'dcv_private_dev'].include?(Rails.env)

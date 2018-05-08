@@ -27,8 +27,6 @@ module Nyre
     configure_blacklight do |config|
       Dcv::Configurators::NyreBlacklightConfigurator.configure(config)
       config.add_facet_field ActiveFedora::SolrService.solr_name('subject_hierarchical_geographic_street', :symbol), :label => 'Address', :sort => 'index', :limit => 10
-      config.add_facet_field ActiveFedora::SolrService.solr_name('subject_hierarchical_geographic_neighborhood', :symbol), :label => 'Neighborhood', :sort => 'index', :limit => 10
-      config.add_facet_field ActiveFedora::SolrService.solr_name('subject_hierarchical_geographic_borough', :symbol), :label => 'Borough', :sort => 'index', :limit => 10
       # Include this target's content in search results, and any additional publish targets specified in subsites.yml
       publishers = [subsite_config['uri']] + (subsite_config['additional_publish_targets'] || [])
       config.default_solr_params[:fq] << "publisher_ssim:(\"" + publishers.join('" OR "') + "\")"
