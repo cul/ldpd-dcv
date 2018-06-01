@@ -36,7 +36,9 @@ class SubsitesController < ApplicationController
       action = "#{controller_name.to_s}##{params[:action].to_s}"
       wildcard = "#{controller_name.to_s}#*"
     end
-    proxy = Cul::Omniauth::AbilityProxy.new(document_id: params[:id],remote_ip: request.remote_ip)
+    current_user.role_symbols.concat session.fetch('cul.roles',[]).map(&:to_sym) if current_user
+    current_user.role_symbols.uniq! if current_user
+    proxy = Dcv::Authenticated::AccessControl::RoleAbilityProxy.new(document_id: params[:id],remote_ip: request.remote_ip, user_roles: session['cul.roles'])
     if can?(action.to_sym, proxy) || can?(wildcard.to_sym, proxy)
       return true
     else

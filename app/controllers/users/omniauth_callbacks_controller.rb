@@ -14,6 +14,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   def affiliations(user, affils)
     return unless user && user.uid
+    session['cul.roles'] = affils.select { |affil| affil =~ /^CUL/ }
   end
 
   def after_sign_out_path_for(resource_name)
