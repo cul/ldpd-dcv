@@ -35,6 +35,7 @@ class User < ActiveRecord::Base
   def role? role_sym
     return true if role_sym.eql? :*
     return true if role_sym.eql? :"#{self.uid}"
+    return true if role_symbols.include? role_sym
     return role_members(role_sym).detect {|member| self.role?(member.to_sym)}
   end
 

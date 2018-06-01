@@ -18,7 +18,8 @@ module Dcv::Authenticated::AccessControl
   def authz_proxy_for(document,opts={})
     opts[:content_models] = document[:has_model_ssim].collect {|rel| rel.to_s}
     opts[:publisher] = document[:publisher_ssim].collect {|rel| rel.to_s}
-    Cul::Omniauth::AbilityProxy.new(opts)
+    opts[:user_roles] = session['cul.roles']
+    RoleAbilityProxy.new(opts)
   end
 
   def authorize_document(document=@document, action=:'documents#show')
@@ -34,5 +35,12 @@ module Dcv::Authenticated::AccessControl
     store_location
     redirect_to_login
     return false
+  end
+
+  class RoleAbilityProxy < Cul::Omniauth::AbilityProxy
+    def to_h
+      super unless self.user_roles.present?
+      super.merge(user_roles: self.user_roles)
+    end
   end
 end
