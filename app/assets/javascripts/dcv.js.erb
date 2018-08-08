@@ -17,20 +17,22 @@ $(document).ready(function(){
 	$('.mediaelement-player video, video.mediaelement-player, audio.mediaelement-player').each(function(){
 		$(this).mediaelementplayer({
       pluginPath: '/mediaelement/',
-      alwaysShowControls: true,
-      stretching: 'responsive',
-			success: function (mediaElement, domObject) {
-				//Optional triggers when the video has loaded
-
-				// add event listener
-        //mediaElement.addEventListener('seeked', function(e) {
-				//		console.log('seek attempt!');
-        //}, false);
-
-			},
-			error: function() {
-				console.log('The MediaElement player has encountered an error.');
-			}
+      proxyType: 'best',
+      streamDelimiter: '/' //,
+      //alwaysShowControls: true,
+      //stretching: 'responsive',
+			// success: function (mediaElement, domObject) {
+			// 	//Optional triggers when the video has loaded
+      //
+			// 	// add event listener
+      //   //mediaElement.addEventListener('seeked', function(e) {
+			// 	//		console.log('seek attempt!');
+      //   //}, false);
+      //
+			// },
+			// error: function() {
+			// 	console.log('The MediaElement player has encountered an error.');
+			// }
 		});
 
 	});

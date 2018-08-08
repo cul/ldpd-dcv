@@ -7,12 +7,12 @@ module Ifp::PartnerDataHelper
 			:rep_flag => "ifp/office-flags/brazil.png",
 			:rep_image => 'ifp/partner_pics/brazil-01.jpg',
 			:rep_vid => "j3FAzPfdEeY",
-			:wowza_vid => "ifp/brazil.mp4",
+			:wowza_vid => "ldpd/dlc/ifp/brazil.mp4",
 			:wowza_poster_path => 'ifp/video_screenshots/brazil.jpg',
 			:text_excerpt => "The Ford Foundation International Fellowships Program for in Brazil, in operation in 2002 through 2009, conducted eight rounds of selection for graduate scholarships, which allowed awardees to attain master's and doctoral degrees in the areas of their choice.",
 			:text_full => "
 	<p>
-The Ford Foundation International Fellowships Program for in Brazil, in operation in 2002 through 2009, conducted eight rounds of selection for graduate scholarships, which allowed awardees to attain master's and doctoral degrees in the areas of their choice. The Carlos Chagas Foundation, a private nonprofit organization, founded in 1964 and dedicated to the assessment of cognitive and professional skills and research in education, was selected to run the program as an international partner. The IFP Brazil Office was headed by Fulvia Rosemberg, a researcher in the Department of Educational Research of the Carlos Chagas Foundation. The IFP program in Brazil had some distinctive features stemming from its context of intense ongoing national debate over affirmative action in higher education. The IFP program was presented as an affirmative action program, to the extent that it targeted people generally underrepresented in graduate schools. The goal of the program was to provide preferential treatment to certain social groups that, due to the social structure of the country, normally had the least possibility of access, retention and success in postgraduate education. Each year, IFP offered about 40 scholarships for master’s degree (24 months) and doctorate (up to 36 months) degrees to the social groups which,  according to National Household Survey of 2003, had the worst indicators of access to postgraduate education,. Another characteristic of the IFP program in Brazil was its attempt to balance the respect for local practices with the international rules governing the program. The program in Brazil graduated 306 IFP Fellows by the time the office was closed in 2013. 
+The Ford Foundation International Fellowships Program for in Brazil, in operation in 2002 through 2009, conducted eight rounds of selection for graduate scholarships, which allowed awardees to attain master's and doctoral degrees in the areas of their choice. The Carlos Chagas Foundation, a private nonprofit organization, founded in 1964 and dedicated to the assessment of cognitive and professional skills and research in education, was selected to run the program as an international partner. The IFP Brazil Office was headed by Fulvia Rosemberg, a researcher in the Department of Educational Research of the Carlos Chagas Foundation. The IFP program in Brazil had some distinctive features stemming from its context of intense ongoing national debate over affirmative action in higher education. The IFP program was presented as an affirmative action program, to the extent that it targeted people generally underrepresented in graduate schools. The goal of the program was to provide preferential treatment to certain social groups that, due to the social structure of the country, normally had the least possibility of access, retention and success in postgraduate education. Each year, IFP offered about 40 scholarships for master’s degree (24 months) and doctorate (up to 36 months) degrees to the social groups which,  according to National Household Survey of 2003, had the worst indicators of access to postgraduate education,. Another characteristic of the IFP program in Brazil was its attempt to balance the respect for local practices with the international rules governing the program. The program in Brazil graduated 306 IFP Fellows by the time the office was closed in 2013.
 	</p>
 	<p>
 Digital materials were received in August 2013 and comprised 2.71 GB of office files, images, presentations, and publications. The paper materials were received in two installments; the first and largest shipment (16.25 linear feet) was received in August 2012, and the other (1.25 linear feet) - in May 2013. As part of the IFP archiving program, the IFP Brazil website (known as Programa Bolsa) was harvested semiannually starting in 2012 and until late 2013. 270 Brazilian Fellows gave their consent to open most of their files to researchers in the Reading Room. The documents are in English and Portuguese.
@@ -24,15 +24,15 @@ Digital materials were received in August 2013 and comprised 2.71 GB of office f
 			:rep_flag => "ifp/office-flags/chile.png",
 			:rep_image => 'ifp/partner_pics/chile-01.jpg',
 			:rep_vid => "5fI_d398vOg",
-			:wowza_vid => "ifp/chile.mp4",
+			:wowza_vid => "ldpd/dlc/ifp/chile.mp4",
 			:wowza_poster_path => 'ifp/video_screenshots/chile_peru.jpg',
 			:text_excerpt => "IFP for the Andean Region and Southern Cone (IFP AR & SC), implemented in Chile and Peru, was among the four pilot IFP programs; it began in November 2000 and formed its first Fellow cohort in 2001.",
 			:text_full => "
 	<p>
-IFP for the Andean Region and Southern Cone (IFP AR & SC), implemented in Chile and Peru, was among the four pilot IFP programs; it began in November 2000 and formed its first Fellow cohort in 2001. The coordination of the program was the responsibility of the EQUITAS Foundation, the IFP International Partner, which also administered the Chilean program in. Founded in 2002, the EQUITAS Foundation (previously known as International Foundation Scholarship Fund) is a non-profit organization whose main objective is to contribute to building more equitable and democratic societies through research, development and dissemination of affirmative action measures toward greater social and cultural integration. Between 2001 and 2010, 145 Fellows from Chile were selected for the program. Total number of Fellows in the IFP AR&SC reached 363 as of February 2013; 271 of them consented to provide researchers access to their files. 
+IFP for the Andean Region and Southern Cone (IFP AR & SC), implemented in Chile and Peru, was among the four pilot IFP programs; it began in November 2000 and formed its first Fellow cohort in 2001. The coordination of the program was the responsibility of the EQUITAS Foundation, the IFP International Partner, which also administered the Chilean program in. Founded in 2002, the EQUITAS Foundation (previously known as International Foundation Scholarship Fund) is a non-profit organization whose main objective is to contribute to building more equitable and democratic societies through research, development and dissemination of affirmative action measures toward greater social and cultural integration. Between 2001 and 2010, 145 Fellows from Chile were selected for the program. Total number of Fellows in the IFP AR&SC reached 363 as of February 2013; 271 of them consented to provide researchers access to their files.
 	</p>
 	<p>
-The Chile and Peru IFP program closed its operations in 2013. The archive received 12.5 linear feet of paper materials for IFP-Chile in April 2013 and digital materials for Chile and Peru (2.69 GB) was received as a single set of files in June 2013. The materials include administrative program files, fellow files, images, presentations, publications, multimedia, and archived websites in English and Spanish. 
+The Chile and Peru IFP program closed its operations in 2013. The archive received 12.5 linear feet of paper materials for IFP-Chile in April 2013 and digital materials for Chile and Peru (2.69 GB) was received as a single set of files in June 2013. The materials include administrative program files, fellow files, images, presentations, publications, multimedia, and archived websites in English and Spanish.
 	</p>
 			",
 		},
@@ -41,15 +41,15 @@ The Chile and Peru IFP program closed its operations in 2013. The archive receiv
 			:rep_flag => "ifp/office-flags/china.png",
 			:rep_image => 'ifp/partner_pics/china-01.jpg',
 			:rep_vid => "5fI_d398vOg",
-			:wowza_vid => "ifp/china.mp4",
+			:wowza_vid => "ldpd/dlc/ifp/china.mp4",
 			:wowza_poster_path => 'ifp/video_screenshots/china.jpg',
 			:text_excerpt => "The Ford Foundation International Fellowships Program in China started in 2001 and selected its last cohort in 2010, with the Beijing Office of the Institute of International Education as its International Partner institution.",
 			:text_full => "
 	<p>
-The Ford Foundation International Fellowships Program in China started in 2001 and selected its last cohort in 2010, with the Beijing Office of the Institute of International Education as its International Partner institution. The program was focused on the social groups with lack of opportunity to study: the poor, minorities, women and persons with disabilities. To this end, the project did not fund applicants who lived or worked in Beijing, Shanghai, Tianjin, Guangzhou, Nanjing, Shenzhen, Hong Kong, Macao, and Taiwan. The IFP office in China selected a total of 355 Fellows from 27 provinces, municipalities and autonomous regions. The website of the program also houses the still-active &quot;IFP China Fellows Resource Platform&quot; - a growing collection of information about the IFP China Fellows and Alumni and a networking resource. 
+The Ford Foundation International Fellowships Program in China started in 2001 and selected its last cohort in 2010, with the Beijing Office of the Institute of International Education as its International Partner institution. The program was focused on the social groups with lack of opportunity to study: the poor, minorities, women and persons with disabilities. To this end, the project did not fund applicants who lived or worked in Beijing, Shanghai, Tianjin, Guangzhou, Nanjing, Shenzhen, Hong Kong, Macao, and Taiwan. The IFP office in China selected a total of 355 Fellows from 27 provinces, municipalities and autonomous regions. The website of the program also houses the still-active &quot;IFP China Fellows Resource Platform&quot; - a growing collection of information about the IFP China Fellows and Alumni and a networking resource.
 		</p>
 		<p>
-The IFP China office was closed in 2013. The archive received 4.3 GB of digital materials and 43.75 linear feet of paper materials in July 2013. The documents include outreach materials, selection records and interview materials, post selection activities, publications and media coverage, Alumni-related materials, photos, PowerPoint presentations, multimedia and internal correspondence in English and Chinese, as well as website captures. 238 Chinese Fellows gave their consent to open most of their files to researchers in the Reading Room. 
+The IFP China office was closed in 2013. The archive received 4.3 GB of digital materials and 43.75 linear feet of paper materials in July 2013. The documents include outreach materials, selection records and interview materials, post selection activities, publications and media coverage, Alumni-related materials, photos, PowerPoint presentations, multimedia and internal correspondence in English and Chinese, as well as website captures. 238 Chinese Fellows gave their consent to open most of their files to researchers in the Reading Room.
 		</p>
 			",
 		},
@@ -58,7 +58,7 @@ The IFP China office was closed in 2013. The archive received 4.3 GB of digital 
 			:rep_flag => "ifp/office-flags/egypt.png",
 			:rep_image => 'ifp/partner_pics/egypt-01.jpg',
 			:rep_vid => "uE7Mp-6g2ws",
-			:wowza_vid => "ifp/egypt.mp4",
+			:wowza_vid => "ldpd/dlc/ifp/egypt.mp4",
 			:wowza_poster_path => 'ifp/video_screenshots/egypt.jpg',
 			:text_excerpt => "The America-Mideast Educational and Training Services (AMIDEAST), located in Cairo served as the host institution and the international IFP Partner, running the program in Egypt and Palestine in 2001-2012.",
 			:text_full => "
@@ -66,7 +66,7 @@ The IFP China office was closed in 2013. The archive received 4.3 GB of digital 
 The America-Mideast Educational and Training Services (AMIDEAST), located in Cairo served as the host institution and the international IFP Partner, running the program in Egypt and Palestine in 2001-2012. AMIDEAST is a leading American non-profit organization engaged in international education, training and development activities in the Middle East and North Africa. Founded in 1951, AMIDEAST in its early years focused on promoting U.S. study to students in the region and managing U.S. scholarships and exchanges such as the flagship Fulbright Foreign Student Program, but has since significantly expanded its scope of activities. 172 men and women in Egypt were selected as IFP Fellows. IFP Fellows included women activists, village council members, representatives of charitable organizations, and grassroot NGOs. Four out of five IFP Fellows received funding for master's degree programs, the remainder for Ph.D programs, at universities around the world.
 		</p>
 		<p>
-The Egyptian IFP office was closed on June 30, 2013. Digital materials on a hard drive (10.9 GB), as well as 30 linear feet of paper records were delivered in May 2013. A small (0.3 linear feet) addition of paper records arrived in June 2013. The materials in English and Arabic include administrative program files, fellow files, audiovisual materials, and archived AMIDEAST website. 102 Fellows consented to give researchers access to their files. 
+The Egyptian IFP office was closed on June 30, 2013. Digital materials on a hard drive (10.9 GB), as well as 30 linear feet of paper records were delivered in May 2013. A small (0.3 linear feet) addition of paper records arrived in June 2013. The materials in English and Arabic include administrative program files, fellow files, audiovisual materials, and archived AMIDEAST website. 102 Fellows consented to give researchers access to their files.
 		</p>
 			",
 		},
@@ -75,12 +75,12 @@ The Egyptian IFP office was closed on June 30, 2013. Digital materials on a hard
 			:rep_flag => "ifp/office-flags/ghana.png",
 			:rep_image => 'ifp/partner_pics/ghana-01.jpg',
 			:rep_vid => "mk2c_-s0ijY",
-			:wowza_vid => "ifp/ghana.mp4",
+			:wowza_vid => "ldpd/dlc/ifp/ghana.mp4",
 			:wowza_poster_path => 'ifp/video_screenshots/ghana.jpg',
 			:text_excerpt => "The Ford Foundation International Fellowships Programs in Ghana, Nigeria and Senegal were coordinated by the Association of African Universities.",
 			:text_full => "
 		<p>
-The Ford Foundation International Fellowships Programs in Ghana, Nigeria and Senegal were coordinated by the Association of African Universities. The Association of African Universities (AAU), with its headquarters in Accra, Ghana, is the apex organization and forum for consultation, exchange of information and co-operation among institutions of higher education in Africa. It represents the voice of African higher education on regional and international bodies and supports networking by institutions of higher education in teaching, research, information exchange and dissemination. 106 Fellows from Ghana were selected for the program. 
+The Ford Foundation International Fellowships Programs in Ghana, Nigeria and Senegal were coordinated by the Association of African Universities. The Association of African Universities (AAU), with its headquarters in Accra, Ghana, is the apex organization and forum for consultation, exchange of information and co-operation among institutions of higher education in Africa. It represents the voice of African higher education on regional and international bodies and supports networking by institutions of higher education in teaching, research, information exchange and dissemination. 106 Fellows from Ghana were selected for the program.
 		</p>
 		<p>
 Digital materials on a flash drive (4.92 GB) were delivered in July 2013 and contained administrative records of the Ghanaian office, materials on recruitment, selection, and monitoring of the Fellows; program reports and other materials relating to publicity and advertising. The paper records arrived in two installments, 9 linear feet in May 2013 and 1.25 linear feet in July 2013. 92 IFP Fellows consented to give researchers access to their files. The materials are in English.
@@ -109,15 +109,15 @@ The full set of digital materials from Guatemala office was never delivered to t
 			:rep_flag => "ifp/office-flags/india.png",
 			:rep_image => 'ifp/partner_pics/india-01.jpg',
 			:rep_vid => "VHF8KwQYQwA",
-			:wowza_vid => "ifp/india.mp4",
+			:wowza_vid => "ldpd/dlc/ifp/india.mp4",
 			:wowza_poster_path => 'ifp/video_screenshots/india.jpg',
 			:text_excerpt => "In 2001 the Ford Foundation appointed a team to develop and manage the IFP in India.",
 			:text_full => "
 		<p>
-In 2001 the Ford Foundation appointed a team to develop and manage IFP in India. In close consultation with the New Delhi office of the Ford Foundation and with the advice of experienced academics and social scientists, the IFP India team launched the program in April 2001. Its operations were housed at the United States India Educational Foundation (USIEF), New Delhi, which acted as the IFP International Partner in the country. IFP India aimed to support individuals from disadvantaged groups that lacked access to higher education due to various forms of socio-economic deprivation, including those living in geographically remote areas. After an initial all-India intake, the India program concentrated on specific states including Bihar, Chhattisgarh, Gujarat, Jharkhand, Jammu and Kashmir, Madhya Pradesh, Orissa, Rajasthan, Uttarakhand and Uttar Pradesh. The selection of Fellows was performed by an independent selection panel of Indian citizens from academia and civil society, to which the IFP team acted as secretariat. Many of the 330 Fellows came from small towns and rural areas across India, many were first generation literates, 47% were women, 13% came from Scheduled Castes, 13% from Scheduled Tribes, 26% - from Other Backward Classes, 34% belonged to religious minority groups, and  4% had physical challenges. 45% of the IFP Fellows from India went to graduate schools in the United States, 45% to the UK, while the remaining award recipients attended universities in Europe, Asia and Australia. After the Fellows' return to India, IFP helped Alumni to re-integrate into their home environments with the support of the Alumni networks across the states of India. 
+In 2001 the Ford Foundation appointed a team to develop and manage IFP in India. In close consultation with the New Delhi office of the Ford Foundation and with the advice of experienced academics and social scientists, the IFP India team launched the program in April 2001. Its operations were housed at the United States India Educational Foundation (USIEF), New Delhi, which acted as the IFP International Partner in the country. IFP India aimed to support individuals from disadvantaged groups that lacked access to higher education due to various forms of socio-economic deprivation, including those living in geographically remote areas. After an initial all-India intake, the India program concentrated on specific states including Bihar, Chhattisgarh, Gujarat, Jharkhand, Jammu and Kashmir, Madhya Pradesh, Orissa, Rajasthan, Uttarakhand and Uttar Pradesh. The selection of Fellows was performed by an independent selection panel of Indian citizens from academia and civil society, to which the IFP team acted as secretariat. Many of the 330 Fellows came from small towns and rural areas across India, many were first generation literates, 47% were women, 13% came from Scheduled Castes, 13% from Scheduled Tribes, 26% - from Other Backward Classes, 34% belonged to religious minority groups, and  4% had physical challenges. 45% of the IFP Fellows from India went to graduate schools in the United States, 45% to the UK, while the remaining award recipients attended universities in Europe, Asia and Australia. After the Fellows' return to India, IFP helped Alumni to re-integrate into their home environments with the support of the Alumni networks across the states of India.
 		</p>
 		<p>
-Digital materials, including program files, mail, and fellow files, and totaling 75.5 GB arrived in July 2013. Paper records, totaling 35 linear feet, came in 5 shipments in May-June 2013. 263 IFP India Fellows gave their consent to granting researchers access to their files. The materials are in English. 
+Digital materials, including program files, mail, and fellow files, and totaling 75.5 GB arrived in July 2013. Paper records, totaling 35 linear feet, came in 5 shipments in May-June 2013. 263 IFP India Fellows gave their consent to granting researchers access to their files. The materials are in English.
 		</p>
 			",
 		},
@@ -126,12 +126,12 @@ Digital materials, including program files, mail, and fellow files, and totaling
 			:rep_flag => "ifp/office-flags/indonesia.png",
 			:rep_image => 'ifp/partner_pics/indonesia-01.jpg',
 			:rep_vid => "5fI_d398vOg",
-			:wowza_vid => "ifp/indonesia.mp4",
+			:wowza_vid => "ldpd/dlc/ifp/indonesia.mp4",
 			:wowza_poster_path => 'ifp/video_screenshots/indonesia.jpg',
 			:text_excerpt => "The Indonesian International Education Foundation (IIEF) - an Indonesian not-for-profit organization that promotes the development of the Indonesian people through international education - served as the IFP International Partner in Indonesia.",
 			:text_full => "
 		<p>
-The Indonesian International Education Foundation (IIEF) - an Indonesian not-for-profit organization that promotes the development of the Indonesian people through international education - served as the IFP International Partner in Indonesia. This organization served as the Indonesian partner organization of the Institute of International Education (IIE) for over thirty years. In 2002-2010, IFP Indonesia selected 365 Fellows from 33 provinces, including indigenous people, people living in remote areas, or representatives of marginalized communities or communities located in conflict or post-conflict areas. Upon their return to Indonesia, the IFP Alumni formed an Alumni organization, Indonesia Social Justice Network (ISJN), whose first founding meeting was held in June 2006 in Jakarta. Its meetings have since been attended by a number of IFP Alumni from India, Vietnam, The Philippines, China, and Thailand. The Alumni organization seeks to strengthen the network, connecting ISJN members and any other IFP Alumni associations, and to work collaboratively to promote and ensure social justice in their communities. 
+The Indonesian International Education Foundation (IIEF) - an Indonesian not-for-profit organization that promotes the development of the Indonesian people through international education - served as the IFP International Partner in Indonesia. This organization served as the Indonesian partner organization of the Institute of International Education (IIE) for over thirty years. In 2002-2010, IFP Indonesia selected 365 Fellows from 33 provinces, including indigenous people, people living in remote areas, or representatives of marginalized communities or communities located in conflict or post-conflict areas. Upon their return to Indonesia, the IFP Alumni formed an Alumni organization, Indonesia Social Justice Network (ISJN), whose first founding meeting was held in June 2006 in Jakarta. Its meetings have since been attended by a number of IFP Alumni from India, Vietnam, The Philippines, China, and Thailand. The Alumni organization seeks to strengthen the network, connecting ISJN members and any other IFP Alumni associations, and to work collaboratively to promote and ensure social justice in their communities.
 		</p>
 		<p>
 The IFP office in Indonesia closed its operations in 2013. The materials include administrative program files, fellow files, audiovisual materials and archived websites of IIEF and ISJN. 61.6 GB of digital materials were received in June 2013. Paper materials, totaling 40.5 linear feet, arrived in 6 shipments in June-July 2013. 267 Fellows gave their consent to granting researchers access to their files. The documents are in English and Indonesian.
@@ -143,12 +143,12 @@ The IFP office in Indonesia closed its operations in 2013. The materials include
 			:rep_flag => "ifp/office-flags/kenya.png",
 			:rep_image => 'ifp/partner_pics/kenya-01.jpg',
 			:rep_vid => "k1LpXivf15c",
-			:wowza_vid => "ifp/kenya.mp4",
+			:wowza_vid => "ldpd/dlc/ifp/kenya.mp4",
 			:wowza_poster_path => 'ifp/video_screenshots/kenya.jpg',
 			:text_excerpt => "The IFP Program in Kenya was hosted by Forum for African Women Educationalists (FAWE).",
 			:text_full => "
 		<p>
-The IFP Program in Kenya was hosted by Forum for African Women Educationalists (FAWE). FAWE is a pan-African Non-Governmental Organization working in 32 African countries to empower girls and women through gender-responsive education. In 2001-2010, IFP Kenya selected 128 beneficiaries and awarded scholarships for 23 doctorate-level programs and 105 master-level programs. The program’s Alumni joined the IFP Kenya Alumni Association, formed in 2005. 
+The IFP Program in Kenya was hosted by Forum for African Women Educationalists (FAWE). FAWE is a pan-African Non-Governmental Organization working in 32 African countries to empower girls and women through gender-responsive education. In 2001-2010, IFP Kenya selected 128 beneficiaries and awarded scholarships for 23 doctorate-level programs and 105 master-level programs. The program’s Alumni joined the IFP Kenya Alumni Association, formed in 2005.
 		</p>
 		<p>
 The documentation in the archive includes administrative program files, fellow files, audiovisual materials and archived websites. Paper files arrived in two installments: 6.25 linear feet in May 2013 and another 1.25 linear feet in July 2013, after the Kenya office was closed in June. 16.8 GB of digital materials were received in July 2013. 100 Fellows gave their consent to granting researchers access to their files. The documents are in English.
@@ -160,7 +160,7 @@ The documentation in the archive includes administrative program files, fellow f
 			:rep_flag => "ifp/office-flags/mexico.png",
 			:rep_image => 'ifp/partner_pics/mexico-01.jpg',
 			:rep_vid => "5fI_d398vOg",
-			:wowza_vid => "ifp/mexico.mp4",
+			:wowza_vid => "ldpd/dlc/ifp/mexico.mp4",
 			:wowza_poster_path => 'ifp/video_screenshots/mexico.jpg',
 			:text_excerpt => "For Mexico, the Ford Foundation joined forces with the Center for Research and Higher Studies in Social Anthropology (CIESAS) as an International Partner to give the program a local identity and a strong institutional basis.",
 			:text_full => "
@@ -168,7 +168,7 @@ The documentation in the archive includes administrative program files, fellow f
 For Mexico, the Ford Foundation joined forces with the Center for Research and Higher Studies in Social Anthropology (CIESAS) as an International Partner to give the program a local identity and a strong institutional basis. The IIE office for Latin America played an important role in the project as well. In 2002-2010, the Mexican office selected 225 Fellows. The IFP program in Mexico started in 2002 and was aimed at supporting indigenous students. The goal was to help educating indigenous researchers and professionals with high academic standards who can actively participate in solving the problems facing the country, develop new fields of knowledge and commit to improving social and economic conditions of the indigenous population
 		</p>
 		<p>
-The IFP office was closed in June 2013. 11.25 linear feet of paper materials arrived in July 2013 and the set of digital materials was received in September. The materials include administrative program files, fellow files, audiovisual materials, and archived websites. 186 Fellows gave their consent to granting researchers access to their files. The materials are in English and Spanish. 
+The IFP office was closed in June 2013. 11.25 linear feet of paper materials arrived in July 2013 and the set of digital materials was received in September. The materials include administrative program files, fellow files, audiovisual materials, and archived websites. 186 Fellows gave their consent to granting researchers access to their files. The materials are in English and Spanish.
 		</p>
 			",
 		},
@@ -182,7 +182,7 @@ The IFP office was closed in June 2013. 11.25 linear feet of paper materials arr
 			:text_excerpt => "The first International Fellowships Program awards to Mozambican citizens were allocated in 2002.",
 			:text_full => "
 		<p>
-The first International Fellowships Program awards to Mozambican citizens were allocated in 2002. In the course of the program, 8 cohorts were set up for 119 eventual beneficiaries of the program. The program in South Africa and Mozambique was coordinated by the IFP Partner, Africa-America Institute in South Africa. 16 IFP Fellows from Mozambique studied in the country; 101 Fellows studied abroad. On December 12, 2009, the International Fellowships Program Association of Mozambique (IFP ALUMNI) was founded. The objective of the Association is to seek the academic, professional, social and general welfare of all members, as well as to support community development in Mozambique. 
+The first International Fellowships Program awards to Mozambican citizens were allocated in 2002. In the course of the program, 8 cohorts were set up for 119 eventual beneficiaries of the program. The program in South Africa and Mozambique was coordinated by the IFP Partner, Africa-America Institute in South Africa. 16 IFP Fellows from Mozambique studied in the country; 101 Fellows studied abroad. On December 12, 2009, the International Fellowships Program Association of Mozambique (IFP ALUMNI) was founded. The objective of the Association is to seek the academic, professional, social and general welfare of all members, as well as to support community development in Mozambique.
 		</p>
 		<p>
 The IFP office in Mozambique was closed in December 2012, with 25 linear feet of paper materials arriving to the archives in December 2012, and 3.13 GB of digital materials arriving in January 2013. The materials include administrative program files, fellow files and audiovisual materials. Mozambique program had no separate website, and the online activities of its Alumni group can be found on the corresponding page of the IFP legacy website. 93 Fellows gave their consent to granting researchers access to their files. The documents are in English and Portuguese.
@@ -194,12 +194,12 @@ The IFP office in Mozambique was closed in December 2012, with 25 linear feet of
 			:rep_flag => "ifp/office-flags/nigeria.png",
 			:rep_image => 'ifp/partner_pics/nigeria-01.jpg',
 			:rep_vid => "5fI_d398vOg",
-			:wowza_vid => "ifp/nigeria.mp4",
+			:wowza_vid => "ldpd/dlc/ifp/nigeria.mp4",
 			:wowza_poster_path => 'ifp/video_screenshots/nigeria.jpg',
 			:text_excerpt => "The Ford Foundation International Fellowships Program in West Africa was coordinated by the Association of African Universities (AAU) headquartered in Accra, Ghana, the apex organization and forum for consultation, exchange of information and co-operation among institutions of higher education in Africa.",
 			:text_full => "
 		<p>
-The Ford Foundation International Fellowships Program in West Africa was coordinated by the Association of African Universities (AAU) headquartered in Accra, Ghana, the apex organization and forum for consultation, exchange of information and co-operation among institutions of higher education in Africa. The Nigerian component of the program was also facilitated by Pathfinder International, a global non-profit organization with headquarters in Watertown, Massachusetts that focuses on reproductive health, family planning, HIV/AIDS prevention and care, and related health services. Pathfinder managed the program in Nigeria by supporting the process of recruitment, selection and preparation for studies abroad; it also provided ongoing monitoring and support for a total of 175 Fellows, selected between 2001 and 2010. Upon their return, the Fellows joined the Nigeria IFP Alumni Association. 
+The Ford Foundation International Fellowships Program in West Africa was coordinated by the Association of African Universities (AAU) headquartered in Accra, Ghana, the apex organization and forum for consultation, exchange of information and co-operation among institutions of higher education in Africa. The Nigerian component of the program was also facilitated by Pathfinder International, a global non-profit organization with headquarters in Watertown, Massachusetts that focuses on reproductive health, family planning, HIV/AIDS prevention and care, and related health services. Pathfinder managed the program in Nigeria by supporting the process of recruitment, selection and preparation for studies abroad; it also provided ongoing monitoring and support for a total of 175 Fellows, selected between 2001 and 2010. Upon their return, the Fellows joined the Nigeria IFP Alumni Association.
 		</p>
 		<p>
 The Nigerian Office sent in 11.25 linear feet of paper records in May 2013, before it closed its doors in June of the same year. 13.0 GB of digital materials arrived in October 2013. The materials include administrative program files, fellow files, audiovisual materials and archived websites. 82 Fellows gave their consent to granting researchers access to their files. The documents are in English.
@@ -211,7 +211,7 @@ The Nigerian Office sent in 11.25 linear feet of paper records in May 2013, befo
 			:rep_flag => "ifp/office-flags/palestine.png",
 			:rep_image => 'ifp/partner_pics/palestine-01.jpg',
 			:rep_vid => "5fI_d398vOg",
-			:wowza_vid => "ifp/palestine.mp4",
+			:wowza_vid => "ldpd/dlc/ifp/palestine.mp4",
 			:wowza_poster_path => 'ifp/video_screenshots/palestine.jpg',
 			:text_excerpt => "The America-Mideast Educational and Training Services (AMIDEAST), Cairo - a leading American non-profit organization engaged in international education, training and development activities in the Middle East and North Africa - was the Ford IFP International Partner in the Middle East, responsible for the programs in Egypt and Palestine.",
 			:text_full => "
@@ -228,15 +228,15 @@ The Palestinian Office shipped 5 linear feet of paper records to the archives in
 			:rep_flag => "ifp/office-flags/peru.png",
 			:rep_image => 'ifp/partner_pics/peru-01.jpg',
 			:rep_vid => "5fI_d398vOg",
-			:wowza_vid => "ifp/peru.mp4",
+			:wowza_vid => "ldpd/dlc/ifp/peru.mp4",
 			:wowza_poster_path => 'ifp/video_screenshots/chile_peru.jpg',
 			:text_excerpt => "IFP for the Andean Region and Southern Cone (IFP AR & SC), implemented in Chile and Peru, was among the four pilot IFP programs; it began in November 2000 and formed its first fellow cohort in 2001.",
 			:text_full => "
 		<p>
-IFP for the Andean Region and Southern Cone (IFP AR & SC), implemented in Chile and Peru, was among the four pilot IFP programs; it began in November 2000 and formed its first fellow cohort in 2001. The coordination of the program was the responsibility of EQUITAS Foundation, the IFP International Partner that also administered the program in Chile. The Institute of Peruvian Studies (IEP), an autonomous private non-profit organization, founded in 1964 with the mission of developing social science research and training activities, was responsible for implementing the IFP program in Peru. IFP selected 176 Fellows from Peru. The Peruvian IFP Alumni are members of the Civil Association: Center for Social Development (CENDES), founded in 2005. 
+IFP for the Andean Region and Southern Cone (IFP AR & SC), implemented in Chile and Peru, was among the four pilot IFP programs; it began in November 2000 and formed its first fellow cohort in 2001. The coordination of the program was the responsibility of EQUITAS Foundation, the IFP International Partner that also administered the program in Chile. The Institute of Peruvian Studies (IEP), an autonomous private non-profit organization, founded in 1964 with the mission of developing social science research and training activities, was responsible for implementing the IFP program in Peru. IFP selected 176 Fellows from Peru. The Peruvian IFP Alumni are members of the Civil Association: Center for Social Development (CENDES), founded in 2005.
 		</p>
 		<p>
-Chile and Peru IFP office was closed down in June 2013. 6.25 linear feet of paper records arrived from Peruvian IFP program in April 2013. A single set of 2.69 GB of digital materials relating to Chile and Peru offices was received on a flash drive in June 2013. It included office files, images, presentations, publications and multimedia in English and Spanish. The collection also includes archived version of IFP program and Alumni websites. Out of 363 Fellows of IFP AR&SC program, 271 consented to grant researchers access to their files. 
+Chile and Peru IFP office was closed down in June 2013. 6.25 linear feet of paper records arrived from Peruvian IFP program in April 2013. A single set of 2.69 GB of digital materials relating to Chile and Peru offices was received on a flash drive in June 2013. It included office files, images, presentations, publications and multimedia in English and Spanish. The collection also includes archived version of IFP program and Alumni websites. Out of 363 Fellows of IFP AR&SC program, 271 consented to grant researchers access to their files.
 		</p>
 			",
 		},
@@ -245,15 +245,15 @@ Chile and Peru IFP office was closed down in June 2013. 6.25 linear feet of pape
 			:rep_flag => "ifp/office-flags/philippines.png",
 			:rep_image => 'ifp/partner_pics/philippines-01.jpg',
 			:rep_vid => "5fI_d398vOg",
-			:wowza_vid => "ifp/philippines.mp4",
+			:wowza_vid => "ldpd/dlc/ifp/philippines.mp4",
 			:wowza_poster_path => 'ifp/video_screenshots/philippines.jpg',
 			:text_excerpt => "The Philippine Social Science Council (PSSC), an associational membership organization established in 1968, served as the IFP Philippines International Partner. Philippines IFP office selected 222 Fellows for doctorate and master-level training.",
 			:text_full => "
 		<p>
-The Philippine Social Science Council (PSSC), an associational membership organization established in 1968, served as the IFP Philippines International Partner. Philippines IFP office selected 222 Fellows for doctorate and master-level training. The program in Philippines likely never had an operational website, but had a page at the IFP legacy website. In 2008, the Fellows, who had returned to Philippines after completing their studies, founded the International Fellowships Program-Philippines Alumni Association (IFPPAA). The IFPPAA is committed to contributing the Ford Foundation's goal of social development and justice by conducting research and undertaking socially relevant academic projects. 
+The Philippine Social Science Council (PSSC), an associational membership organization established in 1968, served as the IFP Philippines International Partner. Philippines IFP office selected 222 Fellows for doctorate and master-level training. The program in Philippines likely never had an operational website, but had a page at the IFP legacy website. In 2008, the Fellows, who had returned to Philippines after completing their studies, founded the International Fellowships Program-Philippines Alumni Association (IFPPAA). The IFPPAA is committed to contributing the Ford Foundation's goal of social development and justice by conducting research and undertaking socially relevant academic projects.
 		</p>
 		<p>
-The Philippines IFP office closed in November 2012. The archive received 19 linear feet of paper records in November 2012 and 165.11 GB digital materials in December 2012. The paper shipment also included 57 DVDs of IFP Philippines events; the contents of the optical disks were transferred and grouped with other digital materials of the Philippines office. The archived documents include administrative program files, fellow files, publicity materials and audiovisual materials. 203 Fellows consented to provide researchers with access to their files. The materials are in English and Tagalog. 
+The Philippines IFP office closed in November 2012. The archive received 19 linear feet of paper records in November 2012 and 165.11 GB digital materials in December 2012. The paper shipment also included 57 DVDs of IFP Philippines events; the contents of the optical disks were transferred and grouped with other digital materials of the Philippines office. The archived documents include administrative program files, fellow files, publicity materials and audiovisual materials. 203 Fellows consented to provide researchers with access to their files. The materials are in English and Tagalog.
 		</p>
 			",
 		},
@@ -262,12 +262,12 @@ The Philippines IFP office closed in November 2012. The archive received 19 line
 			:rep_flag => "ifp/office-flags/russia.png",
 			:rep_image => 'ifp/partner_pics/russia-01.jpg',
 			:rep_vid => "5fI_d398vOg",
-			:wowza_vid => "ifp/russia.mp4",
+			:wowza_vid => "ldpd/dlc/ifp/russia.mp4",
 			:wowza_poster_path => 'ifp/video_screenshots/russia.jpg',
 			:text_excerpt => "The IFP program in Russia was among the four pilot IFP programs.",
 			:text_full => "
 		<p>
-The IFP program in Russia was among the four pilot IFP programs. In October 2000 the Ford Foundation invited the Moscow office of the Institute of International Education to develop and manage the program and it was launched in November 2001 in close consultation with the Moscow office of the Ford Foundation and representatives of the educational community and NGOs. In the Russian Federation, the program supported candidates who reside outside of large metropolitan areas, persons with disabilities, refugees, internally displaced persons, and individuals who were raised in orphanages or state-supported boarding schools. The Fellows were selected in 2001-2009 by an independent panel of Russian citizens to which IIE-Moscow acted as secretariat. Fellows of the program, whose number eventually reached 255, represented 77 regions of the Russian Federation, with 171 of them going for a master-level degree and 84 for a doctorate. About sixty percent of the Fellows chose to attend graduate schools in Russia; others went to study abroad, predominantly in the US, Canada, European countries. Alumni Association of IFP in the Russian Federation was established in 2005 in order to enable graduates of the program to implement joint projects, communicate and to be aware of the professional interests of each other, and to support each other during the period of &quot;re-adaptation&quot; after the end of the program. 
+The IFP program in Russia was among the four pilot IFP programs. In October 2000 the Ford Foundation invited the Moscow office of the Institute of International Education to develop and manage the program and it was launched in November 2001 in close consultation with the Moscow office of the Ford Foundation and representatives of the educational community and NGOs. In the Russian Federation, the program supported candidates who reside outside of large metropolitan areas, persons with disabilities, refugees, internally displaced persons, and individuals who were raised in orphanages or state-supported boarding schools. The Fellows were selected in 2001-2009 by an independent panel of Russian citizens to which IIE-Moscow acted as secretariat. Fellows of the program, whose number eventually reached 255, represented 77 regions of the Russian Federation, with 171 of them going for a master-level degree and 84 for a doctorate. About sixty percent of the Fellows chose to attend graduate schools in Russia; others went to study abroad, predominantly in the US, Canada, European countries. Alumni Association of IFP in the Russian Federation was established in 2005 in order to enable graduates of the program to implement joint projects, communicate and to be aware of the professional interests of each other, and to support each other during the period of &quot;re-adaptation&quot; after the end of the program.
 		</p>
 		<p>
 The Russian IFP office in Moscow was the first international office to close in March 2012. The set of digital materials was delivered in July 2012, and 6 linear feet of paper materials arrived in September 2013. The archived documents include administrative program files, fellow files, publicity materials and audiovisual materials, and the program website. 127 Fellows consented to provide researchers with access to their files. The materials are in English and Russian.
@@ -279,18 +279,18 @@ The Russian IFP office in Moscow was the first international office to close in 
 			:rep_flag => "ifp/office-flags/secretariat.png",
 			:rep_image => 'ifp/partner_pics/secretariat-01.jpg',
 			:rep_vid => "5fI_d398vOg",
-			:wowza_vid => "ifp/secretariat.mp4",
+			:wowza_vid => "ldpd/dlc/ifp/secretariat.mp4",
 			:wowza_poster_path => 'ifp/video_screenshots/secretariat.jpg',
 			:text_excerpt => "One of the major innovations of the Ford Foundation International Fellowships Program was a decentralized operational structure linking implementing organizations in the twenty-two participating countries with the Secretariat in New York City, which managed the program as a whole to maintain global consistency of policy and implementation.",
 			:text_full => "
 		<p>
-One of the major innovations of the Ford Foundation International Fellowships Program was a decentralized operational structure linking implementing organizations in the twenty-two participating countries with the Secretariat in New York City, which managed the program as a whole to maintain global consistency of policy and implementation. This model of delegating authority stemmed from the realization that a blueprint approach to selecting Fellows could not be replicable or effective across the diverse human geographies, cultures, educational systems, and socio-economic settings of the IFP countries. From the outset, the Secretariat worked with its local partners to pilot-test, refine, and evaluate approaches for defining, reaching, and selecting IFP target groups. The resulting system was a fine-tuned interplay of local and global features, policy parameters, and implementation strategies. The selection was a local process, with final authority vested in national selection bodies. Once local selection committees had made their decisions, lists of \"Fellows-designate\" were reviewed by the Secretariat to ensure overall consistency without overriding the national committee process. The Secretariat also monitored the overall performance of the program and collected relevant information from all the participants. Thus, in 2007, the Secretariat instituted an Alumni Census, which compiled the Alumni data provided directly by the International Partners and was, therefore, based on a head count rather than voluntary survey responses. Starting in 2007, a joint CHEPS-IFP Alumni Survey has been carried out annually. 
+One of the major innovations of the Ford Foundation International Fellowships Program was a decentralized operational structure linking implementing organizations in the twenty-two participating countries with the Secretariat in New York City, which managed the program as a whole to maintain global consistency of policy and implementation. This model of delegating authority stemmed from the realization that a blueprint approach to selecting Fellows could not be replicable or effective across the diverse human geographies, cultures, educational systems, and socio-economic settings of the IFP countries. From the outset, the Secretariat worked with its local partners to pilot-test, refine, and evaluate approaches for defining, reaching, and selecting IFP target groups. The resulting system was a fine-tuned interplay of local and global features, policy parameters, and implementation strategies. The selection was a local process, with final authority vested in national selection bodies. Once local selection committees had made their decisions, lists of \"Fellows-designate\" were reviewed by the Secretariat to ensure overall consistency without overriding the national committee process. The Secretariat also monitored the overall performance of the program and collected relevant information from all the participants. Thus, in 2007, the Secretariat instituted an Alumni Census, which compiled the Alumni data provided directly by the International Partners and was, therefore, based on a head count rather than voluntary survey responses. Starting in 2007, a joint CHEPS-IFP Alumni Survey has been carried out annually.
 		</p>
 		<p>
-The Secretariat was in operation in 2001 - 2013, headed by Executive Director Joan Dassin. Joan coordinated the initial design process for IFP, which began in December 1999, and assumed the position of IFP Executive Director when the organization was created in April 2001. She was responsible for overall coordination and evaluation of the program worldwide, worked closely with several outside consultants on program communications and also oversaw all aspects of program implementation in Latin America. The Secretariat staff also included Mary Zurbuchen (Director for Asia and Russia), Rob Oppegard (Director of Finance & Administration), Barbara Wanasek (Grants Manager), Alan Divack (Senior Project Manager, Archives and Knowledge Management), Diana Whitten (Director of Communications), Rachel Clift (Communications Officer), Daniel Reisner (Multimedia and Archives Officer) and Adriana Thoen (Administrative Manager). 
+The Secretariat was in operation in 2001 - 2013, headed by Executive Director Joan Dassin. Joan coordinated the initial design process for IFP, which began in December 1999, and assumed the position of IFP Executive Director when the organization was created in April 2001. She was responsible for overall coordination and evaluation of the program worldwide, worked closely with several outside consultants on program communications and also oversaw all aspects of program implementation in Latin America. The Secretariat staff also included Mary Zurbuchen (Director for Asia and Russia), Rob Oppegard (Director of Finance & Administration), Barbara Wanasek (Grants Manager), Alan Divack (Senior Project Manager, Archives and Knowledge Management), Diana Whitten (Director of Communications), Rachel Clift (Communications Officer), Daniel Reisner (Multimedia and Archives Officer) and Adriana Thoen (Administrative Manager).
 		</p>
 		<p>
-The Secretariat archival records on paper comprise 160 l.f.; its large archive of digital materials (over 3.5 TB) includes administrative and program files, a multimedia library and digitized audiovisual materials. 
+The Secretariat archival records on paper comprise 160 l.f.; its large archive of digital materials (over 3.5 TB) includes administrative and program files, a multimedia library and digitized audiovisual materials.
 		</p>
 			",
 		},
@@ -299,12 +299,12 @@ The Secretariat archival records on paper comprise 160 l.f.; its large archive o
 			:rep_flag => "ifp/office-flags/senegal.png",
 			:rep_image => 'ifp/partner_pics/senegal-01.jpg',
 			:rep_vid => "5fI_d398vOg",
-			:wowza_vid => "ifp/senegal.mp4",
+			:wowza_vid => "ldpd/dlc/ifp/senegal.mp4",
 			:wowza_poster_path => 'ifp/video_screenshots/senegal.jpg',
 			:text_excerpt => "Senegal, along with Ghana and Nigeria, was among the pilot IFP programs that started in November 2000 and selected its first cohort of Fellows in 2001.",
 			:text_full => "
 		<p>
-Senegal, along with Ghana and Nigeria, was among the pilot IFP programs that started in November 2000 and selected its first cohort of Fellows in 2001. The Ford Foundation International Fellowships Program in West Africa was coordinated by the Association of African Universities, with its headquarters in Accra, Ghana. In Senegal, AAU worked in collaboration with the West African Research Center (WARC) and selected 93 Fellows from Senegal. Fellows selected from the West Africa went to study in Britain, Canada, France, Switzerland, South Africa, The Netherlands and the United States of America. A few chose to study in their home countries such as Ghana and Senegal. AAU is also coordinating the IFP Alumni activities in West Africa. 
+Senegal, along with Ghana and Nigeria, was among the pilot IFP programs that started in November 2000 and selected its first cohort of Fellows in 2001. The Ford Foundation International Fellowships Program in West Africa was coordinated by the Association of African Universities, with its headquarters in Accra, Ghana. In Senegal, AAU worked in collaboration with the West African Research Center (WARC) and selected 93 Fellows from Senegal. Fellows selected from the West Africa went to study in Britain, Canada, France, Switzerland, South Africa, The Netherlands and the United States of America. A few chose to study in their home countries such as Ghana and Senegal. AAU is also coordinating the IFP Alumni activities in West Africa.
 		</p>
 		<p>
 The IFP office in Senegal was closed in June 2013, with 3.75 linear feet of paper records arriving to the archives in May 2013, and 620 MB of digital materials - in June 2013. The archived documents include administrative program files, fellow files, publicity materials and audiovisual materials, and the program website. 79 Fellows from Senegal consented to provide researchers with access to their files. The materials are in English.
@@ -316,7 +316,7 @@ The IFP office in Senegal was closed in June 2013, with 3.75 linear feet of pape
 			:rep_flag => "ifp/office-flags/southafrica.png",
 			:rep_image => 'ifp/partner_pics/southafrica-01.jpg',
 			:rep_vid => "DXpnqHuWAds",
-			:wowza_vid => "ifp/southafrica.mp4",
+			:wowza_vid => "ldpd/dlc/ifp/southafrica.mp4",
 			:wowza_poster_path => 'ifp/video_screenshots/southafrica.jpg',
 			:text_excerpt => "The program in South Africa and Mozambique was coordinated by Africa-America Institute in South Africa as an IFP International Partner.",
 			:text_full => "
@@ -333,15 +333,15 @@ The IFP office in South Africa was closed in June 2013. The RBML archive receive
 			:rep_flag => "ifp/office-flags/tanzania.png",
 			:rep_image => 'ifp/partner_pics/tanzania-01.jpg',
 			:rep_vid => "rdLgEgCslPE",
-			:wowza_vid => "ifp/tanzania.mp4",
+			:wowza_vid => "ldpd/dlc/ifp/tanzania.mp4",
 			:wowza_poster_path => 'ifp/video_screenshots/tanzania.jpg',
 			:text_excerpt => "The program in Tanzania was coordinated by the IFP International Partner, Economic and Social Research Foundation.",
 			:text_full => "
 		<p>
-The program in Tanzania was coordinated by the IFP International Partner, Economic and Social Research Foundation. Tanzanian nationals and East African nationals residing in Tanzania who have not yet studied outside the Africa Region were eligible for the scholarship. In 2001-2010, the IFP program sponsored 127 Fellows from Tanzania. The Alumni, who returned to Tanzania, founded Tanzania IFP Alumni Association (TIFPA). 
+The program in Tanzania was coordinated by the IFP International Partner, Economic and Social Research Foundation. Tanzanian nationals and East African nationals residing in Tanzania who have not yet studied outside the Africa Region were eligible for the scholarship. In 2001-2010, the IFP program sponsored 127 Fellows from Tanzania. The Alumni, who returned to Tanzania, founded Tanzania IFP Alumni Association (TIFPA).
 		</p>
 		<p>
-930 MB of digital materials and 10.3 linear feet of paper records arrived in July 2013. The materials include administrative program files, fellow files, audiovisual materials, and archived websites. 121 Fellows consented to provide researchers with access to their files. The materials are in English. 
+930 MB of digital materials and 10.3 linear feet of paper records arrived in July 2013. The materials include administrative program files, fellow files, audiovisual materials, and archived websites. 121 Fellows consented to provide researchers with access to their files. The materials are in English.
 		</p>
 			",
 		},
@@ -350,15 +350,15 @@ The program in Tanzania was coordinated by the IFP International Partner, Econom
 			:rep_flag => "ifp/office-flags/thailand.png",
 			:rep_image => 'ifp/partner_pics/thailand-01.jpg',
 			:rep_vid => "5fI_d398vOg",
-			:wowza_vid => "ifp/thailand.mp4",
+			:wowza_vid => "ldpd/dlc/ifp/thailand.mp4",
 			:wowza_poster_path => 'ifp/video_screenshots/thailand.jpg',
 			:text_excerpt => "The Asian Scholarship Foundation under the Royal Patronage of H.R.H. Princess Maha Chakri Sirindhorn (ASF) was the Ford International Partner in Thailand and administered the International Fellowships Program in Thailand since 2003.",
 			:text_full => "
 		<p>
-The Asian Scholarship Foundation under the Royal Patronage of H.R.H. Princess Maha Chakri Sirindhorn (ASF) was the Ford International Partner in Thailand and administered the International Fellowships Program in Thailand since 2003. The program selected the total of 90 Fellows (82 master's fellowships and 8 doctorate fellowships) from the Northeast of Thailand. The IFP Alumni association in Thailand, IFP THAN, was formed in 2007. Since its inception, IFP THAN conducted and presented research on issues, particular to the Northeast, and has worked on expanding their partnerships and creating more impact at the community and national level. 
+The Asian Scholarship Foundation under the Royal Patronage of H.R.H. Princess Maha Chakri Sirindhorn (ASF) was the Ford International Partner in Thailand and administered the International Fellowships Program in Thailand since 2003. The program selected the total of 90 Fellows (82 master's fellowships and 8 doctorate fellowships) from the Northeast of Thailand. The IFP Alumni association in Thailand, IFP THAN, was formed in 2007. Since its inception, IFP THAN conducted and presented research on issues, particular to the Northeast, and has worked on expanding their partnerships and creating more impact at the community and national level.
 		</p>
 		<p>
-The IFP office in Thailand was closed in 2013. 10 linear feet of paper records arrived in four installments, May-July 2013, and digital materials were received in July 2013. The materials include administrative program files, fellow files, audiovisual materials and archived websites. 73 Fellows gave their consent to open their materials for research access. The documents are in English and Thai. 
+The IFP office in Thailand was closed in 2013. 10 linear feet of paper records arrived in four installments, May-July 2013, and digital materials were received in July 2013. The materials include administrative program files, fellow files, audiovisual materials and archived websites. 73 Fellows gave their consent to open their materials for research access. The documents are in English and Thai.
 		</p>
 			",
 		},
@@ -367,15 +367,15 @@ The IFP office in Thailand was closed in 2013. 10 linear feet of paper records a
 			:rep_flag => "ifp/office-flags/uganda.png",
 			:rep_image => 'ifp/partner_pics/uganda-01.jpg',
 			:rep_vid => "5fI_d398vOg",
-			:wowza_vid => "ifp/uganda.mp4",
+			:wowza_vid => "ldpd/dlc/ifp/uganda.mp4",
 			:wowza_poster_path => 'ifp/video_screenshots/uganda.jpg',
 			:text_excerpt => "The Ford Foundation International Fellowships Program in Uganda was launched in 2001.",
 			:text_full => "
 		<p>
-The Ford Foundation International Fellowships Program in Uganda was launched in 2001. The Association for Higher Education Advancement & Development (AHEAD), registered in 2004 to work on a range of programs in higher education, leadership and youth development, became the program's International Partner in Uganda. 
+The Ford Foundation International Fellowships Program in Uganda was launched in 2001. The Association for Higher Education Advancement & Development (AHEAD), registered in 2004 to work on a range of programs in higher education, leadership and youth development, became the program's International Partner in Uganda.
 		</p>
 		<p>
-126 Fellows from Uganda, selected in 2001-2010, enrolled in universities in the United States, Canada, United Kingdom, Australia, continental Europe, Uganda, Kenya and South Africa. AHEAD also conducted an IFP-funded two year legacy-building project in Uganda, assisting the IFP Alumni in consolidation of their work on social justice activities that directly affected their communities. AHEAD continues to work on integrating the lessons learned from IFP into national education agenda. 
+126 Fellows from Uganda, selected in 2001-2010, enrolled in universities in the United States, Canada, United Kingdom, Australia, continental Europe, Uganda, Kenya and South Africa. AHEAD also conducted an IFP-funded two year legacy-building project in Uganda, assisting the IFP Alumni in consolidation of their work on social justice activities that directly affected their communities. AHEAD continues to work on integrating the lessons learned from IFP into national education agenda.
 		</p>
 		<p>
 The IFP Uganda program closed its operations in June 2013. 5 linear feet of paper records arrived to the archives in May 2013, and 60 MB of digital materials were received in July 2013. The records of Uganda IFP office include administrative program files, fellow files, audiovisual materials and archived websites. 69 Fellows gave their consent to open their materials for research. The materials are in English.
@@ -387,15 +387,15 @@ The IFP Uganda program closed its operations in June 2013. 5 linear feet of pape
 			:rep_flag => "ifp/office-flags/vietnam.png",
 			:rep_image => 'ifp/partner_pics/vietnam-01.jpg',
 			:rep_vid => "5fI_d398vOg",
-			:wowza_vid => "ifp/vietnam.mp4",
+			:wowza_vid => "ldpd/dlc/ifp/vietnam.mp4",
 			:wowza_poster_path => 'ifp/video_screenshots/vietnam.jpg',
 			:text_excerpt => "The IFP program in Vietnam was launched in 2001 and recruited its last cohort in 2010.",
 			:text_full => "
 		<p>
-The IFP program in Vietnam was launched in 2001 and recruited its last cohort in 2010. It was administered in Hanoi by the IFP international partner, the Center for Educational Exchange with Viet Nam (CEEVN). 266 IFP Fellows in Vietnam included men and women from 49 provinces and four main cities. The majority of Fellows looked for master’s and doctorate -level education in development, education, environment and health. 62% of IFP Fellows went to attend graduate school programs in North America. The Alumni of the program have formed the IFP Vietnam Alumni organization, whose active website is also being archived as part of this collection. 
+The IFP program in Vietnam was launched in 2001 and recruited its last cohort in 2010. It was administered in Hanoi by the IFP international partner, the Center for Educational Exchange with Viet Nam (CEEVN). 266 IFP Fellows in Vietnam included men and women from 49 provinces and four main cities. The majority of Fellows looked for master’s and doctorate -level education in development, education, environment and health. 62% of IFP Fellows went to attend graduate school programs in North America. The Alumni of the program have formed the IFP Vietnam Alumni organization, whose active website is also being archived as part of this collection.
 		</p>
 		<p>
-The CEEVN IFP office in Vietnam was closed in June 2013. 10 linear feet of paper records arrived in three installments in April through July 2013. Digital materials (4.38 GB) were received in June 2013. The records include office files, publicity materials, Fellows’ theses and dissertations. 248 Fellows gave their consent to open their materials for research access. The documents are in English and Vietnamese. 
+The CEEVN IFP office in Vietnam was closed in June 2013. 10 linear feet of paper records arrived in three installments in April through July 2013. Digital materials (4.38 GB) were received in June 2013. The records include office files, publicity materials, Fellows’ theses and dissertations. 248 Fellows gave their consent to open their materials for research access. The documents are in English and Vietnamese.
 		</p>
 			",
 		},

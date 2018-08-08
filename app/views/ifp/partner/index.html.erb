@@ -10,7 +10,7 @@
       <% if partner_data[:wowza_vid].present? %>
         <br />
         <div class="thumbnail mediaelement-wrapper">
-          <%= render_media_element_streaming_video_player('dlc', partner_data[:wowza_vid], asset_path(partner_data[:wowza_poster_path])) %>
+          <%= render_media_element_streaming_video_player('vod', partner_data[:wowza_vid], asset_path(partner_data[:wowza_poster_path])) %>
           <div class="caption">
             <small>Archival video from the collection</small>
           </div>
