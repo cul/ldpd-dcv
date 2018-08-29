@@ -233,7 +233,7 @@ GEM
       i18n
       logger
       rubyzip (~> 1.0)
-    jquery-rails (3.1.4)
+    jquery-rails (3.1.5)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
     jquery-ui-rails (4.0.4)
