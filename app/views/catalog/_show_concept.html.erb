@@ -1,5 +1,8 @@
 <div class="inner">
   <h3><%= document_show_html_title %></h3>
+  <% document.fetch(:alternative_title_ssm,[]).each do |alt_title| %>
+    <h4><%= alt_title %></h4>
+  <% end %>
   <div id="show-concept">
     <%- image_pid = document[:schema_image_ssim].first.split('/')[-1] if document[:schema_image_ssim] -%>
     <%- if image_pid -%>
@@ -16,7 +19,10 @@
       <% end %>
       <% target_link = document[:source_ssim].present? ? Array(document[:source_ssim]).first : nil %>
       <% if target_link %>
-        <li><%= link_to("Visit: #{document_show_html_title}".html_safe, target_link) if target_link %></li>
+        <li><%= link_to("Bookmark: #{document_show_html_title}".html_safe, target_link) if target_link %></li>
+      <% end %>
+      <% document.fetch(:lib_non_item_in_context_url_ssm, []).each do |resource_link| %>
+        <li><%= link_to("Related Web Content", resource_link) %></li>
       <% end %>
       </ul>
     </div>
