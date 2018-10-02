@@ -1,8 +1,14 @@
-<% audio_url = bytestream_content_path(catalog_id: child[:pid], bytestream_id: 'access') %>
-<%# audio_url = 'http://www.largesound.com/ashborytour/sound/AshboryBYU.mp3' %>
+<%
+if DCV_CONFIG.fetch('media_streaming', {})['wowza'].present?
+  audio_url = wowza_media_token_url(child[:pid])
+else
+  audio_url = bytestream_content_path(catalog_id: child[:pid], bytestream_id: 'access')
+end
+%>
 
-<div style="height:397px; position:relative;">
-  <div style="position:absolute; width:100%; bottom:45%;">
-    <%= render_media_element_progressive_download_audio_player(audio_url) %>
+<div>
+  <div>
+    <%= render_media_element_streaming_player(audio_url, Dcv::Utils::CdnUtils.random_cdn_url + '/iiif/2/cul:2rbnzs7hj2/full/!512,512/0/native.jpg') %>
+    <p><%= link_to 'View media with synchronized transcript', {controller: controller_path, action: 'synchronizer', id: child[:pid]}, id: 'view-synchronized-media', class: 'btn btn-default', target: '_blank' %></p>
   </div>
 </div>

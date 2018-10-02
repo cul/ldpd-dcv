@@ -168,6 +168,10 @@ class SubsitesController < ApplicationController
     status
   end
 
+  def synchronizer
+    render layout: 'empty'
+  end
+
   private
 
   def extract_map_data_from_document_list(document_list)

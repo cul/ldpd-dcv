@@ -17,6 +17,9 @@ gem 'cul_hydra', '~> 1.5.1'
 gem 'cul_omniauth', '~>0.5.2'
 gem 'active-triples', '~> 0.2.2'
 
+# Use wowza token gem for generating tokens
+gem 'wowza-secure_token', '0.0.1'
+
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 

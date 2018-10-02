@@ -28,11 +28,15 @@ DLC VERSION: <%= render :file => Rails.root.to_s+'/VERSION' %> -->
 
 <%= stylesheet_link_tag "dcv", media: 'all'  %>
 <%= stylesheet_link_tag "print", media: 'print' %>
-<%= csrf_meta_tags %>
-<%= content_for(:head) %>
 
+<!-- OHSynchronizer -->
+<%= stylesheet_link_tag "/synchronizer-module/css/ableplayer.min.css" %>
+<%= stylesheet_link_tag "/synchronizer-module/css/style.css" %>
 <!-- MediaElement CSS -->
 <link rel="stylesheet" href="/mediaelement/mediaelementplayer.css" />
+
+<%= csrf_meta_tags %>
+<%= content_for(:head) %>
 
 <% if controller.is_a?(SubsitesController) %>
 <script>
@@ -53,6 +57,12 @@ DLC VERSION: <%= render :file => Rails.root.to_s+'/VERSION' %> -->
 <%= javascript_include_tag "dcv" %>
 <!-- MediaElement JS -->
 <script src="/mediaelement/mediaelement-and-player.min.js"></script>
+
+<!-- OHSynchronizer -->
+<%= javascript_include_tag "/synchronizer-module/js/ableplayer.min.js" %>
+<%= javascript_include_tag "/synchronizer-module/js/hls.min.js" %>
+<%= javascript_include_tag "/synchronizer-module/js/ohsynchronizer.js" %>
+<%= javascript_include_tag "/synchronizer-module/js/js.cookie.2.2.0.min.js" %>
 
 <% if Rails.env == 'dcv_private_test' || Rails.env == 'dcv_prod' %>
 	<script>
