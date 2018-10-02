@@ -1,42 +1,56 @@
 <%
 media_url = wowza_media_token_url(params[:id])
-captions_source_url = 'https://raw.githubusercontent.com/cul/synchronizer-module/master/assets/OHMS-Sample-003.captions.vtt'
-index_document_source_url = 'https://raw.githubusercontent.com/cul/synchronizer-module/master/assets/OHMS-Sample-003.metadata.vtt'
+if params[:mode] == 'chapters'
+  synch_mode = 'chapters'
+else
+  synch_mode = 'captions'
+end
 %>
 
 <% if DCV_CONFIG.fetch('media_streaming', {})['wowza'].present? %>
   <% # Note: "text-align:left;" is required for the widget container, otherwise the seek bar won't render properly %>
-  <div id="synchronizer-widget" style="text-align:left;" data-media-url="<%= media_url %>" data-captions-url="<%= captions_source_url %>" data-index-document-url="<%= index_document_source_url %>">
-  	<div id="working-area" class="row" style="position:relative;">
-  		<div id="left-sidebar" class="col-md-6">
-  			<div id="media-playback" class="">
-  				<div id="ytplayer"></div>
-  				<div id="video"><video id="video-player" data-able-player preload="auto"></video></div>
-  				<div id="audio"><audio id="audio-player" data-able-player preload="auto"></audio></div>
-  			</div><!-- /#media-playback -->
+  <div id="synchronizer-widget" style="text-align:left;" data-media-url="<%= media_url %>" data-<%= synch_mode %>-url="<%= bytestream_content_path(catalog_id: params[:id], bytestream_id: synch_mode) %>">
+    <div id="working-area" class="row" style="position:relative;">
+      <div id="left-sidebar" class="col-md-6">
+        <div id="media-playback" class="">
+          <div id="ytplayer"></div>
+          <div id="video"><video id="video-player" data-able-player preload="auto"></video></div>
+          <div id="audio"><audio id="audio-player" data-able-player preload="auto"></audio></div>
+        </div><!-- /#media-playback -->
 
-  			<div id="interview-metadata"></div><!-- /#interview-metadata -->
-  		</div><!-- /#left-sidebar -->
+        <div id="interview-metadata"></div><!-- /#interview-metadata -->
+      </div><!-- /#left-sidebar -->
 
-  		<div id="right-sidebar" class="col-md-6 pull-right">
-  			<div id="text-tabs">
-  				<div id="tabs-transcript">
-  	        <h2>Transcript</h2>
-  					<div id="input-transcript">
-  						<input id="sync-roll" class="btn btn-secondary" type="hidden" maxlength="3" size="3" value="0" name="sync-roll">
-  						<div id="transcript" class="col-md-12" ></div>
-  						<div id="transcript-preview" class="col-md-12" ></div>
-  					</div>
-  				<div class="clearfix"></div>
-  			</div><!-- /#text-tabs -->
-  		</div><!-- /#right-sidebar -->
-  	</div><!-- /#working-area -->
+      <div id="right-sidebar" class="col-md-6 pull-right">
+        <div id="text-tabs">
+          <% if synch_mode = 'chapters' %>
+            <div id="tabs-index">
+              <h2>Index Descriptions</h2>
+              <div id="input-index">
+                <div class="indexAccordion"></div>
+              </div>
+            </div>
+          <% else %>
+            <div id="tabs-transcript">
+              <h2>Transcript</h2>
+              <div id="input-transcript">
+                <input id="sync-roll" class="btn btn-secondary" type="hidden" maxlength="3" size="3" value="0" name="sync-roll">
+                <div id="transcript" class="col-md-12" ></div>
+                <div id="transcript-preview" class="col-md-12" ></div>
+              </div>
+            </div>
+          <% end %>
+          </div>
+          <div class="clearfix"></div>
+        </div><!-- /#text-tabs -->
+      </div><!-- /#right-sidebar -->
+    </div><!-- /#working-area -->
 
-  	<!-- Audio files for transcript syncing markers -->
-  	<div id="transcript-chimes" class="hidden">
-  		<audio class="loop-boundary-chime" src="/synchronizer-module/includes/startBeep.mp3" autostart="false"></audio>
-  		<audio class="loop-mid-chime" src="/synchronizer-module/includes/midBeep.mp3" autostart="false"></audio>
-  	</div>
+    <!-- Audio files for transcript syncing markers -->
+    <div id="transcript-chimes" class="hidden">
+      <audio class="loop-boundary-chime" src="/synchronizer-module/includes/startBeep.mp3" autostart="false"></audio>
+      <audio class="loop-mid-chime" src="/synchronizer-module/includes/midBeep.mp3" autostart="false"></audio>
+    </div>
   </div>
 <% else %>
   <p>Unable to display synchronizer because streaming server is not configured.

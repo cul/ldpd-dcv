@@ -1,14 +1,22 @@
 <%
+poster_url = Dcv::Utils::CdnUtils.random_cdn_url + '/iiif/2/cul:2rbnzs7hj2/full/!512,512/0/native.jpg')
 if DCV_CONFIG.fetch('media_streaming', {})['wowza'].present?
-  audio_url = wowza_media_token_url(child[:pid])
+  media_url = wowza_media_token_url(child[:pid])
+  player_src = render_media_element_streaming_player(media_url, poster_url, 1024, 500)
 else
-  audio_url = bytestream_content_path(catalog_id: child[:pid], bytestream_id: 'access')
+  media_url = bytestream_content_path(catalog_id: child[:pid], bytestream_id: 'access')
+  player_src = render_media_element_progressive_download_video_player(media_url, poster_url, 1024, 500)
 end
 %>
 
 <div>
   <div>
-    <%= render_media_element_streaming_player(audio_url, Dcv::Utils::CdnUtils.random_cdn_url + '/iiif/2/cul:2rbnzs7hj2/full/!512,512/0/native.jpg') %>
-    <p><%= link_to 'View media with synchronized transcript', {controller: controller_path, action: 'synchronizer', id: child[:pid]}, id: 'view-synchronized-media', class: 'btn btn-default', target: '_blank' %></p>
+    <%= player_src  %>
+    <% if child.fetch(:datastreams_ssim).include? 'chapters' %>
+      <p><%= link_to 'View media with synchronized transcript', {controller: controller_path, action: 'synchronizer', id: child[:pid], mode: 'chapters'}, id: 'view-synchronized-media', class: 'btn btn-default', target: '_blank' %></p>
+     <% end %>
+    <% if child.fetch(:datastreams_ssim).include? 'captions' %>
+      <p><%= link_to 'View media with synchronized transcript', {controller: controller_path, action: 'synchronizer', id: child[:pid], mode: 'captions'}, id: 'view-synchronized-media', class: 'btn btn-default', target: '_blank' %></p>
+     <% end %>
   </div>
 </div>
