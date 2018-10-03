@@ -1,5 +1,5 @@
 <%
-poster_url = get_resolved_asset_url(id: child[:id], size: 768, type: 'full', format: 'jpg')
+poster_url = get_resolved_asset_url(id: child[:id], size: 768, type: 'full', format: 'jpg'
 if DCV_CONFIG.fetch('media_streaming', {})['wowza'].present?
   media_url = wowza_media_token_url(child[:pid])
   player_src = render_media_element_streaming_player(media_url, poster_url, 1024, 500)
@@ -12,10 +12,10 @@ end
 <div>
   <div>
     <%= player_src %>
-    <% if child.fetch(:datastreams_ssim).include? 'chapters' %>
+    <% if child.fetch(:datastreams_ssim, []).include? 'chapters' %>
       <p><%= link_to 'View media with synchronized transcript', {controller: controller_path, action: 'synchronizer', id: child[:pid], mode: 'chapters'}, id: 'view-synchronized-media', class: 'btn btn-default', target: '_blank' %></p>
      <% end %>
-    <% if child.fetch(:datastreams_ssim).include? 'captions' %>
+    <% if child.fetch(:datastreams_ssim, []).include? 'captions' %>
       <p><%= link_to 'View media with synchronized transcript', {controller: controller_path, action: 'synchronizer', id: child[:pid], mode: 'captions'}, id: 'view-synchronized-media', class: 'btn btn-default', target: '_blank' %></p>
      <% end %>
   </div>

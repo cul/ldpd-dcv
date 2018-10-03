@@ -126,6 +126,7 @@ module Dcv::ChildrenHelperBehavior
         order: (order += 1),
         title: proxies[kid['proxy_id']]['label_ssi'] || "Image #{order}",
         thumbnail: get_asset_url(id: kid['id'], size: 256, type: 'full', format: 'jpg'),
+        datastreams_ssim: kid.fetch('datastreams_ssim', [])
       }
     end
   end

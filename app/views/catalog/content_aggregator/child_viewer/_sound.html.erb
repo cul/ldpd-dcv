@@ -11,11 +11,11 @@ end
 
 <div>
   <div>
-    <%= player_src  %>
-    <% if child.fetch(:datastreams_ssim).include? 'chapters' %>
+    <%= player_src %>
+    <% if child.fetch(:datastreams_ssim, []).include? 'chapters' %>
       <p><%= link_to 'View media with synchronized transcript', {controller: controller_path, action: 'synchronizer', id: child[:pid], mode: 'chapters'}, id: 'view-synchronized-media', class: 'btn btn-default', target: '_blank' %></p>
      <% end %>
-    <% if child.fetch(:datastreams_ssim).include? 'captions' %>
+    <% if child.fetch(:datastreams_ssim, []).include? 'captions' %>
       <p><%= link_to 'View media with synchronized transcript', {controller: controller_path, action: 'synchronizer', id: child[:pid], mode: 'captions'}, id: 'view-synchronized-media', class: 'btn btn-default', target: '_blank' %></p>
      <% end %>
   </div>
