@@ -1,5 +1,5 @@
 <%
-poster_url = Dcv::Utils::CdnUtils.random_cdn_url + '/iiif/2/cul:2rbnzs7hj2/full/!512,512/0/native.jpg')
+poster_url = Dcv::Utils::CdnUtils.random_cdn_url + '/iiif/2/cul:2rbnzs7hj2/full/!512,512/0/native.jpg'
 if DCV_CONFIG.fetch('media_streaming', {})['wowza'].present?
   media_url = wowza_media_token_url(child[:pid])
   player_src = render_media_element_streaming_player(media_url, poster_url, 1024, 500)
