@@ -122,4 +122,25 @@ module Dcv::CatalogHelperBehavior
     count_to_return = exact_total / round_to_nearest * round_to_nearest
     number_with_delimiter(count_to_return.round(-3), :delimiter => ',')
   end
+
+  def solr_url_hash(document, opts = {})
+    candidates = JSON.parse(document.fetch(:location_url_json_ss, "[]"))
+    exclude = opts.fetch(:exclude, {})
+    candidates.select do |c|
+      !c.detect { |k,v| exclude[k] == v }
+    end
+  end
+
+  # Scrub permanent links from catalog data to use modern resolver syntax
+  # @param perma_link [String] the original link
+  # @return [String] link with cgi version of resolver replaced with modern version
+  def clean_resolver(link_src)
+    if link_src
+      link_uri = URI(link_src)
+      if link_uri.path == "/cgi-bin/cul/resolve" && link_uri.host == "www.columbia.edu"
+        return "http://library.columbia.edu/resolve/#{link_uri.query}"
+      end
+    end
+    link_src
+  end
 end
