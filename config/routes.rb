@@ -65,7 +65,7 @@ Dcv::Application.routes.draw do
   get 'nyre/about' => 'nyre#about', as: :nyre_about
   get 'nyre/about-collection' => 'nyre#aboutcollection', as: :nyre_aboutcollection
   get 'nyre/map_search' => 'nyre#map_search', as: :nyre_map_search
-  get 'nyre/projects/:id' => 'nyre/projects#show', as: :nyre_project, constraints: { id: /(\d+)|([A-Z]{2,3}\.\d{3,4}\.[A-Z]+)/ } 
+  get 'nyre/projects/:id' => 'nyre/projects#show', as: :nyre_project, constraints: { id: /(\d+)|([A-Z]{2,3}\.\d{3,4}\.[A-Z]+)/ }
 
   resources 'sites', only: [:index, :show], param: :slug
   # Dynamic routes for catalog controller and all subsites
@@ -83,6 +83,7 @@ Dcv::Application.routes.draw do
     get "#{subsite_key}/previews/:id" => "#{subsite_key}#preview", as: subsite_key + '_preview', constraints: { id: /[^\?]+/ }
     get "#{subsite_key}/:id/proxies" => "#{subsite_key}#show", as: "#{subsite_key}_root_proxies".to_sym
     get "#{subsite_key}/:id/proxies/*proxy_id" => "#{subsite_key}#show", as: "#{subsite_key}_proxy".to_sym, constraints: { proxy_id: /[^\?]+/ }
+    get "#{subsite_key}/:id/synchronizer" => "#{subsite_key}#synchronizer", as: "#{subsite_key}_synchronizer".to_sym
     resources(:solr_document, {only: [:show], path: subsite_key.to_s, controller: subsite_key.to_s, :format => 'html'}) do
       member do
         post "track"
@@ -109,6 +110,7 @@ Dcv::Application.routes.draw do
         get "#{subsite_key}/previews/:id" => "#{subsite_key}#preview", as: subsite_key + '_preview', constraints: { id: /[^\?]+/ }
         get "#{subsite_key}/:id/proxies" => "#{subsite_key}#show", as: "#{subsite_key}_root_proxies".to_sym
         get "#{subsite_key}/:id/proxies/*proxy_id" => "#{subsite_key}#show", as: "#{subsite_key}_proxy".to_sym, constraints: { proxy_id: /[^\?]+/ }
+        get "#{subsite_key}/:id/synchronizer" => "#{subsite_key}#synchronizer", as: "#{subsite_key}_synchronizer".to_sym
         resources(:solr_document, {only: [:show], path: subsite_key.to_s, controller: subsite_key.to_s, :format => 'html'}) do
           member do
             post "track"

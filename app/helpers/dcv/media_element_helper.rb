@@ -20,6 +20,14 @@ module Dcv::MediaElementHelper
     </div></div>').html_safe
   end
 
+  def render_media_element_streaming_player(url, poster_path, width=1024, height=576)
+    return ('<div class="mejs-ted"><div class="mediaelement-player">
+      <video width="' + width.to_s + '" height="' + height.to_s + '" style="width:100%;height:100%;" poster="' + poster_path + '" controls="controls" preload="none">
+        <source type="application/x-mpegURL" src="' + url + '" />
+      </video>
+    </div></div>').html_safe
+  end
+
   def render_media_element_progressive_download_video_player(video_url, poster_path, width=1024, height=576)
     return ('<div class="mejs-ted"><div class="mediaelement-player">
       <video width="' + width.to_s + '" height="' + height.to_s + '" style="width:100%;height:100%;" poster="' + poster_path + '" controls="controls" preload="none">

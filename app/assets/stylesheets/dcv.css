@@ -12,7 +12,6 @@
  *= require ./blacklight
  *= require jquery.ui.all
  *= require colorbox-rails
- *= require ableplayer.min
  *
  * leaflet + plugins
  *= require leaflet

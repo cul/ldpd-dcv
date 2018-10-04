@@ -7,6 +7,7 @@
 //= require 'dcv/dcv.show.zooming_viewer'
 //= require 'dcv/dcv.squares'
 //= require 'dcv/dcv.map'
+//= require 'dcv/dcv.synchronizer'
 
 
 
@@ -117,6 +118,13 @@ function setupChildViewer() {
   $childCarouselElement.carousel({
     interval: false // Do not automatically cycle
   }).on('slid.bs.carousel', function(){
+    //pause any video element inside the carousel
+    $(this).find('video,audio').each(function(){
+      if(typeof($(this)[0].player) != 'undefined') {
+        $(this)[0].player.pause()
+      }
+    });
+
     var $currentSlideElememt = $childCarouselElement.find('.item.active');
     var childNumber = parseInt($currentSlideElememt.attr('data-child-number'));
     //Remove selected class from previous gallery item

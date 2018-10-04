@@ -34,9 +34,6 @@
 // stupidtable
 //= require stupidtable
 //
-// ableplayer
-//= require ableplayer.min
-//
 // leaflet, for maps
 //= require leaflet
 //= require leaflet.markercluster
