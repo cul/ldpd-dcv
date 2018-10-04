@@ -13,7 +13,7 @@
     <%= document['description_text_ssm'].blank? ? Array(document['abstract_ssim']).join : controller.render_markdown(Array(document['description_text_ssm']).join)  %>
     <div id="show-concept-links" class="index-show-list-fields">
       <ul>
-      <% target_link = document[:source_ssim].present? ? Array(document[:source_ssim]).first : nil %>
+      <% target_link = clean_resolver(document[:source_ssim].present? ? Array(document[:source_ssim]).first : nil) %>
       <% if target_link %>
         <li>Bookmark as: <strong><%= link_to(target_link.html_safe, target_link) if target_link %></strong></li>
       <% end %>
