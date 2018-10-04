@@ -138,7 +138,7 @@ module Dcv::CatalogHelperBehavior
     if link_src
       link_uri = URI(link_src)
       if link_uri.path == "/cgi-bin/cul/resolve" && link_uri.host == "www.columbia.edu"
-        return "http://library.columbia.edu/resolve/#{link_uri.query}"
+        return "https://library.columbia.edu/resolve/#{link_uri.query}"
       end
     end
     link_src
