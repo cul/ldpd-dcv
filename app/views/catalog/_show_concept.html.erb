@@ -13,16 +13,16 @@
     <%= document['description_text_ssm'].blank? ? Array(document['abstract_ssim']).join : controller.render_markdown(Array(document['description_text_ssm']).join)  %>
     <div id="show-concept-links" class="index-show-list-fields">
       <ul>
+      <% dcv_search_link = document[:short_title_ssim].present? ? search_action_path(:f => {'lib_project_short_ssim' => [document[:short_title_ssim].first]}) : nil %>
+      <% if dcv_search_link && controller.published_to_catalog?(document) %>
+        <li>Browse: <%= link_to("#{document_show_html_title} content in the DLC".html_safe, dcv_search_link) %></li>
+      <% end %>
+      <% solr_url_hash(document, exclude: {'usage' => "primary display"}).each do |location| %>
+        <li>See also: <%= link_to(location.fetch('displayLabel',"Related Web Content"), location['url']) %></li>
+      <% end %>
       <% target_link = clean_resolver(document[:source_ssim].present? ? Array(document[:source_ssim]).first : nil) %>
       <% if target_link %>
         <li>Bookmark as: <strong><%= link_to(target_link.html_safe, target_link) if target_link %></strong></li>
-      <% end %>
-      <% dcv_search_link = document[:short_title_ssim].present? ? search_action_path(:f => {'lib_project_short_ssim' => [document[:short_title_ssim].first]}) : nil %>
-      <% if dcv_search_link && controller.published_to_catalog?(document) %>
-        <li><%= link_to("Browse: #{document_show_html_title} content in the DLC".html_safe, dcv_search_link) %></li>
-      <% end %>
-      <% solr_url_hash(document, exclude: {'usage' => "primary display"}).each do |location| %>
-        <li><%= link_to(location.fetch('displayLabel',"Related Web Content"), location['url']) %></li>
       <% end %>
       </ul>
     </div>
