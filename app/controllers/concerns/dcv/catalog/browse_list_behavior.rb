@@ -23,7 +23,7 @@ module Dcv::Catalog::BrowseListBehavior
 
   def refresh_catalog_browse_lists_cache
     if Rails.env == 'development' || ! Rails.cache.exist?(browse_lists_cache_key)
-      Rails.cache.write(browse_lists_cache_key, generate_catalog_browse_lists, expires_in: 24.hours);
+      Rails.cache.write(browse_lists_cache_key, generate_catalog_browse_lists, expires_in: 12.hours);
     end
   end
 
