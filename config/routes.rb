@@ -30,6 +30,11 @@ Dcv::Application.routes.draw do
 
   get '/data/flare' => 'catalog#get_pivot_facet_data', as: :flare_data
 
+
+  # Carnegie subsite routes
+  get 'carnegie/about' => 'carnegie#about', as: :carnegie_about
+  get 'carnegie/map_search' => 'carnegie#map_search', as: :carnegie_map_search
+
   # Durst subsite routes
   get 'durst/map_search' => 'durst#map_search', as: :durst_map_search
   get 'durst/help' => 'durst#help', as: :durst_help

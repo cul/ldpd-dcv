@@ -1,0 +1,19 @@
+<% unless !has_search_parameters? && params[:action] == 'index' %>
+<div class="col-md-12">
+  <div id="site-banner">
+	<div class="row">
+        <div id="site-banner-inner">
+            <div class="col-sm-8">
+							<%= link_to 'Carnegie'.html_safe, carnegie_index_path, { :id => 'site-title' } %>
+            </div>
+            <div class="col-sm-4">
+							<div id="search-navbar" class="navbar navbar-default slim" role="navigation">
+									<%= render_search_bar(false)  %>
+							</div>
+            </div>
+         </div>
+	</div><!--/row-->
+  </div>
+  <%= render 'secondary_nav' %>
+</div>
+<% end %>
