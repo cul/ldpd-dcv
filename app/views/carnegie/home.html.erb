@@ -13,7 +13,9 @@
 		</div>
 	</div>
 	<%= render 'secondary_nav' %>
-	<img class="img-responsive" alt="" src="<%= asset_path("carnegie/carnegie-c1.png") %>">
+	<div class="featured-outer">
+		<img class="img-responsive" alt="" src="<%= asset_path("carnegie/carnegie-logo.svg") %>">
+	</div>
 	<div id="home-map-container">
 		<script>
 			DCV.mapCoordinateSearchUrl = decodeURIComponent('<%= CGI.escape(url_for(params.merge(:action => 'index', :lat => '_lat_', :long => '_long_', :search_field => params[:search_field] || 'all_text_teim', :q => params[:q] || ''))) %>');
