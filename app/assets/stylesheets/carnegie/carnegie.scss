@@ -130,7 +130,9 @@ a {
 		background-color:$color_9;
 		margin:0 -15px;
 		.img-responsive {
-			max-width: 60vw;
+			@media(min-width: 992px) {
+				max-width: 60vw;
+			}
 		}
 	}
 	.img-responsive {
