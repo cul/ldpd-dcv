@@ -32,10 +32,6 @@ $font_5: trajan;
 $font_6: serif;
 $font_b: "Arial Rounded MT Bold", "Helvetica Rounded", Arial, sans-serif;
 
-@mixin	stripeBg($l: 25%) {
-	background: lighten($color_2, $l);
-	background-image:$url_0;
-}
 //urls
 $url_0: url(asset_path("carnegie/stripes-white-10.png"));
 
@@ -58,6 +54,10 @@ $url_0: url(asset_path("carnegie/stripes-white-10.png"));
 	border-color: $color_2;
 }
 
+@mixin	stripeBg($l: 25%) {
+	background: lighten($color_2, $l);
+	background-image:$url_0;
+}
 
 body {
 	color: $color_0;
@@ -125,6 +125,14 @@ a {
 	}
 }
 #hometn {
+	.featured-outer {
+		padding:1rem;
+		background-color:$color_9;
+		margin:0 -15px;
+		.img-responsive {
+			max-width: 60vw;
+		}
+	}
 	.img-responsive {
 		margin-top:1em;
 		margin-bottom:.5em;
