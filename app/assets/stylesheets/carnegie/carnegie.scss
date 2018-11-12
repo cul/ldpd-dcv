@@ -142,6 +142,8 @@ a {
 	#site-title {
 		color:$color_2;
 		text-shadow:none;
+		line-height: 1.6;
+		padding-bottom:.35em;
 	}
 	#search-navbar .input-group-addon {
 		background-color:#aaa;
@@ -160,7 +162,7 @@ a {
 	}
 }
 #site-title {
-	display: inline-block;
+	display: block;
 	padding-top: 4px;
 	padding-bottom: 0;
 	margin-bottom: 2px;
@@ -172,7 +174,7 @@ a {
 	text-align: center;
 	text-decoration: none;
 	text-transform: uppercase;
-    text-shadow: 0 0 2px $color_10;
+  text-shadow: 0 0 2px $color_10;
 	vertical-align: bottom;
 }
 #site-banner-subtitle {
@@ -194,8 +196,8 @@ a {
 	#site-title {
 		padding-top: 8px;
 		padding-left: 0;
-		font-size: 1.06em;
-		line-height: 2;
+		font-size: 1.36em;
+		//line-height: 2;
 		letter-spacing: 0;
 		text-align:left;
 	}
