@@ -118,8 +118,9 @@ OHSynchronizer.twoDigits = function(value, frac) {
 
 OHSynchronizer.secondsAsTimestamp = function(time, frac = 3) {
 	var minutes = Math.floor(time / 60);
-	var hours = Math.floor(minutes / 60);
 	var seconds = (time - minutes * 60).toFixed(3);
+	var hours = Math.floor(minutes / 60);
+	if (hours > 0) minutes = minutes - 60 * hours;
 	return OHSynchronizer.twoDigits(hours, 0) + ":" + OHSynchronizer.twoDigits(minutes, 0) + ":" + OHSynchronizer.twoDigits(seconds, frac);
 }
 
@@ -1186,27 +1187,29 @@ OHSynchronizer.Export.transcriptVTT = function() {
 
 		// This will help us find the rest of the minutes, as they are marked appropriately
 		while (/([0-9]:00})+/.test(content)) {
-			var newMin = '';
-			var currMin = '';
+			var currMin = 0;
+			var currHour = 0;
+			var newMin = 0;
+			var newHour = 0;
 
 			minute = content.substring(content.indexOf("{") + 1, content.indexOf("}"));
 			minute = minute.substring(0, minute.indexOf(':'));
-			currMin = (parseInt(minute) < 10) ? '0' + minute : minute;
-			newMin = (parseInt(currMin) + 1);
-			newMin = (parseInt(newMin) < 10) ? '0' + newMin : newMin;
+			currMin = parseInt(minute);
+			newMin = currMin + 1;
 
-			if (parseInt(currMin) < 60) {
-				content = content.replace('<span class="transcript-timestamp">{' + minute + ':00} ', '\n\n00:' + currMin + ':00.000 --> 00:' + newMin + ':00.000\n');
-			}
-			else {
-				var hour = '';
-				hour = (parseInt(newMin) % 60);
-				currMin -= (parseInt(hour) * 60);
-				newMin = (parseInt(currMin) + 1);
+			currHour = parseInt(minute / 60);
+			currMin -= (currHour * 60);
+			newHour = parseInt(newMin / 60);
+			newMin -= (newHour * 60);
 
-				hour = (parseInt(hour) < 10) ? '0' + hour : hour;
-				content = content.replace('<span class="transcript-timestamp">{' + minute + ':00} <span class="transcript-word transcript-clicked">', '\n\n' + hour + ':' + currMin + ':00.000 --> ' + hour + ':' + newMin + ':00.000\n');
-			}
+			content = content.replace(
+				'<span class="transcript-timestamp">{' + minute + ':00} ',
+				'\n\n' +
+				(currHour < 10 ? '0' + currHour : currHour) + ':' + (currMin < 10 ? '0' + currMin : currMin) + ':00.000' +
+				' --> ' +
+				(newHour < 10 ? '0' + newHour : newHour) + ':' + (newMin < 10 ? '0' + newMin : newMin) + ':00.000' +
+				'\n'
+			);
 		}
 
 		return content;
@@ -1281,12 +1284,19 @@ OHSynchronizer.Export.previewWork = function(type) {
 		// We need to parse the VTT-ified transcript data so that it is "previewable"
 		var text = content.split(/\r?\n|\r/);
 		var first = false;
+		var timestampRegex = /^(\d{2}):(\d{2}):\d{2}\..+/;
 
 		for (var i = 0; i < text.length; i++) {
 			if (/(([0-9]{2}:[0-9]{2}:[0-9]{2}.[0-9]{3}\s-->\s[0-9]{2}:[0-9]{2}:[0-9]{2}.[0-9]{3}))+/.test(text[i])) {
-			if (!first) first = true;
-			var timestamp = text[i][3] !== "0" ? (text[i][3] + text[i][4]) : text[i][4];
-			if (timestamp !== "0") { $('#transcript-preview')[0].innerHTML += '<span class="preview-minute">[' + timestamp + ':00]&nbsp;</span>'; }
+				if (!first) first = true;
+				//var timestamp = text[i][3] !== "0" ? (text[i][3] + text[i][4]) : text[i][4];
+				var timestamp = timestampRegex.exec(text[i]);
+	      var timestampHour = timestamp[1];
+	      var timestampMinute = timestamp[2];
+	      var minute = parseInt(timestampHour) * 60 + parseInt(timestampMinute);
+				if (minute !== 0) {
+					$('#transcript-preview')[0].innerHTML += '<span class="preview-minute">[' + minute + ':00]&nbsp;</span>';
+				}
 				continue;
 			}
 			else if (first) {
