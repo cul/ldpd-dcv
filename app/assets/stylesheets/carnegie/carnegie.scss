@@ -128,7 +128,7 @@ a {
 	.featured-outer {
 		padding:1rem;
 		background-color:$color_9;
-		margin:0 -15px;
+		margin:0 -15px 1rem;
 		.img-responsive {
 			@media(min-width: 992px) {
 				max-width: 60vw;

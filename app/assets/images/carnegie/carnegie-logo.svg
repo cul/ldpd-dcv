@@ -10,10 +10,10 @@
 	.st4{opacity:0.86;}
 	.st5{fill:#FFFFFF;}
 	.st6{font-family:'TrajanPro-Regular';}
-	.st7{font-size:10.4158px;}
-	.st8{font-size:11.359px;}
+	.st7{font-size:8.6053px;}
+	.st8{font-size:9.3846px;}
 	.st9{font-family:'Hero-Light';}
-	.st10{font-size:19.7694px;}
+	.st10{font-size:16.3331px;}
 </style>
 <font horiz-adv-x="1000">
 <!-- Copyright (c) 2010 by Svetoslav Simov. All rights reserved. -->
@@ -305,7 +305,7 @@
 			</clipPath>
 		</g>
 	</g>
-	<text transform="matrix(1 0 0 1 28.4878 148.1211)" class="st4"><tspan x="0" y="0" class="st5 st6 st7">at</tspan><tspan x="12.9" y="0" class="st5 st6 st8"> Columbia</tspan></text>
-	<text transform="matrix(1 0 0 1 28.1904 135.8984)" class="st5 st9 st10">COLLECTION</text>
+	<text transform="matrix(1 0 0 1 28.436 143.0762)" class="st4"><tspan x="0" y="0" class="st5 st6 st7">at</tspan><tspan x="10.6" y="0" class="st5 st6 st8"> Columbia</tspan></text>
+	<text transform="matrix(1 0 0 1 28.1904 132.9775)" class="st5 st9 st10">COLLECTION</text>
 </g>
 </svg>
