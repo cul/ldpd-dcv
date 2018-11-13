@@ -142,18 +142,23 @@ a {
 	#site-title {
 		color:$color_2;
 		text-shadow:none;
-		line-height: 1.6;
-		padding-bottom:.35em;
+		line-height: 1.1;
+		padding-bottom:.5em;
 	}
-	#search-navbar .input-group-addon {
-		background-color:#aaa;
-	}
-	#search-navbar #q {
-		color:$color_5;
-		background-color:darken($color_10,5%);
-		&:focus {
-                background-color: $color_10;
-        }
+	#search-navbar {
+		&.slim {
+			margin-top:2px;
+		}
+		.input-group-addon {
+			background-color:#aaa;
+		}
+		#q {
+			color:$color_5;
+			background-color:darken($color_10,5%);
+			&:focus {
+	                background-color: $color_10;
+	        }
+		}
 	}
 	#secondary-nav {
 		margin-top:.75em;
