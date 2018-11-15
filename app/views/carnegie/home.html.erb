@@ -13,8 +13,14 @@
 		</div>
 	</div>
 	<%= render 'secondary_nav' %>
-	<div class="featured-outer">
+	<div class="featured-outer" style="background-image:url(<%= asset_path("carnegie/Carnegie_q85-large") %>);">
 		<img class="img-responsive" alt="" src="<%= asset_path("carnegie/carnegie-logo.svg") %>">
+		<!--img class="img-responsive" alt="" srcset="<%= asset_path("carnegie/Carnegie_q85-small") %> 300w,
+																							<%= asset_path("carnegie/Carnegie_q85-medium") %> 600w,
+																							<%= asset_path("carnegie/Carnegie_q85-large") %> 1200w"
+																				sizes="(min-width: 768px) 50vw, 100vw"
+																				src="<%= asset_path("carnegie/Carnegie_q85-large") %>"!-->
+
 	</div>
 	<div id="home-map-container">
 		<script>

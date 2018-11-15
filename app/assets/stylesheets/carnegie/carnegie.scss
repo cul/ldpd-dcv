@@ -126,13 +126,19 @@ a {
 }
 #hometn {
 	.featured-outer {
-		padding:1rem;
+		padding:0;
 		background-color:$color_9;
+		background-image: url(asset_path("carnegie/Carnegie_q85-large.jpg"));
+		background-size: cover;
+		background-position: center 25%;
+		background-repeat: no-repeat;
 		margin:0 -15px 1rem;
 		.img-responsive {
-			@media(min-width: 992px) {
-				max-width: 60vw;
-			}
+			visibility: hidden; //temp 
+			margin:0;
+			//@media(min-width: 992px) {
+				//max-width: 60vw;
+			//}
 		}
 	}
 	.img-responsive {
