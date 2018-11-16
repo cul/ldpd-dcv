@@ -126,6 +126,9 @@ a {
 }
 #hometn {
 	.featured-outer {
+		display: flex;
+		//flex-direction: row;
+		align-items: flex-end;
 		padding:0;
 		background-color:$color_9;
 		background-image: url(asset_path("carnegie/Carnegie_q85-large.jpg"));
@@ -133,12 +136,17 @@ a {
 		background-position: center 25%;
 		background-repeat: no-repeat;
 		margin:0 -15px 1rem;
+		min-height:200px;
+		@media(min-width: 768px) {
+			height:60vh;
+			min-height:320px;
+		}
 		.img-responsive {
-			visibility: hidden; //temp 
 			margin:0;
-			//@media(min-width: 992px) {
-				//max-width: 60vw;
-			//}
+			width:100vw;
+			@media(min-width: 768px) {
+				width:55%;
+			}
 		}
 	}
 	.img-responsive {
