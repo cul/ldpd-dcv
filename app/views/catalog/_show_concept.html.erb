@@ -22,7 +22,7 @@
       <% end %>
       <% target_link = clean_resolver(document[:source_ssim].present? ? Array(document[:source_ssim]).first : nil) %>
       <% if target_link %>
-        <li>Bookmark as: <strong><%= link_to(target_link.html_safe, target_link) if target_link %></strong></li>
+        <li>Bookmark as: <%= link_to(target_link.html_safe, target_link) if target_link %></li>
       <% end %>
       </ul>
     </div>
