@@ -10,7 +10,7 @@ module Dcv::IframeHelperBehavior
     if archive_org_location
       archive_org_id = archive_org_location.split('/')[-1]
     end
-    # TODO: Check for identifiers
+    archive_org_id ||= document["archive_org_identifier_ssi"]
     if archive_org_id
       return "https://archive.org/stream/#{archive_org_id}?ui=embed"
     end
