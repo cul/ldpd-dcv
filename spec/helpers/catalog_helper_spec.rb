@@ -100,4 +100,29 @@ describe CatalogHelper, :type => :helper do
       expect(helper.rounded_down_and_formatted_dcv_asset_count).to eq('10,000')
     end
   end
+  describe '#iframe_url_for_document' do
+    let(:document_show_link_field) { 'title_short' }
+    subject { helper.iframe_url_for_document(SolrDocument.new(document)) }
+    context 'with a site result' do
+      let(:document) do
+        {
+          'title_short' => '0123456789abc',
+          'title_long' => '0123456789abcdefghijklmnopqrstuvwxyz',
+          'lib_non_item_in_context_url_ssm' => ['https://archive.org/details/sluggo'],
+        }
+      end
+      it { is_expected.to match(/sluggo\?ui=embed$/) }
+    end
+    context 'with a non-site result' do
+      let(:document) do
+        {
+          'title_short' => '0123456789abc',
+          'title_long' => '0123456789abcdefghijklmnopqrstuvwxyz',
+          'lib_non_item_in_context_url_ssm' => ['https://library.org/details/sluggo'],
+        }
+      end
+      # until we configure routes in this helper config
+      it { is_expected.to be_nil }
+    end
+  end
 end

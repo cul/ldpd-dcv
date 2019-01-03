@@ -1244,3 +1244,11 @@ h2[itemprop="name"] {
   cursor: -moz-grabbing;
   cursor: -webkit-grabbing;
 }
+
+/* archive.org iframe */
+.archive_embed {
+	visibility: visible;
+	width: 100%;
+	height: 480px; /* IA recommended value and height of embedded images */
+	margin-top: 10px;
+}
