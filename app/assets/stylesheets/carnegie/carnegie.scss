@@ -393,6 +393,11 @@ a {
 			height: auto;
 		}
 	}
+	section.ff:before {
+		height: 50px;
+		content: "";
+		display:block;
+	}
 }
 #facets {
 	margin-right: -1em;
