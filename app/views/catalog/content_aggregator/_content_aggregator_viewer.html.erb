@@ -8,6 +8,9 @@
         <img id="image-unavailable-img" class="img-responsive" src="<%= get_asset_url(id: 'placeholder:unavailable', size: 256, type: 'full', format: 'jpg') %>" />
       </div>
     <% end %>
+    <% if (iframe_url = iframe_url_for_document(document)) %>
+      <iframe src="<%= iframe_url %>" class="archive_embed" frameborder="0" webkitallowfullscreen="true" mozallowfullscreen="true" allowfullscreen="" sandbox="allow-forms allow-scripts allow-same-origin allow-top-navigation allow-popups"></iframe>
+    <% end %>
   <% else %>
 
     <div class="pull-right btn-group btn-group-xs">
