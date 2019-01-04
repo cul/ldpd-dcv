@@ -1,63 +1,17 @@
 <div class="row" id="child_items">
 
 	<div id="item-description" class="col-md-3">
-		<div class="inner noprint-sm" style="margin-bottom:1em;">
-			<script>
-				DCV.mapCoordinateSearchUrl = decodeURIComponent('<%= CGI.escape(url_for(params.except(:'utf8').merge(:lat => '_lat_', :long => '_long_', :search_field => params[:search_field] || 'all_text_teim', :q => params[:q] || ''))).html_safe %>');
-			</script>
-
-			<% map_search_settings = map_search_settings_for_subsite %>
-			<% latlong = document['geo'].present? ? document['geo'][0].split(',') : [map_search_settings['default_lat'] || 0, map_search_settings['default_long'] || 0] %>
-			<%= render partial: 'map_search', locals: {
-			  map_data_json: extract_map_data_from_document_list([document]).to_json.html_safe,
-			  map_default_center_lat: latlong[0],
-			  map_default_center_long: latlong[1],
-			  map_default_zoom_level: map_search_settings['default_zoom'] || 11
-			} %>
-
-			<div class="clearfix"></div>
-		</div>
-		<div class="inner" style="margin-bottom:1em;padding-bottom:0;">
-			<% geo_facet_fields_to_show = {'subject_hierarchical_geographic_neighborhood_ssim' => 'Neighborhood', 'subject_hierarchical_geographic_borough_ssim' => 'Borough', 'subject_hierarchical_geographic_city_ssim' => 'City'} %>
-			<% geo_non_facet_fields_to_show = {'subject_hierarchical_geographic_street_ssim' => 'Address', 'geo' => 'Coordinates'} %>
-			<dl class="dl-vertical">
-				<% geo_facet_fields_to_show.each do |field_name, display_label|  %>
-					<% if document[field_name].present? %>
-						<dt><%= display_label %></dt>
-						<dd><ul><%= document[field_name].uniq.map{|val| ('<li><a href="' + local_facet_search_url(field_name, val) + '">' + val + '</a></li>').html_safe}.join('').html_safe %></ul></dd>
-					<% end %>
-				<% end %>
-				<% geo_non_facet_fields_to_show.each do |field_name, display_label|  %>
-					<% if document[field_name].present? %>
-						<dt><%= display_label %></dt>
-						<dd><ul><%= document[field_name].uniq.map{|val| "<li#{(field_name == 'geo' ? ' class="coordinates"' : '')}>#{val}</li>" }.join('').html_safe %></ul></dd>
-					<% end %>
-				<% end %>
-			</dl>
-		</div>
+		<%= render partial: 'catalog/sidebar_panels/item_map', locals: { document: document } %>
+		<% geo_facet_fields_to_show = {'subject_hierarchical_geographic_neighborhood_ssim' => 'Neighborhood', 'subject_hierarchical_geographic_borough_ssim' => 'Borough', 'subject_hierarchical_geographic_city_ssim' => 'City'} %>
+		<% geo_non_facet_fields_to_show = {'subject_hierarchical_geographic_street_ssim' => 'Address', 'geo' => 'Coordinates'} %>
+		<%= render partial: 'catalog/sidebar_panels/location_data', locals: { document: document, geo_facet_fields_to_show: geo_facet_fields_to_show, geo_non_facet_fields_to_show: geo_non_facet_fields_to_show } %>
 		<%= render partial: 'catalog/sidebar_panels/links', locals: { document: document, configured_links: [:persistent, :mods, :related] } %>
 	</div>
 
 	<div class="col-md-9 ls-controls-dark">
 		<%= render partial: 'catalog/content_aggregator/content_aggregator_viewer', locals: { document: document } %>
 
-			<div class="inner" style="margin-top:1em;">
-				<dl class="dl-horizontal">
-					<% document_show_fields(document).each do |solr_fname, field| %>
-						<% if solr_fname.to_s == 'dynamically_generated_published_field' %>
-							<% publisher_field_value = combined_field_published_string(document) %>
-							<% if publisher_field_value.present? %>
-								<dt><%= render_document_show_field_label document, :field => solr_fname %></dt>
-								<dd><%= publisher_field_value %></dd>
-							<% end %>
-						<% elsif should_render_show_field?(document, field) %>
-							<dt class="blacklight-<%= solr_fname.parameterize %>"><%= render_document_show_field_label document, :field => solr_fname %></dt>
-							<dd class="blacklight-<%= solr_fname.parameterize %>"><%= render_document_show_field_value document, :field => solr_fname %></dd>
-						<% end %>
-					<% end %>
-				</dl>
-				<%= render_url_and_catalog_links(document) %>
-			</div>
+		<%= render partial: 'catalog/sidebar_panels/item_description', locals: { document: document, alignment: 'horizontal' } %>
 
 	</div>
 
