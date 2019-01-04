@@ -9,7 +9,7 @@
 		<% end %>
 		<% if configured_links.include?(:related) %>
       <% solr_url_hash(document, exclude: {'usage' => "primary display"}).each do |location| %>
-        <li><%= link_to("<span class=\"glyphicon glyphicon-paperclip\"></span> #{location.fetch('displayLabel',"Related Web Content")}", location['url']) %></li>
+        <li><%= link_to("<span class=\"glyphicon glyphicon-paperclip\"></span> #{location.fetch('displayLabel',"Related Web Content")}".html_safe, location['url']) %></li>
       <% end %>
 		<% end %>
 		<% if configured_links.include?(:mods) %>
