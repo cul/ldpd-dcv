@@ -14,9 +14,7 @@
           <% end %>
         </dl>
      </div>
-      <div class="inner">
-        <%= link_to '<span class="glyphicon glyphicon-file"></span> Display XML Metadata'.html_safe, item_mods_path(:pid => @document.id), :'data-no-turbolink' => true, :'data-display-url' => item_mods_path(:pid => @document.id, :type => 'formatted_text'), :'data-download-url' => item_mods_path(:pid => @document.id, :type => 'download'), :onclick => 'return DCV.ModsDownloadModal.show($(this).attr("data-display-url"), $(this).attr("data-download-url"));' %>
-      </div>
+    <%= render partial: 'catalog/links_sidebar_panel', locals: { document: document, configured_links: [:mods] } %>
     </div>
   <% end %>
 
