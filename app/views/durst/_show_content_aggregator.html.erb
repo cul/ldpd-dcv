@@ -13,25 +13,7 @@
 
 	<div class="col-md-9 ls-controls-dark">
 		<%= render partial: 'catalog/content_aggregator/content_aggregator_viewer', locals: { document: document, use_unavailable_image_placeholder: false } %>
-
-			<div class="inner" style="margin-top:1em;">
-				<dl class="dl-horizontal">
-					<% document_show_fields(document).each do |solr_fname, field| %>
-						<% if solr_fname.to_s == 'dynamically_generated_published_field' %>
-							<% publisher_field_value = combined_field_published_string(document) %>
-							<% if publisher_field_value.present? %>
-								<dt><%= render_document_show_field_label document, :field => solr_fname %></dt>
-								<dd><%= publisher_field_value %></dd>
-							<% end %>
-						<% elsif should_render_show_field?(document, field) %>
-							<dt class="blacklight-<%= solr_fname.parameterize %>"><%= render_document_show_field_label document, :field => solr_fname %></dt>
-							<dd class="blacklight-<%= solr_fname.parameterize %>"><%= render_document_show_field_value document, :field => solr_fname %></dd>
-						<% end %>
-					<% end %>
-				</dl>
-				<%= render_url_and_catalog_links(document) %>
-				<%= render_durst_location_information(document) if is_postcard %>
-			</div>
+		<%= render partial: 'catalog/sidebar_panels/item_description', locals: { document: document, alignment: 'horizontal', link_helpers: (is_postcard ? [:render_url_and_catalog_links, :render_durst_location_information] : [:render_url_and_catalog_links] } %>
 
 	</div>
 

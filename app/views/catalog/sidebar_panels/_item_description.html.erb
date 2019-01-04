@@ -1,4 +1,5 @@
 <% alignment ||= 'vertical' %>
+<% link_helpers ||= [] %>
 <div class="inner" <%= "style=\"margin-top:1em;\"" if alignment != 'vertical' %>>
 	<dl class="dl-<%= alignment %>">
 		<% document_show_fields(document).each do |solr_fname, field| %>
@@ -14,5 +15,6 @@
 			<% end %>
 		<% end %>
 	</dl>
-	<%= render_url_and_catalog_links(document)  if alignment != 'vertical' %>
+	<% link_helpers.each do |link_helper| %>
+		<%= send link_helper, document %>
 </div>
