@@ -10,7 +10,7 @@
         <% end %>
       </dl>
     </div>
-    <%= render partial: 'catalog/links_sidebar_panel', locals: { document: document, configured_links: [:persistent, :mods, :reproduction] } %>
+    <%= render partial: 'catalog/sidebar_panels/links', locals: { document: document, configured_links: [:persistent, :mods, :reproduction] } %>
   </div>
   <div class="col-md-9">
     <%= render partial: 'catalog/content_aggregator/content_aggregator_viewer', locals: { document: document } %>
