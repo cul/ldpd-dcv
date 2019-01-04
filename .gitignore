@@ -41,6 +41,9 @@ subsites.yml
 # Ignore local task file
 /lib/tasks/local.rake
 
+# Ignore arbitrary local files
+/.local
+
 # Ignore OS-specific
 .DS_Store
 
