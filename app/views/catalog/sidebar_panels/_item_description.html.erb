@@ -1,6 +1,6 @@
 <% alignment ||= 'vertical' %>
 <% link_helpers ||= [] %>
-<div class="inner" <%= "style=\"margin-top:1em;\"" if alignment != 'vertical' %>>
+<div class="inner" <%= "style=\"margin-top:1em;\"".html_safe if alignment != 'vertical' %>>
 	<dl class="dl-<%= alignment %>">
 		<% document_show_fields(document).each do |solr_fname, field| %>
 			<% if solr_fname.to_s == 'dynamically_generated_published_field' %>
@@ -17,4 +17,5 @@
 	</dl>
 	<% link_helpers.each do |link_helper| %>
 		<%= send link_helper, document %>
+	<% end %>
 </div>
