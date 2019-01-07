@@ -258,9 +258,8 @@ DCV.DateRangeGraphSelector.render = function() {
     var fullPixelRange = segmentWidth*numSegments;
 
     var dateRangeInYears = numSegments*yearsPerSegment;
-    var newStartYearFilter = Math.round((startOfPixelRange/fullPixelRange)*dateRangeInYears)+startOfRange;
-    var newEndYearFilter = Math.round((endOfPixelRange/fullPixelRange)*dateRangeInYears)+startOfRange;
-
+    var newStartYearFilter = startOfRange + Math.floor(dateRangeInYears*(startOfPixelRange/fullPixelRange));
+    var newEndYearFilter = startOfRange + Math.floor(dateRangeInYears*(endOfPixelRange/fullPixelRange));
     $('#date-range-canvas').attr('data-new-start-year-filter', newStartYearFilter);
     $('#date-range-canvas').attr('data-new-end-year-filter', newEndYearFilter);
 

@@ -90,7 +90,7 @@ module Dcv::Catalog::DateRangeSelectorBehavior
     end
 
     # Generate segments
-    range_size = end_of_range - start_of_range
+    range_size = end_of_range - start_of_range + 1
     segment_size = 1
 
     if range_size < 20
