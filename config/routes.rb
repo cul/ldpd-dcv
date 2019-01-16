@@ -33,6 +33,7 @@ Dcv::Application.routes.draw do
 
   # Carnegie subsite routes
   get 'carnegie/about' => 'carnegie#about', as: :carnegie_about
+  get 'carnegie/faq' => 'carnegie#faq', as: :carnegie_faq
   get 'carnegie/map_search' => 'carnegie#map_search', as: :carnegie_map_search
 
   # Durst subsite routes
