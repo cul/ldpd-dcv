@@ -239,9 +239,15 @@ a {
 		}
 	}
 }
+@media(max-width: 991px) and (min-width: 768px) {
+	#site-title {
+		padding-top: 1.2rem;
+		font-size: 1.2em;
+	}
+}
 @media(min-width: 992px) {
 	#site-title {
-		padding-top: 3px;
+		padding-top: 1rem;
 		padding-left: 0;
 		font-size: 1.36em;
 		letter-spacing: 0;
@@ -255,7 +261,7 @@ a {
 }
 @media(min-width: 1200px) {
 	#site-title {
-		padding-top: 1px;
+		padding-top: .6rem;
 		font-size: 1.68em;
 		letter-spacing: 0;
 		padding-left: 0;

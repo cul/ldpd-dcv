@@ -27,6 +27,9 @@ class CarnegieController < SubsitesController
   def about
   end
 
+  def faq
+  end
+
   private
 
   def set_map_data_json
