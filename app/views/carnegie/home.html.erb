@@ -37,57 +37,50 @@
 	</div>
 </div>
  <div class="row">
-  <div class="col-md-4">
+ <div class="col-md-4 col-md-push-8">
+		<div class="home inner">
+			 <h2 class="h5 text-uppercase">BROWSE THE COLLECTION</h2>
+			 <%= render partial: 'facets', locals: {hide_refine_heading: true, no_id_attr: true} %>
+			 <hr class="hidden-md hidden-lg">
+		</div> <!--/.inner-->
+ </div><!--/-->
+  <div class="col-md-4 col-md-pull-4">
     <div class="home inner">
 		<h2 class="h5 text-uppercase">About the Project</h2>
 			<p>
-			Carnegie, an extraordinary resource for research in Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc augue elit, consectetur id commodo eu, faucibus at ligula. Curabitur est mauris, accumsan ut tincidunt eget, convallis non lacus. Donec tincidunt neque lacus, sit amet pellentesque risus suscipit ut.
+			The goal of this project is to connect <a href="https://www.carnegie.org/">Carnegie Corporation of New York’s</a> digitized past to its born-digital future.
 			</p>
 			<p>
-			The data that constitutes the Carnegie was collected from Aliquam eget tortor quis velit mattis vulputate. Pellentesque eget tempus diam, a condimentum sapien. Aenean bibendum in mauris dictum rutrum. Curabitur condimentum augue eget nisl lacinia eleifend. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Sed finibus id nunc nec dignissim. Sed vehicula nulla vel porta tincidunt.
+			Since 1990 the Corporation has entrusted Columbia University and its Rare Book & Manuscript Library to preserve and provide access to its organizational records, including administrative files, correspondence, memoranda, reports, and publicity materials. Each year brings new accruals, which increasingly take born (or natively) digital form. In 2015, the Corporation awarded Columbia a grant to digitize the selected analog (papers, microfilm, media, etc.) materials from its archive as well as some 205 oral histories relating to the Corporation’s history, and to present them to the public in a portal alongside its growing born-digital archive.
 			</p>
 			<p>
-			A comprehensive guide to the use of the digitized materials on this site can be found here: <a href="http://guides.library.columbia.edu/carnegie">http://guides.library.columbia.edu/carnegie</a>.
+			<a class="color_" href="<%=carnegie_about_path()%>#about_the_project">Read more &raquo;</a>
+			</p>
+			<hr>
+			<h2 class="h5 text-uppercase">Oral History Projects</h2>
+			<p>
+			The Carnegie Corporation of New York Oral History Project began in 1966 and continued in three phases over a fifty year period  (1966-1974, 1996-2004, 2011-2013). In total nearly 850 hours of testimony reflect the thinking of the Corporation’s officers, staff members, and grantees. They offer a rich portrait of the Corporation’s evolution over the first 58 years of its existence.
 			</p>
 			<p>
-			A finding aid to the complete physical archive can be found here: <a href="http://findingaids.cul.columbia.edu/">http://findingaids.cul.columbia.edu/</a>.
+			<a class="color_" href="<%=carnegie_about_path()%>#oral_history_projects">Read more &raquo;</a>
 			</p>
-			<p>
-			For any questions or comments, please contact us at <a href="mailto:carnegie@library.columbia.edu">carnegie@library.columbia.edu</a>.
-			</p>
+			<hr class="visible-sm">
     </div>
   </div>
-	<div class="col-md-4">
+	<div class="col-md-4 col-md-pull-4">
 		 <div class="home inner">
-				<h2 class="h5 text-uppercase">About the Carnegie Corporation</h2>
+				<h2 class="h5 text-uppercase">About the Corporation</h2>
 				<p>
-				Donec rutrum tellus mollis interdum ultricies. Donec feugiat finibus sapien, sit amet vulputate nulla. Vivamus dictum ante eu condimentum pretium.
+				The Carnegie Corporation of New York, established by Andrew Carnegie in 1911 to promote the advancement and diffusion of knowledge and understanding, is one of the oldest, largest and most influential of American foundations.
 				</p>
-				<ul class="list-unstyled">
-				  <li>Lorem ipsum dolor sit amet</li>
-				  <li>Consectetur adipiscing elit</li>
-				  <li>Integer molestie lorem at massa</li>
-				  <li>Facilisis in pretium nisl aliquet</li>
-				  <li>Nulla volutpat aliquam velit
-				    <ul>
-				      <li>Phasellus iaculis neque</li>
-				      <li>Purus sodales ultricies</li>
-				      <li>Vestibulum laoreet porttitor sem</li>
-				      <li>Ac tristique libero volutpat at</li>
-				    </ul>
-				  </li>
-				  <li>Faucibus porta lacus fringilla vel</li>
-				  <li>Aenean sit amet erat nunc</li>
-				  <li>Eget porttitor lorem</li>
-				</ul>
+				<p>
+				By 1911 Andrew Carnegie had endowed five organizations in the United States and three in the United Kingdom, and had given away over $43 million for public library buildings and close to $110 million for other purposes. Nevertheless, ten years after the sale of the Carnegie Steel Company, he still had more than $150 million and, at the age of 76, was tiring of the burden of philanthropic decision making. On the advice of Elihu Root, a long-time friend, he decided to establish a trust to which he could transfer the bulk of his remaining fortune and, ultimately, the responsibility for distributing his wealth after his lifetime. Having already used the conventional labels for his previously endowed institutions, he selected "corporation" for this last and largest. It was chartered by the State of New York as Carnegie Corporation of New York.
+				</p>
+				<p>
+				<a class="color_" href="<%=carnegie_about_path()%>#about_the_corporation">Read more &raquo;</a>
+				</p>
 		 </div> <!--/.inner-->
 	</div><!--/-->
-  <div class="col-md-4">
-     <div class="home inner">
-        <h2 class="h5 text-uppercase">BROWSE THE COLLECTION</h2>
-        <%= render partial: 'facets', locals: {hide_refine_heading: true, no_id_attr: true} %>
-     </div> <!--/.inner-->
-  </div><!--/-->
 
 </div>
 </div>

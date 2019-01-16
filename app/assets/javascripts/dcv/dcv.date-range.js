@@ -129,7 +129,10 @@ DCV.DateRangeGraphSelector.render = function() {
 
   ctx.clearRect ( 0 , 0 , c.width , c.height ); //clear canvas
 
-  var segmentColors = ['#333', '#666'];
+  var segmentColors = {
+    low: [80, 80, 80],
+    high: [110, 110, 110]
+  };
   var textYOffset = c.height/7;
   var fontSize = c.height/9;
   var textXOffset = fontSize/6+1;
@@ -162,7 +165,7 @@ DCV.DateRangeGraphSelector.render = function() {
       var centerWeighting = .1;
       proportionalHeight = proportionalHeight+(centerWeighting*(.5-proportionalHeight));
     }
-    ctx.fillStyle = DCV.DateRangeGraphSelector.getColorFromRangeAndIntensity([52, 52, 52], [105, 105, 105], proportionalHeight);
+    ctx.fillStyle = DCV.DateRangeGraphSelector.getColorFromRangeAndIntensity(segmentColors['low'], segmentColors['high'], proportionalHeight);
     ctx.fillRect(  padding+i*segmentWidth, c.height-1, segmentWidth, (-c.height+(fontSize*1.5))*proportionalHeight);
 
     //Segment dividing lines
@@ -255,9 +258,8 @@ DCV.DateRangeGraphSelector.render = function() {
     var fullPixelRange = segmentWidth*numSegments;
 
     var dateRangeInYears = numSegments*yearsPerSegment;
-    var newStartYearFilter = Math.round((startOfPixelRange/fullPixelRange)*dateRangeInYears)+startOfRange;
-    var newEndYearFilter = Math.round((endOfPixelRange/fullPixelRange)*dateRangeInYears)+startOfRange;
-
+    var newStartYearFilter = startOfRange + Math.floor(dateRangeInYears*(startOfPixelRange/fullPixelRange));
+    var newEndYearFilter = startOfRange + Math.floor(dateRangeInYears*(endOfPixelRange/fullPixelRange));
     $('#date-range-canvas').attr('data-new-start-year-filter', newStartYearFilter);
     $('#date-range-canvas').attr('data-new-end-year-filter', newEndYearFilter);
 

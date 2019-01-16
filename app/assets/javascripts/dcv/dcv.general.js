@@ -52,7 +52,7 @@ $(function() {
   });
 
   //Date Range Graph Setup
-  //Activate date graphif cookie is set
+  //Activate date graph if cookie is set
   DCV.DateRangeGraphSelector.init();
   DCV.DateRangeSlider.init();
 
@@ -128,7 +128,7 @@ DCV.FeedbackModal = {};
 DCV.FeedbackModal.show = function(){
 
   var feedbackUrl = window.CULh_feedback_url || 'https://feedback.cul.columbia.edu/feedback_submission/dlc';
-  
+
   console.log(feedbackUrl);
 
   $.colorbox({
@@ -254,4 +254,3 @@ $(window).on('load', function() {
         }
     }
 });
-

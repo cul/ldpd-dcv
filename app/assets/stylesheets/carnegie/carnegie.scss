@@ -32,6 +32,10 @@ $font_5: trajan;
 $font_6: serif;
 $font_b: "Arial Rounded MT Bold", "Helvetica Rounded", Arial, sans-serif;
 
+@mixin	stripeBg($l: 25%) {
+	background: lighten($color_2, $l);
+	background-image:$url_0;
+}
 //urls
 $url_0: url(asset_path("carnegie/stripes-white-10.png"));
 
@@ -235,9 +239,15 @@ a {
 		}
 	}
 }
+@media(max-width: 991px) and (min-width: 768px) {
+	#site-title {
+		padding-top: 1.2rem;
+		font-size: 1.2em;
+	}
+}
 @media(min-width: 992px) {
 	#site-title {
-		padding-top: 3px;
+		padding-top: 1rem;
 		padding-left: 0;
 		font-size: 1.36em;
 		letter-spacing: 0;
@@ -251,7 +261,7 @@ a {
 }
 @media(min-width: 1200px) {
 	#site-title {
-		padding-top: 1px;
+		padding-top: .6rem;
 		font-size: 1.68em;
 		letter-spacing: 0;
 		padding-left: 0;
@@ -392,6 +402,11 @@ a {
 			width: 100%;
 			height: auto;
 		}
+	}
+	section.ff:before {
+		height: 50px;
+		content: "";
+		display:block;
 	}
 }
 #facets {
