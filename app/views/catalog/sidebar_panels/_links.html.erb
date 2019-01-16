@@ -1,0 +1,25 @@
+<% configured_links ||= [] %>
+<div class="inner noprint-sm">
+	<ul class="list-unstyled">
+		<% if configured_links.include?(:persistent) && has_persistent_link?(document) %>
+			<li><%= persistent_link_to('<span class="glyphicon glyphicon-bookmark"></span> Persistent URL'.html_safe, document)  %></li>
+		<% end %>
+		<% if configured_links.include?(:reproduction) %>
+			<li><a href="http://library.columbia.edu/services/preservation/publications_policy.html"><span class="glyphicon glyphicon-tag"></span> Order a Reproduction</a></li>
+		<% end %>
+		<% if configured_links.include?(:related) %>
+      <% solr_url_hash(document, exclude: {'usage' => "primary display"}).each do |location| %>
+        <li><%= link_to("<span class=\"glyphicon glyphicon-paperclip\"></span> #{location.fetch('displayLabel',"Related Web Content")}".html_safe, location['url']) %></li>
+      <% end %>
+		<% end %>
+		<% if configured_links.include?(:mods) %>
+			<li><%= link_to '<span class="glyphicon glyphicon-file"></span> Display XML Metadata'.html_safe, item_mods_path(:pid => @document.id),
+			{
+				:'data-display-url' => item_mods_path(:pid => @document.id, :type => 'formatted_text'),
+				:'data-download-url' => item_mods_path(:pid => @document.id, :type => 'download'),
+				:onclick => 'return DCV.ModsDownloadModal.show($(this).attr("data-display-url"), $(this).attr("data-download-url"));'
+			}
+			%></li>
+		<% end %>
+	</ul>
+</div>

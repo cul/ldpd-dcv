@@ -4,19 +4,9 @@
 
   <% unless is_filesystem_view %>
     <div id="item-description" class="col-md-3">
-      <div class="inner">
-        <dl class="dl-vertical">
-          <% document_show_fields(document).each do |solr_fname, field| %>
-            <% if should_render_show_field? document, field %>
-              <dt class="blacklight-<%= solr_fname.parameterize %>"><%= render_document_show_field_label document, :field => solr_fname %></dt>
-              <dd class="blacklight-<%= solr_fname.parameterize %>"><%= render_document_show_field_value document, :field => solr_fname %></dd>
-            <% end %>
-          <% end %>
-        </dl>
-     </div>
-      <div class="inner">
-        <%= link_to '<span class="glyphicon glyphicon-file"></span> Display XML Metadata'.html_safe, item_mods_path(:pid => @document.id), :'data-no-turbolink' => true, :'data-display-url' => item_mods_path(:pid => @document.id, :type => 'formatted_text'), :'data-download-url' => item_mods_path(:pid => @document.id, :type => 'download'), :onclick => 'return DCV.ModsDownloadModal.show($(this).attr("data-display-url"), $(this).attr("data-download-url"));' %>
-      </div>
+    <%= render partial: 'catalog/sidebar_panels/item_description', locals: { document: document, alignment: 'vertical' } %>
+
+    <%= render partial: 'catalog/sidebar_panels/links', locals: { document: document, configured_links: [:mods] } %>
     </div>
   <% end %>
 
