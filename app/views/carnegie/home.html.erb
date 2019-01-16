@@ -37,7 +37,14 @@
 	</div>
 </div>
  <div class="row">
-  <div class="col-md-4">
+ <div class="col-md-4 col-md-push-8">
+		<div class="home inner">
+			 <h2 class="h5 text-uppercase">BROWSE THE COLLECTION</h2>
+			 <%= render partial: 'facets', locals: {hide_refine_heading: true, no_id_attr: true} %>
+			 <hr class="hidden-md hidden-lg">
+		</div> <!--/.inner-->
+ </div><!--/-->
+  <div class="col-md-4 col-md-pull-4">
     <div class="home inner">
 		<h2 class="h5 text-uppercase">About the Project</h2>
 			<p>
@@ -60,7 +67,7 @@
 			<hr class="visible-sm">
     </div>
   </div>
-	<div class="col-md-4">
+	<div class="col-md-4 col-md-pull-4">
 		 <div class="home inner">
 				<h2 class="h5 text-uppercase">About the Corporation</h2>
 				<p>
@@ -72,15 +79,8 @@
 				<p>
 				<a class="color_" href="<%=carnegie_about_path()%>#about_the_corporation">Read more &raquo;</a>
 				</p>
-				<hr class="visible-sm">
 		 </div> <!--/.inner-->
 	</div><!--/-->
-  <div class="col-md-4">
-     <div class="home inner">
-        <h2 class="h5 text-uppercase">BROWSE THE COLLECTION</h2>
-        <%= render partial: 'facets', locals: {hide_refine_heading: true, no_id_attr: true} %>
-     </div> <!--/.inner-->
-  </div><!--/-->
 
 </div>
 </div>
