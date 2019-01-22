@@ -45,10 +45,10 @@ class Dcv::Configurators::CarnegieBlacklightConfigurator
 
     config.add_facet_fields_to_solr_request! # Required for facet queries
 
-    config.add_facet_field ActiveFedora::SolrService.solr_name('lib_name', :facetable), :label => 'Name', :sort => 'index', :limit => 10
-    config.add_facet_field ActiveFedora::SolrService.solr_name('subject_hierarchical_geographic_region', :symbol), :label => 'Region', :sort => 'index', :limit => 10
-    config.add_facet_field ActiveFedora::SolrService.solr_name('subject_hierarchical_geographic_city', :symbol), :label => 'City', :sort => 'index', :limit => 10
-    config.add_facet_field ActiveFedora::SolrService.solr_name('lib_format', :facetable), :label => 'Document Type', :sort => 'index', :limit => 10
+    config.add_facet_field ActiveFedora::SolrService.solr_name('subject_geographic', :facetable), :label => 'Geographic', :sort => 'index', :limit => 10
+    config.add_facet_field ActiveFedora::SolrService.solr_name('lib_format', :facetable), :label => 'Material Type', :sort => 'index', :limit => 10
+    config.add_facet_field ActiveFedora::SolrService.solr_name('subject_topic', :facetable), :label => 'Subjects', :sort => 'index', :limit => 10
+    config.add_facet_field ActiveFedora::SolrService.solr_name('role_interviewee', :symbol), :label => 'Oral Histories', :sort => 'index', :limit => 10
     config.add_facet_field 'format_ssi', :label => 'System Format', :sort => 'count' if ['development', 'test', 'dcv_dev', 'dcv_private_dev'].include?(Rails.env)
 
     # Have BL send all facet field names to Solr, which has been the default
