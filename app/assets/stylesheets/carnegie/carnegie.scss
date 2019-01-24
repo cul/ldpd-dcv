@@ -32,6 +32,7 @@ $font_4: trajan pro;
 $font_5: trajan;
 $font_6: serif;
 $font_b: "Arial Rounded MT Bold", "Helvetica Rounded", Arial, sans-serif;
+$font_c: "Helvetica Rounded", Arial, sans-serif;
 
 @mixin	stripeBg($l: 25%) {
 	background: lighten($color_2, $l);
@@ -70,7 +71,7 @@ body {
 }
 a {
 	color: $color_anchor;
-	font-family: $font_b;
+	font-family: $font_c;
 	&:hover {
 		color: $color_2;
 	}
@@ -444,6 +445,7 @@ a {
 	.nav > li {
 		> a {
 			font-size:.85em;
+			font-family: $font_b;
 			text-transform:uppercase;
 		}
 	}
