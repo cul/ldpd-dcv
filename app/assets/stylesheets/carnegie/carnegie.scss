@@ -21,6 +21,7 @@ $color_18: #ddd;
 $color_19: rgba(42, 119, 143, 0.5);
 $color_20: rgba(255, 255, 255, 0.9);
 $color_21: rgba(255, 255, 255, 0.4);
+$color_anchor: #1a8be4;
 
 //fonts
 $font_0: helvetica neue;
@@ -31,6 +32,7 @@ $font_4: trajan pro;
 $font_5: trajan;
 $font_6: serif;
 $font_b: "Arial Rounded MT Bold", "Helvetica Rounded", Arial, sans-serif;
+$font_c: "Helvetica Rounded", Arial, sans-serif;
 
 @mixin	stripeBg($l: 25%) {
 	background: lighten($color_2, $l);
@@ -68,8 +70,8 @@ body {
 	background-color: $color_1;
 }
 a {
-	color: lighten($color_2,8%);
-	font-family: $font_b;
+	color: $color_anchor;
+	font-family: $font_c;
 	&:hover {
 		color: $color_2;
 	}
@@ -443,6 +445,7 @@ a {
 	.nav > li {
 		> a {
 			font-size:.85em;
+			font-family: $font_b;
 			text-transform:uppercase;
 		}
 	}
