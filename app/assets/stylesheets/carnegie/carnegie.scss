@@ -465,6 +465,11 @@ a {
 				color: $color_2;
 			}
 		}
+		li {
+			a:hover {
+				background-color: $color_7;
+			}
+		}
 		&.open a.dropdown-toggle {
 			background-color: transparent;
 			color: $color_2;
