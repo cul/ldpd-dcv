@@ -92,6 +92,8 @@ gem 'rubyzip', '>= 1.2.1'
 gem 'rack-protection', '>= 1.5.5'
 gem 'loofah', '>= 2.2.1'
 
+gem 'logger', '~> 1.2.8.1'
+
 group :development, :test do
   # Use Capistrano for deployment
   gem 'capistrano', '~> 3.5.0', require: false
