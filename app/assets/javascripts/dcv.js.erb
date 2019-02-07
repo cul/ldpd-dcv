@@ -133,7 +133,7 @@ function setupChildViewer() {
 
     //Update title, zoom links
     $('#child-viewer-subtitle').html($currentSlideElememt.attr('data-child-title'));
-    if($currentSlideElememt.attr('data-is-image') == 'true') {
+    if($currentSlideElememt.attr('data-has-details') == 'true') {
       $('#child-zoom-modal-button').attr('href', $currentSlideElememt.attr('data-zoom-url')).show();
       $('#child-zoom-new-window-button').attr('href', $currentSlideElememt.attr('data-zoom-url')).show();
     } else {
@@ -142,7 +142,7 @@ function setupChildViewer() {
     }
 
     //Update download link
-    if($currentSlideElememt.attr('data-is-image') == 'true') {
+    if($currentSlideElememt.attr('data-has-iiif') == 'true') {
       $('#download-button').attr('data-download-content-url', ''); //Clear out previous download content url value if present
       $('#download-button').attr('data-iiif-info-url', $currentSlideElememt.attr('data-iiif-info-url'))
       $('#download-button-group').show();

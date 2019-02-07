@@ -46,8 +46,9 @@
           <div class="item <%= ix == 0 ? 'active' : '' %>"
             data-child-number="<%= ix %>"
             data-child-title="<%= child_title == parent_title || child_title.blank? ? '&nbsp'.html_safe : h(child_title) %>"
-            data-is-image="<%= child[:dc_type] == 'StillImage' %>"
-            data-zoom-url="<%= details_path(id: document[:id], layout:(request.path.split('/')[1]), initial_page: ix) %>"
+            data-has-details="<%= ['StillImage','Text'].include? child[:dc_type] %>"
+            data-has-iiif="<%= child[:dc_type] == 'StillImage' %>"
+            data-zoom-url="<%= details_path(id: (child[:dc_type] == 'StillImage' ? document[:id] : child[:pid]), layout:(request.path.split('/')[1]), initial_page: ix) %>"
             data-iiif-info-url="<%= get_resolved_asset_info_url(id: child[:id], image_format: 'jpg') %>"
             data-object-in-context-url="<%= h(item_in_context_url) %>"
             data-download-content-url="<%= child[:dc_type] == 'StillImage' ? '' : bytestream_content_url({catalog_id: child[:pid], filename: child[:label_ssi], bytestream_id: 'content', download: true}) %>"
@@ -58,7 +59,7 @@
                 <%= render partial: "catalog/content_aggregator/child_viewer/#{dc_type_string}", locals: { child: child } %>
               <% else %>
                 <% # Render image (or placeholder) %>
-                <img class="<%= child[:dc_type] == 'StillImage' ? 'zoomable' : '' %>" src="<%= get_resolved_asset_url(id: child[:id], size: 768, type: 'full', format: 'jpg') %>" />
+                <img class="<%= ['StillImage','Text'].include?(child[:dc_type]) ? 'zoomable' : '' %>" src="<%= get_resolved_asset_url(id: child[:id], size: 768, type: 'full', format: 'jpg') %>" />
               <% end %>
             </div>
           </div>
