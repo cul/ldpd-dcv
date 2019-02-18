@@ -1,4 +1,5 @@
 class LcaajController < SubsitesController
+  include ActionController::Live
 
   before_action :set_map_data_json, only: [:map_search]
   #before_action :set_map_data_json, only: [:index, :map_search]
