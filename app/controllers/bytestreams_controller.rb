@@ -3,7 +3,7 @@ require 'blacklight/catalog'
 require 'actionpack/action_caching'
 
 class BytestreamsController < ApplicationController
-
+  include ActionController::Live
   include Dcv::NonCatalog
   include Hydra::Controller::ControllerBehavior
   include Dcv::Resources::RelsIntBehavior
