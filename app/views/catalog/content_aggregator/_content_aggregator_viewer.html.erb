@@ -3,13 +3,14 @@
 
   <% if structured_children.length == 0 %>
     <h3 id="child-viewer-title"><%= parent_title %></h3>
+    <% if (iframe_url = iframe_url_for_document(document)) %>
+      <iframe src="<%= iframe_url %>" class="archive_embed" frameborder="0" webkitallowfullscreen="true" mozallowfullscreen="true" allowfullscreen="" sandbox="allow-forms allow-scripts allow-same-origin allow-top-navigation allow-popups"></iframe>
+      <%- use_unavailable_image_placeholder = false %>
+    <% end %>
     <% unless defined?(use_unavailable_image_placeholder) && use_unavailable_image_placeholder == false %>
       <div>
         <img id="image-unavailable-img" class="img-responsive" src="<%= get_asset_url(id: 'placeholder:unavailable', size: 256, type: 'full', format: 'jpg') %>" />
       </div>
-    <% end %>
-    <% if (iframe_url = iframe_url_for_document(document)) %>
-      <iframe src="<%= iframe_url %>" class="archive_embed" frameborder="0" webkitallowfullscreen="true" mozallowfullscreen="true" allowfullscreen="" sandbox="allow-forms allow-scripts allow-same-origin allow-top-navigation allow-popups"></iframe>
     <% end %>
   <% else %>
 
