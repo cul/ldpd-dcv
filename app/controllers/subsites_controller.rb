@@ -9,6 +9,7 @@ class SubsitesController < ApplicationController
   before_filter :set_view_path
   before_filter :store_unless_user, except: [:update, :destroy, :api_info]
   before_filter :authorize_action, only:[:index, :preview, :show]
+  before_filter :default_search_mode_cookie, only: :index
   protect_from_forgery :except => [:update, :destroy, :api_info] # No CSRF token required for publishing actions
 
   helper_method :extract_map_data_from_document_list
@@ -66,6 +67,14 @@ class SubsitesController < ApplicationController
 
   def default_search_mode
     subsite_config.fetch('default_search_mode',:grid)
+  end
+
+  def default_search_mode_cookie
+    cookie_name = "#{subsite_layout}_search_mode".to_sym
+    cookie = cookies[cookie_name]
+    unless cookie
+      cookies[cookie_name] = default_search_mode.to_sym
+    end
   end
 
   # PUT /subsite/publish/:id

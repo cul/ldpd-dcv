@@ -5,7 +5,7 @@
 		<% geo_facet_fields_to_show.each do |field_name, display_label|  %>
 			<% if document[field_name].present? %>
 				<dt><%= display_label %></dt>
-				<dd><ul><%= document[field_name].uniq.map{|val| ('<li><a href="' + durst_facet_search_url(field_name, val) + '">' + val + '</a></li>').html_safe}.join('').html_safe %></ul></dd>
+				<dd><ul><%= document[field_name].uniq.map{|val| ('<li><a href="' + local_facet_search_url(field_name, val) + '">' + val + '</a></li>').html_safe}.join('').html_safe %></ul></dd>
 			<% end %>
 		<% end %>
 		<% geo_non_facet_fields_to_show.each do |field_name, display_label|  %>
