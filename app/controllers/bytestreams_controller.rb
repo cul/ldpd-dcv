@@ -78,8 +78,8 @@ class BytestreamsController < ApplicationController
     if size.blank? || size == 0
       # Get size of this datastream if we haven't already.  Note: dsSize property won't work for external datastreams
       # From: https://github.com/samvera/rubydora/blob/1e6980aa1ae605677a5ab43df991578695393d86/lib/rubydora/datastream.rb#L423-L428
-      repo.datastream_dissemination(ds_parms) do |resp|
-        if content_length = response.headers[:content_length]
+      repo.datastream_dissemination(ds_parms.merge(method: :head)) do |resp|
+        if content_length = resp['Content-Length']
           size = content_length.to_i
         else
           size = resp.body.length
