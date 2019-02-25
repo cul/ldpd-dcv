@@ -288,7 +288,7 @@ GEM
       nom-xml (~> 1.0)
     mono_logger (1.1.0)
     multi_json (1.13.1)
-    mysql2 (0.3.18)
+    mysql2 (0.4.10)
     net-http-persistent (2.9.4)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
@@ -569,7 +569,7 @@ DEPENDENCIES
   logger (~> 1.2.8.1)
   loofah (>= 2.2.1)
   mime-types
-  mysql2 (= 0.3.18)
+  mysql2 (= 0.4.10)
   net-ssh (>= 4.2)
   nokogiri (~> 1.8.2)
   poltergeist

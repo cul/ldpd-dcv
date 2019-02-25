@@ -24,7 +24,7 @@ gem 'wowza-secure_token', '0.0.1'
 gem 'sqlite3'
 
 # Use mysql2 gem for mysql connections
-gem 'mysql2', '0.3.18'
+gem 'mysql2', '0.4.10'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0.0'
