@@ -42,11 +42,27 @@ module Dcv::CdnHelper
     return  Dcv::Utils::CdnUtils.random_cdn_url + "/iiif/2/#{identifier_to_pid(conditions[:id])}/info.json"
   end
 
+  def archive_org_id_for_document(document)
+    urls = document['lib_non_item_in_context_url_ssm'] || []
+    archive_org_location = urls.detect { |url| url =~ /\/archive\.org\// }
+    if archive_org_location
+      return archive_org_location.split('/')[-1]
+    end
+    document["archive_org_identifier_ssi"]
+  end
+
+  # if archive.org resource, build an appropriate thumb URL, else nil
+  def get_archive_org_thumbnail_url(document)
+    if archive_org_id = archive_org_id_for_document(document)
+      return "https://archive.org/services/img/#{archive_org_id}"
+    end
+  end
+
   def thumbnail_url(document, options={})
     schema_image = Array(document[ActiveFedora::SolrService.solr_name('schema_image', :symbol)]).first
 
     id = schema_image ? schema_image.split('/')[-1] : document.id
-    get_asset_url(id: id, size: 256, type: 'featured', format: 'jpg')
+    get_archive_org_thumbnail_url(document) || get_asset_url(id: id, size: 256, type: 'featured', format: 'jpg')
   end
 
   def thumbnail_for_doc(document, image_options={})
