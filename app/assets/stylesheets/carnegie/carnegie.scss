@@ -518,6 +518,18 @@ a {
 				max-height: 100%;
 			}
 		}
+		@media(min-width: 768px) {
+			&.col-sm-3 a.thumbnail {
+				position: relative;
+				overflow: hidden;
+				padding-bottom: 100%;
+				display: flex;
+				justify-content: center;
+				.img-square {
+					position: absolute;
+				}
+			}
+		}
 		.thumbnail {
 			//height: auto;
 		}
