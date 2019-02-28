@@ -31,6 +31,15 @@ module Dcv::DcvUrlHelper
     document['ezid_doi_ssim'].present?
   end
 
+  def preferred_content_bytestream(doc)
+    doc = SolrDocument.new(doc) unless doc.nil? or doc.is_a? SolrDocument
+    if doc.is_a?(SolrDocument)
+      datastreams = doc['datastreams_ssim'] || doc[:datastreams_ssim] || []
+      return (['access','content'] & datastreams).first
+    end
+    return nil
+  end
+
   def persistent_link_to(label, document, opts = {})
     link_to(label, persistent_url_for(document), opts)
   end

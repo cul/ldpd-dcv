@@ -13,7 +13,7 @@ module Dcv::ChildrenHelperBehavior
     children[:page] = opts.fetch(:page, 0).to_i
     offset = children[:per_page] * children[:page]
     rows = children[:per_page]
-    fl = ['id',"active_fedora_model_ssi",'dc_identifier_ssim','dc_type_ssm','identifier_ssim','rels_int_profile_tesim','rft_id_ss','label_ssi']
+    fl = ['id',"active_fedora_model_ssi",'dc_identifier_ssim','dc_type_ssm','identifier_ssim','rels_int_profile_tesim','rft_id_ss','label_ssi','datastreams_ssim']
     title_field = nil
     begin
       fl << (title_field = document_show_link_field).to_s
@@ -62,6 +62,7 @@ module Dcv::ChildrenHelperBehavior
         child[:length] ||= rels_int["info:fedora/#{child[:id]}/#{zoom}"].fetch('image_length',[0]).first.to_i
       end
     end
+    child[:datastreams_ssim] = doc.fetch('datastreams_ssim', [])
     return child
   end
 
@@ -145,7 +146,7 @@ module Dcv::ChildrenHelperBehavior
       child_ids = children.map {|child| child[:id]}
       child_results = Blacklight.solr.post 'select', :data => {
         :rows => child_ids.length,
-        :fl => ['dc_identifier_ssim', 'dc_type_ssm', 'id'],
+        :fl => ['dc_identifier_ssim', 'dc_type_ssm', 'id', 'datastreams_ssim'],
         :qt => 'search',
         :fq => [
           "dc_identifier_ssim:\"#{child_ids.join('" OR "')}\"",
