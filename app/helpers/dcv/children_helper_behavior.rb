@@ -2,6 +2,18 @@ module Dcv::ChildrenHelperBehavior
 
   include Dcv::CdnHelper
 
+  # Return the number from the specified field if greater than zero.
+  # If the number indicated in the field is zero, attempt to count
+  # archive.org identifiers instead.
+  # @param args [Hash] feild helper method argumenthash defined by Blacklight
+  # @return [Integer] displayable number of assets
+  def asset_count_value(args)
+    doc = args[:document]
+    field_name = args[:field]
+    field_value = doc[field_name].to_i
+    (archive_org_id_for_document(doc) && field_value == 0) ? 1 : field_value
+  end
+
   def document_children_from_model(opts={})
     # get the model class
     klass = @document['active_fedora_model_ssi'].constantize
