@@ -1,9 +1,14 @@
 module Dcv::TextTruncateHelper
 
   def truncate_text_to_250(args)
-    
-    truncation_length = 250
-    
+    truncate_text_to_length(250, args)
+  end
+
+  def truncate_text_to_400(args)
+    truncate_text_to_length(400, args)
+  end
+
+  def truncate_text_to_length(truncation_length, args)    
     field_value = args[:document][args[:field]]
     text_arr = field_value.is_a?(Array) ? field_value : [field_value]
     
@@ -15,7 +20,7 @@ module Dcv::TextTruncateHelper
         arr_to_return.push(text)
       end
     end
-    
+
     return field_value.is_a?(Array) ? arr_to_return : arr_to_return[0]
   end
 
