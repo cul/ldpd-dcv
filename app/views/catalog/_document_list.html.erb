@@ -15,7 +15,11 @@
       <% if subsite_search_mode == :list %>
         <%= render :partial=>'catalog/document/list',:collection=> documents, :as=> :document, :locals=> {:row_offset=> 0} %>
       <% else %>
-        <%= render :partial=>'catalog/document/grid',:collection=> documents, :as=> :document, :locals=> {:row_offset=> 0} %>
+        <% if subsite_layout.eql? 'carnegie' %>
+          <%= render :partial=>'carnegie/grid',:collection=> documents, :as=> :document, :locals=> {:row_offset=> 0} %>
+        <% else %>
+          <%= render :partial=>'catalog/document/grid',:collection=> documents, :as=> :document, :locals=> {:row_offset=> 0} %>
+        <% end %>
       <% end %>
     <% end %>
   </div>

@@ -64,6 +64,31 @@ $url_0: url(asset_path("carnegie/stripes-white-10.png"));
 	background: lighten($color_2, $l);
 	background-image:$url_0;
 }
+/* mixin for multiline */
+@mixin multiLineEllipsis($lineHeight: 1.2em, $lineCount: 1, $bgColor: white){
+  overflow: hidden;
+  position: relative;
+  line-height: $lineHeight;
+  max-height: $lineHeight * $lineCount;
+  text-align: justify;
+  //margin-right: -1em;
+  padding-right: 1em;
+  &:before {
+    content: '…';
+    position: absolute;
+    right: 0;
+    bottom: 0;
+  }
+  &:after {
+    content: '';
+    position: absolute;
+    right: 0;
+    width: 1em;
+    height: 1em;
+    margin-top: 0.2em;
+    background: $bgColor;
+  }
+}
 
 body {
 	color: $color_0;
@@ -510,10 +535,28 @@ a {
 		box-shadow: none;
 	}
 	.document {
+		&:not(.list-view) {
+			.index-show-tombstone-fields {
+				margin-bottom: 1.5em;
+				line-height: 1em;
+				.index_title {
+					@include multiLineEllipsis($lineHeight: 1.3em, $lineCount: 2, $bgColor: white);
+					&.ellipsis { // override the ellipsis class added by javascript :(
+						display: inline-block;
+						overflow: hidden;
+						text-overflow: inherit;
+						white-space: inherit;
+					}
+				}
+			}
+		}
 		&.list-view {
 			margin-bottom: 1em;
 			min-height: inherit;
 			border-color: $color_3;
+			h3 {
+				line-height: 1.5em;
+			}
 			.thumbnail.col-sm-2 {
 				max-height: 100%;
 				.img-square {
@@ -835,6 +878,7 @@ footer.container {
 }
 #search-results .index_title small {
 	font-size: .8em;
+
 }
 
 #ajax-modal .modal-content {
