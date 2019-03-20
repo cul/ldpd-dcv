@@ -90,6 +90,7 @@ $url_0: url(asset_path("carnegie/stripes-white-10.png"));
   }
 }
 
+
 body {
 	color: $color_0;
 	background-color: $color_1;
@@ -540,12 +541,38 @@ a {
 				margin-bottom: 1.5em;
 				line-height: 1em;
 				.index_title {
-					@include multiLineEllipsis($lineHeight: 1.3em, $lineCount: 2, $bgColor: white);
+					//@include multiLineEllipsis($lineHeight: 1.3em, $lineCount: 2, $bgColor: white);
 					&.ellipsis { // override the ellipsis class added by javascript :(
+						position: relative;
 						display: inline-block;
+						display: -webkit-box;
 						overflow: hidden;
-						text-overflow: inherit;
+						text-overflow: ellipsis;
 						white-space: inherit;
+						line-height: 1.3em;
+						max-height: 2.65em;
+						&:after {
+						  content: "";
+						  text-align: right;
+						  position: absolute;
+						  bottom: 0;
+						  right: 0;
+						  width: 60%;
+						  height: 1.3em;
+						  background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1) 50%);
+						}
+					}
+					@supports (-webkit-line-clamp: 2) {
+							overflow: hidden;
+							text-overflow: ellipsis;
+							display: -webkit-box;
+							line-height: 1.3em;     /* fallback */
+							max-height: 65em;      /* fallback */
+							-webkit-line-clamp: 2; /* number of lines to show */
+							-webkit-box-orient: vertical;
+							&:after {
+								display: none;
+							}
 					}
 				}
 			}
