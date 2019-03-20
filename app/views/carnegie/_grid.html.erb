@@ -5,7 +5,7 @@
 		<%= link_to_document(document, :counter => (@do_not_link_to_search ? nil : counter_in_results), label: thumbnail_img_tag, class: 'thumbnail') %>
 		<div class="index-show-tombstone-fields">
 			<h3 class="index_title "><span class="counter"><%= t('blacklight.search.documents.counter', :counter => counter_in_results) %></span>
-				<%= link_to_document(document, :counter => (@do_not_link_to_search ? nil : counter_in_results), :title => document['title_display_ssm'][0]) %>
+				<%= link_to_document(document, :counter => (@do_not_link_to_search ? nil : counter_in_results), :title => document['title_ssm']) %>
 			</h3>
 			<%= '<div class="ellipsis">'.html_safe + document['lib_name_ssm'][0] + '</div>'.html_safe if document['lib_name_ssm'].present? %>
 		</div>
