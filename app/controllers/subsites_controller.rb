@@ -25,6 +25,8 @@ class SubsitesController < ApplicationController
   end
 
   def set_view_path
+    self.prepend_view_path('app/views/catalog')
+    self.prepend_view_path('app/views/' + self.subsite_layout)
     self.prepend_view_path(self.subsite_layout)
   end
 
