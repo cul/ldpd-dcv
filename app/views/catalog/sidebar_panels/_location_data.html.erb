@@ -1,17 +1,15 @@
-<% geo_facet_fields_to_show ||= {} %>
-<% geo_non_facet_fields_to_show ||= {} %>
 <div class="inner" style="margin-bottom:1em;padding-bottom:0;">
 	<dl class="dl-vertical">
-		<% geo_facet_fields_to_show.each do |field_name, display_label|  %>
-			<% if document[field_name].present? %>
-				<dt><%= display_label %></dt>
-				<dd><ul><%= document[field_name].uniq.map{|val| ('<li><a href="' + local_facet_search_url(field_name, val) + '">' + val + '</a></li>').html_safe}.join('').html_safe %></ul></dd>
+		<% geo_facet_fields_to_show.each do |field|  %>
+			<% if document[field.field].present? %>
+				<dt><%= field.label %></dt>
+				<dd><ul><%= document[field.field].uniq.map{|val| ('<li><a href="' + local_facet_search_url(field.field, val) + '">' + val + '</a></li>').html_safe}.join('').html_safe %></ul></dd>
 			<% end %>
 		<% end %>
-		<% geo_non_facet_fields_to_show.each do |field_name, display_label|  %>
-			<% if document[field_name].present? %>
-				<dt><%= display_label %></dt>
-				<dd><ul><%= document[field_name].uniq.map{|val| "<li#{(field_name == 'geo' ? ' class="coordinates"' : '')}>#{val}</li>" }.join('').html_safe %></ul></dd>
+		<% geo_non_facet_fields_to_show.each do |field|  %>
+			<% if document[field.field].present? %>
+				<dt><%= field.label %></dt>
+				<dd><ul><%= document[field.field].uniq.map{|val| "<li#{(field.field == 'geo' ? ' class="coordinates"' : '')}>#{val}</li>" }.join('').html_safe %></ul></dd>
 			<% end %>
 		<% end %>
 	</dl>

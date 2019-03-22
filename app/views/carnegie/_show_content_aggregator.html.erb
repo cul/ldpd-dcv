@@ -2,13 +2,11 @@
 
 	<div id="item-description" class="col-md-3">
 		<%= render partial: 'catalog/sidebar_panels/item_map', locals: { document: document } %>
-		<% geo_facet_fields_to_show = {'subject_hierarchical_geographic_neighborhood_ssim' => 'Neighborhood', 'subject_hierarchical_geographic_borough_ssim' => 'Borough', 'subject_hierarchical_geographic_city_ssim' => 'City'} %>
-		<% geo_non_facet_fields_to_show = {'subject_hierarchical_geographic_street_ssim' => 'Address', 'geo' => 'Coordinates', 'subject_geographic_sim' => 'Location'} %>
-		<%= render partial: 'catalog/sidebar_panels/location_data', locals: { document: document, geo_facet_fields_to_show: geo_facet_fields_to_show, geo_non_facet_fields_to_show: geo_non_facet_fields_to_show } %>
+		<%= render partial: 'catalog/sidebar_panels/location_data', locals: { document: document } %>
 	</div>
 
 	<div class="col-md-9 ls-controls-dark">
-		<%= render partial: 'carnegie/content_aggregator/content_aggregator_viewer', locals: { document: document, configured_links: [:persistent, :mods] } %>
+		<%= render partial: 'content_aggregator/content_aggregator_viewer', locals: { document: document, configured_links: [:persistent, :mods] } %>
 		<%= render partial: 'catalog/sidebar_panels/item_description', locals: { document: document, alignment: 'horizontal', link_helpers: [:render_url_and_catalog_links] } %>
 	</div>
 
