@@ -1,0 +1,29 @@
+<div class="pull-right btn-group btn-group-xs">
+  <%= link_to '<span class="glyphicon glyphicon-open-file"></span>'.html_safe, item_mods_path(:pid => @document.id),
+  {
+    :'data-display-url' => item_mods_path(:pid => @document.id, :type => 'formatted_text'),
+    :'data-download-url' => item_mods_path(:pid => @document.id, :type => 'download'),
+    :class => 'btn btn-default pull-right',
+    :title => 'Display XML Metadata',
+    :'data-tt' => 'tooltip',
+    :onclick => 'return DCV.ModsDownloadModal.show($(this).attr("data-display-url"), $(this).attr("data-download-url"));'
+  }
+  %>
+  <a id="child-zoom-modal-button" class="btn btn-default item-cbox" data-original-title="<%= document_show_html_title %>" data-toggle="tooltip" title="Zoom in" href="#"><i class="glyphicon glyphicon-zoom-in"></i></a>
+  <a id="child-zoom-new-window-button" class="btn btn-default" href="#" data-original-title="<%= document_show_html_title %>" data-toggle="tooltip" title="Open in new window"><i class="glyphicon glyphicon-new-window"></i></a>
+  <div id="download-button-group" class="btn-group btn-group-xs pull-right">
+    <button id="download-button" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" data-tt="tooltip" title="Download">
+      <i class="glyphicon glyphicon-download-alt"></i> <span class="caret"></span>
+      <span class="sr-only">Toggle Dropdown</span>
+    </button>
+    <ul id="downloads-list" class="dropdown-menu pull-right" role="menu">
+      <li><a href="#">Test</a></li>
+      <li><a href="#">Test 2</a></li>
+    </ul>
+  </div>
+  <% if has_persistent_link?(document) %>
+    <a id="draggable-iiif-button" class="btn btn-default grabbable" href="<%= '#?manifest=' + CGI::escape(get_manifest_url(document))%>" title="drag-n-drop iiif manifest" data-toggle="tooltip">
+      <%= image_tag('logo-iiif-34x30.png', srcset: asset_path("iiif-logo.svg"), class: "localicon-iiif") %>
+    </a>
+  <% end %>
+</div>
