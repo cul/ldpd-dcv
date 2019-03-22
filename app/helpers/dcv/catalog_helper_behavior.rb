@@ -143,4 +143,10 @@ module Dcv::CatalogHelperBehavior
     end
     link_src
   end
+  # Does this document represent an object with synchronized media?
+  # @param document [Hash] the representative document
+  # @return [Boolean]
+  def has_synchronized_media?(document)
+    (document.fetch(:datastreams_ssim, []) & ['chapters','captions']).present?
+  end
 end
