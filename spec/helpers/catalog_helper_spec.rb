@@ -125,4 +125,24 @@ describe CatalogHelper, :type => :helper do
       it { is_expected.to be_nil }
     end
   end
+  describe "#has_synchronized_media?" do
+    subject { helper.has_synchronized_media?(document) }
+    let(:document) { SolrDocument.new("datastreams_ssim" => datastreams) }
+    context "no synchronized streams" do
+      let(:datastreams) { [] }
+      it { is_expected.to be false }
+    end
+    context "all synchronized streams" do
+      let(:datastreams) { ['captions','chapters'] }
+      it { is_expected.to be true }
+    end
+    context "synchronized captions streams" do
+      let(:datastreams) { ['captions'] }
+      it { is_expected.to be true }
+    end
+    context "synchronized chapters streams" do
+      let(:datastreams) { ['chapters'] }
+      it { is_expected.to be true }
+    end
+  end
 end

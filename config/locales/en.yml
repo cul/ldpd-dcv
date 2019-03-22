@@ -33,4 +33,6 @@ en:
         "NyNyCMA": "http://library.columbia.edu/locations/music.html"
         "NNC-RB": "http://library.columbia.edu/locations/rbml.html"
         "NNC-UA": "http://library.columbia.edu/locations/cuarchives.html"
+  dlc:
+    media_synchronized: "Includes synchronized media"
 
