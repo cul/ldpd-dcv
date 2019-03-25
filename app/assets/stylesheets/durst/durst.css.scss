@@ -448,7 +448,7 @@ footer.container {
 #item-content dl {
 	margin-bottom: 0;
 }
-#sidebar #cul-map-display-component {
+#sidebar .cul-map-display-component {
 	width: 100%;
 	height: 260px;
 	.leaflet-popup-content-wrapper {
@@ -474,7 +474,7 @@ footer.container {
 		}
 	}
 }
-#item-description #cul-map-display-component {
+#item-description .cul-map-display-component {
 	width: 100%;
 	height: 260px;
 	.leaflet-popup-content-wrapper {

@@ -1,13 +1,21 @@
 // Map Display Component
 
 $(function() {
-  if ($('#cul-map-display-component').length) {
- 	 $('#cul-map-display-component').html('<h2 class="loading-text" style="margin:.5em;color:#ccc;">Loading...</h2>');
-    setTimeout(function(){
-      //Better user experience if this is asynchronous.
-      initCulMapDisplayComponent($('#cul-map-display-component').attr('data-subsite-key'));
-      $('#cul-map-display-component .loading-text').html(''); //clear loading message
-    }, 100);
+  if ($('.cul-map-display-component').length) {
+    var mapInstanceCounter = 0;
+    $('.cul-map-display-component').each(function(){
+      var $mapComponentDiv = $(this);
+      // Map element must have a unique id for leaflet
+      $mapComponentDiv.attr('id', 'cul-map-display-component' + '-' + mapInstanceCounter);
+      mapInstanceCounter++;
+
+      $mapComponentDiv.html('<h2 class="loading-text" style="margin:.5em;color:#ccc;">Loading...</h2>');
+      setTimeout(function(){
+        //Better user experience if this is asynchronous.
+        initCulMapDisplayComponent($mapComponentDiv);
+        $mapComponentDiv.find('.loading-text').html(''); //clear loading message
+      }, 100);
+    });
   }
 });
 
@@ -15,12 +23,13 @@ var map;
 var marker;
 var tiles;
 
-function initCulMapDisplayComponent(subsiteKey) {
-	  if($('#cul-map-display-component.full-map-search').length > 0) {
+function initCulMapDisplayComponent($mapComponentDiv) {
+  var subsiteKey = $mapComponentDiv.attr('data-subsite-key');
+	  if($mapComponentDiv.hasClass('full-map-search')) {
 		  $(window).on('resize', function(){
-		    $('#cul-map-display-component.full-map-search').height($(window).height()-300);
+		    $mapComponentDiv.height($(window).height()-300);
 		  });
-	    $('#cul-map-display-component.full-map-search').height($(window).height()-300);
+	    $mapComponentDiv.height($(window).height()-300);
 	  }
 
 		tiles = L.tileLayer('https://stamen-tiles.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.png', {
@@ -50,7 +59,7 @@ function initCulMapDisplayComponent(subsiteKey) {
       var defaultZoomLevel = 11;
     }
 
-		map = L.map('cul-map-display-component', {
+		map = L.map($mapComponentDiv.attr('id'), {
       center: defaultCenterLatLong,
       zoom: defaultZoomLevel,
       layers: [tiles]
@@ -72,7 +81,7 @@ function initCulMapDisplayComponent(subsiteKey) {
 
 			var marker = L.marker(new L.LatLng(lat, lng), { title: title });
 			allPoints.push([lat,lng]);
-			if (!$('#cul-map-display-component').hasClass('no-popup')) {
+			if (!$mapComponentDiv.hasClass('no-popup')) {
 				marker.bindPopup(
 					'<a href="' + itemLink + '" class="thumbnail"><img src="' + thumbnailUrl + '" /></a>' + '<br />' + '<a href="' + itemLink + '">' + title + '</a>'
 				);
