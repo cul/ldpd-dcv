@@ -49,6 +49,15 @@
 
 		</div> <!--/.inner-->
 
+    <div class="mobile-mini-map">
+      BROKEN
+      <% if map_search_settings_for_subsite.fetch('sidebar', false) %>
+        <div class="inner" style="margin-top:1em;">
+          <%= render 'mapped_results_sidebar' %>
+        </div>
+      <% end %>
+    </div>
+
 	</div>
 
 </div>
