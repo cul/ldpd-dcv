@@ -46,7 +46,7 @@ class Dcv::Configurators::CarnegieBlacklightConfigurator
     config.add_facet_fields_to_solr_request! # Required for facet queries
 
     config.add_facet_field ActiveFedora::SolrService.solr_name('subject_topic', :facetable), :label => 'Subjects', :sort => 'index', :limit => 10
-    config.add_facet_field ActiveFedora::SolrService.solr_name('lib_format', :facetable), :label => 'Material Types', :sort => 'index', :limit => 10
+    config.add_facet_field ActiveFedora::SolrService.solr_name('lib_format', :facetable), :label => 'Formats', :sort => 'index', :limit => 10
     config.add_facet_field ActiveFedora::SolrService.solr_name('role_interviewee', :symbol), :label => 'Oral Histories', :sort => 'index', :limit => 10
     config.add_facet_field ActiveFedora::SolrService.solr_name('subject_geographic', :facetable), :label => 'Geographic', :sort => 'index', :limit => 10
     config.add_facet_field ActiveFedora::SolrService.solr_name('lib_name', :facetable), :label => 'Name', :display => false
