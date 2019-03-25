@@ -4,7 +4,7 @@
 		DCV.mapCoordinateSearchUrl = decodeURIComponent('<%= CGI.escape(url_for(params.merge(:action => 'index', :lat => '_lat_', :long => '_long_', :search_field => params[:search_field] || 'all_text_teim', :q => params[:q] || ''))) %>');
 	</script>
 	<% map_search_settings = map_search_settings_for_subsite %>
-	<%= render partial: 'map_search', locals: {
+	<%= render partial: 'embedded_map_search', locals: {
 		map_data_json: @map_data_json,
 		map_default_center_lat: map_search_settings['default_lat'] || 0,
 		map_default_center_long: map_search_settings['default_long'] || 0,

@@ -5,7 +5,7 @@
 
 	<% map_search_settings = map_search_settings_for_subsite %>
 	<% latlong = document['geo'].present? ? document['geo'][0].split(',') : [map_search_settings['default_lat'] || 0, map_search_settings['default_long'] || 0] %>
-	<%= render partial: 'map_search', locals: {
+	<%= render partial: 'embedded_map_search', locals: {
 	  map_data_json: extract_map_data_from_document_list([document]).to_json.html_safe,
 	  map_default_center_lat: latlong[0],
 	  map_default_center_long: latlong[1],
