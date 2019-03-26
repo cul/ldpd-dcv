@@ -536,6 +536,12 @@ a {
 		box-shadow: none;
 	}
 	.document {
+		#child_gallery {
+			background-color: transparent;
+			.index_subtitle {
+				color: darken($color_3, 30%);
+			}
+		}
 		&:not(.list-view) {
 			.index-show-tombstone-fields {
 				margin-bottom: 1.5em;
@@ -708,9 +714,7 @@ a {
 		margin-bottom: 1em;
 	}
 }
-#child_gallery {
-	background-color: transparent;
-}
+
 .carousel-inner {
 	> .item > {
 		img {
@@ -885,12 +889,4 @@ footer.container {
   color: $color_15;
   background-color: $color_10;
   border-color: $color_15;
-}
-
-.index_title {
-	color: $color_2;
-}
-
-.index_subtitle {
-	color: $color_3;
 }
