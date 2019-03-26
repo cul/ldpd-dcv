@@ -149,4 +149,85 @@ module Dcv::CatalogHelperBehavior
   def has_synchronized_media?(document)
     (document.fetch(:datastreams_ssim, []) & ['chapters','captions']).present?
   end
+
+  # Pull indexable names, hash to roles
+  def link_names_with_roles(args={})
+    document = args.fetch(:document,{})
+    names = args.fetch(:value,[]).map {|name| [name,[]]}.to_h
+    document.each do |f,v|
+      next unless f =~ /role_.*_ssim/
+      role = f.split('_')
+      role.shift
+      role.pop
+      role = role[0].present? ? role.join('_') : nil
+      v.each { |name| names[name] << role.capitalize if role }
+    end
+    field = args[:field]
+    names.map do |name, roles|
+      value = link_to(name, controller.url_for(action: :index, f: { :lib_name_sim => [name] }))
+      value << "(#{roles.join(',')})" unless roles.empty?
+      value.html_safe 
+      value
+    end
+  end
+
+  def display_clio_link(args={})
+    args.fetch(:value,[]).map { |v| v.sub!(/^clio/i,''); link_to("https://clio.columbia.edu/catalog/#{v}", "https://clio.columbia.edu/catalog/#{v}") }
+  end
+
+  def display_doi_link(args={})
+    args.fetch(:value,[]).map do |v|
+      v.sub!(/^doi:/,'')
+      url = "https://dx.doi.org/#{v}"
+      link_to(url, url)
+    end
+  end
+
+# START Carnegie-related helpers that might be moved to a different helper
+  def append_digital_origin(args={})
+    document = args.fetch(:document,{})
+    args.fetch(:value,[]).concat document.fetch(:physical_description_digital_origin_ssm,[])
+    args.fetch(:value,[])
+  end
+
+  def display_origin_info(args={})
+    document = args.fetch(:document,{})
+    publisher = document.fetch(:lib_publisher_ssm,[]).first
+    return [] if publisher
+    place = document.fetch('origin_info_place_ssm',[]).first
+    date = document.fetch('origin_info_date_created_ssm',[]).first
+    date << '.' unless date.nil? || date[-1] == '.'
+    [place, date].compact
+  end
+
+  def is_dateless_origin_info?(field_config, document)
+    date = document.fetch('origin_info_date_created_ssm',[]).first
+    return date.nil?
+  end
+
+  def display_dateless_origin_info(args={})
+    document = args.fetch(:document,{})
+    date = document.fetch('origin_info_date_created_ssm',[]).first
+    return [] if date
+    display_origin_info(args)
+  end
+
+  def display_publication_info(args={})
+    document = args.fetch(:document,{})
+    publisher = document.fetch(:lib_publisher_ssm,[]).first
+    return [] unless publisher
+    place = document.fetch(:origin_info_place_ssm,[]).first
+    publisher = place + ": " + publisher if place
+    date = document.fetch(:origin_info_date_created_ssm,[]).first
+    date << '.' unless date.nil? || date[-1] == '.'
+    [publisher, date].compact
+  end
+
+  def display_archival_context(args={})
+  end
+
+  def display_as_link_to_home(args={})
+    args.fetch(:value,[]).map { |e| link_to(e, controller.url_for(action: :index)) }
+  end
+# END Carnegie-related helpers that might be moved to a different helper
 end

@@ -24,4 +24,42 @@ module Dcv::TextTruncateHelper
     return field_value.is_a?(Array) ? arr_to_return : arr_to_return[0]
   end
 
+  def expandable_past_400(args)
+    return expandable_past_length(400, args)
+  end
+
+  def expandable_past_length(truncation_length, args)
+    field_value = args[:document][args[:field]]
+    text_arr = field_value.is_a?(Array) ? field_value : [field_value]
+
+    arr_to_return = []
+    text_arr.each_with_index do |text, ix|
+      if text.length > truncation_length
+        span_id = "#{args[:field]}-collapse-#{ix}"
+        span = collapsible_span(span_id, text[(truncation_length + 1)..-1])
+        span.unshift(text[0..truncation_length])
+        arr_to_return.concat(span)
+      else
+        arr_to_return.push(text)
+      end
+    end
+
+    return arr_to_return.join.html_safe
+  end
+
+  def collapsible_span(span_id, text_overflow)
+    [content_tag(:span,text_overflow, class: 'collapse', id: span_id), collapse_toggle(span_id)]
+  end
+
+  def collapse_toggle(span_id)
+    atts = {
+      class: "btn btn-secondary",
+      role: "button",
+      :"data-toggle" => "collapse",
+      :"data-target" => "##{span_id}",
+      :"aria-expanded" => "false",
+      :"aria-controls" => span_id
+    }
+    content_tag(:a, "...", atts)
+  end
 end
