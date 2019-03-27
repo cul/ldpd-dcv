@@ -24,6 +24,10 @@ module Dcv::TextTruncateHelper
     return field_value.is_a?(Array) ? arr_to_return : arr_to_return[0]
   end
 
+  def expandable_past_250(args)
+    return expandable_past_length(250, args)
+  end
+
   def expandable_past_400(args)
     return expandable_past_length(400, args)
   end

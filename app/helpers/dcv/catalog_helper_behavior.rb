@@ -151,7 +151,7 @@ module Dcv::CatalogHelperBehavior
   end
 
   # Pull indexable names, hash to roles
-  def link_names_with_roles(args={})
+  def display_names_with_roles(args={})
     document = args.fetch(:document,{})
     names = args.fetch(:value,[]).map {|name| [name,[]]}.to_h
     document.each do |f,v|
@@ -163,9 +163,14 @@ module Dcv::CatalogHelperBehavior
       v.each { |name| names[name] << role.capitalize if role }
     end
     field = args[:field]
+    field_config = (controller.action_name.to_sym == :index) ?
+      blacklight_config.index_fields[args[:field]] :
+      blacklight_config.show_fields[args[:field]]
     names.map do |name, roles|
-      value = link_to(name, controller.url_for(action: :index, f: { :lib_name_sim => [name] }))
-      value << "(#{roles.join(',')})" unless roles.empty?
+      value = field_config.link_to_search ?
+        link_to(name, controller.url_for(action: :index, f: { field_config.link_to_search => [name] })) :
+        name.dup
+      value << " (#{roles.join(',')})" unless roles.empty?
       value.html_safe 
       value
     end
