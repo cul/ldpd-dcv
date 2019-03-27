@@ -44,6 +44,27 @@ module ShowFieldDisplayFieldHelper
     }
   end
 
+  def show_repository_to_web_link(args)
+
+    facet_field_name = args[:field]
+    codes_lookup = HashWithIndifferentAccess.new(I18n.t('ldpd.' + facet_field_name.split('_')[-2] + '.repo').invert)
+
+    repo_names = args[:document][args[:field]]
+
+    repo_names.map do |repo_name|
+      if codes_lookup.has_key?(repo_name)
+        code = codes_lookup[repo_name]
+        web_url = I18n.t("ldpd.url.repo.#{code}") if code
+      end
+
+      if web_url
+        link_to(repo_name, web_url, target: "_new")
+      else
+        repo_name
+      end
+    end
+  end
+
   def show_date_field(args)
     note_field = ActiveFedora::SolrService.solr_name('lib_date_notes', :displayable, type: :string)
     values = args[:document][args[:field]]
