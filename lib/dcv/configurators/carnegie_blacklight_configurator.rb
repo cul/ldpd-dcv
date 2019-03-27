@@ -64,14 +64,11 @@ class Dcv::Configurators::CarnegieBlacklightConfigurator
     # solr fields to be displayed in the index (search results) view
     #   The ordering of the field names is the order of the display
     #config.add_index_field ActiveFedora::SolrService.solr_name('title_display', :displayable, type: :string), :label => 'Title'
-    config.add_index_field ActiveFedora::SolrService.solr_name('lib_repo_long', :symbol, type: :string), :label => 'Library Location'
     config.add_index_field ActiveFedora::SolrService.solr_name('lib_name', :displayable), label: 'Name', separator: '; ', helper_method: :display_names_with_roles
-    config.add_index_field ActiveFedora::SolrService.solr_name('location_sublocation', :displayable, type: :string), :label => 'Department'
-    config.add_index_field ActiveFedora::SolrService.solr_name('location_shelf_locator', :displayable, type: :string), :label => 'Shelf Location'
+    config.add_index_field ActiveFedora::SolrService.solr_name('lib_format', :displayable), label: 'Format', separator: '; '
     config.add_index_field ActiveFedora::SolrService.solr_name('lib_date_textual', :displayable, type: :string), :label => 'Date'
+    config.add_index_field ActiveFedora::SolrService.solr_name('lib_collection', :displayable), label: 'Collection', separator: '; '
     config.add_index_field ActiveFedora::SolrService.solr_name('abstract', :displayable, type: :string), :label => 'Abstract', :helper_method => :expandable_past_250
-    config.add_index_field 'cul_number_of_members_isi', :label => 'Number of Assets', :helper_method => :asset_count_value
-    #config.add_index_field ActiveFedora::SolrService.solr_name('lib_item_in_context_url', :displayable, type: :string), :label => 'Item in Context', :helper_method => :link_to_url_value
 
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display

@@ -57,7 +57,7 @@ module Dcv::TextTruncateHelper
 
   def collapse_toggle(span_id)
     atts = {
-      class: "btn btn-secondary",
+      class: "btn btn-secondary btn-xs",
       role: "button",
       :"data-toggle" => "collapse",
       :"data-target" => "##{span_id}",
