@@ -77,8 +77,8 @@ class Dcv::Configurators::CarnegieBlacklightConfigurator
     config.add_show_field ActiveFedora::SolrService.solr_name('lib_name', :displayable), label: 'Name', separator: '; ', link_to_search: ActiveFedora::SolrService.solr_name('lib_name', :facetable), helper_method: :display_names_with_roles
     config.add_show_field ActiveFedora::SolrService.solr_name('title_display', :displayable, type: :string), label: 'Title', separator: '; '
     config.add_show_field ActiveFedora::SolrService.solr_name('abstract', :displayable, type: :string), label: 'Abstract', helper_method: :expandable_past_400
-    config.add_show_field ActiveFedora::SolrService.solr_name('lib_collection', :displayable), label: 'Collection Name', separator: '; '
-    config.add_show_field ActiveFedora::SolrService.solr_name('archival_context', :displayable), label: 'Archival Context', separator: '; ', helper_method: :display_archival_context
+    config.add_show_field ActiveFedora::SolrService.solr_name('lib_collection', :displayable), label: 'Collection Name', separator: '; ', helper_method: :display_collection_with_links
+    config.add_show_field 'archival_context_json_ss', label: 'Archival Context', separator: '; ', helper_method: :display_archival_context, if: :has_archival_context?
     config.add_show_field ActiveFedora::SolrService.solr_name('location_shelf_locator', :displayable, type: :string), label: 'Shelf Location of Original', separator: '; '
     config.add_show_field ActiveFedora::SolrService.solr_name('subject_topic', :facetable), label: 'Subjects', separator: '; '
     config.add_show_field ActiveFedora::SolrService.solr_name('lib_format', :displayable), label: 'Format', separator: '; '
@@ -91,7 +91,6 @@ class Dcv::Configurators::CarnegieBlacklightConfigurator
     config.add_show_field ActiveFedora::SolrService.solr_name('language_language_term_text', :symbol), label: 'Language', separator: '; '
     config.add_show_field ActiveFedora::SolrService.solr_name('lib_repo_full', :symbol, type: :string), label: 'Library Location', separator: '; ', helper_method: :show_repository_to_web_link
     config.add_show_field ActiveFedora::SolrService.solr_name('lib_project_full', :symbol), label: 'Digital Project', separator: '; ', helper_method: :display_as_link_to_home
-    config.add_show_field ActiveFedora::SolrService.solr_name('clio', :symbol), label: 'Catalog Record for the Collection', separator: '; ', helper_method: :display_clio_link
     config.add_show_field ActiveFedora::SolrService.solr_name('ezid_doi', :symbol), label: 'Persistent URL', separator: '; ', show: false, helper_method: :display_doi_link
 
     # solr fields to be displayed in the geo/map panels

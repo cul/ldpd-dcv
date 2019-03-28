@@ -188,6 +188,47 @@ module Dcv::CatalogHelperBehavior
     end
   end
 
+  def has_archival_context?(field_config, document)
+    json_src = document.fetch(field_config.field,'{}')
+    JSON.load(json_src).detect {|ac| ac['dc:coverage'].present? }
+  end
+
+  def display_archival_context(args={})
+    json = JSON.load(args.fetch(:value,'{}'))
+    contexts = json.select { |ac| ac['dc:coverage']}.map {|ac| ac['dc:coverage'][0]}.compact
+    if contexts
+      contexts.map do |context|
+        title = context['dc:title'].dup
+        next_context = context['dc:hasPart']
+        while next_context
+          title << '. ' << next_context['dc:title']
+          next_context = next_context['dc:hasPart']
+        end
+        title
+      end.join('; ')
+    end
+  end
+
+  def display_collection_with_links(args={})
+    values = Array(args[:value])
+    document = args[:document]
+    if document['archival_context_json_ss']
+      json = JSON.load(document['archival_context_json_ss'])
+      values.map do |value|
+        collection = json.detect {|context| context['dc:title'] == value}
+        if collection
+          clio = collection.fetch('dc:bibliographicCitation',{})['@id']
+          if clio
+            value << ' ' << link_to("(Catalog Record)", clio)
+          end
+        end
+        value.html_safe
+      end
+    else
+      args[:value]
+    end
+  end
+
 # START Carnegie-related helpers that might be moved to a different helper
   def append_digital_origin(args={})
     document = args.fetch(:document,{})
@@ -226,9 +267,6 @@ module Dcv::CatalogHelperBehavior
     date = document.fetch(:origin_info_date_created_ssm,[]).first
     date << '.' unless date.nil? || date[-1] == '.'
     [publisher, date].compact
-  end
-
-  def display_archival_context(args={})
   end
 
   def display_as_link_to_home(args={})
