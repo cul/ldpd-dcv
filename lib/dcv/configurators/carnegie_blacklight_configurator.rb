@@ -4,6 +4,18 @@ class Dcv::Configurators::CarnegieBlacklightConfigurator
     ActiveFedora::SolrService.solr_name(*args)
   end
 
+  def self.notes_label_proc
+    Proc.new do |doc, opts|
+      field = opts[:field]
+      type = field.split('_')[1..-3].join(' ').capitalize
+      if type.eql?('Untyped')
+        "Note"
+      else
+        "Note (#{type})"
+      end
+    end
+  end
+
   def self.configure(config)
 
     config.show.route = { controller: 'carnegie' }
@@ -87,6 +99,7 @@ class Dcv::Configurators::CarnegieBlacklightConfigurator
     config.add_show_field ActiveFedora::SolrService.solr_name('origin_info_place', :displayable), label: 'Origin Information', separator: ', ', helper_method: :display_dateless_origin_info, if: :is_dateless_origin_info?
     config.add_show_field ActiveFedora::SolrService.solr_name('lib_publisher', :displayable), label: 'Publication Information', separator: ', ', helper_method: :display_publication_info
     config.add_show_field ActiveFedora::SolrService.solr_name('physical_description_extent', :displayable, type: :string), label: 'Physical Description of Original', separator: '; ', helper_method: :append_digital_origin
+    config.add_show_field 'dynamic_notes', pattern: /lib_.*_notes_ssm/, label: :notes_label, separator: '; '
     config.add_show_field ActiveFedora::SolrService.solr_name('lib_non_date_notes', :displayable, type: :string), label: 'Note', separator: '; '
     config.add_show_field ActiveFedora::SolrService.solr_name('language_language_term_text', :symbol), label: 'Language', separator: '; '
     config.add_show_field ActiveFedora::SolrService.solr_name('lib_repo_full', :symbol, type: :string), label: 'Library Location', separator: '; ', helper_method: :show_repository_to_web_link

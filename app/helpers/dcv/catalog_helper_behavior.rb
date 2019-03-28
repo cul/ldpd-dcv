@@ -229,6 +229,26 @@ module Dcv::CatalogHelperBehavior
     end
   end
 
+  # Look up the label for the generated field
+  def render_generated_field_label document, field_config
+    field = field_config.field
+    label = field_config.label
+    if label.is_a? Symbol
+      label = send label, document, field_config
+    end
+    label
+  end
+
+  def notes_label(document, opts)
+    field = opts[:field]
+    type = field.split('_')[1..-3].join(' ').capitalize
+    if type.eql?('Untyped')
+      "Note"
+    else
+      "Note (#{type})"
+    end
+  end
+
 # START Carnegie-related helpers that might be moved to a different helper
   def append_digital_origin(args={})
     document = args.fetch(:document,{})
