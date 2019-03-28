@@ -39,7 +39,9 @@ module Dcv::TextTruncateHelper
     arr_to_return = []
     text_arr.each_with_index do |text, ix|
       if text.length > truncation_length
-        span_id = "#{args[:field]}-collapse-#{ix}"
+        span_prefix = args[:document][:id].dup
+        span_prefix.gsub!(/[^A-Za-z0-9]/,'_')
+        span_id = "#{span_prefix}-#{args[:field]}-collapse-#{ix}"
         span = collapsible_span(span_id, text[(truncation_length + 1)..-1])
         span.unshift(text[0..truncation_length])
         arr_to_return.concat(span)
