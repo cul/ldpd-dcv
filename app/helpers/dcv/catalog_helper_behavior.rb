@@ -149,4 +149,116 @@ module Dcv::CatalogHelperBehavior
   def has_synchronized_media?(document)
     (document.fetch(:datastreams_ssim, []) & ['chapters','captions']).present?
   end
+
+  # Pull indexable names, hash to roles
+  def display_names_with_roles(args={})
+    document = args.fetch(:document,{})
+    names = args.fetch(:value,[]).map {|name| [name,[]]}.to_h
+    document.each do |f,v|
+      next unless f =~ /role_.*_ssim/
+      role = f.split('_')
+      role.shift
+      role.pop
+      role = role[0].present? ? role.join('_') : nil
+      v.each { |name| names[name] << role.capitalize if role }
+    end
+    field = args[:field]
+    field_config = (controller.action_name.to_sym == :index) ?
+      blacklight_config.index_fields[args[:field]] :
+      blacklight_config.show_fields[args[:field]]
+    names.map do |name, roles|
+      value = field_config.link_to_search ?
+        link_to(name, controller.url_for(action: :index, f: { field_config.link_to_search => [name] })) :
+        name.dup
+      value << " (#{roles.join(',')})" unless roles.empty?
+      value.html_safe 
+      value
+    end
+  end
+
+  def display_clio_link(args={})
+    args.fetch(:value,[]).map { |v| v.sub!(/^clio/i,''); link_to("https://clio.columbia.edu/catalog/#{v}", "https://clio.columbia.edu/catalog/#{v}") }
+  end
+
+  def display_doi_link(args={})
+    args.fetch(:value,[]).map do |v|
+      v.sub!(/^doi:/,'')
+      url = "https://dx.doi.org/#{v}"
+      link_to(url, url)
+    end
+  end
+
+  def has_archival_context?(field_config, document)
+    json_src = document.fetch(field_config.field,'{}')
+    JSON.load(json_src).detect {|ac| ac['dc:coverage'].present? }
+  end
+
+  def display_archival_context(args={})
+    json = JSON.load(args.fetch(:value,'{}'))
+    contexts = json.select { |ac| ac['dc:coverage']}.map {|ac| ac['dc:coverage'][0]}.compact
+    if contexts
+      contexts.map do |context|
+        title = context['dc:title'].dup
+        next_context = context['dc:hasPart']
+        while next_context
+          title << '. ' << next_context['dc:title']
+          next_context = next_context['dc:hasPart']
+        end
+        title
+      end.join('; ')
+    end
+  end
+
+  def display_composite_archival_context(args={})
+    values = Array(args[:value])
+    document = args[:document]
+    context_field = OpenStruct.new(field: 'archival_context_json_ss')
+    if has_archival_context?(context_field, document)
+      values = values.map do |value|
+        value << '. '
+        value << display_archival_context(args.merge(field: context_field.field, value: document[context_field.field]))
+      end
+    end
+    args[:value].is_a?(Array) ? values : values[0]
+  end
+
+  def display_collection_with_links(args={})
+    values = Array(args[:value])
+    document = args[:document]
+    if document['archival_context_json_ss']
+      json = JSON.load(document['archival_context_json_ss'])
+      values.map do |value|
+        collection = json.detect {|context| context['dc:title'] == value}
+        if collection
+          clio = collection.fetch('dc:bibliographicCitation',{})['@id']
+          if clio
+            value << ' ' << link_to("(Catalog Record)", clio)
+          end
+        end
+        value.html_safe
+      end
+    else
+      args[:value]
+    end
+  end
+
+  # Look up the label for the generated field
+  def render_generated_field_label document, field_config
+    field = field_config.field
+    label = field_config.label
+    if label.is_a? Symbol
+      label = send label, document, field_config
+    end
+    label
+  end
+
+  def notes_label(document, opts)
+    field = opts[:field]
+    type = field.split('_')[1..-3].join(' ').capitalize
+    if type.eql?('Untyped')
+      "Note"
+    else
+      "Note (#{type})"
+    end
+  end
 end

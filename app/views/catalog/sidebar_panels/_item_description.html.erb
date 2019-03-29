@@ -9,6 +9,14 @@
 					<dt><%= render_document_show_field_label document, :field => solr_fname %></dt>
 					<dd><%= publisher_field_value %></dd>
 				<% end %>
+			<% elsif field.pattern %>
+				<% document.select {|k,v| k =~ field.pattern }.each do | k,v| %>
+					<% field_clone = field.clone; field_clone.tap { |c| c.field = k } %>
+					<% if should_render_show_field?(document, field_clone) %>
+						<dt class="blacklight-<%= k.parameterize %>"><%= render_generated_field_label document, field_clone %></dt>
+						<dd class="blacklight-<%= k.parameterize %>"><%= render_document_show_field_value document, :field => k %></dd>
+					<% end %>
+				<% end %>
 			<% elsif should_render_show_field?(document, field) %>
 				<dt class="blacklight-<%= solr_fname.parameterize %>"><%= render_document_show_field_label document, :field => solr_fname %></dt>
 				<dd class="blacklight-<%= solr_fname.parameterize %>"><%= render_document_show_field_value document, :field => solr_fname %></dd>

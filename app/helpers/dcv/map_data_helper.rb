@@ -34,14 +34,22 @@ module Dcv::MapDataHelper
   def geo_facet_fields_to_show
     blacklight_config.geo_fields.select {|f,v| v.link }.map {|f,v| v}
   end
+
   def geo_non_facet_fields_to_show
     blacklight_config.geo_fields.select {|f,v| !v.link }.map {|f,v| v}
   end
+
   def has_geo?(document={},coords_only=false)
     if coords_only
       document['geo']
     else
-      blacklight_config.geo_fields.detect {|f| document[f]}
+      document['geo'] || should_render_location_data?(document)
+    end
+  end
+
+  def should_render_location_data?(document={})
+    (geo_facet_fields_to_show + geo_non_facet_fields_to_show).detect do |field|
+      document[field.field].present?
     end
   end
 end

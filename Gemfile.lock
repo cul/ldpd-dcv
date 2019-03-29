@@ -139,14 +139,13 @@ GEM
       rails (>= 3.1.1)
     concurrent-ruby (1.0.5)
     crass (1.0.4)
-    cul_hydra (1.5.3)
-      active-fedora (~> 7.0)
+    cul_hydra (1.6.0)
+      active-fedora (>= 7.3.1)
       active-triples (~> 0.2.2)
       active_fedora_finders (>= 0.5.0)
       active_fedora_relsint (~> 0.4)
-      autoprefixer-rails (<= 6.1.1)
       blacklight
-      cancancan (~> 1.12.0)
+      bootstrap-sass (~> 3.3.7)
       cul_image_props
       httpclient
       hydra-head (~> 7)
@@ -155,7 +154,7 @@ GEM
       rake (<= 11.3)
       rdf (>= 1.1.5)
       rubydora (~> 2.0.0)
-      sparql (= 1.1.4)
+      sparql
       thread
     cul_image_props (0.3.6)
       nokogiri
@@ -281,10 +280,10 @@ GEM
     mini_mime (1.0.1)
     mini_portile2 (2.3.0)
     minitest (5.11.3)
-    mods (2.4.0)
+    mods (2.4.1)
       edtf
       iso-639
-      nokogiri
+      nokogiri (>= 1.6.6)
       nom-xml (~> 1.0)
     mono_logger (1.1.0)
     multi_json (1.13.1)
@@ -554,7 +553,7 @@ DEPENDENCIES
   coderay
   coffee-rails (~> 4.0.0)
   colorbox-rails
-  cul_hydra (~> 1.5.3)
+  cul_hydra (~> 1.6.0)
   cul_omniauth (~> 0.5.2)
   devise (~> 3.4)
   devise-guests (~> 0.3)
