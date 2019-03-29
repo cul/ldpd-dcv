@@ -209,6 +209,19 @@ module Dcv::CatalogHelperBehavior
     end
   end
 
+  def display_composite_archival_context(args={})
+    values = Array(args[:value])
+    document = args[:document]
+    context_field = OpenStruct.new(field: 'archival_context_json_ss')
+    if has_archival_context?(context_field, document)
+      values = values.map do |value|
+        value << '. '
+        value << display_archival_context(args.merge(field: context_field.field, value: document[context_field.field]))
+      end
+    end
+    args[:value].is_a?(Array) ? values : values[0]
+  end
+
   def display_collection_with_links(args={})
     values = Array(args[:value])
     document = args[:document]
