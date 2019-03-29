@@ -22,6 +22,12 @@
 				<dd class="blacklight-<%= solr_fname.parameterize %>"><%= render_document_show_field_value document, :field => solr_fname %></dd>
 			<% end %>
 		<% end %>
+		<% document_citation_fields(document).each do |solr_fname, field| %>
+			<% if should_render_citation_field?(document, field) %>
+				<dt class="blacklight-<%= solr_fname.parameterize %>"><%= render_document_citation_field_label document, :field => solr_fname %></dt>
+				<dd class="blacklight-<%= solr_fname.parameterize %>"><%= render_document_citation_field_value document, :field => solr_fname %></dd>
+			<% end %>
+		<% end %>
 	</dl>
 	<% link_helpers.each do |link_helper| %>
 		<%= send link_helper, document %>

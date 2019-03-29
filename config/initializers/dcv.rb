@@ -4,3 +4,6 @@ Sprockets::Context.send :include, Rails.application.routes.url_helpers
 
 # define field access for the map and geodata panels
 Blacklight::Configuration.define_field_access :geo_field
+
+# define field access for the citation panels
+Blacklight::Configuration.define_field_access :citation_field

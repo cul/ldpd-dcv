@@ -6,3 +6,5 @@ en:
         title: 'Refine Your Search'
       filters:
         title: 'Showing results for:'
+      fields:
+        citation: []

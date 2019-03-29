@@ -232,13 +232,55 @@ module Dcv::CatalogHelperBehavior
         if collection
           clio = collection.fetch('dc:bibliographicCitation',{})['@id']
           if clio
-            value << ' ' << link_to("(Catalog Record)", clio)
+            bib_id = clio.split('/')[-1]
+            fa_url = generate_finding_aid_url(bib_id, document)
+            value << ' ' << link_to("(Finding Aid)", fa_url) if fa_url
           end
         end
         value.html_safe
       end
     else
       args[:value]
+    end
+  end
+
+  def code_map_for_repo_field(field)
+    HashWithIndifferentAccess.new(I18n.t('ldpd.' + field.split('_')[-2] + '.repo').invert)
+  end
+
+  def generate_finding_aid_url(bib_id, document)
+    repo_fields = ['lib_repo_full_ssim', 'lib_repo_short_ssim']
+    repo_code = nil
+    repo_fields.detect do |field|
+      unless document[field].blank?
+        codes = code_map_for_repo_field(field)
+        document[field].detect do |repo_value|
+          repo_code = codes[repo_value]
+        end
+      end
+    end
+    if repo_code && bib_id
+      "https://findingaids.library.columbia.edu/ead/#{repo_code.downcase}/ldpd_#{bib_id}/summary"
+    else
+      nil
+    end
+  end
+
+  def has_collection_bib_links?(field_config, document)
+    if document['archival_context_json_ss']
+      JSON.load(document['archival_context_json_ss']).detect do |collection|
+        collection['dc:bibliographicCitation']
+      end
+    end
+  end
+
+  def display_collection_bib_links(args={})
+    document = args[:document]
+    JSON.load(document['archival_context_json_ss']).select do |collection|
+      collection['dc:bibliographicCitation']
+    end.map do |collection|
+      clio = collection.fetch('dc:bibliographicCitation',{})['@id']
+      link_to(clio, clio) if clio
     end
   end
 

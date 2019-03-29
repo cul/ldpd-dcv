@@ -1,5 +1,6 @@
 module CatalogHelper
   include Blacklight::CatalogHelperBehavior
+  include Dcv::FieldSetsHelperBehavior
   include Dcv::CatalogHelperBehavior
   include Dcv::IframeHelperBehavior
   include Cul::Hydra::OreProxiesHelperBehavior
