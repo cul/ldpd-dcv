@@ -539,7 +539,7 @@ a {
 		#child_gallery {
 			background-color: transparent;
 			.index_subtitle {
-				color: darken($color_3, 30%);
+				color: $color_anchor;
 			}
 			@media(min-width: 768px) {
 				.child-scroll {
