@@ -41,4 +41,14 @@ module Carnegie::FieldFormatterHelper
   def display_as_link_to_home(args={})
     args.fetch(:value,[]).map { |e| link_to(e, controller.url_for(action: :index)) }
   end
+
+  # Pull indexable names, hash to roles
+  def display_non_copyright_names_with_roles(args={})
+    display_names_with_roles(args.merge(exclusions: ['Copyright Holder']))
+  end
+  def has_non_copyright_names?(field_config, document)
+    args = {field: field_config.field, document: document, value: document[field_config.field]}
+    values = display_non_copyright_names_with_roles(args)
+    values.present?
+  end
 end

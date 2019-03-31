@@ -153,13 +153,14 @@ module Dcv::CatalogHelperBehavior
   # Pull indexable names, hash to roles
   def display_names_with_roles(args={})
     document = args.fetch(:document,{})
+    exclusions = args.fetch(:exclusions, []).map(&:capitalize)
     names = args.fetch(:value,[]).map {|name| [name,[]]}.to_h
     document.each do |f,v|
       next unless f =~ /role_.*_ssim/
       role = f.split('_')
       role.shift
       role.pop
-      role = role[0].present? ? role.join('_') : nil
+      role = role[0].present? ? role.join(' ') : nil
       v.each { |name| names[name] << role.capitalize if role }
     end
     field = args[:field]
@@ -172,8 +173,8 @@ module Dcv::CatalogHelperBehavior
         name.dup
       value << " (#{roles.join(',')})" unless roles.empty?
       value.html_safe 
-      value
-    end
+      value if roles.empty? or roles.detect { |role| !exclusions.include?(role) }
+    end.compact
   end
 
   def display_clio_link(args={})
