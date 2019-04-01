@@ -47,7 +47,9 @@ module Carnegie::FieldFormatterHelper
     display_names_with_roles(args.merge(exclusions: ['Copyright Holder']))
   end
   def has_non_copyright_names?(field_config, document)
-    args = {field: field_config.field, document: document, value: document[field_config.field]}
+    args = {field: field_config.field, document: document}
+    values = document[field_config.field]
+    args[:value] = values if values
     values = display_non_copyright_names_with_roles(args)
     values.present?
   end
