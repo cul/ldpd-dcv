@@ -161,7 +161,7 @@ module Dcv::CatalogHelperBehavior
       role.shift
       role.pop
       role = role[0].present? ? role.join(' ') : nil
-      v.each { |name| names[name] << role.capitalize if role }
+      v.each { |name| names[name] << role.capitalize if role && names[name] }
     end
     field = args[:field]
     field_config = (controller.action_name.to_sym == :index) ?
