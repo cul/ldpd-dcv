@@ -66,6 +66,8 @@ module Dcv::TextTruncateHelper
       :"aria-expanded" => "false",
       :"aria-controls" => span_id
     }
-    content_tag(:a, "...", atts)
+    content_tag(:a, atts) do
+      content_tag(:span, "&raquo; Show more".html_safe, class: "collapsed") << content_tag(:span, " &laquo; Show less".html_safe, class: "expanded")
+    end
   end
 end

@@ -1260,3 +1260,9 @@ DD .collapse.in {
 .list-view.document .collapse.in {
   display:inline;
 }
+
+/* show/hide content in a collapse toggle */
+[aria-expanded="false"] > .expanded,
+[aria-expanded="true"] > .collapsed {
+  display: none;
+}
