@@ -76,9 +76,7 @@ Dcv::Application.routes.draw do
 
   resources 'sites', only: [:index, :show], param: :slug
   # Dynamic routes for catalog controller and all subsites
-  subsite_keys = (SUBSITES['public'].keys - ['uri']).map(&:to_sym)
-  blacklight_for *subsite_keys # Using * operator to turn the array of values into a set of arguments for the blacklight_for method
-  subsite_for *subsite_keys
+  # namespace configs must come first for routes to work
   (SUBSITES['public'].keys - ['uri']).each do |subsite_key|
     subsite_config = SUBSITES['public'][subsite_key]
     if subsite_config['nested'].present?
@@ -89,6 +87,9 @@ Dcv::Application.routes.draw do
       end
     end
   end
+  subsite_keys = (SUBSITES['public'].keys - ['uri']).map(&:to_sym)
+  blacklight_for *subsite_keys # Using * operator to turn the array of values into a set of arguments for the blacklight_for method
+  subsite_for *subsite_keys
 
   get '/restricted' => 'home#restricted', as: :restricted
   get '/restricted/projects', to: redirect('/restricted')
