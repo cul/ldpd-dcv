@@ -22,7 +22,12 @@ begin
       if (slug == 'sites')
         SUBSITES[restriction]['uri'] = uri
       else
-        SUBSITES[restriction][slug]['uri'] = uri unless SUBSITES[restriction][slug].blank?
+        slug_path = slug.split('/')
+        slug_context = {'nested' => SUBSITES[restriction] }
+        until slug_path.empty?
+          slug_context = slug_context.fetch('nested',{}).fetch(slug_path.shift, {})
+        end
+        slug_context['uri'] = uri unless slug_context.blank?
       end
     end
   end
