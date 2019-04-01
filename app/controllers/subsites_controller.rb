@@ -28,17 +28,19 @@ class SubsitesController < ApplicationController
     self.prepend_view_path('app/views/catalog')
     self.prepend_view_path('app/views/' + self.subsite_layout)
     self.prepend_view_path(self.subsite_layout)
+    self.prepend_view_path('app/views/' + controller_path)
+    self.prepend_view_path(controller_path)
   end
 
   # Override to prepend restricted if necessary
   def authorize_action
+    action_prefix = controller_path.split('/').join('_')
     if self.class.restricted?
-      action = "restricted_#{controller_name.to_s}##{params[:action].to_s}"
-      wildcard = "restricted_#{controller_name.to_s}#*"
-    else
-      action = "#{controller_name.to_s}##{params[:action].to_s}"
-      wildcard = "#{controller_name.to_s}#*"
+      action_prefix = "restricted_#{action_prefix}"
     end
+    action = "#{action_prefix}##{params[:action].to_s}"
+    wildcard = "#{action_prefix}#*"
+
     current_user.role_symbols.concat session.fetch('cul.roles',[]).map(&:to_sym) if current_user
     current_user.role_symbols.uniq! if current_user
     proxy = Dcv::Authenticated::AccessControl::RoleAbilityProxy.new(document_id: params[:id],remote_ip: request.remote_ip, user_roles: session['cul.roles'])
@@ -46,10 +48,9 @@ class SubsitesController < ApplicationController
       return true
     else
       if current_user
-        action = "#{controller_name.to_s}#index"
-        action = 'restricted_' + action if self.class.restricted?
+        action = "#{action_prefix}#index"
         err_url = (can? action.to_sym, proxy) ?
-          url_for(controller: controller_name, action: :index) : root_url
+          url_for(controller: controller_path, action: :index) : root_url
         access_denied(err_url)
         return false
       end
@@ -60,7 +61,12 @@ class SubsitesController < ApplicationController
   end
 
   def self.subsite_config
-    return SUBSITES[(self.restricted? ? 'restricted' : 'public')].fetch(self.controller_name,{})
+    subsite_config = {'nested' => SUBSITES[(self.restricted? ? 'restricted' : 'public')]}
+    subsite_path = self.controller_path.split('/')
+    until subsite_path.empty?
+      subsite_config = subsite_config.fetch('nested',{}).fetch(subsite_path.shift,{})
+    end
+    return subsite_config
   end
 
   def subsite_config
@@ -154,15 +160,15 @@ class SubsitesController < ApplicationController
   end
 
   def subsite_key
-    return (self.class.restricted? ? 'restricted_' : '') + self.controller_name
+    return (self.class.restricted? ? 'restricted_' : '') + self.controller_path
   end
 
   def subsite_layout
-    SUBSITES[(self.class.restricted? ? 'restricted' : 'public')][self.controller_name]['layout']
+    subsite_config['layout']
   end
 
   def search_result_view_overrides
-    SUBSITES[(self.class.restricted? ? 'restricted' : 'public')][self.controller_name]['search_result_view_overrides'] || {}
+    subsite_config['search_result_view_overrides'] || {}
   end
 
   def thumb_url(document={})
