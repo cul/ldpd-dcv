@@ -35,9 +35,6 @@ class SubsitesController < ApplicationController
   # Override to prepend restricted if necessary
   def authorize_action
     action_prefix = controller_path.split('/').join('_')
-    if self.class.restricted?
-      action_prefix = "restricted_#{action_prefix}"
-    end
     action = "#{action_prefix}##{params[:action].to_s}"
     wildcard = "#{action_prefix}#*"
     current_user.role_symbols.concat session.fetch('cul.roles',[]).map(&:to_sym) if current_user
@@ -62,6 +59,7 @@ class SubsitesController < ApplicationController
   def self.subsite_config
     subsite_config = {'nested' => SUBSITES[(self.restricted? ? 'restricted' : 'public')]}
     subsite_path = self.controller_path.split('/')
+    subsite_path.shift if self.restricted?
     until subsite_path.empty?
       subsite_config = subsite_config.fetch('nested',{}).fetch(subsite_path.shift,{})
     end
@@ -159,7 +157,11 @@ class SubsitesController < ApplicationController
   end
 
   def subsite_key
-    return (self.class.restricted? ? 'restricted_' : '') + self.controller_path
+    if self.controller_path.present? 
+      self.controller_path.split('/').join('_')
+    else
+      self.class.restricted? ? "restricted_#{self.controller_name}" : self.controller_name
+    end
   end
 
   def subsite_layout
