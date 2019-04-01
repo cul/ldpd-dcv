@@ -79,6 +79,16 @@ Dcv::Application.routes.draw do
   subsite_keys = (SUBSITES['public'].keys - ['uri']).map(&:to_sym)
   blacklight_for *subsite_keys # Using * operator to turn the array of values into a set of arguments for the blacklight_for method
   subsite_for *subsite_keys
+  (SUBSITES['public'].keys - ['uri']).each do |subsite_key|
+    subsite_config = SUBSITES['public'][subsite_key]
+    if subsite_config['nested'].present?
+      namespace subsite_key do
+        nested_keys = subsite_config['nested'].keys.map(&:to_sym)
+        blacklight_for *nested_keys
+        subsite_for *nested_keys
+      end
+    end
+  end
 
   get '/restricted' => 'home#restricted', as: :restricted
   get '/restricted/projects', to: redirect('/restricted')
