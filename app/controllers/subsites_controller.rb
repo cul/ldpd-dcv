@@ -40,7 +40,6 @@ class SubsitesController < ApplicationController
     end
     action = "#{action_prefix}##{params[:action].to_s}"
     wildcard = "#{action_prefix}#*"
-
     current_user.role_symbols.concat session.fetch('cul.roles',[]).map(&:to_sym) if current_user
     current_user.role_symbols.uniq! if current_user
     proxy = Dcv::Authenticated::AccessControl::RoleAbilityProxy.new(document_id: params[:id],remote_ip: request.remote_ip, user_roles: session['cul.roles'])

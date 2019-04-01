@@ -1,0 +1,59 @@
+<div class="row">
+	<div id="about_the_project" class="col-md-12 hide-xs">
+		<h2 class="h4">Centennial Exhibition</h2>
+		<p>
+	The Carnegie Corporation of New York celebrated its centennial in 2011. From October 2011 through February 2012, the Columbia University Libraries and the Rare Book & Manuscript Library presented an exhibition highlighting the Corporation's extensive records and documenting its role in the history of philanthropy. The exhibition drew on the archives of four philanthropic institutions founded by Andrew Carnegie&mdash;the Carnegie Corporation of New York, Carnegie Endowment for International Peace, Carnegie Foundation for the Advancement of Teaching, and the Carnegie Council for Ethics in International Affairs—and illustrated how he used philanthropy to pursue his twin passions: the love of learning and the quest for world peace.
+		</p>
+	</div>
+	<div id="nav" class="col-md-12">
+		<%= render 'sort_and_per_page' %>
+	</div>
+	<div id="sidebar" class="col-md-3">
+		<%= render 'search_sidebar' %>
+	</div>
+
+	<div id="content" class="col-md-9">
+
+		<div class="inner">
+
+			<h2 class="sr-only top-content-title"><%= t('blacklight.search.search_results_header') %></h2>
+
+			<% @page_title = t('blacklight.search.title', :application_name => application_name) %>
+
+			<% content_for(:head) do -%>
+			<%= render_opensearch_response_metadata %>
+			<%= auto_discovery_link_tag(:rss, url_for(params.merge(:format => 'rss')), :title => t('blacklight.search.rss_feed') ) %>
+			<%= auto_discovery_link_tag(:atom, url_for(params.merge(:format => 'atom')), :title => t('blacklight.search.atom_feed') ) %>
+			<% end -%>
+
+			<%= render 'search_header' %>
+
+			<h2 class="sr-only"><%= t('blacklight.search.search_results') %></h2>
+
+			<div id="search-result-container">
+				<div>
+					<%- if @response.empty? %>
+						<%= render "zero_results" %>
+					<%- else %>
+						<%- if render_grouped_response? %>
+							<%= render_grouped_document_index %>
+						<%- else %>
+							<%= render_document_index %>
+						<%- end %>
+					<%- end %>
+				</div>
+			</div>
+
+			<%= render 'results_pagination' %>
+
+		</div> <!--/.inner-->
+
+		<% if map_search_settings_for_subsite.fetch('sidebar', false) %>
+			<div class="inner visible-sm visible-xs" style="margin-top:1em;">
+				<%= render 'mapped_results_sidebar' %>
+			</div>
+		<% end %>
+
+	</div>
+
+</div>
