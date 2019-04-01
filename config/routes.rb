@@ -76,27 +76,9 @@ Dcv::Application.routes.draw do
 
   resources 'sites', only: [:index, :show], param: :slug
   # Dynamic routes for catalog controller and all subsites
-  subsite_keys = SUBSITES['public'].keys - ['uri']
-  blacklight_for *(subsite_keys.map(&:to_sym)) # Using * operator to turn the array of values into a set of arguments for the blacklight_for method
-
-  subsite_keys.each do |subsite_key, data|
-    resources subsite_key, only: [:show] do
-      collection do
-        put 'publish/:id' => "#{subsite_key}#update"
-        delete 'publish/:id' => "#{subsite_key}#destroy"
-        get 'publish' => "#{subsite_key}#api_info"
-      end
-    end
-    get "#{subsite_key}/previews/:id" => "#{subsite_key}#preview", as: subsite_key + '_preview', constraints: { id: /[^\?]+/ }
-    get "#{subsite_key}/:id/proxies" => "#{subsite_key}#show", as: "#{subsite_key}_root_proxies".to_sym
-    get "#{subsite_key}/:id/proxies/*proxy_id" => "#{subsite_key}#show", as: "#{subsite_key}_proxy".to_sym, constraints: { proxy_id: /[^\?]+/ }
-    get "#{subsite_key}/:id/synchronizer" => "#{subsite_key}#synchronizer", as: "#{subsite_key}_synchronizer".to_sym
-    resources(:solr_document, {only: [:show], path: subsite_key.to_s, controller: subsite_key.to_s, :format => 'html'}) do
-      member do
-        post "track"
-      end
-    end
-  end
+  subsite_keys = (SUBSITES['public'].keys - ['uri']).map(&:to_sym)
+  blacklight_for *subsite_keys # Using * operator to turn the array of values into a set of arguments for the blacklight_for method
+  subsite_for *subsite_keys
 
   get '/restricted' => 'home#restricted', as: :restricted
   get '/restricted/projects', to: redirect('/restricted')
@@ -104,26 +86,9 @@ Dcv::Application.routes.draw do
   if SUBSITES['restricted'].present?
     namespace "restricted" do
       resources 'sites', only: [:index, :show], param: :slug
-      subsite_keys = SUBSITES['restricted'].keys - ['uri']
-      blacklight_for *(subsite_keys.map(&:to_sym)) # Using * operator to turn the array of values into a set of arguments for the blacklight_for method
-      subsite_keys.each do |subsite_key, data|
-        resources subsite_key, only: [:show] do
-          collection do
-            put 'publish/:id' => "#{subsite_key}#update"
-            delete 'publish/:id' => "#{subsite_key}#destroy"
-            get 'publish' => "#{subsite_key}#api_info"
-          end
-        end
-        get "#{subsite_key}/previews/:id" => "#{subsite_key}#preview", as: subsite_key + '_preview', constraints: { id: /[^\?]+/ }
-        get "#{subsite_key}/:id/proxies" => "#{subsite_key}#show", as: "#{subsite_key}_root_proxies".to_sym
-        get "#{subsite_key}/:id/proxies/*proxy_id" => "#{subsite_key}#show", as: "#{subsite_key}_proxy".to_sym, constraints: { proxy_id: /[^\?]+/ }
-        get "#{subsite_key}/:id/synchronizer" => "#{subsite_key}#synchronizer", as: "#{subsite_key}_synchronizer".to_sym
-        resources(:solr_document, {only: [:show], path: subsite_key.to_s, controller: subsite_key.to_s, :format => 'html'}) do
-          member do
-            post "track"
-          end
-        end
-      end
+      subsite_keys = (SUBSITES['restricted'].keys - ['uri']).map(&:to_sym)
+      blacklight_for *subsite_keys # Using * operator to turn the array of values into a set of arguments for the blacklight_for method
+      subsite_for *subsite_keys
     end
   end
 

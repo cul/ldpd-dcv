@@ -6,6 +6,9 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+# require 'dcv/rails/routing_patches'
+require File.expand_path('../../lib/dcv/rails/routing_patches', __FILE__)
+
 module Dcv
   class Application < Rails::Application
     include Cul::Omniauth::FileConfigurable
