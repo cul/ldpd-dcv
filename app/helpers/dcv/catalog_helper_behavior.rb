@@ -235,7 +235,7 @@ module Dcv::CatalogHelperBehavior
           if clio
             bib_id = clio.split('/')[-1]
             fa_url = generate_finding_aid_url(bib_id, document)
-            value << ' ' << link_to("(Finding Aid)", fa_url) if fa_url
+            value = link_to(value, fa_url) if fa_url
           end
         end
         value.html_safe
