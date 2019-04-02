@@ -92,7 +92,7 @@ class Dcv::Configurators::CarnegieBlacklightConfigurator
     config.add_show_field ActiveFedora::SolrService.solr_name('lib_collection', :displayable), label: 'Collection Name', separator: '; ', helper_method: :display_collection_with_links
     config.add_show_field 'archival_context_json_ss', label: 'Archival Context', separator: '; ', helper_method: :display_archival_context, if: :has_archival_context?
     config.add_show_field ActiveFedora::SolrService.solr_name('location_shelf_locator', :displayable, type: :string), label: 'Shelf Location of Original', separator: '; '
-    config.add_show_field ActiveFedora::SolrService.solr_name('subject_topic', :facetable), label: 'Subjects', separator: '; '
+    config.add_show_field ActiveFedora::SolrService.solr_name('lib_all_subjects', :displayable), label: 'Subjects', separator: '; '
     config.add_show_field ActiveFedora::SolrService.solr_name('lib_format', :displayable), label: 'Format', separator: '; '
     config.add_show_field ActiveFedora::SolrService.solr_name('lib_genre', :symbol), label: 'Genre', separator: '; '
     config.add_show_field ActiveFedora::SolrService.solr_name('origin_info_date_created', :displayable), label: 'Origin Information', separator: ', ', helper_method: :display_origin_info, unless: :is_dateless_origin_info?
