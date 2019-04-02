@@ -44,7 +44,7 @@ module Dcv::DcvUrlHelper
       originals = doc['original_name_ssim'] || doc[:original_name_ssim] || []
       return 'content' if originals.detect {|o| keep_originals.detect {|k| k.match(o) } }
       datastreams = doc['datastreams_ssim'] || doc[:datastreams_ssim] || []
-      return (['access','content'] & datastreams).first
+      return (['access','service','content'] & datastreams.map(&:to_s)).first
     end
     return nil
   end
