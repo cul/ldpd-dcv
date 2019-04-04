@@ -227,24 +227,34 @@ a {
 	text-transform: uppercase;
   text-shadow: 0 0 2px $color_10;
 	vertical-align: bottom;
+	.dr-arrow {
+		color: lighten($color_5,20%);
+		margin-left:1em;
+	}
 }
 #site-banner-subtitle {
+	display: block;
 	padding: 0;
 	margin: 0;
 	font-family: $font_0, $font_1, $font_2;
 	font-size: 17px;
 	line-height: 1;
-	color: $color_5;
-	text-align: left;
+	color: lighten($color_5,20%);
+	text-align: center;
 	text-decoration: none;
 	text-transform: uppercase;
+	&:hover {
+		color: $color_anchor;
+	}
 }
 @media(min-width: 768px) {
 	#site-banner {
 		background-position:center center;
 	}
 	#site-banner-subtitle {
+		display: inline-block;
 		font-size: 14px;
+		text-align: left;
 	}
 	#site-title {
 		padding-top: 8px;
@@ -253,6 +263,9 @@ a {
 		//line-height: 2;
 		letter-spacing: 0;
 		text-align:left;
+		.dr-arrow {
+			margin-left:1em;
+		}
 	}
 	#secondary-nav #partner-dropdown {
 		width: 420px;
@@ -298,7 +311,7 @@ a {
 	}
 	#site-banner-subtitle {
 		font-size: 18px;
-		letter-spacing: 1px;
+		//letter-spacing: 1px;
 	}
 	#partner-image-grid a:first-child .lead {
 		top: 15% !important;
