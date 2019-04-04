@@ -94,6 +94,21 @@ $url_0: url(asset_path("carnegie/stripes-white-10.png"));
 body {
 	color: $color_0;
 	background-color: $color_1;
+	&.carnegie_centennial {
+		#site-title {
+		}
+		#about_the_project {
+			.lead {
+				@media(min-width:768px){
+					font-size:18px;
+				}
+				a {
+					white-space: nowrap;
+					font-size: .8em;
+				}
+			}
+		}
+	}
 }
 a {
 	color: $color_anchor;
@@ -228,7 +243,7 @@ a {
   text-shadow: 0 0 2px $color_10;
 	vertical-align: bottom;
 	.dr-arrow {
-		color: lighten($color_5,20%);
+		color: lighten($color_5,35%);
 	}
 }
 #site-banner-subtitle {
@@ -252,7 +267,7 @@ a {
 	}
 	#site-banner-subtitle {
 		display: inline-block;
-		font-size: 14px;
+		//font-size: 14px;
 		text-align: left;
 	}
 	#site-title {
@@ -285,6 +300,9 @@ a {
 	#site-title {
 		padding-top: 1.2rem;
 		font-size: 1.2em;
+	}
+	#site-banner-subtitle {
+		font-size: 14px;
 	}
 }
 @media(min-width: 992px) {
