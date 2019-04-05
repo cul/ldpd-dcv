@@ -16,4 +16,13 @@ module Dcv::BlacklightHelperBehavior
       doc
     end
   end
+
+  # see also Blacklight::BlacklightHelperBehavior#render_document_show_field_value
+  def render_document_dynamic_field_value *args
+    options = args.extract_options!
+    document = args.shift || options[:document]
+
+    field = args.shift || options[:field]
+    presenter(document).render_document_dynamic_field_value field, options
+  end
 end

@@ -14,7 +14,7 @@
 					<% field_clone = field.clone; field_clone.tap { |c| c.field = k } %>
 					<% if should_render_show_field?(document, field_clone) %>
 						<dt class="blacklight-<%= k.parameterize %>"><%= render_generated_field_label document, field_clone %></dt>
-						<dd class="blacklight-<%= k.parameterize %>"><%= render_document_show_field_value document, :field => k %></dd>
+						<dd class="blacklight-<%= k.parameterize %>"><%= render_document_dynamic_field_value document, :field => k, :field_config => field_clone %></dd>
 					<% end %>
 				<% end %>
 			<% elsif should_render_show_field?(document, field) %>
