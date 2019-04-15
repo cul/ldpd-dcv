@@ -292,7 +292,7 @@ module Dcv::CatalogHelperBehavior
     if label.is_a? Symbol
       label = send label, document, field_config
     end
-    label
+    t(:'blacklight.search.show.label', label: label)
   end
 
   def notes_label(document, opts)

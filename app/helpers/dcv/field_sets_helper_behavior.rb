@@ -20,7 +20,7 @@ module Dcv::FieldSetsHelperBehavior
 
     field = options[:field]
 
-    html_escape t(:"blacklight.search.citation.label", default: document_citation_field_label(document, field))
+    html_escape t(:"blacklight.search.citation.label", label: document_citation_field_label(document, field))
   end
 
   # modeled after Blacklight::ConfigurationHelperBehavior#document_show_field_label

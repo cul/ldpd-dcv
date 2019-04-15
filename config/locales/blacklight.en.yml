@@ -8,3 +8,5 @@ en:
         title: 'Showing results for:'
       fields:
         citation: []
+      citation:
+        label: '%{label}:'
