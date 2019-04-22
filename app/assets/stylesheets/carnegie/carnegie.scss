@@ -188,6 +188,9 @@ a {
 			height:60vh;
 			min-height:320px;
 		}
+		@media(min-width: 1200px) {
+			margin:0 -12px 1rem;
+		}
 		.img-responsive {
 			margin:0;
 			width:100vw;
