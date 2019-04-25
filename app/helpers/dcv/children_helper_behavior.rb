@@ -183,6 +183,19 @@ module Dcv::ChildrenHelperBehavior
     end
   end
 
+  def archive_org_identifiers_as_children
+    @archive_org_identifiers ||= begin
+      @document.fetch('archive_org_identifier_ssim',[]).map do |arxv_id|
+        SolrDocument.new({
+          id: arxv_id,
+          dc_type: 'Text',
+          title: arxv_id,
+          'archive_org_identifier_ssi' => arxv_id
+        })
+      end
+    end
+  end
+
   def url_to_proxy(opts)
     method = opts[:proxy_id] ? "#{controller_name}_proxy_url" : "#{controller_name}_url"
     method = "restricted_" + method if controller.restricted?

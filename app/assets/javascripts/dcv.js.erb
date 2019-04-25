@@ -13,6 +13,7 @@
 
 $(document).ready(function(){
   setupChildViewer();
+  setupIAViewer();
   setupDownloadButton();
 
 	$('.mediaelement-player video, video.mediaelement-player, audio.mediaelement-player').each(function(){
@@ -197,6 +198,16 @@ function setupChildViewer() {
 
   //Manually trigger slide load event for carousel so event function runs
   $childCarouselElement.trigger('slid.bs.carousel');
+}
+
+function setupIAViewer() {
+  var $archive_embedElements = $('.archive_embed');
+  if($archive_embedElements.length == 0) { return; }
+  $('#child_gallery a[rel="iframe-link"]').on('click', function(){
+    $('#child_gallery a[rel="iframe-link"].selected').removeClass('selected');
+    $('#child_gallery a[rel="iframe-link"][data-src="' + $(this).attr('data-src') + '"]').addClass('selected');
+    $($archive_embedElements[0]).attr('src',$(this).attr('data-src'));
+  });
 }
 
 function setupDownloadButton() {

@@ -1,11 +1,15 @@
 <div id="child-viewer" class="inner">
   <% parent_title = document['title_ssm'].first.strip %>
+  <%= render partial: 'content_aggregator/button_panel', locals: { document: document, show_downloads: (structured_children.length > 0) } %>
+
+  <h3 id="child-viewer-title"><%= parent_title %></h3>
+  <p id="child-viewer-subtitle">&nbsp;</p>
 
   <% if structured_children.length == 0 %>
-    <h3 id="child-viewer-title"><%= parent_title %></h3>
     <% if (iframe_url = iframe_url_for_document(document)) %>
       <iframe src="<%= iframe_url %>" class="archive_embed" frameborder="0" webkitallowfullscreen="true" mozallowfullscreen="true" allowfullscreen="" sandbox="allow-forms allow-scripts allow-same-origin allow-top-navigation allow-popups"></iframe>
       <%- use_unavailable_image_placeholder = false %>
+      <%= render partial: 'galleries/archive_org', locals: { document: document } %>
     <% end %>
     <% unless defined?(use_unavailable_image_placeholder) && use_unavailable_image_placeholder == false %>
       <div>
@@ -13,12 +17,6 @@
       </div>
     <% end %>
   <% else %>
-
-    <%= render partial: 'content_aggregator/button_panel', locals: { document: document } %>
-
-    <h3 id="child-viewer-title"><%= parent_title %></h3>
-    <p id="child-viewer-subtitle">&nbsp;</p>
-
     <div id="child-viewer-carousel" class="carousel slide" data-ride="carousel">
 
       <!-- Wrapper for slides -->
