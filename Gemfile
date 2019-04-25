@@ -12,7 +12,7 @@ gem 'active-fedora', '>= 7.3.1'
 gem 'rubydora', :git => 'https://github.com/elohanlon/rubydora', branch: 'datastream_dissemination_with_headers'
 
 # Columbia Hydra models
-gem 'cul_hydra', '~> 1.6.2'
+gem 'cul_hydra', '~> 1.6.3'
 #gem 'cul_hydra', :path => '../cul_hydra'
 gem 'cul_omniauth', '~>0.5.2'
 gem 'active-triples', '~> 0.2.2'
@@ -21,7 +21,7 @@ gem 'active-triples', '~> 0.2.2'
 gem 'wowza-secure_token', '0.0.1'
 
 # Use sqlite3 as the database for Active Record
-gem 'sqlite3'
+gem "sqlite3", "~> 1.3.6"
 
 # Use mysql2 gem for mysql connections
 gem 'mysql2', '0.4.10'
