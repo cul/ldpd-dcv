@@ -1,6 +1,6 @@
 <div id="child-viewer" class="inner">
   <% parent_title = document['title_ssm'].first.strip %>
-  <%= render partial: 'content_aggregator/button_panel', locals: { document: document, show_downloads: (structured_children.length > 0) } %>
+  <%= render partial: 'content_aggregator/button_panel', locals: { document: document, local_downloads: (structured_children.length > 0) } %>
 
   <h3 id="child-viewer-title"><%= parent_title %></h3>
   <p id="child-viewer-subtitle">&nbsp;</p>
