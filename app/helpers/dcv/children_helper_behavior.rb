@@ -185,12 +185,12 @@ module Dcv::ChildrenHelperBehavior
 
   def archive_org_identifiers_as_children
     @archive_org_identifiers ||= begin
-      @document.fetch('archive_org_identifier_ssim',[]).map do |arxv_id|
+      JSON.parse(@document.fetch('archive_org_identifiers_json_ss','[]')).map do |arxv_obj|
         SolrDocument.new({
-          id: arxv_id,
+          id: arxv_obj['id'],
           dc_type: 'Text',
-          title: arxv_id,
-          'archive_org_identifier_ssi' => arxv_id
+          title: arxv_obj['displayLabel'] || arxv_obj['id'],
+          'archive_org_identifier_ssi' => arxv_obj['id']
         })
       end
     end
