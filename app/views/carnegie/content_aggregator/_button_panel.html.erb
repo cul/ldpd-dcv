@@ -1,4 +1,4 @@
-<%- show_downloads ||= false -%>
+<%- local_downloads ||= false -%>
 <div class="pull-right btn-group btn-group-xs">
   <%= link_to '<span class="glyphicon glyphicon-open-file"></span>'.html_safe, item_mods_path(:pid => @document.id),
   {
@@ -10,7 +10,7 @@
     :onclick => 'return DCV.ModsDownloadModal.show($(this).attr("data-display-url"), $(this).attr("data-download-url"));'
   }
   %>
-  <% if show_downloads -%>
+  <% if local_downloads -%>
   <a id="child-zoom-modal-button" class="btn btn-default item-cbox" data-original-title="<%= document_show_html_title %>" data-toggle="tooltip" title="Zoom in" href="#"><i class="glyphicon glyphicon-zoom-in"></i></a>
   <a id="child-zoom-new-window-button" class="btn btn-default" href="#" data-original-title="<%= document_show_html_title %>" data-toggle="tooltip" title="Open in new window"><i class="glyphicon glyphicon-new-window"></i></a>
   <div id="download-button-group" class="btn-group btn-group-xs pull-right">
