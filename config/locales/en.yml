@@ -36,4 +36,10 @@ en:
         "NNC-UA": "http://library.columbia.edu/locations/cuarchives.html"
   dlc:
     media_synchronized: "Includes synchronized transcript"
+    search_placeholder:
+      new:
+        default: "Start a new search&hellip;"
+        centennial: "Search within Centennial Exhibition&hellip;"
+      modifed:
+        default: "Modify current search&hellip;"
 

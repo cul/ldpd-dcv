@@ -6,32 +6,23 @@
 
     <div class="input-group">
       <input type="hidden" name="search_field" value="all_text_teim">
-      <%# unless search_fields.empty? %>
-<!--
-      <span class="input-group-addon">
-        <label for="search_field" class="sr-only"><%= t('blacklight.search.form.search_field.label') %></label>
-        <%= select_tag(:search_field, options_for_select(search_fields, h(params[:search_field])), :title => t('blacklight.search.form.search_field.title'), :class=>"search_field") %>
-        <span class="sr-only"><%= t('blacklight.search.form.search_field.post_label') %></span>
-      </span>
--->
-      <%# end %>
-		<div class="input-group-btn">
+      <div class="input-group-btn">
 
-            <button id="format_type_select" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" style="border-color:#ccc;margin-right:-1px;"><span style="font-size:85%;">Formats</span>
-              <span class="caret"></span>
-              <span class="sr-only">Toggle Dropdown</span>
-            </button>
+        <button id="format_type_select" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" style="border-color:#ccc;margin-right:-1px;"><span style="font-size:85%;">Formats</span>
+          <span class="caret"></span>
+          <span class="sr-only">Toggle Dropdown</span>
+        </button>
             <ul id="format_filter" class="dropdown-menu dropdown-menu-left" role="menu" style="padding-left:1em;">
               <li>Limit search to:</li>
               <% durst_format_list.each do | key, display_label | %>
                 <li><input type="checkbox" name="f[lib_format_sim][]" <%= (params[:f] && params[:f]['lib_format_sim'] && params[:f]['lib_format_sim'].include?(key)) ? 'checked="checked"' : '' %> value="<%= key %>"> <%= display_label %></li>
               <% end %>
             </ul>
-		</div>
+    </div>
       <label for="q" class="sr-only"><%= t('blacklight.search.form.q') %></label>
       <%= text_field_tag :q, params[:q], :placeholder => (!query_has_constraints? ? 'Search Postcards, Maps, Photographs, Books, Etc&hellip;'.html_safe : 'Modify current search&hellip;'.html_safe), :class => "search_q q form-control", :id => "q", :tabindex => "1" %>
       <div class="input-group-btn">
-		<%= link_to '<i class="glyphicon glyphicon-remove"></i>'.html_safe, start_over_path, :title => 'Start Over', :class => 'btn btn-default reset-btn' if query_has_constraints? %>
+    <%= link_to '<i class="glyphicon glyphicon-remove"></i>'.html_safe, start_over_path, :title => 'Start Over', :class => 'btn btn-default reset-btn' if query_has_constraints? %>
         <button class="btn btn-primary search-btn" type="submit">
           <span class="hidden-xs"><%= (current_page?(root_url)? t('blacklight.search.form.submit') : '') %></span>
           <span class="glyphicon glyphicon-search"></span>
