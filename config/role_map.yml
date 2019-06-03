@@ -1,6 +1,9 @@
 development:
   archivist:
     - archivist1@example.com
+staging:
+  archivist:
+    - archivist1@example.com
 test:
   archivist:
     - archivist1@example.com
