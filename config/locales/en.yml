@@ -4,11 +4,11 @@
 #
 # To use the locales, use `I18n.t`:
 #
-#     I18n.t 'hello'
+#     I18n.t "hello"
 #
 # In views, this is aliased to just `t`:
 #
-#     <%= t('hello') %>
+#     <%= t("hello") %>
 #
 # To use a different locale, set it with `I18n.locale`:
 #
@@ -23,6 +23,66 @@ en:
   ldpd:
     url:
       repo:
+        "NyNyCAP": "http://library.columbia.edu/locations/avery/art-properties.html"
+        "NNC-A": "http://library.columbia.edu/locations/avery.html"
+        "NNBa": "http://library.barnard.edu/"
+        "NyNyCBL": "http://library.columbia.edu/locations/burke.html"
+        "NyNyCOH": "https://library.columbia.edu/locations/ccoh.html"
+        "NNC-EA": "http://library.columbia.edu/locations/eastasian.html"
+        "NNC-M": "http://library.cumc.columbia.edu/"
+        "NNC-L": "http://www.law.columbia.edu/library/"
+        "NyNyCMA": "http://library.columbia.edu/locations/music.html"
+        "NNC-RB": "http://library.columbia.edu/locations/rbml.html"
+        "NNC-UA": "http://library.columbia.edu/locations/cuarchives.html"
+  cul:
+    archives:
+      facet_value:
+        "NNBa" : "Barnard College Library"
+        "NNC" : "Butler Library"
+        "NNC-A" : "Avery Library"
+        "NNC-ART" : "Office of Art Properties"
+        "NNC-EA" : "East Asian Library"
+        "NNC-L" : "Law Library"
+        "NNC-M" : "Health Sciences Library"
+        "NNC-MUS" : "Music Library"
+        "NNC-RB" : "Rare Book Library"
+        "NNC-UA" : "University Archives"
+        "NyNyCBL" : "Burke Library"
+        "NyNyCOH" : "Oral History"
+        "NyNyCAP" : "Art Properties"
+        "NyNyCMA" : "Music Library"
+        "UkWC-A" : "Royal Archives, Windsor Castle"
+      display_value:
+        "NNBa": "Barnard College Library"
+        "NNC": "Columbia University Libraries"
+        "NNC-A": "Avery Architectural & Fine Arts Library"
+        "NNC-ART": "Office of Art Properties"
+        "NNC-EA": "C.V. Starr East Asian Library"
+        "NNC-L":  "Arthur W. Diamond Law Library"
+        "NNC-M":  "Augustus C. Long Health Sciences Library"
+        "NNC-MUS": "Music Library"
+        "NNC-RB": "Rare Book & Manuscript Library"
+        # display RBML for UA, as that is the archive's location
+        "NNC-UA": "Rare Book & Manuscript Library"
+        "NyNyCBL": "Burke Library at Union Theological Seminary"
+        # display RBML for COH, as that is the archive's location
+        "NyNyCOH": "Rare Book & Manuscript Library"
+        "NyNyCAP": "Art Properties"
+        "NyNyCMA": "Gabe M. Wiener Music & Arts Library"
+        "UkWC-A": "Royal Archives, Windsor Castle"
+      contact_email:
+        "NyNyCAP": "artproperties@library.columbia.edu"
+        "NNC-A": "avery@library.columbia.edu"
+        "NNBa": "archives@barnard.edu"
+        "NyNyCBL": "burke@library.columbia.edu"
+        "NyNyCOH": "oralhist@library.columbia.edu"
+        "NNC-EA": "starr@library.columbia.edu"
+        "NNC-M": "hslarchives@columbia.edu"
+        "NNC-L": ""
+        "NyNyCMA": "music@library.columbia.edu"
+        "NNC-RB": "rbml@library.columbia.edu"
+        "NNC-UA": "rbml@library.columbia.edu"
+      url:
         "NyNyCAP": "http://library.columbia.edu/locations/avery/art-properties.html"
         "NNC-A": "http://library.columbia.edu/locations/avery.html"
         "NNBa": "http://library.barnard.edu/"

@@ -197,7 +197,10 @@ module Dcv::CatalogHelperBehavior
   def display_archival_context(args={})
     json = JSON.load(args.fetch(:value,'{}'))
     contexts = json.select { |ac| ac['dc:coverage']}.map {|ac| ac['dc:coverage'][0]}.compact
+    document = args[:document]
+
     if contexts
+      shelf_locator = field_helper_shelf_locator_value(args)
       contexts.map do |context|
         title = context['dc:title'].dup
         next_context = context['dc:hasPart']
@@ -205,6 +208,7 @@ module Dcv::CatalogHelperBehavior
           title << '. ' << next_context['dc:title']
           next_context = next_context['dc:hasPart']
         end
+        title << '. ' << shelf_locator if shelf_locator && title.present?
         title
       end.join('; ')
     end
@@ -245,21 +249,38 @@ module Dcv::CatalogHelperBehavior
     end
   end
 
+  def field_helper_shelf_locator_value(args = {})
+    document = args[:document]
+    return unless document.present?
+    shelf_locator = document['location_shelf_locator_ssm']
+    shelf_locator.present? ? shelf_locator.first : nil
+  end
+
+  def field_helper_repo_code_value(args = {})
+    document = args[:document]
+    return unless document.present?
+    document['repo_code_lookup'] ||= begin
+      repo_fields = ['lib_repo_full_ssim', 'lib_repo_short_ssim']
+      repo_code = nil
+      repo_fields.detect do |field|
+        unless document[field].blank?
+          codes = code_map_for_repo_field(field)
+          document[field].detect do |repo_value|
+            repo_code = codes[repo_value]
+          end
+        end
+      end
+      repo_code
+    end
+  end
+
   def code_map_for_repo_field(field)
     HashWithIndifferentAccess.new(I18n.t('ldpd.' + field.split('_')[-2] + '.repo').invert)
   end
 
   def generate_finding_aid_url(bib_id, document)
     repo_fields = ['lib_repo_full_ssim', 'lib_repo_short_ssim']
-    repo_code = nil
-    repo_fields.detect do |field|
-      unless document[field].blank?
-        codes = code_map_for_repo_field(field)
-        document[field].detect do |repo_value|
-          repo_code = codes[repo_value]
-        end
-      end
-    end
+    repo_code = field_helper_repo_code_value(document: document)
     if repo_code && bib_id
       "https://findingaids.library.columbia.edu/ead/#{repo_code.downcase}/ldpd_#{bib_id}/summary"
     else

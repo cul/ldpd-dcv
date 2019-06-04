@@ -65,6 +65,18 @@ module ShowFieldDisplayFieldHelper
     end
   end
 
+  def show_repository_location_with_contact(args)
+    repo_code = field_helper_repo_code_value(args)
+    repo_display = t("cul.archives.display_value.#{repo_code}", default: nil)
+    return unless repo_display
+    email_display = t("cul.archives.contact_email.#{repo_code}", default: nil)
+    message = "This item is accessible in the reading room of the #{repo_display}."
+    if email_display
+      message << " Contact #{link_to(email_display, "mailto:#{email_display}")}."
+    end
+    message.html_safe
+  end
+
   def show_date_field(args)
     note_field = ActiveFedora::SolrService.solr_name('lib_date_notes', :displayable, type: :string)
     values = args[:document][args[:field]]
