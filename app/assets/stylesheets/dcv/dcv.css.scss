@@ -1215,6 +1215,15 @@ h2[itemprop="name"] {
 		}
 	}
 }
+#child_items {
+	.inner {
+		.dl-horizontal {
+			dt {
+				text-overflow: clip;
+			}
+		}
+	}
+}
 
 
 /* MediaElement player */
