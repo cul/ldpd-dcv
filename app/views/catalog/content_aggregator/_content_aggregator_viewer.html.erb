@@ -44,6 +44,7 @@
                 <img class="<%= ['StillImage','Text'].include?(child[:dc_type]) ? 'zoomable' : '' %>" src="<%= get_resolved_asset_url(id: child[:id], size: 768, type: 'full', format: 'jpg') %>" />
               <% end %>
             </div>
+            <%= render partial: 'content_aggregator/disclaimer', locals: { document: document, asset: child.with_indifferent_access } %>
           </div>
         <% end %>
       </div>

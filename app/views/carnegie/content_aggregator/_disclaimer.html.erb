@@ -1,0 +1,5 @@
+<% document ||= {} -%>
+<% asset ||= {} -%>
+<% if asset['original_name_ssim'].detect { |name| name =~ /\.pdf$/i } && document['physical_description_digital_origin_ssm'].detect { |val| val.downcase == 'digitized microfilm'} %>
+<div class="child-content text-muted"><em>Documents scanned from microfilm may have variable contrast quality.</em></div>
+<% end -%>
