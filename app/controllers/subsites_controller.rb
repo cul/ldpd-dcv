@@ -187,7 +187,7 @@ class SubsitesController < ApplicationController
   end
 
   def synchronizer
-    render layout: 'empty'
+    render layout: 'minimal'
   end
 
   private
