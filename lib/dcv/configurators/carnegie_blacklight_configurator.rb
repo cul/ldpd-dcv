@@ -110,7 +110,6 @@ class Dcv::Configurators::CarnegieBlacklightConfigurator
     config.add_show_field ActiveFedora::SolrService.solr_name('lib_repo_full', :symbol, type: :string), label: 'Library Location', separator: '; ', helper_method: :show_repository_location_with_contact
     config.add_show_field ActiveFedora::SolrService.solr_name('lib_project_full', :symbol), label: 'Digital Project', separator: '; ', helper_method: :display_as_link_to_home
 
-    config.add_citation_field 'archival_context_json_ss', label: 'Catalog Record', separator: '; ', helper_method: :display_collection_bib_links, if: :has_collection_bib_links?
     config.add_citation_field ActiveFedora::SolrService.solr_name('ezid_doi', :symbol), label: 'Persistent URL', separator: '; ', show: false, helper_method: :display_doi_link
 
     # solr fields to be displayed in the geo/map panels
