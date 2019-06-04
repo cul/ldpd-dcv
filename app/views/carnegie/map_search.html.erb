@@ -1,5 +1,6 @@
 <div id="content">
 	<h6 class="">FIND BY LOCATION</h6>
+	<p>The map primarily represents the geographic locations of Carnegie public and academic libraries and church organ grants.</p>
 	<script>
 		DCV.mapCoordinateSearchUrl = decodeURIComponent('<%= CGI.escape(url_for(params.merge(:action => 'index', :lat => '_lat_', :long => '_long_', :search_field => params[:search_field] || 'all_text_teim', :q => params[:q] || ''))) %>');
 	</script>
