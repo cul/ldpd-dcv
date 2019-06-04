@@ -7,9 +7,9 @@
   </div>
 </div>
 <% elsif document.fetch('dc_type_ssm',[]).first.eql?('Text') %>
-    <object data="<%= bytestream_content_url({catalog_id: document[:id], filename: 'content.pdf', bytestream_id: preferred_content_bytestream(document), download: false}) %>" type="<%= document.fetch('dc_format_ssm',[]).first || 'application/pdf' %>" width="100%" height="1200px">
+    <object data="<%= bytestream_content_url({catalog_id: document[:id], filename: 'content.pdf', bytestream_id: preferred_content_bytestream(document, /\.pdf$/i), download: false}) %>" type="<%= document.fetch('dc_format_ssm',[]).first || 'application/pdf' %>" width="100%" height="1200px">
     <p>Required plugin appears to be missing.</p>
-    <%= link_to '<span class="glyphicon glyphicon-download"></span> Download Original'.html_safe, bytestream_content_url({catalog_id: params[:id], filename: 'content.pdf', bytestream_id: preferred_content_bytestream(document), download: true}), class: 'btn btn-primary btn-sm' %>
+    <%= link_to '<span class="glyphicon glyphicon-download"></span> Download Original'.html_safe, bytestream_content_url({catalog_id: params[:id], filename: 'content.pdf', bytestream_id: preferred_content_bytestream(document, /\.pdf$/i), download: true}), class: 'btn btn-primary btn-sm' %>
     </object>
 <% end %>
 <div id="children-links" style="visibility: hidden;">
