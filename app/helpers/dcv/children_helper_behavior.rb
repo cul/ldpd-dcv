@@ -158,25 +158,31 @@ module Dcv::ChildrenHelperBehavior
       child_ids = children.map {|child| child[:id]}
       child_results = Blacklight.solr.post 'select', :data => {
         :rows => child_ids.length,
-        :fl => ['dc_identifier_ssim', 'dc_type_ssm', 'id', 'datastreams_ssim'],
+        :fl => ['dc_identifier_ssim', 'dc_type_ssm', 'id', 'datastreams_ssim','original_name_ssim'],
         :qt => 'search',
         :fq => [
           "dc_identifier_ssim:\"#{child_ids.join('" OR "')}\"",
         ]
       }
+
       identifiers_to_dc_types = {}
       identifiers_to_pids = {}
+      identifiers_to_original_names = {}
+      identifiers_to_datastreams = {}
       child_results['response']['docs'].each do |doc|
         doc['dc_identifier_ssim'].each do |dc_identifier|
           identifiers_to_dc_types[dc_identifier] = doc['dc_type_ssm'].first
           identifiers_to_pids[dc_identifier] = doc['id']
+          identifiers_to_original_names[dc_identifier] = doc['original_name_ssim']
+          identifiers_to_datastreams[dc_identifier] = doc['datastreams_ssim']
         end
-
       end
 
       children.each do |child|
         child[:dc_type] = identifiers_to_dc_types[child[:id]] if identifiers_to_dc_types.key?(child[:id])
         child[:pid] = identifiers_to_pids[child[:id]] if identifiers_to_pids.key?(child[:id])
+        child[:original_name_ssim] = identifiers_to_original_names[child[:id]]
+        child[:datastreams_ssim] = identifiers_to_datastreams[child[:id]]
       end
 
       children
