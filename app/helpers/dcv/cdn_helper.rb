@@ -58,16 +58,56 @@ module Dcv::CdnHelper
     end
   end
 
-  def thumbnail_url(document, options={})
+  # if archive.org resource, build an appropriate thumb URL, else nil
+  def get_archive_org_poster_url(document)
+    if archive_org_id = archive_org_id_for_document(document)
+      return "https://archive.org/download/#{archive_org_id}/page/cover_medium.jpg"
+    end
+  end
+
+  def get_archive_org_details_url(document)
+    if archive_org_id = archive_org_id_for_document(document)
+      return "https://archive.org/details/#{archive_org_id}"
+    end
+  end
+
+  def get_archive_org_download_url(document)
+    if archive_org_id = archive_org_id_for_document(document)
+      return "https://archive.org/download/#{archive_org_id}/#{archive_org_id}.pdf"
+    end
+  end
+
+  def thumbnail_url(document, options = {})
+    if (url = get_archive_org_thumbnail_url(document))
+      return url
+    end
     schema_image = Array(document[ActiveFedora::SolrService.solr_name('schema_image', :symbol)]).first
 
     id = schema_image ? schema_image.split('/')[-1] : document.id
-    get_archive_org_thumbnail_url(document) || get_asset_url(id: id, size: 256, type: 'featured', format: 'jpg')
+    get_asset_url(id: id, size: 256, type: 'featured', format: 'jpg')
   end
 
-  def thumbnail_for_doc(document, image_options={})
+  def poster_url(item, asset = {}, opts = {})
+    if (url = get_archive_org_poster_url(item))
+      return url
+    end
+    schema_image = Array(item[ActiveFedora::SolrService.solr_name('schema_image', :symbol)]).first
+
+    id = schema_image ? schema_image.split('/')[-1] : item.id
+    opts = { size: 768, type: 'full', format: 'jpg' }.merge(opts)
+    get_resolved_asset_url(opts.merge(id: asset[:id]))
+  end
+
+  def thumbnail_for_doc(document, image_options = {})
     image_tag thumbnail_url(document), image_options
   end
+
+  # return an appropriate details path for the item and asset/child
+  # opts should include a layout name 'layout' and optionally an index 'ix'
+  def zoom_url_for_doc(item, asset = {}, opts = {})
+    iframe_url_for_document(item) || details_path(id: (asset[:dc_type] == 'StillImage' ? item[:id] : asset[:pid]), layout:opts.fetch(:layout, 'dcv'), initial_page: opts.fetch(:initial_page, 0))
+  end
+
 
   def thumbnail_placeholder(document, image_options={})
     image_tag image_url('file-placeholder.png')

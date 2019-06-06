@@ -1,7 +1,7 @@
 <div id="child_gallery" class="row" style="<%= structured_children.length > 1 ? '' : 'display:none;'%>">
-  <div class="<%= (structured_children.length > 4) ? 'child-scroll' : '' %>">
+	<div class="<%= (structured_children.length > 4) ? 'child-scroll' : '' %>">
 		<% structured_children.each_with_index do |child, ix| -%>
-			<div class="col-sm-<%= (structured_children.length <= 2) ? '6' : '3' %>">
+			<div class="col-sm-<%= 12 / [4, structured_children.length].min %>">
 				<article class="child-container">
 					<a rel="item-link" data-child-number="<%= ix %>" class="<%= ix == 0 ? 'selected' : '' %> tocontent post thumbnail document blacklight-photographs">
 						<img src="<%= get_resolved_asset_url(id: child[:id], size: 256, type: 'full', format: 'jpg') %>" alt="<%= child[:title] %>" />
@@ -20,5 +20,5 @@
 				</article>
 			</div>
 	  <% end %>
-  </div>
+	</div>
 </div>

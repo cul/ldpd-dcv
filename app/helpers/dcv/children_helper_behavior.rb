@@ -99,7 +99,14 @@ module Dcv::ChildrenHelperBehavior
           title = node['LABEL']
         end
 
-        {id: node_id, title: title, thumbnail: node_thumbnail, pid: pid, order: node['ORDER'].to_i}
+        {
+          id: node_id,
+          pid: pid,
+          order: node['ORDER'].to_i,
+          title: title,
+          thumbnail: node_thumbnail,
+          active_fedora_model_ssi: 'GenericResource'
+        }
       end
       nodes
   end
@@ -139,7 +146,8 @@ module Dcv::ChildrenHelperBehavior
         order: (order += 1),
         title: proxies[kid['proxy_id']]['label_ssi'] || "Image #{order}",
         thumbnail: get_asset_url(id: kid['id'], size: 256, type: 'full', format: 'jpg'),
-        datastreams_ssim: kid.fetch('datastreams_ssim', [])
+        datastreams_ssim: kid.fetch('datastreams_ssim', []),
+        active_fedora_model_ssi: 'GenericResource'
       }
     end
   end
@@ -191,12 +199,24 @@ module Dcv::ChildrenHelperBehavior
 
   def archive_org_identifiers_as_children
     @archive_org_identifiers ||= begin
-      JSON.parse(@document.fetch('archive_org_identifiers_json_ss','[]')).map do |arxv_obj|
+      order = 0
+      kids = JSON.parse(@document.fetch('archive_org_identifiers_json_ss','[]'))
+      if kids.blank? && @document['archive_org_identifier_ssi']
+        kids << {
+          'id' => @document['archive_org_identifier_ssi'],
+          'displayLabel' => @document['title_display_ssm'].first
+        }
+      end
+      kids.map do |arxv_obj|
         SolrDocument.new({
           id: arxv_obj['id'],
           dc_type: 'Text',
+          order: (order += 1),
           title: arxv_obj['displayLabel'] || arxv_obj['id'],
-          'archive_org_identifier_ssi' => arxv_obj['id']
+          thumbnail: thumbnail_url('archive_org_identifier_ssi' => arxv_obj['id']),
+          datastreams_ssim: [],
+          active_fedora_model_ssi: 'ArchiveOrg',
+          archive_org_identifier_ssi: arxv_obj['id']
         })
       end
     end

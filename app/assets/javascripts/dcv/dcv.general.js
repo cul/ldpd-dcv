@@ -204,7 +204,9 @@ DCV.ZoomingImageModal.openInNewWindow = function() {
 
 DCV.ZoomingImageModal.getCurrentZoomUrl = function() {
   var currentChild = $('#favorite-child img');
-  return currentChild.attr('data-zoom-url') + '?initial_page=' + currentChild.attr('data-sequence');
+  var url = new URL(currentChild.attr('data-zoom-url'));
+  url.searchParams.append('initial_page', currentChild.attr('data-sequence'))
+  return url.toString();
 }
 
 /***********

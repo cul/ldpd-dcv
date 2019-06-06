@@ -13,7 +13,6 @@
 
 $(document).ready(function(){
   setupChildViewer();
-  setupIAViewer();
   setupDownloadButton();
 
 	$('.mediaelement-player video, video.mediaelement-player, audio.mediaelement-player').each(function(){
@@ -200,16 +199,6 @@ function setupChildViewer() {
   $childCarouselElement.trigger('slid.bs.carousel');
 }
 
-function setupIAViewer() {
-  var $archive_embedElements = $('.archive_embed');
-  if($archive_embedElements.length == 0) { return; }
-  $('#child_gallery a[rel="iframe-link"]').on('click', function(){
-    $('#child_gallery a[rel="iframe-link"].selected').removeClass('selected');
-    $('#child_gallery a[rel="iframe-link"][data-src="' + $(this).attr('data-src') + '"]').addClass('selected');
-    $($archive_embedElements[0]).attr('src',$(this).attr('data-src'));
-  });
-}
-
 function setupDownloadButton() {
   if($('#download-button').length > 0) {
     //Set up download button
@@ -218,7 +207,7 @@ function setupDownloadButton() {
       //If data-download-content-url is present, that means that we're offering a file download INSTEAD OF different image sizes
 
       if(typeof($(this).attr('data-download-content-url')) != 'undefined' && $(this).attr('data-download-content-url').length > 0) {
-        $('#downloads-list').html('<li><a href="' + $(this).attr('data-download-content-url') + '"><span class="glyphicon glyphicon-download"></span> Download File</a></li>');
+        $('#downloads-list').html('<li><a href="' + $(this).attr('data-download-content-url') + '" target="_new"><span class="glyphicon glyphicon-download"></span> Download File</a></li>');
       } else {
         $('#downloads-list').html('<li>Loading...</li>');
         var iiifImageInfoUrl = $(this).attr('data-iiif-info-url');

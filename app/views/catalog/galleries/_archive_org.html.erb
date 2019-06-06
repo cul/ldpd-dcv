@@ -3,13 +3,12 @@
 		<% archive_org_identifiers_as_children.each_with_index do |child, ix| -%>
 			<div class="col-sm-<%= 12 / [4, archive_org_identifiers_as_children.length].min %>">
 				<article class="child-container">
-					<a rel="iframe-link" data-child-number="<%= ix %>"  data-src="<%= iframe_url_for_document(child) %>"
-						class="<%= ix == 0 ? 'selected' : '' %> tocontent post thumbnail document blacklight-photographs">
+					<a rel="item-link" data-child-number="<%= ix %>" class="<%= ix == 0 ? 'selected' : '' %> tocontent post thumbnail document blacklight-photographs">
 					<%= render_thumbnail_tag(child, {class: 'img-square', itemprop: 'thumbnailUrl', alt: child[:title]}, false) %>
 					</a>
 					<div class="caption aligncenter">
 						<div class="documentHeader">
-							<a rel="iframe-link" data-src="<%= iframe_url_for_document(child) %>" data-id="<%=child[:id]%>"><i class="icon-zoom-in"></i></a>
+							<a rel="item-link" data-src="<%= zoom_url_for_doc(child) %>" data-id="<%=child[:id]%>"><i class="icon-zoom-in"></i></a>
 							<div class="index_title">
 								<%= document['title_display_ssm'].present? && child[:title] == document['title_display_ssm'].first ? '&nbsp;'.html_safe : child[:title] %>
 							</div>

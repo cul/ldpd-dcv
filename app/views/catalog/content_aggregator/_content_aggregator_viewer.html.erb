@@ -5,63 +5,9 @@
   <h3 id="child-viewer-title"><%= parent_title %></h3>
   <p id="child-viewer-subtitle">&nbsp;</p>
 
-  <% if structured_children.length == 0 %>
-    <% if (iframe_url = iframe_url_for_document(document)) %>
-      <iframe src="<%= iframe_url %>" class="archive_embed" frameborder="0" webkitallowfullscreen="true" mozallowfullscreen="true" allowfullscreen="" sandbox="allow-forms allow-scripts allow-same-origin allow-top-navigation allow-popups"></iframe>
-      <%- use_unavailable_image_placeholder = false %>
-      <%= render partial: 'galleries/archive_org', locals: { document: document } %>
-    <% end %>
-    <% unless defined?(use_unavailable_image_placeholder) && use_unavailable_image_placeholder == false %>
-      <div>
-        <img id="image-unavailable-img" class="img-responsive" src="<%= get_asset_url(id: 'placeholder:unavailable', size: 256, type: 'full', format: 'jpg') %>" />
-      </div>
-    <% end %>
+  <% if (structured_children.length == 0) && iframe_url_for_document(document) %>
+    <%= render partial: 'content_aggregator/carousel/archive_org', locals: { document: document, local_downloads: (structured_children.length > 0), structured_children: structured_children, parent_title: parent_title } %>
   <% else %>
-    <div id="child-viewer-carousel" class="carousel slide" data-ride="carousel">
-
-      <!-- Wrapper for slides -->
-      <div class="carousel-inner" role="listbox">
-        <% structured_children.each_with_index do |child, ix| %>
-          <% next if child[:pid].blank? # Skip rendering of unpublished children %>
-          <% child_title = child[:title].present? ? child[:title].strip : '' %>
-          <% item_in_context_url = document.self_and_child_pids_to_item_in_context_urls.key?(child[:id]) ? document.self_and_child_pids_to_item_in_context_urls[child[:id]] : document.item_in_context_url %>
-          <div class="item <%= ix == 0 ? 'active' : '' %>"
-            data-child-number="<%= ix %>"
-            data-child-title="<%= child_title == parent_title || child_title.blank? ? '&nbsp'.html_safe : h(child_title) %>"
-            data-has-details="<%= ['StillImage','Text'].include? child[:dc_type] %>"
-            data-has-iiif="<%= child[:dc_type] == 'StillImage' %>"
-            data-zoom-url="<%= details_path(id: (child[:dc_type] == 'StillImage' ? document[:id] : child[:pid]), layout:(request.path.split('/')[1]), initial_page: ix) %>"
-            data-iiif-info-url="<%= get_resolved_asset_info_url(id: child[:id], image_format: 'jpg') %>"
-            data-object-in-context-url="<%= h(item_in_context_url) %>"
-            data-download-content-url="<%= child[:dc_type] == 'StillImage' ? '' : bytestream_content_url({catalog_id: child[:pid], filename: child[:label_ssi], bytestream_id: preferred_content_bytestream(child, /\.pdf$/i), download: true}) %>"
-            >
-            <div class="child-content">
-              <% dc_type_string = child[:dc_type].present? ? child[:dc_type].underscore.gsub(/\s+/, '_') : '' %>
-              <% if ['sound', 'moving_image', 'software'].include?(dc_type_string) %>
-                <%= render partial: "catalog/content_aggregator/child_viewer/#{dc_type_string}", locals: { child: child } %>
-              <% else %>
-                <% # Render image (or placeholder) %>
-                <img class="<%= ['StillImage','Text'].include?(child[:dc_type]) ? 'zoomable' : '' %>" src="<%= get_resolved_asset_url(id: child[:id], size: 768, type: 'full', format: 'jpg') %>" />
-              <% end %>
-            </div>
-            <%= render partial: 'content_aggregator/disclaimer', locals: { document: document, asset: child.with_indifferent_access } %>
-          </div>
-        <% end %>
-      </div>
-
-      <!-- Controls -->
-      <a class="left carousel-control" href="#child-viewer-carousel" role="button" data-slide="prev">
-        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-      </a>
-      <a class="right carousel-control" href="#child-viewer-carousel" role="button" data-slide="next">
-        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-      </a>
-    </div>
-
-    <p class="aligncenter"> <a id="child-viewer-object-in-context" target="_blank">&nbsp;</a></p>
-
-    <%= render_document_partials document, ['gallery'] %>
+    <%= render partial: 'content_aggregator/carousel/structured_children', locals: { document: document, local_downloads: (structured_children.length > 0), structured_children: structured_children, parent_title: parent_title } %>
   <% end %>
 </div>
