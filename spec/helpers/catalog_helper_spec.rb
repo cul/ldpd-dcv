@@ -111,7 +111,7 @@ describe CatalogHelper, :type => :helper do
           'lib_non_item_in_context_url_ssm' => ['https://archive.org/details/sluggo'],
         }
       end
-      it { is_expected.to match(/sluggo\?ui=embed$/) }
+      it { is_expected.to match(/sluggo\?ui=(full|embed)/) }
     end
     context 'with a non-site result' do
       let(:document) do

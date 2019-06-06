@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<foxml:digitalObject VERSION="1.1" PID="<%= pid %>"
+xmlns:foxml="info:fedora/fedora-system:def/foxml#"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="info:fedora/fedora-system:def/foxml# http://www.fedora.info/definitions/1/0/foxml1-1.xsd">
+<foxml:objectProperties>
+<foxml:property NAME="info:fedora/fedora-system:def/model#state" VALUE="Active"/>
+<foxml:property NAME="info:fedora/fedora-system:def/model#label" VALUE="<%= relative_original_path %>"/>
+<foxml:property NAME="info:fedora/fedora-system:def/model#ownerId" VALUE="fedoraAdmin"/>
+</foxml:objectProperties>
+<foxml:datastream ID="AUDIT" STATE="A" CONTROL_GROUP="X" VERSIONABLE="false">
+<foxml:datastreamVersion ID="AUDIT.0" LABEL="Audit Trail for this object" MIMETYPE="text/xml" FORMAT_URI="info:fedora/fedora-system:format/xml.fedora.audit">
+<foxml:xmlContent>
+<audit:auditTrail xmlns:audit="info:fedora/fedora-system:def/audit#">
+</audit:auditTrail>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+<foxml:datastream ID="DC" STATE="A" CONTROL_GROUP="X" VERSIONABLE="true">
+<foxml:datastreamVersion ID="DC.0" LABEL="Dublin Core Record for this object" MIMETYPE="text/xml" FORMAT_URI="http://www.openarchives.org/OAI/2.0/oai_dc/">
+<foxml:xmlContent>
+<oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+  <dc:title><%= relative_original_path %></dc:title>
+  <dc:type><%= dc_type %></dc:type>
+  <dc:format><%= original_mime_type %></dc:format>
+  <dc:identifier><%= pid %></dc:identifier>
+  <dc:identifier><%= dc_identifier %></dc:identifier>
+  <dc:source><%= original_path %></dc:source>
+</oai_dc:dc>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+<foxml:datastream ID="RELS-EXT" STATE="A" CONTROL_GROUP="X" VERSIONABLE="true">
+<foxml:datastreamVersion ID="RELS-EXT.0" LABEL="Fedora Object-to-Object Relationship Metadata" MIMETYPE="application/rdf+xml">
+<foxml:xmlContent>
+<rdf:RDF xmlns:ns0="info:fedora/fedora-system:def/model#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<rdf:Description rdf:about="info:fedora/<%= pid %>">
+  <memberOf xmlns="http://purl.oclc.org/NET/CUL/" rdf:resource="info:fedora/ldpd:550802"></memberOf>
+  <memberOf xmlns="http://purl.oclc.org/NET/CUL/" rdf:resource="info:fedora/ldpd:550803"></memberOf>
+  <memberOf xmlns="http://purl.oclc.org/NET/CUL/" rdf:resource="info:fedora/ldpd:570410"></memberOf>
+  <contributor xmlns="http://purl.org/dc/terms/">Secretariat</contributor>
+  <publisher xmlns="http://purl.org/dc/terms/" rdf:resource="info:fedora/cul:9p8cz8w9q9"></publisher>
+  <publisher xmlns="http://purl.org/dc/terms/" rdf:resource="info:fedora/cul:rfj6q573w6"></publisher>
+  <publisher xmlns="http://purl.org/dc/terms/" rdf:resource="info:fedora/cul:xwdbrv15p4"></publisher>
+  <hasOriginalName xmlns="http://www.loc.gov/premis/rdf/v1#"><% relative_original_path %></hasOriginalName>
+  <isConstituentOf xmlns="info:fedora/fedora-system:def/relations-external#" rdf:resource="info:fedora/cul:7d7wm37q33"></isConstituentOf>
+  <hasModel xmlns="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/ldpd:GenericResource"></hasModel>
+</rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+<foxml:datastream ID="RELS-INT" STATE="A" CONTROL_GROUP="M" VERSIONABLE="true">
+<foxml:datastreamVersion ID="RELS-INT.0" LABEL="Fedora Object-to-Object Relationship Metadata" MIMETYPE="application/rdf+xml">
+<foxml:xmlContent>
+<rdf:RDF xmlns:ns0="info:fedora/fedora-system:def/model#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<rdf:Description rdf:about="info:fedora/<%= pid %>/content">
+    <rdf:type rdf:resource="http://pcdm.org/use#OriginalFile" />
+</rdf:Description>
+<rdf:Description rdf:about="info:fedora/<%= pid %>/service">
+    <format xmlns="http://purl.org/dc/terms/"><%= access_mime_type %></format>
+    <isFormatOf  xmlns="http://purl.org/dc/terms/" rdf:resource="info:fedora/<%= pid %>/content"/>
+    <rdf:type rdf:resource="http://pcdm.org/use#ServiceFile" />
+</rdf:Description>
+</rdf:RDF>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+<foxml:datastream ID="content" STATE="A" CONTROL_GROUP="E" VERSIONABLE="true">
+<foxml:datastreamVersion ID="content.0" LABEL="<%= original_file_name %>" MIMETYPE="<%= original_mime_type %>">
+<foxml:contentLocation TYPE="URL" REF="file:<%= uri_original_path %>"/>
+</foxml:datastreamVersion>
+</foxml:datastream>
+<foxml:datastream ID="service" STATE="A" CONTROL_GROUP="E" VERSIONABLE="true">
+<foxml:datastreamVersion ID="service.0" LABEL="<%= access_file_name %>" MIMETYPE="<%= access_mime_type %>">
+<foxml:contentLocation TYPE="URL" REF="file:<%= uri_access_path %>"/>
+</foxml:datastreamVersion>
+</foxml:datastream>
+</foxml:digitalObject>
