@@ -1,6 +1,17 @@
 module Dcv::ChildrenHelperBehavior
 
   include Dcv::CdnHelper
+  include Dcv::SolrHelper
+
+  CHILDREN_ACCESS = [
+    'access_control_levels_ssim', 'access_control_permissions_bsi',
+    'access_control_embargo_dtsi', 'access_control_locations_ssim',
+    'access_control_affiliations_ssim', 'publisher_ssim'
+  ].freeze
+  CHILDREN_IDS = ['id', 'dc_identifier_ssim', 'identifier_ssim'].freeze
+  CHILDREN_STRUC = (CHILDREN_IDS + CHILDREN_ACCESS + ['dc_type_ssm', 'datastreams_ssim','original_name_ssim']).freeze
+  CHILDREN_MODEL = (CHILDREN_STRUC + ["active_fedora_model_ssi",'rels_int_profile_tesim','rft_id_ss','label_ssi']).freeze
+
 
   # Return the number from the specified field if greater than zero.
   # If the number indicated in the field is zero, attempt to count
@@ -25,7 +36,7 @@ module Dcv::ChildrenHelperBehavior
     children[:page] = opts.fetch(:page, 0).to_i
     offset = children[:per_page] * children[:page]
     rows = children[:per_page]
-    fl = ['id',"active_fedora_model_ssi",'dc_identifier_ssim','dc_type_ssm','identifier_ssim','rels_int_profile_tesim','rft_id_ss','label_ssi','datastreams_ssim']
+    fl = CHILDREN_MODEL.dup
     title_field = nil
     begin
       fl << (title_field = document_show_link_field).to_s
@@ -75,6 +86,10 @@ module Dcv::ChildrenHelperBehavior
       end
     end
     child[:datastreams_ssim] = doc.fetch('datastreams_ssim', [])
+    child[:publisher_ssim] = doc.fetch('publisher_ssim', [])
+    accessControlFields(doc).each do |k, v|
+      child[k.to_sym] = v
+    end
     return child
   end
 
@@ -140,15 +155,13 @@ module Dcv::ChildrenHelperBehavior
     kids.sort_by! {|kid| proxies[kid['proxy_id']]['index_ssi'].to_i}
     order = 0
     kids.map do |kid|
-      {
+      SolrDocument.new kid.merge({
         id: kid['id'],
         pid: kid['id'],
         order: (order += 1),
         title: proxies[kid['proxy_id']]['label_ssi'] || "Image #{order}",
-        thumbnail: get_asset_url(id: kid['id'], size: 256, type: 'full', format: 'jpg'),
-        datastreams_ssim: kid.fetch('datastreams_ssim', []),
-        active_fedora_model_ssi: 'GenericResource'
-      }
+        thumbnail: get_asset_url(id: kid['id'], size: 256, type: 'full', format: 'jpg')
+      })
     end
   end
 
@@ -166,7 +179,7 @@ module Dcv::ChildrenHelperBehavior
       child_ids = children.map {|child| child[:id]}
       child_results = Blacklight.solr.post 'select', :data => {
         :rows => child_ids.length,
-        :fl => ['dc_identifier_ssim', 'dc_type_ssm', 'id', 'datastreams_ssim','original_name_ssim'],
+        :fl => CHILDREN_MODEL.dup,
         :qt => 'search',
         :fq => [
           "dc_identifier_ssim:\"#{child_ids.join('" OR "')}\"",
@@ -177,12 +190,16 @@ module Dcv::ChildrenHelperBehavior
       identifiers_to_pids = {}
       identifiers_to_original_names = {}
       identifiers_to_datastreams = {}
+      identifiers_to_access_control = {}
+      identifiers_to_publishers = {}
       child_results['response']['docs'].each do |doc|
         doc['dc_identifier_ssim'].each do |dc_identifier|
           identifiers_to_dc_types[dc_identifier] = doc['dc_type_ssm'].first
           identifiers_to_pids[dc_identifier] = doc['id']
           identifiers_to_original_names[dc_identifier] = doc['original_name_ssim']
           identifiers_to_datastreams[dc_identifier] = doc['datastreams_ssim']
+          identifiers_to_publishers[dc_identifier] = doc['publisher_ssim']
+          identifiers_to_access_control[dc_identifier] = accessControlFields(doc)
         end
       end
 
@@ -191,10 +208,22 @@ module Dcv::ChildrenHelperBehavior
         child[:pid] = identifiers_to_pids[child[:id]] if identifiers_to_pids.key?(child[:id])
         child[:original_name_ssim] = identifiers_to_original_names[child[:id]]
         child[:datastreams_ssim] = identifiers_to_datastreams[child[:id]]
+        child[:publisher_ssim] = identifiers_to_publishers[child[:id]]
+        identifiers_to_access_control[child[:id]].each do |k, v|
+          child[k.to_sym] = v if v
+        end
       end
 
       children
     end
+  end
+
+  def has_closed_children?
+    structured_children.detect { |child| !can_access_asset?(child) }
+  end
+
+  def has_open_children?
+    structured_children.detect { |child| can_access_asset?(child) }
   end
 
   def archive_org_identifiers_as_children
@@ -216,7 +245,9 @@ module Dcv::ChildrenHelperBehavior
           thumbnail: thumbnail_url('archive_org_identifier_ssi' => arxv_obj['id']),
           datastreams_ssim: [],
           active_fedora_model_ssi: 'ArchiveOrg',
-          archive_org_identifier_ssi: arxv_obj['id']
+          archive_org_identifier_ssi: arxv_obj['id'],
+          access_control_levels_ssim: ['Public Access'],
+          access_control_permissions_bsi: false
         })
       end
     end

@@ -37,6 +37,7 @@ resque.yml
 roles.yml
 secrets.yml
 subsites.yml
+location_uris.yml
 
 # Ignore local task file
 /lib/tasks/local.rake

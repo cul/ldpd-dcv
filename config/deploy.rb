@@ -47,7 +47,8 @@ set :linked_files, fetch(:linked_files, []).push(
   "config/roles.yml",
   "config/solr.yml",
   "config/subsites.yml",
-  "config/wind.yml"
+  "config/wind.yml",
+  "config/location_uris.yml"
 )
 
 namespace :deploy do
