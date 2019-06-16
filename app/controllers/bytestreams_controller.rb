@@ -62,9 +62,13 @@ class BytestreamsController < ApplicationController
       render :status => 404
       return
     end
-    return unless authorize_document
 
-    response.headers["Last-Modified"] = Time.now.httpdate
+    unless can?(Ability::ACCESS_ASSET, @document)
+      render status: (current_user ? :forbidden : :unauthorized), text: (current_user ? 'forbidden' : 'unauthorized')
+      return
+    end 
+
+    response.headers["Last-Modified"] = (DateTime.parse(@document['system_modified_dtsi']) || Time.now).httpdate
 
     ds_parms = {pid: params[:catalog_id], dsid: params[:bytestream_id]}
 

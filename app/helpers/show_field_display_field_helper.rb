@@ -70,7 +70,7 @@ module ShowFieldDisplayFieldHelper
     repo_display = t("cul.archives.display_value.#{repo_code}", default: nil)
     return unless repo_display
     email_display = t("cul.archives.contact_email.#{repo_code}", default: nil)
-    message = "This item is accessible in the reading room of the #{repo_display}."
+    message = "This item is accessible in the reading room of the #{repo_display}. Please make arrangements in advance of your visit."
     if email_display
       message << " Contact #{link_to(email_display, "mailto:#{email_display}")}."
     end

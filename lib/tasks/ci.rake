@@ -195,6 +195,17 @@ namespace :dcv do
       }
       File.open(roles_yml_file, 'w') {|f| f.write roles_yml.to_yaml }
 
+      yml_file = File.join(Rails.root, 'config/location_uris.yml')
+      FileUtils.touch(yml_file) # Create if it doesn't exist
+      stub_yml = YAML.load_file(yml_file) || {
+        '_all_environments' => {
+          'http://id.library.columbia.edu/term/45487bbd-97ef-44b4-9468-dda47594bc60' => {
+            'remote_ip' => ['127.0.0.1']
+          }
+        }
+      }
+      File.open(yml_file, 'w') {|f| f.write stub_yml.to_yaml }
+
       # dcv.yml
       dcv_yml_file = File.join(Rails.root, 'config/dcv.yml')
       FileUtils.touch(dcv_yml_file) # Create if it doesn't exist
