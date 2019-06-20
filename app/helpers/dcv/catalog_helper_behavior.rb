@@ -325,4 +325,18 @@ module Dcv::CatalogHelperBehavior
       "Note (#{type})"
     end
   end
+
+  def is_excepted_dynamic_field?(field_config, document)
+    (field_config.except || []).include? field_config.field
+  end
+
+  def rightsstatements_label(value)
+    Rails.application.config_for(:copyright)[value]
+  end
+
+  def display_as_link_to_rightsstatements(args={})
+    values = Array(args[:value])
+    document = args[:document]
+    values.map { |value| link_to(rightsstatements_label(value), value, target: "_new") }
+  end
 end

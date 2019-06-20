@@ -105,10 +105,12 @@ class Dcv::Configurators::CarnegieBlacklightConfigurator
     config.add_show_field ActiveFedora::SolrService.solr_name('origin_info_place', :displayable), label: 'Origin Information', separator: ', ', helper_method: :display_dateless_origin_info, if: :is_dateless_origin_info?
     config.add_show_field ActiveFedora::SolrService.solr_name('lib_publisher', :displayable), label: 'Publication Information', separator: ', ', helper_method: :display_publication_info, if: :is_publication_info?
     config.add_show_field ActiveFedora::SolrService.solr_name('physical_description_extent', :displayable, type: :string), label: 'Physical Description', separator: '; ', helper_method: :append_digital_origin
-    config.add_show_field 'dynamic_notes', pattern: /lib_.*_notes_ssm/, label: :notes_label, separator: '; ', helper_method: :expandable_past_250
+    config.add_show_field 'dynamic_notes', pattern: /lib_.*_notes_ssm/, label: :notes_label, separator: '; ', helper_method: :expandable_past_250, unless: :is_excepted_dynamic_field?, except: ['lib_acknowledgment_notes_ssm']
     config.add_show_field ActiveFedora::SolrService.solr_name('language_language_term_text', :symbol), label: 'Language', separator: '; '
     config.add_show_field ActiveFedora::SolrService.solr_name('lib_repo_full', :symbol, type: :string), label: 'Library Location', separator: '; '
     config.add_show_field ActiveFedora::SolrService.solr_name('lib_project_full', :symbol), label: 'Digital Project', separator: '; ', helper_method: :display_as_link_to_home
+    config.add_show_field ActiveFedora::SolrService.solr_name('lib_acknowledgment_notes', :displayable), label: 'Acknowledgments', separator: '; '
+    config.add_show_field 'copyright_statement_ssi', label: 'Copyright Status', separator: '; ', helper_method: :display_as_link_to_rightsstatements
 
     config.add_citation_field ActiveFedora::SolrService.solr_name('ezid_doi', :symbol), label: 'Persistent URL', separator: '; ', show: false, helper_method: :display_doi_link
 
