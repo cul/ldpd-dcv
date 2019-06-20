@@ -1,1 +1,3 @@
-<%- # intentionally left blank -%>
+<% if has_closed_children? %>
+<div class="child-content text-muted"><%= show_repository_location_with_contact(document: document, field: ActiveFedora::SolrService.solr_name('lib_repo_full', :symbol, type: :string)).replace("This item is accessible", "Additional content may be accessible").html_safe %></div>
+<% end -%>
