@@ -25,6 +25,11 @@ class BytestreamsController < ApplicationController
     config.index.title_field = solr_name('title_display', :displayable, type: :string)
   end
 
+  # overrides the session role key from Cul::Omniauth::RemoteIpAbility
+  def current_ability
+    @current_ability ||= Ability.new(current_user, roles: session["cul.roles"], remote_ip:request.remote_ip)
+  end
+
   def get_solr_response_for_app_id(id=nil, extra_controller_params={})
     id ||= params[:id]
     id.gsub!(/\:/,'\:')
