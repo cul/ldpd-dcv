@@ -195,23 +195,14 @@ module Dcv::CatalogHelperBehavior
   end
 
   def display_archival_context(args={})
-    json = JSON.load(args.fetch(:value,'{}'))
-    contexts = json.select { |ac| ac['dc:coverage']}.map {|ac| ac['dc:coverage'][0]}.compact
-    document = args[:document]
+    contexts = JSON.load(args.fetch(:value,'[]')).map { |json| ArchivalContext.new(json) }
 
-    if contexts
-      shelf_locator = field_helper_shelf_locator_value(args)
-      contexts.map do |context|
-        title = context['dc:title'].dup
-        next_context = context['dc:hasPart']
-        while next_context
-          title << '. ' << next_context['dc:title']
-          next_context = next_context['dc:hasPart']
-        end
-        title << '. ' << shelf_locator if shelf_locator && title.present?
-        title
-      end.join('; ')
-    end
+    shelf_locator = field_helper_shelf_locator_value(args)
+    contexts.map do |context|
+      title = context.titles(link: args.fetch(:link, true)).first
+      title << '. ' << shelf_locator if shelf_locator && title.present?
+      title
+    end.join('; ').html_safe
   end
 
   def display_composite_archival_context(args={})
@@ -221,7 +212,8 @@ module Dcv::CatalogHelperBehavior
     if has_archival_context?(context_field, document)
       values = values.map do |value|
         value << '. '
-        value << display_archival_context(args.merge(field: context_field.field, value: document[context_field.field]))
+        value << display_archival_context(args.merge(field: context_field.field, value: document[context_field.field], link: false))
+        value
       end
     end
     args[:value].is_a?(Array) ? values : values[0]
