@@ -12,7 +12,9 @@
 							<div class="index_title">
 								<%= document['title_display_ssm'].present? && child[:title] == document['title_display_ssm'].first ? '&nbsp;'.html_safe : child[:title] %>
 							</div>
-							<% if has_synchronized_media?(child) -%>
+							<% if !can_access_asset?(child.with_indifferent_access) -%>
+								<div class="index_subtitle">Not available online</div>
+							<% elsif has_synchronized_media?(child) -%>
 								<div class="index_subtitle"><%= t('dlc.media_synchronized') %></div>
 							<% end -%>
 						</div>
