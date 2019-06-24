@@ -38,7 +38,7 @@ class Ability
           end
         end
         # if it is published to a site where the current user has explicit remote permissions
-        if !result
+        if !result && doc['publisher_ssim'].present?
           doc['publisher_ssim'].each do |fedora_uri|
             subsite_config = SubsiteConfig.for_fedora_uri(fedora_uri)
             result ||= (subsite_config.fetch(:remote_ids, []).include?(user.uid)) if user
