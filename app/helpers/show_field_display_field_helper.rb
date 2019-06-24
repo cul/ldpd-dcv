@@ -65,9 +65,22 @@ module ShowFieldDisplayFieldHelper
     end
   end
 
+  def show_translated_repository_label(args)
+    values = args[:document][args[:field]]
+    repo_codes = args[:document]['lib_repo_code_ssim']
+    if repo_codes
+      values = repo_codes.map { |repo_code| t("cul.archives.display_value.#{repo_code}", default: repo_code) }
+    end
+    field_config = (controller.action_name.to_sym == :index) ?
+      blacklight_config.index_fields[args[:field]] :
+      blacklight_config.show_fields[args[:field]]
+    separator = field_config[:separator] || '; '
+    Array(values).compact.join(separator)
+  end
+
   def show_repository_location_with_contact(args)
     repo_code = field_helper_repo_code_value(args)
-    repo_display = t("cul.archives.display_value.#{repo_code}", default: nil)
+    repo_display = t("cul.archives.physical_location.#{repo_code}", default: nil)
     return unless repo_display
     email_display = t("cul.archives.contact_email.#{repo_code}", default: nil)
     message = "This item is accessible in the reading room of the #{repo_display}. Please make arrangements in advance of your visit."
