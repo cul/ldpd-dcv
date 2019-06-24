@@ -177,6 +177,8 @@ class SubsitesController < ApplicationController
   end
 
   def synchronizer
+    @response, @document = get_solr_response_for_doc_id(params[:id], fl:'*')
+    return unless authorize_document
     render layout: 'minimal'
   end
 

@@ -1,0 +1,5 @@
+<dl class="dl-horizontal">
+<% interview_metadata_for_asset.each do |label, values| %>
+  <dt style="width:100px;"><%= label %>:</dt><dd style="margin-left:120px;"><%= Array.wrap(values).join('; ') %></dd>
+<% end -%>
+</dl>

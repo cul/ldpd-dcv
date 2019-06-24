@@ -928,7 +928,7 @@ OHSynchronizer.Index.prototype.fileReader = function(file, ext) {
 			var k = 0;
 			for (k; k < text.length; k++) {
 				if (OHSynchronizer.Import.timecodeRegEx.test(text[k])) { break; }
-
+                if ($('#interview-metadata').attr('data-assigned') == 'true') { continue; }
 				// First we pull out the interview-level metadata
 				if (/(Title:)+/.test(text[k])) {
 					// Save the interview title

@@ -331,4 +331,14 @@ module Dcv::CatalogHelperBehavior
     document = args[:document]
     values.map { |value| link_to(rightsstatements_label(value), value, target: "_new") }
   end
+  def interview_metadata_for_asset(document = @document)
+    published = parents(document).detect do |parent|
+      parent['dc_type_ssm'].include?('InteractiveResource') && parent['ezid_doi_ssim'].present?
+    end
+    {
+      'Title' => published['title_display_ssm'].first,
+      'Date' => published['lib_date_textual_ssm'].first,
+      'Identifier' => published['ezid_doi_ssim'].first
+    }.compact
+  end
 end
