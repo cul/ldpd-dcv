@@ -576,6 +576,11 @@ a {
 			.index_subtitle {
 				color: $color_anchor;
 			}
+			.index_alert {
+				color: $color_0;
+				font-weight: bolder;
+				font-style: italic;
+			}
 			@media(min-width: 768px) {
 				.child-scroll {
 					display: flex;
