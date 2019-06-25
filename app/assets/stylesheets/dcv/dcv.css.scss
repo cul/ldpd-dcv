@@ -835,6 +835,11 @@ h2[itemprop="name"] {
 			max-width: 99%;
 		}
 	}
+	.index_alert {
+		color: $color_0;
+		font-weight: bolder;
+		font-style: italic;
+	}
 	a.document.selected {
 		border-color: $color_36;
 		box-shadow: 0 0 3px $color_9;
