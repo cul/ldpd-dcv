@@ -2,10 +2,10 @@
 poster_url = Dcv::Utils::CdnUtils.random_cdn_url + '/iiif/2/cul:2rbnzs7hj2/full/!512,512/0/native.jpg'
 if DCV_CONFIG.fetch('media_streaming', {})['wowza'].present?
   media_url = wowza_media_token_url(child)
-  player_src = render_media_element_streaming_player(media_url, poster_url, 1024, 500)
+  player_src = render_media_element_streaming_audio_player(media_url, nil, 1024, 500)
 else
   media_url = bytestream_content_path(catalog_id: child[:pid], bytestream_id: 'access')
-  player_src = render_media_element_progressive_download_video_player(media_url, poster_url, 1024, 500)
+  player_src = render_media_element_progressive_download_audio_player(media_url)
 end
 %>
 

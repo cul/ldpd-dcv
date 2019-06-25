@@ -1,1 +1,9 @@
-<%= render_media_element_streaming_audio_player(wowza_project, media_path, poster_path) %>
+<%
+if DCV_CONFIG.fetch('media_streaming', {})['wowza'].present?
+  media_url = wowza_media_token_url(child)
+  player_src = render_media_element_streaming_audio_player(media_url, nil)
+else
+  media_url = bytestream_content_path(catalog_id: child[:pid], bytestream_id: 'access')
+  player_src = render_media_element_progressive_download_audio_player(media_url)
+end
+%><%= player_src %>

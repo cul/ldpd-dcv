@@ -15,7 +15,7 @@ $(document).ready(function(){
   setupChildViewer();
   setupDownloadButton();
 
-	$('.mediaelement-player video, video.mediaelement-player, audio.mediaelement-player').each(function(){
+	$('.mediaelement-player video, .mediaelement-player audio, video.mediaelement-player, audio.mediaelement-player').each(function(){
 		$(this).mediaelementplayer({
       pluginPath: '/mediaelement/',
       proxyType: 'best',
