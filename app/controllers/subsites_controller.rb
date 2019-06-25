@@ -143,7 +143,7 @@ class SubsitesController < ApplicationController
     @response, @document = get_solr_response_for_doc_id(params[:id], fl:'*')
     return unless authorize_document
 
-    render layout: 'preview'
+    render layout: 'preview', locals: { document: @document }
   end
 
   def subsite_key
