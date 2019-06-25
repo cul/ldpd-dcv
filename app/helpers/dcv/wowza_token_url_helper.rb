@@ -1,5 +1,8 @@
 module Dcv::WowzaTokenUrlHelper
-  def wowza_media_token_url(asset_pid)
+  def wowza_media_token_url(asset_doc)
+    asset_doc = SolrDocument.new(asset_doc) unless asset_doc.is_a? SolrDocument
+    return unless can_access_asset?(asset_doc)
+    asset_pid = asset_doc[:pid] || asset_doc[:id]
     wowza_config = DCV_CONFIG['media_streaming']['wowza']
     ds = Cul::Hydra::Fedora.ds_for_opts({pid: asset_pid, dsid: 'access'})
     access_copy_location = ds.present? ? Addressable::URI.unencode(ds.dsLocation).gsub(/^file:/, '') : ''
