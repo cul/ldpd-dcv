@@ -4,7 +4,7 @@
   <div class="carousel-inner" role="listbox">
     <% structured_children.each_with_index do |child, ix| %>
       <% next if child[:pid].blank? # Skip rendering of unpublished children %>
-      <% next unless can_access_asset?(child.with_indifferent_access) # Skip rendering of unavailable children %>
+      <% can_access = can_access_asset?(child.with_indifferent_access) # Skip rendering of unavailable children %>
       <% child_title = child[:title].present? ? child[:title].strip : '' %>
       <% item_in_context_url = document.self_and_child_pids_to_item_in_context_urls.key?(child[:id]) ? document.self_and_child_pids_to_item_in_context_urls[child[:id]] : document.item_in_context_url %>
       <div class="item <%= ix == 0 ? 'active' : '' %>"
@@ -19,11 +19,11 @@
         >
         <div class="child-content">
           <% dc_type_string = child[:dc_type].present? ? child[:dc_type].underscore.gsub(/\s+/, '_') : '' %>
-          <% if ['sound', 'moving_image', 'software'].include?(dc_type_string) %>
+          <% if can_access && ['sound', 'moving_image', 'software'].include?(dc_type_string) %>
             <%= render partial: "catalog/content_aggregator/child_viewer/#{dc_type_string}", locals: { child: child } %>
           <% else %>
             <% # Render image (or placeholder) %>
-            <img class="<%= ['StillImage','Text'].include?(child[:dc_type]) ? 'zoomable' : '' %>" src="<%= poster_url(document, child) %>" />
+            <img class="<%= (can_access && ['StillImage','Text'].include?(child[:dc_type])) ? 'zoomable' : '' %>" src="<%= poster_url(document, child) %>" />
           <% end %>
         </div>
         <%= render partial: 'content_aggregator/disclaimer', locals: { document: document, asset: child.with_indifferent_access } %>
