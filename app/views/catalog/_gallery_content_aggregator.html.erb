@@ -4,7 +4,7 @@
 			<% can_access = can_access_asset?(child.with_indifferent_access) -%>
 			<div class="col-sm-<%= 12 / [4, structured_children.length].min %>">
 				<article class="child-container">
-					<a rel="<%= can_access ? 'item-link' : 'item-nolink' %>" data-child-number="<%= ix %>" class="<%= ix == 0 ? 'selected' : '' %> tocontent post thumbnail document blacklight-photographs">
+					<a rel="<%= can_access ? 'item-link' : 'item-nolink' %>" data-child-number="<%= ix %>" class="<%= ix == 0 ? 'selected' : '' %> <%= can_access ? 'tocontent' : '' %> post thumbnail document blacklight-photographs">
 						<img src="<%= get_resolved_asset_url(id: child[:id], size: 256, type: 'full', format: 'jpg') %>" alt="<%= child[:title] %>" />
 					</a>
 					<div class="caption aligncenter">
