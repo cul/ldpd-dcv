@@ -1,13 +1,6 @@
 <div class="row" id="child_items">
-<%- classes = has_geo?(document) ? "col-md-9 ls-controls-dark col-md-push-3" : "col-md-12 ls-controls-dark" -%>
-	<div class="<%= classes %>">
+	<div class="col-md-12 ls-controls-dark">
 		<%= render partial: 'content_aggregator/content_aggregator_viewer', locals: { document: document, configured_links: [:persistent, :mods] } %>
 		<%= render partial: 'catalog/sidebar_panels/item_description', locals: { document: document, alignment: 'horizontal', link_helpers: [] } %>
 	</div>
-<%- if has_geo?(document) -%>
-	<div id="item-description" class="col-md-3 col-md-pull-9">
-		<%= render(partial: 'catalog/sidebar_panels/item_map', locals: { document: document }) if has_geo?(document, true) %>
-		<%= render(partial: 'catalog/sidebar_panels/location_data', locals: { document: document }) if should_render_location_data?(document) %>
-	</div>
-<%- end -%>
 </div>
