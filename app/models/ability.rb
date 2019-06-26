@@ -4,6 +4,7 @@ class Ability
   include Cul::Omniauth::Abilities
   ACCESS_ASSET = :access_asset
   ACCESS_SUBSITE = :access_subsite
+  UNSPECIFIED_ACCESS_DECISION = true
 
   def initialize(user=nil, opts={})
     super
@@ -25,6 +26,8 @@ class Ability
         false
       elsif doc.fetch('access_control_levels_ssim',[]).include?('Public Access')
         true
+      elsif doc.fetch('access_control_levels_ssim',[]).blank?
+        UNSPECIFIED_ACCESS_DECISION
       else
         result = false
         if doc.fetch('access_control_levels_ssim',[]).include?('On-site Access')
