@@ -147,7 +147,7 @@ module Dcv::ChildrenHelperBehavior
     _params.delete(:fq)
 
     response = Blacklight.solr.get 'select', params: _params
-    kids = response['response']['docs']
+    kids = response['response']['docs'].select { |doc| online_access_indicated?(doc) }
     return nil unless kids.present?
     kids.each do |kid|
       kid['proxy_id'] = kid['dc_identifier_ssim'].detect { |key| proxies[key] }

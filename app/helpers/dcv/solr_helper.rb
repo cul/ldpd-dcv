@@ -13,4 +13,8 @@ module Dcv::SolrHelper
   	solr_doc = SolrDocument.new(solr_doc) unless solr_doc.is_a? SolrDocument
   	can?(Ability::ACCESS_ASSET, solr_doc)
   end
+
+  def online_access_indicated?(hash)
+     (hash['access_control_levels_ssim'] & ['Closed', 'Embargoed']).blank?
+  end
 end
