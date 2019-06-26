@@ -7,16 +7,24 @@ else
   media_url = bytestream_content_path(catalog_id: child[:pid], bytestream_id: 'access')
   player_src = render_media_element_progressive_download_audio_player(media_url)
 end
+dsa = child.fetch(:datastreams_ssim, [])
+has_chapters = dsa.include?('chapters')
+has_captions = dsa.include?('captions')
 %>
 
 <div>
   <div>
     <%= player_src %>
-    <% if child.fetch(:datastreams_ssim, []).include? 'chapters' %>
-      <p><%= link_to 'View media with synchronized index', {controller: controller_path, action: 'synchronizer', id: child[:pid], mode: 'chapters'}, id: 'view-synchronized-media', class: 'btn btn-default', target: '_blank' %></p>
+    <% if has_chapters || has_captions %>
+    <p id="synchronizer-links">
+    <% if has_chapters %>
+      <%= link_to 'View with synchronized index', {controller: controller_path, action: 'synchronizer', id: child[:pid], mode: 'chapters'}, id: 'view-synchronized-media-index', class: 'btn btn-sm btn-primary view-synchronized-media', target: '_blank' %>
      <% end %>
-    <% if child.fetch(:datastreams_ssim, []).include? 'captions' %>
-      <p><%= link_to 'View media with synchronized transcript', {controller: controller_path, action: 'synchronizer', id: child[:pid], mode: 'captions'}, id: 'view-synchronized-media', class: 'btn btn-default', target: '_blank' %></p>
+    <% if has_captions %>
+      <%= link_to 'View with synchronized transcript', {controller: controller_path, action: 'synchronizer', id: child[:pid], mode: 'captions'}, id: 'view-synchronized-media-captions', class: 'btn btn-sm btn-primary view-synchronized-media', target: '_blank' %>
+        
+      </p>
+     <% end %>
      <% end %>
   </div>
 </div>
