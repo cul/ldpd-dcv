@@ -209,7 +209,7 @@ module Dcv::ChildrenHelperBehavior
         child[:original_name_ssim] = identifiers_to_original_names[child[:id]]
         child[:datastreams_ssim] = identifiers_to_datastreams[child[:id]]
         child[:publisher_ssim] = identifiers_to_publishers[child[:id]]
-        identifiers_to_access_control[child[:id]].each do |k, v|
+        identifiers_to_access_control.fetch(child[:id], {}).each do |k, v|
           child[k.to_sym] = v if v
         end
       end
