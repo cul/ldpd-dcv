@@ -110,8 +110,10 @@ module Dcv::ChildrenHelperBehavior
         if subsite_layout == 'durst'
           title = "Image #{counter}"
           counter += 1
+          access_level = "Public Access"
         else
           title = node['LABEL']
+          access_level = "Closed"
         end
 
         {
@@ -120,7 +122,8 @@ module Dcv::ChildrenHelperBehavior
           order: node['ORDER'].to_i,
           title: title,
           thumbnail: node_thumbnail,
-          active_fedora_model_ssi: 'GenericResource'
+          active_fedora_model_ssi: 'GenericResource',
+          access_control_levels_ssim: [access_level]
         }
       end
       nodes
