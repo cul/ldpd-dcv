@@ -124,7 +124,7 @@ module Dcv::ChildrenHelperBehavior
           thumbnail: node_thumbnail,
           active_fedora_model_ssi: 'GenericResource',
           access_control_levels_ssim: [access_level]
-        }
+        }.with_indifferent_access
       end
       nodes
   end
