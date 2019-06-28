@@ -14,7 +14,7 @@ class Ability
       if controller.restricted?
         result = false
         result ||= (controller.subsite_config.fetch(:remote_ids, []).include?(user.uid)) if user
-        result ||= true if (controller.subsite_config.fetch(:remote_roles,[]) & affils).first
+        result ||= true if (controller.subsite_config.fetch(:remote_roles,[]) & affils).first if user
         result ||= true if (controller.subsite_config.fetch(:locations,[]) & location_uris).first
         result
       else

@@ -23,8 +23,7 @@ module Dcv::Authenticated::AccessControl
   end
 
   def authorize_document(document=@document, action=:'documents#show')
-    proxy = authz_proxy_for(document)
-    if can? action, proxy
+    if can?(Ability::ACCESS_SUBSITE, self)
       return true
     else
       if current_user
