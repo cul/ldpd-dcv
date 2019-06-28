@@ -2,6 +2,7 @@ module Nyre
   class ProjectsController < ApplicationController
     include Dcv::CatalogIncludes
 
+    before_filter :set_view_path
     helper_method :extract_map_data_from_document_list, :url_for_document
 
     layout Proc.new { |controller|
@@ -43,6 +44,16 @@ module Nyre
       self._prefixes << subsite_config['layout'] + '/projects' 
       self._prefixes << subsite_config['layout']
       self._prefixes << '/catalog'
+    end
+
+    def set_view_path
+      self.prepend_view_path('app/views/catalog')
+      self.prepend_view_path('app/views/' + self.subsite_layout)
+      self.prepend_view_path(self.subsite_layout)
+      self.prepend_view_path('app/views/' + self.subsite_layout + '/projects')
+      self.prepend_view_path(self.subsite_layout + '/projects')
+      self.prepend_view_path('app/views/' + controller_path)
+      self.prepend_view_path(controller_path)
     end
 
     def resource
