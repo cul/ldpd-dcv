@@ -1,0 +1,23 @@
+{
+	"@context": {
+		"dc": "http://purl.org/dc/terms/"
+	},
+	"@id": "http://id.library.columbia.edu/term/72fcfd07-f7db-4a18-bdb2-beb0abce071c",
+	"dc:title": "Carnegie Corporation of New York Records",
+	"dc:bibliographicCitation": {
+		"@id": "https://clio.columbia.edu/catalog/4079753",
+		"@type": "dc:BibliographicResource"
+	},
+	"dc:coverage": [
+		{
+			"dc:type": "Series",
+			"dc:title": "Series XI. Audio Visual Materials",
+			"@id": "_:n0",
+			"dc:hasPart": {
+				"dc:type": "Subseries",
+				"dc:title": "XI.A. Corporation",
+				"@id": "_:n1"
+			}
+		}
+	]
+}
