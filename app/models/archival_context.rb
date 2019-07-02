@@ -1,11 +1,11 @@
 class ArchivalContext
-  attr_accessor :id, :title, :bib_id, :type, :contexts
-  ROMAN_SERIES = /Series ([XxIiVv]+)/i
-  ROMAN_SUBSERIES = /^(Subseries\s)?([XxIiVv]+).([A-Za-z0-9]+)/i
+  attr_accessor :id, :title, :bib_id, :type, :contexts, :repo_code
+  ROMAN_SERIES = /Series ([clxvi]+)/i
+  ROMAN_SUBSERIES = /^(Subseries\s)?([clxvi]+).([a-z0-9]+)/i
   ARABIC_SERIES = /Series ([\d]+)/i
-  ARABIC_SUBSERIES = /^(Subseries\s)?([\d]+).([A-Za-z0-9]+)/i
+  ARABIC_SUBSERIES = /^(Subseries\s)?([\d]+).([a-z0-9]+)/i
 
-  def initialize(json)
+  def initialize(json, repo_code = 'nnc-rb')
     @id = json['@id']
     @title = json['dc:title']
     json['dc:bibliographicCitation']&.tap do |citation|
@@ -13,6 +13,7 @@ class ArchivalContext
       @type = 'collection'
     end
     @contexts = json['dc:coverage'] || []
+    @repo_code = repo_code
   end
 
   def catalog_url
@@ -21,7 +22,7 @@ class ArchivalContext
 
   def finding_aid_url(series = nil, subseries = nil)
     if bib_id
-      url = "https://findingaids.library.columbia.edu/ead/nnc-rb/ldpd_#{bib_id}"
+      url = "https://findingaids.library.columbia.edu/ead/#{repo_code.downcase}/ldpd_#{bib_id}"
       # https://findingaids.library.columbia.edu/ead/nnc-rb/ldpd_4079747/dsc/1
       if series
         url << "/dsc/#{series}"
@@ -49,7 +50,7 @@ class ArchivalContext
     link_titles = args.fetch(:link, true)
     if context['dc:bibliographicCitation']
       link_titles ? "<a href=\"#{finding_aid_url}\">#{context['dc:title']}</a>" : context['dc:title'].dup
-    elsif context['dc:type'].eql?('series')
+    elsif 'series'.casecmp?(context['dc:type'])
       title = context['dc:title'].dup
       if link_titles
         if (match = ROMAN_SERIES.match(title))
@@ -62,7 +63,7 @@ class ArchivalContext
         end
       end
       title
-    elsif context['dc:type'].eql?('subseries')
+    elsif 'subseries'.casecmp?(context['dc:type'])
       title = context['dc:title'].dup
       if link_titles
         if (match = ROMAN_SUBSERIES.match(title))
