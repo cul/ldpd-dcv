@@ -51,6 +51,7 @@ class Dcv::Configurators::DurstBlacklightConfigurator
     config.add_facet_field ActiveFedora::SolrService.solr_name('subject_hierarchical_geographic_borough', :symbol), :label => 'Borough', :limit => 10, :sort => 'count'
     config.add_facet_field ActiveFedora::SolrService.solr_name('subject_hierarchical_geographic_city', :symbol), :label => 'City', :limit => 10, :sort => 'count'
     #Hidden facets
+    config.add_facet_field 'has_geo_bsi', :label => 'Geo Data Flag', show: false, limit: 2
     config.add_facet_field ActiveFedora::SolrService.solr_name('durst_subjects', :symbol), :label => 'Durst Subject', show: false
 
 
