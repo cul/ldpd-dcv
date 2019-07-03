@@ -69,6 +69,7 @@ class Dcv::Configurators::CarnegieBlacklightConfigurator
     config.add_facet_field ActiveFedora::SolrService.solr_name('subject_hierarchical_geographic_state', :symbol), :label => 'State', show: false
     config.add_facet_field ActiveFedora::SolrService.solr_name('subject_hierarchical_geographic_country', :symbol), :label => 'Country', show: false
     config.add_facet_field ActiveFedora::SolrService.solr_name('lib_repo_short', :symbol), :label => 'Library Location', :show => false
+    config.add_facet_field 'has_geo_bsi', :label => 'Geo Data Flag', show: false, limit: 2
     config.add_facet_field 'format_ssi', :label => 'System Format', :sort => 'count' if ['development', 'test', 'dcv_dev', 'dcv_private_dev'].include?(Rails.env)
 
     # Have BL send all facet field names to Solr, which has been the default
