@@ -27,6 +27,6 @@ describe ArchivalContext do
     let(:subseries) { JSON.parse(json)['dc:coverage'][0]['dc:hasPart'] }
     let(:title_for) { subject.title_for(subseries, link: true) }
     before { subject.repo_code = 'NyNyTest' }
-    it { expect(title_for).to include('nynytest/ldpd_4079753/dsc/11#subseries_A') }
+    it { expect(title_for).to include('nynytest/ldpd_4079753/dsc/11#subseries_1') }
   end
 end

@@ -4,6 +4,7 @@ class ArchivalContext
   ROMAN_SUBSERIES = /^(Subseries\s)?([clxvi]+).([a-z0-9]+)/i
   ARABIC_SERIES = /Series ([\d]+)/i
   ARABIC_SUBSERIES = /^(Subseries\s)?([\d]+).([a-z0-9]+)/i
+  ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
 
   def initialize(json, repo_code = 'nnc-rb')
     @id = json['@id']
@@ -27,6 +28,8 @@ class ArchivalContext
       if series
         url << "/dsc/#{series}"
         if subseries
+          subseries_d = subseries.downcase
+          subseries = (ALPHABET.index(subseries_d) + 1) if ALPHABET.index(subseries_d) >= 0
           url << "#subseries_#{subseries}"
         end
       end
