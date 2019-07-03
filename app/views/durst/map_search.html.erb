@@ -1,5 +1,9 @@
 <div id="content">
-	<h6 class="">FIND BY LOCATION</h6>
+	<% unless has_search_parameters? %>
+		<h6 class="">FIND BY LOCATION</h6>
+	<% else %>
+		<%= render partial: 'constraints' %>
+	<% end %>
 	<script>
 		DCV.mapCoordinateSearchUrl = decodeURIComponent('<%= CGI.escape(url_for(params.merge(:action => 'index', :lat => '_lat_', :long => '_long_', :search_field => params[:search_field] || 'all_text_teim', :q => params[:q] || ''))) %>');
 	</script>
