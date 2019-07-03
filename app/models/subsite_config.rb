@@ -34,7 +34,7 @@ class SubsiteConfig
     sites.each do |key, site|
       break unless config.empty?
       config.merge!(site) if site['uri'].eql?(fedora_uri)
-      config.merge(dig_sites(site['nested'])) if site['nested'] && config.empty?
+      config.merge!(dig_sites(site['nested'], fedora_uri)) if site['nested'] && config.empty?
     end
     config
   end
