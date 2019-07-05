@@ -1,5 +1,5 @@
 <div id="content">
-	<% unless has_search_parameters? %>
+	<% unless has_search_parameters? && (params[:q].present? || params[:f].present?) %>
 		<h6 class="">FIND BY LOCATION</h6>
 	<% else %>
 		<%= render partial: 'constraints' %>

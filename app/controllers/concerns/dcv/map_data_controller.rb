@@ -9,10 +9,10 @@ module Dcv::MapDataController
   end
 
   def set_map_data_json
-    if has_search_parameters?
+    if has_search_parameters? && (params[:q].present? || params[:f].present?)
       map_cache_key = subsite_key + '_map_search_data_json?q=' + params[:q].to_s
 
-      params[:f]&.sort {|a,b| a[0] <=> b[0] }.each do |k, vals|
+      params.fetch(:f, []).sort {|a,b| a[0] <=> b[0] }.each do |k, vals|
           vals.sort.each { |val| map_cache_key << '&' << k << '=' << val }
       end
     else

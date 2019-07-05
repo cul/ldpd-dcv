@@ -48,13 +48,17 @@ module Dcv::MapDataHelper
   end
 
   def has_geo_facet?(solr_response=@response)
-    return false unless solr_response
+    geo_facet_count(solr_response, true) > 0
+  end
+
+  def geo_facet_count(solr_response=@response, value=true)
+    return 0 unless solr_response
     solr_response[:facet_counts][:facet_fields][:has_geo_bsi].tap do |has_geo_bsi|
-      return false if has_geo_bsi.blank?
-      return has_geo_bsi[1] > 0 if has_geo_bsi[0] == 'true' 
-      return has_geo_bsi[3] > 0 if has_geo_bsi[2] == 'true'
+      return 0 if has_geo_bsi.blank?
+      return has_geo_bsi[1] if has_geo_bsi[0] == value.to_s 
+      return has_geo_bsi[3] if has_geo_bsi[2] == value.to_s
     end
-    return false
+    return 0
   end
 
   def should_render_location_data?(document={})

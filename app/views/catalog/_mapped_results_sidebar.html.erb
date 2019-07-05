@@ -21,5 +21,5 @@
   </h6>
 <% end %>
 <% if has_geo_facet? %>
-  <h6><%= link_to("Map All Matching Results", params.merge(controller: controller_name, action: 'map_search'), {}) %></h6>
+  <h6><%= link_to("See #{geo_facet_count} Mappable Results for Your Search", params.merge(controller: controller_name, action: 'map_search'), {}) %></h6>
 <% end %>
