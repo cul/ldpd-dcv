@@ -4,9 +4,9 @@
 
   <% unless is_filesystem_view %>
     <div id="item-description" class="col-md-3">
-    <%= render partial: 'catalog/sidebar_panels/item_description', locals: { document: document, alignment: 'vertical' } %>
+    <%= render partial: 'sidebar_panels/item_description', locals: { document: document, alignment: 'vertical' } %>
 
-    <%= render partial: 'catalog/sidebar_panels/links', locals: { document: document, configured_links: [:mods] } %>
+    <%= render partial: 'sidebar_panels/links', locals: { document: document, configured_links: [:mods] } %>
     </div>
   <% end %>
 

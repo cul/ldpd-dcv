@@ -1,14 +1,14 @@
 <div class="row" id="child_items">
 
 	<div id="item-description" class="col-md-3">
-		<%= render partial: 'catalog/sidebar_panels/item_map', locals: { document: document } %>
-		<%= render partial: 'catalog/sidebar_panels/location_data', locals: { document: document } %>
-		<%= render partial: 'catalog/sidebar_panels/links', locals: { document: document, configured_links: [:persistent, :mods, :related] } %>
+		<%= render partial: 'sidebar_panels/item_map', locals: { document: document } %>
+		<%= render partial: 'sidebar_panels/location_data', locals: { document: document } %>
+		<%= render partial: 'sidebar_panels/links', locals: { document: document, configured_links: [:persistent, :mods, :related] } %>
 	</div>
 
 	<div class="col-md-9 ls-controls-dark">
-		<%= render partial: 'catalog/content_aggregator/content_aggregator_viewer', locals: { document: document } %>
-		<%= render partial: 'catalog/sidebar_panels/item_description', locals: { document: document, alignment: 'horizontal', link_helpers: [] } %>
+		<%= render partial: 'content_aggregator/content_aggregator_viewer', locals: { document: document } %>
+		<%= render partial: 'sidebar_panels/item_description', locals: { document: document, alignment: 'horizontal', link_helpers: [] } %>
 
 	</div>
 
