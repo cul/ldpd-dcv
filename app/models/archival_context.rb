@@ -29,7 +29,7 @@ class ArchivalContext
         url << "/dsc/#{series}"
         if subseries
           subseries_d = subseries.downcase
-          subseries = (ALPHABET.index(subseries_d) + 1) if ALPHABET.index(subseries_d) >= 0
+          subseries = (ALPHABET.index(subseries_d) + 1) if (ALPHABET.index(subseries_d) || -1) >= 0
           url << "#subseries_#{subseries}"
         end
       end
