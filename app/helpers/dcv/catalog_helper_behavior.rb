@@ -336,7 +336,7 @@ module Dcv::CatalogHelperBehavior
       parent['dc_type_ssm'].include?('InteractiveResource') && parent['ezid_doi_ssim'].present?
     end
     {
-      'Title' => published['title_display_ssm'].first,
+      'Title' => link_to(published['title_display_ssm'].first, controller: controller_name, action: :show, id: published['id']),
       'Date' => published['lib_date_textual_ssm'].first,
       'Identifier' => published['ezid_doi_ssim'].first
     }.compact
