@@ -20,6 +20,6 @@
           (@response.params[:start].to_i + @document_list.length).to_s  %>
   </h6>
 <% end %>
-<% if has_geo_facet? %>
+<% if has_geo_facet? && controller.respond_to?( :map_search) %>
   <h6><%= link_to("See #{geo_facet_count} Mappable Results for Your Search", params.merge(controller: controller_name, action: 'map_search'), {}) %></h6>
 <% end %>
