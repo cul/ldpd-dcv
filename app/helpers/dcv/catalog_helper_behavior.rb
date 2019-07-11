@@ -225,7 +225,7 @@ module Dcv::CatalogHelperBehavior
     if document['archival_context_json_ss']
       json = JSON.load(document['archival_context_json_ss'])
       values.map do |value|
-        collection = json.detect {|context| context['dc:title'] == value}
+        collection = json.detect { |context| context['dc:title'].to_s.strip == value.strip }
         if collection
           clio = collection.fetch('dc:bibliographicCitation',{})['@id']
           if clio
