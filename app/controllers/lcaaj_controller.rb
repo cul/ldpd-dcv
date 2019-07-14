@@ -38,9 +38,6 @@ class LcaajController < SubsitesController
     response.headers['Content-Disposition'] = 'attachment; filename="search_results.csv"'
 
     field_keys_to_labels = Hash[blacklight_config.show_fields.map{|field_name, field| [field_name, field.label]}].except('lib_project_full_ssim', 'lib_collection_ssm', 'lib_repo_full_ssim', 'lib_name_ssm')
-    # Special handling for name fields
-    field_keys_to_labels['interviewer_name'] = 'Interviewer'
-    field_keys_to_labels['interviewee_name'] = 'Interviewee'
 
     # Write out header row
     write_csv_line_to_response_stream(field_keys_to_labels.values)
@@ -66,18 +63,6 @@ class LcaajController < SubsitesController
   end
 
   def lcaaj_document_to_csv_row(document, field_keys_to_labels)
-    if document.key?('lib_name_ssm')
-      document['lib_name_ssm'].each do |name_value|
-        if name_value.start_with?('Interviewer')
-          document['interviewer_name'] = [name_value]
-          next
-        elsif name_value.start_with?('Interviewee')
-          document['interviewee_name'] = [name_value]
-          next
-        end
-      end
-    end
-
     field_keys_to_labels.keys.map{ |field_key|
       next '' unless document.has?(field_key)
       values = document[field_key]

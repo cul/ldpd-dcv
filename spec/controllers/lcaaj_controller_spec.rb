@@ -52,8 +52,8 @@ describe LcaajController, :type => :controller do
         )
         expected_csv_data_as_2d_array.each do |expected_csv_row|
           expect(controller).to receive(:write_csv_line_to_response_stream).once.with(
-            expected_csv_row
-          ).ordered
+            contain_exactly(*expected_csv_row)
+          )
         end
         get :index, params
         expect(response.status).to eq(200)
