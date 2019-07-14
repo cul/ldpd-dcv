@@ -1,9 +1,9 @@
 class ArchivalContext
   attr_accessor :id, :title, :bib_id, :type, :contexts, :repo_code
   ROMAN_SERIES = /Series ([clxvi]+)/i
-  ROMAN_SUBSERIES = /^(Subseries\s)?([clxvi]+).([a-z0-9]+)/i
+  ROMAN_SUBSERIES = /^(Sub\-?series\s)?([clxvi]+).([a-z0-9]+)/i
   ARABIC_SERIES = /Series ([\d]+)/i
-  ARABIC_SUBSERIES = /^(Subseries\s)?([\d]+).([a-z0-9]+)/i
+  ARABIC_SUBSERIES = /^(Sub\-?series\s)?([\d]+).([a-z0-9]+)/i
   ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
 
   def initialize(json, repo_code = 'nnc-rb')
