@@ -22,11 +22,19 @@ describe ArchivalContext do
     end
   end
   describe "#title_for" do
-    subject { described_class.from_json(json) }
-    let(:json) { fixture('json/archival_context_caps.json').read }
-    let(:subseries) { JSON.parse(json)['dc:coverage'][0]['dc:hasPart'] }
-    let(:title_for) { subject.title_for(subseries, link: true) }
-    before { subject.repo_code = 'NyNyTest' }
-    it { expect(title_for).to include('nynytest/ldpd_4079753/dsc/11#subseries_1') }
+    context "when container type is title case" do
+      let(:json) { fixture('json/archival_context_caps.json').read }
+      let(:subseries) { JSON.parse(json)['dc:coverage'][0]['dc:hasPart'] }
+      let(:title_for) { subject.title_for(subseries, link: true) }
+      before { subject.repo_code = 'NyNyTest' }
+      it { expect(title_for).to include('nynytest/ldpd_4079753/dsc/11#subseries_1') }
+    end
+    context "when subseries is hyphenated" do
+      let(:json) { fixture('json/archival_context_hyphen.json').read }
+      let(:subseries) { JSON.parse(json)['dc:coverage'][0]['dc:hasPart'] }
+      let(:title_for) { subject.title_for(subseries, link: true) }
+      before { subject.repo_code = 'NyNyTest' }
+      it { expect(title_for).to include('nynytest/ldpd_6134799/dsc/8#subseries_3') }
+    end
   end
 end
