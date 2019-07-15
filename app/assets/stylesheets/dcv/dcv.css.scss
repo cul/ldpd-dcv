@@ -1142,23 +1142,27 @@ h2[itemprop="name"] {
 	.site-result a.thumbnail:hover {
 		text-decoration: none !important;
 	}
+	.site-result a.thumbnail {
+		position: relative;
+	}
 	.site-result a.thumbnail::after {
 		content: 'Collection';
 		display:block;
+		position:absolute;
+		bottom:0;
+		left:0;
+		width:100%;
+		height:21px;
 		color:#fff;
 		background-color:#6a6574;
 		border:1px solid #000;
 		border-width:1px 0 0;
 		text-align: center;
 		text-transform: uppercase;
-		height:21px;
 		margin-top:-21px;
 		line-height:20px;
-		position:relative;
 		font-weight:normal;
 		font-size:13px;
-		top:178px;
-		width:100%;
 	}
 }
 
