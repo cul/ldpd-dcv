@@ -30,7 +30,7 @@ $(function() {
       $('#appliedParams').find('.remove').removeClass('btn-danger');
   });
   $('#q').focus(function() {
-    $('#search-navbar .input-group').css('box-shadow','0 0 18px #ccf');
+    $('#search-navbar .input-group').css('box-shadow','0 0 3px #ccf');
   });
   $('#q').blur(function() {
     $('#search-navbar .input-group').css('box-shadow','none');
