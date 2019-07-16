@@ -217,16 +217,29 @@ module Dcv::ChildrenHelperBehavior
         end
       end
 
-      children
+      children.map(&:with_indifferent_access)
     end
   end
 
-  def has_closed_children?
-    structured_children.detect { |child| !can_access_asset?(child) }
+  def has_unviewable_children?
+    structured_children.detect { |child| is_unviewable_child?(child) }
   end
 
-  def has_open_children?
+  def has_viewable_children?
     structured_children.detect { |child| can_access_asset?(child) }
+  end
+
+  def has_closed_children?
+    structured_children.detect { |child| !can_access_asset?(child) && child.fetch(:access_control_levels_ssim,[]).include?('Closed') }
+  end
+
+  # is this child potentially viewable in a different location, or with a log in?
+  def is_unviewable_child?(child)
+    !can_access_asset?(child) && child.fetch(:access_control_levels_ssim,[]).detect { |val| !val.eql?('Closed') && !val.eql?('Embargoed') }
+  end
+
+  def has_embargoed_children?
+    structured_children.detect { |child| !can_access_asset?(child) && child.fetch(:access_control_levels_ssim,[]).include?('Embargoed') }
   end
 
   def archive_org_identifiers_as_children

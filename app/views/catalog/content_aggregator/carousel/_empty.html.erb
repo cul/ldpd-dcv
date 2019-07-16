@@ -1,8 +1,7 @@
-<% restricted_doc = structured_children.detect { |doc| !can_access_asset?(doc) } -%>
-<% if restricted_doc && restricted_doc.fetch('access_control_levels_ssim',[]).include?('On-site Access') %>
+<% if has_unviewable_children? %>
   <p class="alert alert-info" role="alert"><%= show_repository_location_with_contact(document: document, field: ActiveFedora::SolrService.solr_name('lib_repo_full', :symbol, type: :string)) %></p>
-<% elsif restricted_doc && restricted_doc.fetch('access_control_levels_ssim',[]).include?('Embargoed') %>
+<% elsif (restricted_doc = has_embargoed_children? ) %>
   <p class="alert alert-info" role="alert">Due to copyright, contractual or privacy restrictions, this item is not available until <%= restricted_doc['access_control_embargo_dtsi'] %>.</p>
-<% elsif restricted_doc && restricted_doc.fetch('access_control_levels_ssim',[]).include?('Closed') %>
+<% else %>
   <p class="alert alert-warning" role="alert">Due to copyright, contractual or privacy restrictions, this item is not available online.</p>
 <% end %>
