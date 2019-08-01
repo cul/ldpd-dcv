@@ -43,7 +43,7 @@ class SubsitesController < ApplicationController
       return true
     else
       if current_user
-        access_denied(catalog_url)
+        access_denied(catalog_index_url)
         return false
       end
     end
