@@ -1,4 +1,46 @@
 module Dcv::DcvUrlHelper
+  def link_to_url_value(args)
+    values = args[:document][args[:field]]
+
+    values.map {|value|
+      link_to(value, value)
+    }
+  end
+
+  def link_to_clio(args)
+    values = args[:document][args[:field]]
+
+    values.map {|value|
+      link_to(value, "https://clio.columbia.edu/catalog/#{value}")
+    }
+  end
+
+  # TODO: distinguish from link_to_clio 
+  def display_clio_link(args={})
+    args.fetch(:value,[]).map { |v| v.sub!(/^clio/i,''); link_to("https://clio.columbia.edu/catalog/#{v}", "https://clio.columbia.edu/catalog/#{v}") }
+  end
+
+  def display_doi_link(args={})
+    args.fetch(:value,[]).map do |v|
+      v.sub!(/^doi:/,'')
+      url = "https://dx.doi.org/#{v}"
+      link_to(url, url)
+    end
+  end
+
+  # Scrub permanent links from catalog data to use modern resolver syntax
+  # @param perma_link [String] the original link
+  # @return [String] link with cgi version of resolver replaced with modern version
+  def clean_resolver(link_src)
+    if link_src
+      link_uri = URI(link_src)
+      if link_uri.path == "/cgi-bin/cul/resolve" && link_uri.host == "www.columbia.edu"
+        return "https://library.columbia.edu/resolve/#{link_uri.query}"
+      end
+    end
+    link_src
+  end
+
   # TODO: delete this method
   def link_to_site_landing_page(document, opts={})
     #url = site_path(document['slug'])
