@@ -1,12 +1,6 @@
 module Dcv::SolrHelper
-  def accessControlFields(solr_doc = {})
-    {
-      'access_control_affiliations_ssim' => solr_doc['access_control_affiliations_ssim'],
-      'access_control_locations_ssim' => solr_doc['access_control_locations_ssim'],
-      'access_control_embargo_dtsi' => solr_doc['access_control_embargo_dtsi'],
-      'access_control_permissions_bsi' => solr_doc['access_control_permissions_bsi'],
-      'access_control_levels_ssim' => solr_doc['access_control_levels_ssim'],
-    }.compact
+  def access_control_fields(solr_doc = {})
+    SolrDocument::ACCESS_CONTROL_FIELDS.map { |field_name| [field_name, solr_doc[field_name]] }.to_h.compact
   end
 
   def can_access_asset?(solr_doc = {})

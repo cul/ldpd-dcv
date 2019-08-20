@@ -87,7 +87,7 @@ module Dcv::ChildrenHelperBehavior
     end
     child[:datastreams_ssim] = doc.fetch('datastreams_ssim', [])
     child[:publisher_ssim] = doc.fetch('publisher_ssim', [])
-    accessControlFields(doc).each do |k, v|
+    access_control_fields(doc).each do |k, v|
       child[k.to_sym] = v
     end
     return child
@@ -202,7 +202,7 @@ module Dcv::ChildrenHelperBehavior
           identifiers_to_original_names[dc_identifier] = doc['original_name_ssim']
           identifiers_to_datastreams[dc_identifier] = doc['datastreams_ssim']
           identifiers_to_publishers[dc_identifier] = doc['publisher_ssim']
-          identifiers_to_access_control[dc_identifier] = accessControlFields(doc)
+          identifiers_to_access_control[dc_identifier] = access_control_fields(doc)
         end
       end
 
