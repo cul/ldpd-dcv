@@ -1,5 +1,12 @@
 # -*- encoding : utf-8 -*-
 class SolrDocument 
+  ACCESS_CONTROL_FIELDS = [
+    'access_control_affiliations_ssim',
+    'access_control_locations_ssim',
+    'access_control_embargo_dtsi',
+    'access_control_permissions_bsi',
+    'access_control_levels_ssim'
+  ]
 
   include Blacklight::Solr::Document
 
