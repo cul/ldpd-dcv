@@ -111,7 +111,7 @@ group :development, :test do
   gem 'capybara'
   gem 'poltergeist' # For headless-browser JavaScript testing
   gem 'factory_girl_rails', '>= 4.4.1'
-  gem 'jettywrapper', '>= 1.5.1'
+  gem 'jettywrapper', '>=2.0.5', git: 'https://github.com/samvera-deprecated/jettywrapper.git', branch: 'master'
   gem 'rubocop', '~> 0.53.0', require: false
   gem 'rubocop-rspec', '>= 1.20.1', require: false
   gem 'rubocop-rails_config', require: false
