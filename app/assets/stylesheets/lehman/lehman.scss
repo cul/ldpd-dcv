@@ -8,10 +8,8 @@ $color_5: #222;
 $color_6: #999;
 $color_7: #e6e6e6;
 $color_8: #eee;
-$color_9: #000;
-$color_10: #fff;
+$color_black: #000;
 $color_11: #600;
-$color_12: #444;
 $color_13: rgba(0, 0, 0, 0.2);
 $color_14: rgba(0, 0, 0, 0.25);
 $color_15: #888;
@@ -21,7 +19,10 @@ $color_18: #ddd;
 $color_19: rgba(42, 119, 143, 0.5);
 $color_20: rgba(255, 255, 255, 0.9);
 $color_21: rgba(255, 255, 255, 0.4);
-$color_anchor: #1a8be4;
+$color_anchor: #1a6bd4;
+$color_white: #ffffff;
+$color_black: #000000;
+$color_darkgray: #444;
 
 //fonts
 $font_0: helvetica neue;
@@ -34,12 +35,8 @@ $font_6: serif;
 $font_b: "Arial Rounded MT Bold", "Helvetica Rounded", Arial, sans-serif;
 $font_c: "Helvetica Rounded", Arial, sans-serif;
 
-@mixin	stripeBg($l: 25%) {
-	background: lighten($color_2, $l);
-	background-image:$url_0;
-}
 //urls
-$url_0: url(asset_path("carnegie/stripes-white-10.png"));
+
 
 //@extend-elements
 //original selectors
@@ -55,15 +52,15 @@ $url_0: url(asset_path("carnegie/stripes-white-10.png"));
 //original selectors
 //.pagination > .active > a, .pagination > .active > a:hover, .pagination > .active > a:focus, .pagination > .active > span, .pagination > .active > span:hover, .pagination > .active > span:focus
 %extend_2 {
-	color: $color_10;
+	color: $color_white;
 	background-color: $color_2;
 	border-color: $color_2;
 }
 
-@mixin	stripeBg($l: 25%) {
-	background: lighten($color_2, $l);
-	background-image:$url_0;
+@mixin	lehBg($l: 8%) {
+	background: darken($color_4, $l);
 }
+
 /* mixin for multiline */
 @mixin multiLineEllipsis($lineHeight: 1.2em, $lineCount: 1, $bgColor: white){
   overflow: hidden;
@@ -110,7 +107,7 @@ a {
 	}
 }
 #topnavbar {
-	@include stripeBg;
+	@include lehBg;
 	border-top-color: $color_5;
 	#cul_top-nosearch {
 		background-color: $color_5;
@@ -129,31 +126,61 @@ a {
 	padding: 1em 1.4em;
 	margin: 0 -1.75em 0;
 	background-color: transparent; //lighten($color_2,64%);
-	//background-image:$url_0;
 	background-repeat:no-repeat;
 	background-position:center top;
 	background-size:cover;
 	#site-banner-inner {
+		margin:0;
 		overflow: visible;
 		.titlesub {
 			color: $color_7;
 		}
 	}
 	#search-navbar {
+		margin-top:.75rem;
+		@media(min-width: 1200px) { margin-top:1.5rem; }
 		.input-group-addon {
-			background-color: $color_6;
+			background-color: $color_darkgray;
 			font-size: .9em;
 		}
 		#q {
-			background-color: darken($color_10,1%);
-			color: $color_9;
+			background-color: darken($color_white,1%);
+			color: $color_black;
 			&:focus {
-				background-color: $color_10;
+				background-color: $color_white;
 			}
 		}
-		#q, .search-btn, .reset-btn {
-			border-color:$color_12;
+		#q, .search-btn, .reset-btn, #q-filter {
+			border-color:$color_darkgray;
+			height: calc(1.5em + 1rem + 2px);
 		}
+		#q-filter {
+			background-color:$color_white;
+		}
+		.custom-select {
+		  display: inline-block;
+		  width: auto;
+		  height: calc(1.5em + .75rem + 2px);
+		  padding: .375rem 1.75rem .375rem .5rem;
+		  font-size: 1em;
+		  font-weight: 400;
+		  line-height: 1.5;
+		  color: $color_darkgray;
+		  vertical-align: middle;
+		  background: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3e%3cpath fill='%23343a40' d='M2 0L0 2h4zm0 5L0 3h4z'/%3e%3c/svg%3e") no-repeat right .75rem center/8px 10px;
+			background-color: transparent;
+		  border: 0;
+		  border-radius: 0;
+		  -webkit-appearance: none;
+		  -moz-appearance: none;
+		  appearance: none;
+			option {
+				background: $color_white;
+				color: $color_black;
+				overflow:hidden;
+			}
+		}
+		.custom-select::-webkit-scrollbar{width:1px;background-color:transparent}
 	}
 }
 #hometn {
@@ -162,7 +189,7 @@ a {
 		//flex-direction: row;
 		align-items: flex-end;
 		padding:0;
-		background-color:$color_9;
+		background-color:$color_black;
 		background-image: url(asset_path("lehman/lehman-lectern.jpg"));
 		background-size: cover;
 		background-position: center 25%;
@@ -191,21 +218,18 @@ a {
 	#site-title {
 		color:$color_2;
 		text-shadow:none;
-		line-height: 1.1;
-		padding-bottom:.5em;
+		//line-height: 1.1;
+		padding-bottom:0;
 	}
 	#search-navbar {
-		&.slim {
-			margin-top:2px;
-		}
 		.input-group-addon {
-			background-color:#aaa;
+			background-color:$color_darkgray;
 		}
 		#q {
 			color:$color_5;
-			background-color:darken($color_10,5%);
+			background-color:darken($color_white,5%);
 			&:focus {
-	                background-color: $color_10;
+	                background-color: $color_white;
 	        }
 		}
 	}
@@ -228,7 +252,7 @@ a {
 	text-align: center;
 	text-decoration: none;
 	text-transform: uppercase;
-  text-shadow: 0 0 2px $color_10;
+  text-shadow: 0 0 2px $color_white;
 	vertical-align: bottom;
 	.dr-arrow {
 		color: lighten($color_5,35%);
@@ -236,17 +260,19 @@ a {
 }
 #site-banner-subtitle {
 	display: block;
-	padding: 0;
+	padding: 0 0 .5rem 0;
 	margin: 0;
 	font-family: $font_0, $font_1, $font_2;
 	font-size: 17px;
+	font-weight: normal;
 	line-height: 1;
 	color: lighten($color_5,20%);
 	text-align: center;
 	text-decoration: none;
 	text-transform: uppercase;
-	&:hover {
-		color: $color_anchor;
+	a {
+		color:darken($color_anchor, 15%);
+		font-family: inherit;
 	}
 }
 @media(min-width: 768px) {
@@ -286,7 +312,7 @@ a {
 }
 @media(max-width: 991px) and (min-width: 768px) {
 	#site-title {
-		padding-top: 1.2rem;
+		padding-top: 0;
 		font-size: 1.2em;
 	}
 	#site-banner-subtitle {
@@ -295,7 +321,7 @@ a {
 }
 @media(min-width: 992px) {
 	#site-title {
-		padding-top: 1rem;
+		padding-top: 0;
 		padding-left: 0;
 		font-size: 1.36em;
 		letter-spacing: 0;
@@ -374,14 +400,14 @@ a {
 }
 #outer-wrapper {
 	overflow: hidden;
-	background-color: $color_10;
+	background-color: $color_white;
 	border-color: $color_5;
 }
 #main-container {
-	padding-top: 1.3em;
+	padding-top: 1em;
 	.inner {
 		padding: 1em;
-		background-color: $color_10;
+		background-color: $color_white;
 		&.home {
 			padding: 0;
 			border: 0;
@@ -393,22 +419,22 @@ a {
 					font-family: $font_b; //$font_0, $font_1, $font_2;
 					font-size:.9em;
 					text-transform:uppercase;
-					color:lighten($color_12,18%);
+					color:lighten($color_darkgray,18%);
 				}
 			}
 			#imgholder-div .thumbnail {
 				position: relative;
 				padding: 0;
-				background-color: $color_10;
+				background-color: $color_white;
 				h3 {
 					position: absolute;
 					width: 100%;
 					text-align: center;
 					text-shadow: 1px 1px 1px $color_11;
 					padding: 12px 0;
-					color: $color_10;
+					color: $color_white;
 					top: 32%;
-					border: 1px solid $color_12;
+					border: 1px solid $color_darkgray;
 					border-width: 1px 0;
 					background: $color_13;
 				}
@@ -425,7 +451,7 @@ a {
 		}
 	}
 	#facets .panel-default {
-		background-color: $color_10;
+		background-color: $color_white;
 		color: $color_15;
 		border: 0;
 		&.home {
@@ -433,7 +459,7 @@ a {
 		}
 	}
 	.panel-default > .panel-heading {
-		background-color: $color_10;
+		background-color: $color_white;
 		color: $color_15;
 		border: 0;
 		&.home {
@@ -548,7 +574,7 @@ a {
 #content {
 	#facet-panel-collapse {
 		.panel-body {
-			background-color:$color_10;
+			background-color:$color_white;
 		}
 	}
 	#appliedParams {
@@ -643,7 +669,7 @@ a {
 	.btn-default {
 		color: $color_1;
 		&:hover {
-			color:darken($color_10,6%);
+			color:darken($color_white,6%);
 		}
 	}
 }
@@ -652,20 +678,20 @@ a {
 	font-weight: 400;
 	letter-spacing: 2px;
 	text-align: center;
-	text-shadow: 1px 1px 2px $color_10;
+	text-shadow: 1px 1px 2px $color_white;
 	text-transform: uppercase;
 	a {
 		position: relative;
 		display: block;
 		vertical-align: bottom;
-		color: $color_10;
+		color: $color_white;
 		overflow: hidden;
 		background-size: cover;
 		width: 100%;
 		height: 160px;
 		span {
 			position: absolute;
-			color: $color_10;
+			color: $color_white;
 			font-weight: 200;
 			text-shadow: none;
 			top: 45%;
@@ -678,16 +704,16 @@ a {
 			position: relative;
 			display: block;
 			vertical-align: bottom;
-			color: $color_10;
+			color: $color_white;
 			text-align: left;
 			overflow: hidden;
 			background-color: $color_2;
-			color: $color_10;
+			color: $color_white;
 			width: 100%;
 			.lead {
 				display: inline-block;
 				background-color: transparent;
-				color: $color_10;
+				color: $color_white;
 				text-shadow: 1px 1px 1px $color_0;
 				text-align: left;
 				padding: .5em;
@@ -834,13 +860,13 @@ footer.container {
 	margin-bottom: 0;
 }
 #previousNextDocument .btn-default {
-	color: $color_10;
+	color: $color_white;
 }
 .btn-primary {
-	@include stripeBg(40%);
+	@include lehBg(40%);
 	border-color:lighten($color_2,20%);
 	&:hover {
-		@include stripeBg;
+		@include lehBg;
 		border-color:lighten($color_2,30%);
 	}
 	&:active, &:focus {
@@ -921,6 +947,11 @@ footer.container {
 
 #ajax-modal .modal-content {
   color: $color_15;
-  background-color: $color_10;
+  background-color: $color_white;
   border-color: $color_15;
 }
+
+.p-0 { padding:0 !important; }
+.py-0 { padding-top:0 !important;padding-bottom:0 !important; }
+.px-0 { padding-left:0 !important;padding-right:0 !important; }
+.border-0 { border:none !important;}
