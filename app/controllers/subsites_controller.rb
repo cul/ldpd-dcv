@@ -146,6 +146,23 @@ class SubsitesController < ApplicationController
     render layout: 'preview', locals: { document: @document }
   end
 
+  def legacy_redirect
+    unless params[:document_id]
+      render status: :bad_request, message: 'document_id param is required', nothing: true
+    end
+    document_id ||= params[:document_id].dup
+    document_id.gsub!(/\:/,'\:')
+    sp = blacklight_config.default_document_solr_params.merge({})
+    sp[:fq] = "identifier_ssim:#{document_id}"
+    solr_response = find(blacklight_config.document_solr_path, sp)
+    if solr_response.docs.empty?
+      render status: :not_found, message: "no document with id #{params[:document_id]}", nothing: true
+      return
+    end
+    document = SolrDocument.new(solr_response.docs.first, solr_response)
+    redirect_to action: "show", id: document[:id]
+  end
+
   def subsite_key
     if self.controller_path.present? 
       self.controller_path.split('/').join('_')

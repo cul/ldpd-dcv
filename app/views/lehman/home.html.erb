@@ -1,0 +1,67 @@
+<div id="content">
+<div id="hometn" class="home inner">
+	<div id="site-banner" style="padding-top:0;padding-bottom:0;border:0;">
+        <div class="row">
+            <div class="col-sm-8">
+                            <%= render 'site_title' %>
+            </div>
+            <div class="col-sm-4">
+                            <div id="search-navbar" class="navbar navbar-default slim" role="navigation">
+                                    <%= render_search_bar(false)  %>
+                            </div>
+            </div>
+		</div>
+	</div>
+	<%= render 'secondary_nav' %>
+	<div class="featured-outer">
+		<img class="img-responsive" alt="" src="<%= asset_path("lehman/hl-signature.svg") %>">
+
+	</div>
+	<div id="home-map-container">
+		<script>
+			DCV.mapCoordinateSearchUrl = decodeURIComponent('<%= CGI.escape(url_for(params.merge(:action => 'index', :lat => '_lat_', :long => '_long_', :search_field => params[:search_field] || 'all_text_teim', :q => params[:q] || ''))) %>');
+		</script>
+		<% map_search_settings = map_search_settings_for_subsite %>
+		<%#= render partial: 'embedded_map_search', locals: {
+			map_data_json: @map_data_json,
+			map_default_center_lat: map_search_settings['default_lat'] || 0,
+			map_default_center_long: map_search_settings['default_long'] || 0,
+			map_default_zoom_level: map_search_settings['default_zoom'] || 11,
+			force_use_default_center: true
+		} %>
+	</div>
+</div>
+ <div class="row">
+ <div class="col-md-4 col-md-push-8">
+		<div class="home inner">
+			 <h2 class="h5 text-uppercase">BROWSE THE COLLECTION</h2>
+			 <%= render partial: 'facets', locals: {hide_refine_heading: true, no_id_attr: true} %>
+			 <hr class="hidden-md hidden-lg">
+		</div> <!--/.inner-->
+ </div><!--/-->
+  <div class="col-md-4 col-md-pull-4">
+    <div class="home inner">
+		<h2 class="h5 text-uppercase">About the Project</h2>
+			<p>
+			The Special Correspondence Files of the Herbert Lehman Papers contain correspondence with nearly 1,000 individuals from 1864 through 1982. Beginning with letters from Lehman's family in the late nineteenth century, the series documents the range and scope of Lehman's long career in public service. In addition to family letters, the Special Correspondence Files contain letters from every President of the U. S. from Franklin Roosevelt to Lyndon Johnson, as well as from notables such as Dean Acheson, Benjamin Cardozo, Paul Douglas, Felix Frankfurter, W. Averill Harriman, Harold Ickes, Robert F. Kennedy, Fiorello LaGuardia, Henry Morgenthau, Alfred E. Smith, Adlai Stevenson, and Robert Wagner, among many others.
+			</p>
+			<p>
+			<a class="color_" href="<%=lehman_about_path()%>">Read more &raquo;</a>
+			</p>
+			<hr class="visible-sm">
+    </div>
+  </div>
+	<div class="col-md-4 col-md-pull-4">
+		 <div class="home inner">
+				<h2 class="h5 text-uppercase">About the Collections</h2>
+				<p>
+				Established in 1971, the Herbert H. Lehman Collections serve the Columbia academic community and scholars from around the world. The Collections include the personal and official papers of Governor Lehman, as well as those of his wife, Edith Altschul Lehman; Frank Altschul; Charles Poletti; Paul Baerwald; Julius Edelstein; James G. McDonald; the Senate Research Papers of William B. Welsh; and the United Nations Relief and Rehabilitation Administration (UNRRA) papers of Hugh R. Jackson, Robert G.A. Jackson, Marshal McDuffie, and Richard B. Scandrett. In addition, the Non-Sectarian Anti-Nazi League Collection of Pamphlets and Periodicals and UNRRA microfilm records from 1943 to 1949 are part of the Collections.
+				</p>
+				<p>
+				<a class="color_" target="_new" href="https://library.columbia.edu/libraries/rbml/units/lehman.html">Read more &raquo;</a>
+				</p>
+		 </div> <!--/.inner-->
+	</div><!--/-->
+
+</div>
+</div>

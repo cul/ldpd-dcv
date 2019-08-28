@@ -28,6 +28,7 @@ module Dcv
             put 'publish/:id' => "#{subsite_key}#update"
             delete 'publish/:id' => "#{subsite_key}#destroy"
             get 'publish' => "#{subsite_key}#api_info"
+            get "legacy_redirect" => "#{subsite_key}#legacy_redirect", as: "#{subsite_key}_legacy_redirect".to_sym
           end
         end
       end
