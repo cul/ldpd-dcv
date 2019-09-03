@@ -1,8 +1,6 @@
 class Dcv::Configurators::LindquistBlacklightConfigurator
 
-  def self.solr_name(*args)
-    ActiveFedora::SolrService.solr_name(*args)
-  end
+  extend Dcv::Configurators::BaseBlacklightConfigurator
 
   def self.configure(config)
 
