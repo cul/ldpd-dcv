@@ -1,0 +1,19 @@
+<% unless !has_search_parameters? && params[:action] == 'index' %>
+<div class="col-md-12">
+  <div id="site-banner">
+	<div class="row">
+        <div id="site-banner-inner">
+            <div class="col-sm-7">
+							<%= render 'site_title' %>
+            </div>
+            <div class="col-sm-5">
+							<div id="search-navbar" class="navbar navbar-default" role="navigation">
+									<%= render_search_bar(false)  %>
+							</div>
+            </div>
+         </div>
+	</div><!--/row-->
+  </div>
+  <%= render 'secondary_nav' %>
+</div>
+<% end %>

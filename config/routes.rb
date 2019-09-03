@@ -68,6 +68,10 @@ Dcv::Application.routes.draw do
   get 'lcaaj/about' => 'lcaaj#about', as: :lcaaj_about
   get 'lcaaj/map_search' => 'lcaaj#map_search', as: :lcaaj_map_search
 
+  # Lehman subsite routes
+  get 'lehman/about' => 'lehman#about', as: :lehman_about
+  get 'lehman/faq' => 'lehman#faq', as: :lehman_faq
+
   # NYRE subsite routes
   get 'nyre/about' => 'nyre#about', as: :nyre_about
   get 'nyre/about-collection' => 'nyre#aboutcollection', as: :nyre_aboutcollection

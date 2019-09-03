@@ -1,10 +1,10 @@
-class Dcv::Configurators::CarnegieBlacklightConfigurator
+class Dcv::Configurators::LehmanBlacklightConfigurator
 
   extend Dcv::Configurators::BaseBlacklightConfigurator
 
   def self.configure(config)
 
-    config.show.route = { controller: 'carnegie' }
+    config.show.route = { controller: 'lehman' }
 
     config.default_solr_params = {
       :defType => 'edismax',
@@ -43,20 +43,8 @@ class Dcv::Configurators::CarnegieBlacklightConfigurator
 
     config.add_facet_fields_to_solr_request! # Required for facet queries
 
-    config.add_facet_field ActiveFedora::SolrService.solr_name('lib_name', :facetable), :label => 'Names', :sort => 'index', :limit => 10
-    config.add_facet_field ActiveFedora::SolrService.solr_name('subject_topic', :facetable), :label => 'Topics', :sort => 'index', :limit => 10
-    config.add_facet_field ActiveFedora::SolrService.solr_name('role_interviewee', :symbol), :label => 'Oral Histories', :sort => 'index', :limit => 10
-    config.add_facet_field ActiveFedora::SolrService.solr_name('lib_format', :facetable), :label => 'Formats', :sort => 'index', :limit => 10
-    config.add_facet_field ActiveFedora::SolrService.solr_name('subject_geographic', :facetable), :label => 'Geographic', :sort => 'index', :limit => 10
-    # these hidden facets are not defined for the facet panel UI, but for linked searches
-    config.add_facet_field ActiveFedora::SolrService.solr_name('subject_hierarchical_geographic_neighborhood', :symbol), :label => 'Neighborhood', show: false
-    config.add_facet_field ActiveFedora::SolrService.solr_name('subject_hierarchical_geographic_borough', :symbol), :label => 'Borough', show: false
-    config.add_facet_field ActiveFedora::SolrService.solr_name('subject_hierarchical_geographic_city', :symbol), :label => 'City', show: false
-    config.add_facet_field ActiveFedora::SolrService.solr_name('subject_hierarchical_geographic_state', :symbol), :label => 'State', show: false
-    config.add_facet_field ActiveFedora::SolrService.solr_name('subject_hierarchical_geographic_country', :symbol), :label => 'Country', show: false
-    config.add_facet_field ActiveFedora::SolrService.solr_name('lib_repo_short', :symbol), :label => 'Library Location', :show => false
-    config.add_facet_field 'has_geo_bsi', :label => 'Geo Data Flag', show: false, limit: 2
-    config.add_facet_field 'format_ssi', :label => 'System Format', :sort => 'count' if ['development', 'test', 'dcv_dev', 'dcv_private_dev'].include?(Rails.env)
+    config.add_facet_field ActiveFedora::SolrService.solr_name('role_correspondent', :symbol), :label => 'Correspondent', :sort => 'index', :limit => 10
+    config.add_facet_field ActiveFedora::SolrService.solr_name('lib_genre', :symbol), :label => 'Document Type', :sort => 'index', :limit => 10
 
     # Have BL send all facet field names to Solr, which has been the default
     # previously. Simply remove these lines if you'd rather use Solr request
@@ -71,7 +59,7 @@ class Dcv::Configurators::CarnegieBlacklightConfigurator
     #   The ordering of the field names is the order of the display
     #config.add_index_field ActiveFedora::SolrService.solr_name('title_display', :displayable, type: :string), :label => 'Title'
     config.add_index_field ActiveFedora::SolrService.solr_name('primary_name', :displayable), label: 'Name', separator: '; ', helper_method: :display_non_copyright_names_with_roles, if: :has_non_copyright_names?
-    config.add_index_field ActiveFedora::SolrService.solr_name('lib_format', :displayable), label: 'Format', separator: '; '
+    config.add_index_field ActiveFedora::SolrService.solr_name('lib_genre', :symbol), label: 'Document Type', separator: '; '
     config.add_index_field ActiveFedora::SolrService.solr_name('lib_date_textual', :displayable, type: :string), :label => 'Date'
     config.add_index_field ActiveFedora::SolrService.solr_name('lib_collection', :displayable), label: 'Collection Name', separator: '; ', helper_method: :display_composite_archival_context
     config.add_index_field ActiveFedora::SolrService.solr_name('abstract', :displayable, type: :string), label: 'Abstract', helper_method: :expandable_past_250
@@ -82,15 +70,13 @@ class Dcv::Configurators::CarnegieBlacklightConfigurator
     #   The ordering of the field names is the order of the display
     config.add_show_field ActiveFedora::SolrService.solr_name('lib_name', :displayable), label: 'Name', separator: '; ', link_to_search: ActiveFedora::SolrService.solr_name('lib_name', :facetable), helper_method: :display_non_copyright_names_with_roles, if: :has_non_copyright_names?
     config.add_show_field ActiveFedora::SolrService.solr_name('title_display', :displayable, type: :string), label: 'Title', separator: '; '
-    config.add_show_field ActiveFedora::SolrService.solr_name('abstract', :displayable, type: :string), label: 'Abstract', helper_method: :expandable_past_400
     config.add_show_field ActiveFedora::SolrService.solr_name('lib_collection', :displayable), label: 'Collection Name', separator: '; ', helper_method: :display_collection_with_links
     config.add_show_field 'archival_context_json_ss', label: 'Archival Context', separator: '; ', helper_method: :display_archival_context, if: :has_archival_context?
     config.add_show_field ActiveFedora::SolrService.solr_name('lib_all_subjects', :displayable), label: 'Subjects', separator: '; '
     config.add_show_field ActiveFedora::SolrService.solr_name('lib_format', :displayable), label: 'Format', separator: '; '
-    config.add_show_field ActiveFedora::SolrService.solr_name('lib_genre', :symbol), label: 'Genre', separator: '; '
+    config.add_show_field ActiveFedora::SolrService.solr_name('lib_genre', :symbol), label: 'Document Type', separator: '; '
     config.add_show_field ActiveFedora::SolrService.solr_name('origin_info_date_created', :displayable), label: 'Origin Information', separator: ', ', helper_method: :display_origin_info, unless: :is_dateless_origin_info?
-    config.add_show_field ActiveFedora::SolrService.solr_name('origin_info_place', :displayable), label: 'Origin Information', separator: ', ', helper_method: :display_dateless_origin_info, if: :is_dateless_origin_info?
-    config.add_show_field ActiveFedora::SolrService.solr_name('lib_publisher', :displayable), label: 'Publication Information', separator: ', ', helper_method: :display_publication_info, if: :is_publication_info?
+    config.add_show_field ActiveFedora::SolrService.solr_name('identifier', :symbol), label: 'Document ID', separator: '; '
     config.add_show_field ActiveFedora::SolrService.solr_name('physical_description_extent', :displayable, type: :string), label: 'Physical Description', separator: '; ', helper_method: :append_digital_origin
     config.add_show_field 'dynamic_notes', pattern: /lib_.*_notes_ssm/, label: :notes_label, separator: '; ', helper_method: :expandable_past_250, unless: :is_excepted_dynamic_field?, except: ['lib_acknowledgment_notes_ssm']
     config.add_show_field ActiveFedora::SolrService.solr_name('language_language_term_text', :symbol), label: 'Language', separator: '; '
@@ -102,14 +88,6 @@ class Dcv::Configurators::CarnegieBlacklightConfigurator
     config.add_citation_field ActiveFedora::SolrService.solr_name('ezid_doi', :symbol), label: 'Persistent URL', separator: '; ', show: false, helper_method: :display_doi_link
 
     # solr fields to be displayed in the geo/map panels
-    #  facetable (link: true)
-    config.add_geo_field ActiveFedora::SolrService.solr_name('subject_hierarchical_geographic_neighborhood', :symbol), label: 'Neighborhood', separator: '; ', link: true
-    config.add_geo_field ActiveFedora::SolrService.solr_name('subject_hierarchical_geographic_borough', :symbol), label: 'Borough', separator: '; ', link: true
-    config.add_geo_field ActiveFedora::SolrService.solr_name('subject_hierarchical_geographic_city', :symbol), label: 'City', separator: '; ', link: true
-    #  nonfacetable (link: false)
-    config.add_geo_field ActiveFedora::SolrService.solr_name('subject_hierarchical_geographic_street', :symbol), label: 'Address', separator: '; ', link: false
-    config.add_geo_field 'geo', label: 'Coordinates', link: false
-    config.add_geo_field ActiveFedora::SolrService.solr_name('subject_geographic', :facetable, type: :string), label: 'Location', separator: '; ', link: false
 
     # "fielded" search configuration. Used by pulldown among other places.
     # For supported keys in hash, see rdoc for Blacklight::SearchFields
@@ -127,7 +105,7 @@ class Dcv::Configurators::CarnegieBlacklightConfigurator
 
     # All Text search configuration, used by main search pulldown.
     config.add_search_field ActiveFedora::SolrService.solr_name('all_text', :searchable, type: :text) do |field|
-      field.label = 'All Fields'
+      field.label = 'Item Description'
       field.default = true
       field.solr_parameters = {
         :qf => [ActiveFedora::SolrService.solr_name('all_text', :searchable, type: :text)],
@@ -135,37 +113,24 @@ class Dcv::Configurators::CarnegieBlacklightConfigurator
       }
     end
 
-    config.add_search_field ActiveFedora::SolrService.solr_name('search_title_info_search_title', :searchable, type: :text) do |field|
-      field.label = 'Title'
+    config.add_search_field ActiveFedora::SolrService.solr_name('fulltext', :stored_searchable, type: :text) do |field|
+      field.label = 'Full Text'
+      field.default = true
       field.solr_parameters = {
-        :qf => [ActiveFedora::SolrService.solr_name('title', :searchable, type: :text)],
-        :pf => [ActiveFedora::SolrService.solr_name('title', :searchable, type: :text)]
+        :hl => true,
+        :qf => [ActiveFedora::SolrService.solr_name('fulltext', :stored_searchable, type: :text)],
+        :pf => [ActiveFedora::SolrService.solr_name('fulltext', :stored_searchable, type: :text)]
       }
     end
 
-    config.add_search_field ActiveFedora::SolrService.solr_name('lib_name', :searchable, type: :text) do |field|
-      field.label = 'Name'
+    config.add_search_field ActiveFedora::SolrService.solr_name('identifier', :symbol) do |field|
+      field.label = 'Document ID'
+      field.default = true
       field.solr_parameters = {
-        :qf => [ActiveFedora::SolrService.solr_name('lib_name', :searchable, type: :text)],
-        :pf => [ActiveFedora::SolrService.solr_name('lib_name', :searchable, type: :text)]
+        :qf => [ActiveFedora::SolrService.solr_name('identifier', :symbol)],
+        :pf => [ActiveFedora::SolrService.solr_name('identifier', :symbol)]
       }
     end
-
-    #config.add_search_field ActiveFedora::SolrService.solr_name('search_title_info_search_title', :searchable, type: :text) do |field|
-    #  field.label = 'Title'
-    #  field.solr_parameters = {
-    #    :qf => [ActiveFedora::SolrService.solr_name('title', :searchable, type: :text)],
-    #    :pf => [ActiveFedora::SolrService.solr_name('title', :searchable, type: :text)]
-    #  }
-    #end
-    #
-    #config.add_search_field ActiveFedora::SolrService.solr_name('lib_name', :searchable, type: :text) do |field|
-    #  field.label = 'Name'
-    #  field.solr_parameters = {
-    #    :qf => [ActiveFedora::SolrService.solr_name('lib_name', :searchable, type: :text)],
-    #    :pf => [ActiveFedora::SolrService.solr_name('lib_name', :searchable, type: :text)]
-    #  }
-    #end
 
     # "sort results by" select (pulldown)
     # label in pulldown is followed by the name of the SOLR field to sort by and
