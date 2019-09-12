@@ -68,21 +68,25 @@ module Dcv::ChildrenHelperBehavior
     if doc["active_fedora_model_ssi"] == 'GenericResource'
       child[:contentids] = doc['dc_identifier_ssim']
       rels_int = JSON.load(doc.fetch('rels_int_profile_tesim',[]).join(''))
-      unless rels_int.blank?
-        #child[:rels_int] = rels_int
-        width = rels_int["info:fedora/#{child[:id]}/content"].fetch('image_width',[0]).first.to_i
-        length = rels_int["info:fedora/#{child[:id]}/content"].fetch('image_length',[0]).first.to_i
-        child[:width] = width if width > 0
-        child[:length] = length if length > 0
-      end
+
       if (ActiveFedora.config.credentials[:datastreams_root].present? && base_rft = doc['rft_id_ss'])
         zoom = rels_int["info:fedora/#{child[:id]}/content"].fetch('foaf_zooming',['zoom']).first
         zoom = zoom.split('/')[-1]
         base_rft.sub!(/^info\:fedora\/datastreams/,ActiveFedora.config.credentials[:datastreams_root])
         base_rft = 'file:' + base_rft unless base_rft =~ /(file|https?)\:\//
         child[:rft_id] = CGI.escape(base_rft)
-        child[:width] ||= rels_int["info:fedora/#{child[:id]}/#{zoom}"].fetch('image_width',[0]).first.to_i
-        child[:length] ||= rels_int["info:fedora/#{child[:id]}/#{zoom}"].fetch('image_length',[0]).first.to_i
+        dimension_ref = "info:fedora/#{child[:id]}/#{zoom}"
+      else
+        dimension_ref = "info:fedora/#{child[:id]}/content"
+      end
+      unless rels_int.blank?
+        #child[:rels_int] = rels_int
+        width = rels_int[dimension_ref]&.fetch('image_width',[0])
+        width = width.blank? ? 0 : width.first.to_i
+        length = rels_int[dimension_ref]&.fetch('image_length',[0])
+        length = length.blank? ? 0 : length.first.to_i
+        child[:width] = width if width > 0
+        child[:length] = length if length > 0
       end
     end
     child[:datastreams_ssim] = doc.fetch('datastreams_ssim', [])
