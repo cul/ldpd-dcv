@@ -23,6 +23,25 @@ class HomeController < ApplicationController
     Dcv::Configurators::DcvBlacklightConfigurator.configure(config)
   end
 
+  def authorize_action
+    authorized = (SUBSITES['restricted'].keys - ['uri']).detect do |key|
+      c = "Restricted::#{(key + '_controller').camelcase}".constantize
+      can?(Ability::ACCESS_SUBSITE, c)
+    end
+
+    if authorized
+      return true
+    else
+      if current_user
+        access_denied(catalog_index_url)
+        return false
+      end
+    end
+    store_location
+    redirect_to_login
+    return false
+  end
+
   # Overrides the Blacklight::Controller provided #search_action_url.
   # By default, any search action from a Blacklight::Catalog controller
   # should use the current controller when constructing the route.

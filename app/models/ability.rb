@@ -1,13 +1,10 @@
 class Ability
   include CanCan::Ability 
-  #include Hydra::Ability 
-  include Cul::Omniauth::Abilities
   ACCESS_ASSET = :access_asset
   ACCESS_SUBSITE = :access_subsite
   UNSPECIFIED_ACCESS_DECISION = true
 
   def initialize(user=nil, opts={})
-    super
     location_uris = ip_to_location_uris(opts[:remote_ip])
     affils = Array.wrap(opts[:roles]) ||  []
     can ACCESS_SUBSITE, SubsitesController do |controller|
