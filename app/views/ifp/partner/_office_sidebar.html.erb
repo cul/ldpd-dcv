@@ -8,10 +8,10 @@
 				  <dl class="nomar-b">
 							<dt>Browse Digital Materials</dt>
 							<dd>
-								<% 
-								if partner_data[:browse_digital_record_pids] == 0 
+								<%
+								if partner_data[:browse_digital_record_pids] == 0
 									%>in process<%
-								else 
+								else
 									partner_data[:browse_digital_record_pids].each_with_index {|dig_rec, index|
 										%><%= link_to 'Browse ' + dig_rec.fetch(:label,partner_data[:office]) + ' Records' + (partner_data[:browse_digital_record_pids].length > 1 ? ' [Part ' + (index+1).to_s + ']' : ''), url_for(controller:controller_name, action: 'show', id: dig_rec[:pid]) %><%
 									}
@@ -33,19 +33,6 @@
 							<dt>Archived IFP Websites</dt>
 							<dd>
 								<%= link_to 'IFP Web Archive - ' + ifp_partner_data( params[:key] )[:heading], partner_data[:web_archive] %>
-							</dd>
-							<dt>IFP Community</dt>
-							<dd class="nomar">
-								<ul class="square-bullets">
-								<li><%= link_to 'IFP Legacy Website - ' + ifp_partner_data( params[:key] )[:heading], partner_data[:ifp_community] %></li>
-								<%
-									if partner_data[:ifp_partners].present?
-										partner_data[:ifp_partners].each do |ifp_partner|
-											%><li><%= link_to ifp_partner[:name], ifp_partner[:link] %></li><%
-										end
-									end
-								%>
-								</ul>
 							</dd>
 				  </dl>
 			</dl>
