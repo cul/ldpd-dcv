@@ -35,9 +35,6 @@ $font_6: serif;
 //urls
 $url_0: url(asset_path("ifp/IFP-square-logo.png"));
 
-//@extend-elements
-//original selectors
-//#right-sidebar dl dt, #home-global-data dl dt
 %extend_1 {
 	margin-top: .5em;
 	text-transform: uppercase;
@@ -46,8 +43,6 @@ $url_0: url(asset_path("ifp/IFP-square-logo.png"));
 	color: $color_15;
 }
 
-//original selectors
-//.pagination > .active > a, .pagination > .active > a:hover, .pagination > .active > a:focus, .pagination > .active > span, .pagination > .active > span:hover, .pagination > .active > span:focus
 %extend_2 {
 	color: $color_10;
 	background-color: $color_2;
@@ -491,7 +486,7 @@ a {
 		}
 	}
 }
-#right-sidebar {
+#partner-index-right-sidebar {
 	.well {
 		background-color: $color_1;
 	}

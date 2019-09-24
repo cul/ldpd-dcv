@@ -32,13 +32,9 @@ $font_5: trajan;
 $font_6: serif;
 $font_b: "Arial Rounded MT Bold", "Helvetica Rounded", Arial, sans-serif;
 
-
 //urls
 //$url_0: url(asset_path("jay/ldpd-18104.png"));
 
-//@extend-elements
-//original selectors
-//#right-sidebar dl dt, #home-global-data dl dt
 %extend_1 {
 	margin-top: .5em;
 	text-transform: uppercase;
@@ -47,8 +43,6 @@ $font_b: "Arial Rounded MT Bold", "Helvetica Rounded", Arial, sans-serif;
 	color: $color_15;
 }
 
-//original selectors
-//.pagination > .active > a, .pagination > .active > a:hover, .pagination > .active > a:focus, .pagination > .active > span, .pagination > .active > span:hover, .pagination > .active > span:focus
 %extend_2 {
 	color: $color_10;
 	background-color: $color_2;
@@ -482,7 +476,7 @@ a {
 }
 #content, #sortAndPerPage {
 	.btn-default {
-		color: $color_1; 
+		color: $color_1;
 		&:hover {
 			color:darken($color_10,6%);
 		}
@@ -548,23 +542,6 @@ a {
 		border-radius: 0;
 		font-size: 99%;
 	}
-	.well {
-		background-color: $color_1;
-	}
-	dl {
-		dt {
-			@extend %extend_1;
-			&:first-child {
-				margin-top: 0;
-			}
-		}
-		dd {
-			margin-left: .5em;
-			word-wrap: break-word;
-		}
-	}
-}
-#right-sidebar {
 	.well {
 		background-color: $color_1;
 	}
