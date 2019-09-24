@@ -81,11 +81,10 @@
 				</dd>
 				<dt>IFP Community and Research</dt>
 				<dd>
-					<%= link_to 'IFP Legacy Website', partner_data[:ifp_community] %>
 					<%
 						if partner_data[:ifp_partners].present?
 							partner_data[:ifp_partners].each do |ifp_partner|
-								%><br /><%= link_to ifp_partner[:name], ifp_partner[:link] %><%
+								%><%= link_to ifp_partner[:name], ifp_partner[:link] %><%
 							end
 						end
 					%>
