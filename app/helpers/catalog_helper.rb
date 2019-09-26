@@ -1,5 +1,6 @@
 module CatalogHelper
   include Blacklight::CatalogHelperBehavior
+  include Dcv::AbilityHelperBehavior
   include Dcv::FieldSetsHelperBehavior
   include Dcv::CatalogHelperBehavior
   include Dcv::IframeHelperBehavior
@@ -37,7 +38,6 @@ module CatalogHelper
     list_items
   end
 
-
   def proxies(opts=params, &block)
     proxy_in = opts[:id]
     proxy_uri = "info:fedora/#{proxy_in}"
@@ -46,24 +46,19 @@ module CatalogHelper
     f = [proxy_in_query]
     if proxy_id
       f << "belongsToContainer_ssi:#{RSolr.solr_escape(proxy_id)}"
-#      f << "belongsToContainer_ssi:\"proxy_id\""
     else
       f << "-belongsToContainer_ssi:*"
     end
-    #raise f.inspect
     rows = opts[:limit] || '999'
     proxies = ActiveFedora::SolrService.query("*:*",{fq: f,rows:rows})
-    #raise proxy_id
     if proxies.detect {|p| p["type_ssim"] && p["type_ssim"].include?(RDF::NFO[:'#FileDataObject'])}
       if proxy_id
         query = "{!join from=proxyFor_ssi to=identifier_ssim}#{f.last}"
       else
         query = "{!join from=proxyFor_ssi to=identifier_ssim}#{proxy_in_query}"
       end
-      #raise query
       file_members = "cul_member_of_ssim:#{RSolr.solr_escape(proxy_uri)}"
       files = ActiveFedora::SolrService.query(query,fq: [file_members],rows:'999')
-      #raise files.inspect
       proxies.each do |proxy|
         file = files.detect {|f| f['identifier_ssim'].include?(proxy['proxyFor_ssi'])}
         if file
@@ -93,13 +88,4 @@ module CatalogHelper
       proxies
     end
   end
-  def can_download?(document=@document)
-    if controller.subsite_config['show_original_file_download']
-      proxy = Cul::Omniauth::AbilityProxy.new(document_id: document[:id],remote_ip: request.remote_ip,publisher:document[:publisher_ssim])
-      can? :download, proxy
-    else
-      false
-    end
-  end
-
 end
