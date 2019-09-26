@@ -1,5 +1,6 @@
 module Dcv::AbilityHelperBehavior
   def can_download?(document=@document)
+    document = SolrDocument.new(document) unless document.is_a? SolrDocument
     if controller.subsite_config['show_original_file_download']
       can? Ability::ACCESS_ASSET, document
     else
