@@ -15,13 +15,6 @@ module Dcv::Authenticated::AccessControl
     @omniauth_provider_key ||= Dcv::Application.cas_configuration_opts[:provider]
   end
 
-  def authz_proxy_for(document,opts={})
-    opts[:content_models] = document[:has_model_ssim].collect {|rel| rel.to_s}
-    opts[:publisher] = document[:publisher_ssim].collect {|rel| rel.to_s}
-    opts[:user_roles] = session['cul.roles']
-    RoleAbilityProxy.new(opts)
-  end
-
   def authorize_document(document=@document, action=:'documents#show')
     if can?(Ability::ACCESS_SUBSITE, self)
       return true
@@ -34,12 +27,5 @@ module Dcv::Authenticated::AccessControl
     store_location
     redirect_to_login
     return false
-  end
-
-  class RoleAbilityProxy < Cul::Omniauth::AbilityProxy
-    def to_h
-      super unless self.user_roles.present?
-      super.merge(user_roles: self.user_roles)
-    end
   end
 end
