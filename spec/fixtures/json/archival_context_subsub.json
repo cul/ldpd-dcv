@@ -1,0 +1,28 @@
+{
+	"@context": {
+		"dc":"http://purl.org/dc/terms/"
+	},
+	"@id" : "http://id.library.columbia.edu/term/75cffc05-2d92-4591-9350-b51ab5bacd75",
+	"dc:title" : "Herbert H. Lehman Papers",
+	"dc:bibliographicCitation" : {
+		"@id" : "https://clio.columbia.edu/catalog/4078518",
+		"@type": "dc:BibliographicResource"
+	},
+	"dc:coverage" :[
+		{
+			"dc:type" : "series",
+			"dc:title" :"Series I: Lehman Special Files",
+			"@id": "_:n0",
+			"dc:hasPart" :{
+				"dc:type": "subseries",
+				"dc:title" : "Subseries I.1: Special Correspondence, 1895-1981",
+				"@id": "_:n1",
+				"dc:hasPart" :{
+					"dc:type" : "subseries",
+					"dc:title" : "Lehman, Mayer, 1897-1953",
+					"@id": "_:n2"
+				}
+			}
+		}
+	]
+}
