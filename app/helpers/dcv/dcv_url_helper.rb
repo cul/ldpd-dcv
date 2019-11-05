@@ -15,7 +15,7 @@ module Dcv::DcvUrlHelper
     }
   end
 
-  # TODO: distinguish from link_to_clio 
+  # TODO: distinguish from link_to_clio
   def display_clio_link(args={})
     args.fetch(:value,[]).map { |v| v.sub!(/^clio/i,''); link_to("https://clio.columbia.edu/catalog/#{v}", "https://clio.columbia.edu/catalog/#{v}") }
   end
@@ -119,5 +119,9 @@ module Dcv::DcvUrlHelper
 
   def local_subject_search_url(subject_term_value)
     return url_for({controller: controller_name, action: 'index', search_field: 'all_text_teim', q: '', 'f' => {'durst_subjects_ssim' => [subject_term_value]}})
+  end
+
+  def terms_of_use_url
+    'https://doi.org/10.7916/D8TJ046B'
   end
 end
