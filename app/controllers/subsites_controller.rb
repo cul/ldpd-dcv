@@ -22,6 +22,7 @@ class SubsitesController < ApplicationController
     super(*args)
     self._prefixes << self.subsite_layout # haaaaaaack to not reproduce templates
     self._prefixes << 'catalog' # haaaaaaack to not reproduce templates
+    self._prefixes << 'shared' # haaaaaaack to not reproduce templates
   end
 
   # overrides the session role key from Cul::Omniauth::RemoteIpAbility
@@ -30,6 +31,7 @@ class SubsitesController < ApplicationController
   end
 
   def set_view_path
+    self.prepend_view_path('app/views/shared')
     self.prepend_view_path('app/views/catalog')
     self.prepend_view_path('app/views/' + self.subsite_layout)
     self.prepend_view_path(self.subsite_layout)
