@@ -122,6 +122,6 @@ module Dcv::DcvUrlHelper
   end
 
   def terms_of_use_url
-    'https://doi.org/10.7916/D8TJ046B'
+    'https://library.columbia.edu/resolve/lweb0208'
   end
 end
