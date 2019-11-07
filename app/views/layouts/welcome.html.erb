@@ -46,26 +46,23 @@
 <div id="discover" class="section bgParallax" data-speed="3">
   <div class="culinner container" style="padding-top:60px;">
     <div class="culpanel alignleft row">
-     <h4 class="lead">DISCOVER PROJECTS <%= link_to 'Browse projects &raquo;'.html_safe, browse_url(action:'projects'), class: 'browse-link pull-right' %></h4>
+     <h4 class="lead">DISCOVER PROJECTS <%= link_to 'Browse projects &raquo;'.html_safe, home_url(), class: 'browse-link pull-right' %></h4>
         <div id="project-info" class="col-sm-12" style="padding:0;">
           <div style="height:160px;margin-bottom:5px;">
             <div class="row">
               <div class="col-sm-2">
-                <div data-style="border:1px solid #888;" style="padding:2px;background-color:#1d1d1d;background-position:center center;background-repeat:no-repeat;background-size:100%;background-image:url('<%= asset_url("digital_projects_page/chinese_paper_gods.jpeg")%>');height:160px;width:100%;" id="burrito">
-                  <!--img data-id="burrito" style="max-width:100%; padding:0; max-height:100%;" src="<%=  asset_url("digital_projects_page/chinese_paper_gods.jpeg")%>" /-->
+                <div data-style="border:1px solid #888;" style="padding:2px;background-color:#1d1d1d;background-position:center center;background-repeat:no-repeat;background-size:100%;background-image:url('<%= image_url("dcv/columbia_crown_outline.png")%>');height:160px;width:100%;" id="burrito">
                 </div>
               </div>
               <div class="col-sm-10">
                <div style="">
                 <form id="mosaic-switch" action="#">
 					<select name="mosaic-project" id="mosaic-project" class="pull-right btn btn-default alignleft" style="font-size:.8em;padding:0;margin:0;">
-					  <option value="cpg">Chinese Paper Gods</option>
-					  <option value="ricop">Russian Imperial Corps of Pages</option>
 					</select>
                 </form>
-                <h4 id="mosaic-project-title">Chinese Paper Gods</h4>
-                <p id="mosaic-project-blurb" class="lead">An online visual catalog of over 200 woodcuts used in folk religious practices in Beijing and other parts of China in the 1930s.</p>
-                <p><a id="mosaic-project-link" href="/catalog?f%5Blib_project_short_ssim%5D%5B%5D=Chinese+paper+gods">Browse Content &raquo;</a></p>
+                <h4 id="mosaic-project-title"></h4>
+                <p id="mosaic-project-blurb" class="lead"></p>
+                <p><a id="mosaic-project-link" href="">Browse Content &raquo;</a></p>
                </div>
               </div>
             </div>

@@ -39,7 +39,7 @@ $(document).ready(function(){
 	});
 });
 
-
+// proj is a map of title, thumb, link (search) and blurb
 function mosaicDemo(container, proj) {
   var width = Math.max($(container).parent().width(),$(container).width());
   var height = Math.max($(container).parent().height(),$(container).height());
@@ -47,62 +47,51 @@ function mosaicDemo(container, proj) {
   height = Math.floor(winHeight * .55);
 
   var total = Math.floor((12*height)/width) * 12;
-  var assets = "<%= asset_url("digital_projects_page/chinese_paper_gods.jpeg").split('/')[0...-1].join('/') %>/";
+  var projlink = proj.attr('data-link');
 
-  var thumbs = "/thumbs/";
+  var randomItems = projlink.replace('catalog','catalog/random.json') + '&per_page=' + total;
+  var fill = "<%= image_url("dcv/columbia_crown_outline.png") %>/";
 
   for (var i=0; i< total; i++) {
     $(container).append('<div class="col-xs-1 brick"> \
-  <img class="img-responsive" src="' + assets + 'chinese_paper_gods.jpeg" />\
+  <img class="img-responsive" src="' + fill + '" />\
 </div>');
   }
   if (total == 0) return;
 
-  var all_img_names = {
-    'cpg' : Dcv.Squares.CPG,
-    'ricop' : Dcv.Squares.RICOP
-  }
+  var items = [];
+  $.ajax(randomItems, {dataType: 'json'}).done(function(data) {
 
-  img_names = all_img_names[proj].random(Math.ceil(total));
+    var items = data;
+    var imgs = $(".brick img");
+    var cix = -1;
 
-  var imgs = $(".brick img");
-  var cix = -1;
+    imgs.each(
+      function(){
+        cix++;
 
-  imgs.each(
-    function(){
-      cix++;
 
-      var img_name = img_names[cix%img_names.length];
-      var id_name = img_name['id'];
-
-      if (cix < total) {
-          if (typeof(img_name) == 'undefined') {window.console.log(ix + ': no image name: ' + img_names[ix] + ", length: " + img_names.length);
-        }
-        $(this).attr('src',img_name['small']);
-        $(this).attr('data-default',img_name['small']);
-        $(this).attr('data-detail',img_name['medium']);
-        $(this).attr('data-scaled',thumbs + id_name);
-        //$(this).hide();
-        //$(this).attr('data-object-id', img_name.substring(0,img_name.lastIndexOf('.')).replace('_',':'));
-        $(this).hover(
-            function(){
-            $(this).attr('src', $(this).attr('data-detail'));
-          },
-          function(){
-            $(this).attr('src', $(this).attr('data-default'));
+        if (cix < total) {
+          var img_name = items[cix];
+          var id_name = img_name['id'];
+          if (typeof(img_name) == 'undefined') {
+            window.console.log(ix + ': no image name: ' + items[cix] + ", length: " + items.length);
           }
-        );
-        $(this).on('click', window.mosaicClick);
-      }
+          $(this).attr('id',img_name['id']);
+          $(this).attr('src',img_name['thumbnail_url']);
+          $(this).attr('data-default',img_name['thumbnail_url']);
+          $(this).attr('data-scaled',img_name['thumbnail_url'].replace('featured','full'));
+          $(this).on('click', window.mosaicClick);
+        }
 
-    }
-  );
+      }
+    );
+  });
   $(window).load(function(){$(container + " .img-responsive").fadeIn();});
 }
 
 function mosaicClick() {
-	//$('#burrito').attr('src',$(this).attr('data-scaled'));
-	$('#burrito').css('background-image','url('+$(this).attr('data-scaled')+')');
+	window.open('/catalog/' + $(this).attr('id'));
 }
 
 

@@ -117,6 +117,7 @@ $(document).ready(function() {
 
   var imgs = [];
   for(var i = 0; i < $bgimgs.length; i++) { imgs[i] = $bgimgs[i]['image']}
+    /*
   $("#home").bgswitcher({
 	images: imgs,
     start: false,
@@ -124,6 +125,7 @@ $(document).ready(function() {
 	  loop: true,
     effect: "fade"
   });
+  */
   var homeCarousel = $("#home");
   homeCarousel.append("<ol class='carousel-indicators hide-until-load hidden-xs'></ol>");
   var indicators = $(".carousel-indicators");
@@ -135,7 +137,7 @@ $(document).ready(function() {
   $('.bgswitcher').addClass('bgParallax').attr('data-speed','2');
   $("#home .carousel-indicators").on("click", 'li', function() {
     $(this).parent().find('.active').removeClass('active')
-    $('#home').bgswitcher("select", $(this).index());
+    //$('#home').bgswitcher("select", $(this).index());
     $('#slide-title').attr('href', $(this).attr('data-caturl')).html($(this).attr('data-titlessm'));
     $('#slide-projssm').attr('href', $(this).attr('data-searchurl')).html($(this).attr('data-projssm'));
     $(this).addClass('active');
@@ -143,7 +145,7 @@ $(document).ready(function() {
 
   $("#home .carousel-control").on("click", function() {
     var nextprev = $(this).attr('data-slide');
-    $('#home').bgswitcher(nextprev);
+    //$('#home').bgswitcher(nextprev);
     if (nextprev == 'next') {
      var $next = $('#home .carousel-indicators li').parent().find('.active').removeClass('active').next();
      if ($next.length) {
@@ -200,37 +202,40 @@ $(document).ready(function() {
     return false;
   });
 
-  var projMap = {
-    'cpg' : {
-      'title' : 'Chinese Paper Gods',
-      'thumb' : '<%=  asset_url("digital_projects_page/chinese_paper_gods.jpeg")%>',
-      'link' : '/catalog?f%5Blib_project_short_ssim%5D%5B%5D=Chinese+paper+gods',
-      'blurb' : 'An online visual catalog of over 200 woodcuts used in folk religious practices in Beijing and other parts of China in the 1930s.'
-    },
-    'ricop' : {
-      'title' : 'Russian Imperial Corps of Pages',
-      'thumb' : '<%=  asset_url("digital_projects_page/russian_corps.jpeg")%>',
-      'link' : '/catalog?f%5Blib_project_short_ssim%5D%5B%5D=Russian+Corps+of+Pages',
-      'blurb' : 'An online exhibition catalog containing selections from the Columbia University Libraries exhibition, "The Russian Imperial Corps of Pages."'
-    }
-  };
-
-  $('#mosaic-project').change(function(e) {
-    var $proj = $(this).val();
-    var $projtitle = projMap[$proj]['title'];
-    var $projthumb = projMap[$proj]['thumb'];
-    var $projblurb = projMap[$proj]['blurb'];
-    var $projlink = projMap[$proj]['link'];
-    $('#discover-content').empty();
-    $('#mosaic-project-title').html($projtitle);
-    $('#mosaic-project-blurb').html($projblurb);
-    $('#mosaic-project-link').attr('href',$projlink);
-    $('#burrito').css('background-image','url('+$projthumb+')');
-    mosaicDemo('#discover-content', $proj);
+  $('#mosaic-project').change(function() {
+    $( "#mosaic-project option:selected" ).each(function() {
+      var $projtitle = $(this).attr('data-title');
+      var $projthumb = $(this).attr('data-thumb');
+      var $projblurb = $(this).attr('data-blurb');
+      var $projlink = $(this).attr('data-link');
+      $('#discover-content').empty();
+      $('#mosaic-project-title').html($projtitle);
+      $('#mosaic-project-blurb').html($projblurb);
+      $('#mosaic-project-link').attr('href',$projlink);
+      $('#burrito').css('background-image','url('+$projthumb+')');
+      mosaicDemo('#discover-content', $(this));
+    });
   });
 
-  mosaicDemo('#discover-content', 'cpg');
-
+  $.ajax('/sites.json', {dataType: 'json'}).done(
+    function(projects) {
+      var ix = -1;
+      $(projects).each(
+        function() {
+          if (!this['facet_value']) return;
+          var project = this;
+          $('#mosaic-project').append('<option value="' + (ix++) + '">' +  project['name'] + '</option>');
+          var opt = $('#mosaic-project > option').last();
+          opt.attr('data-title', project['name']);
+          opt.attr('data-thumb', project['image']);
+          opt.attr('data-blurb', project['description']);
+          opt.attr('data-link', '/catalog?f%5Blib_project_short_ssim%5D%5B%5D=' + encodeURIComponent(project['facet_value']));
+        }
+      );
+      var cpg = $('option[data-title="Chinese paper gods"]');
+      cpg.attr('selected', true).trigger('change');
+    }
+  );
 });
 
 $(window).scroll(function() {
