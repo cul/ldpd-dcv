@@ -95,7 +95,6 @@ DCV.Bubbles.prototype.draw = function(data) {
     .attr("title", function(d) {return DCV.Bubbles.nameForRadius(d,1);})
     .style("display","block")
     .style("overflow","hidden")
-    .style("font-size", function(d) {return DCV.Bubbles.textSizeForNode(d,1);})
     .style("opacity", function(d) { return d.r > 20 ? 1 : 0; })
     .style("pointer-events", function(d) { return (d.depth > 1) ? "none" : "all"})
     .style("visibility", function(d){ return d.depth != 1 ? "hidden" : "visible"; })
@@ -157,7 +156,6 @@ DCV.Bubbles.prototype.zoom = function(d, i) {
     .attr("y", function(d) { return y(d.y); })
     .text(function(d) { return DCV.Bubbles.nameForRadius(d,k); })
     .style("opacity", function(d) { return k * d.r > 20 ? 1 : 0; })
-    .style("font-size", function(d) {return DCV.Bubbles.textSizeForNode(d,k);})
     .style("visibility",
       function(d){
         return unhide(d) ? "visible" : "hidden";
