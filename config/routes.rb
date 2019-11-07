@@ -23,7 +23,8 @@ Dcv::Application.routes.draw do
   get '/explore' => 'welcome#home'
   get '/about' => 'pages#about', as: :about
 
-  get '/catalog/get_random_item' => 'catalog#get_random_item'
+  get '/catalog/random' => 'catalog#random'
+  get '/catalog/get_random_item' => 'catalog#random', defaults: { per_page: 1 }
   get '/catalog/:id/mods' => 'catalog#mods', as: :item_mods
   get '/catalog/:id/citation/:type' => 'catalog#citation', as: :item_citation
 
