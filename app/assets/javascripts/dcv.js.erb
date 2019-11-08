@@ -42,22 +42,23 @@ $(document).ready(function(){
 // proj is a map of title, thumb, link (search) and blurb
 function mosaicDemo(container, proj) {
   var width = Math.max($(container).parent().width(),$(container).width());
-  var height = Math.max($(container).parent().height(),$(container).height());
+  //var height = Math.max($(container).parent().height(),$(container).height());
   var winHeight = $(window).height();
-  height = Math.floor(winHeight * .55);
+  var height = Math.floor(winHeight * .55);
 
-  var total = Math.floor((12*height)/width) * 12;
+  var tileSide = Math.floor(Math.min(height, width)/12);
+  var total = 96;
   var projlink = proj.attr('data-link');
 
   var randomItems = projlink.replace('catalog','catalog/random.json') + '&per_page=' + total;
   var fill = "<%= image_url("dcv/columbia_crown_outline.png") %>/";
-
+  var style = 'width:' + tileSide + 'px; height:' + tileSide + 'px;'
   for (var i=0; i< total; i++) {
-    $(container).append('<div class="col-xs-1 brick"> \
+    $(container).append('<div class="col-xs-1 brick" style="' + style + '"> \
   <img class="img-responsive" src="' + fill + '" />\
 </div>');
   }
-  if (total == 0) return;
+  if (tileSide == 0) return;
 
   var items = [];
   $.ajax(randomItems, {dataType: 'json'}).done(function(data) {
@@ -71,7 +72,7 @@ function mosaicDemo(container, proj) {
         cix++;
 
 
-        if (cix < total) {
+        if (cix < items.length) {
           var img_name = items[cix];
           var id_name = img_name['id'];
           if (typeof(img_name) == 'undefined') {
@@ -83,7 +84,6 @@ function mosaicDemo(container, proj) {
           $(this).attr('data-scaled',img_name['thumbnail_url'].replace('featured','full'));
           $(this).on('click', window.mosaicClick);
         }
-
       }
     );
   });
