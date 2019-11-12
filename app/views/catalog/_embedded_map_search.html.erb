@@ -1,3 +1,4 @@
+<%- map_max_zoom_level ||= 13 -%>
 <script>
   DCV.mapPlanes = <%= map_data_json.html_safe %>;
   DCV.defaultCenterLat = <%= map_default_center_lat.present? ? map_default_center_lat : 'null' %>;
