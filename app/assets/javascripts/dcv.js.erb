@@ -46,8 +46,15 @@ function mosaicDemo(container, proj) {
   var winHeight = $(window).height();
   var height = Math.floor(winHeight * .55);
 
-  var tileSide = Math.floor(Math.min(height, width)/12);
-  var total = 96;
+  var tileSide = Math.floor(Math.max(height, width)/8);
+  if (height > width) {
+    var rows = 8;
+    var cols = Math.floor(8*width/height);
+  } else {
+    var rows = Math.floor(8*height/width);
+    var cols = 8;
+  }
+  var total = rows * cols;
   var projlink = proj.attr('data-link');
 
   var randomItems = projlink.replace('catalog','catalog/random.json') + '&per_page=' + total;
