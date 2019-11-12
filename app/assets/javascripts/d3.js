@@ -19,7 +19,6 @@ DCV.panelContentDimensions = function(container) {
   var win_ratio =  win_width/win_height;
   var w = $(container).width() || 800;
   var h = (win_ratio > 1.2) ?  0.9 * (w/2.35) : Math.max(Math.floor(0.75*win_height), 0.8*w);
-  window.console.log("returning width " + w + " height " + h);
   return [w, h];
 }
 DCV.Bubbles = function(container){
@@ -40,7 +39,6 @@ DCV.Bubbles.searchFor = function(node) {
 }
 DCV.Bubbles.modal = function(node,link){
   var search = DCV.Bubbles.searchFor(node);
-  window.console.log(search + '&limit=' + node.size);
   if (!search) {
     $(link).attr('href','/catalog');
     $(link).html("");
@@ -87,28 +85,24 @@ DCV.Bubbles.prototype.draw = function(data) {
   this.vis.selectAll("text")
     .data(nodes).enter()
     .append("svg:text")
-    .attr("class", function(d) { return ((d.children ? "parent" : "child") + " small"); })
+    .attr("class", function(d) { return ((d.children ? "parent" : "child")); })
     .attr("x", function(d) { return d.x; })
     .attr("y", function(d) { return d.y; })
-    .attr("dy", ".35em")
     .attr("text-anchor", "middle")
-    .attr("title", function(d) {return DCV.Bubbles.nameForRadius(d,1);})
-    .style("display","block")
     .style("overflow","hidden")
     .style("opacity", function(d) { return d.r > 20 ? 1 : 0; })
     .style("pointer-events", function(d) { return (d.depth > 1) ? "none" : "all"})
     .style("visibility", function(d){ return d.depth != 1 ? "hidden" : "visible"; })
     .text(function(d) { return DCV.Bubbles.nameForRadius(d,1); })
+    .style("font-size", function(d) { return Math.min(d.r, (d.r - 8) / this.getComputedTextLength() * 24) + "px"; })
+    .attr("dy", ".35em")
     .on("click", function(d){DCV.Bubbles.modal(d, $(_this.container).children('.zoom-label').children('a'));});
 
   d3.select(this.container).on("click", function() {return _this.zoom(root)});
   $(this.container).children('.zoom-label').html(this.root.name + " <a rel=\"catalog\" href=\"\"></a>");
 }
-DCV.Bubbles.textSizeForNode = function(d,k) {
-  return (Math.log(2*d.r*k/d.name.length)/Math.log(10)) + 'em';
-}
 DCV.Bubbles.nameForRadius = function(d,k) {
-  var limit = Math.floor(2.5*d.r*k);
+  var limit = 40;
   if (d.name.length > limit) {
     return d.name.substring(0,limit) + "...";
   } else return d.name + ' (' + d.size +')';
@@ -135,15 +129,14 @@ DCV.Bubbles.prototype.zoom = function(d, i) {
   y.domain([d.y - d.r, d.y + d.r]);
 
   var node = d;
-  var unhide = function(d){
-    if (d.parent == node.parent && d != node) return true;
-    if (d.parent == node) return true;
-    if (d == node && !d.children) return true;
+  var unhide = function(e){
+    if (e.parent == node.parent && e != node) return true;
+    if (e.parent == node) return true;
+    if (e == node && !e.children) return true;
     return false;
   }
 
-  var t = this.vis.transition()
-      .duration(d3.event.altKey ? 7500 : 750);
+  var t =  this.vis.transition().duration(d3.event.altKey ? 7500 : 750);
 
   t.selectAll("circle")
       .attr("cx", function(d) { return x(d.x); })
@@ -155,13 +148,16 @@ DCV.Bubbles.prototype.zoom = function(d, i) {
     .attr("x", function(d) { return x(d.x); })
     .attr("y", function(d) { return y(d.y); })
     .text(function(d) { return DCV.Bubbles.nameForRadius(d,k); })
-    .style("opacity", function(d) { return k * d.r > 20 ? 1 : 0; })
+    .style("opacity", function(e) { return k * e.r > 20 ? 1 : 0; })
+    .style("font-size","inherit")
     .style("visibility",
-      function(d){
-        return unhide(d) ? "visible" : "hidden";
+      function(e){
+        return unhide(e) ? "visible" : "hidden";
        }
     )
-    .style("pointer-events", function(d){return(unhide(d) && (k*d.r > 20)) ? "all" : "none"});
+    .style("pointer-events", function(e){return(unhide(e) && (e.r > 20)) ? "all" : "none"});
+  this.vis.selectAll("text")
+    .style("font-size", function(d) { return Math.min(k * d.r, k * (d.r - 8) / this.getComputedTextLength() * 24) + "px"; });
 
   $(this.container).children('.zoom-label').html(this.titleChain(node) + " <a rel=\"catalog\" href=\"\"></a>");
   DCV.Bubbles.modal(node, $(this.container).children('.zoom-label').children('a'));
