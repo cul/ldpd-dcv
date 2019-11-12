@@ -59,14 +59,14 @@ module Dcv::TextTruncateHelper
 
   def collapse_toggle(span_id)
     atts = {
-      class: "btn btn-secondary btn-xs",
+      class: "btn btn-xs btn-link",
       role: "button",
       :"data-toggle" => "collapse",
       :"data-target" => "##{span_id}",
       :"aria-expanded" => "false",
       :"aria-controls" => span_id
     }
-    content_tag(:a, atts) do
+    content_tag(:button, atts) do
       content_tag(:span, "&raquo; Show more".html_safe, class: "collapsed") << content_tag(:span, " &laquo; Show less".html_safe, class: "expanded")
     end
   end
