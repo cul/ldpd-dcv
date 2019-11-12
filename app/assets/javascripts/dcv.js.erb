@@ -51,7 +51,7 @@ function mosaicDemo(container, proj) {
   var projlink = proj.attr('data-link');
 
   var randomItems = projlink.replace('catalog','catalog/random.json') + '&per_page=' + total;
-  var fill = "<%= image_url("dcv/columbia_crown_outline.png") %>/";
+  var fill = "<%= image_url("dcv/columbia_crown_outline.png") %>";
   var style = 'width:' + tileSide + 'px; height:' + tileSide + 'px;'
   for (var i=0; i< total; i++) {
     $(container).append('<div class="col-xs-1 brick" style="' + style + '"> \
