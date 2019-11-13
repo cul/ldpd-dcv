@@ -39,8 +39,9 @@ secrets.yml
 subsites.yml
 location_uris.yml
 
-# Ignore local task file
+# Ignore local task files
 /lib/tasks/local.rake
+/lib/tasks/local/*
 
 # Ignore arbitrary local files
 /.local
