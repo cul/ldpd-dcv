@@ -6,7 +6,6 @@ class SitesController < ApplicationController
   include Dcv::Catalog::BrowseListBehavior
   include Dcv::CdnHelper
 
-  before_filter :set_view_path
   before_filter :set_browse_lists, only: :index
 
   layout Proc.new { |controller| 'dcv' }

@@ -6,7 +6,6 @@ class SubsitesController < ApplicationController
   include Cul::Omniauth::AuthorizingController
   include Cul::Omniauth::RemoteIpAbility
 
-  before_filter :set_view_path
   before_filter :store_unless_user, except: [:update, :destroy, :api_info]
   before_filter :authorize_action, only:[:index, :preview, :show]
   before_filter :default_search_mode_cookie, only: :index
