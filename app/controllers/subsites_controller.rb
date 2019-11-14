@@ -20,9 +20,7 @@ class SubsitesController < ApplicationController
 
   def initialize(*args)
     super(*args)
-    self._prefixes << self.subsite_layout # haaaaaaack to not reproduce templates
-    self._prefixes << 'catalog' # haaaaaaack to not reproduce templates
-    self._prefixes << 'shared' # haaaaaaack to not reproduce templates
+    self._prefixes.unshift self.subsite_layout # haaaaaaack to not reproduce templates
   end
 
   # overrides the session role key from Cul::Omniauth::RemoteIpAbility

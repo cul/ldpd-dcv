@@ -90,16 +90,7 @@ class SitesController < ApplicationController
 
   def initialize(*args)
     super(*args)
-    self._prefixes << 'sites' << 'catalog' << 'shared' # haaaaaaack to not reproduce templates
-  end
-
-  def set_view_path
-    self.prepend_view_path('app/views/shared')
-    self.prepend_view_path('app/views/catalog')
-    self.prepend_view_path('app/views/dcv')
-    self.prepend_view_path('dcv')
-    self.prepend_view_path('app/views/' + controller_path)
-    self.prepend_view_path(controller_path)
+    self._prefixes.unshift 'sites'
   end
 
   ##
