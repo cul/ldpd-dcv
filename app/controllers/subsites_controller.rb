@@ -6,7 +6,6 @@ class SubsitesController < ApplicationController
   include Cul::Omniauth::AuthorizingController
   include Cul::Omniauth::RemoteIpAbility
 
-  before_filter :set_view_path
   before_filter :store_unless_user, except: [:update, :destroy, :api_info]
   before_filter :authorize_action, only:[:index, :preview, :show]
   before_filter :default_search_mode_cookie, only: :index
@@ -20,9 +19,7 @@ class SubsitesController < ApplicationController
 
   def initialize(*args)
     super(*args)
-    self._prefixes << self.subsite_layout # haaaaaaack to not reproduce templates
-    self._prefixes << 'catalog' # haaaaaaack to not reproduce templates
-    self._prefixes << 'shared' # haaaaaaack to not reproduce templates
+    self._prefixes.unshift self.subsite_layout # haaaaaaack to not reproduce templates
   end
 
   # overrides the session role key from Cul::Omniauth::RemoteIpAbility
