@@ -1,15 +1,16 @@
 <%
 poster_url = get_resolved_asset_url(id: child[:id], size: 768, type: 'full', format: 'jpg')
-if DCV_CONFIG.fetch('media_streaming', {})['wowza'].present?
-  media_url = wowza_media_token_url(child)
-  player_src = render_media_element_streaming_player(media_url, poster_url, 1024, 500)
-else
-  media_url = bytestream_content_path(catalog_id: child[:pid], bytestream_id: 'access')
-  player_src = render_media_element_progressive_download_video_player(media_url, poster_url, 1024, 500)
-end
 dsa = child.fetch(:datastreams_ssim, [])
 has_chapters = dsa.include?('chapters')
 has_captions = dsa.include?('captions')
+captions_url = bytestream_content_path(catalog_id: child[:id], bytestream_id: 'captions') if has_captions
+if DCV_CONFIG.fetch('media_streaming', {})['wowza'].present?
+  media_url = wowza_media_token_url(child)
+  player_src = render_media_element_streaming_player(media_url, poster_url, captions_url, 1024, 500)
+else
+  media_url = bytestream_content_path(catalog_id: child[:pid], bytestream_id: 'access')
+  player_src = render_media_element_progressive_download_video_player(media_url, poster_url, captions_url, 1024, 500)
+end
 %>
 
 <div>

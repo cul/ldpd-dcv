@@ -1,1 +1,8 @@
-<%= render_media_element_streaming_video_player(wowza_project, media_path, poster_path) %>
+<%
+document ||= {} # in case legacy code is not passing
+dsa = document.fetch(:datastreams_ssim, [])
+has_chapters = dsa.include?('chapters')
+has_captions = dsa.include?('captions')
+captions_url = bytestream_content_path(catalog_id: document[:id], bytestream_id: 'captions') if has_captions
+%>
+<%= render_media_element_streaming_video_player(wowza_project, media_path, poster_path, captions_url) %>
