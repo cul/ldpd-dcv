@@ -27,7 +27,7 @@ describe ArchivalContext do
       let(:subseries) { JSON.parse(json)['dc:coverage'][0]['dc:hasPart'] }
       let(:title_for) { subject.title_for(subseries, link: true) }
       before { subject.repo_code = 'NyNyTest' }
-      it { expect(title_for).to include('nynytest/ldpd_4079753/dsc/11#subseries_1') }
+      it { puts title_for; expect(title_for).to include('nynytest/ldpd_4079753/dsc/11#subseries_1') }
     end
     context "when subseries is hyphenated" do
       let(:json) { fixture('json/archival_context_hyphen.json').read }
@@ -35,6 +35,14 @@ describe ArchivalContext do
       let(:title_for) { subject.title_for(subseries, link: true) }
       before { subject.repo_code = 'NyNyTest' }
       it { expect(title_for).to include('nynytest/ldpd_6134799/dsc/8#subseries_3') }
+    end
+    context "when type attribute is missing" do
+      let(:json) { fixture('json/archival_context_untyped.json').read }
+      let(:subseries) { JSON.parse(json)['dc:coverage'][0]['dc:hasPart'] }
+      let(:title_for) { subject.title_for(subseries, link: true) }
+      before { subject.repo_code = 'NyNyTest' }
+      it { expect(title_for).to include('Clippings') }
+      it { expect(title_for).not_to include('nynytest/ldpd_6134799/dsc/8#subseries_3') }
     end
   end
 end

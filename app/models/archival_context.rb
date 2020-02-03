@@ -51,9 +51,10 @@ class ArchivalContext
 
   def title_for(context, args = {})
     link_titles = args.fetch(:link, true)
+    context_type = context['dc:type'].to_s
     if context['dc:bibliographicCitation']
       link_titles ? "<a href=\"#{finding_aid_url}\">#{context['dc:title']}</a>" : context['dc:title'].dup
-    elsif 'series'.casecmp?(context['dc:type'])
+    elsif 'series'.casecmp?(context_type)
       title = context['dc:title'].dup
       if link_titles
         if (match = ROMAN_SERIES.match(title))
@@ -66,7 +67,7 @@ class ArchivalContext
         end
       end
       title
-    elsif 'subseries'.casecmp?(context['dc:type'])
+    elsif 'subseries'.casecmp?(context_type)
       title = context['dc:title'].dup
       if link_titles
         if (match = ROMAN_SUBSERIES.match(title))
