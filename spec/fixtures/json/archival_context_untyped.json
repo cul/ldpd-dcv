@@ -1,0 +1,21 @@
+{
+	"@context":{
+		"dc":"http://purl.org/dc/terms/"
+	},
+	"@id":"http://id.library.columbia.edu/term/340132e4-f5da-4cdd-b7b6-b67ecaf122d4",
+	"dc:title":"Hubert H. Harrison Papers",
+	"dc:bibliographicCitation":{
+		"@id":"https://clio.columbia.edu/catalog/6134799",
+		"@type":"dc:BibliographicResource"
+	},
+	"dc:coverage":[
+		{
+			"dc:title":"Series VIII: Printed material",
+			"@id":"_:n0",
+			"dc:hasPart":{
+				"dc:title":"Sub-series 8.3: Clippings",
+				"@id":"_:n1"
+			}
+		}
+	]
+}
