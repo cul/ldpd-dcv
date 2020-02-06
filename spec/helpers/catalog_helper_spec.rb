@@ -133,11 +133,11 @@ describe CatalogHelper, :type => :helper do
       it { is_expected.to be false }
     end
     context "all synchronized streams" do
-      let(:datastreams) { ['captions','chapters'] }
+      let(:datastreams) { ['synchronized_transcript','chapters'] }
       it { is_expected.to be true }
     end
     context "synchronized captions streams" do
-      let(:datastreams) { ['captions'] }
+      let(:datastreams) { ['synchronized_transcript'] }
       it { is_expected.to be true }
     end
     context "synchronized chapters streams" do

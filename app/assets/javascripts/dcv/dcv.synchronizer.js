@@ -18,7 +18,7 @@ $(document).ready(function(){
     } else {
       widgetOptions.transcript = {
         id: 'input-transcript',
-        url: $('#synchronizer-widget').attr('data-captions-url')
+        url: $('#synchronizer-widget').attr('data-synchronized_transcript-url')
       }
     }
 

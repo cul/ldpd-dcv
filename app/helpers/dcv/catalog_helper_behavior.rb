@@ -88,7 +88,7 @@ module Dcv::CatalogHelperBehavior
   # @param document [Hash] the representative document
   # @return [Boolean]
   def has_synchronized_media?(document)
-    (document.fetch(:datastreams_ssim, []) & ['chapters','captions']).present?
+    (document.fetch(:datastreams_ssim, []) & ['chapters','synchronized_transcript']).present?
   end
 
   # Look up the label for the generated field
