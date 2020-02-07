@@ -14,8 +14,8 @@ end
       <div id="left-sidebar" class="col-md-6">
         <div id="media-playback" class="">
           <div id="ytplayer"></div>
-          <div id="video"><video id="video-player" data-able-player preload="auto"></video></div>
-          <div id="audio"><audio id="audio-player" data-able-player preload="auto"></audio></div>
+          <div id="video"><video id="video-player" data-able-player data-include-transcript="false" preload="auto"><track id="video-captions" label="English" kind="captions" srclang="en" src="<%= bytestream_content_path(catalog_id: params[:id], bytestream_id: 'captions')%>" /></video></div>
+          <div id="audio"><audio id="audio-player" data-able-player data-include-transcript="false" preload="auto"><track id="audio-captions" label="English" kind="captions" srclang="en" src="<%= bytestream_content_path(catalog_id: params[:id], bytestream_id: 'captions')%>" /></audio></div>
         </div><!-- /#media-playback -->
 
         <div id="interview-metadata" class="inner" data-assigned="true"><%= render partial: 'synchronizer/interview_metadata' %></div><!-- /#interview-metadata -->
