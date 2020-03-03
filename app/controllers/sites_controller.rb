@@ -22,8 +22,6 @@ class SitesController < ApplicationController
       :qt => 'search'
     }
 
-    publisher = self.restricted? ? SUBSITES['restricted']['uri'] : SUBSITES['public']['uri']
-    config.default_solr_params[:fq] << "publisher_ssim:\"#{publisher}\""
     config.default_per_page = 250
     config.per_page = [20,60,100,250]
     config.max_per_page = 250
@@ -72,6 +70,13 @@ class SitesController < ApplicationController
         :qf => [ActiveFedora::SolrService.solr_name('lib_name', :searchable, type: :text)],
         :pf => [ActiveFedora::SolrService.solr_name('lib_name', :searchable, type: :text)]
       }
+    end
+  end
+
+  def solr_search_params(user_params = {})
+    super.tap do |solr_params|
+      fq = "publisher_ssim:\"#{self.restricted? ? SUBSITES['restricted']['uri'] : SUBSITES['public']['uri']}\""
+      solr_params[:fq] << fq
     end
   end
 
@@ -146,9 +151,11 @@ class SitesController < ApplicationController
         name: solr_doc.fetch('title_ssm',[]).first,
         image: thumbnail_url(solr_doc),
         external_url: solr_doc.fetch('source_ssim',[]).first || site_url(solr_doc.fetch('slug_ssim',[]).first),
-        description: solr_doc.fetch('abstract_ssim',[]).first
+        description: solr_doc.fetch('abstract_ssim',[]).first,
+        search_scope: solr_doc.fetch('search_scope_ssi', "project") || "project"
       }
       t[:facet_value] = solr_doc.fetch('short_title_ssim',[]).first if published_to_catalog?(solr_doc)
+      t[:facet_field] = (t[:search_scope] == 'collection') ? 'lib_collection_sim' : 'lib_project_short_ssim'
       t
     end
   end

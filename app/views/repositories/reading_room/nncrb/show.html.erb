@@ -1,0 +1,18 @@
+<%
+template_key = params[:repository_id].downcase
+template_key.gsub!("-","")
+%>
+<div class="container">
+  <div id="sidebar" class="col-md-3">
+    <div class="inner">
+      <%= render template: "reading_room/#{template_key}/about", locals: {div_id: "home-sidebar-news"} %>
+    </div>
+    <div id="home-sidebar-about">
+		<p><a href="<%= about_url %>">Learn more about the DLC &raquo;</a></p>
+	</div>
+  </div>
+  <div id="portals" class="col-md-9">
+    <%= render template: "reading_room/#{template_key}/archives" %>
+    <%= render template: 'reading_room/projects_and_exhibitions' %>
+  </div>
+</div>

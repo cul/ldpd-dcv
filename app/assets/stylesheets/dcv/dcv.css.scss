@@ -244,6 +244,27 @@ input {
 			}
 		}
 	}
+	h2 {
+		width: 100%;
+		padding: 2px 0 0;
+		margin-bottom: .5em;
+		text-align: center;
+		font-family: $font_0, $font_1, $font_4, $font_2;
+		font-size: 180%;
+		a {
+			color: $color_9;
+			&:hover {
+				text-decoration: none;
+			}
+			img {
+				max-width: 100%;
+			}
+		}
+	}
+	.note {
+		text-align: center;
+		max-width: 100%;
+	}
 	#site-banner-inner .col-sm-3 > a {
 		display: inline-block;
 		max-width: 100%;
@@ -300,6 +321,13 @@ input {
 			margin-bottom: .5em;
 			padding-top: 1em;
 			border-top: 1px solid $color_28;
+			&.compact {
+			  min-height: auto;
+				&:first-child {
+					padding-top: 1em;
+					border-top: 0;
+				}
+			}
 			&:first-child {
 				padding-top: 0;
 				border-top: 0;
@@ -326,6 +354,23 @@ input {
 				img {
 					max-height: 98%;
 				}
+			}
+		}
+	}
+	h2.banner {
+		width: 100%;
+		padding: 2px 0 0;
+		margin-bottom: .5em;
+		text-align: center;
+		font-family: $font_1, $font_4, $font_2, $font_0;
+		font-size: 180%;
+		a {
+			color: $color_9;
+			&:hover {
+				text-decoration: none;
+			}
+			img {
+				max-width: 100%;
 			}
 		}
 	}
@@ -588,6 +633,29 @@ h2[itemprop="name"] {
 }
 #sidebar {
 	clear: both;
+	.panel-default {
+		border-color: $color_18;
+		border-style: solid;
+	}
+	.panel-body .nav {
+		a {
+			@extend %extend_1;
+			&:hover {
+				color: $color_9;
+			}
+		}
+		.btn-link {
+			@extend %extend_1;
+			&:hover {
+				color: $color_9;
+			}
+		}
+	}
+	.panel-title:hover {
+		text-decoration: none;
+	}
+}
+#sidebar-right {
 	.panel-default {
 		border-color: $color_18;
 		border-style: solid;
