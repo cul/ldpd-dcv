@@ -12,7 +12,7 @@
 				<div class="col-sm-3">
 					<div class="row" itemscope itemtype="http://schema.org/CreativeWork">
 						<div class="col-sm-12">
-							<% dcv_search_link = digital_project[:facet_value].present? ? catalog_index_path(:f => {'lib_project_short_ssim' => [digital_project[:facet_value]]}) : nil %>
+							<% dcv_search_link = (digital_project[:facet_field].present? && digital_project[:facet_value].present?) ? catalog_index_path(:f => {digital_project[:facet_field] => [digital_project[:facet_value]]}) : nil -%>
 							<%= link_to image_tag(digital_project[:image], :class => 'thumbnail img-responsive', :itemprop => 'image', alt: digital_project[:name]), (dcv_search_link.present? ? dcv_search_link : digital_project[:external_url]), class: 'project-image-link' %>
 							<div>
 								<div class=" proj-jav btn-group btn-group-justified" role="group">

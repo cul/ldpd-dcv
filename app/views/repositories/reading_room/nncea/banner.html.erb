@@ -1,0 +1,28 @@
+<% if current_page?(repository_url(repository_key)) or current_page?(repository_reading_room_url(repository_id: repository_key)) %>
+	<div id="site-banner" class="slim">
+		<div class="row">
+			<div id="site-banner-inner">
+				<h1>Columbia University Libraries Digital Collections</h1>
+				<h2>C.V. Starr East Asian Library</h2>
+			</div>
+			<% if controller.reading_room_client? -%>
+				<div class="note">This workstation provides access to content that can only be viewed on-site in the reading room.</div>
+			<% end -%>
+		</div>
+	</div>
+<% else %>
+	<div id="site-banner" class="slim">
+		<div class="row">
+			<div id="site-banner-inner">
+				<div class="col-sm-3">
+					<a href="<%= repository_path(repository_key) %>">C.V. Starr East Asian Library</a>
+				</div>
+				<div class="col-sm-9">
+					<div id="search-navbar" class="navbar navbar-default slim" role="navigation">
+						<%= render template: '_search_form'  %>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<% end %>

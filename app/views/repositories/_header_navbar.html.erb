@@ -1,0 +1,7 @@
+<%
+template_key = params[:repository_id].downcase
+template_key.gsub!("-","")
+%>
+<div class="container">
+<%= render template: "reading_room/#{template_key}/banner", locals: { repository_key: params[:repository_id] } %>
+</div>

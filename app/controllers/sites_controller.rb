@@ -146,9 +146,11 @@ class SitesController < ApplicationController
         name: solr_doc.fetch('title_ssm',[]).first,
         image: thumbnail_url(solr_doc),
         external_url: solr_doc.fetch('source_ssim',[]).first || site_url(solr_doc.fetch('slug_ssim',[]).first),
-        description: solr_doc.fetch('abstract_ssim',[]).first
+        description: solr_doc.fetch('abstract_ssim',[]).first,
+        search_scope: solr_doc.fetch('search_scope_ssi', "project") || "project"
       }
       t[:facet_value] = solr_doc.fetch('short_title_ssim',[]).first if published_to_catalog?(solr_doc)
+      t[:facet_field] = (t[:search_scope] == 'collection') ? 'lib_collection_sim' : 'lib_project_short_ssim'
       t
     end
   end
