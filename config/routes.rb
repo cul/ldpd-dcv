@@ -79,6 +79,18 @@ Dcv::Application.routes.draw do
   get 'nyre/projects/:id' => 'nyre/projects#show', as: :nyre_project, constraints: { id: /(\d+)|([A-Z]{2,3}\.\d{3,4}\.[A-Z]+)/ }
 
   resources 'sites', only: [:index, :show], param: :slug
+
+  repositories = %w(NNC-A NNC-EA NNC-RB NyNyCAP NyNyCBL NyNyCMA)
+
+  repositories_constraint = lambda { |req| repositories.include?(req.params[:id]) || repositories.include?(req.params[:repository_id]) }
+  resources :repositories, path: '', constraints: repositories_constraint, shallow: true, only: [:show] do
+    get 'reading-room', as: 'reading_room', action: 'reading_room'
+    scope module: 'repositories' do
+      blacklight_for 'catalog', on: :member
+      subsite_for 'catalog', on: :member
+    end
+  end
+
   # Dynamic routes for catalog controller and all subsites
   # namespace configs must come first for routes to work
   (SUBSITES['public'].keys - ['uri']).each do |subsite_key|

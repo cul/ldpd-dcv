@@ -1,0 +1,14 @@
+<%= form_tag 'https://archivesportal.library.columbia.edu/results.php', :method => :get, :class => 'clearfix' do %>
+  <div class="input-group">
+    <label for="archives_q" class="sr-only"><%= t('blacklight.search.form.q') %></label>
+    <%= text_field_tag :component_text, params[:component_text], :placeholder => (!query_has_constraints? ?  t(:"dlc.search_placeholder.new.#{controller.controller_name}", default: :'dlc.search_placeholder.new.default').html_safe : t(:"dlc.search_placeholder.modified.#{controller.controller_name}", default: :'dlc.search_placeholder.modifed.default').html_safe), :class => "search_q q form-control", :id => "archives_q" %>
+    <input type="hidden" name="repository_code" value="<%= params[:repository_id].downcase %>" />
+    <input type="hidden" name="level" value="collection" />
+    <div class="input-group-btn">
+      <button class="btn btn-primary search-btn" type="submit" aria-label="Submit">
+        <span class="glyphicon glyphicon-search"></span>
+      </button>
+    </div>
+  </div>
+
+<% end %>

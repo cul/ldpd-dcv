@@ -1,0 +1,20 @@
+<%
+template_key = params[:repository_id].downcase
+template_key.gsub!("-","")
+%>
+<div class="container">
+  <div id="sidebar" class="col-md-3">
+    <div class="inner">
+      <%= render template: "reading_room/#{template_key}/about", locals: {div_id: "home-sidebar-news"} %>
+    </div>
+  </div>
+  <div id="portals" class="col-md-6">
+    <%= render template: "reading_room/#{template_key}/archives" %>
+    <%= render template: 'reading_room/projects_and_exhibitions' %>
+  </div>
+  <div id="sidebar-right" class="col-md-3">
+    <div class="inner">
+      <%= render template: "reading_room/#{template_key}/highlights", locals: {div_id: "home-sidebar-highlights"} %>
+    </div>
+  </div>
+</div>
