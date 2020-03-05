@@ -67,8 +67,9 @@ class RepositoriesController < ApplicationController
       }
       t[:facet_value] = solr_doc.fetch('short_title_ssim',[]).first if published_to_catalogs?(solr_doc)
       t[:facet_field] = (t[:search_scope] == 'collection') ? 'lib_collection_sim' : 'lib_project_short_ssim'
-      # TODO: find a way to limit to reading room scope; maybe wildcard reading room listing?
-      # t[:in_scope] = solr_doc.fetch('publisher_ssim',[]).include?(site_uri(restricted))
+      unless t[:external_url]
+        t[:external_url] = solr_doc[:restriction_ssim].present? ? restricted_site_url(solr_doc.fetch('slug_ssim',[]).first) : site_url(solr_doc.fetch('slug_ssim',[]).first)
+      end
       t
     end
   end

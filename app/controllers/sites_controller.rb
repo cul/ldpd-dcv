@@ -22,8 +22,6 @@ class SitesController < ApplicationController
       :qt => 'search'
     }
 
-    publisher = self.restricted? ? SUBSITES['restricted']['uri'] : SUBSITES['public']['uri']
-    config.default_solr_params[:fq] << "publisher_ssim:\"#{publisher}\""
     config.default_per_page = 250
     config.per_page = [20,60,100,250]
     config.max_per_page = 250
@@ -72,6 +70,13 @@ class SitesController < ApplicationController
         :qf => [ActiveFedora::SolrService.solr_name('lib_name', :searchable, type: :text)],
         :pf => [ActiveFedora::SolrService.solr_name('lib_name', :searchable, type: :text)]
       }
+    end
+  end
+
+  def solr_search_params(user_params = {})
+    super.tap do |solr_params|
+      fq = "publisher_ssim:\"#{self.restricted? ? SUBSITES['restricted']['uri'] : SUBSITES['public']['uri']}\""
+      solr_params[:fq] << fq
     end
   end
 
