@@ -16,6 +16,7 @@
 			<h4 itemprop="name">
 				<%= digital_project[:name] %>
 			</h4>
+			<p><%= (digital_project[:description] || '').html_safe %></p>
 			<div class="btn-group btn-group-justified" role="group">
 				<a class="btn btn-dark btn-xs" role="button" data-toggle="tooltip" title="More Information" href="#" data-proj-more="#proj-<%=proj_counter%>" data-proj-title="<%= digital_project[:name] %>" onclick="return DCV.ProjModal.show($(this).attr('data-proj-more'), $(this).attr('data-proj-title'));"><span class="glyphicon glyphicon-info-sign"></span></a>
 				<% if dcv_search_link.present? %>

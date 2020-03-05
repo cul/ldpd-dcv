@@ -121,6 +121,19 @@ module Dcv::DcvUrlHelper
     return url_for({controller: controller_name, action: 'index', search_field: 'all_text_teim', q: '', 'f' => {'durst_subjects_ssim' => [subject_term_value]}})
   end
 
+  def landing_page_search_url(document)
+    return nil unless document[:short_title_ssim].present?
+    search_scope = document.fetch('search_scope_ssi', "project") || "project"
+    facet_field = (search_scope == 'collection') ? 'lib_collection_sim' : 'lib_project_short_ssim'
+    facet_value = document.fetch('short_title_ssim',[]).first
+    if document[:restriction_ssim].present?
+      repository_id = document[:lib_repo_code_ssim].first
+      repository_catalog_index_path(repository_id: repository_id, f: {digital_project[:facet_field] => [digital_project[:facet_value]]})
+    else
+      search_action_path(:f => {facet_field => [facet_value]})
+    end
+  end
+
   def terms_of_use_url
     'https://library.columbia.edu/resolve/lweb0208'
   end

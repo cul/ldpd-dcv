@@ -61,7 +61,7 @@ class RepositoriesController < ApplicationController
       t = {
         name: strip_restricted_title_qualifier(solr_doc.fetch('title_ssm',[]).first),
         image: thumbnail_url(solr_doc),
-        external_url: solr_doc.fetch('source_ssim',[]).first || site_url(solr_doc.fetch('slug_ssim',[]).first),
+        external_url: solr_doc.fetch('source_ssim',[]).first, # TODO: Handle landing page sites in this context
         description: solr_doc.fetch('abstract_ssim',[]).first,
         search_scope: solr_doc.fetch('search_scope_ssi', "project") || "project"
       }
