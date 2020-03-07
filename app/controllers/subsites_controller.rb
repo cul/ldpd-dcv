@@ -5,17 +5,27 @@ class SubsitesController < ApplicationController
   include Cul::Hydra::ApplicationIdBehavior
   include Cul::Omniauth::AuthorizingController
   include Cul::Omniauth::RemoteIpAbility
+  include ShowFieldDisplayFieldHelper
 
   before_filter :store_unless_user, except: [:update, :destroy, :api_info]
   before_filter :authorize_action, only:[:index, :preview, :show]
   before_filter :default_search_mode_cookie, only: :index
   protect_from_forgery :except => [:update, :destroy, :api_info] # No CSRF token required for publishing actions
 
+
   helper_method :extract_map_data_from_document_list
 
   layout Proc.new { |controller|
     self.subsite_layout
   }
+
+  # TODO: the blacklight_configuration_context expects the controller to
+  # have access to the condition evaluation methods; the BL 5 implementation
+  # was in the helper context and thus has a controller accessor. The helpers
+  # need to be refactored into a controller concern and just refer to self
+  def controller
+    self
+  end
 
   def initialize(*args)
     super(*args)
@@ -101,8 +111,8 @@ class SubsitesController < ApplicationController
     # different subsites, make sure to use the correct solr
     # url for each subsite. For now, it's safe to use our
     # one and only Blacklight.solr url.
-    Blacklight.solr.delete_by_id(pid)
-    Blacklight.solr.commit
+    Blacklight.default_index.connection.delete_by_id(pid)
+    Blacklight.default_index.connection.commit
     render json: {
       "success" => true
     }
@@ -119,30 +129,34 @@ class SubsitesController < ApplicationController
   def show
     params[:format] = 'html'
 
-    @response, @document = get_solr_response_for_doc_id
+    @response, @document = fetch params[:id]
     return unless authorize_document
 
     respond_to do |format|
-      format.html {setup_next_and_previous_documents}
+      format.html do
+        setup_next_and_previous_documents
+        render 'show' # explicate since proxies action delegates here
+      end
 
       format.json { render json: {response: {document: @document}}}
 
       # Add all dynamically added (such as by document extensions)
       # export formats.
       @document.export_formats.each_key do | format_name |
-        # It's important that the argument to send be a symbol;
-        # if it's a string, it makes Rails unhappy for unclear reasons.
         format.send(format_name.to_sym) { render :text => @document.export_as(format_name), :layout => false }
       end
-
     end
   end
 
   def preview
-    @response, @document = get_solr_response_for_doc_id(params[:id], fl:'*')
+    @response, @document = fetch(params[:id], fl:'*')
     return unless authorize_document
 
     render layout: 'preview', locals: { document: @document }
+  end
+
+  def proxies
+    show
   end
 
   def legacy_redirect
@@ -193,7 +207,7 @@ class SubsitesController < ApplicationController
   end
 
   def synchronizer
-    @response, @document = get_solr_response_for_doc_id(params[:id], fl:'*')
+    @response, @document = fetch(params[:id], fl:'*')
     return unless authorize_document
     render layout: 'minimal', locals: { document: @document }
   end

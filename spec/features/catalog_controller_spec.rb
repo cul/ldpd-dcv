@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe CatalogController, type: :feature do
   describe "index" do
-    before { visit catalog_index_path }
+    before { visit search_catalog_path }
     it "shows the 'Perform a search' message when you visit the catalog index without any search parameters" do
       expect(page).to have_text('Perform a search')
     end

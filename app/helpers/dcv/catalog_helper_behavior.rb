@@ -12,7 +12,7 @@ module Dcv::CatalogHelperBehavior
     p_pids = Array.new(document[fname])
     p_pids.compact!
     p_pids.collect! {|p_pid| p_pid.split('/')[-1].sub(':','\:')}
-    controller.get_solr_response_for_document_ids(p_pids, extra_params)[1]
+    controller.fetch(p_pids, extra_params)[1]
   end
 
   def link_to_resource_in_context(document=@document)
@@ -70,7 +70,7 @@ module Dcv::CatalogHelperBehavior
         fq: ["active_fedora_model_ssi:GenericResource"],
         facet: false
       }
-      response = Blacklight.solr.get 'select', :params => solr_params
+      response = Blacklight.default_index.connection.send_and_receive 'select', solr_params
       response['response']['numFound'].to_i
     end
   end
@@ -99,10 +99,6 @@ module Dcv::CatalogHelperBehavior
       label = send label, document, field_config
     end
     t(:'blacklight.search.show.label', label: label)
-  end
-
-  def is_excepted_dynamic_field?(field_config, document)
-    (field_config.except || []).include? field_config.field
   end
 
   def interview_metadata_for_asset(document = @document)

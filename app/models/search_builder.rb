@@ -1,24 +1,16 @@
-module Dcv::Catalog::SearchParamsLogicBehavior
-  extend ActiveSupport::Concern
+# frozen_string_literal: true
+class SearchBuilder < Blacklight::SearchBuilder
+  include Blacklight::Solr::SearchBuilderBehavior
 
-  included do
-    self.solr_search_params_logic += [:date_range_filter, :lat_long_filter, :multiselect_facet_feature, :durst_favorite_filter]
-  end
+  self.default_processor_chain += [
+    :date_range_filter, :lat_long_filter, :multiselect_facet_feature,
+    :durst_favorite_filter
+  ]
 
-  #def file_assets_filter(solr_parameters, user_parameters)
-  #  unless user_parameters[:show_file_assets] == 'true'
-  #    solr_parameters[:fq] << '-active_fedora_model_ssi:GenericResource'
-  #  end
-  #end
-  
-  def hide_concepts_when_query_blank_filter(solr_parameters, user_parameters)
-    solr_parameters[:fq] << '-active_fedora_model_ssi:Concept' unless user_parameters[:q].present?
-  end
+  def date_range_filter(solr_params)
 
-  def date_range_filter(solr_parameters, user_parameters)
-
-    start_year = user_parameters[:start_year].present? ? user_parameters[:start_year].to_i : nil
-    end_year = user_parameters[:end_year].present? ? user_parameters[:end_year].to_i : nil
+    start_year = blacklight_params[:start_year].present? ? blacklight_params[:start_year].to_i : nil
+    end_year = blacklight_params[:end_year].present? ? blacklight_params[:end_year].to_i : nil
 
     final_date_fq = nil
 
@@ -30,37 +22,41 @@ module Dcv::Catalog::SearchParamsLogicBehavior
       final_date_fq = "(lib_start_date_year_itsi:[* TO #{end_year}]) OR (lib_end_date_year_itsi:[* TO #{end_year}])"
     end
 
-    solr_parameters[:fq] << final_date_fq if final_date_fq.present?
-
+    solr_params[:fq] ||= []
+    solr_params[:fq] << final_date_fq if final_date_fq.present?
+    solr_params
   end
 
-  def lat_long_filter(solr_parameters, user_parameters)
-    lat = user_parameters[:lat].present? ? user_parameters[:lat].to_f : nil
-    long = user_parameters[:long].present? ? user_parameters[:long].to_f : nil
+  def lat_long_filter(solr_params)
+    lat = blacklight_params[:lat].present? ? blacklight_params[:lat].to_f : nil
+    long = blacklight_params[:long].present? ? blacklight_params[:long].to_f : nil
 
     if lat && long
-      solr_parameters[:fq] << "{!geofilt pt=#{lat},#{long} sfield=geo d=.0001}"
+      solr_params[:fq] ||= []
+      solr_params[:fq] << "{!geofilt pt=#{lat},#{long} sfield=geo d=.0001}"
     end
+    solr_params
   end
 
   # For facet fields with value ":multiselect => true", make them work like fq's with OR logic
-  def multiselect_facet_feature(solr_parameters, user_parameters)
-
+  def multiselect_facet_feature(solr_params)
+    solr_params[:fq] ||= []
     blacklight_config.facet_fields.each {|field_name, facet_field|
       # Only apply this to multiselect fields (as configured in the blacklight config)
       if facet_field[:multiselect]
-        if params[:f] && params[:f][field_name]
+        if solr_params[:f] && solr_params[:f][field_name]
           values = []
           # Delete individual fq entries for EACH facet value
-          params[:f][field_name].each {|value|
-            solr_parameters['fq'].delete_if{|key,value| key.start_with?('{!raw f=' + field_name + '}')}
+          solr_params[:f][field_name].each {|value|
+            solr_params[:fq].delete_if{|key,value| key.start_with?('{!raw f=' + field_name + '}')}
             values << value
           }
           # And combine all of this facet's fq values into a single OR fq
-          solr_parameters['fq'] << '{!tag=' + facet_field.ex + '}' + field_name + ':("' + values.join('" OR "') + '")'
+          solr_params[:fq] << '{!tag=' + facet_field.ex + '}' + field_name + ':("' + values.join('" OR "') + '")'
         end
       end
     }
+    solr_params
 
     # How this works (using the lib_format_sim as an example):
 
@@ -113,14 +109,52 @@ module Dcv::Catalog::SearchParamsLogicBehavior
     #  "f.lib_hierarchical_geographic_city_ssim.facet.limit"=>11,
     #  "sort"=>"score desc, title_si asc, lib_date_dtsi desc"
     #}
-
   end
 
-  def durst_favorite_filter(solr_parameters, user_parameters)
-    if user_parameters[:durst_favorites].present? && user_parameters[:durst_favorites].to_s == 'true'
-      params[:search_field] = 'all_text_teim' if params[:search_field].blank?
-      solr_parameters[:fq] << 'cul_member_of_ssim:"info:fedora/cul:nvx0k6djr1"' # cul:nvx0k6djr1 is the pid of the "Seymour's Favorites" Group
+  def durst_favorite_filter(solr_params)
+    if blacklight_params[:durst_favorites].present? && blacklight_params[:durst_favorites].to_s == 'true'
+      solr_params[:search_field] = 'all_text_teim' if solr_params[:search_field].blank?
+      solr_params[:fq] ||= []
+      solr_params[:fq] << 'cul_member_of_ssim:"info:fedora/cul:nvx0k6djr1"' # cul:nvx0k6djr1 is the pid of the "Seymour's Favorites" Group
     end
+    solr_params
   end
 
+  def hide_concepts_when_query_blank_filter(solr_params)
+    unless solr_params[:q].present?
+      solr_params[:fq] ||= []
+      solr_params[:fq] << '-active_fedora_model_ssi:Concept'
+    end
+    solr_params
+  end
+
+  def constrain_to_repository_context(solr_params)
+    if blacklight_params[:repository_id].present?
+      solr_params[:fq] ||= []
+      solr_params[:fq] << "lib_repo_code_ssim:\"#{blacklight_params[:repository_id]}\""
+    end
+    solr_params
+  end
+
+  def constrain_to_slug(solr_params)
+    if blacklight_params[:slug].present?
+      solr_params[:fq] ||= []
+      solr_params[:fq] << "slug_ssim:\"#{blacklight_params[:slug]}\""
+    end
+    solr_params
+  end
+
+  def constrain_to_public_sites(solr_params)
+    constrain_by_publisher(solr_params, SUBSITES['public']['uri'])
+  end
+
+  def constrain_to_restricted_sites(solr_params)
+    constrain_by_publisher(solr_params, SUBSITES['restricted']['uri'])
+  end
+
+  def constrain_by_publisher(solr_params, publisher_constraint)
+      solr_params[:fq] ||= []
+      solr_params[:fq] << "publisher_ssim:\"#{publisher_constraint}\""
+      solr_params
+  end
 end

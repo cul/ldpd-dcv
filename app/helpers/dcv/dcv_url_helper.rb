@@ -84,7 +84,7 @@ module Dcv::DcvUrlHelper
     doc = SolrDocument.new(doc) unless doc.nil? or doc.is_a? SolrDocument
     if doc.is_a?(SolrDocument)
       originals = doc['original_name_ssim'] || doc[:original_name_ssim] || []
-      datastreams = doc['datastreams_ssim'] || doc[:datastreams_ssim] || []
+      datastreams = doc['datastreams_ssim'] || doc[:datastreams_ssim] || ['content']
       if originals.detect {|o| keep_originals.detect {|k| k.match(o) } }
         return (['service','content'] & datastreams.map(&:to_s)).first
       end
@@ -128,7 +128,7 @@ module Dcv::DcvUrlHelper
     facet_value = document.fetch('short_title_ssim',[]).first
     if document[:restriction_ssim].present?
       repository_id = document[:lib_repo_code_ssim].first
-      repository_catalog_index_path(repository_id: repository_id, f: {facet_field => [facet_value]})
+      search_repository_catalog_path(repository_id: repository_id, f: {facet_field => [facet_value]})
     else
       search_action_path(:f => {facet_field => [facet_value]})
     end
@@ -136,5 +136,17 @@ module Dcv::DcvUrlHelper
 
   def terms_of_use_url
     'https://library.columbia.edu/resolve/lweb0208'
+  end
+
+# solr_document routing patches to get BL6 up and running
+# TODO remove these
+  def solr_document_path(solr_document)
+    url_for(params.merge(action: 'show', id: solr_document))
+  end
+
+# solr_document routing patches to get BL6 up and running
+# TODO remove these
+  def solr_document_url(solr_document, options = {})
+    search_state.url_for_document(solr_document, options)
   end
 end

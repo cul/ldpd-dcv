@@ -44,6 +44,7 @@ set :linked_files, fetch(:linked_files, []).push(
   "config/fedora.yml",
   "config/initializer_secrets.yml",
   "config/resque.yml",
+  "config/blacklight.yml",
   "config/solr.yml",
   "config/subsites.yml",
   "config/wind.yml",

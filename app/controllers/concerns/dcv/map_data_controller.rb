@@ -23,7 +23,8 @@ module Dcv::MapDataController
       extra_controller_params = map_response_params
       extra_controller_params[:f] = (params[:f].present? ? params[:f].dup : {})
       extra_controller_params[:f][:geo] ||= ['*']
-      (@response, @document_list) = get_search_results(params, extra_controller_params) # Calling get_search_results manually so that we always plot all points for the home page map
+      # Calling search_results manually so that we always plot all points for the home page map
+      (@response, @document_list) = search_results(params) { |builder| builder.merge extra_controller_params }
       cache_expiration_time = Rails.env.development? ? 5.minutes : 1.day
       map_data = extract_map_data_from_document_list(@document_list)
       @map_data_json = map_data.to_json

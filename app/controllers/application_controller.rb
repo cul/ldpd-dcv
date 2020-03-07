@@ -7,6 +7,8 @@ class ApplicationController < ActionController::Base
   # Please be sure to impelement current_user and user_session. Blacklight depends on
   # these methods in order to perform user specific actions.
 
+  skip_after_action :discard_flash_if_xhr
+
   before_filter :set_view_path
 
   layout false
@@ -14,6 +16,13 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
+
+  # get the solr name for a field with this name and using the given solrizer descriptor
+  # ported from Hydra::Controller::ControllerBehavior
+  # see also https://github.com/samvera/hydra-head/blob/v7.2.2/hydra-core/app/controllers/concerns/hydra/controller/controller_behavior.rb
+  def self.solr_name(name, *opts)
+    ActiveFedora::SolrService.solr_name(name, *opts)
+  end
 
   def initialize(*args)
     super(*args)

@@ -5,7 +5,7 @@
   <ul class="dropdown-menu dropdown-menu-right" role="menu">
       <%- active_sort_fields.each do |sort_key, field_config| %>
         <%- label = (current_sort_field.key == sort_key) ? "#{field_config.label} <i class=\"glyphicon glyphicon-ok\"></i>".html_safe : field_config.label -%>
-        <li><%= link_to(label, url_for(params_for_search(:sort => sort_key))) %></li>
+        <li><%= link_to(label, url_for(search_state.params_for_search(:sort => sort_key))) %></li>
       <%- end -%>
   </ul>
 </div>

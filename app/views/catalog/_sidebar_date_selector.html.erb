@@ -10,12 +10,6 @@
     </div>
     <div id="date-range-filter" class="panel-collapse facet-content <%= date_filter_is_active ? 'in' : 'collapse' %>">
       <div class="panel-body">
-
-        <script>
-
-          DCV.newDateFilterTemplateUrl = '<%= CGI.escape(url_for(params.merge(:start_year => '_start_year_', :end_year => '_end_year_', :search_field => params[:search_field] || 'all_text_teim', :q => params[:q] || ''))) %>';
-        </script>
-
         <form id="sidebar-date-range-selector" action="#">
 
           <div>

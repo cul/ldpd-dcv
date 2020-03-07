@@ -12,7 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
-//
+//= require url_search_params
 // Required by Blacklight
 //= require blacklight/blacklight
 //

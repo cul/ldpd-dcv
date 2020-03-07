@@ -1,5 +1,6 @@
 class DetailsController < ApplicationController
   include Dcv::CatalogIncludes
+  extend Dcv::Configurators::BaseBlacklightConfigurator
 
   layout 'details'
 
@@ -13,8 +14,8 @@ class DetailsController < ApplicationController
 
     config.per_page = [20,60,100]
     # solr field configuration for search results/index views
-    config.index.title_field = solr_name('title_display', :displayable, type: :string)
-    config.index.display_type_field = solr_name('has_model', :symbol)
+    default_index_configuration(config)
+    default_show_configuration(config)
 
     # solr fields that will be treated as facets by the blacklight application
     #   The ordering of the field names is the order of the display
@@ -120,12 +121,10 @@ class DetailsController < ApplicationController
     # If there are more than this many search results, no spelling ("did you
     # mean") suggestion is offered.
     config.spell_max = 5
-
-    config.index.thumbnail_method = :thumbnail_for_doc
   end
 
   def show
   	id = params[:id]
-    @response, @document = get_solr_response_for_doc_id(params[:id])
+    @response, @document = fetch(params[:id])
   end
 end

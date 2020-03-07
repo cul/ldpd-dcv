@@ -15,4 +15,17 @@ module Dcv::Configurators::BaseBlacklightConfigurator
       end
     end
   end
+
+  def default_index_configuration(config)
+    config.index.title_field = solr_name('title_display', :displayable, type: :string)
+    config.index.display_type_field = :active_fedora_model_ssi
+    config.index.thumbnail_method = :thumbnail_for_doc
+    config.index.document_presenter_class = Dcv::IndexPresenter
+  end
+
+  def default_show_configuration(config)
+    config.show.route = { controller: :current }
+    config.show.display_type_field = :active_fedora_model_ssi
+    config.show.document_presenter_class = Dcv::ShowPresenter
+  end
 end

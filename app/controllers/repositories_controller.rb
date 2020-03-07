@@ -34,6 +34,10 @@ class RepositoriesController < ApplicationController
     self._prefixes.unshift 'repositories'
   end
 
+  def search_builder
+    super.tap { |builder| builder.processor_chain.concat [:constrain_to_repository_context] }
+  end
+
   def set_view_path
     super
     self.prepend_view_path('app/views/repositories')
@@ -52,10 +56,8 @@ class RepositoriesController < ApplicationController
   end
 
   def digital_projects(restricted = false)
-    fq = solr_search_params.fetch(:fq,[])
-    fq << "lib_repo_code_ssim:\"#{params[:repository_id]}\""
     unless @document_list
-      (@response, @document_list) = get_search_results(params, {fq: fq})
+      (@response, @document_list) = search_results(params)
     end
     @document_list.map do |solr_doc|
       t = {

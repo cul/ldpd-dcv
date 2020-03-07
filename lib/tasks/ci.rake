@@ -1,7 +1,4 @@
 require "active-fedora"
-require 'jettywrapper'
-
-Jettywrapper.url = "https://github.com/projecthydra/hydra-jetty/archive/7.x-stable.zip"
 
 namespace :dcv do
 
@@ -9,6 +6,9 @@ namespace :dcv do
     # This code is in a begin/rescue block so that the Rakefile is usable
     # in an environment where RSpec is unavailable (i.e. production).
 
+    require 'jettywrapper'
+
+    Jettywrapper.url = "https://github.com/projecthydra/hydra-jetty/archive/7.x-stable.zip"
     require 'rspec/core/rake_task'
     RSpec::Core::RakeTask.new(:rspec) do |spec|
       spec.pattern = FileList['spec/**/*_spec.rb']
@@ -30,7 +30,7 @@ namespace :dcv do
     end
 
   rescue LoadError => e
-    puts "[Warning] Exception creating rspec rake tasks.  This message can be ignored in environments that intentionally do not pull in the RSpec gem (i.e. production)."
+    puts "[Warning] Exception creating rspec or jettywrapper rake tasks.  This message can be ignored in environments that intentionally do not pull in the RSpec gem (i.e. production)."
     puts e
   end
 
@@ -169,6 +169,18 @@ namespace :dcv do
         }
       end
       File.open(solr_yml_file, 'w') {|f| f.write solr_yml.to_yaml }
+
+      # blacklight.yml
+      blacklight_yml_file = File.join(Rails.root, 'config/blacklight.yml')
+      FileUtils.touch(blacklight_yml_file) # Create if it doesn't exist
+      blacklight_yml = YAML.load_file(blacklight_yml_file) || {}
+      ['development', 'test'].each do |env_name|
+        blacklight_yml[env_name] ||= {
+          'url' => 'http://localhost:' + (env_name == 'test' ? default_test_port : default_development_port).to_s + '/solr/dcv_' + env_name,
+          'adapter' => 'solr'
+        }
+      end
+      File.open(blacklight_yml_file, 'w') {|f| f.write blacklight_yml.to_yaml }
 
       # cas.yml
       cas_yml_file = File.join(Rails.root, 'config/cas.yml')

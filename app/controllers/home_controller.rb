@@ -4,8 +4,6 @@ require 'blacklight/catalog'
 class HomeController < ApplicationController
 
   include Blacklight::Catalog
-  include Hydra::Controller::ControllerBehavior
-  include Dcv::Catalog::SearchParamsLogicBehavior
   include Dcv::Catalog::BrowseListBehavior
   include Dcv::Catalog::DateRangeSelectorBehavior
   include Dcv::Catalog::RandomItemBehavior

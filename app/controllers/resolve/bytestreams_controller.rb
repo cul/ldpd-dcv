@@ -4,7 +4,6 @@ require 'blacklight/catalog'
 class Resolve::BytestreamsController < ApplicationController
 
   include Dcv::NonCatalog
-  include Hydra::Controller::ControllerBehavior
   include Dcv::Resources::RelsIntBehavior
   include Cul::Hydra::Resolver
   include Dcv::CatalogHelperBehavior

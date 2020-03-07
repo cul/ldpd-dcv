@@ -1,6 +1,6 @@
 module FieldDisplayHelpers::Repository
   def field_helper_repo_code_value(args = {})
-    document = args[:document]
+    document = args.fetch(:document, {}).to_h
     return unless document.present?
     document['repo_code_lookup'] ||= begin
       repo_code = document['lib_repo_code_ssim']&.first

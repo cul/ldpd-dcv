@@ -3,7 +3,7 @@ module Dcv::NonCatalog
   extend ActiveSupport::Concern
   
   include Blacklight::Configurable
-  include Blacklight::SolrHelper
+  include Blacklight::Base
 
 
   # The following code is executed when someone includes blacklight::catalog in their

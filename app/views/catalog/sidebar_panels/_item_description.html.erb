@@ -1,3 +1,4 @@
+<% doc_presenter = show_presenter(document) %>
 <% alignment ||= 'vertical' %>
 <% link_helpers ||= [] %>
 <div class="inner" <%= "style=\"margin-top:1em;\"".html_safe if alignment != 'vertical' %>>
@@ -19,7 +20,7 @@
 				<% end %>
 			<% elsif should_render_show_field?(document, field) %>
 				<dt class="blacklight-<%= solr_fname.parameterize %>"><%= render_document_show_field_label document, :field => solr_fname %></dt>
-				<dd class="blacklight-<%= solr_fname.parameterize %>"><%= render_document_show_field_value document, :field => solr_fname %></dd>
+				<dd class="blacklight-<%= solr_fname.parameterize %>"><%= Array(doc_presenter.field_value field).join(", ").html_safe %></dd>
 			<% end %>
 		<% end %>
 		<% document_citation_fields(document).each do |solr_fname, field| %>

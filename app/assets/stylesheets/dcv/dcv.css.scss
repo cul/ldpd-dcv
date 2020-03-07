@@ -711,6 +711,7 @@ h2[itemprop="name"] {
 	.facet-values {
 		font-size: 90%;
 		margin-bottom: 0;
+		table-layout: auto; // 'fixed' from BL skews layout
 		li {
 			&:before {
 				padding-right: 3px;
