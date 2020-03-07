@@ -5,7 +5,6 @@ require 'actionpack/action_caching'
 class BytestreamsController < ApplicationController
   include ActionController::Live
   include Dcv::NonCatalog
-  include Hydra::Controller::ControllerBehavior
   include Dcv::Resources::RelsIntBehavior
   include Cul::Hydra::Resolver
   include Cul::Omniauth::AuthorizingController
@@ -51,7 +50,7 @@ class BytestreamsController < ApplicationController
   end
 
   def show
-  	@response, @document = get_solr_response_for_doc_id(params[:catalog_id])
+  	@response, @document = fetch(params[:catalog_id])
   	doc = resources_for_document.select {|x| x[:id].split('/')[-1] == params[:id]}
   	doc = doc.first || {}
     respond_to do |format|
@@ -62,7 +61,7 @@ class BytestreamsController < ApplicationController
   end
 
   def content
-    @response, @document = get_solr_response_for_doc_id(params[:catalog_id])
+    @response, @document = fetch(params[:catalog_id])
     if @document.nil?
       render :status => 404
       return

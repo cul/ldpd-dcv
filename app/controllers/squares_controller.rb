@@ -1,7 +1,6 @@
 require 'actionpack/action_caching'
 class SquaresController < ActionController::Base
 
-  include Hydra::Controller::ControllerBehavior
   include Cul::Hydra::Controller
   include ChildrenHelper
   #caches_action :show, :expires_in => 7.days

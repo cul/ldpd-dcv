@@ -1,10 +1,11 @@
+<% doc_presenter = show_presenter(document) %>
 <%# default partial to display solr document fields in catalog show view -%>
 <ul>
   <% document_show_fields(document).each do |solr_fname, field| -%>
     <% if should_render_show_field? document, field %>
 			<li>
-	    <strong><%= render_document_show_field_label document, :field => solr_fname %></strong>
-	    <span><%= render_document_show_field_value document, :field => solr_fname %></span>
+	    <strong><%= render_document_show_field_label document, field: solr_fname %></strong>
+	    <span><%= Array(doc_presenter.field_value field).join(", ").html_safe %></span>
 			</li>
     <% end -%>
   <% end -%>

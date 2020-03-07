@@ -146,15 +146,16 @@ module Dcv::ChildrenHelperBehavior
       facet: false
     }
 
-    response = Blacklight.solr.get 'select', params: _params
+    response, docs = (defined? :controller) ? controller.search_results(_params) : search_results(_params)
     proxies = response['response']['docs']
     proxies = Hash[proxies.map {|proxy| [proxy['proxyFor_ssi'], proxy]}]
 
     _params[:q] = "{!join to=dc_identifier_ssim from=proxyFor_ssi}proxyIn_ssi:\"info:fedora/#{@document['id']}\""
     _params.delete(:fq)
 
-    response = Blacklight.solr.get 'select', params: _params
-    kids = response['response']['docs'].select { |doc| online_access_indicated?(doc) }
+    puts JSON.pretty_generate(_params)
+    response, docs = (defined? :controller) ? controller.search_results(_params) : search_results(_params)
+    kids = docs.select { |doc| online_access_indicated?(doc) }
     return nil unless kids.present?
     kids.each do |kid|
       kid['proxy_id'] = kid['dc_identifier_ssim'].detect { |key| proxies[key] }
@@ -184,7 +185,7 @@ module Dcv::ChildrenHelperBehavior
 
       # Inject types from solr, using id lookup
       child_ids = children.map {|child| child[:id]}
-      child_results = Blacklight.solr.post 'select', :data => {
+      child_results = post_to_repository 'select', {
         :rows => child_ids.length,
         :fl => CHILDREN_MODEL.dup,
         :qt => 'search',
@@ -223,6 +224,17 @@ module Dcv::ChildrenHelperBehavior
 
       children.map(&:with_indifferent_access)
     end
+  end
+
+  def post_to_repository(path, params)
+    connection = Blacklight.default_index.connection
+    res = connection.send_and_receive(path, {data: params.to_hash, method: :post})
+    solr_response = blacklight_config.response_model.new(res, params, document_model: blacklight_config.document_model, blacklight_config: blacklight_config)
+    solr_response
+  rescue Errno::ECONNREFUSED => e
+    raise Blacklight::Exceptions::ECONNREFUSED.new("Unable to connect to Solr instance using #{connection.inspect}: #{e.inspect}")
+  rescue RSolr::Error::Http => e
+    raise Blacklight::Exceptions::InvalidRequest.new(e.message)
   end
 
   def has_unviewable_children?
@@ -274,21 +286,18 @@ module Dcv::ChildrenHelperBehavior
   end
 
   def url_to_proxy(opts)
-    method = opts[:proxy_id] ? "#{controller_name}_proxy_url" : "#{controller_name}_url"
-    method = "restricted_" + method if controller.restricted?
+    method = controller.restricted? ? "proxies_restricted_#{controller_name}_url" : "proxies_#{controller_name}_url"
     method = method.to_sym
     #opts = opts.merge(proxy_id:opts[:proxy_id].sub('.','%2E')) if opts[:proxy_id]
     send(method, opts.merge(label:nil))
   end
   def url_to_preview(pid)
-    method = "#{controller_name}_preview_url"
-    method = "restricted_" + method if controller.restricted?
+    method = controller.restricted? ? "preview_restricted_#{controller_name}_url" : "preview_#{controller_name}_url"
     method = method.to_sym
     send method, id: pid
   end
   def url_to_item(pid,additional_params={})
-    method = "#{controller_name}_url"
-    method = "restricted_" + method if controller.restricted?
+    method = controller.restricted? ? "restricted_#{controller_name}_show_url" : "#{controller_name}_show_url"
     method = method.to_sym
     send method, {id: pid}.merge(additional_params)
   end

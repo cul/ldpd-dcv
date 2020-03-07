@@ -8,4 +8,9 @@ module ShowFieldDisplayFieldHelper
   include FieldDisplayHelpers::Publisher
   include FieldDisplayHelpers::Repository
   include FieldDisplayHelpers::Rights
+
+  def is_excepted_dynamic_field?(field_config, document)
+    (field_config.except || []).include? field_config.field
+  end
+
 end

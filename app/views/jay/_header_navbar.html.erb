@@ -4,7 +4,7 @@
 	<div class="row">
         <div id="site-banner-inner">
             <div class="col-sm-6">
-							<%= link_to 'The Papers of John Jay'.html_safe, jay_index_path, { :id => 'site-title' } %>
+							<%= link_to 'The Papers of John Jay'.html_safe, search_jay_path, { :id => 'site-title' } %>
             </div>
             <div class="col-sm-6">
 							<div id="search-navbar" class="navbar navbar-default slim" role="navigation">
@@ -19,7 +19,7 @@
                     <div class="row">
                         <div class="col-sm-12">
                         <ul class="nav nav-pills pull-left" style="font-size: 11px;">
-                            <li class="hidden-phone"><a href="<%= jay_index_path %>" class="opacity_50" style="
+                            <li class="hidden-phone"><a href="<%= search_jay_path %>" class="opacity_50" style="
                                 line-height: 0;
                                 margin-top: -6px;
                                 padding-right: 22px;"><i class="glyphicon glyphicon-home"></i></a>

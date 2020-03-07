@@ -1,7 +1,4 @@
 module Dcv::FieldSetsHelperBehavior
-  def presenter_class
-    Dcv::DocumentPresenter
-  end
   # duplicate Blacklight show_field behaviors for locally defined fieldsets 
   # modeled after Blacklight::ConfigurationHelperBehavior#document_show_fields
   def document_citation_fields(document = nil)
@@ -25,11 +22,13 @@ module Dcv::FieldSetsHelperBehavior
 
   # modeled after Blacklight::ConfigurationHelperBehavior#document_show_field_label
   def document_citation_field_label document, field
-    label = document_citation_fields(document)[field].label
-    solr_field_label(
-      label,
-      :"blacklight.search.fields.citation.#{field}",
-      :"blacklight.search.fields.#{field}"
+    field_config = document_citation_fields(document)[field]
+
+    field_label(
+      :"blacklight.search.fields.show.#{field}",
+      :"blacklight.search.fields.#{field}",
+      (field_config.label if field_config),
+      field.to_s.humanize
     )
   end
 

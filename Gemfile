@@ -5,17 +5,16 @@ gem 'rails', '4.2.10'
 gem 'actionpack-action_caching'
 # Hydra stack
 gem 'nokogiri', '~> 1.8.2'
-gem 'blacklight', '~> 5.7.2'
-gem 'hydra-head', '~>7'
+gem 'blacklight', '~> 6.0'
 gem 'active-fedora', '>= 7.3.1'
 #gem 'rubydora', :path => '../rubydora'
 gem 'rubydora', :git => 'https://github.com/elohanlon/rubydora', branch: 'datastream_dissemination_with_headers'
 
 # Columbia Hydra models
-gem 'cul_hydra', '~> 1.8.0'
-#gem 'cul_hydra', :path => '../cul_hydra'
+gem 'cul_hydra', '~> 1.9.0'
+gem 'cancancan', '~>1.12.0'
 gem 'cul_omniauth', '~>0.5.2'
-gem 'active-triples', '~> 0.2.2'
+gem 'active-triples', '~> 0.4.0'
 
 # Use wowza token gem for generating tokens
 gem 'wowza-secure_token', '0.0.1'

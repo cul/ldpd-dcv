@@ -46,7 +46,7 @@ describe LcaajController, :type => :controller do
         allow(controller).to receive(:store_unless_user).and_return nil
         allow(controller).to receive(:authorize_action).and_return true
         # mock get_search_results
-        allow_any_instance_of(Blacklight::SolrHelper).to receive(:get_search_results).and_return(
+        allow_any_instance_of(Blacklight::Catalog).to receive(:search_results).and_return(
           [{}, document_list],
           [{}, []]
         )

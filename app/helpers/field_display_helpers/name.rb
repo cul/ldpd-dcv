@@ -4,7 +4,7 @@ module FieldDisplayHelpers::Name
     document = args.fetch(:document,{})
     exclusions = args.fetch(:exclusions, []).map(&:capitalize)
     names = args.fetch(:value,[]).map {|name| [name,[]]}.to_h
-    document.each do |f,v|
+    document.to_h.each do |f,v|
       next unless f =~ /role_.*_ssim/
       role = f.split('_')
       role.shift
@@ -17,7 +17,7 @@ module FieldDisplayHelpers::Name
       blacklight_config.index_fields[args[:field]] :
       blacklight_config.show_fields[args[:field]]
     names.map do |name, roles|
-      value = field_config.link_to_search ?
+      value = (!args[:suppress_links] && field_config.link_to_search) ?
         link_to(name, controller.url_for(action: :index, f: { field_config.link_to_search => [name] })) :
         name.dup
       value << " (#{roles.join(',')})" unless roles.empty?
@@ -32,7 +32,7 @@ module FieldDisplayHelpers::Name
   end
 
   def has_non_copyright_names?(field_config, document)
-    args = {field: field_config.field, document: document}
+    args = {field: field_config.field, document: document, suppress_links: true}
     values = document[field_config.field]
     args[:value] = values if values
     values = display_non_copyright_names_with_roles(args)

@@ -20,8 +20,8 @@ class Dcv::Configurators::IfpBlacklightConfigurator
     config.max_per_page = 100
 
     # solr field configuration for search results/index views
-    config.index.title_field = solr_name('title_display', :displayable, type: :string)
-    config.index.display_type_field = ActiveFedora::SolrService.solr_name('has_model', :symbol)
+    default_index_configuration(config)
+    default_show_configuration(config)
 
     # solr fields that will be treated as facets by the blacklight application
     #   The ordering of the field names is the order of the display
@@ -121,9 +121,6 @@ class Dcv::Configurators::IfpBlacklightConfigurator
     # If there are more than this many search results, no spelling ("did you
     # mean") suggestion is offered.
     config.spell_max = 5
-
-    config.index.thumbnail_method = :thumbnail_for_doc
-
   end
 
 end

@@ -80,32 +80,60 @@ Dcv::Application.routes.draw do
 
   resources 'sites', only: [:index, :show], param: :slug
 
+  # Blacklight routing concerns
+  concern :searchable, Blacklight::Routes::Searchable.new
+  concern :exportable, Blacklight::Routes::Exportable.new
+
+  # Subsite routing concerns
+  concern :publishable, Dcv::Routes::Publication.new
+  concern :legacy_findable, Dcv::Routes::LegacyIds.new
+  concern :previewable, Dcv::Routes::Previews.new
+  concern :tree_browsable, Dcv::Routes::NodeProxies.new
+  concern :synchronizable, Dcv::Routes::Synchronizer.new
+
+  subsite_concerns = [:publishable, :legacy_findable, :previewable, :tree_browsable, :synchronizable]
+
   repositories = %w(NNC-A NNC-EA NNC-RB NyNyCAP NyNyCBL NyNyCMA)
 
   repositories_constraint = lambda { |req| repositories.include?(req.params[:id]) || repositories.include?(req.params[:repository_id]) }
   resources :repositories, path: '', constraints: repositories_constraint, shallow: true, only: [:show] do
     get 'reading-room', as: 'reading_room', action: 'reading_room'
-    scope module: 'repositories' do
-      blacklight_for 'catalog', on: :member
-      subsite_for 'catalog', on: :member
+    scope module: :repositories do
+      resource 'catalog', only: [:show], controller: 'catalog' do
+        # concerns :searchable
+        all_concerns = [:searchable] + subsite_concerns
+        concerns *all_concerns
+      end
+      get 'catalog/:id' => 'catalog#show', as: 'catalog_show' 
     end
   end
 
   # Dynamic routes for catalog controller and all subsites
   # namespace configs must come first for routes to work
-  (SUBSITES['public'].keys - ['uri']).each do |subsite_key|
-    subsite_config = SUBSITES['public'][subsite_key]
+  subsite_keys = (SUBSITES['public'].keys - ['uri']).map(&:to_sym)
+  subsite_keys.each do |subsite_key|
+    subsite_config = SUBSITES['public'][subsite_key.to_s]
+    next unless subsite_config
     if subsite_config['nested'].present?
       namespace subsite_key do
         nested_keys = subsite_config['nested'].keys.map(&:to_sym)
-        blacklight_for *nested_keys
-        subsite_for *nested_keys
+        nested_keys.each do |nested_key|
+          resource nested_key, only: [:show], controller: nested_key do
+            # concerns :searchable
+            all_concerns = [:searchable] + subsite_concerns
+            concerns *all_concerns
+          end
+          get "#{nested_key}/:id" => "#{nested_key}#show", as: "#{nested_key}_show" 
+        end
       end
     end
+    resource subsite_key, only: [:show], controller: subsite_key do
+      # concerns :searchable
+      all_concerns = [:searchable] + subsite_concerns
+      concerns *all_concerns
+    end
+    get "#{subsite_key}/:id" => "#{subsite_key}#show", as: "#{subsite_key}_show" 
   end
-  subsite_keys = (SUBSITES['public'].keys - ['uri']).map(&:to_sym)
-  blacklight_for *subsite_keys # Using * operator to turn the array of values into a set of arguments for the blacklight_for method
-  subsite_for *subsite_keys
 
   get '/restricted' => 'home#restricted', as: :restricted
   get '/restricted/projects', to: redirect('/restricted')
@@ -114,10 +142,18 @@ Dcv::Application.routes.draw do
     namespace "restricted" do
       resources 'sites', only: [:index, :show], param: :slug
       subsite_keys = (SUBSITES['restricted'].keys - ['uri']).map(&:to_sym)
-      blacklight_for *subsite_keys # Using * operator to turn the array of values into a set of arguments for the blacklight_for method
-      subsite_for *subsite_keys
+      subsite_keys.each do |subsite_key|
+        resource subsite_key, only: [:show], controller: subsite_key do
+          # concerns :searchable
+          all_concerns = [:searchable] + subsite_concerns
+          concerns *all_concerns
+        end
+        get "#{subsite_key}/:id" => "#{subsite_key}#show", as: "#{subsite_key}_show" 
+      end
     end
   end
+
+  mount Blacklight::Engine => '/'
 
   resources :children, path: 'catalog/:parent_id/children', only: [:index, :show]
 

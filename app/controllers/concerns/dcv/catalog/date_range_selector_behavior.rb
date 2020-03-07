@@ -45,10 +45,17 @@ module Dcv::Catalog::DateRangeSelectorBehavior
     max_number_of_segments = 50
     date_range_field_name = 'lib_date_year_range_si'
 
-    year_range_response = get_facet_field_response(date_range_field_name, params, {
+    year_range_response = {}
+
+    year_range_response = search_results(search_state.params) do |builder|
+      # merging here circumvents facet field config lookup
+      builder.merge(
       'facet' => true,
-      'facet.limit' => '1000000000'
-    })
+      'facet.limit' => '1000000000',
+      'facet.field' => date_range_field_name,
+      'rows' => 0
+      )
+    end.first
 
     year_range_facet_values = []
 

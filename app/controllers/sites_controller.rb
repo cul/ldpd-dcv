@@ -73,10 +73,10 @@ class SitesController < ApplicationController
     end
   end
 
-  def solr_search_params(user_params = {})
-    super.tap do |solr_params|
-      fq = "publisher_ssim:\"#{self.restricted? ? SUBSITES['restricted']['uri'] : SUBSITES['public']['uri']}\""
-      solr_params[:fq] << fq
+  def search_builder
+    super.tap do |builder|
+      builder.processor_chain << :constrain_to_slug
+      builder.processor_chain <<  (self.restricted? ? :constrain_to_restricted_sites : :constrain_to_public_sites)
     end
   end
 
@@ -85,7 +85,7 @@ class SitesController < ApplicationController
       format.json {
         response.headers['Access-Control-Allow-Origin'] = '*'
         response.headers['Access-Control-Allow-Methods'] = 'GET'
-        (@response, @document_list) = get_search_results(params)
+        (@response, @document_list) = search_results(params)
         render json: digital_projects
       }
       format.any { super }
@@ -108,9 +108,7 @@ class SitesController < ApplicationController
   # get single document from the solr index
   # override to use :slug and publisher_ssim in search to get document
   def show
-    fq = solr_search_params.fetch(:fq,[])
-    fq << "slug_ssim:\"#{params[:slug]}\""
-    (@response, @document_list) = get_search_results(params, {fq: fq})
+    (@response, @document_list) = search_results(params)
     @document = @document_list.first
     if @document.nil?
       render status: :not_found, text: "#{params[:slug]} is not a subsite"

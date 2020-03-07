@@ -5,29 +5,6 @@ window.DCV = window.DCV || function(){};
 
 DCV.DateRangeSlider = {};
 DCV.DateRangeSlider.init = function() {
-  //$("#sidebar-date-range-slider").slider({
-  //  min: DCV.dateWidgetData['earliest_start_year'],
-  //  max: DCV.dateWidgetData['latest_end_year'],
-  //  step: 1,
-  //  values: [DCV.dateWidgetData['earliest_start_year'], DCV.dateWidgetData['latest_end_year']],
-  //  slide: function(event, ui) {
-  //      for (var i = 0; i < ui.values.length; ++i) {
-  //          $("#sidebar-date-range-selector input.sliderValue[data-index=" + i + "]").val(ui.values[i]);
-  //      }
-  //  }
-  //});
-  //$("#sidebar-date-range-selector input.sliderValue[data-index=0]").val(DCV.dateWidgetData['earliest_start_year']);
-  //$("#sidebar-date-range-selector input.sliderValue[data-index=1]").val(DCV.dateWidgetData['latest_end_year']);
-  //$("#sidebar-date-range-selector input.sliderValue").change(function() {
-  //    var $this = $(this);
-  //    $("#sidebar-date-range-slider").slider("values", $this.data("index"), $this.val());
-  //});
-  //$('#sidebar-date-range-selector').on('submit', function(){
-  //  e.preventDefault();
-  //  alert('submit');
-  //  DCV.DateRangeSlider.filterBySelectedDateRange();
-  //  return false;
-  //});
   $('#sidebar-date-range-set-btn').on('click', function(){
     DCV.DateRangeSlider.filterBySelectedDateRange();
     return false;
@@ -36,8 +13,11 @@ DCV.DateRangeSlider.init = function() {
 DCV.DateRangeSlider.filterBySelectedDateRange = function() {
   var newStartYearFilter = $("#sidebar-date-range-selector input.sliderValue[data-index=0]").val();
   var newEndYearFilter = $("#sidebar-date-range-selector input.sliderValue[data-index=1]").val();
-  var redirecUrl = decodeURIComponent(DCV.newDateFilterTemplateUrl).replace('_start_year_', newStartYearFilter).replace('_end_year_', newEndYearFilter);
-  window.location = redirecUrl;
+  var searchParams = new URLSearchParams(window.location.search);
+  searchParams.set('start_year', newStartYearFilter);
+  searchParams.set('end_year', newEndYearFilter);
+  var redirectUrl = location.toString().replace(location.search, "?" + searchParams.toString());
+  window.location = redirectUrl;
 };
 
 /****************************
@@ -84,14 +64,22 @@ DCV.DateRangeGraphSelector.init = function() {
           var newStartYearFilter = $('#date-range-canvas').attr('data-new-start-year-filter');
           var newEndYearFilter = $('#date-range-canvas').attr('data-new-end-year-filter');
           if (newStartYearFilter != 'NaN' && newStartYearFilter != 'NaN') {
-            var redirectUrl = decodeURIComponent(DCV.newDateFilterTemplateUrl).replace('_start_year_', newStartYearFilter).replace('_end_year_', newEndYearFilter);
-            DCV.DateRangeGraphSelector.clearSelectedRegionIndicator();
-            window.location = redirectUrl;
+            DCV.DateRangeGraphSelector.filterBySelectedDateRange();
           }
         }
       });
     });
   }
+};
+
+DCV.DateRangeGraphSelector.filterBySelectedDateRange = function() {
+  var newStartYearFilter = $('#date-range-canvas').attr('data-new-start-year-filter');
+  var newEndYearFilter = $('#date-range-canvas').attr('data-new-end-year-filter');
+  var searchParams = new URLSearchParams(window.location.search);
+  searchParams.set('start_year', newStartYearFilter);
+  searchParams.set('end_year', newEndYearFilter);
+  var redirectUrl = location.toString().replace(location.search, "?" + searchParams.toString());
+  window.location = redirectUrl;
 };
 
 DCV.DateRangeGraphSelector.clearSelectedRegionIndicator = function() {
@@ -199,11 +187,6 @@ DCV.DateRangeGraphSelector.render = function() {
 
       //Draw year
 
-      //if (segment['start'].toString().substring(0, 1) == '-') {
-      //  var textToRender = segment['start'].toString().substring(1) + ' BCE';
-      //} else {
-      //  var textToRender = segment['start'].toString() + ' CE';
-      //}
       var textToRender = segment['start'].toString();
 
       ctx.fillStyle = "#000";
@@ -223,11 +206,6 @@ DCV.DateRangeGraphSelector.render = function() {
       ctx.lineTo(padding+(i+1)*segmentWidth, c.height-1);
       ctx.stroke();
 
-      //if (segment['end'].toString().substring(0, 1) == '-') {
-      //  var textToRender = segment['end'].toString().substring(1) + ' BCE';
-      //} else {
-      //  var textToRender = segment['end'].toString() + ' CE';
-      //}
       var textToRender = segment['end'];
       ctx.fillText(textToRender, textXOffset+padding+(i+1)*segmentWidth, textYOffset);
     }

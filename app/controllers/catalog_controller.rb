@@ -1,9 +1,10 @@
 class CatalogController < SubsitesController
 
   before_action :refresh_catalog_browse_lists_cache, only: [:home, :browse]
-  
-  self.solr_search_params_logic += [:hide_concepts_when_query_blank_filter]
 
+  def search_builder
+    super.tap { |builder| builder.processor_chain.concat [:hide_concepts_when_query_blank_filter] }
+  end
   configure_blacklight do |config|
     Dcv::Configurators::DcvBlacklightConfigurator.configure(config)
     # Include this target's content in search results, and any additional publish targets specified in subsites.yml

@@ -89,7 +89,7 @@ describe CatalogHelper, :type => :helper do
       }
     }
     it do
-      allow(Blacklight.solr).to receive(:get).and_return(solr_response)
+      allow(Blacklight.default_index.connection).to receive(:send_and_receive).and_return(solr_response)
       expect(helper.total_dcv_asset_count).to eq(12345)
     end
   end

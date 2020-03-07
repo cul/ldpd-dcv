@@ -1,7 +1,9 @@
+require 'rsolr'
 SUBSITES = YAML.load_file("#{Rails.root.to_s}/config/subsites.yml")[Rails.env].with_indifferent_access
 begin
   Rails.logger.info("loading sites from Solr")
-  Blacklight.solr.tap do |rsolr|
+  Blacklight.default_index.tap do |index|
+    rsolr = index.connection
     solr_params = {
     qt: 'search',
     rows: 10000,
@@ -11,8 +13,7 @@ begin
     }
     key = :params
     res = rsolr.send_and_receive('select', {key=>solr_params.to_hash, method: :get})
-    
-    solr_response = Blacklight::SolrResponse.new(res, solr_params, solr_document_model: SolrDocument)
+    solr_response = Blacklight::Solr::Response.new(res, solr_params, solr_document_model: SolrDocument)
     docs = solr_response['response']['docs']
     docs.each do |doc|
       restriction = doc['restriction_ssim'].blank? ? 'public' : 'restricted'

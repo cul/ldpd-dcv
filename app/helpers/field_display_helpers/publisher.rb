@@ -3,7 +3,7 @@ module FieldDisplayHelpers::Publisher
 
     transformation = Rails.cache.fetch('dcv.publisher_ssim_to_short_title', expires_in: 10.minutes) do
       map = {}
-      Blacklight.solr.tap do |rsolr|
+      Blacklight.default_index.tap do |rsolr|
         solr_params = {
           qt: 'search',
           rows: 10000,
@@ -11,7 +11,7 @@ module FieldDisplayHelpers::Publisher
           fq: ["dc_type_sim:\"Publish Target\"","active_fedora_model_ssi:Concept"],
           facet: false
         }
-        response = rsolr.get 'select', :params => solr_params
+        response = rsolr.connection.send_and_receive 'select', solr_params
         docs = response['response']['docs']
         docs.each do |doc|
           short_title = doc['short_title_ssim'] || doc['title_display_ssm']
