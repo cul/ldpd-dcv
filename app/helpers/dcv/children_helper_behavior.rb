@@ -151,9 +151,9 @@ module Dcv::ChildrenHelperBehavior
     proxies = Hash[proxies.map {|proxy| [proxy['proxyFor_ssi'], proxy]}]
 
     _params[:q] = "{!join to=dc_identifier_ssim from=proxyFor_ssi}proxyIn_ssi:\"info:fedora/#{@document['id']}\""
-    _params.delete(:fq)
-
-    response, docs = (defined? :controller) ? controller.search_results(_params) : search_results(_params)
+    _params[:fq] = []
+    merge_proc = Proc.new { |b| b.merge(_params) }
+    response, docs = (defined? :controller) ? controller.search_results({}, &merge_proc) : search_results({}, &merge_proc)
     kids = docs.select { |doc| online_access_indicated?(doc) }
     return nil unless kids.present?
     kids.each do |kid|
