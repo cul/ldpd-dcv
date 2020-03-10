@@ -3,7 +3,6 @@ class CarnegieController < SubsitesController
   include Dcv::MapDataController
 
   before_action :set_map_data_json, only: [:map_search]
-  #before_action :set_map_data_json, only: [:index, :map_search]
 
   include Carnegie::FieldFormatterHelper
 

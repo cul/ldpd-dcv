@@ -153,7 +153,6 @@ module Dcv::ChildrenHelperBehavior
     _params[:q] = "{!join to=dc_identifier_ssim from=proxyFor_ssi}proxyIn_ssi:\"info:fedora/#{@document['id']}\""
     _params.delete(:fq)
 
-    puts JSON.pretty_generate(_params)
     response, docs = (defined? :controller) ? controller.search_results(_params) : search_results(_params)
     kids = docs.select { |doc| online_access_indicated?(doc) }
     return nil unless kids.present?
