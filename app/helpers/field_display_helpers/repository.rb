@@ -51,8 +51,8 @@ module FieldDisplayHelpers::Repository
 
       url_for_facet_search = search_action_path(:f => {facet_field_name => [facet_value]})
 
-      if display_value == 'Non-Columbia Location' && args[:document].get('lib_repo_text_ssm').present?
-        return (args[:document].get('lib_repo_text_ssm') + '<br />' + link_to("(#{display_value})", url_for_facet_search)).html_safe
+      if display_value == 'Non-Columbia Location' && args[:document]['lib_repo_text_ssm'].present?
+        return (args[:document]['lib_repo_text_ssm'].first + '<br />' + link_to("(#{display_value})", url_for_facet_search)).html_safe
       else
         repo_code = field_helper_repo_code_value(args)
         src = [link_to_repo_homepage(repo_code, true)]
