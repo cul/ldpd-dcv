@@ -11,7 +11,7 @@ gem 'active-fedora', '>= 7.3.1'
 gem 'rubydora', :git => 'https://github.com/elohanlon/rubydora', branch: 'datastream_dissemination_with_headers'
 
 # Columbia Hydra models
-gem 'cul_hydra', '~> 1.9.1'
+gem 'cul_hydra', '~> 1.9.2'
 gem 'cancancan', '~>1.12.0'
 gem 'cul_omniauth', '~>0.5.2'
 gem 'active-triples', '~> 0.4.0'
