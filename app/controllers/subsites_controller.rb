@@ -167,12 +167,12 @@ class SubsitesController < ApplicationController
     document_id.gsub!(/\:/,'\:')
     sp = blacklight_config.default_document_solr_params.merge({})
     sp[:fq] = "identifier_ssim:#{document_id}"
-    solr_response = find(blacklight_config.document_solr_path, sp)
-    if solr_response.docs.empty?
+    solr_response, docs = search_results({}) { |b| b.merge(sp) }
+    if docs.empty?
       render status: :not_found, message: "no document with id #{params[:document_id]}", nothing: true
       return
     end
-    document = SolrDocument.new(solr_response.docs.first, solr_response)
+    document = docs.first
     redirect_to action: "show", id: document[:id]
   end
 
