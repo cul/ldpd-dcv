@@ -11,7 +11,7 @@
 					<dd><%= publisher_field_value %></dd>
 				<% end %>
 			<% elsif field.pattern %>
-				<% document.select {|k,v| k =~ field.pattern }.each do | k,v| %>
+				<% document.to_h.select {|k,v| k =~ field.pattern }.each do | k,v| %>
 					<% field_clone = field.clone; field_clone.tap { |c| c.field = k } %>
 					<% if should_render_show_field?(document, field_clone) %>
 						<dt class="blacklight-<%= k.parameterize %>"><%= render_generated_field_label document, field_clone %></dt>
