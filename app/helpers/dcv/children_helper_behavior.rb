@@ -156,7 +156,7 @@ module Dcv::ChildrenHelperBehavior
     response, docs = (defined? :controller) ? controller.search_results({}, &merge_proc) : search_results({}, &merge_proc)
     kids = docs.select { |doc| online_access_indicated?(doc) }
     return nil unless kids.present?
-    kids.map!(&:to_h)
+    kids.map! { |kid| kid.to_h.with_indifferent_access }
     kids.each do |kid|
       kid['proxy_id'] = kid['dc_identifier_ssim'].detect { |key| proxies[key] }
     end
@@ -210,8 +210,7 @@ module Dcv::ChildrenHelperBehavior
           identifiers_to_access_control[dc_identifier] = access_control_fields(doc)
         end
       end
-
-      children.map!(&:to_h)
+      children.map! { |child| child.to_h.with_indifferent_access }
       children.each do |child|
         child[:dc_type] = identifiers_to_dc_types[child[:id]] if identifiers_to_dc_types.key?(child[:id])
         child[:pid] = identifiers_to_pids[child[:id]] if identifiers_to_pids.key?(child[:id])
