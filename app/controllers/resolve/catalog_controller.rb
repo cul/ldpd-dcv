@@ -16,7 +16,7 @@ class Resolve::CatalogController < ApplicationController
     config.per_page = [20,60,100]
     # solr field configuration for search results/index views
     config.index.title_field = solr_name('title_display', :displayable, type: :string)
-    config.index.display_type_field = solr_name('has_model', :symbol)
+    config.index.display_type_field = ActiveFedora::SolrService.solr_name('active_fedora_model', :stored_sortable)
 
     # solr fields that will be treated as facets by the blacklight application
     #   The ordering of the field names is the order of the display

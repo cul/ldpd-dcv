@@ -21,10 +21,9 @@ class Dcv::Configurators::Restricted::UniversityseminarsBlacklightConfigurator
     }
 
     config.per_page = [20,60,100]
-    # solr field configuration for search results/index views
-    config.index.title_field = solr_name('title_display', :displayable, type: :string)
-    config.index.display_type_field = ActiveFedora::SolrService.solr_name('has_model', :symbol)
-
+    # default solr field configuration for search results/index and show views
+    default_index_configuration(config)
+    default_show_configuration(config)
     # solr fields that will be treated as facets by the blacklight application
     #   The ordering of the field names is the order of the display
     #
