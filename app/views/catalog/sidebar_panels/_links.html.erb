@@ -1,5 +1,5 @@
 <% configured_links ||= [] %>
-<% child_document ||= NilClass %>
+<% child_document ||= document %>
 <div class="inner noprint-sm">
 	<ul class="list-unstyled">
 		<% if configured_links.include?(:persistent) && has_persistent_link?(document) %>
@@ -14,15 +14,15 @@
 			<% end %>
 		<% end %>
 		<% if configured_links.include?(:download) && child_document %>
-			<% if can_download?(child_document) %>
+			<% if can_download?(child_document || document) %>
 				<%= link_to '<span class="glyphicon glyphicon-download"></span> Download Original'.html_safe, bytestream_content_url({catalog_id: child_document['id'], filename: child_document['label_ssi'], bytestream_id: 'content', download: true}) %>
 			<% end %>
 		<% end %>
 		<% if configured_links.include?(:mods) %>
-			<li><%= link_to '<span class="glyphicon glyphicon-file"></span> Display XML Metadata'.html_safe, item_mods_path(:pid => @document.id),
+			<li><%= link_to '<span class="glyphicon glyphicon-file"></span> Display XML Metadata'.html_safe, item_mods_path(:pid => document.id),
 			{
-				:'data-display-url' => item_mods_path(:pid => @document.id, :type => 'formatted_text'),
-				:'data-download-url' => item_mods_path(:pid => @document.id, :type => 'download'),
+				:'data-display-url' => item_mods_path(:pid => document.id, :type => 'formatted_text'),
+				:'data-download-url' => item_mods_path(:pid => document.id, :type => 'download'),
 				:onclick => 'return DCV.ModsDownloadModal.show($(this).attr("data-display-url"), $(this).attr("data-download-url"));'
 			}
 			%></li>
