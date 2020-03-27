@@ -131,7 +131,12 @@ class SearchBuilder < Blacklight::SearchBuilder
   def constrain_to_repository_context(solr_params)
     if blacklight_params[:repository_id].present?
       solr_params[:fq] ||= []
-      solr_params[:fq] << "lib_repo_code_ssim:\"#{blacklight_params[:repository_id]}\""
+      if blacklight_params[:repository_id] == 'NNC-RB'
+        fq = 'lib_repo_code_ssim:("' + ['NNC-RB', 'NyNyCOH', 'NNC-UA'].join('" OR "') + '")'
+      else
+        fq = "lib_repo_code_ssim:\"#{blacklight_params[:repository_id]}\""
+      end
+      solr_params[:fq] << fq
     end
     solr_params
   end

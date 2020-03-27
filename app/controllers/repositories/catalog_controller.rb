@@ -30,17 +30,6 @@ module Repositories
       self.prepend_view_path('app/views/repositories/catalog')
     end
 
-    def solr_search_params(user_params = {})
-      super.tap do |solr_params|
-        if params[:repository_id] == 'NNC-RB'
-          fq = 'lib_repo_code_ssim:("' + ['NNC-RB', 'NyNyCOH', 'NNC-UA'].join('" OR "') + '")'
-        else
-          fq = "lib_repo_code_ssim:\"#{params[:repository_id]}\""
-        end
-        solr_params[:fq] << fq
-      end
-    end
-
     # SubsiteController Overrides
     def self.subsite_config
       {}
