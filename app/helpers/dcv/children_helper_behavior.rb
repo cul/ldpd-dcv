@@ -147,6 +147,7 @@ module Dcv::ChildrenHelperBehavior
     }
 
     response, docs = (defined? :controller) ? controller.search_results(_params) : search_results(_params)
+    title_field = (defined? :document_show_link_field) ? document_show_link_field : "title_ssm"
     proxies = response['response']['docs']
     proxies = Hash[proxies.map {|proxy| [proxy['proxyFor_ssi'], proxy]}]
 
@@ -163,11 +164,13 @@ module Dcv::ChildrenHelperBehavior
     kids.sort_by! {|kid| proxies[kid['proxy_id']]['index_ssi'].to_i}
     order = 0
     kids.map do |kid|
+      order += 1
+      kid_title = proxies[kid['proxy_id']]['label_ssi'] || Array(kid[title_field]).first || "Image #{order}"
       SolrDocument.new kid.merge({
         id: kid['id'],
         pid: kid['id'],
-        order: (order += 1),
-        title: proxies[kid['proxy_id']]['label_ssi'] || "Image #{order}",
+        order: order,
+        title: kid_title,
         thumbnail: get_asset_url(id: kid['id'], size: 256, type: 'full', format: 'jpg')
       })
     end
