@@ -25,13 +25,13 @@ module Dcv::ChildrenHelperBehavior
     (archive_org_id_for_document(doc) && field_value == 0) ? 1 : field_value
   end
 
-  def document_children_from_model(opts={})
+  def document_children_from_model(parent_document = @document, opts={})
     # get the model class
-    klass = @document['active_fedora_model_ssi'].constantize
+    klass = parent_document['active_fedora_model_ssi'].constantize
     # get a relation for :parts
     reflection = klass.reflect_on_association(:parts)
-    association = reflection.association_class.new(IdProxy.new(@document[:id]), reflection)
-    children = {parent_id: @document[:id], children: []}
+    association = reflection.association_class.new(IdProxy.new(parent_document[:id]), reflection)
+    children = {parent_id: parent_document[:id], children: []}
     children[:per_page] = opts.fetch(:per_page, 10).to_i
     children[:page] = opts.fetch(:page, 0).to_i
     offset = children[:per_page] * children[:page]
@@ -92,8 +92,8 @@ module Dcv::ChildrenHelperBehavior
     return child
   end
 
-  def structured_children_from_fedora
-      struct = Cul::Hydra::Fedora.ds_for_uri("info:fedora/#{@document['id']}/structMetadata")
+  def structured_children_from_fedora(parent_document)
+      struct = Cul::Hydra::Fedora.ds_for_uri("info:fedora/#{parent_document['id']}/structMetadata")
       struct = Nokogiri::XML(struct.content)
       ns = {'mets'=>'http://www.loc.gov/METS/'}
       nodes = struct.xpath('//mets:div[@ORDER]', ns).sort {|a,b| a['ORDER'].to_i <=> b['ORDER'].to_i }
@@ -128,9 +128,9 @@ module Dcv::ChildrenHelperBehavior
       nodes
   end
 
-  def structured_children_from_solr
+  def structured_children_from_solr(parent_document)
     fq = [
-      "proxyIn_ssi:\"info:fedora/#{@document['id']}\"",
+      "proxyIn_ssi:\"info:fedora/#{parent_document['id']}\"",
       "proxyFor_ssi:*"
     ]
     _params = {
@@ -146,7 +146,7 @@ module Dcv::ChildrenHelperBehavior
     proxies = response['response']['docs']
     proxies = Hash[proxies.map {|proxy| [proxy['proxyFor_ssi'], proxy]}]
 
-    _params[:q] = "{!join to=dc_identifier_ssim from=proxyFor_ssi}proxyIn_ssi:\"info:fedora/#{@document['id']}\""
+    _params[:q] = "{!join to=dc_identifier_ssim from=proxyFor_ssi}proxyIn_ssi:\"info:fedora/#{parent_document['id']}\""
     _params[:fq] = []
     merge_proc = Proc.new { |b| b.merge(_params) }
     response, docs = (defined? :controller) ? controller.search_results({}, &merge_proc) : search_results({}, &merge_proc)
@@ -174,9 +174,9 @@ module Dcv::ChildrenHelperBehavior
   def structured_children
     @structured_children ||= begin
       if @document['structured_bsi'] == true
-        children = structured_children_from_solr || structured_children_from_fedora
+        children = structured_children_from_solr(@document) || structured_children_from_fedora(@document)
       else
-        children = document_children_from_model[:children]
+        children = document_children_from_model(@document)[:children]
         # just assign the order they came in, since there's no structure
         children.each_with_index {|child, ix| child[:order] = ix + 1}
       end
@@ -256,14 +256,14 @@ module Dcv::ChildrenHelperBehavior
     structured_children.detect { |child| !can_access_asset?(child) && child.fetch(:access_control_levels_ssim,[]).include?('Embargoed') }
   end
 
-  def archive_org_identifiers_as_children
+  def archive_org_identifiers_as_children(parent_document = @document)
     @archive_org_identifiers ||= begin
       order = 0
-      kids = JSON.parse(@document.fetch('archive_org_identifiers_json_ss','[]'))
-      if kids.blank? && @document['archive_org_identifier_ssi']
+      kids = JSON.parse(parent_document.fetch('archive_org_identifiers_json_ss','[]'))
+      if kids.blank? && parent_document['archive_org_identifier_ssi']
         kids << {
-          'id' => @document['archive_org_identifier_ssi'],
-          'displayLabel' => @document['title_display_ssm'].first
+          'id' => parent_document['archive_org_identifier_ssi'],
+          'displayLabel' => parent_document['title_display_ssm'].first
         }
       end
       kids.map do |arxv_obj|
