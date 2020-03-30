@@ -5,7 +5,7 @@ module ChildrenHelper
   def children(id=params[:parent_id], opts={})
     # get the document
     @response, @document = get_solr_response_for_doc_id(id)
-    document_children_from_model(opts)
+    document_children_from_model(@document, opts)
   end
   def child(id=params[:id], opts={})
     # get the document
