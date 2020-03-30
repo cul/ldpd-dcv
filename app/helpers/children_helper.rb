@@ -10,7 +10,7 @@ module ChildrenHelper
   def child(id=params[:id], opts={})
     # get the document
     @response, @document = get_solr_response_for_doc_id(id, {fl: '*'})
-    child_from_solr(@document)
+    child_from_solr(@document, document_show_link_field)
   end
   def permitted_children(id=params[:parent_id], opts={})
   end

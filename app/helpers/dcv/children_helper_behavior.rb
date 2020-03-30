@@ -48,17 +48,12 @@ module Dcv::ChildrenHelperBehavior
     children[:page] = children[:page]
     children[:count] = response['numFound'].to_i
     response['docs'].map do |doc|
-      children[:children] << child_from_solr(doc)
+      children[:children] << child_from_solr(doc, title_field)
     end
     children
   end
 
-  def child_from_solr(doc)
-    title_field = nil
-    begin
-      fl << (title_field = document_show_link_field).to_s
-    rescue
-    end
+  def child_from_solr(doc, title_field = nil)
     child = {id: doc['id'], pid: doc['id'], thumbnail: get_asset_url(id: doc['id'], size: 768, type: 'full', format: 'jpg')}
     if title_field
       title = doc[title_field.to_s]
