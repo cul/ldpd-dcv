@@ -22,8 +22,7 @@
 		%>
 		<%=
 			link_to_document(
-				document, :counter => (@do_not_link_to_search ? nil : counter_in_results),
-				label: image_tag(image_url_for_document, {class: 'img-square', itemprop: 'thumbnailUrl'}),
+				document, image_tag(image_url_for_document, {class: 'img-square', itemprop: 'thumbnailUrl'}), :counter => (@do_not_link_to_search ? nil : counter_in_results),
 				class: 'thumbnail'
 			)
 		%>
