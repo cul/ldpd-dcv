@@ -11,8 +11,7 @@ begin
     fq: ["dc_type_sim:\"Publish Target\"","active_fedora_model_ssi:Concept"],
     facet: false
     }
-    key = :params
-    res = rsolr.send_and_receive('select', {key=>solr_params.to_hash, method: :get})
+    res = rsolr.send_and_receive('select', params: solr_params.to_hash, method: :get)
     solr_response = Blacklight::Solr::Response.new(res, solr_params, solr_document_model: SolrDocument)
     docs = solr_response['response']['docs']
     docs.each do |doc|
