@@ -88,8 +88,14 @@ describe CatalogHelper, :type => :helper do
         }
       }
     }
+    let(:repository) { double(Blacklight::Solr::Repository) }
+    let(:rsolr_connection) { double(RSolr::Client) }
+    before do
+      allow(controller).to receive(:repository).and_return(repository)
+      allow(repository).to receive(:connection).and_return(rsolr_connection)
+      allow(rsolr_connection).to receive(:send_and_receive).and_return(solr_response)
+    end
     it do
-      allow(Blacklight.default_index.connection).to receive(:send_and_receive).and_return(solr_response)
       expect(helper.total_dcv_asset_count).to eq(12345)
     end
   end

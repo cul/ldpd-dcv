@@ -1,24 +1,22 @@
 module FieldDisplayHelpers::Publisher
   def publisher_transformer(value)
+    cache_key = repository_cache_key("publisher_ssim_to_short_title")
 
-    transformation = Rails.cache.fetch('dcv.publisher_ssim_to_short_title', expires_in: 10.minutes) do
+    transformation = Rails.cache.fetch(cache_key, expires_in: 10.minutes) do
       map = {}
-      Blacklight.default_index.tap do |rsolr|
-        solr_params = {
-          qt: 'search',
-          rows: 10000,
-          fl: 'id,title_display_ssm,short_title_ssim',
-          fq: ["dc_type_sim:\"Publish Target\"","active_fedora_model_ssi:Concept"],
-          facet: false
-        }
-        response = rsolr.connection.send_and_receive 'select', solr_params
-        docs = response['response']['docs']
-        docs.each do |doc|
-          short_title = doc['short_title_ssim'] || doc['title_display_ssm']
-          map["info:fedora/#{doc['id']}"] = short_title.first if short_title.present?
-        end
+      solr_params = {
+        qt: 'search',
+        rows: 10000,
+        fl: 'id,title_display_ssm,short_title_ssim',
+        fq: ["dc_type_sim:\"Publish Target\"","active_fedora_model_ssi:Concept"],
+        facet: false
+      }
+      response = doc_repository.connection.send_and_receive 'select', params: solr_params
+      docs = response['response']['docs']
+      docs.each do |doc|
+        short_title = doc['short_title_ssim'] || doc['title_display_ssm']
+        map["info:fedora/#{doc['id']}"] = short_title.first if short_title.present?
       end
-
       map
     end
 

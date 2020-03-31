@@ -70,7 +70,7 @@ module Dcv::CatalogHelperBehavior
         fq: ["active_fedora_model_ssi:GenericResource"],
         facet: false
       }
-      response = Blacklight.default_index.connection.send_and_receive 'select', solr_params
+      response = controller.repository.connection.send_and_receive 'select', params: solr_params
       response['response']['numFound'].to_i
     end
   end
