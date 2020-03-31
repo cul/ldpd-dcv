@@ -6,7 +6,7 @@
       <% next if child[:pid].blank? # Skip rendering of unpublished children %>
       <% can_access = can_access_asset?(child.with_indifferent_access) # Skip rendering of unavailable children %>
       <% child_title = child[:title].present? ? child[:title].strip : '' %>
-      <% item_in_context_url = document.self_and_child_pids_to_item_in_context_urls.key?(child[:id]) ? document.self_and_child_pids_to_item_in_context_urls[child[:id]] : document.item_in_context_url %>
+      <% item_in_context_url = Array(child[:lib_item_in_context_url_ssm]).first || document.item_in_context_url %>
       <div class="item <%= ix == 0 ? 'active' : '' %>"
         data-child-number="<%= ix %>"
         data-child-title="<%= child_title == parent_title || child_title.blank? ? '&nbsp'.html_safe : h(child_title) %>"

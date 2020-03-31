@@ -10,7 +10,7 @@ module Dcv::ChildrenHelperBehavior
   ].freeze
   CHILDREN_IDS = ['id', 'dc_identifier_ssim', 'identifier_ssim'].freeze
   CHILDREN_STRUC = (CHILDREN_IDS + CHILDREN_ACCESS + ['dc_type_ssm', 'datastreams_ssim','original_name_ssim']).freeze
-  CHILDREN_MODEL = (CHILDREN_STRUC + ["active_fedora_model_ssi",'rels_int_profile_tesim','rft_id_ss','label_ssi']).freeze
+  CHILDREN_MODEL = (CHILDREN_STRUC + ['active_fedora_model_ssi','rels_int_profile_tesim','rft_id_ss','label_ssi','lib_item_in_context_url_ssm']).freeze
 
 
   # Return the number from the specified field if greater than zero.
@@ -75,7 +75,6 @@ module Dcv::ChildrenHelperBehavior
         dimension_ref = "info:fedora/#{child[:id]}/content"
       end
       unless rels_int.blank?
-        #child[:rels_int] = rels_int
         width = rels_int[dimension_ref]&.fetch('image_width',[0])
         width = width.blank? ? 0 : width.first.to_i
         length = rels_int[dimension_ref]&.fetch('image_length',[0])
@@ -86,6 +85,9 @@ module Dcv::ChildrenHelperBehavior
     end
     child[:datastreams_ssim] = doc.fetch('datastreams_ssim', [])
     child[:publisher_ssim] = doc.fetch('publisher_ssim', [])
+    child[:lib_item_in_context_url_ssm] = doc.fetch('lib_item_in_context_url_ssm', [])
+    child[:dc_type] = doc.fetch('dc_type_ssm', []).first
+
     access_control_fields(doc).each do |k, v|
       child[k.to_sym] = v
     end
@@ -99,33 +101,46 @@ module Dcv::ChildrenHelperBehavior
       nodes = struct.xpath('//mets:div[@ORDER]', ns).sort {|a,b| a['ORDER'].to_i <=> b['ORDER'].to_i }
 
       counter = 1
-      nodes = nodes.map do |node|
-        node_id = (node['CONTENTIDS'])
-
-
-        pid = identifier_to_pid(node_id)
-        node_thumbnail = get_asset_url(id: pid, size: 256, type: 'full', format: 'jpg')
-
-        if subsite_layout == 'durst'
-          title = "Image #{counter}"
-          counter += 1
-          access_level = "Public Access"
-        else
-          title = node['LABEL']
-          access_level = "Closed"
-        end
-
+      nodes.map! do |node|
+        counter += 1
         {
-          id: node_id,
-          pid: pid,
+          id: node['CONTENTIDS'],
           order: node['ORDER'].to_i,
-          title: title,
-          thumbnail: node_thumbnail,
-          active_fedora_model_ssi: 'GenericResource',
-          access_control_levels_ssim: [access_level]
-        }.with_indifferent_access
+          title: (subsite_layout == 'durst') ? "Image #{counter}" : node['LABEL'],
+          access_control_levels_ssim: (subsite_layout == 'durst') ? "Public Access" : "Closed"
+        }
       end
-      nodes
+
+      node_ids = nodes.map { |node| node[:id] }
+
+      # Inject types from solr, using id lookup
+      child_results = post_to_repository 'select', {
+        :rows => child_ids.length,
+        :fl => CHILDREN_MODEL.dup,
+        :qt => 'search',
+        :fq => [
+          "dc_identifier_ssim:\"#{node_ids.join('" OR "')}\"",
+        ]
+      }
+
+      child_identifiers_to_documents = {}
+      children = child_results['response']['docs']
+      children.each do |doc|
+        doc['dc_identifier_ssim'].each do |dc_identifier|
+          child_identifiers_to_documents[dc_identifier] = doc
+        end
+      end
+
+      nodes.map do |node|
+        doc = child_identifiers_to_documents[node[:id]] || {}
+        doc[:order] = node['ORDER'].to_i,
+        doc[:access_control_levels_ssim] ||= Array(node[:access_control_levels_ssim])
+        doc[:pid] = doc[:id]
+        doc[:dc_type] = Array(doc['dc_type_ssm']).first
+        doc[:thumbnail] = get_asset_url(id: doc[:id], size: 256, type: 'full', format: 'jpg')
+        doc[:title] = (node[:title].blank? ? Array(doc['title_ssm']).first : node[:title])
+        doc
+      end.map(&:with_indifferent_access)
   end
 
   def structured_children_from_solr(parent_document)
@@ -164,6 +179,7 @@ module Dcv::ChildrenHelperBehavior
       SolrDocument.new kid.merge({
         id: kid['id'],
         pid: kid['id'],
+        dc_type: Array(kid['dc_type_ssm']).first,
         order: order,
         title: kid_title,
         thumbnail: get_asset_url(id: kid['id'], size: 256, type: 'full', format: 'jpg')
@@ -171,89 +187,8 @@ module Dcv::ChildrenHelperBehavior
     end
   end
 
-  def structured_children
-    @structured_children ||= begin
-      if @document['structured_bsi'] == true
-        children = structured_children_from_solr(@document) || structured_children_from_fedora(@document)
-      else
-        children = document_children_from_model(@document)[:children]
-        # just assign the order they came in, since there's no structure
-        children.each_with_index {|child, ix| child[:order] = ix + 1}
-      end
-
-      # Inject types from solr, using id lookup
-      child_ids = children.map {|child| child[:id]}
-      child_results = post_to_repository 'select', {
-        :rows => child_ids.length,
-        :fl => CHILDREN_MODEL.dup,
-        :qt => 'search',
-        :fq => [
-          "dc_identifier_ssim:\"#{child_ids.join('" OR "')}\"",
-        ]
-      }
-
-      identifiers_to_dc_types = {}
-      identifiers_to_pids = {}
-      identifiers_to_original_names = {}
-      identifiers_to_datastreams = {}
-      identifiers_to_access_control = {}
-      identifiers_to_publishers = {}
-      child_results['response']['docs'].each do |doc|
-        doc['dc_identifier_ssim'].each do |dc_identifier|
-          identifiers_to_dc_types[dc_identifier] = doc['dc_type_ssm'].first
-          identifiers_to_pids[dc_identifier] = doc['id']
-          identifiers_to_original_names[dc_identifier] = doc['original_name_ssim']
-          identifiers_to_datastreams[dc_identifier] = doc['datastreams_ssim']
-          identifiers_to_publishers[dc_identifier] = doc['publisher_ssim']
-          identifiers_to_access_control[dc_identifier] = access_control_fields(doc)
-        end
-      end
-      children.map! { |child| child.to_h.with_indifferent_access }
-      children.each do |child|
-        child[:dc_type] = identifiers_to_dc_types[child[:id]] if identifiers_to_dc_types.key?(child[:id])
-        child[:pid] = identifiers_to_pids[child[:id]] if identifiers_to_pids.key?(child[:id])
-        child[:original_name_ssim] = identifiers_to_original_names[child[:id]]
-        child[:datastreams_ssim] = identifiers_to_datastreams[child[:id]]
-        child[:publisher_ssim] = identifiers_to_publishers[child[:id]]
-        identifiers_to_access_control.fetch(child[:id], {}).each do |k, v|
-          child[k.to_sym] = v if v
-        end
-      end
-
-      children.map(&:with_indifferent_access)
-    end
-  end
-
   def post_to_repository(path, params)
-    connection = Blacklight.default_index.connection
-    res = connection.send_and_receive(path, {data: params.to_hash, method: :post})
-    solr_response = blacklight_config.response_model.new(res, params, document_model: blacklight_config.document_model, blacklight_config: blacklight_config)
-    solr_response
-  rescue Errno::ECONNREFUSED => e
-    raise Blacklight::Exceptions::ECONNREFUSED.new("Unable to connect to Solr instance using #{connection.inspect}: #{e.inspect}")
-  rescue RSolr::Error::Http => e
-    raise Blacklight::Exceptions::InvalidRequest.new(e.message)
-  end
-
-  def has_unviewable_children?
-    structured_children.detect { |child| is_unviewable_child?(child) }
-  end
-
-  def has_viewable_children?
-    structured_children.detect { |child| can_access_asset?(child) }
-  end
-
-  def has_closed_children?
-    structured_children.detect { |child| !can_access_asset?(child) && child.fetch(:access_control_levels_ssim,[]).include?('Closed') }
-  end
-
-  # is this child potentially viewable in a different location, or with a log in?
-  def is_unviewable_child?(child)
-    !can_access_asset?(child) && child.fetch(:access_control_levels_ssim,[]).detect { |val| !val.eql?('Closed') && !val.eql?('Embargoed') }
-  end
-
-  def has_embargoed_children?
-    structured_children.detect { |child| !can_access_asset?(child) && child.fetch(:access_control_levels_ssim,[]).include?('Embargoed') }
+    controller.repository.send_and_receive(path, params)
   end
 
   def archive_org_identifiers_as_children(parent_document = @document)
@@ -286,19 +221,21 @@ module Dcv::ChildrenHelperBehavior
   def url_to_proxy(opts)
     method = controller.restricted? ? "proxies_restricted_#{controller_name}_url" : "proxies_#{controller_name}_url"
     method = method.to_sym
-    #opts = opts.merge(proxy_id:opts[:proxy_id].sub('.','%2E')) if opts[:proxy_id]
     send(method, opts.merge(label:nil))
   end
+
   def url_to_preview(pid)
     method = controller.restricted? ? "preview_restricted_#{controller_name}_url" : "preview_#{controller_name}_url"
     method = method.to_sym
     send method, id: pid
   end
+
   def url_to_item(pid,additional_params={})
     method = controller.restricted? ? "restricted_#{controller_name}_show_url" : "#{controller_name}_show_url"
     method = method.to_sym
     send method, {id: pid}.merge(additional_params)
   end
+
   def proxy_node(node)
     filesize = node['extent'] ? simple_proxy_extent(node).html_safe : ''
     label = node['label_ssi']
@@ -310,9 +247,6 @@ module Dcv::ChildrenHelperBehavior
             link_to('<span class="glyphicon glyphicon-info-sign"></span>'.html_safe, url_to_item(node['pid'],{return_to_filesystem:request.original_url}), title: 'More information')+
             '</td>').html_safe
           c += ('<td data-title="Size" data-sort-value="'+node['extent'].join(",").to_s+'">'+filesize+'</td>').html_safe
-          #c += content_tag(:a, 'Preview', href: '#', 'data-url'=>url_to_preview(node['pid']), class: 'preview') do
-          #  content_tag(:i,nil,class:'glyphicon glyphicon-info-sign')
-          #end
           c
         end
       end
@@ -321,7 +255,6 @@ module Dcv::ChildrenHelperBehavior
       content_tag(:tr, nil) do
         c = ('<td data-title="Name">'+link_to(label, url_to_proxy({id: node['proxyIn_ssi'].sub('info:fedora/',''), proxy_id: node['id']}), class: 'fs-directory')+'</td>').html_safe
         c += ('<td data-title="Size" data-sort-value="'+node['extent'].to_s+'">'+filesize+'</td>').html_safe
-        #content_tag(:a, label, href: url_to_proxy({id: node['proxyIn_ssi'].sub('info:fedora/',''), proxy_id: node['id']}))
       end
     end
   end
