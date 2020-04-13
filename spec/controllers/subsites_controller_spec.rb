@@ -53,10 +53,24 @@ describe CatalogController, :type => :controller do
         end
         let(:params) { { id: 'good:id' } }
         before do
-          expect(IndexFedoraObjectJob).to receive(:perform).with(hash_including('pid' => 'good:id'))
+          expect(IndexFedoraObjectJob).to receive(:perform).with(hash_including('pid' => 'good:id', 'reraise' => true))
         end
         it do
           expect(subject).to eql(200)
+        end
+      end
+      context 'good doc id, bad data' do
+        let(:mock_object) do
+          double(ActiveFedora::Base)
+        end
+        let(:params) { { id: 'good:id' } }
+        before do
+          expect(IndexFedoraObjectJob)
+          .to receive(:perform).with(hash_including('pid' => 'good:id', 'reraise' => true))
+          .and_raise(Encoding::UndefinedConversionError)
+        end
+        it do
+          expect(subject).to eql(500)
         end
       end
     end

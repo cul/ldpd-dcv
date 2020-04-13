@@ -58,39 +58,6 @@ namespace :dcv do
       end
     end
 
-    # Same as list task, but multithreaded
-    # Note: This is experimental.
-    task :list_multithreaded => :environment do
-      Dlc::Index.log_level = Logger::INFO
-      start_time = Time.now
-      threads = (ENV['threads'] || 1).to_i
-
-      puts "Performing multithreaded indexing with #{threads} threads."
-
-      pool = Thread.pool(threads)
-      mutex = Mutex.new
-      async_counter = 0
-      Dlc::Pids.each(nil,ENV['list']) do |pid,current,len|
-
-        # Synchronously	process	first row to reduce risk of autoloading	issues
-        if current == 1
-          Cul::Hydra::Indexer.index_pid(pid)
-          async_counter += 1
-          puts "Processed #{pid} | #{async_counter} of #{len} | #{Time.now - start_time} seconds"
-          next
-        end
-
-        pool.process {
-          Cul::Hydra::Indexer.index_pid(pid)
-          mutex.synchronize do
-            async_counter += 1
-            puts "Processed #{pid} | #{async_counter} of #{len} | #{Time.now - start_time} seconds"
-          end
-        }
-      end
-      pool.shutdown
-    end
-
     task :queue => :environment do
       Dlc::Index.log_level = Logger::INFO
 
