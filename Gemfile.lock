@@ -146,7 +146,7 @@ GEM
       rails (>= 3.1.1)
     concurrent-ruby (1.1.6)
     crass (1.0.6)
-    cul_hydra (1.9.3)
+    cul_hydra (1.9.4)
       active-fedora (>= 8.0, < 8.7.0)
       active-triples (~> 0.4.0)
       active_fedora_finders (>= 0.5.0)
@@ -513,7 +513,7 @@ DEPENDENCIES
   coderay
   coffee-rails (~> 4.0.0)
   colorbox-rails
-  cul_hydra (~> 1.9.3)
+  cul_hydra (~> 1.9.4)
   cul_omniauth (~> 0.5.2)
   devise (~> 3.4)
   devise-guests (~> 0.3)
