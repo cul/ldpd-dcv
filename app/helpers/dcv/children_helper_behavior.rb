@@ -115,7 +115,7 @@ module Dcv::ChildrenHelperBehavior
 
       # Inject types from solr, using id lookup
       child_results = post_to_repository 'select', {
-        :rows => child_ids.length,
+        :rows => node_ids.length,
         :fl => CHILDREN_MODEL.dup,
         :qt => 'search',
         :fq => [
