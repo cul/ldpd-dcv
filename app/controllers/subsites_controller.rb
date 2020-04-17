@@ -91,13 +91,16 @@ class SubsitesController < ApplicationController
     published_url = url_for(controller: controller_name, action: :show, id: pid)
     logger.debug "reindexing #{pid}"
     begin
-      IndexFedoraObjectJob.perform({'pid' => pid, 'subsite_keys' => [subsite_key]})
+      IndexFedoraObjectJob.perform({'pid' => pid, 'subsite_keys' => [subsite_key], 'reraise' => true})
+      response.headers['Location'] = published_url
+      render status: status, json: { "success" => true }
     rescue ActiveFedora::ObjectNotFoundError
       render status: :not_found, plain: ''
       return
+    rescue
+      # despite json body, Hyacinth 2 relies on status code to determine success/failure
+      render status: :internal_server_error, json: { "success" => false }
     end
-    response.headers['Location'] = published_url
-    render status: status, json: { "success" => true }
   end
 
   # DELETE /subsite/publish/:id
