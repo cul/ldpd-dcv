@@ -1,4 +1,5 @@
 module Dcv::ChildrenHelperBehavior
+  include Cul::Hydra::AccessLevels
 
   include Dcv::CdnHelper
   include Dcv::SolrHelper
@@ -107,7 +108,7 @@ module Dcv::ChildrenHelperBehavior
           id: node['CONTENTIDS'],
           order: node['ORDER'].to_i,
           title: (subsite_layout == 'durst') ? "Image #{counter}" : node['LABEL'],
-          access_control_levels_ssim: (subsite_layout == 'durst') ? "Public Access" : "Closed"
+          access_control_levels_ssim: (subsite_layout == 'durst') ? ACCESS_LEVEL_PUBLIC : ACCESS_LEVEL_CLOSED
         }
       end
 
@@ -211,7 +212,7 @@ module Dcv::ChildrenHelperBehavior
           datastreams_ssim: [],
           active_fedora_model_ssi: 'ArchiveOrg',
           archive_org_identifier_ssi: arxv_obj['id'],
-          access_control_levels_ssim: ['Public Access'],
+          access_control_levels_ssim: [ACCESS_LEVEL_PUBLIC],
           access_control_permissions_bsi: false
         })
       end

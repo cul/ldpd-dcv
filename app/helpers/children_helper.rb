@@ -1,4 +1,5 @@
 module ChildrenHelper
+  include Cul::Hydra::AccessLevels
   include Blacklight::BlacklightHelperBehavior
   include Blacklight::ConfigurationHelperBehavior
   include Dcv::ChildrenHelperBehavior
@@ -42,7 +43,7 @@ module ChildrenHelper
 
   # is this child potentially viewable in a different location, or with a log in?
   def is_unviewable_child?(child)
-    !can_access_asset?(child) && child.fetch(:access_control_levels_ssim,[]).detect { |val| !val.eql?('Closed') && !val.eql?('Embargoed') }
+    !can_access_asset?(child) && child.fetch(:access_control_levels_ssim,[]).detect { |val| !val.eql?(ACCESS_LEVEL_CLOSED) && !val.eql?(ACCESS_LEVEL_EMBARGO) }
   end
 
   def has_viewable_children?
@@ -50,10 +51,10 @@ module ChildrenHelper
   end
 
   def has_closed_children?
-    structured_children.detect { |child| !can_access_asset?(child) && child.fetch(:access_control_levels_ssim,[]).include?('Closed') }
+    structured_children.detect { |child| !can_access_asset?(child) && child.fetch(:access_control_levels_ssim,[]).include?(ACCESS_LEVEL_CLOSED) }
   end
 
   def has_embargoed_children?
-    structured_children.detect { |child| !can_access_asset?(child) && child.fetch(:access_control_levels_ssim,[]).include?('Embargoed') }
+    structured_children.detect { |child| !can_access_asset?(child) && child.fetch(:access_control_levels_ssim,[]).include?(ACCESS_LEVEL_EMBARGO) }
   end
 end
