@@ -1,4 +1,6 @@
 module Dcv::SolrHelper
+  include Cul::Hydra::AccessLevels
+
   def access_control_fields(solr_doc = {})
     SolrDocument::ACCESS_CONTROL_FIELDS.map { |field_name| [field_name, solr_doc[field_name]] }.to_h.compact
   end
@@ -9,6 +11,6 @@ module Dcv::SolrHelper
   end
 
   def online_access_indicated?(hash)
-     (hash['access_control_levels_ssim'] & ['Closed', 'Embargoed']).blank?
+     (hash['access_control_levels_ssim'] & [ACCESS_LEVEL_CLOSED, ACCESS_LEVEL_EMBARGO]).blank?
   end
 end
