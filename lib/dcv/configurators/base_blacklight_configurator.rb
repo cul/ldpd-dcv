@@ -1,4 +1,16 @@
 module Dcv::Configurators::BaseBlacklightConfigurator
+  module Constants
+    COMMA_DELIMITER     = ', '.freeze
+    LINEBREAK_DELIMITER = '<br />'.freeze.html_safe
+    SEMICOLON_DELIMITER = '; '.freeze
+    COMMA_DELIMITED     = { words_connector: COMMA_DELIMITER,     two_words_connector: COMMA_DELIMITER,     last_word_connector: COMMA_DELIMITER }
+    LINEBREAK_DELIMITED = { words_connector: LINEBREAK_DELIMITER, two_words_connector: LINEBREAK_DELIMITER, last_word_connector: LINEBREAK_DELIMITER }
+    SEMICOLON_DELIMITED = { words_connector: SEMICOLON_DELIMITER, two_words_connector: SEMICOLON_DELIMITER, last_word_connector: SEMICOLON_DELIMITER }
+  end
+
+  def self.extended(extendor)
+    extendor.include Constants
+  end
 
   def solr_name(*args)
     ActiveFedora::SolrService.solr_name(*args)
