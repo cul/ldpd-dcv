@@ -20,6 +20,11 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
+  support:
+    array:
+      words_connector: "; "
+      two_words_connector: "; "
+      last_word_connector: "; "
   ldpd:
     url:
       repo:
