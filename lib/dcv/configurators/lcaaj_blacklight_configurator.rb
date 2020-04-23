@@ -77,29 +77,29 @@ class Dcv::Configurators::LcaajBlacklightConfigurator
     #   The ordering of the field names is the order of the display
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display
-    config.add_show_field ActiveFedora::SolrService.solr_name('title_display', :displayable, type: :string), :label => 'Title', :separator => '; '
-    config.add_show_field ActiveFedora::SolrService.solr_name('lib_repo_full', :symbol, type: :string), :label => 'Library Location', :separator => '; ', :helper_method => :show_field_repository_to_facet_link
+    config.add_show_field ActiveFedora::SolrService.solr_name('title_display', :displayable, type: :string), :label => 'Title'
+    config.add_show_field ActiveFedora::SolrService.solr_name('lib_repo_full', :symbol, type: :string), :label => 'Library Location', :helper_method => :show_field_repository_to_facet_link
     config.add_show_field ActiveFedora::SolrService.solr_name('role_interviewer', :symbol), :label => 'Interviewer', :sort => 'index', :link_to_search => ActiveFedora::SolrService.solr_name('role_interviewer', :symbol)
     config.add_show_field ActiveFedora::SolrService.solr_name('role_interviewee', :symbol), :label => 'Interviewee', :sort => 'index', :link_to_search => ActiveFedora::SolrService.solr_name('role_interviewee', :symbol)
-    config.add_show_field ActiveFedora::SolrService.solr_name('lib_format', :displayable), :label => 'Format', :separator => '; '
-    config.add_show_field ActiveFedora::SolrService.solr_name('subject_hierarchical_geographic_region', :symbol), :label => 'Region', :separator => '; '
-    config.add_show_field ActiveFedora::SolrService.solr_name('subject_hierarchical_geographic_city', :symbol), :label => 'City', :separator => '; '
-    config.add_show_field ActiveFedora::SolrService.solr_name('lib_project_full', :symbol), :label => 'Digital Project', :separator => '; '
-    config.add_show_field ActiveFedora::SolrService.solr_name('lib_collection', :displayable), :label => 'Collection', :separator => '; '
-    config.add_show_field ActiveFedora::SolrService.solr_name('lib_date_textual', :displayable, type: :string), :label => 'Date', :separator => '; '
-    config.add_show_field ActiveFedora::SolrService.solr_name('lib_non_date_notes', :displayable, type: :string), :label => 'Note', :separator => '; '
-    config.add_show_field ActiveFedora::SolrService.solr_name('location_shelf_locator', :displayable, type: :string), :label => 'Shelf Location', :separator => '; '
-    config.add_show_field ActiveFedora::SolrService.solr_name('physical_description_extent', :displayable, type: :string), :label => 'Physical Description', :separator => '; '
-    config.add_show_field ActiveFedora::SolrService.solr_name('identifier', :symbol), :label => 'Identifier', :separator => '; '
-    config.add_show_field ActiveFedora::SolrService.solr_name('ezid_doi', :symbol), :label => 'DOI', :separator => '; ', :show => false
+    config.add_show_field ActiveFedora::SolrService.solr_name('lib_format', :displayable), :label => 'Format'
+    config.add_show_field ActiveFedora::SolrService.solr_name('subject_hierarchical_geographic_region', :symbol), :label => 'Region'
+    config.add_show_field ActiveFedora::SolrService.solr_name('subject_hierarchical_geographic_city', :symbol), :label => 'City'
+    config.add_show_field ActiveFedora::SolrService.solr_name('lib_project_full', :symbol), :label => 'Digital Project'
+    config.add_show_field ActiveFedora::SolrService.solr_name('lib_collection', :displayable), :label => 'Collection'
+    config.add_show_field ActiveFedora::SolrService.solr_name('lib_date_textual', :displayable, type: :string), :label => 'Date'
+    config.add_show_field ActiveFedora::SolrService.solr_name('lib_non_date_notes', :displayable, type: :string), :label => 'Note'
+    config.add_show_field ActiveFedora::SolrService.solr_name('location_shelf_locator', :displayable, type: :string), :label => 'Shelf Location'
+    config.add_show_field ActiveFedora::SolrService.solr_name('physical_description_extent', :displayable, type: :string), :label => 'Physical Description'
+    config.add_show_field ActiveFedora::SolrService.solr_name('identifier', :symbol), :label => 'Identifier'
+    config.add_show_field ActiveFedora::SolrService.solr_name('ezid_doi', :symbol), :label => 'DOI', :show => false
 
     # solr fields to be displayed in the geo/map panels
     #  facetable (link: true)
-    config.add_geo_field ActiveFedora::SolrService.solr_name('subject_hierarchical_geographic_neighborhood', :symbol), label: 'Neighborhood', separator: '; ', link: true
-    config.add_geo_field ActiveFedora::SolrService.solr_name('subject_hierarchical_geographic_borough', :symbol), label: 'Borough', separator: '; ', link: true
-    config.add_geo_field ActiveFedora::SolrService.solr_name('subject_hierarchical_geographic_city', :symbol), label: 'City', separator: '; ', link: true
+    config.add_geo_field ActiveFedora::SolrService.solr_name('subject_hierarchical_geographic_neighborhood', :symbol), label: 'Neighborhood', link: true
+    config.add_geo_field ActiveFedora::SolrService.solr_name('subject_hierarchical_geographic_borough', :symbol), label: 'Borough', link: true
+    config.add_geo_field ActiveFedora::SolrService.solr_name('subject_hierarchical_geographic_city', :symbol), label: 'City', link: true
     #  nonfacetable (link: false)
-    config.add_geo_field ActiveFedora::SolrService.solr_name('subject_hierarchical_geographic_street', :symbol), label: 'Address', separator: '; ', link: false
+    config.add_geo_field ActiveFedora::SolrService.solr_name('subject_hierarchical_geographic_street', :symbol), label: 'Address', link: false
     config.add_geo_field 'geo', label: 'Coordinates', link: false
 
     # "fielded" search configuration. Used by pulldown among other places.

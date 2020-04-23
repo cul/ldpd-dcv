@@ -58,34 +58,34 @@ class Dcv::Configurators::LehmanBlacklightConfigurator
     # solr fields to be displayed in the index (search results) view
     #   The ordering of the field names is the order of the display
     #config.add_index_field ActiveFedora::SolrService.solr_name('title_display', :displayable, type: :string), :label => 'Title'
-    config.add_index_field ActiveFedora::SolrService.solr_name('primary_name', :displayable), label: 'Name', separator: '; ', helper_method: :display_non_copyright_names_with_roles, if: :has_non_copyright_names?
-    config.add_index_field ActiveFedora::SolrService.solr_name('lib_genre', :symbol), label: 'Document Type', separator: '; '
+    config.add_index_field ActiveFedora::SolrService.solr_name('primary_name', :displayable), label: 'Name', helper_method: :display_non_copyright_names_with_roles, if: :has_non_copyright_names?
+    config.add_index_field ActiveFedora::SolrService.solr_name('lib_genre', :symbol), label: 'Document Type'
     config.add_index_field ActiveFedora::SolrService.solr_name('lib_date_textual', :displayable, type: :string), :label => 'Date'
-    config.add_index_field ActiveFedora::SolrService.solr_name('lib_collection', :displayable), label: 'Collection Name', separator: '; ', helper_method: :display_composite_archival_context
+    config.add_index_field ActiveFedora::SolrService.solr_name('lib_collection', :displayable), label: 'Collection Name', helper_method: :display_composite_archival_context
     config.add_index_field ActiveFedora::SolrService.solr_name('abstract', :displayable, type: :string), label: 'Abstract', helper_method: :expandable_past_250
 
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display
-    config.add_show_field ActiveFedora::SolrService.solr_name('lib_name', :displayable), label: 'Name', separator: '; ', link_to_search: ActiveFedora::SolrService.solr_name('lib_name', :facetable), helper_method: :display_non_copyright_names_with_roles, if: :has_non_copyright_names?
-    config.add_show_field ActiveFedora::SolrService.solr_name('title_display', :displayable, type: :string), label: 'Title', separator: '; '
-    config.add_show_field ActiveFedora::SolrService.solr_name('lib_collection', :displayable), label: 'Collection Name', separator: '; ', helper_method: :display_collection_with_links
-    config.add_show_field 'archival_context_json_ss', label: 'Archival Context', separator: '; ', helper_method: :display_archival_context, if: :has_archival_context?
-    config.add_show_field ActiveFedora::SolrService.solr_name('lib_all_subjects', :displayable), label: 'Subjects', separator: '; '
-    config.add_show_field ActiveFedora::SolrService.solr_name('lib_format', :displayable), label: 'Format', separator: '; '
-    config.add_show_field ActiveFedora::SolrService.solr_name('lib_genre', :symbol), label: 'Document Type', separator: '; '
-    config.add_show_field ActiveFedora::SolrService.solr_name('origin_info_date_created', :displayable), label: 'Origin Information', separator: ', ', helper_method: :display_origin_info, unless: :is_dateless_origin_info?
-    config.add_show_field ActiveFedora::SolrService.solr_name('identifier', :symbol), label: 'Document ID', separator: '; '
-    config.add_show_field ActiveFedora::SolrService.solr_name('physical_description_extent', :displayable, type: :string), label: 'Physical Description', separator: '; ', helper_method: :append_digital_origin
-    config.add_show_field 'dynamic_notes', pattern: /lib_.*_notes_ssm/, label: :notes_label, separator: '; ', helper_method: :expandable_past_250, unless: :is_excepted_dynamic_field?, except: ['lib_acknowledgment_notes_ssm']
-    config.add_show_field ActiveFedora::SolrService.solr_name('language_language_term_text', :symbol), label: 'Language', separator: '; '
-    config.add_show_field ActiveFedora::SolrService.solr_name('lib_repo_full', :symbol, type: :string), label: 'Library Location', separator: '; ', helper_method: :show_translated_repository_label
-    config.add_show_field ActiveFedora::SolrService.solr_name('lib_project_full', :symbol), label: 'Digital Project', separator: '; ', helper_method: :display_as_link_to_home
-    config.add_show_field ActiveFedora::SolrService.solr_name('lib_acknowledgment_notes', :displayable), label: 'Acknowledgments', separator: '; '
-    config.add_show_field 'copyright_statement_ssi', label: 'Copyright Status', separator: '; ', helper_method: :display_as_link_to_rightsstatements
+    config.add_show_field ActiveFedora::SolrService.solr_name('lib_name', :displayable), label: 'Name', link_to_search: ActiveFedora::SolrService.solr_name('lib_name', :facetable), helper_method: :display_non_copyright_names_with_roles, if: :has_non_copyright_names?
+    config.add_show_field ActiveFedora::SolrService.solr_name('title_display', :displayable, type: :string), label: 'Title'
+    config.add_show_field ActiveFedora::SolrService.solr_name('lib_collection', :displayable), label: 'Collection Name', helper_method: :display_collection_with_links
+    config.add_show_field 'archival_context_json_ss', label: 'Archival Context', helper_method: :display_archival_context, if: :has_archival_context?
+    config.add_show_field ActiveFedora::SolrService.solr_name('lib_all_subjects', :displayable), label: 'Subjects'
+    config.add_show_field ActiveFedora::SolrService.solr_name('lib_format', :displayable), label: 'Format'
+    config.add_show_field ActiveFedora::SolrService.solr_name('lib_genre', :symbol), label: 'Document Type'
+    config.add_show_field ActiveFedora::SolrService.solr_name('origin_info_date_created', :displayable), label: 'Origin Information', separator_options: COMMA_DELIMITED, helper_method: :display_origin_info, unless: :is_dateless_origin_info?
+    config.add_show_field ActiveFedora::SolrService.solr_name('identifier', :symbol), label: 'Document ID'
+    config.add_show_field ActiveFedora::SolrService.solr_name('physical_description_extent', :displayable, type: :string), label: 'Physical Description', helper_method: :append_digital_origin
+    config.add_show_field 'dynamic_notes', pattern: /lib_.*_notes_ssm/, label: :notes_label, helper_method: :expandable_past_250, unless: :is_excepted_dynamic_field?, except: ['lib_acknowledgment_notes_ssm']
+    config.add_show_field ActiveFedora::SolrService.solr_name('language_language_term_text', :symbol), label: 'Language'
+    config.add_show_field ActiveFedora::SolrService.solr_name('lib_repo_full', :symbol, type: :string), label: 'Library Location', helper_method: :show_translated_repository_label
+    config.add_show_field ActiveFedora::SolrService.solr_name('lib_project_full', :symbol), label: 'Digital Project', helper_method: :display_as_link_to_home
+    config.add_show_field ActiveFedora::SolrService.solr_name('lib_acknowledgment_notes', :displayable), label: 'Acknowledgments'
+    config.add_show_field 'copyright_statement_ssi', label: 'Copyright Status', helper_method: :display_as_link_to_rightsstatements
 
-    config.add_citation_field ActiveFedora::SolrService.solr_name('ezid_doi', :symbol), label: 'Persistent URL', separator: '; ', show: false, helper_method: :display_doi_link
+    config.add_citation_field ActiveFedora::SolrService.solr_name('ezid_doi', :symbol), label: 'Persistent URL', show: false, helper_method: :display_doi_link
 
     # solr fields to be displayed in the geo/map panels
 
