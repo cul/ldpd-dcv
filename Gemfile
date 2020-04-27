@@ -5,6 +5,8 @@ gem 'rails', '4.2.10'
 gem 'actionpack-action_caching'
 # Hydra stack
 gem 'nokogiri', '~> 1.8.2'
+# kaminari 1.2.0 introduces a floating span close in Blacklight?
+gem 'kaminari', '~> 1.1.1'
 gem 'blacklight', '~> 6.0'
 gem 'active-fedora', '>= 7.3.1'
 #gem 'rubydora', :path => '../rubydora'
