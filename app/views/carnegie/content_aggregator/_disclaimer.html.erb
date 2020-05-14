@@ -3,6 +3,16 @@
 <% if document['physical_description_digital_origin_ssm']&.detect { |val| val.downcase == 'digitized microfilm'} %>
 <div class="child-content text-muted"><em>Documents scanned from microfilm may have variable contrast quality.</em></div>
 <% end -%>
-<% if has_unviewable_children? %>
-<div class="child-content alert alert-info"><%= show_repository_location_with_contact(document: document, field: ActiveFedora::SolrService.solr_name('lib_repo_full', :symbol, type: :string)).sub("This item is accessible", "Additional content may be accessible").html_safe %></div>
+<% from_strict_reading_room = (has_restricted_children? and !has_unviewable_children? and !current_user) -%>
+<% if has_restricted_children? and !from_strict_reading_room %>
+	<% offer_login = has_unviewable_children? and !current_user -%>
+	<div class="child-content alert alert-info" role="alert">
+		<% if has_unviewable_children? %>
+			<p><%= show_repository_location_with_contact(document: document, field: ActiveFedora::SolrService.solr_name('lib_repo_full', :symbol, type: :string), mixed_content: true) %></p>
+		<% end -%>
+		<%= render :partial => 'shared/vrr_disclaimer' %>
+		<% if offer_login -%>
+			<%= render :partial => 'shared/vrr_login' %>
+		<% end -%>
+	</div>
 <% end -%>

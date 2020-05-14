@@ -1,5 +1,11 @@
 <% if has_unviewable_children? %>
-  <p class="alert alert-info" role="alert"><%= show_repository_location_with_contact(document: document, field: ActiveFedora::SolrService.solr_name('lib_repo_full', :symbol, type: :string)) %></p>
+	<div class="alert alert-info" role="alert">
+		<p><%= show_repository_location_with_contact(document: document, field: ActiveFedora::SolrService.solr_name('lib_repo_full', :symbol, type: :string)) %></p>
+		<%= render :partial => 'shared/vrr_disclaimer' %>
+		<% if !current_user -%>
+			<%= render :partial => 'shared/vrr_login' %>
+		<% end -%>		
+	</div>
 <% elsif (restricted_doc = has_embargoed_children? ) %>
   <p class="alert alert-info" role="alert">Due to copyright, contractual or privacy restrictions, this item is not available until <%= restricted_doc['access_control_embargo_dtsi'] %>.</p>
 <% else %>

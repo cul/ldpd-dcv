@@ -103,7 +103,11 @@ module FieldDisplayHelpers::Repository
     repo_display = t("cul.archives.physical_location.#{repo_code}", default: nil)
     return unless repo_display
     email_display = t("cul.archives.contact_email.#{repo_code}", default: nil)
-    message = "This item is accessible in the reading room of the #{repo_display}. Please make arrangements in advance of your visit."
+    if args[:mixed_content]
+      message = "Additional content may be accessible in the reading room of the #{repo_display}. Please make arrangements in advance of your visit."
+    else
+      message = "This item is accessible in the reading room of the #{repo_display}. Please make arrangements in advance of your visit."
+    end
     if email_display
       message << " Contact #{link_to(email_display, "mailto:#{email_display}")}."
     end
