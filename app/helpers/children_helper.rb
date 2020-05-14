@@ -37,6 +37,10 @@ module ChildrenHelper
     end
   end
 
+  def is_publicly_available_asset?(child)
+    child.fetch(:access_control_levels_ssim,[]).include?(ACCESS_LEVEL_PUBLIC)
+  end
+
   # are any of the assets being denied potentially viewable (not closed or embargoed)
   def has_unviewable_children?
     structured_children.detect { |child| is_unviewable_child?(child) }.present?
@@ -65,5 +69,10 @@ module ChildrenHelper
   # are any of the child assets restricted from public access?
   def has_restricted_children?
     structured_children.detect { |child| child.fetch(:access_control_levels_ssim,[]).detect {|val| val.present? && val != ACCESS_LEVEL_PUBLIC } }.present?
+  end
+
+  # are any of the child assets non-public?
+  def has_non_public_children?
+    structured_children.detect { |child| !is_publicly_available_asset?(child) }.present?
   end
 end
