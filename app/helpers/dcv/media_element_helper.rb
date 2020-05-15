@@ -4,10 +4,9 @@ module Dcv::MediaElementHelper
       # important not to mark up as default, or browser and mediaelement will both display
       track_element = '<track label="English" kind="subtitles" srclang="en" src="' + captions_path + '" />'
     end
-    return ('<div class="mejs-ted"><div class="mediaelement-player">
-      <video width="' + width.to_s + '" height="' + height.to_s + '" style="width:100%;height:100%;" poster="' + poster_path + '" controls="controls" preload="none">
+    return ('<div class="mejs-ted"><div class="able-player">
+      <video width="' + width.to_s + '" height="' + height.to_s + '" style="width:100%;height:100%;" poster="' + poster_path + '" controls="controls" data-able-player preload="auto">
         <source type="application/x-mpegURL" src="https://firehose.cul.columbia.edu:8443/' + wowza_project + '/_definst_/mp4:' + video_path + '/playlist.m3u8" />
-        <source type="video/rtmp" src="rtmps://firehose.cul.columbia.edu:8443/' + wowza_project + '/_definst_/mp4:' + video_path + '" />
         ' + track_element.to_s + '
       </video>
     </div></div>').html_safe
@@ -18,8 +17,8 @@ module Dcv::MediaElementHelper
       # important not to mark up as default, or browser and mediaelement will both display
       track_element = '<track label="English" kind="subtitles" srclang="en" src="' + captions_path + '" />'
     end
-    return ('<div class="mejs-ted"><div class="mediaelement-player">
-      <audio width="' + width.to_s + '" style="width:100%;" controls="controls" preload="none">
+    return ('<div class="mejs-ted"><div class="able-player">
+      <audio width="' + width.to_s + '" style="width:100%;" controls="controls" data-able-player preload="auto">
         <source type="application/x-mpegURL" src="' + url + '" />' + track_element.to_s + '
       </audio>
     </div></div>').html_safe
@@ -30,8 +29,8 @@ module Dcv::MediaElementHelper
       # important not to mark up as default, or browser and mediaelement will both display
       track_element = '<track label="English" kind="subtitles" srclang="en" src="' + captions_path + '" />'
     end
-    return ('<div class="mejs-ted"><div class="mediaelement-player">
-      <video width="' + width.to_s + '" height="' + height.to_s + '" style="width:100%;height:100%;" poster="' + poster_path + '" controls="controls" preload="none">
+    return ('<div class="mejs-ted"><div class="able-player">
+      <video width="' + width.to_s + '" height="' + height.to_s + '" style="width:100%;height:100%;" poster="' + poster_path + '" controls="controls" data-able-player preload="auto">
         <source type="application/x-mpegURL" src="' + url + '" />' + track_element.to_s + '
       </video>
     </div></div>').html_safe
@@ -42,8 +41,8 @@ module Dcv::MediaElementHelper
       # important not to mark up as default, or browser and mediaelement will both display
       track_element = '<track label="English" kind="subtitles" srclang="en" src="' + captions_path + '" />'
     end
-    return ('<div class="mejs-ted"><div class="mediaelement-player">
-      <video width="' + width.to_s + '" height="' + height.to_s + '" style="width:100%;height:100%;" poster="' + poster_path + '" controls="controls" preload="none">
+    return ('<div class="mejs-ted"><div class="able-player">
+      <video width="' + width.to_s + '" height="' + height.to_s + '" style="width:100%;height:100%;" poster="' + poster_path + '" controls="controls" data-able-player preload="auto">
           <source type="video/mp4" src="' + video_url + '" />' + track_element.to_s + '
       </video>
     </div></div>').html_safe
@@ -55,7 +54,7 @@ module Dcv::MediaElementHelper
       track_element = '<track label="English" kind="subtitles" srclang="en" src="' + captions_path + '" />'
     end
     return (
-      '<audio class="mediaelement-player" style="width:100%;" controls="controls" preload="none">
+      '<audio class="able-player" style="width:100%;" controls="controls" data-able-player preload="auto">
           <source type="audio/mp3" src="' + audio_url + '" />' + track_element.to_s + '
       </audio>'
     ).html_safe
