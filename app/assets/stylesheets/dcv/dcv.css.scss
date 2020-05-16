@@ -1090,7 +1090,7 @@ h2[itemprop="name"] {
 .btn.active {
 	background-color: $color_1;
 }
-.mediaelement-wrapper.thumbnail {
+.media-wrapper.thumbnail {
 	border-color: $color_2;
 	background-color: transparent;
 	.caption {
@@ -1269,8 +1269,10 @@ h2[itemprop="name"] {
 			}
 		}
 
-		.mejs-ted {
+		.media-container {
 			border: 1px solid #6C6C6C;
+			text-align: left;
+			margin-top: 60px;
 		}
 		.view-synchronized-media {
 			margin-top: 1em;
@@ -1306,11 +1308,6 @@ h2[itemprop="name"] {
 	}
 }
 
-
-/* MediaElement player */
-.mejs__cannotplay img {
-	display:none;
-}
 /* be like glyphicons with the iiif icon */
 .localicon-iiif {
 	height: 1em;
