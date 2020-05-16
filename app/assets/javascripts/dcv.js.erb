@@ -42,7 +42,6 @@ $(document).ready(function(){
   $('.able-player video, .able-player audio, video.able-player, audio.able-player').each(function(){
      var media = $(this)[0];
      var mediaUrl = $('source', this)[0].src;
-     console.log('able player media for ' + mediaUrl);
      if (new URL(mediaUrl).pathname.match(/.m3u8$/i)) {
        var hls = new Hls();
        hls.loadSource(mediaUrl);
