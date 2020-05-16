@@ -15,30 +15,6 @@ $(document).ready(function(){
   setupChildViewer();
   setupDownloadButton();
 
-	$('.mediaelement-player video, .mediaelement-player audio, video.mediaelement-player, audio.mediaelement-player').each(function(){
-		$(this).mediaelementplayer({
-      pluginPath: '/mediaelement/',
-      proxyType: 'best',
-      streamDelimiter: '/',
-      toggleCaptionsButtonWhenOnlyOne: true
-      //alwaysShowControls: true,
-      //stretching: 'responsive',
-			// success: function (mediaElement, domObject) {
-			// 	//Optional triggers when the video has loaded
-      //
-			// 	// add event listener
-      //   //mediaElement.addEventListener('seeked', function(e) {
-			// 	//		console.log('seek attempt!');
-      //   //}, false);
-      //
-			// },
-			// error: function() {
-			// 	console.log('The MediaElement player has encountered an error.');
-			// }
-		});
-
-  });
-
   $('.able-player video, .able-player audio, video.able-player, audio.able-player').each(function(){
      var media = $(this)[0];
      var mediaUrl = $('source', this)[0].src;
