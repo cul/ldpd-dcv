@@ -15,7 +15,8 @@ gem 'rubydora', :git => 'https://github.com/elohanlon/rubydora', branch: 'datast
 # Columbia Hydra models
 gem 'cul_hydra', '~> 1.9.4'
 gem 'cancancan', '~>1.12.0'
-gem 'cul_omniauth', '~>0.5.2'
+gem 'cul_omniauth', '~>0.5.5'
+#gem 'cul_omniauth', git: 'https://github.com/cul/cul_omniauth', branch: '0.5.x'
 gem 'active-triples', '~> 0.4.0'
 
 # Use wowza token gem for generating tokens
