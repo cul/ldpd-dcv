@@ -157,7 +157,8 @@ module Dcv::ChildrenHelperBehavior
       facet: false
     }
 
-    response, docs = (defined? :controller) ? controller.search_results(_params) : search_results(_params)
+    merge_proc = Proc.new { |b| b.merge(_params) }
+    response, docs = (defined? :controller) ? controller.search_results({}, &merge_proc) : search_results({}, &merge_proc)
     title_field = (defined? :document_show_link_field) ? document_show_link_field : "title_ssm"
     proxies = response['response']['docs']
     proxies = Hash[proxies.map {|proxy| [proxy['proxyFor_ssi'], proxy]}]
@@ -172,6 +173,7 @@ module Dcv::ChildrenHelperBehavior
     kids.each do |kid|
       kid['proxy_id'] = kid['dc_identifier_ssim'].detect { |key| proxies[key] }
     end
+
     kids.sort_by! {|kid| proxies[kid['proxy_id']]['index_ssi'].to_i}
     order = 0
     kids.map do |kid|
