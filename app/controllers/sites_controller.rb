@@ -139,12 +139,7 @@ class SitesController < ApplicationController
 
   # used in :index action
   def digital_projects
-    @document_list.sort_by{|doc|
-      # Sort by title, ignoring articles. Also strip leading and trailing whitespace.  Also downcase titles so capitalization doesn't affect sort order.
-      # Note: This is a bad way to do this. We shold be indexing the
-      # non-sort portion of the title into solr and sorting by that instead.
-      (doc['title_ssm'].present? ? doc['title_ssm'].first.strip.gsub(/^[Aa]\s|[Aa]n\s|[Tt]he\s/, '').strip : '').downcase
-    }.delete_if{|doc| doc['source_ssim'].blank? && doc['slug_ssim'].blank? }.each.map do |solr_doc|
+    @document_list.delete_if{|doc| doc['source_ssim'].blank? && doc['slug_ssim'].blank? }.each.map do |solr_doc|
       t = {
         name: solr_doc.fetch('title_ssm',[]).first,
         image: thumbnail_url(solr_doc),
