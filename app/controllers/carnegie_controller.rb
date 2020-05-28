@@ -17,8 +17,9 @@ class CarnegieController < SubsitesController
     if request.format.csv?
       stream_csv_response_for_search_results
     else
-  	  super
-      unless has_search_parameters?
+      super
+      if !has_search_parameters? && request.format.html?
+        # we override the view rendered for the subsite home on html requests
         render 'home'
       end
     end

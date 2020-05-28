@@ -9,9 +9,9 @@ class IfpController < SubsitesController
   end
 
   def index
-    if has_search_parameters?
-      super
-    else
+    super
+    if !has_search_parameters? && request.format.html?
+      # we override the view rendered for the subsite home on html requests
       render 'home'
     end
   end

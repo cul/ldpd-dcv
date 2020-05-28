@@ -21,7 +21,7 @@ class CentennialController < SubsitesController
     if request.format.csv?
       stream_csv_response_for_search_results
     else
-  	  super
+      super
     end
   end
 

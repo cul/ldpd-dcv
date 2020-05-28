@@ -9,8 +9,9 @@ class Restricted::UniversityseminarsController < SubsitesController
   end
 
   def index
-	super
-    unless has_search_parameters?
+    super
+    if !has_search_parameters? && request.format.html?
+      # we override the view rendered for the subsite home on html requests
       render 'home'
     end
   end
