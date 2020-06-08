@@ -1,0 +1,63 @@
+<div id="content">
+<div id="hometn" class="home inner">
+	<div id="site-banner" style="padding-top:0;padding-bottom:0;border:0;">
+		<div class="row">
+			<div class="col-sm-8">
+				<%= render 'site_title' %>
+			</div>
+			<div class="col-sm-4">
+				<div id="search-navbar" class="navbar navbar-default slim" role="navigation">
+					<%= render_search_bar(false)  %>
+				</div>
+			</div>
+		</div>
+	</div>
+	<%= render 'secondary_nav' %>
+	<div class="featured-outer">
+		<img class="img-responsive" alt="" src="<%= signature_image_path %>">
+
+	</div>
+	<div id="home-map-container">
+		<script>
+			DCV.mapCoordinateSearchUrl = decodeURIComponent('<%= CGI.escape(url_for(params.merge(:action => 'index', :lat => '_lat_', :long => '_long_', :search_field => params[:search_field] || 'all_text_teim', :q => params[:q] || ''))) %>');
+		</script>
+		<% map_search_settings = map_search_settings_for_subsite %>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-4 col-md-push-8">
+		<div class="home inner">
+			 <h2 class="h5 text-uppercase"><%= link_to("BROWSE THE COLLECTION", search_action_url) %></h2>
+			 <%= render partial: 'facets', locals: {hide_refine_heading: true, no_id_attr: true} %>
+			 <hr class="hidden-md hidden-lg">
+		</div> <!--/.inner-->
+	</div><!--/-->
+	<%- if @page.has_columns? -%>
+		<%- @page.text_block_columns.each_with_index do |column, index| -%>
+			<div class="col-md-4 col-md-pull-4">
+				<div class="home inner">
+					<%- column.each do |text_block| -%>
+						<%- if text_block.label.present? -%>
+							<h2 class="h5 text-uppercase"><%= text_block.label %></h2>
+						<%- end -%>
+						<%= controller.render_markdown(text_block.markdown) %>
+						<hr class="visible-sm">
+					<%- end -%>
+				</div>
+			</div>
+		<%- end -%>
+	<%- else -%>
+		<div class="col-md-8 col-md-pull-4">
+			<div class="home inner">
+				<%- @page.site_text_blocks.each do |text_block| -%>
+					<%- if text_block.label.present? -%>
+						<h2 class="h5 text-uppercase"><%= text_block.label %></h2>
+					<%- end -%>
+					<%= controller.render_markdown(text_block.markdown) %>
+					<hr class="visible-sm">
+				<%- end -%>
+			</div>
+		</div>
+	<%- end -%>
+</div>
+</div>

@@ -2,6 +2,7 @@ class SubsitesController < ApplicationController
 
   include Dcv::RestrictableController
   include Dcv::CatalogIncludes
+  include Dcv::MarkdownRendering
   include Cul::Hydra::ApplicationIdBehavior
   include Cul::Omniauth::AuthorizingController
   include Cul::Omniauth::RemoteIpAbility
@@ -10,6 +11,8 @@ class SubsitesController < ApplicationController
   before_filter :store_unless_user, except: [:update, :destroy, :api_info]
   before_filter :authorize_action, only:[:index, :preview, :show]
   before_filter :default_search_mode_cookie, only: :index
+  before_filter :load_subsite
+  before_filter :load_page, only: [:home, :index, :page]
   protect_from_forgery :except => [:update, :destroy, :api_info] # No CSRF token required for publishing actions
 
 
@@ -29,7 +32,10 @@ class SubsitesController < ApplicationController
 
   def initialize(*args)
     super(*args)
-    self._prefixes.unshift self.subsite_layout # haaaaaaack to not reproduce templates
+    # _prefixes are where view path lookups are attempted; probably unnecessary
+    # but need testing. default blank value should be first, but layout needs to be in front of controller path
+    self._prefixes.unshift self.subsite_layout
+    self._prefixes.unshift ""
   end
 
   # overrides the session role key from Cul::Omniauth::RemoteIpAbility
@@ -37,13 +43,14 @@ class SubsitesController < ApplicationController
     @current_ability ||= Ability.new(current_user, roles: session["cul.roles"], remote_ip:request.remote_ip)
   end
 
+  # view paths look up partial templates within _prefixes
+  # paths are relative to Rails.root
+  # prepending because we want to give specialized path priority
   def set_view_path
     self.prepend_view_path('app/views/shared')
     self.prepend_view_path('app/views/catalog')
-    self.prepend_view_path('app/views/' + self.subsite_layout)
-    self.prepend_view_path(self.subsite_layout)
     self.prepend_view_path('app/views/' + controller_path)
-    self.prepend_view_path(controller_path)
+    self.prepend_view_path('app/views/' + self.subsite_layout)
   end
 
   # Override to prepend restricted if necessary
@@ -67,6 +74,15 @@ class SubsitesController < ApplicationController
 
   def subsite_config
     return self.class.subsite_config
+  end
+
+  def load_subsite
+    @subsite ||= Site.find_by(slug: controller_path)
+  end
+
+  def load_page
+    return if has_search_parameters?
+    @page ||= SitePage.find_by(site_id: load_subsite.id, slug: params[:slug] || 'home')
   end
 
   def default_search_mode
@@ -188,7 +204,12 @@ class SubsitesController < ApplicationController
   end
 
   def subsite_layout
-    subsite_config['layout']
+    @subsite&.layout || subsite_config['layout']
+  end
+
+  def subsite_styles
+    palette = @subsite&.palette || subsite_config['palette']
+    palette.present? ? "#{subsite_layout}-#{palette}" : subsite_layout
   end
 
   def search_result_view_overrides

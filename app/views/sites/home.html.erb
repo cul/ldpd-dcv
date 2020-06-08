@@ -1,0 +1,33 @@
+<div class="row">
+
+	<div id="content" class="<%= @document.more_like_this.empty? ? 'col-md-12' : 'col-md-9' %> show-document">
+
+	<div id="item-show">
+		  <%= render 'previous_next_doc' unless @document['dc_type_ssm'].present? && @document['dc_type_ssm'].first == 'FileSystem' %>
+
+			<% @page_title = t('blacklight.search.show.title', :document_title => document_show_html_title, :application_name => application_name).html_safe -%>
+			<% content_for(:head) { render_link_rel_alternates } -%>
+			<%# this should be in a partial -%>
+			<div id="document" class="document <%= render_document_class %>" itemscope  itemtype="<%= @document.itemtype %>">
+				<div id="doc_<%= @document.id.to_s.parameterize %>">
+
+				<%= render :partial => 'catalog/schema_org_document_metadata', :locals => {:document => @document } %>
+
+				<% # bookmark/folder functions -%>
+				<%= render_document_partials @document, blacklight_config.view_config(:show).partials %>
+
+				</div>
+			</div>
+
+			<%= render :partial => 'catalog/opengraph_document_metadata' %>
+			<%= render :partial => 'catalog/openurl_coins_document_metadata' %>
+
+		</div>
+
+	</div>
+	<% unless @document.more_like_this.empty? %>
+	<div id="sidebar" class="col-md-3">
+	   <%= render_document_sidebar_partial %>
+	</div>
+    <% end -%>
+</div>

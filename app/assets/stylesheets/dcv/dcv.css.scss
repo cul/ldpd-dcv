@@ -56,6 +56,14 @@ $url_5: url(//cdn.cul.columbia.edu/ldpd-toolkit/fonts/trajanpro-regular-webfont.
 $url_6: url(//cdn.cul.columbia.edu/ldpd-toolkit/fonts/trajanpro-regular-webfont.ttf);
 $url_7: url(//cdn.cul.columbia.edu/ldpd-toolkit/fonts/trajanpro-regular-webfont.svg#TrajanProRegular);
 
+@font-face {
+	font-family: $font_0;
+	src: $url_3;
+	src: $url_4 format("embedded-opentype"), $url_5 format("woff"), $url_6 format("truetype"), $url_7 format("svg");
+	font-weight: normal;
+	font-style: normal;
+}
+
 //@extend-elements
 //original selectors
 //#sidebar .panel-body .nav a, #sidebar .panel-body .nav .btn-link
@@ -357,6 +365,7 @@ input {
 			}
 		}
 	}
+	// in the restricted home screen listing repositories
 	h2.banner {
 		width: 100%;
 		padding: 2px 0 0;
@@ -1047,13 +1056,6 @@ h2[itemprop="name"] {
 		word-wrap: break-word;
 	}
 }
-@font-face {
-	font-family: $font_0;
-	src: $url_3;
-	src: $url_4 format("embedded-opentype"), $url_5 format("woff"), $url_6 format("truetype"), $url_7 format("svg");
-	font-weight: normal;
-	font-style: normal;
-}
 #show-generic-resource {
 	.inner {
 		border-color: $color_29;
@@ -1107,9 +1109,12 @@ h2[itemprop="name"] {
 	background-color: $color_21;
 	border: 1px solid $color_22;
 	.tab-content {
+		// tabbed browse pages
 		margin-top: 2em;
 	}
 }
+
+// sites index pages (home)
 #home-page-content {
 	.inner {
 		hr {
@@ -1192,6 +1197,8 @@ h2[itemprop="name"] {
 #search-index-tools .search-index-tool-group {
 	margin-left: 5px;
 }
+
+// only in projects_and_exhibitions partials
 .btn-dark {
     color: $color_9;
     background-color: $color_0;

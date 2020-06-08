@@ -78,8 +78,6 @@ Dcv::Application.routes.draw do
   get 'nyre/map_search' => 'nyre#map_search', as: :nyre_map_search
   get 'nyre/projects/:id' => 'nyre/projects#show', as: :nyre_project, constraints: { id: /(\d+)|([A-Z]{2,3}\.\d{3,4}\.[A-Z]+)/ }
 
-  resources 'sites', only: [:index, :show], param: :slug
-
   # Blacklight routing concerns
   concern :searchable, Blacklight::Routes::Searchable.new
   concern :exportable, Blacklight::Routes::Exportable.new
@@ -132,7 +130,8 @@ Dcv::Application.routes.draw do
       all_concerns = [:searchable] + subsite_concerns
       concerns *all_concerns
     end
-    get "#{subsite_key}/:id" => "#{subsite_key}#show", as: "#{subsite_key}_show" 
+    get "#{subsite_key}/:id" => "#{subsite_key}#show", as: "#{subsite_key}_show", constraints: { id: /(cul|ldpd):.*/ }
+    get "#{subsite_key}/:slug" => "#{subsite_key}#page", as: "#{subsite_key}_page"
   end
 
   get '/restricted' => 'home#restricted', as: :restricted
@@ -140,7 +139,6 @@ Dcv::Application.routes.draw do
 
   if SUBSITES['restricted'].present?
     namespace "restricted" do
-      resources 'sites', only: [:index, :show], param: :slug
       subsite_keys = (SUBSITES['restricted'].keys - ['uri']).map(&:to_sym)
       subsite_keys.each do |subsite_key|
         resource subsite_key, only: [:show], controller: subsite_key do
@@ -150,7 +148,17 @@ Dcv::Application.routes.draw do
         end
         get "#{subsite_key}/:id" => "#{subsite_key}#show", as: "#{subsite_key}_show" 
       end
+      get "sites" => "sites#index"
+      resources 'sites', only: [:show], param: :slug, path: ''
+      get "sites/:slug", to: redirect("/%{slug}")
     end
+  end
+
+# Sites routes, placed after explicit subsite routing in priority
+  get "sites" => "sites#index"
+  get "sites/:slug", to: redirect("/%{slug}")
+  resources 'sites', only: [:show], param: :slug, path: '' do
+    get ':slug', to: 'sites#page', as: 'page'
   end
 
   mount Blacklight::Engine => '/'

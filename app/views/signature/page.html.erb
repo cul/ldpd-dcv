@@ -1,0 +1,10 @@
+<div class="col-md-8 col-md-offset-2">
+	<h2 class="text-center"><%= @page.title %></h2>
+	<hr>
+	<%- @page.site_text_blocks.each do |text_block| -%>
+		<%- if text_block.label.present? -%>
+			<h3 class="text-center"><%= text_block.label %></h3>
+		<%- end -%>
+		<%= controller.render_markdown(text_block.markdown) %>
+	<%- end -%>
+</div>

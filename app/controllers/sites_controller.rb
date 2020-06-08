@@ -5,10 +5,13 @@ class SitesController < ApplicationController
   include Dcv::CatalogIncludes
   include Dcv::Catalog::BrowseListBehavior
   include Dcv::CdnHelper
+  include Dcv::MarkdownRendering
 
   before_filter :set_browse_lists, only: :index
+  before_filter :load_subsite, except: [:index]
+  before_filter :load_page, only: [:page]
 
-  layout Proc.new { |controller| 'dcv' }
+  layout :request_layout
 
   configure_blacklight do |config|
     config.default_solr_params = {
@@ -80,6 +83,11 @@ class SitesController < ApplicationController
     end
   end
 
+  def set_view_path
+    super
+    self.prepend_view_path('app/views/' + self.request_layout)
+  end
+
   def index
     respond_to do |format|
       format.json {
@@ -95,6 +103,7 @@ class SitesController < ApplicationController
   def initialize(*args)
     super(*args)
     self._prefixes.unshift 'sites'
+    self._prefixes.unshift '' # allow view_path to find action templates without 'sites' prefix first
   end
 
   ##
@@ -105,18 +114,56 @@ class SitesController < ApplicationController
     true
   end
 
+  def load_subsite
+    site_slug = params[:site_slug] || params[:slug]
+    site_slug = "restricted/#{site_slug}" if restricted?
+    @subsite ||= Site.find_by(slug: site_slug)
+  end
+
+  def load_page(args = params)
+    @page ||= SitePage.find_by(site_id: load_subsite.id, slug: args[:slug] || 'home')
+  end
+
+  def request_layout
+    if (action_name == 'index')
+      'dcv' # legacy behavior
+    else
+      subsite_layout
+    end
+  end
+
+  def subsite_config
+    if action_name == 'index'
+      @subsite_config = {}
+    else
+      @subsite_config ||= load_subsite.to_subsite_config
+    end
+  end
+
+  def subsite_layout
+    subsite_config['layout'] || 'catalog'
+  end
+
+  def subsite_styles
+    palette = subsite_config['palette']
+    palette.present? ? "#{subsite_layout}-#{palette}" : subsite_layout
+  end
+
   # get single document from the solr index
   # override to use :slug and publisher_ssim in search to get document
   def show
+    load_page(site_slug: params[:slug], slug: 'home')
     (@response, @document_list) = search_results(params)
     @document = @document_list.first
     if @document.nil?
       render status: :not_found, text: "#{params[:slug]} is not a subsite"
       return
     end
+    # TODO: load facet data. Requires configuration of fields, and override of default solr params.
+    params[:as_home] = true # to disable _header_navbar double render
     respond_to do |format|
       format.json { render json: {response: {document: @document}}}
-      format.html { }
+      format.html { render action: 'home' }
 
       # Add all dynamically added (such as by document extensions)
       # export formats.
@@ -128,13 +175,7 @@ class SitesController < ApplicationController
     end
   end
 
-  def markdown_renderer
-    @markdown_renderer ||= Redcarpet::Markdown.new(Redcarpet::Render::HTML,
-      autolink: true, tables: true, filter_html: true)
-  end
-
-  def render_markdown(markdown)
-    markdown_renderer.render(markdown).html_safe
+  def page
   end
 
   # used in :index action
@@ -165,8 +206,28 @@ class SitesController < ApplicationController
   # By default, any search action from a Blacklight::Catalog controller
   # should use the current controller when constructing the route.
   # see also HomeController
-  def search_action_url options = {}
-    url_for(options.merge(:action => 'index', :controller=>'catalog'))
+  def search_action_url(options = {})
+    if action_name == 'index'
+      url_for(action: 'index', controller: 'catalog')
+    elsif load_subsite.search_type == 'local'
+      # ignore the offered filters for full-fledged subsites until either:
+      # 1. there are multiple Solr cores
+      # 2. there are collections published to non-catalog subsites
+      url_for(action: 'index', controller: load_subsite.slug)
+    else
+      f = {}
+      load_subsite.constraints.each do |search_scope, facet_value|
+        next unless facet_value.present?
+        facet_field = (search_scope == 'collection') ? 'lib_collection_sim' : 'lib_project_short_ssim'
+        f[facet_field] = Array(facet_value)
+      end
+      if load_subsite.restricted.present?
+        repository_id = @document[:lib_repo_code_ssim].first
+        search_repository_catalog_path(repository_id: repository_id, f: f)
+      else
+        url_for(action: 'index', controller: 'catalog', f: f)
+      end
+    end
   end
 
   def set_browse_lists

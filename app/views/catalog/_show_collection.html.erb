@@ -1,45 +1,10 @@
 <div class="row" id="child_items">
-
-  <% is_filesystem_view = document['dc_type_ssm'].present? && document['dc_type_ssm'].include?('FileSystem') %>
-
-  <% unless is_filesystem_view %>
-    <div id="item-description" class="col-md-3">
-      <div class="inner">
-        <dl class="dl-vertical">
-          <% document_show_fields(document).each do |solr_fname, field| %>
-            <% if should_render_show_field? document, field %>
-              <dt class="blacklight-<%= solr_fname.parameterize %>"><%= render_document_show_field_label document, :field => solr_fname %></dt>
-              <dd class="blacklight-<%= solr_fname.parameterize %>"><%= render_document_show_field_value document, :field => solr_fname %></dd>
-            <% end %>
-          <% end %>
-        </dl>
-     </div>
-     <div class="inner">
-        <ul class="list-unstyled">
-          <li><a href="http://library.columbia.edu/services/preservation/publications_policy.html"><span class="glyphicon glyphicon-tag"></span> Order a Reproduction</a></li>
-          <li><%= link_to '<span class="glyphicon glyphicon-file"></span> Display XML Metadata'.html_safe, item_mods_path(:pid => @document.id), :'data-no-turbolink' => true, :'data-display-url' => item_mods_path(:pid => @document.id, :type => 'formatted_text'), :'data-download-url' => item_mods_path(:pid => @document.id, :type => 'download'), :onclick => 'return DCV.ModsDownloadModal.show($(this).attr("data-display-url"), $(this).attr("data-download-url"));' %></li>
-        </ul>
-        <%#= link_to '<span class="glyphicon glyphicon-file"></span> Display XML Metadata'.html_safe, item_mods_path(:pid => @document.id), :'data-no-turbolink' => true, :'data-display-url' => item_mods_path(:pid => @document.id, :type => 'formatted_text'), :'data-download-url' => item_mods_path(:pid => @document.id, :type => 'download'), :onclick => 'return DCV.ModsDownloadModal.show($(this).attr("data-display-url"), $(this).attr("data-download-url"));' %>
-      </div>
-    </div>
-  <% end %>
-
-  <div class="<%= is_filesystem_view ? 'col-md-12 filesystem' : 'col-md-9' %>">
+  <div class="col-md-12 filesystem">
     <div class="inner">
       <h3 id="doc-item-title" class="nomar"><%= document_show_html_title %></h3>
-      <% unless is_filesystem_view %>
-        <% if ct = structured_children.first %>
-          <p id="ct"><%= ct[:title] %></p>
-        <% end %>
-        <div id="favorite-child">
-        <% if child = structured_children.first %>
-          <%= '<a href="#" class="next-child" onclick="return DCV.Show.FavoriteChildNavigation.previous(this);"><span class="glyphicon glyphicon-chevron-left"></span></a>'.html_safe if structured_children.length > 1 %>
-          <img itemprop="contentUrl" onclick="$('.item-cbox').click();" src="<%= get_resolved_asset_url(id: child[:id], size: 768, type: 'full', format: 'jpg') %>" data-counter="1" data-sequence="0" data-zoom-url="<%= details_path(id: document[:id], layout:(request.path.split('/')[1])) %>" data-info-url="<%= get_resolved_asset_info_url(id: structured_children.first[:id], image_format: 'jpg') %>" data-bytestreams="<%= resolve_catalog_bytestreams_path(catalog_id: structured_children.first[:id], :format=>'json') %>"/>
-          <%= '<a href="#" class="previous-child" onclick="return DCV.Show.FavoriteChildNavigation.next(this);"><span class="glyphicon glyphicon-chevron-right"></span></a>'.html_safe if structured_children.length > 1 %>
-        <% end %>
       </div>
     <% end %>
-    <%= render_document_partials @document, (document['dc_type_ssm'].present? && document['dc_type_ssm'].include?('FileSystem') ? @document['dc_type_ssm'].collect{|x| x.underscore} : ['gallery']) %>
+    <%= render_document_partials @document, @document['dc_type_ssm'].collect{|x| x.underscore} %>
     </div>
   </div>
 </div>

@@ -57,3 +57,6 @@ reference-files/*
 # Ignore hydra-jetty
 /jetty
 /jetty-test
+
+# Ignore site-specific uploads
+/public/images/sites

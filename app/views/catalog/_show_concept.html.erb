@@ -1,30 +1,17 @@
 <div class="inner">
-  <h3><%= document_show_html_title %></h3>
-  <% document.fetch(:alternative_title_ssm,[]).each do |alt_title| %>
-    <h4><%= alt_title %></h4>
-  <% end %>
   <div id="show-concept">
-    <%- image_pid = document[:schema_image_ssim].first.split('/')[-1] if document[:schema_image_ssim] -%>
-    <%- if image_pid -%>
       <div class="col-xs-12 col-sm-4 pull-right">
-        <p class="show-representative-image"><%= image_tag(get_asset_url(id: image_pid, size: 512, type: 'full', format: 'jpg'), :itemprop => 'image', :class => 'img-responsive col-xs-12') if image_pid %></p>
+        <%- image_pid = document[:schema_image_ssim].first.split('/')[-1] if document[:schema_image_ssim] -%>
+        <%- if image_pid -%>
+          <p class="show-representative-image"><%= image_tag(get_asset_url(id: image_pid, size: 512, type: 'full', format: 'jpg'), :itemprop => 'image', :class => 'img-responsive col-xs-12') if image_pid %></p>
+        <%- end -%>
       </div>
-    <%- end -%>
+    <h3><%= document_show_html_title %></h3>
+    <% document.fetch(:alternative_title_ssm,[]).each do |alt_title| %>
+      <h4><%= alt_title %></h4>
+    <% end %>
+    <h4 class="h5"><%= link_to("Browse content &raquo;".html_safe, search_action_url) %></h4>
     <%= document['description_text_ssm'].blank? ? Array(document['abstract_ssim']).join : controller.render_markdown(Array(document['description_text_ssm']).join)  %>
-    <div id="show-concept-links" class="index-show-list-fields">
-      <ul>
-      <% dcv_search_link = landing_page_search_url(document) %>
-      <% if dcv_search_link && controller.published_to_catalog?(document) %>
-        <li>Browse: <%= link_to("#{document_show_html_title} content in the DLC".html_safe, dcv_search_link) %></li>
-      <% end %>
-      <% solr_url_hash(document, exclude: {'usage' => "primary display"}).each do |location| %>
-        <li>See also: <%= link_to(location.fetch('displayLabel',"Related Web Content"), location['url']) %></li>
-      <% end %>
-      <% target_link = clean_resolver(document[:source_ssim].present? ? Array(document[:source_ssim]).first : nil) %>
-      <% if target_link %>
-        <li>Bookmark as: <%= link_to(target_link.html_safe, target_link) if target_link %></li>
-      <% end %>
-      </ul>
     </div>
     <div class="clearfix"></div>
   </div>

@@ -11,6 +11,25 @@ module Dcv::SubsiteHelper
     return controller.respond_to?(:subsite_layout) ? controller.subsite_layout : DEFAULT_SUBSITE_LAYOUT
   end
 
+  def subsite_styles
+    return controller.respond_to?(:subsite_styles) ? controller.subsite_styles : DEFAULT_SUBSITE_LAYOUT
+  end
+
+  def subsite_map_search
+    controller.subsite_config['map_search']
+  end
+
+  def link_to_nav(nav_link)
+    if nav_link.external
+      link_to(nav_link.link, target: "_blank", rel: "noopener noreferrer") do
+        "#{nav_link.label} <sup class=\"glyphicon glyphicon-new-window\" aria-hidden=\"true\"></sup>".html_safe
+      end
+    else
+      site_slug = controller.subsite_config[:slug]
+      link_to(nav_link.label, site_page_path(site_slug: site_slug, slug: nav_link.link))
+    end
+  end
+
   def search_result_view_override_for_current_project_facet
     return nil unless controller.respond_to?(:search_result_view_overrides)
     search_result_view_overrides = controller.search_result_view_overrides
@@ -41,6 +60,12 @@ module Dcv::SubsiteHelper
       s_key + ' ' + s_layout
     end
 
+  end
+
+  # if the search action URL has a query string, parse it into params
+  # to allow Blacklight search form to link them as hidden fields
+  def search_action_params
+    Rack::Utils.parse_query URI(search_action_url).query
   end
 
   def subsite_search_mode

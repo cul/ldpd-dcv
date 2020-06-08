@@ -5,7 +5,6 @@ require 'spec_helper'
 require 'rspec/rails'
 require 'capybara/rails'
 require 'capybara/poltergeist'
-
 Capybara.register_driver :poltergeist do |app|
   Capybara::Poltergeist::Driver.new(app,
     :timeout => 30
@@ -38,9 +37,11 @@ RSpec.configure do |config|
   # instead of true.
   config.use_transactional_fixtures = true
 
-  # additional factory_girl configuration
+  config.include FactoryBot::Syntax::Methods
+  # additional factory_bot configuration
   config.before(:suite) do
-    FactoryGirl.lint
+    #FactoryBot.definition_file_paths = [File.expand_path('../factories', __FILE__)]
+    #FactoryBot.find_definitions
   end
 
   # We're having issues with PhantomJS timing out.  See: https://github.com/teampoltergeist/poltergeist/issues/375

@@ -84,6 +84,7 @@ namespace :dcv do
       Rake::Task["db:create"].invoke
       Rake::Task["db:migrate"].invoke
       Rake::Task["db:seed"].invoke
+      Rake::Task["dcv:sites:seed_from_solr"].invoke
       Rake::Task["dcv:coverage"].invoke
     end
     raise "test failures: #{error}" if error

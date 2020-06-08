@@ -56,7 +56,7 @@ describe CatalogHelper, :type => :helper do
             'slug_ssim' => [slug]
           }
         end
-        it { is_expected.to eql('/sites/' + slug) }
+        it { is_expected.to eql('/' + slug) }
       end
       context 'with a non-site result' do
         let(:document) do

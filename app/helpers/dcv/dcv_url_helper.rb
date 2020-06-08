@@ -28,19 +28,6 @@ module Dcv::DcvUrlHelper
     end
   end
 
-  # Scrub permanent links from catalog data to use modern resolver syntax
-  # @param perma_link [String] the original link
-  # @return [String] link with cgi version of resolver replaced with modern version
-  def clean_resolver(link_src)
-    if link_src
-      link_uri = URI(link_src)
-      if link_uri.path == "/cgi-bin/cul/resolve" && link_uri.host == "www.columbia.edu"
-        return "https://library.columbia.edu/resolve/#{link_uri.query}"
-      end
-    end
-    link_src
-  end
-
   # TODO: delete this method
   def link_to_site_landing_page(document, opts={})
     #url = site_path(document['slug'])
@@ -70,7 +57,7 @@ module Dcv::DcvUrlHelper
   end
 
   def has_persistent_link?(document)
-    document['ezid_doi_ssim'].present?
+    document.has_persistent_url?
   end
 
   # Return the preferred bytestream name:
@@ -98,7 +85,7 @@ module Dcv::DcvUrlHelper
   end
 
   def persistent_url_for(document)
-    document['ezid_doi_ssim'][0].to_s.sub(/^doi\:/,'https://doi.org/')
+    document.persistent_url
   end
 
   def local_blank_search_url

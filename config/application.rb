@@ -44,8 +44,12 @@ module Dcv
       unique_layouts += (subsite_data['public'].values || []).map{|prefix| prefix['layout']}
       unique_layouts += (subsite_data['restricted'].values || []).map{|prefix| prefix['layout']}
       unique_layouts.uniq!
+
       config.assets.precompile += unique_layouts.map{|layout| layout + '.css'}
       config.assets.precompile += unique_layouts.map{|layout| layout + '.js'}
+      config.assets.precompile += ['dcv-legacy.css']
+      config.assets.precompile += ['signature-*.css']
+      config.assets.precompile += ['catalog-*.css']
     end
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
