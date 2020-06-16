@@ -52,7 +52,7 @@ namespace :dcv do
 
       start_time = Time.now
       Dlc::Pids.each(ENV['pid'],ENV['list']) do |pid,current,len|
-        Cul::Hydra::Indexer.index_pid(pid, false, false, softcommit)
+        Dcv::Solr::FedoraIndexer.index_pid(pid, false, false, softcommit)
         puts "Processed #{pid} | #{current} of #{len} | #{Time.now - start_time} seconds"
         sleep(3) if current % 100 == 0
       end

@@ -13,7 +13,7 @@ class IndexFedoraObjectJob
 	index_opts = DEFAULT_OPTS.merge(index_opts)
 
 	puts "Indexing #{pid} to #{subsite_keys.join(', ')} at #{queue_time_string}" if index_opts[:verbose_output]
-	Cul::Hydra::Indexer.index_pid(pid, index_opts)
+	Dcv::Solr::FedoraIndexer.index_pid(pid, index_opts)
   end
 
 end
