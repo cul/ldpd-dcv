@@ -9,7 +9,7 @@ class SitesController < ApplicationController
 
   before_filter :set_browse_lists, only: :index
   before_filter :load_subsite, except: [:index]
-  before_filter :load_page, only: [:page]
+  before_filter :load_page, only: [:show]
 
   layout :request_layout
 
@@ -120,8 +120,8 @@ class SitesController < ApplicationController
     @subsite ||= Site.find_by(slug: site_slug)
   end
 
-  def load_page(args = params)
-    @page ||= SitePage.find_by(site_id: load_subsite.id, slug: args[:slug] || 'home')
+  def load_page
+    @page ||= SitePage.find_by(site_id: load_subsite.id, slug: 'home')
   end
 
   def request_layout
@@ -152,7 +152,6 @@ class SitesController < ApplicationController
   # get single document from the solr index
   # override to use :slug and publisher_ssim in search to get document
   def show
-    load_page(site_slug: params[:slug], slug: 'home')
     (@response, @document_list) = search_results(params)
     @document = @document_list.first
     if @document.nil?
@@ -162,20 +161,9 @@ class SitesController < ApplicationController
     # TODO: load facet data. Requires configuration of fields, and override of default solr params.
     params[:as_home] = true # to disable _header_navbar double render
     respond_to do |format|
-      format.json { render json: {response: {document: @document}}}
+      format.json { render json: @subsite.to_json }
       format.html { render action: 'home' }
-
-      # Add all dynamically added (such as by document extensions)
-      # export formats.
-      @document.export_formats.each_key do | format_name |
-        # It's important that the argument to send be a symbol;
-        # if it's a string, it makes Rails unhappy for unclear reasons.
-        format.send(format_name.to_sym) { render :text => @document.export_as(format_name), :layout => false }
-      end
     end
-  end
-
-  def page
   end
 
   # used in :index action

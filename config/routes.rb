@@ -149,7 +149,11 @@ Dcv::Application.routes.draw do
         get "#{subsite_key}/:id" => "#{subsite_key}#show", as: "#{subsite_key}_show" 
       end
       get "sites" => "sites#index"
-      resources 'sites', only: [:show], param: :slug, path: ''
+      resources 'sites', only: [:show], param: :slug, path: '' do
+        scope module: :sites do
+          resources 'pages', only: [:show], param: :slug, path: ''
+        end
+      end
       get "sites/:slug", to: redirect("/%{slug}")
     end
   end
@@ -158,7 +162,9 @@ Dcv::Application.routes.draw do
   get "sites" => "sites#index"
   get "sites/:slug", to: redirect("/%{slug}")
   resources 'sites', only: [:show], param: :slug, path: '' do
-    get ':slug', to: 'sites#page', as: 'page'
+    scope module: :sites do
+      resources 'pages', only: [:show], param: :slug, path: ''
+    end
   end
 
   mount Blacklight::Engine => '/'
