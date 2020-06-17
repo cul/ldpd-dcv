@@ -91,4 +91,15 @@ module Dcv::SubsiteHelper
     end
   end
 
+  def search_placeholder_text
+    if query_has_constraints?
+      t(:"dlc.search_placeholder.modified.#{controller.controller_name}", default: :'dlc.search_placeholder.modifed.default').html_safe
+    else
+      if @subsite && @subsite.slug != controller.controller_path
+        t(:"dlc.search_placeholder.new.#{@subsite.slug}", default: :'dlc.search_placeholder.new.subsite', title: @subsite.title).html_safe
+      else
+        t(:"dlc.search_placeholder.new.#{controller.controller_name}", default: :'dlc.search_placeholder.new.default').html_safe
+      end
+    end
+  end
 end
