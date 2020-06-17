@@ -16,13 +16,13 @@
 					<%- else -%>
 						<li><%= link_to_nav(nav_menu.links[-1]) %></li>
 					<%- end -%>
-					<%- if @subsite.persistent_url -%>
-						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Bookmark as <b class="caret"></b></a>
-							<ul class="dropdown-menu list-unstyled dropdown-menu-left">
-								<li><a href="<%= @subsite.persistent_url %>">Permanent URL</a></li>
-							</ul>
-					<%- end -%>
+				<%- end -%>
+				<%- if @subsite.persistent_url -%>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Bookmark as <b class="caret"></b></a>
+						<ul class="dropdown-menu list-unstyled dropdown-menu-left">
+							<li><a href="<%= @subsite.persistent_url %>">Permanent URL</a></li>
+						</ul>
 				<%- end -%>
 			</ul>
 			<%- if subsite_map_search.present? -%>
