@@ -5,8 +5,8 @@ module Sites
 		include Dcv::MarkdownRendering
 		include Dcv::CatalogIncludes
 
-		before_filter :load_subsite
-		before_filter :load_page, only: [:show, :edit]
+		before_filter :load_subsite, only: [:index, :new, :create]
+		before_filter :load_page, except: [:index, :new, :create]
 
 		layout :subsite_layout
 
@@ -21,14 +21,22 @@ module Sites
 			self.prepend_view_path('app/views/' + self.subsite_layout)
 		end
 
-		def load_subsite
-			site_slug = params[:site_slug]
-			site_slug = "restricted/#{site_slug}" if restricted?
-			@subsite ||= Site.find_by(slug: site_slug)
+		def load_subsite(*pages)
+			@subsite ||= begin
+				site_slug = params[:site_slug]
+				site_slug = "restricted/#{site_slug}" if restricted?
+				if pages.blank?
+					Site.includes(:nav_links, :site_pages).find_by(slug: site_slug)
+				else
+					Site.includes(:nav_links, site_pages: [:text_blocks]).find_by(slug: site_slug, site_pages: { slug: pages })
+				end
+			end
 		end
 
 		def load_page(args = params)
-			@page ||= SitePage.find_by(site_id: load_subsite.id, slug: args[:slug])
+			@page ||= begin
+				load_subsite(args[:slug]).site_pages.where(slug: args[:slug]).first
+			end
 		end
 
 		def show

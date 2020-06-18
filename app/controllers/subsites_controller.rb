@@ -11,7 +11,7 @@ class SubsitesController < ApplicationController
   before_filter :store_unless_user, except: [:update, :destroy, :api_info]
   before_filter :authorize_action, only:[:index, :preview, :show]
   before_filter :default_search_mode_cookie, only: :index
-  before_filter :load_subsite
+  before_filter :load_subsite, except: [:home, :index, :page]
   before_filter :load_page, only: [:home, :index, :page]
   protect_from_forgery :except => [:update, :destroy, :api_info] # No CSRF token required for publishing actions
 
@@ -76,13 +76,29 @@ class SubsitesController < ApplicationController
     return self.class.subsite_config
   end
 
-  def load_subsite
+  def load_subsite(*pages)
+    @subsite ||= begin
+      site_slug = controller_path
+      if pages.blank?
+        Site.includes(:nav_links, :site_pages).find_by(slug: site_slug)
+      else
+        Site.includes(:nav_links, site_pages: [:text_blocks]).find_by(slug: site_slug, site_pages: { slug: pages })
+      end
+    end
+  end
+
+  def load_subsite(*pages)
     @subsite ||= Site.find_by(slug: controller_path)
   end
 
   def load_page
-    return if has_search_parameters?
-    @page ||= SitePage.find_by(site_id: load_subsite.id, slug: params[:slug] || 'home')
+    if params[:slug]
+      @page = load_subsite(params[:slug]).site_pages.where(slug: params[:slug]).first
+    else
+      unless has_search_parameters?
+        @page ||= load_subsite('home').site_pages.includes(:site_text_blocks).find_by(slug: 'home')
+      end
+    end
   end
 
   def default_search_mode
