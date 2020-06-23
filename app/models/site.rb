@@ -6,14 +6,14 @@ class Site < ActiveRecord::Base
 
 	def initialize(atts = {})
 		super
-		search_type ||= 'catalog'
+		self.search_type ||= 'catalog'
 	end
 
 	def grouped_links
-		sorted_links = nav_links.sort { |a,b| (a.sort_group == b.sort_group) ? a.sort_label <=> b.sort_label : a.sort_group <=> b.sort_group }
+		sorted_links = nav_links.sort { |a,b| (a.sort_group == b.sort_group) ? a.sort_label.to_s <=> b.sort_label.to_s : a.sort_group.to_s <=> b.sort_group.to_s }
 		grouped_links = []
 		sorted_links.each do |link|
-			if grouped_links[-1]&.sort_label != link.sort_group
+			if grouped_links.empty? || grouped_links[-1]&.sort_label != link.sort_group
 				grouped_links << NavMenu.new(link.sort_group)
 			end
 			grouped_links[-1].links << link

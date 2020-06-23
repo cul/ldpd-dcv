@@ -1,0 +1,5 @@
+sort_label,sort_group,external,link
+About,00:,false,about
+"00:Finding Aid",01:See Also,true,https://findingaids.library.columbia.edu/ead/nnc-rb/ldpd_01234567
+"01:Related CLIO Entry",01:See Also,true,https://clio.columbia.edu/catalog/12345678
+"02:Another CLIO Entry",01:See Also,true,https://clio.columbia.edu/catalog/23456789

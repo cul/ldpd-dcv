@@ -50,10 +50,10 @@ RSpec.configure do |config|
     example = RSpec.current_example
     # Try four times
     3.times do |i|
-      example.instance_variable_set('@exception', nil)
-      self.instance_variable_set('@__memoized', nil) # clear let variables
       ex.run
       break unless example.exception.is_a?(Capybara::Poltergeist::TimeoutError)
+      example.instance_variable_set('@exception', nil)
+      self.send(:__init_memoized) # clear let variables
       puts("\nCapybara::Poltergeist::TimeoutError at #{example.location}\n   Restarting phantomjs and retrying...")
       restart_phantomjs
     end

@@ -1,6 +1,7 @@
 module Dcv::Sites::Import
 	SITE_METADATA = "properties.yml"
 	NAV_LINKS_CSV = "navLinks.csv"
+	IMAGES_SUBDIR = "images"
 	PAGES_SUBDIR = "pages"
 
 	class Directory
@@ -11,7 +12,7 @@ module Dcv::Sites::Import
 			end
 		end
 		def exists?
-			@directory && Dir.children(@directory.path).include?(SITE_METADATA)
+			@directory && Dir.entries(@directory.path).include?(SITE_METADATA)
 		end
 		def run
 			return nil unless exists?
@@ -39,7 +40,8 @@ module Dcv::Sites::Import
 			end
 			pages_path = File.join(site_dir, PAGES_SUBDIR)
 			if Dir.exists? pages_path
-				Dir.children(pages_path).each do |page_name|
+				Dir.entries(pages_path).each do |page_name|
+					next unless page_name =~ /[^\.]/
 					page_path = File.join(pages_path, page_name)
 					if Dir.exist?(page_path)
 						puts "creating page at #{page_name} for #{site.slug}"
@@ -57,7 +59,19 @@ module Dcv::Sites::Import
 					end
 				end
 			end
-			site
+			image_import_path = File.join(site_dir, IMAGES_SUBDIR)
+			if Dir.exists?(image_import_path) && !Dir.empty?(image_import_path)
+				image_dir_path = File.join(Rails.root, 'public', 'images', 'sites', site.slug)
+				FileUtils.mkdir_p(image_dir_path)
+				Dir.glob(File.join(image_import_path, '*.*')).each do |src_path|
+					puts src_path
+					# src_path = File.join(image_import_path, x)
+					dest_path = File.join(image_dir_path, File.basename(src_path))
+					FileUtils.cp(src_path, dest_path)
+				end
+			end
+
+			site.reload
 		end
 	end
 end

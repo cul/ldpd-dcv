@@ -1,0 +1,9 @@
+slug: internal_site
+uri: info:fedora/cul:internal_site
+title: Internal Site
+search_type: local
+layout: signature
+palette: parchment
+constraints:
+  publisher:
+    - info:fedora/cul:external_site
