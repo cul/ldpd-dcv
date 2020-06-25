@@ -1,5 +1,5 @@
 class SitePage < ActiveRecord::Base
-	has_many :site_text_blocks
+	has_many :site_text_blocks, dependent: :destroy
 	belongs_to :site
 
 	def initialize(atts = {})

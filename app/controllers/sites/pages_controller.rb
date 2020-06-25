@@ -69,7 +69,7 @@ module Sites
 		# Catalog, local, or subsite index as appropriate
 		def search_action_url(options = {})
 			if load_subsite.search_type == 'local'
-				url_for(action: 'index', controller: load_subsite.slug)
+				url_for(action: 'index', controller: "/#{load_subsite.slug}")
 			else
 				f = {}
 				load_subsite.constraints.each do |search_scope, facet_value|

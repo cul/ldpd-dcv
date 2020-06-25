@@ -1,10 +1,6 @@
 module Dcv::Sites::Import
-	SITE_METADATA = "properties.yml"
-	NAV_LINKS_CSV = "navLinks.csv"
-	IMAGES_SUBDIR = "images"
-	PAGES_SUBDIR = "pages"
-
 	class Directory
+		include Dcv::Sites::Constants
 		def initialize(directory)
 			@directory = directory if directory.is_a?(Dir)
 			@directory ||= begin
@@ -25,18 +21,14 @@ module Dcv::Sites::Import
 			site.layout = atts['layout']
 			site.palette = atts['palette']
 			site.constraints = atts['constraints']
-			site.publisher_uri = atts['uri']
+			site.publisher_uri = atts['publisher_uri']
 			site.restricted = atts['restricted'] || (atts['slug'] =~ /restricted/)
 			site.nav_links.delete_all
 			site.site_pages.delete_all
 			site.save
-			links_path = File.join(site_dir, NAV_LINKS_CSV)
-			if File.exists? links_path
-				CSV.open(links_path, 'r', headers: true,  header_converters: :symbol) do |csv|
-					csv.each.map do |row|
-						NavLink.create({site_id: site.id}.merge(row.to_h))
-					end
-				end
+			nav_links = Array(atts.delete('nav_links'))
+			nav_links.each do |link_atts|
+				NavLink.create({site_id: site.id}.merge(link_atts))
 			end
 			pages_path = File.join(site_dir, PAGES_SUBDIR)
 			if Dir.exists? pages_path
@@ -45,7 +37,11 @@ module Dcv::Sites::Import
 					page_path = File.join(pages_path, page_name)
 					if Dir.exist?(page_path)
 						puts "creating page at #{page_name} for #{site.slug}"
-						page = SitePage.create(slug: page_name, site_id: site.id)
+						atts = { 'slug' => page_name, 'site_id' => site.id }
+						if File.exist?(File.join(page_path, SITE_METADATA))
+							atts.merge!(YAML.load(File.read(File.join(page_path, SITE_METADATA))))
+						end
+						page = SitePage.create(atts)
 						Dir.glob(File.join(page_path,"*.md")).map do |block_path|
 							label = File.basename(block_path, ".md")
 							label.sub!(/^([\d]+)_/) {|m| m[1] + ':'}

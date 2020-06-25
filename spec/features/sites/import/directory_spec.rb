@@ -2,10 +2,11 @@ require 'rails_helper'
 
 describe Dcv::Sites::Import::Directory do
 	let(:source) { fixture("sites/import/directory").path }
-	let(:import) { Dcv::Sites::Import::Directory.new(source) }
+	let(:import) { described_class.new(source) }
 	let(:site) { import.run }
 	describe '#run' do
 		it 'sets properties' do
+			expect(site.slug).to eql('import_site')
 			expect(site.palette).to eql('parchment')
 		end
 		it 'imports links' do

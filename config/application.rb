@@ -36,20 +36,24 @@ module Dcv
         'freelib.js',
         'd3.js']
 
-    # And include styles for all subsite layouts
+    # And include styles for all configured subsite layouts
     subsites_yml_file = "#{Rails.root.to_s}/config/subsites.yml"
     if File.exists?(subsites_yml_file)
       subsite_data = YAML.load_file(subsites_yml_file)[Rails.env]
       unique_layouts = []
       unique_layouts += (subsite_data['public'].values || []).map{|prefix| prefix['layout']}
       unique_layouts += (subsite_data['restricted'].values || []).map{|prefix| prefix['layout']}
+      # make sure common layouts are included
+      unique_layouts += ['signature', 'catalog']
       unique_layouts.uniq!
 
       config.assets.precompile += unique_layouts.map{|layout| layout + '.css'}
       config.assets.precompile += unique_layouts.map{|layout| layout + '.js'}
-      config.assets.precompile += ['dcv-legacy.css']
+      # add all palette-specific css for layouts
       config.assets.precompile += ['signature-*.css']
       config.assets.precompile += ['catalog-*.css']
+      # add the legacy omnibus css
+      config.assets.precompile += ['dcv-legacy.css']
     end
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.

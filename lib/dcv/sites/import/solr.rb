@@ -1,8 +1,6 @@
 module Dcv::Sites::Import
-	DEFAULT_LAYOUT = 'catalog'
-	DEFAULT_PALETTE = 'monochromeDark'
-
 	class Solr
+		include Dcv::Sites::Constants
 		def self.exists?(document)
 			document[:slug_ssim].present?
 		end

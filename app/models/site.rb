@@ -1,7 +1,7 @@
 require 'csv'
 class Site < ActiveRecord::Base
-	has_many :nav_links
-	has_many :site_pages
+	has_many :nav_links, dependent: :destroy
+	has_many :site_pages, dependent: :destroy
 	store :constraints, accessors: [ :publisher, :project, :collection ], coder: JSON, suffix: true
 
 	def initialize(atts = {})
