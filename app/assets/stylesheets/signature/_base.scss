@@ -38,6 +38,9 @@ a {
 	a {
 		font-family: $font_0, $font_1, $font_2;
 	}
+	.dropdown a {
+		color: navColor();
+	}
 }
 #site-banner {
 	padding: 1em 1.4em;
@@ -62,12 +65,23 @@ a {
 		margin-top:2px;
 	}
 	.input-group-addon {
-		background-color: $color_offset;
+		background-color: $color_ui_background;
+		color:$color_ui;
+		border-color:$color_ui_outline;
 		font-size: .9em;
+		select {
+			background-color: inherit;
+			color: inherit;
+			border: 0;
+			option {
+				background-color: gradeUiBgColor(42%);
+				color: $color_ui;
+			}
+		}
 	}
 	#q {
-		background-color: darken($color_ui_background,5%);
-		color: $color_user_input;
+		background-color: gradeUiBgColor(25%);
+		color: $color_ui;
 		&:focus {
 			background-color: $color_ui_background;
 		}
@@ -83,7 +97,7 @@ a {
 		//flex-direction: row;
 		align-items: flex-end;
 		padding:0;
-		background-color:$color_user_input;
+		background-color:$color_primary_background;
 		background-size: cover;
 		background-position: center 25%;
 		background-repeat: no-repeat;
@@ -251,23 +265,27 @@ a {
 		margin-left: 0;
 	}
 }
+
+.panel-default {
+	border-color: $color_ui_outline;	
+}
+
 #main-container {
 	padding-top: 1.3em;
+	background-color: $color_primary_background;
 	.inner {
 		padding: 1em;
-		background-color: $color_ui_background;
 		&.home {
 			padding: 0;
 			border: 0;
 			background: transparent;
-			background-color: transparent;
 			background-color: transparent;
             .sidenav {
 				.panel-title {
 					font-family: $font_b;
 					font-size:.9em;
 					text-transform:uppercase;
-					color:lighten($color_ui_outline,18%);
+					color:lighten($color_primary,18%);
 				}
 			}
 		}
@@ -276,8 +294,9 @@ a {
 		}
 	}
 	.panel-default > .panel-heading {
-		background-color: $color_ui_background;
-		color: $color_ui;
+		background-color: gradeBgColor(5%);
+		color: $color_ui_outline;
+		border-color: $color_ui_outline;
 		border: 0;
 		&.home {
 			background-color: transparent;
@@ -309,8 +328,9 @@ a {
 		}
 	}
 	.panel-default {
-		background-color: $color_ui_background;
-		color: $color_ui;
+		background-color: gradeBgColor(5%);
+		color: $color_ui_outline;
+		border-color: $color_ui_outline;
 		border: 0;
 		&.home {
 			background-color: transparent;
@@ -327,7 +347,7 @@ a {
 #content {
 	#facet-panel-collapse {
 		.panel-body {
-			background-color:$color_ui_background;
+			background-color: gradeBgColor(5%);
 		}
 	}
 	#appliedParams {
@@ -511,12 +531,13 @@ footer.container {
 	color: $color_ui_background;
 }
 .btn-primary {
-	@include navBg(40%);
+	background-color: $color_ui_background;
 	color:$color_ui;
 	border-color:lighten($color_highlight,20%);
 	&:hover {
-		@include navBg;
-		border-color:lighten($color_highlight,30%);
+		background-color: $color_ui;
+		color:$color_ui_background;
+		border-color:lighten($color_ui_background,30%);
 	}
 	&:active, &:focus {
 		background-color:lighten($color_highlight, 10%);
@@ -592,7 +613,7 @@ footer.container {
 
 #ajax-modal .modal-content {
   color: $color_ui;
-  background-color: $color_ui_background;
+  background-color: gradeBgColor(5%);
   border-color: $color_ui;
 }
 

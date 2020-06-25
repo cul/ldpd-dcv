@@ -24,10 +24,17 @@ $color_anchor: darken($color_highlight_background, 25%);
 @mixin	navBg($l: 25%) {
 	background: navBgColor($l);
 }
+@function navColor($l: 0%) {
+	@return darken($color_topnav, $l);
+}
 
 @function gradeBgColor($l: 25%) {
 	@return darken($color_primary_background, $l);
 }
 @mixin gradeBg($l: 7%) {
 	background-color: gradeBgColor($l);
+}
+
+@function gradeUiBgColor($l: 8%) {
+	@return darken($color_ui_background, $l);
 }

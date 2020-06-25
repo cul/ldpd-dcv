@@ -104,7 +104,7 @@ input {
 	@include navBg;
 	min-height: 50px;
 	font-size: 13px;
-	color: $color_primary;
+	color: navColor();
 	border-top: 5px solid $color_outline_secondary;
 	border-bottom: 1px solid navBgColor();
 	#navbar-container {
@@ -162,7 +162,7 @@ input {
 		}
 	}
 	a {
-		color: $color_topnav;
+		color: navColor();
 	}
 }
 #site-banner {
@@ -259,12 +259,11 @@ input {
 		margin-top: 0;
 		margin-bottom: 0;
 		border-color: $color_ui_outline;
-		#search_field {
+		select {
 			background-color: transparent;
 			border: 0;
-			color: $color_ui;
 			option {
-				@include gradeBg(42%);
+				background-color: gradeUiBgColor(42%);
 				color: $color_ui;
 			}
 		}

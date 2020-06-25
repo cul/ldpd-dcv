@@ -5,26 +5,29 @@ $color_darkgray: #444;
 //colors
 $color_primary: #111;
 $color_primary_background: #fafafa;
-$color_highlight_background: #1a1f2f; //rgb(68,89,116);
+$color_highlight_background: #1a1f2f;
 $color_highlight: #e6e6e6;
 $color_outline: #ccc;
 $color_outline_offset: lighten($color_outline, 7%);
 $color_outline_secondary: #222;
 $color_offset: #999;
 $color_user_input: $color_black;
-$color_ui: #888;
-$color_ui_background: #fff;
+$color_ui: #fafafa;
+$color_ui_background: #445974;
 $color_ui_secondary: #333;
-$color_ui_outline: #444;
+$color_ui_outline: #fafafa;
 $color_anchor: darken($color_highlight_background, 25%);
 
-$color_local_navbar: #86878c;
+$color_local_navbar_background: #445974;
 
-@function navBgColor($l: 8%) {
-	@return darken($color_local_navbar, $l);
+@function navBgColor($l: 0%) {
+	@return lighten($color_local_navbar_background, $l);
 }
-@mixin	navBg($l: 8%) {
+@mixin	navBg($l: 0%) {
 	background: navBgColor($l);
+}
+@function navColor($l: 0%) {
+	@return darken($color_topnav, $l);
 }
 
 @function gradeBgColor($l: 25%) {
@@ -32,4 +35,8 @@ $color_local_navbar: #86878c;
 }
 @mixin gradeBg($l: 7%) {
 	background-color: gradeBgColor($l);
+}
+
+@function gradeUiBgColor($l: 25%) {
+	@return lighten($color_ui_background, $l);
 }

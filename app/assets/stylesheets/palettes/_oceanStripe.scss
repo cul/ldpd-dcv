@@ -24,6 +24,9 @@ $url_stripe: url(asset_path("signature/stripes-white-10.png"));
 @function navBgColor($l: 25%) {
 	@return lighten($color_highlight_background, $l);
 }
+@function navColor($l: 0%) {
+	@return darken($color_topnav, $l);
+}
 
 @mixin	navBg($l: 25%) {
 	background: navBgColor($l);
@@ -35,4 +38,8 @@ $url_stripe: url(asset_path("signature/stripes-white-10.png"));
 }
 @mixin gradeBg($l: 7%) {
 	background-color: gradeBgColor($l);
+}
+
+@function gradeUiBgColor($l: 25%) {
+	@return darken($color_ui_background, $l);
 }

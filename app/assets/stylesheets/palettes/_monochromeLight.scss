@@ -12,17 +12,20 @@ $color_outline_offset: lighten($color_outline, 7%);
 $color_outline_secondary: #222;
 $color_offset: #999;
 $color_user_input: #fff;
-$color_ui: #888;
-$color_ui_background: #0081c2;
-$color_ui_secondary: #333;
-$color_ui_outline: #0077b3;
+$color_ui: #222;
+$color_ui_background: #eee;
+$color_ui_secondary: #444;
+$color_ui_outline: #333;
 $color_anchor: darken($color_highlight_background, 25%);
 
 @function navBgColor($l: 25%) {
-	@return lighten($color_highlight_background, $l);
+	@return darken($color_offset, $l);
 }
-@mixin	navBg($l: 25%) {
+@mixin	navBg($l: 0%) {
 	background: navBgColor($l);
+}
+@function navColor($l: 0%) {
+	@return darken($color_topnav, $l);
 }
 
 @function gradeBgColor($l: 25%) {
@@ -30,4 +33,8 @@ $color_anchor: darken($color_highlight_background, 25%);
 }
 @mixin gradeBg($l: 7%) {
 	background-color: gradeBgColor($l);
+}
+
+@function gradeUiBgColor($l: 25%) {
+	@return darken($color_ui_background, $l);
 }
