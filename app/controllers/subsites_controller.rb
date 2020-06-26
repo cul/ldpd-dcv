@@ -82,13 +82,9 @@ class SubsitesController < ApplicationController
       if pages.blank?
         Site.includes(:nav_links, :site_pages).find_by(slug: site_slug)
       else
-        Site.includes(:nav_links, site_pages: [:text_blocks]).find_by(slug: site_slug, site_pages: { slug: pages })
+        Site.includes(:nav_links, site_pages: [:site_text_blocks]).find_by(slug: site_slug, site_pages: { slug: pages })
       end
     end
-  end
-
-  def load_subsite(*pages)
-    @subsite ||= Site.find_by(slug: controller_path)
   end
 
   def load_page
@@ -220,7 +216,7 @@ class SubsitesController < ApplicationController
   end
 
   def subsite_layout
-    @subsite&.layout || subsite_config['layout']
+    load_subsite&.layout || subsite_config['layout']
   end
 
   def subsite_styles

@@ -30,4 +30,8 @@ class IfpController < SubsitesController
   def about_the_collection
   end
 
+  def subsite_layout
+    'ifp'
+  end
+
 end

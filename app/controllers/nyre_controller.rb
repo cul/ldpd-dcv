@@ -28,4 +28,8 @@ class NyreController < SubsitesController
 
   def aboutcollection
   end
+
+  def subsite_layout
+    'nyre'
+  end
 end

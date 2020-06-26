@@ -8,7 +8,7 @@ class SitePage < ActiveRecord::Base
 	end
 
 	def has_columns?
-		columns > 1 && site_text_blocks.length > 2
+		columns > 1 && site_text_blocks.length > 1
 	end
 
     # currently will partition into two columns maximum

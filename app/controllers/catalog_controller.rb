@@ -16,4 +16,7 @@ class CatalogController < SubsitesController
     config.default_solr_params[:fq] << '-id:("' + publishers.map{|info_fedora_prefixed_pid| info_fedora_prefixed_pid.gsub('info:fedora/', '') }.join('" OR "') + '")'
   end
 
+  def subsite_layout
+    'catalog'
+  end
 end

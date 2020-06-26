@@ -62,4 +62,8 @@ class CarnegieController < SubsitesController
       values.first
     }
   end
+
+  def subsite_layout
+    'carnegie'
+  end
 end
