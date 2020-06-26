@@ -52,25 +52,9 @@ Dcv::Application.routes.draw do
   get 'ifp/about/about_the_ifp' => 'ifp#about_the_ifp', as: :ifp_about_the_ifp
   get 'ifp/about/about_the_collection' => 'ifp#about_the_collection', as: :ifp_the_collection
 
-  # Jay subsite routes
-  get 'jay/about' => 'jay#about', as: :jay_about
-  get 'jay/collection' => 'jay#collection', as: :jay_collection
-  get 'jay/bibliography' => 'jay#bibliography', as: :jay_bibliography
-  get 'jay/participating_institutions' => 'jay#participating_institutions', as: :jay_participating_institutions
-  get 'jay/biography' => 'jay#biography', as: :jay_biography
-  get 'jay/jay_constitution' => 'jay#jay_constitution', as: :jay_jay_constitution
-  get 'jay/jayandny' => 'jay#jayandny', as: :jay_jayandny
-  get 'jay/jaytreaty' => 'jay#jaytreaty', as: :jay_jaytreaty
-  get 'jay/jayandfrance' => 'jay#jayandfrance', as: :jay_jayandfrance
-  get 'jay/jayandslavery' => 'jay#jayandslavery', as: :jay_jayandslavery
-
   # LCAAJ subsite routes
   get 'lcaaj/about' => 'lcaaj#about', as: :lcaaj_about
   get 'lcaaj/map_search' => 'lcaaj#map_search', as: :lcaaj_map_search
-
-  # Lehman subsite routes
-  get 'lehman/about' => 'lehman#about', as: :lehman_about
-  get 'lehman/faq' => 'lehman#faq', as: :lehman_faq
 
   # NYRE subsite routes
   get 'nyre/about' => 'nyre#about', as: :nyre_about
