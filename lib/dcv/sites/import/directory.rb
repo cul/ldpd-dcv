@@ -43,11 +43,7 @@ module Dcv::Sites::Import
 						end
 						page = SitePage.create(atts)
 						Dir.glob(File.join(page_path,"*.md")).map do |block_path|
-							label = File.basename(block_path, ".md")
-							label.sub!(/^([\d]+)_/) {|m| m[1] + ':'}
-							label.gsub!('_',' ')
-							label = label.titlecase
-
+							label = SiteTextBlock.sort_label_from_filename(block_path)
 							block = SiteTextBlock.new(sort_label: label, site_page_id: page.id)
 							block.markdown = File.read(block_path)
 							block.save

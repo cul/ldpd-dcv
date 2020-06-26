@@ -47,10 +47,7 @@ module Dcv::Sites::Export
 					DB_FIELDS.each { |f| json.delete(f) } unless @db_fields
 					YAML.dump(json, io)
 					site_page.site_text_blocks.each do |text_block|
-						label = text_block.sort_label.dup
-						label.sub!(/^(\d{1,2}):/, "#{'%02d_' % $1.to_i}")
-						filename = "#{label.downcase.underscore}.md"
-						filename.gsub(' ', '_')
+						filename = SiteTextBlock.export_filename_for_sort_label(text_block.sort_label)
 						open(File.join(site_page_path, filename), 'wb') { |blio| blio.write(text_block.markdown) }
 					end
 				end
