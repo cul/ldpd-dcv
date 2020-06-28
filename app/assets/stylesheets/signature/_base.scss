@@ -8,6 +8,7 @@
 	overflow: hidden;
 	border-top: 0;
 	border-color: $color_outline_secondary;
+	background-color:$color_primary_background;
 }
 
 a {
@@ -122,8 +123,7 @@ a {
 		margin-top:1em;
 		margin-bottom:.5em;
 	}
-	#site-title {
-		color:$color_highlight_background;
+	#site-title { // overrides from general style for home page
 		text-shadow:none;
 		line-height: 1.1;
 		padding-bottom:.5em;
@@ -135,7 +135,7 @@ a {
 	}
 }
 
-#site-title {
+#site-title { // site-title is generally an inverse color scheme for ui elements
 	display: block;
 	padding-top: 4px;
 	padding-bottom: 0;
@@ -148,7 +148,7 @@ a {
 	text-align: center;
 	text-decoration: none;
 	text-transform: uppercase;
-	text-shadow: 0 0 2px $color_ui_background;
+	text-shadow: 0 0 1px $color_ui_background;
 	vertical-align: bottom;
 	.dr-arrow {
 		color: lighten($color_outline_secondary,35%);
@@ -161,7 +161,7 @@ a {
 	font-family: $font_0, $font_1, $font_2;
 	font-size: 17px;
 	line-height: 1;
-	color: lighten($color_outline_secondary,20%);
+	color: lighten($color_highlight_background,20%);
 	text-align: center;
 	text-decoration: none;
 	text-transform: uppercase;
@@ -294,17 +294,17 @@ a {
 		}
 	}
 	.panel-default > .panel-heading {
-		background-color: gradeBgColor(5%);
-		color: $color_ui_outline;
+		background-color: gradeBgColor(2%);
+		color: $color_ui;
 		border-color: $color_ui_outline;
 		border: 0;
 		&.home {
 			background-color: transparent;
 		}
 	}
-	// the carnegie and lehman about pages markup
+	// text blocks are rendered as sections in the signature page layout
 	section.ff:before {
-		height: 50px;
+		height: 1em;
 		content: "";
 		display:block;
 	}

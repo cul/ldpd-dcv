@@ -3,25 +3,25 @@ $color_black: #000000;
 $color_darkgray: #444;
 
 //colors
-$color_primary: #111;
-$color_primary_background: #fafafa;
-$color_highlight_background: #957A49;
-$color_highlight: #e6e6e6;
-$color_outline: #ccc;
-$color_outline_offset: lighten($color_outline, 7%);
-$color_outline_secondary: #222;
-$color_offset: #999;
-$color_user_input: $color_black;
-$color_ui: #888;
-$color_ui_background: #fff;
-$color_ui_secondary: #333;
-$color_ui_outline: #444;
-$color_anchor: darken($color_highlight_background, 25%);
+$color_primary: #122; // 7 matches
+$color_primary_background: #fffcea; // 19 matches
+$color_highlight_background: #2a1c05; // 27 matches
+$color_highlight: #e6e6e6; // 14 matches
+$color_outline: #d8b384; // 1 matches
+$color_outline_offset: darken($color_outline, 7%); // 11 matches
+$color_outline_secondary: #222; // 12 matches
+$color_offset: #999; // 4 matches
+$color_user_input: $color_black; // 7 matches
+$color_ui: #2a1c05; // 16 matches
+$color_ui_background: #c8b384; // 13 matches
+$color_ui_secondary: #333; // 3 matches
+$color_ui_outline: #2a4444; // 20 matches
+$color_anchor: darken($color_highlight_background, 25%); // 4 matches
 
-@function navBgColor($l: 25%) {
+@function navBgColor($l: 0%) {
 	@return lighten($color_highlight_background, $l);
 }
-@mixin	navBg($l: 25%) {
+@mixin	navBg($l: 0%) {
 	background: navBgColor($l);
 }
 @function navColor($l: 0%) {
@@ -36,5 +36,5 @@ $color_anchor: darken($color_highlight_background, 25%);
 }
 
 @function gradeUiBgColor($l: 25%) {
-	@return darken($color_ui_background, $l);
+	@return lighten($color_ui_background, $l);
 }
