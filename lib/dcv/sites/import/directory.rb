@@ -17,9 +17,14 @@ module Dcv::Sites::Import
 			puts "importing #{atts['slug']} from #{site_dir}"
 			site = Site.find_by(slug: atts['slug']) || Site.new(slug: atts['slug'])
 			site.title = atts['title']
-			site.search_type = atts['search_type']
-			site.layout = atts['layout']
-			site.palette = atts['palette']
+			site.alternative_title = atts['alternative_title']
+			site.repository_id = atts['repository_id']
+			site.search_type = atts['search_type'] if atts['search_type']
+			site.search_type ||= DEFAULT_SEARCH_TYPE
+			site.layout = atts['layout'] if atts['layout']
+			site.layout ||= DEFAULT_LAYOUT
+			site.palette = atts['palette'] if atts['palette']
+			site.palette ||= DEFAULT_PALETTE
 			site.constraints = atts['constraints']
 			site.publisher_uri = atts['publisher_uri']
 			site.restricted = atts['restricted'] || (atts['slug'] =~ /restricted/)

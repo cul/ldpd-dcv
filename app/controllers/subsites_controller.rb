@@ -34,6 +34,7 @@ class SubsitesController < ApplicationController
     super(*args)
     # _prefixes are where view path lookups are attempted; probably unnecessary
     # but need testing. default blank value should be first, but layout needs to be in front of controller path
+    self._prefixes.unshift "shared"
     self._prefixes.unshift self.subsite_layout
     self._prefixes.unshift ""
   end
@@ -48,7 +49,6 @@ class SubsitesController < ApplicationController
   # prepending because we want to give specialized path priority
   def set_view_path
     self.prepend_view_path('app/views/shared')
-    self.prepend_view_path('app/views/catalog')
     self.prepend_view_path('app/views/' + self.subsite_layout)
     self.prepend_view_path('app/views/' + controller_path)
   end
@@ -220,8 +220,8 @@ class SubsitesController < ApplicationController
   end
 
   def subsite_styles
-    palette = @subsite&.palette || subsite_config['palette']
-    palette.present? ? "#{subsite_layout}-#{palette}" : subsite_layout
+    palette = @subsite&.palette || subsite_config['palette'] || 'monochromeDark'
+    ["#{subsite_layout}-#{palette}", self.controller_name]
   end
 
   def search_result_view_overrides
@@ -246,6 +246,12 @@ class SubsitesController < ApplicationController
     @response, @document = fetch(params[:id], fl:'*')
     return unless authorize_document
     render layout: 'minimal', locals: { document: @document }
+  end
+
+  # TODO: Implement featured_items for full subsites
+  # produce a lazily-loaded list of featured items according to a supplied filter
+  def featured_items(args= {})
+    []
   end
 
   private

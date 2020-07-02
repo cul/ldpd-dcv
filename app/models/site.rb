@@ -1,12 +1,13 @@
 require 'csv'
 class Site < ActiveRecord::Base
+	include Dcv::Sites::Constants
 	has_many :nav_links, dependent: :destroy
 	has_many :site_pages, dependent: :destroy
 	store :constraints, accessors: [ :publisher, :project, :collection ], coder: JSON, suffix: true
 
 	def initialize(atts = {})
 		super
-		self.search_type ||= 'catalog'
+		self.search_type ||= DEFAULT_SEARCH_TYPE
 	end
 
 	def grouped_links

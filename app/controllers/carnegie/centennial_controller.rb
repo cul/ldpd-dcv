@@ -31,6 +31,10 @@ class CentennialController < SubsitesController
   def faq
   end
 
+  def subsite_layout
+    'carnegie'
+  end
+
   private
 
   # CSV download  overrides

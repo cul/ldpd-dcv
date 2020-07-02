@@ -55,8 +55,11 @@ a {
 		.titlesub {
 			color: $color_highlight;
 		}
-		.col-sm-3 > a {
+		#site-title {
 			font-family: $font_0, $font_3, $font_1, $font_2;
+		}
+		#site-banner-subtitle {
+			font-size: 120%;
 		}
 	}
 }
@@ -117,6 +120,9 @@ a {
 			@media(min-width: 768px) {
 				width:55%;
 			}
+			@media(min-width: 1200px) {
+				margin-left: 12px;
+			}
 		}
 	}
 	.img-responsive {
@@ -127,9 +133,13 @@ a {
 		text-shadow:none;
 		line-height: 1.1;
 		padding-bottom:.5em;
+
+	}
+	#site-banner {
+		margin: 0 0 0 0;
 	}
 	#secondary-nav {
-		margin-top:.75em;
+		margin: 0 0 0 0;
 		border:1px solid $color_ui_secondary;
 		border-width:1px 0;
 	}
@@ -529,20 +539,6 @@ footer.container {
 }
 #previousNextDocument .btn-default {
 	color: $color_ui_background;
-}
-.btn-primary {
-	background-color: $color_ui_background;
-	color:$color_ui;
-	border-color:lighten($color_highlight,20%);
-	&:hover {
-		background-color: $color_ui;
-		color:$color_ui_background;
-		border-color:lighten($color_ui_background,30%);
-	}
-	&:active, &:focus {
-		background-color:lighten($color_highlight, 10%);
-		border-color:darken($color_highlight,30%);
-	}
 }
 .pagination > {
 	li > {

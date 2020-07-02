@@ -14,6 +14,7 @@ class SitePage < ActiveRecord::Base
     # currently will partition into two columns maximum
 	def text_block_columns
 		block_partition = (site_text_blocks.length.to_f / 2).ceil
-		[site_text_blocks[0...block_partition], site_text_blocks[block_partition..-1]]
+		sorted_blocks = site_text_blocks.sort { |a,b| a.sort_label <=> b.sort_label }
+		[sorted_blocks[0...block_partition], sorted_blocks[block_partition..-1]]
 	end
 end

@@ -41,17 +41,18 @@ module Dcv
     if File.exists?(subsites_yml_file)
       subsite_data = YAML.load_file(subsites_yml_file)[Rails.env]
       unique_layouts = []
-      unique_layouts += (subsite_data['public'].values || []).map{|prefix| prefix['layout']}
-      unique_layouts += (subsite_data['restricted'].values || []).map{|prefix| prefix['layout']}
+      unique_layouts += subsite_data['public'].keys
+      unique_layouts += subsite_data['restricted'].keys
       # make sure common layouts are included
-      unique_layouts += ['signature', 'catalog']
+      unique_layouts += ['signature', 'gallery', 'portrait']
       unique_layouts.uniq!
 
       config.assets.precompile += unique_layouts.map{|layout| layout + '.css'}
       config.assets.precompile += unique_layouts.map{|layout| layout + '.js'}
       # add all palette-specific css for layouts
       config.assets.precompile += ['signature-*.css']
-      config.assets.precompile += ['catalog-*.css']
+      config.assets.precompile += ['gallery-*.css']
+      config.assets.precompile += ['portrait-*.css']
       # add the legacy omnibus css
       config.assets.precompile += ['dcv-legacy.css']
     end

@@ -62,6 +62,9 @@ module Dcv::Sites::Import
 			if existing_site
 				return site
 			end
+
+			# on first import, seed alternative title
+			site.alternative_title = @document[:alternative_title_ssm].first if @document[:alternative_title_ssm].present?
 			# on first import, seed the home page text blocks and links
 			home_page = SitePage.new(slug: 'home', site_id: site.id)
 			home_page.save

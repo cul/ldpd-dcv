@@ -128,7 +128,12 @@ module Dcv::DcvUrlHelper
 # solr_document routing patches to get BL6 up and running
 # TODO remove these
   def solr_document_path(solr_document)
-    url_for(params.merge(action: 'show', id: solr_document))
+    if controller.is_a?(SitesController) and !solr_document.site_result?
+      # TODO: refactor after local site searches are implemented
+      url_for(params.merge(action: 'show', id: solr_document, controller: 'catalog', slug: nil))
+    else
+      url_for(params.merge(action: 'show', id: solr_document))
+    end
   end
 
 # solr_document routing patches to get BL6 up and running

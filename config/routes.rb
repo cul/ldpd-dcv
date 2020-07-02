@@ -1,7 +1,7 @@
 require 'resque/server'
 
 Dcv::Application.routes.draw do
-  root :to => "sites#index"
+  root :to => "catalog#home"
 
   devise_for :users, skip: [:sessions], controllers: {
     omniauth_callbacks: "users/omniauth_callbacks",
@@ -133,7 +133,8 @@ Dcv::Application.routes.draw do
         get "#{subsite_key}/:id" => "#{subsite_key}#show", as: "#{subsite_key}_show" 
       end
       get "sites" => "sites#index"
-      resources 'sites', only: [:show], param: :slug, path: '' do
+      get '/:slug', controller: 'sites', action: 'home', as: 'site'
+      resources 'sites', only: [], param: :slug, path: '' do
         scope module: :sites do
           resources 'pages', only: [:show], param: :slug, path: ''
         end
@@ -145,7 +146,8 @@ Dcv::Application.routes.draw do
 # Sites routes, placed after explicit subsite routing in priority
   get "sites" => "sites#index"
   get "sites/:slug", to: redirect("/%{slug}")
-  resources 'sites', only: [:show], param: :slug, path: '' do
+  get '/:slug', controller: 'sites', action: 'home', as: 'site'
+  resources 'sites', only: [], param: :slug, path: '' do
     scope module: :sites do
       resources 'pages', only: [:show], param: :slug, path: ''
     end

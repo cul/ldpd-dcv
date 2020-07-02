@@ -5,7 +5,8 @@ module Dcv::Sites
 		IMAGES_SUBDIR = "images"
 		PAGES_SUBDIR = "pages"
 		# default property values
-		DEFAULT_LAYOUT = 'catalog'
+		DEFAULT_SEARCH_TYPE = 'catalog'
+		DEFAULT_LAYOUT = 'portrait'
 		DEFAULT_PALETTE = 'monochromeDark'
 	end
 	autoload :Export, 'dcv/sites/export'

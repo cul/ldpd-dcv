@@ -11,39 +11,8 @@ class JayController < SubsitesController
     super
     if !has_search_parameters? && request.format.html?
       # we override the view rendered for the subsite home on html requests
+      params[:action] = 'home'
       render 'home'
     end
   end
-
-  def about
-  end
-
-  def collection
-  end
-
-  def bibliography
-  end
-
-  def participating_institutions
-  end
-
-  def biography
-  end
-
-  def jay_constitution
-  end
-
-  def jay_jayandny
-  end
-
-  def jay_jaytreaty
-  end
-
-  def jay_jayandfrance
-  end
-
-  def jay_jayandslavery
-  end
-
-
 end

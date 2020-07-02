@@ -4,7 +4,6 @@ $font_glyphs: Glyphicons Halflings;
 //urls
 $url_crown_small: url(//cdn.cul.columbia.edu/ldpd-toolkit/img/crown-bts-24x24.png);
 $url_crown_sprite: url(//cdn.cul.columbia.edu/ldpd-toolkit/img/crown-icon-sprite.png);
-$url_dcv_small: image-url('dcv/1836760843_267e9c947f_o-sm-b.jpg');
 $url_brand_eot: url(//cdn.cul.columbia.edu/ldpd-toolkit/fonts/trajanpro-regular-webfont.eot);
 $url_brand_eot_ie: url(//cdn.cul.columbia.edu/ldpd-toolkit/fonts/trajanpro-regular-webfont.eot?#iefix);
 $url_brand_woff: url(//cdn.cul.columbia.edu/ldpd-toolkit/fonts/trajanpro-regular-webfont.woff);
@@ -95,7 +94,7 @@ input {
 	padding-top: 0;
 	padding-bottom: 2em;
 	margin-bottom: 2em;
-	background-color: $color_ui_background;
+	background-color: $color_primary_background;
 	border: 1px solid $color_outline;
 	border-top: 0;
 }
@@ -178,7 +177,7 @@ input {
 				max-width: 100%;
 				margin-top: 1.4em;
 			}
-			.col-sm-3 > a {
+			#site-title {
 				display: block;
 				padding-top: 8px;
 				padding-bottom: 0;
@@ -190,64 +189,36 @@ input {
 			}
 		}
 	}
-	// only in root page
-	#site-banner-left {
-		margin-top: 20px;
-		background-color: $color_primary_background;
-		background-image: $url_dcv_small;
-		background-repeat: no-repeat;
-		background-position: center center;
-		background-size: 104%;
-		vertical-align: middle;
-		height: 80px;
-		width: 100%;
-	}
 	nav {
 		border: 0;
-	}
-	h1 {
-		width: 100%;
-		padding: 2px 0 0;
-		margin-bottom: .75em;
-		text-align: center;
-		font-family: $font_0, $font_1, $font_4, $font_2;
-		font-size: 220%;
-		a {
-			color: $color_highlight_background;
-			&:hover {
-				text-decoration: none;
-			}
-			img {
-				max-width: 100%;
-			}
-		}
-	}
-	h2 {
-		width: 100%;
-		padding: 2px 0 0;
-		margin-bottom: .5em;
-		text-align: center;
-		font-family: $font_0, $font_1, $font_4, $font_2;
-		font-size: 180%;
-		a {
-			color: $color_highlight_background;
-			&:hover {
-				text-decoration: none;
-			}
-			img {
-				max-width: 100%;
-			}
-		}
 	}
 	.note {
 		text-align: center;
 		max-width: 100%;
 	}
-	#site-banner-inner .col-sm-3 > a {
-		display: inline-block;
-		max-width: 100%;
+	#site-banner-inner {
+		#site-title {
+			display: inline-block;
+			max-width: 100%;
+		}
 	}
 }
+
+.btn-primary {
+	background-color: $color_ui_background;
+	color:$color_ui;
+	border-color:lighten($color_highlight,20%);
+	&:hover {
+		background-color: $color_ui;
+		color:$color_ui_background;
+		border-color:lighten($color_ui_background,30%);
+	}
+	&:active, &:focus {
+		background-color:lighten($color_highlight, 10%);
+		border-color:darken($color_highlight,30%);
+	}
+}
+
 #search-navbar {
 	margin-top: -6px;
 	margin-bottom: 0;
@@ -269,7 +240,7 @@ input {
 		}
 	}
 	#q {
-		background-color: darken($color_ui_background,5%);
+		background-color: gradeUiBgColor(25%);
 		color: $color_user_input;
 		&:focus {
 			background-color: $color_primary_background;
@@ -472,7 +443,7 @@ input {
 		#site-banner-left {
 			height: 80px;
 		}
-		&.slim #site-banner-inner .col-sm-3 > a {
+		&.slim #site-banner-inner #site-title {
 			display: inline-block;
 			padding-top: 16px;
 			padding-bottom: 0;
@@ -503,7 +474,7 @@ input {
 			img {
 				margin-top: 1.2em;
 			}
-			.col-sm-3 > a {
+			#site-title {
 				display: inline-block;
 				padding-top: 12px;
 				padding-bottom: 0;
@@ -542,7 +513,7 @@ input {
 				height: 21px;
 				width: auto;
 			}
-			.col-sm-3 > a {
+			#site-title {
 				display: inline-block;
 				padding-top: 8px;
 				padding-bottom: 0;

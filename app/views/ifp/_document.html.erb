@@ -17,7 +17,7 @@
 				<%= link_to_document(document, :counter => (@do_not_link_to_search ? nil : counter_in_results), label: '<span class="glyphicon glyphicon-info-sign"></span>'.html_safe, title: 'Document Permanent Link' ) %>
 			</h3>
 			<%= render :partial => 'index_default', :locals => {:document => document } %>
-			<%= render :partial => 'catalog/schema_org_document_metadata', :locals => {:document => document } %>
+			<%= render :partial => 'shared/schema_org_document_metadata', :locals => {:document => document } %>
 
 			<% snippet = '' %>
 			<% if document.solr_response['highlighting'].present? && document.solr_response['highlighting'][document['id']].present? %>

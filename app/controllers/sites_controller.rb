@@ -7,9 +7,9 @@ class SitesController < ApplicationController
   include Dcv::CdnHelper
   include Dcv::MarkdownRendering
 
-  before_filter :set_browse_lists, only: :index
+  before_filter :browse_lists, only: :index
   before_filter :load_subsite, except: [:index]
-  before_filter :load_page, only: [:show]
+  before_filter :load_page, only: [:home]
 
   layout :request_layout
 
@@ -30,9 +30,9 @@ class SitesController < ApplicationController
     config.max_per_page = 250
 
     # solr field configuration for search results/index views
-    config.index.title_field = solr_name('title', :facetable, type: :string)
+    config.index.title_field = solr_name('title_display', :displayable, type: :string)
     config.index.display_type_field = ActiveFedora::SolrService.solr_name('active_fedora_model', :stored_sortable)
-
+    config.index.thumbnail_method = :thumbnail_for_doc
     config.add_index_field ActiveFedora::SolrService.solr_name('abstract', :symbol, type: :string), :label => 'Abstract'
     config.add_index_field ActiveFedora::SolrService.solr_name('schema_image', :symbol, type: :string), :label => 'Representative Image'
     config.add_index_field ActiveFedora::SolrService.solr_name('short_title', :symbol, type: :string), :label => 'Facet Value'
@@ -58,22 +58,6 @@ class SitesController < ApplicationController
         :pf => [ActiveFedora::SolrService.solr_name('all_text', :searchable, type: :text)]
       }
     end
-
-    config.add_search_field ActiveFedora::SolrService.solr_name('search_title_info_search_title', :searchable, type: :text) do |field|
-      field.label = 'Title'
-      field.solr_parameters = {
-        :qf => [ActiveFedora::SolrService.solr_name('title', :searchable, type: :text)],
-        :pf => [ActiveFedora::SolrService.solr_name('title', :searchable, type: :text)]
-      }
-    end
-
-    config.add_search_field ActiveFedora::SolrService.solr_name('lib_name', :searchable, type: :text) do |field|
-      field.label = 'Name'
-      field.solr_parameters = {
-        :qf => [ActiveFedora::SolrService.solr_name('lib_name', :searchable, type: :text)],
-        :pf => [ActiveFedora::SolrService.solr_name('lib_name', :searchable, type: :text)]
-      }
-    end
   end
 
   def search_builder
@@ -81,11 +65,6 @@ class SitesController < ApplicationController
       builder.processor_chain << :constrain_to_slug
       builder.processor_chain <<  (self.restricted? ? :constrain_to_restricted_sites : :constrain_to_public_sites)
     end
-  end
-
-  def set_view_path
-    super
-    self.prepend_view_path('app/views/' + self.request_layout)
   end
 
   def index
@@ -102,8 +81,15 @@ class SitesController < ApplicationController
 
   def initialize(*args)
     super(*args)
-    self._prefixes.unshift 'sites'
+    self._prefixes.unshift 'shared'
     self._prefixes.unshift '' # allow view_path to find action templates without 'sites' prefix first
+  end
+
+  def set_view_path
+    super
+    self.prepend_view_path('app/views/shared')
+    self.prepend_view_path('app/views/' + self.request_layout)
+    self.prepend_view_path('app/views/' + controller_path)
   end
 
   ##
@@ -143,29 +129,61 @@ class SitesController < ApplicationController
   end
 
   def subsite_layout
-    subsite_config['layout'] || 'catalog'
+    subsite_config['layout'] || 'portrait'
   end
 
   def subsite_styles
-    palette = subsite_config['palette']
+    palette = subsite_config['palette'] || 'monochromeDark'
     palette.present? ? "#{subsite_layout}-#{palette}" : subsite_layout
   end
 
   # get single document from the solr index
   # override to use :slug and publisher_ssim in search to get document
-  def show
-    (@response, @document_list) = search_results(params)
-    @document = @document_list.first
+  def home
+    document_list = search_results(params)[1] # do not store response or list as attributes
+    @document = document_list.first
     if @document.nil?
       render status: :not_found, text: "#{params[:slug]} is not a subsite"
       return
     end
     # TODO: load facet data. Requires configuration of fields, and override of default solr params.
-    params[:as_home] = true # to disable _header_navbar double render
     respond_to do |format|
       format.json { render json: @subsite.to_json }
-      format.html { render action: 'home' }
+      format.html { render }
     end
+  end
+
+  # produce a list of featured items according to a supplied filter
+  def featured_items(args= {})
+    (@response, @document_list) = search_results(params) {|builder| builder.merge(site_search_params(rows: 12))}
+    @document_list
+  end
+
+  # solr params for site content
+  def site_search_params(args = {})
+      f = {'active_fedora_model_ssi' => 'ContentAggregator'}
+      subsite = load_subsite
+      subsite.constraints.each do |search_scope, facet_value|
+        next unless facet_value.present?
+        case search_scope
+        when 'collection'
+          facet_field = 'lib_collection_sim'
+        when 'project'
+          facet_field = 'lib_project_short_ssim'
+        when 'publisher'
+          facet_field = 'publisher_ssim'
+        end
+        next unless facet_field
+        f[facet_field] = Array(facet_value).map {|v| "\"#{v}\""}.join(" OR ")
+      end
+
+      if subsite.restricted.present?
+        f['lib_repo_code_ssim'] = [subsite.repository_id]
+      end
+      result = {}
+      result[:fq] = f.map {|f,v| "#{f}:(#{v})"}
+      result[:sort] = "random_#{Random.new_seed} DESC"
+      result.merge(args)
   end
 
   # used in :index action
@@ -220,8 +238,14 @@ class SitesController < ApplicationController
     end
   end
 
-  def set_browse_lists
-    @browse_lists = get_catalog_browse_lists
+  def browse_lists
+    @browse_lists ||= begin
+      if params[:action] == 'index'
+        get_catalog_browse_lists
+      else
+        []
+      end
+    end
   end
 
 end

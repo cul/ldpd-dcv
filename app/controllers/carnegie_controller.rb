@@ -31,6 +31,10 @@ class CarnegieController < SubsitesController
   def faq
   end
 
+  def subsite_layout
+    'carnegie'
+  end
+
   private
 
   # CSV download  overrides
@@ -61,9 +65,5 @@ class CarnegieController < SubsitesController
       values.delete('manuscripts') if (field_key == 'lib_format_ssm') && values[1]
       values.first
     }
-  end
-
-  def subsite_layout
-    'carnegie'
   end
 end

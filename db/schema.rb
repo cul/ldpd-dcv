@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200612151600) do
+ActiveRecord::Schema.define(version: 20200707172557) do
 
   create_table "bookmarks", force: :cascade do |t|
     t.integer  "user_id",       null: false
@@ -69,7 +69,7 @@ ActiveRecord::Schema.define(version: 20200612151600) do
   end
 
   create_table "sites", force: :cascade do |t|
-    t.string   "slug",           null: false
+    t.string   "slug",              null: false
     t.string   "title"
     t.string   "persistent_url"
     t.string   "publisher_uri"
@@ -84,6 +84,7 @@ ActiveRecord::Schema.define(version: 20200612151600) do
     t.text     "date_search"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "alternative_title"
   end
 
   add_index "sites", ["slug"], name: "index_sites_on_slug", unique: true

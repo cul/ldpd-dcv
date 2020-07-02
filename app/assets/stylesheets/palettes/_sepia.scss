@@ -28,13 +28,13 @@ $color_anchor: darken($color_highlight_background, 25%); // 4 matches
 	@return darken($color_topnav, $l);
 }
 
-@function gradeBgColor($l: 25%) {
+@function gradeBgColor($l: 0%) {
 	@return darken($color_primary_background, $l);
 }
-@mixin gradeBg($l: 7%) {
+@mixin gradeBg($l: 0%) {
 	background-color: gradeBgColor($l);
 }
 
-@function gradeUiBgColor($l: 25%) {
+@function gradeUiBgColor($l: 0%) {
 	@return lighten($color_ui_background, $l);
 }

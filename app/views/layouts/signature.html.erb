@@ -2,7 +2,9 @@
 <html lang="en" class="no-js">
   <head>
 		<%= render partial: 'shared/head_includes' %>
-		<%= stylesheet_link_tag subsite_styles %>
+		<%- Array(subsite_styles).each do |subsite_style| -%>
+			<%= stylesheet_link_tag subsite_style %>
+		<%- end -%>
 		<%= javascript_include_tag subsite_layout %>
 		<style type="text/css">
 			#hometn .featured-outer {
@@ -20,7 +22,7 @@
   <div id="outer-wrapper" class="container">
     <div class="row">
 
-	  <%= render partial: 'header_navbar' %>
+	  <%= render 'header_navbar' %>
 
 	  <%= render partial: 'shared/ajax_modal' %>
 
