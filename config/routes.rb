@@ -114,7 +114,7 @@ Dcv::Application.routes.draw do
       all_concerns = [:searchable] + subsite_concerns
       concerns *all_concerns
     end
-    get "#{subsite_key}/:id" => "#{subsite_key}#show", as: "#{subsite_key}_show", constraints: { id: /(cul|ldpd):.*/ }
+    get "#{subsite_key}/:id" => "#{subsite_key}#show", as: "#{subsite_key}_show", constraints: { id: /(cul|ldpd):[^\/]*/ }
     get "#{subsite_key}/:slug" => "#{subsite_key}#page", as: "#{subsite_key}_page"
   end
 
