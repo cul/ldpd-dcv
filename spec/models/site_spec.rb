@@ -29,6 +29,16 @@ describe Site do
 			it 'adds a collection clause to the constraints hash' do
 				expect(site.constraints).to include('collection' => values)
 			end
+			it 'represents the clause in the default filters' do
+				expect(site.default_filters).to include('lib_collection_sim' => values)
+			end
+			it 'represents the clause in the default fq' do
+				expect(site.default_fq).to include("lib_collection_sim:(\"#{values.first}\")")
+			end
+			it 'adds the clause to the local blacklight config' do
+				site.configure_blacklight!
+				expect(site.blacklight_config.default_solr_params[:fq]).to include("lib_collection_sim:(\"#{values.first}\")")
+			end
 		end
 		context 'on project' do
 			before do
@@ -37,6 +47,16 @@ describe Site do
 			it 'adds a collection clause to the constraints hash' do
 				expect(site.constraints).to include('project' => values)
 			end
+			it 'represents the clause in the default filters' do
+				expect(site.default_filters).to include('lib_project_short_ssim' => values)
+			end
+			it 'represents the clause in the default fq' do
+				expect(site.default_fq).to include("lib_project_short_ssim:(\"#{values.first}\")")
+			end
+			it 'adds the clause to the local blacklight config' do
+				site.configure_blacklight!
+				expect(site.blacklight_config.default_solr_params[:fq]).to include("lib_project_short_ssim:(\"#{values.first}\")")
+			end
 		end
 		context 'on publisher' do
 			before do
@@ -44,6 +64,16 @@ describe Site do
 			end
 			it 'adds a collection clause to the constraints hash' do
 				expect(site.constraints).to include('publisher' => values)
+			end
+			it 'represents the clause in the default filters' do
+				expect(site.default_filters).to include('publisher_ssim' => values)
+			end
+			it 'represents the clause in the default fq' do
+				expect(site.default_fq).to include("publisher_ssim:(\"#{values.first}\")")
+			end
+			it 'adds the clause to the local blacklight config' do
+				site.configure_blacklight!
+				expect(site.blacklight_config.default_solr_params[:fq]).to include("publisher_ssim:(\"#{values.first}\")")
 			end
 		end
 	end

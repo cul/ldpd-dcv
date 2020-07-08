@@ -6,6 +6,7 @@ class SitesController < ApplicationController
   include Dcv::Catalog::BrowseListBehavior
   include Dcv::CdnHelper
   include Dcv::MarkdownRendering
+  include ShowFieldDisplayFieldHelper
 
   before_filter :browse_lists, only: :index
   before_filter :load_subsite, except: [:index]
@@ -104,7 +105,9 @@ class SitesController < ApplicationController
     @subsite ||= begin
       site_slug = params[:site_slug] || params[:slug]
       site_slug = "restricted/#{site_slug}" if restricted?
-      Site.includes(:nav_links).find_by(slug: site_slug)
+      s = Site.includes(:nav_links).find_by(slug: site_slug)
+      s.configure_blacklight! if s
+      s
     end
   end
 
@@ -146,6 +149,8 @@ class SitesController < ApplicationController
       render status: :not_found, text: "#{params[:slug]} is not a subsite"
       return
     end
+    # override the blacklight config to support featured content and facets
+    @blacklight_config = load_subsite.blacklight_config
     # TODO: load facet data. Requires configuration of fields, and override of default solr params.
     respond_to do |format|
       format.json { render json: @subsite.to_json }
@@ -159,30 +164,23 @@ class SitesController < ApplicationController
     @document_list
   end
 
+  # load facet response
+  def load_facet_response
+    @response ||= begin
+      results = search_results(params) do |builder|
+        sites_processor_chain = [:constrain_to_slug, :constrain_to_public_sites, :constrain_to_restricted_sites]
+        builder.except(*sites_processor_chain).merge(rows: 0)
+      end
+      results[0] # do not store list as attribute
+    end
+    # delete facet responses with only one value-count pair
+    @response.dig('facet_counts', 'facet_fields')&.delete_if {|k, v| v.length < 3}
+    @response
+  end
+
   # solr params for site content
   def site_search_params(args = {})
-      f = {'active_fedora_model_ssi' => 'ContentAggregator'}
-      subsite = load_subsite
-      subsite.constraints.each do |search_scope, facet_value|
-        next unless facet_value.present?
-        case search_scope
-        when 'collection'
-          facet_field = 'lib_collection_sim'
-        when 'project'
-          facet_field = 'lib_project_short_ssim'
-        when 'publisher'
-          facet_field = 'publisher_ssim'
-        end
-        next unless facet_field
-        f[facet_field] = Array(facet_value).map {|v| "\"#{v}\""}.join(" OR ")
-      end
-
-      if subsite.restricted.present?
-        f['lib_repo_code_ssim'] = [subsite.repository_id]
-      end
-      result = {}
-      result[:fq] = f.map {|f,v| "#{f}:(#{v})"}
-      result[:sort] = "random_#{Random.new_seed} DESC"
+      result = load_subsite.blacklight_config.default_solr_params.merge(sort: "random_#{Random.new_seed} DESC")
       result.merge(args)
   end
 
@@ -223,12 +221,8 @@ class SitesController < ApplicationController
       # 2. there are collections published to non-catalog subsites
       url_for(action: 'index', controller: load_subsite.slug)
     else
-      f = {}
-      load_subsite.constraints.each do |search_scope, facet_value|
-        next unless facet_value.present?
-        facet_field = (search_scope == 'collection') ? 'lib_collection_sim' : 'lib_project_short_ssim'
-        f[facet_field] = Array(facet_value)
-      end
+      # initialize with facet values if present
+      f = options.fetch('f', {}).merge(load_subsite.default_filters)
       if load_subsite.restricted.present?
         repository_id = @document[:lib_repo_code_ssim].first
         search_repository_catalog_path(repository_id: repository_id, f: f)
@@ -248,4 +242,11 @@ class SitesController < ApplicationController
     end
   end
 
+  # TODO: the blacklight_configuration_context expects the controller to
+  # have access to the condition evaluation methods; the BL 5 implementation
+  # was in the helper context and thus has a controller accessor. The helpers
+  # need to be refactored into a controller concern and just refer to self
+  def controller
+    self
+  end
 end

@@ -254,6 +254,11 @@ class SubsitesController < ApplicationController
     []
   end
 
+  # use existing response attribute
+  def load_facet_response
+    @response
+  end
+
   private
 
   def extract_map_data_from_document_list(document_list)

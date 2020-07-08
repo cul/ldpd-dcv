@@ -1,13 +1,64 @@
 require 'csv'
 class Site < ActiveRecord::Base
 	include Dcv::Sites::Constants
+	include Blacklight::Configurable
+
 	has_many :nav_links, dependent: :destroy
 	has_many :site_pages, dependent: :destroy
 	store :constraints, accessors: [ :publisher, :project, :collection ], coder: JSON, suffix: true
 
+	configure_blacklight do |config|
+		Dcv::Configurators::DcvBlacklightConfigurator.configure(config)
+
+	end
+
 	def initialize(atts = {})
 		super
 		self.search_type ||= DEFAULT_SEARCH_TYPE
+	end
+
+	#TODO: this route will change for local searches
+	def routing_params(args = {})
+		args.reject { |k,v| k.to_s == 'slug' }.merge(controller: 'catalog')
+	end
+
+	def configure_blacklight!
+		configure_blacklight do |config|
+			config.default_solr_params[:fq] += default_fq()
+			config.show.route = self.routing_params
+		end
+	end
+
+	def configure_blacklight(*args, &block)
+		blacklight_config.configure(*args, &block)
+	end
+
+	def default_filters
+		f = {}
+		self.constraints.each do |search_scope, facet_value|
+			next unless facet_value.present?
+			case search_scope
+			when 'collection'
+				facet_field = 'lib_collection_sim'
+			when 'project'
+				facet_field = 'lib_project_short_ssim'
+			when 'publisher'
+				facet_field = 'publisher_ssim'
+			end
+			next unless facet_field
+			f[facet_field] = Array(facet_value)
+		end
+		if self.restricted.present?
+			f['lib_repo_code_ssim'] = [self.repository_id]
+		end
+		f
+	end
+
+	def default_fq
+		default_filters().map do |f,v|
+			v = v.map {|v| "\"#{v}\""}.join(" OR ")
+			"#{f}:(#{v})"
+		end
 	end
 
 	def grouped_links
