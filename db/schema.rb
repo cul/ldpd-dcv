@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200707172557) do
+ActiveRecord::Schema.define(version: 20200709155313) do
 
   create_table "bookmarks", force: :cascade do |t|
     t.integer  "user_id",       null: false
@@ -73,7 +73,7 @@ ActiveRecord::Schema.define(version: 20200707172557) do
     t.string   "title"
     t.string   "persistent_url"
     t.string   "publisher_uri"
-    t.string   "image_uri"
+    t.text     "image_uris"
     t.string   "repository_id"
     t.string   "layout"
     t.string   "palette"

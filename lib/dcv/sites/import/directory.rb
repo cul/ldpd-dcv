@@ -26,7 +26,7 @@ module Dcv::Sites::Import
 			site.palette = atts['palette'] if atts['palette']
 			site.palette ||= DEFAULT_PALETTE
 			site.constraints = atts['constraints']
-			site.image_uri = atts['image_uri']
+			site.image_uris = atts['image_uris']
 			site.publisher_uri = atts['publisher_uri']
 			site.restricted = atts['restricted'] || (atts['slug'] =~ /restricted/)
 			site.nav_links.delete_all

@@ -77,6 +77,34 @@ describe Site do
 			end
 		end
 	end
+	describe 'image uri methods' do
+		let(:site_slug) { 'image_uris' }
+		describe '#image_uris' do
+			it 'returns an array' do
+				expect(site.image_uris).to be_a Array
+			end
+		end
+		describe '#image_uris=' do
+			let(:additional_value) { "info:fedora/fake:1" }
+			it 'accepts an array' do
+				site.image_uris << additional_value
+				site.save
+				expect(site.image_uris.length).to be 2
+				site.image_uris = [additional_value]
+				site.save
+				expect(site.image_uris.length).to be 1
+				expect(site.image_uri).to eql additional_value
+			end
+			it 'rejects a string' do
+				expect { site.image_uris = additional_value }.to raise_error
+			end
+		end
+		describe '#image_uri' do
+			it 'returns a single uri selected from an array' do
+				expect(site.image_uri).to be_a String
+			end
+		end
+	end
 	describe '#to_subsite_config' do
 		let(:site_slug) { 'to_subsite_config' }
 		let(:subject) { site.to_subsite_config }

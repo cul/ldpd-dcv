@@ -8,7 +8,7 @@ FactoryBot.define do
     layout { 'catalog' }
     palette { 'monochromeDark'}
     search_type { 'catalog' }
-    image_uri { 'info:fedora/test-image:1' }
+    image_uris { ['info:fedora/test-image:1'] }
     repository_id { 'NNC'}
 
     factory :site_with_links do

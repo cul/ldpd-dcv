@@ -6,6 +6,7 @@ class Site < ActiveRecord::Base
 	has_many :nav_links, dependent: :destroy
 	has_many :site_pages, dependent: :destroy
 	store :constraints, accessors: [ :publisher, :project, :collection ], coder: JSON, suffix: true
+	serialize :image_uris, Array
 
 	configure_blacklight do |config|
 		Dcv::Configurators::DcvBlacklightConfigurator.configure(config)
@@ -31,6 +32,12 @@ class Site < ActiveRecord::Base
 
 	def configure_blacklight(*args, &block)
 		blacklight_config.configure(*args, &block)
+	end
+
+	def image_uri(refresh = false)
+		return image_uris.first if image_uris.length < 2
+		@image_uri_memo = nil if refresh
+		@image_uri_memo ||= image_uris.sample
 	end
 
 	def default_filters
