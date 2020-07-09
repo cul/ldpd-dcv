@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-
+gem 'bigdecimal', '~>1.4.4'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.10'
 gem 'actionpack-action_caching'
