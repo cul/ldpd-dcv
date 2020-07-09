@@ -65,7 +65,7 @@ module Dcv::Sites::Import
 
 			# on first import, seed alternative title
 			site.alternative_title = @document[:alternative_title_ssm].first if @document[:alternative_title_ssm].present?
-			# on first import, seed the home page text blocks and links
+			# on first import, seed the home and about page text blocks, links
 			home_page = SitePage.new(slug: 'home', site_id: site.id)
 			home_page.save
 			# add home page block
@@ -76,6 +76,11 @@ module Dcv::Sites::Import
 			end
 			block_title = "About #{@document[:short_title_ssim]&.first || site.title}"
 			SiteTextBlock.new(sort_label: "00:#{block_title}", markdown: home_block, site_page_id: home_page.id).save
+			# add about page block
+			about_page = SitePage.new(slug: 'about', site_id: site.id, title: block_title)
+			about_page.save
+			SiteTextBlock.new(sort_label: "00:", markdown: home_block, site_page_id: about_page.id).save
+
 			# add links
 			locations = @document.solr_url_hash(exclude: {'usage' => "primary display"})
 			locations.each_with_index do |location, ix|
