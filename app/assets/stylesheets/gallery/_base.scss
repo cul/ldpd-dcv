@@ -42,7 +42,9 @@
 			color: $color_highlight;
 		}
 		#site-title {
+			color: $color_highlight_background;
 			font-family: $font_0, $font_3, $font_1, $font_2;
+			text-decoration: none;
 		}
 	}
 	nav {
@@ -100,6 +102,8 @@
 		font-size: 1em;
 	}
 	#q {
+		background-color: $color_primary_background;
+		color: $color_ui;
 		&:focus {
 			background-color: $color_primary_background;
 			color: $color_highlight_background;

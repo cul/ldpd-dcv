@@ -28,7 +28,7 @@ module Sites
 				if pages.blank?
 					Site.includes(:nav_links, :site_pages).find_by(slug: site_slug)
 				else
-					Site.includes(:nav_links, site_pages: [:text_blocks]).find_by(slug: site_slug, site_pages: { slug: pages })
+					Site.includes(:nav_links, site_pages: [:site_text_blocks]).find_by(slug: site_slug, site_pages: { slug: pages })
 				end
 			end
 		end

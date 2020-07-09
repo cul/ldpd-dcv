@@ -182,8 +182,6 @@ input {
 				padding-top: 8px;
 				padding-bottom: 0;
 				font-size: 1.80em;
-				font-weight: 100;
-				color: darken($color_primary, 5%);
 				text-decoration: none;
 				vertical-align: bottom;
 			}
@@ -959,7 +957,6 @@ h2[itemprop="name"] {
 	.inner {
 		position: relative;
 		padding: 1.2em;
-		border: 1px solid $color_ui_outline;
 		.tab-content {
 			margin-top: 2em;
 		}

@@ -17,14 +17,14 @@
                 <hr class="visible-sm">
               </div>
             <%- end -%>
-            <p>
-              <%= link_to("Browse the collection »", search_action_url) %>
-            </p>
           <div class="clearfix"></div>
          </div>
       </div>
       <div id="home-sidebar-about">
           <p><a href="<%= site_page_url(site_slug: @subsite.slug, slug: 'about') %>">Learn more &raquo;</a></p>
+          <p>
+            <%= link_to("Browse the collection »", search_action_url) %>
+          </p>
       </div>
   </div>
 

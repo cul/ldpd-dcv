@@ -23,26 +23,39 @@
 }
 
 #topnavbar {
+	background-color: $color_topnav_background;
 	#cul_top-nosearch {
-		background-color: navBgColor();
+		background-color: $color_topnav_background;
 		#crowndown-nosearch {
-			background-color: navBgColor();
+			background-color: $color_topnav_background;
 			.dropdown-toggle {
 				font-family: $font_0, $font_1, $font_2;
 			}
 		}
 		.dropdown-menu {
-			background-color: navBgColor();
+			background-color: $color_topnav_background;
 		}
 	}
 }
 #site-banner {
+	background-color: navBgColor(5%);
 	#site-banner-inner {
 		.titlesub {
 			color: $color_highlight;
 		}
 		#site-title {
+			font-size: 200%;
+			text-transform: uppercase;
+			font-family: $font_b;
+			font-weight: 200;
+			color: $color_highlight;
+		}
+		#site-banner-subtitle {
+			color: $color_highlight;
 			font-family: $font_0, $font_3, $font_1, $font_2;
+			font-size: 100%;
+			text-align: left;
+			margin-top: 0;
 		}
 	}
 	nav {
@@ -56,7 +69,7 @@
 		font-family: $font_0, $font_1, $font_4, $font_2;
 		font-size: 220%;
 		a {
-			color: $color_highlight_background;
+			color: $color_highlight;
 			&:hover {
 				text-decoration: none;
 			}
@@ -96,10 +109,13 @@
 		margin-top: .5em;
 	}
 	.input-group-addon {
+		color: $color_ui;
 		background-color: $color_ui_background;
 		font-size: 1em;
 	}
 	#q {
+		background-color: $color_primary_background;
+		color: $color_ui;
 		&:focus {
 			background-color: $color_primary_background;
 			color: $color_highlight_background;
@@ -294,6 +310,8 @@
 	.inner {
 		padding: 1.2em;
 		background-color: rgba($color_primary_background, 0.7);
-		border: 1px solid $color_ui_outline;
+		&.outline {
+			border: 1px solid $color_ui_outline;
+		}
 	}
 }

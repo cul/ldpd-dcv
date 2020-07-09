@@ -84,7 +84,7 @@ a {
 		}
 	}
 	#q {
-		background-color: gradeUiBgColor(25%);
+		background-color: $color_primary_background;
 		color: $color_ui;
 		&:focus {
 			background-color: $color_ui_background;
