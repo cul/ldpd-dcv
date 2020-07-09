@@ -56,12 +56,12 @@ module Dcv::Sites::Export
 			FileUtils.mkdir_p(exported_images_dir)
 			exported_images_dir = Dir.new(exported_images_dir)
 			# copy uploaded images
-			current_images_dir = Dir.new(File.join(Rails.root, 'public', 'images', 'sites', @site.slug))
-			current_images_dir.entries.each do |entry|
+			current_images_dir = File.join(Rails.root, 'public', 'images', 'sites', @site.slug)
+			Dir.new(current_images_dir).entries.each do |entry|
 				if entry =~ /^[a-zA-Z0-9]/
 					FileUtils.copy_entry(File.join(current_images_dir, entry), File.join(exported_images_dir, entry))
 				end
-			end
+			end if Dir.exist?(current_images_dir)
 			@directory
 		end
 	end
