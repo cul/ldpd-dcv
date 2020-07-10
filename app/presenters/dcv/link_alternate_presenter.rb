@@ -17,6 +17,11 @@ module Dcv
 
     def href(format)
       href_params = view_context.search_state.url_for_document(document).merge(format: format)
+      # link to sites controller for site results, restricted namespace dealt with in view context
+      if document.site_result?
+        href_params.merge!(controller: 'sites', slug: document.unqualified_slug, action: 'home')
+        href_params.delete(:id)
+      end
       view_context.url_for(href_params)
     end
   end

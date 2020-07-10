@@ -90,6 +90,7 @@ class SitesController < ApplicationController
     super
     self.prepend_view_path('app/views/shared')
     self.prepend_view_path('app/views/' + self.request_layout)
+    self.prepend_view_path('app/views/' + controller_path.sub(/^restricted/,'')) if self.restricted?
     self.prepend_view_path('app/views/' + controller_path)
   end
 

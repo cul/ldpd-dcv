@@ -12,9 +12,8 @@ module Dcv::Sites::Import
 		end
 		def run
 			return nil unless exists?
-			local_slug = @document[:slug_ssim].first
-			restricted = @document[:restriction_ssim].present?
-			slug = restricted ? "restricted/#{local_slug}" : local_slug
+			restricted = @document.has_restriction?
+			slug = @document.slug
 			existing_site = Site.exists?(slug: slug)
 			site = existing_site ? Site.find_by(slug: slug) : Site.new(slug: slug)
 

@@ -26,7 +26,7 @@ class SolrDocument
 
   # Item in context url for this solr document. Might return nil if this doc has no item in context url.
   def item_in_context_url
-    self['lib_item_in_context_url_ssm'].present? ? self['lib_item_in_context_url_ssm'].first : nil
+    self['lib_item_in_context_url_ssm']&.first
   end
 
   def site_result?
@@ -67,6 +67,22 @@ class SolrDocument
       end
     end
     link_src
+  end
+
+  def slug
+    if self[:restriction_ssim].present?
+      Array(self[:slug_ssim]).compact.map { |val| "restricted/#{val}"  }.first
+    else
+      self[:slug_ssim]&.first
+    end
+  end
+
+  def unqualified_slug
+    self[:slug_ssim]&.first
+  end
+
+  def has_restriction?
+    self[:restriction_ssim].present?
   end
 
   def self.each_site_document(index = Blacklight.default_index, fl = '*', &block)
