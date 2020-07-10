@@ -102,7 +102,10 @@ class SubsitesController < ApplicationController
   end
 
   def default_search_mode_cookie
-    cookie_name = "#{subsite_layout}_search_mode".to_sym
+    slug = load_subsite&.slug || controller_path
+    cookie_name = "#{slug}_search_mode"
+    cookie_name.gsub!('/','_')
+    cookie_name = cookie_name.to_sym
     cookie = cookies[cookie_name]
     unless cookie
       cookies[cookie_name] = default_search_mode.to_sym
@@ -220,12 +223,8 @@ class SubsitesController < ApplicationController
   end
 
   def subsite_styles
-    palette = @subsite&.palette || subsite_config['palette'] || 'monochromeDark'
+    palette = load_subsite&.palette || subsite_config['palette'] || 'monochromeDark'
     ["#{subsite_layout}-#{palette}", self.controller_name]
-  end
-
-  def search_result_view_overrides
-    subsite_config['search_result_view_overrides'] || {}
   end
 
   def thumb_url(document={})
