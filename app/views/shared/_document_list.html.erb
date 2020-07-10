@@ -9,14 +9,10 @@
 <div id="search-results">
   <div class="row">
     <% @items_per_row_counter = 1 %>
-    <% if subsite_layout.eql? 'durst' %>
-      <%= render :partial=>'document',:collection=> documents, :as=> :document, :locals=> {row_offset: 0, show_counter: true} %>
+    <% if subsite_search_mode == :list %>
+      <%= render :partial=>'document/list',:collection=> documents, :as=> :document, :locals=> {row_offset: 0, show_counter: true} %>
     <% else %>
-      <% if subsite_search_mode == :list %>
-        <%= render :partial=>'document/list',:collection=> documents, :as=> :document, :locals=> {row_offset: 0, show_counter: true} %>
-      <% else %>
-        <%= render :partial=>'document/grid',:collection=> documents, :as=> :document, :locals=> {row_offset: 0, show_counter: true} %>
-      <% end %>
+      <%= render :partial=>'document/grid',:collection=> documents, :as=> :document, :locals=> {row_offset: 0, show_counter: true} %>
     <% end %>
   </div>
 </div>
