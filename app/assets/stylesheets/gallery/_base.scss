@@ -137,6 +137,9 @@
 }
 #sidebar {
 	clear: both;
+	.panel {
+		background-color: $color_primary_background;
+	}
 	.panel-default {
 		border-color: $color_outline_secondary;
 		border-style: solid;

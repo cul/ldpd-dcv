@@ -26,6 +26,10 @@
             <%= link_to("Browse the collection »", search_action_url) %>
           </p>
       </div>
+      <%- if @page.show_facets -%>
+        <%- @response ||= controller.load_facet_response -%>
+        <%= render partial: 'facets', locals: {hide_refine_heading: true, no_id_attr: true} %>
+      <%- end -%>
   </div>
 
   <div id="content" class="col-md-9">
