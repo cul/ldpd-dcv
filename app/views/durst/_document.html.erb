@@ -39,23 +39,6 @@
 			<%= render_url_and_catalog_links(document, false) %>
 			<%= render :partial => 'shared/schema_org_document_metadata', :locals => {:document => document } %>
 
-			<% snippet = '' %>
-			<% if document.solr_response['highlighting'].present? && document.solr_response['highlighting'][document['id']].present? %>
-				<%
-					document.solr_response['highlighting'][document['id']].each do |key, arr_value|
-						if snippet.present?
-							snippet += '&hellip;'
-						end
-						snippet += arr_value.join('&hellip;') if arr_value.present?
-					end
-				%>
-			<% end %>
-			<% if snippet.present? %>
-				<div class="fulltext-snippet">
-					&hellip;<%= snippet.gsub(/^(&nbsp;|\s)+/, '').gsub(/(&nbsp;|\s)+$/, '').html_safe %>&hellip;
-				</div>
-			<% end %>
-
 		</div>
 		<div class="clearfix"></div>
   </div>
