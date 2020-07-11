@@ -1360,3 +1360,6 @@ DD .collapse.in {
 [aria-expanded="true"] > .collapsed {
   display: none;
 }
+
+@import '../shared/search-modes';
+@include searchModes();
