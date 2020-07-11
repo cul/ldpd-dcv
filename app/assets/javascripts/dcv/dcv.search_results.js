@@ -77,13 +77,13 @@ $(document).ready(function(){
 		if (searchConfig.availableSearchModes.length < 2) {
 			//If there are fewer than 2 search modes, hide all search mode buttons (because there are no choices for the user to make)
 			$('.result-type-button').hide();
-		}
-
-		var currentSearchMode = DCV.SearchResults.getCurrentSearchMode();
-		if (currentSearchMode == null) {
-			DCV.SearchResults.setSearchMode(searchConfig.defaultSearchMode);
 		} else {
-			DCV.SearchResults.setSearchMode(currentSearchMode);
+			var currentSearchMode = DCV.SearchResults.getCurrentSearchMode();
+			if (currentSearchMode == null) {
+				DCV.SearchResults.setSearchMode(searchConfig.defaultSearchMode);
+			} else {
+				DCV.SearchResults.setSearchMode(currentSearchMode);
+			}
 		}
 
 		var currentSearchDateGraphVisiblity = readCookie(DCV.subsite_layout + '_' + DCV.SearchResults.CookieNames.searchDateGraphVisiblity);
@@ -125,12 +125,7 @@ DCV.SearchResults.setSearchMode = function(searchMode) {
 	} else if (searchMode == DCV.SearchResults.SearchMode.LIST) {
 		$('#content .document').addClass('col-sm-12').addClass('list-view').removeClass('col-sm-3');
 		$('#content .document').find('h3').removeClass('ellipsis');
-		if(DCV.subsite_layout == 'ifp') {
-			//IFP uses smaller thumbnails
-			$('#content .document .thumbnail').addClass('col-sm-1');
-		} else {
-			$('#content .document .thumbnail').addClass('col-sm-2');
-		}
+		$('#content .document .thumbnail').addClass('col-sm-2');
 		$('#content .index-show-list-fields').removeClass('hidden');
 		$('#content .index-show-tombstone-fields').addClass('hidden');
 		$('#list-mode').addClass('btn-success');
