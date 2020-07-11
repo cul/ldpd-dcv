@@ -1,0 +1,37 @@
+// import the bootstrap grid mixins, but not the core styles
+
+$enable-flex:               true;
+$enable-grid-classes:       true;
+
+@import 'bootstrap/_variables.scss';
+@import 'bootstrap/_mixins.scss';
+@import 'bootstrap/_normalize.scss';
+@import 'bootstrap/_grid.scss';
+
+@mixin	searchModes($gridDocCols: 3, $listThumbCols: 2) {
+	#content {
+		.document {
+			&.list-view {
+				@include make-sm-column(12);
+				.index-show-tombstone-fields {
+					display: none !important;
+				}
+				.thumbnail {
+					@include make-sm-column($listThumbCols); // ifp is 1
+				}
+			}
+			&.grid-view {
+				@include make-sm-column($gridDocCols); // durst is 2
+				.index_title {
+					display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+				}
+				.index-show-list-fields {
+					display: none !important;
+				}
+				.thumbnail {
+					// relies on container
+				}
+			}
+		}
+	}
+}

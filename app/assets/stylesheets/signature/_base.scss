@@ -285,6 +285,7 @@ a {
 	background-color: $color_primary_background;
 	.inner {
 		padding: 1em;
+		border: 1px solid $color_outline;
 		&.home {
 			padding: 0;
 			border: 0;
@@ -616,3 +617,6 @@ footer.container {
 #search-results .index_title small {
 	font-size: .8em;
 }
+
+@import '../shared/search-modes';
+@include searchModes();

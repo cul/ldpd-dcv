@@ -109,25 +109,11 @@ DCV.SearchResults.setSearchMode = function(searchMode) {
 	$('.result-type-button').removeClass('btn-success').addClass('btn-default');
 
 	if (searchMode == DCV.SearchResults.SearchMode.GRID) {
-		$('#content .document').removeClass('col-sm-12').removeClass('list-view');
-		if(DCV.subsite_layout == 'durst') {
-			//Durst uses smaller thumbnails
-			$('#content .document').addClass('col-sm-2');
-		} else {
-			$('#content .document').addClass('col-sm-3');
-		}
-		$('#content .document').find('h3').addClass('ellipsis');
-		$('#content .document .thumbnail').removeClass('col-sm-2').removeClass('col-sm-1');
-		$('#content .index-show-list-fields').addClass('hidden');
-		$('#content .index-show-tombstone-fields').removeClass('hidden');
+		$('#content .document').removeClass('list-view').addClass('grid-view');
 		$('#grid-mode').addClass('btn-success');
 		createCookie(DCV.subsite_layout + '_' + DCV.SearchResults.CookieNames.searchMode, searchMode);
 	} else if (searchMode == DCV.SearchResults.SearchMode.LIST) {
-		$('#content .document').addClass('col-sm-12').addClass('list-view').removeClass('col-sm-3');
-		$('#content .document').find('h3').removeClass('ellipsis');
-		$('#content .document .thumbnail').addClass('col-sm-2');
-		$('#content .index-show-list-fields').removeClass('hidden');
-		$('#content .index-show-tombstone-fields').addClass('hidden');
+		$('#content .document').removeClass('grid-view').addClass('list-view');
 		$('#list-mode').addClass('btn-success');
 		createCookie(DCV.subsite_layout + '_' + DCV.SearchResults.CookieNames.searchMode, searchMode);
 	} else if (searchMode == DCV.SearchResults.SearchMode.EXTENDED) {

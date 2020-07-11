@@ -9,3 +9,6 @@ body.lindquist {
   background-position: center top;
   background-size: cover;
 }
+
+@import '../shared/search-modes';
+@include searchModes();

@@ -2,7 +2,7 @@
   <div class="row">
     <%- @items_per_row_counter = 1 -%>
     <%- @do_not_link_to_search = true -%>
-    <%= render :partial=>'document/grid',:collection=> controller.featured_items, :as=> :document, :locals=> {row_offset: 0, start: 0, show_counter: false } %>
+    <%= render :partial=>'document',:collection=> controller.featured_items, :as=> :document, :locals=> {row_offset: 0, start: 0, show_counter: false, search_view: 'grid-view' } %>
   </div>
 </div>
 

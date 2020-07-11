@@ -740,3 +740,6 @@ footer.container {
   background-color: $color_10;
   border-color: $color_15;
 }
+
+@import '../shared/search-modes';
+@include searchModes();

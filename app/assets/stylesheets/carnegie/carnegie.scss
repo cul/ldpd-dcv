@@ -591,26 +591,23 @@ a {
 				margin-bottom: 1.5em;
 				line-height: 1em;
 				.index_title {
-					//@include multiLineEllipsis($lineHeight: 1.3em, $lineCount: 2, $bgColor: white);
-					&.ellipsis { // override the ellipsis class added by javascript :(
-						position: relative;
-						display: inline-block;
-						display: -webkit-box;
-						overflow: hidden;
-						text-overflow: ellipsis;
-						white-space: inherit;
-						line-height: 1.3em;
-						max-height: 2.65em;
-						&:after {
-						  content: "";
-						  text-align: right;
-						  position: absolute;
-						  bottom: 0;
-						  right: 0;
-						  width: 60%;
-						  height: 1.3em;
-						  background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1) 50%);
-						}
+					position: relative;
+					display: inline-block;
+					display: -webkit-box;
+					overflow: hidden;
+					text-overflow: ellipsis;
+					white-space: inherit;
+					line-height: 1.3em;
+					max-height: 2.65em;
+					&:after {
+					  content: "";
+					  text-align: right;
+					  position: absolute;
+					  bottom: 0;
+					  right: 0;
+					  width: 60%;
+					  height: 1.3em;
+					  background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1) 50%);
 					}
 					@supports (-webkit-line-clamp: 2) {
 							overflow: hidden;
@@ -917,3 +914,6 @@ footer.container {
   background-color: $color_10;
   border-color: $color_15;
 }
+
+@import '../shared/search-modes';
+@include searchModes();

@@ -662,3 +662,6 @@ footer.container {
 #ajax-modal .modal-content {
     background-color: $color_1;
 }
+
+@import '../shared/search-modes';
+@include searchModes();

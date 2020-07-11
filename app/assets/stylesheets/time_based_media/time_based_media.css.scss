@@ -1232,3 +1232,6 @@ h2[itemprop="name"] {
   cursor: -moz-grabbing;
   cursor: -webkit-grabbing;
 }
+
+@import '../shared/search-modes';
+@include searchModes();

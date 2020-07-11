@@ -1,17 +1,18 @@
 <%- start ||= @response.params[:start].to_i -%>
 <% counter_in_results = document_counter + row_offset + 1 + start -%>
-<div class="col-sm-3 document <%= render_document_class document %>" itemscope itemtype="<%= document.itemtype %>">
+<% search_view ||= 'grid-view' -%>
+<div class="document <%= search_view %> <%= render_document_class document %>" itemscope itemtype="<%= document.itemtype %>">
   <div class="tombstone <%= (document.site_result? ? 'site-result' : '') %>" data-number-of-members=<%= document[:cul_number_of_members_isi] || -1 %>>
 		<% thumbnail_img_tag = render_thumbnail_tag(document, { class: 'img-square', itemprop: 'thumbnailUrl', alt: short_title(document) }, { suppress_link: true }) %>
 		<%= link_to(thumbnail_img_tag, url_for_document(document), document_link_params(document, counter: (@do_not_link_to_search ? nil : counter_in_results), class: 'thumbnail')) %>
 		<div class="index-show-tombstone-fields">
-			<h3 class="index_title ellipsis"><%= t('blacklight.search.documents.counter', :counter => counter_in_results) if show_counter %>
+			<h3 class="index_title"><%= t('blacklight.search.documents.counter', :counter => counter_in_results) if show_counter %>
 				<%= link_to_document(document, :counter => (@do_not_link_to_search ? nil : counter_in_results)) %>
 			</h3>
 			<%= '<div class="ellipsis">'.html_safe + document['lib_name_ssm'][0] + '</div>'.html_safe if document['lib_name_ssm'].present? %>
 		</div>
-		<div class="col-sm-9 index_title index-show-list-fields hidden">
-			<h3 class="index_title ellipsis"><%= t('blacklight.search.documents.counter', :counter => counter_in_results) if show_counter %><%= link_to_document(document, :counter => counter_in_results) %> <%= '<small>&bull; '.html_safe + byte_size_to_text_string(document['extent_ssim'].first.to_i) + '</small>'.html_safe if document['extent_ssim'].present? %></h3>
+		<div class="index_title index-show-list-fields">
+			<h3 class="index_title"><%= t('blacklight.search.documents.counter', :counter => counter_in_results) if show_counter %><%= link_to_document(document, :counter => counter_in_results) %> <%= '<small>&bull; '.html_safe + byte_size_to_text_string(document['extent_ssim'].first.to_i) + '</small>'.html_safe if document['extent_ssim'].present? %></h3>
 			<%= render partial: 'index_default', locals: {document: document} %>
 			<%= render partial: 'shared/schema_org_document_metadata', locals: {document: document } %>
 

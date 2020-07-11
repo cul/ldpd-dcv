@@ -361,3 +361,6 @@
 			}
 	}
 }
+
+@import '../shared/search-modes';
+@include searchModes();
