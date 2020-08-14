@@ -13,7 +13,7 @@ gem 'active-fedora', '>= 7.3.1'
 gem 'rubydora', :git => 'https://github.com/elohanlon/rubydora', branch: 'datastream_dissemination_with_headers'
 
 # Columbia Hydra models
-gem 'cul_hydra', '~> 1.9.4'
+gem 'cul_hydra', '~> 1.9.5'
 gem 'cancancan', '~>1.12.0'
 gem 'cul_omniauth', '~>0.5.5'
 #gem 'cul_omniauth', git: 'https://github.com/cul/cul_omniauth', branch: '0.5.x'
