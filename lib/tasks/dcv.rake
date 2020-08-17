@@ -70,6 +70,36 @@ namespace :dcv do
         puts "Queued #{current} of #{len}"
       end
     end
+    task :all => :environment do
+      require 'date'
+      before = ENV['before'] ? DateTime.parse(ENV['before']) : DateTime.now
+      before_filter = before.strftime('%Y-%m-%dT%T.%LZ')
+      Blacklight.default_index.tap do |index|
+        rsolr = index.connection
+        solr_params = {
+          qt: 'search',
+          rows: 1000,
+          fl: 'id',
+          fq: ["timestamp:[* TO #{before_filter}]","active_fedora_model_ssi:ContentAggregator"],
+          facet: false,
+          sort: "timestamp ASC",
+          start: 0
+        }
+        res = rsolr.send_and_receive('select', params: solr_params.to_hash, method: :get)
+        solr_response = Blacklight::Solr::Response.new(res, solr_params, solr_document_model: SolrDocument)
+        id_log = "tmp/index_all-#{before.strftime('%Y%m%dT%H%M')}.list"
+        open(File.join(Rails.root, id_log), 'w') do |io|
+          until solr_response['response']['numFound'] <= (solr_params[:start] + solr_response['response']['docs'].length)
+            docs = solr_response['response']['docs']
+            # log these ids
+            io << docs.map { |doc| doc['id'] }.join("\n")
+            solr_params[:start] += docs.length
+            res = rsolr.send_and_receive('select', params: solr_params.to_hash, method: :get)
+            solr_response = Blacklight::Solr::Response.new(res, solr_params, solr_document_model: SolrDocument)
+          end
+        end
+      end
+    end
   end
 
   namespace :util do
