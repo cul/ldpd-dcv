@@ -10,9 +10,11 @@
     :onclick => 'return DCV.ModsDownloadModal.show($(this).attr("data-display-url"), $(this).attr("data-download-url"));'
   }
   %>
-  <% if local_downloads || archive_org_id_for_document(document) -%>
+  <% if has_viewable_children? || archive_org_id_for_document(document) -%>
   <a id="child-zoom-modal-button" class="btn btn-default item-cbox" data-original-title="<%= document_show_html_title %>" data-toggle="tooltip" title="Zoom in" href="#"><i class="glyphicon glyphicon-zoom-in"></i></a>
   <a id="child-zoom-new-window-button" class="btn btn-default" href="#" data-original-title="<%= document_show_html_title %>" data-toggle="tooltip" title="Open in new window"><i class="glyphicon glyphicon-new-window"></i></a>
+  <% end -%>
+  <% if local_downloads || archive_org_id_for_document(document) -%>
   <div id="download-button-group" class="btn-group btn-group-xs pull-right">
     <button id="download-button" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" data-tt="tooltip" title="Download">
       <i class="glyphicon glyphicon-download-alt"></i> <span class="caret"></span>
