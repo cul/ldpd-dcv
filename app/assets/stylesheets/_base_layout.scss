@@ -1,3 +1,6 @@
+// bs4 compat
+@import './_bs4_compat.css.scss';
+
 //fonts
 $font_glyphs: Glyphicons Halflings;
 
@@ -119,9 +122,10 @@ input {
 		padding-right: 10px;
 		height: 38px;
 		background: $color_primary_background;
+		min-height: 44px;
 		#crowndown-nosearch {
 			height: 39px;
-			margin-lef: -10px;
+			//margin-lef: -10px;
 			padding-left: 0;
 			margin-top: -1px;
 			background: $color_primary_background;
@@ -237,6 +241,15 @@ input {
 			}
 		}
 	}
+	#q-filter {
+		display: table-cell;
+		border: 1px solid $color_user_input;
+		border-width: 1px 0 1px 1px;
+		.search_field {
+			padding: 0 .5em;
+			-webkit-appearance:none;
+		}
+	}
 	#q {
 		background-color: gradeUiBgColor(25%);
 		color: $color_user_input;
@@ -281,7 +294,7 @@ input {
 	border-bottom: 1px solid $color_outline;
 	.nav > li {
 		> a {
-			font-size:.85em;
+			font-size:.825em;
 			font-family: $font_b;
 			text-transform:uppercase;
 			> .glyphicon {
@@ -289,11 +302,24 @@ input {
 			}
 		}
 	}
+
 	li {
 		border-left: 1px solid lighten($color_outline, 13%);
 		max-height: 22px;
-		&:first-child {
+		&:first-child, .dropdown-menu li {
 			border-left: 0;
+		}
+		.dropdown-menu {
+			background-color: lighten($color_primary_background,10%);
+			border: 1px solid lighten($color_primary_background,25%);
+			border-top-color: transparent;
+			border-radius: 0;
+			box-shadow: 0 6px 12px rgba($color_highlight,0.175);
+			background-clip: padding-box;
+			font-size: .95em;
+			li {
+				margin: 1rem 0;
+			}
 		}
 		a {
 			&:hover {
@@ -307,7 +333,7 @@ input {
 		}
 		li {
 			a:hover {
-				background-color: $color_highlight;
+				color: $color_highlight;
 			}
 		}
 		&.open a.dropdown-toggle {

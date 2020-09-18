@@ -5,6 +5,9 @@ $url_dcv_small: image-url('dcv/1836760843_267e9c947f_o-sm-b.jpg');
 
 #site-banner {
 	// only in root page
+	#site-title {
+		text-align: center;
+	}
 	#site-banner-left {
 		margin-top: 20px;
 		background-color: $color_primary_background;
@@ -31,7 +34,8 @@ $url_dcv_small: image-url('dcv/1836760843_267e9c947f_o-sm-b.jpg');
 			display: inline-block;
 			padding-top: 16px;
 			padding-bottom: 0;
-			font-size: .96em;
+			font-size: .93em;
+			text-align: left;
 		}
 	}
 	#topnavbar .topbarlogo {
@@ -62,7 +66,7 @@ $url_dcv_small: image-url('dcv/1836760843_267e9c947f_o-sm-b.jpg');
 				display: inline-block;
 				padding-top: 12px;
 				padding-bottom: 0;
-				font-size: 1.27em;
+				font-size: 1.25em;
 			}
 		}
 	}
@@ -101,7 +105,7 @@ $url_dcv_small: image-url('dcv/1836760843_267e9c947f_o-sm-b.jpg');
 				display: inline-block;
 				padding-top: 8px;
 				padding-bottom: 0;
-				font-size: 1.58em;
+				font-size: 1.56em;
 			}
 		}
 	}

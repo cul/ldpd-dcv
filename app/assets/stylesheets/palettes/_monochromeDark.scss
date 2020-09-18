@@ -5,8 +5,8 @@ $color_darkgray: #444;
 //colors
 $color_primary: #eee;
 $color_primary_background: $color_black;
-$color_highlight_background: #888;
-$color_highlight: #222;
+$color_highlight_background: $color_primary;
+$color_highlight: #fff;
 $color_outline: #333;
 $color_outline_offset: lighten($color_outline, 7%);
 $color_outline_secondary: #444;

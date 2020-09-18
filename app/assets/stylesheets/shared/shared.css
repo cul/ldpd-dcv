@@ -13,3 +13,7 @@
 body.empty {
   padding:10px;
 }
+
+#q-filter {
+  display: none;
+}
