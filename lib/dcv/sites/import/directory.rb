@@ -30,7 +30,10 @@ module Dcv::Sites::Import
 			site.publisher_uri = atts['publisher_uri']
 			site.restricted = atts['restricted'] || (atts['slug'] =~ /restricted/)
 			site.nav_links.delete_all
-			site.site_pages.delete_all
+			site.site_pages.each do |page|
+				page.site_text_blocks.delete_all
+				page.delete
+			end
 			site.save
 			nav_links = Array(atts.delete('nav_links'))
 			nav_links.each do |link_atts|
