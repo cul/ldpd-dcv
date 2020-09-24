@@ -2,6 +2,7 @@ class SubsitesController < ApplicationController
 
   include Dcv::RestrictableController
   include Dcv::CatalogIncludes
+  include Dcv::MarkdownRendering
   include Cul::Hydra::ApplicationIdBehavior
   include Cul::Omniauth::AuthorizingController
   include Cul::Omniauth::RemoteIpAbility
@@ -10,6 +11,8 @@ class SubsitesController < ApplicationController
   before_filter :store_unless_user, except: [:update, :destroy, :api_info]
   before_filter :authorize_action, only:[:index, :preview, :show]
   before_filter :default_search_mode_cookie, only: :index
+  before_filter :load_subsite, except: [:home, :index, :page]
+  before_filter :load_page, only: [:home, :index, :page]
   protect_from_forgery :except => [:update, :destroy, :api_info] # No CSRF token required for publishing actions
 
 
@@ -29,7 +32,11 @@ class SubsitesController < ApplicationController
 
   def initialize(*args)
     super(*args)
-    self._prefixes.unshift self.subsite_layout # haaaaaaack to not reproduce templates
+    # _prefixes are where view path lookups are attempted; probably unnecessary
+    # but need testing. default blank value should be first, but layout needs to be in front of controller path
+    self._prefixes.unshift "shared"
+    self._prefixes.unshift self.subsite_layout
+    self._prefixes.unshift ""
   end
 
   # overrides the session role key from Cul::Omniauth::RemoteIpAbility
@@ -37,13 +44,13 @@ class SubsitesController < ApplicationController
     @current_ability ||= Ability.new(current_user, roles: session["cul.roles"], remote_ip:request.remote_ip)
   end
 
+  # view paths look up partial templates within _prefixes
+  # paths are relative to Rails.root
+  # prepending because we want to give specialized path priority
   def set_view_path
     self.prepend_view_path('app/views/shared')
-    self.prepend_view_path('app/views/catalog')
     self.prepend_view_path('app/views/' + self.subsite_layout)
-    self.prepend_view_path(self.subsite_layout)
     self.prepend_view_path('app/views/' + controller_path)
-    self.prepend_view_path(controller_path)
   end
 
   # Override to prepend restricted if necessary
@@ -69,12 +76,36 @@ class SubsitesController < ApplicationController
     return self.class.subsite_config
   end
 
+  def load_subsite(*pages)
+    @subsite ||= begin
+      site_slug = controller_path
+      if pages.blank?
+        Site.includes(:nav_links, :site_pages).find_by(slug: site_slug)
+      else
+        Site.includes(:nav_links, site_pages: [:site_text_blocks]).find_by(slug: site_slug, site_pages: { slug: pages })
+      end
+    end
+  end
+
+  def load_page
+    if params[:slug]
+      @page = load_subsite(params[:slug]).site_pages.where(slug: params[:slug]).first
+    else
+      unless has_search_parameters?
+        @page ||= load_subsite('home').site_pages.includes(:site_text_blocks).find_by(slug: 'home')
+      end
+    end
+  end
+
   def default_search_mode
     subsite_config.fetch('default_search_mode',:grid)
   end
 
   def default_search_mode_cookie
-    cookie_name = "#{subsite_layout}_search_mode".to_sym
+    slug = load_subsite&.slug || controller_path
+    cookie_name = "#{slug}_search_mode"
+    cookie_name.gsub!('/','_')
+    cookie_name = cookie_name.to_sym
     cookie = cookies[cookie_name]
     unless cookie
       cookies[cookie_name] = default_search_mode.to_sym
@@ -188,11 +219,12 @@ class SubsitesController < ApplicationController
   end
 
   def subsite_layout
-    subsite_config['layout']
+    load_subsite&.layout || subsite_config['layout']
   end
 
-  def search_result_view_overrides
-    subsite_config['search_result_view_overrides'] || {}
+  def subsite_styles
+    palette = load_subsite&.palette || subsite_config['palette'] || 'monochromeDark'
+    ["#{subsite_layout}-#{palette}", self.controller_name]
   end
 
   def thumb_url(document={})
@@ -213,6 +245,17 @@ class SubsitesController < ApplicationController
     @response, @document = fetch(params[:id], fl:'*')
     return unless authorize_document
     render layout: 'minimal', locals: { document: @document }
+  end
+
+  # TODO: Implement featured_items for full subsites
+  # produce a lazily-loaded list of featured items according to a supplied filter
+  def featured_items(args= {})
+    []
+  end
+
+  # use existing response attribute
+  def load_facet_response
+    @response
   end
 
   private

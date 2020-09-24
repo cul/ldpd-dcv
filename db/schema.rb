@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180507165923) do
+ActiveRecord::Schema.define(version: 20200709155313) do
 
   create_table "bookmarks", force: :cascade do |t|
     t.integer  "user_id",       null: false
@@ -24,6 +24,16 @@ ActiveRecord::Schema.define(version: 20180507165923) do
   end
 
   add_index "bookmarks", ["user_id"], name: "index_bookmarks_on_user_id"
+
+  create_table "nav_links", force: :cascade do |t|
+    t.string   "sort_label"
+    t.string   "sort_group"
+    t.string   "link"
+    t.boolean  "external"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "site_id"
+  end
 
   create_table "nyre_projects", force: :cascade do |t|
     t.string "call_number"
@@ -41,6 +51,43 @@ ActiveRecord::Schema.define(version: 20180507165923) do
   end
 
   add_index "searches", ["user_id"], name: "index_searches_on_user_id"
+
+  create_table "site_pages", force: :cascade do |t|
+    t.string  "slug",                    null: false
+    t.string  "title"
+    t.integer "columns",     default: 1, null: false
+    t.boolean "show_facets"
+    t.integer "site_id"
+  end
+
+  add_index "site_pages", ["site_id", "slug"], name: "index_site_pages_on_site_id_and_slug", unique: true
+
+  create_table "site_text_blocks", force: :cascade do |t|
+    t.string  "sort_label"
+    t.text    "markdown"
+    t.integer "site_page_id"
+  end
+
+  create_table "sites", force: :cascade do |t|
+    t.string   "slug",              null: false
+    t.string   "title"
+    t.string   "persistent_url"
+    t.string   "publisher_uri"
+    t.text     "image_uris"
+    t.string   "repository_id"
+    t.string   "layout"
+    t.string   "palette"
+    t.string   "search_type"
+    t.boolean  "restricted"
+    t.text     "constraints"
+    t.text     "map_search"
+    t.text     "date_search"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "alternative_title"
+  end
+
+  add_index "sites", ["slug"], name: "index_sites_on_slug", unique: true
 
   create_table "users", force: :cascade do |t|
     t.string   "first_name"

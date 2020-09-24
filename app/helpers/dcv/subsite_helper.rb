@@ -11,15 +11,22 @@ module Dcv::SubsiteHelper
     return controller.respond_to?(:subsite_layout) ? controller.subsite_layout : DEFAULT_SUBSITE_LAYOUT
   end
 
-  def search_result_view_override_for_current_project_facet
-    return nil unless controller.respond_to?(:search_result_view_overrides)
-    search_result_view_overrides = controller.search_result_view_overrides
+  def subsite_styles
+    return controller.respond_to?(:subsite_styles) ? controller.subsite_styles : DEFAULT_SUBSITE_LAYOUT
+  end
 
-    current_project_facet_value = params.fetch(:f, {}).fetch('lib_project_short_ssim', []).first
-    if search_result_view_overrides.key?(current_project_facet_value)
-      search_result_view_overrides[current_project_facet_value]
+  def subsite_map_search
+    controller.subsite_config['map_search']
+  end
+
+  def link_to_nav(nav_link)
+    if nav_link.external
+      link_to(nav_link.link, target: "_blank", rel: "noopener noreferrer") do
+        "#{nav_link.label} <sup class=\"glyphicon glyphicon-new-window\" aria-hidden=\"true\"></sup>".html_safe
+      end
     else
-      'none'
+      site_slug = controller.subsite_config[:slug]
+      link_to(nav_link.label, site_page_path(site_slug: site_slug, slug: nav_link.link))
     end
   end
 
@@ -41,6 +48,12 @@ module Dcv::SubsiteHelper
       s_key + ' ' + s_layout
     end
 
+  end
+
+  # if the search action URL has a query string, parse it into params
+  # to allow Blacklight search form to link them as hidden fields
+  def search_action_params
+    Rack::Utils.parse_query URI(search_action_url).query
   end
 
   def subsite_search_mode
@@ -66,4 +79,15 @@ module Dcv::SubsiteHelper
     end
   end
 
+  def search_placeholder_text
+    if query_has_constraints?
+      t(:"dlc.search_placeholder.modified.#{controller.controller_name}", default: :'dlc.search_placeholder.modifed.default').html_safe
+    else
+      if @subsite && @subsite.slug != controller.controller_path
+        t(:"dlc.search_placeholder.new.#{@subsite.slug}", default: :'dlc.search_placeholder.new.subsite', title: @subsite.title).html_safe
+      else
+        t(:"dlc.search_placeholder.new.#{controller.controller_name}", default: :'dlc.search_placeholder.new.default').html_safe
+      end
+    end
+  end
 end

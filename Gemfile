@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-
+gem 'bigdecimal', '~>1.4.4'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.10'
 gem 'actionpack-action_caching'
@@ -112,7 +112,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.4.0'
   gem 'capybara'
   gem 'poltergeist' # For headless-browser JavaScript testing
-  gem 'factory_girl_rails', '>= 4.4.1'
+  gem 'factory_bot_rails'
   gem 'jettywrapper', '>=2.0.5', git: 'https://github.com/samvera-deprecated/jettywrapper.git', branch: 'master'
   gem 'rubocop', '~> 0.53.0', require: false
   gem 'rubocop-rspec', '>= 1.20.1', require: false

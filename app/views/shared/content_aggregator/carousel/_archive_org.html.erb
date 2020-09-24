@@ -1,0 +1,51 @@
+<div id="child-viewer-carousel" class="carousel slide" data-ride="carousel">
+
+  <!-- Wrapper for slides -->
+  <div class="carousel-inner" role="listbox">
+    <% archive_org_identifiers_as_children.each_with_index do |child, ix| %>
+      <% child_title = child[:title].present? ? child[:title].strip : '' %>
+      <% item_in_context_url = nil %>
+      <div class="item <%= ix == 0 ? 'active' : '' %>"
+        data-child-number="<%= ix %>"
+        data-child-title="<%= child_title == parent_title || child_title.blank? ? '&nbsp'.html_safe : h(child_title) %>"
+        data-has-details="<%= ['StillImage','Text'].include? child[:dc_type] %>"
+        data-has-iiif="<%= child[:dc_type] == 'StillImage' %>"
+        data-zoom-url="<%= zoom_url_for_doc(child, {}, layout:(request.path.split('/')[1]), initial_page: ix) %>"
+        data-iiif-info-url="<%= "https://iiif.archivelab.org/iiif/#{child[:id]}/manifest.json" %>"
+        data-object-in-context-url="<%= h(item_in_context_url) %>"
+        data-download-content-url="<%= get_archive_org_download_url(child) %>"
+        >
+        <div class="child-content">
+          <% dc_type_string = child[:dc_type].present? ? child[:dc_type].underscore.gsub(/\s+/, '_') : '' %>
+          <% if ['sound', 'moving_image', 'software'].include?(dc_type_string) %>
+            <%= render partial: "shared/content_aggregator/child_viewer/#{dc_type_string}", locals: { child: child } %>
+          <% else %>
+            <% # Render image (or placeholder) %>
+            <img class="<%= ['StillImage','Text'].include?(child[:dc_type]) ? 'zoomable' : '' %>" src="<%= poster_url(child, {}) %>" />
+          <% end %>
+        </div>
+        <%= render partial: 'content_aggregator/disclaimer', locals: { document: document, asset: child.with_indifferent_access } %>
+      </div>
+    <% end %>
+  </div>
+
+  <!-- Controls -->
+  <a class="left carousel-control" href="#child-viewer-carousel" role="button" data-slide="prev">
+    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="right carousel-control" href="#child-viewer-carousel" role="button" data-slide="next">
+    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+
+<p class="aligncenter"> <a id="child-viewer-object-in-context" target="_blank">&nbsp;</a></p>
+
+<%- use_unavailable_image_placeholder = false %>
+<% unless defined?(use_unavailable_image_placeholder) && use_unavailable_image_placeholder == false %>
+  <div>
+    <img id="image-unavailable-img" class="img-responsive" src="<%= get_asset_url(id: 'placeholder:unavailable', size: 256, type: 'full', format: 'jpg') %>" />
+  </div>
+<% end %>
+<%= render partial: 'galleries/archive_org', locals: { document: document } %>

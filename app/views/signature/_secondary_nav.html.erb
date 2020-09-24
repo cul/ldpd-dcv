@@ -1,0 +1,36 @@
+<div id="secondary-nav" class="">
+	<div class="subnav">
+		<div class="row">
+			<div class="col-sm-12">
+			<ul class="nav nav-pills pull-left">
+				<%- @subsite.grouped_links.each do |nav_menu| -%>
+					<%- if nav_menu.length > 1 -%>
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown"><%=nav_menu.label %> <b class="caret"></b></a>
+							<ul class="dropdown-menu list-unstyled dropdown-menu-left">
+								<%- nav_menu.links.each do |nav_link| -%>
+									<li><%= link_to_nav(nav_link) %></li>
+								<%- end -%>
+							</ul>
+						</li>
+					<%- else -%>
+						<li><%= link_to_nav(nav_menu.links[-1]) %></li>
+					<%- end -%>
+				<%- end -%>
+				<%- if @subsite.persistent_url -%>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Bookmark as <b class="caret"></b></a>
+						<ul class="dropdown-menu list-unstyled dropdown-menu-left">
+							<li><a href="<%= @subsite.persistent_url %>">Permanent URL</a></li>
+						</ul>
+				<%- end -%>
+			</ul>
+			<%- if subsite_map_search.present? -%>
+				<ul class="nav nav-pills pull-right">
+					<li class="inline"><a style="margin-top:-5px;" href="<%= '/' + @subsite.slug + '/map_search' %>"><span class="glyphicon glyphicon-map-marker"></span> Map<span class="hidden-xs"> All Items</span></a></li>
+				</ul>
+			<%- end -%>
+			</div><!--/-->
+		</div><!--/row-->
+	</div><!--/subnav-->
+</div>

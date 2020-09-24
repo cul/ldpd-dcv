@@ -44,11 +44,11 @@ class SearchBuilder < Blacklight::SearchBuilder
     blacklight_config.facet_fields.each {|field_name, facet_field|
       # Only apply this to multiselect fields (as configured in the blacklight config)
       if facet_field[:multiselect]
-        if solr_params[:f] && solr_params[:f][field_name]
+        if blacklight_params[:f] && blacklight_params[:f][field_name]
           values = []
           # Delete individual fq entries for EACH facet value
-          solr_params[:f][field_name].each {|value|
-            solr_params[:fq].delete_if{|key,value| key.start_with?('{!raw f=' + field_name + '}')}
+          blacklight_params[:f][field_name].each {|value|
+            solr_params[:fq].delete_if{|key,value| key.start_with?('{!term f=' + field_name + '}')}
             values << value
           }
           # And combine all of this facet's fq values into a single OR fq

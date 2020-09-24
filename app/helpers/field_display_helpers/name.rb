@@ -13,9 +13,14 @@ module FieldDisplayHelpers::Name
       v.each { |name| names[name] << role.capitalize if role && names[name] }
     end
     field = args[:field]
-    field_config = (controller.action_name.to_sym == :index) ?
-      blacklight_config.index_fields[args[:field]] :
-      blacklight_config.show_fields[args[:field]]
+    case controller.action_name.to_sym
+    when :index
+      field_config = blacklight_config.index_fields[args[:field]]
+    when :home
+      field_config = blacklight_config.index_fields[args[:field]]
+    else
+      field_config = blacklight_config.show_fields[args[:field]]
+    end
     names.map do |name, roles|
       value = (!args[:suppress_links] && field_config.link_to_search) ?
         link_to(name, controller.url_for(action: :index, f: { field_config.link_to_search => [name] })) :

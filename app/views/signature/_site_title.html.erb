@@ -1,0 +1,6 @@
+<%= link_to @subsite.title.html_safe,
+"/#{@subsite.slug}", { :id => 'site-title' } %>
+<h1 class="sr-only">@subsite.title.html_safe</h1>
+<%- if @subsite.alternative_title.present? || @subsite.repository_id.present? -%>
+<h2 id="site-banner-subtitle" class="h3"><%= @subsite.alternative_title.present? ? @subsite.alternative_title : t("cul.archives.physical_location.#{@subsite.repository_id}") %></h2>
+<%- end -%>

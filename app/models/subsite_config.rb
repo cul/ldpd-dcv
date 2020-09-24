@@ -13,9 +13,16 @@ class SubsiteConfig
     subsite_config = {'nested' => SUBSITES[(restricted ? 'restricted' : 'public')]}
     subsite_path = controller_path.split('/')
     subsite_path.shift if restricted
+    return {} unless subsite_path.present?
+    subsite_slug = subsite_path.join('/')
     until subsite_path.empty?
       subsite_config = subsite_config.fetch('nested',{}).fetch(subsite_path.shift,{})
     end
+    if subsite_config.empty?
+      return subsite_config
+    end
+    subsite_config['slug'] = subsite_slug
+    subsite_config['restricted'] = restricted
     subsite_config.with_indifferent_access
   end
 

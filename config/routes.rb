@@ -1,7 +1,7 @@
 require 'resque/server'
 
 Dcv::Application.routes.draw do
-  root :to => "sites#index"
+  root :to => "catalog#home"
 
   devise_for :users, skip: [:sessions], controllers: {
     omniauth_callbacks: "users/omniauth_callbacks",
@@ -52,33 +52,15 @@ Dcv::Application.routes.draw do
   get 'ifp/about/about_the_ifp' => 'ifp#about_the_ifp', as: :ifp_about_the_ifp
   get 'ifp/about/about_the_collection' => 'ifp#about_the_collection', as: :ifp_the_collection
 
-  # Jay subsite routes
-  get 'jay/about' => 'jay#about', as: :jay_about
-  get 'jay/collection' => 'jay#collection', as: :jay_collection
-  get 'jay/bibliography' => 'jay#bibliography', as: :jay_bibliography
-  get 'jay/participating_institutions' => 'jay#participating_institutions', as: :jay_participating_institutions
-  get 'jay/biography' => 'jay#biography', as: :jay_biography
-  get 'jay/jay_constitution' => 'jay#jay_constitution', as: :jay_jay_constitution
-  get 'jay/jayandny' => 'jay#jayandny', as: :jay_jayandny
-  get 'jay/jaytreaty' => 'jay#jaytreaty', as: :jay_jaytreaty
-  get 'jay/jayandfrance' => 'jay#jayandfrance', as: :jay_jayandfrance
-  get 'jay/jayandslavery' => 'jay#jayandslavery', as: :jay_jayandslavery
-
   # LCAAJ subsite routes
   get 'lcaaj/about' => 'lcaaj#about', as: :lcaaj_about
   get 'lcaaj/map_search' => 'lcaaj#map_search', as: :lcaaj_map_search
-
-  # Lehman subsite routes
-  get 'lehman/about' => 'lehman#about', as: :lehman_about
-  get 'lehman/faq' => 'lehman#faq', as: :lehman_faq
 
   # NYRE subsite routes
   get 'nyre/about' => 'nyre#about', as: :nyre_about
   get 'nyre/about-collection' => 'nyre#aboutcollection', as: :nyre_aboutcollection
   get 'nyre/map_search' => 'nyre#map_search', as: :nyre_map_search
   get 'nyre/projects/:id' => 'nyre/projects#show', as: :nyre_project, constraints: { id: /(\d+)|([A-Z]{2,3}\.\d{3,4}\.[A-Z]+)/ }
-
-  resources 'sites', only: [:index, :show], param: :slug
 
   # Blacklight routing concerns
   concern :searchable, Blacklight::Routes::Searchable.new
@@ -132,7 +114,8 @@ Dcv::Application.routes.draw do
       all_concerns = [:searchable] + subsite_concerns
       concerns *all_concerns
     end
-    get "#{subsite_key}/:id" => "#{subsite_key}#show", as: "#{subsite_key}_show" 
+    get "#{subsite_key}/:id" => "#{subsite_key}#show", as: "#{subsite_key}_show", constraints: { id: /(cul|ldpd):[^\/]*/ }
+    get "#{subsite_key}/:slug" => "#{subsite_key}#page", as: "#{subsite_key}_page"
   end
 
   get '/restricted' => 'home#restricted', as: :restricted
@@ -140,7 +123,6 @@ Dcv::Application.routes.draw do
 
   if SUBSITES['restricted'].present?
     namespace "restricted" do
-      resources 'sites', only: [:index, :show], param: :slug
       subsite_keys = (SUBSITES['restricted'].keys - ['uri']).map(&:to_sym)
       subsite_keys.each do |subsite_key|
         resource subsite_key, only: [:show], controller: subsite_key do
@@ -150,6 +132,24 @@ Dcv::Application.routes.draw do
         end
         get "#{subsite_key}/:id" => "#{subsite_key}#show", as: "#{subsite_key}_show" 
       end
+      get "sites" => "sites#index"
+      get '/:slug', controller: 'sites', action: 'home', as: 'site'
+      resources 'sites', only: [], param: :slug, path: '' do
+        scope module: :sites do
+          resources 'pages', only: [:show], param: :slug, path: ''
+        end
+      end
+      get "sites/:slug", to: redirect("/%{slug}")
+    end
+  end
+
+# Sites routes, placed after explicit subsite routing in priority
+  get "sites" => "sites#index"
+  get "sites/:slug", to: redirect("/%{slug}")
+  get '/:slug', controller: 'sites', action: 'home', as: 'site'
+  resources 'sites', only: [], param: :slug, path: '' do
+    scope module: :sites do
+      resources 'pages', only: [:show], param: :slug, path: ''
     end
   end
 

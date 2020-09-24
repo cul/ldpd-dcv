@@ -27,6 +27,10 @@ class LcaajController < SubsitesController
   def about
   end
 
+  def subsite_layout
+    'lcaaj'
+  end
+
   private
   # CSV download  overrides
 

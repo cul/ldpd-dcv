@@ -1,7 +1,9 @@
 require 'rails_helper'
 
 describe SitesController, type: :feature do
-  describe "show" do
+  # the relevant fixtures are loaded into the repository and seeded into the Site
+  # database tables by CI tasks
+  describe "home" do
     before do
       visit site_url('internal_site')
     end

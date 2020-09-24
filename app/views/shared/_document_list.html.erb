@@ -1,0 +1,15 @@
+<% # container for all documents in index view -%>
+
+<% if controller.subsite_config['date_search'].present? && controller.subsite_config['date_search'].fetch('timeline', false) %>
+  <div id="search-results-date-graph" class="search-result-display hidden">
+    <%= render 'date_range_selector' %>
+  </div>
+<% end %>
+
+<div id="search-results">
+  <div class="row">
+    <% @items_per_row_counter = 1 %>
+    <% search_view = (subsite_search_mode == :list) ? 'list-view' : 'grid-view' %>
+    <%= render :partial=>'document',:collection=> documents, :as=> :document, :locals=> {row_offset: 0, show_counter: true, search_view: search_view} %>
+  </div>
+</div>

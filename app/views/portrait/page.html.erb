@@ -1,0 +1,31 @@
+<div id="content" class="row">
+	<h2 class="nomar-t"><%= @page.title %></h2>
+
+	<%- if @page.has_columns? -%>
+		<%- @page.text_block_columns.each_with_index do |column, index| -%>
+			<div class="col-md-6 col-md-pull-6">
+				<div class="home inner">
+					<%- column.each do |text_block| -%>
+						<%- if text_block.label.present? -%>
+							<h3 class="h5 text-uppercase"><%= text_block.label %></h3>
+						<%- end -%>
+						<%= controller.render_markdown(text_block.markdown) %>
+						<hr class="visible-sm">
+					<%- end -%>
+				</div>
+			</div>
+		<%- end -%>
+	<%- else -%>
+		<div class="col-md-12">
+			<div class="home inner">
+				<%- @page.site_text_blocks.sort { |a,b| a.sort_label <=> b.sort_label }.each do |text_block| -%>
+					<%- if text_block.label.present? -%>
+						<h3 class="h5 text-uppercase"><%= text_block.label %></h3>
+					<%- end -%>
+					<%= controller.render_markdown(text_block.markdown) %>
+					<hr class="visible-sm">
+				<%- end -%>
+			</div>
+		</div>
+	<%- end -%>
+</div>

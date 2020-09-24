@@ -1,0 +1,91 @@
+@import '../palettes/base';
+@import '../palettes/monochromeDark';
+
+#digital_projects {
+	h3 {
+		font-size: 1.1em;
+		margin-top: 0;
+	}
+	.project-image-link {
+		display: block;
+		margin-bottom:.5em;
+	}
+}
+
+
+#content {
+	#digital_projects {
+		h3 {
+			margin-top: 1em;
+		}
+		.col-sm-2 {
+			height: auto;
+			.thumbnail {
+				height: auto;
+				width: 100%;
+			}
+		}
+	}
+}
+
+@media(min-width: 768px) {
+	#content #digital_projects h3 {
+		margin-top: auto;
+	}
+}
+
+// only in projects_and_exhibitions partials
+.btn-dark {
+	color: $color_primary;
+	background-color: $color_primary_background;
+	border-color: $color_ui_outline;
+	&:hover {
+		background-color:$color_ui_outline;
+	}
+}
+
+#home-page-content {
+	.inner {
+		hr {
+			border-color:#666;
+			border-style:dotted;
+		}
+	}
+	#home-page-tabs {
+			.nav-tabs {
+				font-size: .815em;
+				text-transform: uppercase;
+				.active {
+					a {
+						color:$color_primary;
+					}
+				}
+			}
+			.non-tab {
+				> a {
+					text-transform:none;
+					border:0;
+				}
+			}
+			h3 {
+				margin-top:.5em;
+				font-size:1em;
+				font-weight:normal;
+				line-height:1.4;
+				a {
+					&:hover {
+						color:lighten($color_outline_secondary, 20%);
+						text-decoration:none;
+					}
+				}
+			}
+			.proj-nav {
+				.btn {
+				}
+			}
+			.small {
+				color:inherit;
+			}
+	}
+}
+

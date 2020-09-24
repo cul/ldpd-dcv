@@ -51,7 +51,7 @@
                 <div class="col-sm-3">
                     <div class="row" itemscope itemtype="http://schema.org/CreativeWork">
                         <div class="col-sm-12">
-                            <% dcv_search_link = digital_project[:facet_value].present? ? search_catalog_path(:f => {'lib_project_short_ssim' => [digital_project[:facet_value]]}) : nil %>
+                            <% dcv_search_link = digital_project[:facet_value].present? ? search_catalog_path(:f => {digital_project[:facet_field] => [digital_project[:facet_value]]}) : nil %>
                             <%= image_tag(digital_project[:image], :class => 'thumbnail img-responsive', :itemprop => 'image', :style => 'margin-bottom:.5em;', alt: digital_project[:name]) %>
                             <div>
                                 <div class=" proj-jav btn-group btn-group-justified" role="group">

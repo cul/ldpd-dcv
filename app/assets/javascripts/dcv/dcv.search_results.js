@@ -57,12 +57,6 @@ $(document).ready(function(){
 		DCV.SearchResults.setSearchMode(DCV.SearchResults.SearchMode.EXTENDED);
 	});
 
-	if(DCV.search_result_view_override == 'list') {
-		DCV.SearchResults.setSearchMode(DCV.SearchResults.SearchMode.LIST);
-	} else if(DCV.search_result_view_override == 'grid') {
-		DCV.SearchResults.setSearchMode(DCV.SearchResults.SearchMode.GRID);
-	}
-
 	$('#return-to-results').on('click', function() {
 		DCV.SearchResults.setSearchMode(DCV.SearchResults.getCurrentSearchMode());
 	});
@@ -83,13 +77,13 @@ $(document).ready(function(){
 		if (searchConfig.availableSearchModes.length < 2) {
 			//If there are fewer than 2 search modes, hide all search mode buttons (because there are no choices for the user to make)
 			$('.result-type-button').hide();
-		}
-
-		var currentSearchMode = DCV.SearchResults.getCurrentSearchMode();
-		if (currentSearchMode == null) {
-			DCV.SearchResults.setSearchMode(searchConfig.defaultSearchMode);
 		} else {
-			DCV.SearchResults.setSearchMode(currentSearchMode);
+			var currentSearchMode = DCV.SearchResults.getCurrentSearchMode();
+			if (currentSearchMode == null) {
+				DCV.SearchResults.setSearchMode(searchConfig.defaultSearchMode);
+			} else {
+				DCV.SearchResults.setSearchMode(currentSearchMode);
+			}
 		}
 
 		var currentSearchDateGraphVisiblity = readCookie(DCV.subsite_layout + '_' + DCV.SearchResults.CookieNames.searchDateGraphVisiblity);
@@ -115,30 +109,11 @@ DCV.SearchResults.setSearchMode = function(searchMode) {
 	$('.result-type-button').removeClass('btn-success').addClass('btn-default');
 
 	if (searchMode == DCV.SearchResults.SearchMode.GRID) {
-		$('#content .document').removeClass('col-sm-12').removeClass('list-view');
-		if(DCV.subsite_layout == 'durst') {
-			//Durst uses smaller thumbnails
-			$('#content .document').addClass('col-sm-2');
-		} else {
-			$('#content .document').addClass('col-sm-3');
-		}
-		$('#content .document').find('h3').addClass('ellipsis');
-		$('#content .document .thumbnail').removeClass('col-sm-2').removeClass('col-sm-1');
-		$('#content .index-show-list-fields').addClass('hidden');
-		$('#content .index-show-tombstone-fields').removeClass('hidden');
+		$('#content .document').removeClass('list-view').addClass('grid-view');
 		$('#grid-mode').addClass('btn-success');
 		createCookie(DCV.subsite_layout + '_' + DCV.SearchResults.CookieNames.searchMode, searchMode);
 	} else if (searchMode == DCV.SearchResults.SearchMode.LIST) {
-		$('#content .document').addClass('col-sm-12').addClass('list-view').removeClass('col-sm-3');
-		$('#content .document').find('h3').removeClass('ellipsis');
-		if(DCV.subsite_layout == 'ifp') {
-			//IFP uses smaller thumbnails
-			$('#content .document .thumbnail').addClass('col-sm-1');
-		} else {
-			$('#content .document .thumbnail').addClass('col-sm-2');
-		}
-		$('#content .index-show-list-fields').removeClass('hidden');
-		$('#content .index-show-tombstone-fields').addClass('hidden');
+		$('#content .document').removeClass('grid-view').addClass('list-view');
 		$('#list-mode').addClass('btn-success');
 		createCookie(DCV.subsite_layout + '_' + DCV.SearchResults.CookieNames.searchMode, searchMode);
 	} else if (searchMode == DCV.SearchResults.SearchMode.EXTENDED) {

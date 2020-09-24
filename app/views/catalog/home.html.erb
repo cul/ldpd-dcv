@@ -1,0 +1,56 @@
+<%
+featured_proj = controller.digital_projects.select { |proj| proj[:facet_value].present? }.sample
+%>
+
+<div class="row">
+  <div id="sidebar" class="col-md-3">
+    <div class="inner">
+       <div id="home-sidebar-news">
+          <h6>WELCOME</h6>
+            <p>The Digital Library Collections (DLC) website is a gateway to digital reproductions and descriptions of photographs, posters, drawings, objects, ephemera, and manuscripts as well as other archival material from Columbia's rare and special collections.  The DLC repository includes more than <%= rounded_down_and_formatted_dcv_asset_count %> unique images and documents, a portion of which are restricted to onsite viewing in the Libraries. <a href="<%= about_url %>">More &raquo;</a></p>
+            <hr>
+          <%- if featured_proj.present? %>
+          <h6>COLLECTION SPOTLIGHT</h6>
+          <div class="collection-title"><%= featured_proj[:name] %></div>
+		  <p><a href="<%= search_action_path(:f => {'lib_project_short_ssim' => [featured_proj[:facet_value]]})  %>"><img src="<%= featured_proj[:image] %>" class="thumbnail pull-right" alt="<%= featured_proj[:name] %>"></a><%= (featured_proj[:description] || '').html_safe %> <a href="<%= search_action_path(:f => {'lib_project_short_ssim' => [featured_proj[:facet_value]]})  %>" class="inline-block">View this Collection &raquo;</a></p>
+          <%- end %>
+          <div class="clearfix"></div>
+         </div>
+      </div>
+      <div id="home-sidebar-about">
+          <p><a href="<%= about_url %>">Learn more about the DLC &raquo;</a></p>
+      </div>
+  </div>
+
+  <div id="content" class="col-md-9">
+        <div id="home-page-content">
+
+            <div id="home-page-tabs" class="inner">
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#projects" data-toggle="tab">Searchable Collections</a></li>
+                    <% @browse_lists.each do |facet_name, data| %>
+                        <li><a href="#tab_<%= facet_name %>" data-toggle="tab"><%= data['display_label'] %></a></li>
+                    <% end %>
+										<li class="pull-right non-tab"><a onclick="window.open(this.href);return false;" data-toggle="tooltip" data-placement="top" href="https://library.columbia.edu/resolve/lweb0164" title="See All Digital Collections">All Collections <i class="glyphicon glyphicon-new-window"></i></a></li>
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div class="tab-pane fadein active" id="projects">
+                        <%= render template: 'pages/projects_and_exhibitions' %>
+                    </div>
+                    <% if @browse_lists.present? %>
+                        <% @browse_lists.each do |facet_name, data| %>
+                            <%= render template: "pages/#{facet_name}", locals: {facet_name: facet_name, data: data} if data['value_pairs'].present? %>
+                        <% end %>
+                    <% end %>
+                    <div class="tab-pane fadein" id="other-collections">
+                        <%= render template: 'pages/projects_and_exhibitions', :locals => { other_projects: true } %>
+                    </div>
+                </div>
+            </div> <!--/.inner-->
+        </div>
+  </div>
+
+</div>

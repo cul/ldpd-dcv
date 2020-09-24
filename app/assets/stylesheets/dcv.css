@@ -19,5 +19,4 @@
  *= require MarkerCluster.Default
  *
  *= require_tree './shared'
- *= require_tree './dcv'
 */

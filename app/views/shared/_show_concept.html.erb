@@ -1,0 +1,18 @@
+<div class="inner">
+  <div id="show-concept">
+      <div class="col-xs-12 col-sm-4 pull-right">
+        <%- image_pid = document[:schema_image_ssim].first.split('/')[-1] if document[:schema_image_ssim] -%>
+        <%- if image_pid -%>
+          <p class="show-representative-image"><%= image_tag(get_asset_url(id: image_pid, size: 512, type: 'full', format: 'jpg'), :itemprop => 'image', :class => 'img-responsive col-xs-12') if image_pid %></p>
+        <%- end -%>
+      </div>
+    <h3><%= document_show_html_title %></h3>
+    <% document.fetch(:alternative_title_ssm,[]).each do |alt_title| %>
+      <h4><%= alt_title %></h4>
+    <% end %>
+    <h4 class="h5"><%= link_to("Browse content &raquo;".html_safe, search_action_url) %></h4>
+    <%= document['description_text_ssm'].blank? ? Array(document['abstract_ssim']).join : controller.render_markdown(Array(document['description_text_ssm']).join)  %>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+</div>

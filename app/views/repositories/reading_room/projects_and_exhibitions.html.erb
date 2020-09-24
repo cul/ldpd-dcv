@@ -1,4 +1,4 @@
-<% digital_projects = controller.digital_projects(true) -%>
+<% digital_projects = controller.digital_projects -%>
 <div class="row">
 	<h3>Digital Collections</h3>
 	<p>Search digital content available in the <%= I18n.t("ldpd.short.repo.#{params[:repository_id]}") %> reading room<%= ', or navigate via the links below' if digital_projects.present? -%>.</p>

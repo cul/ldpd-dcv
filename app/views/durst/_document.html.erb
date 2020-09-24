@@ -1,5 +1,7 @@
-<% counter_in_results = document_counter + row_offset + 1 + @response.params[:start].to_i -%>
-<div class="col-sm-2 document <%= render_document_class document %>" itemscope itemtype="<%= document.itemtype %>">
+<%- start ||= @response.params[:start].to_i -%>
+<% counter_in_results = document_counter + row_offset + 1 + start -%>
+<% search_view ||= 'list-view' -%>
+<div class="document <%= search_view %> <%= render_document_class document %>" itemscope itemtype="<%= document.itemtype %>">
   <div class="tombstone" data-number-of-members=<%= document[:cul_number_of_members_isi] || -1 %>>
 		<%
 			if document['lib_format_ssm'].present? && document['lib_format_ssm'].include?('books')
@@ -27,34 +29,17 @@
 			)
 		%>
 		<div class="index-show-tombstone-fields">
-			<h3 class="index_title ellipsis"><%= t('blacklight.search.documents.counter', :counter => counter_in_results) %>
+			<h3 class="index_title"><%= t('blacklight.search.documents.counter', :counter => counter_in_results) %>
 				<%= link_to_document(document, :title => document['title_ssm'].present? ? document['title_ssm'][0] : '[Title unavailable]', :counter => (@do_not_link_to_search ? nil : counter_in_results)) %>
 			</h3>
 			<%= '<div class="ellipsis">'.html_safe + document['primary_name_ssm'][0] + '</div>'.html_safe if document['primary_name_ssm'].present? %>
 			<%= '<div class="ellipsis">'.html_safe + document['lib_format_ssm'][0] + '</div>'.html_safe if document['lib_format_ssm'].present? %>
 		</div>
-		<div class="col-sm-9 index_title index-show-list-fields hidden">
-			<h3 class="index_title ellipsis"><%= t('blacklight.search.documents.counter', :counter => counter_in_results) %><%= link_to_document(document, :counter => counter_in_results) %> <%= '<small>&bull; '.html_safe + byte_size_to_text_string(document['extent_ssim'].first.to_i) + '</small>'.html_safe if document['extent_ssim'].present? %></h3>
+		<div class="index-show-list-fields">
+			<h3 class="index_title"><%= t('blacklight.search.documents.counter', :counter => counter_in_results) %><%= link_to_document(document, :counter => counter_in_results) %> <%= '<small>&bull; '.html_safe + byte_size_to_text_string(document['extent_ssim'].first.to_i) + '</small>'.html_safe if document['extent_ssim'].present? %></h3>
 			<%= render :partial => 'index_default', :locals => {:document => document } %>
 			<%= render_url_and_catalog_links(document, false) %>
-			<%= render :partial => 'catalog/schema_org_document_metadata', :locals => {:document => document } %>
-
-			<% snippet = '' %>
-			<% if document.solr_response['highlighting'].present? && document.solr_response['highlighting'][document['id']].present? %>
-				<%
-					document.solr_response['highlighting'][document['id']].each do |key, arr_value|
-						if snippet.present?
-							snippet += '&hellip;'
-						end
-						snippet += arr_value.join('&hellip;') if arr_value.present?
-					end
-				%>
-			<% end %>
-			<% if snippet.present? %>
-				<div class="fulltext-snippet">
-					&hellip;<%= snippet.gsub(/^(&nbsp;|\s)+/, '').gsub(/(&nbsp;|\s)+$/, '').html_safe %>&hellip;
-				</div>
-			<% end %>
+			<%= render :partial => 'shared/schema_org_document_metadata', :locals => {:document => document } %>
 
 		</div>
 		<div class="clearfix"></div>

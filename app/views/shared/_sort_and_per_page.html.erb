@@ -1,0 +1,21 @@
+<div id="sortAndPerPage" style="border-bottom:0; margin-bottom:0;">
+  <%= render(partial: "paginate_compact", object: @response) if has_search_parameters? %>
+
+  <div id="search-index-tools" class="pull-right">
+    <div id="search-widgets" class="btn-group btn-group-xs search-widgets pull-right search-index-tool-group">
+      <%= render :partial => 'sort_widget' %>
+      <%= render :partial => 'per_page_widget' %>
+      <%= render :partial => 'view_type_group' %>
+    </div>
+    <div id="view-options" class="hidden-xs btn-group btn-group-xs pull-right search-index-tool-group">
+      <%= search_mode_button(:grid) %>
+      <%= search_mode_button(:list) %>
+    </div>
+    <%= render :partial => 'csv_export' %>
+    <% if controller.subsite_config['date_search'].present? && controller.subsite_config['date_search'].fetch('timeline', false) %>
+      <div id="date-toggle" class="btn-group btn-group-xs pull-right search-index-tool-group">
+        <button id="date-graph-toggle" type="button" class="btn btn-default result-type-button" data-toggle="tooltip" title="timeline view"><i class="glyphicon glyphicon-stats"></i></button>
+      </div>
+    <% end %>
+  </div>
+</div>

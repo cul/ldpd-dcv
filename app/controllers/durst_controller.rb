@@ -37,4 +37,8 @@ class DurstController < SubsitesController
   def old_york_library_collection_categories
   end
 
+  def subsite_layout
+    'durst'
+  end
+
 end

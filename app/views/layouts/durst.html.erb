@@ -2,6 +2,7 @@
 <html lang="en" class="no-js">
   <head>
 		<%= render partial: 'shared/head_includes' %>
+		<%= stylesheet_link_tag 'dcv-legacy', :media => 'all'  %>
 		<%= stylesheet_link_tag subsite_layout, :media => 'all'  %>
 		<%= javascript_include_tag subsite_layout %>
 
@@ -86,7 +87,7 @@
 										<a href="<%= durst_image_search_url %>" id="durst-image-search" title="Perform an Image Search" style="line-height: 0; margin-top: -7px;"><span class="glyphicon glyphicon-picture"></span></a>
 										</li>
 										<li class="inline">
-										<a href="<%= durst_book_search_url %>" id="durst-book-search" title="Perform a Book Search" style="line-height: 0; margin-top: -7px;"><span class="glyphicon glyphicon-book"></span></a>
+										<a href="<%= local_facet_search_url('lib_format_sim', 'books') %>" id="durst-book-search" title="Perform a Book Search" style="line-height: 0; margin-top: -7px;"><span class="glyphicon glyphicon-book"></span></a>
 										</li>
 									</ul>
 									</div>

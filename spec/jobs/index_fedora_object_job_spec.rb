@@ -7,7 +7,7 @@ describe IndexFedoraObjectJob do
 		let(:conditions) { { condition_key => condition_value, 'pid' => pid } }
 		let(:expected_args) { described_class::DEFAULT_OPTS.merge(condition_key.to_sym => condition_value) }
 		it 'correctly constructs indexer arguments from conditions' do
-			indexer_class = class_double("Cul::Hydra::Indexer").as_stubbed_const(:transfer_nested_constants => true)
+			indexer_class = class_double("Dcv::Solr::FedoraIndexer").as_stubbed_const(:transfer_nested_constants => true)
 			expect(indexer_class).to receive(:index_pid).with(pid, expected_args)
 			described_class.perform(conditions)
 		end

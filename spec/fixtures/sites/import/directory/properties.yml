@@ -1,0 +1,28 @@
+slug: import_site
+publisher_uri: info:fedora/cul:import_site
+image_uris: []
+title: Imported Site
+alternative_title: 'The Site: Imported!'
+search_type: catalog
+layout: signature
+palette: parchment
+constraints:
+  publisher:
+    - info:fedora/cul:import_site
+nav_links:
+  - sort_label: About
+    sort_group: '00:'
+    external: false
+    link: about
+  - sort_label: '00:Finding Aid'
+    sort_group: '01:See Also'
+    external: true
+    link: https://findingaids.library.columbia.edu/ead/nnc-rb/ldpd_01234567
+  - sort_label: '01:Related CLIO Entry'
+    sort_group: '01:See Also'
+    external: true
+    link: https://clio.columbia.edu/catalog/12345678
+  - sort_label: '02:Another CLIO Entry'
+    sort_group: '01:See Also'
+    external: true
+    link: https://clio.columbia.edu/catalog/23456789

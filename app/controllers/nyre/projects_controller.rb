@@ -21,10 +21,6 @@ module Nyre
       SUBSITES['public']['nyre']['layout']
     end
 
-    def search_result_view_overrides
-      SUBSITES['public']['nyre']['search_result_view_overrides'] || {}
-    end
-
     configure_blacklight do |config|
       Dcv::Configurators::NyreBlacklightConfigurator.configure(config)
       config.add_facet_field ActiveFedora::SolrService.solr_name('subject_hierarchical_geographic_street', :symbol), :label => 'Address', :sort => 'index', :limit => 10

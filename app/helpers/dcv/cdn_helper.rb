@@ -108,6 +108,14 @@ module Dcv::CdnHelper
     iframe_url_for_document(item) || details_path(id: (asset[:dc_type] == 'StillImage' ? item[:id] : asset[:pid]), layout:opts.fetch(:layout, 'dcv'), initial_page: opts.fetch(:initial_page, 0))
   end
 
+  def thumbnail_for_site(site)
+    id = site.image_uri ? site.image_uri.split('/')[-1] : nil
+    if id
+      get_asset_url(id: id, size: 256, type: 'featured', format: 'jpg')
+    else
+      image_url('dcv/columbia_crown_outline.png')
+    end
+  end
 
   def thumbnail_placeholder(document, image_options={})
     image_tag image_url('file-placeholder.png')
