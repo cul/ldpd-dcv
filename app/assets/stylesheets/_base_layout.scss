@@ -314,7 +314,7 @@ input {
 			border: 1px solid lighten($color_primary_background,25%);
 			border-top-color: transparent;
 			border-radius: 0;
-			box-shadow: 0 6px 12px rgba($color_ui_outline,0.75);
+			box-shadow: 0 6px 12px rgba($color_ui_outline,0.375);
 			background-clip: padding-box;
 			font-size: .95em;
 			li {
