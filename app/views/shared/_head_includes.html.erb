@@ -31,7 +31,9 @@ DLC VERSION: <%= render :file => Rails.root.to_s+'/VERSION' %> -->
 
 <!-- OHSynchronizer -->
 <%= stylesheet_link_tag "/synchronizer-module/css/ableplayer.min.css" %>
-<%= stylesheet_link_tag "/synchronizer-module/css/style.css" %>
+<% if params[:action] == 'synchronizer' %>
+  <%= stylesheet_link_tag "/synchronizer-module/css/style.css" %>
+<% end %>
 
 <%= csrf_meta_tags %>
 <%= content_for(:head) %>
