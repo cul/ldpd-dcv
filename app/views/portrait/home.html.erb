@@ -7,12 +7,13 @@
 				<div id="doc_<%= @subsite.slug.to_s.parameterize %>">
 					<div class="inner">
 						<div id="show-concept">
-							<div class="col-xs-12 col-sm-8 pull-right">
+							<div class="col-xs-12 col-sm-6 pull-right">
 								<%- image_pid = @subsite.image_uri.split('/')[-1] if @subsite.image_uri -%>
 								<%- if image_pid -%>
-									<div class="show-representative-image mb-2"><%= image_tag(get_asset_url(id: image_pid, size: 768, type: 'full', format: 'jpg'), :itemprop => 'image', :class => 'img-responsive col-xs-12') if image_pid %><div class="clearfix"></div></div>
+									<div class="show-representative-image mb-2"><%= image_tag(get_asset_url(id: image_pid, size: 768, type: 'full', format: 'jpg'), :itemprop => 'image', :class => 'img-responsive w-100') if image_pid %><div class="clearfix"></div></div>
 								<%- end -%>
 							</div>
+							<div class="col-xs-12 col-sm-6 pl-0">
 							<%- @page.site_text_blocks.sort { |a,b| a.sort_label <=> b.sort_label }.each do |text_block| -%>
 								<%- if text_block.label.present? -%>
 									<h5 class="h6 text-uppercase"><%= text_block.label %></h5>
@@ -20,6 +21,7 @@
 								<%= controller.render_markdown(text_block.markdown) %>
 							<%- end -%>
 							<h4 class="h5"><%= link_to("Browse content &raquo;".html_safe, search_action_url) %></h4>
+							</div>
 						</div>
 						<div class="clearfix"></div>
 					</div>
