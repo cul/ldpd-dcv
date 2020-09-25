@@ -36,7 +36,7 @@
 			background-color: $color_topnav_background;
 			li:not(.divider) {
 				&:hover {
-					background: darken($color_topnav_background,50%);
+					background-color: darken($color_topnav_background,50%);
 					a {
 						background:transparent;
 						filter: contrast(200%);
