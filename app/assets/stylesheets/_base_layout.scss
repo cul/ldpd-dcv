@@ -121,14 +121,16 @@ input {
 		padding-left: 0;
 		padding-right: 10px;
 		height: 38px;
-		background: $color_primary_background;
+		background: $color_topnav_background;
+		background-color: $color_topnav_background;
 		min-height: 44px;
 		#crowndown-nosearch {
 			height: 39px;
 			//margin-lef: -10px;
 			padding-left: 0;
 			margin-top: -1px;
-			background: $color_primary_background;
+			background: $color_topnav_background;
+			background-color: $color_topnav_background;
 			.dropdown-toggle {
 				@extend %extend_brand_font;
 				background: transparent $url_crown_small no-repeat 4px 30%;
@@ -143,6 +145,7 @@ input {
 		}
 		.dropdown-menu {
 			margin-top: -3px;
+			background-color: $color_topnav_background;
 			i.icon-crown-white {
 				display: inline-block;
 				width: 14px;
@@ -155,7 +158,7 @@ input {
 			}
 			li a:hover {
 				text-decoration: none;
-				background-color: $color_topnav_background;
+				background-color: lighten($color_topnav_background, 10%);
 				color: $color_topnav;
 			}
 		}
