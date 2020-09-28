@@ -22,30 +22,6 @@
 	border-color: $color_outline;
 }
 
-#topnavbar {
-	background-color: $color_topnav_background;
-	#cul_top-nosearch {
-		background-color: $color_topnav_background;
-		#crowndown-nosearch {
-			background-color: $color_topnav_background;
-			.dropdown-toggle {
-				font-family: $font_0, $font_1, $font_2;
-			}
-		}
-		.dropdown-menu {
-			background-color: $color_topnav_background;
-			li:not(.divider) {
-				&:hover {
-					background: darken($color_topnav_background,50%);
-					a {
-						background:transparent;
-						filter: contrast(200%);
-					}
-				}
-			}
-		}
-	}
-}
 #site-banner {
 	background-color: navBgColor(5%);
 	#site-banner-inner {

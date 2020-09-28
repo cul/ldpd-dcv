@@ -26,23 +26,6 @@ a {
 	}
 }
 
-#topnavbar {
-	#cul_top-nosearch {
-		background-color: $color_outline_secondary;
-		#crowndown-nosearch {
-			background-color: $color_outline_secondary;
-		}
-		.dropdown-menu {
-			background-color: $color_outline_secondary;
-		}
-	}
-	a {
-		font-family: $font_0, $font_1, $font_2;
-	}
-	.dropdown a {
-		color: navColor();
-	}
-}
 #site-banner {
 	padding: 1em 1.4em;
 	margin: 0 -1.75em 0;
@@ -277,7 +260,7 @@ a {
 }
 
 .panel-default {
-	border-color: $color_ui_outline;	
+	border-color: $color_ui_outline;
 }
 
 #main-container {
