@@ -54,7 +54,7 @@ a {
 	.input-group-addon {
 		background-color: $color_ui_background;
 		color:$color_ui;
-		border-color:$color_ui_outline;
+		border-color: $color_ui_outline;
 		font-size: .9em;
 		select {
 			background-color: inherit;
@@ -73,7 +73,7 @@ a {
 			background-color: $color_ui_background;
 		}
 	}
-	#q, .search-btn, .reset-btn {
+	#q, #q-filter, .search-btn, .reset-btn {
 		border-color:$color_ui_outline;
 	}
 }
