@@ -244,6 +244,9 @@ input {
 		.search_field {
 			padding: 0 .5em;
 			-webkit-appearance:none;
+				&:hover {
+					color:$color_user_input;
+			}
 		}
 	}
 	#q {
