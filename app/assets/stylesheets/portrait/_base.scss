@@ -100,11 +100,10 @@
 		color: lighten($color_ui,10%);
 		background-color: $color_ui_background;
 	}
-	#q-filter {
+	#q-filter, .search_q {
 		border: 1px solid $color_user_input;
 		border-width: 1px 0 1px 1px;
 		.search_field {
-			//padding: 0 .5em;
 			-webkit-appearance:none;
 		}
 	}

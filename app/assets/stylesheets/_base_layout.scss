@@ -247,12 +247,12 @@ input {
 			}
 		}
 	}
-	#q-filter {
+	#q-filter, .search_q {
 		display: table-cell;
 		border: 1px solid $color_user_input;
 		border-width: 1px 0 1px 1px;
 		.search_field {
-			padding: 0 .5em;
+			padding: .5em;
 			-webkit-appearance:none;
 				&:hover {
 					color:$color_user_input;
