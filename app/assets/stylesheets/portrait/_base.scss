@@ -26,14 +26,14 @@
 	background-color: navBgColor(5%);
 	#site-banner-inner {
 		.titlesub {
-			color: $color_highlight;
+			color: navColor(5%);
 		}
 		#site-title {
 			font-size: 200%;
 			text-transform: uppercase;
 			font-family: $font_b;
 			font-weight: 200;
-			color: $color_highlight;
+			color: navColor(5%);
 		}
 		#site-banner-subtitle {
 			color: $color_highlight;

@@ -19,7 +19,7 @@ $color_ui_outline: #777;
 $color_anchor: lighten($color_highlight_background, 25%);
 
 @function navBgColor($l: 12%) {
-	@return darken($color_ui_outline, $l);
+	@return darken($color_topnav_background, $l);
 }
 @mixin	navBg($l: 12%) {
 	background: navBgColor($l);
