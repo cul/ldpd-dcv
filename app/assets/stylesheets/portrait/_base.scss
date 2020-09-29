@@ -39,7 +39,10 @@
 			color: $color_highlight;
 			font-family: $font_0, $font_3, $font_1, $font_2;
 			font-size: 100%;
-			text-align: left;
+			text-align: center;
+			@media(min-width: 768px) {
+				text-align: left;
+			}
 			margin-top: 0;
 		}
 	}
