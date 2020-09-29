@@ -301,6 +301,9 @@ input {
 	border-bottom: 1px solid $color_outline;
 	.nav {
 		width: 100%;
+		@media(min-width: 768px) {
+			width: auto;
+		}
 		> li {
 			display: block;
 			width: 100%;
