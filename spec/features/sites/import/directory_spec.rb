@@ -11,6 +11,7 @@ describe Dcv::Sites::Import::Directory do
 		end
 		it 'imports links' do
 			expect(site.nav_links.length).to eql(4)
+			expect(site.about_link&.sort_label).to eql('About')
 		end
 		it 'imports pages' do
 			expect(site.site_pages.length).to eql(2)

@@ -1,6 +1,7 @@
 class SitePage < ActiveRecord::Base
 	has_many :site_text_blocks, dependent: :destroy
 	belongs_to :site
+	validates :columns, inclusion: { in: (1..2) }
 
 	def initialize(atts = {})
 		super
