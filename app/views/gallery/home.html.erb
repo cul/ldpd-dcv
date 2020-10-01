@@ -2,7 +2,7 @@
   <div id="sidebar" class="col-md-3">
     <div class="inner">
        <div id="home-sidebar-news">
-          <h6><%= @subsite.title.html_safe %></h6>
+          <h2 class="home-sidebar-heading h5"><%= @subsite.title.html_safe %></h2>
             <p>
               <a href="<%= search_action_url %>">
                 <img src="<%= thumbnail_for_site(@subsite) %>" class="thumbnail pull-right" alt="<%= @subsite.title.html_safe %>">
