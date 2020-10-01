@@ -286,7 +286,7 @@ input {
 	.reset-btn {
 		border-color: $color_user_input;
 		&:hover {
-			background-color: $color_highlight_background;
+			background-color:  $danger;
 		}
 	}
 	#search {
