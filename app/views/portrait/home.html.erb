@@ -20,8 +20,12 @@
 								<%- end -%>
 								<%= controller.render_markdown(text_block.markdown) %>
 							<%- end -%>
-							<h4 class="h5"><%= link_to("Browse content &raquo;".html_safe, search_action_url) %></h4>
-							</div>
+							<p>
+								<%- if (about_link = @subsite.about_link) -%>
+									<%= link_to("Read more &raquo;".html_safe, site_page_path(site_slug: @subsite.slug, slug: about_link.link), class: ["btn", "btn-primary"]) %>
+								<%- end -%>
+								<%= link_to("Browse content &raquo;".html_safe, search_action_url, class: ["btn", "btn-primary"]) %>
+							</p>
 						</div>
 						<div class="clearfix"></div>
 					</div>

@@ -2,7 +2,7 @@
 <div class="row">
 	<div class="col-md-4 col-md-push-8">
 		<div class="home inner">
-			<h2 class="h5 text-uppercase"><%= link_to("BROWSE THE COLLECTION", search_action_url) %></h2>
+			<h2 class="h5 text-uppercase"><%= link_to("BROWSE THE COLLECTION &raquo;".html_safe, search_action_url) %></h2>
 			<%- if @page.show_facets -%>
 				<%- @response ||= controller.load_facet_response -%>
 				<%= render partial: 'facets', locals: {hide_refine_heading: true, no_id_attr: true} %>
@@ -21,6 +21,9 @@
 						<%= controller.render_markdown(text_block.markdown) %>
 						<hr class="visible-sm">
 					<%- end -%>
+					<%- if (index == @page.columns - 1) && (about_link = @subsite.about_link) -%>
+						<h2 class="h5 text-uppercase"><%= link_to("READ MORE &raquo;".html_safe, site_page_path(site_slug: @subsite.slug, slug: about_link.link)) %></h2>
+					<%- end -%>		
 				</div>
 			</div>
 		<%- end -%>
@@ -33,6 +36,9 @@
 					<%- end -%>
 					<%= controller.render_markdown(text_block.markdown) %>
 					<hr class="visible-sm">
+				<%- end -%>
+				<%- if (about_link = @subsite.about_link) -%>
+					<h2 class="h5 text-uppercase"><%= link_to("Read more &raquo;".html_safe, site_page_path(site_slug: @subsite.slug, slug: about_link.link)) %></h2>
 				<%- end -%>
 			</div>
 		</div>

@@ -734,6 +734,9 @@ h2[itemprop="name"] {
 	.panel-title {
 		font-size: .86em;
 		text-transform: uppercase;
+		a {
+			color: $color_primary;
+		}
 	}
 	.top-panel-heading {
 		padding-left: 0;
