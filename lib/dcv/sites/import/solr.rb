@@ -18,10 +18,9 @@ module Dcv::Sites::Import
 			site = existing_site ? Site.find_by(slug: slug) : Site.new(slug: slug)
 
 			site.publisher_uri ||= @document[:fedora_pid_uri_ssi]
-			site.image_uris = @document[:schema_image_ssim] if site.image_uris.blank?
+			site.image_uris = Array(@document[:schema_image_ssim]) if site.image_uris.blank?
 			site.repository_id = @document[:lib_repo_code_ssim]&.first
 			site.title = @document[:title_ssm].first if @document[:title_ssm].present?
-			site.image_uris = @document[:schema_image_ssim]
 			site.persistent_url = @document.persistent_url if @document.persistent_url
 			site.restricted = restricted
 
