@@ -241,7 +241,6 @@ input {
 		border-color:lighten($color_ui_background,30%);
 	}
 	&:active, &:focus {
-		background-color:lighten($color_highlight, 10%);
 		border-color:darken($color_highlight,30%);
 	}
 }
