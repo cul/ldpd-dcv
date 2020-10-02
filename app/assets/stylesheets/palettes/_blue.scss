@@ -16,7 +16,7 @@ $color_ui: #ccc;
 $color_ui_background: darken($color_highlight_background, 10%);
 $color_ui_secondary: #333;
 $color_ui_outline: #999;
-$color_anchor: darken($color_highlight_background, 25%);
+$color_anchor: $color_anchor;
 
 $color_local_navbar_background: #1a4481;
 

@@ -132,6 +132,12 @@ a {
 	.dr-arrow {
 		color: lighten($color_outline_secondary,35%);
 	}
+	a {
+		color: $color_highlight_background;
+		&:hover {
+			color: $color_anchor;
+		}
+	}
 }
 #site-banner-subtitle {
 	display: block;

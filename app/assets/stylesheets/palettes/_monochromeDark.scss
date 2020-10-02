@@ -16,7 +16,7 @@ $color_ui: #888;
 $color_ui_background: #222;
 $color_ui_secondary: #aaa;
 $color_ui_outline: #777;
-$color_anchor: lighten($color_highlight_background, 25%);
+$color_anchor: lighten($color_anchor, 10%);
 
 @function navBgColor($l: 12%) {
 	@return darken($color_topnav_background, $l);

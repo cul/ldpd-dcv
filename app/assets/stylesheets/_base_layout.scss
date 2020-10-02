@@ -90,6 +90,21 @@ body {
 	}
 }
 
+a {
+	color: $color_anchor;
+	font-family: $font_c;
+	&:hover {
+		color: $color_highlight_background;
+	}
+	&.thumbnail {
+		border-color: $color_outline;
+		background-color: transparent;
+		&:hover {
+			border-color: $color_highlight_background;
+		}
+	}
+}
+
 input {
 }
 
@@ -203,6 +218,11 @@ input {
 	.note {
 		text-align: center;
 		max-width: 100%;
+	}
+	#site-title {
+		a:hover {
+			text-decoration: none;
+		}
 	}
 	#site-banner-inner {
 		#site-title {
