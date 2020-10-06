@@ -629,5 +629,9 @@ footer.container {
 	font-size: .8em;
 }
 
+:root {
+	--signature-banner-tint: #{navBgColor()};
+}
+
 @import '../shared/search-modes';
 @include searchModes();

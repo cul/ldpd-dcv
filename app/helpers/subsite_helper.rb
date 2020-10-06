@@ -9,11 +9,13 @@ module SubsiteHelper
 
   def signature_image_path
     path = File.join("", "images", "sites", @subsite.slug, "signature.svg")
-  	File.exists?(File.join(Rails.root, "public", path)) ? path : asset_path("signature/signature.svg")
+    File.exists?(File.join(Rails.root, "public", path)) ? path : asset_path("signature/signature.svg")
   end
 
   def signature_banner_image_path
-    path = File.join("", "images", "sites", @subsite.slug, "signature-banner.png")
-  	File.exists?(File.join(Rails.root, "public", path)) ? path : asset_path("signature/signature-banner.png")
+    @signature_banner_image_path ||= begin
+      path = File.join("", "images", "sites", @subsite.slug, "signature-banner.png")
+      File.exists?(File.join(Rails.root, "public", path)) ? path : asset_path("signature/signature-banner.png")
+    end
   end
 end

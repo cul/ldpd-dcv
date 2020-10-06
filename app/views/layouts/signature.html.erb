@@ -8,7 +8,13 @@
 		<%= javascript_include_tag subsite_layout %>
 		<style type="text/css">
 			#hometn .featured-outer {
-				background-image: url("<%= signature_banner_image_path %>");
+				<%- if signature_banner_image_path.include? @subsite.slug -%>
+					background-image: url("<%= signature_banner_image_path %>");
+				<%- else -%>
+					background-color: var(--signature-banner-tint);
+					background-image: url("<%= signature_banner_image_path %>");
+					background-blend-mode: luminosity;
+				<%- end -%>
 			}
 		</style>
 		<script>
