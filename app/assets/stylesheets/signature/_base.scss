@@ -274,12 +274,21 @@ a {
 			border: 0;
 			background: transparent;
 			background-color: transparent;
+			#link-panel > .panel-group {
+				margin-bottom: 5px; // matches margin-top of facet panel
+			}
             .sidenav {
 				.panel-title {
 					font-family: $font_b;
 					font-size:.9em;
 					text-transform:uppercase;
-					color:lighten($color_primary,18%);
+				}
+				.panel {
+					&:not(.panel-ui) {
+						.panel-title {
+							color:lighten($color_primary,18%);
+						}
+					}
 				}
 			}
 		}
@@ -294,6 +303,25 @@ a {
 		border: 0;
 		&.home {
 			background-color: transparent;
+		}
+	}
+	.panel-ui { // borrows from btn-primary
+		border-color: $color_ui_outline;
+		background-color: $color_ui_background;
+		color: $color_ui;
+		&:hover {
+			background-color: $color_ui;
+			color:$color_ui_background;
+			border-color:lighten($color_ui_background,30%);
+		}
+		&:active, &:focus {
+			border-color:darken($color_highlight,30%);
+		}
+		.panel-heading {
+			border: 0;
+			&.home {
+				background-color: transparent;
+			}
 		}
 	}
 	// text blocks are rendered as sections in the signature page layout

@@ -22,7 +22,7 @@
       </div>
       <div id="home-sidebar-about">
           <%- if (about_link = @subsite.about_link) -%>
-            <p><%= link_to("Read more &raquo;".html_safe, site_page_path(site_slug: @subsite.slug, slug: about_link.link)) %></p>
+            <p><%= link_to("About the collection &raquo;".html_safe, site_page_path(site_slug: @subsite.slug, slug: about_link.link)) %></p>
           <%- end -%>
           <p>
             <%= link_to("Browse the collection &raquo;".html_safe, search_action_url) %>
