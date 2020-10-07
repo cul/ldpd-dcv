@@ -14,6 +14,15 @@ $(function() {
       DCV.PreviewModal.show(url, title);
       return false;
     });
+  /*****************
+   * LAZY CAROUSEL *
+   *****************/
+  $('#carousel-example-generic').on('slide.bs.carousel', function (ev) {
+    var img = ev.relatedTarget.getElementsByTagName('img')[0];
+    if (img && img.getAttribute('data-src') && !img.getAttribute('src')) {
+      img.setAttribute('src', img.getAttribute('data-src'));
+    }
+  })
 
 });
 
@@ -36,5 +45,4 @@ DCV.PreviewModal.show = function(displayUrl, title){
 
   return false;
 };
-
 
