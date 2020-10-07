@@ -5,6 +5,7 @@ module Ifp::PartnerDataHelper
 		brazil: {
 			:heading => 'Brazil',
 			:rep_flag => "ifp/office-flags/brazil.png",
+			:rep_sprite => '0px 0px',
 			:rep_image => 'ifp/partner_pics/brazil-01.jpg',
 			:rep_vid => "j3FAzPfdEeY",
 			:wowza_vid => "ldpd/dlc/ifp/brazil.mp4",
