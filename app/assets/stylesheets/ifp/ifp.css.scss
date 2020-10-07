@@ -34,7 +34,7 @@ $font_6: serif;
 
 //urls
 $url_logo: url(asset_path("ifp/IFP-square-logo.png"));
-$url_flag_sprite: url(asset_path("ifp/office-flags/country_flag_folders_xs.png"));
+$url_flag_sprite: url(asset_path("ifp/office-flags/country_flag_folders_sm.png"));
 
 %extend_1 {
 	margin-top: .5em;
@@ -299,103 +299,104 @@ a {
 		margin-bottom: .75em;
 		border-color: transparent;
 		font-size: 70%;
-		text-align: center;
+		text-align: left;
 		a {
 			display:inline-block;
 			height: 60px;
 			width: 60px;
 			line-height:115px;
 			background-image: $url_flag_sprite;
-			background-size: 520%;
+			background-size: 510%;
+			text-align: center;
 			&.brazil {
-				background-position: 0px -3px; 
+				background-position: 0px -3px;
 			}
 			&.chile {
-				background-position: -48px -3px; 
+				background-position: -61px -3px;
 			}
 
 			&.china {
-				background-position: -96px -3px; 
+				background-position: -123px -3px;
 			}
 
 			&.egypt {
-				background-position: -144px -3px; 
+				background-position: -184px -3px;
 			}
 
 			&.ghana {
-				background-position: -192px -3px; 
+				background-position: -245px -3px;
 			}
 
 			&.guatemala {
-				background-position: 0px -51px; 
+				background-position: 0px -65px;
 			}
 
 			&.india {
-				background-position: -48px -51px;
+				background-position: -61px -65px;
 			}
 
 			&.indonesia {
-				background-position: -96px -51px;
+				background-position: -123px -65px;
 			}
 
 			&.kenya {
-				background-position: -144px -51px;
+				background-position: -184px -65px;
 			}
 
 			&.mexico {
-				background-position: -192px -51px;
+				background-position: -245px -65px;
 			}
 
 			&.mozambique {
-				background-position: 0px -99px;
+				background-position: 0px -126px;
 			}
 
 			&.nigeria {
-				background-position: -48px -99px;
+				background-position: -61px -126px;
 			}
 
 			&.palestine {
-				background-position: -96px -99px;
+				background-position: -123px -126px;
 			}
 
 			&.peru {
-				background-position: -144px -99px;
+				background-position: -184px -126px;
 			}
 
 			&.philippines {
-				background-position: -192px -99px;
+				background-position: -245px -126px;
 			}
 
 			&.russia {
-				background-position: 0px -147px;
-			}
-
-			&.secretariat {
-				background-position: -48px -147px;
+				background-position: 0px -187px;
 			}
 
 			&.senegal {
-				background-position: -96px -147px;
+				background-position: -123px -187px;
 			}
 
 			&.southafrica {
-				background-position: -144px -147px;
+				background-position: -184px -187px;
 			}
 
 			&.tanzania {
-				background-position: -192px -147px;
+				background-position: -245px -187px;
 			}
 
 			&.thailand {
-				background-position: 0px -194px;
+				background-position: 0 -249px;
 			}
 
 			&.uganda {
-				background-position: -48px -194px;
+				background-position: -61px -249px;
 			}
 
 			&.vietnam {
-				background-position: -96px -194px;
+				background-position: -123px -249px;
+			}
+
+			&.secretariat {
+				background-position: -61px -187px;
 			}
 		}
 	}
@@ -474,6 +475,7 @@ a {
 				margin-right: 3px;
 			}
 			a {
+				font-size:1.4em;
 				&.brazil::before{
 					content: "\1F1E7\1F1F7";
 				}
