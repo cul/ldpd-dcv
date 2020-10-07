@@ -686,14 +686,12 @@ The CEEVN IFP office in Vietnam was closed in June 2013. 10 linear feet of paper
     end
   end
 
-  def link_to_partner(key)
-  	# ifp_partner_path(:key => 'uganda')
-  	label = image_tag(asset_path("ifp/office-flags/#{key}-f.png"),alt:"#{key} files")
-  	label << ifp_office_sidebar_data(key).fetch(:office,key.capitalize).html_safe
+  def link_to_partner(key, html_opts = {})
+  	label = ifp_office_sidebar_data(key).fetch(:office,key.capitalize).html_safe
   	if controller.restricted?
-  		link_to label, restricted_ifp_partner_path(key: key)
+  		link_to label, restricted_ifp_partner_path(key: key), html_opts
   	else
-  		link_to label, ifp_partner_path(key: key)
+  		link_to label, ifp_partner_path(key: key), html_opts
   	end
   end
   def link_to_ifp_home
