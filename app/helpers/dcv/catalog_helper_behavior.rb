@@ -62,26 +62,34 @@ module Dcv::CatalogHelperBehavior
     t("pcdm.file_genre.#{value}")
   end
 
-  def total_dcv_asset_count
-    Rails.cache.fetch('total_dcv_asset_count', expires_in: 12.hours) do
+  def rounded_down_and_formatted_dcv_asset_count
+    rounded_down_and_formatted_dcv_object_count('total_dcv_asset_count', "active_fedora_model_ssi:GenericResource")
+  end
+
+  def rounded_down_and_formatted_dcv_item_count
+    rounded_down_and_formatted_dcv_object_count('total_dcv_item_count', "active_fedora_model_ssi:ContentAggregator")
+  end
+
+  def rounded_down_and_formatted_dcv_object_count(cache_key='total_dcv_object_count', filter="active_fedora_model_ssi:(ContentAggregator OR GenericResource)")
+    round_to_nearest = 1000 # e.g. round 12,345 down to nearest 1000: 12,000
+    exact_total = total_dcv_object_count(cache_key, filter)
+    return exact_total if exact_total < round_to_nearest
+
+    count_to_return = exact_total / round_to_nearest * round_to_nearest
+    number_with_delimiter(count_to_return.round(-3), :delimiter => ',')
+  end
+
+  def total_dcv_object_count(cache_key, filter)
+    Rails.cache.fetch(cache_key, expires_in: 12.hours) do
       solr_params = {
         qt: 'search',
         rows: 0,
-        fq: ["active_fedora_model_ssi:GenericResource"],
+        fq: [filter],
         facet: false
       }
       response = controller.repository.connection.send_and_receive 'select', params: solr_params
       response['response']['numFound'].to_i
     end
-  end
-
-  def rounded_down_and_formatted_dcv_asset_count
-    round_to_nearest = 5000 # e.g. round 12,345 down to nearest 5000: 10,000
-    exact_total = total_dcv_asset_count
-    return exact_total if exact_total < round_to_nearest
-
-    count_to_return = exact_total / round_to_nearest * round_to_nearest
-    number_with_delimiter(count_to_return.round(-3), :delimiter => ',')
   end
 
   # Does this document represent an object with synchronized media?

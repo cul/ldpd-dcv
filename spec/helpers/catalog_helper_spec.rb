@@ -78,7 +78,7 @@ describe CatalogHelper, :type => :helper do
     end
   end
 
-  describe '#total_dcv_asset_count' do
+  describe '#total_dcv_object_count' do
     let (:solr_response) {
       {
         "response" => {
@@ -96,16 +96,24 @@ describe CatalogHelper, :type => :helper do
       allow(rsolr_connection).to receive(:send_and_receive).and_return(solr_response)
     end
     it do
-      expect(helper.total_dcv_asset_count).to eq(12345)
+      expect(helper.total_dcv_object_count('total_dcv_asset_count', "active_fedora_model_ssi:GenericResource")).to eq(12345)
     end
   end
 
   describe '#rounded_down_and_formatted_dcv_asset_count' do
     it do
-      allow(helper).to receive(:total_dcv_asset_count).and_return(12345)
-      expect(helper.rounded_down_and_formatted_dcv_asset_count).to eq('10,000')
+      allow(helper).to receive(:total_dcv_object_count).and_return(12345)
+      expect(helper.rounded_down_and_formatted_dcv_asset_count).to eq('12,000')
     end
   end
+
+  describe '#rounded_down_and_formatted_dcv_object_count' do
+    it do
+      allow(helper).to receive(:total_dcv_object_count).and_return(12345)
+      expect(helper.rounded_down_and_formatted_dcv_object_count).to eq('12,000')
+    end
+  end
+
   describe '#iframe_url_for_document' do
     let(:document_show_link_field) { 'title_short' }
     subject { helper.iframe_url_for_document(SolrDocument.new(document)) }
