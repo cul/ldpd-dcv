@@ -2,7 +2,22 @@
 <div class="row">
 	<div class="col-md-4 col-md-push-8">
 		<div class="home inner">
-			<h2 class="h5 text-uppercase"><%= link_to("BROWSE THE COLLECTION", search_action_url) %></h2>
+			<div id="link-panel" class="facets sidenav">
+				<div class="panel-group">
+					<div class="panel panel-ui">
+						<div class="panel-heading">
+							<h3 class="panel-title"><%= link_to("BROWSE THE COLLECTION", search_action_url) %></h3>
+						</div>
+					</div>
+					<div class="panel panel-ui">
+						<%- if (about_link = @subsite.about_link) -%>
+							<div class="panel-heading">
+								<h3 class="panel-title"><%= link_to("ABOUT THE COLLECTION", site_page_path(site_slug: @subsite.slug, slug: about_link.link)) %></h3>
+							</div>
+						<%- end -%>
+					</div>
+				</div>
+			</div>
 			<%- if @page.show_facets -%>
 				<%- @response ||= controller.load_facet_response -%>
 				<%= render partial: 'facets', locals: {hide_refine_heading: true, no_id_attr: true} %>

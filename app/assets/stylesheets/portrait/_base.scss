@@ -39,7 +39,10 @@
 			color: $color_highlight;
 			font-family: $font_0, $font_3, $font_1, $font_2;
 			font-size: 100%;
-			text-align: left;
+			text-align: center;
+			@media(min-width: 768px) {
+				text-align: left;
+			}
 			margin-top: 0;
 		}
 	}
@@ -97,11 +100,10 @@
 		color: lighten($color_ui,10%);
 		background-color: $color_ui_background;
 	}
-	#q-filter {
+	#q-filter, .search_q {
 		border: 1px solid $color_user_input;
 		border-width: 1px 0 1px 1px;
 		.search_field {
-			//padding: 0 .5em;
 			-webkit-appearance:none;
 		}
 	}

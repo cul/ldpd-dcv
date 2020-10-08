@@ -1,5 +1,5 @@
 %active_pagination_ui {
-	color: $color_ui_background;
+	color: $color_highlight;
 	background-color: $color_highlight_background;
 	border-color: $color_highlight_background;
 }
@@ -42,7 +42,7 @@ a {
 			font-family: $font_0, $font_3, $font_1, $font_2;
 		}
 		#site-banner-subtitle {
-			font-size: 120%;
+			//font-size: 120%;
 		}
 	}
 }
@@ -54,7 +54,7 @@ a {
 	.input-group-addon {
 		background-color: $color_ui_background;
 		color:$color_ui;
-		border-color:$color_ui_outline;
+		border-color: $color_ui_outline;
 		font-size: .9em;
 		select {
 			background-color: inherit;
@@ -73,7 +73,7 @@ a {
 			background-color: $color_ui_background;
 		}
 	}
-	#q, .search-btn, .reset-btn {
+	#q, #q-filter, .search-btn, .reset-btn {
 		border-color:$color_ui_outline;
 	}
 }
@@ -112,39 +112,31 @@ a {
 		margin-top:1em;
 		margin-bottom:.5em;
 	}
-	#site-title { // overrides from general style for home page
-		text-shadow:none;
-		line-height: 1.1;
-		padding-bottom:.5em;
-
-	}
-	#site-banner {
-		margin: 0 0 0 0;
-	}
-	#secondary-nav {
-		margin: 0 0 0 0;
-		border:1px solid $color_ui_secondary;
-		border-width:1px 0;
-	}
 }
 
 #site-title { // site-title is generally an inverse color scheme for ui elements
 	display: block;
 	padding-top: 4px;
-	padding-bottom: 0;
+	padding-bottom: .5em;
 	margin-bottom: 2px;
 	font-family: $font_0, $font_1, $font_2;
 	font-size: 198%;
 	font-weight: 400;
-	line-height: 1.5;
+	line-height: 1.1;
 	color: $color_highlight_background;
 	text-align: center;
 	text-decoration: none;
 	text-transform: uppercase;
-	text-shadow: 0 0 1px $color_ui_background;
+	text-shadow: none;
 	vertical-align: bottom;
 	.dr-arrow {
 		color: lighten($color_outline_secondary,35%);
+	}
+	a {
+		color: $color_highlight_background;
+		&:hover {
+			color: $color_anchor;
+		}
 	}
 }
 #site-banner-subtitle {
@@ -161,6 +153,14 @@ a {
 	&:hover {
 		color: $color_anchor;
 	}
+}
+#site-banner {
+	margin: 0 0 0 0;
+}
+#secondary-nav {
+	margin: 0 0 0 0;
+	border:1px solid $color_ui_secondary;
+	border-width:1px 0;
 }
 @media(min-width: 768px) {
 	#site-banner {
@@ -274,12 +274,21 @@ a {
 			border: 0;
 			background: transparent;
 			background-color: transparent;
+			#link-panel > .panel-group {
+				margin-bottom: 5px; // matches margin-top of facet panel
+			}
             .sidenav {
 				.panel-title {
 					font-family: $font_b;
 					font-size:.9em;
 					text-transform:uppercase;
-					color:lighten($color_primary,18%);
+				}
+				.panel {
+					&:not(.panel-ui) {
+						.panel-title {
+							color:lighten($color_primary,18%);
+						}
+					}
 				}
 			}
 		}
@@ -294,6 +303,25 @@ a {
 		border: 0;
 		&.home {
 			background-color: transparent;
+		}
+	}
+	.panel-ui { // borrows from btn-primary
+		border-color: $color_ui_outline;
+		background-color: $color_ui_background;
+		color: $color_ui;
+		&:hover {
+			background-color: $color_ui;
+			color:$color_ui_background;
+			border-color:lighten($color_ui_background,30%);
+		}
+		&:active, &:focus {
+			border-color:darken($color_highlight,30%);
+		}
+		.panel-heading {
+			border: 0;
+			&.home {
+				background-color: transparent;
+			}
 		}
 	}
 	// text blocks are rendered as sections in the signature page layout
@@ -599,6 +627,10 @@ footer.container {
 
 #search-results .index_title small {
 	font-size: .8em;
+}
+
+:root {
+	--signature-banner-tint: #{navBgColor()};
 }
 
 @import '../shared/search-modes';

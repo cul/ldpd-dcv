@@ -16,12 +16,16 @@
 							<div class="col-xs-12 col-sm-6 pl-0">
 							<%- @page.site_text_blocks.sort { |a,b| a.sort_label <=> b.sort_label }.each do |text_block| -%>
 								<%- if text_block.label.present? -%>
-									<h5 class="h6 text-uppercase"><%= text_block.label %></h5>
+									<h2 class="h5 text-uppercase"><%= text_block.label %></h2>
 								<%- end -%>
 								<%= controller.render_markdown(text_block.markdown) %>
 							<%- end -%>
-							<h4 class="h5"><%= link_to("Browse content &raquo;".html_safe, search_action_url) %></h4>
-							</div>
+							<p>
+								<%- if (about_link = @subsite.about_link) -%>
+									<%= link_to("Read more &raquo;".html_safe, site_page_path(site_slug: @subsite.slug, slug: about_link.link), class: ["btn", "btn-primary"]) %>
+								<%- end -%>
+								<%= link_to("Browse content &raquo;".html_safe, search_action_url, class: ["btn", "btn-primary"]) %>
+							</p>
 						</div>
 						<div class="clearfix"></div>
 					</div>

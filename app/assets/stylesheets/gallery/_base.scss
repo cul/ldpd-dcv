@@ -336,7 +336,7 @@
 				line-height:1.4;
 				a {
 					&:hover {
-						color:lighten($color_highlight, 20%);
+						color:lighten($color_primary, 20%);
 						text-decoration:none;
 					}
 				}

@@ -9,5 +9,10 @@ describe ::Sites::PagesController do
 			visit("/#{site.slug}/about")
 			expect(page).to have_css('li > strong', text: 'Don\'t Repeat Yourself')
 		end
+		it 'links to scoped search' do
+			visit("/#{site.slug}/about")
+			# <input type="hidden" name="f[publisher_ssim][]" value="info:fedora/cul:import_site">
+			expect(page).to have_xpath("//input[@type='hidden' and @name='f[publisher_ssim][]' and @value='info:fedora/cul:import_site']")
+		end
 	end
 end

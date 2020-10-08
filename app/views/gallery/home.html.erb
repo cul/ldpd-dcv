@@ -2,7 +2,7 @@
   <div id="sidebar" class="col-md-3">
     <div class="inner">
        <div id="home-sidebar-news">
-          <h6><%= @subsite.title.html_safe %></h6>
+          <h2 class="home-sidebar-heading h5"><%= @subsite.title.html_safe %></h2>
             <p>
               <a href="<%= search_action_url %>">
                 <img src="<%= thumbnail_for_site(@subsite) %>" class="thumbnail pull-right" alt="<%= @subsite.title.html_safe %>">
@@ -21,9 +21,11 @@
          </div>
       </div>
       <div id="home-sidebar-about">
-          <p><a href="<%= site_page_url(site_slug: @subsite.slug, slug: 'about') %>">Learn more &raquo;</a></p>
+          <%- if (about_link = @subsite.about_link) -%>
+            <p><%= link_to("About the collection &raquo;".html_safe, site_page_path(site_slug: @subsite.slug, slug: about_link.link)) %></p>
+          <%- end -%>
           <p>
-            <%= link_to("Browse the collection »", search_action_url) %>
+            <%= link_to("Browse the collection &raquo;".html_safe, search_action_url) %>
           </p>
       </div>
       <%- if @page.show_facets -%>

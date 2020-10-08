@@ -18,7 +18,10 @@ module Sites
 
 		def set_view_path
 			super
+			self.prepend_view_path('app/views/shared')
 			self.prepend_view_path('app/views/' + self.subsite_layout)
+			self.prepend_view_path('app/views/' + controller_path.sub(/^restricted/,'')) if self.restricted?
+			self.prepend_view_path('app/views/' + controller_path)
 		end
 
 		def load_subsite(*pages)
@@ -69,14 +72,10 @@ module Sites
 		# Catalog, local, or subsite index as appropriate
 		def search_action_url(options = {})
 			if load_subsite.search_type == 'local'
-				url_for(action: 'index', controller: "/#{load_subsite.slug}")
+				url_for(action: 'index', controller: load_subsite.slug)
 			else
-				f = {}
-				load_subsite.constraints.each do |search_scope, facet_value|
-					next unless facet_value.present?
-					facet_field = (search_scope == 'collection') ? 'lib_collection_sim' : 'lib_project_short_ssim'
-					f[facet_field] = Array(facet_value)
-				end
+				# initialize with facet values if present
+				f = options.fetch('f', {}).merge(load_subsite.default_filters)
 				if load_subsite.restricted.present?
 					repository_id = @document[:lib_repo_code_ssim].first
 					search_repository_catalog_path(repository_id: repository_id, f: f)

@@ -95,6 +95,10 @@ class Site < ActiveRecord::Base
 		self.project= Array(constraints)
 	end
 
+	def about_link
+		nav_links.detect {|link| link.about_link? }
+	end
+
 	def to_subsite_config
 		config = {slug: slug, restricted: slug =~ /restricted/, palette: palette, layout: layout}
 		config.with_indifferent_access
