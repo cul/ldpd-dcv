@@ -475,96 +475,82 @@ a {
 				margin-right: 3px;
 			}
 			a {
-				font-size:1.4em;
-				&.brazil::before{
-					content: "\1F1E7\1F1F7";
+				font-size:1.3em;
+				background-image: $url_flag_sprite;
+		    height: 40px;
+		    width: 40px;
+		    display: inline-block;
+		    background-repeat: no-repeat;
+		    text-indent: 20px;
+				background-size: 500%;
+				&.brazil{
+					background-position: 0px -3px;
 				}
-				&.chile::before{
-					content: "\1F1E8\1F1F1";
+				&.chile{
+					background-position: -40px -3px;
 				}
-
-				&.china::before{
-					content: "\1F1E8\1F1F3";
+				&.china{
+					background-position: -80px -3px;
 				}
-
-				&.egypt::before{
-					content: "\1F1EA\1F1EC";
+				&.egypt{
+					background-position: -120px -3px;
 				}
-
-				&.ghana::before{
-					content: "\1F1EC\1F1ED";
+				&.ghana{
+					background-position: -160px -3px;
 				}
-
-				&.guatemala::before{
-					content: "\1F1EC\1F1F9";
+				&.guatemala{
+					background-position: 0px -43px;
 				}
-
-				&.india::before{
-					content: "\1F1EE\1F1F3";
+				&.india{
+					background-position: -40px -43px;
 				}
-
-				&.indonesia::before{
-					content: "\1F1EE\1F1E9";
+				&.indonesia{
+					background-position: -80px -43px;
 				}
-
-				&.kenya::before{
-					content: "\1F1F0\1F1EA";
+				&.kenya{
+					background-position: -120px -43px;
 				}
-
-				&.mexico::before{
-					content: "\1F1F2\1F1FD";
+				&.mexico{
+					background-position: -160px -43px;
 				}
-
-				&.mozambique::before{
-					content: "\1F1F2\1F1FF";
+				&.mozambique{
+					background-position: 0px -83px;
 				}
-
-				&.nigeria::before{
-					content: "\1F1F3\1F1EC";
+				&.nigeria{
+					background-position: -40px -83px;
 				}
-
-				&.palestine::before{
-					content: "\1F1F5\1F1F8";
+				&.palestine{
+					background-position: -80px -83px;
 				}
-
-				&.peru::before{
-					content: "\1F1F5\1F1EA";
+				&.peru{
+					background-position: -120px -83px;
 				}
-
-				&.philippines::before{
-					content: "\1F1F5\1F1ED";
+				&.philippines{
+					background-position: -160px -83px;
 				}
-
-				&.russia::before{
-					content: "\1F1F7\1F1FA";
+				&.russia{
+					background-position: 0px -123px;
 				}
-
-				&.secretariat::before{
-					content: "\1F310";
+				&.secretariat{
+					background-position: -40px -123px;
 				}
-
-				&.senegal::before{
-					content: "\1F1F8\1F1F3";
+				&.senegal{
+					background-position: -80px -123px;
 				}
-
-				&.southafrica::before{
-					content: "\1F1FF\1F1E6";
+				&.southafrica{
+					background-position: -120px -123px;
 				}
-
-				&.tanzania::before{
-					content: "\1F1F9\1F1FF";
+				&.tanzania{
+					background-position: -160px -123px;
 				}
-
-				&.thailand::before{
-					content: "\1F1F9\1F1ED";
+				&.thailand{
+					background-position: 0px -163px;
 				}
-
-				&.uganda::before{
-					content: "\1F1FA\1F1EC";
+				&.uganda{
+					background-position: -40px -163px;
 				}
-
-				&.vietnam::before{
-					content: "\1F1FB\1F1F3";
+				&.vietnam{
+					background-position: -80px -163px;
 				}
 			}
 		}
