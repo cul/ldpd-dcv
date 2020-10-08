@@ -30,11 +30,9 @@ DLC VERSION: <%= render :file => Rails.root.to_s+'/VERSION' %> -->
 <%= stylesheet_link_tag "print", media: 'print' %>
 
 <!-- OHSynchronizer -->
-<%= stylesheet_link_tag "/synchronizer-module/css/ableplayer.min.css" %>
 <% if params[:action] == 'synchronizer' %>
   <%= stylesheet_link_tag "/synchronizer-module/css/style.css" %>
 <% end %>
-
 <%= csrf_meta_tags %>
 <%= content_for(:head) %>
 
@@ -56,10 +54,9 @@ DLC VERSION: <%= render :file => Rails.root.to_s+'/VERSION' %> -->
 <%= javascript_include_tag "dcv" %>
 
 <!-- OHSynchronizer -->
-<%= javascript_include_tag "/synchronizer-module/js/ableplayer.min.js" %>
-<%= javascript_include_tag "/synchronizer-module/js/hls.min.js" %>
-<%= javascript_include_tag "/synchronizer-module/js/ohsynchronizer.js" %>
-<%= javascript_include_tag "/synchronizer-module/js/js.cookie.2.2.0.min.js" %>
+<% if params[:action] == 'synchronizer' %>
+	<%= javascript_include_tag "/synchronizer-module/js/ohsynchronizer.js" %>
+<% end %>
 
 <% if Rails.env == 'dcv_private_test' || Rails.env == 'dcv_prod' %>
 	<script>
