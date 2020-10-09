@@ -384,6 +384,7 @@ GEM
     rspec-expectations (3.4.0)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.4.0)
+    rspec-json_expectations (2.2.0)
     rspec-mocks (3.4.1)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.4.0)
@@ -541,6 +542,7 @@ DEPENDENCIES
   redis (< 4)
   resque (~> 1.26.0)
   retriable (~> 2.1)
+  rspec-json_expectations
   rspec-rails (~> 3.4.0)
   rubocop (~> 0.53.0)
   rubocop-rails_config

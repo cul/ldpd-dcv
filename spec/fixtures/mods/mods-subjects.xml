@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<mods xmlns='http://www.loc.gov/mods/v3' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-6.xsd' version='3.6'>
+  <subject authority="lcsh" valueURI="http://id.loc.gov/authorities/names/n79088877">
+    <name authority="naf">
+      <namePart>Jay, John, 1745-1829</namePart>
+    </name>
+  </subject>
+  <subject>
+    <name>
+      <namePart>Smith, John, 1440-1540</namePart>
+    </name>
+  </subject>
+  <subject>
+    <geographic>
+      Great Geographic Subject
+    </geographic>
+  </subject>
+  <subject>
+    <topic>
+      What A Topic
+    </topic>
+  </subject>
+  <subject authority="Durst">
+    <topic>
+      Durst subject that should be ignored
+    </topic>
+  </subject>
+  <subject>
+    <temporal>
+      So Temporal
+    </temporal>
+  </subject>
+  <subject>
+    <titleInfo>
+      <nonSort>The</nonSort>
+      <title>Best Subject Title I've Ever Seen!</title>
+    </titleInfo>
+  </subject>
+  <subject>
+    <genre>
+      A Very Accurate Genre
+    </genre>
+  </subject>
+  <subject>
+    <occupation>
+      We Are Currently Ignoring Subject Occupation
+    </occupation>
+  </subject>
+  <subject>
+    <cartographics>
+      <coordinates>40.8075, -73.9619</coordinates>
+    </cartographics>
+  </subject>
+  <subject>
+    <cartographics>
+      <coordinates>40.6892, -74.0444</coordinates>
+    </cartographics>
+  </subject>
+  <subject>
+    <cartographics>
+      <coordinates>-40.6892, 74.0444</coordinates>
+    </cartographics>
+  </subject>
+  <subject>
+    <hierarchicalGeographic>
+      <country>United States</country>
+      <province>Nova Scotia</province>
+      <region>Northeast</region>
+      <state>New York</state>
+      <county>Westchester</county>
+      <citySection citySectionType="borough">Brooklyn</citySection>
+      <city>White Plains</city>
+      <citySection citySectionType="neighborhood">The Backpacking District</citySection>
+      <citySection citySectionType="zip code">10027</citySection>
+      <citySection citySectionType="street">123 Broadway</citySection>
+      <area>The good part of town</citySection>
+    </hierarchicalGeographic>
+  </subject>
+</mods>
