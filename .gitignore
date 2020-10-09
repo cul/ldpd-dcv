@@ -58,5 +58,8 @@ reference-files/*
 /jetty
 /jetty-test
 
+# Ignore any local precompiled assets
+/public/assets
+
 # Ignore site-specific uploads
 /public/images/sites
