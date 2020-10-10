@@ -1,5 +1,5 @@
 module Dcv::SolrHelper
-  include Cul::Hydra::AccessLevels
+  include Dcv::AccessLevels
 
   def access_control_fields(solr_doc = {})
     SolrDocument::ACCESS_CONTROL_FIELDS.map { |field_name| [field_name, solr_doc[field_name]] }.to_h.compact

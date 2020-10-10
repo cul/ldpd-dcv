@@ -1,0 +1,37 @@
+# -*- encoding : utf-8 -*-
+module Dcv::Solr::DocumentAdapter
+  class << self
+    # Create a new adapter object
+    # @param ng_or_string_or_io [Nokogiri::XML|String|IO]
+    # @return [Dcv::Solr::DocumentAdapter::XacmlXml]
+    def XacmlXml ng_or_string_or_io
+      XacmlXml.new(ng_or_string_or_io)
+    end
+  end
+
+  class XacmlXml < Dcv::Solr::DocumentAdapter::Abstract
+    XACML_NS = {'xacml'=>'urn:oasis:names:tc:xacml:3.0:core:schema:wd-17'}
+
+    autoload :Fields, 'dcv/solr/document_adapter/xacml_xml/fields'
+    include Fields
+
+    attr_accessor :ng_xml
+
+    # Initialize adapter object with nokogiri xml structure
+    # @param ng_or_string_or_io [Nokogiri::XML|String|IO]
+    def initialize(ng_or_string_or_io)
+      @ng_xml = ng_or_string_or_io.is_a?(Nokogiri::XML::Document) ? ng_or_string_or_io : Nokogiri::XML(ng_or_string_or_io)
+    end
+
+    def xacml
+      ng_xml.xpath('/xacml:Policy', XACML_NS).first
+    end
+
+    # Create or update a solr document with fields drawn from @ng_xml 
+    # @param doc [Hash]
+    # @return [Hash]
+    def to_solr(doc={})
+      super(doc)
+    end
+  end
+end
