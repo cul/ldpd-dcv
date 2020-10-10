@@ -1,19 +1,14 @@
 require 'rails_helper'
 
 describe Dcv::Solr::DocumentAdapter::ModsXml, type: :unit do
-  let(:mods_src) { fixture(File.join("mods", "mods-all.xml")) }
-  let(:ng_xml) { Nokogiri::XML(mods_src.read) }
+  let(:xml_src) { fixture(File.join("mods", "mods-all.xml")) }
+  let(:ng_xml) { Nokogiri::XML(xml_src.read) }
   let(:adapter) { described_class.new(ng_xml) }
   let(:solr_doc) { adapter.to_solr }
   let(:all_text) { solr_doc['all_text_teim'] }
   let(:all_text_joined) { all_text.join(' ') }
 
   describe ".to_solr" do
-
-    it "should produce a hash" do
-      expect(solr_doc).to be_a Hash
-    end
-
     it "should have a single sortable title" do
       expect(solr_doc).to include("title_si" => 'MANUSCRIPT UNIDENTIFIED')
       # title_display_ssm is assigned in the ModsDocument OM selector
@@ -85,19 +80,19 @@ describe Dcv::Solr::DocumentAdapter::ModsXml, type: :unit do
   end
 
   describe ".main_title" do
-    let(:mods_src) { fixture( File.join("mods", "mods-titles.xml")) }
+    let(:xml_src) { fixture( File.join("mods", "mods-titles.xml")) }
     it "should find the top-level titles" do
       expect(adapter.main_title).to eql 'The Photographs'
     end
   end
 
   describe ".projects" do
-    let(:mods_src) { fixture( File.join("mods", "mods-titles.xml")) }
+    let(:xml_src) { fixture( File.join("mods", "mods-titles.xml")) }
     it "should find the project titles for faceting" do
       expect(adapter.projects).to eql ['Customer Order Project']
     end
     context "a project title has periods in it" do
-      let(:mods_src) { fixture( File.join("mods", "mods-relateditem-project.xml")) }
+      let(:xml_src) { fixture( File.join("mods", "mods-relateditem-project.xml")) }
       it "should be able to translate the title value" do
         expect(solr_doc["lib_project_short_ssim"]).to eql ["Lindquist Photographs"]
         expect(solr_doc["lib_project_full_ssim"]).to eql ["G.E.E. Lindquist Native American Photographs"]
@@ -106,28 +101,28 @@ describe Dcv::Solr::DocumentAdapter::ModsXml, type: :unit do
   end
 
   describe ".collections" do
-    let(:mods_src) { fixture( File.join("mods", "mods-titles.xml")) }
+    let(:xml_src) { fixture( File.join("mods", "mods-titles.xml")) }
     it "should find the collection titles for faceting" do
       expect(adapter.collections).to eql ['The Pulitzer Prize Photographs']
     end
   end
 
   describe ".shelf_locators" do
-    let(:mods_src) { fixture( File.join("mods", "mods-physical-location.xml")) }
+    let(:xml_src) { fixture( File.join("mods", "mods-physical-location.xml")) }
     it "should find the shelf locators" do
       expect(solr_doc["lib_shelf_sim"]).to eql ["Box no. 057"]
     end
   end
 
   describe ".textual_dates" do
-    let(:mods_src) { fixture( File.join("mods", "mods-textual-dates-with-unusual-chars.xml")) }
+    let(:xml_src) { fixture( File.join("mods", "mods-textual-dates-with-unusual-chars.xml")) }
     it "should not change the textual date, other than removing leading or trailing whitespace" do
       expect(solr_doc["lib_date_textual_ssm"].sort).to eql ['-12 BCE', 'Circa 1940', '[19]22?']
     end
   end
 
   describe ".names" do
-    let(:mods_src) { fixture( File.join("mods", "mods-names.xml")) }
+    let(:xml_src) { fixture( File.join("mods", "mods-names.xml")) }
     it "should find name values and ignore roleTerms" do
       expect(adapter.names).to eql ['Name, Inc.', 'Name, Personal 1745-1829', 'Name, Recipient 1829-1745', 'Included Without Attribute', 'Dear Brother', 'Seminar 401']
     end
@@ -140,7 +135,7 @@ describe Dcv::Solr::DocumentAdapter::ModsXml, type: :unit do
   end
 
   describe ".add_names_by_text_role!" do
-    let(:mods_src) { fixture( File.join("mods", "mods-names.xml")) }
+    let(:xml_src) { fixture( File.join("mods", "mods-names.xml")) }
     it "should index names by role" do
       doc = {}
       adapter.add_names_by_text_role!(doc)
@@ -152,7 +147,7 @@ describe Dcv::Solr::DocumentAdapter::ModsXml, type: :unit do
   end
 
   describe ".coordinates" do
-    let(:mods_src) { fixture( File.join("mods", "mods-subjects.xml")) }
+    let(:xml_src) { fixture( File.join("mods", "mods-subjects.xml")) }
     it "should find coordinate values" do
       expect(adapter.coordinates).to eql ['40.8075, -73.9619', '40.6892, -74.0444', '-40.6892, 74.0444']
     end
@@ -176,7 +171,7 @@ describe Dcv::Solr::DocumentAdapter::ModsXml, type: :unit do
     end
   end
   describe ".archival_context_json" do
-    let(:mods_src) { fixture( File.join("mods", "mods-archival-context.xml")) }
+    let(:xml_src) { fixture( File.join("mods", "mods-archival-context.xml")) }
     let(:expected) { JSON.load(File.read(fixture( File.join("json", "archival_context.json")))) }
     it "should produce json-ld for the archival context" do
       expect(expected).to include_json(adapter.archival_context_json[0])
@@ -186,7 +181,7 @@ describe Dcv::Solr::DocumentAdapter::ModsXml, type: :unit do
     end
   end
   describe ".copyright_statement" do
-    let(:mods_src) { fixture( File.join("mods", "mods-access-condition.xml")) }
+    let(:xml_src) { fixture( File.join("mods", "mods-access-condition.xml")) }
     let(:expected) { 'http://rightsstatements.org/vocab/InC/1.0/' }
     it "should index a copyright statement" do
       expect(adapter.copyright_statement).to eql expected
@@ -194,7 +189,7 @@ describe Dcv::Solr::DocumentAdapter::ModsXml, type: :unit do
     end
   end
   describe ".reading_room_locations" do
-    let(:mods_src) { fixture( File.join("mods", "mods-site-fields.xml")) }
+    let(:xml_src) { fixture( File.join("mods", "mods-site-fields.xml")) }
     let(:expected) { ['http://id.library.columbia.edu/term/45487bbd-97ef-44b4-9468-dda47594bc60'] }
     it "should index a copyright statement" do
       expect(adapter.reading_room_locations).to eql expected
@@ -202,7 +197,7 @@ describe Dcv::Solr::DocumentAdapter::ModsXml, type: :unit do
     end
   end
   describe ".search_scope" do
-    let(:mods_src) { fixture( File.join("mods", "mods-site-fields.xml")) }
+    let(:xml_src) { fixture( File.join("mods", "mods-site-fields.xml")) }
     let(:expected) { 'project' }
     it "should index a copyright statement" do
       expect(adapter.search_scope).to eql [expected]
@@ -210,7 +205,7 @@ describe Dcv::Solr::DocumentAdapter::ModsXml, type: :unit do
     end
   end
   describe ".sort_title" do
-    let(:mods_src) { fixture( File.join("mods", "mods-titles-extended.xml")) }
+    let(:xml_src) { fixture( File.join("mods", "mods-titles-extended.xml")) }
     let(:expected) { 'GHOTOGRAPHS ゐ' }
     it "should index a sort title without diacritics, punctuation or case sensitivity" do
       expect(adapter.to_solr['title_si']).to eql expected

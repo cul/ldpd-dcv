@@ -3,19 +3,17 @@ module Dcv::Solr::DocumentAdapter
   class << self
     # Create a new adapter object
     # @param ng_or_string_or_io [Nokogiri::XML|String|IO]
-    # @return [Dcv::Solr::DocumentAdapter::ModsXml]
-    def ModsXml ng_or_string_or_io
-      ModsXml.new(ng_or_string_or_io)
+    # @return [Dcv::Solr::DocumentAdapter::DcXml]
+    def DcXml ng_or_string_or_io
+      DcXml.new(ng_or_string_or_io)
     end
   end
 
-  class ModsXml < Dcv::Solr::DocumentAdapter::Abstract
-    MODS_NS = {'mods'=>'http://www.loc.gov/mods/v3', 'cul' => 'http://id.library.columbia.edu/property/'}
+  class DcXml < Dcv::Solr::DocumentAdapter::Abstract
+    DC_NS = {"oai_dc"=>"http://www.openarchives.org/OAI/2.0/oai_dc/", "dc"=>"http://purl.org/dc/elements/1.1/"}
 
-    autoload :OmRules, 'dcv/solr/document_adapter/mods_xml/om_rules'
-    autoload :Fields, 'dcv/solr/document_adapter/mods_xml/fields'
-    include OmRules # to mimic ActiveFedora/OM behavior, this is included before Fields
-    include Fields
+    autoload :OmRules, 'dcv/solr/document_adapter/dc_xml/om_rules'
+    include OmRules
 
     attr_accessor :ng_xml
 
@@ -25,8 +23,8 @@ module Dcv::Solr::DocumentAdapter
       @ng_xml = ng_or_string_or_io.is_a?(Nokogiri::XML::Document) ? ng_or_string_or_io : Nokogiri::XML(ng_or_string_or_io)
     end
 
-    def mods
-      ng_xml.xpath('/mods:mods', MODS_NS).first
+    def dc
+      ng_xml.xpath('/oai_dc:dc', DC_NS).first
     end
 
     # Create or update a solr document with fields drawn from @ng_xml 

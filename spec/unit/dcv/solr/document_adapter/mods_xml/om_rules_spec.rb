@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 describe Dcv::Solr::DocumentAdapter::ModsXml, type: :unit do
-  let(:mods_src) { fixture(File.join("mods", "mods-all.xml")) }
-  let(:ng_xml) { Nokogiri::XML(mods_src.read) }
+  let(:xml_src) { fixture(File.join("mods", "mods-all.xml")) }
+  let(:ng_xml) { Nokogiri::XML(xml_src.read) }
   let(:adapter) { described_class.new(ng_xml) }
   let(:solr_doc) { adapter.to_solr }
   let(:all_text) { solr_doc['all_text_teim'] }
@@ -12,17 +12,10 @@ describe Dcv::Solr::DocumentAdapter::ModsXml, type: :unit do
     subject {
       solr_doc
     }
-    context "with non-MODS content" do
-      let(:mods_src) { fixture( File.join("dc", "dc.xml") ) }
-      it do
-        is_expected.to be
-        is_expected.to be_empty
-      end
-    end
     context "has date cataloging" do
       context "with dates encoded as 'u' characters" do
         context "that are less that 4 characters long" do
-          let(:mods_src) { fixture( File.join("mods", "mods-date-range-short-years.xml") ) }
+          let(:xml_src) { fixture( File.join("mods", "mods-date-range-short-years.xml") ) }
           it "handles positive (CE) or negative (BCE)" do
             expect(subject["origin_info_date_other_ssm"]).to eql ['-99']
             expect(subject["origin_info_date_other_start_ssm"]).to eql ['-99']
@@ -34,38 +27,38 @@ describe Dcv::Solr::DocumentAdapter::ModsXml, type: :unit do
           end
         end
         context "that represent a range with partial 'u' characters" do
-          let(:mods_src) { fixture( File.join("mods", "mods-dates-with-some-u-characters.xml") ) }
+          let(:xml_src) { fixture( File.join("mods", "mods-dates-with-some-u-characters.xml") ) }
           it "replaces 'u' characters with zeroes when they're part of, but not all of, a year's digits" do
             expect(subject["lib_date_year_range_si"]).to eql '1870-1900'
           end
         end
         context "that encode the end date with all 'u' characters" do
-          let(:mods_src) { fixture( File.join("mods", "mods-date-end-with-all-u-characters.xml") ) }
+          let(:xml_src) { fixture( File.join("mods", "mods-date-end-with-all-u-characters.xml") ) }
           it "uses only the start date" do
             expect(subject["lib_date_year_range_si"]).to eql '1870-1870'
           end
         end
         context "that encode the start date with all 'u' characters" do
-          let(:mods_src) { fixture( File.join("mods", "mods-date-start-with-all-u-characters.xml") ) }
+          let(:xml_src) { fixture( File.join("mods", "mods-date-start-with-all-u-characters.xml") ) }
           it "uses only the end date" do
             expect(subject["lib_date_year_range_si"]).to eql '1920-1920'
           end
         end
         context "that encode both start and end date with all 'u' characters" do
-          let(:mods_src) { fixture( File.join("mods", "mods-dates-with-all-u-characters.xml") ) }
+          let(:xml_src) { fixture( File.join("mods", "mods-dates-with-all-u-characters.xml") ) }
           it "should not populate the lib_date_year_range_si field" do
             expect(subject["lib_date_year_range_si"]).not_to be
           end
         end
       end
       context "with textual (non-key) dates" do
-        let(:mods_src) { fixture( File.join("mods", "mods-textual-date.xml") ) }
+        let(:xml_src) { fixture( File.join("mods", "mods-textual-date.xml") ) }
         it do
           expect(subject["lib_date_textual_ssm"]).to eql ['Some time around 1919']
         end
       end
       context "with date issued (single)" do
-        let(:mods_src) { fixture( File.join("mods", "mods-date-issued-single.xml") ) }
+        let(:xml_src) { fixture( File.join("mods", "mods-date-issued-single.xml") ) }
         it do
           expect(subject["origin_info_date_issued_ssm"]).to eql ['1700']
           expect(subject["origin_info_date_issued_start_ssm"]).to eql nil
@@ -78,7 +71,7 @@ describe Dcv::Solr::DocumentAdapter::ModsXml, type: :unit do
         end
       end
       context "with date issued (range)" do
-        let(:mods_src) { fixture( File.join("mods", "mods-date-issued-range.xml") ) }
+        let(:xml_src) { fixture( File.join("mods", "mods-date-issued-range.xml") ) }
         it do
           expect(subject["origin_info_date_issued_ssm"]).to eql ['1701']
           expect(subject["origin_info_date_issued_start_ssm"]).to eql ['1701']
@@ -90,7 +83,7 @@ describe Dcv::Solr::DocumentAdapter::ModsXml, type: :unit do
         end
       end
       context "with date created (single)" do
-        let(:mods_src) { fixture( File.join("mods", "mods-date-created-single.xml") ) }
+        let(:xml_src) { fixture( File.join("mods", "mods-date-created-single.xml") ) }
         it do
           expect(subject["origin_info_date_created_ssm"]).to eql ['1800']
           expect(subject["origin_info_date_created_start_ssm"]).to eql nil
@@ -102,7 +95,7 @@ describe Dcv::Solr::DocumentAdapter::ModsXml, type: :unit do
         end
       end
       context "with date created (range) as iso8601" do
-        let(:mods_src) { fixture( File.join("mods", "mods-date-created-range.xml") ) }
+        let(:xml_src) { fixture( File.join("mods", "mods-date-created-range.xml") ) }
         it do
           expect(subject["lib_start_date_year_itsi"]).to eql 1801
           expect(subject["lib_end_date_year_itsi"]).to eql 1802
@@ -111,7 +104,7 @@ describe Dcv::Solr::DocumentAdapter::ModsXml, type: :unit do
         end
       end
       context "with date other (single)" do
-        let(:mods_src) { fixture( File.join("mods", "mods-date-other-single.xml") ) }
+        let(:xml_src) { fixture( File.join("mods", "mods-date-other-single.xml") ) }
         it do
           expect(subject["origin_info_date_other_ssm"]).to eql ['1900']
           expect(subject["origin_info_date_other_start_ssm"]).to eql nil
@@ -123,7 +116,7 @@ describe Dcv::Solr::DocumentAdapter::ModsXml, type: :unit do
         end
       end
       context "with date other (range)" do
-        let(:mods_src) { fixture( File.join("mods", "mods-date-other-range.xml") ) }
+        let(:xml_src) { fixture( File.join("mods", "mods-date-other-range.xml") ) }
         it do
           expect(subject["origin_info_date_other_ssm"]).to eql ['1901']
           expect(subject["origin_info_date_other_start_ssm"]).to eql ['1901']
@@ -136,7 +129,7 @@ describe Dcv::Solr::DocumentAdapter::ModsXml, type: :unit do
       end
     end
     context "that has originInfo cataloging" do
-      let(:mods_src) { fixture( File.join("mods", "mods-origin-info.xml") ) }
+      let(:xml_src) { fixture( File.join("mods", "mods-origin-info.xml") ) }
       it "should store publisher as a string" do
         is_expected.to include("origin_info_publisher_ssm")
         expect(subject["lib_publisher_ssm"]).to eql ['Amazing Publisher']
@@ -153,7 +146,7 @@ describe Dcv::Solr::DocumentAdapter::ModsXml, type: :unit do
       end
     end
     context "has physical location cataloged" do
-      let(:mods_src) { fixture( File.join("mods", "mods-physical-location.xml") ) }
+      let(:xml_src) { fixture( File.join("mods", "mods-physical-location.xml") ) }
       context "with a sublocation" do
         subject { solr_doc['location_sublocation_ssm'] }
         it do
@@ -170,7 +163,7 @@ describe Dcv::Solr::DocumentAdapter::ModsXml, type: :unit do
         end
       end
       context "with a non-Columbia repository" do
-        let(:mods_src) { fixture( File.join("mods", "mods-bad-repo.xml") ) }
+        let(:xml_src) { fixture( File.join("mods", "mods-bad-repo.xml") ) }
         it "should fall back to 'Non-Columbia Location' when untranslated" do
           is_expected.to include("lib_repo_short_ssim")
           is_expected.to include("lib_repo_long_sim")
@@ -184,7 +177,7 @@ describe Dcv::Solr::DocumentAdapter::ModsXml, type: :unit do
       end
     end
     context "has physical location with shelfLocation and sublocation in two different places" do
-      let(:mods_src) { fixture( File.join("mods", "mods-physical-location-with-dual-location-shelflocator-and-sublocation.xml") ) }
+      let(:xml_src) { fixture( File.join("mods", "mods-physical-location-with-dual-location-shelflocator-and-sublocation.xml") ) }
       context "shelfLocator is extracted from both <location><shelfLocator> and <location><holdingSimpleholding><copyInformation><shelfLocator>" do
         subject { solr_doc['location_shelf_locator_ssm'] }
         it do
@@ -203,7 +196,7 @@ describe Dcv::Solr::DocumentAdapter::ModsXml, type: :unit do
       end
     end
     context "has unmapped project names cataloged" do
-      let(:mods_src) { fixture( File.join("mods", "mods-unmapped-project.xml") ) }
+      let(:xml_src) { fixture( File.join("mods", "mods-unmapped-project.xml") ) }
       it do
         is_expected.to include("lib_project_short_ssim")
         is_expected.to include("lib_project_full_ssim")
@@ -213,7 +206,7 @@ describe Dcv::Solr::DocumentAdapter::ModsXml, type: :unit do
       end
     end
     context "has URLs cataloged" do
-      let(:mods_src) { fixture( File.join("mods", "mods-top-level-location-vs-relateditem-location.xml") ) }
+      let(:xml_src) { fixture( File.join("mods", "mods-top-level-location-vs-relateditem-location.xml") ) }
       context "for the project" do
         subject { solr_doc['lib_project_url_ssm'] }
         it do
@@ -247,7 +240,7 @@ describe Dcv::Solr::DocumentAdapter::ModsXml, type: :unit do
       end
     end
     context "has names cataloged" do
-      let(:mods_src) { fixture( File.join("mods", "mods-names.xml") ) }
+      let(:xml_src) { fixture( File.join("mods", "mods-names.xml") ) }
       context "as primary names" do
         context "the facetable value" do
           subject { solr_doc['primary_name_sim'] }
@@ -266,7 +259,7 @@ describe Dcv::Solr::DocumentAdapter::ModsXml, type: :unit do
       end
     end
     context "has all the common subsite cataloging" do
-      let(:mods_src) { fixture( File.join("mods", "mods-all.xml") ) }
+      let(:xml_src) { fixture( File.join("mods", "mods-all.xml") ) }
       context "has a recipient name cataloged" do
         it do
           expect(all_text_joined).to include("Name, Recipient")
@@ -282,7 +275,7 @@ describe Dcv::Solr::DocumentAdapter::ModsXml, type: :unit do
       end
     end
     context "has description of an item in the MODS source" do
-      let(:mods_src) { fixture( File.join("mods", "mods-item.xml") ) }
+      let(:xml_src) { fixture( File.join("mods", "mods-item.xml") ) }
       context "copied" do
         it "should include nonSort text in display title and exclude it from index title" do
           expect(subject["title_display_ssm"]).to include('The Manuscript, unidentified')
@@ -370,14 +363,14 @@ describe Dcv::Solr::DocumentAdapter::ModsXml, type: :unit do
       end
     end
     context "handles iso639-2 and iso639-2b language authority variations" do
-      let(:mods_src) { fixture( File.join("mods", "mods-languages.xml") ) }
+      let(:xml_src) { fixture( File.join("mods", "mods-languages.xml") ) }
       it "should capture languages with authority='iso639-2' and languages with athority='iso639-2b'" do
         expect(subject["language_language_term_text_ssim"].sort).to eq(['English', 'Italian'])
         expect(subject["language_language_term_code_ssim"].sort).to eq(['eng', 'ita'])
       end
     end
     context "has authority values for form under physicalDescription" do
-      let(:mods_src) { fixture( File.join("mods", "mods-physical-description.xml") ) }
+      let(:xml_src) { fixture( File.join("mods", "mods-physical-description.xml") ) }
       context "from a local authority" do
         subject { solr_doc['physical_description_form_local_sim'] }
         it do
@@ -394,13 +387,13 @@ describe Dcv::Solr::DocumentAdapter::ModsXml, type: :unit do
       end
     end
     context "has descriptive text fields in the MODS source" do
-      let(:mods_src) { fixture( File.join("mods", "mods-001.xml") ) }
+      let(:xml_src) { fixture( File.join("mods", "mods-001.xml") ) }
       context "the notes" do
         it "should be texted" do
           expect(all_text_joined).to include("Original PRD customer order number")
         end
         context "with date notes and non-date notes" do
-          let(:mods_src) { fixture( File.join("mods", "mods-notes.xml") ) }
+          let(:xml_src) { fixture( File.join("mods", "mods-notes.xml") ) }
           it "should prepend appropriate text before certain note types" do
             expect(all_text).to include("Basic note")
             expect(all_text).to include("Banana note")
@@ -428,7 +421,7 @@ describe Dcv::Solr::DocumentAdapter::ModsXml, type: :unit do
       end
     end
     context "has document title elements in the MODS source" do
-      let(:mods_src) { fixture( File.join("mods", "mods-titles.xml") ) }
+      let(:xml_src) { fixture( File.join("mods", "mods-titles.xml") ) }
       it "should have the expected main sort title" do
         expect(subject["title_si"]).to include("PHOTOGRAPHS")
       end
@@ -456,7 +449,7 @@ describe Dcv::Solr::DocumentAdapter::ModsXml, type: :unit do
       end
     end
     context "has subjects in the MODS source" do
-      let(:mods_src) { fixture( File.join("mods", "mods-subjects.xml") ) }
+      let(:xml_src) { fixture( File.join("mods", "mods-subjects.xml") ) }
       it "should have the expected subjects in both stored string and text fields" do
         subjects = ["What A Topic", "Great Geographic Subject", "Jay, John, 1745-1829", "Smith, John, 1440-1540", "So Temporal", "The Best Subject Title I've Ever Seen!", "A Very Accurate Genre"]
         expect(subject["lib_all_subjects_ssm"]).to eql subjects
@@ -502,7 +495,7 @@ describe Dcv::Solr::DocumentAdapter::ModsXml, type: :unit do
       end
     end
     context "has classification other cataloged" do
-      let(:mods_src) { fixture( File.join("mods", "mods-all.xml") ) }
+      let(:xml_src) { fixture( File.join("mods", "mods-all.xml") ) }
       it "should only extract classifications with type='z' (other)" do
         expect(subject["classification_other_ssim"]).to eq(['AB.CD.EF.G.123', 'AB.CD.EF.G.456'])
       end

@@ -421,20 +421,6 @@ class Dcv::Solr::DocumentAdapter::ModsXml
       end
     end
 
-    def normal(value)
-      normal!(value.clone)
-    end
-
-    def normal!(value)
-      value.gsub!(/\s+/,' ')
-      value.strip!
-      value
-    end
-
-    def textable(value)
-      Array(value).map {|v| normal(v)}
-    end
-
     def marc_code_textable(value)
       Array(value).map do |v|
         nv = normal(v)
