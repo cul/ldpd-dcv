@@ -12,24 +12,12 @@ class Dcv::Solr::DocumentAdapter::XacmlXml
 
     ATTRIBUTE_AFFILIATION = "http://www.ja-sig.org/products/cas/affiliation".freeze
 
-    def to_solr(solr_doc={})
-      solr_doc = (defined? super) ? super : solr_doc
-
-      return solr_doc if policy.nil?  # Return because there is nothing to process
-      solr_doc['access_control_levels_ssim'] = access_levels
-      solr_doc['access_control_permissions_bsi'] = permissions_indicated?
-      solr_doc['access_control_embargo_dtsi'] = permit_after_date
-      solr_doc['access_control_affiliations_ssim'] = permit_affiliations
-      solr_doc['access_control_locations_ssim'] = permit_locations
-      solr_doc
-    end
-
     def policy
       ng_xml.xpath('/xacml:Policy', XACML_NS).first
     end
 
     def access_levels
-      policy&.xpath('./xacml:Rule/xacml:Description', XACML_NS).map(&:text)
+      xacml&.xpath('./xacml:Rule/xacml:Description', XACML_NS).map(&:text)
     end
 
     def permissions_indicated?
@@ -37,7 +25,7 @@ class Dcv::Solr::DocumentAdapter::XacmlXml
     end
 
     def permissions
-      policy&.xpath('./xacml:Rule[@Effect=\'Permit\']/xacml:Condition', XACML_NS)
+      xacml&.xpath('./xacml:Rule[@Effect=\'Permit\']/xacml:Condition', XACML_NS)
     end
 
     def permit_affiliations

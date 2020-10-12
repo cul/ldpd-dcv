@@ -30,16 +30,17 @@ describe Dcv::Solr::FedoraIndexer, type: :unit do
 		let(:mock_object) { GenericResource.new }
 		let(:pid) { 'abc:123' }
 		before do
+			mock_object.add_relationship(:has_model, 'info:fedora/ldpd:GenericResource')
 			expect(ActiveFedora::Base).to receive(:find).with(pid, any_args).and_return(mock_object)
 		end
 		it "looks up an object and calls update_index" do
-			expect(mock_object).to receive(:update_index)
+			expect(ActiveFedora::SolrService).to receive(:add)
 			described_class.index_pid(pid, index_opts)
 		end
 		context 'skipping generic resources' do
 			let(:index_opts) { { skip_generic_resources: true, softcommit: true, reraise: true } }
 			it "does not index a generic resource" do
-				expect(mock_object).not_to receive(:update_index)
+				expect(ActiveFedora::SolrService).not_to receive(:add)
 				described_class.index_pid(pid, index_opts)
 			end
 		end

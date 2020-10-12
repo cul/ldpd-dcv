@@ -66,6 +66,8 @@ class Dcv::Solr::DocumentAdapter::DcXml
       if element_values.present?
         solr_doc["dc_relation_ssm"] = element_values
         solr_doc["dc_relation_teim"] = textable(element_values)
+        clio_values = element_values.select { |val| val =~ /clio:/ }.map { |val| val.split(':')[-1] }
+        solr_doc["clio_ssim"] = clio_values if clio_values.present?
       end
       #t.dc_rights(path: "rights", namespace_prefix: "dc", index_as: [:displayable, :searchable])
       element_values = dc.xpath("dc:rights", DC_NS).map(&:text)

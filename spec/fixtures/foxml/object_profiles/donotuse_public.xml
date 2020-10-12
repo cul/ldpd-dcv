@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objectProfile xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+    xmlns="http://www.fedora.info/definitions/1/0/access/"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="http://www.fedora.info/definitions/1/0/access/ http://www.fedora.info/definitions/1/0/objectProfile.xsd" 
+    pid="donotuse:public" 
+    dateTime="">
+    <objLabel></objLabel>
+    <objOwnerId></objOwnerId>
+    <objModels>
+    	<model>info:fedora/fedora-system:ContentModel-3.0</model>
+    	<model>info:fedora/ldpd:Concept</model>
+    </objModels>
+    <objCreateDate></objCreateDate>
+    <objLastModDate></objLastModDate>
+    <objDissIndexViewURL></objDissIndexViewURL>
+    <objItemIndexViewURL></objItemIndexViewURL>
+    <objState></objState>
+</objectProfile>

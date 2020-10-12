@@ -286,7 +286,7 @@ class Dcv::Solr::DocumentAdapter::ModsXml
     def add_notes_by_type!(solr_doc, node=mods)
       notes_by_type(mods).each do |solr_field_name, values|
         solr_doc[solr_field_name] ||= []
-        solr_doc[solr_field_name].concat(values)
+        solr_doc[solr_field_name].concat(values - solr_doc[solr_field_name])
       end
     end
 
@@ -493,6 +493,7 @@ class Dcv::Solr::DocumentAdapter::ModsXml
 
       solr_doc["title_si"] = sort_title
       solr_doc["title_ssm"] = titles
+      solr_doc["title_ssm"].uniq!
       solr_doc["alternative_title_ssm"] = alternative_titles
       solr_doc["all_text_teim"] += solr_doc["alternative_title_ssm"]
       solr_doc["clio_ssim"] = clio_ids

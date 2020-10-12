@@ -23,6 +23,7 @@ class Dcv::Solr::DocumentAdapter::ModsXml
           solr_doc['title_si'] = main_title.text
         end
       end
+      solr_doc['title_teim']&.uniq!
       #t.title_display(proxy:[:mods, :main_title_info], type: :string, index_as: [:displayable])
       title_display_text = mods.xpath("./mods:titleInfo[not(@type)]", MODS_NS).map(&:text)
       solr_doc['title_display_ssm'] = title_display_text if title_display_text.present?

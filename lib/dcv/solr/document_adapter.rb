@@ -26,4 +26,5 @@ module Dcv::Solr::DocumentAdapter
   autoload :DcXml, 'dcv/solr/document_adapter/dc_xml'
   autoload :ModsXml, 'dcv/solr/document_adapter/mods_xml'
   autoload :XacmlXml, 'dcv/solr/document_adapter/xacml_xml'
+  require 'dcv/solr/document_adapter/active_fedora'
 end

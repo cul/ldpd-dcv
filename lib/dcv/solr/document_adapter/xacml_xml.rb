@@ -31,7 +31,18 @@ module Dcv::Solr::DocumentAdapter
     # @param doc [Hash]
     # @return [Hash]
     def to_solr(doc={})
-      super(doc)
+      solr_doc = (defined? super) ? super : solr_doc
+
+      return solr_doc if xacml.nil?  # Return because there is nothing to process
+      solr_doc['access_control_levels_ssim'] = access_levels
+      solr_doc['access_control_permissions_bsi'] = permissions_indicated?
+      solr_doc['access_control_embargo_dtsi'] = permit_after_date
+      solr_doc['access_control_affiliations_ssim'] = permit_affiliations
+      solr_doc['access_control_locations_ssim'] = permit_locations
+
+      solr_doc['access_control_levels_ssim'] ||= [Dcv::AccessLevels::ACCESS_LEVEL_PUBLIC]
+      solr_doc['access_control_permissions_bsi'] = !!solr_doc['access_control_permissions_bsi']
+      solr_doc
     end
   end
 end
