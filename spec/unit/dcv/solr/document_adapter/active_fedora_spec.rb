@@ -15,18 +15,18 @@ describe Dcv::Solr::DocumentAdapter::ActiveFedora, type: :unit do
 		let(:active_fedora_object) do
 			::ActiveFedora::Base.allocate.init_with_object(rubydora_object)
 		end
-		describe '#test_cmodels' do
+		describe '#matches_any_cmodel?' do
 			let(:adapter) { described_class.new(active_fedora_object) }
 			let(:is_model) { "info:fedora/ldpd:Concept" }
 			let(:not_model) { "info:fedora/ldpd:GenericResource" }
 			it "returns true when any model is present" do
-				expect(adapter.test_cmodels([not_model, is_model])).to be true
+				expect(adapter.matches_any_cmodel?([not_model, is_model])).to be true
 			end
 			it "returns false when no models are present" do
-				expect(adapter.test_cmodels([not_model])).to be false
+				expect(adapter.matches_any_cmodel?([not_model])).to be false
 			end
 			it "returns false when no models queried" do
-				expect(adapter.test_cmodels([])).to be false
+				expect(adapter.matches_any_cmodel?([])).to be false
 			end
 		end
 		describe '#get_singular_relationship_value' do

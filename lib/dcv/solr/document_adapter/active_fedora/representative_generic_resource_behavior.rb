@@ -5,7 +5,7 @@ class Dcv::Solr::DocumentAdapter::ActiveFedora
     # @return [GenericResource] a representative file resource
     # This method generally shouldn't be called with any parameters (unless we're doing testing)
     def get_representative_generic_resource(force_use_of_non_pid_identifier=false)
-      return obj if test_cmodels(["info:fedora/ldpd:GenericResource"])
+      return obj if matches_any_cmodel?(["info:fedora/ldpd:GenericResource"])
 
       # if there's an explicit assignment of representative image, return it
       assigned_image = get_singular_relationship_value(:schema_image)

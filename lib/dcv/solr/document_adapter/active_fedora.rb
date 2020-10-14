@@ -5,13 +5,13 @@ module Dcv::Solr::DocumentAdapter
     # @param obj [ActiveFedora::Base]
     # @return [Dcv::Solr::DocumentAdapter::ActiveFedora]
     def ActiveFedora obj
-      if Dcv::Solr::DocumentAdapter::ActiveFedora.test_cmodels(obj, ['info:fedora/ldpd:GenericResource'])
+      if Dcv::Solr::DocumentAdapter::ActiveFedora.matches_any_cmodel?(obj, ['info:fedora/ldpd:GenericResource'])
         return Dcv::Solr::DocumentAdapter::ActiveFedora::GenericResource.new(obj)
-      elsif Dcv::Solr::DocumentAdapter::ActiveFedora.test_cmodels(obj, ['info:fedora/ldpd:ContentAggregator'])
+      elsif Dcv::Solr::DocumentAdapter::ActiveFedora.matches_any_cmodel?(obj, ['info:fedora/ldpd:ContentAggregator'])
         return Dcv::Solr::DocumentAdapter::ActiveFedora::ContentAggregator.new(obj)
-      elsif Dcv::Solr::DocumentAdapter::ActiveFedora.test_cmodels(obj, ['info:fedora/ldpd:Concept'])
+      elsif Dcv::Solr::DocumentAdapter::ActiveFedora.matches_any_cmodel?(obj, ['info:fedora/ldpd:Concept'])
         return Dcv::Solr::DocumentAdapter::ActiveFedora::Concept.new(obj)
-      elsif Dcv::Solr::DocumentAdapter::ActiveFedora.test_cmodels(obj, ['info:fedora/ldpd:Collection'])
+      elsif Dcv::Solr::DocumentAdapter::ActiveFedora.matches_any_cmodel?(obj, ['info:fedora/ldpd:Collection'])
         return Dcv::Solr::DocumentAdapter::ActiveFedora::Collection.new(obj)
       else
         return Dcv::Solr::DocumentAdapter::ActiveFedora.new(obj)
@@ -170,16 +170,16 @@ module Dcv::Solr::DocumentAdapter
     end
 
     # determine whether an object asserts any of the specified cmodels
-    # test_cmodels(obj, ["info:fedora/ldpd:GenericResource"])
+    # matches_any_cmodel?(obj, ["info:fedora/ldpd:GenericResource"])
     # @param [ActiveFedora::Base] obj
     # @param [Array<String>] cmodels
-    def self.test_cmodels(obj, cmodels)
+    def self.matches_any_cmodel?(obj, cmodels)
       assertions = get_relationship_values(obj, :has_model).map { |rdf_prop| rdf_prop.to_s }
       return (assertions & Array(cmodels)).present?
     end
 
-    def test_cmodels(cmodels)
-      ActiveFedora.test_cmodels(obj, cmodels)
+    def matches_any_cmodel?(cmodels)
+      ActiveFedora.matches_any_cmodel?(obj, cmodels)
     end
 
     def proxies

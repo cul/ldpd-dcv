@@ -52,7 +52,7 @@ class Dcv::Solr::DocumentAdapter::ActiveFedora
 
     def to_solr(solr_doc={}, opts={})
       solr_doc = (defined? super) ? super : solr_doc
-      return solr_doc unless obj.is_a?(::ActiveFedora::Base) && test_cmodels(["info:fedora/ldpd:Concept"])
+      return solr_doc unless obj.is_a?(::ActiveFedora::Base) && matches_any_cmodel?(["info:fedora/ldpd:Concept"])
 
       solr_doc['active_fedora_model_ssi'] = 'Concept'
       description.tap do |description_value|
