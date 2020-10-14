@@ -170,8 +170,9 @@ module Dcv::Solr::DocumentAdapter
     end
 
     # determine whether an object asserts any of the specified cmodels
-    # test_cmodels(["info:fedora/ldpd:GenericResource"])
-    # @params [Array<String>] cmodels
+    # test_cmodels(obj, ["info:fedora/ldpd:GenericResource"])
+    # @param [ActiveFedora::Base] obj
+    # @param [Array<String>] cmodels
     def self.test_cmodels(obj, cmodels)
       assertions = get_relationship_values(obj, :has_model).map { |rdf_prop| rdf_prop.to_s }
       return (assertions & Array(cmodels)).present?
@@ -204,6 +205,10 @@ module Dcv::Solr::DocumentAdapter
       end
     end
 
+    # add relevant solr documents to index
+    # @param [Hash] params
+    #  RSolr params
+    # @return [Array<Hash>] documents added to solr, beginning with indexed ActiveFedora object
     def update_index(params = {softCommit: true})
       solr_doc = to_solr()
       ::ActiveFedora::SolrService.add(solr_doc, params)
