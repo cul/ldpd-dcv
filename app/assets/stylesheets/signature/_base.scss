@@ -313,6 +313,9 @@ a {
 			background-color: $color_ui;
 			color:$color_ui_background;
 			border-color:lighten($color_ui_background,30%);
+			a:hover {
+				color: inherit;
+			}
 		}
 		&:active, &:focus {
 			border-color:darken($color_highlight,30%);
