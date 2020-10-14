@@ -399,13 +399,33 @@ class Dcv::Solr::DocumentAdapter::ModsXml
 
       #t.genre(:path=>"genre[@authority]",:index_as=>[])
       #t.lib_genre(:proxy=>[:mods,:genre],:index_as=>[:symbol, :textable])
-      genre_text = mods.xpath("mods:genre[@authority]", MODS_NS).map(&:text)
-      if genre_text.present?
-        solr_doc['lib_genre_ssim'] = genre_text
-        solr_doc['all_text_teim'].concat textable(genre_text)
+      genre_field_map = genres_by_type(mods)
+      if genre_field_map.present?
+        solr_doc.merge!(genre_field_map)
+        genre_field_map.each {|fn, fv| solr_doc['all_text_teim'].concat textable(fv) }
       end
 
       solr_doc
+    end
+
+    def genres_by_type(node=mods)
+      results = {}
+      node.xpath("./mods:genre[@authority]", MODS_NS).collect do |n|
+        type = n.attr('type')
+        type = 'untyped' if type.blank?
+        normal_type = type.downcase
+        normal_type.gsub!(/\s/,'_')
+        field_name = "lib_#{normal_type}_genre_ssim"
+        results[field_name] ||= []
+        field_value = Fields.normalize(n.text, true)
+        results[field_name] << field_value
+        # legacy field behavior
+        unless normal_type == 'culture'
+          results['lib_genre_ssim'] ||= []
+          results['lib_genre_ssim'] << field_value
+        end
+      end
+      results
     end
 
     def translate_with_default(prefix, value, default)

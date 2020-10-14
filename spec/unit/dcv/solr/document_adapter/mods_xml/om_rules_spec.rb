@@ -500,5 +500,13 @@ describe Dcv::Solr::DocumentAdapter::ModsXml, type: :unit do
         expect(subject["classification_other_ssim"]).to eq(['AB.CD.EF.G.123', 'AB.CD.EF.G.456'])
       end
     end
+    context "has genres catalogued" do
+      let(:xml_src) { fixture( File.join("mods", "mods-genre.xml") ) }
+      it "should only extract classifications with type='z' (other)" do
+        expect(subject["lib_genre_ssim"]).to eq(["Records (Documents)"])
+        expect(subject["lib_text_genre_ssim"]).to eq(["Records (Documents)"])
+        expect(subject["lib_culture_genre_ssim"]).to eq(["American (North American)"])
+      end
+    end
   end
 end
