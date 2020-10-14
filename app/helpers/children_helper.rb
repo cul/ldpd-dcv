@@ -1,5 +1,5 @@
 module ChildrenHelper
-  include Cul::Hydra::AccessLevels
+  include Dcv::AccessLevels
   include Blacklight::BlacklightHelperBehavior
   include Blacklight::ConfigurationHelperBehavior
   include Dcv::ChildrenHelperBehavior

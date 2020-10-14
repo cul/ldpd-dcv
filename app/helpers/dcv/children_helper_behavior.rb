@@ -1,5 +1,5 @@
 module Dcv::ChildrenHelperBehavior
-  include Cul::Hydra::AccessLevels
+  include Dcv::AccessLevels
 
   include Dcv::CdnHelper
   include Dcv::SolrHelper

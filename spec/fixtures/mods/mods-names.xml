@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<mods xmlns='http://www.loc.gov/mods/v3' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-4.xsd' version='3.4'>
+  <name type="corporate">
+    <namePart>Name, Inc.</namePart>
+  </name>
+  <name authority="naf" type="personal">
+  	<namePart>Name, Personal</namePart>
+    <namePart type="date">1745-1829</namePart>
+  </name>
+  <name authority="naf" type="personal">
+    <namePart>Name, Recipient</namePart>
+    <namePart type="date">1829-1745</namePart>
+    <role>
+      <roleTerm authority="marcrelator" type="code">rcp</roleTerm>
+      <roleTerm authority="marcrelator" type="text">Addressee</roleTerm>
+    </role>
+    <role>
+      <roleTerm type="text">Owner/Agent</roleTerm>
+    </role>
+  </name>
+  <name>
+    <namePart>Included Without Attribute</namePart>
+  </name>
+  <subject authority="lcsh">
+		<name authority="naf" type="personal">
+			 <namePart>Jay, John</namePart>
+			 <namePart type="date">1745-1829</namePart>
+		</name>
+  </subject>
+	<name type="personal">
+		 <namePart>"Dear Brother"</namePart>
+		 <role>
+				<roleTerm authority="marcrelator" type="code">rcp</roleTerm>
+        <roleTerm authority="marcrelator" type="text">Addressee</roleTerm>
+		 </role>
+	</name>
+  <name usage="primary">
+      <namePart>Seminar 401</namePart>
+  </name>
+</mods>

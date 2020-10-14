@@ -100,19 +100,16 @@ module Dcv::Solr::FedoraIndexer
 
       NUM_FEDORA_RETRY_ATTEMPTS.times do |i|
         begin
-          active_fedora_object = ActiveFedora::Base.find(pid, :cast => true)
-          if index_opts[:skip_generic_resources] && active_fedora_object.is_a?(GenericResource)
+          active_fedora_object = ActiveFedora::Base.find(pid, cast: false)
+          if index_opts[:skip_generic_resources] && Dcv::Solr::DocumentAdapter::ActiveFedora.matches_any_cmodel?(active_fedora_object, ['info:fedora/ldpd:GenericResource'])
             puts 'Object was skipped because GenericResources are being skipped and it is a GenericResource.'
           else
-            if index_opts[:softcommit]
-              active_fedora_object.update_index
-            else
-              solr_doc = active_fedora_object.to_solr
-              # Using direct solr query to update document without soft commiting
-              ActiveFedora::SolrService.add(solr_doc)
-              if Dcv::Sites::Import::Solr.exists?(solr_doc)
-                Dcv::Sites::Import::Solr.new(solr_doc).run
-              end
+            doc_adapter = Dcv::Solr::DocumentAdapter::ActiveFedora(active_fedora_object)
+            # rsolr params are camelcased
+            rsolr_params = index_opts[:softcommit] ? {softCommit: true} : {}
+            solr_docs = doc_adapter.update_index(rsolr_params)
+            if Dcv::Sites::Import::Solr.exists?(solr_docs.first)
+              Dcv::Sites::Import::Solr.new(solr_docs.first).run
             end
             puts 'done.' if index_opts[:verbose_output]
           end

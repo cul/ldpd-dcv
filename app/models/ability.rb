@@ -1,6 +1,6 @@
 class Ability
   include CanCan::Ability 
-  include Cul::Hydra::AccessLevels
+  include Dcv::AccessLevels
   ACCESS_ASSET = :access_asset
   ACCESS_SUBSITE = :access_subsite
   UNSPECIFIED_ACCESS_DECISION = true

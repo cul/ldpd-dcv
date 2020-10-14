@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objectDatastreams xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+    xmlns="http://www.fedora.info/definitions/1/0/access/"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="http://www.fedora.info/definitions/1/0/access/ http://www.fedora.info/definitions/1/0/listDatastreams.xsd" 
+    pid="donotuse:public" 
+    asOfDateTime=""
+    baseURL="http://localhost/fedora">
+  <datastreamProfile pid="donotuse:public" dsID="DC">
+    <dsLabel>Dublin Core Record for this object</dsLabel>
+    <dsVersionID>DC1.0</dsVersionID>
+    <dsCreateDate>2015-05-05T15:14:53.852Z</dsCreateDate>
+    <dsState>A</dsState>
+    <dsMIME>text/xml</dsMIME>
+    <dsFormatURI>http://www.openarchives.org/OAI/2.0/oai_dc/</dsFormatURI>
+    <dsControlGroup>X</dsControlGroup>
+    <dsSize>408</dsSize>
+    <dsVersionable>true</dsVersionable>
+    <dsInfoType/>
+    <dsLocation>donotuse:public+DC+DC1.0</dsLocation>
+    <dsLocationType/>
+    <dsChecksumType>DISABLED</dsChecksumType>
+    <dsChecksum>none</dsChecksum>
+  </datastreamProfile>
+  <datastreamProfile pid="donotuse:public" dsID="RELS-EXT">
+    <dsLabel>Fedora Object-to-Object Relationship Metadata</dsLabel>
+    <dsVersionID>RELS-EXT.0</dsVersionID>
+    <dsCreateDate>2015-05-05T15:14:53.852Z</dsCreateDate>
+    <dsState>A</dsState>
+    <dsMIME>application/rdf+xml</dsMIME>
+    <dsFormatURI>info:fedora/fedora-system:FedoraRELSExt-1.0</dsFormatURI>
+    <dsControlGroup>X</dsControlGroup>
+    <dsSize>1003</dsSize>
+    <dsVersionable>true</dsVersionable>
+    <dsInfoType/>
+    <dsLocation>donotuse:public+RELS-EXT+RELS-EXT.0</dsLocation>
+    <dsLocationType/>
+    <dsChecksumType>DISABLED</dsChecksumType>
+    <dsChecksum>none</dsChecksum>
+  </datastreamProfile>
+</objectDatastreams>

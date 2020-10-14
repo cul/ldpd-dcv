@@ -110,6 +110,7 @@ group :development, :test do
   # Use net-ssh >= 4.2 to prevent warnings with Ruby 2.4
   gem 'net-ssh', '>= 4.2'
   gem 'rspec-rails', '~> 3.4.0'
+  gem 'rspec-json_expectations'
   gem 'capybara'
   gem 'poltergeist' # For headless-browser JavaScript testing
   gem 'factory_bot_rails'
