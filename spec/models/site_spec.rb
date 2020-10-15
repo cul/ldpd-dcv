@@ -7,11 +7,11 @@ describe Site do
 			expect(Site.new.search_type).to eql('catalog')
 		end
 	end
-	describe '#grouped_links' do
+	describe '#nav_menus' do
 		let(:site_slug) { 'grouped_links' }
 		let(:site) { FactoryBot.create(:site_with_links, slug: site_slug) }
-		let(:unlabeled_menu) { site.grouped_links.detect { |nm| nm.sort_label.nil? } }
-		let(:labeled_menu) { site.grouped_links.detect { |nm| !nm.sort_label.nil? } }
+		let(:unlabeled_menu) { site.nav_menus.detect { |nm| nm.sort_label.nil? } }
+		let(:labeled_menu) { site.nav_menus.detect { |nm| !nm.sort_label.nil? } }
 		it 'groups links according to sort group' do
 			expect(labeled_menu.label).to eql('Project History')
 			expect(labeled_menu.length).to eql(2)

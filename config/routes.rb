@@ -134,9 +134,9 @@ Dcv::Application.routes.draw do
       end
       get "sites" => "sites#index"
       get '/:slug', controller: 'sites', action: 'home', as: 'site'
-      resources 'sites', only: [], param: :slug, path: '' do
+      resources 'sites', only: [:edit, :update], param: :slug, path: '' do
         scope module: :sites do
-          resources 'pages', only: [:show], param: :slug, path: ''
+          resources 'pages', only: [:show], param: :slug, path: '', constraints: lambda { |req| req.params[:slug] != 'edit' }
         end
       end
       get "sites/:slug", to: redirect("/%{slug}")
@@ -147,9 +147,9 @@ Dcv::Application.routes.draw do
   get "sites" => "sites#index"
   get "sites/:slug", to: redirect("/%{slug}")
   get '/:slug', controller: 'sites', action: 'home', as: 'site'
-  resources 'sites', only: [], param: :slug, path: '' do
+  resources 'sites', only: [:edit, :update], param: :slug, path: '' do
     scope module: :sites do
-      resources 'pages', only: [:show], param: :slug, path: ''
+      resources 'pages', only: [:show], param: :slug, path: '', constraints: lambda { |req| req.params[:slug] != 'edit' }
     end
   end
 
@@ -167,7 +167,7 @@ Dcv::Application.routes.draw do
         get 'content'=> 'bytestreams#content'
       end
     end
-    resources :bytestreams, path: 'catalog/:catalog_id/bytestreams', only: [:index, :show], constraints: { id: /[^\/]+/ }
+    resources :bytestreams, path: 'catalog/:catalog_id/bytestreams', only: [:index, :show], constraints: { slug: /(?!.*edit).*/ }
   end
 
   get ':layout/:id/details' => 'details#show', as: :details

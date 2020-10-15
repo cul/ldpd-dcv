@@ -1,0 +1,76 @@
+<h1>Editing <%= link_to(@subsite.slug, site_path(slug: @subsite.slug)) %></h1>
+<div class="container"><%= form_for @subsite, url: { action: "update",  }, html: { } do |site_form| %>
+  <div class="panel panel-primary">
+    <div class="panel-heading"><h2 class="panel-title">Site Properties</h2></div>
+    <div class="panel-body site_properties">
+      <div class="form-group">
+        <label for="site_title">Site Title</label>
+        <%= site_form.text_field :title, {disabled: true, class: ['form-control', 'disabled']} %>
+      </div>
+      <div class="form-group">
+        <label for="site_palette">Site Palette</label>
+        <%= site_form.select(:palette, options_for_select([['Dark', 'monochromeDark'], ['Light', 'monochromeLight'], ['Blue', 'blue']], @subsite.palette), {class: ['form-control']}) %>
+      </div>
+      <div class="form-group">
+        <label for="site_layout">Site Layout</label>
+        <%= site_form.select(:layout, options_for_select([['Portrait', 'portrait'], ['Gallery', 'gallery'], ['Signature', 'signature']], @subsite.layout), {class: ['form-control']}) %>
+      </div>
+      <div class="form-group">
+        <label for="site[show_facets]">Show Home Page Facets</label>
+        <div class="radio">
+          <label>
+            <%= site_form.radio_button :show_facets, true %>Show facet panel on home page
+          </label>
+        </div>
+        <div class="radio">
+          <label>
+            <%= site_form.radio_button :show_facets, false %>No home page facet panel
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-primary">
+    <div class="panel-heading"><h2 class="panel-title">Site Navigation</h2></div>
+    <div class="panel-body site_navigation">
+      <%= site_form.fields_for :nav_menus do |menu_form| %>
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <div class="form-group">
+              <label for="site[nav_menus_attributes][<%= menu_form.index %>][label]">Link Group Label</label>
+              <%= menu_form.text_field :label, { disabled: true, :class => ['form-control', 'disabled'] } %>
+            </div>
+            <%= menu_form.fields_for :links do |link_form| %>
+              <div class="panel panel-default">
+                <div class="panel-body">
+                  <div class="form-group">
+                    <label for="site[nav_menus_attributes][<%= menu_form.index %>][links_attributes][<%= link_form.index %>][label]">Link Label</label>
+                    <%= link_form.text_field :label, { disabled: true, :class => ['form-control', 'disabled'] } %>
+                    <label for="site[nav_menus_attributes][<%= menu_form.index %>][links_attributes][<%= link_form.index %>][link]">Links To</label>
+                    <%= link_form.text_field :link, { disabled: true, :class => ['form-control', 'disabled'] } %>
+                  </div>
+                  <div class="form-group">
+                    <label for="site[nav_menus_attributes][<%= menu_form.index %>][links_attributes][<%= link_form.index %>][external]">Link Type</label>
+                    <div class="radio">
+                      <label>
+                        <%= link_form.radio_button :external, true, { disabled: true, :class => ['disabled'] } %>Links to a full or relative url
+                      </label>
+                    </div>
+                    <div class="radio">
+                      <label>
+                        <%= link_form.radio_button :external, false, { disabled: true, :class => ['disabled'] } %>Links to a site page by slug
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <%- end %>
+          </div>
+        </div>
+      <%- end %>
+    </div>
+  </div>
+  <div class="panel">
+    <%= submit_tag "Update", {class: ['btn', 'btn-default']} %>
+  </div>
+<% end %></div>

@@ -28,7 +28,7 @@
             <%= link_to("Browse the collection &raquo;".html_safe, search_action_url) %>
           </p>
       </div>
-      <%- if @page.show_facets -%>
+      <%- if @subsite.show_facets -%>
         <%- @response ||= controller.load_facet_response -%>
         <%= render partial: 'facets', locals: {hide_refine_heading: true, no_id_attr: true} %>
       <%- end -%>

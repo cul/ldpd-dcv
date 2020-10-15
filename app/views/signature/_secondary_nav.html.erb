@@ -3,7 +3,7 @@
 		<div class="row">
 			<div class="col-sm-12">
 			<ul class="nav nav-pills pull-left">
-				<%- @subsite.grouped_links.each do |nav_menu| -%>
+				<%- @subsite.nav_menus.each do |nav_menu| -%>
 					<%- if nav_menu.length > 1 -%>
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown"><%=nav_menu.label %> <b class="caret"></b></a>

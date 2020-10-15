@@ -15,8 +15,8 @@ module Dcv::Authenticated::AccessControl
     @omniauth_provider_key ||= Dcv::Application.cas_configuration_opts[:provider]
   end
 
-  def authorize_document(document=@document, action=:'documents#show')
-    if can?(Ability::ACCESS_SUBSITE, self)
+  def authorize_action_and_scope(action, scope)
+    if can?(action, scope)
       return true
     else
       if current_user
@@ -27,5 +27,13 @@ module Dcv::Authenticated::AccessControl
     store_location
     redirect_to_login
     return false
+  end
+
+  def authorize_document(document=@document, action=:'documents#show')
+    authorize_action_and_scope(Ability::ACCESS_SUBSITE, self)
+  end
+
+  def authorize_site_update(site=@subsite)
+    authorize_action_and_scope(:update, site)
   end
 end

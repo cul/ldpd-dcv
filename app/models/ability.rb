@@ -44,6 +44,9 @@ class Ability
         result
       end
     end
+    can :update, Site do |site|
+      user&.is_admin
+    end
   end
 
   # was this document published to a site where the current user has remote "onsite" permissions
