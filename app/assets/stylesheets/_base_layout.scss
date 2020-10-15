@@ -142,11 +142,11 @@ input {
 		background: $color_topnav_background;
 		background-color: $color_topnav_background;
 		min-height: 44px;
+		margin-top: -1px;
 		#crowndown-nosearch {
 			height: 39px;
 			//margin-lef: -10px;
 			padding-left: 0;
-			margin-top: -1px;
 			background: $color_topnav_background;
 			background-color: $color_topnav_background;
 			.dropdown-toggle {
