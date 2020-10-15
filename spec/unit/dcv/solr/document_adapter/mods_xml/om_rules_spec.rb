@@ -304,6 +304,8 @@ describe Dcv::Solr::DocumentAdapter::ModsXml, type: :unit do
           expect(subject["subject_geographic_sim"]).to eql ['Rosebud Indian Reservation (S.D.)']
           expect(all_text_joined).to include("Indians of North America")
           expect(all_text_joined).to include("Rosebud Indian Reservation")
+          expect(subject["accession_number_ssm"]).to eql ['GB0090']
+          expect(all_text_joined).to include("GB0090")
         end
       end
       context "with a repository cataloged" do

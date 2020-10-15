@@ -79,6 +79,7 @@ class Dcv::Solr::DocumentAdapter::ModsXml
 
       #t.accession_number(:path=>"identifier", :attributes=>{:type=>"accession_number"}, :type=>:string, :index_as=>[:textable])
       accession_number_text = mods.xpath("./mods:identifier[@type = 'accession_number']", MODS_NS).map(&:text)
+      solr_doc['accession_number_ssm'] = accession_number_text
       solr_doc['all_text_teim'].concat textable(accession_number_text)
 
       #t.clio(:path=>"identifier", :attributes=>{:type=>"CLIO"}, :data_type=>:symbol, :index_as=>[:symbol, :textable])
