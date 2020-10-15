@@ -6,6 +6,7 @@ alternative_title: 'The Site: Imported!'
 search_type: catalog
 layout: signature
 palette: parchment
+show_facets: false
 constraints:
   publisher:
     - info:fedora/cul:import_site

@@ -2,7 +2,6 @@ require 'csv'
 class Site < ActiveRecord::Base
 	include Dcv::Sites::Constants
 	include Blacklight::Configurable
-
 	has_many :nav_links, dependent: :destroy
 	has_many :site_pages, dependent: :destroy
 	store :constraints, accessors: [ :publisher, :project, :collection ], coder: JSON, suffix: true
@@ -68,7 +67,7 @@ class Site < ActiveRecord::Base
 		end
 	end
 
-	def grouped_links
+	def nav_menus
 		sorted_links = nav_links.sort { |a,b| (a.sort_group == b.sort_group) ? a.sort_label.to_s <=> b.sort_label.to_s : a.sort_group.to_s <=> b.sort_group.to_s }
 		grouped_links = []
 		sorted_links.each do |link|
@@ -79,6 +78,9 @@ class Site < ActiveRecord::Base
 		end
 		grouped_links
 	end
+
+    def nav_menus_attributes=(attributes)
+    end
 
 	# patch for Rails 4 store, which doesn't have suffixes
 	def publisher_constraints=(constraints)

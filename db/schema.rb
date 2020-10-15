@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200709155313) do
+ActiveRecord::Schema.define(version: 20201019141922) do
 
   create_table "bookmarks", force: :cascade do |t|
     t.integer  "user_id",       null: false
@@ -53,10 +53,9 @@ ActiveRecord::Schema.define(version: 20200709155313) do
   add_index "searches", ["user_id"], name: "index_searches_on_user_id"
 
   create_table "site_pages", force: :cascade do |t|
-    t.string  "slug",                    null: false
+    t.string  "slug",                null: false
     t.string  "title"
-    t.integer "columns",     default: 1, null: false
-    t.boolean "show_facets"
+    t.integer "columns", default: 1, null: false
     t.integer "site_id"
   end
 
@@ -69,7 +68,7 @@ ActiveRecord::Schema.define(version: 20200709155313) do
   end
 
   create_table "sites", force: :cascade do |t|
-    t.string   "slug",              null: false
+    t.string   "slug",                              null: false
     t.string   "title"
     t.string   "persistent_url"
     t.string   "publisher_uri"
@@ -85,6 +84,7 @@ ActiveRecord::Schema.define(version: 20200709155313) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "alternative_title"
+    t.boolean  "show_facets",       default: false
   end
 
   add_index "sites", ["slug"], name: "index_sites_on_slug", unique: true

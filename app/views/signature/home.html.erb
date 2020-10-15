@@ -18,7 +18,7 @@
 					</div>
 				</div>
 			</div>
-			<%- if @page.show_facets -%>
+			<%- if @subsite.show_facets -%>
 				<%- @response ||= controller.load_facet_response -%>
 				<%= render partial: 'facets', locals: {hide_refine_heading: true, no_id_attr: true} %>
 			<%- end -%>

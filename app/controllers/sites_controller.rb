@@ -6,11 +6,13 @@ class SitesController < ApplicationController
   include Dcv::Catalog::BrowseListBehavior
   include Dcv::CdnHelper
   include Dcv::MarkdownRendering
+  include Cul::Omniauth::AuthorizingController
   include ShowFieldDisplayFieldHelper
 
   before_filter :browse_lists, only: :index
   before_filter :load_subsite, except: [:index]
   before_filter :load_page, only: [:home]
+  before_filter :authorize_site_update, only: [:edit, :update]
 
   layout :request_layout
 
@@ -119,6 +121,8 @@ class SitesController < ApplicationController
   def request_layout
     if (action_name == 'index')
       'dcv' # legacy behavior
+    elsif (action_name == 'edit')
+      'sites'
     else
       subsite_layout
     end
@@ -133,12 +137,16 @@ class SitesController < ApplicationController
   end
 
   def subsite_layout
-    subsite_config['layout'] || 'portrait'
+    configured_layout = subsite_config['layout'] || 'default'
+    configured_layout = DCV_CONFIG.fetch(:default_layout, 'portrait') if configured_layout == 'default'
+    configured_layout
   end
 
   def subsite_styles
-    palette = subsite_config['palette'] || 'monochromeDark'
-    palette.present? ? "#{subsite_layout}-#{palette}" : subsite_layout
+    return [subsite_layout] unless Dcv::Sites::Constants::PORTABLE_LAYOUTS.include?(subsite_layout)
+    palette = load_subsite&.palette || subsite_config['palette'] || 'default'
+    palette = DCV_CONFIG.fetch(:default_palette, 'monochromeDark') if palette == 'default'
+    ["#{subsite_layout}-#{palette}", self.controller_name]
   end
 
   # get single document from the solr index
@@ -157,6 +165,19 @@ class SitesController < ApplicationController
       format.json { render json: @subsite.to_json }
       format.html { render }
     end
+  end
+
+  # authorize edit access and display form for editing static content
+  def edit
+  end
+
+  # update sanitized params
+  def update
+    @subsite.update_attributes site_params
+    # TODO: update nav links
+    # TODO: set a flash message
+    # return to edit
+    redirect_to edit_site_path(slug: @subsite.slug)
   end
 
   # produce a list of featured items according to a supplied filter
@@ -250,4 +271,8 @@ class SitesController < ApplicationController
   def controller
     self
   end
+  private
+    def site_params
+      params.require(:site).permit(:palette, :layout, :show_facets)
+    end
 end
