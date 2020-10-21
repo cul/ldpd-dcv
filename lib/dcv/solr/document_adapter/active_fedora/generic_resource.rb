@@ -35,8 +35,8 @@ class Dcv::Solr::DocumentAdapter::ActiveFedora
         if obj.datastreams["content"].dsSize.to_i > 0
           solr_doc["extent_ssim"] = [obj.datastreams["content"].dsSize]
         else
-          repo = ActiveFedora::Base.connection_for_pid(pid)
-          ds_parms = {pid: pid, dsid: "content", method: :head}
+          repo = ActiveFedora::Base.connection_for_pid(obj.pid)
+          ds_parms = {pid: obj.pid, dsid: "content", method: :head}
           repo.datastream_dissemination(ds_parms) do |res|
             solr_doc["extent_ssim"] = res['Content-Length']
           end
