@@ -68,6 +68,8 @@ describe CatalogController, :type => :controller do
           expect(IndexFedoraObjectJob)
           .to receive(:perform).with(hash_including('pid' => 'good:id', 'reraise' => true))
           .and_raise(Encoding::UndefinedConversionError)
+
+          expect(Rails.logger).to receive(:error)
         end
         it do
           expect(subject).to eql(500)

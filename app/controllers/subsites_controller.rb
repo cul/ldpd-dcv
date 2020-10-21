@@ -128,7 +128,8 @@ class SubsitesController < ApplicationController
     rescue ActiveFedora::ObjectNotFoundError
       render status: :not_found, plain: ''
       return
-    rescue
+    rescue StandardError => e
+      Rails.logger.error("#{e.message}\n\t#{e.backtrace.join("\n\t")}")
       # despite json body, Hyacinth 2 relies on status code to determine success/failure
       render status: :internal_server_error, json: { "success" => false }
     end
@@ -211,7 +212,7 @@ class SubsitesController < ApplicationController
   end
 
   def subsite_key
-    if self.controller_path.present? 
+    if self.controller_path.present?
       self.controller_path.split('/').join('_')
     else
       self.class.restricted? ? "restricted_#{self.controller_name}" : self.controller_name
