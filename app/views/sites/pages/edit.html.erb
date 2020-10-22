@@ -1,0 +1,4 @@
+<h1>Editing <%= link_to("#{@subsite.slug}/#{@page.slug}", site_page_path(site_slug: @subsite.slug, slug: @page.slug)) %></h1>
+<div class="container"><%= form_for @page, url: { action: "update",  }, html: { } do |site_form| %>
+  <p class="text-warning">Edit/update not yet implemented. Return to site edit for <%= link_to(@subsite.slug, edit_site_path(slug: @subsite.slug)) %></p>
+<% end %></div>

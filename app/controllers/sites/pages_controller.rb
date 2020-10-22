@@ -4,11 +4,13 @@ module Sites
 		include Dcv::CdnHelper
 		include Dcv::MarkdownRendering
 		include Dcv::CatalogIncludes
+		include Cul::Omniauth::AuthorizingController
 
 		before_filter :load_subsite, only: [:index, :new, :create]
 		before_filter :load_page, except: [:index, :new, :create]
+		before_filter :authorize_site_update, except: [:index, :show]
 
-		layout :subsite_layout
+		layout :request_layout
 
 		def initialize(*args)
 			super(*args)
@@ -42,6 +44,14 @@ module Sites
 			end
 		end
 
+		def request_layout
+			if (action_name == 'show')
+				subsite_layout
+			else
+				'sites'
+			end
+		end
+
 		def show
 			respond_to do |format|
 				format.json { render json: @page.to_json }
@@ -50,6 +60,19 @@ module Sites
 		end
 
 		def edit
+		end
+
+		def update
+		end
+
+		def new
+		end
+
+		def create
+		end
+
+		def destroy
+			raise "home page cannot be deleted" if params[:slug] == 'home'
 		end
 
 		def subsite_config

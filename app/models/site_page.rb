@@ -5,7 +5,7 @@ class SitePage < ActiveRecord::Base
 
 	def initialize(atts = {})
 		super
-		title ||= slug.split('_').join(' ').titlecase
+		title ||= slug && slug.split('_').join(' ').titlecase
 	end
 
 	def has_columns?

@@ -1,0 +1,4 @@
+<h1>Add a page to <%= link_to("#{@subsite.slug}", edit_site_path(slug: @subsite.slug)) %></h1>
+<div class="container"><%= form_for SitePage.new, url: { action: "create",  }, html: { } do |site_form| %>
+  <p class="text-warning">New/create not yet implemented. Return to site edit for <%= link_to(@subsite.slug, edit_site_path(slug: @subsite.slug)) %></p>
+<% end %></div>

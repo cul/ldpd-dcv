@@ -136,7 +136,8 @@ Dcv::Application.routes.draw do
       get '/:slug', controller: 'sites', action: 'home', as: 'site'
       resources 'sites', only: [:edit, :update], param: :slug, path: '' do
         scope module: :sites do
-          resources 'pages', only: [:show], param: :slug, path: '', constraints: lambda { |req| req.params[:slug] != 'edit' }
+          resources 'pages', except: [:index, :create, :new], param: :slug, path: '', constraints: lambda { |req| !['edit', 'pages'].include?(req.params[:slug]) }
+          resources 'pages', only: [:index, :create, :new], param: :slug
         end
       end
       get "sites/:slug", to: redirect("/%{slug}")
@@ -149,7 +150,8 @@ Dcv::Application.routes.draw do
   get '/:slug', controller: 'sites', action: 'home', as: 'site'
   resources 'sites', only: [:edit, :update], param: :slug, path: '' do
     scope module: :sites do
-      resources 'pages', only: [:show], param: :slug, path: '', constraints: lambda { |req| req.params[:slug] != 'edit' }
+      resources 'pages', except: [:index, :create, :new], param: :slug, path: '', constraints: lambda { |req| !['edit', 'pages'].include?(req.params[:slug]) }
+      resources 'pages', only: [:index, :create, :new], param: :slug
     end
   end
 
