@@ -31,6 +31,22 @@
     </div>
   </div>
   <div class="panel panel-primary">
+    <div class="panel-heading"><h2 class="panel-title">Site Pages</h2></div>
+    <div class="panel-body site_pages">
+      <%- @subsite.site_pages.each do |page| -%>
+        <div class="row">
+          <div class="col-md-3"><%= page.slug %></div>
+          <div class="col-md-3"><%= page.title %></div>
+          <div class="col-md-3"><%= link_to("Edit", edit_site_page_path(site_slug: @subsite.slug, slug: page.slug)) %></div>
+          <div class="col-md-3"><%= link_to("Delete", site_page_path(site_slug: @subsite.slug, slug: page.slug), method: :delete) unless page.slug == 'home' %></div>
+        </div>
+      <%- end -%>
+      <div class="row">
+        <div class="col-md-3"><%= link_to("Add Page", new_site_page_path(site_slug: @subsite.slug)) %></div>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-primary">
     <div class="panel-heading"><h2 class="panel-title">Site Navigation</h2></div>
     <div class="panel-body site_navigation">
       <%= site_form.fields_for :nav_menus do |menu_form| %>
