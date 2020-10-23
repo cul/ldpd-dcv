@@ -11,6 +11,20 @@ describe SitesController, type: :feature do
       expect(page).to have_xpath('/descendant::li/a', text: 'Avery Architectural & Fine Arts Library')
     end
   end
+  describe "update" do
+    let(:authorized_user) { User.new(uid: 'tester', is_admin: true, email: 'tester@example.org') }
+    it "updates the values" do
+      login_as(authorized_user, scope: :user)
+      visit edit_site_url('internal_site')
+      expect(page).to have_select('Site Layout', :selected => 'DLC Default')
+      login_as(authorized_user, scope: :user)
+      select('Gallery', from: 'Site Layout')
+      click_button "Update"
+      login_as(authorized_user, scope: :user)
+      visit edit_site_url('internal_site')
+      expect(page).to have_select('Site Layout', :selected => 'Gallery')
+    end
+  end
   describe "index" do
     before { visit root_url }
     it "links to tabs and has external digital collections link" do

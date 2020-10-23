@@ -4,16 +4,20 @@
     <div class="panel-heading"><h2 class="panel-title">Site Properties</h2></div>
     <div class="panel-body site_properties">
       <div class="form-group">
-        <label for="site_title">Site Title</label>
+        <label for="site_title">Title</label>
         <%= site_form.text_field :title, {disabled: true, class: ['form-control', 'disabled']} %>
       </div>
       <div class="form-group">
+        <label for="site_title">Alternative Title</label>
+        <%= site_form.text_field :alternative_title, class: ['form-control'] %>
+      </div>
+      <div class="form-group">
         <label for="site_palette">Site Palette</label>
-        <%= site_form.select(:palette, options_for_select([['Dark', 'monochromeDark'], ['Light', 'monochromeLight'], ['Blue', 'blue']], @subsite.palette), {class: ['form-control']}) %>
+        <%= site_form.select(:palette, options_for_select([['DLC Default', 'default'], ['Dark', 'monochromeDark'], ['Light', 'monochromeLight'], ['Blue', 'blue']], @subsite.palette), {class: ['form-control']}) %>
       </div>
       <div class="form-group">
         <label for="site_layout">Site Layout</label>
-        <%= site_form.select(:layout, options_for_select([['Portrait', 'portrait'], ['Gallery', 'gallery'], ['Signature', 'signature']], @subsite.layout), {class: ['form-control']}) %>
+        <%= site_form.select(:layout, options_for_select([['DLC Default', 'default'], ['Portrait', 'portrait'], ['Gallery', 'gallery'], ['Signature', 'signature']], @subsite.layout), {class: ['form-control']}) %>
       </div>
       <div class="form-group">
         <label for="site[show_facets]">Show Home Page Facets</label>
@@ -27,6 +31,25 @@
             <%= site_form.radio_button :show_facets, false %>No home page facet panel
           </label>
         </div>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-primary">
+    <div class="panel-heading"><h2 class="panel-title">Site Homepage Images</h2></div>
+    <div class="panel-body site_hompage_images">
+      <div class="form-group">
+        <label for="site_image_uris">Site Image PID URIs</label>
+        <%- site_form.object.image_uris.each_with_index do |image_uri, ix| %>
+          <fieldset name="site_image_uris" class="paneled">
+              <%= site_form.text_field :image_uris, multiple: true, value: image_uri, id: "site_image_uris[#{ix}]" %>
+              <%- if ix > 0 %>
+                <input type="button" class="btn btn-danger" value="Remove" onclick="this.parentElement.remove();"/>
+              <%- end %>
+          </fieldset>
+        <%- end %>
+        <fieldset id="add_site_image_uri" style="border-width: 0;">
+            <input type="button" class="btn btn-info" value="Add a URI" onclick="addSiteImageUriFieldSet(this.parentElement);" />
+        </fieldset>
       </div>
     </div>
   </div>

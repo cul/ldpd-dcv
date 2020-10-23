@@ -273,6 +273,6 @@ class SitesController < ApplicationController
   end
   private
     def site_params
-      params.require(:site).permit(:palette, :layout, :show_facets)
+      params.require(:site).permit(:palette, :layout, :show_facets, :alternative_title, :search_type, :image_uris, image_uris: [])
     end
 end

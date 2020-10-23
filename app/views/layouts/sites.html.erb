@@ -30,9 +30,13 @@
       .panel {
         background: inherit;
       }
+      fieldset.paneled {
+        border-width: 0 0 2px 0;
+      }
     </style>
     <%= javascript_include_tag "application" %>
     <%= javascript_include_tag "dcv" %>
+    <%= javascript_include_tag "sites" %>
     <%= csrf_meta_tags %>
     <%= content_for(:head) %>
 
