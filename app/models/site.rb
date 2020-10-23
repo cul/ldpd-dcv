@@ -7,9 +7,10 @@ class Site < ActiveRecord::Base
 	store :constraints, accessors: [ :publisher, :project, :collection ], coder: JSON, suffix: true
 	serialize :image_uris, Array
 
+	validates :search_type, inclusion: { in: VALID_SEARCH_TYPES }
+
 	configure_blacklight do |config|
 		Dcv::Configurators::DcvBlacklightConfigurator.configure(config)
-
 	end
 
 	def initialize(atts = {})

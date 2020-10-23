@@ -34,7 +34,9 @@ module Dcv
         'welcome.js', 'welcome.css',
         'print.css',
         'freelib.js',
-        'd3.js']
+        'd3.js',
+        'sites.js'
+      ]
 
     # And include styles for all configured subsite layouts
     subsites_yml_file = "#{Rails.root.to_s}/config/subsites.yml"
