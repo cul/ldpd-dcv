@@ -51,6 +51,8 @@ module Dcv::Sites::Import
 				facet_value = @document.fetch(:short_title_ssim,[]).first
 				if search_scope == 'collection'
 					site.collection_constraints = [facet_value]
+				elsif search_scope == 'publisher'
+					site.publisher_constraints = [site.publisher_uri]
 				else
 					site.project_constraints = [facet_value]
 				end
