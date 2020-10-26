@@ -274,5 +274,6 @@ class SitesController < ApplicationController
   private
     def site_params
       params.require(:site).permit(:palette, :layout, :show_facets, :alternative_title, :search_type, :image_uris, image_uris: [])
+      .tap { |p| p['image_uris']&.delete_if { |v| v.blank? } }
     end
 end
