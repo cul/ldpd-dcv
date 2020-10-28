@@ -2,24 +2,24 @@
 module Dcv
   class ShowPresenter < Blacklight::ShowPresenter
     def render_document_citation_field_value field, options = {}
-      field_config = @configuration.citation_fields[field]
+      field_config = @configuration.citation_fields[field] || Blacklight::Configuration::NullField.new
       value = options[:value] || field_value(field_config, options)
 
-      render_field_values value, field_config
+      field_values(field_config, value: Array(value))
     end
 
     def render_document_geo_field_value field, options = {}
-      field_config = @configuration.geo_fields[field]
+      field_config = @configuration.geo_fields[field] || Blacklight::Configuration::NullField.new
       value = options[:value] || field_value(field_config, options)
 
-      render_field_values value, field_config
+      field_values(field_config, value: Array(value))
     end
 
     def render_document_dynamic_field_value field, options = {}
-      field_config = options[:field_config]
+      field_config = options.fetch(:field_config, Blacklight::Configuration::NullField.new)
       value = options[:value] || field_value(field_config, options)
 
-      render_field_values value, field_config
+      field_values(field_config, value: Array(value))
     end
     ##
     # Create <link rel="alternate"> links from a documents dynamically
