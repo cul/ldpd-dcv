@@ -1,9 +1,9 @@
 <%- local_downloads ||= false -%>
 <div class="pull-right btn-group btn-group-xs">
-  <%= link_to '<span class="glyphicon glyphicon-open-file"></span>'.html_safe, item_mods_path(:pid => @document.id),
+  <%= link_to '<span class="glyphicon glyphicon-open-file"></span>'.html_safe, item_mods_path(id: @document.id),
   {
-    :'data-display-url' => item_mods_path(:pid => @document.id, :type => 'formatted_text'),
-    :'data-download-url' => item_mods_path(:pid => @document.id, :type => 'download'),
+    :'data-display-url' => item_mods_path(id: @document.id, type: 'formatted_text'),
+    :'data-download-url' => item_mods_path(id: @document.id, type: 'download'),
     :class => 'btn btn-default pull-right',
     :title => 'Display XML Metadata',
     :'data-tt' => 'tooltip',
