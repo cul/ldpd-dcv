@@ -1,4 +1,17 @@
 module Dcv::FacetsHelperBehavior
+  ## !Override
+  # Renders the list of values
+  # removes any elements where render_facet_item returns a nil value. This enables an application
+  # to filter undesireable facet items so they don't appear in the UI
+  def render_facet_limit_list(paginator, facet_field, wrapping_element=:li)
+    srcs = paginator.items.map do |item|
+      src = render_facet_item(facet_field, item)
+      src.present? ? [item, render_facet_item(facet_field, item)] : nil
+    end.compact.map do |item, src|
+      facet_in_params?(facet_field, item.value) ? content_tag(wrapping_element,src, :class => 'selected') : content_tag(wrapping_element,src)
+    end
+    safe_join(srcs)
+  end
 
   ## !Override
   # Standard display of a facet value in a list. Used in both _facets sidebar
@@ -21,5 +34,4 @@ module Dcv::FacetsHelperBehavior
       link_to_unless(options[:suppress_link], facet_display_value(facet_field, item), path, :class=>"facet_select")
     end + render_facet_count(item.hits)
   end
-
 end
