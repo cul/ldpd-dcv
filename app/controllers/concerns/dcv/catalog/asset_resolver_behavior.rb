@@ -13,8 +13,7 @@ module Dcv::Catalog::AssetResolverBehavior
       convertible_id.gsub!(':','\:')
       convertible_id.gsub!('/','\/')
 
-      p = blacklight_config.default_document_solr_params
-      p[:fq] = "dc_identifier_ssim:\"#{convertible_id}\""
+      p = blacklight_config.default_document_solr_params.merge(fq: "dc_identifier_ssim:\"#{convertible_id}\"")
       solr_response, resolved_list = search_results(p) { |b| b.merge(p) }
       solr_response = 
       if resolved_list.empty?
