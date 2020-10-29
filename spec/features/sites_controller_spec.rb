@@ -17,12 +17,15 @@ describe SitesController, type: :feature do
       login_as(authorized_user, scope: :user)
       visit edit_site_url('internal_site')
       expect(page).to have_select('Site Layout', :selected => 'DLC Default')
+      expect(page).to have_select('Search Type', :selected => 'Catalog')
       login_as(authorized_user, scope: :user)
       select('Gallery', from: 'Site Layout')
+      select('Local', from: 'Search Type')
       click_button "Update"
       login_as(authorized_user, scope: :user)
       visit edit_site_url('internal_site')
       expect(page).to have_select('Site Layout', :selected => 'Gallery')
+      expect(page).to have_select('Search Type', :selected => 'Local')
     end
   end
   describe "index" do
