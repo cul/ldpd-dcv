@@ -12,10 +12,11 @@ module Dcv::Sites
 		PORTABLE_LAYOUTS = [LAYOUT_GALLERY, LAYOUT_PORTRAIT, LAYOUT_SIGNATURE].freeze
 		# search types
 		SEARCH_CATALOG = 'catalog'
+		SEARCH_CUSTOM = 'custom'
 		SEARCH_LOCAL = 'local'
-		VALID_SEARCH_TYPES = [SEARCH_CATALOG, SEARCH_LOCAL].freeze
+		VALID_SEARCH_TYPES = [SEARCH_CATALOG, SEARCH_LOCAL, SEARCH_CUSTOM].freeze
 		# default property values
-		DEFAULT_SEARCH_TYPE = 'catalog'
+		DEFAULT_SEARCH_TYPE = 'catalog' # delegate search and display to general catalog
 		DEFAULT_LAYOUT = 'default' # use sitewide default at designers' discretion
 		DEFAULT_PALETTE = 'default' # use sitewide default at designers' discretion
 	end

@@ -27,6 +27,12 @@ class Site < ActiveRecord::Base
 		configure_blacklight do |config|
 			config.default_solr_params[:fq] += default_fq()
 			config.show.route = self.routing_params
+			if self.search_type == 'local'
+				config.document_unique_id_param = :ezid_doi_ssim
+				config.show.route = ShowRouteFactory.new(self)
+			else
+				config.show.route = self.routing_params
+			end
 		end
 	end
 
@@ -105,5 +111,22 @@ class Site < ActiveRecord::Base
 	def to_subsite_config
 		config = {slug: slug, restricted: slug =~ /restricted/, palette: palette, layout: layout}
 		config.with_indifferent_access
+	end
+	class ShowRouteFactory
+		def initialize(site)
+			@slug = site.slug.split('/')[-1]
+			@restricted = site.slug =~ /restricted/
+		end
+		def doi_params(doc)
+			return {} unless doc
+			doi_id = doc.fetch('ezid_doi_ssim',[]).first&.sub(/^doi:/,'')
+			{ id: doi_id }
+		end
+		def merge opts = {}
+			controller_name = "/sites/search"
+			controller_name = "/restricted/#{controller_name}" if @restricted
+			doc = opts[:id]
+			doi_params(doc).merge(controller: controller_name, action: :show)
+		end
 	end
 end

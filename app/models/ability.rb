@@ -19,6 +19,17 @@ class Ability
         true
       end
     end
+    can ACCESS_SUBSITE, Site do |site|
+      if site.restricted
+        result = false
+        result ||= (site.subsite_config.fetch(:remote_ids, []).flatten.include?(user.uid)) if user
+        result ||= true if (site.subsite_config.fetch(:remote_roles,[]).flatten & affils).first if user
+        result ||= true if (site.subsite_config.fetch(:locations,[]).flatten & location_uris).first
+        result
+      else
+        true
+      end
+    end
     can ACCESS_ASSET, SolrDocument do |doc|
       if doc.fetch('access_control_levels_ssim',[]).include?(ACCESS_LEVEL_CLOSED)
         false

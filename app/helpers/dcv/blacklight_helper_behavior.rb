@@ -51,4 +51,9 @@ module Dcv::BlacklightHelperBehavior
       super
     end
   end
+
+  def controller_tracking_method
+    # "track_#{controller_name}_path"
+    controller.tracking_method
+  end
 end

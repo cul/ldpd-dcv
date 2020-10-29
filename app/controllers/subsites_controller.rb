@@ -3,6 +3,7 @@ class SubsitesController < ApplicationController
   include Dcv::RestrictableController
   include Dcv::CatalogIncludes
   include Dcv::MarkdownRendering
+  include Dcv::Sites::SearchableController
   include Cul::Hydra::ApplicationIdBehavior
   include Cul::Omniauth::AuthorizingController
   include Cul::Omniauth::RemoteIpAbility
@@ -97,21 +98,6 @@ class SubsitesController < ApplicationController
     end
   end
 
-  def default_search_mode
-    subsite_config.fetch('default_search_mode',:grid)
-  end
-
-  def default_search_mode_cookie
-    slug = load_subsite&.slug || controller_path
-    cookie_name = "#{slug}_search_mode"
-    cookie_name.gsub!('/','_')
-    cookie_name = cookie_name.to_sym
-    cookie = cookies[cookie_name]
-    unless cookie
-      cookies[cookie_name] = default_search_mode.to_sym
-    end
-  end
-
   # PUT /subsite/publish/:id
   def update
     pid = params[:id]
@@ -162,7 +148,7 @@ class SubsitesController < ApplicationController
 
   # GET /subsite/:id
   def show
-    params[:format] = 'html'
+    params[:format] ||= 'html'
 
     @response, @document = fetch params[:id]
     return unless authorize_document
@@ -261,6 +247,10 @@ class SubsitesController < ApplicationController
   # use existing response attribute
   def load_facet_response
     @response
+  end
+
+  def tracking_method
+    "track_#{controller_name}_path"
   end
 
   private

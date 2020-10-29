@@ -34,6 +34,11 @@ describe Sites::PagesController, :type => :routing do
       expect(:get => "/foo/pages").to route_to(controller: "sites/pages", action:"index", site_slug: 'foo')
       expect(:get => "/restricted/foo/pages").to route_to(controller: "restricted/sites/pages", action:"index", site_slug: 'foo')
     end
+    it "does not route asset paths to pages" do
+      { 'images' => 'jpg', 'javascripts' => 'js', 'stylesheets' => 'css' }.each do |asset_type, file_ext| 
+        expect(get: "/#{asset_type}/foo.#{file_ext}").not_to route_to(controller: "sites/pages", action:"show", site_slug: asset_type, slug: 'foo', format: file_ext)
+      end
+    end
   end
   describe "url_helpers" do
     it 'produces expected public sites paths' do

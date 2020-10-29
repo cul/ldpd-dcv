@@ -146,7 +146,7 @@ class SitesController < ApplicationController
     return [subsite_layout] unless Dcv::Sites::Constants::PORTABLE_LAYOUTS.include?(subsite_layout)
     palette = load_subsite&.palette || subsite_config['palette'] || 'default'
     palette = DCV_CONFIG.fetch(:default_palette, 'monochromeDark') if palette == 'default'
-    ["#{subsite_layout}-#{palette}", self.controller_name]
+    ["#{subsite_layout}-#{palette}"]
   end
 
   # get single document from the solr index
@@ -237,11 +237,17 @@ class SitesController < ApplicationController
   def search_action_url(options = {})
     if action_name == 'index'
       url_for(action: 'index', controller: 'catalog')
-    elsif load_subsite.search_type == 'local'
-      # ignore the offered filters for full-fledged subsites until either:
+    elsif load_subsite.search_type == 'custom'
+      # ignore the offered filters for full-fledged custom sites until either:
       # 1. there are multiple Solr cores
       # 2. there are collections published to non-catalog subsites
       url_for(action: 'index', controller: load_subsite.slug)
+    elsif load_subsite.search_type == 'local'
+      if load_subsite.restricted.present?
+        url_for(controller: 'restricted/sites/search', action: 'index', site_slug: load_subsite.slug)
+      else
+        url_for(controller: 'sites/search', action: 'index', site_slug: load_subsite.slug)
+      end
     else
       # initialize with facet values if present
       f = options.fetch('f', {}).merge(load_subsite.default_filters)
@@ -271,6 +277,11 @@ class SitesController < ApplicationController
   def controller
     self
   end
+
+  def tracking_method
+    "track_#{controller_name}_path"
+  end
+
   private
     def site_params
       params.require(:site).permit(:palette, :layout, :show_facets, :alternative_title, :search_type, :image_uris, image_uris: [])

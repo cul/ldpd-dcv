@@ -13,7 +13,6 @@
 		<% unless has_search_parameters? %>
 			Perform a search by typing something into the box above or selecting one of the lefthand facets!
 		<% else %>
-
 			<h2 class="sr-only top-content-title"><%= t('blacklight.search.search_results_header') %></h2>
 
 			<% @page_title = t('blacklight.search.title', :application_name => application_name) %>
