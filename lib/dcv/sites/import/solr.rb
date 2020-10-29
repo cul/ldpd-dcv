@@ -28,7 +28,7 @@ module Dcv::Sites::Import
 
 			# constraints and layout depend on whether it is a configured subsite or not
 			if subsite_config.present?
-				site.search_type = 'local'
+				site.search_type = 'custom'
 				publisher_constraints = [@document[:fedora_pid_uri_ssi] || subsite_config['uri']]
 				publisher_constraints.concat(subsite_config['additional_publish_targets'] || [])
 				publisher_constraints.compact!
@@ -44,7 +44,7 @@ module Dcv::Sites::Import
 					site.palette ||= DEFAULT_PALETTE
 				end
 			else
-				site.search_type = 'catalog'
+				site.search_type ||= 'catalog'
 				site.layout ||= DEFAULT_LAYOUT
 				site.palette ||= DEFAULT_PALETTE
 				search_scope = @document.fetch(:search_scope_ssi, "project")

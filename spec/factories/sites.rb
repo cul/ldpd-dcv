@@ -2,6 +2,7 @@
 
 FactoryBot.define do
   factory :site do
+    slug { 'dlc_site' }
     title { 'DLC Site' }
     persistent_url   { 'https://example.com/catalog/persistent_url' }
     restricted { false }
@@ -10,6 +11,7 @@ FactoryBot.define do
     search_type { 'catalog' }
     image_uris { ['info:fedora/test-image:1'] }
     repository_id { 'NNC'}
+    constraints { { collection: ['DLC Site Collection'] } }
 
     factory :site_with_links do
       after(:create) do |site|

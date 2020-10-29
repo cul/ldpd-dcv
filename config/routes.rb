@@ -73,6 +73,10 @@ Dcv::Application.routes.draw do
   concern :tree_browsable, Dcv::Routes::NodeProxies.new
   concern :synchronizable, Dcv::Routes::Synchronizer.new
 
+  # Generic Site concerns
+  concern :site_searchable, Dcv::Routes::SiteSearchable.new
+  concern :site_showable, Dcv::Routes::SiteShowable.new
+
   subsite_concerns = [:publishable, :legacy_findable, :previewable, :tree_browsable, :synchronizable]
 
   repositories = %w(NNC-A NNC-EA NNC-RB NyNyCAP NyNyCBL NyNyCMA)
@@ -121,6 +125,8 @@ Dcv::Application.routes.draw do
   get '/restricted' => 'home#restricted', as: :restricted
   get '/restricted/projects', to: redirect('/restricted')
 
+  SITE_SLUG_CONSTRAINT ||= lambda { |req| (['images', 'stylesheets', 'javascripts'] & [req.params[:site_slug], req.params[:site_slug]]).blank? }
+
   if SUBSITES['restricted'].present?
     namespace "restricted" do
       subsite_keys = (SUBSITES['restricted'].keys - ['uri']).map(&:to_sym)
@@ -134,8 +140,12 @@ Dcv::Application.routes.draw do
       end
       get "sites" => "sites#index"
       get '/:slug', controller: 'sites', action: 'home', as: 'site'
-      resources 'sites', only: [:edit, :update], param: :slug, path: '' do
+      resources 'sites', only: [:edit, :update], param: :slug, path: '', constraints: SITE_SLUG_CONSTRAINT do
         scope module: :sites do
+          resource 'search', only: [:show], controller: 'search' do
+            concerns :site_searchable
+          end
+          concerns :site_showable
           resources 'pages', except: [:index, :create, :new], param: :slug, path: '', constraints: lambda { |req| !['edit', 'pages'].include?(req.params[:slug]) }
           resources 'pages', only: [:index, :create, :new], param: :slug
         end
@@ -148,8 +158,12 @@ Dcv::Application.routes.draw do
   get "sites" => "sites#index"
   get "sites/:slug", to: redirect("/%{slug}")
   get '/:slug', controller: 'sites', action: 'home', as: 'site'
-  resources 'sites', only: [:edit, :update], param: :slug, path: '' do
+  resources 'sites', only: [:edit, :update], param: :slug, path: '', constraints: SITE_SLUG_CONSTRAINT do
     scope module: :sites do
+      resource 'search', only: [:show], controller: 'search' do
+        concerns :site_searchable
+      end
+      concerns :site_showable
       resources 'pages', except: [:index, :create, :new], param: :slug, path: '', constraints: lambda { |req| !['edit', 'pages'].include?(req.params[:slug]) }
       resources 'pages', only: [:index, :create, :new], param: :slug
     end
