@@ -18,11 +18,6 @@ module Sites
 			authorize_action_and_scope(Ability::ACCESS_SUBSITE, @subsite)
 		end
 
-		def search_builder
-			filters = (params[:action] == 'show') ? [] : [] #[:dump_params]
-			super.tap { |builder| builder.processor_chain.concat filters }
-		end
-
 		def initialize(*args)
 			super(*args)
 			self._prefixes.unshift 'sites'
