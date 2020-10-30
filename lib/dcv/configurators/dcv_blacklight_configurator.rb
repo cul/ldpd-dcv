@@ -92,11 +92,11 @@ class Dcv::Configurators::DcvBlacklightConfigurator
     config.add_show_field 'dynamic_notes', pattern: /lib_.*_notes_ssm/, label: :notes_label, helper_method: :expandable_past_250, unless: :is_excepted_dynamic_field?, except: ['lib_acknowledgment_notes_ssm']
     config.add_show_field ActiveFedora::SolrService.solr_name('language_language_term_text', :symbol), :label => 'Language', :link_to_search => ActiveFedora::SolrService.solr_name('language_language_term_text', :symbol)
     config.add_show_field ActiveFedora::SolrService.solr_name('table_of_contents', :displayable, type: :string), :label => 'Contents'
-    config.add_show_field ActiveFedora::SolrService.solr_name('lib_repo_short', :symbol, type: :string), :label => 'Library Location', :helper_method => :show_field_repository_to_facet_link
+    config.add_show_field ActiveFedora::SolrService.solr_name('lib_repo_short', :symbol, type: :string), label: 'Library Location', helper_method: :show_field_repository_to_facet_link, link_to_search: true
     config.add_show_field ActiveFedora::SolrService.solr_name('location_sublocation', :displayable, type: :string), :label => 'Department'
     config.add_show_field ActiveFedora::SolrService.solr_name('clio', :symbol, type: :string), :label => 'Catalog Record', :helper_method => :link_to_clio
     config.add_show_field ActiveFedora::SolrService.solr_name('lib_part', :displayable, type: :string), :label => 'Part'
-    config.add_show_field ActiveFedora::SolrService.solr_name('lib_project_full', :symbol), :label => 'Digital Project', :helper_method => :show_field_project_to_facet_link
+    config.add_show_field ActiveFedora::SolrService.solr_name('lib_project_full', :symbol), :label => 'Digital Project', :helper_method => :show_field_project_to_facet_link, link_to_search: true
     # Note: Do NOT show the access_condition field. See DCV-465 for explanation.
     #config.add_show_field ActiveFedora::SolrService.solr_name('access_condition', :symbol, type: :string), :label => 'Rights'
     config.add_show_field ActiveFedora::SolrService.solr_name('lib_acknowledgment_notes', :displayable), label: 'Acknowledgments'
