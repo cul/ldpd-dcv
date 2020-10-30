@@ -149,6 +149,15 @@
 	.panel-default {
 		border-color: $color_outline_secondary;
 		border-style: solid;
+		.panel-heading {
+			background-color: gradeBgColor(2%);
+			color: $color_ui;
+			border-color: $color_ui_outline;
+			border: 0;
+			&.home {
+				background-color: transparent;
+			}
+		}
 	}
 	.panel-body .nav {
 		a {
