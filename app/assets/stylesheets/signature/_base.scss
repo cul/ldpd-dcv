@@ -70,7 +70,8 @@ a {
 		background-color: $color_primary_background;
 		color: $color_ui;
 		&:focus {
-			background-color: $color_ui_background;
+			background-color: $color_primary_background;
+			color: $color_highlight_background;
 		}
 	}
 	#q, #q-filter, .search-btn, .reset-btn {
