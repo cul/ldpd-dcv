@@ -52,15 +52,14 @@ module FieldDisplayHelpers::Repository
       url_for_facet_search = search_action_path(:f => {facet_field_name => [facet_value]})
 
       if display_value == 'Non-Columbia Location' && args[:document]['lib_repo_text_ssm'].present?
-        return (args[:document]['lib_repo_text_ssm'].first + '<br />' + link_to("(#{display_value})", url_for_facet_search)).html_safe
+        result_src = [args[:document]['lib_repo_text_ssm'].first]
+        result_src << link_to("(#{display_value})", url_for_facet_search) if blacklight_config.show_fields[args[:field]].link_to_search
       else
         repo_code = field_helper_repo_code_value(args)
-        src = [link_to_repo_homepage(repo_code, true)]
-        src << '<em>' +
-              link_to("Browse Location’s Digital Content",
-                      url_for_facet_search) + '</em>'
-        src.compact.join('<br />').html_safe
+        result_src = [link_to_repo_homepage(repo_code, true)]
+        result_src << "<em>#{link_to("Browse Location’s Digital Content", url_for_facet_search)}</em>"  if blacklight_config.show_fields[args[:field]].link_to_search
       end
+      result_src.compact.join('<br />').html_safe
     }
   end
 

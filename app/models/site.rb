@@ -11,6 +11,10 @@ class Site < ActiveRecord::Base
 
 	configure_blacklight do |config|
 		Dcv::Configurators::DcvBlacklightConfigurator.configure(config)
+		field_name = ActiveFedora::SolrService.solr_name('lib_repo_short', :symbol, type: :string)
+		config.show_fields[field_name].link_to_search = false
+		field_name = ActiveFedora::SolrService.solr_name('lib_project_full', :symbol)
+		config.show_fields[field_name].link_to_search = false
 	end
 
 	def initialize(atts = {})

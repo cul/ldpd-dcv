@@ -1,5 +1,6 @@
 module FieldDisplayHelpers::Project
   def show_field_project_to_facet_link(args)
+    return args[:document][args[:field]] unless blacklight_config.show_fields[args[:field]].link_to_search
     facet_field_name = :lib_project_short_ssim
     full_project_names_to_short_project_names = get_full_project_names_to_short_project_names
 
