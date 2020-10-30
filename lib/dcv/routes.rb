@@ -1,5 +1,6 @@
 module Dcv
   class Routes
+    DOI_ID_CONSTRAINT = { id: /10\.[A-Za-z0-9\-]+\/[^\/]+/ }
 
     attr_reader :subsite_keys
 

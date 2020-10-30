@@ -149,8 +149,12 @@ class SubsitesController < ApplicationController
   # GET /subsite/:id
   def show
     params[:format] ||= 'html'
-
-    @response, @document = fetch params[:id]
+    if params[:id] =~ Dcv::Routes::DOI_ID_CONSTRAINT[:id]
+      @response, @document = fetch "doi:#{params[:id]}", q: "{!raw f=ezid_doi_ssim v=$#{blacklight_config.document_unique_id_param}}"
+      params[:id] = @document.id
+    else
+      @response, @document = fetch params[:id]
+    end
     return unless authorize_document
 
     respond_to do |format|
