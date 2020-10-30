@@ -29,7 +29,7 @@ module Dcv::Authenticated::AccessControl
     return false
   end
 
-  def authorize_document(document=@document, action=:'documents#show')
+  def authorize_document(_document=nil)
     authorize_action_and_scope(Ability::ACCESS_SUBSITE, self)
   end
 
