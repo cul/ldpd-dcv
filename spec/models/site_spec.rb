@@ -115,4 +115,11 @@ describe Site do
 			expect(subject[:palette]).to eql 'monochromeDark'
 		end
 	end
+	describe Site::ShowRouteFactory do
+		let(:site_slug) { 'show_route_factory' }
+		let(:doi_id) { '10.12345/1a2b3c-4d5e' }
+		let(:document) { { 'ezid_doi_ssim' => ["doi:#{doi_id}"] } }
+		subject { described_class.new(site).merge(id: document) }
+		it { is_expected.to include(site_slug: site_slug, id: doi_id) }
+	end
 end

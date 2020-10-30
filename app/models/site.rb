@@ -126,7 +126,7 @@ class Site < ActiveRecord::Base
 			controller_name = "/sites/search"
 			controller_name = "/restricted/#{controller_name}" if @restricted
 			doc = opts[:id]
-			doi_params(doc).merge(controller: controller_name, action: :show)
+			doi_params(doc).merge(controller: controller_name, action: :show, site_slug: @slug)
 		end
 	end
 end
