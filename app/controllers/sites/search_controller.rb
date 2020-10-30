@@ -14,7 +14,7 @@ module Sites
 
 		layout :subsite_layout
 
-		def authorize_document(document=@document, action=:'documents#show')
+		def authorize_document(_document=nil)
 			authorize_action_and_scope(Ability::ACCESS_SUBSITE, @subsite)
 		end
 
