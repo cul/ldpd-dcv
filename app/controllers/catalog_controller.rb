@@ -38,7 +38,8 @@ class CatalogController < SubsitesController
 
   # get search results from the solr index forhome page
   def home
-    (@response, @document_list) = search_results(params) {|builder| builder.merge(home_params)}
+    @response = repository.search(home_params)
+    @document_list = @response.documents
 
     respond_to do |format|
       format.html { render action: 'home' }
