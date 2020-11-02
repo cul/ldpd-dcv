@@ -77,6 +77,30 @@ describe Site do
 			end
 		end
 	end
+	describe 'editor_uids' do
+		let(:site_slug) { 'editor_uids' }
+		describe '#editor_uids' do
+			it 'returns an array' do
+				expect(site.editor_uids).to be_a Array
+			end
+		end
+		describe '#editor_uids=' do
+			let(:original_value) { "fake1" }
+			let(:additional_value) { "fake2" }
+			it 'accepts an array' do
+				site.editor_uids << original_value
+				site.save
+				expect(site.editor_uids.length).to be 1
+				site.editor_uids = [original_value, additional_value]
+				site.save
+				expect(site.editor_uids.length).to be 2
+				expect(site.editor_uids).to eql [original_value, additional_value]
+			end
+			it 'rejects a string' do
+				expect { site.editor_uids = additional_value }.to raise_error
+			end
+		end
+	end
 	describe 'image uri methods' do
 		let(:site_slug) { 'image_uris' }
 		describe '#image_uris' do

@@ -5,6 +5,7 @@ class Site < ActiveRecord::Base
 	has_many :nav_links, dependent: :destroy
 	has_many :site_pages, dependent: :destroy
 	store :constraints, accessors: [ :publisher, :project, :collection ], coder: JSON, suffix: true
+	serialize :editor_uids, Array
 	serialize :image_uris, Array
 
 	validates :search_type, inclusion: { in: VALID_SEARCH_TYPES }
