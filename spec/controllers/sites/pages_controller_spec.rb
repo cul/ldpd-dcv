@@ -1,10 +1,10 @@
 require 'rails_helper'
 
-describe SitesController, type: :unit do
+describe Sites::PagesController, type: :unit do
 	let(:controller) { described_class.new }
 	let(:params) {
 		ActionController::Parameters.new(
-			slug: site.slug
+			site_slug: site.slug
 		)
 	}
 	let(:site) { FactoryBot.create(:site) }
@@ -23,6 +23,7 @@ describe SitesController, type: :unit do
 		let(:search_uri) { URI(controller.search_action_url(query)) }
 		context 'catalog search' do
 			it { expect(search_uri.path).to eql('/catalog') }
+			it { expect(search_uri.query).to match(/search_field\=/) }
 		end
 		context 'custom search' do
 			let(:site) { FactoryBot.create(:site, search_type: 'custom') }
@@ -39,24 +40,6 @@ describe SitesController, type: :unit do
 			let(:site) { FactoryBot.create(:site, search_type: 'local') }
 			it { expect(search_uri.path).to eql("/#{site.slug}/search") }
 			it { expect(search_uri.query).to match(/search_field\=/) }
-		end
-	end
-	describe '#tracking_method' do
-		it { expect(controller.tracking_method).to eql('track_sites_path') }
-	end
-	describe '#site_params' do
-		context 'with blank image_uris values' do
-			let(:params) {
-				ActionController::Parameters.new(
-					site: {
-						image_uris: ['a', nil, 'b', '', 'c']
-					}
-				)
-			}
-			let(:update_params) { controller.send :site_params }
-			it "compacts the values" do
-				expect(update_params[:image_uris]).to eql(['a', 'b', 'c'])
-			end
 		end
 	end
 end

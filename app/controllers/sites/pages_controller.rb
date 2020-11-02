@@ -94,20 +94,29 @@ module Sites
 
 		# Catalog, local, or subsite index as appropriate
 		def search_action_url(options = {})
-			if load_subsite.search_type == 'local'
-				url_for(action: 'index', controller: load_subsite.slug)
+			if load_subsite.search_type == 'custom'
+				url_params = options.merge(action: 'index', controller: load_subsite.slug)
+			elsif load_subsite.search_type == 'local'
+				url_params = options.clone
+				if load_subsite.restricted.present?
+					url_params.merge!(controller: 'restricted/sites/search', action: 'index', site_slug: load_subsite.slug)
+				else
+					url_params.merge!(controller: 'sites/search', action: 'index', site_slug: load_subsite.slug)
+				end
 			else
+				# delegate to relevant catalog with pre-selected filters
 				# initialize with facet values if present
 				f = options.fetch('f', {}).merge(load_subsite.default_filters)
 				if load_subsite.restricted.present?
 					repository_id = @document[:lib_repo_code_ssim].first
-					search_repository_catalog_path(repository_id: repository_id, f: f)
+					return search_repository_catalog_path(repository_id: repository_id, f: f)
 				else
 					# pages have a module scope so controller needs the leading slash
 					# and since this is not a BL controller, we need to supply the search field
-					url_for(action: 'index', controller: '/catalog', f: f, search_field: 'all_text_teim')
+					url_params = { action: 'index', controller: '/catalog', f: f, search_field: 'all_text_teim' }
 				end
 			end
+			url_for(url_params)
 		end
 	end
 end

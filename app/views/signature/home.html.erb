@@ -6,7 +6,7 @@
 				<div class="panel-group">
 					<div class="panel panel-ui">
 						<div class="panel-heading">
-							<h3 class="panel-title"><%= link_to("BROWSE THE COLLECTION", search_action_url) %></h3>
+							<h3 class="panel-title"><%= link_to("BROWSE THE COLLECTION", search_action_url(search_field: (controller.blacklight_config.search_fields.inject(:all_text_teim) {|m, key_val| key_val[1].default ? key_val[0] : m }))) %></h3>
 						</div>
 					</div>
 					<div class="panel panel-ui">

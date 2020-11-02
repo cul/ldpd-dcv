@@ -236,28 +236,31 @@ class SitesController < ApplicationController
   # see also HomeController
   def search_action_url(options = {})
     if action_name == 'index'
-      url_for(action: 'index', controller: 'catalog')
+      url_params = options.merge(action: 'index', controller: 'catalog')
     elsif load_subsite.search_type == 'custom'
       # ignore the offered filters for full-fledged custom sites until either:
       # 1. there are multiple Solr cores
       # 2. there are collections published to non-catalog subsites
-      url_for(action: 'index', controller: load_subsite.slug)
+      url_params = options.merge(action: 'index', controller: load_subsite.slug)
     elsif load_subsite.search_type == 'local'
+      url_params = options.clone
       if load_subsite.restricted.present?
-        url_for(controller: 'restricted/sites/search', action: 'index', site_slug: load_subsite.slug)
+        url_params.merge!(controller: 'restricted/sites/search', action: 'index', site_slug: load_subsite.slug)
       else
-        url_for(controller: 'sites/search', action: 'index', site_slug: load_subsite.slug)
+        url_params.merge!(controller: 'sites/search', action: 'index', site_slug: load_subsite.slug)
       end
     else
+      # delegate to relevant catalog with pre-selected filters
       # initialize with facet values if present
       f = options.fetch('f', {}).merge(load_subsite.default_filters)
       if load_subsite.restricted.present?
         repository_id = @document[:lib_repo_code_ssim].first
-        search_repository_catalog_path(repository_id: repository_id, f: f)
+        return search_repository_catalog_path(repository_id: repository_id, f: f)
       else
-        url_for(action: 'index', controller: 'catalog', f: f)
+        url_params = {action: 'index', controller: 'catalog', f: f}
       end
     end
+    url_for(url_params)
   end
 
   def browse_lists

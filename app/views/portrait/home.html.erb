@@ -24,7 +24,7 @@
 								<%- if (about_link = @subsite.about_link) -%>
 									<%= link_to("Read more &raquo;".html_safe, site_page_path(site_slug: @subsite.slug, slug: about_link.link), class: ["btn", "btn-primary"]) %>
 								<%- end -%>
-								<%= link_to("Browse content &raquo;".html_safe, search_action_url, class: ["btn", "btn-primary"]) %>
+								<%= link_to("Browse content &raquo;".html_safe, search_action_url(search_field: (controller.blacklight_config.search_fields.inject(:all_text_teim) {|m, key_val| key_val[1].default ? key_val[0] : m }))) %>
 							</p>
 						</div>
 						<div class="clearfix"></div>

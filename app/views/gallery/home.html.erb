@@ -25,7 +25,7 @@
             <p><%= link_to("About the collection &raquo;".html_safe, site_page_path(site_slug: @subsite.slug, slug: about_link.link)) %></p>
           <%- end -%>
           <p>
-            <%= link_to("Browse the collection &raquo;".html_safe, search_action_url) %>
+            <%= link_to("Browse the collection &raquo;".html_safe, search_action_url(search_field: (controller.blacklight_config.search_fields.inject(:all_text_teim) {|m, key_val| key_val[1].default ? key_val[0] : m }))) %>
           </p>
       </div>
       <%- if @subsite.show_facets -%>
