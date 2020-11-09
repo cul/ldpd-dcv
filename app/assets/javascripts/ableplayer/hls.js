@@ -1410,7 +1410,7 @@ function getAudioConfig(observer, data, offset, audioCodec) {
     }
   }
   /* refer to http://wiki.multimedia.cx/index.php?title=MPEG-4_Audio#Audio_Specific_Config
-      ISO 14496-3 (AAC).pdf - Table 1.13 â€” Syntax of AudioSpecificConfig()
+      ISO 14496-3 (AAC).pdf - Table 1.13 — Syntax of AudioSpecificConfig()
     Audio Profile / Audio Object Type
     0: Null
     1: AAC Main
@@ -2331,7 +2331,7 @@ var sample_aes_SampleAesDecrypter = /*#__PURE__*/function () {
 
         var curUnit = curUnits[unitIndex];
 
-        if (curUnit.length <= 48 || curUnit.type !== 1 && curUnit.type !== 5) {
+        if (curUnit.data.length <= 48 || curUnit.type !== 1 && curUnit.type !== 5) {
           continue;
         }
 
@@ -4373,7 +4373,7 @@ var mp4_remuxer_MP4Remuxer = /*#__PURE__*/function () {
       if (delta < -4294967296) {
         // 2^32, see PTSNormalize for reasoning, but we're hitting a rollover here, and we don't want that to impact the timeOffset calculation
         rolloverDetected = true;
-        return minPTS;
+        return PTSNormalize(minPTS, sample.pts);
       } else if (delta > 0) {
         return minPTS;
       } else {
@@ -4406,7 +4406,7 @@ var mp4_remuxer_MP4Remuxer = /*#__PURE__*/function () {
         // when providing timeOffset to remuxAudio / remuxVideo. if we don't do that, there might be a permanent / small
         // drift between audio and video streams
         var startPTS = this.getVideoStartPts(videoTrack.samples);
-        var tsDelta = audioTrack.samples[0].pts - startPTS;
+        var tsDelta = PTSNormalize(audioTrack.samples[0].pts, startPTS) - startPTS;
         var audiovideoTimestampDelta = tsDelta / videoTrack.inputTimeScale;
         audioTimeOffset += Math.max(0, audiovideoTimestampDelta);
         videoTimeOffset += Math.max(0, -audiovideoTimestampDelta);
@@ -4535,7 +4535,7 @@ var mp4_remuxer_MP4Remuxer = /*#__PURE__*/function () {
       if (computePTSDTS) {
         var startPTS = this.getVideoStartPts(videoSamples);
         var startOffset = Math.round(inputTimeScale * timeOffset);
-        initDTS = Math.min(initDTS, videoSamples[0].dts - startOffset);
+        initDTS = Math.min(initDTS, PTSNormalize(videoSamples[0].dts, startPTS) - startOffset);
         initPTS = Math.min(initPTS, startPTS - startOffset);
         this.observer.trigger(events["default"].INIT_PTS_FOUND, {
           initPTS: initPTS
@@ -9907,7 +9907,7 @@ function fragmentWithinToleranceTest(bufferEnd, maxFragLookUpTolerance, candidat
   // offset should be within fragment boundary - config.maxFragLookUpTolerance
   // this is to cope with situations like
   // bufferEnd = 9.991
-  // frag[Ã˜] : [0,10]
+  // frag[Ø] : [0,10]
   // frag[1] : [10,20]
   // bufferEnd is within frag[0] range ... although what we are expecting is to return frag[1] here
   //              frag start               frag start+duration
@@ -11337,7 +11337,7 @@ var stream_controller_StreamController = /*#__PURE__*/function (_BaseStreamContr
     var sliding = 0;
     logger["logger"].log("level " + newLevelId + " loaded [" + newDetails.startSN + "," + newDetails.endSN + "],duration:" + duration);
 
-    if (newDetails.live) {
+    if (newDetails.live || curLevel.details && curLevel.details.live) {
       var curDetails = curLevel.details;
 
       if (curDetails && newDetails.fragments.length > 0) {
@@ -15562,13 +15562,12 @@ var audio_stream_controller_AudioStreamController = /*#__PURE__*/function (_Base
     var newDetails = data.details,
         trackId = data.id,
         track = this.tracks[trackId],
+        curDetails = track.details,
         duration = newDetails.totalduration,
         sliding = 0;
     logger["logger"].log("track " + trackId + " loaded [" + newDetails.startSN + "," + newDetails.endSN + "],duration:" + duration);
 
-    if (newDetails.live) {
-      var curDetails = track.details;
-
+    if (newDetails.live || curDetails && curDetails.live) {
       if (curDetails && newDetails.fragments.length > 0) {
         // we already have details for that level, merge them
         mergeDetails(curDetails, newDetails);
@@ -16661,7 +16660,7 @@ VTTParser.prototype = {
         line = collectNextLine(); // strip of UTF-8 BOM if any
         // https://en.wikipedia.org/wiki/Byte_order_mark#UTF-8
 
-        var m = line.match(/^(Ã¯Â»Â¿)?WEBVTT([ \t].*)?$/);
+        var m = line.match(/^(ï»¿)?WEBVTT([ \t].*)?$/);
 
         if (!m || !m[0]) {
           throw new Error('Malformed WebVTT signature.');
@@ -19530,6 +19529,18 @@ var subtitle_stream_controller_SubtitleStreamController = /*#__PURE__*/function 
 
   var _proto = SubtitleStreamController.prototype;
 
+  _proto.startLoad = function startLoad() {
+    this.stopLoad();
+    this.state = State.IDLE; // Check if we already have a track with necessary details to load fragments
+
+    var currentTrack = this.tracks[this.currentTrackId];
+
+    if (currentTrack && currentTrack.details) {
+      this.setInterval(subtitle_stream_controller_TICK_INTERVAL);
+      this.tick();
+    }
+  };
+
   _proto.onSubtitleFragProcessed = function onSubtitleFragProcessed(data) {
     var frag = data.frag,
         success = data.success;
@@ -19601,6 +19612,10 @@ var subtitle_stream_controller_SubtitleStreamController = /*#__PURE__*/function 
 
     if (!frag || frag.type !== 'subtitle') {
       return;
+    }
+
+    if (this.fragCurrent && this.fragCurrent.loader) {
+      this.fragCurrent.loader.abort();
     }
 
     this.state = State.IDLE;
@@ -19761,6 +19776,7 @@ var subtitle_stream_controller_SubtitleStreamController = /*#__PURE__*/function 
 
   _proto.stopLoad = function stopLoad() {
     this.lastAVStart = 0;
+    this.fragPrevious = null;
 
     _BaseStreamController.prototype.stopLoad.call(this);
   };
@@ -19770,7 +19786,26 @@ var subtitle_stream_controller_SubtitleStreamController = /*#__PURE__*/function 
   };
 
   _proto.onMediaSeeking = function onMediaSeeking() {
-    this.fragPrevious = null;
+    if (this.fragCurrent) {
+      var currentTime = this.media ? this.media.currentTime : 0;
+      var tolerance = this.config.maxFragLookUpTolerance;
+      var fragStartOffset = this.fragCurrent.start - tolerance;
+      var fragEndOffset = this.fragCurrent.start + this.fragCurrent.duration + tolerance; // check if position will be out of currently loaded frag range after seeking : if out, cancel frag load, if in, don't do anything
+
+      if (currentTime < fragStartOffset || currentTime > fragEndOffset) {
+        if (this.fragCurrent.loader) {
+          this.fragCurrent.loader.abort();
+        }
+
+        this.fragmentTracker.removeFragment(this.fragCurrent);
+        this.fragCurrent = null;
+        this.fragPrevious = null; // switch to IDLE state to load new fragment
+
+        this.state = State.IDLE; // speed up things
+
+        this.tick();
+      }
+    }
   };
 
   return SubtitleStreamController;
@@ -20651,7 +20686,7 @@ var hls_Hls = /*#__PURE__*/function (_Observer) {
      * @type {string}
      */
     get: function get() {
-      return "0.14.13";
+      return "0.14.16";
     }
   }, {
     key: "Events",
