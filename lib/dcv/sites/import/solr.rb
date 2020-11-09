@@ -5,7 +5,7 @@ module Dcv::Sites::Import
 			document[:slug_ssim].present?
 		end
 		def initialize(document)
-			@document = document
+			@document = document.is_a?(SolrDocument) ? document : SolrDocument.new(document)
 		end
 		def exists?
 			self.class.exists?(@document)
@@ -20,7 +20,7 @@ module Dcv::Sites::Import
 			site.publisher_uri ||= @document[:fedora_pid_uri_ssi]
 			site.image_uris = Array(@document[:schema_image_ssim]) if site.image_uris.blank?
 			site.repository_id = @document[:lib_repo_code_ssim]&.first
-			site.title = @document[:title_ssm].first if @document[:title_ssm].present?
+			site.title = Array(@document[:title_ssm]).first if @document[:title_ssm].present?
 			site.persistent_url = @document.persistent_url if @document.persistent_url
 			site.restricted = restricted
 
@@ -48,7 +48,7 @@ module Dcv::Sites::Import
 				site.layout ||= DEFAULT_LAYOUT
 				site.palette ||= DEFAULT_PALETTE
 				search_scope = @document.fetch(:search_scope_ssi, "project")
-				facet_value = @document.fetch(:short_title_ssim,[]).first
+				facet_value = Array(@document.fetch(:short_title_ssim,[])).first
 				if search_scope == 'collection'
 					site.collection_constraints = [facet_value]
 				elsif search_scope == 'publisher'
@@ -64,7 +64,7 @@ module Dcv::Sites::Import
 			end
 
 			# on first import, seed alternative title
-			site.alternative_title = @document[:alternative_title_ssm].first if @document[:alternative_title_ssm].present?
+			site.alternative_title = Array(@document[:alternative_title_ssm]).first if @document[:alternative_title_ssm].present?
 			# on first import, seed the home and about page text blocks, links
 			home_page = SitePage.new(slug: 'home', site_id: site.id)
 			home_page.save
@@ -74,7 +74,7 @@ module Dcv::Sites::Import
 			else
 				home_block = Array(@document['description_text_ssm']).join
 			end
-			block_title = "About #{@document[:short_title_ssim]&.first || site.title}"
+			block_title = "About #{Array(@document[:short_title_ssim]).first || site.title}"
 			SiteTextBlock.new(sort_label: "00:#{block_title}", markdown: home_block, site_page_id: home_page.id).save
 			# add about page block
 			about_page = SitePage.new(slug: 'about', site_id: site.id, title: block_title)

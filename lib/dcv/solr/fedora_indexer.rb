@@ -108,8 +108,9 @@ module Dcv::Solr::FedoraIndexer
             # rsolr params are camelcased
             rsolr_params = index_opts[:softcommit] ? {softCommit: true} : {}
             solr_docs = doc_adapter.update_index(rsolr_params)
-            if Dcv::Sites::Import::Solr.exists?(solr_docs.first)
-              Dcv::Sites::Import::Solr.new(solr_docs.first).run
+            solr_doc = SolrDocument.new(solr_docs.first&.to_h)
+            if Dcv::Sites::Import::Solr.exists?(solr_doc)
+              Dcv::Sites::Import::Solr.new(solr_doc).run
             end
             puts 'done.' if index_opts[:verbose_output]
           end
