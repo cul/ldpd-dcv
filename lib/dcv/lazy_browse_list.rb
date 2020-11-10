@@ -21,11 +21,11 @@ module Dcv
 			@browse_list_cache_key ||= BROWSE_LISTS_KEY_PREFIX + @controller_name + '_' + @facet_name
 		end
 
-		def []key
+		def [](key)
 			case key.to_s
 			when 'value_pairs'
 				@value_pairs ||= begin
-					refresh_list_cache if Rails.env == 'development' || ! Rails.cache.exist?(browse_list_cache_key)
+					refresh_list_cache if ['development', 'test'].include?(Rails.env) || ! Rails.cache.exist?(browse_list_cache_key)
 					Rails.cache.read(browse_list_cache_key)
 				end
 			else

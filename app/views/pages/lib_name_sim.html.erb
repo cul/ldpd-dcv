@@ -3,9 +3,9 @@
   <small><%= data['short_description'] %></small>
   <br /><br />
   <ul class="nav nav-pills" role="tablist">
-  <% first = data['value_pairs'].first[0].codepoints.first %>
+  <% first = data['value_pairs'].present? ? data['value_pairs'].first[0].codepoints.first : nil %>
   <% tab_map = {} -%>
-  <% data['value_pairs'].each do |value, count| -%>
+  <% data['value_pairs']&.each do |value, count| -%>
     <% # When sorting names, ignore leading non-letter characters and aggregate capital and lower case values into the same group. %>
     <%- codepoint = first_sort_letter_for_string(value) -%>
     <% unless tab_map.include? codepoint -%>
