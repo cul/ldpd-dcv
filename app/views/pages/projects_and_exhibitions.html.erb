@@ -1,12 +1,9 @@
-<% all_projects = defined?(other_projects) && other_projects %>
-	<div id="<%= all_projects ? 'all_projects' : 'digital_projects' %>">
-		<h2 class="hide">Projects</h2>
+<div id="digital_projects">
+	<h2 class="hide">Projects</h2>
 
-		<% all_proj_counter = 0 %>
-		<% proj_counter = 0 %>
-<% if !all_projects %>
-
-		<div class="row">
+	<% all_proj_counter = 0 %>
+	<% proj_counter = 0 %>
+	<div class="row">
 		<% controller.digital_projects.each do |digital_project| %>
 			<% if digital_project[:facet_value].present? %>
 				<div class="col-sm-3">
@@ -37,54 +34,9 @@
 				<% proj_counter += 1 %>
 				<%= '<div class="clearfix"></div><br />'.html_safe if proj_counter % 4 == 0 %>
 			<% end %>
-				<% all_proj_counter += 1 %>
+			<% all_proj_counter += 1 %>
 		<% end %>
-
 	</div>
-<% else %>
-
-		<p class="small">All our digital library collections are listed below. <span class="glyphicon glyphicon-search"></span> indicates that a collection is viewable in the DLC and <span class="glyphicon glyphicon-new-window"></span> indicates that it is viewable in an external site. Note that some are available both in the DLC and externally.</p>
-
-        <div class="row">
-        <% controller.digital_projects.each do |digital_project| %>
-            <%# unless digital_project[:facet_value].present? %>
-                <div class="col-sm-3">
-                    <div class="row" itemscope itemtype="http://schema.org/CreativeWork">
-                        <div class="col-sm-12">
-                            <% dcv_search_link = digital_project[:facet_value].present? ? search_catalog_path(:f => {digital_project[:facet_field] => [digital_project[:facet_value]]}) : nil %>
-                            <%= image_tag(digital_project[:image], :class => 'thumbnail img-responsive', :itemprop => 'image', :style => 'margin-bottom:.5em;', alt: digital_project[:name]) %>
-                            <div>
-                                <div class=" proj-jav btn-group btn-group-justified" role="group">
-                                    <a class="btn btn-dark btn-xs" role="button" data-toggle="tooltip" title="More Information" href="#" data-proj-more="#all-proj-<%=proj_counter%>" data-proj-title="<%= digital_project[:name] %>" onclick="return DCV.ProjModal.show($(this).attr('data-proj-more'), $(this).attr('data-proj-title'));"><span class="glyphicon glyphicon-info-sign"></span></a>
-                                    <% if dcv_search_link.present? %>
-                                        <%= link_to '<span class="glyphicon glyphicon-search"></span>'.html_safe, dcv_search_link, :class => 'btn btn-dark btn-xs', :"data-toggle" => 'tooltip', :title => 'Browse Content', :role => 'button' %>
-                                    <% end %>
-                                    <% if digital_project[:external_url].present? %>
-                                        <%= link_to '<span class="glyphicon glyphicon-new-window"></span>'.html_safe, digital_project[:external_url], :itemprop => 'url', :"data-toggle" => 'tooltip', :title => 'View Collection Site', :role => 'button', :class => 'btn btn-dark btn-xs' %>
-                                    <% end %>
-                                </div>
-                                <div itemprop="name">
-									<h3>
-										<%= digital_project[:name] %>
-									</h3>
-								</div>
-                            </div>
-                            <div id="all-proj-<%=proj_counter%>" class="hide">
-                                <div style="color:black;padding:30px;font-size:110%;" itemprop="description"><%= (digital_project[:description] || '').html_safe %></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <hr class="visible-xs">
-
-                <% proj_counter += 1 %>
-                <%= '<div class="clearfix"></div><br />'.html_safe if proj_counter % 4 == 0 %>
-            <%# end %>
-                <% all_proj_counter += 1 %>
-        <% end %>
-    </div>
-<% end %>
-
 </div>
 
 <div class="hide">

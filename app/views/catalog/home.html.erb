@@ -29,7 +29,7 @@ featured_proj = controller.digital_projects.select { |proj| proj[:facet_value].p
                 <!-- Nav tabs -->
                 <ul class="nav nav-tabs">
                     <li class="active"><a href="#projects" data-toggle="tab">Searchable Collections</a></li>
-                    <% @browse_lists.each do |facet_name, data| %>
+                    <% @browse_lists&.each do |facet_name, data| %>
                         <li><a href="#tab_<%= facet_name %>" data-toggle="tab"><%= data['display_label'] %></a></li>
                     <% end %>
 										<li class="pull-right non-tab"><a onclick="window.open(this.href);return false;" data-toggle="tooltip" data-placement="top" href="https://library.columbia.edu/resolve/lweb0164" title="See All Digital Collections">All Collections <i class="glyphicon glyphicon-new-window"></i></a></li>
@@ -38,16 +38,15 @@ featured_proj = controller.digital_projects.select { |proj| proj[:facet_value].p
                 <!-- Tab panes -->
                 <div class="tab-content">
                     <div class="tab-pane fadein active" id="projects">
+                      <%- cache [controller_name, 'projects', 'page', true], expires_in: 2.minutes do -%>
                         <%= render template: 'pages/projects_and_exhibitions' %>
+                      <% end %>
                     </div>
-                    <% if @browse_lists.present? %>
-                        <% @browse_lists.each do |facet_name, data| %>
-                            <%= render template: "pages/#{facet_name}", locals: {facet_name: facet_name, data: data} if data['value_pairs'].present? %>
-                        <% end %>
+                    <% @browse_lists&.each do |facet_name, data| %>
+                      <%- cache [controller_name, facet_name, 'page', false], expires_in: 2.minutes do -%>
+                        <%= render template: "pages/#{facet_name}", locals: {facet_name: facet_name, data: data} %>
+                      <% end %>
                     <% end %>
-                    <div class="tab-pane fadein" id="other-collections">
-                        <%= render template: 'pages/projects_and_exhibitions', :locals => { other_projects: true } %>
-                    </div>
                 </div>
             </div> <!--/.inner-->
         </div>
