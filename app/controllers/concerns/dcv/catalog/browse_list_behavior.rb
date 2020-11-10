@@ -17,8 +17,7 @@ module Dcv::Catalog::BrowseListBehavior
 	end
 
   def get_catalog_browse_lists
-    refresh_catalog_browse_lists_cache if Rails.env == 'development' || ! Rails.cache.exist?(browse_lists_cache_key)
-    @browse_lists =  Rails.cache.read(browse_lists_cache_key)
+    @browse_lists = Dcv::LazyBrowseList.browse_lists(controller_name)
   end
 
   def refresh_catalog_browse_lists_cache
