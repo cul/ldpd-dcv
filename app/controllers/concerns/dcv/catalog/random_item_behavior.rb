@@ -4,7 +4,9 @@ module Dcv::Catalog::RandomItemBehavior
   # GET /SUBSITE/random.json?param1=val1&param2=val2
   def random
     params.delete(:sort)
-    (response, document_list) = get_search_results(params, {sort: "random_#{Random.new_seed} DESC"})
+    (response, document_list) = search_results(params) do |builder|
+      builder.merge(sort: "random_#{Random.new_seed} DESC")
+    end
 
     doc = document_list.first
 
