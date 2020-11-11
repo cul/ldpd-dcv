@@ -40,7 +40,7 @@
   </div>
   <div class="panel panel-primary">
     <div class="panel-heading"><h2 class="panel-title">Site Homepage Images</h2></div>
-    <div class="panel-body site_hompage_images">
+    <div class="panel-body site_homepage_images">
       <div class="form-group">
         <label for="site_image_uris">Site Image PID URIs</label>
         <%- site_form.object.image_uris.each_with_index do |image_uri, ix| %>
@@ -54,6 +54,16 @@
         <fieldset id="add_site_image_uri" style="border-width: 0;">
             <input type="button" class="btn btn-info" value="Add a URI" onclick="addSiteImageUriFieldSet(this.parentElement);" />
         </fieldset>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-primary">
+    <div class="panel-heading"><h2 class="panel-title">Site Editors</h2></div>
+    <div class="panel-body site_editors">
+      <div class="form-group">
+        <label for="site_editor_uids">Site Editor UNIs</label>
+        <p>DLC admins: Enter the comma-separated UNIs of CUL employees authorized to edit this site.</p>
+        <%= site_form.text_area(:editor_uids, {value: @subsite.editor_uids.join(",\n"), class: ['form-control'], disabled: !can?(:admin, @subsite)}) %>
       </div>
     </div>
   </div>

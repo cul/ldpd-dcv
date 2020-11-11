@@ -56,6 +56,9 @@ class Ability
       end
     end
     can :update, Site do |site|
+      user&.is_admin || site.editor_uids.include?(user&.uid)
+    end
+    can :admin, Site do |site|
       user&.is_admin
     end
   end

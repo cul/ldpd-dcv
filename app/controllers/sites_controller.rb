@@ -287,7 +287,16 @@ class SitesController < ApplicationController
 
   private
     def site_params
-      params.require(:site).permit(:palette, :layout, :show_facets, :alternative_title, :search_type, :image_uris, image_uris: [])
-      .tap { |p| p['image_uris']&.delete_if { |v| v.blank? } }
+      params.require(:site).permit(:palette, :layout, :show_facets, :alternative_title, :search_type, :image_uris, :editor_uids, image_uris: [])
+      .tap do |p|
+        p['image_uris']&.delete_if { |v| v.blank? }
+        if can?(:admin, @subsite)
+          p['editor_uids']&.strip!
+          p['editor_uids'] = p['editor_uids'].split(/[\s,]+/)
+        else
+          p['editor_uids'] = @subsite.editor_uids
+        end
+        p
+      end
     end
 end

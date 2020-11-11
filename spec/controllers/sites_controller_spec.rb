@@ -45,6 +45,11 @@ describe SitesController, type: :unit do
 		it { expect(controller.tracking_method).to eql('track_sites_path') }
 	end
 	describe '#site_params' do
+		let(:is_admin) { false }
+		before do
+			controller.instance_variable_set(:@subsite, site)
+			allow(controller).to receive(:can?).with(:admin, site).and_return(is_admin)
+		end
 		context 'with blank image_uris values' do
 			let(:params) {
 				ActionController::Parameters.new(
@@ -56,6 +61,28 @@ describe SitesController, type: :unit do
 			let(:update_params) { controller.send :site_params }
 			it "compacts the values" do
 				expect(update_params[:image_uris]).to eql(['a', 'b', 'c'])
+			end
+		end
+		context 'with editor_uids text' do
+			let(:uids) { ['abc', 'bcd', 'cde'] }
+			let(:params) {
+				ActionController::Parameters.new(
+					site: {
+						editor_uids: uids.join("\n ,")
+					}
+				)
+			}
+			let(:update_params) { controller.send :site_params }
+			context 'with admin' do
+				let(:is_admin) { true }
+				it "parses the value array" do
+					expect(update_params[:editor_uids]).to eql(uids)
+				end
+			end
+			context 'not admin' do
+				it "removes proposed values" do
+					expect(update_params[:editor_uids]).to eql(site.editor_uids)
+				end
 			end
 		end
 	end
