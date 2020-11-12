@@ -12,7 +12,7 @@ class Dcv::Solr::DocumentAdapter::ActiveFedora
       solr_doc["fulltext_tesim"] ||= []
       unless obj.datastreams["fulltext"].nil?
         solr_doc["fulltext_tesim"].concat(solr_doc["title_display_ssm"]) unless solr_doc["title_display_ssm"].nil? or solr_doc["title_display_ssm"].length == 0
-        utf8able = Cul::Hydra::Datastreams::EncodedTextDatastream.utf8able!(self.datastreams["fulltext"].content)
+        utf8able = Cul::Hydra::Datastreams::EncodedTextDatastream.utf8able!(obj.datastreams["fulltext"].content)
         solr_doc["fulltext_tesim"] << utf8able.encode(Encoding::UTF_8)
       end
       solr_doc
