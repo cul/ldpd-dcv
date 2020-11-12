@@ -322,6 +322,9 @@
 		&.outline {
 			border: 1px solid $color_ui_outline;
 		}
+		.sidenav {
+			border: 1px solid $color_outline;
+		}
 	}
 }
 
