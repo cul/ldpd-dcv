@@ -780,8 +780,12 @@ h2[itemprop="name"] {
 				padding-bottom: 0;
 			}
 			&.selected {
-				background-color: rgba($color_highlight_background, 0.1);
-				box-shadow: 0 0 5px 5px rgba($color_highlight_background, 0.1);
+				.remove {
+					color: $color_anchor;
+					&:hover {
+						color: $danger;
+					}
+				}
 			}
 			.selected {
 				color: $color_primary !important;

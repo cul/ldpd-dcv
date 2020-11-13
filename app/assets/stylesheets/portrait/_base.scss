@@ -150,7 +150,7 @@
 		border-color: $color_outline_secondary;
 		border-style: solid;
 		.panel-heading {
-			background-color: gradeBgColor(2%);
+			background-color: $color_primary_background;
 			color: $color_ui;
 			border-color: $color_ui_outline;
 			border: 0;
