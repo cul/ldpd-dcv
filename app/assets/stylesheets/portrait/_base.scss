@@ -315,6 +315,13 @@
   color: $color_topnav;
 }
 
+.appliedFilter .btn-default,
+	.appliedFilter .constraint-value:hover,
+	.appliedFilter .constraint-value:active {
+		color: $color_primary;
+		background-color: $color_primary_background;
+}
+
 #main-container {
 	.inner {
 		padding: 1.2em;
