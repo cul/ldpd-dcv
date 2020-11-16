@@ -9,10 +9,10 @@
 <% digital_projects.each do |digital_project| %>
 	<% dcv_search_link = (digital_project[:facet_field].present? && digital_project[:facet_value].present?) ? search_repository_catalog_path(:f => {digital_project[:facet_field] => [digital_project[:facet_value]]}) : nil -%>
 	<div class="row document list-view compact" itemscope itemtype="http://schema.org/CreativeWork">
-		<div class="col-md-2">
-			<%= link_to image_tag(digital_project[:image], :class => 'thumbnail img-responsive', :itemprop => 'image', alt: digital_project[:name]), (dcv_search_link.present? ? dcv_search_link : digital_project[:external_url]), class: 'project-image-link' %>
+		<div class="col-xs-2">
+			<%= link_to image_tag(digital_project[:image], :class => 'img-responsive', :itemprop => 'image', alt: digital_project[:name]), (dcv_search_link.present? ? dcv_search_link : digital_project[:external_url]), class: 'project-image-link show' %>
 		</div>
-		<div class="col-md-9">
+		<div class="col-xs-9">
 			<h4 itemprop="name">
 				<%= digital_project[:name] %>
 			</h4>
@@ -27,7 +27,7 @@
 				<% end %>
 			</div>
 		</div>
-		<div class="col-md-1">
+		<div class="col-xs-1">
 			<div id="proj-<%=proj_counter%>" class="hide">
 				<div style="color:black;padding:30px;font-size:110%;" itemprop="description"><%= (digital_project[:description] || '').html_safe %></div>
 			</div>
