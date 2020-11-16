@@ -90,7 +90,7 @@ end
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
-gem 'devise', '~>3.4'
+gem 'devise'
 gem "devise-guests", "~> 0.3"
 
 # Gem min versions that are only specified here because of vulnerabilities in earlier versions:

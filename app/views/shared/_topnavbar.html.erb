@@ -37,7 +37,7 @@
 							<%= current_user.uid %>
 							<%= link_to '(Log Out)', destroy_user_session_url(provider: current_user.provider, restricted: restricted?) %>
 						<% else %>
-							<%= link_to 'Log In', user_omniauth_authorize_url(provider: controller.omniauth_provider_key, return_to: request.original_url) %>
+							<%= link_to 'Log In', send(:"user_#{controller.omniauth_provider_key}_omniauth_authorize_url", return_to: request.original_url) %>
 						<% end %>
 						<!--</li>
 					</ul>-->
