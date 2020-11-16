@@ -296,7 +296,6 @@ class SitesController < ApplicationController
         else
           p['editor_uids'] = @subsite.editor_uids
         end
-        p
       end
     end
 end
