@@ -90,7 +90,7 @@ GEM
     ast (2.4.0)
     autoprefixer-rails (9.7.6)
       execjs
-    bcrypt (3.1.12)
+    bcrypt (3.1.16)
     bigdecimal (1.4.4)
     blacklight (6.18.0)
       bootstrap-sass (~> 3.2)
@@ -145,7 +145,7 @@ GEM
     colorbox-rails (0.1.2)
       jquery-rails
       rails (>= 3.1.1)
-    concurrent-ruby (1.1.6)
+    concurrent-ruby (1.1.7)
     crass (1.0.6)
     cul_hydra (1.9.5)
       active-fedora (>= 8.0, < 8.7.0)
@@ -174,12 +174,11 @@ GEM
     daemons (1.3.1)
     deprecation (0.99.0)
       activesupport
-    devise (3.5.10)
+    devise (4.7.3)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
-      railties (>= 3.2.6, < 5)
+      railties (>= 4.1.0)
       responders
-      thread_safe (~> 0.1)
       warden (~> 1.2.3)
     devise-guests (0.6.1)
       devise
@@ -243,10 +242,10 @@ GEM
     kaminari-core (1.1.1)
     leaflet-rails (1.2.0)
       rails (>= 4.2.0)
-    libv8 (8.4.255.0)
+    libv8 (3.16.14.19)
     link_header (0.0.8)
     logger (1.2.8.1)
-    loofah (2.5.0)
+    loofah (2.7.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     mail (2.7.1)
@@ -256,9 +255,7 @@ GEM
     mime-types-data (3.2019.1009)
     mini_mime (1.0.2)
     mini_portile2 (2.3.0)
-    mini_racer (0.3.1)
-      libv8 (~> 8.4.255)
-    minitest (5.14.0)
+    minitest (5.14.2)
     mods (2.4.1)
       edtf
       iso-639
@@ -267,7 +264,7 @@ GEM
     mono_logger (1.1.0)
     multi_json (1.14.1)
     multipart-post (2.1.1)
-    mysql2 (0.5.2)
+    mysql2 (0.4.10)
     net-http-persistent (2.9.4)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
@@ -362,9 +359,10 @@ GEM
     redis (3.3.5)
     redis-namespace (1.6.0)
       redis (>= 3.0.4)
-    responders (2.4.0)
-      actionpack (>= 4.2.0, < 5.3)
-      railties (>= 4.2.0, < 5.3)
+    ref (2.0.0)
+    responders (2.4.1)
+      actionpack (>= 4.2.0, < 6.0)
+      railties (>= 4.2.0, < 6.0)
     resque (1.26.0)
       mono_logger (~> 1.0)
       multi_json (~> 1.0)
@@ -463,6 +461,9 @@ GEM
     stomp (1.4.9)
     sxp (0.1.5)
     temple (0.8.2)
+    therubyracer (0.12.3)
+      libv8 (~> 3.16.14.15)
+      ref
     thor (1.0.1)
     thread (0.2.2)
     thread_safe (0.3.6)
@@ -472,7 +473,7 @@ GEM
       actionpack (>= 3.1)
       jquery-rails
       railties (>= 3.1)
-    tzinfo (1.2.7)
+    tzinfo (1.2.8)
       thread_safe (~> 0.1)
     uber (0.0.15)
     uglifier (2.5.0)
@@ -516,7 +517,7 @@ DEPENDENCIES
   colorbox-rails
   cul_hydra (~> 1.9.5)
   cul_omniauth (~> 0.5.5)
-  devise (~> 3.4)
+  devise
   devise-guests (~> 0.3)
   factory_bot_rails
   jbuilder (~> 1.2)
@@ -525,12 +526,11 @@ DEPENDENCIES
   jquery-ui-rails (~> 4.0)
   kaminari (~> 1.1.1)
   leaflet-rails (~> 1.2.0)
-  libv8
+  libv8 (~> 3.16.14.15)
   logger (~> 1.2.8.1)
   loofah (>= 2.2.1)
   mime-types
-  mini_racer
-  mysql2 (= 0.5.2)
+  mysql2 (~> 0.4.10)
   net-ssh (>= 4.2)
   nokogiri (~> 1.8.2)
   poltergeist
@@ -552,6 +552,7 @@ DEPENDENCIES
   sass-rails (~> 5.0.0)
   sdoc
   sqlite3 (~> 1.3.6)
+  therubyracer (>= 0.12.3)
   uglifier (>= 1.3.0)
   wowza-secure_token (= 0.0.1)
 

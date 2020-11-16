@@ -1,1 +1,1 @@
-<p class="affiliate-login">Columbia University affiliates may log on for access to this content <%= link_to 'here', user_omniauth_authorize_url(provider: controller.omniauth_provider_key, return_to: request.original_url) %>.</p>
+<p class="affiliate-login">Columbia University affiliates may log on for access to this content <%= link_to 'here', send(:"user_#{controller.omniauth_provider_key}_omniauth_authorize_url", return_to: request.original_url) %>.</p>
