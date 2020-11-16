@@ -394,6 +394,16 @@ input {
 			background-color: transparent;
 		}
 	}
+	button.btn-default {
+		color: $color_ui_secondary;
+		background-color: transparent;
+		font-family: $font_c;
+		text-transform: uppercase;
+		&:hover {
+			color: $color_highlight;
+			background-color: $color_highlight_background;
+		}
+	}
 }
 
 #content {

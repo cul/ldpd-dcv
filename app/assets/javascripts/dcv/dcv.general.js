@@ -209,6 +209,26 @@ DCV.ZoomingImageModal.getCurrentZoomUrl = function() {
   return url.toString();
 }
 
+/********************
+ * CLIPBOARD HELPER *
+ ********************/
+DCV.Clipboard = {};
+DCV.Clipboard.copyFromElement = function(ele) {
+  if (!navigator.clipboard) {
+    ele.disabled = true;
+    return;
+  }
+
+  try {
+      var copyValue = ele.getAttribute("data-copy");
+      navigator.clipboard.writeText(copyValue);
+      $(ele).tooltip({'toggle': 'tooltip', 'title': copyValue + '\nCopied to clipboard', 'trigger': 'focus', 'placement': 'bottom', 'selector': true});
+      $(ele).tooltip('show');
+  } catch (error) {
+      console.error("copy failed", error);
+  }
+ };
+
 /***********
  * COOKIES *
  ***********/
