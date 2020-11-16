@@ -1,5 +1,5 @@
 <%- local_downloads ||= false -%>
-<div class="pull-right btn-group btn-group-xs">
+<div class="pull-right btn-group btn-group-xs ml-2">
   <%= link_to '<span class="glyphicon glyphicon-open-file"></span>'.html_safe, item_mods_path(id: @document.id),
   {
     :'data-display-url' => item_mods_path(id: @document.id, type: 'formatted_text'),

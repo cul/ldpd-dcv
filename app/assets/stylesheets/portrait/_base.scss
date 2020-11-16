@@ -32,7 +32,7 @@
 			font-size: 200%;
 			text-transform: uppercase;
 			font-family: $font_b;
-			font-weight: 200;
+			font-weight: 400;
 			color: navColor(5%);
 		}
 		#site-banner-subtitle {
@@ -150,7 +150,7 @@
 		border-color: $color_outline_secondary;
 		border-style: solid;
 		.panel-heading {
-			background-color: gradeBgColor(2%);
+			background-color: $color_primary_background;
 			color: $color_ui;
 			border-color: $color_ui_outline;
 			border: 0;
@@ -311,6 +311,16 @@
 	}
 
 }
+#sort-dropdown .dropdown-toggle, #per_page-dropdown .dropdown-toggle {
+  color: $color_topnav;
+}
+
+.appliedFilter .btn-default,
+	.appliedFilter .constraint-value:hover,
+	.appliedFilter .constraint-value:active {
+		color: $color_primary;
+		background-color: $color_primary_background;
+}
 
 #main-container {
 	.inner {
@@ -318,6 +328,9 @@
 		background-color: rgba($color_primary_background, 0.7);
 		&.outline {
 			border: 1px solid $color_ui_outline;
+		}
+		.sidenav {
+			border: 1px solid $color_outline;
 		}
 	}
 }
