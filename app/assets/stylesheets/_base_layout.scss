@@ -395,6 +395,8 @@ input {
 		}
 	}
 	button.btn-default {
+		padding: 1rem;
+		border: 0;
 		color: $color_ui_secondary;
 		background-color: transparent;
 		font-family: $font_c;
