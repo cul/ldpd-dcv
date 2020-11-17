@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 gem 'bigdecimal', '~>1.4.4'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.10'
+gem 'rails', '~> 4.2.11'
 gem 'actionpack-action_caching'
 # Hydra stack
 gem 'nokogiri', '~> 1.8.2'
@@ -26,8 +26,7 @@ gem 'wowza-secure_token', '0.0.1'
 gem "sqlite3", "~> 1.3.6"
 
 # Use mysql2 gem for mysql connections
-gem 'mysql2', '~> 0.4.10'
-# gem 'mysql2', '0.5.2'
+gem 'mysql2', '0.5.2'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0.0'
@@ -43,11 +42,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-gem 'therubyracer', '>= 0.12.3',  platforms: :ruby
-gem 'libv8', '~> 3.16.14.15'
-# TODO: use mini_racer and update libv8 when we have gcc 4.7+ in deploy environments (DLC-797)
-# gem 'mini_racer'
-# gem 'libv8'
+gem 'libv8', '>= 8.4.255.0' # Min version for Mac OS 10.15
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails', '~> 3.1.3'
