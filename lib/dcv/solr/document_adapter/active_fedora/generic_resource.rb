@@ -43,9 +43,8 @@ class Dcv::Solr::DocumentAdapter::ActiveFedora
         end
       end
 
-      if zooming?
-        fz = rels_int.relationships(obj.datastreams['content'], :foaf_zooming).first.object.to_s.split('/')[-1]
-        ds = obj.datastreams[fz]
+      zooming_dsid&.tap do |z_dsid|
+        ds = obj.datastreams[z_dsid]
         unless ds.nil?
           rft_id = ds.controlGroup == 'E' ? ds.dsLocation : legacy_content_path(ds,'info:fedora/datastreams/')
           solr_doc['rft_id_ss'] = rft_id
@@ -75,14 +74,15 @@ class Dcv::Solr::DocumentAdapter::ActiveFedora
       false
     end
 
-    def zooming?
+    # @return the dsid of a zooming content or nil
+    def zooming_dsid
       content = obj.datastreams['content']
-      return false unless content
+      return nil unless content
       zr = rels_int.relationships(content, :foaf_zooming)
       if (zr && zr.first)
-        return !zr.first.blank?
+        return zr.first.present? ? zr.first.object.to_s.split('/')[-1] : nil
       else
-        false
+        nil
       end
     end
 
