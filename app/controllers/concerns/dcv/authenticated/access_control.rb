@@ -8,7 +8,7 @@ module Dcv::Authenticated::AccessControl
   end
 
   def redirect_to_login
-    redirect_to user_omniauth_authorize_path(provider: omniauth_provider_key, url:session[:return_to])
+    redirect_to send(:"user_#{controller.omniauth_provider_key}_omniauth_authorize_path", url: session[:return_to])
   end
 
   def omniauth_provider_key
