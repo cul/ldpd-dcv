@@ -52,7 +52,7 @@ class SolrDocument
       if site_result?
         clean_resolver(self[:source_ssim].present? ? Array(self[:source_ssim]).first : nil)
       else
-        self[:ezid_doi_ssim][0].to_s.sub(/^doi\:/,'https://doi.org/') 
+        "https://doi.org/#{self[:ezid_doi_ssim][0].to_s.sub(/^doi\:/,'')}"
       end
     end
   end

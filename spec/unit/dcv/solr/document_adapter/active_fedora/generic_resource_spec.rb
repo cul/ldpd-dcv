@@ -41,6 +41,14 @@ describe Dcv::Solr::DocumentAdapter::ActiveFedora::GenericResource, type: :unit 
 				expect(actual_text.uniq).to eql(expected_text.uniq)
 				expect(actual).to eql(expected)
 			end
+			context "has zooming ds" do
+				before do
+					expect(adapter).to receive(:zooming_dsid).and_return("content")
+				end
+				it "produces a solr doc" do
+					expect(adapter.to_solr['rft_id_ss']).to be_present
+				end
+			end
 		end
 	end
 end

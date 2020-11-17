@@ -1,5 +1,5 @@
 <% default_url_options[:host] = 'placeholder.fake' %>
-$(window).load(function() {
+$(window).on('load', function() {
   $('#spinner').remove();
   $('#culnavitems').hide().prependTo($('#cul_top-right'));
   $(window).scroll(function(){

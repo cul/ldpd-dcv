@@ -10,7 +10,7 @@
  *
  *= require_self
  *= require ./blacklight
- *= require jquery.ui.all
+ *= require jquery-ui
  *= require colorbox-rails
  *
  * leaflet + plugins

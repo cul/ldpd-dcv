@@ -10,14 +10,14 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require jquery
+//= require jquery3
 //= require jquery_ujs
 //= require url_search_params
 // Required by Blacklight
 //= require blacklight/blacklight
 //
 // jQuery UI
-//= require jquery.ui.all
+//= require jquery-ui
 //
 // colorbox
 //= require colorbox-rails
