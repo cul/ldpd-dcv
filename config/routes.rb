@@ -26,7 +26,7 @@ Dcv::Application.routes.draw do
   get '/catalog/random' => 'catalog#random'
   get '/catalog/get_random_item' => 'catalog#random', defaults: { per_page: 1 }
   get '/catalog/:id/mods' => 'catalog#mods', as: :item_mods
-  get '/catalog/:id/citation/:type' => 'catalog#citation', as: :item_citation
+  get '/catalog/:id/citation/:type' => 'catalog#show_citation', as: :item_citation
 
   get '/data/flare' => 'catalog#get_pivot_facet_data', as: :flare_data
 

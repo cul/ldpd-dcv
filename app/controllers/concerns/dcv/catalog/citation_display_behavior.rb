@@ -7,7 +7,7 @@ module Dcv::Catalog::CitationDisplayBehavior
     'mla' => 'MLA'
   }
 
-  def citation
+  def show_citation
 
     id = params[:id]
     type = VALID_CITATION_TYPES.has_key?(params[:type]) ? params[:type] : nil
@@ -17,7 +17,7 @@ module Dcv::Catalog::CitationDisplayBehavior
     else
 
       #TODO: Get data for item
-      @response, @document = get_solr_response_for_doc_id(id)
+      @response, @document = fetch(id)
 
       @citation_type_label = VALID_CITATION_TYPES[type]
 
@@ -78,7 +78,7 @@ module Dcv::Catalog::CitationDisplayBehavior
 
       @citation_text = @citation_text.html_safe
 
-      render layout: 'empty'
+      render layout: 'empty', template: 'citation'
     end
 
   end
