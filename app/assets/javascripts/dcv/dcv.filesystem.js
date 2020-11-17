@@ -36,7 +36,7 @@ DCV.Filesystem.modalPreview = function(dataUrl){
 
   return false;
 };
-$(window).load(DCV.Filesystem.bindHandlers);
+$(window).on('load', DCV.Filesystem.bindHandlers);
 $(document).ready(function() {
   var ttable = $('.file-system').stupidtable();
   ttable.on("aftertablesort", function (event, data) {
