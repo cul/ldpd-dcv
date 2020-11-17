@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 gem 'bigdecimal', '~>1.4.4'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.10'
+gem 'rails', '~> 4.2.11'
 gem 'actionpack-action_caching'
 # Hydra stack
 gem 'nokogiri', '~> 1.8.2'
