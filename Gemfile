@@ -46,7 +46,7 @@ gem 'libv8', '>= 8.4.255.0' # Min version for Mac OS 10.15
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails', '~> 3.1.3'
-gem 'jquery-ui-rails', '~>4.0'
+gem 'jquery-ui-rails', '~>6.0'
 
 # Pretty printing
 gem 'coderay'

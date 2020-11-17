@@ -17,7 +17,7 @@
 //= require blacklight/blacklight
 //
 // jQuery UI
-//= require jquery.ui.all
+//= require jquery-ui
 //
 // colorbox
 //= require colorbox-rails
