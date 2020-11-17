@@ -20,7 +20,7 @@ $(function() {
 
 }); //ready
 
-$(window).load(function() {
+$(window).on('load', function() {
    if ($('#durst-home-carousel-wrapper').height() > 0) {
      $('.carousel-control').removeClass('hidden');
      $('#durst-home-carousel-wrapper').find('.inner img, .inner div').height($('#durst-map-image').height());

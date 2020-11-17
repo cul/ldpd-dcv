@@ -83,7 +83,7 @@ function mosaicDemo(container, proj) {
       }
     );
   });
-  $(window).load(function(){$(container + " .img-responsive").fadeIn();});
+  $(window).on('load', function(){$(container + " .img-responsive").fadeIn();});
 }
 
 function mosaicClick() {
