@@ -23,9 +23,13 @@
 					<li class="inline"><a style="margin-top:-5px;" href="<%= '/' + @subsite.slug + '/map_search' %>"><span class="glyphicon glyphicon-map-marker"></span> Map<span class="hidden-xs"> All Items</span></a></li>
 				</ul>
 			<%- end -%>
-			<%- if @subsite.persistent_url -%>
+			<%- if params[:action] == 'home' && @subsite.persistent_url -%>
 				<ul class="nav nav-pills pull-right">
 					<li><button data-copy="<%= @subsite.persistent_url %>" title="Click to copy to clipboard" class="btn btn-default" onclick="DCV.Clipboard.copyFromElement(this);"><span class="glyphicon glyphicon-copy"></span> Permanent URL</button></li>
+				</ul>
+			<%- elsif @document&.has_persistent_url? -%>
+				<ul class="nav nav-pills pull-right">
+					<li><button data-copy="<%= @document.persistent_url %>" title="Click to copy to clipboard" class="btn btn-default" onclick="DCV.Clipboard.copyFromElement(this);"><span class="glyphicon glyphicon-copy"></span> Permanent URL</button></li>
 				</ul>
 			<%- end -%>
 			</div><!--/-->

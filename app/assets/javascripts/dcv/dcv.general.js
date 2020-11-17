@@ -222,7 +222,7 @@ DCV.Clipboard.copyFromElement = function(ele) {
   try {
       var copyValue = ele.getAttribute("data-copy");
       navigator.clipboard.writeText(copyValue);
-      $(ele).tooltip({'toggle': 'tooltip', 'title': copyValue + '\nCopied to clipboard', 'trigger': 'focus', 'placement': 'bottom', 'selector': true});
+      $(ele).tooltip({'toggle': 'tooltip', 'title': 'Copied to clipboard', 'trigger': 'focus', 'placement': 'bottom', 'selector': true});
       $(ele).tooltip('show');
   } catch (error) {
       console.error("copy failed", error);
