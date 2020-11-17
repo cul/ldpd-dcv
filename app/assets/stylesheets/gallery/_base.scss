@@ -291,7 +291,9 @@
 	}
 
 }
-
+#sort-dropdown .dropdown-toggle, #per_page-dropdown .dropdown-toggle {
+  color: $color_topnav;
+}
 #main-container {
 	.inner {
 		padding: 1.2em;
