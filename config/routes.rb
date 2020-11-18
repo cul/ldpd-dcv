@@ -121,7 +121,7 @@ Dcv::Application.routes.draw do
     end
     get "#{subsite_key}/:id" => "#{subsite_key}#show", as: "#{subsite_key}_show", constraints: { id: /(cul|ldpd):[^\/]*/ }
     get "#{subsite_key}/*id" => "#{subsite_key}#show", as: "#{subsite_key}_show_doi", constraints: Dcv::Routes::DOI_ID_CONSTRAINT
-    get "#{subsite_key}/:slug" => "#{subsite_key}#page", as: "#{subsite_key}_page"
+    get "#{subsite_key}/:slug" => "#{subsite_key}#page", as: "#{subsite_key}_page", constraints: lambda { |req| !['edit', 'pages'].include?(req.params[:slug]) }
   end
 
   get '/restricted' => 'home#restricted', as: :restricted
