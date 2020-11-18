@@ -179,14 +179,9 @@ a {
 		}
 	}
 	#main-container {
-	    .inner {
-	        &.home {
-			    .sidenav {
-				    .top-panel-heading {
-					    display:none;
-					}
-				}
-			}
+		.inner {
+			padding: 1.2em;
+			background-color: rgba($color_primary_background, 0.7);
 		}
 	}
 }
@@ -259,6 +254,16 @@ a {
 
 .panel-default {
 	border-color: $color_ui_outline;
+}
+#sort-dropdown .dropdown-toggle, #per_page-dropdown .dropdown-toggle {
+  color: $color_topnav;
+}
+
+.appliedFilter .btn-default,
+	.appliedFilter .constraint-value:hover,
+	.appliedFilter .constraint-value:active {
+		color: $color_primary;
+		background-color: $color_primary_background;
 }
 
 #main-container {
@@ -347,7 +352,7 @@ a {
 			margin-right: 1em;
 			margin-left: 1em;
 			padding: .2em 0;
-			background-color: $color_facet_panel_background !important;
+			background-color: $color_primary_background;
 		}
 	}
 	.panel-default {
@@ -455,14 +460,7 @@ a {
 		color: $color_outline_offset;
 	}
 }
-#content, #sortAndPerPage {
-	.btn-default {
-		color: $color_primary_background;
-		&:hover {
-			color:darken($color_ui_background,6%);
-		}
-	}
-}
+
 @media(max-width: 990px) {
 	#item-description {
 		margin-bottom: 1em;
