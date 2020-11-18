@@ -35,7 +35,7 @@ module Dcv
         'print.css',
         'freelib.js',
         'd3.js',
-        'sites.js'
+        'sites.js', 'sites.css'
       ]
 
     # And include styles for all configured subsite layouts
