@@ -274,6 +274,7 @@ input {
 			-webkit-appearance:none;
 				&:hover {
 					color:$color_user_input;
+					cursor: pointer;
 			}
 		}
 	}
