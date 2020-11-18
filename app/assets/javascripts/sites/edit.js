@@ -21,3 +21,33 @@ function addSiteImageUriFieldSet(addButtonFieldset) {
 	}
 	addButtonFieldset.parentNode.insertBefore(newFieldset, addButtonFieldset);
 }
+
+
+
+$(function() {
+/***********
+ * ON LOAD *
+ ***********/
+
+	$(window).on('load', function() {
+		// make nav groups container sortable
+		$(".site_navigation").sortable({
+			'items': '.site_navigation_menu',
+			'containment': 'parent',
+			'axis': 'y',
+			'handle': '.site_navigation_menu_handle',
+			'cursor': 'move',
+			'opacity': 1.0
+		});
+		// make each nav group sortable
+		$(".site_navigation_menu").sortable({
+			'items': '.site_navigation_link',
+			'containment': '.site_navigation',
+			'axis': 'y',
+			'handle': '.site_navigation_link_handle',
+			'connectWith': '.site_navigation_menu',
+			'cursor': 'move',
+			'opacity': 1.0
+		});
+	});
+});

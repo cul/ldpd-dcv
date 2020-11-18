@@ -1,0 +1,30 @@
+.edit_site {
+	color: black;
+}
+.panel {
+	background: inherit;
+	.ui-sortable-helper {
+		background: #bdf;
+	}
+}
+fieldset.paneled {
+	border-width: 0 0 2px 0;
+}
+
+button.collapse-toggle {
+	&::before {
+		content: "Hide ";
+	}
+	&::after {
+		font-family: 'Glyphicons Halflings';
+		content: "\e114";
+	}
+	&.collapsed {
+		&::before {
+			content: "Show ";
+		}
+		&::after {
+			content: "\e080";
+		}
+	}
+}
