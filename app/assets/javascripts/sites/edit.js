@@ -22,13 +22,136 @@ function addSiteImageUriFieldSet(addButtonFieldset) {
 	addButtonFieldset.parentNode.insertBefore(newFieldset, addButtonFieldset);
 }
 
+function addNavMenu(addButton) {
+	// build a template nav menu
+	var newMenu = $(".nav-templates > .site_navigation_menu").clone();
+	var menuNumber = $(".site_navigation > .site_navigation_menu").length;
+	var menuIndex = menuNumber;
+	// index and number can drift based on menu removal and sorting, so verify index
+	while($("#site_navigation_menu_" + menuIndex).length > 0) {
+		menuIndex++;
+	}
+	var re = /9menuIndex9/;
+	// update all template id, for, name, data-target, data-parent, aria-controls attribute values
+	['id', 'data-target', 'data-parent', 'aria-controls'].forEach(function(att){
+		newMenu.find("[" + att + "]").each(function(){
+			$(this).attr(att, $(this).attr(att).replace(re, menuIndex.toString()));
+		});
+	});
+	['for', 'name'].forEach(function(att){
+		newMenu.find("[" + att + "]").each(function(){
+			$(this).attr(att, $(this).attr(att).replace(re, menuNumber.toString()));
+		});
+	});
+	// append it after last menu
+	newMenu.insertBefore($(addButton));
+}
 
+function addNavLink(addButton) {
+	var navLinks = addButton.parentNode;
+	// build a template nav link
+	var newLink = $(".nav-templates > .site_navigation_link").clone();
+	var linkNumber = $(navLinks).children(".site_navigation_link").length;
+	var linkIndex = linkNumber;
+	var menuIndex = navLinks.getAttribute('id').match(/\d+$/)[0];
+	var menuNumber = navLinks.getAttribute('id').match(/\d+$/)[0];
+	var navMenu = $(navLinks).parentElement;
+	// index and number can drift based on menu removal and sorting, so find both
+	var menuLabel = $("#site_nav_menus_attributes_" + menuIndex + "_label")[0];
+	var menuNumber = menuLabel.getAttribute('name').match(/\[\d+\]/g)[0].replaceAll(/[\[\]]/g,'');
+	// ensure link number and index are both valid
+	while($("#site_nav_menus_attributes_" + menuIndex + "_links_attributes_" + linkIndex + "_label").length > 0) {
+		linkIndex++;
+	}
+	var mre = /9menuIndex9/;
+	var lre = /9linkIndex9/;
+	// update all template id, for, name, data-target, data-parent, aria-controls attribute values
+	['id', 'data-target', 'data-parent', 'aria-controls'].forEach(function(att){
+		newLink.find("[" + att + "]").each(function(){
+			$(this).attr(att, $(this).attr(att).replace(mre, menuIndex.toString()).replace(lre, linkIndex.toString()));
+		});
+	});
+	['for', 'name'].forEach(function(att){
+		newLink.find("[" + att + "]").each(function(){
+			$(this).attr(att, $(this).attr(att).replace(mre, menuNumber.toString()).replace(lre, linkNumber.toString()));
+		});
+	});
+	// append it after last link
+	newLink.insertBefore($(addButton));
+	sortableLinks($(".site_navigation_links"));
+}
 
-$(function() {
+/******************
+ * EVENT HANDLERS *
+ ******************/
+
+function navMenuPositionUpdated(event, ui) {
+	$(ui.item[0].parentElement).children(".site_navigation_menu").each(reassignNavMenuIndexes);
+}
+
+function reassignNavMenuIndexes(index, navMenu) {
+	// new menu prefix is site[nav_menus_attributes][$index]
+	var re = /site\[nav_menus_attributes\]\[\d+\]/;
+	var sub = "site[nav_menus_attributes][" + index + "]";
+	$(navMenu).find('label').each(function(mIndex, ele){
+		// change the for attribute for the new menu prefix
+		var oldVal = $(ele).attr('for');
+		if (!oldVal) return;
+		$(ele).attr('for', oldVal.replace(re, sub));
+	});
+	$(navMenu).find('input').each(function(mIndex, ele){
+		if ($(ele).attr('type') == 'button') return;
+		// change the name attribute for the new menu prefix
+		var newVal = $(ele).attr('name').replace(re, sub);
+		$(ele).attr('name', newVal);
+	});
+}
+
+function navLinkPositionUpdated(event, ui) {
+	reassignNavLinkIndexes(ui.item[0].parentElement);	
+	if (ui.sender && !(ui.sender == ui.item[0].parentElement)) {
+		reassignNavLinkIndexes(ui.sender);
+		$(".site_navigation > .site_navigation_menu").each(reassignNavMenuIndexes);
+	}
+}
+
+function reassignNavLinkIndexes(navMenu) {
+	$(navMenu).find(".site_navigation_link").each(function(index, navLink) {
+		// new link prefix will be site[nav_menus_attributes][$menuIndex][link_attributes][$index]
+		var re = /(site\[nav_menus_attributes\]\[\d+\]\[links_attributes\])\[\d+\]/;
+		var sub = "$1[" + index + "]";
+		$(navLink).find('label').each(function(){
+			// change the for attribute for the new link prefix
+			var oldVal = $(this).attr('for');
+			if (!oldVal) return;
+			$(this).attr('for', oldVal.replace(re, sub));
+		});
+		$(navLink).find('input').each(function(){
+			if ($(this).attr('type') == 'button') return;
+			// change the name attribute for the new link prefix
+			var newVal = $(this).attr('name').replace(re, sub);
+			$(this).attr('name', newVal);
+		});
+	});
+}
+
+function sortableLinks(selection) {
+	selection.sortable({
+		'items': '.site_navigation_link',
+		'containment': '.site_navigation',
+		'axis': 'y',
+		'handle': '.site_navigation_link_handle',
+		'connectWith': '.site_navigation_links',
+		'cursor': 'move',
+		'opacity': 1.0,
+		'update': navLinkPositionUpdated
+	});
+}
+
 /***********
  * ON LOAD *
  ***********/
-
+$(function() {
 	$(window).on('load', function() {
 		// make nav groups container sortable
 		$(".site_navigation").sortable({
@@ -37,17 +160,10 @@ $(function() {
 			'axis': 'y',
 			'handle': '.site_navigation_menu_handle',
 			'cursor': 'move',
-			'opacity': 1.0
+			'opacity': 1.0,
+			'update': navMenuPositionUpdated
 		});
 		// make each nav group sortable
-		$(".site_navigation_menu").sortable({
-			'items': '.site_navigation_link',
-			'containment': '.site_navigation',
-			'axis': 'y',
-			'handle': '.site_navigation_link_handle',
-			'connectWith': '.site_navigation_menu',
-			'cursor': 'move',
-			'opacity': 1.0
-		});
+		sortableLinks($(".site_navigation_links"));
 	});
 });
