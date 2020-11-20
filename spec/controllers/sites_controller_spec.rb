@@ -14,6 +14,7 @@ describe SitesController, type: :unit do
 		allow(request_double).to receive(:optional_port)
 		allow(request_double).to receive(:protocol)
 		allow(request_double).to receive(:path_parameters).and_return({})
+		allow(request_double).to receive(:flash).and_return({})
 		allow(controller).to receive(:params).and_return(params)
 		allow(controller).to receive(:request).and_return(request_double)
 		allow(controller).to receive(:load_subsite).and_return(site)
@@ -63,6 +64,34 @@ describe SitesController, type: :unit do
 				expect(update_params[:image_uris]).to eql(['a', 'b', 'c'])
 			end
 		end
+		context 'with nav_menus_attributes' do
+			let(:params) do
+				ActionController::Parameters.new(
+					site: {
+						nav_menus_attributes: {
+							:'1' => {
+								label: "Group 1",
+								links_attributes: {
+									:'0' => {
+										label: "Link 0"
+									}
+								}
+							}
+						}
+					}
+				)
+			end
+			let(:expected) do
+				{
+					sort_group: "01:Group 1",
+					sort_label: "00:Link 0"
+				}
+			end
+			let(:update_params) { controller.send :site_params }
+			it 'unrolls nav_menus_attributes into nav_links_attributes' do
+				expect(update_params['nav_links_attributes'].first).to include(expected)
+			end
+		end
 		context 'with editor_uids text' do
 			let(:uids) { ['abc', 'bcd', 'cde'] }
 			let(:params) {
@@ -83,6 +112,43 @@ describe SitesController, type: :unit do
 				it "removes proposed values" do
 					expect(update_params[:editor_uids]).to eql(site.editor_uids)
 				end
+			end
+		end
+	end
+	describe '#update' do
+		before do
+			controller.instance_variable_set(:@subsite, site)
+			allow(controller).to receive(:can?).with(:admin, site).and_return(false)
+		end
+		context 'with nav_menus_attributes' do
+			let(:params) do
+				ActionController::Parameters.new(
+					site: {
+						nav_menus_attributes: {
+							:'1' => {
+								label: "Group 1",
+								links_attributes: {
+									:'0' => {
+										label: "Link 0"
+									}
+								}
+							}
+						}
+					}
+				)
+			end
+			let(:expected) do
+				{
+					'sort_group' => "01:Group 1",
+					'sort_label'=> "00:Link 0"
+				}
+			end
+			before do
+				allow(controller).to receive(:redirect_to).with("/#{site.slug}/edit")
+				controller.update
+			end
+			it 'unrolls nav_menus_attributes into nav_links_attributes' do
+				expect(site.nav_links.first.attributes).to include(expected)
 			end
 		end
 	end

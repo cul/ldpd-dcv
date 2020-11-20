@@ -18,7 +18,7 @@ describe Nyre::ProjectsController, type: :feature do
     SUBSITES['public']['nyre'] = @orig_config
   end
   describe '#show' do
-    let(:project) { Nyre::Project.first }
+    let(:project) { FactoryBot.create(:nyre_project) }
     before do
       visit nyre_project_path(project)
     end

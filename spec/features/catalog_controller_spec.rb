@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 describe CatalogController, type: :feature do
+  include_context "site fixtures for features"
   # the relevant fixtures are loaded into the repository and seeded into the Site
   # database tables by CI tasks
   describe "index" do
