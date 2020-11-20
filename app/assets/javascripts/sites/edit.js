@@ -32,6 +32,7 @@ function addNavMenu(addButton) {
 		menuIndex++;
 	}
 	var re = /9menuIndex9/;
+	newMenu.attr('id', newMenu.attr('id').replace(re, menuIndex.toString()));
 	// update all template id, for, name, data-target, data-parent, aria-controls attribute values
 	['id', 'data-target', 'data-parent', 'aria-controls'].forEach(function(att){
 		newMenu.find("[" + att + "]").each(function(){
@@ -79,6 +80,17 @@ function addNavLink(addButton) {
 	// append it after last link
 	newLink.insertBefore($(addButton));
 	sortableLinks($(".site_navigation_links"));
+}
+
+function removeNavMenu(button) {
+	$(button).closest(".site_navigation_menu").remove();
+	$(".site_navigation > .site_navigation_menu").each(reassignNavMenuIndexes);
+}
+
+function removeNavLink(button) {
+	var navMenu = $(button).closest(".site_navigation_menu");
+	$(button).closest(".site_navigation_link").remove();
+	reassignNavLinkIndexes(navMenu);
 }
 
 /******************
