@@ -173,10 +173,32 @@ class SitesController < ApplicationController
 
   # update sanitized params
   def update
+    site_attributes = site_params
+    # though Site accepts nested attributes ofr nav_links for persistence, we want to handle the updates
+    # specially (to accommodate the deletion and reordering without recourse to record id)
+    nav_links_attributes = site_attributes.delete('nav_links_attributes')
     @subsite.update_attributes site_params
-    # TODO: update nav links
-    # TODO: set a flash message
-    # return to edit
+    if nav_links_attributes.present?
+      @subsite.nav_links.each do |nav_link|
+        if nav_links_attributes.present?
+          # update this available link record
+          nav_link.update_attributes nav_links_attributes.shift
+        else
+          # out of attributes so delete remaining nav links 
+          nav_link.delete
+        end
+      end
+      # remaining attributes represent new nav links that must be added
+      nav_links_attributes.each do |nav_link_attributes|
+        @subsite.nav_links.create(nav_link_attributes)
+      end
+    end
+    begin
+      @subsite.save! if @subsite.changed?
+      flash[:notice] = "Saved!"
+    rescue ActiveRecord::RecordInvalid => ex
+      flash[:alert] = ex.message
+    end
     redirect_to edit_site_path(slug: @subsite.slug)
   end
 
@@ -286,8 +308,24 @@ class SitesController < ApplicationController
   end
 
   private
+    def unroll_nav_link_params
+      nav_menus_attributes = params['site'].delete('nav_menus_attributes')
+      return unless nav_menus_attributes
+      nav_links = []
+      nav_menus_attributes.each do |group_index, group_data|
+        sort_group = "#{sprintf("%02d", group_index.to_i)}:#{group_data['label']}"
+        group_data.fetch('links_attributes', {}).each do |link_index, link_data|
+          sort_label = "#{sprintf("%02d", link_index.to_i)}:#{link_data['label']}"
+          nav_links << {sort_group: sort_group, sort_label: sort_label, link: link_data['link'], external: link_data['external']}
+        end
+      end
+      params['site']['nav_links_attributes'] = nav_links
+    end
+
     def site_params
-      params.require(:site).permit(:palette, :layout, :show_facets, :alternative_title, :search_type, :image_uris, :editor_uids, image_uris: [])
+      unroll_nav_link_params
+      params.require(:site).permit(:palette, :layout, :show_facets, :alternative_title, :search_type, :editor_uids, :image_uris, :nav_links_attributes,
+                                   image_uris: [], nav_links_attributes: [:sort_group, :sort_label, :link, :external])
       .tap do |p|
         p['image_uris']&.delete_if { |v| v.blank? }
         if can?(:admin, @subsite)

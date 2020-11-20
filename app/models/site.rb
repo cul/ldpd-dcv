@@ -4,6 +4,7 @@ class Site < ActiveRecord::Base
 	include Blacklight::Configurable
 	has_many :nav_links, dependent: :destroy
 	has_many :site_pages, dependent: :destroy
+	accepts_nested_attributes_for :nav_links
 	store :constraints, accessors: [ :publisher, :project, :collection ], coder: JSON, suffix: true
 	serialize :editor_uids, Array
 	serialize :image_uris, Array
