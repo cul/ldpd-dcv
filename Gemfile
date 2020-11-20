@@ -93,8 +93,6 @@ gem 'rubyzip', '>= 1.2.1'
 gem 'rack-protection', '>= 1.5.5'
 gem 'loofah', '>= 2.2.1'
 
-gem 'logger', '~> 1.2.8.1'
-
 group :development, :test do
   # Use Capistrano for deployment
   gem 'capistrano', '~> 3.5.0', require: false
@@ -110,8 +108,9 @@ group :development, :test do
   gem 'net-ssh', '>= 4.2'
   gem 'rspec-rails', '~> 3.4.0'
   gem 'rspec-json_expectations'
-  gem 'capybara'
-  gem 'poltergeist' # For headless-browser JavaScript testing
+  gem 'capybara', '~> 3.32'
+  gem 'selenium-webdriver' # For headless-browser JavaScript testing
+  gem 'database_cleaner'
   gem 'factory_bot_rails'
   gem 'jettywrapper', '>=2.0.5', git: 'https://github.com/samvera-deprecated/jettywrapper.git', branch: 'master'
   gem 'rubocop', '~> 0.53.0', require: false

@@ -10,10 +10,12 @@ module Dcv::Sites::Import
 		def exists?
 			@directory && Dir.entries(@directory.path).include?(SITE_METADATA)
 		end
+		def atts
+			@atts ||= YAML.load(File.read(File.join(@directory.path, SITE_METADATA)))
+		end
 		def run
 			return nil unless exists?
 			site_dir = @directory.path
-			atts = YAML.load(File.read(File.join(site_dir, SITE_METADATA)))
 			puts "importing #{atts['slug']} from #{site_dir}"
 			site = Site.find_by(slug: atts['slug']) || Site.new(slug: atts['slug'])
 			site.title = atts['title']

@@ -109,7 +109,7 @@
                       <%= link_form.text_field :label, class: ['form-control'] %>
                     </div>
                     <div class="col-md-2">
-                      <a class="btn btn-danger remove" onclick="removeNavLink(this); return false;"><span class="glyphicon glyphicon-remove"></span> Remove Link</a>
+                      <a class="btn btn-danger remove" onclick="removeNavLink(this); return false;"  id="menu-<%= menu_form.index %>-remove-link-<%= link_form.index %>"><span class="glyphicon glyphicon-remove"></span> Remove Link</a>
                     </div>
                   </div>
                 </div>
@@ -134,7 +134,7 @@
                 </div>
               </div>
             <%- end %>
-            <input type="button" onclick="addNavLink(this);" value="Add Link" class="btn btn-primary" />
+            <input type="button" onclick="addNavLink(this);" value="Add Link" class="btn btn-primary" id="menu-<%= menu_form.index %>-add-link"/>
           </div>
         </div>
       <%- end %>
@@ -159,7 +159,7 @@
         </div>
       </div>
       <div class="panel-body collapse site_navigation_links" id="site_navigation_links_9menuIndex9">
-        <input type="button" onclick="addNavLink(this);" value="Add Link" class="btn btn-primary" />
+        <input type="button" onclick="addNavLink(this);" value="Add Link" class="btn btn-primary" id="menu-9menuIndex9-add-link"/>
       </div>
     </div>
     <div class="panel panel-default site_navigation_link">
@@ -170,7 +170,7 @@
             <input class="form-control" type="text" value="" name="site[nav_menus_attributes][9menuIndex9][links_attributes][9linkIndex9][label]" id="site_nav_menus_attributes_9menuIndex9_links_attributes_9linkIndex9_label">
           </div>
           <div class="col-md-2">
-            <a class="btn btn-danger remove" onclick="removeNavLink(this); return false;"><span class="glyphicon glyphicon-remove"></span> Remove Link</a>
+            <a class="btn btn-danger remove" onclick="removeNavLink(this); return false;" id="menu-9menuIndex9-remove-link-9linkIndex9"><span class="glyphicon glyphicon-remove"></span> Remove Link</a>
           </div>
         </div>
       </div>
