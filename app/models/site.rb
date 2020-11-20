@@ -92,8 +92,9 @@ class Site < ActiveRecord::Base
 		grouped_links
 	end
 
-    def nav_menus_attributes=(attributes)
-    end
+	# this setter is necessary for the form builder
+	def nav_menus_attributes=(attributes)
+	end
 
 	# patch for Rails 4 store, which doesn't have suffixes
 	def publisher_constraints=(constraints)
