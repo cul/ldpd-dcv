@@ -100,6 +100,10 @@ module Nyre
       end
     end
 
+    def tracking_method
+      "track_nyre_path"
+    end
+
     # copied from subsites, why is it private?
     private
 
