@@ -40,6 +40,8 @@ module Nyre
       self._prefixes << subsite_config['layout'] + '/projects' 
       self._prefixes << subsite_config['layout']
       self._prefixes << '/catalog'
+      self._prefixes.unshift "shared"
+      self._prefixes.unshift ""
     end
 
     def set_view_path
