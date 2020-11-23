@@ -256,6 +256,16 @@ namespace :dcv do
                 'default_long' => 21.5,
                 'default_zoom' => 5
               }
+            },
+            'nyre' => {
+              'layout' => 'nyre',
+              'remote_request_api_key' => 'sample_key',
+              'map_search' => {
+                'sidebar' => true,
+                'default_lat' => 40.757,
+                'default_long' => -73.981,
+                'default_zoom' => 11
+              }
             }
           },
           'restricted' => {
