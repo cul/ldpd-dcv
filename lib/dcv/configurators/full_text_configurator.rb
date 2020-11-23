@@ -1,6 +1,7 @@
 class Dcv::Configurators::FullTextConfigurator
   def self.configure(config, replace=true)
     config.default_solr_params ||= {}
+    config.fetch_many_document_params = { fl: '*' } # default deprecation circumvention from BL6
     param = {}
     param[:hl] = true
     param[:'hl.fragsize'] = 300
