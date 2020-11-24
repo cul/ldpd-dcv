@@ -177,23 +177,23 @@ class SitesController < ApplicationController
     # though Site accepts nested attributes ofr nav_links for persistence, we want to handle the updates
     # specially (to accommodate the deletion and reordering without recourse to record id)
     nav_links_attributes = site_attributes.delete('nav_links_attributes')
-    @subsite.update_attributes site_params
-    if nav_links_attributes.present?
-      @subsite.nav_links.each do |nav_link|
-        if nav_links_attributes.present?
-          # update this available link record
-          nav_link.update_attributes nav_links_attributes.shift
-        else
-          # out of attributes so delete remaining nav links 
-          nav_link.delete
+    begin
+      @subsite.update_attributes! site_attributes
+      if nav_links_attributes.present?
+        @subsite.nav_links.each do |nav_link|
+          if nav_links_attributes.present?
+            # update this available link record
+            nav_link.update_attributes! nav_links_attributes.shift
+          else
+            # out of attributes so delete remaining nav links
+            nav_link.delete
+          end
+        end
+        # remaining attributes represent new nav links that must be added
+        nav_links_attributes.each do |nav_link_attributes|
+          @subsite.nav_links.create!(nav_link_attributes)
         end
       end
-      # remaining attributes represent new nav links that must be added
-      nav_links_attributes.each do |nav_link_attributes|
-        @subsite.nav_links.create(nav_link_attributes)
-      end
-    end
-    begin
       @subsite.save! if @subsite.changed?
       flash[:notice] = "Saved!"
     rescue ActiveRecord::RecordInvalid => ex
