@@ -73,7 +73,8 @@ describe SitesController, type: :unit do
 								label: "Group 1",
 								links_attributes: {
 									:'0' => {
-										label: "Link 0"
+										label: "Link 0",
+										link: "linkSlug0"
 									}
 								}
 							}
@@ -84,7 +85,8 @@ describe SitesController, type: :unit do
 			let(:expected) do
 				{
 					sort_group: "01:Group 1",
-					sort_label: "00:Link 0"
+					sort_label: "00:Link 0",
+					link: "linkSlug0"
 				}
 			end
 			let(:update_params) { controller.send :site_params }
@@ -129,7 +131,8 @@ describe SitesController, type: :unit do
 								label: "Group 1",
 								links_attributes: {
 									:'0' => {
-										label: "Link 0"
+										label: "Link 0",
+										link: "linkSlug0"
 									}
 								}
 							}
@@ -140,7 +143,8 @@ describe SitesController, type: :unit do
 			let(:expected) do
 				{
 					'sort_group' => "01:Group 1",
-					'sort_label'=> "00:Link 0"
+					'sort_label' => "00:Link 0",
+					'link' => "linkSlug0"
 				}
 			end
 			before do
