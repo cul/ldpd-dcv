@@ -25,7 +25,6 @@ describe SitesController, type: :feature do
       select('Local', from: 'site_search_type')
       click_button "Add Navigation Menu"
       # use IDs since template elements are hidden but ambiguous
-      #click_button 'Add Link'
       find('button[data-parent=site_navigation_menu_0]').click # Show Links
       find('#menu-0-add-link').click # Add Link
       find('#site_nav_menus_attributes_0_label').set("Group Label Value")
