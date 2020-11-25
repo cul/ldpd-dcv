@@ -42,4 +42,28 @@ describe Sites::PagesController, type: :unit do
 			it { expect(search_uri.query).to match(/search_field\=/) }
 		end
 	end
+	describe '#update' do
+		let(:page_title) { 'Example Title' }
+		let(:page) { FactoryBot.create(:site_page, site_id: site, title: page_title) }
+		let(:params) {
+			ActionController::Parameters.new(
+				site_slug: site.slug,
+				slug: page.slug,
+				site_page: {
+					use_multiple_columns: 'true'
+				}
+			)
+		}
+		before do
+			controller.instance_variable_set(:@subsite, site)
+			controller.instance_variable_set(:@page, page)
+			allow(controller).to receive(:load_page).and_return(page)
+			allow(controller).to receive(:flash).and_return({})
+		end
+		it "updates submitted attributes from sanitized values and redirects" do
+			expect(page).to receive(:update_attributes).with(columns: 2)
+			expect(controller).to receive(:redirect_to).with("/#{site.slug}/#{page.slug}/edit")
+			controller.update
+		end
+	end
 end
