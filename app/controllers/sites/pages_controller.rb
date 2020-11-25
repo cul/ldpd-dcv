@@ -63,12 +63,29 @@ module Sites
 		end
 
 		def update
+			begin
+				load_page.update_attributes(page_params)
+				flash[:notice] = "Page Updated!"
+				redirect_to edit_site_page_path(site_slug: @subsite.slug, slug: @page.slug)
+			rescue ActiveRecord::RecordInvalid => ex
+				flash[:alert] = ex.message
+				redirect_to new_site_page_path(site_slug: @subsite.slug)
+			end
 		end
 
 		def new
+			@page = load_subsite.site_pages.new
 		end
 
 		def create
+			begin
+				@page = load_subsite.site_pages.create!(page_params)
+				flash[:notice] = "Page Created!"
+				redirect_to edit_site_page_path(site_slug: @subsite.slug, slug: @page.slug)
+			rescue ActiveRecord::RecordInvalid => ex
+				flash[:alert] = ex.message
+				redirect_to new_site_page_path(site_slug: @subsite.slug)
+			end
 		end
 
 		def destroy
@@ -118,5 +135,12 @@ module Sites
 			end
 			url_for(url_params)
 		end
+
+		private
+			def page_params
+				params.require(:site_page).permit(:slug, :title, :use_multiple_columns, :site_text_blocks_attributes, site_text_blocks_attributes: [:sort_label, :markdown]).tap do |p|
+					p[:columns] = (p.delete(:use_multiple_columns).to_s == 'true') ? 2 : 1
+				end
+			end
 	end
 end

@@ -1,0 +1,27 @@
+<%= form_for @page, url: { action: (@page.new_record? ? "create" : "update")  }, html: { } do |page_form| %>
+<div class="panel panel-primary">
+	<div class="panel-heading"><h2 class="panel-title">Page Properties</h2></div>
+	<div class="panel-body page_properties">
+		<div class="form-group">
+			<label for="page_slug">Slug <span class="glyphicon glyphicon-question-sign"></label>
+			<%= page_form.text_field :slug, class: ['form-control'] %>
+			<label for="page_title">Title <span class="glyphicon glyphicon-question-sign"></label>
+			<%= page_form.text_field :title, class: ['form-control'] %>
+		</div>
+		<label for="site[show_facets]">Text Columns <span class="glyphicon glyphicon-question-sign"></span></label>
+		<div class="radio">
+			<label>
+				<%= page_form.radio_button :use_multiple_columns, false %>Show text in one column
+			</label>
+		</div>
+		<div class="radio">
+			<label>
+				<%= page_form.radio_button :use_multiple_columns, true %>Show text in multiple columns
+			</label>
+		</div>
+	</div>
+</div>
+<div class="panel">
+	<%= submit_tag "#{@page.new_record? ? "Create" : "Update"} Page", {class: ['btn', 'btn-default']} %>
+</div>
+<% end %>
