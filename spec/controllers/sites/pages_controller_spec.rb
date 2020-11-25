@@ -66,4 +66,39 @@ describe Sites::PagesController, type: :unit do
 			controller.update
 		end
 	end
+	describe '#destroy' do
+		let(:page_title) { 'Example Title' }
+		let(:page) { FactoryBot.create(:site_page, site_id: site, title: page_title, slug: page_slug) }
+		let(:params) {
+			ActionController::Parameters.new(
+				site_slug: site.slug,
+				slug: page.slug,
+			)
+		}
+		let(:flash) { {} }
+		before do
+			controller.instance_variable_set(:@subsite, site)
+			controller.instance_variable_set(:@page, page)
+			allow(controller).to receive(:load_page).and_return(page)
+			allow(controller).to receive(:flash).and_return(flash)
+		end
+		context "home page" do
+			let(:page_slug) { 'home' }
+			it "does not destroy, sets flash message, and redirects to site edit" do
+				expect(page).not_to receive(:destroy)
+				expect(controller).to receive(:redirect_to).with("/#{site.slug}/edit")
+				controller.destroy
+				expect(flash[:alert]).to include(page_slug)
+			end
+		end
+		context "other pages" do
+			let(:page_slug) { 'notHome' }
+			it "destroys page, sets flash message, and redirects to site edit" do
+				expect(page).to receive(:destroy)
+				expect(controller).to receive(:redirect_to).with("/#{site.slug}/edit")
+				controller.destroy
+				expect(flash[:notice]).to include(page_slug)
+			end
+		end
+	end
 end
