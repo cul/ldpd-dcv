@@ -35,7 +35,8 @@ module Dcv
         'print.css',
         'freelib.js',
         'd3.js',
-        'sites.js', 'sites.css'
+        'sites.js', 'sites.css',
+        'easymde.min.js', 'easymde.min.css'
       ]
 
     # And include styles for all configured subsite layouts

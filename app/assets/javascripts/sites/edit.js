@@ -106,6 +106,12 @@ function addTextBlock(addButton) {
 	});
 	// append it after last menu
 	newBlock.insertBefore($(addButton));
+	new EasyMDE({
+				element: newBlock.find('textarea')[0],
+				forceSync: true,
+				autoRefresh: { delay: 250 }
+	});
+
 }
 
 function removeNavMenu(button) {
@@ -213,8 +219,8 @@ function reassignTextBlockIndexes(textBlocks) {
 			var newVal = $(this).attr('name').replace(re, sub);
 			$(this).attr('name', newVal);
 		};
-		$(textBlock).find('input').each(repl);
-		$(textBlock).find('textarea').each(repl);
+		$(textBlock).find('input[name]').each(repl);
+		$(textBlock).find('textarea[name]').each(repl);
 	});
 }
 
@@ -249,5 +255,13 @@ $(function() {
 		sortableLinks($(".site_navigation_links"));
 		// make each text block sortable
 		sortableTextBlocks($(".site_text_blocks"));
+		$(".site_text_blocks textarea").each(function() {
+			new EasyMDE({
+				element: this,
+				forceSync: true,
+				autoRefresh: { delay: 250 },
+				initialValue: $(this).val()
+			});
+		});
 	});
 });
