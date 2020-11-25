@@ -82,6 +82,32 @@ function addNavLink(addButton) {
 	sortableLinks($(".site_navigation_links"));
 }
 
+function addTextBlock(addButton) {
+	// build a template text block
+	var newBlock = $(".new-block-template .site_text_block").clone();
+	var blockNumber = $(".site_text_blocks > .site_text_block").length;
+	var blockIndex = blockNumber;
+	// index and number can drift based on menu removal and sorting, so verify index
+	while($("#site_text_block_" + blockIndex).length > 0) {
+		blockIndex++;
+	}
+	var re = /9blockIndex9/;
+	newBlock.attr('id', newBlock.attr('id').replace(re, blockIndex.toString()));
+	// update all template id, for, name, data-target, data-parent, aria-controls attribute values
+	['id', 'data-target', 'data-parent', 'aria-controls'].forEach(function(att){
+		newBlock.find("[" + att + "]").each(function(){
+			$(this).attr(att, $(this).attr(att).replace(re, blockIndex.toString()));
+		});
+	});
+	['for', 'name'].forEach(function(att){
+		newBlock.find("[" + att + "]").each(function(){
+			$(this).attr(att, $(this).attr(att).replace(re, blockNumber.toString()));
+		});
+	});
+	// append it after last menu
+	newBlock.insertBefore($(addButton));
+}
+
 function removeNavMenu(button) {
 	$(button).closest(".site_navigation_menu").remove();
 	$(".site_navigation > .site_navigation_menu").each(reassignNavMenuIndexes);
@@ -91,6 +117,12 @@ function removeNavLink(button) {
 	var navMenu = $(button).closest(".site_navigation_menu");
 	$(button).closest(".site_navigation_link").remove();
 	reassignNavLinkIndexes(navMenu);
+}
+
+function removeTextBlock(button) {
+	var allBlocks = $(button).closest(".site_text_blocks");
+	$(button).closest(".site_text_block").remove();
+	reassignTextBlockIndexes(allBlocks);
 }
 
 /******************
@@ -120,7 +152,7 @@ function reassignNavMenuIndexes(index, navMenu) {
 }
 
 function navLinkPositionUpdated(event, ui) {
-	reassignNavLinkIndexes(ui.item[0].parentElement);	
+	reassignNavLinkIndexes(ui.item[0].parentElement);
 	if (ui.sender && !(ui.sender == ui.item[0].parentElement)) {
 		reassignNavLinkIndexes(ui.sender);
 		$(".site_navigation > .site_navigation_menu").each(reassignNavMenuIndexes);
@@ -160,6 +192,44 @@ function sortableLinks(selection) {
 	});
 }
 
+function textBlockPositionUpdated(event, ui) {
+	reassignTextBlockIndexes(ui.item[0].parentElement);
+}
+
+function reassignTextBlockIndexes(textBlocks) {
+	$(textBlocks).find(".site_text_block").each(function(index, textBlock) {
+		// new link prefix will be page[site_text_blocks_attributes][$index]
+		var re = /(site_page\[site_text_blocks_attributes\])\[\d+\]/;
+		var sub = "$1[" + index + "]";
+		$(textBlock).find('label').each(function(){
+			// change the for attribute for the new link prefix
+			var oldVal = $(this).attr('for');
+			if (!oldVal) return;
+			$(this).attr('for', oldVal.replace(re, sub));
+		});
+		var repl = function(){
+			if ($(this).attr('type') == 'button') return;
+			// change the name attribute for the new link prefix
+			var newVal = $(this).attr('name').replace(re, sub);
+			$(this).attr('name', newVal);
+		};
+		$(textBlock).find('input').each(repl);
+		$(textBlock).find('textarea').each(repl);
+	});
+}
+
+function sortableTextBlocks(selection) {
+	selection.sortable({
+		'items': '.site_text_block',
+		'containment': '.site_text_blocks',
+		'axis': 'y',
+		'handle': '.site_text_block_handle',
+		'cursor': 'move',
+		'opacity': 1.0,
+		'update': textBlockPositionUpdated
+	});
+}
+
 /***********
  * ON LOAD *
  ***********/
@@ -177,5 +247,7 @@ $(function() {
 		});
 		// make each nav group sortable
 		sortableLinks($(".site_navigation_links"));
+		// make each text block sortable
+		sortableTextBlocks($(".site_text_blocks"));
 	});
 });

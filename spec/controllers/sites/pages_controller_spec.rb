@@ -61,7 +61,7 @@ describe Sites::PagesController, type: :unit do
 			allow(controller).to receive(:flash).and_return({})
 		end
 		it "updates submitted attributes from sanitized values and redirects" do
-			expect(page).to receive(:update_attributes).with(columns: 2)
+			expect(page).to receive(:update_attributes!).with(columns: 2)
 			expect(controller).to receive(:redirect_to).with("/#{site.slug}/#{page.slug}/edit")
 			controller.update
 		end

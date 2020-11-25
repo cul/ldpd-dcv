@@ -14,7 +14,7 @@ class SitePage < ActiveRecord::Base
 		columns > 1 && site_text_blocks.length > 1
 	end
 
-    # currently will partition into two columns maximum
+		# currently will partition into two columns maximum
 	def text_block_columns
 		block_partition = (site_text_blocks.length.to_f / 2).ceil
 		sorted_blocks = site_text_blocks.sort { |a,b| a.sort_label <=> b.sort_label }
@@ -30,6 +30,25 @@ class SitePage < ActiveRecord::Base
 	end
 
 	# this setter is necessary for the form builder
-	def site_text_blocks_attributes=
+	def site_text_blocks_attributes=(atts_map)
+		unrolled_atts = atts_map.map {|ix, atts| atts.merge('sort_label' => "#{sprintf("%02d", ix.to_i)}:#{atts.delete('label')}")}
+		if unrolled_atts.detect {|ua| ua['markdown'].present? }
+			self.site_text_blocks.each do |text_block|
+				if unrolled_atts.present?
+					# update this available text block record
+					atts = unrolled_atts.shift
+					# sanitize script elements
+					atts['markdown']&.gsub!(/<(\/?script[^>]*)>/i, '&lt;\1&gt;')
+					text_block.update_attributes! atts
+				else
+					# out of attributes so delete remaining text blocks
+					text_block.delete
+				end
+			end
+			# remaining attributes represent new nav links that must be added
+			unrolled_atts.each do |text_block_attributes|
+				self.site_text_blocks.create!(text_block_attributes)
+			end
+		end
 	end
 end
