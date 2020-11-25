@@ -89,7 +89,13 @@ module Sites
 		end
 
 		def destroy
-			raise "home page cannot be deleted" if params[:slug] == 'home'
+			if params[:slug].to_s == 'home'
+				flash[:alert] = "home page cannot be deleted"
+			else
+				@page.destroy
+				flash[:notice] = "page at #{params[:slug]} has been deleted."
+			end
+			redirect_to edit_site_path(slug: @subsite.slug)
 		end
 
 		def subsite_config
