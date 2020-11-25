@@ -64,7 +64,7 @@ module Sites
 
 		def update
 			begin
-				load_page.update_attributes(page_params)
+				load_page.update_attributes!(page_params)
 				flash[:notice] = "Page Updated!"
 				redirect_to edit_site_page_path(site_slug: @subsite.slug, slug: @page.slug)
 			rescue ActiveRecord::RecordInvalid => ex
@@ -144,7 +144,7 @@ module Sites
 
 		private
 			def page_params
-				params.require(:site_page).permit(:slug, :title, :use_multiple_columns, :site_text_blocks_attributes, site_text_blocks_attributes: [:sort_label, :markdown]).tap do |p|
+				params.require(:site_page).permit(:slug, :title, :use_multiple_columns, :site_text_blocks_attributes, site_text_blocks_attributes: [:label, :markdown]).tap do |p|
 					p[:columns] = (p.delete(:use_multiple_columns).to_s == 'true') ? 2 : 1
 				end
 			end
