@@ -46,6 +46,7 @@ function addNavMenu(addButton) {
 	});
 	// append it after last menu
 	newMenu.insertBefore($(addButton));
+	addTooltips(newMenu);
 }
 
 function addNavLink(addButton) {
@@ -80,6 +81,7 @@ function addNavLink(addButton) {
 	// append it after last link
 	newLink.insertBefore($(addButton));
 	sortableLinks($(".site_navigation_links"));
+	addTooltips(newLink);
 }
 
 function addTextBlock(addButton) {
@@ -106,12 +108,8 @@ function addTextBlock(addButton) {
 	});
 	// append it after last menu
 	newBlock.insertBefore($(addButton));
-	new EasyMDE({
-				element: newBlock.find('textarea')[0],
-				forceSync: true,
-				autoRefresh: { delay: 250 }
-	});
-
+	addTooltips(newBlock);
+	addMarkdownEditors(newBlock);
 }
 
 function removeNavMenu(button) {
@@ -236,6 +234,30 @@ function sortableTextBlocks(selection) {
 	});
 }
 
+function addMarkdownEditors(selection) {
+	selection.find("textarea").each(function() {
+		new EasyMDE({
+			element: this,
+			forceSync: true,
+			autoRefresh: { delay: 250 },
+			initialValue: $(this).val()
+		});
+	});	
+}
+
+function addTooltips(selection) {
+	selection.find("span[data-tooltip]").each(function(){
+		var tooltip = $('#' + $(this).attr('data-tooltip'));
+		var options = {
+			content: tooltip.text(),
+			title: tooltip.attr('title'),
+			container: 'body',
+			viewport: 'body',
+			placement: 'top'
+		};
+		$(this).popover(options);
+	});
+}
 /***********
  * ON LOAD *
  ***********/
@@ -255,13 +277,7 @@ $(function() {
 		sortableLinks($(".site_navigation_links"));
 		// make each text block sortable
 		sortableTextBlocks($(".site_text_blocks"));
-		$(".site_text_blocks textarea").each(function() {
-			new EasyMDE({
-				element: this,
-				forceSync: true,
-				autoRefresh: { delay: 250 },
-				initialValue: $(this).val()
-			});
-		});
+		addMarkdownEditors($(".site_text_blocks"));
+		addTooltips($("form"));
 	});
 });
