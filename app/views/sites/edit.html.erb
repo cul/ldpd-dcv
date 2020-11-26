@@ -4,12 +4,12 @@
     <div class="panel-heading"><h2 class="panel-title">Site Properties</h2></div>
     <div class="panel-body site_properties">
       <div class="form-group">
-        <label for="site_title">Title</label>
-        <%= site_form.text_field :title, class: ['form-control'] %>
+        <label for="site_title">Title <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-title"></label>
+        <%= site_form.text_field :title, class: ['form-control', 'disabled'], disabled: true %>
       </div>
       <div class="form-group">
-        <label for="site_title">Alternative Title</label>
-        <%= site_form.text_field :alternative_title, class: ['form-control'] %>
+        <label for="site_title">Alternative Title <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-subtitle"></label>
+        <%= site_form.text_field :alternative_title, class: ['form-control'], placeholder: (t("cul.archives.physical_location.#{@subsite.repository_id}") if @subsite.repository_id) %>
       </div>
       <div class="form-group">
         <label for="site_palette">Site Palette</label>
@@ -74,18 +74,25 @@
         <div class="row">
           <div class="col-md-3"><%= page.slug %></div>
           <div class="col-md-3"><%= page.title %></div>
-          <div class="col-md-3"><%= link_to("Edit", edit_site_page_path(site_slug: @subsite.slug, slug: page.slug)) %></div>
+          <div class="col-md-3"><%= link_to(edit_site_page_path(site_slug: @subsite.slug, slug: page.slug), class: ['btn', 'btn-primary']) do %>
+                <span class="glyphicon glyphicon-pencil"></span> Edit
+            <% end %>
+          </div>
           <div class="col-md-3">
             <%- unless page.slug == 'home' %>
-              <%= link_to(site_page_path(site_slug: @subsite.slug, slug: page.slug), method: :delete, data: {confirm: "Are you sure you want to delete page and content at #{page.slug}? It cannot be undone."}) do  %>
-                <span class="glyphicon glyphicon-remove"></span> Delete
+              <%= link_to(site_page_path(site_slug: @subsite.slug, slug: page.slug), method: :delete, data: {confirm: "Are you sure you want to delete page and content at #{page.slug}? It cannot be undone."}, class: ['btn btn-danger']) do  %>
+                <span class="glyphicon glyphicon-remove"></span> Delete Page
                 <% end %>
             <%- end %>
           </div>
         </div>
       <%- end -%>
       <div class="row">
-        <div class="col-md-3"><%= link_to("Add Page", new_site_page_path(site_slug: @subsite.slug)) %></div>
+        <div class="col-md-3">
+          <%= link_to(new_site_page_path(site_slug: @subsite.slug), class: ['btn btn-info']) do %>
+            <span class="glyphicon glyphicon-plus"></span> Add Page
+          <% end %>
+        </div>
       </div>
     </div>
   </div>
@@ -97,7 +104,7 @@
           <div class="panel-heading form-inline">
             <div class="form-group">
               <span class="glyphicon glyphicon-move site_navigation_menu_handle"></span>
-              <label for="site[nav_menus_attributes][<%= menu_form.index %>][label]">Group Label</label>
+              <label for="site[nav_menus_attributes][<%= menu_form.index %>][label]">Group Label <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-nav-menu-label"></label>
               <%= menu_form.text_field :label, class: ['form-control'] %>
               <button type="button" class="btn btn-primary collapse-toggle collapsed" data-toggle="collapse" data-target="#site_navigation_links_<%= menu_form.index %>" aria-expanded="false" aria-controls="site_navigation_links_<%= menu_form.index %>" data-parent="site_navigation_menu_<%= menu_form.index %>">Links</a>
             </div>
@@ -110,7 +117,7 @@
               <div class="panel panel-default site_navigation_link">
                 <div class="panel-heading form-horizontal">
                   <div class="form-group">
-                    <label class="control-label col-md-2" for="site[nav_menus_attributes][<%= menu_form.index %>][links_attributes][<%= link_form.index %>][label]"><span class="glyphicon glyphicon-move site_navigation_link_handle pull-left"></span> Link Label</label>
+                    <label class="control-label col-md-2" for="site[nav_menus_attributes][<%= menu_form.index %>][links_attributes][<%= link_form.index %>][label]"><span class="glyphicon glyphicon-move site_navigation_link_handle pull-left"></span> Link Label <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-nav-link-label"></label>
                     <div class="col-md-8">
                       <%= link_form.text_field :label, class: ['form-control'] %>
                     </div>
@@ -121,7 +128,7 @@
                 </div>
                 <div class="panel-body">
                   <div class="form-group">
-                    <label for="site[nav_menus_attributes][<%= menu_form.index %>][links_attributes][<%= link_form.index %>][link]">Links To</label>
+                    <label for="site[nav_menus_attributes][<%= menu_form.index %>][links_attributes][<%= link_form.index %>][link]">Links To <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-nav-link"></label>
                     <%= link_form.text_field :link, class: ['form-control'] %>
                   </div>
                   <div class="form-group">
@@ -140,23 +147,30 @@
                 </div>
               </div>
             <%- end %>
-            <input type="button" onclick="addNavLink(this);" value="Add Link" class="btn btn-primary" id="menu-<%= menu_form.index %>-add-link"/>
+            <input type="button" onclick="addNavLink(this);" value="Add Link" class="btn btn-info" id="menu-<%= menu_form.index %>-add-link"/>
           </div>
         </div>
       <%- end %>
-      <input type="button" onclick="addNavMenu(this);" value="Add Navigation Menu" class="btn btn-primary" />
+      <input type="button" onclick="addNavMenu(this);" value="Add Navigation Menu" class="btn btn-info" />
     </div>
   </div>
   <div class="panel">
     <%= submit_tag "Update Site Information", {class: ['btn', 'btn-default']} %>
   </div>
 <% end %>
+<div class="hidden tooltips">
+  <span id="tooltip-title" title="Site Title">The title of the site. This is data published from Hyacinth and should not be edited here.</span>
+  <span id="tooltip-subtitle" title="Alternative Title">The subtitle of the site. If blank and the Hyacinth data for the site includes a Library Location, that library's name will be used in some layouts.</span>
+  <span id="tooltip-nav-menu-label" title="Link Group Label">The label for this group of links, which will be presented as a drop-down menu if there are multiple links. If the group has only one link, the group label will not be displayed and the link will be presented directly in the site navigation bar.</span>
+  <span id="tooltip-nav-link-label" title="Link Label">The label used for a link in a drop-down menu or, if it is the only link in a group, the site navigation bar.</span>
+  <span id="tooltip-nav-link" title="Link To">The URL associated with this link. Full URLs will indicate that they are links to external resources. If a page slug is given and the link is marked as internal, a link to the named page will be built.</span>
+</div>
 <div class="hide nav-templates">
     <div class="panel panel-info site_navigation_menu" id="site_navigation_menu_9menuIndex9">
       <div class="panel-heading form-inline">
         <div class="form-group">
           <span class="glyphicon glyphicon-move site_navigation_menu_handle"></span>
-          <label for="site[nav_menus_attributes][9menuIndex9][label]">Group Label</label>
+          <label for="site[nav_menus_attributes][9menuIndex9][label]">Group Label <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-nav-menu-label"></label>
           <input class="form-control" type="text" value="" name="site[nav_menus_attributes][9menuIndex9][label]" id="site_nav_menus_attributes_9menuIndex9_label" />
           <button type="button" class="btn btn-primary collapse-toggle collapsed" data-toggle="collapse" data-target="#site_navigation_links_9menuIndex9" aria-expanded="false" aria-controls="site_navigation_links_9menuIndex9" data-parent="site_navigation_menu_9menuIndex9">Links</a>
         </div>
@@ -171,7 +185,7 @@
     <div class="panel panel-default site_navigation_link">
       <div class="panel-heading form-horizontal">
         <div class="form-group">
-          <label class="control-label col-md-2" for="site[nav_menus_attributes][9menuIndex9][links_attributes][9linkIndex9][label]"><span class="glyphicon glyphicon-move site_navigation_link_handle pull-left"></span> Link Label</label>
+          <label class="control-label col-md-2" for="site[nav_menus_attributes][9menuIndex9][links_attributes][9linkIndex9][label]"><span class="glyphicon glyphicon-move site_navigation_link_handle pull-left"></span> Link Label <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-nav-link-label"></label>
           <div class="col-md-8">
             <input class="form-control" type="text" value="" name="site[nav_menus_attributes][9menuIndex9][links_attributes][9linkIndex9][label]" id="site_nav_menus_attributes_9menuIndex9_links_attributes_9linkIndex9_label">
           </div>
@@ -182,7 +196,7 @@
       </div>
       <div class="panel-body">
         <div class="form-group">
-          <label for="site[nav_menus_attributes][9menuIndex9][links_attributes][9linkIndex9][link]">Links To</label>
+          <label for="site[nav_menus_attributes][9menuIndex9][links_attributes][9linkIndex9][link]">Links To <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-nav-link"></label>
           <input class="form-control" type="text" value="" name="site[nav_menus_attributes][9menuIndex9][links_attributes][9linkIndex9][link]" id="site_nav_menus_attributes_9menuIndex9_links_attributes_9linkIndex9_link">
         </div>
         <div class="form-group">

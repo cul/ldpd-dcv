@@ -3,12 +3,12 @@
 	<div class="panel-heading"><h2 class="panel-title">Page Properties</h2></div>
 	<div class="panel-body page_properties">
 		<div class="form-group">
-			<label for="page_slug">Slug <span class="glyphicon glyphicon-question-sign"></label>
+			<label for="page_slug">Slug <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-slug"></label>
 			<%= page_form.text_field :slug, class: ['form-control'] %>
-			<label for="page_title">Title <span class="glyphicon glyphicon-question-sign"></label>
+			<label for="page_title">Title <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-page-title"></label>
 			<%= page_form.text_field :title, class: ['form-control'] %>
 		</div>
-		<label for="site[show_facets]">Text Columns <span class="glyphicon glyphicon-question-sign"></span></label>
+		<label for="site[show_facets]">Text Columns <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-page-columns"></span></label>
 		<div class="radio">
 			<label>
 				<%= page_form.radio_button :use_multiple_columns, false %>Show text in one column
@@ -29,7 +29,7 @@
 				<div class="panel-heading form-inline">
 					<div class="form-group">
 						<span class="glyphicon glyphicon-move site_text_block_handle"></span>
-						<label for="site_page[site_text_blocks_attributes][<%= site_text_block_form.index %>][sort_label]">Block Label</label>
+						<label for="site_page[site_text_blocks_attributes][<%= site_text_block_form.index %>][sort_label]">Block Label <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-block-label"></label>
 						<%= site_text_block_form.text_field :label, class: ['form-control'] %>
 						<button type="button" class="btn btn-primary collapse-toggle collapsed" data-toggle="collapse" data-target="#site_page_text_block_<%= site_text_block_form.index %>_markdown" aria-expanded="false" aria-controls="site_page_text_blocks_<%= site_text_block_form.index %>" data-parent="site_navigation_menu_<%= site_text_block_form.index %>">Content</button>
 					</div>
@@ -42,7 +42,7 @@
 				</div>
 			</div>
 		<% end %>
-		<input type="button" onclick="addTextBlock(this);" value="Add Text Block" class="btn btn-primary" id="site-page-add-block"/>
+		<input type="button" onclick="addTextBlock(this);" value="Add Text Block" class="btn btn-info" id="site-page-add-block"/>
 	</div>
 </div>
 
@@ -56,7 +56,7 @@
 		<div class="panel-heading form-inline">
 			<div class="form-group">
 				<span class="glyphicon glyphicon-move site_text_block_handle"></span>
-				<label for="site_page[site_text_blocks_attributes][9blockIndex9][sort_label]">Block Label</label>
+				<label for="site_page[site_text_blocks_attributes][9blockIndex9][sort_label]">Block Label <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-block-label"></label>
 				<input class="form-control" type="text" value="" name="site_page[site_text_blocks_attributes][9blockIndex9][label]" id="site_page_site_text_blocks_attributes_9blockIndex9_label" />
 				<button type="button" class="btn btn-primary collapse-toggle collapsed" data-toggle="collapse" data-target="#site_page_text_block_9blockIndex9_markdown" aria-expanded="false" aria-controls="site_page_text_blocks_9blockIndex9" data-parent="site_navigation_menu_9blockIndex9">Content</button>
 			</div>
@@ -68,5 +68,10 @@
 			<textarea rows="5" class="form-control" name="site_page[site_text_blocks_attributes][9blockIndex9][markdown]" id="site_page_site_text_blocks_attributes_9blockIndex9_markdown"></textarea>
 		</div>
 	</div>
-
+</div>
+<div class="hidden tooltips">
+	<span id="tooltip-slug" title="Slug">Slugs are the url segments identifying the page. They should be should not contain separators or punctuation besides hyphens (preferred) or underscores. Page slugs must be unique within a site.</span>
+	<span id="tooltip-page-title" title="Page Title">The title or heading for the entire page.</span>
+	<span id="tooltip-page-columns" title="Text Columns">Display text blocks in multiple columns if the layout supports it. Requires at least two text blocks.</span>
+	<span id="tooltip-block-label" title="Block Label">The heading or label for this block of markdown. If left blank, no heading will be displayed for this block.</span>
 </div>
