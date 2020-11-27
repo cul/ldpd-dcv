@@ -21,12 +21,22 @@ module Dcv::SubsiteHelper
 
   def link_to_nav(nav_link)
     if nav_link.external
-      link_to(nav_link.link, target: "_blank", rel: "noopener noreferrer") do
-        "#{nav_link.label} <sup class=\"glyphicon glyphicon-new-window\" aria-hidden=\"true\"></sup>".html_safe
+      if Addressable::URI.parse(nav_link.link).absolute?
+        link_to(nav_link.link, target: "_blank", rel: "noopener noreferrer") do
+          "#{nav_link.label} <sup class=\"glyphicon glyphicon-new-window\" aria-hidden=\"true\"></sup>".html_safe
+        end
+      else
+        link_to(nav_link.label, nav_link.link)
       end
     else
       site_slug = controller.subsite_config[:slug]
-      link_to(nav_link.label, site_page_path(site_slug: site_slug, slug: nav_link.link))
+      link_params = {site_slug: controller.subsite_config[:slug]}
+      if nav_link.link.include?('#')
+        nav_link.link.split('#').tap { |segs| link_params.merge!(slug: segs[0], anchor: segs[1]) }
+      else
+        link_params[:slug] = nav_link.link
+      end
+      link_to(nav_link.label, site_page_path(link_params))
     end
   end
 
