@@ -113,7 +113,7 @@
             </div>
           </div>
           <div class="panel-body collapse site_navigation_links" id="site_navigation_links_<%= menu_form.index %>">
-            <%= menu_form.fields_for :links do |link_form| %>
+            <%= menu_form.fields_for :links, include_id: false do |link_form| %>
               <div class="panel panel-default site_navigation_link">
                 <div class="panel-heading form-horizontal">
                   <div class="form-group">
