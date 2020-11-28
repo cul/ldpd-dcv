@@ -16,9 +16,6 @@ Dcv::Application.routes.draw do
 
   mount Resque::Server.new, at: "/resque"
 
-  # Dynamic robots.txt file
-  get '/robots.txt' => 'pages#robots'
-
   get '/browse/:action' => 'browse', as: :browse
   get '/explore' => 'welcome#home'
   get '/about' => 'pages#about', as: :about
