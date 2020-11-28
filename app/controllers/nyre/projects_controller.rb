@@ -60,6 +60,10 @@ module Nyre
     end
 
     def show
+      if params[:format].to_s == 'rss'
+        render nothing: true, status: :not_found
+        return
+      end
       # build an original path term prefix from project call number
       call_number_prefix = "ldpd_#{resource.call_number.gsub('.','_')}_*"
       # look for matching records in this project, eg original_name_tesim:ldpd_YR_0948_MH_*
