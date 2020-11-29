@@ -50,4 +50,6 @@
     <img id="image-unavailable-img" class="img-responsive" src="<%= get_asset_url(id: 'placeholder:unavailable', size: 256, type: 'full', format: 'jpg') %>" />
   </div>
 <% end %>
-<%= render_document_partials document, ['gallery'] %>
+<%- if ['ContentAggregator', 'Collection'].include?(@document['active_fedora_model_ssi']) %>
+<%= render  partial: "gallery_#{@document['active_fedora_model_ssi'].underscore}", locals: {document: @document} %>
+<%- end %>

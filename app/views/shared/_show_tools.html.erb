@@ -8,5 +8,7 @@
 
 -%>
 <div class="pull-right search-widgets btn-group btn-group-xs">
-  <%= render_document_partials @document, ['show_tools'] %>
+  <%- if ['ContentAggregator', 'Collection', 'GenericResource'].include?(@document['active_fedora_model_ssi']) %>
+  <%= render  partial: "show_tools_#{@document['active_fedora_model_ssi'].underscore}", locals: {document: @document} %>
+  <%- end %>
 </div>
