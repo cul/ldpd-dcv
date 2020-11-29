@@ -10,7 +10,7 @@
 <% end %>
 
 <!--
-DLC VERSION: <%= render :file => Rails.root.to_s+'/VERSION' %> -->
+DLC VERSION: <%= IO.read(Rails.root.to_s+'/VERSION') %> -->
 
 <!-- Mobile IE allows us to activate ClearType technology for smoothing fonts for easy reading -->
 <!--[if IEMobile]>
