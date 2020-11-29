@@ -5,8 +5,9 @@ module Dcv::Catalog::AssetResolverBehavior
     helper_method :identifier_to_pid
   end
 
-  def identifier_to_pid(identifier_to_convert)
+  def identifier_to_pid(identifier_to_convert, pid=nil)
     @converted_ids ||= {}
+    @converted_ids[identifier_to_convert] ||= pid
     @converted_ids[identifier_to_convert] ||= begin
       convertible_id = identifier_to_convert.dup # Don't want to modify the passed-in object because it might be used again outside of this method
       convertible_id.sub!(/apt\:\/columbia/,'apt://columbia') # TOTAL HACK

@@ -22,7 +22,7 @@ module Dcv::CdnHelper
   end
 
   def get_resolved_asset_url(conditions)
-    conditions[:id] = identifier_to_pid(conditions[:id])
+    conditions[:id] = identifier_to_pid(conditions[:id], conditions[:pid])
     return get_asset_url(conditions)
   end
 
@@ -39,7 +39,7 @@ module Dcv::CdnHelper
   end
 
   def get_resolved_iiif_zoom_info_url(conditions)
-    return  Dcv::Utils::CdnUtils.random_cdn_url + "/iiif/2/#{identifier_to_pid(conditions[:id])}/info.json"
+    return  Dcv::Utils::CdnUtils.random_cdn_url + "/iiif/2/#{identifier_to_pid(conditions[:id], conditions[:pid])}/info.json"
   end
 
   def archive_org_id_for_document(document)
@@ -95,7 +95,7 @@ module Dcv::CdnHelper
 
     id = schema_image ? schema_image.split('/')[-1] : item.id
     opts = { size: 768, type: 'full', format: 'jpg' }.merge(opts)
-    get_resolved_asset_url(opts.merge(id: asset[:id]))
+    get_resolved_asset_url(opts.merge(id: asset[:id], pid: asset[:pid]))
   end
 
   def thumbnail_for_doc(document, image_options = {})
