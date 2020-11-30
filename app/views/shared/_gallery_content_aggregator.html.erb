@@ -5,11 +5,11 @@
 			<div class="col-sm-<%= 12 / [4, structured_children.length].min %>">
 				<article class="child-container">
 					<a rel="<%= can_access ? 'item-link' : 'item-nolink' %>" data-child-number="<%= ix %>" class="<%= ix == 0 ? 'selected' : '' %> <%= can_access ? 'tocontent' : '' %> post thumbnail document blacklight-photographs">
-						<img src="<%= get_resolved_asset_url(id: child[:id], size: 256, type: 'full', format: 'jpg') %>" alt="<%= child[:title] %>" />
+						<img src="<%= get_resolved_asset_url(id: child[:id], pid: child[:pid], size: 256, type: 'full', format: 'jpg') %>" alt="<%= child[:title] %>" />
 					</a>
 					<div class="caption aligncenter">
 						<div class="documentHeader">
-							<a rel="item-link" data-src="<%= get_resolved_asset_url(id: child[:id]) %>.json" data-id="<%=child[:id]%>"><i class="icon-zoom-in"></i></a>
+							<a rel="item-link" data-src="<%= get_resolved_asset_url(id: child[:id], pid: child[:pid]) %>.json" data-id="<%=child[:id]%>"><i class="icon-zoom-in"></i></a>
 							<div class="index_title">
 								<%= document['title_display_ssm'].present? && child[:title] == document['title_display_ssm'].first ? '&nbsp;'.html_safe : child[:title] %>
 							</div>
