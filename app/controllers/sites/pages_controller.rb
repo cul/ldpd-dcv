@@ -40,12 +40,12 @@ module Sites
 
 		def load_page(args = params)
 			@page ||= begin
-				load_subsite(args[:slug]).site_pages.where(slug: args[:slug]).first
+				load_subsite.site_pages.where(slug: args[:slug]).first if load_subsite(args[:slug])
 			end
 		end
 
 		def request_layout
-			if (action_name == 'show')
+			if (@subsite && action_name == 'show')
 				subsite_layout
 			else
 				'sites'
@@ -53,6 +53,10 @@ module Sites
 		end
 
 		def show
+			unless @page
+				render status: :not_found, file: "#{Rails.root}/public/404.html", layout: false
+				return
+			end
 			respond_to do |format|
 				format.json { render json: @page.to_json }
 				format.html { render action: 'page' }
@@ -99,11 +103,11 @@ module Sites
 		end
 
 		def subsite_config
-			@subsite_config ||= load_subsite.to_subsite_config
+			@subsite_config ||= load_subsite&.to_subsite_config
 		end
 
 		def subsite_layout
-			subsite_config['layout'] || 'catalog'
+			subsite_config&.fetch('layout') || 'catalog'
 		end
 
 		def subsite_styles

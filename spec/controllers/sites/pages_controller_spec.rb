@@ -101,4 +101,35 @@ describe Sites::PagesController, type: :unit do
 			end
 		end
 	end
+	describe '#show' do
+		let(:params) {
+			ActionController::Parameters.new(
+				site_slug: site_slug,
+				slug: page_slug
+			)
+		}
+		let(:site_slug) { 'siteSlug' }
+		let(:page_slug) { 'pageSlug' }
+		before do
+			controller.instance_variable_set(:@subsite, site)
+			controller.instance_variable_set(:@page, page)
+			allow(controller).to receive(:load_site).and_return(site)
+		end
+		context 'site is non-existent' do
+			let(:site) { nil }
+			let(:page) { nil }
+			it "returns a 404" do
+				expect(controller).to receive(:render).with(status: :not_found, layout: false, file: "#{Rails.root}/public/404.html")
+				controller.show
+			end
+		end
+		context 'page is non-existent' do
+			let(:site) { FactoryBot.create(:site, slug: site_slug) }
+			let(:page) { nil }
+			it "returns a 404" do
+				expect(controller).to receive(:render).with(status: :not_found, layout: false, file: "#{Rails.root}/public/404.html")
+				controller.show
+			end
+		end
+	end
 end
