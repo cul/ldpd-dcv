@@ -1,2 +1,2 @@
-<h1>Editing <%= link_to("#{@subsite.slug}/#{@page.slug}", site_page_path(site_slug: @subsite.slug, slug: @page.slug)) %></h1>
+<h1>Editing <%= link_to(@subsite.slug, edit_site_path(slug: @subsite.slug)) %> / <%= link_to(@page.slug, site_page_path(site_slug: @subsite.slug, slug: @page.slug)) %></h1>
 <div class="container"><%= render 'sites/pages/form' %></div>

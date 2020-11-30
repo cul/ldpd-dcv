@@ -121,6 +121,19 @@ module Dcv::DcvUrlHelper
     'https://library.columbia.edu/resolve/lweb0208'
   end
 
+  def site_edit_link(sep: ' | ')
+    return unless (@subsite && can?(:update, @subsite))
+    if @page && (@page.slug.to_s != 'home')
+      edit_href = edit_site_page_path(site_slug: @subsite.slug, slug: @page.slug)
+    else
+      edit_href = edit_site_path(slug: @subsite.slug)
+    end
+    edit_ele = link_to(edit_href) do
+      "<span class=\"glyphicon glyphicon-pencil\"></span> Edit".html_safe
+    end
+    "#{sep}#{edit_ele}".html_safe
+  end
+
 # solr_document routing patches to get BL6 up and running
 # TODO remove these
   def solr_document_path(solr_document)
