@@ -2,22 +2,24 @@
 <div class="row">
 	<div class="col-md-4 col-md-push-8">
 		<div class="home inner">
-			<div id="link-panel" class="facets sidenav">
-				<div class="panel-group">
-					<div class="panel panel-ui">
-						<div class="panel-heading">
-							<h3 class="panel-title"><%= link_to("BROWSE THE COLLECTION", search_action_url(search_field: (controller.blacklight_config.search_fields.inject(:all_text_teim) {|m, key_val| key_val[1].default ? key_val[0] : m }))) %></h3>
+			<%- cache [@subsite, 'home-sidenav'] do -%>
+				<div id="link-panel" class="facets sidenav">
+					<div class="panel-group">
+						<div class="panel panel-ui">
+							<div class="panel-heading">
+								<h3 class="panel-title"><%= link_to("BROWSE THE COLLECTION", search_action_url(search_field: (controller.blacklight_config.search_fields.inject(:all_text_teim) {|m, key_val| key_val[1].default ? key_val[0] : m }))) %></h3>
+							</div>
+						</div>
+						<div class="panel panel-ui">
+							<%- if (about_link = @subsite.about_link) -%>
+								<div class="panel-heading">
+									<h3 class="panel-title"><%= link_to("ABOUT THE COLLECTION", site_page_path(site_slug: @subsite.slug, slug: about_link.link)) %></h3>
+								</div>
+							<%- end -%>
 						</div>
 					</div>
-					<div class="panel panel-ui">
-						<%- if (about_link = @subsite.about_link) -%>
-							<div class="panel-heading">
-								<h3 class="panel-title"><%= link_to("ABOUT THE COLLECTION", site_page_path(site_slug: @subsite.slug, slug: about_link.link)) %></h3>
-							</div>
-						<%- end -%>
-					</div>
 				</div>
-			</div>
+			<%- end -%>
 			<%- if @subsite.show_facets -%>
 				<%- @response ||= controller.load_facet_response -%>
 				<%= render partial: 'facets', locals: {hide_refine_heading: true, no_id_attr: true} %>
@@ -25,11 +27,25 @@
 			<hr class="hidden-md hidden-lg">
 		</div> <!--/.inner-->
 	</div><!--/-->
-	<%- if @page.has_columns? -%>
-		<%- @page.text_block_columns.each_with_index do |column, index| -%>
-			<div class="col-md-4 col-md-pull-4">
+	<%- cache [@subsite, 'home-content'] do -%>
+		<%- if @page.has_columns? -%>
+			<%- @page.text_block_columns.each_with_index do |column, index| -%>
+				<div class="col-md-4 col-md-pull-4">
+					<div class="home inner">
+						<%- column.each do |text_block| -%>
+							<%- if text_block.label.present? -%>
+								<h2 class="h5 text-uppercase"><%= text_block.label %></h2>
+							<%- end -%>
+							<%= controller.render_markdown(text_block.markdown) %>
+							<hr class="visible-sm">
+						<%- end -%>
+					</div>
+				</div>
+			<%- end -%>
+		<%- else -%>
+			<div class="col-md-8 col-md-pull-4">
 				<div class="home inner">
-					<%- column.each do |text_block| -%>
+					<%- @page.site_text_blocks.sort { |a,b| a.sort_label <=> b.sort_label }.each do |text_block| -%>
 						<%- if text_block.label.present? -%>
 							<h2 class="h5 text-uppercase"><%= text_block.label %></h2>
 						<%- end -%>
@@ -39,18 +55,6 @@
 				</div>
 			</div>
 		<%- end -%>
-	<%- else -%>
-		<div class="col-md-8 col-md-pull-4">
-			<div class="home inner">
-				<%- @page.site_text_blocks.sort { |a,b| a.sort_label <=> b.sort_label }.each do |text_block| -%>
-					<%- if text_block.label.present? -%>
-						<h2 class="h5 text-uppercase"><%= text_block.label %></h2>
-					<%- end -%>
-					<%= controller.render_markdown(text_block.markdown) %>
-					<hr class="visible-sm">
-				<%- end -%>
-			</div>
-		</div>
 	<%- end -%>
 </div>
 </div>

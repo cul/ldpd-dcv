@@ -1,7 +1,8 @@
 <div class="row">
   <div id="sidebar" class="col-md-3">
     <div class="inner">
-       <div id="home-sidebar-news">
+      <%- cache [@subsite, 'home-content'] do -%>
+        <div id="home-sidebar-news">
           <h2 class="home-sidebar-heading h5"><%= @subsite.title.html_safe %></h2>
             <p>
               <a href="<%= search_action_url %>">
@@ -17,17 +18,18 @@
                 <hr class="visible-sm">
               </div>
             <%- end -%>
-          <div class="clearfix"></div>
-         </div>
-      </div>
-      <div id="home-sidebar-about">
-          <%- if (about_link = @subsite.about_link) -%>
-            <p><%= link_to("About the collection &raquo;".html_safe, site_page_path(site_slug: @subsite.slug, slug: about_link.link)) %></p>
-          <%- end -%>
-          <p>
-            <%= link_to("Browse the collection &raquo;".html_safe, search_action_url(search_field: (controller.blacklight_config.search_fields.inject(:all_text_teim) {|m, key_val| key_val[1].default ? key_val[0] : m }))) %>
-          </p>
-      </div>
+            <div class="clearfix"></div>
+          </div>
+        </div>
+        <div id="home-sidebar-about">
+            <%- if (about_link = @subsite.about_link) -%>
+              <p><%= link_to("About the collection &raquo;".html_safe, site_page_path(site_slug: @subsite.slug, slug: about_link.link)) %></p>
+            <%- end -%>
+            <p>
+              <%= link_to("Browse the collection &raquo;".html_safe, search_action_url(search_field: (controller.blacklight_config.search_fields.inject(:all_text_teim) {|m, key_val| key_val[1].default ? key_val[0] : m }))) %>
+            </p>
+        </div>
+      <%- end -%>
       <%- if @subsite.show_facets -%>
         <%- @response ||= controller.load_facet_response -%>
         <%= render partial: 'facets', locals: {hide_refine_heading: true, no_id_attr: true} %>

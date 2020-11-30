@@ -108,14 +108,14 @@ class SitesController < ApplicationController
     @subsite ||= begin
       site_slug = params[:site_slug] || params[:slug]
       site_slug = "restricted/#{site_slug}" if restricted?
-      s = Site.includes(:nav_links).find_by(slug: site_slug)
+      s = Site.find_by(slug: site_slug)
       s.configure_blacklight! if s
       s
     end
   end
 
   def load_page
-    @page ||= load_subsite.site_pages.includes(:site_text_blocks).find_by(slug: 'home')
+    @page ||= load_subsite.site_pages.find_by(slug: 'home')
   end
 
   def request_layout

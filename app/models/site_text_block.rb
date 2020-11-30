@@ -1,6 +1,6 @@
 require 'uri'
 class SiteTextBlock < ActiveRecord::Base
-	belongs_to :site_page
+	belongs_to :site_page, touch: true
 
 	def label
 		self.sort_label =~ /^\d+\:\s*(.*)/ ? $1 : self.sort_label

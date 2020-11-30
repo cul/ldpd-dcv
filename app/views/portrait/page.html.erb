@@ -1,3 +1,4 @@
+<%- cache [@subsite, @page] do -%>
 <div id="content" class="row">
 
 	<%- if @page.has_columns? -%>
@@ -30,3 +31,4 @@
 		</div>
 	<%- end -%>
 </div>
+<%- end -%>
