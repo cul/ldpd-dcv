@@ -302,6 +302,9 @@ input {
 	}
 	.search-btn {
 		border-color: $color_user_input;
+		&:focus {
+			outline: 0;
+		}
 	}
 	.reset-btn {
 		border-color: $color_user_input;
