@@ -1,5 +1,5 @@
 <%
-poster_url = get_resolved_asset_url(id: child[:id], size: 768, type: 'full', format: 'jpg')
+poster_url = get_resolved_asset_url(id: child[:id], pid: child[:pid], size: 768, type: 'full', format: 'jpg')
 dsa = child.fetch(:datastreams_ssim, [])
 has_chapters = dsa.include?('chapters')
 has_captions = dsa.include?('captions')
