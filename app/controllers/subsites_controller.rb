@@ -77,23 +77,16 @@ class SubsitesController < ApplicationController
     return self.class.subsite_config
   end
 
-  def load_subsite(*pages)
-    @subsite ||= begin
-      site_slug = controller_path
-      if pages.blank?
-        Site.includes(:nav_links, :site_pages).find_by(slug: site_slug)
-      else
-        Site.includes(:nav_links, site_pages: [:site_text_blocks]).find_by(slug: site_slug, site_pages: { slug: pages })
-      end
-    end
+  def load_subsite
+    @subsite ||= Site.find_by(slug: controller_path)
   end
 
   def load_page
     if params[:slug]
-      @page = load_subsite(params[:slug]).site_pages.where(slug: params[:slug]).first
+      @page = load_subsite.site_pages.find_by(slug: params[:slug])
     else
       unless has_search_parameters?
-        @page ||= load_subsite('home').site_pages.includes(:site_text_blocks).find_by(slug: 'home')
+        @page ||= load_subsite.site_pages.find_by(slug: 'home')
       end
     end
   end

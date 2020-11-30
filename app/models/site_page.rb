@@ -1,6 +1,6 @@
 class SitePage < ActiveRecord::Base
 	has_many :site_text_blocks, dependent: :destroy
-	belongs_to :site
+	belongs_to :site, touch: true
 	validates :columns, inclusion: { in: (1..2) }
 	validates_uniqueness_of :slug, scope: :site_id
 	accepts_nested_attributes_for :site_text_blocks

@@ -1,5 +1,5 @@
 class NavLink < ActiveRecord::Base
-	belongs_to :site
+	belongs_to :site, touch: true
 	validates_presence_of [:sort_label, :link]
 
 	def label

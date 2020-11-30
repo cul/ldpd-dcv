@@ -31,9 +31,9 @@ module Sites
 				site_slug = params[:site_slug]
 				site_slug = "restricted/#{site_slug}" if restricted?
 				if pages.blank?
-					Site.includes(:nav_links, :site_pages).find_by(slug: site_slug)
+					Site.find_by(slug: site_slug)
 				else
-					Site.includes(:nav_links, site_pages: [:site_text_blocks]).find_by(slug: site_slug, site_pages: { slug: pages })
+					Site.includes(:site_pages).find_by(slug: site_slug, site_pages: { slug: pages })
 				end
 			end
 		end
