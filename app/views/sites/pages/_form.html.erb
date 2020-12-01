@@ -34,7 +34,7 @@
 						<button type="button" class="btn btn-primary collapse-toggle collapsed" data-toggle="collapse" data-target="#site_page_text_block_<%= site_text_block_form.index %>_markdown" aria-expanded="false" aria-controls="site_page_text_blocks_<%= site_text_block_form.index %>" data-parent="site_text_block_<%= site_text_block_form.index %>">Content</button>
 					</div>
 					<div class="pull-right">
-						<a class="btn btn-danger remove" onclick="removeTextBlock(this); return false;"><span class="glyphicon glyphicon-remove"></span> Remove Block</a>
+						<a class="btn btn-danger remove" onclick="removeTextBlock(this); return false;"><span class="glyphicon glyphicon-remove"></span> Remove</a>
 					</div>
 				</div>
 				<div class="panel-body collapse site_navigation_links" id="site_page_text_block_<%= site_text_block_form.index %>_markdown">
@@ -42,7 +42,10 @@
 				</div>
 			</div>
 		<% end %>
-		<input type="button" onclick="addTextBlock(this);" value="Add Text Block" class="btn btn-info" id="site-page-add-block"/>
+		<button type="button" onclick="addTextBlock(this);" class="btn btn-info" id="site-page-add-block">
+			<span class="glyphicon glyphicon-plus"></span> Add Text Block
+
+		</button>
 	</div>
 </div>
 
@@ -61,7 +64,7 @@
 				<button type="button" class="btn btn-primary collapse-toggle collapsed" data-toggle="collapse" data-target="#site_page_text_block_9blockIndex9_markdown" aria-expanded="false" aria-controls="site_page_text_blocks_9blockIndex9" data-parent="site_text_block_9blockIndex9">Content</button>
 			</div>
 			<div class="pull-right">
-				<a class="btn btn-danger remove" onclick="removeTextBlock(this); return false;"><span class="glyphicon glyphicon-remove"></span> Remove Block</a>
+				<a class="btn btn-danger remove" onclick="removeTextBlock(this); return false;"><span class="glyphicon glyphicon-remove"></span> Remove</a>
 			</div>
 		</div>
 		<div class="panel-body collapse site_navigation_links" id="site_page_text_block_9blockIndex9_markdown">

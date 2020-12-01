@@ -12,11 +12,16 @@ function addSiteImageUriFieldSet(addButtonFieldset) {
 	newFieldset.appendChild(newInput);
 	// <input type="button" class="btn btn-danger" value="Remove" onclick="this.parentElement.remove();"/>
 	if (newIndex > 0) {
-		const newButton = document.createElement("input");
+		const newButton = document.createElement("button");
 		newButton['type'] = 'button';
 		newButton['className'] = 'btn btn-danger';
-		newButton['value'] = 'Remove';
 		newButton['onclick'] = function() { this.parentElement.remove() };
+		const buttonSpan = document.createElement("span");
+		buttonSpan['className'] = 'glyphicon glyphicon-remove';
+		newButton.appendChild(buttonSpan);
+		newButton.appendChild(document.createTextNode(" Remove"));
+
+		newFieldset.appendChild(document.createTextNode(" "));
 		newFieldset.appendChild(newButton);
 	}
 	addButtonFieldset.parentNode.insertBefore(newFieldset, addButtonFieldset);

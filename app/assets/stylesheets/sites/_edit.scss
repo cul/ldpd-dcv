@@ -1,5 +1,10 @@
 .edit_site {
 	color: black;
+	.site_pages {
+		tr.row td {
+			padding: 2px 0;
+		}
+	}
 }
 .panel {
 	background: inherit;

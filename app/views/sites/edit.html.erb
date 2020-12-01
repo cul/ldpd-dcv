@@ -1,4 +1,4 @@
-<h1>Editing <%= link_to(@subsite.slug, site_path(slug: @subsite.slug)) %></h1>
+<h1>Editing <%= @subsite.slug %> (<%= link_to("view", site_path(slug: @subsite.slug)) %>)</h1>
 <div class="container"><%= form_for @subsite, url: { action: "update",  }, html: { } do |site_form| %>
   <div class="panel panel-primary">
     <div class="panel-heading"><h2 class="panel-title">Site Properties</h2></div>
@@ -42,17 +42,21 @@
     <div class="panel-heading"><h2 class="panel-title">Site Homepage Images</h2></div>
     <div class="panel-body site_homepage_images">
       <div class="form-group">
-        <label for="site_image_uris">Site Image PID URIs</label>
+        <label for="site_image_uris">Site Image PIDs</label>
         <%- site_form.object.image_uris.each_with_index do |image_uri, ix| %>
           <fieldset name="site_image_uris" class="paneled">
               <%= site_form.text_field :image_uris, multiple: true, value: image_uri, id: "site_image_uris[#{ix}]" %>
               <%- if ix > 0 %>
-                <input type="button" class="btn btn-danger" value="Remove" onclick="this.parentElement.remove();"/>
+                <button class="btn btn-danger" type="button" onclick="this.parentElement.remove();">
+                  <span class="glyphicon glyphicon-remove"></span> Remove
+                </button>
               <%- end %>
           </fieldset>
         <%- end %>
         <fieldset id="add_site_image_uri" style="border-width: 0;">
-            <input type="button" class="btn btn-info" value="Add a URI" onclick="addSiteImageUriFieldSet(this.parentElement);" />
+          <button class="btn btn-info" type="button" onclick="addSiteImageUriFieldSet(this.parentElement);">
+            <span class="glyphicon glyphicon-plus"></span> Add a PID
+          </button>
         </fieldset>
       </div>
     </div>
@@ -70,30 +74,36 @@
   <div class="panel panel-primary">
     <div class="panel-heading"><h2 class="panel-title">Site Pages</h2></div>
     <div class="panel-body site_pages">
+      <table class="container">
+        <tbody>
       <%- @subsite.site_pages.each do |page| -%>
-        <div class="row">
-          <div class="col-md-3"><%= page.slug %></div>
-          <div class="col-md-3"><%= page.title %></div>
-          <div class="col-md-3"><%= link_to(edit_site_page_path(site_slug: @subsite.slug, slug: page.slug), class: ['btn', 'btn-primary']) do %>
+        <tr class="row">
+          <td class="col-md-3"><%= page.slug %></td>
+          <td class="col-md-5"><%= page.title %></td>
+          <td class="col-md-2"><%= link_to(edit_site_page_path(site_slug: @subsite.slug, slug: page.slug), class: ['btn', 'btn-primary']) do %>
                 <span class="glyphicon glyphicon-pencil"></span> Edit
             <% end %>
-          </div>
-          <div class="col-md-3">
+          </td>
+          <td class="col-md-2">
             <%- unless page.slug == 'home' %>
               <%= link_to(site_page_path(site_slug: @subsite.slug, slug: page.slug), method: :delete, data: {confirm: "Are you sure you want to delete page and content at #{page.slug}? It cannot be undone."}, class: ['btn btn-danger']) do  %>
-                <span class="glyphicon glyphicon-remove"></span> Delete Page
+                <span class="glyphicon glyphicon-remove"></span> Delete
                 <% end %>
             <%- end %>
-          </div>
-        </div>
+          </td>
+        </tr>
       <%- end -%>
-      <div class="row">
-        <div class="col-md-3">
-          <%= link_to(new_site_page_path(site_slug: @subsite.slug), class: ['btn btn-info']) do %>
-            <span class="glyphicon glyphicon-plus"></span> Add Page
-          <% end %>
-        </div>
-      </div>
+        </tbody>
+        <tfoot class="row">
+          <tr class="row">
+            <td>
+            <%= link_to(new_site_page_path(site_slug: @subsite.slug), class: ['btn btn-info']) do %>
+              <span class="glyphicon glyphicon-plus"></span> Add Page
+            <% end %>
+          </td>
+          </tr>
+        </tfoot>
+      </table>
     </div>
   </div>
   <div class="panel panel-primary">
@@ -106,10 +116,10 @@
               <span class="glyphicon glyphicon-move site_navigation_menu_handle"></span>
               <label for="site[nav_menus_attributes][<%= menu_form.index %>][label]">Group Label <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-nav-menu-label"></label>
               <%= menu_form.text_field :label, class: ['form-control'] %>
-              <button type="button" class="btn btn-primary collapse-toggle collapsed" data-toggle="collapse" data-target="#site_navigation_links_<%= menu_form.index %>" aria-expanded="false" aria-controls="site_navigation_links_<%= menu_form.index %>" data-parent="site_navigation_menu_<%= menu_form.index %>">Links</a>
+              <button type="button" class="btn btn-primary collapse-toggle collapsed" data-toggle="collapse" data-target="#site_navigation_links_<%= menu_form.index %>" aria-expanded="false" aria-controls="site_navigation_links_<%= menu_form.index %>" data-parent="site_navigation_menu_<%= menu_form.index %>">Links</button>
             </div>
             <div class="pull-right">
-              <a class="btn btn-danger remove" onclick="removeNavMenu(this); return false;"><span class="glyphicon glyphicon-remove"></span> Remove Group</a>
+              <button type="button" class="btn btn-danger remove" onclick="removeNavMenu(this);"><span class="glyphicon glyphicon-remove"></span> Remove</button>
             </div>
           </div>
           <div class="panel-body collapse site_navigation_links" id="site_navigation_links_<%= menu_form.index %>">
@@ -122,7 +132,7 @@
                       <%= link_form.text_field :label, class: ['form-control'] %>
                     </div>
                     <div class="col-md-2">
-                      <a class="btn btn-danger remove" onclick="removeNavLink(this); return false;"  id="menu-<%= menu_form.index %>-remove-link-<%= link_form.index %>"><span class="glyphicon glyphicon-remove"></span> Remove Link</a>
+                      <button type="button" class="btn btn-danger remove" onclick="removeNavLink(this);"  id="menu-<%= menu_form.index %>-remove-link-<%= link_form.index %>"><span class="glyphicon glyphicon-remove"></span> Remove</button>
                     </div>
                   </div>
                 </div>
@@ -147,11 +157,15 @@
                 </div>
               </div>
             <%- end %>
-            <input type="button" onclick="addNavLink(this);" value="Add Link" class="btn btn-info" id="menu-<%= menu_form.index %>-add-link"/>
+            <button type="button" onclick="addNavLink(this);" class="btn btn-info" id="menu-<%= menu_form.index %>-add-link">
+              <span class="glyphicon glyphicon-plus"></span> Add Link
+            </button>
           </div>
         </div>
       <%- end %>
-      <input type="button" onclick="addNavMenu(this);" value="Add Navigation Menu" class="btn btn-info" />
+      <button type="button" onclick="addNavMenu(this);" value="Add Navigation Menu" class="btn btn-info" >
+        <span class="glyphicon glyphicon-plus"></span> Add Navigation Group
+      </button>
     </div>
   </div>
   <div class="panel">
@@ -172,10 +186,10 @@
           <span class="glyphicon glyphicon-move site_navigation_menu_handle"></span>
           <label for="site[nav_menus_attributes][9menuIndex9][label]">Group Label <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-nav-menu-label"></label>
           <input class="form-control" type="text" value="" name="site[nav_menus_attributes][9menuIndex9][label]" id="site_nav_menus_attributes_9menuIndex9_label" />
-          <button type="button" class="btn btn-primary collapse-toggle collapsed" data-toggle="collapse" data-target="#site_navigation_links_9menuIndex9" aria-expanded="false" aria-controls="site_navigation_links_9menuIndex9" data-parent="site_navigation_menu_9menuIndex9">Links</a>
+          <button type="button" class="btn btn-primary collapse-toggle collapsed" data-toggle="collapse" data-target="#site_navigation_links_9menuIndex9" aria-expanded="false" aria-controls="site_navigation_links_9menuIndex9" data-parent="site_navigation_menu_9menuIndex9">Links</button>
         </div>
         <div class="pull-right">
-          <a class="btn btn-danger remove" onclick="removeNavMenu(this); return false;"><span class="glyphicon glyphicon-remove"></span> Remove Group</a>
+          <button type="button" class="btn btn-danger remove" onclick="removeNavMenu(this);"><span class="glyphicon glyphicon-remove"></span> Remove</button>
         </div>
       </div>
       <div class="panel-body collapse site_navigation_links" id="site_navigation_links_9menuIndex9">
@@ -190,7 +204,7 @@
             <input class="form-control" type="text" value="" name="site[nav_menus_attributes][9menuIndex9][links_attributes][9linkIndex9][label]" id="site_nav_menus_attributes_9menuIndex9_links_attributes_9linkIndex9_label">
           </div>
           <div class="col-md-2">
-            <a class="btn btn-danger remove" onclick="removeNavLink(this); return false;" id="menu-9menuIndex9-remove-link-9linkIndex9"><span class="glyphicon glyphicon-remove"></span> Remove Link</a>
+            <button type="button" class="btn btn-danger remove" onclick="removeNavLink(this);" id="menu-9menuIndex9-remove-link-9linkIndex9"><span class="glyphicon glyphicon-remove"></span> Remove</button>
           </div>
         </div>
       </div>
