@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" class="no-js">
-  <head>
+	<head>
 		<%= render partial: 'shared/head_includes' %>
 		<%- Array(subsite_styles).each do |subsite_style| -%>
 			<%= stylesheet_link_tag subsite_style %>
@@ -9,29 +9,25 @@
 		<script>
 			window.CULh_feedback_url = 'https://feedback.cul.columbia.edu/feedback_submission/dlc';
 		</script>
-  </head>
-  <body class="<%= render_body_class %> dcv <%= render_subsite_body_classes %> <%= params[:action] %>" style="padding-top: 50px;">
+	</head>
+	<body class="<%= render_body_class %> dcv <%= render_subsite_body_classes %> <%= params[:action] %>" style="padding-top: 50px;">
 
-  <%= render :partial => 'shared/topnavbar' %>
+	<%= render :partial => 'shared/topnavbar' %>
 
-  <div id="outer-wrapper" class="container">
-    <div class="row">
-	  <%= render partial: 'header_navbar' %>
+	<div id="outer-wrapper" class="container">
+		<div class="row">
+			<%= render partial: 'header_navbar' %>
 
-	  <%= render partial: 'shared/ajax_modal' %>
+			<%= render partial: 'shared/ajax_modal' %>
 
-	  <div id="main-container" class="container pt-2">
-			<%= render :partial=>'/flash_msg', layout: 'shared/flash_messages' %>
-			<%= render partial: 'shared/alert' %>
-			<%= yield %>
-	  </div>
+			<div id="main-container" class="container pt-2">
+				<%= render :partial=>'/flash_msg', layout: 'shared/flash_messages' %>
+				<%= render partial: 'shared/alert' %>
+				<%= yield %>
+			</div>
+		</div><!--/.row-->
+		<%= render :partial => 'footer' %>
+	</div><!--/#outer-wrapper-->
 
-	  <%= render :partial => 'footer' %>
-
-    </div><!--/.row-->
-  </div><!--/#outer-wrapper-->
-
-	<%= render :partial => 'shared/footer_includes' %>
-
-  </body>
+	</body>
 </html>
