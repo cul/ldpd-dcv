@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" class="no-js">
-  <head>
+	<head>
 		<%= render partial: 'shared/head_includes' %>
 		<%- Array(subsite_styles).each do |subsite_style| -%>
 			<%= stylesheet_link_tag subsite_style %>
 		<%- end -%>
-		<%= javascript_include_tag subsite_layout %>
 		<style type="text/css">
 			#hometn .featured-outer {
 				<%- if signature_banner_image_path.include? @subsite.slug -%>
@@ -17,35 +16,29 @@
 				<%- end -%>
 			}
 		</style>
+		<%= javascript_include_tag subsite_layout %>
 		<script>
-			window.CULh_feedback_url = 'https://feedback.cul.columbia.edu/feedback_submission/<%= @subsite.slug %>';
+			window.CULh_feedback_url = 'https://feedback.cul.columbia.edu/feedback_submission/dlc';
 		</script>
-  </head>
-  <body class="<%= render_body_class %> <%= render_subsite_body_classes %> <%= params[:action] %>" style="padding-top: 50px;">
+	</head>
+	<body class="<%= render_body_class %> dcv <%= render_subsite_body_classes %> <%= params[:action] %>" style="padding-top: 50px;">
 
-  <%= render :partial => 'shared/topnavbar' %>
+	<%= render :partial => 'shared/topnavbar' %>
 
-  <div id="outer-wrapper" class="container">
-    <div class="row">
+	<div id="outer-wrapper" class="container">
+		<div class="row">
+			<%= render partial: 'header_navbar' %>
 
-	  <%= render 'header_navbar' %>
+			<%= render partial: 'shared/ajax_modal' %>
 
-	  <%= render partial: 'shared/ajax_modal' %>
+			<div id="main-container" class="container">
+				<%= render :partial=>'/flash_msg', layout: 'shared/flash_messages' %>
+				<%= render partial: 'shared/alert' %>
+				<%= yield %>
+			</div>
+		</div><!--/.row-->
+		<%= render :partial => 'footer' %>
+	</div><!--/#outer-wrapper-->
 
-	  <div id="main-container" class="col-md-12">
-		<%= render :partial=>'/flash_msg', layout: 'shared/flash_messages' %>
-		<%= render partial: 'shared/alert' %>
-
-		<%= yield %>
-
-	  </div>
-
-	  <%= render :partial => 'footer' %>
-
-    </div><!--/.row-->
-  </div><!--/#outer-wrapper-->
-
-	<%= render :partial => 'shared/footer_includes' %>
-
-  </body>
+	</body>
 </html>
