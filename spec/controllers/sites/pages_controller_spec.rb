@@ -65,6 +65,31 @@ describe Sites::PagesController, type: :unit do
 			expect(controller).to receive(:redirect_to).with("/#{site.slug}/#{page.slug}/edit")
 			controller.update
 		end
+		context 'home page' do
+			let(:page) { FactoryBot.create(:site_page, site_id: site, title: page_title, slug: 'home') }
+			let(:flash) { {} }
+			let(:params) {
+				ActionController::Parameters.new(
+					site_slug: site.slug,
+					slug: page.slug,
+					site_page: {
+						slug: 'nothome',
+						use_multiple_columns: 'true'
+					}
+				)
+			}
+			before do
+				allow(controller).to receive(:flash).and_return(flash)
+			end
+			it "rejects submitted changes to slug" do
+				expect(controller).to receive(:redirect_to).with("/#{site.slug}/#{page.slug}/edit")
+				controller.update
+				expect(page.changed?).to be
+				page.reload
+				expect(flash[:alert]).to include('home')
+				expect(page.slug).to eql('home')
+			end
+		end
 	end
 	describe '#destroy' do
 		let(:page_title) { 'Example Title' }

@@ -4,7 +4,7 @@
 	<div class="panel-body page_properties">
 		<div class="form-group">
 			<label for="page_slug">Slug <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-slug"></span></label>
-			<%= page_form.text_field :slug, class: ['form-control'] %>
+			<%= page_form.text_field :slug, class: ['form-control'], disabled: ('home' == @page.slug) %>
 			<label for="page_title">Title <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-page-title"></span></label>
 			<%= page_form.text_field :title, class: ['form-control'] %>
 		</div>

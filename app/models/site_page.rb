@@ -3,6 +3,7 @@ class SitePage < ActiveRecord::Base
 	belongs_to :site, touch: true
 	validates :columns, inclusion: { in: (1..2) }
 	validates_uniqueness_of :slug, scope: :site_id
+	validate :home_slug_does_not_change
 	accepts_nested_attributes_for :site_text_blocks
 
 	def initialize(atts = {})
@@ -49,6 +50,12 @@ class SitePage < ActiveRecord::Base
 			unrolled_atts.each do |text_block_attributes|
 				self.site_text_blocks.create!(text_block_attributes)
 			end
+		end
+	end
+
+	def home_slug_does_not_change
+		if (slug_was == 'home' && slug_changed?)
+			errors.add(:slug, "cannot modify slug of home page")
 		end
 	end
 end

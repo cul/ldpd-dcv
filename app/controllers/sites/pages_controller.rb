@@ -73,7 +73,7 @@ module Sites
 				redirect_to edit_site_page_path(site_slug: @subsite.slug, slug: @page.slug)
 			rescue ActiveRecord::RecordInvalid => ex
 				flash[:alert] = ex.message
-				redirect_to new_site_page_path(site_slug: @subsite.slug)
+				redirect_to edit_site_page_path(site_slug: @subsite.slug, slug: params[:slug])
 			end
 		end
 
