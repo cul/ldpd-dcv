@@ -3,9 +3,9 @@
 	<div class="panel-heading"><h2 class="panel-title">Page Properties</h2></div>
 	<div class="panel-body page_properties">
 		<div class="form-group">
-			<label for="page_slug">Slug <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-slug"></label>
+			<label for="page_slug">Slug <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-slug"></span></label>
 			<%= page_form.text_field :slug, class: ['form-control'] %>
-			<label for="page_title">Title <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-page-title"></label>
+			<label for="page_title">Title <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-page-title"></span></label>
 			<%= page_form.text_field :title, class: ['form-control'] %>
 		</div>
 		<label for="site[show_facets]">Text Columns <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-page-columns"></span></label>
@@ -29,7 +29,7 @@
 				<div class="panel-heading form-inline">
 					<div class="form-group">
 						<span class="glyphicon glyphicon-move site_text_block_handle"></span>
-						<label for="site_page[site_text_blocks_attributes][<%= site_text_block_form.index %>][sort_label]">Block Label <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-block-label"></label>
+						<label for="site_page[site_text_blocks_attributes][<%= site_text_block_form.index %>][sort_label]">Block Label <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-block-label"></span></label>
 						<%= site_text_block_form.text_field :label, class: ['form-control'] %>
 						<button type="button" class="btn btn-primary collapse-toggle collapsed" data-toggle="collapse" data-target="#site_page_text_block_<%= site_text_block_form.index %>_markdown" aria-expanded="false" aria-controls="site_page_text_blocks_<%= site_text_block_form.index %>" data-parent="site_text_block_<%= site_text_block_form.index %>">Content</button>
 					</div>
@@ -59,7 +59,7 @@
 		<div class="panel-heading form-inline">
 			<div class="form-group">
 				<span class="glyphicon glyphicon-move site_text_block_handle"></span>
-				<label for="site_page[site_text_blocks_attributes][9blockIndex9][sort_label]">Block Label <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-block-label"></label>
+				<label for="site_page[site_text_blocks_attributes][9blockIndex9][sort_label]">Block Label <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-block-label"></span></label>
 				<input class="form-control" type="text" value="" name="site_page[site_text_blocks_attributes][9blockIndex9][label]" id="site_page_site_text_blocks_attributes_9blockIndex9_label" />
 				<button type="button" class="btn btn-primary collapse-toggle collapsed" data-toggle="collapse" data-target="#site_page_text_block_9blockIndex9_markdown" aria-expanded="false" aria-controls="site_page_text_blocks_9blockIndex9" data-parent="site_text_block_9blockIndex9">Content</button>
 			</div>
