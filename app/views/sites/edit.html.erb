@@ -12,19 +12,19 @@
         <%= site_form.text_field :alternative_title, class: ['form-control'], placeholder: (t("cul.archives.physical_location.#{@subsite.repository_id}") if @subsite.repository_id) %>
       </div>
       <div class="form-group">
-        <label for="site_palette">Site Palette</label>
+        <label for="site_palette">Site Palette <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-palette"></span></label>
         <%= site_form.select(:palette, options_for_select([['DLC Default', 'default'], ['Dark', 'monochromeDark'], ['Light', 'monochromeLight'], ['Blue', 'blue']], @subsite.palette), {class: ['form-control']}) %>
       </div>
       <div class="form-group">
-        <label for="site_layout">Site Layout</label>
+        <label for="site_layout">Site Layout <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-layout"></span></label>
         <%= site_form.select(:layout, options_for_select([['DLC Default', 'default'], ['Portrait', 'portrait'], ['Gallery', 'gallery'], ['Signature', 'signature']], @subsite.layout), {class: ['form-control']}) %>
       </div>
       <div class="form-group">
-        <label for="site_search_type">Search Type</label>
+        <label for="site_search_type">Search Type <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-search-type"></span></label>
         <%= site_form.select(:search_type, options_for_select(Site::VALID_SEARCH_TYPES.map {|v| [v.titlecase, v]}, @subsite.search_type), {class: ['form-control']}) %>
       </div>
       <div class="form-group">
-        <label for="site[show_facets]">Show Home Page Facets</label>
+        <label for="site[show_facets]">Show Home Page Facets <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-homepage-facets"></span></label>
         <div class="radio">
           <label>
             <%= site_form.radio_button :show_facets, true %>Show facet panel on home page
@@ -42,7 +42,7 @@
     <div class="panel-heading"><h2 class="panel-title">Site Homepage Images</h2></div>
     <div class="panel-body site_homepage_images">
       <div class="form-group">
-        <label for="site_image_uris">Site Image PIDs</label>
+        <label for="site_image_uris">Site Image PIDs <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-image-pids"></span></label>
         <%- site_form.object.image_uris.each_with_index do |image_uri, ix| %>
           <fieldset name="site_image_uris" class="paneled">
               <%= site_form.text_field :image_uris, multiple: true, value: image_uri, id: "site_image_uris[#{ix}]" %>
@@ -178,6 +178,11 @@
   <span id="tooltip-nav-menu-label" title="Link Group Label">The label for this group of links, which will be presented as a drop-down menu if there are multiple links. If the group has only one link, the group label will not be displayed and the link will be presented directly in the site navigation bar.</span>
   <span id="tooltip-nav-link-label" title="Link Label">The label used for a link in a drop-down menu or, if it is the only link in a group, the site navigation bar.</span>
   <span id="tooltip-nav-link" title="Link To">The URL associated with this link. Full URLs will indicate that they are links to external resources. If a page slug is given and the link is marked as internal, a link to the named page will be built.</span>
+  <span id="tooltip-layout" title="Site Layout">The overall layout of markup for the site, governing the homepage and any configured site pages. "DLC default" defers to the design team's default configurations. See the <a href="https://library.columbia.edu/resolve/dlc-editor-docs" target="_blank">site editor documentation</a> for details.</span>
+  <span id="tooltip-palette" title="Site Palette">The color scheme for the site, governing the homepage and any configured site pages. "DLC default" defers to the design team's default configurations. See the <a href="https://library.columbia.edu/resolve/dlc-editor-docs" target="_blank">site editor documentation</a> for details.</span>
+  <span id="tooltip-search-type" title="Search Type">The search type for the site indicates how search results should be presented. "Catalog" indicates that search results should be presented in the context of filters on the general DLC catalog. "Local" indicates that search results should be presented as an isolated corpus, with the configured site layout and palettes. "Custom" indicates that a developer-implemented custom site provides this site's search, and should generally not be selected. See the <a href="https://library.columbia.edu/resolve/dlc-editor-docs" target="_blank">site editor documentation</a> for details.</span>
+  <span id="tooltip-homepage-facets" title="Show Homepage Facets">Configures the display of a facet panel on the site homepage, if supported by the configured layout. Facets are determined by the general DLC Catalog facets, but limited to facets for which the site's content has two or more values. See the <a href="https://library.columbia.edu/resolve/dlc-editor-docs" target="_blank">site editor documentation</a> for details.</span>
+  <span id="tooltip-image-pids" title="Site Image PIDs">Configures the repository PIDs of images for the site homepage, where supported by the configured layout. See the <a href="https://library.columbia.edu/resolve/dlc-editor-docs" target="_blank">site editor documentation</a> for details.</span>
 </div>
 <div class="hide nav-templates">
     <div class="panel panel-info site_navigation_menu" id="site_navigation_menu_9menuIndex9">

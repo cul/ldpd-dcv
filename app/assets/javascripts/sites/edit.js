@@ -254,12 +254,13 @@ function addTooltips(selection) {
 	selection.find("span[data-tooltip]").each(function(){
 		var tooltip = $('#' + $(this).attr('data-tooltip'));
 		var options = {
-			content: tooltip.text(),
+			content: tooltip.html(),
 			title: tooltip.attr('title'),
 			container: 'body',
 			viewport: 'body',
 			placement: 'top',
-			trigger: 'click focus'
+			trigger: 'click focus',
+			html: true
 		};
 		$(this).popover(options);
 	});
