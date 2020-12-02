@@ -258,31 +258,31 @@ function addTooltips(selection) {
 			title: tooltip.attr('title'),
 			container: 'body',
 			viewport: 'body',
-			placement: 'top'
+			placement: 'top',
+			trigger: 'click focus'
 		};
 		$(this).popover(options);
 	});
 }
-/***********
- * ON LOAD *
- ***********/
-$(function() {
-	$(window).on('load', function() {
-		// make nav groups container sortable
-		$(".site_navigation").sortable({
-			'items': '.site_navigation_menu',
-			'containment': 'parent',
-			'axis': 'y',
-			'handle': '.site_navigation_menu_handle',
-			'cursor': 'move',
-			'opacity': 1.0,
-			'update': navMenuPositionUpdated
-		});
-		// make each nav group sortable
-		sortableLinks($(".site_navigation_links"));
-		// make each text block sortable
-		sortableTextBlocks($(".site_text_blocks"));
-		addMarkdownEditors($(".site_text_blocks"));
-		addTooltips($("form"));
+/************
+ * ON READY *
+ ************/
+$(document).ready(function() {
+	// make nav groups container sortable
+	$(".site_navigation").sortable({
+		'items': '.site_navigation_menu',
+		'containment': 'parent',
+		'axis': 'y',
+		'handle': '.site_navigation_menu_handle',
+		'cursor': 'move',
+		'opacity': 1.0,
+		'update': navMenuPositionUpdated
 	});
+	// make each nav group sortable
+	sortableLinks($(".site_navigation_links"));
+	// make each text block sortable
+	sortableTextBlocks($(".site_text_blocks"));
+	addMarkdownEditors($(".site_text_blocks"));
+	addTooltips($("form"));
 });
+
