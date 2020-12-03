@@ -19,6 +19,7 @@ module Dcv::Sites
 		DEFAULT_SEARCH_TYPE = 'catalog' # delegate search and display to general catalog
 		DEFAULT_LAYOUT = 'default' # use sitewide default at designers' discretion
 		DEFAULT_PALETTE = 'default' # use sitewide default at designers' discretion
+		VALID_LAYOUTS = [DEFAULT_LAYOUT].concat(PORTABLE_LAYOUTS).freeze 
 	end
 	autoload :Export, 'dcv/sites/export'
 	autoload :Import, 'dcv/sites/import'

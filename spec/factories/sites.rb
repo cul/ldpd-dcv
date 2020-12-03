@@ -6,7 +6,7 @@ FactoryBot.define do
     title { 'DLC Site' }
     persistent_url   { 'https://example.com/catalog/persistent_url' }
     restricted { false }
-    layout { 'catalog' }
+    layout { 'default' }
     palette { 'monochromeDark'}
     search_type { 'catalog' }
     image_uris { ['info:fedora/test-image:1'] }
