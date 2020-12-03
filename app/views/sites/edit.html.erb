@@ -41,23 +41,48 @@
   <div class="panel panel-primary">
     <div class="panel-heading"><h2 class="panel-title">Site Homepage Images</h2></div>
     <div class="panel-body site_homepage_images">
-      <div class="form-group">
-        <label for="site_image_uris">Site Image PIDs <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-image-pids"></span></label>
-        <%- site_form.object.image_uris.each_with_index do |image_uri, ix| %>
-          <fieldset name="site_image_uris" class="paneled">
-              <%= site_form.text_field :image_uris, multiple: true, value: image_uri, id: "site_image_uris[#{ix}]" %>
-              <%- if ix > 0 %>
-                <button class="btn btn-danger" type="button" onclick="this.parentElement.remove();">
-                  <span class="glyphicon glyphicon-remove"></span> Remove
-                </button>
-              <%- end %>
+      <div class="form-group panel" id="portrait_images">
+        <div class="panel-heading form-inline">
+          <div class="form-group">
+            <label for="site_image_uris">Portrait Layout Images <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-images-portrait"></span></label>
+            <button type="button" class="btn btn-primary collapse-toggle<%= ' collapsed' unless @subsite.layout == Site::LAYOUT_PORTRAIT %>" data-toggle="collapse" data-target="#portrait_image_pids" aria-expanded="false" aria-controls="portrait_image_pids" data-parent="site_homepage_images">Image PIDs</button>
+          </div>
+        </div>
+        <div class="panel-body collapse<%= ' in' if @subsite.layout == Site::LAYOUT_PORTRAIT %>" id="portrait_image_pids">
+          <%- site_form.object.image_uris.each_with_index do |image_uri, ix| %>
+            <fieldset name="site_image_uris" class="paneled">
+                <%= site_form.text_field :image_uris, multiple: true, value: image_uri, id: "site_image_uris[#{ix}]" %>
+                <%- if ix > 0 %>
+                  <button class="btn btn-danger" type="button" onclick="this.parentElement.remove();">
+                    <span class="glyphicon glyphicon-remove"></span> Remove
+                  </button>
+                <%- end %>
+            </fieldset>
+          <%- end %>
+          <fieldset id="add_site_image_uri" style="border-width: 0;">
+            <button class="btn btn-info" type="button" onclick="addSiteImageUriFieldSet(this.parentElement);">
+              <span class="glyphicon glyphicon-plus"></span> Add a PID
+            </button>
           </fieldset>
-        <%- end %>
-        <fieldset id="add_site_image_uri" style="border-width: 0;">
-          <button class="btn btn-info" type="button" onclick="addSiteImageUriFieldSet(this.parentElement);">
-            <span class="glyphicon glyphicon-plus"></span> Add a PID
-          </button>
-        </fieldset>
+        </div>
+      </div>
+      <div class="form-group panel" id="signature_images">
+        <div class="panel-heading form-inline">
+          <div class="form-group">
+            <label for="site_signature_images">Signature Layout Images <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-images-signature"></span></label>
+            <button type="button" class="btn btn-primary collapse-toggle<%= ' collapsed' unless @subsite.layout == Site::LAYOUT_SIGNATURE %>" data-toggle="collapse" data-target="#signature_image_assets" aria-expanded="false" aria-controls="signature_image_assets" data-parent="site_homepage_images">Image Information</button>
+          </div>
+        </div>
+        <div class="panel-body collapse<%= ' in' if @subsite.layout == Site::LAYOUT_SIGNATURE %>" id="signature_image_assets">
+          <fieldset>
+            <label for="signature_banner_image">Signature Banner Image <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-images-signature-banner"></span></label>
+            <p>Upload widget</p>
+          </fieldset>
+          <fieldset>
+            <label for="signature_watermark_image">Signature/Watermark Image <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-images-signature-watermark"></span></label>
+            <p>Upload widget</p>
+          </fieldset>
+        </div>
       </div>
     </div>
   </div>
@@ -182,7 +207,10 @@
   <span id="tooltip-palette" title="Site Palette">The color scheme for the site, governing the homepage and any configured site pages. "DLC default" defers to the design team's default configurations. See the <a href="https://library.columbia.edu/resolve/dlc-editor-docs" target="_blank">site editor documentation</a> for details.</span>
   <span id="tooltip-search-type" title="Search Type">The search type for the site indicates how search results should be presented. "Catalog" indicates that search results should be presented in the context of filters on the general DLC catalog. "Local" indicates that search results should be presented as an isolated corpus, with the configured site layout and palettes. "Custom" indicates that a developer-implemented custom site provides this site's search, and should generally not be selected. See the <a href="https://library.columbia.edu/resolve/dlc-editor-docs" target="_blank">site editor documentation</a> for details.</span>
   <span id="tooltip-homepage-facets" title="Show Homepage Facets">Configures the display of a facet panel on the site homepage, if supported by the configured layout. Facets are determined by the general DLC Catalog facets, but limited to facets for which the site's content has two or more values. See the <a href="https://library.columbia.edu/resolve/dlc-editor-docs" target="_blank">site editor documentation</a> for details.</span>
-  <span id="tooltip-image-pids" title="Site Image PIDs">Configures the repository PIDs of images for the site homepage, where supported by the configured layout. See the <a href="https://library.columbia.edu/resolve/dlc-editor-docs" target="_blank">site editor documentation</a> for details.</span>
+  <span id="tooltip-images-portrait" title="Portrait Layout Images">Configures the repository PIDs of images for the site homepage, where supported by the configured layout. See the <a href="https://library.columbia.edu/resolve/dlc-editor-docs" target="_blank">site editor documentation</a> for details.</span>
+  <span id="tooltip-images-signature" title="Signature Layout Images">Manages the design assets for a site homepage configured with the signature layout. See the <a href="https://library.columbia.edu/resolve/dlc-editor-docs" target="_blank">site editor documentation</a> for details.</span>
+  <span id="tooltip-images-signature-banner" title="Signature Banner Image">The banner image for a site homepage configured with the signature layout. See the <a href="https://library.columbia.edu/resolve/dlc-editor-docs" target="_blank">site editor documentation</a> for details.</span>
+  <span id="tooltip-images-signature-watermark" title="Signature/Watermark Image">The signature/watermark image for a site homepage configured with the signature layout. This is an SVG that is overlaid on the banner image. See the <a href="https://library.columbia.edu/resolve/dlc-editor-docs" target="_blank">site editor documentation</a> for details.</span>
 </div>
 <div class="hide nav-templates">
     <div class="panel panel-info site_navigation_menu" id="site_navigation_menu_9menuIndex9">
