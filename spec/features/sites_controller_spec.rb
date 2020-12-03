@@ -46,7 +46,11 @@ describe SitesController, type: :feature do
     end
   end
   describe "index" do
-    before { visit root_url }
+    let(:catalog) { FactoryBot.create(:site, slug: 'catalog', layout: 'gallery') }
+    before do
+      FactoryBot.create(:site_page, slug: 'home', site: catalog)
+      visit root_url
+    end
     it "links to tabs and has external digital collections link" do
       expect(page).to have_xpath("/descendant::a[@href='#projects' and @data-toggle='tab']")
       expect(page).to have_xpath("/descendant::a[@href='#tab_lib_name_sim' and @data-toggle='tab']")

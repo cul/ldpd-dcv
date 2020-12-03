@@ -4,6 +4,9 @@ describe CatalogController, type: :feature do
   include_context "site fixtures for features"
   # the relevant fixtures are loaded into the repository and seeded into the Site
   # database tables by CI tasks
+  before do
+    FactoryBot.create(:site, slug: 'catalog', layout: 'gallery')
+  end
   describe "index" do
     before { visit search_catalog_path }
     it "shows the 'Perform a search' message when you visit the catalog index without any search parameters" do

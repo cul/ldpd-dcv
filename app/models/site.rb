@@ -10,6 +10,7 @@ class Site < ActiveRecord::Base
 	serialize :image_uris, Array
 
 	validates :search_type, inclusion: { in: VALID_SEARCH_TYPES }
+	validates :layout, inclusion: { in: VALID_LAYOUTS }
 
 	configure_blacklight do |config|
 		Dcv::Configurators::DcvBlacklightConfigurator.configure(config)
