@@ -41,7 +41,7 @@
   <div class="panel panel-primary">
     <div class="panel-heading"><h2 class="panel-title">Site Homepage Images</h2></div>
     <div class="panel-body site_homepage_images">
-      <div class="form-group panel" id="portrait_images">
+      <div class="form-group panel panel-info" id="portrait_images">
         <div class="panel-heading form-inline">
           <div class="form-group">
             <label for="site_image_uris">Portrait Layout Images <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-images-portrait"></span></label>
@@ -66,7 +66,7 @@
           </fieldset>
         </div>
       </div>
-      <div class="form-group panel" id="signature_images">
+      <div class="form-group panel panel-info" id="signature_images">
         <div class="panel-heading form-inline">
           <div class="form-group">
             <label for="site_signature_images">Signature Layout Images <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-images-signature"></span></label>
@@ -74,13 +74,31 @@
           </div>
         </div>
         <div class="panel-body collapse<%= ' in' if @subsite.layout == Site::LAYOUT_SIGNATURE %>" id="signature_image_assets">
-          <fieldset>
-            <label for="signature_banner_image">Signature Banner Image <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-images-signature-banner"></span></label>
-            <p>Upload widget</p>
+          <fieldset class="paneled">
+            <div class="col-md-6">
+              <label for="site_banner">Signature Banner Image&nbsp;</label><span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-images-signature-banner"></span>
+              <%= site_form.file_field :banner %>
+            </div>
+            <div class="col-md-6">
+              <%= render partial: "edit/signature_image_preview" %>
+            </div>
           </fieldset>
-          <fieldset>
-            <label for="signature_watermark_image">Signature/Watermark Image <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-images-signature-watermark"></span></label>
-            <p>Upload widget</p>
+          <fieldset class="paneled">
+            <div class="col-md-6">
+              <label for="site_watermark">Signature/Watermark Image&nbsp;</label><span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-images-signature-watermark"></span>
+              <%= site_form.file_field :watermark %>
+            </div>
+            <div class="col-md-6">
+              <div class="well banner image-preview palette-<%= @subsite.palette %><%= ' default' unless @subsite.has_watermark_image?%>" style="background-image: url('<%= signature_image_path %>');">
+                <%- if @subsite.has_watermark_image? %>
+                  <div class="overlay download">
+                    <a href="<%= signature_image_path %>" download="<%= "#{@subsite.slug}-#{File.basename(signature_image_path)}"%>">Download Current Watermark Image</a>
+                  </div>
+                <%- else %>
+                  <div class="overlay">DEFAULT IMAGE</div>
+                <%- end %>
+              </div>
+            </div>
           </fieldset>
         </div>
       </div>

@@ -155,5 +155,28 @@ describe SitesController, type: :unit do
 				expect(site.nav_links.first.attributes).to include(expected)
 			end
 		end
+		context 'with image upload' do
+			let(:fixture_file_path) { "sites/import/directory/images/signature.svg" }
+			let(:target_path) { site.watermark_uploader.store_path }
+			let(:params) do
+				ActionController::Parameters.new(
+					site: {
+						watermark: fixture_file_upload(fixture_file_path)
+					}
+				)
+			end
+			before do
+				allow(controller).to receive(:redirect_to).with("/#{site.slug}/edit")
+			end
+			after do
+				File.delete(target_path) if File.exists?(target_path)
+			end
+			it 'updates/creates watermark image' do
+				expect(File.exists?(target_path)).to be false
+				controller.update
+				expect(File.exists?(target_path)).to be true
+				expect(File.read(target_path)).to eql(File.read(File.join(fixture_path, fixture_file_path)))
+			end
+		end
 	end
 end

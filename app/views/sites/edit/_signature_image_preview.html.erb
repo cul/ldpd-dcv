@@ -1,0 +1,11 @@
+<%- if @subsite.has_banner_image? %>
+	<div class="well banner image-preview" style="background-image: url('<%= signature_banner_image_path %>');">
+		<div class="overlay download">
+			<a href="<%= signature_banner_image_path %>" download="<%= "#{@subsite.slug}-#{File.basename(signature_banner_image_path)}"%>">Download Current Banner Image</a>
+		</div>
+	</div>
+<%- else %>
+	<div class="well banner image-preview default palette-<%= @subsite.palette %>" style="background-image: url('<%= signature_banner_image_path %>');">
+		<div class="overlay">DEFAULT IMAGE</div>
+	</div>
+<%- end %>

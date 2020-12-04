@@ -33,3 +33,55 @@ button.collapse-toggle {
 		}
 	}
 }
+
+.image-preview {
+	min-height: 20vh;
+	.overlay {
+		display: flex;
+		height: 20vh;
+		align-items: center;
+		justify-content: center;
+		margin: auto;
+	}
+	.download {
+		a[download] {
+			padding:0 2px 0 2px;
+			height: auto;
+			background-color: white;
+			color: black;
+			align-self: flex-end;
+			opacity: 0.66;
+			&:hover {
+				opacity: 1;
+			}
+		}
+	}
+	&.banner {
+		background-size: contain;
+		background-repeat:no-repeat;
+		background-position:center;
+	}
+	&.watermark {
+		.overlay {
+			position:absolute;
+		}
+	}
+	&.default {
+		.overlay {
+			height: 20vh;
+			font-size:2em;
+			opacity: 0.33;
+			color: white;
+		}
+		background-blend-mode: luminosity;
+	}
+	&.palette-monochromeDark, &.palette-default {
+		background-color: black;
+	}
+	&.palette-monochromeLight {
+		background-color: #595959;
+	}
+	&.palette-blue {
+		background-color: #1a4481;
+	}
+}
