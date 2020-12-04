@@ -81,7 +81,7 @@ describe ::Sites::PagesController, type: :feature do
 			expect(page).not_to have_xpath("//h3", text: 'About')			
 		end
 	end
-	describe 'create', js: true do
+	describe '#create', js: true do
 		before { import.run }
 		let(:authorized_user) { FactoryBot.create(:user, is_admin: true) }
 		let(:new_page_slug) { 'new_page' }
@@ -107,6 +107,28 @@ describe ::Sites::PagesController, type: :feature do
 			expect(page).to have_xpath("//h2", text: new_page_title)
 			expect(page).to have_xpath("//strong", text: "Text Block Value")
 			expect(page).to have_xpath("//h3", text: 'Text Block Value')
+		end
+	end
+	describe '#edit' do
+		before do
+			import.run
+			Warden.test_mode!
+			login_as authorized_user, scope: :user
+			visit(edit_link_href)
+		end
+		let(:authorized_user) { FactoryBot.create(:user, is_admin: true) }
+		it "includes a link to view the page" do
+			within('h1') do
+				expect(page).to have_link('view', href: page_link)
+			end
+		end
+		context "home page" do
+			let(:edit_link_href) { "/#{site_slug}/home/edit" }
+			it "links to the site path to view the page" do
+				within('h1') do
+					expect(page).to have_link('view', href: "/#{site_slug}")
+				end
+			end
 		end
 	end
 end
