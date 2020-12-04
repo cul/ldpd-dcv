@@ -174,9 +174,11 @@ class SitesController < ApplicationController
   # update sanitized params
   def update
     site_attributes = site_params
-    # though Site accepts nested attributes ofr nav_links for persistence, we want to handle the updates
+    # though Site accepts nested attributes of nav_links for persistence, we want to handle the updates
     # specially (to accommodate the deletion and reordering without recourse to record id)
     nav_links_attributes = site_attributes.delete('nav_links_attributes')
+    banner_upload = params[:site][:banner]
+    watermark_upload = params[:site][:watermark]
     begin
       @subsite.update_attributes! site_attributes
       if nav_links_attributes.present?
@@ -194,9 +196,17 @@ class SitesController < ApplicationController
           @subsite.nav_links.create!(nav_link_attributes)
         end
       end
+      if banner_upload
+        BannerUploader.new(@subsite).store!(banner_upload)
+      end
+      if watermark_upload
+        WatermarkUploader.new(@subsite).store!(watermark_upload)
+      end
       @subsite.save! if @subsite.changed?
       flash[:notice] = "Saved!"
     rescue ActiveRecord::RecordInvalid => ex
+      flash[:alert] = ex.message
+    rescue CarrierWave::IntegrityError => ex
       flash[:alert] = ex.message
     end
     redirect_to edit_site_path(slug: @subsite.slug)
@@ -327,6 +337,8 @@ class SitesController < ApplicationController
       params.require(:site).permit(:palette, :layout, :show_facets, :alternative_title, :search_type, :editor_uids, :image_uris, :nav_links_attributes,
                                    image_uris: [], nav_links_attributes: [:sort_group, :sort_label, :link, :external])
       .tap do |p|
+        p.delete('banner')
+        p.delete('watermark')
         p['image_uris']&.delete_if { |v| v.blank? }
         if can?(:admin, @subsite)
           p['editor_uids']&.strip!

@@ -116,10 +116,35 @@ class Site < ActiveRecord::Base
 		nav_links.detect {|link| link.about_link? }
 	end
 
+	def banner_uploader
+		@banner_uploader ||= BannerUploader.new(self)
+	end
+
+	def has_banner_image?
+		File.exists?(banner_uploader.store_path)
+	end
+
+	def banner_url
+		banner_uploader.store_path.sub(File.join(Rails.root, 'public'), '')
+	end
+
+	def watermark_uploader
+		@watermark_uploader ||= WatermarkUploader.new(self)
+	end
+
+	def has_watermark_image?
+		File.exists?(watermark_uploader.store_path)
+	end
+
+	def watermark_url
+		watermark_uploader.store_path.sub(File.join(Rails.root, 'public'), '')
+	end
+
 	def to_subsite_config
 		config = {slug: slug, restricted: slug =~ /restricted/, palette: palette, layout: layout}
 		config.with_indifferent_access
 	end
+
 	class ShowRouteFactory
 		def initialize(site)
 			@slug = site.slug.split('/')[-1]

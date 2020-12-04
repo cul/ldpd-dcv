@@ -9,6 +9,8 @@ gem 'nokogiri', '~> 1.8.2'
 gem 'kaminari', '~> 1.1.1'
 gem 'blacklight', '~> 6.0'
 gem 'active-fedora', '>= 7.3.1'
+# carrierwave for file uploads
+gem 'carrierwave', '~> 1.3'
 #gem 'rubydora', :path => '../rubydora'
 gem 'rubydora', :git => 'https://github.com/elohanlon/rubydora', branch: 'datastream_dissemination_with_headers'
 
