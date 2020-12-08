@@ -25,16 +25,17 @@ class Site < ActiveRecord::Base
 		self.search_type ||= DEFAULT_SEARCH_TYPE
 	end
 
-	#TODO: this route will change for local searches
 	def routing_params(args = {})
-		args.reject { |k,v| k.to_s == 'slug' }.merge(controller: 'catalog')
+		search_controller_path = (self.search_type == SEARCH_CATALOG) ? '/catalog': "/#{self.slug}"
+		search_controller_path << '/search' if self.search_type == SEARCH_LOCAL
+		args.reject { |k,v| k.to_s == 'slug' }.merge(controller: search_controller_path)
 	end
 
 	def configure_blacklight!
 		configure_blacklight do |config|
 			config.default_solr_params[:fq] += default_fq()
 			config.show.route = self.routing_params
-			if self.search_type == 'local'
+			if self.search_type == SEARCH_LOCAL
 				config.document_unique_id_param = :ezid_doi_ssim
 				config.show.route = ShowRouteFactory.new(self)
 			else

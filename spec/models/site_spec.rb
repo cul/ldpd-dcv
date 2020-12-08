@@ -139,6 +139,35 @@ describe Site do
 			expect(subject[:palette]).to eql 'monochromeDark'
 		end
 	end
+	describe '#routing_params' do
+		let(:site_slug) { 'routing_params' }
+		let(:args) { { slug: site_slug } }
+		let(:subject) { site.routing_params(args) }
+		before do
+			site.configure_blacklight!
+		end
+		context 'configured with a custom search' do
+			let(:site) { FactoryBot.create(:site, slug: site_slug, search_type: 'custom') }
+			it "assigns appropriate controller routing" do
+				is_expected.to be_a Hash
+				is_expected.not_to have_key(:slug)
+				is_expected.to include(controller: "/#{site_slug}")
+			end
+		end
+		context 'configured with a local search' do
+			let(:site) { FactoryBot.create(:site, slug: site_slug, search_type: 'local') }
+			it "assigns appropriate controller routing" do
+				is_expected.to be_a Hash
+				is_expected.not_to have_key(:slug)
+				is_expected.to include(controller: "/#{site_slug}/search")
+			end
+		end
+		it "assigns appropriate controller routing" do
+			is_expected.to be_a Hash
+			is_expected.not_to have_key(:slug)
+			is_expected.to include(controller: "/catalog")
+		end
+	end
 	describe Site::ShowRouteFactory do
 		let(:site_slug) { 'show_route_factory' }
 		let(:doi_id) { '10.12345/1a2b3c-4d5e' }

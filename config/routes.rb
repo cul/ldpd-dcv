@@ -68,13 +68,14 @@ Dcv::Application.routes.draw do
   concern :legacy_findable, Dcv::Routes::LegacyIds.new
   concern :previewable, Dcv::Routes::Previews.new
   concern :tree_browsable, Dcv::Routes::NodeProxies.new
+  concern :search_compatibility, Dcv::Routes::SearchCompatibility.new
   concern :synchronizable, Dcv::Routes::Synchronizer.new
 
   # Generic Site concerns
   concern :site_searchable, Dcv::Routes::SiteSearchable.new
   concern :site_showable, Dcv::Routes::SiteShowable.new
 
-  subsite_concerns = [:publishable, :legacy_findable, :previewable, :tree_browsable, :synchronizable]
+  subsite_concerns = [:publishable, :legacy_findable, :previewable, :tree_browsable, :search_compatibility, :synchronizable]
 
   repositories = %w(NNC-A NNC-EA NNC-RB NyNyCAP NyNyCBL NyNyCMA)
 
