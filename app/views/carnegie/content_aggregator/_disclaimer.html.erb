@@ -7,9 +7,6 @@
 <% if has_restricted_children? and !from_strict_reading_room %>
 	<% offer_login = has_unviewable_children? and !current_user -%>
 	<div class="child-content alert alert-info" role="alert">
-		<% if has_unviewable_children? %>
-			<p><%= show_repository_location_with_contact(document: document, field: ActiveFedora::SolrService.solr_name('lib_repo_full', :symbol, type: :string), mixed_content: true) %></p>
-		<% end -%>
 		<%= render :partial => 'shared/vrr_disclaimer' %>
 		<% if offer_login -%>
 			<%= render :partial => 'shared/vrr_login' %>

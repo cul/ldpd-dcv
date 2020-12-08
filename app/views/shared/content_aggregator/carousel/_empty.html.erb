@@ -1,6 +1,5 @@
 <% if has_unviewable_children? %>
 	<div class="alert alert-info" role="alert">
-		<p><%= show_repository_location_with_contact(document: document, field: ActiveFedora::SolrService.solr_name('lib_repo_full', :symbol, type: :string)) %></p>
 		<%= render :partial => 'shared/vrr_disclaimer' %>
 		<% if !current_user -%>
 			<%= render :partial => 'shared/vrr_login' %>
