@@ -1,12 +1,18 @@
-<% if has_unviewable_children? %>
-	<div class="alert alert-info" role="alert">
-		<%= render :partial => 'shared/vrr_disclaimer' %>
-		<% if !current_user -%>
-			<%= render :partial => 'shared/vrr_login' %>
-		<% end -%>		
-	</div>
-<% elsif (restricted_doc = has_embargoed_children? ) %>
-  <p class="alert alert-info" role="alert">Due to copyright, contractual or privacy restrictions, this item is not available until <%= restricted_doc['access_control_embargo_dtsi'] %>.</p>
-<% else %>
-  <p class="alert alert-warning" role="alert">Due to copyright, contractual or privacy restrictions, this item is not available online.</p>
+<% if structured_children.present? -%>
+	<% if has_unviewable_children? %>
+		<div class="alert alert-info" role="alert">
+			<% if !current_user -%>
+				<%= render :partial => 'shared/vrr_login' %>
+			<% else -%>
+				<p class="affiliate-login">You are not authorized to access this content. If you have questions, please <a href="#" onclick="return DCV.FeedbackModal.show();">contact a Libraries staff member</a>.</p>
+			<% end -%>
+			<%= render :partial => 'shared/vrr_disclaimer' %>
+		</div>
+	<% elsif (restricted_doc = has_embargoed_children? ) %>
+		<p class="alert alert-info" role="alert">Due to copyright, contractual or privacy restrictions, this item is not available until <%= restricted_doc['access_control_embargo_dtsi'] %>.</p>
+	<% else %>
+		<p class="alert alert-warning" role="alert">Due to copyright, contractual or privacy restrictions, this item is not available online.</p>
+	<% end %>
+<% else -%>
+	<p class="alert alert-info" role="alert">This item is published without associated content to serve as a citable reference. Content may be added in the future if policy or ongoing digitization work permits. If you have questions, please <a href="#" onclick="return DCV.FeedbackModal.show();">contact a Libraries staff member</a>.</p>
 <% end %>
