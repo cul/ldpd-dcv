@@ -9,8 +9,8 @@
 			<li><a href="http://library.columbia.edu/services/preservation/publications_policy.html"><span class="glyphicon glyphicon-tag"></span> Order a Reproduction</a></li>
 		<% end %>
 		<% if configured_links.include?(:related) %>
-			<% solr_url_hash(document, exclude: {'usage' => "primary display"}).each do |location| %>
-				<li><%= link_to("<span class=\"glyphicon glyphicon-paperclip\"></span> #{location.fetch('displayLabel',"Related Web Content")}".html_safe, location['url']) %></li>
+			<% display_related_urls(document: document).each do |location_link| %>
+				<li><%= location_link %></li>
 			<% end %>
 		<% end %>
 		<% if configured_links.include?(:download) && child_document %>

@@ -103,6 +103,7 @@ class Dcv::Configurators::DcvBlacklightConfigurator
     config.add_show_field 'copyright_statement_ssi', label: 'Copyright Status', helper_method: :display_as_link_to_rightsstatements
 
     config.add_citation_field ActiveFedora::SolrService.solr_name('ezid_doi', :symbol), label: 'Persistent URL', show: false, helper_method: :display_doi_link
+    config.add_citation_field 'location_url_json_ss', label: 'Related URLs', if: :has_related_urls?, helper_method: :display_related_urls, join: false
 
     # "fielded" search configuration. Used by pulldown among other places.
     # For supported keys in hash, see rdoc for Blacklight::SearchFields
