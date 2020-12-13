@@ -2,7 +2,9 @@
   <% document_show_fields(document).each do |solr_fname, field| -%>
     <% if should_render_show_field? document, field -%>
       <dt class="blacklight-<%= solr_fname.parameterize %>"><%= render_document_show_field_label document, :field => solr_fname %></dt>
-      <dd class="blacklight-<%= solr_fname.parameterize %>"><%= render_document_show_field_value document, :field => solr_fname %></dd>
+      <% Array(render_document_show_field_value document, field: solr_fname).each do |field_value| -%>
+        <dd class="blacklight-<%= solr_fname.parameterize %>"><%= field_value %></dd>
+      <% end -%>
     <% end -%>
   <% end -%>
 </dl>

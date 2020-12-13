@@ -44,13 +44,13 @@ module Dcv::TextTruncateHelper
         span_id = "#{span_prefix}-#{args[:field]}-collapse-#{ix}"
         span = collapsible_span(span_id, text[(truncation_length + 1)..-1])
         span.unshift(text[0..truncation_length])
-        arr_to_return.concat(span)
+        arr_to_return.push(span.join(' ').html_safe)
       else
         arr_to_return.push(text)
       end
     end
 
-    return arr_to_return.join.html_safe
+    return field_value.is_a?(Array) ? arr_to_return : arr_to_return[0]
   end
 
   def collapsible_span(span_id, text_overflow)

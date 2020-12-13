@@ -33,5 +33,21 @@ module Dcv
     def link_rel_alternates(options = {})
       Dcv::LinkAlternatePresenter.new(view_context, document, options).render
     end
+
+    ##
+    # Get the value for a document's field, and prepare to render it.
+    # - highlight_field
+    # - accessor
+    # - solr field
+    #
+    # Rendering:
+    #   - helper_method
+    #   - link_to_search
+    # @param [Blacklight::Configuration::Field] field_config solr field configuration
+    # @param [Hash] options additional options to pass to the rendering helpers
+    def field_values(field_config, options={})
+      presenter_class = (field_config.join == false) ? Dcv::UnjoinedFieldPresenter : ::Blacklight::FieldPresenter
+      presenter_class.new(view_context, document, field_config, options).render
+    end
   end
 end

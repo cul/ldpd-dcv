@@ -15,18 +15,24 @@
 					<% field_clone = field.clone; field_clone.tap { |c| c.field = k } %>
 					<% if should_render_show_field?(document, field_clone) %>
 						<dt class="blacklight-<%= k.parameterize %>"><%= render_generated_field_label document, field_clone %></dt>
-						<dd class="blacklight-<%= k.parameterize %>"><%= render_document_dynamic_field_value document, :field => k, :field_config => field_clone %></dd>
+						<% Array(render_document_dynamic_field_value document, field: k, field_config: field_clone).each do |field_value| -%>
+							<dd class="blacklight-<%= k.parameterize %>"><%= field_value %></dd>
+						<% end -%>
 					<% end %>
 				<% end %>
 			<% elsif should_render_show_field?(document, field) %>
 				<dt class="blacklight-<%= solr_fname.parameterize %>"><%= render_document_show_field_label document, :field => solr_fname %></dt>
-				<dd class="blacklight-<%= solr_fname.parameterize %>"><%= Array(doc_presenter.field_value field).join(", ").html_safe %></dd>
+				<% Array(doc_presenter.field_value field).each do |field_value| -%>
+					<dd class="blacklight-<%= solr_fname.parameterize %>"><%= field_value %></dd>
+				<% end -%>
 			<% end %>
 		<% end %>
 		<% document_citation_fields(document).each do |solr_fname, field| %>
 			<% if should_render_citation_field?(document, field) %>
 				<dt class="blacklight-<%= solr_fname.parameterize %>"><%= render_document_citation_field_label document, :field => solr_fname %></dt>
-				<dd class="blacklight-<%= solr_fname.parameterize %>"><%= render_document_citation_field_value document, :field => solr_fname %></dd>
+				<% Array(render_document_citation_field_value document, field: solr_fname).each do |field_value| -%>
+					<dd class="blacklight-<%= solr_fname.parameterize %>"><%= field_value %></dd>
+				<% end -%>
 			<% end %>
 		<% end %>
 	</dl>
