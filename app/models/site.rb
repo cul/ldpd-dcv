@@ -5,7 +5,7 @@ class Site < ActiveRecord::Base
 	has_many :nav_links, dependent: :destroy
 	has_many :site_pages, dependent: :destroy
 	accepts_nested_attributes_for :nav_links
-	store :constraints, accessors: [ :publisher, :project, :collection ], coder: JSON, suffix: true
+	store :constraints, accessors: [ :publisher, :project, :project_key, :collection, :collection_key ], coder: JSON, suffix: true
 	serialize :editor_uids, Array
 	serialize :image_uris, Array
 
@@ -61,8 +61,12 @@ class Site < ActiveRecord::Base
 			case search_scope
 			when 'collection'
 				facet_field = 'lib_collection_sim'
+			when 'collection_key'
+				facet_field = 'collection_key_ssim'
 			when 'project'
 				facet_field = 'lib_project_short_ssim'
+			when 'project_key'
+				facet_field = 'project_key_ssim'
 			when 'publisher'
 				facet_field = 'publisher_ssim'
 			end
@@ -109,8 +113,18 @@ class Site < ActiveRecord::Base
 	end
 
 	# patch for Rails 4 store, which doesn't have suffixes
+	def collection_key_constraints=(constraints)
+		self.collection_key= Array(constraints)
+	end
+
+	# patch for Rails 4 store, which doesn't have suffixes
 	def project_constraints=(constraints)
 		self.project= Array(constraints)
+	end
+
+	# patch for Rails 4 store, which doesn't have suffixes
+	def project_key_constraints=(constraints)
+		self.project_key= Array(constraints)
 	end
 
 	def about_link

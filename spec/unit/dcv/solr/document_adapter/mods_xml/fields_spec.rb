@@ -86,24 +86,57 @@ describe Dcv::Solr::DocumentAdapter::ModsXml, type: :unit do
     end
   end
 
-  describe ".projects" do
+  describe ".project_titles" do
     let(:xml_src) { fixture( File.join("mods", "mods-titles.xml")) }
     it "should find the project titles for faceting" do
-      expect(adapter.projects).to eql ['Customer Order Project']
+      expect(adapter.project_titles).to eql ['Customer Order Project']
     end
     context "a project title has periods in it" do
       let(:xml_src) { fixture( File.join("mods", "mods-relateditem-project.xml")) }
       it "should be able to translate the title value" do
-        expect(solr_doc["lib_project_short_ssim"]).to eql ["Lindquist Photographs"]
-        expect(solr_doc["lib_project_full_ssim"]).to eql ["G.E.E. Lindquist Native American Photographs"]
+        expect(solr_doc["lib_project_short_ssim"]).to include "Lindquist Photographs"
+        expect(solr_doc["lib_project_full_ssim"]).to include "G.E.E. Lindquist Native American Photographs"
       end
     end
   end
 
-  describe ".collections" do
+  describe ".project_keys" do
+    context "the description has a single project" do
+      let(:xml_src) { fixture( File.join("mods", "mods-titles.xml")) }
+      it "should find the project titles for faceting" do
+        expect(adapter.project_keys).to eql ['customer_orders']
+      end
+    end
+    context "the description has a primary and auxiliary project" do
+      let(:xml_src) { fixture( File.join("mods", "mods-relateditem-project.xml")) }
+      it "should be able to translate the title value" do
+        expect(solr_doc["project_key_ssim"]).to include "lindquist"
+        expect(solr_doc["project_key_ssim"]).to include "customer_orders"
+      end
+    end
+  end
+
+  describe ".collection_titles" do
     let(:xml_src) { fixture( File.join("mods", "mods-titles.xml")) }
     it "should find the collection titles for faceting" do
-      expect(adapter.collections).to eql ['The Pulitzer Prize Photographs']
+      expect(adapter.collection_titles).to eql ['The Pulitzer Prize Photographs']
+    end
+  end
+
+  describe ".collection_keys" do
+    context "the collection in the description has a key" do
+      let(:xml_src) { fixture( File.join("mods", "mods-archival-context.xml")) }
+      it "should find the collection keys for faceting" do
+        expect(adapter.collection_keys).to include '4079753'
+        expect(solr_doc["collection_key_ssim"]).to include "4079753"
+      end
+    end
+    context "the collection in the description has no associated keys" do
+      let(:xml_src) { fixture( File.join("mods", "mods-titles.xml")) }
+      it "should find no collection keys for faceting" do
+        expect(adapter.collection_keys).to be_empty
+        expect(solr_doc["collection_key_ssim"]).to be_blank
+      end
     end
   end
 

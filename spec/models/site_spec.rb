@@ -40,6 +40,24 @@ describe Site do
 				expect(site.blacklight_config.default_solr_params[:fq]).to include("lib_collection_sim:(\"#{values.first}\")")
 			end
 		end
+		context 'on collection key' do
+			before do
+				site.collection_key_constraints = values
+			end
+			it 'adds a collection clause to the constraints hash' do
+				expect(site.constraints).to include('collection_key' => values)
+			end
+			it 'represents the clause in the default filters' do
+				expect(site.default_filters).to include('collection_key_ssim' => values)
+			end
+			it 'represents the clause in the default fq' do
+				expect(site.default_fq).to include("collection_key_ssim:(\"#{values.first}\")")
+			end
+			it 'adds the clause to the local blacklight config' do
+				site.configure_blacklight!
+				expect(site.blacklight_config.default_solr_params[:fq]).to include("collection_key_ssim:(\"#{values.first}\")")
+			end
+		end
 		context 'on project' do
 			before do
 				site.project_constraints = values
@@ -56,6 +74,24 @@ describe Site do
 			it 'adds the clause to the local blacklight config' do
 				site.configure_blacklight!
 				expect(site.blacklight_config.default_solr_params[:fq]).to include("lib_project_short_ssim:(\"#{values.first}\")")
+			end
+		end
+		context 'on project key' do
+			before do
+				site.project_key_constraints = values
+			end
+			it 'adds a collection clause to the constraints hash' do
+				expect(site.constraints).to include('project_key' => values)
+			end
+			it 'represents the clause in the default filters' do
+				expect(site.default_filters).to include('project_key_ssim' => values)
+			end
+			it 'represents the clause in the default fq' do
+				expect(site.default_fq).to include("project_key_ssim:(\"#{values.first}\")")
+			end
+			it 'adds the clause to the local blacklight config' do
+				site.configure_blacklight!
+				expect(site.blacklight_config.default_solr_params[:fq]).to include("project_key_ssim:(\"#{values.first}\")")
 			end
 		end
 		context 'on publisher' do

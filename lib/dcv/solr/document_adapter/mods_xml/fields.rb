@@ -42,16 +42,35 @@ class Dcv::Solr::DocumentAdapter::ModsXml
 
     extend ClassMethods
 
-    def projects
+    def project_titles
       mods.xpath("./mods:relatedItem[@type='host' and @displayLabel='Project']", MODS_NS).collect do |p_node|
         Fields.normalize(main_title(p_node), true)
       end
     end
 
-    def collections
+    def project_keys
+      project_string_keys = []
+      mods.xpath("./mods:relatedItem[@type='host' and @displayLabel='Project']/mods:identifier[@type='hyacinth-stringkey']", MODS_NS).collect do |n|
+        project_string_keys << n.text.strip
+      end
+      mods.xpath("./mods:relatedItem[@type='host' and @displayLabel='Project']/mods:identifier[@type='uri']", MODS_NS).collect do |n|
+        id_uri = URI(n.text)
+        project_string_keys << id_uri.opaque.split('/')[-1].strip if id_uri.scheme == 'info'
+      end
+      project_string_keys.select { |k| k.present? }
+    end
+
+    def collection_titles
       mods.xpath("./mods:relatedItem[@type='host' and @displayLabel='Collection']", MODS_NS).collect do |p_node|
         Fields.normalize(main_title(p_node), true)
       end
+    end
+
+    def collection_keys
+      collection_string_keys = mods.xpath("./mods:relatedItem[@displayLabel='Collection']", MODS_NS).map do |collection|
+        collection.xpath("./mods:identifier[@type='CLIO']", MODS_NS).text
+      end
+      collection_string_keys.select { |k| k.present? }
     end
 
     def languages_iso639_2_text
@@ -499,7 +518,8 @@ class Dcv::Solr::DocumentAdapter::ModsXml
       solr_doc["clio_ssim"] = clio_ids
       solr_doc["archive_org_identifier_ssi"] = archive_org_identifier
       solr_doc["archive_org_identifiers_json_ss"] = JSON.generate(archive_org_identifiers)
-      solr_doc["lib_collection_sim"] = collections
+      solr_doc["lib_collection_sim"] = collection_titles
+      solr_doc["collection_key_ssim"] = collection_keys.uniq
       solr_doc["lib_name_sim"] = names
       solr_doc["lib_name_teim"] = solr_doc["lib_name_sim"]
       solr_doc["all_text_teim"] += solr_doc["lib_name_teim"]
@@ -536,17 +556,18 @@ class Dcv::Solr::DocumentAdapter::ModsXml
       end
       solr_doc["lib_repo_text_ssm"] = repository_text
 
-      project_titles = projects
-      unless project_titles.nil?
+      project_title_values = project_titles
+      unless project_title_values.nil?
         solr_doc["lib_project_short_ssim"] = []
         solr_doc["lib_project_full_ssim"] = []
-        project_titles.each {|project_title|
+        project_title_values.each {|project_title|
           solr_doc["lib_project_short_ssim"] << translate_project_title(project_title, 'short')
           solr_doc["lib_project_full_ssim"] << translate_project_title(project_title, 'full')
         }
         solr_doc["lib_project_short_ssim"].uniq!
         solr_doc["lib_project_full_ssim"].uniq!
       end
+      solr_doc["project_key_ssim"] = project_keys.uniq
 
       # Create convenient start and end date values based on one of the many possible originInfo/dateX elements.
       start_date, end_date = key_date_range

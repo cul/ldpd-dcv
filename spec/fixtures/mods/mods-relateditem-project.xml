@@ -4,5 +4,12 @@
     <titleInfo>
       <title>G.E.E. Lindquist Native American Photographs</title>
     </titleInfo>
+    <identifier type="hyacinth-stringkey">lindquist</identifier>
+  </relatedItem>
+  <relatedItem type='host' displayLabel='Project'>
+    <titleInfo>
+      <title xml:lang="eng">Customer Order Project</title>
+    </titleInfo>
+    <identifier type="uri">info:hyacinth.library.columbia.edu/projects/customer_orders</identifier>
   </relatedItem>
 </mods>

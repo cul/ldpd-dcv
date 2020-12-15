@@ -29,5 +29,6 @@
 	<titleInfo>
 		<title xml:lang="eng">Customer Order Project</title>
 	</titleInfo>
+	<identifier type="hyacinth-stringkey">customer_orders</identifier>
 </relatedItem>
 </mods>
