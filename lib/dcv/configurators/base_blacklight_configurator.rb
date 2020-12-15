@@ -29,6 +29,7 @@ module Dcv::Configurators::BaseBlacklightConfigurator
   end
 
   def default_index_configuration(config)
+    config.http_method = :post
     config.fetch_many_document_params = { fl: '*' } # default deprecation circumvention from BL6
     config.index.title_field = solr_name('title_display', :displayable, type: :string)
     config.index.display_type_field = :active_fedora_model_ssi
