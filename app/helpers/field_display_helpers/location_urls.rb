@@ -13,8 +13,8 @@ module FieldDisplayHelpers::LocationUrls
     document = args[:document]
     solr_url_hash(document, exclude: {'usage' => "primary display"}).map do |location|
       display_label = location.fetch('displayLabel',"Related Web Content")
-      link_label = "<span class=\"glyphicon glyphicon-paperclip\"></span> #{display_label}"
-      link_to(link_label.html_safe, location['url'])
+      link_label = "#{display_label} <sup class=\"glyphicon glyphicon-new-window\" aria-hidden=\"true\"></sup>"
+      link_to(link_label.html_safe, location['url'], target: "_blank", rel: "noopener noreferrer")
     end
   end
 end
