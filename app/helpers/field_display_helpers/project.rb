@@ -13,7 +13,7 @@ module FieldDisplayHelpers::Project
       end
 
       url_for_facet_search = search_action_path(:f => {facet_field_name => [facet_value]})
-      return link_to(display_value, url_for_facet_search)
+      link_to(display_value, url_for_facet_search)
     }
   end
 
