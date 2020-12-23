@@ -92,6 +92,7 @@ class Dcv::Configurators::LcaajBlacklightConfigurator
     config.add_show_field ActiveFedora::SolrService.solr_name('physical_description_extent', :displayable, type: :string), :label => 'Physical Description'
     config.add_show_field ActiveFedora::SolrService.solr_name('identifier', :symbol), :label => 'Identifier'
     config.add_show_field ActiveFedora::SolrService.solr_name('ezid_doi', :symbol), :label => 'DOI', :show => false
+    config.add_show_field 'geo', label: 'Coordinates', if: false
 
     # solr fields to be displayed in the geo/map panels
     #  facetable (link: true)
