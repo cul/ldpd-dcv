@@ -2,7 +2,11 @@ module Dcv::WowzaTokenUrlHelper
   def wowza_media_token_url(asset_doc)
     asset_doc = SolrDocument.new(asset_doc) unless asset_doc.is_a? SolrDocument
     return unless can_access_asset?(asset_doc)
-    wowza_config = DCV_CONFIG['media_streaming']['wowza']
+    wowza_config = DCV_CONFIG.dig('media_streaming','wowza')
+    unless wowza_config
+      Rails.logger.warn("WARNING: no config available at DCV_CONFIG['media_streaming']['wowza']")
+      return
+    end
 
     access_copy_location = wowza_access_copy_location_from_solr(asset_doc) || wowza_access_copy_location_from_fcrepo(asset_doc)
 

@@ -5,8 +5,7 @@ has_chapters = dsa.include?('chapters')
 has_captions = dsa.include?('captions')
 has_synch = dsa.include?('synchronized_transcript')
 captions_url = bytestream_content_path(catalog_id: child[:id], bytestream_id: 'captions') if has_captions
-if DCV_CONFIG.fetch('media_streaming', {})['wowza'].present?
-  media_url = wowza_media_token_url(child)
+if (media_url = wowza_media_token_url(child))
   player_src = render_media_element_streaming_audio_player(media_url, nil, captions_url, 1024, 500)
 else
   media_url = bytestream_content_path(catalog_id: child[:pid], bytestream_id: 'access')
