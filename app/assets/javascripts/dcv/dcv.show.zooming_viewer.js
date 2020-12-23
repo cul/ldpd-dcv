@@ -17,6 +17,7 @@ function initTiles(initialPage) {
 }
 
 function initZoomingViewer(tileSources) {
+  OpenSeadragon.setString("Tooltips.Home","Reset zoom");
   $.zoomingViewer = OpenSeadragon({
     id:            "zoom-content",
     prefixUrl:     "",
