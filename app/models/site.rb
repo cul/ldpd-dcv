@@ -26,9 +26,12 @@ class Site < ActiveRecord::Base
 	end
 
 	def routing_params(args = {})
-		search_controller_path = (self.search_type == SEARCH_CATALOG) ? '/catalog': "/#{self.slug}"
-		search_controller_path << '/search' if self.search_type == SEARCH_LOCAL
-		args.reject { |k,v| k.to_s == 'slug' }.merge(controller: search_controller_path)
+		if self.search_type == SEARCH_LOCAL
+			args.reject { |k,v| k.to_s == 'slug' }.merge(controller: '/sites/search', site_slug: self.slug)
+		else
+			search_controller_path = (self.search_type == SEARCH_CATALOG) ? '/catalog': "/#{self.slug}"
+			args.reject { |k,v| k.to_s == 'slug' }.merge(controller: search_controller_path)
+		end
 	end
 
 	def configure_blacklight!

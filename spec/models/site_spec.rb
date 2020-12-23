@@ -195,7 +195,7 @@ describe Site do
 			it "assigns appropriate controller routing" do
 				is_expected.to be_a Hash
 				is_expected.not_to have_key(:slug)
-				is_expected.to include(controller: "/#{site_slug}/search")
+				is_expected.to include(controller: "/sites/search", site_slug: site_slug)
 			end
 		end
 		it "assigns appropriate controller routing" do
