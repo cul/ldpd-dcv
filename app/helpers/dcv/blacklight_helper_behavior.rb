@@ -1,5 +1,9 @@
 module Dcv::BlacklightHelperBehavior
 
+  def application_name
+    @subsite&.title || super
+  end
+
   # Override so that this method doesn't always specify the shared 'search_form' partial
   def render_search_bar(use_shared_partial=false)
     render :partial => (use_shared_partial ? 'shared/search_form' : 'search_form')
