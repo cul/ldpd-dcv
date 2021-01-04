@@ -7,17 +7,23 @@ module Dcv::DcvUrlHelper
     }
   end
 
-  def link_to_clio(args)
-    values = args[:document][args[:field]]
-
-    values.map {|value|
-      link_to(value, "https://clio.columbia.edu/catalog/#{value}")
-    }
+  # args: document, field, config, value
+  def render_link_to_external_resource(args = {})
+    scalar_value = !(args[:value].is_a? Array)
+    link_label = args[:config].link_label || "See also"
+    link_label = "#{link_label} <span class=\"glyphicon glyphicon-new-window\"></span>".html_safe
+    links = Array(args[:value]).map {|url| link_to(link_label, url, target: '_blank') }
+    scalar_value ? links.first : links
   end
 
-  # TODO: distinguish from link_to_clio
-  def display_clio_link(args={})
-    args.fetch(:value,[]).map { |v| v.sub!(/^clio/i,''); link_to("https://clio.columbia.edu/catalog/#{v}", "https://clio.columbia.edu/catalog/#{v}") }
+  # args: document, field, config, value
+  def render_link_to_clio(args = {})
+    scalar_value = !(args[:value].is_a? Array)
+    clio_links = Array(args[:value]).map do |clio_id|
+      link_label = "#{args[:config].link_label || clio_id} <span class=\"glyphicon glyphicon-new-window\"></span>".html_safe
+      link_to(link_label, "http://clio.columbia.edu/catalog/#{clio_id}", target: '_blank')
+    end
+    scalar_value ? clio_links.first : clio_links
   end
 
   def display_doi_link(args={})

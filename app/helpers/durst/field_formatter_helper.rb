@@ -22,22 +22,6 @@ module Durst::FieldFormatterHelper
 			links.join(' > ').html_safe
 		end
 	end
-
-	# args: document, field, config, value
-	def render_link_to_external_resource(args = {})
-		scalar_value = !(args[:value].is_a? Array)
-		link_label = args[:config].link_label || "See also"
-		link_label = "#{link_label} <span class=\"glyphicon glyphicon-new-window\"></span>".html_safe
-		links = Array(args[:value]).map {|url| link_to(link_label, url, target: '_blank') }
-		scalar_value ? links.first : links
-	end
-
-	def render_link_to_clio(args = {})
-		scalar_value = !(args[:value].is_a? Array)
-		clio_links = Array(args[:value]).map {|clio_id| "http://clio.columbia.edu/catalog/#{clio_id}"}
-		clio_links = clio_links.first if scalar_value
-		render_link_to_external_resource(args.merge(value: clio_links))
-	end
 	
 	def render_durst_location_information(document)
 		

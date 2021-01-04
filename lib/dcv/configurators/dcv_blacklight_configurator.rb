@@ -95,7 +95,7 @@ class Dcv::Configurators::DcvBlacklightConfigurator
     config.add_show_field ActiveFedora::SolrService.solr_name('table_of_contents', :displayable, type: :string), :label => 'Contents'
     config.add_show_field ActiveFedora::SolrService.solr_name('lib_repo_short', :symbol, type: :string), label: 'Library Location', helper_method: :show_field_repository_to_facet_link, link_to_search: true
     config.add_show_field ActiveFedora::SolrService.solr_name('location_sublocation', :displayable, type: :string), :label => 'Department'
-    config.add_show_field ActiveFedora::SolrService.solr_name('clio', :symbol, type: :string), :label => 'Catalog Record', :helper_method => :link_to_clio
+    config.add_show_field ActiveFedora::SolrService.solr_name('clio', :symbol, type: :string), label: 'Catalog Record', helper_method: :render_link_to_clio, join: false
     config.add_show_field ActiveFedora::SolrService.solr_name('lib_part', :displayable, type: :string), :label => 'Part'
     config.add_show_field ActiveFedora::SolrService.solr_name('lib_project_full', :symbol), :label => 'Digital Project', :helper_method => :show_field_project_to_facet_link, link_to_search: true
     # Note: Do NOT show the access_condition field. See DCV-465 for explanation.
