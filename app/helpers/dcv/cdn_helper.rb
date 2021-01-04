@@ -82,9 +82,25 @@ module Dcv::CdnHelper
       return url
     end
     schema_image = Array(document[ActiveFedora::SolrService.solr_name('schema_image', :symbol)]).first
+    # non-site behavior
+    schema_image = document['representative_generic_resource_pid_ssi'] if schema_image.blank?
 
-    id = schema_image ? schema_image.split('/')[-1] : document.id
-    get_asset_url(id: id, size: 256, type: 'featured', format: 'jpg')
+    if schema_image.present?
+      get_asset_url(id: schema_image.split('/')[-1], size: 256, type: 'featured', format: 'jpg')
+    elsif document[:cul_number_of_members_isi] == 0
+      placeholder_format = (['books', 'maps'] & document.fetch('lib_format_ssm', [])).first&.singularize
+      if placeholder_format
+        if document['lib_non_item_in_context_url_ssm'].present?
+          image_url("#{placeholder_format}-placeholder-e.png")
+        else
+          image_url("#{placeholder_format}-placeholder.png")
+        end
+      else
+        image_url("thumbtack-fa-placeholder.png")
+      end
+    else # fall back to whatever the item does from image server
+      get_asset_url(id: document.id, size: 256, type: 'featured', format: 'jpg')
+    end
   end
 
   def poster_url(item, asset = {}, opts = {})

@@ -20,6 +20,8 @@ class Dcv::Configurators::DurstBlacklightConfigurator
 
     # solr field configuration for search results/index views
     default_index_configuration(config)
+    config.index.grid_size = 6
+
     default_show_configuration(config)
 
     # solr fields that will be treated as facets by the blacklight application
@@ -64,10 +66,11 @@ class Dcv::Configurators::DurstBlacklightConfigurator
 
     # solr fields to be displayed in the index (search results) view
     #   The ordering of the field names is the order of the display
-    #config.add_index_field ActiveFedora::SolrService.solr_name('title_display', :displayable, type: :string), :label => 'Title'
-    config.add_index_field ActiveFedora::SolrService.solr_name('primary_name', :displayable, type: :string), :label => 'Name'
+    config.add_index_field ActiveFedora::SolrService.solr_name('primary_name', :displayable, type: :string), label: 'Name', tombstone_display: true
     config.add_index_field 'dynamically_generated_published_field', :label => 'Published'
-    config.add_index_field ActiveFedora::SolrService.solr_name('lib_format', :displayable, type: :string), :label => 'Format'
+    config.add_index_field ActiveFedora::SolrService.solr_name('lib_format', :displayable, type: :string), label: 'Format', tombstone_display: true
+    config.add_index_field ActiveFedora::SolrService.solr_name('lib_non_item_in_context_url', :displayable, type: :string), label: 'Online', link_label: 'click here for full-text', helper_method: :render_link_to_external_resource, join: false
+    config.add_index_field ActiveFedora::SolrService.solr_name('clio', :symbol), label: 'Catalog Record', link_label: 'check availability', helper_method: :render_link_to_clio, join: false
 
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display
@@ -84,6 +87,8 @@ class Dcv::Configurators::DurstBlacklightConfigurator
     config.add_show_field ActiveFedora::SolrService.solr_name('abstract', :displayable, type: :string), :label => 'Summary', separator_options: LINEBREAK_DELIMITED
     config.add_show_field ActiveFedora::SolrService.solr_name('lib_format', :displayable), :label => 'Format', separator_options: LINEBREAK_DELIMITED
     config.add_show_field ActiveFedora::SolrService.solr_name('lib_non_date_notes', :displayable, type: :string), :label => 'Notes', separator_options: LINEBREAK_DELIMITED
+    config.add_show_field ActiveFedora::SolrService.solr_name('lib_non_item_in_context_url', :displayable, type: :string), label: 'Online', link_label: 'click here for full-text', helper_method: :render_link_to_external_resource, join: false
+    config.add_show_field ActiveFedora::SolrService.solr_name('clio', :symbol), label: 'Catalog Record', link_label: 'check availability', helper_method: :render_link_to_clio, join: false
 
     # solr fields to be displayed in the geo/map panels
     #  facetable (link: true)

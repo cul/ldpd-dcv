@@ -11,7 +11,7 @@
 
 	<div class="col-md-9 ls-controls-dark">
 		<%= render partial: 'content_aggregator/content_aggregator_viewer', locals: { document: document, use_unavailable_image_placeholder: false } %>
-		<%= render partial: 'sidebar_panels/item_description', locals: { document: document, alignment: 'horizontal', link_helpers: (is_postcard ? [:render_url_and_catalog_links, :render_durst_location_information] : [:render_url_and_catalog_links]) } %>
+		<%= render partial: 'sidebar_panels/item_description', locals: { document: document, alignment: 'horizontal', link_helpers: (is_postcard ? [:render_durst_location_information] : []) } %>
 
 	</div>
 

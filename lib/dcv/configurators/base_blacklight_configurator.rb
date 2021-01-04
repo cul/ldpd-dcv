@@ -35,6 +35,7 @@ module Dcv::Configurators::BaseBlacklightConfigurator
     config.index.display_type_field = :active_fedora_model_ssi
     config.index.thumbnail_method = :thumbnail_for_doc
     config.index.document_presenter_class = Dcv::IndexPresenter
+    config.index.grid_size = 4
   end
 
   def default_show_configuration(config)

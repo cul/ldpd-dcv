@@ -50,4 +50,18 @@ module Dcv::FieldSetsHelperBehavior
   def should_render_geo_field?(document, field_config)
     should_render_field?(field_config, document) && document_has_value?(document, field_config)
   end
+
+  def document_tombstone_fields(document = nil)
+    blacklight_config.index_fields.select do |field, field_config|
+      field_config[:tombstone_display] && document[field].present?
+    end.to_h
+  end
+
+  def render_document_tombstone_field_value *args
+    options = args.extract_options!
+    document = args.shift || options[:document]
+
+    field = args.shift || options[:field]
+    content_tag(:div, Array(document[field]).first, class: "ellipsis")
+  end
 end

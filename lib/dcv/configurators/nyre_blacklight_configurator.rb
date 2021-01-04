@@ -73,7 +73,7 @@ class Dcv::Configurators::NyreBlacklightConfigurator
     config.add_index_field ActiveFedora::SolrService.solr_name('abstract', :displayable, type: :string), :label => 'Summary', :helper_method => :truncate_text_to_250
     config.add_index_field 'cul_number_of_members_isi', :label => 'Number of Images'
     config.add_index_field ActiveFedora::SolrService.solr_name('classification_other', :symbol, type: :string), :label => 'Call Number', :link_to_search => ActiveFedora::SolrService.solr_name('classification_other', :symbol)
-    #config.add_index_field ActiveFedora::SolrService.solr_name('lib_item_in_context_url', :displayable, type: :string), :label => 'Item in Context', :helper_method => :link_to_url_value
+    config.add_index_field ActiveFedora::SolrService.solr_name('lib_name', :displayable, type: :string), label: 'Name', tombstone_display: true, if: false
 
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display
@@ -95,6 +95,8 @@ class Dcv::Configurators::NyreBlacklightConfigurator
     config.add_show_field ActiveFedora::SolrService.solr_name('physical_description_extent', :displayable, type: :string), :label => 'Physical Description'
     config.add_show_field ActiveFedora::SolrService.solr_name('identifier', :symbol), :label => 'Identifier'
     config.add_show_field ActiveFedora::SolrService.solr_name('ezid_doi', :symbol), :label => 'DOI'
+    config.add_show_field ActiveFedora::SolrService.solr_name('lib_non_item_in_context_url', :displayable, type: :string), label: 'Online', link_label: 'click here for full-text', helper_method: :render_link_to_external_resource, join: false
+    config.add_show_field ActiveFedora::SolrService.solr_name('clio', :symbol), label: 'Catalog Record', link_label: 'check availability', helper_method: :render_link_to_clio, join: false
 
     # solr fields to be displayed in the geo/map panels
     #  facetable (link: true)
