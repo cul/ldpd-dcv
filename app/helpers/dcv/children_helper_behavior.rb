@@ -198,9 +198,9 @@ module Dcv::ChildrenHelperBehavior
     @archive_org_identifiers ||= begin
       order = 0
       kids = JSON.parse(parent_document.fetch('archive_org_identifiers_json_ss','[]'))
-      if kids.blank? && parent_document['archive_org_identifier_ssi']
+      if kids.blank? && parent_document.archive_org_identifier
         kids << {
-          'id' => parent_document['archive_org_identifier_ssi'],
+          'id' => parent_document.archive_org_identifier,
           'displayLabel' => parent_document['title_display_ssm'].first
         }
       end

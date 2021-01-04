@@ -43,12 +43,8 @@ module Dcv::CdnHelper
   end
 
   def archive_org_id_for_document(document)
-    urls = document['lib_non_item_in_context_url_ssm'] || []
-    archive_org_location = urls.detect { |url| url =~ /\/archive\.org\// }
-    if archive_org_location
-      return archive_org_location.split('/')[-1]
-    end
-    document["archive_org_identifier_ssi"]
+    document = SolrDocument.new(document) unless document.is_a? SolrDocument
+    document.archive_org_identifier
   end
 
   # if archive.org resource, build an appropriate thumb URL, else nil

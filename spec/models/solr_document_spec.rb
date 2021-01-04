@@ -50,4 +50,17 @@ describe SolrDocument do
       it { expect(solr_document.item_in_context_url).not_to be_nil }
       it { expect(solr_document.item_in_context_url).to eql(context_urls.first) }
   end
+  context 'has an archive.org id' do
+    context 'explicitly defined' do
+      include_context "indexed with a archive.org id"
+      it { expect(solr_document.archive_org_identifier).not_to be_nil }
+    end
+    context 'in related URLs' do
+      let(:related_urls) { ['https://archive.org/a_value'] }
+      it { expect(solr_document.archive_org_identifier).not_to be_nil }
+    end
+  end
+  context 'has no archive.org id' do
+    it { expect(solr_document.archive_org_identifier).to be_nil }
+  end
 end

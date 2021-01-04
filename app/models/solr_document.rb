@@ -57,6 +57,15 @@ class SolrDocument
     end
   end
 
+  def archive_org_identifier
+    urls = self[:lib_non_item_in_context_url_ssm] || []
+    archive_org_location = urls.detect { |url| url =~ /\/archive\.org\// }
+    if archive_org_location
+      return archive_org_location.split('/')[-1]
+    end
+    self[:archive_org_identifier_ssi]
+  end
+
   # Scrub permanent links from catalog data to use modern resolver syntax
   # @param perma_link [String] the original link
   # @return [String] link with cgi version of resolver replaced with modern version
