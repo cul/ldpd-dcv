@@ -4,15 +4,11 @@
 		<%= render partial: 'sidebar_panels/item_map', locals: { document: document } %>
 		<%= render partial: 'sidebar_panels/location_data', locals: { document: document } %>
 		<%= render partial: 'sidebar_panels/links', locals: { document: document, configured_links: [:mods] } %>
-
-  </div>
-
-	<% is_postcard = document['lib_format_ssm'].present? && document['lib_format_ssm'].include?('postcards') %>
+	</div>
 
 	<div class="col-md-9 ls-controls-dark">
 		<%= render partial: 'content_aggregator/content_aggregator_viewer', locals: { document: document, use_unavailable_image_placeholder: false } %>
-		<%= render partial: 'sidebar_panels/item_description', locals: { document: document, alignment: 'horizontal', link_helpers: (is_postcard ? [:render_durst_location_information] : []) } %>
-
+		<%= render partial: 'sidebar_panels/item_description', locals: { document: document, alignment: 'horizontal' } %>
 	</div>
 
 </div>

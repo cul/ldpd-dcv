@@ -75,4 +75,25 @@ module FieldDisplayHelpers::ArchivalContext
     shelf_locator = document['location_shelf_locator_ssm']
     shelf_locator.present? ? shelf_locator.first : nil
   end
+
+  def has_sublocation_information?(field_config, document)
+    ['lib_sublocation_ssm', 'lib_collection_ssm', 'location_shelf_locator_ssm'].detect { |f| document[f].present? }
+  end
+
+  # Example output: "Avery Classics Collection, Seymour B. Durst Old York Library Collection, Box no. 35, Item no. 353."
+  def display_sublocation_information(args = {})
+    document = args[:document]
+    info = []
+    if document['lib_sublocation_ssm'].present?
+      info << document['lib_sublocation_ssm'][0]
+      url = HashWithIndifferentAccess.new(I18n.t('ldpd.url.sublocation'))[info[-1]]
+      if url
+        info[-1] = link_to(info[-1], url)
+      end
+    end
+    info << document['lib_collection_ssm'][0] if document['lib_collection_ssm'].present?
+    info << document['location_shelf_locator_ssm'][0] if document['location_shelf_locator_ssm'].present?
+    info[-1] = info[-1] + '.' if info[-1]
+    return info.join(', ').html_safe if info.present?
+  end
 end

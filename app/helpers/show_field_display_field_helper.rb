@@ -9,9 +9,20 @@ module ShowFieldDisplayFieldHelper
   include FieldDisplayHelpers::Publisher
   include FieldDisplayHelpers::Repository
   include FieldDisplayHelpers::Rights
+  include FieldDisplayHelpers::Subject
 
   def is_excepted_dynamic_field?(field_config, document)
     (field_config.except || []).include? field_config.field
+  end
+
+  def match_filter?(field_config, document)
+    if field_config.filter
+      field = field_config.filter.split(':')[0].to_sym
+      value = field_config.filter.split(':')[1]
+      value = JSON.parse(value) if value =~ /".*"/
+      return document[field].present?
+    end
+    false
   end
 
   # return the Blacklight::AbstractRepository in scope
