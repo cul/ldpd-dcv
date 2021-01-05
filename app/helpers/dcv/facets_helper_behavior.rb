@@ -25,13 +25,30 @@ module Dcv::FacetsHelperBehavior
   # @return [String]
   def render_facet_value(facet_field, item, options ={})
     # Check for specially-defined values to hide for this facet field. Return nil to hide the value.
-    values_to_hide_for_this_facet = facet_configuration_for_field(facet_field)['cul_custom_value_hide']
+    facet_config = facet_configuration_for_field(facet_field)
+    values_to_hide_for_this_facet = facet_config['cul_custom_value_hide']
     values_to_hide_for_this_facet = [] if values_to_hide_for_this_facet.nil?
     return nil if values_to_hide_for_this_facet.present? && values_to_hide_for_this_facet.include?(item.value)
-
+    facet_transforms = facet_config['cul_custom_value_transforms']
+    if facet_transforms
+      item.label = facet_transforms.inject(item.value) { |memo, transform| send "#{transform}_facet_value".to_sym, memo, facet_config }
+    end
     path = path_for_facet(facet_field, item)
     content_tag(:span, :class => "facet-label") do
       link_to_unless(options[:suppress_link], facet_display_value(facet_field, item), path, :class=>"facet_select")
     end + render_facet_count(item.hits)
+  end
+
+  def capitalize_facet_value(value, facet_config)
+    value.to_s.split(' ').map(&:capitalize).join(' ')
+  end
+
+  def singularize_facet_value(value, facet_config)
+    value.to_s.singularize
+  end
+
+  def translate_facet_value(value, facet_config)
+    return value unless facet_config['translation']
+    HashWithIndifferentAccess.new(I18n.t(facet_config['translation']))[value] || value
   end
 end

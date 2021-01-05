@@ -46,7 +46,7 @@ class Dcv::Configurators::DurstBlacklightConfigurator
 
     config.add_facet_fields_to_solr_request! # Required for facet queries
 
-    config.add_facet_field ActiveFedora::SolrService.solr_name('lib_format', :facetable), :label => 'Format', :limit => 10, :sort => 'count', :multiselect => true, :ex => 'lib_format-tag', :helper_method => :capitalize_values
+    config.add_facet_field ActiveFedora::SolrService.solr_name('lib_format', :facetable), label: 'Format', limit: 10, sort: 'count', multiselect: true, ex: 'lib_format-tag', cul_custom_value_transforms: [:capitalize]
     config.add_facet_field ActiveFedora::SolrService.solr_name('subject_hierarchical_geographic_neighborhood', :symbol), :label => 'Neighborhood', :limit => 10, :sort => 'count'
     config.add_facet_field ActiveFedora::SolrService.solr_name('subject_hierarchical_geographic_borough', :symbol), :label => 'Borough', :limit => 10, :sort => 'count'
     config.add_facet_field ActiveFedora::SolrService.solr_name('subject_hierarchical_geographic_city', :symbol), :label => 'City', :limit => 10, :sort => 'count'

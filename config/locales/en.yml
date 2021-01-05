@@ -126,4 +126,8 @@ en:
         centennial: "Search within Centennial Exhibition&hellip;"
       modifed:
         default: "Modify current search&hellip;"
+  facet:
+    lcaaj:
+      format:
+        printouts: computer printout
 
