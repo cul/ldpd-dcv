@@ -1,3 +1,4 @@
+<%- facet_field_name = 'durst_subjects_ssim' -%>
 <div id="content">
 	<h2>Old York Library Collection Categories</h2>
 	<p>
@@ -7,202 +8,202 @@
 
 <ul id="motm-list" class="list-unstyled">
 	
-<li><%= link_to('Almanacs', durst_subject_search_url('Almanacs')) %></li>
+<li><%= link_to('Almanacs', local_facet_search_url(facet_field_name, 'Almanacs')) %></li>
 
-<li><%= link_to('Art', durst_subject_search_url('Art')) %>
+<li><%= link_to('Art', local_facet_search_url(facet_field_name, 'Art')) %>
 <ul>
-<li><%= link_to('Art (Entertainment)', durst_subject_search_url('Art (Entertainment)')) %></li>
-<li><%= link_to('Art (Music)', durst_subject_search_url('Art (Music)')) %></li>
-<li><%= link_to('Art (Theater)', durst_subject_search_url('Art (Theater)')) %> - Theatre histories, vaudeville, plays, programs, scrapbooks.</li>
+<li><%= link_to('Art (Entertainment)', local_facet_search_url(facet_field_name, 'Art (Entertainment)')) %></li>
+<li><%= link_to('Art (Music)', local_facet_search_url(facet_field_name, 'Art (Music)')) %></li>
+<li><%= link_to('Art (Theater)', local_facet_search_url(facet_field_name, 'Art (Theater)')) %> - Theatre histories, vaudeville, plays, programs, scrapbooks.</li>
 </ul>
 </li>
 
-<li><%= link_to('Atlas', durst_subject_search_url('Atlas')) %> - Books containing maps/streets indices. Most are oversize books.</li>
+<li><%= link_to('Atlas', local_facet_search_url(facet_field_name, 'Atlas')) %> - Books containing maps/streets indices. Most are oversize books.</li>
 
-<li><%= link_to('Bibliography', durst_subject_search_url('Bibliography')) %> - Bibliographies, books about books, bookstores, book personalities &amp; libraries. Issues about the handling and care of books.</li>
+<li><%= link_to('Bibliography', local_facet_search_url(facet_field_name, 'Bibliography')) %> - Bibliographies, books about books, bookstores, book personalities &amp; libraries. Issues about the handling and care of books.</li>
 
-<li><%= link_to('Biography', durst_subject_search_url('Biography')) %>
+<li><%= link_to('Biography', local_facet_search_url(facet_field_name, 'Biography')) %>
 <ul>
-<li><%= link_to('Biography (Diary)', durst_subject_search_url('Biography (Diary)')) %></li>
-<li><%= link_to('Biography (Genealogy)', durst_subject_search_url('Biography (Genealogy)')) %></li>
-<li><%= link_to('Biography (Multiple)', durst_subject_search_url('Biography (Multiple)')) %></li>
-<li><%= link_to('Biography (Reminiscences)', durst_subject_search_url('Biography (Reminiscences)')) %></li>
+<li><%= link_to('Biography (Diary)', local_facet_search_url(facet_field_name, 'Biography (Diary)')) %></li>
+<li><%= link_to('Biography (Genealogy)', local_facet_search_url(facet_field_name, 'Biography (Genealogy)')) %></li>
+<li><%= link_to('Biography (Multiple)', local_facet_search_url(facet_field_name, 'Biography (Multiple)')) %></li>
+<li><%= link_to('Biography (Reminiscences)', local_facet_search_url(facet_field_name, 'Biography (Reminiscences)')) %></li>
 </ul>
 </li>
 
-<li><%= link_to('Broadway', durst_subject_search_url('Broadway')) %> - Books about the thoroughfare. Some of these books are particularly interesting visually. </li>
+<li><%= link_to('Broadway', local_facet_search_url(facet_field_name, 'Broadway')) %> - Books about the thoroughfare. Some of these books are particularly interesting visually. </li>
 
-<li><%= link_to('Brown, Henry Collins', durst_subject_search_url('Brown, Henry Collins')) %> - Because there are so many books by this noted NYC historian, a shelf was reserved for him. </li>
+<li><%= link_to('Brown, Henry Collins', local_facet_search_url(facet_field_name, 'Brown, Henry Collins')) %> - Because there are so many books by this noted NYC historian, a shelf was reserved for him. </li>
 
-<li><%= link_to('Celebration', durst_subject_search_url('Celebration')) %> - Special events such as building/statue dedications, Hudson-Fulton Celebration, tributes. </li>
+<li><%= link_to('Celebration', local_facet_search_url(facet_field_name, 'Celebration')) %> - Special events such as building/statue dedications, Hudson-Fulton Celebration, tributes. </li>
 
-<li><%= link_to('Cities', durst_subject_search_url('Cities')) %></li>
+<li><%= link_to('Cities', local_facet_search_url(facet_field_name, 'Cities')) %></li>
 
-<li><%= link_to('City Architecture', durst_subject_search_url('City Architecture')) %></li>
+<li><%= link_to('City Architecture', local_facet_search_url(facet_field_name, 'City Architecture')) %></li>
 
-<li><%= link_to('Commerce', durst_subject_search_url('Commerce')) %> - Markets &amp; economies, industries, trades, retain stores, unions, labor, some relevant biographies.
+<li><%= link_to('Commerce', local_facet_search_url(facet_field_name, 'Commerce')) %> - Markets &amp; economies, industries, trades, retain stores, unions, labor, some relevant biographies.
 <ul>
-<li><%= link_to('Commerce (Finance)', durst_subject_search_url('Commerce (Finance)')) %></li>
-<li><%= link_to('Commerce (Legal)', durst_subject_search_url('Commerce (Legal)')) %></li>
-<li><%= link_to('Commerce (Real Estate)', durst_subject_search_url('Commerce (Real Estate)')) %></li>
+<li><%= link_to('Commerce (Finance)', local_facet_search_url(facet_field_name, 'Commerce (Finance)')) %></li>
+<li><%= link_to('Commerce (Legal)', local_facet_search_url(facet_field_name, 'Commerce (Legal)')) %></li>
+<li><%= link_to('Commerce (Real Estate)', local_facet_search_url(facet_field_name, 'Commerce (Real Estate)')) %></li>
 </ul>
 </li>
 
-<li><%= link_to('Directory', durst_subject_search_url('Directory')) %></li>
+<li><%= link_to('Directory', local_facet_search_url(facet_field_name, 'Directory')) %></li>
 
-<li><%= link_to('Economy', durst_subject_search_url('Economy')) %></li>
+<li><%= link_to('Economy', local_facet_search_url(facet_field_name, 'Economy')) %></li>
 
-<li><%= link_to('Education', durst_subject_search_url('Education')) %></li>
+<li><%= link_to('Education', local_facet_search_url(facet_field_name, 'Education')) %></li>
 
-<li><%= link_to('Environment', durst_subject_search_url('Environment')) %> - Wildlife, geology, quality of life issues like noise and population.
+<li><%= link_to('Environment', local_facet_search_url(facet_field_name, 'Environment')) %> - Wildlife, geology, quality of life issues like noise and population.
 <ul>
-<li><%= link_to('Environment (Archeology)', durst_subject_search_url('Environment (Archeology)')) %> - Small section, a few papers related to the African-American burial grounds. </li>
-<li><%= link_to('Environment (Hudson)', durst_subject_search_url('Environment (Hudson)')) %> - View books, predominantly about excursions along the eponymous river. </li>
-<li><%= link_to('Environment (Parks)', durst_subject_search_url('Environment (Parks)')) %> - NYC parks, government reports, and relevant biographies. Special section devoted to Central Park and Frederick L. Olmsted. </li>
+<li><%= link_to('Environment (Archeology)', local_facet_search_url(facet_field_name, 'Environment (Archeology)')) %> - Small section, a few papers related to the African-American burial grounds. </li>
+<li><%= link_to('Environment (Hudson)', local_facet_search_url(facet_field_name, 'Environment (Hudson)')) %> - View books, predominantly about excursions along the eponymous river. </li>
+<li><%= link_to('Environment (Parks)', local_facet_search_url(facet_field_name, 'Environment (Parks)')) %> - NYC parks, government reports, and relevant biographies. Special section devoted to Central Park and Frederick L. Olmsted. </li>
 </ul>
 </li>
 
-<li><%= link_to('Ethnic', durst_subject_search_url('Ethnic')) %> - In depth look at various Ethnic groups making up NYC, including its first inhabitants, Native Americans, up through the waves of recent Caribbean immigrations. (This was one of the subjects that SBD collected new books actively.) </li>
+<li><%= link_to('Ethnic', local_facet_search_url(facet_field_name, 'Ethnic')) %> - In depth look at various Ethnic groups making up NYC, including its first inhabitants, Native Americans, up through the waves of recent Caribbean immigrations. (This was one of the subjects that SBD collected new books actively.) </li>
 
-<li><%= link_to('Events (Celebration)', durst_subject_search_url('Events (Celebration)')) %></li>
+<li><%= link_to('Events (Celebration)', local_facet_search_url(facet_field_name, 'Events (Celebration)')) %></li>
 
-<li><%= link_to('Fiction', durst_subject_search_url('Fiction')) %></li>
+<li><%= link_to('Fiction', local_facet_search_url(facet_field_name, 'Fiction')) %></li>
 
 <li><strong>Geography</strong> - Geography is grouped by borough, and within each borough, by neighborhoods or areas. 
 <ul>
-<li><%= link_to('Geography (Bronx)', durst_subject_search_url('Geography (Bronx)')) %></li>
-<li><%= link_to('Geography (Brooklyn)', durst_subject_search_url('Geography (Brooklyn)')) %></li>
-<li><%= link_to('Geography (Islands)', durst_subject_search_url('Geography (Islands)')) %> - This includes Ellis, Gardiner, Governor, Roosevelt/Welfare/Blackwell's, Shelter. </strong></li>
-<li><%= link_to('Geography (Long Island)', durst_subject_search_url('Geography (Long Island)')) %> - Nassau and Suffolk Counties </strong></li>
-<li><%= link_to('Geography (Manhattan)', durst_subject_search_url('Geography (Manhattan)')) %></li>
-<li><%= link_to('Geography (Miscellaneous)', durst_subject_search_url('Geography (Miscellaneous)')) %> - Geography not specific to NYC, but includes adjacent regions of NJ, and a couple of things about Cuba, the Philippines and several foreign cities </li>
-<li><%= link_to('Geography (New York State)', durst_subject_search_url('Geography (New York State)')) %> - Areas in NYS that are note considered suburbs of NYC. </li>
-<li><%= link_to('Geography (Queens)', durst_subject_search_url('Geography (Queens)')) %></li>
-<li><%= link_to('Geography (Staten Island)', durst_subject_search_url('Geography (Staten Island)')) %></li>
-<li><%= link_to('Geography (Suburban)', durst_subject_search_url('Geography (Suburban)')) %> - This is made up of Rockland and Westchester Counties. </li>
+<li><%= link_to('Geography (Bronx)', local_facet_search_url(facet_field_name, 'Geography (Bronx)')) %></li>
+<li><%= link_to('Geography (Brooklyn)', local_facet_search_url(facet_field_name, 'Geography (Brooklyn)')) %></li>
+<li><%= link_to('Geography (Islands)', local_facet_search_url(facet_field_name, 'Geography (Islands)')) %> - This includes Ellis, Gardiner, Governor, Roosevelt/Welfare/Blackwell's, Shelter. </strong></li>
+<li><%= link_to('Geography (Long Island)', local_facet_search_url(facet_field_name, 'Geography (Long Island)')) %> - Nassau and Suffolk Counties </strong></li>
+<li><%= link_to('Geography (Manhattan)', local_facet_search_url(facet_field_name, 'Geography (Manhattan)')) %></li>
+<li><%= link_to('Geography (Miscellaneous)', local_facet_search_url(facet_field_name, 'Geography (Miscellaneous)')) %> - Geography not specific to NYC, but includes adjacent regions of NJ, and a couple of things about Cuba, the Philippines and several foreign cities </li>
+<li><%= link_to('Geography (New York State)', local_facet_search_url(facet_field_name, 'Geography (New York State)')) %> - Areas in NYS that are note considered suburbs of NYC. </li>
+<li><%= link_to('Geography (Queens)', local_facet_search_url(facet_field_name, 'Geography (Queens)')) %></li>
+<li><%= link_to('Geography (Staten Island)', local_facet_search_url(facet_field_name, 'Geography (Staten Island)')) %></li>
+<li><%= link_to('Geography (Suburban)', local_facet_search_url(facet_field_name, 'Geography (Suburban)')) %> - This is made up of Rockland and Westchester Counties. </li>
 </ul>
 </li>
 
 <li><strong>Government</strong>
 <ul>
-<li><%= link_to('Government (City)', durst_subject_search_url('Government (City)')) %></li>
-<li><%= link_to('Government (National)', durst_subject_search_url('Government (National)')) %></li>
-<li><%= link_to('Government (State)', durst_subject_search_url('Government (State)')) %></li>
+<li><%= link_to('Government (City)', local_facet_search_url(facet_field_name, 'Government (City)')) %></li>
+<li><%= link_to('Government (National)', local_facet_search_url(facet_field_name, 'Government (National)')) %></li>
+<li><%= link_to('Government (State)', local_facet_search_url(facet_field_name, 'Government (State)')) %></li>
 </ul>
 </li>
 
-<li><%= link_to('Green, Andrew H.', durst_subject_search_url('Green, Andrew H.')) %> - SBD's personal grouping of titles related to AHG. </li>
+<li><%= link_to('Green, Andrew H.', local_facet_search_url(facet_field_name, 'Green, Andrew H.')) %> - SBD's personal grouping of titles related to AHG. </li>
 
-<li><%= link_to('Guides', durst_subject_search_url('Guides')) %> - The guides are grouped into more than 14 topics: athletic, budget, general, cookbooks-food, entertainment-nightlife, ethnic-minority, parking, et al. </li>
+<li><%= link_to('Guides', local_facet_search_url(facet_field_name, 'Guides')) %> - The guides are grouped into more than 14 topics: athletic, budget, general, cookbooks-food, entertainment-nightlife, ethnic-minority, parking, et al. </li>
 
-<li><%= link_to('Hall of Fame', durst_subject_search_url('Hall of Fame')) %> - These books represent the "makers" of NY: Belmont, Jervis, Roebling, etc. and works about specific building or engineering accomplishments. </li>
+<li><%= link_to('Hall of Fame', local_facet_search_url(facet_field_name, 'Hall of Fame')) %> - These books represent the "makers" of NY: Belmont, Jervis, Roebling, etc. and works about specific building or engineering accomplishments. </li>
 
 <li><strong>History</strong>
 <ul>
-<li><%= link_to('History (Old)', durst_subject_search_url('History (Old)')) %> - 19th C. </li>
-<li><%= link_to('History (Old, Colonial)', durst_subject_search_url('History (Old, Colonial)')) %></li>
-<li><%= link_to('History (Old, New Netherlands)', durst_subject_search_url('History (Old, New Netherlands)')) %></li>
-<li><%= link_to('History (Old, Revolutionary)', durst_subject_search_url('History (Old, Revolutionary)')) %></li>
-<li><%= link_to('History (Recent)', durst_subject_search_url('History (Recent)')) %> - 20th C. or post-WWI </li>
+<li><%= link_to('History (Old)', local_facet_search_url(facet_field_name, 'History (Old)')) %> - 19th C. </li>
+<li><%= link_to('History (Old, Colonial)', local_facet_search_url(facet_field_name, 'History (Old, Colonial)')) %></li>
+<li><%= link_to('History (Old, New Netherlands)', local_facet_search_url(facet_field_name, 'History (Old, New Netherlands)')) %></li>
+<li><%= link_to('History (Old, Revolutionary)', local_facet_search_url(facet_field_name, 'History (Old, Revolutionary)')) %></li>
+<li><%= link_to('History (Recent)', local_facet_search_url(facet_field_name, 'History (Recent)')) %> - 20th C. or post-WWI </li>
 </ul>
 </li>
 
-<li><%= link_to('Humor', durst_subject_search_url('Humor')) %></li>
+<li><%= link_to('Humor', local_facet_search_url(facet_field_name, 'Humor')) %></li>
 
 <li><strong>Infrastructure</strong>
 <ul>
-<li><%= link_to('Infrastructure (Bridge)', durst_subject_search_url('Infrastructure (Bridge)')) %> - Bridges &amp; Tunnels. Brooklyn Bridge, George Washington, Holland Tunnel, Lincoln Tunnel et al. </li>
-<li><%= link_to('Infrastructure (Canal)', durst_subject_search_url('Infrastructure (Canal)')) %> - Canals and Waterways. Mostly Erie. </li>
-<li><%= link_to('Infrastructure (Port)', durst_subject_search_url('Infrastructure (Port)')) %> - Port/Port Authority. </li>
-<li><%= link_to('Infrastructure (Transportation)', durst_subject_search_url('Infrastructure (Transportation)')) %> - Airports, Ferries-Ships, Highways-Roads, Railroads, Subways, Taxis, etc. </li>
-<li><%= link_to('Infrastructure (Utilities)', durst_subject_search_url('Infrastructure (Utilities)')) %> - Gas, phone and underground maintenance. </li>
-<li><%= link_to('Infrastructure (Water)', durst_subject_search_url('Infrastructure (Water)')) %> - Drinking Water Supply. Croton reservoir, the Catskill watershed and statistics. </li>
+<li><%= link_to('Infrastructure (Bridge)', local_facet_search_url(facet_field_name, 'Infrastructure (Bridge)')) %> - Bridges &amp; Tunnels. Brooklyn Bridge, George Washington, Holland Tunnel, Lincoln Tunnel et al. </li>
+<li><%= link_to('Infrastructure (Canal)', local_facet_search_url(facet_field_name, 'Infrastructure (Canal)')) %> - Canals and Waterways. Mostly Erie. </li>
+<li><%= link_to('Infrastructure (Port)', local_facet_search_url(facet_field_name, 'Infrastructure (Port)')) %> - Port/Port Authority. </li>
+<li><%= link_to('Infrastructure (Transportation)', local_facet_search_url(facet_field_name, 'Infrastructure (Transportation)')) %> - Airports, Ferries-Ships, Highways-Roads, Railroads, Subways, Taxis, etc. </li>
+<li><%= link_to('Infrastructure (Utilities)', local_facet_search_url(facet_field_name, 'Infrastructure (Utilities)')) %> - Gas, phone and underground maintenance. </li>
+<li><%= link_to('Infrastructure (Water)', local_facet_search_url(facet_field_name, 'Infrastructure (Water)')) %> - Drinking Water Supply. Croton reservoir, the Catskill watershed and statistics. </li>
 </ul>
 </li>
 
-<li><%= link_to('Institution', durst_subject_search_url('Institution')) %> - Welfare, philanthropic, histories about various financial institutions (mostly banks, and NYSE). 
+<li><%= link_to('Institution', local_facet_search_url(facet_field_name, 'Institution')) %> - Welfare, philanthropic, histories about various financial institutions (mostly banks, and NYSE). 
 <ul>
-<li><%= link_to('Institution (Club)', durst_subject_search_url('Institution (Club)')) %> - Union League Club, Century Club, Harmonie, Knickerbocker, "21", etc. </li>
-<li><%= link_to('Institution (Sport)', durst_subject_search_url('Institution (Sport)')) %> - Sports clubs/teams, personalities, baseball, boxing, tennis, racing, etc. </li>
+<li><%= link_to('Institution (Club)', local_facet_search_url(facet_field_name, 'Institution (Club)')) %> - Union League Club, Century Club, Harmonie, Knickerbocker, "21", etc. </li>
+<li><%= link_to('Institution (Sport)', local_facet_search_url(facet_field_name, 'Institution (Sport)')) %> - Sports clubs/teams, personalities, baseball, boxing, tennis, racing, etc. </li>
 </ul>
 </li>
 
-<li><%= link_to('International', durst_subject_search_url('International')) %> - International Architecture. </li>
+<li><%= link_to('International', local_facet_search_url(facet_field_name, 'International')) %> - International Architecture. </li>
 
-<li><%= link_to('Juvenile', durst_subject_search_url('Juvenile')) %> - Books for children. </li>
+<li><%= link_to('Juvenile', local_facet_search_url(facet_field_name, 'Juvenile')) %> - Books for children. </li>
 
-<li><%= link_to('King, Moses', durst_subject_search_url('King, Moses')) %></li>
+<li><%= link_to('King, Moses', local_facet_search_url(facet_field_name, 'King, Moses')) %></li>
 
-<li><%= link_to('Literature ', durst_subject_search_url('Literature')) %>
+<li><%= link_to('Literature ', local_facet_search_url(facet_field_name, 'Literature')) %>
 <ul>
-<li><%= link_to('Literature (Anthology)', durst_subject_search_url('Literature (Anthology)')) %> - Books that contain collections of one or several authors. </li>
+<li><%= link_to('Literature (Anthology)', local_facet_search_url(facet_field_name, 'Literature (Anthology)')) %> - Books that contain collections of one or several authors. </li>
 </ul>
 </li>
 
-<li><%= link_to('Map', durst_subject_search_url('Map')) %> - Oversize maps, atlases, or maps folded into books.</li> 
+<li><%= link_to('Map', local_facet_search_url(facet_field_name, 'Map')) %> - Oversize maps, atlases, or maps folded into books.</li> 
 
-<li><%= link_to('Medical', durst_subject_search_url('Medical')) %> - Medical History/Medicine. Hospitals, epidemic histories, public health.</li>
+<li><%= link_to('Medical', local_facet_search_url(facet_field_name, 'Medical')) %> - Medical History/Medicine. Hospitals, epidemic histories, public health.</li>
 
-<li><%= link_to('Military', durst_subject_search_url('Military')) %> - Military history.</li>
+<li><%= link_to('Military', local_facet_search_url(facet_field_name, 'Military')) %> - Military history.</li>
 
-<li><%= link_to('New York Historical Society', durst_subject_search_url('New York Historical Society')) %> - Collected publications and discourses; most relate to early NYC history. </li>
+<li><%= link_to('New York Historical Society', local_facet_search_url(facet_field_name, 'New York Historical Society')) %> - Collected publications and discourses; most relate to early NYC history. </li>
 
-<li><%= link_to('Periodicals', durst_subject_search_url('Periodicals')) %></li>
+<li><%= link_to('Periodicals', local_facet_search_url(facet_field_name, 'Periodicals')) %></li>
 
-<li><%= link_to('Personal', durst_subject_search_url('Personal')) %> - SBD's choice of books to have in his room and those works that he referred to regularly. </li>
+<li><%= link_to('Personal', local_facet_search_url(facet_field_name, 'Personal')) %> - SBD's choice of books to have in his room and those works that he referred to regularly. </li>
 
-<li><%= link_to('Photography', durst_subject_search_url('Photography')) %> - Books that were primarily in the Pictorial room, which are all photographs or where photography is the main type of illustration within the book.</li>
+<li><%= link_to('Photography', local_facet_search_url(facet_field_name, 'Photography')) %> - Books that were primarily in the Pictorial room, which are all photographs or where photography is the main type of illustration within the book.</li>
 
-<li><%= link_to('Pictorial', durst_subject_search_url('Pictorial')) %> - Books whose illustrations are not primarily photographic in nature.</li>
+<li><%= link_to('Pictorial', local_facet_search_url(facet_field_name, 'Pictorial')) %> - Books whose illustrations are not primarily photographic in nature.</li>
 
-<li><%= link_to('Place', durst_subject_search_url('Place')) %> - Specific locales in NYC. E.g., famous restaurants, hotels, the U.N., sites.</li>
+<li><%= link_to('Place', local_facet_search_url(facet_field_name, 'Place')) %> - Specific locales in NYC. E.g., famous restaurants, hotels, the U.N., sites.</li>
 
 <li><strong>Planning</strong> - Urban planning issues. Predominantly NYC, but includes books about the Northeast 
 <ul>
-<li><%= link_to('Planning (Housing)', durst_subject_search_url('Planning (Housing)')) %> - Covers many aspects of housing in NYC: availability statistics, legal issues, In Rem, subsidized housing. </li>
-<li><%= link_to('Planning (Zoning)', durst_subject_search_url('Planning (Zoning)')) %></li>
+<li><%= link_to('Planning (Housing)', local_facet_search_url(facet_field_name, 'Planning (Housing)')) %> - Covers many aspects of housing in NYC: availability statistics, legal issues, In Rem, subsidized housing. </li>
+<li><%= link_to('Planning (Zoning)', local_facet_search_url(facet_field_name, 'Planning (Zoning)')) %></li>
 </ul>
 </li>
 
-<li><%= link_to('Politics', durst_subject_search_url('Politics')) %> - NYC politicians and much on Tammany Hall. Many are biographies. </li>
+<li><%= link_to('Politics', local_facet_search_url(facet_field_name, 'Politics')) %> - NYC politicians and much on Tammany Hall. Many are biographies. </li>
 
-<li><%= link_to('Postcards', durst_subject_search_url('Postcards')) %> - Books with reprinted collected postcards, some of which tear out for mailing. </li>
+<li><%= link_to('Postcards', local_facet_search_url(facet_field_name, 'Postcards')) %> - Books with reprinted collected postcards, some of which tear out for mailing. </li>
 
 <li><strong>Press</strong> - Press, media, journalism, and printing trades 
 <ul>
-<li><%= link_to('Press (Periodical)', durst_subject_search_url('Press (Periodical)')) %> - Bound periodicals </li>
-<li><%= link_to('Press (Planning)', durst_subject_search_url('Press (Planning)')) %></li>
+<li><%= link_to('Press (Periodical)', local_facet_search_url(facet_field_name, 'Press (Periodical)')) %> - Bound periodicals </li>
+<li><%= link_to('Press (Planning)', local_facet_search_url(facet_field_name, 'Press (Planning)')) %></li>
 </ul>
 </li>
 
-<li><%= link_to('Reference', durst_subject_search_url('Reference')) %></li>
+<li><%= link_to('Reference', local_facet_search_url(facet_field_name, 'Reference')) %></li>
 
-<li><%= link_to('Religion', durst_subject_search_url('Religion')) %> - Histories of various "houses of worship," congregations and orders. </li>
+<li><%= link_to('Religion', local_facet_search_url(facet_field_name, 'Religion')) %> - Histories of various "houses of worship," congregations and orders. </li>
 
-<li><%= link_to('Riis, Jacob A.', durst_subject_search_url('Riis, Jacob A.')) %> - Special personal collection of SBD.</li>
+<li><%= link_to('Riis, Jacob A.', local_facet_search_url(facet_field_name, 'Riis, Jacob A.')) %> - Special personal collection of SBD.</li>
 
-<li><%= link_to('Seymour B. Durst (as subject)', durst_subject_search_url('Seymour B. Durst (as subject)')) %> - Books written by or inscribed to; and other favorites </li>
+<li><%= link_to('Seymour B. Durst (as subject)', local_facet_search_url(facet_field_name, 'Seymour B. Durst (as subject)')) %> - Books written by or inscribed to; and other favorites </li>
 
-<li><%= link_to('Social Services', durst_subject_search_url('Social Services')) %> - Sociology &amp; Social Welfare. Social conditions, public welfare institutions, studies. </li>
+<li><%= link_to('Social Services', local_facet_search_url(facet_field_name, 'Social Services')) %> - Sociology &amp; Social Welfare. Social conditions, public welfare institutions, studies. </li>
 
-<li><%= link_to('Society', durst_subject_search_url('Society')) %> - Class and society notables. Some "blue" books and various registers.</li>
+<li><%= link_to('Society', local_facet_search_url(facet_field_name, 'Society')) %> - Class and society notables. Some "blue" books and various registers.</li>
 
-<li><%= link_to('Statue of Liberty', durst_subject_search_url('Statue of Liberty')) %></li>
-<li><%= link_to('Text', durst_subject_search_url('Text')) %> - Text books. This ranges from early American to mid-20th C.</li>
+<li><%= link_to('Statue of Liberty', local_facet_search_url(facet_field_name, 'Statue of Liberty')) %></li>
+<li><%= link_to('Text', local_facet_search_url(facet_field_name, 'Text')) %> - Text books. This ranges from early American to mid-20th C.</li>
 
-<li><%= link_to('Times Square', durst_subject_search_url('Times Square')) %> -Works whose content is considered more a part of the "state of being" Times Square and less about its "geographical nature." </li>
+<li><%= link_to('Times Square', local_facet_search_url(facet_field_name, 'Times Square')) %> -Works whose content is considered more a part of the "state of being" Times Square and less about its "geographical nature." </li>
 
-<li><%= link_to('Travel & Voyages', durst_subject_search_url('Travel & Voyages')) %> - The books of explorers and settlers. </li>
+<li><%= link_to('Travel & Voyages', local_facet_search_url(facet_field_name, 'Travel & Voyages')) %> - The books of explorers and settlers. </li>
 
-<li><%= link_to('Unbuilt', durst_subject_search_url('Unbuilt')) %> - NYC architectural ideas or plans that were never actualized. </li>
+<li><%= link_to('Unbuilt', local_facet_search_url(facet_field_name, 'Unbuilt')) %> - NYC architectural ideas or plans that were never actualized. </li>
 
-<li><%= link_to('Views', durst_subject_search_url('Views')) %> - NYC illustrations, photographs, posters. </li>
+<li><%= link_to('Views', local_facet_search_url(facet_field_name, 'Views')) %> - NYC illustrations, photographs, posters. </li>
 
-<li><%= link_to('Women', durst_subject_search_url('Women')) %> - Histories by and/or about women.</li>
+<li><%= link_to('Women', local_facet_search_url(facet_field_name, 'Women')) %> - Histories by and/or about women.</li>
 
-<li><%= link_to("World's Fair", durst_subject_search_url("World's Fair")) %> - This includes the 1939 and 1964 World's Fairs in NYC and a few items relating to the NY Exposition at the Crystal Palace in 1853 &amp; Columbia Exposition of 1893. </li>
+<li><%= link_to("World's Fair", local_facet_search_url(facet_field_name, "World's Fair")) %> - This includes the 1939 and 1964 World's Fairs in NYC and a few items relating to the NY Exposition at the Crystal Palace in 1853 &amp; Columbia Exposition of 1893. </li>
 
-<li><%= link_to('Zoning', durst_subject_search_url('Zoning')) %> - Part of planning. </li>
+<li><%= link_to('Zoning', local_facet_search_url(facet_field_name, 'Zoning')) %> - Part of planning. </li>
 </ul>
 
 

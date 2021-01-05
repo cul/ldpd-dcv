@@ -81,16 +81,8 @@ module Dcv::DcvUrlHelper
     return url_for({controller: controller_name, action: 'index', search_field: 'all_text_teim', q: '' })
   end
 
-  def local_image_search_url
-    return url_for({controller: controller_name, action: 'index', search_field: 'all_text_teim', q: '', 'f' => {'lib_format_sim' => (durst_format_list.keys.reject{|key| key == 'books'})}})
-  end
-
   def local_facet_search_url(facet_field_name, value)
-    return url_for({controller: controller_name, action: 'index', search_field: 'all_text_teim', q: '', 'f' => {facet_field_name => [value]}})
-  end
-
-  def local_subject_search_url(subject_term_value)
-    return url_for({controller: controller_name, action: 'index', search_field: 'all_text_teim', q: '', 'f' => {'durst_subjects_ssim' => [subject_term_value]}})
+    return url_for({controller: controller_name, action: 'index', search_field: 'all_text_teim', q: '', 'f' => {facet_field_name => Array(value)}})
   end
 
   def landing_page_search_url(document)
