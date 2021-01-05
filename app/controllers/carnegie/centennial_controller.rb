@@ -5,8 +5,6 @@ class CentennialController < SubsitesController
 
   before_action :set_map_data_json, only: [:map_search]
 
-  include Carnegie::FieldFormatterHelper
-
   configure_blacklight do |config|
     Dcv::Configurators::CarnegieBlacklightConfigurator.configure(config)
     config.show.route = { controller: 'carnegie/centennial' }

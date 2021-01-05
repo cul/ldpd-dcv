@@ -4,6 +4,7 @@ module ShowFieldDisplayFieldHelper
   include FieldDisplayHelpers::LocationUrls
   include FieldDisplayHelpers::Name
   include FieldDisplayHelpers::Note
+  include FieldDisplayHelpers::PhysicalDescription
   include FieldDisplayHelpers::Project
   include FieldDisplayHelpers::Publisher
   include FieldDisplayHelpers::Repository

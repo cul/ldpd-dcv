@@ -4,8 +4,6 @@ class CarnegieController < SubsitesController
 
   before_action :set_map_data_json, only: [:map_search]
 
-  include Carnegie::FieldFormatterHelper
-
   configure_blacklight do |config|
     Dcv::Configurators::CarnegieBlacklightConfigurator.configure(config)
     # Include this target's content in search results, and any additional publish targets specified in subsites.yml

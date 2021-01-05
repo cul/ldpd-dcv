@@ -76,7 +76,7 @@ class Dcv::Configurators::LehmanBlacklightConfigurator
     config.add_show_field ActiveFedora::SolrService.solr_name('lib_all_subjects', :displayable), label: 'Subjects'
     config.add_show_field ActiveFedora::SolrService.solr_name('lib_format', :displayable), label: 'Format'
     config.add_show_field ActiveFedora::SolrService.solr_name('lib_genre', :symbol), label: 'Document Type'
-    config.add_show_field ActiveFedora::SolrService.solr_name('origin_info_date_created', :displayable), label: 'Origin Information', separator_options: COMMA_DELIMITED, helper_method: :display_origin_info, unless: :is_dateless_origin_info?
+    config.add_show_field 'origin_info_date_created_ssm', label: 'Origin Information', separator_options: COMMA_DELIMITED, accessor: :unpublished_origin_information
     config.add_show_field ActiveFedora::SolrService.solr_name('identifier', :symbol), label: 'Document ID'
     config.add_show_field ActiveFedora::SolrService.solr_name('physical_description_extent', :displayable, type: :string), label: 'Physical Description', helper_method: :append_digital_origin
     config.add_show_field 'dynamic_notes', pattern: /lib_.*_notes_ssm/, label: :notes_label, helper_method: :expandable_past_250, unless: :is_excepted_dynamic_field?, except: ['lib_acknowledgment_notes_ssm']

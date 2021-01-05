@@ -1,8 +1,6 @@
 class LehmanController < SubsitesController
   include ActionController::Live
 
-  include Carnegie::FieldFormatterHelper
-
   configure_blacklight do |config|
     Dcv::Configurators::LehmanBlacklightConfigurator.configure(config)
     # Include this target's content in search results, and any additional publish targets specified in subsites.yml
