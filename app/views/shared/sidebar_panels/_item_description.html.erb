@@ -4,13 +4,7 @@
 <div class="inner" <%= "style=\"margin-top:1em;\"".html_safe if alignment != 'vertical' %>>
 	<dl class="dl-<%= alignment %>">
 		<% document_show_fields(document).each do |solr_fname, field| %>
-			<% if solr_fname.to_s == 'dynamically_generated_published_field' %>
-				<% publisher_field_value = combined_field_published_string(document) %>
-				<% if publisher_field_value.present? %>
-					<dt><%= render_document_show_field_label document, :field => solr_fname %></dt>
-					<dd><%= publisher_field_value %></dd>
-				<% end %>
-			<% elsif field.pattern %>
+			<% if field.pattern %>
 				<% document.to_h.select {|k,v| k =~ field.pattern }.each do | k,v| %>
 					<% field_clone = field.clone; field_clone.tap { |c| c.field = k } %>
 					<% if should_render_show_field?(document, field_clone) %>

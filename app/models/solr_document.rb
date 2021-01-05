@@ -10,6 +10,7 @@ class SolrDocument
   ]
 
   include Blacklight::Solr::Document
+  include SolrDocument::PublicationInfo
   include SolrDocument::Snippets
 
   # Email uses the semantic field mappings below to generate the body of an email.

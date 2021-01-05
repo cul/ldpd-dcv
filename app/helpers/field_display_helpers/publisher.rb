@@ -26,4 +26,13 @@ module FieldDisplayHelpers::Publisher
       return value
     end
   end
+
+  def has_publisher?(field_config, document)
+    publisher = document.fetch(:lib_publisher_ssm,[]).first
+    return publisher.present?
+  end
+
+  def has_publication_info?(field_config, document)
+    [:lib_publisher_ssm, :origin_info_place_for_display_ssm, field_config.field_name].detect { |fname| document[fname].present? }
+  end
 end

@@ -21,31 +21,11 @@ module Carnegie::FieldFormatterHelper
     return date.blank? && publisher.blank?
   end
 
-  def is_publication_info?(field_config, document)
-    publisher = document.fetch(:lib_publisher_ssm,[]).first
-    return publisher.present?
-  end
-
   def display_dateless_origin_info(args={})
     document = args.fetch(:document,{})
     date = document.fetch('origin_info_date_created_ssm',[]).first
     return [] if date
     display_origin_info(args)
-  end
-
-  def display_publication_info(args={})
-    document = args.fetch(:document,{})
-    publisher = document.fetch(:lib_publisher_ssm,[]).first
-    return [] unless publisher
-    publisher = Array.wrap(publisher)
-
-    place = document.fetch(:origin_info_place_ssm,[]).first
-    publisher << place if place
-    publisher.each { |part| part.sub!(/[\s\:\.]+$/,'') }
-    publisher = publisher.join(': ')
-    date = document.fetch(:origin_info_date_created_ssm,[]).first
-    date.sub!(/[\s\:\.]+$/,'') unless date.nil?
-    [publisher, date].compact.join('. ')
   end
 
   def display_as_link_to_home(args={})

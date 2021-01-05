@@ -67,19 +67,19 @@ class Dcv::Configurators::DurstBlacklightConfigurator
     # solr fields to be displayed in the index (search results) view
     #   The ordering of the field names is the order of the display
     config.add_index_field ActiveFedora::SolrService.solr_name('primary_name', :displayable, type: :string), label: 'Name', tombstone_display: true
-    config.add_index_field 'dynamically_generated_published_field', :label => 'Published'
+    config.add_index_field 'lib_date_textual_ssm', :label => 'Published', accessor: :published_origin_information, if: :has_publication_info?
     config.add_index_field ActiveFedora::SolrService.solr_name('lib_format', :displayable, type: :string), label: 'Format', tombstone_display: true
     config.add_index_field ActiveFedora::SolrService.solr_name('lib_non_item_in_context_url', :displayable, type: :string), label: 'Online', link_label: 'click here for full-text', helper_method: :render_link_to_external_resource, join: false
     config.add_index_field ActiveFedora::SolrService.solr_name('clio', :symbol), label: 'Catalog Record', link_label: 'check availability', helper_method: :render_link_to_clio, join: false
 
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display
-    
+
     # Note: We have a more complex layout that doesn't work with the basic, easy blacklight show fields, so there's no point to filling these out
     config.add_show_field ActiveFedora::SolrService.solr_name('title_display', :displayable, type: :string), :label => 'Title', separator_options: LINEBREAK_DELIMITED
     config.add_show_field ActiveFedora::SolrService.solr_name('alternative_title', :displayable, type: :string), :label => 'Alternative Titles', separator_options: LINEBREAK_DELIMITED
     config.add_show_field ActiveFedora::SolrService.solr_name('lib_name', :displayable), :label => 'Name', separator_options: LINEBREAK_DELIMITED
-    config.add_show_field 'dynamically_generated_published_field', :label => 'Published'
+    config.add_show_field 'lib_date_textual_ssm', :label => 'Published', accessor: :published_origin_information, if: :has_publication_info?
     config.add_show_field ActiveFedora::SolrService.solr_name('origin_info_edition', :displayable, type: :string), :label => 'Edition', separator_options: LINEBREAK_DELIMITED
     config.add_show_field ActiveFedora::SolrService.solr_name('physical_description_extent', :displayable, type: :string), :label => 'Physical Description', separator_options: LINEBREAK_DELIMITED
     config.add_show_field ActiveFedora::SolrService.solr_name('lib_all_subjects', :displayable, type: :string), :label => 'Subjects', separator_options: LINEBREAK_DELIMITED, :helper_method => :split_complex_subject_into_links
