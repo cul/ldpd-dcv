@@ -19,6 +19,7 @@ describe SitesController, type: :unit do
 		allow(controller).to receive(:request).and_return(request_double)
 		allow(controller).to receive(:load_subsite).and_return(site)
 	end
+	include_context 'verify configurable layouts'
 	describe '#search_action_url' do
 		let(:query) { {search_field: 'all_text_teim'} }
 		let(:search_uri) { URI(controller.search_action_url(query)) }

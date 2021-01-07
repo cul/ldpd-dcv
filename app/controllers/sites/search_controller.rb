@@ -4,6 +4,7 @@ module Sites
 		include Dcv::CdnHelper
 		include Dcv::MarkdownRendering
 		include Dcv::CatalogIncludes
+		include Dcv::Sites::ConfiguredLayouts
 		include Dcv::Sites::SearchableController
 		include Cul::Omniauth::AuthorizingController
 		include ShowFieldDisplayFieldHelper
@@ -69,15 +70,6 @@ module Sites
 
 		def subsite_config
 			@subsite_config ||= load_subsite.to_subsite_config
-		end
-
-		def subsite_layout
-			subsite_config['layout'] || 'catalog'
-		end
-
-		def subsite_styles
-			palette = subsite_config['palette'] || 'monochromeDark'
-			"#{subsite_layout}-#{palette}"
 		end
 
 		def catalog_uri

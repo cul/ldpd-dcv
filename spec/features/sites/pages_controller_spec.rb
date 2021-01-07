@@ -5,10 +5,26 @@ describe ::Sites::PagesController, type: :feature do
 	let(:source) { fixture("sites/import/directory").path }
 	let(:import) { Dcv::Sites::Import::Directory.new(source) }
 	let(:site_slug) { import.atts['slug'] }
+	let(:site_layout) { import.atts['layout'] }
 	let(:page_link) { "/#{site_slug}/about" }
 	let(:edit_link_href) { "#{page_link}/edit" }
 	describe '#show' do
-		before { import.run }
+		before do
+			import.atts['layout'] = site_layout
+			import.run
+		end
+		shared_context "displays expected text" do
+			it 'displays expected text' do
+				visit(page_link)
+				expect(page).to have_css('li > strong', text: 'Don\'t Repeat Yourself')
+			end
+		end
+		Dcv::Sites::Constants::VALID_LAYOUTS.each do |valid_layout|
+			context "in \"#{valid_layout}\" layout" do
+				let(:site_layout) { valid_layout }
+				include_context "displays expected text"
+			end
+		end
 		it 'displays expected text' do
 			visit(page_link)
 			expect(page).to have_css('li > strong', text: 'Don\'t Repeat Yourself')
