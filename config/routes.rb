@@ -143,6 +143,7 @@ Dcv::Application.routes.draw do
       get '/:slug', controller: 'sites', action: 'home', as: 'site'
       resources 'sites', only: [:edit, :update], param: :slug, path: '', constraints: SITE_SLUG_CONSTRAINT do
         scope module: :sites do
+          resource 'search_configuration', only: [:edit, :show, :update], controller: 'search_configuration'
           resource 'search', only: [:show], controller: 'search' do
             concerns :site_searchable
           end
@@ -161,6 +162,7 @@ Dcv::Application.routes.draw do
   get '/:slug', controller: 'sites', action: 'home', as: 'site'
   resources 'sites', only: [:edit, :update], param: :slug, path: '', constraints: SITE_SLUG_CONSTRAINT do
     scope module: :sites do
+      resource 'search_configuration', only: [:edit, :show, :update], controller: 'search_configuration'
       resource 'search', only: [:show], controller: 'search' do
         concerns :site_searchable
       end
