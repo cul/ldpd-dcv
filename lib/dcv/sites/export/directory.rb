@@ -26,11 +26,11 @@ module Dcv::Sites::Export
 			end
 		end
 		def run
-			@site.to_json
 			open(File.join(@directory, SITE_METADATA), 'wb') do |io|
-				json = @site.as_json(include: :nav_links)
+				json = @site.as_json(include: [:nav_links, search_configuration: {compact: true}])
 				unless @db_fields
 					DB_FIELDS.each { |f| json.delete(f) }
+					json.delete('constraints') # obsolete
 					json['nav_links'].each do |nav_link|
 						DB_FIELDS.each { |f| nav_link.delete(f) }
 					end

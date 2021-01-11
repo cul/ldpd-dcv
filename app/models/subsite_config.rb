@@ -26,6 +26,48 @@ class SubsiteConfig
     subsite_config.with_indifferent_access
   end
 
+  def date_search_configuration
+    obj = Site::DateSearchConfiguration.new
+    config['date_search']&.tap do |legacy_config|
+      obj.show_sidebar = legacy_config['sidebar'] || false
+      obj.show_timeline = legacy_config['timeline'] || false
+      obj.sidebar_label = legacy_config['label'] || 'Date Range'
+      obj.enabled = (legacy_config['sidebar'] || legacy_config['timeline']) ? true : false
+    end
+    obj
+  end
+
+  def display_options
+    obj = Site::DisplayOptions.new
+    obj.default_search_mode = config.fetch('default_search_mode', 'grid')
+    obj.show_csv_results = config.fetch('show_csv_results', false)
+    obj.show_original_file_download = config.fetch('show_original_file_download', false)
+    obj.show_other_sources = config.fetch('show_other_sources', false)
+    obj
+  end
+
+  def map_configuration
+    obj = Site::MapConfiguration.new
+    config['map_search']&.tap do |legacy_config|
+      obj.show_sidebar = legacy_config.fetch('sidebar', false)
+      obj.show_items = legacy_config.fetch('items', true)
+      obj.default_lat = legacy_config['default_lat']
+      obj.default_long = legacy_config['default_long']
+      obj.enabled = (legacy_config['default_lat'] || legacy_config['default_long']) ? true : false
+      case legacy_config['default_zoom']
+      when 11
+        obj.granularity_data = 'street'
+        obj.granularity_search = 'city'
+      else
+        if obj.enabled
+          obj.granularity_data = 'city'
+          obj.granularity_search = 'country'
+        end
+      end
+    end
+    obj
+  end
+
   # publisher_ssim values are fedora_uri values
   def self.for_fedora_uri(fedora_uri)
     subsite_config = {}

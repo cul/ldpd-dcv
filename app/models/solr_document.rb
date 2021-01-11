@@ -107,6 +107,6 @@ class SolrDocument
     }
     res = rsolr.send_and_receive('select', params: solr_params.to_hash, method: :get)
     solr_response = Blacklight::Solr::Response.new(res, solr_params, solr_document_model: self)
-    solr_response['response']['docs'].map {|doc| block.yield new(doc)}
+    solr_response['response']['docs'].each {|doc| block.yield new(doc)}
   end
 end

@@ -5,29 +5,50 @@ module Nyre
     before_filter :set_view_path
     helper_method :extract_map_data_from_document_list, :url_for_document
 
-    layout Proc.new { |controller|
-      subsite_config['layout']
-    }
+    layout 'nyre'
 
-    def self.subsite_config
-      return SUBSITES['public'].fetch('nyre',{})
-    end
-
-    def subsite_key
+    def self.subsite_key
       'nyre'
     end
 
+    def self.subsite_config
+      @subsite_config ||= load_subsite&.to_subsite_config || SubsiteConfig.for_path(subsite_key, false)
+    end
+
+    def subsite_config
+      @subsite_config ||=  self.class.subsite_config
+    end
+
+    def self.load_subsite
+      @subsite ||= Site.find_by(slug: subsite_key)
+    end
+
+    def load_subsite
+      @subsite ||= self.class.load_subsite
+    end
+
+    def subsite_key
+      self.class.subsite_key
+    end
+
     def subsite_layout
-      SUBSITES['public']['nyre']['layout']
+      self.class.subsite_key
+    end
+
+    def self.configure_blacklight_scope_constraints(config, exclude_by_id = false)
+      publishers = Array(subsite_config.dig('scope_constraints','publisher')).compact
+      config.default_solr_params[:fq] << "publisher_ssim:(\"" + publishers.join('" OR "') + "\")"
+      # Do not include the publish target itself or any additional publish targets defined in search results
+      if exclude_by_id
+        config.default_solr_params[:fq] << '-id:("' + publishers.map{|info_fedora_prefixed_pid| info_fedora_prefixed_pid.gsub('info:fedora/', '') }.join('" OR "') + '")'
+      end
     end
 
     configure_blacklight do |config|
       Dcv::Configurators::NyreBlacklightConfigurator.configure(config)
       config.add_facet_field ActiveFedora::SolrService.solr_name('subject_hierarchical_geographic_street', :symbol), :label => 'Address', :sort => 'index', :limit => 10
       # Include this target's content in search results, and any additional publish targets specified in subsites.yml
-      publishers = [subsite_config['uri']] + (subsite_config['additional_publish_targets'] || [])
-      config.default_solr_params[:fq] << "publisher_ssim:(\"" + publishers.join('" OR "') + "\")"
-      config.default_solr_params[:fq] << '-active_fedora_model_ssi:GenericResource'
+      configure_blacklight_scope_constraints(config)
     end
 
     def subsite_config
@@ -37,8 +58,8 @@ module Nyre
     # haaaaaaack to not reproduce templates
     def initialize(*args)
       super(*args)
-      self._prefixes << subsite_config['layout'] + '/projects' 
-      self._prefixes << subsite_config['layout']
+      self._prefixes << 'nyre/projects' 
+      self._prefixes << 'nyre'
       self._prefixes << '/catalog'
       self._prefixes.unshift "shared"
       self._prefixes.unshift ""
@@ -46,10 +67,10 @@ module Nyre
 
     def set_view_path
       self.prepend_view_path('app/views/shared')
-      self.prepend_view_path('app/views/' + self.subsite_layout)
-      self.prepend_view_path(self.subsite_layout)
-      self.prepend_view_path('app/views/' + self.subsite_layout + '/projects')
-      self.prepend_view_path(self.subsite_layout + '/projects')
+      self.prepend_view_path('app/views/nyre')
+      self.prepend_view_path('nyre')
+      self.prepend_view_path('app/views/nyre/projects')
+      self.prepend_view_path('nyre/projects')
       self.prepend_view_path('app/views/' + controller_path)
       self.prepend_view_path(controller_path)
     end

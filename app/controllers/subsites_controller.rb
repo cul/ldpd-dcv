@@ -3,6 +3,7 @@ class SubsitesController < ApplicationController
   include Dcv::RestrictableController
   include Dcv::CatalogIncludes
   include Dcv::MarkdownRendering
+  include Dcv::Sites::ConfiguredLayouts
   include Dcv::Sites::SearchableController
   include Cul::Hydra::ApplicationIdBehavior
   include Cul::Omniauth::AuthorizingController
@@ -12,7 +13,7 @@ class SubsitesController < ApplicationController
   before_filter :store_unless_user, except: [:update, :destroy, :api_info]
   before_filter :authorize_action, only:[:index, :preview, :show]
   before_filter :default_search_mode_cookie, only: :index
-  before_filter :load_subsite, except: [:home, :index, :page]
+  before_filter :load_subsite, except: [:home, :page]
   before_filter :load_page, only: [:home, :index, :page]
   protect_from_forgery :except => [:update, :destroy, :api_info] # No CSRF token required for publishing actions
 
@@ -70,15 +71,19 @@ class SubsitesController < ApplicationController
   end
 
   def self.subsite_config
-    SubsiteConfig.for_path(controller_path, self.restricted?)
+    @subsite_config ||= load_subsite&.to_subsite_config || SubsiteConfig.for_path(controller_path, self.restricted?)
   end
 
   def subsite_config
-    return self.class.subsite_config
+    @subsite_config ||=  self.class.subsite_config
+  end
+
+  def self.load_subsite
+    @subsite ||= Site.find_by(slug: controller_path)
   end
 
   def load_subsite
-    @subsite ||= Site.find_by(slug: controller_path)
+    @subsite ||= self.class.load_subsite
   end
 
   def load_page
@@ -91,6 +96,14 @@ class SubsitesController < ApplicationController
     end
   end
 
+  def self.configure_blacklight_scope_constraints(config, exclude_by_id = false)
+    publishers = Array(subsite_config.dig('scope_constraints','publisher')).compact
+    config.default_solr_params[:fq] << "publisher_ssim:(\"" + publishers.join('" OR "') + "\")"
+    # Do not include the publish target itself or any additional publish targets defined in search results
+    if exclude_by_id
+      config.default_solr_params[:fq] << '-id:("' + publishers.map{|info_fedora_prefixed_pid| info_fedora_prefixed_pid.gsub('info:fedora/', '') }.join('" OR "') + '")'
+    end
+  end
   # PUT /subsite/publish/:id
   def update
     pid = params[:id]
@@ -200,19 +213,6 @@ class SubsitesController < ApplicationController
     else
       self.class.restricted? ? "restricted_#{self.controller_name}" : self.controller_name
     end
-  end
-
-  def subsite_layout
-    configured_layout = load_subsite&.layout || subsite_config['layout']
-    configured_layout = DCV_CONFIG.fetch(:default_layout, 'portrait') if configured_layout == 'default'
-    configured_layout
-  end
-
-  def subsite_styles
-    return [subsite_layout] unless Dcv::Sites::Constants::PORTABLE_LAYOUTS.include?(subsite_layout)
-    palette = load_subsite&.palette || subsite_config['palette'] || 'default'
-    palette = DCV_CONFIG.fetch(:default_palette, 'monochromeDark') if palette == 'default'
-    ["#{subsite_layout}-#{palette}", self.controller_name]
   end
 
   def thumb_url(document={})

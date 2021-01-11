@@ -7,8 +7,7 @@ class CarnegieController < SubsitesController
   configure_blacklight do |config|
     Dcv::Configurators::CarnegieBlacklightConfigurator.configure(config)
     # Include this target's content in search results, and any additional publish targets specified in subsites.yml
-    publishers = [subsite_config['uri']] + (subsite_config['additional_publish_targets'] || [])
-    config.default_solr_params[:fq] << "publisher_ssim:(\"" + publishers.join('" OR "') + "\")"
+    configure_blacklight_scope_constraints(config)
   end
 
   def index

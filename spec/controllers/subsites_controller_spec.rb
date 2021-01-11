@@ -2,23 +2,17 @@ require 'rails_helper'
 
 describe CatalogController, :type => :controller do
   before do
-    @orig_config = SUBSITES['public']['catalog']
-    SUBSITES['public']['catalog'] = {
-      'layout' => 'dcv',
-      'remote_request_api_key' =>'goodtoken'
-    }
-    expect(controller).not_to be_nil
-    expect(controller.controller_name).not_to be_nil
-    #controller.instance_variable_set(:@controller_name, 'catalog')
-    #controller.class.instance_variable_set(:@controller_path, 'catalog')
+    controller.subsite_config['remote_request_api_key'] = valid_api_key
     request.env['HTTP_AUTHORIZATION'] = api_key
     allow(IndexFedoraObjectJob).to receive(:perform).
       with(hash_including('pid' => 'baad:id')).
       and_raise(ActiveFedora::ObjectNotFoundError)
   end
   after do
-    SUBSITES['public']['catalog'] = @orig_config
+    controller.subsite_config['remote_request_api_key'] = SUBSITES.dig('public', 'catalog', 'remote_request_api_key')
   end
+  let(:valid_api_key) { 'goodtoken' }
+  let(:invalid_api_key) { valid_api_key + 'gonebad' }
   let(:mock_object) do
     double(ActiveFedora::Base)
   end
@@ -34,14 +28,14 @@ describe CatalogController, :type => :controller do
     end
     context 'invalid api_key' do
       let(:api_key) do
-        ActionController::HttpAuthentication::Token.encode_credentials(SUBSITES['public']['catalog']['remote_request_api_key'] + "bad")
+        ActionController::HttpAuthentication::Token.encode_credentials(invalid_api_key)
       end
       let(:params) { { id: 'good:id' } }
       it { is_expected.to eql(403) }
     end
     context 'valid api_key' do
       let(:api_key) do
-        ActionController::HttpAuthentication::Token.encode_credentials(SUBSITES['public']['catalog']['remote_request_api_key'])
+        ActionController::HttpAuthentication::Token.encode_credentials(valid_api_key)
       end
       context 'bad doc id' do
         let(:params) { { id: 'baad:id' } }
@@ -100,19 +94,23 @@ describe CatalogController, :type => :controller do
     end
     context 'invalid api_key' do
       let(:api_key) do
-        ActionController::HttpAuthentication::Token.encode_credentials(SUBSITES['public']['catalog']['remote_request_api_key'] + "bad")
+        ActionController::HttpAuthentication::Token.encode_credentials(invalid_api_key)
       end
       let(:params) { { id: 'good:id' } }
       it { is_expected.to eql(403) }
     end
     context 'valid api_key' do
       before do
+        allow(solr_repo).to receive(:connection).and_return(rsolr)
         allow(rsolr).to receive(:delete_by_id).with('baad:id').and_return(bad_id_response)
         allow(rsolr).to receive(:delete_by_id).with('good:id').and_return(good_id_response)
         allow(rsolr).to receive(:commit)
+        Blacklight.default_index = solr_repo
       end
+      after { Blacklight.default_index = nil }
+      let(:solr_repo) { instance_double(Blacklight::Solr::Repository) }
       let(:api_key) do
-        ActionController::HttpAuthentication::Token.encode_credentials(SUBSITES['public']['catalog']['remote_request_api_key'])
+        ActionController::HttpAuthentication::Token.encode_credentials(valid_api_key)
       end
       context 'bad doc id' do
         let(:params) { { id: 'baad:id' } }

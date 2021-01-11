@@ -16,6 +16,7 @@ describe Dcv::Sites::Export::Directory do
 			import_properties = File.join(source, 'properties.yml')
 			expected = YAML.load(File.read(import_properties))
 			expected.compact!
+			FileUtils.cp(export_properties, 'tmp')
 			actual = YAML.load(File.read(export_properties))
 			actual.compact!
 			expect(actual).to eql(expected)

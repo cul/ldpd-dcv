@@ -5,7 +5,7 @@ class Site < ActiveRecord::Base
 	has_many :nav_links, dependent: :destroy
 	has_many :site_pages, dependent: :destroy
 	accepts_nested_attributes_for :nav_links
-	store :constraints, accessors: [ :publisher, :project, :project_key, :collection, :collection_key ], coder: JSON, suffix: true
+	attribute :search_configuration, Site::SearchConfiguration::Type.new, default: -> {Site::SearchConfiguration.new}
 	serialize :editor_uids, Array
 	serialize :image_uris, Array
 
@@ -22,6 +22,7 @@ class Site < ActiveRecord::Base
 
 	def initialize(atts = {})
 		super
+		@search_configuration ||= Site::SearchConfiguration.new(atts.fetch('search_configuration', {}))
 		self.search_type ||= DEFAULT_SEARCH_TYPE
 	end
 
@@ -59,7 +60,7 @@ class Site < ActiveRecord::Base
 
 	def default_filters
 		f = {}
-		self.constraints.each do |search_scope, facet_value|
+		self.search_configuration.scope_constraints.each do |search_scope, facet_value|
 			next unless facet_value.present?
 			case search_scope
 			when 'collection'
@@ -105,29 +106,57 @@ class Site < ActiveRecord::Base
 	def nav_menus_attributes=(attributes)
 	end
 
+	def constraints
+		self.search_configuration.scope_constraints
+	end
+
+	def constraints=(val)
+		self.search_configuration.scope_constraints = val
+	end
+
 	# patch for Rails 4 store, which doesn't have suffixes
 	def publisher_constraints=(constraints)
-		self.publisher= Array(constraints)
+		self.search_configuration.scope_constraints['publisher'] = Array(constraints)
+	end
+
+	def publisher_constraints
+		self.search_configuration.scope_constraints['publisher']
 	end
 
 	# patch for Rails 4 store, which doesn't have suffixes
 	def collection_constraints=(constraints)
-		self.collection= Array(constraints)
+		self.search_configuration.scope_constraints['collection'] = Array(constraints)
+	end
+
+	def collection_constraints
+		self.search_configuration.scope_constraints['collection']
 	end
 
 	# patch for Rails 4 store, which doesn't have suffixes
 	def collection_key_constraints=(constraints)
-		self.collection_key= Array(constraints)
+		self.search_configuration.scope_constraints['collection_key'] = Array(constraints)
+	end
+
+	def collection_key_constraints
+		self.search_configuration.scope_constraints['collection_key']
 	end
 
 	# patch for Rails 4 store, which doesn't have suffixes
 	def project_constraints=(constraints)
-		self.project= Array(constraints)
+		self.search_configuration.scope_constraints['project'] = Array(constraints)
+	end
+
+	def project_constraints
+		self.search_configuration.scope_constraints['project']
 	end
 
 	# patch for Rails 4 store, which doesn't have suffixes
 	def project_key_constraints=(constraints)
-		self.project_key= Array(constraints)
+		self.search_configuration.scope_constraints['project_key'] = Array(constraints)
+	end
+
+	def project_key_constraints
+		self.search_configuration.scope_constraints['project_key']
 	end
 
 	def about_link
@@ -159,8 +188,17 @@ class Site < ActiveRecord::Base
 	end
 
 	def to_subsite_config
-		config = {slug: slug, restricted: slug =~ /restricted/, palette: palette, layout: layout}
-		config.with_indifferent_access
+		config = {
+			'slug' => slug, 'restricted' => slug =~ /restricted/, 'palette' => palette, 'layout' => layout
+		}
+		SubsiteConfig.for_path(slug, slug =~ /restricted/).merge(config).merge(search_configuration.as_json).with_indifferent_access
+	end
+
+	def attributes
+		super.tap do |atts|
+			atts.delete('constraints')
+			atts['search_configuration'] = @search_configuration.as_json
+		end
 	end
 
 	class ShowRouteFactory

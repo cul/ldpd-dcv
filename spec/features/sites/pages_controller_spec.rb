@@ -19,7 +19,8 @@ describe ::Sites::PagesController, type: :feature do
 				expect(page).to have_css('li > strong', text: 'Don\'t Repeat Yourself')
 			end
 		end
-		Dcv::Sites::Constants::VALID_LAYOUTS.each do |valid_layout|
+		# custom layouts don't have pages, but 'default' + PORTABLE_LAYOUTS do
+		(Dcv::Sites::Constants::VALID_LAYOUTS - ['custom']).each do |valid_layout|
 			context "in \"#{valid_layout}\" layout" do
 				let(:site_layout) { valid_layout }
 				include_context "displays expected text"

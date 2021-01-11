@@ -20,5 +20,17 @@ describe Dcv::Sites::Import::Directory do
 			signature_path = File.join(Rails.root, 'public', 'images', 'sites', site.slug, 'signature.svg')
 			expect(File.exist?(signature_path)).to be true
 		end
+		it 'imports search configuration' do
+			sc = site.search_configuration
+			expect(sc.map_configuration.enabled).to be false
+			expect(sc.date_search_configuration.enabled).to be true
+			expect(sc.date_search_configuration.granularity_search).to eql 'year'
+			expect(sc.facets.length).to be 1
+			expect(sc.facets.first.field_name).to eql 'role_test_sim'
+			expect(sc.search_fields.length).to be 2
+			expect(sc.search_fields.map(&:type)).to eql ['keyword', 'fulltext']
+			expect(sc.search_fields.map(&:label)).to eql ['Test Keyword', 'Test Text']
+			expect(sc.scope_constraints).to eql('publisher' => ['info:fedora/cul:import_site'])
+		end
 	end
 end

@@ -15,10 +15,6 @@ module Dcv::SubsiteHelper
     return controller.respond_to?(:subsite_styles) ? controller.subsite_styles : DEFAULT_SUBSITE_LAYOUT
   end
 
-  def subsite_map_search
-    controller.subsite_config['map_search']
-  end
-
   def link_to_nav(nav_link)
     if nav_link.external
       if Addressable::URI.parse(nav_link.link).absolute?
@@ -29,8 +25,8 @@ module Dcv::SubsiteHelper
         link_to(nav_link.label, nav_link.link)
       end
     else
-      site_slug = controller.subsite_config[:slug]
-      link_params = {site_slug: controller.subsite_config[:slug]}
+      site_slug = controller.load_subsite.slug
+      link_params = {site_slug: site_slug}
       if nav_link.link.include?('#')
         nav_link.link.split('#').tap { |segs| link_params.merge!(slug: segs[0], anchor: segs[1]) }
       else

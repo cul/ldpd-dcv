@@ -18,6 +18,7 @@ describe Dcv::SubsiteHelper, :type => :helper do
 	let(:sort_label) { '00:Link Label' }
 	before do
 		allow(controller).to receive(:subsite_config).and_return(slug: site_slug)
+		allow(controller).to receive(:load_subsite).and_return(Site.new(slug: site_slug))
 		#allow(helper).to receive(:controller).and_return(controller)
 	end
 	describe "#link_to_nav" do

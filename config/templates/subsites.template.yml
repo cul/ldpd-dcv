@@ -8,6 +8,7 @@ test: &1
     carnegie:
       layout: carnegie
       default_search_mode: list
+      show_csv_results: true
       map_search:
         sidebar: true
         default_lat: 40.440625
@@ -40,6 +41,7 @@ test: &1
         timeline: true
     lcaaj:
       layout: lcaaj
+      show_csv_results: true
       map_search:
         sidebar: true
         default_lat: 52.8
@@ -48,6 +50,7 @@ test: &1
     lehman:
       layout: signature
       palette: monochromeLight
+      show_csv_results: true
       map_search:
         sidebar: false
       date_search:

@@ -45,6 +45,10 @@ module Sites
 			end
 		end
 
+		def subsite_key
+			load_subsite.slug
+		end
+
 		def request_layout
 			if (@subsite && action_name == 'show')
 				subsite_layout

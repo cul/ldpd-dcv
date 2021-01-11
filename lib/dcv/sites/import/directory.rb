@@ -27,7 +27,12 @@ module Dcv::Sites::Import
 			site.layout ||= DEFAULT_LAYOUT
 			site.palette = atts['palette'] if atts['palette']
 			site.palette ||= DEFAULT_PALETTE
-			site.constraints = atts['constraints']
+			search_configuration_atts = atts['search_configuration'] || {}
+			if atts['constraints']
+				puts "atts had legacy constraints; migrate? : #{search_configuration_atts['scope_constraints'].nil?}"
+				search_configuration_atts['scope_constraints'] ||= atts['constraints']
+			end
+			site.search_configuration = Site::SearchConfiguration.new(search_configuration_atts)
 			site.image_uris = atts['image_uris']
 			site.publisher_uri = atts['publisher_uri']
 			site.restricted = atts['restricted'] || (atts['slug'] =~ /restricted/)
@@ -36,7 +41,7 @@ module Dcv::Sites::Import
 				page.site_text_blocks.delete_all
 				page.delete
 			end
-			site.save
+			site.save!
 			nav_links = Array(atts.delete('nav_links'))
 			nav_links.each do |link_atts|
 				NavLink.create({site_id: site.id}.merge(link_atts))
@@ -67,8 +72,6 @@ module Dcv::Sites::Import
 				image_dir_path = File.join(Rails.root, 'public', 'images', 'sites', site.slug)
 				FileUtils.mkdir_p(image_dir_path)
 				Dir.glob(File.join(image_import_path, '*.*')).each do |src_path|
-					puts src_path
-					# src_path = File.join(image_import_path, x)
 					dest_path = File.join(image_dir_path, File.basename(src_path))
 					FileUtils.cp(src_path, dest_path)
 				end
