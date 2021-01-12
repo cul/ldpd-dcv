@@ -7,10 +7,8 @@ describe LehmanController, type: :feature do
   # show does not verify item scope, so any item will do here
   describe "show" do
     before { visit "/lehman/donotuse:item" }
-    pending "removal of obsolete helper (DLC-852)" do
-      it "shows the item title" do
-        expect(page).to have_text('William Burroughs')
-      end
+    it "shows the item title" do
+      expect(page).to have_text('William Burroughs')
     end
   end
 end
