@@ -2,28 +2,10 @@ require 'rails_helper'
 
 describe LcaajController, :type => :controller do
   before do
-    @orig_config = SUBSITES['public']['lcaaj']
-    SUBSITES['public']['lcaaj'] = {
-      'layout' => 'lcaaj',
-      'remote_request_api_key' =>'goodtoken',
-      'map_search' => {
-        'sidebar' => true,
-        'default_lat' => 52.8,
-        'default_long' => 21.5,
-        'default_zoom' => 5
-      }
-    }
     expect(controller).not_to be_nil
     expect(controller.controller_name).not_to be_nil
   end
-  after do
-    SUBSITES['public']['lcaaj'] = @orig_config
-  end
   describe '#index' do
-    subject do
-      get :index, params
-      response
-    end
     context 'respond to csv' do
       let(:doc1) { JSON.parse(fixture('controllers/lcaaj_controller/sample_solr_doc_1.json').read) }
       let(:doc2) { JSON.parse(fixture('controllers/lcaaj_controller/sample_solr_doc_2.json').read) }

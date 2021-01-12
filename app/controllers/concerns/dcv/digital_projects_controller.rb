@@ -26,7 +26,7 @@ module Dcv::DigitalProjectsController
 
   def strip_restricted_title_qualifier(qualified_title)
     unqualified_title = qualified_title.dup
-    unqualified_title.sub!(/\s*[\[\(]Restricted[\)\]]\s*/i, '')
+    unqualified_title&.sub!(/\s*[\[\(]Restricted[\)\]]\s*/i, '')
     unqualified_title
   end
 

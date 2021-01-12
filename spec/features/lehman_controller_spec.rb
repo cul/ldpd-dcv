@@ -1,0 +1,16 @@
+require 'rails_helper'
+
+describe LehmanController, type: :feature do
+  # the relevant fixtures are loaded into the repository and seeded into the Site
+  # database tables by CI tasks
+  include_context "site fixtures for features"
+  # show does not verify item scope, so any item will do here
+  describe "show" do
+    before { visit "/lehman/donotuse:item" }
+    pending "removal of obsolete helper (DLC-852)" do
+      it "shows the item title" do
+        expect(page).to have_text('William Burroughs')
+      end
+    end
+  end
+end

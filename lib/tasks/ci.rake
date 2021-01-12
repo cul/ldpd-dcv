@@ -36,26 +36,37 @@ namespace :dcv do
 
   task reload_fixtures: :environment do
     rubydora = ActiveFedora::RubydoraConnection.new(ActiveFedora.config.credentials).connection
-    ['catalog','public','restricted','external','internal'].each do |catalog_pid|
-      catalog_pid = "donotuse:#{catalog_pid}"
-      catalog_foxml = begin
-        fpath = File.join(Rails.root, "spec/fixtures/foxml/#{catalog_pid.gsub(':','_')}.xml")
-        foxml = File.read(fpath)
-        foxml
-      end
+    obj_sources = {}
+    ['catalog','public','restricted','external','internal','item'].each do |catalog_pid|
+      fixture_pid = "donotuse:#{catalog_pid}"
+      foxml_path = File.join(Rails.root, "spec/fixtures/foxml/#{fixture_pid.gsub(':','_')}.xml")
+      mods_path = File.join(Rails.root, "spec/fixtures/mods/#{fixture_pid.gsub(':','_')}_mods.xml")
+      obj_sources[fixture_pid] = {foxml: File.read(foxml_path), mods: File.read(mods_path)}
+    end
+    template_foxml = File.read(File.join(Rails.root, "spec/fixtures/foxml/custom_template.xml"))
+    template_mods = File.read(File.join(Rails.root, "spec/fixtures/mods/custom_template_mods.xml"))
+    ['carnegie','durst','jay','lcaaj','lehman','nyre'].each do |slug|
+      custom_pid = "custom:#{slug}"
+      obj_sources[custom_pid] = {}
+      template_subs = {template: slug, Template: slug.capitalize}
+      obj_sources[custom_pid][:foxml] = format(template_foxml, template_subs)
+      obj_sources[custom_pid][:mods] = format(template_mods, template_subs)
+    end
+    obj_sources.each do |fixture_pid, srcs|
+      fixture_foxml = srcs[:foxml]
+      fixture_mods = srcs[:mods]
       begin
-        rubydora.purge_object :pid=>catalog_pid
+        rubydora.purge_object :pid=>fixture_pid
       rescue RestClient::NotFound; end # it's ok not to exist
-      rubydora.ingest(:file=>StringIO.new(catalog_foxml), :pid=>catalog_pid)
-      fedora_object = ActiveFedora::Base.find(catalog_pid)
+      rubydora.ingest(:file=>StringIO.new(fixture_foxml), :pid=>fixture_pid)
+      fedora_object = ActiveFedora::Base.find(fixture_pid)
       # Set MODS for publish target titles
-      mods_xml = begin
-        fpath = File.join(Rails.root, "spec/fixtures/mods/#{catalog_pid.gsub(':','_')}_mods.xml")
-        mods = File.read(fpath)
-        mods
-      end
-      fedora_object.descMetadata.content = mods_xml
-      fedora_object.save(update_index: true)
+      fedora_object.descMetadata.content = fixture_mods
+      fedora_object.save(update_index: false)
+      # update solr outside IndexFedoraObjectJob, since Site model create/teardown handled in specs
+      doc_adapter = Dcv::Solr::DocumentAdapter::ActiveFedora(fedora_object)
+      # rsolr params are camelcased
+      doc_adapter.update_index(commit: true)
     end
   end
   desc "CI build"
@@ -233,48 +244,9 @@ namespace :dcv do
 
       # subsites.yml
       subsites_yml_file = File.join(Rails.root, 'config/subsites.yml')
+      subsites_template = File.join(Rails.root, 'config/templates/subsites.template.yml')
       FileUtils.touch(subsites_yml_file) # Create if it doesn't exist
-      subsites_yml = YAML.load_file(subsites_yml_file) || {}
-      ['development', 'test'].each do |env_name|
-        subsites_yml[env_name] ||= {
-          'public' => {
-            'catalog' => {
-              'layout' => 'dcv',
-              'remote_request_api_key' => 'sample_key',
-              'date_search' => {
-                'sidebar' => true,
-                'timeline' => true
-              }
-            },
-            'lcaaj' => {
-              'layout' => 'lcaaj',
-              'remote_request_api_key' => 'sample_key',
-              'map_search' => {
-                'sidebar' => true,
-                'default_lat' => 52.8,
-                'default_long' => 21.5,
-                'default_zoom' => 5
-              }
-            },
-            'nyre' => {
-              'layout' => 'nyre',
-              'remote_request_api_key' => 'sample_key',
-              'map_search' => {
-                'sidebar' => true,
-                'default_lat' => 40.757,
-                'default_long' => -73.981,
-                'default_zoom' => 11
-              }
-            }
-          },
-          'restricted' => {
-            'ifp' => {
-              'layout' => 'ifp',
-              'show_original_file_download' => true
-            }
-          }
-        }
-      end
+      subsites_yml = YAML.load_file(subsites_yml_file) || YAML.load_file(subsites_template)
       File.open(subsites_yml_file, 'w') {|f| f.write subsites_yml.to_yaml }
     end
   end

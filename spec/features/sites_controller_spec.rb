@@ -46,9 +46,7 @@ describe SitesController, type: :feature do
     end
   end
   describe "index" do
-    let(:catalog) { FactoryBot.create(:site, slug: 'catalog', layout: 'gallery') }
     before do
-      FactoryBot.create(:site_page, slug: 'home', site: catalog)
       visit root_url
     end
     it "links to tabs and has external digital collections link" do

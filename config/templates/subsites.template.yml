@@ -1,0 +1,45 @@
+test: &1
+  public:
+    catalog:
+      layout: gallery
+      date_search:
+        sidebar: true
+        timeline: true
+    carnegie:
+      layout: carnegie
+      nested:
+        centennial:
+          default_search_mode: grid
+          layout: carnegie
+          map_search:
+            sidebar: false
+    durst:
+      layout: durst
+    ifp:
+      layout: ifp
+    jay:
+      layout: signature
+      palette: parchment
+    lcaaj:
+      layout: lcaaj
+      map_search:
+        sidebar: true
+        default_lat: 52.8
+        default_long: 21.5
+        default_zoom: 5
+    lehman:
+      layout: signature
+      palette: monochromeLight
+    nyre:
+      layout: nyre
+      map_search:
+        sidebar: true
+        default_lat: 40.757
+        default_long: -73.981
+        default_zoom: 11
+  restricted:
+    ifp:
+      layout: ifp
+      remote_request_api_key: 82b3c852e86b1a1e5
+      show_original_file_download: true
+development: *1
