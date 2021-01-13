@@ -7,6 +7,12 @@ test: &1
         timeline: true
     carnegie:
       layout: carnegie
+      default_search_mode: list
+      map_search:
+        sidebar: true
+        default_lat: 40.440625
+        default_long: -79.995886
+        default_zoom: 5
       nested:
         centennial:
           default_search_mode: grid
@@ -15,11 +21,22 @@ test: &1
             sidebar: false
     durst:
       layout: durst
+      map_search:
+        sidebar: true
+        default_lat: 40.7570
+        default_long: -73.9810
+        default_zoom: 11
+        max_zoom: 17
     ifp:
       layout: ifp
+      default_search_mode: :list
+      show_original_file_download: true
     jay:
       layout: signature
-      palette: parchment
+      palette: blue
+      date_search:
+        sidebar: true
+        timeline: true
     lcaaj:
       layout: lcaaj
       map_search:
@@ -30,6 +47,10 @@ test: &1
     lehman:
       layout: signature
       palette: monochromeLight
+      map_search:
+        sidebar: false
+      date_search:
+        sidebar: true
     nyre:
       layout: nyre
       map_search:
@@ -40,6 +61,5 @@ test: &1
   restricted:
     ifp:
       layout: ifp
-      remote_request_api_key: 82b3c852e86b1a1e5
       show_original_file_download: true
 development: *1
