@@ -18,4 +18,8 @@ module SubsiteHelper
       File.exists?(File.join(Rails.root, "public", path)) ? path : asset_path("signature/signature-banner.png")
     end
   end
+
+  def show_other_sources?
+    controller.subsite_config['show_other_sources'] && @response.params[:q].present?
+  end
 end

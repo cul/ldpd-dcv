@@ -10,6 +10,9 @@
     <div id="view-options" class="hidden-xs btn-group btn-group-xs pull-right search-index-tool-group">
       <%= search_mode_button(:grid) %>
       <%= search_mode_button(:list) %>
+      <% if controller.subsite_config['show_other_sources'] && @response.params[:q].present? %>
+        <button id="extended-search-mode" type="button" class="btn btn-default result-type-button" title="Search Other Sources"><i class="glyphicon glyphicon-link"></i></button>
+      <% end %>
     </div>
     <%= render :partial => 'csv_export' %>
     <% if controller.subsite_config['date_search'].present? && controller.subsite_config['date_search'].fetch('timeline', false) %>

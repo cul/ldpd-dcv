@@ -39,10 +39,17 @@
 							<%= render_document_index %>
 						<%- end %>
 					<%- end %>
+					<%= render 'extended_search_sources' if show_other_sources? %>
 				</div>
 			</div>
 
 			<%= render 'results_pagination' %>
+
+			<% if show_other_sources? %>
+				<div class="text-right">
+					<button title="return to results" class="pagination btn btn-sm btn-link hidden" id="return-to-results" type="button">&laquo; Return to Results</button>
+				</div>
+			<% end %>
 
 		<% end %>
 

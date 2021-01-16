@@ -27,6 +27,7 @@ test: &1
         default_long: -73.9810
         default_zoom: 11
         max_zoom: 17
+      show_other_sources: true
     ifp:
       layout: ifp
       default_search_mode: :list
