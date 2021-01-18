@@ -197,7 +197,11 @@ class SitesController < ApplicationController
     rescue CarrierWave::IntegrityError => ex
       flash[:alert] = ex.message
     end
-    redirect_to edit_site_path(slug: @subsite.slug)
+    if @subsite.slug =~ /restricted\//
+      redirect_to edit_restricted_site_path(slug: @subsite.slug.sub('restricted/', ''))
+    else
+      redirect_to edit_site_path(slug: @subsite.slug)
+    end
   end
 
   # produce a list of featured items according to a supplied filter

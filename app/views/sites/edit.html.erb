@@ -1,5 +1,15 @@
+<%-
+  if @subsite.slug =~ /restricted\//
+    slug_param = @subsite.slug.sub('restricted/', '')
+    search_edit = edit_restricted_site_search_configuration_path(site_slug: slug_param)
+    site_view = restricted_site_path(slug: slug_param)
+  else
+    search_edit = edit_site_search_configuration_path(site_slug: @subsite.slug)
+    site_view = site_path(slug: @subsite.slug)
+  end
+-%>
 <h1>Editing <%= @subsite.slug %> (<%= link_to("view", site_path(slug: @subsite.slug)) %>)</h1>
-<div class="container"><%= form_for @subsite, url: { action: "update",  }, html: { } do |site_form| %>
+<div class="container"><%= form_for @subsite, url: site_view, html: { } do |site_form| %>
   <div class="panel panel-primary">
     <div class="panel-heading"><h2 class="panel-title">Site Properties</h2></div>
     <div class="panel-body site_properties">
