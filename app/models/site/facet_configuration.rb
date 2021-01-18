@@ -52,6 +52,21 @@ class Site::FacetConfiguration
 		}.tap {|v| v.compact! if opts&.fetch(:compact, false)}
 	end
 
+	def configure(blacklight_config)
+		return false if blacklight_config.facet_fields[@field_name]
+		opts = {label: @label, limit: @limit, sort: @sort}
+		if @exclusions.present?
+			opts[:cul_custom_value_hide] = Array(@exclusions)
+		end
+		if @value_transforms.present?
+			opts[:cul_custom_value_transforms] = Array(@value_transforms)
+		end
+		if @value_map.present?
+			opts[:translation] = @value_map
+		end
+		blacklight_config.add_facet_field @field_name, opts
+	end
+
 	private
 		def clean_and_freeze_transform_array(val)
 			(Array(val).compact.map(&:to_s) & VALID_VALUE_TRANSFORMS).freeze

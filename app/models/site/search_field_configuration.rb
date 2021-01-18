@@ -3,6 +3,7 @@ class Site::SearchFieldConfiguration
 	include ActiveModel::Serializers::JSON
 	include ActiveModel::Validations
 	include ActiveRecord::AttributeAssignment
+	include Dcv::Configurators::BaseBlacklightConfigurator
 
 	VALID_TYPES = ['fulltext', 'identifier', 'keyword', 'name', 'title'].freeze
 	ATTRIBUTES = [:type, :label]
@@ -35,5 +36,22 @@ class Site::SearchFieldConfiguration
 			'type' => @type,
 			'label' => @label
 		}.tap {|v| v.compact! if opts&.fetch(:compact, false)}
+	end
+
+	def configure(blacklight_config)
+		case @type
+		when 'fulltext'
+			configure_fulltext_search_field(blacklight_config, label: @label)
+		when 'identifier'
+			configure_identifier_search_field(blacklight_config, label: @label)
+		when 'keyword'
+			configure_keyword_search_field(blacklight_config, label: @label)
+		when 'name'
+			configure_name_search_field(blacklight_config, label: @label)
+		when 'title'
+			configure_title_search_field(blacklight_config, label: @label)
+		else
+			false
+		end
 	end
 end

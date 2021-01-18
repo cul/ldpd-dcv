@@ -13,11 +13,25 @@ class Site < ActiveRecord::Base
 	validates :layout, inclusion: { in: VALID_LAYOUTS }
 
 	configure_blacklight do |config|
-		Dcv::Configurators::DcvBlacklightConfigurator.configure(config)
+		Dcv::Configurators::DcvBlacklightConfigurator.configure_default_solr_params(config)
+
+		Dcv::Configurators::DcvBlacklightConfigurator.default_paging_configuration(config)
+
+		# solr field configuration for search results/index views
+		Dcv::Configurators::DcvBlacklightConfigurator.default_index_configuration(config)
+
+		Dcv::Configurators::DcvBlacklightConfigurator.default_show_configuration(config)
+
+		Dcv::Configurators::DcvBlacklightConfigurator.configure_index_fields(config)
+
+		Dcv::Configurators::DcvBlacklightConfigurator.configure_show_fields(config)
 		field_name = ActiveFedora::SolrService.solr_name('lib_repo_short', :symbol, type: :string)
 		config.show_fields[field_name].link_to_search = false
 		field_name = ActiveFedora::SolrService.solr_name('lib_project_full', :symbol)
 		config.show_fields[field_name].link_to_search = false
+
+		Dcv::Configurators::DcvBlacklightConfigurator.configure_citation_fields(config)
+		Dcv::Configurators::DcvBlacklightConfigurator.configure_sort_fields(config)
 	end
 
 	def initialize(atts = {})
@@ -44,6 +58,21 @@ class Site < ActiveRecord::Base
 				config.show.route = ShowRouteFactory.new(self)
 			else
 				config.show.route = self.routing_params
+			end
+			if self.search_type == SEARCH_LOCAL && self.search_configuration.facets.present?
+				self.search_configuration.facets.each do |facet|
+					facet.configure(config)
+				end
+			else
+				Dcv::Configurators::DcvBlacklightConfigurator.configure_facet_fields(config)
+			end
+			Dcv::Configurators::DcvBlacklightConfigurator.default_facet_configuration(config, geo: self.search_configuration.map_configuration.enabled)
+			if  self.search_type == SEARCH_LOCAL && self.search_configuration.search_fields.present?
+				self.search_configuration.search_fields.each do |search_field|
+					search_field.configure(config)
+				end
+			else
+				Dcv::Configurators::DcvBlacklightConfigurator.configure_keyword_search_field(config)
 			end
 		end
 	end
@@ -213,7 +242,7 @@ class Site < ActiveRecord::Base
 		end
 		def merge opts = {}
 			controller_name = "/sites/search"
-			controller_name = "/restricted/#{controller_name}" if @restricted
+			controller_name = "/restricted#{controller_name}" if @restricted
 			doc = opts[:id]
 			doi_params(doc).merge(controller: controller_name, action: :show, site_slug: @slug)
 		end

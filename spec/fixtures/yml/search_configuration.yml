@@ -1,0 +1,25 @@
+date_search_configuration:
+  enabled: true
+  granularity_search: year
+  sidebar_label: Test Dates
+display_options:
+  default_search_mode: grid
+  show_csv_results: false
+  show_original_file_download: false
+  show_other_sources: false
+facets:
+  - field_name: role_test_sim
+    label: Test Names
+    limit: 10
+    sort: index
+    value_transforms: []
+search_fields:
+  - type: keyword
+    label: Test Keyword
+  - type: fulltext
+    label: Test Text
+map_configuration:
+  enabled: false
+scope_constraints:
+  publisher:
+    - info:fedora/cul:import_site

@@ -204,6 +204,33 @@ describe Site do
 			is_expected.to include(controller: "/catalog")
 		end
 	end
+	describe '#configure_blacklight!' do
+		let(:site_slug) { 'configure_blacklight' }
+		let(:search_configuration) { YAML.load(fixture("yml/search_configuration.yml").read) }
+		let(:site) { FactoryBot.create(:site, slug: site_slug, search_type: 'local', search_configuration: search_configuration) }
+		before do
+			site.configure_blacklight!
+		end
+		it 'sets facet configurations' do
+			expect(site.blacklight_config.facet_fields.keys).to eql(['role_test_sim'])
+		end
+		context 'with map_configuration.enabled' do
+			let(:search_configuration) do
+				base = YAML.load(fixture("yml/search_configuration.yml").read)
+				base['map_configuration']['enabled'] = true
+				base
+			end
+			it 'sets facet configurations' do
+				expect(site.blacklight_config.facet_fields.keys.sort).to eql(['has_geo_bsi', 'role_test_sim'])
+			end
+		end
+		context 'without search_configuration' do
+			let(:site) { FactoryBot.create(:site, slug: site_slug, search_type: 'local') }
+			it 'uses default catalog configurations' do
+				expect(site.blacklight_config.facet_fields.length).to be > 1
+			end
+		end
+	end
 	describe Site::ShowRouteFactory do
 		let(:site_slug) { 'show_route_factory' }
 		let(:doi_id) { '10.12345/1a2b3c-4d5e' }
