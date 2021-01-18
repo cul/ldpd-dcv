@@ -15,7 +15,7 @@ class Dcv::Configurators::Restricted::IfpBlacklightConfigurator
       :rows => 20,
     }
 
-    config.per_page = [20,60,100]
+    default_paging_configuration(config)
     # default solr field configuration for search results/index and show views
     default_index_configuration(config)
     default_show_configuration(config)
@@ -40,8 +40,6 @@ class Dcv::Configurators::Restricted::IfpBlacklightConfigurator
     # :show may be set to false if you don't want the facet to be drawn in the
     # facet bar
 
-    config.add_facet_fields_to_solr_request! # Required for facet queries
-
     config.add_facet_field ActiveFedora::SolrService.solr_name('contributor', :symbol), :label => 'Office', :limit => 10, :sort => 'index'
     config.add_facet_field ActiveFedora::SolrService.solr_name('dc_type', :facetable), :label => 'Resource Type', :limit => 10, :sort => 'index', :helper_method => :pcdm_file_genre_display
     # add a query facet for negating file published to the public site
@@ -52,13 +50,7 @@ class Dcv::Configurators::Restricted::IfpBlacklightConfigurator
         }
     }
 
-    # Have BL send all facet field names to Solr, which has been the default
-    # previously. Simply remove these lines if you'd rather use Solr request
-    # handler defaults, or have no facets.
-    config.default_solr_params['facet.field'] = config.facet_fields.keys
-    #use this instead if you don't want to query facets marked :show=>false
-    #config.default_solr_params['facet.field'] = config.facet_fields.select{ |k, v| v[:show] != false}.keys
-
+    default_facet_configuration(config)
 
     # solr fields to be displayed in the index (search results) view
     #   The ordering of the field names is the order of the display
@@ -95,6 +87,7 @@ class Dcv::Configurators::Restricted::IfpBlacklightConfigurator
         :qf => ['original_name_tesim^10.0','fulltext_tesim^1.0'],
         :pf => ['original_name_tesim^100.0','fulltext_tesim^10.0']
       }
+      configure_fulltext_highlighting(field)
     end
 
     #config.add_search_field ActiveFedora::SolrService.solr_name('search_title_info_search_title', :searchable, type: :text) do |field|

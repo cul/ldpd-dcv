@@ -6,17 +6,9 @@ class Dcv::Configurators::LehmanBlacklightConfigurator
 
     config.show.route = { controller: 'lehman' }
 
-    config.default_solr_params = {
-      :defType => 'edismax',
-      :fq => [
-        '-active_fedora_model_ssi:GenericResource'
-      ],
-      :qt => 'search',
-      :rows => 20,
-      :mm => 1
-    }
+    default_default_solr_params(config)
 
-    config.per_page = [20,60,100]
+    default_paging_configuration(config)
     # solr field configuration for search results/index views
     default_index_configuration(config)
     default_show_configuration(config)
@@ -41,19 +33,10 @@ class Dcv::Configurators::LehmanBlacklightConfigurator
     # :show may be set to false if you don't want the facet to be drawn in the
     # facet bar
 
-    config.add_facet_fields_to_solr_request! # Required for facet queries
-
     config.add_facet_field ActiveFedora::SolrService.solr_name('role_correspondent', :symbol), :label => 'Correspondent', :sort => 'index', :limit => 10
     config.add_facet_field ActiveFedora::SolrService.solr_name('lib_genre', :symbol), :label => 'Document Type', :sort => 'index', :limit => 10
 
-    # Have BL send all facet field names to Solr, which has been the default
-    # previously. Simply remove these lines if you'd rather use Solr request
-    # handler defaults, or have no facets.
-    config.default_solr_params['facet.field'] = config.facet_fields.keys
-    config.default_solr_params['facet.limit'] = 60
-    #use this instead if you don't want to query facets marked :show=>false
-    #config.default_solr_params['facet.field'] = config.facet_fields.select{ |k, v| v[:show] != false}.keys
-
+    default_facet_configuration(config)
 
     # solr fields to be displayed in the index (search results) view
     #   The ordering of the field names is the order of the display
@@ -103,34 +86,9 @@ class Dcv::Configurators::LehmanBlacklightConfigurator
     # urls.  A display label will be automatically calculated from the :key,
     # or can be specified manually to be different.
 
-    # All Text search configuration, used by main search pulldown.
-    config.add_search_field ActiveFedora::SolrService.solr_name('all_text', :searchable, type: :text) do |field|
-      field.label = 'Item Description'
-      field.default = true
-      field.solr_parameters = {
-        :qf => [ActiveFedora::SolrService.solr_name('all_text', :searchable, type: :text)],
-        :pf => [ActiveFedora::SolrService.solr_name('all_text', :searchable, type: :text)]
-      }
-    end
-
-    config.add_search_field ActiveFedora::SolrService.solr_name('fulltext', :stored_searchable, type: :text) do |field|
-      field.label = 'Full Text'
-      field.default = true
-      field.solr_parameters = {
-        :hl => true,
-        :qf => [ActiveFedora::SolrService.solr_name('fulltext', :stored_searchable, type: :text)],
-        :pf => [ActiveFedora::SolrService.solr_name('fulltext', :stored_searchable, type: :text)]
-      }
-    end
-
-    config.add_search_field ActiveFedora::SolrService.solr_name('identifier', :symbol) do |field|
-      field.label = 'Document ID'
-      field.default = true
-      field.solr_parameters = {
-        :qf => [ActiveFedora::SolrService.solr_name('identifier', :symbol)],
-        :pf => [ActiveFedora::SolrService.solr_name('identifier', :symbol)]
-      }
-    end
+    configure_keyword_search_field(config, label: 'Item Description')
+    configure_fulltext_search_field(config)
+    configure_identifier_search_field(config)
 
     # "sort results by" select (pulldown)
     # label in pulldown is followed by the name of the SOLR field to sort by and
@@ -141,14 +99,8 @@ class Dcv::Configurators::LehmanBlacklightConfigurator
     config.add_sort_field 'lib_start_date_year_itsi asc', :label => 'date (earliest to latest)'
     config.add_sort_field 'lib_start_date_year_itsi desc', :label => 'date (latest to earliest)'
 
-
-    # If there are more than this many search results, no spelling ("did you
-    # mean") suggestion is offered.
-    config.spell_max = 5
-
     # Respond to CSV
     config.index.respond_to.csv = true
-
   end
 
 end

@@ -28,9 +28,25 @@ module Dcv::Configurators::BaseBlacklightConfigurator
     end
   end
 
+  def default_default_solr_params(config)
+    config.default_solr_params = {
+      defType: 'edismax',
+      fq: [
+        'object_state_ssi:A', # Active items only
+        '-active_fedora_model_ssi:GenericResource', # Do not include GenericResources in searches
+      ],
+      qt: 'search',
+      rows: 20,
+      mm: 1
+    }
+  end
+
   def default_index_configuration(config)
     config.http_method = :post
     config.fetch_many_document_params = { fl: '*' } # default deprecation circumvention from BL6
+    # If there are more than this many search results, no spelling ("did you
+    # mean") suggestion is offered.
+    config.spell_max = 5
     config.index.title_field = solr_name('title_display', :displayable, type: :string)
     config.index.display_type_field = :active_fedora_model_ssi
     config.index.thumbnail_method = :thumbnail_for_doc
@@ -42,5 +58,109 @@ module Dcv::Configurators::BaseBlacklightConfigurator
     config.show.route = { controller: :current }
     config.show.display_type_field = :active_fedora_model_ssi
     config.show.document_presenter_class = Dcv::ShowPresenter
+  end
+
+  def default_paging_configuration(config)
+    config.default_per_page = 20
+    config.per_page = [20,60,100]
+    config.max_per_page = 100
+  end
+
+  def default_facet_configuration(config, opts = {})
+    config.add_facet_fields_to_solr_request! # Required for facet queries
+    if opts[:geo]
+      config.add_facet_field 'has_geo_bsi', :label => 'Geo Data Flag', show: false, limit: 2
+    end
+
+    # Have BL send all facet field names to Solr, which has been the default
+    # previously. Simply remove these lines if you'd rather use Solr request
+    # handler defaults, or have no facets.
+    config.default_solr_params['facet.field'] = config.facet_fields.keys
+    config.default_solr_params['facet.limit'] = 60
+    #use this instead if you don't want to query facets marked :show=>false
+    #config.default_solr_params['facet.field'] = config.facet_fields.select{ |k, v| v[:show] != false}.keys
+  end
+
+    # All Text search configuration, used by main search pulldown.
+  def configure_keyword_search_field(config, opts = {})
+    field_name = ActiveFedora::SolrService.solr_name('all_text', :searchable, type: :text)
+    return false if config.search_fields[field_name]
+    config.add_search_field field_name do |field|
+      field.label = opts.fetch(:label, 'All Fields')
+      field.default = opts.fetch(:default, true)
+      field.solr_parameters = {
+        :qf => [ActiveFedora::SolrService.solr_name('all_text', :searchable, type: :text)],
+        :pf => [ActiveFedora::SolrService.solr_name('all_text', :searchable, type: :text)]
+      }
+    end
+  end
+
+  # Title search configuration, used by main search pulldown.
+  def configure_title_search_field(config, opts = {})
+    field_name = ActiveFedora::SolrService.solr_name('search_title_info_search_title', :searchable, type: :text)
+    return false if config.search_fields[field_name]
+    config.add_search_field field_name do |field|
+      field.label = opts.fetch(:label, 'Title')
+      field.default = opts.fetch(:default, true)
+      field.solr_parameters = {
+        :qf => [ActiveFedora::SolrService.solr_name('title', :searchable, type: :text)],
+        :pf => [ActiveFedora::SolrService.solr_name('title', :searchable, type: :text)]
+      }
+    end
+  end
+
+  # Identifier search configuration, used by main search pulldown.
+  def configure_identifier_search_field(config, opts = {})
+    field_name = ActiveFedora::SolrService.solr_name('identifier', :symbol)
+    return false if config.search_fields[field_name]
+    config.add_search_field field_name do |field|
+      field.label = opts.fetch(:label, 'Document ID')
+      field.default = opts.fetch(:default, true)
+      field.solr_parameters = {
+        :qf => [ActiveFedora::SolrService.solr_name('identifier', :symbol)],
+        :pf => [ActiveFedora::SolrService.solr_name('identifier', :symbol)]
+      }
+    end
+  end
+
+  # Name search configuration, used by main search pulldown.
+  def configure_name_search_field(config, opts = {})
+    config.add_search_field ActiveFedora::SolrService.solr_name('lib_name', :searchable, type: :text) do |field|
+      field.label = opts.fetch(:label, 'Name')
+      field.default = opts.fetch(:default, true)
+      field.solr_parameters = {
+        :qf => [ActiveFedora::SolrService.solr_name('lib_name', :searchable, type: :text)],
+        :pf => [ActiveFedora::SolrService.solr_name('lib_name', :searchable, type: :text)]
+      }
+    end
+  end
+
+  # Full Text search configuration, used by main search pulldown.
+  def configure_fulltext_search_field(config, opts = {})
+    config.add_search_field ActiveFedora::SolrService.solr_name('fulltext', :stored_searchable, type: :text) do |field|
+      field.label = opts.fetch(:label, 'Full Text')
+      field.default = opts.fetch(:default, true)
+      field.solr_parameters = {
+        :qf => [ActiveFedora::SolrService.solr_name('fulltext', :stored_searchable, type: :text)],
+        :pf => [ActiveFedora::SolrService.solr_name('fulltext', :stored_searchable, type: :text)]
+      }
+      if opts.fetch(:highlight, true)
+        configure_fulltext_highlighting(field)
+      end
+    end
+  end
+
+  def configure_fulltext_highlighting(search_field)
+    search_field.solr_parameters ||= {}
+    hl_params = {}
+    hl_params[:hl] = true
+    hl_params[:'hl.fragsize'] = 300
+    hl_params[:'hl.usePhraseHighlighter'] = true
+    hl_params[:ps] = 0
+    hl_params[:qs] = 0
+    hl_params[:'hl.maxAnalyzedChars'] = 1000000
+    hl_params[:'hl.simple.pre'] = Dcv::HighlightedSnippetHelper::SNIPPET_HTML_WRAPPER_PRE
+    hl_params[:'hl.simple.post'] = Dcv::HighlightedSnippetHelper::SNIPPET_HTML_WRAPPER_POST
+    search_field.solr_parameters.reverse_merge! hl_params
   end
 end

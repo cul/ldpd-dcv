@@ -12,15 +12,10 @@ class Dcv::Configurators::Restricted::UniversityseminarsBlacklightConfigurator
         '-dc_type_sim:FileSystem' # Ignore FileSystem resources in searches
       ],
       :qt => 'search',
-      :rows => 20,
-      :'hl.fragsize'    => 300,
-      :'hl.usePhraseHighlighter' => true,
-      :'hl.maxAnalyzedChars' => 1000000,
-      :'hl.simple.pre'  => Dcv::HighlightedSnippetHelper::SNIPPET_HTML_WRAPPER_PRE,
-      :'hl.simple.post' => Dcv::HighlightedSnippetHelper::SNIPPET_HTML_WRAPPER_POST,
+      :rows => 20
     }
 
-    config.per_page = [20,60,100]
+    default_paging_configuration(config)
     # default solr field configuration for search results/index and show views
     default_index_configuration(config)
     default_show_configuration(config)
@@ -44,20 +39,13 @@ class Dcv::Configurators::Restricted::UniversityseminarsBlacklightConfigurator
     # :show may be set to false if you don't want the facet to be drawn in the
     # facet bar
 
-    config.add_facet_fields_to_solr_request! # Required for facet queries
-
     config.add_facet_field ActiveFedora::SolrService.solr_name('primary_name', :facetable), { 
       :label => "Seminar Numbers", :limit => 10, :sort => "index"}
     config.add_facet_field "subject_topic_sim", :label => "Seminar Titles", :limit => 10, :sort => "index"
     config.add_facet_field ActiveFedora::SolrService.solr_name('lib_format', :facetable), :label => "Document Types", :limit => 10, :sort => "index"
     config.add_facet_field ActiveFedora::SolrService.solr_name('language_language_term_text', :symbol), :label => "Languages", :limit => 10, :sort => "index"
 
-    # Have BL send all facet field names to Solr, which has been the default
-    # previously. Simply remove these lines if you'd rather use Solr request
-    # handler defaults, or have no facets.
-    config.default_solr_params['facet.field'] = config.facet_fields.keys
-    #use this instead if you don't want to query facets marked :show=>false
-    #config.default_solr_params['facet.field'] = config.facet_fields.select{ |k, v| v[:show] != false}.keys
+    default_facet_configuration(config)
 
 
     # solr fields to be displayed in the index (search results) view
@@ -102,32 +90,7 @@ class Dcv::Configurators::Restricted::UniversityseminarsBlacklightConfigurator
     # urls.  A display label will be automatically calculated from the :key,
     # or can be specified manually to be different.
 
-    # All Text search configuration, used by main search pulldown.
-    config.add_search_field ActiveFedora::SolrService.solr_name('fulltext', :stored_searchable, type: :text) do |field|
-      field.label = 'Fulltext'
-      field.default = true
-      field.solr_parameters = {
-        :hl => true,
-        :qf => [ActiveFedora::SolrService.solr_name('fulltext', :stored_searchable, type: :text)],
-        :pf => [ActiveFedora::SolrService.solr_name('fulltext', :stored_searchable, type: :text)]
-      }
-    end
-
-    #config.add_search_field ActiveFedora::SolrService.solr_name('search_title_info_search_title', :searchable, type: :text) do |field|
-    #  field.label = 'Title'
-    #  field.solr_parameters = {
-    #    :qf => [ActiveFedora::SolrService.solr_name('title', :searchable, type: :text)],
-    #    :pf => [ActiveFedora::SolrService.solr_name('title', :searchable, type: :text)]
-    #  }
-    #end
-    #
-    #config.add_search_field ActiveFedora::SolrService.solr_name('lib_name', :searchable, type: :text) do |field|
-    #  field.label = 'Name'
-    #  field.solr_parameters = {
-    #    :qf => [ActiveFedora::SolrService.solr_name('lib_name', :searchable, type: :text)],
-    #    :pf => [ActiveFedora::SolrService.solr_name('lib_name', :searchable, type: :text)]
-    #  }
-    #end
+    configure_fulltext_search_field(config)
 
     # "sort results by" select (pulldown)
     # label in pulldown is followed by the name of the SOLR field to sort by and
@@ -135,13 +98,6 @@ class Dcv::Configurators::Restricted::UniversityseminarsBlacklightConfigurator
     # except in the relevancy case).
     config.add_sort_field 'score desc, title_si asc, lib_date_dtsi desc', :label => 'relevance'
     config.add_sort_field 'title_si asc, lib_date_dtsi desc', :label => 'title'
-
-    # If there are more than this many search results, no spelling ("did you
-    # mean") suggestion is offered.
-    config.spell_max = 5
-
-    config.index.thumbnail_method = :thumbnail_for_doc
-
   end
 
 end
