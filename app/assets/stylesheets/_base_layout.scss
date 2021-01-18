@@ -451,8 +451,8 @@ input {
 		.fulltext-snippet {
 			font-size: .9em;
 			.highlight {
-				background: $color_highlight;
-				color: $color_primary_background;
+				background: $color_highlight_background;
+				color: $color_highlight;
 				padding: 2px 3px 1px;
 				border-radius: 3px;
 			}
