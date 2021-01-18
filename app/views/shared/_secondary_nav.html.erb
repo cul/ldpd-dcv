@@ -22,7 +22,7 @@
 			<%- end -%>
 			<%- if map_search_settings_for_subsite.present? -%>
 				<ul class="nav nav-pills pull-right">
-					<li><button href="<%= '/' + @subsite.slug + '/map_search' %>" class="btn btn-default"><span class="glyphicon glyphicon-map-marker"></span> Map<span class="hidden-sm"> All Items</span></button></li>
+					<li><a href="<%= '/' + @subsite.slug + '/map_search' %>" class="btn btn-default btn-link"><span class="glyphicon glyphicon-map-marker"></span> Map<span class="hidden-sm"> All Items</span></a></li>
 				</ul>
 			<%- end -%>
 			<%- if params[:action] == 'home' && @subsite.persistent_url -%>

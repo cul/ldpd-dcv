@@ -147,6 +147,7 @@ Dcv::Application.routes.draw do
           resource 'search', only: [:show], controller: 'search' do
             concerns :site_searchable
           end
+          get 'map_search', controller: 'search'
           concerns :site_showable
           resources 'pages', except: [:index, :create, :new], param: :slug, path: '', constraints: lambda { |req| !['edit', 'pages'].include?(req.params[:slug]) }
           resources 'pages', only: [:index, :create, :new], param: :slug
@@ -166,6 +167,7 @@ Dcv::Application.routes.draw do
       resource 'search', only: [:show], controller: 'search' do
         concerns :site_searchable
       end
+      get 'map_search', controller: 'search'
       concerns :site_showable
       resources 'pages', except: [:index, :create, :new], param: :slug, path: '', constraints: lambda { |req| !['edit', 'pages'].include?(req.params[:slug]) }
       resources 'pages', only: [:index, :create, :new], param: :slug

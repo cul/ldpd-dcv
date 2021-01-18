@@ -129,9 +129,7 @@ module Nyre
       "track_nyre_path"
     end
 
-    # copied from subsites, why is it private?
-    private
-
+    # copied from Dcv::Sites::SearchableController
     def extract_map_data_from_document_list(document_list)
 
       # We want this data to be as compact as possible because we're sending a lot to the client

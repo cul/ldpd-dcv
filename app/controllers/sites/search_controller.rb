@@ -6,14 +6,20 @@ module Sites
 		include Dcv::CatalogIncludes
 		include Dcv::Sites::ConfiguredLayouts
 		include Dcv::Sites::SearchableController
+		include Dcv::MapDataController
 		include Cul::Omniauth::AuthorizingController
 		include ShowFieldDisplayFieldHelper
 
 		before_filter :load_subsite
+		before_action :set_map_data_json, only: [:map_search]
 
 		delegate :blacklight_config, to: :@subsite
 
+		helper_method :extract_map_data_from_document_list
+
 		layout :subsite_layout
+
+		self.search_state_class = Dcv::Sites::SearchState
 
 		def authorize_document(_document=nil)
 			authorize_action_and_scope(Ability::ACCESS_SUBSITE, @subsite)
@@ -41,6 +47,10 @@ module Sites
 				s&.configure_blacklight!
 				s
 			end
+		end
+
+		def subsite_key
+			params[:site_slug] || load_subsite&.slug
 		end
 
 		def show
@@ -77,7 +87,7 @@ module Sites
 		end
 
 		def search_action_url(options = {})
-			site_search_url(options.except(:controller, :action).merge(site_slug: load_subsite.slug))
+			site_search_url(load_subsite.slug, options.except(:controller, :action))
 		end
 
 		def tracking_method
