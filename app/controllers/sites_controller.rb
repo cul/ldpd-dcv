@@ -265,7 +265,8 @@ class SitesController < ApplicationController
     elsif load_subsite.search_type == 'local'
       url_params = options.clone
       if load_subsite.restricted.present?
-        url_params.merge!(controller: 'restricted/sites/search', action: 'index', site_slug: load_subsite.slug)
+        slug_param = load_subsite.slug.sub("restricted/",'')
+        url_params.merge!(controller: 'restricted/sites/search', action: 'index', site_slug: slug_param)
       else
         url_params.merge!(controller: 'sites/search', action: 'index', site_slug: load_subsite.slug)
       end
