@@ -2,8 +2,6 @@ require 'rails_helper'
 describe Site::FacetConfiguration do
 	let(:atts) { {} }
 	let(:config) { Site::FacetConfiguration.new(atts) }
-	describe '#dirty?' do
-	end
 	describe '#value_transforms=' do
 		let(:atts) { { value_transforms: Site::FacetConfiguration::VALID_VALUE_TRANSFORMS } }
 		context 'with bad value included' do

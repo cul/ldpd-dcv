@@ -1,0 +1,35 @@
+<%= config_form.fields_for :date_search_configuration, @subsite.search_configuration.date_search_configuration do |date_form| %>
+	<div class="panel panel-info">
+		<div class="panel-heading"><h3 class="panel-title">Enable/Disable Result Displays</h3></div>
+		<div class="panel-body">
+			<div class="form-group">
+				<label for="site_search_configuration_date_search_configuration_show_timeline">Show Timeline Search Results <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-date-show-timeline"></span></label>
+				<%= date_form.check_box :show_timeline, {}, "true", "false" %>
+			</div>
+		</div>
+	</div>
+	<div class="panel panel-info">
+		<div class="panel-heading"><h3 class="panel-title">Sidebar Interface Configuration</h3></div>
+		<div class="panel-body">
+			<div class="form-group">
+				<label for="site_search_configuration_date_search_configuration_show_sidebar">Show Date Range Sidebar <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-date-show-sidebar"></span></label>
+				<%= date_form.check_box :show_sidebar, {}, "true", "false" %>
+			</div>
+			<div class="form-group">
+				<label for="site_search_configuration_date_search_configuration_sidebar_label">Sidebar Input Label <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-date-sidebar-label"></span></label>
+				<%= date_form.text_field :sidebar_label, value: 'Date Range' %>
+			</div>
+			<div class="form-group">
+				<label for="site_search_configuration_date_search_configuration_granularity_search">Sidebar Input Granularity <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-date-granularity"></span></label>
+				<%= date_form.select(:granularity_search, options_for_select(Site::DateSearchConfiguration::VALID_GRANULARITY_VALUES.map {|v| [v.titlecase, v]}, @subsite.search_configuration.date_search_configuration.granularity_search || 'year'), {}, {class: ['disabled'], disabled: true}) %>
+			</div>
+		</div>
+	</div>
+<%- end %>
+<div class="hidden tooltips">
+  <span id="tooltip-map-enable" title="Enable Mapped Results">Configure the site to display items on a map.</span>
+  <span id="tooltip-date-show-timeline" title="Show Timeline Search Results">Configure the site to enable a timeline/histogram summary of search results on the results page.</span>
+  <span id="tooltip-date-show-sidebar" title="Show Date Range Sidebar Inputs">When enabled and search results on a map have multiple results in a location, clicking the location pin should show a thumbnail list. When disabled, the map will display a link back to a traditional search.</span>
+  <span id="tooltip-date-granularity" title="Sidebar Input Granularity">Configure the date range sidebar to allow input for years or for specific dates. Editing is currently disabled.</span>
+  <span id="tooltip-date-sidebar-label" title="Sidebar Input Label">The text label to be displayed for the date range input.</span>
+</div>

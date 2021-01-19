@@ -50,7 +50,9 @@
 </div>
 
 <div class="panel">
-	<%= submit_tag "#{@page.new_record? ? "Create" : "Update"} Page", {class: ['btn', 'btn-default']} %>
+	<div class="panel-body">
+		<%= submit_tag "#{@page.new_record? ? "Create" : "Update"} Page", {class: ['btn', 'btn-default']} %>
+	</div>
 </div>
 <% end %>
 

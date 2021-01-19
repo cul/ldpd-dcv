@@ -11,11 +11,13 @@ show_facets: false
 search_configuration:
   date_search_configuration:
     enabled: true
+    show_timeline: false
+    show_sidebar: true
     granularity_search: year
     sidebar_label: Test Dates
   display_options:
-    default_search_mode: grid
-    show_csv_results: false
+    default_search_mode: list
+    show_csv_results: true
     show_original_file_download: false
     show_other_sources: false
   facets:

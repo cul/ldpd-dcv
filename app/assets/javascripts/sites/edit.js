@@ -262,7 +262,7 @@ function addTooltips(selection) {
 			trigger: 'click focus',
 			html: true
 		};
-		$(this).popover(options);
+		$(this).on('click',function(e){ e.preventDefault(); }).popover(options);
 	});
 }
 /************

@@ -1,0 +1,30 @@
+<%- config_form.object.search_fields.each_with_index do |search_field, ix| %>
+<%= config_form.fields_for "search_fields", search_field, index: ix do |field_form| %>
+	<div class="form-group panel panel-info" id="search_fields_<%= field_form.index %>">
+		<div class="panel-heading form-inline">
+			<div class="panel-heading"><h3 class="panel-title"><%= field_form.object.type.titlecase %> Search</h3></div>
+		</div>
+		<div class="panel-body" id="search_fields_<%= field_form.index %>_atts">
+			<div class="form-group">
+				<%= field_form.hidden_field :type %>
+				<label for="site[search_configuration][search_fields][<%= field_form.index %>][label]">Field Label <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-search-fields-label"></span></label>
+				<%= field_form.text_field :label %>
+			</div>
+			<div class="form-group">
+				<button class="btn btn-danger" type="button" onclick="this.parentElement.remove();">
+				<span class="glyphicon glyphicon-remove"></span> Remove Search Field
+				</button>
+			</div>
+		</div>
+	</div>
+<%- end %>
+<%- end %>
+<fieldset id="add_search_field" style="border-width: 0;">
+	<button class="btn btn-info" type="button" onclick="addSearchFieldFieldSet(this.parentElement);">
+		<span class="glyphicon glyphicon-plus"></span> Add a search field
+	</button>
+</fieldset>
+<div class="hidden tooltips">
+  <span id="tooltip-search-fields-type" title="Search Field Type">Type of data searched when this field is used.</span>
+  <span id="tooltip-search-fields-label" title="Search Field Label">How this field should be labeled in dropdown menus, etc.</span>
+</div>

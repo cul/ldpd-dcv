@@ -3,7 +3,7 @@ module Dcv::Catalog::DateRangeSelectorBehavior
 
   included do
     # Only run for html or nil (i.e. default) request format types, not for others like json or csv
-    before_filter :get_date_year_segment_data_for_query, only: [:index], if: proc { has_search_parameters? && ['html', nil].include?(params[:format]) }
+    before_filter :get_date_year_segment_data_for_query, only: [:index], if: proc { has_search_parameters? && ['html', nil].include?(params[:format]) && date_range_enabled? }
   end
 
   ## TODO: Use this to get the earliest and latest dates for the date range slider
@@ -36,6 +36,10 @@ module Dcv::Catalog::DateRangeSelectorBehavior
   #  response['response']['docs'][0].inspect
   #
   #end
+
+  def date_range_enabled?
+    subsite_config.dig('date_search_configuration', 'enabled')
+  end
 
   # This is all related to date range graph generation
 

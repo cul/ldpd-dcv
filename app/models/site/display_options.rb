@@ -2,6 +2,7 @@ class Site::DisplayOptions
 	include ActiveModel::Dirty
 	include ActiveModel::Serializers::JSON
 	include ActiveRecord::AttributeAssignment
+	include Site::ConfigurationValues
 
 	define_attribute_methods :default_search_mode, :show_csv_results, :show_original_file_download, :show_other_sources
 	attr_accessor :default_search_mode, :show_csv_results, :show_original_file_download, :show_other_sources
@@ -23,19 +24,19 @@ class Site::DisplayOptions
 	end
 
 	def show_csv_results=(val)
-		val = (val.to_s =~ /true/i) ? true : false
+		val = boolean_or_nil(val)
 		show_csv_results_will_change! unless val == @show_csv_results
 		@show_csv_results = val
 	end
 
 	def show_original_file_download=(val)
-		val = (val.to_s =~ /true/i) ? true : false unless val.nil?
+		val = boolean_or_nil(val)
 		show_original_file_download_will_change! unless val == @show_original_file_download
 		@show_original_file_download = val
 	end
 
 	def show_other_sources=(val)
-		val = (val.to_s =~ /true/i) ? true : false
+		val = boolean_or_nil(val)
 		show_other_sources_will_change! unless val == @show_other_sources
 		@show_other_sources = val
 	end

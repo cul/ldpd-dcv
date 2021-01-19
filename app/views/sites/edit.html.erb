@@ -32,6 +32,7 @@
       <div class="form-group">
         <label for="site_search_type">Search Type <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-search-type"></span></label>
         <%= site_form.select(:search_type, options_for_select(Site::VALID_SEARCH_TYPES.map {|v| [v.titlecase, v]}, @subsite.search_type), {class: ['form-control']}) %>
+        <%= link_to("Edit local search configurations", search_edit) %>
       </div>
       <div class="form-group">
         <label for="site[show_facets]">Show Home Page Facets <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-homepage-facets"></span></label>
@@ -222,7 +223,9 @@
     </div>
   </div>
   <div class="panel">
-    <%= submit_tag "Update Site Information", {class: ['btn', 'btn-default']} %>
+    <div class="panel-body">
+      <%= submit_tag "Update Site Information", {class: ['btn', 'btn-default']} %>
+    </div>
   </div>
 <% end %>
 <div class="hidden tooltips">

@@ -230,6 +230,7 @@ class Site < ActiveRecord::Base
 		end
 	end
 
+	# TODO: Move ShowRouteFactory logic into Dcv::Sites::SearchState#url_for_document (DLC-854)
 	class ShowRouteFactory
 		def initialize(site)
 			@slug = site.slug.split('/')[-1]

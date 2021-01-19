@@ -17,7 +17,9 @@ class Site::SearchFieldConfiguration
 	end
 
 	def initialize(atts = {})
-		atts = default_configuration.merge(atts.symbolize_keys).with_indifferent_access
+		atts = atts.symbolize_keys
+		atts[:label] = atts[:type].titlecase if atts[:type] && atts[:label].blank?
+		atts = default_configuration.merge(atts).with_indifferent_access
 		assign_attributes(atts)
 		clear_changes_information
 	end

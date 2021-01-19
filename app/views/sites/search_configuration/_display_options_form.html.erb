@@ -1,0 +1,43 @@
+<%= config_form.fields_for :display_options, @subsite.search_configuration.display_options do |options_form| %>
+	<div class="panel panel-info">
+		<div class="panel-heading"><h3 class="panel-title">Search Results Display Options</h3></div>
+		<div class="panel-body">
+			<div class="form-group">
+				<label for="site_search_configuration_display_options[default_search_mode]">Default Search Mode <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-display-search-mode"></span></label>
+				<div class="radio">
+				<label>
+				<%= options_form.radio_button :default_search_mode, 'grid' %>Grid
+				</label>
+				</div>
+				<div class="radio">
+				<label>
+				<%= options_form.radio_button :default_search_mode, 'list' %>List
+				</label>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="site_search_configuration_display_options_show_csv_results">Allow CSV Search Results <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-display-csv"></span></label>
+				<%= options_form.check_box :show_csv_results, {}, "true", "false" %>
+			</div>
+			<div class="form-group">
+				<label for="site_search_configuration_display_options_show_other_sources">Link to Other Search Sources <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-display-other-sources"></span></label>
+				<%= options_form.check_box :show_other_sources, {disabled: true}, "true", "false" %>
+			</div>
+		</div>
+	</div>
+	<div class="panel panel-info">
+		<div class="panel-heading"><h3 class="panel-title">Item Display Options</h3></div>
+		<div class="panel-body">
+			<div class="form-group">
+				<label for="site_search_configuration_display_options_show_original_file_download">Allow Original File Downloads <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-display-original-files"></span></label>
+				<%= options_form.check_box :show_original_file_download, {disabled: true}, "true", "false" %>
+			</div>
+		</div>
+	</div>
+<%- end %>
+<div class="hidden tooltips">
+  <span id="tooltip-display-search-mode" title="Default Search Mode">Configure the default site search results display to be grid (of labeled thumbnails) or list (of brief metadata). Users can toggle between modes.</span>
+  <span id="tooltip-display-csv" title="Allow CSV Search Results">Configure the site to make search results available as a CSV download (linked from the results page).</span>
+  <span id="tooltip-display-original-files" title="Allow Original File Downloads">Configure the site to link original file downloads where available (useful for born-digital content, such as office documents or spreadsheets). Editing is currently disabled.</span>
+  <span id="tooltip-display-other-sources" title="Link to Other Search Sources">Configure the site to include a link to alternate search sources relevant to site content. Editing is currently disabled.</span>
+</div>

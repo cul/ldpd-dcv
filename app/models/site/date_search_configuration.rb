@@ -2,9 +2,10 @@ class Site::DateSearchConfiguration
 	include ActiveModel::Dirty
 	include ActiveModel::Serializers::JSON
 	include ActiveRecord::AttributeAssignment
+	include Site::ConfigurationValues
 
 	VALID_GRANULARITY_VALUES = ['day', 'year'].freeze
-	DEFAULT_ENABLED_CONFIGURATION = { granularity_search: 'year', sidebar_label: 'Date Range' }.freeze
+	DEFAULT_ENABLED_CONFIGURATION = { granularity_search: 'year', sidebar_label: 'Date Range', show_timeline: true }.freeze
 
 	define_attribute_methods :enabled, :granularity_search, :show_sidebar, :show_timeline, :sidebar_label
 	attr_accessor :enabled, :granularity_search, :show_sidebar, :show_timeline, :sidebar_label
@@ -19,8 +20,11 @@ class Site::DateSearchConfiguration
 		clear_changes_information
 	end
 
+	def enabled
+		@show_timeline || @show_sidebar
+	end
 	def enabled=(val)
-		val = (val.to_s =~ /true/i) ? true : false
+		val = boolean_or_nil(val)
 		enabled_will_change! unless val == @enabled
 		enable! if val
 		@enabled = val
@@ -41,13 +45,13 @@ class Site::DateSearchConfiguration
 	end
 
 	def show_sidebar=(val)
-		val = (val.to_s =~ /true/i) ? true : false
+		val = boolean_or_nil(val)
 		show_sidebar_will_change! unless val == @show_sidebar
 		@show_sidebar = val
 	end
 
 	def show_timeline=(val)
-		val = (val.to_s =~ /true/i) ? true : false
+		val = boolean_or_nil(val)
 		show_timeline_will_change! unless val == @show_timeline
 		@show_timeline = val
 	end
@@ -63,7 +67,7 @@ class Site::DateSearchConfiguration
 
 	def serializable_hash(opts = {})
 		{
-			'enabled' => @enabled,
+			'enabled' => (enabled),
 			'granularity_search' => @granularity_search,
 			'show_sidebar' => @show_sidebar,
 			'show_timeline' => @show_timeline,

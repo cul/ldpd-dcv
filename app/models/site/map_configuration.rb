@@ -2,6 +2,7 @@ class Site::MapConfiguration
 	include ActiveModel::Dirty
 	include ActiveModel::Serializers::JSON
 	include ActiveRecord::AttributeAssignment
+	include Site::ConfigurationValues
 
 	DEFAULT_ENABLED_CONFIGURATION = { granularity_data: 'city', granularity_search: 'country', show_items: true, show_sidebar: false, default_lat: 0.0, default_long: 0.0 }.freeze
 	VALID_GRANULARITY_VALUES = { 'city' => 11, 'country' => 5, 'global' => 1, 'street' => 17 }.freeze
@@ -20,19 +21,19 @@ class Site::MapConfiguration
 	end
 
 	def default_lat=(val)
-		val = val.to_f unless val.nil?
+		val = float_or_nil(val)
 		default_lat_will_change! unless val == @default_lat
 		@default_lat = val
 	end
 
 	def default_long=(val)
-		val = val.to_f unless val.nil?
+		val = float_or_nil(val)
 		default_long_will_change! unless val == @default_long
 		@default_long = val
 	end
 
 	def enabled=(val)
-		val = (val.to_s =~ /true/i) ? true : false
+		val = boolean_or_nil(val)
 		enabled_will_change! unless val == @enabled
 		@enabled = val
 		enable! if val
@@ -68,7 +69,7 @@ class Site::MapConfiguration
 	end
 
 	def show_sidebar=(val)
-		val = (val.to_s =~ /true/i) ? true : false
+		val = boolean_or_nil(val)
 		show_sidebar_will_change! unless val == @show_sidebar
 		@show_sidebar = val
 	end

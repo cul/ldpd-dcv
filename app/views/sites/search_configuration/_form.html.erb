@@ -1,0 +1,47 @@
+<%- 
+	if @subsite.slug =~ /restricted\//
+		slug_param = @subsite.slug.sub('restricted/', '')
+		config_view = restricted_site_search_configuration_path(site_slug: slug_param)
+	else
+		config_view = site_search_configuration_path(site_slug: @subsite.slug)
+	end
+-%>
+<%= form_for @subsite, url: config_view, html: { } do |site_form| %>
+	<%= site_form.fields_for :search_configuration, @subsite.search_configuration do |config_form| %>
+		<div class="panel panel-primary">
+			<div class="panel-heading"><h2 class="panel-title">Display Options</h2></div>
+			<div class="panel-body display_options">
+				<%= render partial: 'sites/search_configuration/display_options_form', locals: {config_form: config_form} %>
+			</div>
+		</div>
+		<div class="panel panel-primary">
+			<div class="panel-heading"><h2 class="panel-title">Map Configuration</h2></div>
+			<div class="panel-body map_configuration">
+				<%= render partial: 'sites/search_configuration/map_form', locals: {config_form: config_form} %>
+			</div>
+		</div>
+		<div class="panel panel-primary">
+			<div class="panel-heading"><h2 class="panel-title">Date Range Search Configuration</h2></div>
+			<div class="panel-body date_search_configuration">
+				<%= render partial: 'sites/search_configuration/date_range_form', locals: {config_form: config_form} %>
+			</div>
+		</div>
+		<div class="panel panel-primary">
+			<div class="panel-heading"><h2 class="panel-title">Facet Field Configuration</h2></div>
+			<div class="panel-body facet_fields">
+				<%= render partial: 'sites/search_configuration/facet_fields_form', locals: {config_form: config_form} %>
+			</div>
+		</div>
+		<div class="panel panel-primary">
+			<div class="panel-heading"><h2 class="panel-title">Search Field Configuration</h2></div>
+			<div class="panel-body search_fields">
+				<%= render partial: 'sites/search_configuration/search_fields_form', locals: {config_form: config_form} %>
+			</div>
+		</div>
+	<%- end %>
+  <div class="panel">
+  	<div class="panel-body">
+	    <%= submit_tag "Update Search Configuration", {class: ['btn', 'btn-default']} %>
+	  </div>
+  </div>
+<% end %>

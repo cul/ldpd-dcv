@@ -197,7 +197,7 @@ class SitesController < ApplicationController
     rescue CarrierWave::IntegrityError => ex
       flash[:alert] = ex.message
     end
-    if @subsite.slug =~ /restricted\//
+    if restricted?
       redirect_to edit_restricted_site_path(slug: @subsite.slug.sub('restricted/', ''))
     else
       redirect_to edit_site_path(slug: @subsite.slug)

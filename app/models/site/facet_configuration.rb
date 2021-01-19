@@ -2,15 +2,17 @@ class Site::FacetConfiguration
 	include ActiveModel::Dirty
 	include ActiveModel::Serializers::JSON
 	include ActiveRecord::AttributeAssignment
+	include Site::ConfigurationValues
 
 	VALID_VALUE_TRANSFORMS = ['capitalize', 'singularize', 'translate'].freeze
+	VALID_SORTS = ['index', 'count'].freeze
 	ATTRIBUTES = [:exclusions, :field_name, :label, :limit, :sort, :value_map, :value_transforms].freeze
 
 	define_attribute_methods *ATTRIBUTES
 	attr_accessor *ATTRIBUTES
 
 	def default_configuration
-		{ limit: 10, sort: :index, value_transforms: [] }
+		{ limit: 10, sort: 'index', value_transforms: [] }
 	end
 
 	def initialize(atts = {})
@@ -20,13 +22,19 @@ class Site::FacetConfiguration
 	end
 
 	def exclusions=(val)
-		val = Array(val).compact
+		val = Array(val).select { |v| v.present? }
 		exclusions_will_change! unless val == @exclusions
 		@exclusions = val
 	end
 
+	def limit=(val)
+		val = int_or_nil(val)
+		limit_will_change! unless val == @limit
+		@limit = val		
+	end
+
 	def value_transforms=(val)
-		val = clean_and_freeze_transform_array(val)
+		val = clean_and_freeze_validated_array(val, VALID_VALUE_TRANSFORMS)
 		value_transforms_will_change! unless val == @value_transforms
 		@value_transforms = val
 	end
@@ -66,9 +74,4 @@ class Site::FacetConfiguration
 		end
 		blacklight_config.add_facet_field @field_name, opts
 	end
-
-	private
-		def clean_and_freeze_transform_array(val)
-			(Array(val).compact.map(&:to_s) & VALID_VALUE_TRANSFORMS).freeze
-		end
 end
