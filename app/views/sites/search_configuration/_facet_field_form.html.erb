@@ -1,0 +1,50 @@
+<div class="form-group panel panel-info facet_field" id="facet_fields_<%= field_form.index %>">
+	<div class="panel-heading form-inline">
+		<div class="panel-heading"><h3 class="panel-title"><%= field_form.object.new? ? "New Facet" : field_form.object.label %></h3></div>
+	</div>
+	<div class="panel-body" id="search_fields_<%= field_form.index %>_atts">
+		<div class="form-group">
+			<label for="site[search_configuration][facets][<%= field_form.index %>][label]">Field Name <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-facets-field"></span></label>
+			<%= field_form.text_field :field_name %>
+		</div>
+		<div class="form-group">
+			<label for="site[search_configuration][facets][<%= field_form.index %>][label]">Field Label <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-facets-label"></span></label>
+			<%= field_form.text_field :label %>
+		</div>
+		<div class="form-group">
+			<label for="site[search_configuration][facets][<%= field_form.index %>][limit]">Value Limit <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-facets-label"></span></label>
+			<%= field_form.text_field :limit %>
+		</div>
+		<div class="form-group">
+			<label for="site[search_configuration][facets][<%= field_form.index %>][limit]">Value Sort <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-facets-sort"></span></label>
+			<%= field_form.select :sort, Site::FacetConfiguration::VALID_SORTS %>
+		</div>
+		<div class="form-group">
+			<label for="facet_exclusions">Value Exclusions <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-facets-exclusions"></span></label>
+			<%- (Array(field_form.object.exclusions).compact + ['']).each_with_index do |exclusion, ix| %>
+				<fieldset name="facet_exclusions" class="paneled">
+					<%= field_form.text_field :exclusions, value: exclusion, value_index: ix, placeholder: "Add a value to exclude" %>
+					<%- if exclusion.present? %>
+						<button class="btn btn-danger" type="button" onclick="this.parentElement.remove();">
+						<span class="glyphicon glyphicon-remove"></span> Remove
+						</button>
+					<%- end %>
+				</fieldset>
+			<%- end %>
+		</div>
+		<div class="form-group">
+			<label for="facet_value_transforms">Value Transforms <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-facets-transforms"></span></label>
+			<br>
+			<%= field_form.select :value_transforms, Site::FacetConfiguration::VALID_VALUE_TRANSFORMS, {}, multiple: true %>
+		</div>
+		<div class="form-group">
+			<label for="site[search_configuration][facets][<%= field_form.index %>][value_map]">Value Map <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-facets-value-map"></span></label>
+			<%= field_form.text_field :value_map, disabled: true %>
+		</div>
+		<div class="form-group">
+			<button class="btn btn-danger" type="button" onclick="$(this).closest('.facet_field').remove();">
+			<span class="glyphicon glyphicon-remove"></span> Remove Facet Field
+			</button>
+		</div>
+	</div>
+</div>

@@ -117,6 +117,41 @@ function addTextBlock(addButton) {
 	addMarkdownEditors(newBlock);
 }
 
+function addFacetFieldFields(addButton) {
+	addFieldFields(addButton, 'facet_field')
+}
+
+function addSearchFieldFields(addButton) {
+	addFieldFields(addButton, 'search_field')
+}
+
+function addFieldFields(addButton, fieldType) {
+	// build a template text block
+	var newField = $(".widget-templates > ." + fieldType).clone();
+	var fieldNumber = $("." + fieldType + "s > ." + fieldType).length;
+	var fieldIndex = fieldNumber;
+	// index and number can drift based on menu removal and sorting, so verify index
+	while($("#" + fieldType + "s_" + fieldIndex).length > 0) {
+		fieldIndex++;
+	}
+	var re = /9fieldIndex9/;
+	newField.attr('id', newField.attr('id').replace(re, fieldIndex.toString()));
+	// update all template id, for, name, data-target, data-parent, aria-controls attribute values
+	['id', 'data-target', 'data-parent', 'aria-controls'].forEach(function(att){
+		newField.find("[" + att + "]").each(function(){
+			$(this).attr(att, $(this).attr(att).replace(re, fieldIndex.toString()));
+		});
+	});
+	['for', 'name'].forEach(function(att){
+		newField.find("[" + att + "]").each(function(){
+			$(this).attr(att, $(this).attr(att).replace(re, fieldNumber.toString()));
+		});
+	});
+	// append it after last menu
+	newField.insertBefore($(addButton));
+	addTooltips(newField);
+}
+
 function removeNavMenu(button) {
 	$(button).closest(".site_navigation_menu").remove();
 	$(".site_navigation > .site_navigation_menu").each(reassignNavMenuIndexes);

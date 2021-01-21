@@ -16,6 +16,7 @@ class Site::FacetConfiguration
 	end
 
 	def initialize(atts = {})
+		@is_new = atts.blank?
 		atts = default_configuration.merge(atts.symbolize_keys).with_indifferent_access
 		assign_attributes(atts)
 		clear_changes_information
@@ -37,6 +38,10 @@ class Site::FacetConfiguration
 		val = clean_and_freeze_validated_array(val, VALID_VALUE_TRANSFORMS)
 		value_transforms_will_change! unless val == @value_transforms
 		@value_transforms = val
+	end
+
+	def new?
+		@is_new
 	end
 
 	def eql?(obj)

@@ -17,6 +17,7 @@ class Site::SearchFieldConfiguration
 	end
 
 	def initialize(atts = {})
+		@is_new = atts.blank?
 		atts = atts.symbolize_keys
 		atts[:label] = atts[:type].titlecase if atts[:type] && atts[:label].blank?
 		atts = default_configuration.merge(atts).with_indifferent_access
@@ -27,6 +28,10 @@ class Site::SearchFieldConfiguration
 	def eql?(obj)
 		return false unless obj.is_a? ::Site::SearchFieldConfiguration
 		attributes.eql?(obj.attributes)
+	end
+
+	def new?
+		@is_new
 	end
 
 	def attributes

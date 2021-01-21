@@ -10,3 +10,17 @@
 -%>
 <h1>Editing <%= link_to(@subsite.slug, site_edit) %> search configuration (<%= link_to("view", site_view) %>)</h1>
 <div class="container"><%= render 'sites/search_configuration/form' %></div>
+<div class="hide widget-templates">
+<%- buffer = "" %>
+<%- form_for(@subsite, builder: ::ValueIndexableFormBuilder) do |site_form| %>
+	<%- site_form.fields_for(:search_configuration, @subsite.search_configuration)  do |config_form| %>
+		<%- config_form.fields_for "search_fields", Site::SearchFieldConfiguration.new, index: '9fieldIndex9' do |field_form| %>
+			<%- buffer << render(partial: 'sites/search_configuration/search_field_form', locals: {field_form: field_form }) %>
+		<%- end %>
+		<%- config_form.fields_for "facets", Site::FacetConfiguration.new, index: '9fieldIndex9' do |field_form| %>
+			<%- buffer << render(partial: 'sites/search_configuration/facet_field_form', locals: {field_form: field_form }) %>
+		<%- end %>
+	<%- end %>
+<%- end %>
+<%= buffer.html_safe %>
+</div>
