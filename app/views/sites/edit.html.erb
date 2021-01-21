@@ -164,58 +164,7 @@
     <div class="panel-heading"><h2 class="panel-title">Site Navigation</h2></div>
     <div class="panel-body site_navigation">
       <%= site_form.fields_for :nav_menus do |menu_form| %>
-        <div class="panel panel-info site_navigation_menu" id="site_navigation_menu_<%= menu_form.index %>">
-          <div class="panel-heading form-inline">
-            <div class="form-group">
-              <span class="glyphicon glyphicon-move site_navigation_menu_handle"></span>
-              <label for="site[nav_menus_attributes][<%= menu_form.index %>][label]">Group Label <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-nav-menu-label"></span></label>
-              <%= menu_form.text_field :label, class: ['form-control'] %>
-              <button type="button" class="btn btn-primary collapse-toggle collapsed" data-toggle="collapse" data-target="#site_navigation_links_<%= menu_form.index %>" aria-expanded="false" aria-controls="site_navigation_links_<%= menu_form.index %>" data-parent="site_navigation_menu_<%= menu_form.index %>">Links</button>
-            </div>
-            <div class="pull-right">
-              <button type="button" class="btn btn-danger remove" onclick="removeNavMenu(this);"><span class="glyphicon glyphicon-remove"></span> Remove</button>
-            </div>
-          </div>
-          <div class="panel-body collapse site_navigation_links" id="site_navigation_links_<%= menu_form.index %>">
-            <%= menu_form.fields_for :links, include_id: false do |link_form| %>
-              <div class="panel panel-default site_navigation_link">
-                <div class="panel-heading form-horizontal">
-                  <div class="form-group">
-                    <label class="control-label col-md-2" for="site[nav_menus_attributes][<%= menu_form.index %>][links_attributes][<%= link_form.index %>][label]"><span class="glyphicon glyphicon-move site_navigation_link_handle pull-left"></span> Link Label <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-nav-link-label"></span></label>
-                    <div class="col-md-8">
-                      <%= link_form.text_field :label, class: ['form-control'] %>
-                    </div>
-                    <div class="col-md-2">
-                      <button type="button" class="btn btn-danger remove" onclick="removeNavLink(this);"  id="menu-<%= menu_form.index %>-remove-link-<%= link_form.index %>"><span class="glyphicon glyphicon-remove"></span> Remove</button>
-                    </div>
-                  </div>
-                </div>
-                <div class="panel-body">
-                  <div class="form-group">
-                    <label for="site[nav_menus_attributes][<%= menu_form.index %>][links_attributes][<%= link_form.index %>][link]">Links To <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-nav-link"></span></label>
-                    <%= link_form.text_field :link, class: ['form-control'] %>
-                  </div>
-                  <div class="form-group">
-                    <label for="site[nav_menus_attributes][<%= menu_form.index %>][links_attributes][<%= link_form.index %>][external]">Link Type</label>
-                    <div class="radio">
-                      <label>
-                        <%= link_form.radio_button :external, true %>Links to a full or relative url
-                      </label>
-                    </div>
-                    <div class="radio">
-                      <label>
-                        <%= link_form.radio_button :external, false %>Links to an in-site page by slug
-                      </label>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            <%- end %>
-            <button type="button" onclick="addNavLink(this);" class="btn btn-info" id="menu-<%= menu_form.index %>-add-link">
-              <span class="glyphicon glyphicon-plus"></span> Add Link
-            </button>
-          </div>
-        </div>
+        <%= render partial: "sites/edit/navigation_menu_form", locals: { menu_form: menu_form } %>
       <%- end %>
       <button type="button" onclick="addNavMenu(this);" value="Add Navigation Menu" class="btn btn-info" >
         <span class="glyphicon glyphicon-plus"></span> Add Navigation Group
@@ -243,53 +192,15 @@
   <span id="tooltip-images-signature-banner" title="Signature Banner Image">The banner image for a site homepage configured with the signature layout. See the <a href="https://library.columbia.edu/resolve/dlc-editor-docs" target="_blank">site editor documentation</a> for details.</span>
   <span id="tooltip-images-signature-watermark" title="Signature/Watermark Image">The signature/watermark image for a site homepage configured with the signature layout. This is an SVG that is overlaid on the banner image. See the <a href="https://library.columbia.edu/resolve/dlc-editor-docs" target="_blank">site editor documentation</a> for details.</span>
 </div>
+<%- buffer = "" %>
+<%- form_for(@subsite, builder: ::ValueIndexableFormBuilder) do |site_form| %>
+  <%- site_form.fields_for :nav_menus, NavMenu.new(nil), child_index: "9menuIndex9" do |menu_form| %>
+    <%- buffer << render(partial: "sites/edit/navigation_menu_form", locals: { menu_form: menu_form }) %>
+    <%- menu_form.fields_for :links, NavLink.new, include_id: false, child_index: "9linkIndex9" do |link_form| %>
+      <%- buffer << render(partial: "sites/edit/navigation_link_form", locals: { menu_form: menu_form, link_form: link_form }) %>
+    <%- end %>
+  <%- end %>
+<%- end %>
 <div class="hide nav-templates">
-    <div class="panel panel-info site_navigation_menu" id="site_navigation_menu_9menuIndex9">
-      <div class="panel-heading form-inline">
-        <div class="form-group">
-          <span class="glyphicon glyphicon-move site_navigation_menu_handle"></span>
-          <label for="site[nav_menus_attributes][9menuIndex9][label]">Group Label <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-nav-menu-label"></span></label>
-          <input class="form-control" type="text" value="" name="site[nav_menus_attributes][9menuIndex9][label]" id="site_nav_menus_attributes_9menuIndex9_label" />
-          <button type="button" class="btn btn-primary collapse-toggle collapsed" data-toggle="collapse" data-target="#site_navigation_links_9menuIndex9" aria-expanded="false" aria-controls="site_navigation_links_9menuIndex9" data-parent="site_navigation_menu_9menuIndex9">Links</button>
-        </div>
-        <div class="pull-right">
-          <button type="button" class="btn btn-danger remove" onclick="removeNavMenu(this);"><span class="glyphicon glyphicon-remove"></span> Remove</button>
-        </div>
-      </div>
-      <div class="panel-body collapse site_navigation_links" id="site_navigation_links_9menuIndex9">
-        <input type="button" onclick="addNavLink(this);" value="Add Link" class="btn btn-primary" id="menu-9menuIndex9-add-link"/>
-      </div>
-    </div>
-    <div class="panel panel-default site_navigation_link">
-      <div class="panel-heading form-horizontal">
-        <div class="form-group">
-          <label class="control-label col-md-2" for="site[nav_menus_attributes][9menuIndex9][links_attributes][9linkIndex9][label]"><span class="glyphicon glyphicon-move site_navigation_link_handle pull-left"></span> Link Label <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-nav-link-label"></span></label>
-          <div class="col-md-8">
-            <input class="form-control" type="text" value="" name="site[nav_menus_attributes][9menuIndex9][links_attributes][9linkIndex9][label]" id="site_nav_menus_attributes_9menuIndex9_links_attributes_9linkIndex9_label">
-          </div>
-          <div class="col-md-2">
-            <button type="button" class="btn btn-danger remove" onclick="removeNavLink(this);" id="menu-9menuIndex9-remove-link-9linkIndex9"><span class="glyphicon glyphicon-remove"></span> Remove</button>
-          </div>
-        </div>
-      </div>
-      <div class="panel-body">
-        <div class="form-group">
-          <label for="site[nav_menus_attributes][9menuIndex9][links_attributes][9linkIndex9][link]">Links To <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-nav-link"></span></label>
-          <input class="form-control" type="text" value="" name="site[nav_menus_attributes][9menuIndex9][links_attributes][9linkIndex9][link]" id="site_nav_menus_attributes_9menuIndex9_links_attributes_9linkIndex9_link">
-        </div>
-        <div class="form-group">
-          <label for="site[nav_menus_attributes][9menuIndex9][links_attributes][9linkIndex9][external]">Link Type</label>
-          <div class="radio">
-            <label>
-              <input type="radio" checked="checked" value="true" name="site[nav_menus_attributes][9menuIndex9][links_attributes][9linkIndex9][external]" id="site_nav_menus_attributes_9menuIndex9_links_attributes_9linkIndex9_external_true">Links to a full or relative url
-            </label>
-          </div>
-          <div class="radio">
-            <label>
-              <input type="radio" value="false" name="site[nav_menus_attributes][9menuIndex9][links_attributes][9linkIndex9][external]" id="site_nav_menus_attributes_9menuIndex9_links_attributes_9linkIndex9_external_false">Links to an in-site page by slug
-            </label>
-          </div>
-        </div>
-      </div>
-</div>
+  <%= buffer.html_safe %>
 </div>
