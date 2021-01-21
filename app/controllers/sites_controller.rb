@@ -140,12 +140,13 @@ class SitesController < ApplicationController
   # get single document from the solr index
   # override to use :slug and publisher_ssim in search to get document
   def home
-    document_list = search_results(params)[1] # do not store response or list as attributes
-    @document = document_list.first
-    if @document.nil?
+    #document_list = search_results(params)[1] # do not store response or list as attributes
+    #@document = document_list.first
+    if load_subsite.nil?
       render status: :not_found, text: "#{params[:slug]} is not a subsite"
       return
     end
+    @document = SitesController.site_as_solr_document(load_subsite)
     # override the blacklight config to support featured content and facets
     @blacklight_config = load_subsite.blacklight_config
     # TODO: load facet data. Requires configuration of fields, and override of default solr params.
@@ -308,6 +309,14 @@ class SitesController < ApplicationController
 
   def tracking_method
     "track_#{controller_name}_path"
+  end
+
+  def self.site_as_solr_document(site)
+    doc = {}
+    return doc unless site
+    doc['title_display_ssm'] = [site.title]
+    doc['active_fedora_model_ssi'] = 'Concept'
+    SolrDocument.new(doc)
   end
 
   private
