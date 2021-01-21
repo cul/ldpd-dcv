@@ -36,7 +36,7 @@ DLC VERSION: <%= IO.read(Rails.root.to_s+'/VERSION') %> -->
 <%= csrf_meta_tags %>
 <%= content_for(:head) %>
 
-<% if controller.is_a?(SubsitesController) %>
+<% if controller.respond_to? :subsite_layout %>
 <script>
 	window.DCV = window.DCV || {};
 	DCV.subsite_key = '<%= subsite_key %>';

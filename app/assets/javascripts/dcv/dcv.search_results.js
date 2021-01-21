@@ -86,7 +86,7 @@ $(document).ready(function(){
 			}
 		}
 
-		var currentSearchDateGraphVisiblity = readCookie(DCV.subsite_layout + '_' + DCV.SearchResults.CookieNames.searchDateGraphVisiblity);
+		var currentSearchDateGraphVisiblity = readCookie(DCV.subsite_key + '_' + DCV.SearchResults.CookieNames.searchDateGraphVisiblity);
 		if (currentSearchDateGraphVisiblity == null) {
 			DCV.SearchResults.setSearchDateGraphVisibility(DCV.SearchResults.DateGraphVisiblityState.HIDE);
 		} else {
@@ -97,7 +97,7 @@ $(document).ready(function(){
 });
 
 DCV.SearchResults.getCurrentSearchMode = function(){
-	return readCookie(DCV.subsite_layout + '_' + DCV.SearchResults.CookieNames.searchMode);
+	return readCookie(DCV.subsite_key + '_' + DCV.SearchResults.CookieNames.searchMode);
 };
 
 
@@ -111,11 +111,11 @@ DCV.SearchResults.setSearchMode = function(searchMode) {
 	if (searchMode == DCV.SearchResults.SearchMode.GRID) {
 		$('#content .document').removeClass('list-view').addClass('grid-view');
 		$('#grid-mode').addClass('btn-success');
-		createCookie(DCV.subsite_layout + '_' + DCV.SearchResults.CookieNames.searchMode, searchMode);
+		createCookie(DCV.subsite_key + '_' + DCV.SearchResults.CookieNames.searchMode, searchMode);
 	} else if (searchMode == DCV.SearchResults.SearchMode.LIST) {
 		$('#content .document').removeClass('grid-view').addClass('list-view');
 		$('#list-mode').addClass('btn-success');
-		createCookie(DCV.subsite_layout + '_' + DCV.SearchResults.CookieNames.searchMode, searchMode);
+		createCookie(DCV.subsite_key + '_' + DCV.SearchResults.CookieNames.searchMode, searchMode);
 	} else if (searchMode == DCV.SearchResults.SearchMode.EXTENDED) {
 		$('#search-results, .results-pagination, #appliedParams').addClass('hidden');
 		$('#extended-search-results').removeClass('hidden');
@@ -141,12 +141,12 @@ DCV.SearchResults.setSearchDateGraphVisibility = function(dateGraphVisiblityStat
   if (dateGraphVisiblityState == DCV.SearchResults.DateGraphVisiblityState.HIDE) {
     $('#search-results-date-graph').addClass('hidden');
     $('#date-graph-toggle').addClass('btn-default').removeClass('btn-success');
-    createCookie(DCV.subsite_layout + '_' + DCV.SearchResults.CookieNames.searchDateGraphVisiblity, dateGraphVisiblityState);
+    createCookie(DCV.subsite_key + '_' + DCV.SearchResults.CookieNames.searchDateGraphVisiblity, dateGraphVisiblityState);
   } else {
     $('#search-results-date-graph').removeClass('hidden');
     DCV.DateRangeGraphSelector.resizeCanvas();
     $('#date-graph-toggle').addClass('btn-success').removeClass('btn-default');
-    createCookie(DCV.subsite_layout + '_' + DCV.SearchResults.CookieNames.searchDateGraphVisiblity, dateGraphVisiblityState);
+    createCookie(DCV.subsite_key + '_' + DCV.SearchResults.CookieNames.searchDateGraphVisiblity, dateGraphVisiblityState);
   }
 }
 

@@ -63,7 +63,7 @@ module Dcv::SubsiteHelper
   end
 
   def subsite_search_mode
-    cookie_name = "#{subsite_layout}_search_mode".to_sym
+    cookie_name = "#{subsite_key}_search_mode".to_sym
     cookie = cookies[cookie_name]
     @current_search_mode ||= begin
       if cookie

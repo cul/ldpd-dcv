@@ -1,4 +1,8 @@
 module Dcv::Sites::ConfiguredLayouts
+  def subsite_key
+    subsite_config['slug']
+  end
+
   def subsite_layout
     configured_layout = subsite_config['layout'] || 'default'
     configured_layout = DCV_CONFIG.fetch(:default_layout, 'portrait') if configured_layout == 'default'
