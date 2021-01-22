@@ -25,6 +25,10 @@ describe SitesController, type: :unit do
 		let(:search_uri) { URI(controller.search_action_url(query)) }
 		context 'catalog search' do
 			it { expect(search_uri.path).to eql('/catalog') }
+			context 'restricted' do
+				let(:site) { FactoryBot.create(:site, slug: "restricted/site", repository_id: 'NNC-RB', restricted: true) }
+				it { expect(search_uri.path).to eql('/NNC-RB/catalog') }
+			end
 		end
 		context 'custom search' do
 			let(:site) { FactoryBot.create(:site, search_type: 'custom') }
