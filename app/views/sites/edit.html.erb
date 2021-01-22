@@ -9,7 +9,7 @@
   end
 -%>
 <h1>Editing <%= @subsite.slug %> (<%= link_to("view", site_path(slug: @subsite.slug)) %>)</h1>
-<div class="container"><%= form_for @subsite, url: site_view, html: { } do |site_form| %>
+<div class="container"><%= form_for @subsite, builder: ::ValueIndexableFormBuilder, url: site_view, html: { } do |site_form| %>
   <div class="panel panel-primary">
     <div class="panel-heading"><h2 class="panel-title">Site Properties</h2></div>
     <div class="panel-body site_properties">
@@ -62,7 +62,7 @@
         <div class="panel-body collapse<%= ' in' if @subsite.layout == Site::LAYOUT_PORTRAIT %>" id="portrait_image_pids">
           <%- site_form.object.image_uris.each_with_index do |image_uri, ix| %>
             <fieldset name="site_image_uris" class="paneled">
-                <%= site_form.text_field :image_uris, multiple: true, value: image_uri, id: "site_image_uris[#{ix}]" %>
+                <%= site_form.text_field :image_uris, multiple: true, value: image_uri, value_index: ix %>
                 <%- if ix > 0 %>
                   <button class="btn btn-danger" type="button" onclick="this.parentElement.remove();">
                     <span class="glyphicon glyphicon-remove"></span> Remove

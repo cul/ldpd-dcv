@@ -25,22 +25,7 @@
 	<div class="panel-heading"><h2 class="panel-title">Text Blocks</h2></div>
 	<div class="panel-body site_text_blocks">
 		<%= page_form.fields_for :site_text_blocks, include_id: false do |site_text_block_form| %>
-			<div class="panel panel-info site_text_block" id="site_text_block_<%= site_text_block_form.index %>">
-				<div class="panel-heading form-inline">
-					<div class="form-group">
-						<span class="glyphicon glyphicon-move site_text_block_handle"></span>
-						<label for="site_page[site_text_blocks_attributes][<%= site_text_block_form.index %>][sort_label]">Block Label <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-block-label"></span></label>
-						<%= site_text_block_form.text_field :label, class: ['form-control'] %>
-						<button type="button" class="btn btn-primary collapse-toggle collapsed" data-toggle="collapse" data-target="#site_page_text_block_<%= site_text_block_form.index %>_markdown" aria-expanded="false" aria-controls="site_page_text_blocks_<%= site_text_block_form.index %>" data-parent="site_text_block_<%= site_text_block_form.index %>">Content</button>
-					</div>
-					<div class="pull-right">
-						<a class="btn btn-danger remove" onclick="removeTextBlock(this); return false;"><span class="glyphicon glyphicon-remove"></span> Remove</a>
-					</div>
-				</div>
-				<div class="panel-body collapse site_navigation_links" id="site_page_text_block_<%= site_text_block_form.index %>_markdown">
-					<%= site_text_block_form.text_area :markdown, rows: 5, class: ['form-control'] %>
-				</div>
-			</div>
+			<%= render partial: 'sites/pages/text_block_form', locals: { site_text_block_form: site_text_block_form } %>
 		<% end %>
 		<button type="button" onclick="addTextBlock(this);" class="btn btn-info" id="site-page-add-block">
 			<span class="glyphicon glyphicon-plus"></span> Add Text Block
@@ -56,23 +41,14 @@
 </div>
 <% end %>
 
+<%- buffer = "" %>
+<%- form_for @page, url: { action: (@page.new_record? ? "create" : "update")  } do |page_form| %>
+	<%- page_form.fields_for :site_text_blocks, SiteTextBlock.new, include_id: false, child_index: '9blockIndex9' do |site_text_block_form| %>
+		<%- buffer << render(partial: 'sites/pages/text_block_form', locals: {site_text_block_form: site_text_block_form}) %>
+	<%- end %>
+<%- end %>
 <div class="hidden new-block-template">
-	<div class="panel panel-info site_text_block" id="site_text_block_9blockIndex9">
-		<div class="panel-heading form-inline">
-			<div class="form-group">
-				<span class="glyphicon glyphicon-move site_text_block_handle"></span>
-				<label for="site_page[site_text_blocks_attributes][9blockIndex9][sort_label]">Block Label <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-block-label"></span></label>
-				<input class="form-control" type="text" value="" name="site_page[site_text_blocks_attributes][9blockIndex9][label]" id="site_page_site_text_blocks_attributes_9blockIndex9_label" />
-				<button type="button" class="btn btn-primary collapse-toggle collapsed" data-toggle="collapse" data-target="#site_page_text_block_9blockIndex9_markdown" aria-expanded="false" aria-controls="site_page_text_blocks_9blockIndex9" data-parent="site_text_block_9blockIndex9">Content</button>
-			</div>
-			<div class="pull-right">
-				<a class="btn btn-danger remove" onclick="removeTextBlock(this); return false;"><span class="glyphicon glyphicon-remove"></span> Remove</a>
-			</div>
-		</div>
-		<div class="panel-body collapse site_navigation_links" id="site_page_text_block_9blockIndex9_markdown">
-			<textarea rows="5" class="form-control" name="site_page[site_text_blocks_attributes][9blockIndex9][markdown]" id="site_page_site_text_blocks_attributes_9blockIndex9_markdown"></textarea>
-		</div>
-	</div>
+	<%= buffer.html_safe %>
 </div>
 <div class="hidden tooltips">
 	<span id="tooltip-slug" title="Slug">Slugs are the url segments identifying the page. They should be should not contain separators or punctuation besides hyphens (preferred) or underscores. Page slugs must be unique within a site.</span>

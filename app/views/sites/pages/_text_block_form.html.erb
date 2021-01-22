@@ -1,0 +1,16 @@
+<div class="panel panel-info site_text_block" id="site_text_block_<%= site_text_block_form.index %>">
+	<div class="panel-heading form-inline">
+		<div class="form-group">
+			<span class="glyphicon glyphicon-move site_text_block_handle"></span>
+			<label for="site_page[site_text_blocks_attributes][<%= site_text_block_form.index %>][sort_label]">Block Label <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-block-label"></span></label>
+			<%= site_text_block_form.text_field :label, class: ['form-control'] %>
+			<button type="button" class="btn btn-primary collapse-toggle collapsed" data-toggle="collapse" data-target="#site_page_text_block_<%= site_text_block_form.index %>_markdown" aria-expanded="false" aria-controls="site_page_text_blocks_<%= site_text_block_form.index %>" data-parent="site_text_block_<%= site_text_block_form.index %>">Content</button>
+		</div>
+		<div class="pull-right">
+			<a class="btn btn-danger remove" onclick="removeTextBlock(this); return false;"><span class="glyphicon glyphicon-remove"></span> Remove</a>
+		</div>
+	</div>
+	<div class="panel-body collapse site_navigation_links" id="site_page_text_block_<%= site_text_block_form.index %>_markdown">
+		<%= site_text_block_form.text_area :markdown, rows: 5, class: ['form-control'] %>
+	</div>
+</div>

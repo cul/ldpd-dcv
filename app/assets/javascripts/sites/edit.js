@@ -4,11 +4,11 @@ function addSiteImageUriFieldSet(addButtonFieldset) {
 	const newFieldset = document.createElement("fieldset");
 	newFieldset['name'] = 'site_image_uris';
 	newFieldset['className'] = 'paneled';
-	// <input value="" id="site_image_uris[1]" type="text" name="site[image_uris][]">
+	// <input value="" id="site_image_uris_1" type="text" name="site[image_uris][]">
 	const newInput = document.createElement("input");
 	newInput['type'] = 'text';
 	newInput['name'] = 'site[image_uris][]';
-	newInput['id'] = 'site_image_uris[' + newIndex + ']';
+	newInput['id'] = 'site_image_uris_' + newIndex;
 	newFieldset.appendChild(newInput);
 	// <input type="button" class="btn btn-danger" value="Remove" onclick="this.parentElement.remove();"/>
 	if (newIndex > 0) {
