@@ -14,7 +14,7 @@ class Site::SearchConfiguration
 	end
 
 	def initialize(atts = {})
-		assign_attributes(default_configuration.merge(atts.symbolize_keys))
+		assign_attributes(default_configuration.merge(atts.to_h.symbolize_keys))
 	end
 
 	def serializable_hash(opts = {})
@@ -64,6 +64,11 @@ class Site::SearchConfiguration
 
 		def type_cast_for_database(obj)
 			JSON.dump(obj.as_json(compact: true))
+		end
+
+		# Override as base class will return nil (this type should not be nil) 
+		def type_cast_from_database(obj)
+			cast_value(obj)
 		end
 
 		def cast_value(src)
