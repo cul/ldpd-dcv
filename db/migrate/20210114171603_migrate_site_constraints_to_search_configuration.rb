@@ -2,7 +2,8 @@ class MigrateSiteConstraintsToSearchConfiguration < ActiveRecord::Migration
 	def up
 		add_column :sites, :search_configuration, :text 
 		Site.all.each do |site|
-			site.search_configuration.scope_constraints = JSON.load(site.constraints)
+			site.search_configuration.scope_constraints = JSON.load(site.instance_variable_get(:@attributes)["constraints"].value)
+			site.layout = 'custom' unless Site::VALID_LAYOUTS.include?(site.layout)
 			controller_path = site.restricted ? "restricted/#{site.slug}" : site.slug
 			config = SubsiteConfig.new(SubsiteConfig.for_path(controller_path, site.restricted))
 			site.search_configuration.date_search_configuration = config.date_search_configuration
