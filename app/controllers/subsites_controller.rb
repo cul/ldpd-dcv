@@ -96,6 +96,11 @@ class SubsitesController < ApplicationController
     end
   end
 
+  # some custom sites have local styles even when using a non-custom layout
+  def subsite_styles
+    (super + [controller_name]).uniq
+  end
+
   def self.configure_blacklight_scope_constraints(config, exclude_by_id = false)
     publishers = Array(subsite_config.dig('scope_constraints','publisher')).compact
     config.default_solr_params[:fq] << "publisher_ssim:(\"" + publishers.join('" OR "') + "\")"

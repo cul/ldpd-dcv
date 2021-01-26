@@ -5,6 +5,15 @@ describe LcaajController, :type => :controller do
     expect(controller).not_to be_nil
     expect(controller.controller_name).not_to be_nil
   end
+  describe '#subsite_styles' do
+    before do
+      FactoryBot.create(:site, slug: 'lcaaj', layout: 'custom')
+    end
+    it "returns only custom styles" do
+      expect(controller.load_subsite.layout).to eql('custom')
+      expect(controller.subsite_styles).to eql(['lcaaj'])
+    end
+  end
   describe '#index' do
     context 'respond to csv' do
       let(:doc1) { JSON.parse(fixture('controllers/lcaaj_controller/sample_solr_doc_1.json').read) }

@@ -16,6 +16,19 @@ describe CatalogController, :type => :controller do
   let(:mock_object) do
     double(ActiveFedora::Base)
   end
+
+  describe '#subsite_styles' do
+    let(:api_key) { nil }
+    before do
+      FactoryBot.create(:site, slug: 'catalog', layout: 'gallery', palette: 'monochromeDark')
+    end
+    it "includes both the common styles and custom styles" do
+      expect(controller.load_subsite.layout).to eql('gallery')
+      expect(controller.subsite_styles).to include('gallery-monochromeDark')
+      expect(controller.subsite_styles).to include('catalog')
+    end
+  end
+
   describe '#update' do
     subject do
       put :update, params
