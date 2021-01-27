@@ -58,8 +58,8 @@ module Nyre
     # haaaaaaack to not reproduce templates
     def initialize(*args)
       super(*args)
-      self._prefixes << 'nyre/projects' 
-      self._prefixes << 'nyre'
+      self._prefixes << "#{subsite_key}/projects"
+      self._prefixes << subsite_key
       self._prefixes << '/catalog'
       self._prefixes.unshift "shared"
       self._prefixes.unshift ""
@@ -67,10 +67,8 @@ module Nyre
 
     def set_view_path
       self.prepend_view_path('app/views/shared')
-      self.prepend_view_path('app/views/nyre')
-      self.prepend_view_path('nyre')
-      self.prepend_view_path('app/views/nyre/projects')
-      self.prepend_view_path('nyre/projects')
+      self.prepend_view_path("app/views/#{subsite_key}")
+      self.prepend_view_path(subsite_key)
       self.prepend_view_path('app/views/' + controller_path)
       self.prepend_view_path(controller_path)
     end
