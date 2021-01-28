@@ -31,11 +31,12 @@ DCV.DateRangeGraphSelector.lastClickEvent = null;
 DCV.DateRangeGraphSelector.dateCache = null;
 
 DCV.DateRangeGraphSelector.init = function() {
-  if ($('#date-range-widget').length > 0 && DCV.dateWidgetData != null) {
+  var widget = $('#date-range-widget');
+  if (widget.length > 0 && DCV.dateWidgetData != null) {
     DCV.DateRangeGraphSelector.initialized = true;
-    $('#date-range-widget').html('<canvas id="date-range-canvas" width="1000" height="150"></canvas>');
+    widget.html('<canvas id="date-range-canvas" width="1000" height="150"></canvas>');
     var canvasJQueryElement = $('#date-range-canvas');
-    canvasJQueryElement.attr('data-original-width', canvasJQueryElement[0].width).attr('data-original-height', canvasJQueryElement[0].height);
+    canvasJQueryElement.attr('data-palette', widget.attr('data-palette')).attr('data-original-width', canvasJQueryElement[0].width).attr('data-original-height', canvasJQueryElement[0].height);
     DCV.DateRangeGraphSelector.resizeCanvas();
     $(window).on('resize', DCV.DateRangeGraphSelector.resizeCanvas);
     canvasJQueryElement.on('mousedown', function(e1){
@@ -107,27 +108,42 @@ DCV.DateRangeGraphSelector.resizeCanvas = function() {
   DCV.DateRangeGraphSelector.render();
 };
 
+DCV.DateRangeGraphSelector.DARK = {
+  base: { stroke: '#666', fill: '#000'},
+  segment: { stroke: '#222', low: [80, 80, 80], high: [110, 110, 110] },
+  value: { stroke: '#555', fill: '#ddd' }
+};
+
+DCV.DateRangeGraphSelector.LIGHT = {
+  base: { stroke: '#888', fill: '#eee'},
+  segment: { stroke: '#222', low: [80, 80, 80], high: [110, 110, 110] },
+  value: { stroke: '#999', fill: '#000' }
+};
+
+DCV.DateRangeGraphSelector.paletteFor = function(sitePalette) {
+  if (sitePalette == 'monochromeDark') return DCV.DateRangeGraphSelector.DARK;
+  return DCV.DateRangeGraphSelector.LIGHT;
+};
+
 DCV.DateRangeGraphSelector.render = function() {
 
   if ( ! DCV.DateRangeGraphSelector.initialized ) { return; }
 
   var c = document.getElementById('date-range-canvas');
+  var p = DCV.DateRangeGraphSelector.paletteFor(c.getAttribute('data-palette'));
 
   var ctx = c.getContext('2d');
 
   ctx.clearRect ( 0 , 0 , c.width , c.height ); //clear canvas
 
-  var segmentColors = {
-    low: [80, 80, 80],
-    high: [110, 110, 110]
-  };
+  var segmentColors = p.segment;
   var textYOffset = c.height/7;
   var fontSize = c.height/9;
   var textXOffset = fontSize/6+1;
 
   ctx.lineWidth   = 1;
-  ctx.strokeStyle = '#666666';
-  ctx.fillStyle   = '#000';
+  ctx.strokeStyle = p.base.stroke;
+  ctx.fillStyle   = p.base.fill;
 
   // DCV.dateWidgetData is declared in-page, generated server-side.
   var startOfRange = DCV.dateWidgetData['start_of_range'];
@@ -157,7 +173,7 @@ DCV.DateRangeGraphSelector.render = function() {
     ctx.fillRect(  padding+i*segmentWidth, c.height-1, segmentWidth, (-c.height+(fontSize*1.5))*proportionalHeight);
 
     //Segment dividing lines
-    ctx.strokeStyle = '#222';
+    ctx.strokeStyle = p.segment.stroke;
     ctx.beginPath();
     ctx.moveTo(padding+i*segmentWidth, 0);
     ctx.lineTo(padding+i*segmentWidth, c.height-1);
@@ -179,7 +195,7 @@ DCV.DateRangeGraphSelector.render = function() {
 
       //Draw line
       //Time dividing lines
-      ctx.strokeStyle = '#555';
+      ctx.strokeStyle = p.value.stroke;
       ctx.beginPath();
       ctx.moveTo(padding+i*segmentWidth, 0);
       ctx.lineTo(padding+i*segmentWidth, c.height-1);
@@ -189,11 +205,12 @@ DCV.DateRangeGraphSelector.render = function() {
 
       var textToRender = segment['start'].toString();
 
-      ctx.fillStyle = "#000";
+      // Draw labels, shadowed by base fill
+      ctx.fillStyle = p.base.fill;
       ctx.font = fontSize + "px 'Helvetica Neue'";
       ctx.fillText(textToRender, textXOffset+padding+i*segmentWidth-1, textYOffset-1);
       ctx.fillText(textToRender, textXOffset+padding+i*segmentWidth+1, textYOffset+1);
-      ctx.fillStyle = "#ddd";
+      ctx.fillStyle = p.value.fill;
       ctx.fillText(textToRender, textXOffset+padding+i*segmentWidth, textYOffset);
 
     }

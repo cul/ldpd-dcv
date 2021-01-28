@@ -10,10 +10,13 @@ module Dcv::Sites::ConfiguredLayouts
     configured_layout
   end
 
+  def subsite_palette
+    palette = subsite_config['palette'] || 'default'
+    (palette == 'default') ? DCV_CONFIG.fetch(:default_palette, 'monochromeDark') : palette
+  end
+
   def subsite_styles
     return [subsite_layout] unless Dcv::Sites::Constants::PORTABLE_LAYOUTS.include?(subsite_layout)
-    palette = subsite_config['palette'] || 'default'
-    palette = DCV_CONFIG.fetch(:default_palette, 'monochromeDark') if palette == 'default'
-    ["#{subsite_layout}-#{palette}"]
+    ["#{subsite_layout}-#{subsite_palette}"]
   end
 end

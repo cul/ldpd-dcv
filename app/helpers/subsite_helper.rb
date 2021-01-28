@@ -1,4 +1,8 @@
 module SubsiteHelper
+  def active_site_palette
+    (@subsite.layout == 'custom') ? 'custom' : controller.subsite_palette
+  end
+
   def map_search_settings_for_subsite
     if @subsite && @subsite.search_configuration.map_configuration.enabled
       map_config = @subsite.search_configuration.map_configuration

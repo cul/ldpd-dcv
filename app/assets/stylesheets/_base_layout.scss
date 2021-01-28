@@ -1151,6 +1151,26 @@ h2[itemprop="name"] {
 	}
 }
 
+#date-range-canvas {
+  width:100%;
+  border:1px solid $color_ui_outline;
+  background-color: $color_primary_background;
+  color: $color_primary;
+  cursor: crosshair;
+}
+
+#date-range-graph-wrapper {
+  margin-bottom:10px;
+}
+
+#date-range-widget {
+  margin-top:10px;
+}
+
+#sidebar-date-range-slider {
+  margin:10px 8px 0px;
+}
+
 .pagination > {
 	li > {
 		a {
