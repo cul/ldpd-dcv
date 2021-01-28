@@ -31,15 +31,15 @@ DCV.DateRangeGraphSelector.lastClickEvent = null;
 DCV.DateRangeGraphSelector.dateCache = null;
 
 DCV.DateRangeGraphSelector.init = function() {
-  var widget = $('#date-range-widget');
-  if (widget.length > 0 && DCV.dateWidgetData != null) {
+  var $widget = $('#date-range-widget');
+  if ($widget.length > 0 && DCV.dateWidgetData != null) {
     DCV.DateRangeGraphSelector.initialized = true;
-    widget.html('<canvas id="date-range-canvas" width="1000" height="150"></canvas>');
-    var canvasJQueryElement = $('#date-range-canvas');
-    canvasJQueryElement.attr('data-palette', widget.attr('data-palette')).attr('data-original-width', canvasJQueryElement[0].width).attr('data-original-height', canvasJQueryElement[0].height);
+    $widget.html('<canvas id="date-range-canvas" width="1000" height="150"></canvas>');
+    var $canvas = $('#date-range-canvas');
+    $canvas.attr('data-palette', $widget.attr('data-palette')).attr('data-original-width', $canvas[0].width).attr('data-original-height', $canvas[0].height);
     DCV.DateRangeGraphSelector.resizeCanvas();
     $(window).on('resize', DCV.DateRangeGraphSelector.resizeCanvas);
-    canvasJQueryElement.on('mousedown', function(e1){
+    $canvas.on('mousedown', function(e1){
       var e1ParentOffset = $(this).offset();
       var canvasXLocation = e1.pageX - e1ParentOffset.left;
       var canvasYLocation = e1.pageY - e1ParentOffset.top;
