@@ -1,9 +1,3 @@
-%active_pagination_ui {
-	color: $color_highlight;
-	background-color: $color_highlight_background;
-	border-color: $color_highlight_background;
-}
-
 #outer-wrapper {
 	overflow: hidden;
 	border-top: 0;
@@ -546,58 +540,6 @@ a {
 	margin-bottom: 0;
 }
 
-.pagination > {
-	li > {
-		a {
-			color: $color_highlight_background;
-			background-color: transparent;
-		}
-		span {
-			color: $color_highlight_background;
-			background-color: transparent;
-		}
-	}
-	.active > {
-		a {
-			@extend %active_pagination_ui;
-			&:hover {
-				@extend %active_pagination_ui;
-			}
-			&:focus {
-				@extend %active_pagination_ui;
-			}
-		}
-		span {
-			@extend %active_pagination_ui;
-			&:hover {
-				@extend %active_pagination_ui;
-			}
-			&:focus {
-				@extend %active_pagination_ui;
-			}
-		}
-	}
-	.disabled > {
-		span {
-			background-color: $color_disabled_background;
-			&:hover {
-				background-color: $color_disabled_background;
-			}
-			&:focus {
-				background-color: $color_disabled_background;
-			}
-		}
-		a {
-			background-color: $color_disabled_background;
-			&:hover {
-				background-color: $color_disabled_background;
-			}
-			&:focus {
-				background-color: $color_disabled_background;
-			}
-		}
-	}
-}
 .leaflet-control-attribution a {
 	color: $color_highlight !important;
 }

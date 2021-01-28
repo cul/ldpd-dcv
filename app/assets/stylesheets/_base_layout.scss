@@ -81,6 +81,12 @@ $url_brand_svg: url(//cdn.cul.columbia.edu/ldpd-toolkit/fonts/trajanpro-regular-
 	white-space: nowrap;
 }
 
+%active_pagination_ui {
+	color: $color_highlight;
+	background-color: $color_highlight_background;
+	border-color: $color_highlight_background;
+}
+
 body {
 	background-color: $color_primary_background;
 	color:$color_primary;
@@ -1142,6 +1148,59 @@ h2[itemprop="name"] {
 		line-height:20px;
 		font-weight:normal;
 		font-size:13px;
+	}
+}
+
+.pagination > {
+	li > {
+		a {
+			color: $color_highlight_background;
+			background-color: transparent;
+		}
+		span {
+			color: $color_highlight_background;
+			background-color: transparent;
+		}
+	}
+	.active > {
+		a {
+			@extend %active_pagination_ui;
+			&:hover {
+				@extend %active_pagination_ui;
+			}
+			&:focus {
+				@extend %active_pagination_ui;
+			}
+		}
+		span {
+			@extend %active_pagination_ui;
+			&:hover {
+				@extend %active_pagination_ui;
+			}
+			&:focus {
+				@extend %active_pagination_ui;
+			}
+		}
+	}
+	.disabled > {
+		span {
+			background-color: $color_disabled_background;
+			&:hover {
+				background-color: $color_disabled_background;
+			}
+			&:focus {
+				background-color: $color_disabled_background;
+			}
+		}
+		a {
+			background-color: $color_disabled_background;
+			&:hover {
+				background-color: $color_disabled_background;
+			}
+			&:focus {
+				background-color: $color_disabled_background;
+			}
+		}
 	}
 }
 
