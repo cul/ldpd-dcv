@@ -1,8 +1,7 @@
 // bs4 compat
 @import './_bs4_compat.scss';
-
 //fonts
-$font_glyphs: Glyphicons Halflings;
+$font_glyphs: "Glyphicons Halflings";
 
 //urls
 $url_crown_small: url(//cdn.cul.columbia.edu/ldpd-toolkit/img/crown-bts-24x24.png);
@@ -85,6 +84,19 @@ $url_brand_svg: url(//cdn.cul.columbia.edu/ldpd-toolkit/fonts/trajanpro-regular-
 	color: $color_highlight;
 	background-color: $color_highlight_background;
 	border-color: $color_highlight_background;
+}
+
+%cbox_buttons {
+	top: 0;
+	font-family: $font_glyphs;
+	font-style: normal;
+	font-weight: normal;
+	color: $color_highlight;
+	background-color: $color_highlight_background;
+	&:hover, &:focus {
+		color: $color_highlight_background;
+		background-color: $color_highlight;
+	}
 }
 
 body {
@@ -954,8 +966,10 @@ h2[itemprop="name"] {
 
 #colorbox {
 	#cboxClose {
-		top: 0;
-		background-color: $color_highlight_background;
+		@extend %cbox_buttons;
+	}
+	#cboxDrag {
+		@extend %cbox_buttons;
 		border-bottom-left-radius: 4px;
 	}
 	#cboxCurrent {

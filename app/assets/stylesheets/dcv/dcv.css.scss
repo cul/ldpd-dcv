@@ -927,6 +927,13 @@ h2[itemprop="name"] {
 	#cboxClose {
 		top: 0;
 		background-color: $color_9;
+		font-family: "Glyphicons Halflings";
+	}
+	#cboxDrag {
+		top: 0;
+		right: 27px;
+		background-color: $color_9;
+		font-family: "Glyphicons Halflings";
 		border-bottom-left-radius: 4px;
 	}
 	#cboxCurrent {

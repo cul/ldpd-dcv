@@ -83,6 +83,7 @@ DCV.ProjModal.show = function(displayUrl, downloadUrl){
     fixed:true,
     inline:true,
     preloading: false,
+    close: '\ue014',
     title: downloadUrl,
     onClosed: function() {
          $(displayUrl).addClass('hide');
@@ -114,6 +115,7 @@ DCV.ModsDownloadModal.show = function(displayUrl, downloadUrl){
     fixed:true,
     iframe:true,
     preloading: false,
+    close: '\ue014',
     title: '<a href="' + downloadUrl + '" data-no-turbolink="true"><span class="glyphicon glyphicon-download"></span> Download XML</a>'
   });
 
@@ -125,6 +127,26 @@ DCV.ModsDownloadModal.show = function(displayUrl, downloadUrl){
  **************/
 
 DCV.FeedbackModal = {};
+// see also https://pixabay.com/blog/posts/draggable-jquery-colorbox-52/
+DCV.FeedbackModal.onComplete = function(){
+    $('#cboxDrag').on({
+        mousedown: function(e){
+            var os = $('#colorbox').offset(),
+                dx = e.pageX-os.left, dy = e.pageY-os.top;
+            $(document).on('mousemove.drag', function(e){
+                $('#colorbox').offset({ top: e.pageY-dy, left: e.pageX-dx } );
+            });
+        },
+        mouseup: function(){ $(document).unbind('mousemove.drag'); $('#cboxDrag').blur(); }
+    });
+};
+DCV.FeedbackModal.onLoad = function(){
+  var cboxDrag = "<button id='cboxDrag' type='button'>&#xe068;</button>";
+  $(cboxDrag).insertBefore($('#cboxClose'));
+};
+DCV.FeedbackModal.onClosed = function(){
+  $('#cboxDrag').remove();
+};
 DCV.FeedbackModal.show = function(){
 
   var feedbackUrl = window.CULh_feedback_url || 'https://feedback.cul.columbia.edu/feedback_submission/dlc';
@@ -143,7 +165,11 @@ DCV.FeedbackModal.show = function(){
     iframe:true,
     preloading: false,
     current: false,
-    title: false
+    title: false,
+    close: '\ue014',
+    onLoad: DCV.FeedbackModal.onLoad,
+    onComplete: DCV.FeedbackModal.onComplete,
+    onClosed: DCV.FeedbackModal.onClosed
   });
 
   return false;
@@ -167,6 +193,7 @@ DCV.CitationDisplayModal.show = function(citationDisplayUrl, modalLabel){
     iframe:true,
     preloading: false,
     current:"{current} of {total}",
+    close: '\ue014',
     title: modalLabel
   });
 
@@ -190,9 +217,9 @@ DCV.ZoomingImageModal.show = function(){
     fixed:true,
     iframe:true,
     preloading: false,
+    close: '\ue014',
     current:"{current} of {total}"
   });
-  //$('#colorbox').tinyDraggable({handle:'#cboxTitle', exclude:'input, textarea, a, button, i'});
 
   return false;
 };
