@@ -136,7 +136,9 @@ DCV.FeedbackModal.onComplete = function(){
             $(document).on('mousemove.drag', function(e){
                 $('#colorbox').offset({ top: e.pageY-dy, left: e.pageX-dx } );
             });
-        },
+        }
+    });
+    $('#colorbox').on({
         mouseup: function(){ $(document).unbind('mousemove.drag'); $('#cboxDrag').blur(); }
     });
 };
