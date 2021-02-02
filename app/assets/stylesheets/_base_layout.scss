@@ -996,10 +996,7 @@ h2[itemprop="name"] {
 		height: 100% !important;
 	}
 	#cboxWrapper {
-	  &:hover {
-	    cursor: move;
-	  }
-	  &:active {
+	  &:hover, &:active {
 	    cursor: move;
 	  }
 	}
