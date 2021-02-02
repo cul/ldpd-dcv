@@ -151,8 +151,6 @@ DCV.FeedbackModal.show = function(){
 
   var feedbackUrl = window.CULh_feedback_url || 'https://feedback.cul.columbia.edu/feedback_submission/dlc';
 
-  console.log(feedbackUrl);
-
   $.colorbox({
     href: feedbackUrl + '?submitted_from_page=' + encodeURIComponent(document.URL) + '&window_width=' + $(window).width() + '&window_height=' + $(window).height(),
     className: 'cul-no-colorbox-title-bar',
