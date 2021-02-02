@@ -26,6 +26,12 @@ $(document).ready(function(){
        hls.attachMedia(media);
      }
   });
+
+  // make colorbox draggable
+  $("#colorbox").draggable({
+    handle: "#cboxWrapper"
+  });
+
 });
 
 // proj is a map of title, thumb, link (search) and blurb

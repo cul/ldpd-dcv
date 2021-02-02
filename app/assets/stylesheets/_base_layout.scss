@@ -995,6 +995,14 @@ h2[itemprop="name"] {
 	&.cul-no-colorbox-title-bar #cboxLoadedContent {
 		height: 100% !important;
 	}
+	#cboxWrapper {
+	  &:hover {
+	    cursor: move;
+	  }
+	  &:active {
+	    cursor: move;
+	  }
+	}
 }
 
 .page_links {
