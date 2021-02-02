@@ -121,7 +121,7 @@ en:
     media_synchronized: "Includes synchronized transcript"
     search_placeholder:
       new:
-        default: "Start a new search&hellip;"
+        default: "Start a new catalog search&hellip;"
         subsite: "Search within %{title}&hellip;"
         centennial: "Search within Centennial Exhibition&hellip;"
       modifed:

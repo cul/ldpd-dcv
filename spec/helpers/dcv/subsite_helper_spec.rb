@@ -12,14 +12,39 @@ require 'rails_helper'
 # end
 
 describe Dcv::SubsiteHelper, :type => :helper do
-	#let(:controller) { instance_double(SitesController) }
 	let(:site_slug) { 'siteSlug' }
 	let(:nav_link) { NavLink.new(link: link, external: external, sort_label: sort_label) }
 	let(:sort_label) { '00:Link Label' }
+	let(:subsite) { Site.new(slug: site_slug) }
 	before do
 		allow(controller).to receive(:subsite_config).and_return(slug: site_slug)
-		allow(controller).to receive(:load_subsite).and_return(Site.new(slug: site_slug))
-		#allow(helper).to receive(:controller).and_return(controller)
+		allow(controller).to receive(:load_subsite).and_return(subsite)
+		helper.instance_variable_set(:@subsite, subsite)
+	end
+	describe "#link_to_site_browse" do
+		let(:external_label) { "Go To Site" }
+		let(:internal_label) { "Browse Site Content" }
+		let(:persistent_url) { "http://example.org" }
+		before do
+			subsite.persistent_url = persistent_url
+		end
+		context 'has no constraints' do
+			it "links to persistent_url link with external label" do
+				expect(helper.link_to_site_browse(internal_label, external_label)).to include(external_label)
+				expect(helper.link_to_site_browse(internal_label, external_label)).to include(persistent_url)
+			end
+		end
+		context 'has constraints' do
+			let(:search_action_url) { "/catalog?search_field=all_text_teim&q=" }
+			before do
+				subsite.search_configuration.scope_constraints = {'project' => 'a value'}
+				allow(controller).to receive(:blacklight_config).and_return(subsite.blacklight_config)
+			end
+			it "links to search link with internal label" do
+				expect(helper).to receive(:search_action_url).and_return(search_action_url)
+				expect(helper.link_to_site_browse(internal_label, external_label)).to include(internal_label)
+			end
+		end
 	end
 	describe "#link_to_nav" do
 		context 'site page by slug' do
