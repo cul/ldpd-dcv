@@ -955,8 +955,13 @@ h2[itemprop="name"] {
 #colorbox {
 	#cboxClose {
 		top: 0;
+		color: $color_highlight;
 		background-color: $color_highlight_background;
 		border-bottom-left-radius: 4px;
+		&:hover {
+			color: $color_highlight_background;
+			background-color: $color_highlight;
+		}
 	}
 	#cboxCurrent {
 		top: 0;
