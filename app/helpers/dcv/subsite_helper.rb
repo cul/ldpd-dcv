@@ -15,6 +15,10 @@ module Dcv::SubsiteHelper
     return controller.respond_to?(:subsite_styles) ? controller.subsite_styles : DEFAULT_SUBSITE_LAYOUT
   end
 
+  def subsite_has_scope_constraints?
+    @subsite.search_configuration.scope_constraints.detect {|ck, cv| Array(cv).detect(&:present?) }
+  end
+
   def link_to_nav(nav_link)
     if nav_link.external
       if Addressable::URI.parse(nav_link.link).absolute?
@@ -33,6 +37,14 @@ module Dcv::SubsiteHelper
         link_params[:slug] = nav_link.link
       end
       link_to(nav_link.label, site_page_path(link_params))
+    end
+  end
+
+  def link_to_site_browse(internal_label, external_label, html_options = {})
+    if subsite_has_scope_constraints?
+      link_to(internal_label.html_safe, search_action_url(search_field: (controller.blacklight_config.search_fields.inject(:all_text_teim) {|m, key_val| key_val[1].default ? key_val[0] : m })), html_options)
+    else
+      link_to(external_label.html_safe, @subsite.persistent_url, {target: '_new'}.merge(html_options))
     end
   end
 
@@ -90,7 +102,11 @@ module Dcv::SubsiteHelper
       t(:"dlc.search_placeholder.modified.#{controller.controller_name}", default: :'dlc.search_placeholder.modifed.default').html_safe
     else
       if @subsite && @subsite.slug != controller.controller_path
-        t(:"dlc.search_placeholder.new.#{@subsite.slug}", default: :'dlc.search_placeholder.new.subsite', title: @subsite.title).html_safe
+        if subsite_has_scope_constraints?
+          t(:"dlc.search_placeholder.new.#{@subsite.slug}", default: :'dlc.search_placeholder.new.subsite', title: @subsite.title).html_safe
+        else
+          t(:"dlc.search_placeholder.new.default").html_safe
+        end
       else
         t(:"dlc.search_placeholder.new.#{controller.controller_name}", default: :'dlc.search_placeholder.new.default').html_safe
       end
