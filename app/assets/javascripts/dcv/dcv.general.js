@@ -77,12 +77,13 @@ DCV.ProjModal.show = function(displayUrl, downloadUrl){
   $.colorbox({
     href: displayUrl,
     maxHeight:"90%",
-	width:"90%",
+    width:"90%",
     maxWidth:"1200px",
     opacity:".6",
     fixed:true,
     inline:true,
     preloading: false,
+    close: '\ue014',
     title: downloadUrl,
     onClosed: function() {
          $(displayUrl).addClass('hide');
@@ -114,6 +115,7 @@ DCV.ModsDownloadModal.show = function(displayUrl, downloadUrl){
     fixed:true,
     iframe:true,
     preloading: false,
+    close: '\ue014',
     title: '<a href="' + downloadUrl + '" data-no-turbolink="true"><span class="glyphicon glyphicon-download"></span> Download XML</a>'
   });
 
@@ -143,6 +145,7 @@ DCV.FeedbackModal.show = function(){
     iframe:true,
     preloading: false,
     current: false,
+    close: '\ue014',
     title: false
   });
 
@@ -167,6 +170,7 @@ DCV.CitationDisplayModal.show = function(citationDisplayUrl, modalLabel){
     iframe:true,
     preloading: false,
     current:"{current} of {total}",
+    close: '\ue014',
     title: modalLabel
   });
 
@@ -190,9 +194,9 @@ DCV.ZoomingImageModal.show = function(){
     fixed:true,
     iframe:true,
     preloading: false,
+    close: '\ue014',
     current:"{current} of {total}"
   });
-  //$('#colorbox').tinyDraggable({handle:'#cboxTitle', exclude:'input, textarea, a, button, i'});
 
   return false;
 };
