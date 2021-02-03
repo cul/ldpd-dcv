@@ -3,7 +3,7 @@
 What steps are necessary to get the
 application up and running?
 
-* Ruby version: 2.5.3 (see all .ruby-version & travis matrix)
+* Ruby version: 2.6.4 (see all .ruby-version & travis matrix)
 
 * System dependencies
 
