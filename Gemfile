@@ -127,4 +127,4 @@ end
 #gem "thin"
 
 # Use Puma for local development
-gem 'puma'
+gem 'puma', '~> 5.2'
