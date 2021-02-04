@@ -61,7 +61,7 @@ class SubsitesController < ApplicationController
       return true
     else
       if current_user
-        access_denied(catalog_index_url)
+        access_denied(root_url)
         return false
       end
     end
@@ -212,11 +212,18 @@ class SubsitesController < ApplicationController
     redirect_to action: "show", id: document[:id]
   end
 
+  # subsite_key is used for:
+  #  scoping cookies, index jobs, and map cache
+  #  layout configuration
+  # custom sites that are restricted scope all of these things without prefix
+  # non-restricted exceptions that need to be captured:
+  #   carnegie/centennial
+  #   nyre/projects (locally overridden)
   def subsite_key
-    if self.controller_path.present?
-      self.controller_path.split('/').join('_')
+    if self.class.restricted?
+      self.controller_name
     else
-      self.class.restricted? ? "restricted_#{self.controller_name}" : self.controller_name
+      self.controller_path.split('/').join('_')
     end
   end
 
