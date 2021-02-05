@@ -159,4 +159,31 @@ describe CatalogHelper, :type => :helper do
       it { is_expected.to be true }
     end
   end
+  describe '#can_download?' do
+    let(:site_slug) { 'siteSlug' }
+    let(:subsite) { Site.new(slug: site_slug) }
+    before do
+      allow(controller).to receive(:load_subsite).and_return(subsite)
+    end
+    context "site displays original download links" do
+      before do
+        subsite.search_configuration.display_options.show_original_file_download = true
+        expect(helper).to receive(:can?).and_return(allowed)
+      end
+      context "and permissions permit" do
+        let(:allowed) { true }
+        it { expect(helper.can_download?(SolrDocument.new)).to be true }
+      end
+      context "and permissions prohibit" do
+        let(:allowed) { false }
+        it { expect(helper.can_download?(SolrDocument.new)).to be false }
+      end
+    end
+    context "site does not displays original download links" do
+      before do
+        subsite.search_configuration.display_options.show_original_file_download = false
+      end
+      it { expect(helper.can_download?(SolrDocument.new)).to be false }
+    end
+  end
 end
