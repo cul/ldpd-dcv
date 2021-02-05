@@ -12,4 +12,7 @@ class Restricted::Sites::SearchController < ::Sites::SearchController
 		slug_param = load_subsite.slug.sub("restricted/",'')
 		restricted_site_search_url(slug_param, options.except(:controller, :action))
 	end
+	def tracking_method
+		"restricted_site_track_path"
+	end
 end

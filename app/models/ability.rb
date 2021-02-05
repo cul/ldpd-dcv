@@ -22,9 +22,9 @@ class Ability
     can ACCESS_SUBSITE, Site do |site|
       if site.restricted
         result = false
-        result ||= (site.subsite_config.fetch(:remote_ids, []).flatten.include?(user.uid)) if user
-        result ||= true if (site.subsite_config.fetch(:remote_roles,[]).flatten & affils).first if user
-        result ||= true if (site.subsite_config.fetch(:locations,[]).flatten & location_uris).first
+        result ||= (site.to_subsite_config.fetch(:remote_ids, []).flatten.include?(user.uid)) if user
+        result ||= true if (site.to_subsite_config.fetch(:remote_roles,[]).flatten & affils).first if user
+        result ||= true if (site.to_subsite_config.fetch(:locations,[]).flatten & location_uris).first
         result
       else
         true

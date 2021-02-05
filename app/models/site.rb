@@ -106,7 +106,7 @@ class Site < ActiveRecord::Base
 			next unless facet_field
 			f[facet_field] = Array(facet_value)
 		end
-		if self.restricted.present?
+		if self.restricted.present? && self.repository_id
 			f['lib_repo_code_ssim'] = [self.repository_id]
 		end
 		f

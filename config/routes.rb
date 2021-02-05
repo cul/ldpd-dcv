@@ -107,7 +107,7 @@ Dcv::Application.routes.draw do
             all_concerns = [:searchable] + subsite_concerns
             concerns *all_concerns
           end
-          get "#{nested_key}/:id" => "#{nested_key}#show", as: "#{nested_key}_show" 
+          get "#{nested_key}/:id" => "#{nested_key}#show", as: "#{nested_key}_show", constraints: Dcv::Routes::LEGACY_ID_CONSTRAINT
           get "#{nested_key}/*id" => "#{nested_key}#show", as: "#{nested_key}_show_doi", constraints: Dcv::Routes::DOI_ID_CONSTRAINT
         end
       end
@@ -117,7 +117,7 @@ Dcv::Application.routes.draw do
       all_concerns = [:searchable] + subsite_concerns
       concerns *all_concerns
     end
-    get "#{subsite_key}/:id" => "#{subsite_key}#show", as: "#{subsite_key}_show", constraints: { id: /(cul|ldpd|donotuse):[^\/]*/ }
+    get "#{subsite_key}/:id" => "#{subsite_key}#show", as: "#{subsite_key}_show", constraints: Dcv::Routes::LEGACY_ID_CONSTRAINT
     get "#{subsite_key}/*id" => "#{subsite_key}#show", as: "#{subsite_key}_show_doi", constraints: Dcv::Routes::DOI_ID_CONSTRAINT
     get "#{subsite_key}/:slug" => "#{subsite_key}#page", as: "#{subsite_key}_page", constraints: lambda { |req| !['edit', 'pages'].include?(req.params[:slug]) }
   end
@@ -136,8 +136,9 @@ Dcv::Application.routes.draw do
           all_concerns = [:searchable] + subsite_concerns
           concerns *all_concerns
         end
-        get "#{subsite_key}/:id" => "#{subsite_key}#show", as: "#{subsite_key}_show" 
+        get "#{subsite_key}/:id" => "#{subsite_key}#show", as: "#{subsite_key}_show", constraints: Dcv::Routes::LEGACY_ID_CONSTRAINT
         get "#{subsite_key}/*id" => "#{subsite_key}#show", as: "#{subsite_key}_show_doi", constraints: Dcv::Routes::DOI_ID_CONSTRAINT
+        get "#{subsite_key}/:slug" => "#{subsite_key}#page", as: "#{subsite_key}_page", constraints: lambda { |req| !['edit', 'pages'].include?(req.params[:slug]) }
       end
       get "sites" => "sites#index"
       get '/:slug', controller: 'sites', action: 'home', as: 'site'
