@@ -1,6 +1,6 @@
 # README
 
-What steps are necessary to get the
+## What steps are necessary to get the
 application up and running?
 
 * Ruby version: 2.6.4 (see all .ruby-version & travis matrix)
@@ -42,12 +42,16 @@ application up and running?
 * Database initialization
   * `bundle exec rake db:seed`
 
-* How to run the test suite
-  * With Homebrew:
-    * brew cask install chromedriver
-    * on macOS Catalina (10.15) and later, you'll need to update security settings to allow chromedriver to run because the first-time run will tell you that "the developer cannot be verified." See: https://stackoverflow.com/a/60362134
-  * bundle exec rake dcv:ci
-    * this will download and run a local fedora and solr and set up test data
+## User permissions and restricted access Assets
+
+Although Item metadata records are generally visible in DLC, some Assets are restricted and require your currently logged in user to have the correct permissions.  For how to configure user permissions, see: [https://wiki.library.columbia.edu/display/DLC/Authorization+Metadata]
+
+## How to run the test suite
+* With Homebrew:
+  * brew cask install chromedriver
+  * on macOS Catalina (10.15) and later, you'll need to update security settings to allow chromedriver to run because the first-time run will tell you that "the developer cannot be verified." See: https://stackoverflow.com/a/60362134
+* bundle exec rake dcv:ci
+  * this will download and run a local fedora and solr and set up test data
 
 * Services (job queues, cache servers, search engines, etc.)
   * resque TBD
