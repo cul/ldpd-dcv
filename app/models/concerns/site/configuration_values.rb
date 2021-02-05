@@ -17,4 +17,8 @@ module Site::ConfigurationValues
 	def clean_and_freeze_validated_array(val, valid_values = [])
 		(Array(val).compact.map(&:to_s) & valid_values).freeze
 	end
+
+	def valid_or_nil(val, valid_values = [])
+		val if valid_values.include?(val)
+	end
 end

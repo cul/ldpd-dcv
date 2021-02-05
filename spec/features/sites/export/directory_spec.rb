@@ -17,8 +17,8 @@ describe Dcv::Sites::Export::Directory do
 		end
 		it 'exports equivalent site properties' do
 			import_properties = File.join(source, 'properties.yml')
-			expected = YAML.load(File.read(import_properties)).except('nav_links', 'search_configuration').compact
-			actual = YAML.load(File.read(export_properties)).except('nav_links', 'search_configuration').compact
+			expected = YAML.load(File.read(import_properties)).except('nav_links', 'search_configuration', 'permissions').compact
+			actual = YAML.load(File.read(export_properties)).except('nav_links', 'search_configuration', 'permissions').compact
 			expect(actual).to eql(expected)
 		end
 		it 'exports links' do
@@ -31,6 +31,14 @@ describe Dcv::Sites::Export::Directory do
 			import_properties = File.join(source, 'properties.yml')
 			expected = YAML.load(File.read(import_properties)).fetch('search_configuration', :no_key_from_expected)
 			actual = YAML.load(File.read(export_properties)).fetch('search_configuration', :no_key_from_actual)
+			expect(actual).to eql(expected)
+		end
+		it 'exports permissions' do
+			expect(site.permissions.remote_ids).to be_present
+			import_properties = File.join(source, 'properties.yml')
+			expected = YAML.load(File.read(import_properties)).fetch('permissions', :no_key_from_expected)
+			actual = YAML.load(File.read(export_properties)).fetch('permissions', :no_key_from_actual)
+			puts File.read(export_properties)
 			expect(actual).to eql(expected)
 		end
 		skip 'exports pages' do

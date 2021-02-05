@@ -33,6 +33,7 @@ module Dcv::Sites::Import
 				search_configuration_atts['scope_constraints'] ||= atts['constraints']
 			end
 			site.search_configuration = Site::SearchConfiguration.new(search_configuration_atts)
+			site.permissions = Site::Permissions.new(atts['permissions'])
 			site.image_uris = atts['image_uris']
 			site.publisher_uri = atts['publisher_uri']
 			site.restricted = atts['restricted'] || (atts['slug'] =~ /restricted/)

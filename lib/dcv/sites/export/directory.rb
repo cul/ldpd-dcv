@@ -27,7 +27,7 @@ module Dcv::Sites::Export
 		end
 		def run
 			open(File.join(@directory, SITE_METADATA), 'wb') do |io|
-				json = @site.as_json(include: [:nav_links, search_configuration: {compact: true}])
+				json = @site.as_json(include: {nav_links: {}, permissions: {compact: true}, search_configuration: {compact: true}})
 				unless @db_fields
 					DB_FIELDS.each { |f| json.delete(f) }
 					json.delete('constraints') # obsolete

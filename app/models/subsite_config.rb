@@ -68,6 +68,14 @@ class SubsiteConfig
     obj
   end
 
+  def site_permissions
+    obj = Site::Permissions.new
+    obj.remote_ids = config['remote_ids']
+    obj.remote_roles = config['remote_roles']
+    obj.locations = config['locations']
+    obj
+  end
+
   # publisher_ssim values are fedora_uri values
   def self.for_fedora_uri(fedora_uri)
     subsite_config = {}

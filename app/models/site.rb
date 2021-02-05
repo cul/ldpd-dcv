@@ -6,6 +6,7 @@ class Site < ActiveRecord::Base
 	has_many :site_pages, dependent: :destroy
 	accepts_nested_attributes_for :nav_links
 	attribute :search_configuration, Site::SearchConfiguration::Type.new, default: -> {Site::SearchConfiguration.new}
+	attribute :permissions, Site::Permissions::Type.new, default: -> {Site::Permissions.new}
 	serialize :editor_uids, Array
 	serialize :image_uris, Array
 
@@ -37,6 +38,7 @@ class Site < ActiveRecord::Base
 	def initialize(atts = {})
 		super
 		@search_configuration ||= Site::SearchConfiguration.new(atts.fetch('search_configuration', {}))
+		@permissions ||= Site::Permissions.new(atts.fetch('permissions', {}))
 		self.search_type ||= DEFAULT_SEARCH_TYPE
 	end
 
@@ -218,8 +220,8 @@ class Site < ActiveRecord::Base
 
 	def to_subsite_config
 		config = {
-			'slug' => slug, 'restricted' => slug =~ /restricted/, 'palette' => palette, 'layout' => layout
-		}
+			'slug' => slug, 'restricted' => (slug =~ /restricted/).present?, 'palette' => palette, 'layout' => layout
+		}.reverse_merge(permissions.attributes)
 		SubsiteConfig.for_path(slug, slug =~ /restricted/).merge(config).merge(search_configuration.as_json).with_indifferent_access
 	end
 
@@ -227,6 +229,7 @@ class Site < ActiveRecord::Base
 		super.tap do |atts|
 			atts.delete('constraints')
 			atts['search_configuration'] = @search_configuration.as_json
+			atts['permissions'] = @permissions.as_json
 		end
 	end
 

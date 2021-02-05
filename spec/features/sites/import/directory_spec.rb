@@ -32,5 +32,8 @@ describe Dcv::Sites::Import::Directory do
 			expect(sc.search_fields.map(&:label)).to eql ['Test Keyword', 'Test Text']
 			expect(sc.scope_constraints).to eql('publisher' => ['info:fedora/cul:import_site'])
 		end
+		it 'imports permissions' do
+			expect(site.permissions.remote_ids).to eql(['siteAdmin'])
+		end
 	end
 end

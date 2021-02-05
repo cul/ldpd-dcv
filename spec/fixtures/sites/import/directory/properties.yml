@@ -8,6 +8,11 @@ search_type: catalog
 layout: signature
 palette: parchment
 show_facets: false
+permissions:
+  remote_ids:
+    - siteAdmin
+  remote_roles: []
+  locations: []
 search_configuration:
   date_search_configuration:
     enabled: true

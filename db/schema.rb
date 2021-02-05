@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20210114171603) do
+ActiveRecord::Schema.define(version: 20210206000936) do
 
   create_table "bookmarks", force: :cascade do |t|
     t.integer  "user_id",       null: false
@@ -78,7 +78,7 @@ ActiveRecord::Schema.define(version: 20210114171603) do
     t.string   "palette"
     t.string   "search_type"
     t.boolean  "restricted"
-    t.text     "constraints"
+    t.text     "permissions"
     t.text     "map_search"
     t.text     "date_search"
     t.datetime "created_at"
