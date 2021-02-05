@@ -14,7 +14,7 @@ namespace :dcv do
 			next unless user
 			['first_name', 'last_name', 'email'].each do |property|
 				next unless ENV[property]
-				u.send(:"#{property}=", ENV[property])
+				user.send(:"#{property}=", ENV[property])
 			end
 			# Rails 5 will require explicitly casting to boolean
 			['is_admin', 'guest'].each do |property|
