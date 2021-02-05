@@ -199,7 +199,9 @@ namespace :dcv do
       cas_yml = YAML.load_file(cas_yml_file) || {}
       ['development', 'test'].each do |env_name|
         cas_yml[env_name] ||= {
-          'provider' => 'developer'
+          'provider' => 'developer',
+          'fields' => ['uni', 'email'],
+          'uid_field' => 'uni'
         }
       end
       File.open(cas_yml_file, 'w') {|f| f.write cas_yml.to_yaml }
