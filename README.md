@@ -19,9 +19,9 @@ application up and running?
 * Configuration for Local/Desktop Development
   * install dependencies: `bundle install`
   * set up config files: `bundle exec rake dcv:ci:config_files`; then edit as appropriate for proxied data:
-    * blacklight.yml and solr.yml if you are using staging data, etc.
-    * If you are using live indexes, it will require SSH tunneling
-      * see instructions at https://wiki.library.columbia.edu/display/DLC/Developers
+    * If you are using live (prod, staging) indexes, it will require SSH tunneling and editing blacklight.yml and solr.yml
+      * This is probably what you are trying to do
+      * see instructions at https://wiki.library.columbia.edu/display/DLC/Developers for how to update blacklight.yml and solr.yml
     * If you are using a local Solr to test indexing, you will need to edit fedora.yml
       * It is unlikely that you are doing this
       * see instructions at https://wiki.library.columbia.edu/display/DLC/Developers
