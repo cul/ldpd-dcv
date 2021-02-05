@@ -20,8 +20,11 @@ application up and running?
   * install dependencies: `bundle install`
   * set up config files: `bundle exec rake dcv:ci:config_files`; then edit as appropriate for proxied data:
     * blacklight.yml and solr.yml if you are using staging data, etc.
-    * using live indexes will require SSH tunneling
-    * fedora.yml if you need to index and are using a local solr
+    * If you are using live indexes, it will require SSH tunneling
+      * see instructions at https://wiki.library.columbia.edu/display/DLC/Developers
+    * If you are using a local Solr to test indexing, you will need to edit fedora.yml
+      * It is unlikely that you are doing this
+      * see instructions at https://wiki.library.columbia.edu/display/DLC/Developers
     * update cdn_urls in dcv.yml if you are not running a local image server
   * set up local database `bundle exec rake db:migrate`
     * if you are testing NYRE projects, seed data with `bundle exec rake db:seed`
