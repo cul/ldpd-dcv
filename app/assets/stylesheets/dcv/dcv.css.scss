@@ -365,24 +365,6 @@ input {
 			}
 		}
 	}
-	// in the restricted home screen listing repositories
-	h2.banner {
-		width: 100%;
-		padding: 2px 0 0;
-		margin-bottom: .5em;
-		text-align: center;
-		font-family: $font_1, $font_4, $font_2, $font_0;
-		font-size: 180%;
-		a {
-			color: $color_9;
-			&:hover {
-				text-decoration: none;
-			}
-			img {
-				max-width: 100%;
-			}
-		}
-	}
 	.col-sm-2 .thumbnail {
 		height: 100px;
 		text-align: center;

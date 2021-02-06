@@ -366,6 +366,25 @@
 				color:inherit;
 			}
 	}
+	// in the restricted home screen listing repositories
+	h2.banner {
+		width: 100%;
+		padding: 2px 0 0;
+		margin-bottom: .5em;
+		text-align: center;
+		font-size: 120%;
+		a {
+			color: $color_highlight_background;
+			font-family: $font_0, $font_3, $font_1, $font_2;
+			text-decoration: none;
+			&:hover {
+				text-decoration: none;
+			}
+			img {
+				max-width: 100%;
+			}
+		}
+	}
 }
 
 @import '../shared/search-modes';
