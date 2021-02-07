@@ -1,0 +1,64 @@
+<%- 
+	if @subsite.slug =~ /restricted\//
+		slug_param = @subsite.slug.sub('restricted/', '')
+		config_view = restricted_site_permissions_path(site_slug: slug_param)
+	else
+		config_view = site_permissions_path(site_slug: @subsite.slug)
+	end
+-%>
+<%= form_for @subsite, url: config_view, builder: ::ValueIndexableFormBuilder, html: { } do |site_form| %>
+	<%= site_form.fields_for :permissions, @subsite.permissions do |permissions_form| %>
+		<div class="panel panel-primary">
+			<div class="panel-heading"><h2 class="panel-title">Remote Roles/Affiliations</h2></div>
+			<div class="panel-body remote_roles">
+				<%- permissions_form.object.remote_roles.each_with_index do |value, ix| %>
+					<%= render(partial: "sites/edit/text_list_value", locals: { list_name: [:permissions, :remote_roles], value: value, index: ix, removable: true }) %>
+				<%- end %>
+				<fieldset id="add_remote_role" style="border-width: 0;">
+					<button class="btn btn-info" type="button" onclick="addValueFieldsetFromTemplate(this.parentElement, 'site_permissions_remote_roles');">
+						<span class="glyphicon glyphicon-plus"></span> Add a Role
+					</button>
+				</fieldset>
+			</div>
+		</div>
+		<div class="panel panel-primary">
+			<div class="panel-heading"><h2 class="panel-title">Remote User IDs</h2></div>
+			<div class="panel-body remote_ids">
+				<div class="form-group">
+				  <label for="site_permissions_remote_ids">Remote Access UNIs</label>
+					<p>Enter a comma-separated UNIs of CUL employees indvidually authorized to view this site's restricted content.</p>
+					<%= permissions_form.text_area(:remote_ids, {value: permissions_form.object.remote_ids.sort.join(",\n"), class: ['form-control']}) %>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-primary">
+			<div class="panel-heading"><h2 class="panel-title">Authorized Locations URIs</h2></div>
+			<div class="panel-body locations">
+				<%- permissions_form.object.locations.each_with_index do |value, ix| %>
+					<%= render(partial: "sites/edit/text_list_value", locals: { list_name: [:permissions, :locations], value: value, index: ix, removable: true }) %>
+				<%- end %>
+				<fieldset id="add_location" style="border-width: 0;">
+					<button class="btn btn-info" type="button" onclick="addValueFieldsetFromTemplate(this.parentElement, 'site_permissions_locations');">
+						<span class="glyphicon glyphicon-plus"></span> Add a Location URI
+					</button>
+				</fieldset>
+			</div>
+		</div>
+	<%- end %>
+	<div class="panel panel-primary">
+		<div class="panel-heading"><h2 class="panel-title">Site Editor IDs</h2></div>
+		<div class="panel-body site_editors">
+			<div class="form-group">
+				<label for="site_editor_uids">Site Editor UNIs</label>
+				<p>DLC admins: Enter the comma-separated UNIs of CUL employees authorized to edit this site.</p>
+				<%= site_form.text_area(:editor_uids, {value: @subsite.editor_uids.sort.join(",\n"), class: ['form-control'], disabled: !can?(:admin, @subsite)}) %>
+			</div>
+		</div>
+	</div>
+
+	<div class="panel">
+		<div class="panel-body">
+			<%= submit_tag "Update Permissions", {class: ['btn', 'btn-default']} %>
+		</div>
+	</div>
+<% end %>

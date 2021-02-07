@@ -32,7 +32,7 @@ module Sites
 		end
 
 		def show
-			edit
+			redirect_to action: :edit
 		end
 
 		def edit

@@ -1,0 +1,18 @@
+<%- 
+  if @subsite.slug =~ /restricted\//
+    slug_param = @subsite.slug.sub('restricted/', '')
+    site_edit = edit_restricted_site_path(slug: slug_param)
+    site_view = restricted_site_path(slug: slug_param)
+  else
+    site_edit = edit_site_path(slug: @subsite.slug)
+    site_view = site_path(slug: @subsite.slug)
+  end
+-%>
+<h1>Editing <%= link_to(@subsite.slug, site_edit) %> permissions (<%= link_to("view", site_view) %>)</h1>
+<div class="container"><%= render 'sites/permissions/form' %></div>
+<div class="hide widget-templates">
+<%- buffer = "" %>
+<%- buffer << render(partial: "sites/edit/text_list_value", locals: { list_name: [:permissions, :remote_roles], value: "", index: "9valueIndex9", removable: true }) %>
+<%- buffer << render(partial: "sites/edit/text_list_value", locals: { list_name: [:permissions, :locations], value: "", index: "9valueIndex9", removable: true }) %>
+<%= buffer.html_safe %>
+</div>

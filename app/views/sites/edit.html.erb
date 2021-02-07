@@ -8,7 +8,7 @@
     site_view = site_path(slug: @subsite.slug)
   end
 -%>
-<h1>Editing <%= @subsite.slug %> (<%= link_to("view", site_path(slug: @subsite.slug)) %>)</h1>
+<h1>Editing <%= @subsite.slug %> (<%= link_to("view", site_view) %>)</h1>
 <div class="container"><%= form_for @subsite, builder: ::ValueIndexableFormBuilder, url: site_view, html: { } do |site_form| %>
   <div class="panel panel-primary">
     <div class="panel-heading"><h2 class="panel-title">Site Properties</h2></div>
@@ -61,17 +61,10 @@
         </div>
         <div class="panel-body collapse<%= ' in' if @subsite.layout == Site::LAYOUT_PORTRAIT %>" id="portrait_image_pids">
           <%- site_form.object.image_uris.each_with_index do |image_uri, ix| %>
-            <fieldset name="site_image_uris" class="paneled">
-                <%= site_form.text_field :image_uris, multiple: true, value: image_uri, value_index: ix %>
-                <%- if ix > 0 %>
-                  <button class="btn btn-danger" type="button" onclick="this.parentElement.remove();">
-                    <span class="glyphicon glyphicon-remove"></span> Remove
-                  </button>
-                <%- end %>
-            </fieldset>
+            <%= render partial: "sites/edit/text_list_value", locals: { list_name: [:image_uris], value: image_uri, index: ix, removable: (ix > 0) } %>
           <%- end %>
           <fieldset id="add_site_image_uri" style="border-width: 0;">
-            <button class="btn btn-info" type="button" onclick="addSiteImageUriFieldSet(this.parentElement);">
+            <button class="btn btn-info" type="button" onclick="addValueFieldsetFromTemplate(this.parentElement, 'site_image_uris');">
               <span class="glyphicon glyphicon-plus"></span> Add a PID
             </button>
           </fieldset>
@@ -112,16 +105,6 @@
             </div>
           </fieldset>
         </div>
-      </div>
-    </div>
-  </div>
-  <div class="panel panel-primary">
-    <div class="panel-heading"><h2 class="panel-title">Site Editors</h2></div>
-    <div class="panel-body site_editors">
-      <div class="form-group">
-        <label for="site_editor_uids">Site Editor UNIs</label>
-        <p>DLC admins: Enter the comma-separated UNIs of CUL employees authorized to edit this site.</p>
-        <%= site_form.text_area(:editor_uids, {value: @subsite.editor_uids.join(",\n"), class: ['form-control'], disabled: !can?(:admin, @subsite)}) %>
       </div>
     </div>
   </div>
@@ -194,6 +177,7 @@
 </div>
 <%- buffer = "" %>
 <%- form_for(@subsite, builder: ::ValueIndexableFormBuilder) do |site_form| %>
+  <%- buffer << render(partial: "sites/edit/text_list_value", locals: { list_name: [:image_uris], value: "", index: "9valueIndex9", removable: true }) %>
   <%- site_form.fields_for :nav_menus, NavMenu.new(nil), child_index: "9menuIndex9" do |menu_form| %>
     <%- buffer << render(partial: "sites/edit/navigation_menu_form", locals: { menu_form: menu_form }) %>
     <%- menu_form.fields_for :links, NavLink.new, include_id: false, child_index: "9linkIndex9" do |link_form| %>
@@ -201,6 +185,6 @@
     <%- end %>
   <%- end %>
 <%- end %>
-<div class="hide nav-templates">
+<div class="hide widget-templates">
   <%= buffer.html_safe %>
 </div>

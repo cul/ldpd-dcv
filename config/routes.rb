@@ -119,7 +119,7 @@ Dcv::Application.routes.draw do
     end
     get "#{subsite_key}/:id" => "#{subsite_key}#show", as: "#{subsite_key}_show", constraints: Dcv::Routes::LEGACY_ID_CONSTRAINT
     get "#{subsite_key}/*id" => "#{subsite_key}#show", as: "#{subsite_key}_show_doi", constraints: Dcv::Routes::DOI_ID_CONSTRAINT
-    get "#{subsite_key}/:slug" => "#{subsite_key}#page", as: "#{subsite_key}_page", constraints: lambda { |req| !['edit', 'pages'].include?(req.params[:slug]) }
+    get "#{subsite_key}/:slug" => "#{subsite_key}#page", as: "#{subsite_key}_page", constraints: lambda { |req| !['edit', 'pages', 'search_configuration', 'permissions'].include?(req.params[:slug]) }
   end
 
   get '/restricted' => 'home#restricted', as: :restricted
@@ -138,12 +138,13 @@ Dcv::Application.routes.draw do
         end
         get "#{subsite_key}/:id" => "#{subsite_key}#show", as: "#{subsite_key}_show", constraints: Dcv::Routes::LEGACY_ID_CONSTRAINT
         get "#{subsite_key}/*id" => "#{subsite_key}#show", as: "#{subsite_key}_show_doi", constraints: Dcv::Routes::DOI_ID_CONSTRAINT
-        get "#{subsite_key}/:slug" => "#{subsite_key}#page", as: "#{subsite_key}_page", constraints: lambda { |req| !['edit', 'pages'].include?(req.params[:slug]) }
+        get "#{subsite_key}/:slug" => "#{subsite_key}#page", as: "#{subsite_key}_page", constraints: lambda { |req| !['edit', 'pages', 'search_configuration', 'permissions'].include?(req.params[:slug]) }
       end
       get "sites" => "sites#index"
       get '/:slug', controller: 'sites', action: 'home', as: 'site'
       resources 'sites', only: [:edit, :update], param: :slug, path: '', constraints: SITE_SLUG_CONSTRAINT do
         scope module: :sites do
+          resource 'permissions', only: [:edit, :show, :update], controller: 'permissions'
           resource 'search_configuration', only: [:edit, :show, :update], controller: 'search_configuration'
           resource 'search', only: [:show], controller: 'search' do
             concerns :site_searchable
@@ -164,6 +165,7 @@ Dcv::Application.routes.draw do
   get '/:slug', controller: 'sites', action: 'home', as: 'site'
   resources 'sites', only: [:edit, :update], param: :slug, path: '', constraints: SITE_SLUG_CONSTRAINT do
     scope module: :sites do
+      resource 'permissions', only: [:edit, :show, :update], controller: 'permissions'
       resource 'search_configuration', only: [:edit, :show, :update], controller: 'search_configuration'
       resource 'search', only: [:show], controller: 'search' do
         concerns :site_searchable

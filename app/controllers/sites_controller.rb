@@ -345,12 +345,6 @@ class SitesController < ApplicationController
         p.delete('banner')
         p.delete('watermark')
         p['image_uris']&.delete_if { |v| v.blank? }
-        if can?(:admin, @subsite)
-          p['editor_uids']&.strip!
-          p['editor_uids'] = p['editor_uids'].split(/[\s,]+/)
-        else
-          p['editor_uids'] = @subsite.editor_uids
-        end
       end
     end
 end

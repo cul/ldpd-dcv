@@ -1,3 +1,27 @@
+function addValueFieldsetFromTemplate(addButtonFieldset, templateName) {
+	const newFieldset = $(".widget-templates").find("fieldset[name='" + templateName + "']").clone();
+	console.log(templateName);
+	console.log(newFieldset);
+	const valueNumber = $(addButtonFieldset.parentNode).children("fieldset[name='" + templateName + "']").length;
+	var valueIndex = valueNumber;
+	// index and number can drift based on value removal, so verify index
+	while($("#" + templateName + "_" + valueIndex).length > 0) {
+		valueIndex++;
+	}
+	var re = /9valueIndex9/;
+	// update all template id, for, name, data-target, data-parent, aria-controls attribute values
+	['id', 'data-target', 'data-parent', 'aria-controls'].forEach(function(att){
+		newFieldset.find("[" + att + "]").each(function(){
+			$(this).attr(att, $(this).attr(att).replace(re, valueIndex.toString()));
+		});
+	});
+	['for', 'name'].forEach(function(att){
+		newFieldset.find("[" + att + "]").each(function(){
+			$(this).attr(att, $(this).attr(att).replace(re, valueNumber.toString()));
+		});
+	});
+	newFieldset.insertBefore($(addButtonFieldset));
+}
 function addSiteImageUriFieldSet(addButtonFieldset) {
 	const newIndex = document.getElementsByName('site_image_uris').length;
 	// <fieldset name="site_image_uris" style="border-width: 0 0 2px 0;">
@@ -29,7 +53,7 @@ function addSiteImageUriFieldSet(addButtonFieldset) {
 
 function addNavMenu(addButton) {
 	// build a template nav menu
-	var newMenu = $(".nav-templates > .site_navigation_menu").clone();
+	var newMenu = $(".widget-templates > .site_navigation_menu").clone();
 	var menuNumber = $(".site_navigation > .site_navigation_menu").length;
 	var menuIndex = menuNumber;
 	// index and number can drift based on menu removal and sorting, so verify index
@@ -57,7 +81,7 @@ function addNavMenu(addButton) {
 function addNavLink(addButton) {
 	var navLinks = addButton.parentNode;
 	// build a template nav link
-	var newLink = $(".nav-templates > .site_navigation_link").clone();
+	var newLink = $(".widget-templates > .site_navigation_link").clone();
 	var linkNumber = $(navLinks).children(".site_navigation_link").length;
 	var linkIndex = linkNumber;
 	var menuIndex = navLinks.getAttribute('id').match(/\d+$/)[0];

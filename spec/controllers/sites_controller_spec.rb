@@ -99,28 +99,6 @@ describe SitesController, type: :unit do
 				expect(update_params['nav_links_attributes'].first).to include(expected)
 			end
 		end
-		context 'with editor_uids text' do
-			let(:uids) { ['abc', 'bcd', 'cde'] }
-			let(:params) {
-				ActionController::Parameters.new(
-					site: {
-						editor_uids: uids.join("\n ,")
-					}
-				)
-			}
-			let(:update_params) { controller.send :site_params }
-			context 'with admin' do
-				let(:is_admin) { true }
-				it "parses the value array" do
-					expect(update_params[:editor_uids]).to eql(uids)
-				end
-			end
-			context 'not admin' do
-				it "removes proposed values" do
-					expect(update_params[:editor_uids]).to eql(site.editor_uids)
-				end
-			end
-		end
 	end
 	describe '#update' do
 		before do

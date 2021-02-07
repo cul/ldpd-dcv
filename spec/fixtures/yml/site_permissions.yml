@@ -1,0 +1,5 @@
+permissions:
+  remote_roles: ["executive"]
+  remote_ids: "adminUser,testUser"
+  locations: ["https://location.vocab/uris/member"]
+editor_uids: "testContributor,testEditor"

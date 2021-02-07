@@ -1,0 +1,7 @@
+<%- removable = true unless defined?(:removable); value = "" unless defined?(:value) %>
+<fieldset name="site_<%= Array(list_name).join('_') %>" class="paneled">
+	<input type="text" name="site<%= Array(list_name).map{|n| "[#{n}]"}.join %>][]" id="<%= (Array(list_name) + [index]).join('_') %>" value="<%= value %>" />
+	<%- if removable %>
+		<button type="button" class="btn btn-danger" onclick="this.parentElement.remove();"><span class="glyphicon glyphicon-remove"></span> Remove</button>
+	<%- end %>
+</fieldset>
