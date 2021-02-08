@@ -223,7 +223,12 @@ namespace :dcv do
       yml_file = File.join(Rails.root, 'config/location_uris.yml')
       FileUtils.touch(yml_file) # Create if it doesn't exist
       stub_yml = YAML.load_file(yml_file) || {
-        '_all_environments' => {
+        'development' => {
+          'http://id.library.columbia.edu/term/45487bbd-97ef-44b4-9468-dda47594bc60' => {
+            'remote_ip' => ['127.0.0.1']
+          }
+        },
+        'test' => {
           'http://id.library.columbia.edu/term/45487bbd-97ef-44b4-9468-dda47594bc60' => {
             'remote_ip' => ['127.0.0.1']
           }

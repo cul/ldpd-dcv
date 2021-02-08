@@ -31,6 +31,11 @@ module Sites
 			self._prefixes.unshift '' # allow view_path to find action templates without 'sites' prefix first
 		end
 
+		# overrides the session role key from Cul::Omniauth::RemoteIpAbility
+		def current_ability
+			@current_ability ||= Ability.new(current_user, roles: session["cul.roles"], remote_ip: request.remote_ip)
+		end
+
 		def set_view_path
 			super
 			self.prepend_view_path('app/views/shared')
