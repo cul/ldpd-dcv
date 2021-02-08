@@ -10,6 +10,14 @@
 -%>
 <h1>Editing <%= @subsite.slug %> permissions</h1>
 <%= render partial: "sites/edit/edit_buttons" %>
+<%- if !@subsite.restricted %>
+  <div class="container">
+    <div class="panel panel-danger">
+      <div class="panel-heading"><h2 class="panel-title">Configuration Will Not Apply!</h2></div>
+      <div class="panel-body">The properties configured below are for restricted sites, but <%= @subsite.slug %> is a public site. If this is an error, please contact dlc-support@library.columbia.edu.</div>
+    </div>
+  </div>
+<% end -%>
 <%- if @subsite.search_type != 'local' %>
 	<div class="container">
 		<div class="panel panel-warning">
