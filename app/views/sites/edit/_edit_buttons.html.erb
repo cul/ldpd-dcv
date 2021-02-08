@@ -1,0 +1,54 @@
+<%- 
+  view_label ||= "View Site"
+  if @subsite.slug =~ /restricted\//
+	slug_param = @subsite.slug.sub('restricted/', '')
+	site_edit = edit_restricted_site_path(slug: slug_param)
+	scope_edit = "/restricted/#{slug_param}/scope_configuration/edit"
+	search_edit = edit_restricted_site_search_configuration_path(site_slug: slug_param)
+	permissions_edit = edit_restricted_site_permissions_path(site_slug: slug_param)
+	view_path ||= restricted_site_path(slug: slug_param)
+	site_page_links = {}
+	@subsite.site_pages.each do |site_page|
+		next unless site_page.persisted? # don't try to link a new page
+		site_page_links[edit_restricted_site_page_path(site_slug: slug_param, slug: site_page.slug)] = site_page.slug
+	end
+	site_page_links[new_restricted_site_page_path(site_slug: slug_param)] = "Start a new page"
+  else
+	site_edit = edit_site_path(slug: @subsite.slug)
+	scope_edit = "/#{slug_param}/scope_configuration/edit"
+	search_edit = edit_site_search_configuration_path(site_slug: @subsite.slug)
+	permissions_edit = edit_site_permissions_path(site_slug: @subsite.slug)
+	view_path ||= site_path(slug: @subsite.slug)
+	site_page_links = {}
+	@subsite.site_pages.each do |site_page|
+		next unless site_page.persisted? # don't try to link a new page
+		site_page_links[edit_site_page_path(site_slug: @subsite.slug, slug: site_page.slug)] = site_page.slug
+	end
+	site_page_links[new_site_page_path(site_slug: @subsite.slug)] = "Start a new page"
+  end
+-%>
+<div class="container">
+<div class="btn-group btn-group-justified" role="group">
+	<div class="btn-group" role="group">
+		<%= link_to(view_label, view_path, class: ['btn', 'btn-primary']) %>
+	</div>
+	<div class="btn-group" role="group">
+		<%= link_to("Edit Site", site_edit, class: (current_page?(site_edit) ? ['btn', 'btn-success', 'disabled'] : ['btn', 'btn-info']), disabled: current_page?(site_edit)) %>
+	</div>
+	<div class="btn-group" role="group">
+		<button type="button" class="btn <%= site_page_links.detect {|k,v| current_page?(k)} ? 'btn-success' : 'btn-info' %> dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Edit Page <span class="caret"></span></button>
+		<ul class="dropdown-menu">
+			<%- site_page_links.each do |link, label| %><%= link_to(label, link, class: (current_page?(link) ? ['btn','btn-success', 'disabled'] : ['btn']), disabled: current_page?(link)) %><%- end %>
+		</ul>
+	</div>
+	<div class="btn-group" role="group">
+		<%= link_to("Configure Scope", scope_edit, class: (current_page?(scope_edit) ? ['btn', 'btn-success', 'disabled'] : ['btn', 'btn-info']), disabled: current_page?(scope_edit)) %>
+	</div>
+	<div class="btn-group" role="group">
+		<%= link_to("Configure Search", search_edit, class: (current_page?(search_edit) ? ['btn', 'btn-success'] : ['btn', 'btn-info']), disabled: current_page?(search_edit)) %>
+	</div>
+	<div class="btn-group" role="group">
+		<%= link_to("Configure Permissions", permissions_edit, class: (current_page?(permissions_edit) ? ['btn', 'btn-success', 'disabled'] : ['btn', 'btn-info']), disabled: current_page?(permissions_edit)) %>
+	</div>
+</div>
+</div>

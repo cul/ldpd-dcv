@@ -8,7 +8,8 @@
     site_view = site_path(slug: @subsite.slug)
   end
 -%>
-<h1>Editing <%= @subsite.slug %> (<%= link_to("view", site_view) %>)</h1>
+<h1>Editing <%= @subsite.slug %> site properties</h1>
+<%= render partial: "sites/edit/edit_buttons" %>
 <div class="container"><%= form_for @subsite, builder: ::ValueIndexableFormBuilder, url: site_view, html: { } do |site_form| %>
   <div class="panel panel-primary">
     <div class="panel-heading"><h2 class="panel-title">Site Properties</h2></div>
@@ -117,7 +118,7 @@
         <tr class="row">
           <td class="col-md-3"><%= page.slug %></td>
           <td class="col-md-5"><%= page.title %></td>
-          <td class="col-md-2"><%= link_to(edit_site_page_path(site_slug: @subsite.slug, slug: page.slug), class: ['btn', 'btn-primary']) do %>
+          <td class="col-md-2"><%= @subsite.restricted ? link_to(edit_restricted_site_page_path(site_slug: @subsite.slug.sub('restricted/',''), slug: page.slug)) : link_to(edit_site_page_path(site_slug: @subsite.slug, slug: page.slug), class: ['btn', 'btn-primary']) do %>
                 <span class="glyphicon glyphicon-pencil"></span> Edit
             <% end %>
           </td>

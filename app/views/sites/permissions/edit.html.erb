@@ -8,7 +8,16 @@
     site_view = site_path(slug: @subsite.slug)
   end
 -%>
-<h1>Editing <%= link_to(@subsite.slug, site_edit) %> permissions (<%= link_to("view", site_view) %>)</h1>
+<h1>Editing <%= @subsite.slug %> permissions</h1>
+<%= render partial: "sites/edit/edit_buttons" %>
+<%- if @subsite.search_type != 'local' %>
+	<div class="container">
+		<div class="panel panel-warning">
+			<div class="panel-heading"><h2 class="panel-title">Configuration May Not Apply!</h2></div>
+			<div class="panel-body">The properties configured below are for sites with a local search. This site has a <%= @subsite.search_type %> search. This can be changed in the <%= link_to('site properties', site_edit) %>.</div>
+		</div>
+	</div>
+<% end -%>
 <div class="container"><%= render 'sites/permissions/form' %></div>
 <div class="hide widget-templates">
 <%- buffer = "" %>

@@ -36,9 +36,7 @@ describe ::Sites::SearchConfigurationController, type: :feature do
 		end
 		let(:authorized_user) { FactoryBot.create(:user, is_admin: true) }
 		it "includes a link to view the site" do
-			within('h1') do
-				expect(page).to have_link('view', href: site_link_href)
-			end
+			expect(page).to have_link('View Site', href: site_link_href)
 		end
 	end
 end

@@ -135,16 +135,12 @@ describe ::Sites::PagesController, type: :feature do
 		end
 		let(:authorized_user) { FactoryBot.create(:user, is_admin: true) }
 		it "includes a link to view the page" do
-			within('h1') do
-				expect(page).to have_link('view', href: page_link)
-			end
+			expect(page).to have_link('View Page', href: page_link)
 		end
 		context "home page" do
 			let(:edit_link_href) { "/#{site_slug}/home/edit" }
 			it "links to the site path to view the page" do
-				within('h1') do
-					expect(page).to have_link('view', href: "/#{site_slug}")
-				end
+				expect(page).to have_link('View Page', href: "/#{site_slug}")
 			end
 		end
 	end

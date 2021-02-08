@@ -1,2 +1,3 @@
-<h1>Add a page to <%= link_to("#{@subsite.slug}", edit_site_path(slug: @subsite.slug)) %></h1>
+<h1>Add a page to <%= @subsite.slug %></h1>
+<%= render partial: "sites/edit/edit_buttons" %>
 <div class="container"><%= render 'sites/pages/form' %></div>

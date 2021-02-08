@@ -1,14 +1,13 @@
 <%-
 	if @subsite.slug =~ /restricted\//
 		slug_param = @subsite.slug.sub('restricted/', '')
-		site_edit = edit_restricted_site_path(site_slug: slug_param)
 		site_view = restricted_site_path(slug: slug_param)
 		page_view = restricted_site_page_path(site_slug: slug_param, slug: @page.slug)
 	else
-		site_edit = edit_site_path(site_slug: @subsite.slug)
 		site_view = site_path(slug: @subsite.slug)
 		page_view = site_page_path(site_slug: @subsite.slug, slug: @page.slug)
 	end
 -%>
-<h1>Editing <%= link_to(@subsite.slug, site_edit) %> / <%= @page.slug %> (<%= link_to("view", (@page.slug != 'home') ? page_view : site_view) %>)</h1>
+<h1>Editing <%= @subsite.slug %> / <%= @page.slug %> page properties</h1>
+<%= render partial: "sites/edit/edit_buttons", locals: { view_label: 'View Page', view_path: (@page.slug != 'home') ? page_view : site_view } %>
 <div class="container"><%= render 'sites/pages/form' %></div>
