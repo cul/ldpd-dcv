@@ -28,10 +28,11 @@ describe Sites::PermissionsController, type: :unit do
 		end
 		context 'with editor_uids text' do
 			let(:uids) { ['abc', 'bcd', 'cde'] }
+			let(:editor_param) { uids.join(",") }
 			let(:params) {
 				ActionController::Parameters.new(
 					site: {
-						editor_uids: uids.join("\n ,")
+						editor_uids: editor_param
 					}
 				)
 			}
@@ -40,6 +41,12 @@ describe Sites::PermissionsController, type: :unit do
 				let(:is_admin) { true }
 				it "parses the value array" do
 					expect(update_params[:editor_uids]).to eql(uids)
+				end
+				context 'and loose formatting of input data' do
+					let(:editor_param) { uids.join("\n ,") }
+					it "parses the value array" do
+						expect(update_params[:editor_uids]).to eql(uids)
+					end
 				end
 			end
 			context 'not admin' do
