@@ -17,8 +17,8 @@ module Sites
 		def update
 			begin
 				update_attributes = permissions_params
-				update_attributes.dig('permissions')&.tap {|atts| @subsite.permissions.assign_attributes(atts) }
-				update_attributes.dig('editor_uids')&.tap {|atts| @subsite.editor_uids = atts }
+				update_attributes[:permissions]&.tap {|atts| @subsite.permissions.assign_attributes(atts) }
+				update_attributes[:editor_uids]&.tap {|atts| @subsite.editor_uids = atts }
 				@subsite.save! if @subsite.changed?
 				flash[:notice] = "Saved!"
 			rescue ActiveRecord::RecordInvalid => ex
@@ -39,9 +39,7 @@ module Sites
 		def edit
 		end
 
-		#TODO: strengthen params after Rails 5+ for deep hashes
 		def permissions_params
-			params['site']&.keep_if {|k,v| k == 'permissions' || k == 'editor_uids'}
 			params['site']&.tap do |atts|
 				if can?(:admin, @subsite)
 					atts['editor_uids']&.strip!
@@ -51,10 +49,9 @@ module Sites
 				end
 			end
 			params.dig('site', 'permissions')&.tap do |atts|
-				atts.keep_if {|k,v| k.to_s == 'remote_roles' || k.to_s == 'remote_ids' || k.to_s == 'locations'}
 				atts['remote_ids'] = atts['remote_ids'].split(/[\s,]+/).sort if atts&.fetch('remote_ids', nil)
 			end
-			params['site']
+			params.require(:site).permit(editor_uids: [], permissions: {remote_ids: [], remote_roles: [], locations: []})
 		end
 	end
 end
