@@ -10,7 +10,7 @@
 -%>
 <h1>Editing <%= @subsite.slug %> site properties</h1>
 <%= render partial: "sites/edit/edit_buttons" %>
-<div class="container"><%= form_for @subsite, builder: ::ValueIndexableFormBuilder, url: site_view, html: { } do |site_form| %>
+<div class="container"><%= form_for @subsite, builder: ::ValueIndexableFormBuilder, url: site_view do |site_form| %>
   <div class="panel panel-primary">
     <div class="panel-heading"><h2 class="panel-title">Site Properties</h2></div>
     <div class="panel-body site_properties">

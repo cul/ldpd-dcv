@@ -6,7 +6,7 @@
 		config_view = site_permissions_path(site_slug: @subsite.slug)
 	end
 -%>
-<%= form_for @subsite, url: config_view, builder: ::ValueIndexableFormBuilder, html: { } do |site_form| %>
+<%= form_for @subsite, url: config_view, builder: ::ValueIndexableFormBuilder do |site_form| %>
 	<%= site_form.fields_for :permissions, @subsite.permissions do |permissions_form| %>
 		<div class="panel panel-primary">
 			<div class="panel-heading"><h2 class="panel-title">Remote Roles/Affiliations</h2></div>
