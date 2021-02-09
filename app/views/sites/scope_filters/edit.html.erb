@@ -1,0 +1,12 @@
+<%- 
+  if @subsite.slug =~ /restricted\//
+    slug_param = @subsite.slug.sub('restricted/', '')
+    site_edit = edit_restricted_site_path(slug: slug_param)
+    site_view = restricted_site_path(slug: slug_param)
+  else
+    site_edit = edit_site_path(slug: @subsite.slug)
+    site_view = site_path(slug: @subsite.slug)
+  end
+-%>
+<h1>Editing <%= @subsite.slug %> content scope</h1>
+<%= render partial: "sites/edit/edit_buttons" %>
