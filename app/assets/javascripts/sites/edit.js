@@ -1,7 +1,5 @@
 function addValueFieldsetFromTemplate(addButtonFieldset, templateName) {
 	const newFieldset = $(".widget-templates").find("fieldset[name='" + templateName + "']").clone();
-	console.log(templateName);
-	console.log(newFieldset);
 	const valueNumber = $(addButtonFieldset.parentNode).children("fieldset[name='" + templateName + "']").length;
 	var valueIndex = valueNumber;
 	// index and number can drift based on value removal, so verify index
@@ -317,4 +315,3 @@ $(document).ready(function() {
 	addMarkdownEditors($(".site_text_blocks"));
 	addTooltips($("form"));
 });
-
