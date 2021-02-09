@@ -37,7 +37,7 @@ describe Dcv::SubsiteHelper, :type => :helper do
 		context 'has constraints' do
 			let(:search_action_url) { "/catalog?search_field=all_text_teim&q=" }
 			before do
-				subsite.search_configuration.scope_constraints = {'project' => 'a value'}
+				subsite.scope_filters << ScopeFilter.new(filter_type: 'project', value: 'a value')
 				allow(controller).to receive(:blacklight_config).and_return(subsite.blacklight_config)
 			end
 			it "links to search link with internal label" do

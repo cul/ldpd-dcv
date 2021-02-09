@@ -22,10 +22,10 @@ describe Site do
 	describe 'constraints' do
 		let(:site_slug) { 'constraints' }
 		let(:values) { [ 'constraints_value_1' ] }
+		let(:scope_filters) { values.map { |value| ScopeFilter.new(filter_type: filter_type, value: value) } }
+		let(:site) { FactoryBot.create(:site, slug: site_slug, scope_filters: scope_filters) }
 		context 'on collection' do
-			before do
-				site.collection_constraints = values
-			end
+			let(:filter_type) { 'collection' }
 			it 'adds a collection clause to the constraints hash' do
 				expect(site.constraints).to include('collection' => values)
 			end
@@ -41,9 +41,7 @@ describe Site do
 			end
 		end
 		context 'on collection key' do
-			before do
-				site.collection_key_constraints = values
-			end
+			let(:filter_type) { 'collection_key' }
 			it 'adds a collection clause to the constraints hash' do
 				expect(site.constraints).to include('collection_key' => values)
 			end
@@ -59,10 +57,8 @@ describe Site do
 			end
 		end
 		context 'on project' do
-			before do
-				site.project_constraints = values
-			end
-			it 'adds a collection clause to the constraints hash' do
+			let(:filter_type) { 'project' }
+			it 'adds a project clause to the constraints hash' do
 				expect(site.constraints).to include('project' => values)
 			end
 			it 'represents the clause in the default filters' do
@@ -77,10 +73,8 @@ describe Site do
 			end
 		end
 		context 'on project key' do
-			before do
-				site.project_key_constraints = values
-			end
-			it 'adds a collection clause to the constraints hash' do
+			let(:filter_type) { 'project_key' }
+			it 'adds a project_key clause to the constraints hash' do
 				expect(site.constraints).to include('project_key' => values)
 			end
 			it 'represents the clause in the default filters' do
@@ -95,10 +89,8 @@ describe Site do
 			end
 		end
 		context 'on publisher' do
-			before do
-				site.publisher_constraints = values
-			end
-			it 'adds a collection clause to the constraints hash' do
+			let(:filter_type) { 'publisher' }
+			it 'adds a publisher clause to the constraints hash' do
 				expect(site.constraints).to include('publisher' => values)
 			end
 			it 'represents the clause in the default filters' do
@@ -207,7 +199,8 @@ describe Site do
 	describe '#configure_blacklight!' do
 		let(:site_slug) { 'configure_blacklight' }
 		let(:search_configuration) { YAML.load(fixture("yml/search_configuration.yml").read) }
-		let(:site) { FactoryBot.create(:site, slug: site_slug, search_type: 'local', search_configuration: search_configuration) }
+		let(:publisher_filter) { FactoryBot.create(:scope_filter, filter_type: 'publisher', value: 'info:fedora/cul:import_site') }
+		let(:site) { FactoryBot.create(:site, slug: site_slug, search_type: 'local', search_configuration: search_configuration, scope_filters: [publisher_filter]) }
 		before do
 			site.configure_blacklight!
 		end

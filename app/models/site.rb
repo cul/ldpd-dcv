@@ -2,6 +2,7 @@ require 'csv'
 class Site < ActiveRecord::Base
 	include Dcv::Sites::Constants
 	include Blacklight::Configurable
+	has_many :scope_filters, as: :scopeable
 	has_many :nav_links, dependent: :destroy
 	has_many :site_pages, dependent: :destroy
 	accepts_nested_attributes_for :nav_links
@@ -91,7 +92,7 @@ class Site < ActiveRecord::Base
 
 	def default_filters
 		f = {}
-		self.search_configuration.scope_constraints.each do |search_scope, facet_value|
+		self.constraints.each do |search_scope, facet_value|
 			next unless facet_value.present?
 			case search_scope
 			when 'collection'
@@ -138,56 +139,27 @@ class Site < ActiveRecord::Base
 	end
 
 	def constraints
-		self.search_configuration.scope_constraints
-	end
-
-	def constraints=(val)
-		self.search_configuration.scope_constraints = val
-	end
-
-	# patch for Rails 4 store, which doesn't have suffixes
-	def publisher_constraints=(constraints)
-		self.search_configuration.scope_constraints['publisher'] = Array(constraints)
+		scope_filters.inject({}) {|result, filter| (result[filter.filter_type] ||= []) << filter.value; result }
 	end
 
 	def publisher_constraints
-		self.search_configuration.scope_constraints['publisher']
-	end
-
-	# patch for Rails 4 store, which doesn't have suffixes
-	def collection_constraints=(constraints)
-		self.search_configuration.scope_constraints['collection'] = Array(constraints)
+		scope_filters.select {|f| f.filter_type == 'publisher'}.map(&:value)
 	end
 
 	def collection_constraints
-		self.search_configuration.scope_constraints['collection']
-	end
-
-	# patch for Rails 4 store, which doesn't have suffixes
-	def collection_key_constraints=(constraints)
-		self.search_configuration.scope_constraints['collection_key'] = Array(constraints)
+		scope_filters.select {|f| f.filter_type == 'collection'}.map(&:value)
 	end
 
 	def collection_key_constraints
-		self.search_configuration.scope_constraints['collection_key']
-	end
-
-	# patch for Rails 4 store, which doesn't have suffixes
-	def project_constraints=(constraints)
-		self.search_configuration.scope_constraints['project'] = Array(constraints)
+		scope_filters.select {|f| f.filter_type == 'collection_key'}.map(&:value)
 	end
 
 	def project_constraints
-		self.search_configuration.scope_constraints['project']
-	end
-
-	# patch for Rails 4 store, which doesn't have suffixes
-	def project_key_constraints=(constraints)
-		self.search_configuration.scope_constraints['project_key'] = Array(constraints)
+		scope_filters.select {|f| f.filter_type == 'project'}.map(&:value)
 	end
 
 	def project_key_constraints
-		self.search_configuration.scope_constraints['project_key']
+		scope_filters.select {|f| f.filter_type == 'project_key'}.map(&:value)
 	end
 
 	def about_link
@@ -220,7 +192,7 @@ class Site < ActiveRecord::Base
 
 	def to_subsite_config
 		config = {
-			'slug' => slug, 'restricted' => (slug =~ /restricted/).present?, 'palette' => palette, 'layout' => layout
+			'slug' => slug, 'restricted' => (slug =~ /restricted/).present?, 'palette' => palette, 'layout' => layout, 'scope_constraints' => constraints
 		}.reverse_merge(permissions.attributes)
 		SubsiteConfig.for_path(slug, slug =~ /restricted/).merge(config).merge(search_configuration.as_json).with_indifferent_access
 	end

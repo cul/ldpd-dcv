@@ -29,11 +29,23 @@ module Dcv::Sites::Import
 			site.palette ||= DEFAULT_PALETTE
 			search_configuration_atts = atts['search_configuration'] || {}
 			if atts['constraints']
-				puts "atts had legacy constraints; migrate? : #{search_configuration_atts['scope_constraints'].nil?}"
+				puts "atts had legacy constraints; will attempt to migrate? : #{search_configuration_atts['scope_constraints'].nil?}"
 				search_configuration_atts['scope_constraints'] ||= atts['constraints']
+			end
+			if search_configuration_atts['scope_constraints']
+				puts "atts had search_configuration[scope_constraints]; migrate? : #{atts['scope_filters'].blank?}"
+				scope_constraints = search_configuration_atts.delete('scope_constraints')
+				if atts['scope_filters'].blank?
+					atts['scope_filters'] = []
+					scope_constraints.each do |type, values|
+						atts['scope_filters'].concat(values.map {|value| {'filter_type' => type, 'value' => value} })
+					end
+				end
 			end
 			site.search_configuration = Site::SearchConfiguration.new(search_configuration_atts)
 			site.permissions = Site::Permissions.new(atts['permissions'])
+			site.scope_filters.delete_all
+			atts['scope_filters']&.each {|filter_atts| site.scope_filters << ScopeFilter.new(filter_atts)}
 			site.image_uris = atts['image_uris']
 			site.publisher_uri = atts['publisher_uri']
 			site.restricted = atts['restricted'] || (atts['slug'] =~ /restricted/)

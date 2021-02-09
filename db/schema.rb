@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20210206000936) do
+ActiveRecord::Schema.define(version: 20210209152143) do
 
   create_table "bookmarks", force: :cascade do |t|
     t.integer  "user_id",       null: false
@@ -41,6 +41,15 @@ ActiveRecord::Schema.define(version: 20210206000936) do
   end
 
   add_index "nyre_projects", ["call_number"], name: "index_nyre_projects_on_call_number"
+
+  create_table "scope_filters", force: :cascade do |t|
+    t.string   "filter_type"
+    t.string   "value"
+    t.integer  "scopeable_id"
+    t.string   "scopeable_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "searches", force: :cascade do |t|
     t.text     "query_params"

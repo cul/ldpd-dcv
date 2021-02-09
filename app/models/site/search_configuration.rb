@@ -3,13 +3,13 @@ class Site::SearchConfiguration
 	include ActiveModel::Serializers::JSON
 	include ActiveRecord::AttributeAssignment
 
-	define_attribute_methods :date_search_configuration, :display_options, :facets, :map_configuration, :search_fields, :scope_constraints
-	attr_accessor :date_search_configuration, :display_options, :facets, :map_configuration, :search_fields, :scope_constraints
+	define_attribute_methods :date_search_configuration, :display_options, :facets, :map_configuration, :search_fields
+	attr_accessor :date_search_configuration, :display_options, :facets, :map_configuration, :search_fields
 
 	def default_configuration
 		{
 			date_search_configuration: {}, facets: [], map_configuration: {}, display_options: {},
-			scope_constraints: {}, search_fields: [Site::SearchFieldConfiguration.new]
+			search_fields: [Site::SearchFieldConfiguration.new]
 		}
 	end
 
@@ -23,7 +23,6 @@ class Site::SearchConfiguration
 			'display_options' => @display_options&.as_json(opts) || {},
 			'facets' => @facets&.map {|v| v.as_json(opts) } || [],
 			'map_configuration' => @map_configuration&.as_json(opts) || {},
-			'scope_constraints' => @scope_constraints&.as_json(opts) || {},
 			'search_fields' => @search_fields&.map {|v| v.as_json(opts) } || []
 		}.tap {|v| v.compact! if opts&.fetch(:compact, false)}
 	end
