@@ -1,0 +1,7 @@
+scope_filters_attributes:
+  '0':
+    filter_type: project_key
+    value: test_project
+  '1':
+    filter_type: collection_key
+    value: '123456789'

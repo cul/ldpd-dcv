@@ -1,2 +1,2 @@
-class Restricted::Sites::ScopeFiltersController < ::Sites::PermissionsController
+class Restricted::Sites::ScopeFiltersController < ::Sites::ScopeFiltersController
 end

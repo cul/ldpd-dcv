@@ -198,7 +198,7 @@ describe Site do
 	end
 	describe '#configure_blacklight!' do
 		let(:site_slug) { 'configure_blacklight' }
-		let(:search_configuration) { YAML.load(fixture("yml/search_configuration.yml").read) }
+		let(:search_configuration) { YAML.load(fixture("yml/sites/search_configuration.yml").read) }
 		let(:publisher_filter) { FactoryBot.create(:scope_filter, filter_type: 'publisher', value: 'info:fedora/cul:import_site') }
 		let(:site) { FactoryBot.create(:site, slug: site_slug, search_type: 'local', search_configuration: search_configuration, scope_filters: [publisher_filter]) }
 		before do
@@ -209,7 +209,7 @@ describe Site do
 		end
 		context 'with map_configuration.enabled' do
 			let(:search_configuration) do
-				base = YAML.load(fixture("yml/search_configuration.yml").read)
+				base = YAML.load(fixture("yml/sites/search_configuration.yml").read)
 				base['map_configuration']['enabled'] = true
 				base
 			end

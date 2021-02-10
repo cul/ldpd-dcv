@@ -106,12 +106,14 @@ class Site < ActiveRecord::Base
 				facet_field = 'project_key_ssim'
 			when 'publisher'
 				facet_field = 'publisher_ssim'
+			when 'repository_code'
+				facet_field = 'lib_repo_code_ssim'
 			end
 			next unless facet_field
 			f[facet_field] = Array(facet_value)
 		end
 		if self.restricted.present? && self.repository_id
-			f['lib_repo_code_ssim'] = [self.repository_id]
+			f['lib_repo_code_ssim'] ||= [self.repository_id]
 		end
 		f
 	end

@@ -21,7 +21,7 @@ describe Sites::SearchConfigurationController, type: :unit do
 		controller.instance_variable_set(:@subsite, site)
 	end
 	describe '#update' do
-		let(:configuration_fixture) { YAML.load(fixture("yml/search_configuration.yml").read).freeze }
+		let(:configuration_fixture) { YAML.load(fixture("yml/sites/search_configuration.yml").read).freeze }
 		let(:rails_param_hash) do
 			configuration_fixture.map do |k, v|
 				if v.is_a? Array

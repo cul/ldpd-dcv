@@ -15,6 +15,24 @@ module Sites
 		end
 
 		def update
+			scope_filters_attributes = scope_filter_params['scope_filters_attributes']&.values || []
+			if scope_filters_attributes # must permit empty collection to allow deletions
+				begin
+					@subsite.scope_filters.each do |scope_filter|
+						if scope_filters_attributes.first
+							scope_filter.update_attributes(scope_filters_attributes.shift)
+						else
+							scope_filter.delete
+						end
+					end
+					scope_filters_attributes.each { |atts| @subsite.scope_filters << ScopeFilter.new(atts) }
+					@subsite.save!
+					flash[:notice] = "Scope Updated!"
+				rescue ActiveRecord::RecordInvalid => ex
+					flash[:alert] = ex.message
+				end
+			end
+			redirect_to action: :edit
 		end
 
 		def edit
@@ -25,6 +43,7 @@ module Sites
 		end
 
 		def scope_filter_params
+			params.require(:site).permit(scope_filters_attributes: [:filter_type, :value])
 		end
 	end
 end	
