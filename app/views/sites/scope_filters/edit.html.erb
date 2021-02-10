@@ -6,8 +6,17 @@
 		form_url = site_scope_filters_path(site_slug: @subsite.slug)
 	end
 -%>
-<h1>Editing <%= @subsite.slug %> content scope</h1>
+<h1>Configuring <%= @subsite.slug %> site scope</h1>
 <%= render partial: "sites/edit/edit_buttons" %>
+<div class="container">
+	<div class="panel panel-info" id="site_edit_context_about">
+		<div class="panel-heading"><h2 class="panel-title">About Site Scope <button type="button" class="btn btn-primary collapse-toggle collapsed" data-toggle="collapse" data-target="#site_edit_context_about_content" aria-expanded="false" aria-controls="site_edit_context_about_content" data-parent="site_edit_context_about"></button></h2></div>
+		<div class="panel-body collapse collapsed" id="site_edit_context_about_content">
+			<p>The scope of content presented for a site is determined by metadata attributes such as project, collection, or repository. These attributes are the default filters used to search the site's content.</p>
+			<p>Items matching at least one scope filter from each configured category will be included in the site's search results. When there are no attributes configured as scope filters, the site is considered to be only a splash page, and presumed to link to content outside the DLC.</p>
+		</div>
+	</div>
+</div>
 <div class="container"><%= form_for @subsite, url: {action: :update} do |site_form| %>
 	<div class="panel panel-primary">
 		<div class="panel-heading"><h2 class="panel-title">Content Scope Filters</h2></div>
