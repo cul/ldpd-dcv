@@ -10,7 +10,7 @@ class Site::Permissions
 	attr_accessor *ATTRIBUTES
 
 	def default_configuration
-		{ }
+		{ remote_roles: [], remote_ids: [], locations: [] }
 	end
 
 	def initialize(atts = {})
