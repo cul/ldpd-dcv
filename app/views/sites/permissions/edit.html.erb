@@ -1,11 +1,8 @@
 <%- 
   if @subsite.slug =~ /restricted\//
-    slug_param = @subsite.slug.sub('restricted/', '')
-    site_edit = edit_restricted_site_path(slug: slug_param)
-    site_view = restricted_site_path(slug: slug_param)
+    site_edit = edit_restricted_site_path(slug: @subsite.slug.sub('restricted/', ''))
   else
     site_edit = edit_site_path(slug: @subsite.slug)
-    site_view = site_path(slug: @subsite.slug)
   end
 -%>
 <h1>Editing <%= @subsite.slug %> permissions</h1>

@@ -14,7 +14,9 @@ class Site::SearchConfiguration
 	end
 
 	def initialize(atts = {})
-		assign_attributes(default_configuration.merge(atts.to_h.symbolize_keys))
+		atts = atts.to_h.symbolize_keys
+		atts.delete(:scope_constraints)
+		assign_attributes(default_configuration.merge(atts))
 	end
 
 	def serializable_hash(opts = {})

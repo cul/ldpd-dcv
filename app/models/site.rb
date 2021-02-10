@@ -6,6 +6,7 @@ class Site < ActiveRecord::Base
 	has_many :nav_links, dependent: :destroy
 	has_many :site_pages, dependent: :destroy
 	accepts_nested_attributes_for :nav_links
+	accepts_nested_attributes_for :scope_filters
 	attribute :search_configuration, Site::SearchConfiguration::Type.new, default: -> {Site::SearchConfiguration.new}
 	attribute :permissions, Site::Permissions::Type.new, default: -> {Site::Permissions.new}
 	serialize :editor_uids, Array

@@ -1,12 +1,38 @@
 <%- 
-  if @subsite.slug =~ /restricted\//
-    slug_param = @subsite.slug.sub('restricted/', '')
-    site_edit = edit_restricted_site_path(slug: slug_param)
-    site_view = restricted_site_path(slug: slug_param)
-  else
-    site_edit = edit_site_path(slug: @subsite.slug)
-    site_view = site_path(slug: @subsite.slug)
-  end
+	if @subsite.slug =~ /restricted\//
+		slug_param = @subsite.slug.sub('restricted/', '')
+		form_url = restricted_site_scope_filters_path(site_slug: slug_param)
+	else
+		form_url = site_scope_filters_path(site_slug: @subsite.slug)
+	end
 -%>
 <h1>Editing <%= @subsite.slug %> content scope</h1>
 <%= render partial: "sites/edit/edit_buttons" %>
+<div class="container"><%= form_for @subsite, url: {action: :update} do |site_form| %>
+	<div class="panel panel-primary">
+		<div class="panel-heading"><h2 class="panel-title">Content Scope Filters</h2></div>
+		<div class="panel-body scope_filters">
+			<%= site_form.fields_for :scope_filters, include_id: false do |filter_form| %>
+				<%= render partial: "sites/scope_filters/scope_filter_form", locals: {filter_form: filter_form} %>
+			<%- end %>
+			<button type="button" onclick="addScopeFilterFields(this);" class="btn btn-info" id="site-add-scope-filter">
+				<span class="glyphicon glyphicon-plus"></span> Add Scope Filter
+			</button>
+			<input type="hidden" name="site[empty]" />
+		</div>
+	</div>
+	<div class="panel">
+		<div class="panel-body">
+			<%= submit_tag "Update Scope", {class: ['btn', 'btn-default']} %>
+		</div>
+	</div>
+<%- end %></div>
+<div class="hide widget-templates">
+<%- buffer = "" %>
+<%- form_for @subsite, url: form_url do |site_form| %>
+	<%- site_form.fields_for :scope_filters, ScopeFilter.new, include_id: false, child_index: '9fieldIndex9' do |filter_form| %>
+		<%- buffer << render(partial: 'sites/scope_filters/scope_filter_form', locals: {filter_form: filter_form}) %>
+	<%- end %>
+<%- end %>
+<%= buffer.html_safe %>
+</div>

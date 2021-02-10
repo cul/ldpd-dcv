@@ -119,6 +119,10 @@ function addSearchFieldFields(addButton) {
 	addFieldFields(addButton, 'search_field')
 }
 
+function addScopeFilterFields(addButton) {
+	addFieldFields(addButton, 'scope_filter')
+}
+
 function addFieldFields(addButton, fieldType) {
 	// build a template text block
 	var newField = $(".widget-templates > ." + fieldType).clone();
