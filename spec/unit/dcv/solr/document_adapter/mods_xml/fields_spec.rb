@@ -147,6 +147,46 @@ describe Dcv::Solr::DocumentAdapter::ModsXml, type: :unit do
     end
   end
 
+  describe ".add_shelf_locator_facets!" do
+    let(:solr_doc) { Hash.new }
+    before { adapter.add_shelf_locator_facets!(solr_doc, input_values) }
+    context "simple, regular data" do
+      let(:input_values) { ['Box no. 9, Folder no. 4'] }
+      it { expect(solr_doc['lib_shelf_box_sim']).to eql(['9']) }
+      it { expect(solr_doc['lib_shelf_folder_sim']).to eql(['4']) }
+    end
+    context "elaborate text data" do
+      let(:input_values) { ['Box no. Vol. XVI. Italian gardens., Folder no. Folder/Page 055, Item no. Image number: 217, AA712 M1953 F'] }
+      it { expect(solr_doc['lib_shelf_box_sim']).to eql(['Vol. XVI. Italian gardens.']) }
+      it { expect(solr_doc['lib_shelf_folder_sim']).to eql(['Page 055']) }
+    end
+    context "multiple separate values for same part" do
+      let(:input_values) { ['Box no. 9', 'Box no. 4'] }
+      it { expect(solr_doc['lib_shelf_box_sim']).to eql(['9','4']) }
+      it { expect(solr_doc['lib_shelf_folder_sim']).to be_nil }
+    end
+    context "semicolon joined values" do
+      let(:input_values) { ['Box no. 9; 4, Folder no. 12'] }
+      it { expect(solr_doc['lib_shelf_box_sim']).to eql(['9','4']) }
+      it { expect(solr_doc['lib_shelf_folder_sim']).to eql(['12']) }
+    end
+    context "redundant labels" do
+      let(:input_values) { ['Box no. Box 9; Box 4, Folder no. folder 12'] }
+      it { expect(solr_doc['lib_shelf_box_sim']).to eql(['9','4']) }
+      it { expect(solr_doc['lib_shelf_folder_sim']).to eql(['12']) }
+    end
+    context "redundant values" do
+      let(:input_values) { ['Box no. 9; Box 9'] }
+      it { expect(solr_doc['lib_shelf_box_sim']).to eql(['9']) }
+      it { expect(solr_doc['lib_shelf_folder_sim']).to be_nil }
+    end
+    context "no identifiable parts" do
+      let(:input_values) { ['NYDA.SHELF.MARK.001'] }
+      it { expect(solr_doc['lib_shelf_box_sim']).to be_nil }
+      it { expect(solr_doc['lib_shelf_folder_sim']).to be_nil }
+    end
+  end
+
   describe ".textual_dates" do
     let(:xml_src) { fixture( File.join("mods", "mods-textual-dates-with-unusual-chars.xml")) }
     it "should not change the textual date, other than removing leading or trailing whitespace" do

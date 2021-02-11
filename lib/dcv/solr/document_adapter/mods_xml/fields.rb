@@ -4,6 +4,9 @@ class Dcv::Solr::DocumentAdapter::ModsXml
     include Solrizer::DefaultDescriptors::Normal
 
     ORIGIN_INFO_DATES = ["dateCreated", "dateIssued", "dateOther"]
+    # this part name pattern is taken from Hyacinth serialization rules
+    # and must be changed if shelfLocator serialization changes in Hyacinth
+    SHELF_LOCATOR_PART_NAME = /\b([A-Za-z]+)\s+[Nn][Oo]\.?\s*([^,]+)/
 
     module ClassMethods
       def normalize(t, strip_punctuation=false)
@@ -451,6 +454,32 @@ class Dcv::Solr::DocumentAdapter::ModsXml
       end
     end
 
+    def add_shelf_locator_facets!(solr_doc, shelf_locator_values = shelf_locators)
+      accumulated_values = {}
+      shelf_locator_values.each do |val|
+        if val.match(SHELF_LOCATOR_PART_NAME)
+          val.scan(SHELF_LOCATOR_PART_NAME) do |part_match|
+            part_type = part_match[0].dup.downcase.singularize
+            # some collections use a semicolon concatenated list rather than separate shelfLocators
+            # we will explode these into separate facetable values
+            value_list = part_match[1].split(/;\s*/)
+            parsed_values = value_list.map do |subvalue|
+              # if a value has been 'redundantly' labeled with the part type, strip that part off the facet
+              if subvalue.downcase.index(part_type) == 0
+                pattern = Regexp.new("#{part_type}(e?s)?[[:space:][:punct:]]*", true)
+                subvalue.sub!(pattern,'')
+              end
+              Fields.normalize(subvalue, true)
+            end
+            (accumulated_values[part_type] ||= []).concat parsed_values
+          end
+        end
+      end
+      solr_doc['lib_shelf_box_sim'] = accumulated_values['box']&.uniq
+      solr_doc['lib_shelf_folder_sim'] = accumulated_values['folder']&.uniq
+      solr_doc
+    end
+
     def archival_context_json(node=mods)
       node.xpath("./mods:relatedItem[@displayLabel='Collection']", MODS_NS).map do |collection|
         collection_title = collection.xpath("./mods:titleInfo/mods:title", MODS_NS).text
@@ -530,6 +559,7 @@ class Dcv::Solr::DocumentAdapter::ModsXml
       solr_doc["lib_format_sim"] = formats
       solr_doc["lib_genre_ssim"] = solr_doc["lib_format_sim"].dup if solr_doc["lib_genre_ssim"].blank?
       solr_doc["lib_shelf_sim"] = shelf_locators
+      add_shelf_locator_facets!(solr_doc, shelf_locators)
       solr_doc['location_shelf_locator_ssm'] = solr_doc["lib_shelf_sim"]
       solr_doc["all_text_teim"] += solr_doc["lib_shelf_sim"]
       solr_doc['lib_sublocation_sim'] = sublocation
