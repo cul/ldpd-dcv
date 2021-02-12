@@ -14,6 +14,10 @@ module Site::ConfigurationValues
 		nil
 	end
 
+	def clean_and_freeze_array(val)
+		Array(val).compact.map(&:to_s).freeze
+	end
+
 	def clean_and_freeze_validated_array(val, valid_values = [])
 		(Array(val).compact.map(&:to_s) & valid_values).freeze
 	end

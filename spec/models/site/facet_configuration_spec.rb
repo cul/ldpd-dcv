@@ -19,6 +19,22 @@ describe Site::FacetConfiguration do
 			end
 		end
 	end
+	describe '#facet_fields_form_value=' do
+		context 'single value' do
+			let(:atts) { {'facet_fields_form_value' => 'root'} }
+			it "sets field_name but not pivot" do
+				expect(config.field_name).to eql('root')
+				expect(config.pivot).to be_nil
+			end
+		end
+		context 'multiple values' do
+			let(:atts) { {'facet_fields_form_value' => 'root,branch,leaf'} }
+			it "sets both field_name and pivot" do
+				expect(config.field_name).to eql('root')
+				expect(config.pivot).to eql(['branch', 'leaf'])
+			end
+		end
+	end
 	describe '#eql?' do
 		it 'returns true when attributes are equal' do
 			expect(config.eql?(described_class.new(atts))).to be true

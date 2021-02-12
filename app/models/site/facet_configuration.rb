@@ -6,7 +6,7 @@ class Site::FacetConfiguration
 
 	VALID_VALUE_TRANSFORMS = ['capitalize', 'singularize', 'translate'].freeze
 	VALID_SORTS = ['index', 'count'].freeze
-	ATTRIBUTES = [:exclusions, :field_name, :label, :limit, :sort, :value_map, :value_transforms].freeze
+	ATTRIBUTES = [:exclusions, :field_name, :label, :limit, :pivot, :sort, :value_map, :value_transforms].freeze
 
 	define_attribute_methods *ATTRIBUTES
 	attr_accessor *ATTRIBUTES
@@ -34,6 +34,25 @@ class Site::FacetConfiguration
 		@limit = val		
 	end
 
+	def pivot=(val)
+		val = val.nil? ? val : clean_and_freeze_array(val)
+		pivot_will_change! unless val == @pivot
+		@pivot = val
+	end
+
+	# form UI convenience method
+	def facet_fields_form_value
+		(pivot || []).dup.unshift(field_name.to_s).join(',')
+	end
+
+	# form UI convenience method
+	def facet_fields_form_value=(val)
+		vals = val.split(/[\s,]+/)
+		self.field_name = vals[0]
+		self.pivot = vals.length > 1 ? vals[1..-1] : nil
+	end
+
+
 	def value_transforms=(val)
 		val = clean_and_freeze_validated_array(val, VALID_VALUE_TRANSFORMS)
 		value_transforms_will_change! unless val == @value_transforms
@@ -59,6 +78,7 @@ class Site::FacetConfiguration
 			'field_name' => @field_name,
 			'label' => @label,
 			'limit' => @limit,
+			'pivot' => @pivot,
 			'sort' => @sort,
 			'value_map' => @value_map,
 			'value_transforms' => @value_transforms || []
@@ -76,6 +96,11 @@ class Site::FacetConfiguration
 		end
 		if @value_map.present?
 			opts[:translation] = @value_map
+		end
+		if @pivot.present?
+			opts[:pivot] = @pivot.dup.unshift(@field_name)
+			# propagate the sort configuration to the pivoted facets
+			@pivot.each { |pf| blacklight_config.default_solr_params[:"f.#{pf}.facet.sort"] ||= @sort }
 		end
 		blacklight_config.add_facet_field @field_name, opts
 	end

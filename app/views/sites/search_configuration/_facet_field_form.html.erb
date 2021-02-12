@@ -5,7 +5,7 @@
 	<div class="panel-body" id="search_fields_<%= field_form.index %>_atts">
 		<div class="form-group">
 			<label for="site[search_configuration][facets][<%= field_form.index %>][label]">Field Name <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-facets-field"></span></label>
-			<%= field_form.text_field :field_name %>
+			<%= field_form.text_field :facet_fields_form_value %>
 		</div>
 		<div class="form-group">
 			<label for="site[search_configuration][facets][<%= field_form.index %>][label]">Field Label <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-facets-label"></span></label>
@@ -33,12 +33,12 @@
 			<%- end %>
 		</div>
 		<div class="form-group">
-			<label for="facet_value_transforms">Value Transforms <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-facets-transforms"></span></label>
+			<label for="facet_value_transforms">Display Transforms <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-facets-display-transforms"></span></label>
 			<br>
 			<%= field_form.select :value_transforms, Site::FacetConfiguration::VALID_VALUE_TRANSFORMS, {}, multiple: true %>
 		</div>
 		<div class="form-group">
-			<label for="site[search_configuration][facets][<%= field_form.index %>][value_map]">Value Map <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-facets-value-map"></span></label>
+			<label for="site[search_configuration][facets][<%= field_form.index %>][value_map]">Display Map <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-facets-display-map"></span></label>
 			<%= field_form.text_field :value_map, disabled: true %>
 		</div>
 		<div class="form-group">
