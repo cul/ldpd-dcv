@@ -1,6 +1,6 @@
 module FieldDisplayHelpers::ArchivalContext
   def has_archival_context?(field_config, document)
-    json_src = document.fetch(field_config.field,'{}')
+    json_src = document.fetch(field_config.archival_context_field || field_config.field,'{}')
     JSON.load(json_src).detect {|ac| ac['dc:coverage'].present? }
   end
 

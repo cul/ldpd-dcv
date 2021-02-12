@@ -114,6 +114,7 @@ class Dcv::Configurators::DcvBlacklightConfigurator
     config.add_show_field ActiveFedora::SolrService.solr_name('abstract', :displayable, type: :string), label: 'Abstract', helper_method: :expandable_past_400
     config.add_show_field ActiveFedora::SolrService.solr_name('lib_collection', :displayable), label: 'Collection Name', helper_method: :display_collection_with_links
     config.add_show_field 'archival_context_json_ss', label: 'Archival Context', helper_method: :display_archival_context, if: :has_archival_context?
+    config.add_show_field 'location_shelf_locator_ssm', label: 'Shelf Location', unless: :has_archival_context?, archival_context_field: 'archival_context_json_ss'
     config.add_show_field ActiveFedora::SolrService.solr_name('accession_number', :displayable), label: 'Accession Number'
     config.add_show_field ActiveFedora::SolrService.solr_name('lib_all_subjects', :displayable), label: 'Subjects'
     config.add_show_field ActiveFedora::SolrService.solr_name('lib_format', :displayable), label: 'Format'
