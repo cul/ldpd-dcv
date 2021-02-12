@@ -38,9 +38,9 @@ search_configuration:
       label: Test Text
   map_configuration:
     enabled: false
-  scope_constraints:
-    publisher:
-      - info:fedora/cul:import_site
+scope_filters:
+  - filter_type: publisher
+    value: info:fedora/cul:import_site
 nav_links:
   - sort_label: About
     sort_group: '00:'

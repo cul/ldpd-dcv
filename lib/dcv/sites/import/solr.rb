@@ -33,21 +33,20 @@ module Dcv::Sites::Import
 				import_legacy_scope_configs(site, subsite_config)
 				import_legacy_layout_configs(site, subsite_config)
 				unless existing_site
-					# on first import, seed search config if present
+					# on first import, seed scope if present
 					import_legacy_search_configs(site, subsite_config)
 				end
 			else
 				site.search_type ||= 'catalog'
 				site.layout ||= DEFAULT_LAYOUT
 				site.palette ||= DEFAULT_PALETTE
-				search_scope = @document.fetch(:search_scope_ssi, "project")
-				facet_value = Array(@document.fetch(:short_title_ssim,[])).first
-				if search_scope == 'collection'
-					site.collection_constraints = [facet_value]
-				elsif search_scope == 'publisher'
-					site.publisher_constraints.concat([site.publisher_uri]).uniq!
-				else
-					site.project_constraints = [facet_value]
+				unless existing_site
+					# on first import, seed scope if present
+					facet_value = Array(@document.fetch(:short_title_ssim,[])).first
+					if facet_value
+						search_scope = @document.fetch(:search_scope_ssi, "project")
+						site.scope_filters << ScopeFilter.new(filter_type: search_scope, value: facet_value)
+					end
 				end
 			end
 
@@ -116,12 +115,15 @@ module Dcv::Sites::Import
 
 		def import_legacy_scope_configs(site, subsite_config)
 			return unless subsite_config.present?
-			publisher_constraints = site.search_configuration.scope_constraints.fetch('publisher', [])
-			publisher_constraints.concat [site.publisher_uri, subsite_config['uri']]
-			publisher_constraints.concat(subsite_config.fetch('additional_publish_targets', []))
-			publisher_constraints.compact!
-			publisher_constraints.uniq!
-			site.publisher_constraints = publisher_constraints if publisher_constraints.present?
+			legacy_constraints = []
+			legacy_constraints.concat [site.publisher_uri, subsite_config['uri']]
+			legacy_constraints.concat(subsite_config.fetch('additional_publish_targets', []))
+			legacy_constraints.compact!
+			legacy_constraints.uniq!
+			legacy_constraints -= site.publisher_constraints
+			if legacy_constraints.present?
+				legacy_constraints.each { |value| site.scope_filters << ScopeFilter.new(filter_type: 'publisher', value: value) }
+			end
 		end
 
 		def import_legacy_search_configs(site, subsite_config)

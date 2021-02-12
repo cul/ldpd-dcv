@@ -16,7 +16,7 @@ module Dcv::SubsiteHelper
   end
 
   def subsite_has_scope_constraints?
-    @subsite.search_configuration.scope_constraints.detect {|ck, cv| Array(cv).detect(&:present?) }
+    @subsite.scope_filters.present?
   end
 
   def link_to_nav(nav_link)

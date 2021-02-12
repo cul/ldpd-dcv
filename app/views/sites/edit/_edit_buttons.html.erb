@@ -3,7 +3,7 @@
   if @subsite.slug =~ /restricted\//
 	slug_param = @subsite.slug.sub('restricted/', '')
 	site_edit = edit_restricted_site_path(slug: slug_param)
-	scope_edit = "/restricted/#{slug_param}/scope_configuration/edit"
+	scope_edit = edit_restricted_site_scope_filters_path(site_slug: slug_param)
 	search_edit = edit_restricted_site_search_configuration_path(site_slug: slug_param)
 	permissions_edit = edit_restricted_site_permissions_path(site_slug: slug_param)
 	view_path ||= restricted_site_path(slug: slug_param)
@@ -15,7 +15,7 @@
 	site_page_links[new_restricted_site_page_path(site_slug: slug_param)] = "Start a new page"
   else
 	site_edit = edit_site_path(slug: @subsite.slug)
-	scope_edit = "/#{slug_param}/scope_configuration/edit"
+	scope_edit = edit_site_scope_filters_path(site_slug: @subsite.slug)
 	search_edit = edit_site_search_configuration_path(site_slug: @subsite.slug)
 	permissions_edit = edit_site_permissions_path(site_slug: @subsite.slug)
 	view_path ||= site_path(slug: @subsite.slug)

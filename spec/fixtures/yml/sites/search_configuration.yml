@@ -20,6 +20,3 @@ search_fields:
     label: Test Text
 map_configuration:
   enabled: false
-scope_constraints:
-  publisher:
-    - info:fedora/cul:import_site

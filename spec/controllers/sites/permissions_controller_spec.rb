@@ -57,7 +57,7 @@ describe Sites::PermissionsController, type: :unit do
 		end
 	end
 	describe '#update' do
-		let(:permissions_fixture) { YAML.load(fixture("yml/site_permissions.yml").read).freeze }
+		let(:permissions_fixture) { YAML.load(fixture("yml/sites/permissions.yml").read).freeze }
 		let(:rails_param_hash) do
 			permissions_fixture
 		end
