@@ -39,7 +39,7 @@ class Site::Permissions
 		@locations = val
 	end
 
-	def new?
+	def new_record?
 		@is_new
 	end
 

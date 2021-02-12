@@ -1,10 +1,10 @@
 <div class="form-group panel panel-info search_field" id="search_fields_<%= field_form.index %>">
 	<div class="panel-heading form-inline">
-		<div class="panel-heading"><h3 class="panel-title"><%= field_form.object.new? ? 'New' : field_form.object.type.titlecase %> Search</h3></div>
+		<div class="panel-heading"><h3 class="panel-title"><%= field_form.object.new_record? ? 'New' : field_form.object.type.titlecase %> Search</h3></div>
 	</div>
 	<div class="panel-body" id="search_fields_<%= field_form.index %>_atts">
 		<div class="form-group">
-			<%- if field_form.object.new? %>
+			<%- if field_form.object.new_record? %>
 				<label for="site[search_configuration][search_fields][<%= field_form.index %>][type]">Field Type <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-search-fields-label"></span></label>
 				<%= field_form.select :type, Site::SearchFieldConfiguration::VALID_TYPES %>
 			<%- else %>

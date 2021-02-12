@@ -40,7 +40,7 @@ class Site::FacetConfiguration
 		@value_transforms = val
 	end
 
-	def new?
+	def new_record?
 		@is_new
 	end
 

@@ -30,7 +30,7 @@ class Site::SearchFieldConfiguration
 		attributes.eql?(obj.attributes)
 	end
 
-	def new?
+	def new_record?
 		@is_new
 	end
 
