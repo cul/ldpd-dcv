@@ -68,6 +68,12 @@ class Site::MapConfiguration
 		VALID_GRANULARITY_VALUES[@granularity_data]
 	end
 
+	def show_items=(val)
+		val = boolean_or_nil(val)
+		show_items_will_change! unless val == @show_items
+		@show_items = val
+	end
+
 	def show_sidebar=(val)
 		val = boolean_or_nil(val)
 		show_sidebar_will_change! unless val == @show_sidebar

@@ -112,24 +112,26 @@ function initCulMapDisplayComponent($mapComponentDiv) {
 			var viewAllUrl = DCV.mapCoordinateSearchUrl.replace('_lat_', childMarkers[0].getLatLng().lat).replace('_long_', childMarkers[0].getLatLng().lng);
 
 			allItemHtml += '<h6>' + childMarkers.length + ' items found <a class="pull-right" href="' + viewAllUrl + '">View all &raquo &nbsp;</a></h6>';
-			allItemHtml += '<div style="max-height:200px;max-width:200px;width:100%;overflow:auto;">'
+			allItemHtml += '<div style="max-height:200px;max-width:200px;width:100%;overflow:auto;">';
+			if ($mapComponentDiv.hasClass('no-thumbs')) {
+				allItemHtml += '<hr />';
+			} else {
+				var numItemsToShow = childMarkers.length;
+				if (childMarkers.length > maxItemsToShow) {
+					numItemsToShow = maxItemsToShow;
+				}
 
-			var numItemsToShow = childMarkers.length;
-			if (childMarkers.length > maxItemsToShow) {
-				numItemsToShow = maxItemsToShow;
+				for(var i = 0; i < numItemsToShow; i++) {
+					var marker = childMarkers[i];
+					allItemHtml += marker.getPopup().getContent() + '<hr />';
+				}
+
+				if (childMarkers.length > maxItemsToShow) {
+					allItemHtml += '<a href="' + viewAllUrl + '">Click here to see the rest &raquo;</a><br />';
+				}
+
 			}
-
-			for(var i = 0; i < numItemsToShow; i++) {
-				var marker = childMarkers[i];
-				allItemHtml += marker.getPopup().getContent() + '<hr />';
-			}
-
-			if (childMarkers.length > maxItemsToShow) {
-				allItemHtml += '<a href="' + viewAllUrl + '">Click here to see the rest &raquo;</a><br />';
-			}
-
 			allItemHtml += '</div>';
-
 			L.popup()
 			.setLatLng(a.layer.getAllChildMarkers()[0].getLatLng())
 			.setContent(allItemHtml)

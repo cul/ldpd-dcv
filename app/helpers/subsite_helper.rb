@@ -6,7 +6,8 @@ module SubsiteHelper
   def map_search_settings_for_subsite
     if @subsite && @subsite.search_configuration.map_configuration.enabled
       map_config = @subsite.search_configuration.map_configuration
-      @map_search_settings_for_subsite ||= map_config.as_json.merge('default_zoom' => map_config.default_zoom, 'max_zoom' => map_config.max_zoom)
+      # default_zoom and max_zoom must be translated from labeled values; show_items should be true if never set to a boolean value
+      @map_search_settings_for_subsite ||= map_config.as_json.merge('default_zoom' => map_config.default_zoom, 'max_zoom' => map_config.max_zoom, 'show_items' => (map_config.show_items.nil? || map_config.show_items))
     else
       {}
     end

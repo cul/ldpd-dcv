@@ -13,7 +13,8 @@
     map_default_center_lat: params[:lat] || map_search_settings['default_lat'] || 0,
     map_default_center_long: params[:long] || map_search_settings['default_long'] || 0,
     map_default_zoom_level: map_search_settings['default_zoom'] || 11,
-    map_max_zoom_level: map_search_settings['max_zoom'] || 13
+    map_max_zoom_level: map_search_settings['max_zoom'] || 13,
+    map_show_items: false
   } %>
 <% else %>
   <h6 class="nomar-t">No Mappable Results in:
