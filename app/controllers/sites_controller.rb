@@ -95,6 +95,7 @@ class SitesController < ApplicationController
     self.prepend_view_path('app/views/' + self.request_layout)
     self.prepend_view_path('app/views/' + controller_path.sub(/^restricted/,'')) if self.restricted?
     self.prepend_view_path('app/views/' + controller_path)
+    self.prepend_view_path('app/views/' + load_subsite.slug) unless params[:action] == 'index'
   end
 
   ##

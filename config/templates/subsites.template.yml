@@ -47,14 +47,6 @@ test: &1
         default_lat: 52.8
         default_long: 21.5
         default_zoom: 5
-    lehman:
-      layout: signature
-      palette: monochromeLight
-      show_csv_results: true
-      map_search:
-        sidebar: false
-      date_search:
-        sidebar: true
     nyre:
       layout: nyre
       map_search:

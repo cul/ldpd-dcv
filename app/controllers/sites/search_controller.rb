@@ -60,12 +60,16 @@ module Sites
 
 		def show
 			params[:format] ||= 'html'
-			@response, @document = fetch "doi:#{params[:id]}", q: "{!raw f=#{blacklight_config.document_unique_id_param} v=$#{blacklight_config.document_unique_id_param}}"
+			if params[:id] =~ Dcv::Routes::DOI_ID_CONSTRAINT[:id]
+				@response, @document = fetch "doi:#{params[:id]}", q: "{!raw f=#{blacklight_config.document_unique_id_param} v=$#{blacklight_config.document_unique_id_param}}"
+			else
+				@response, @document = fetch "info:fedora/#{params[:id]}", q: "{!raw f=fedora_pid_uri_ssi v=$#{blacklight_config.document_unique_id_param}}"
+			end
 			return unless authorize_document
 
 			respond_to do |format|
 				format.html do
-					setup_next_and_previous_documents
+					setup_next_and_previous_documents if params[:id] =~ Dcv::Routes::DOI_ID_CONSTRAINT[:id]
 					render 'show' # explicate since proxies action delegates here
 				end
 

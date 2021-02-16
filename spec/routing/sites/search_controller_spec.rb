@@ -6,9 +6,12 @@ describe Sites::SearchController, :type => :routing do
     let(:doi_prefix) { "10.12345" }
     let(:doi_id) { "1a2b-3c4d5e" }
     let(:doi_id_param) { "#{doi_prefix}/#{doi_id}" }
+    let(:fedora_pid) { "cul:12345" }
     let(:internal_id) { 'gee' }
     it "routes to #show" do
       expect(get: "/#{site_slug}/#{doi_prefix}/#{doi_id}").to route_to(controller: "sites/search", action:"show", site_slug: site_slug, id: doi_id_param)
+      expect(get: "/#{site_slug}/#{fedora_pid}").to route_to(controller: "sites/search", action:"show", site_slug: site_slug, id: fedora_pid)
+      expect(get: "/#{site_slug}/#{internal_id}").not_to route_to(controller: "sites/search", action:"show", site_slug: site_slug, id: internal_id)
     end
     it "doesn't route extraneous segments into the doi id" do
       expect(get: "/#{site_slug}/#{doi_prefix}/#{doi_id}/x").not_to route_to(controller: "sites/search", action:"show", site_slug: site_slug, id: doi_id_param)

@@ -45,7 +45,7 @@ namespace :dcv do
     end
     template_foxml = File.read(File.join(Rails.root, "spec/fixtures/foxml/custom_template.xml"))
     template_mods = File.read(File.join(Rails.root, "spec/fixtures/mods/custom_template_mods.xml"))
-    ['carnegie','durst','jay','lcaaj','lehman','nyre'].each do |slug|
+    ['carnegie','durst','jay','lcaaj','nyre'].each do |slug|
       custom_pid = "custom:#{slug}"
       obj_sources[custom_pid] = {}
       template_subs = {template: slug, Template: slug.capitalize}
