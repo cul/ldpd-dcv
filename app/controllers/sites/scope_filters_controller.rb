@@ -18,7 +18,7 @@ module Sites
 			scope_filters_attributes = scope_filter_params['scope_filters_attributes']&.values || []
 			if scope_filters_attributes # must permit empty collection to allow deletions
 				begin
-					@subsite.scope_filters.delete_all
+					@subsite.scope_filters.destroy_all
 					scope_filters_attributes.each { |atts| @subsite.scope_filters << ScopeFilter.new(atts) }
 					@subsite.save!
 					flash[:notice] = "Scope Updated!"
