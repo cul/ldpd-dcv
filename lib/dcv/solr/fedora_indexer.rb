@@ -102,7 +102,7 @@ module Dcv::Solr::FedoraIndexer
         begin
           active_fedora_object = ActiveFedora::Base.find(pid, cast: false)
           if index_opts[:skip_generic_resources] && Dcv::Solr::DocumentAdapter::ActiveFedora.matches_any_cmodel?(active_fedora_object, ['info:fedora/ldpd:GenericResource'])
-            puts 'Object was skipped because GenericResources are being skipped and it is a GenericResource.'
+            Rails.logger.warn 'Object was skipped because GenericResources are being skipped and it is a GenericResource.'
           else
             doc_adapter = Dcv::Solr::DocumentAdapter::ActiveFedora(active_fedora_object)
             # rsolr params are camelcased

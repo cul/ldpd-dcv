@@ -2,7 +2,6 @@ module Dcv::Sites::Import
 	class Solr
 		include Dcv::Sites::Constants
 		def self.exists?(document)
-			puts document unless document[:slug_ssim].present?
 			document[:slug_ssim].present?
 		end
 		def initialize(document)
@@ -51,7 +50,7 @@ module Dcv::Sites::Import
 			end
 
 			unless site.save
-				puts "failed to import #{slug}:\n\t#{site.errors.inspect}"
+				Rails.logger.error("failed to import #{slug}:\n\t#{site.errors.inspect}")
 			end
 			if existing_site
 				return site

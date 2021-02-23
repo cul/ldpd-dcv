@@ -84,12 +84,12 @@ class SolrDocument
     if self[:restriction_ssim].present?
       Array(self[:slug_ssim]).compact.map { |val| "restricted/#{val}"  }.first
     else
-      self[:slug_ssim]&.first
+      Array(self[:slug_ssim]).compact.first
     end
   end
 
   def unqualified_slug
-    self[:slug_ssim]&.first
+    Array(self[:slug_ssim]).compact.first
   end
 
   def has_restriction?
