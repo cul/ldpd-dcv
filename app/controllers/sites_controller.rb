@@ -176,13 +176,15 @@ class SitesController < ApplicationController
             nav_link.update_attributes! nav_links_attributes.shift
           else
             # out of attributes so delete remaining nav links
-            nav_link.delete
+            nav_link.destroy
           end
         end
         # remaining attributes represent new nav links that must be added
         nav_links_attributes.each do |nav_link_attributes|
           @subsite.nav_links.create!(nav_link_attributes)
         end
+      else
+        @subsite.nav_links.destroy_all
       end
       if banner_upload
         BannerUploader.new(@subsite).store!(banner_upload)
