@@ -1,6 +1,6 @@
 <div class="row">
   <div id="sidebar" class="col-md-3">
-    <div class="inner">
+    <div class="inner outline">
       <%- cache [@subsite, 'home-content'] do -%>
         <div id="home-sidebar-news">
           <h2 class="home-sidebar-heading h5"><%= @subsite.title.html_safe %></h2>
@@ -39,7 +39,7 @@
   <div id="content" class="col-md-9">
         <div id="home-page-content">
 
-            <div id="home-page-tabs" class="inner">
+            <div id="home-page-tabs" class="inner outline">
                 <!-- Nav tabs -->
                 <ul class="nav nav-tabs">
                     <li class="active"><a href="#featured" data-toggle="tab">Featured</a></li>

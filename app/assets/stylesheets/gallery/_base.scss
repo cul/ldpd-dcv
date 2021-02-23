@@ -304,7 +304,9 @@
 	.inner {
 		padding: 1.2em;
 		background-color: rgba($color_primary_background, 0.7);
-		border: 1px solid $color_ui_outline;
+		&.outline {
+			border: 1px solid $color_ui_outline;
+		}
 	}
 }
 
