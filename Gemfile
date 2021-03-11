@@ -4,7 +4,7 @@ gem 'bigdecimal', '~>1.4.4'
 gem 'rails', '~> 4.2.11'
 gem 'actionpack-action_caching'
 # Hydra stack
-gem 'nokogiri', '~> 1.8.2'
+gem 'nokogiri', '~> 1.11.0'
 # kaminari 1.2.0 introduces a floating span close in Blacklight?
 gem 'kaminari', '~> 1.1.1'
 gem 'blacklight', '~> 6.0'
