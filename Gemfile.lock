@@ -357,7 +357,7 @@ GEM
       rdf (~> 1.99)
     rdoc (4.1.1)
       json (~> 1.4)
-    redcarpet (3.3.4)
+    redcarpet (3.5.1)
     redis (3.3.5)
     redis-namespace (1.6.0)
       redis (>= 3.0.4)
