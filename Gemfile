@@ -111,7 +111,10 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.4.0'
   gem 'rspec-json_expectations'
   gem 'capybara', '~> 3.32'
-  gem 'selenium-webdriver' # For headless-browser JavaScript testing
+  # For testing with chromedriver for headless-browser JavaScript testing
+  gem 'selenium-webdriver', '~> 3.142'
+  # For automatically updating chromedriver
+  gem 'webdrivers', '~> 4.0', require: false
   gem 'database_cleaner'
   gem 'factory_bot_rails'
   gem 'jettywrapper', '>=2.0.5', git: 'https://github.com/samvera-deprecated/jettywrapper.git', branch: 'master'
