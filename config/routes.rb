@@ -160,6 +160,24 @@ Dcv::Application.routes.draw do
     end
   end
 
+# IIIF presentation routes
+  namespace  :iiif do
+    scope ':version', version: /[23]/, registrant: /10\.[^\/]+/, doi: /[^\/]+/,
+      collection_registrant: /10\.[^\/]+/, collection_doi: /[^\/]+/,
+      manifest_registrant: /10\.[^\/]+/, manifest_doi: /[^\/]+/,
+      defaults: { version: 3 } do
+      defaults format: 'json' do
+        get '/presentation/:manifest_registrant/:manifest_doi', to: 'presentations#show', as: :presentation
+        get '/presentation/:collection_registrant/:collection_doi/collection(/*proxy_path)', to: 'presentations#collection', as: :collection, constraints: { format: 'json' }
+        get '/presentation/:collection_registrant/:collection_doi/manifest/:manifest_registrant/:manifest_doi', to: 'presentations#manifest', as: :collected_manifest, constraints: { format: 'json' }
+        get '/presentation/:manifest_registrant/:manifest_doi/manifest', to: 'presentations#manifest', as: :manifest
+        get '/presentation/:manifest_registrant/:manifest_doi/canvas/:registrant/:doi', to: 'presentations#canvas', as: :canvas
+        get '/presentation/:manifest_registrant/:manifest_doi/annotation/:registrant/:doi/:id', to: 'presentations#annotation', as: :annotation
+        get '/presentation/:manifest_registrant/:manifest_doi/annotationPage/:registrant/:doi', to: 'presentations#annotation', as: :annotation_page
+      end
+    end
+  end
+
 # Sites routes, placed after explicit subsite routing in priority
   get "sites" => "sites#index"
   get "sites/:slug", to: redirect("/%{slug}")

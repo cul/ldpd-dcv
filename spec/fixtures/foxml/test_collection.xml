@@ -32,7 +32,7 @@ xsi:schemaLocation="info:fedora/fedora-system:def/foxml# http://www.fedora.info/
 </foxml:datastream>
 <foxml:datastream ID="RELS-EXT" STATE="A" CONTROL_GROUP="X" VERSIONABLE="true">
 <foxml:datastreamVersion ID="RELS-EXT.0" LABEL="Fedora Object-to-Object Relationship Metadata" MIMETYPE="application/rdf+xml" SIZE="1119">
-<foxml:xmlContent><rdf:RDF xmlns:ns0="info:fedora/fedora-system:def/model#" xmlns:ns1="http://purl.oclc.org/NET/CUL/" xmlns:ns2="http://purl.org/dc/terms/" xmlns:ns3="http://www.bbc.co.uk/ontologies/coreconcepts/" xmlns:ns4="https://schema.org/" xmlns:ns5="http://purl.org/ontology/bibo/" xmlns:ns6="http://www.loc.gov/premis/rdf/v1#" xmlns:ns7="info:fedora/fedora-system:def/relations-external#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<foxml:xmlContent><rdf:RDF xmlns:ns0="info:fedora/fedora-system:def/model#" xmlns:ns1="http://purl.oclc.org/NET/CUL/" xmlns:ns2="http://purl.org/dc/terms/" xmlns:ns3="http://www.bbc.co.uk/ontologies/coreconcepts/" xmlns:ns4="https://schema.org/" xmlns:ns5="http://purl.org/ontology/bibo/" xmlns:ns6="http://www.loc.gov/premis/rdf/v1#" xmlns:ns7="info:fedora/fedora-system:def/relations-external#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bibo="http://purl.org/ontology/bibo/">
   <rdf:Description rdf:about="info:fedora/test:collection">
     <rdf:type rdf:resource="http://purl.oclc.org/NET/CUL/Aggregator"></rdf:type>
     <rdf:type rdf:resource="http://pcdm.org/models#Collection"></rdf:type>
@@ -42,6 +42,7 @@ xsi:schemaLocation="info:fedora/fedora-system:def/foxml# http://www.fedora.info/
     <ns2:source rdf:resource="https://dlc.library.columbia.edu/catalog"></ns2:source>
     <ns2:publisher rdf:resource="info:fedora/donotuse:catalog"></ns2:publisher>
     <ns7:isConstituentOf rdf:resource="info:fedora/cul:7d7wm37q33"></ns7:isConstituentOf>
+    <bibo:doi rdf:resource="doi:10.99999/1234-collection"></bibo:doi>
   </rdf:Description>
 </rdf:RDF></foxml:xmlContent>
 </foxml:datastreamVersion>
@@ -59,4 +60,25 @@ xsi:schemaLocation="info:fedora/fedora-system:def/foxml# http://www.fedora.info/
 </mets:structMap></foxml:xmlContent>
 </foxml:datastreamVersion>
 </foxml:datastream>
+<foxml:datastream ID="descMetadata" STATE="A" CONTROL_GROUP="X" VERSIONABLE="true"> 
+<foxml:datastreamVersion ID="descMetadata.0" LABEL="" MIMETYPE="text/xml">
+<foxml:xmlContent>
+<mods xmlns='http://www.loc.gov/mods/v3' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-4.xsd'>
+<identifier type='local'>apt://columbia.edu/uga_ur_00-6ec9ce8b-b967-4b1a-82bc-2e9eacd3843f</identifier>
+<titleInfo><title>Uganda Office Archive</title></titleInfo>
+<name type='personal'><namePart>Innis-Taylor, Adam</namePart></name>
+<typeOfResource>collection</typeOfResource>
+<physicalDescription><form authority='marcform'>electronic</form>
+<extent>7 items</extent>
+<digitalOrigin>reformatted digital</digitalOrigin>
+</physicalDescription>
+<originInfo><dateIssued keyDate='yes'>2021</dateIssued></originInfo>
+<location><physicalLocation authority='marcorg'>NNC-RB</physicalLocation>
+<physicalLocation>Rare Book and Manuscript Library, Columbia University Libraries</physicalLocation>
+</location>
+<accessCondition type='useAndReproduction'>Columbia Libraries Staff Use Only</accessCondition>
+<recordInfo><recordCreationDate encoding='w3cdtf'>2010-09-16</recordCreationDate><recordContentSource authority='marcorg'>NNC</recordContentSource><languageOfCataloging><languageTerm type='code' authority='iso639-2b'>eng</languageTerm></languageOfCataloging><recordOrigin>From test data.</recordOrigin></recordInfo> </mods>
+</foxml:xmlContent> 
+</foxml:datastreamVersion> 
+</foxml:datastream> 
 </foxml:digitalObject>

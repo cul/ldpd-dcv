@@ -39,6 +39,8 @@ describe Dcv::Solr::DocumentAdapter::ActiveFedora::GenericResource, type: :unit 
 				expected_text = expected.delete('all_text_teim')
 				actual_text = actual.delete('all_text_teim')
 				expect(actual_text.uniq).to eql(expected_text.uniq)
+				# legacy class does not wrap doi value in array
+				expect(actual.delete('ezid_doi_ssim')).to eql([expected.delete('ezid_doi_ssim')])
 				expect(actual).to eql(expected)
 			end
 			context "has zooming ds" do

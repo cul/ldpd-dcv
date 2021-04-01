@@ -36,6 +36,11 @@ describe Dcv::Solr::DocumentAdapter::ActiveFedora::Collection, type: :unit do
 				expect(actual_profile).to eql(expected_profile)
 				# legacy class does not set structured flag!
 				expect(actual.delete('structured_bsi')).to be true
+				# legacy class does not wrap doi value in array
+				expect(actual.delete('ezid_doi_ssim')).to eql([expected.delete('ezid_doi_ssim')])
+				# do not compare types of blank value that will not imapct index
+				actual.delete_if { |k,v| v.blank? }
+				expected.delete_if { |k,v| v.blank? }
 				expect(actual).to eql(expected)
 			end
 		end

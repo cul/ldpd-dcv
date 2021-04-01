@@ -1,8 +1,7 @@
 module Dcv::CdnHelper
 
   def zoomable_image_exists_for_resource?(pid)
-    url_to_check = Dcv::Utils::CdnUtils.random_cdn_url + "/iiif/2/#{pid}/info.json"
-    uri = URI.parse(url_to_check)
+    uri = URI.parse(get_iiif_zoom_info_url(id: pid))
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = true
     http.verify_mode = OpenSSL::SSL::VERIFY_NONE
@@ -14,16 +13,17 @@ module Dcv::CdnHelper
   def get_manifest_url(document, options = {})
     doi = document['ezid_doi_ssim'][0]
     doi = doi.sub(/^doi\:/,'') || doi
-    Dcv::Utils::CdnUtils.random_cdn_url + "/iiif/2/presentation/#{doi}/manifest"
+    registrant, doi = doi.split('/')
+    iiif_manifest_url(options.merge(version: 3, manifest_registrant: registrant, manifest_doi: doi))
   end
 
   def get_asset_url(conditions)
-    return Dcv::Utils::CdnUtils.random_cdn_url + "/iiif/2/#{conditions[:id]}/#{conditions[:type]}/!#{conditions[:size]},#{conditions[:size]}/0/native.#{conditions[:format]}"
+    Dcv::Utils::CdnUtils.asset_url(conditions)
   end
 
   def get_resolved_asset_url(conditions)
-    conditions[:id] = identifier_to_pid(conditions[:id], conditions[:pid])
-    return get_asset_url(conditions)
+    resolved_id = identifier_to_pid(conditions[:id], conditions[:pid])
+    Dcv::Utils::CdnUtils.asset_url(conditions.merge(id: resolved_id))
   end
 
   def get_asset_info_url(conditions)
@@ -35,11 +35,12 @@ module Dcv::CdnHelper
   end
 
   def get_iiif_zoom_info_url(conditions)
-    return  Dcv::Utils::CdnUtils.random_cdn_url + "/iiif/2/#{conditions[:id]}/info.json"
+    Dcv::Utils::CdnUtils.info_url(conditions)
   end
 
   def get_resolved_iiif_zoom_info_url(conditions)
-    return  Dcv::Utils::CdnUtils.random_cdn_url + "/iiif/2/#{identifier_to_pid(conditions[:id], conditions[:pid])}/info.json"
+    resolved_id = identifier_to_pid(conditions[:id], conditions[:pid])
+    Dcv::Utils::CdnUtils.info_url(conditions.merge(id: resolved_id))
   end
 
   def archive_org_id_for_document(document)
@@ -77,12 +78,12 @@ module Dcv::CdnHelper
     if (url = get_archive_org_thumbnail_url(document))
       return url
     end
-    schema_image = Array(document[ActiveFedora::SolrService.solr_name('schema_image', :symbol)]).first
+    schema_image = Array(document['schema_image_ssim']).first
     # non-site behavior
     schema_image = document['representative_generic_resource_pid_ssi'] if schema_image.blank?
 
     if schema_image.present?
-      get_asset_url(id: schema_image.split('/')[-1], size: 256, type: 'featured', format: 'jpg')
+      Dcv::Utils::CdnUtils.asset_url(id: schema_image.split('/')[-1], size: 256, type: 'featured', format: 'jpg')
     elsif document[:cul_number_of_members_isi] == 0
       placeholder_format = (['books', 'maps'] & document.fetch('lib_format_ssm', [])).first&.singularize
       if placeholder_format
@@ -95,19 +96,20 @@ module Dcv::CdnHelper
         image_url("thumbtack-fa-placeholder.png")
       end
     else # fall back to whatever the item does from image server
-      get_asset_url(id: document.id, size: 256, type: 'featured', format: 'jpg')
+      Dcv::Utils::CdnUtils.asset_url(id: document.id, size: 256, type: 'featured', format: 'jpg')
     end
   end
 
-  def poster_url(item, asset = {}, opts = {})
+  def poster_url(item, opts = {})
     if (url = get_archive_org_poster_url(item))
       return url
     end
     schema_image = Array(item[ActiveFedora::SolrService.solr_name('schema_image', :symbol)]).first
 
-    id = schema_image ? schema_image.split('/')[-1] : item.id
+    id = schema_image ? schema_image.split('/')[-1] : nil
+    id ||= identifier_to_pid(item[:id], item[:pid])
     opts = { size: 768, type: 'full', format: 'jpg' }.merge(opts)
-    get_resolved_asset_url(opts.merge(id: asset[:id], pid: asset[:pid]))
+    Dcv::Utils::CdnUtils.asset_url(opts.merge(id: id))
   end
 
   def thumbnail_for_doc(document, image_options = {})

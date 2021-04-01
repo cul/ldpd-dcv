@@ -35,6 +35,8 @@ describe Dcv::Solr::DocumentAdapter::ActiveFedora::ContentAggregator, type: :uni
 				expected_profile = expected.delete('object_profile_ssm')
 				actual_profile = actual.delete('object_profile_ssm')
 				expect(actual_profile).to eql(expected_profile)
+				# legacy class does not wrap doi value in array
+				expect(actual.delete('ezid_doi_ssim')).to eql([expected.delete('ezid_doi_ssim')])
 				expect(actual).to eql(expected)
 			end
 		end

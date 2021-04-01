@@ -144,50 +144,17 @@ module Dcv::ChildrenHelperBehavior
       end.map(&:with_indifferent_access)
   end
 
+  def solr_children_adapter
+    @children_adapter ||= begin
+      searcher = (defined? :controller) ? controller : self
+      authorizer = self
+      title_field = (defined? :document_show_link_field) ? document_show_link_field : "title_ssm"
+      Dcv::Solr::ChildrenAdapter.new(searcher, authorizer, title_field)
+    end
+  end
+
   def structured_children_from_solr(parent_document)
-    fq = [
-      "proxyIn_ssi:\"info:fedora/#{parent_document['id']}\"",
-      "proxyFor_ssi:*"
-    ]
-    _params = {
-      q: '*:*',
-      fq: fq,
-      qt: 'search',
-      rows: 999999,
-      facet: false
-    }
-
-    merge_proc = Proc.new { |b| b.merge(_params) }
-    response, docs = (defined? :controller) ? controller.search_results({}, &merge_proc) : search_results({}, &merge_proc)
-    title_field = (defined? :document_show_link_field) ? document_show_link_field : "title_ssm"
-    proxies = response['response']['docs']
-    proxies = Hash[proxies.map {|proxy| [proxy['proxyFor_ssi'], proxy]}]
-
-    _params[:q] = "{!join to=dc_identifier_ssim from=proxyFor_ssi}proxyIn_ssi:\"info:fedora/#{parent_document['id']}\""
-    _params[:fq] = []
-    merge_proc = Proc.new { |b| b.merge(_params) }
-    response, docs = (defined? :controller) ? controller.search_results({}, &merge_proc) : search_results({}, &merge_proc)
-    kids = docs.select { |doc| online_access_indicated?(doc) }
-    return nil unless kids.present?
-    kids.map! { |kid| kid.to_h.with_indifferent_access }
-    kids.each do |kid|
-      kid['proxy_id'] = kid['dc_identifier_ssim'].detect { |key| proxies[key] }
-    end
-
-    kids.sort_by! {|kid| proxies[kid['proxy_id']]['index_ssi'].to_i}
-    order = 0
-    kids.map do |kid|
-      order += 1
-      kid_title = proxies[kid['proxy_id']]['label_ssi'] || Array(kid[title_field]).first || "Image #{order}"
-      SolrDocument.new kid.merge({
-        id: kid['id'],
-        pid: kid['id'],
-        dc_type: Array(kid['dc_type_ssm']).first,
-        order: order,
-        title: kid_title,
-        thumbnail: get_asset_url(id: kid['id'], size: 256, type: 'full', format: 'jpg')
-      })
-    end
+    solr_children_adapter.from_all_structure_proxies(parent_document)
   end
 
   def post_to_repository(path, params)
@@ -195,30 +162,7 @@ module Dcv::ChildrenHelperBehavior
   end
 
   def archive_org_identifiers_as_children(parent_document = @document)
-    @archive_org_identifiers ||= begin
-      order = 0
-      kids = JSON.parse(parent_document.fetch('archive_org_identifiers_json_ss','[]'))
-      if kids.blank? && parent_document.archive_org_identifier
-        kids << {
-          'id' => parent_document.archive_org_identifier,
-          'displayLabel' => parent_document['title_display_ssm'].first
-        }
-      end
-      kids.map do |arxv_obj|
-        SolrDocument.new({
-          id: arxv_obj['id'],
-          dc_type: 'Text',
-          order: (order += 1),
-          title: arxv_obj['displayLabel'] || arxv_obj['id'],
-          thumbnail: thumbnail_url('archive_org_identifier_ssi' => arxv_obj['id']),
-          datastreams_ssim: [],
-          active_fedora_model_ssi: 'ArchiveOrg',
-          archive_org_identifier_ssi: arxv_obj['id'],
-          access_control_levels_ssim: [ACCESS_LEVEL_PUBLIC],
-          access_control_permissions_bsi: false
-        })
-      end
-    end
+    @archive_org_identifiers ||= solr_children_adapter.from_archive_org_identifiers(parent_document)
   end
 
   def url_to_proxy(opts)

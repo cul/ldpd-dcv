@@ -11,6 +11,10 @@ module Dcv::SolrHelper
   end
 
   def online_access_indicated?(hash)
-     (hash['access_control_levels_ssim'] & [ACCESS_LEVEL_CLOSED, ACCESS_LEVEL_EMBARGO]).blank?
+    (hash['access_control_levels_ssim'] & [ACCESS_LEVEL_CLOSED, ACCESS_LEVEL_EMBARGO]).blank?
+  end
+
+  def online_access_filters
+    [ACCESS_LEVEL_CLOSED, ACCESS_LEVEL_EMBARGO].map {|val| "!access_control_levels_ssim:\"#{val}\""}
   end
 end

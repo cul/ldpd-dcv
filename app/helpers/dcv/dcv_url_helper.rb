@@ -57,16 +57,7 @@ module Dcv::DcvUrlHelper
   # @param keep_originals [Array<Regexp>] name patterns to defer to original for
   # @return [String] preferred bytestream name
   def preferred_content_bytestream(doc, *keep_originals)
-    doc = SolrDocument.new(doc) unless doc.nil? or doc.is_a? SolrDocument
-    if doc.is_a?(SolrDocument)
-      originals = doc['original_name_ssim'] || doc[:original_name_ssim] || []
-      datastreams = doc['datastreams_ssim'] || doc[:datastreams_ssim] || ['content']
-      if originals.detect {|o| keep_originals.detect {|k| k.match(o) } }
-        return (['service','content'] & datastreams.map(&:to_s)).first
-      end
-      return (['access','service','content'] & datastreams.map(&:to_s)).first
-    end
-    return nil
+    Dcv::Utils::UrlUtils.preferred_content_bytestream(doc, *keep_originals)
   end
 
   def persistent_link_to(label, document, opts = {})

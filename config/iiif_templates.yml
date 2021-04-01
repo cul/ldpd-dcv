@@ -1,0 +1,42 @@
+manifest:
+  "@context": "http://iiif.io/api/presentation/3/context.json"
+  "type": "sc:Manifest"
+  "logo":
+    "id": "http://cdn.cul.columbia.edu/ldpd-toolkit/img/crown-bts-24x24.png"
+  sequences : []
+  structures : []
+canvas :
+  "type" : "Canvas"
+painting_annotation :
+  "type" : "Annotation"
+  motivation : "painting"
+image_annotation_body:
+  "type" : "Image"
+  format : "image/jpeg"
+  service:
+    "type": "ImageService3"
+    profile : "level2"
+    sizes: []
+text_annotation_body:
+  "type" : "Text"
+  format : "application/pdf"
+range :
+  "type" : "Range"
+  "members" : []
+sequence :
+  "type" : "Sequence"
+  "viewingDirection" : "left-to-right"
+  "viewingHint" : "individuals"
+directions :
+  - left-to-right
+  - right-to-left
+  - top-to-bottom
+  - bottom-to-top
+hints :
+  - individuals
+  - paged
+  - continuous
+  - multi-part
+  - non-paged
+  - top
+  - facing-pages

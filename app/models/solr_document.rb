@@ -58,6 +58,12 @@ class SolrDocument
     end
   end
 
+  def doi_identifier
+    if self[:ezid_doi_ssim].present?
+      return self[:ezid_doi_ssim][0].to_s.sub(/^doi\:/,'') || self[:ezid_doi_ssim][0].to_s
+    end
+  end
+
   def archive_org_identifier
     urls = self[:lib_non_item_in_context_url_ssm] || []
     archive_org_location = urls.detect { |url| url =~ /\/archive\.org\// }
@@ -65,6 +71,17 @@ class SolrDocument
       return archive_org_location.split('/')[-1]
     end
     self[:archive_org_identifier_ssi]
+  end
+
+  def schema_image_identifier
+    schema_image = Array(fetch('schema_image_ssim', [])).first
+    # non-site behavior
+    schema_image = self['representative_generic_resource_pid_ssi'] if schema_image.blank?
+    if schema_image.present?
+      schema_image.split('/')[-1]
+    else
+      nil
+    end
   end
 
   # Scrub permanent links from catalog data to use modern resolver syntax
@@ -94,6 +111,24 @@ class SolrDocument
 
   def has_restriction?
     self[:restriction_ssim].present?
+  end
+
+  # merge behaviors that presume HashWithIndifferentAccess targets
+  def merge_source!(target)
+    _source.merge!(target)
+  end
+
+  def merge_source(target)
+    self.class.new(_source).merge_source!(target)
+  end
+
+  # merge behaviors that presume SolrDocument targets
+  def merge_document!(solr_document)
+    _source.merge!(solr_document._source)
+  end
+
+  def merge_document(solr_document)
+    self.class.new(_source).merge!(solr_document)
   end
 
   def self.each_site_document(index = Blacklight.default_index, fl = '*', &block)

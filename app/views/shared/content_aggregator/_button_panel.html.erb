@@ -28,7 +28,7 @@
   <% end -%>
   <% if local_downloads -%>
   <% if has_persistent_link?(document) && structured_children.detect {|x| x[:dc_type] =~ /image/i } %>
-    <a id="draggable-iiif-button" class="btn btn-default grabbable" href="<%= '#?manifest=' + CGI::escape(get_manifest_url(document))%>" title="drag-n-drop iiif manifest" data-toggle="tooltip">
+    <a id="draggable-iiif-button" class="btn btn-default grabbable" href="<%= get_manifest_url(document) %>" title="drag-n-drop iiif manifest" data-toggle="tooltip">
       <%= image_tag('logo-iiif-34x30.png', srcset: asset_path("iiif-logo.svg"), class: "localicon-iiif") %>
     </a>
   <% end %>

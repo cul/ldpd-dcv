@@ -112,7 +112,9 @@ module Dcv::Solr::DocumentAdapter
       end
 
       solr_doc['all_text_teim']&.uniq!
-
+      if solr_doc['ezid_doi_ssim'].present? && !solr_doc['ezid_doi_ssim'].is_a?(Array)
+        solr_doc['ezid_doi_ssim'] = Array(solr_doc['ezid_doi_ssim'])
+      end
       solr_doc
     end
 

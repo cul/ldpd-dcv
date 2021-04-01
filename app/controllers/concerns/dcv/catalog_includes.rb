@@ -5,6 +5,7 @@ module Dcv::CatalogIncludes
 
   include Blacklight::Catalog
   include Dcv::Catalog::BrowseListBehavior
+  include Dcv::Catalog::CachedFetchBehavior
   include Dcv::Catalog::DateRangeSelectorBehavior
   include Dcv::Catalog::RandomItemBehavior
   include Dcv::Catalog::PivotFacetDataBehavior
