@@ -12,7 +12,7 @@ class Dcv::Solr::DocumentAdapter::ActiveFedora
 
     def to_solr(solr_doc={}, opts={})
       solr_doc = (defined? super) ? super : solr_doc
-      return solr_doc unless obj.is_a?(::ActiveFedora::Base) && matches_any_cmodel?(["info:fedora/ldpd:Collection"])
+      return solr_doc unless obj.is_a?(::ActiveFedora::Base) && matches_any_cmodel?(["info:fedora/ldpd:Collection", "info:fedora/pcdm:Collection"])
 
       solr_doc['active_fedora_model_ssi'] = 'Collection'
       solr_doc
