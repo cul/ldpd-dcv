@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<mods xmlns='http://www.loc.gov/mods/v3' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-4.xsd' version='3.4'>
+<extension xmlns:iiif_pres3="http://iiif.io/api/presentation/3#">
+<iiif_pres3:behavior valueURI="http://iiif.io/api/presentation/3#pagedHint">paged</iiif_pres3:behavior>
+<iiif_pres3:viewingDirection valueURI="http://iiif.io/api/presentation/3#leftToRightDirection" authority="iiif">left-to-right</iiif_pres3:viewingDirection>
+</extension>
+</mods>

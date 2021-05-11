@@ -10,7 +10,7 @@ module Dcv::Solr::DocumentAdapter
   end
 
   class ModsXml < Dcv::Solr::DocumentAdapter::Abstract
-    MODS_NS = {'mods'=>'http://www.loc.gov/mods/v3', 'cul' => 'http://id.library.columbia.edu/property/'}
+    MODS_NS = {'mods'=>'http://www.loc.gov/mods/v3', 'cul' => 'http://id.library.columbia.edu/property/', 'iiif_pres3' => 'http://iiif.io/api/presentation/3#'}
 
     autoload :OmRules, 'dcv/solr/document_adapter/mods_xml/om_rules'
     autoload :Fields, 'dcv/solr/document_adapter/mods_xml/fields'

@@ -530,6 +530,16 @@ class Dcv::Solr::DocumentAdapter::ModsXml
       node.xpath("./mods:extension/cul:searchScope", MODS_NS).map { |scope_node| scope_node.attr('value') }
     end
 
+    def iiif_properties(node=mods)
+      behaviors = node.xpath("./mods:extension/iiif_pres3:behavior", MODS_NS).map do |behavior_node|
+        behavior_node.text.strip.downcase
+      end
+      behaviors = nil if behaviors.blank?
+      viewing_direction = node.xpath("./mods:extension/iiif_pres3:viewingDirection", MODS_NS).first
+      viewing_direction = viewing_direction.text.strip.downcase if viewing_direction
+      {'iiif_viewing_direction_ssi' => viewing_direction, 'iiif_behavior_ssim' => behaviors}.compact
+    end
+
     def to_solr(solr_doc={})
       solr_doc = (defined? super) ? super : solr_doc
       return solr_doc if mods.nil?  # There is no mods.  Return because there is nothing to process, otherwise NoMethodError will be raised by subsequent lines.
@@ -671,6 +681,7 @@ class Dcv::Solr::DocumentAdapter::ModsXml
       solr_doc['search_scope_ssi'] = search_scope.first
       solr_doc['reading_room_ssim'] = reading_room_locations
 
+      solr_doc.merge!(iiif_properties(mods))
       solr_doc
     end
 

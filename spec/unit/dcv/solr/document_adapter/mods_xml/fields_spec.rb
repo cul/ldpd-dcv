@@ -284,4 +284,20 @@ describe Dcv::Solr::DocumentAdapter::ModsXml, type: :unit do
       expect(adapter.to_solr['title_si']).to eql expected
     end
   end
+
+  describe ".iiif_properties" do
+    let(:xml_src) { fixture( File.join("mods", "mods-iiif-ext.xml")) }
+    let(:expected) { {'iiif_behavior_ssim' => ['paged'], 'iiif_viewing_direction_ssi' => 'left-to-right'} }
+    it "should index iiif extension properties when present" do
+      expect(adapter.iiif_properties).to eql expected
+      expect(adapter.to_solr).to have_key('iiif_behavior_ssim')
+      expect(adapter.to_solr).to have_key('iiif_viewing_direction_ssi')
+    end
+    context "are absent" do
+      let(:xml_src) { fixture( File.join("mods", "mods-titles-extended.xml")) }
+      it "adds no properties" do
+        expect(adapter.iiif_properties).to be_empty
+      end
+    end
+  end
 end
