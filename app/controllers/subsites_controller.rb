@@ -119,7 +119,11 @@ class SubsitesController < ApplicationController
     published_url = url_for(controller: controller_name, action: :show, id: pid)
     logger.debug "reindexing #{pid}"
     begin
-      IndexFedoraObjectJob.perform({'pid' => pid, 'subsite_keys' => [subsite_key], 'reraise' => true})
+      solr_doc = IndexFedoraObjectJob.perform({'pid' => pid, 'subsite_keys' => [subsite_key], 'reraise' => true})
+      if solr_doc&.doi_identifier
+        registrant, doi = solr_doc.doi_identifier.split('/')
+        published_url = resolve_doi_url(registrant: registrant, doi: doi)
+      end
       response.headers['Location'] = published_url
       render status: status, json: { "success" => true }
     rescue ActiveFedora::ObjectNotFoundError

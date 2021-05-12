@@ -58,9 +58,12 @@ describe CatalogController, :type => :controller do
         let(:mock_object) do
           double(ActiveFedora::Base)
         end
-        let(:params) { { id: 'good:id' } }
+        let(:mock_id) { 'good:id' }
+        let(:mock_doi) { 'doi:10.1234/567-abc' }
+        let(:solr_doc) { SolrDocument.new(id: mock_id, ezid_doi_ssim: [mock_doi]) }
+        let(:params) { { id: mock_id } }
         before do
-          expect(IndexFedoraObjectJob).to receive(:perform).with(hash_including('pid' => 'good:id', 'reraise' => true))
+          expect(IndexFedoraObjectJob).to receive(:perform).with(hash_including('pid' => mock_id, 'reraise' => true)).and_return(solr_doc)
         end
         it do
           expect(subject).to eql(200)

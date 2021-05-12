@@ -5,6 +5,7 @@ class IndexFedoraObjectJob
 
   @queue = Dcv::Queue::INDEX_FEDORA_OBJECT # This is the default queue for this job
 
+  # @return SolrDocument
   def self.perform(conditions, queue_time_string=Time.now.to_s)
 	conditions = conditions.dup
 	pid = conditions.delete('pid')

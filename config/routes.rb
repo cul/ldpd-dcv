@@ -178,6 +178,20 @@ Dcv::Application.routes.draw do
     end
   end
 
+  namespace :resolve do
+    scope ':registrant', registrant: /10\.[A-Za-z0-9\-]+/, doi: /[^\/]+/ do
+      defaults format: 'json' do
+        get '/:doi', to: 'dois#resolve', as: :doi, constraints: { format: 'json' }
+      end
+    end
+    resources :catalog, only: [:show], constraints: { id: /[^\?]+/ } do
+      resources :bytestreams, only: [:index, :show] do
+        get 'content'=> 'bytestreams#content'
+      end
+    end
+    resources :bytestreams, path: 'catalog/:catalog_id/bytestreams', only: [:index, :show], constraints: { slug: /(?!.*edit).*/ }
+  end
+
 # Sites routes, placed after explicit subsite routing in priority
   get "sites" => "sites#index"
   get "sites/:slug", to: redirect("/%{slug}")
@@ -203,15 +217,6 @@ Dcv::Application.routes.draw do
 
   resources :bytestreams, path: '/catalog/:catalog_id/bytestreams' do
     get 'content' => 'bytestreams#content'
-  end
-
-  namespace :resolve do
-    resources :catalog, only: [:show], constraints: { id: /[^\?]+/ } do
-      resources :bytestreams, only: [:index, :show] do
-        get 'content'=> 'bytestreams#content'
-      end
-    end
-    resources :bytestreams, path: 'catalog/:catalog_id/bytestreams', only: [:index, :show], constraints: { slug: /(?!.*edit).*/ }
   end
 
   get ':layout/:id/details' => 'details#show', as: :details

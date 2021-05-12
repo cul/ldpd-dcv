@@ -92,25 +92,9 @@ class Site < ActiveRecord::Base
 	end
 
 	def default_filters
-		f = {}
-		self.constraints.each do |search_scope, facet_value|
-			next unless facet_value.present?
-			case search_scope
-			when 'collection'
-				facet_field = 'lib_collection_sim'
-			when 'collection_key'
-				facet_field = 'collection_key_ssim'
-			when 'project'
-				facet_field = 'lib_project_short_ssim'
-			when 'project_key'
-				facet_field = 'project_key_ssim'
-			when 'publisher'
-				facet_field = 'publisher_ssim'
-			when 'repository_code'
-				facet_field = 'lib_repo_code_ssim'
-			end
-			next unless facet_field
-			f[facet_field] = Array(facet_value)
+		f = scope_filters.inject({}) do |result, filter|
+			(result[filter.solr_field] ||= []) << filter.value if filter.solr_field
+			result
 		end
 		if self.restricted.present? && self.repository_id
 			f['lib_repo_code_ssim'] ||= [self.repository_id]

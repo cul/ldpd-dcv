@@ -92,6 +92,7 @@ module Dcv::Solr::FedoraIndexer
     index_opts
   end
 
+  # @return SolrDocument
   def self.index_pid(pid, *args)
     # We found an object with the desired PID. Let's reindex it
     index_opts = extract_index_opts(args)
@@ -103,6 +104,7 @@ module Dcv::Solr::FedoraIndexer
           active_fedora_object = ActiveFedora::Base.find(pid, cast: false)
           if index_opts[:skip_generic_resources] && Dcv::Solr::DocumentAdapter::ActiveFedora.matches_any_cmodel?(active_fedora_object, ['info:fedora/ldpd:GenericResource'])
             Rails.logger.warn 'Object was skipped because GenericResources are being skipped and it is a GenericResource.'
+            break
           else
             doc_adapter = Dcv::Solr::DocumentAdapter::ActiveFedora(active_fedora_object)
             # rsolr params are camelcased
@@ -113,8 +115,8 @@ module Dcv::Solr::FedoraIndexer
               Dcv::Sites::Import::Solr.new(solr_doc).run
             end
             puts 'done.' if index_opts[:verbose_output]
+            return solr_doc
           end
-          break
         rescue RestClient::RequestTimeout, Errno::EHOSTUNREACH => e
           remaining_attempts = (NUM_FEDORA_RETRY_ATTEMPTS-1) - i
           if remaining_attempts == 0
