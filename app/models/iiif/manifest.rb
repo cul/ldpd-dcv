@@ -102,16 +102,14 @@ class Iiif::Manifest < Iiif::BaseResource
 
     # Items
     manifest["items"] = items if opts[:include]&.include?(:items)
-    if @solr_document['active_fedora_model_ssi'] == 'GenericResource'
-      manifest.delete("behavior")
-      manifest.delete("viewingDirection")
-    else
-      # TODO: remove in favor of explicit metadata in index
+
+    # TODO: remove in favor of explicit metadata in index
+    unless @solr_document['active_fedora_model_ssi'] == 'GenericResource'
       if manifest.dig("items", 0, 'label').to_s =~ /cover/i
         manifest['behavior'] = [Iiif::Behavior::V3::PAGED]
       end
     end
-    manifest
+    manifest.compact
   end
 
   def items
@@ -135,6 +133,7 @@ class Iiif::Manifest < Iiif::BaseResource
   # paged
   # continuous
   def behaviors
+    return nil if @solr_document['active_fedora_model_ssi'] == 'GenericResource' 
     return Array(@solr_document['iiif_behavior_ssim']) if @solr_document['iiif_behavior_ssim'].present?
     return [Iiif::Behavior::V3::UNORDERED] unless @solr_document['structured_bsi']
     if @solr_document['cul_number_of_members_isi'] < 3
@@ -145,6 +144,7 @@ class Iiif::Manifest < Iiif::BaseResource
   end
 
   def viewing_direction
+    return nil if @solr_document['active_fedora_model_ssi'] == 'GenericResource' 
     return @solr_document['iiif_viewing_direction_ssi'] if @solr_document['viewing_direction_ssi'].present?
     Iiif::ViewingDirection::V3::LEFT_TO_RIGHT
   end

@@ -26,6 +26,7 @@ class Iiif::Canvas < Iiif::BaseResource
     canvas['type'] = 'Canvas'
     canvas['label'] = label.to_s
     canvas['thumbnail'] = thumbnail
+    canvas["behavior"] = behaviors
     if canvas_type == Iiif::Type::V3::IMAGE
       canvas['height'] = dimensions[:height]
       canvas['width'] = dimensions[:width]
@@ -35,7 +36,11 @@ class Iiif::Canvas < Iiif::BaseResource
       canvas['width'] = 1
     end
     canvas['items'] = [annotation_page.to_h]
-    canvas
+    canvas.compact
+  end
+
+  def behaviors
+    return Array(@solr_document['iiif_behavior_ssim']) if @solr_document['iiif_behavior_ssim'].present?
   end
 
   def dimensions
