@@ -244,6 +244,12 @@ class Dcv::Solr::DocumentAdapter::ModsXml
       values
     end
 
+    def enumerations(node=mods)
+      node.xpath("./mods:location/mods:holdingSimple/mods:copyInformation/mods:enumerationAndChronology", MODS_NS).map do |n|
+        Fields.normalize(n.text, true)
+      end
+    end
+
     def textual_dates(node=mods)
       dates = []
       ORIGIN_INFO_DATES.each do |element|
@@ -572,6 +578,7 @@ class Dcv::Solr::DocumentAdapter::ModsXml
       add_shelf_locator_facets!(solr_doc, shelf_locators)
       solr_doc['location_shelf_locator_ssm'] = solr_doc["lib_shelf_sim"]
       solr_doc["all_text_teim"] += solr_doc["lib_shelf_sim"]
+      solr_doc["lib_enumeration_ssim"] = enumerations
       solr_doc['lib_sublocation_sim'] = sublocation
       solr_doc['lib_sublocation_ssm'] = solr_doc['lib_sublocation_sim']
       solr_doc["all_text_teim"] += solr_doc['lib_sublocation_sim']

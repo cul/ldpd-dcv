@@ -187,6 +187,13 @@ describe Dcv::Solr::DocumentAdapter::ModsXml, type: :unit do
     end
   end
 
+  describe ".enumerations" do
+    let(:xml_src) { fixture( File.join("mods", "mods-physical-location-with-dual-location-shelflocator-and-sublocation.xml") ) }
+    it "parse enumerationAndChronology from copyInformation" do
+      expect(solr_doc["lib_enumeration_ssim"].sort).to eql ['v.1-2']
+    end
+  end
+
   describe ".textual_dates" do
     let(:xml_src) { fixture( File.join("mods", "mods-textual-dates-with-unusual-chars.xml")) }
     it "should not change the textual date, other than removing leading or trailing whitespace" do
