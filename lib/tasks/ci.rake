@@ -125,136 +125,19 @@ namespace :dcv do
 
     # Note: Don't include Rails environment for this task, since enviroment includes a check for the presence of database.yml
     task :config_files do
-
-      # Set up files
-      default_development_port = 8983
-      default_test_port = 9983
-
-      # database.yml
-      database_yml_file = File.join(Rails.root, 'config/database.yml')
-      FileUtils.touch(database_yml_file) # Create if it doesn't exist
-      database_yml = YAML.load_file(database_yml_file) || {}
-      ['development', 'test'].each do |env_name|
-        database_yml[env_name] ||= {
-          'adapter' => 'sqlite3',
-          'database' => 'db/' + env_name + '.sqlite3',
-          'pool' => 5,
-          'timeout' => 5000
-        }
+      # yml templates
+      Dir.glob(File.join(Rails.root, "config/templates/*.template.yml")).each do |template_yml_path|
+        target_yml_path = File.join(Rails.root, 'config', File.basename(template_yml_path).sub(".template.yml", ".yml"))
+        FileUtils.touch(target_yml_path) # Create if it doesn't exist
+        target_yml = YAML.load_file(target_yml_path) || YAML.load_file(template_yml_path)
+        File.open(target_yml_path, 'w') {|f| f.write target_yml.to_yaml }
       end
-      File.open(database_yml_file, 'w') {|f| f.write database_yml.to_yaml }
-
-      # fedora.yml
-      fedora_yml_file = File.join(Rails.root, 'config/fedora.yml')
-      FileUtils.touch(fedora_yml_file) # Create if it doesn't exist
-      fedora_yml = YAML.load_file(fedora_yml_file) || {}
-      ['development', 'test'].each do |env_name|
-        fedora_yml[env_name] ||= {
-          :user => 'fedoraAdmin',
-          :password => 'fedoraAdmin',
-          :url => 'http://localhost:' + (env_name == 'test' ? default_test_port : default_development_port).to_s + (env_name == 'test' ? '/fedora-test' : '/fedora'),
-          :time_zone => 'America/New_York'
-        }
+      Dir.glob(File.join(Rails.root, "config/templates/*.template.yml.erb")).each do |template_yml_path|
+        target_yml_path = File.join(Rails.root, 'config', File.basename(template_yml_path).sub(".template.yml.erb", ".yml"))
+        FileUtils.touch(target_yml_path) # Create if it doesn't exist
+        target_yml = YAML.load_file(target_yml_path) || YAML.load(ERB.new(File.read(template_yml_path)).result(binding))
+        File.open(target_yml_path, 'w') {|f| f.write target_yml.to_yaml }
       end
-      File.open(fedora_yml_file, 'w') {|f| f.write fedora_yml.to_yaml }
-
-      # secrets.yml
-      secrets_yml_file = File.join(Rails.root, 'config/secrets.yml')
-      FileUtils.touch(secrets_yml_file) # Create if it doesn't exist
-      secrets_yml = YAML.load_file(secrets_yml_file) || {}
-      ['development', 'test'].each do |env_name|
-        secrets_yml[env_name] ||= {
-          'secret_key_base' => SecureRandom.hex(64),
-          'session_store_key' =>  '_dcv_' + env_name + '_session_key'
-        }
-      end
-      File.open(secrets_yml_file, 'w') {|f| f.write secrets_yml.to_yaml }
-
-      # solr.yml
-      solr_yml_file = File.join(Rails.root, 'config/solr.yml')
-      FileUtils.touch(solr_yml_file) # Create if it doesn't exist
-      solr_yml = YAML.load_file(solr_yml_file) || {}
-      ['development', 'test'].each do |env_name|
-        solr_yml[env_name] ||= {
-          'url' => 'http://localhost:' + (env_name == 'test' ? default_test_port : default_development_port).to_s + '/solr/dcv_' + env_name
-        }
-      end
-      File.open(solr_yml_file, 'w') {|f| f.write solr_yml.to_yaml }
-
-      # blacklight.yml
-      blacklight_yml_file = File.join(Rails.root, 'config/blacklight.yml')
-      FileUtils.touch(blacklight_yml_file) # Create if it doesn't exist
-      blacklight_yml = YAML.load_file(blacklight_yml_file) || {}
-      ['development', 'test'].each do |env_name|
-        blacklight_yml[env_name] ||= {
-          'url' => 'http://localhost:' + (env_name == 'test' ? default_test_port : default_development_port).to_s + '/solr/dcv_' + env_name,
-          'adapter' => 'solr'
-        }
-      end
-      File.open(blacklight_yml_file, 'w') {|f| f.write blacklight_yml.to_yaml }
-
-      # cas.yml
-      cas_yml_file = File.join(Rails.root, 'config/cas.yml')
-      FileUtils.touch(cas_yml_file) # Create if it doesn't exist
-      cas_yml = YAML.load_file(cas_yml_file) || {}
-      ['development', 'test'].each do |env_name|
-        cas_yml[env_name] ||= {
-          'provider' => 'developer',
-          'fields' => ['uni', 'email'],
-          'uid_field' => 'uni'
-        }
-      end
-      File.open(cas_yml_file, 'w') {|f| f.write cas_yml.to_yaml }
-
-      # roles.yml
-      roles_yml_file = File.join(Rails.root, 'config/roles.yml')
-      FileUtils.touch(roles_yml_file) # Create if it doesn't exist
-      roles_yml = YAML.load_file(roles_yml_file) || {
-        '_all_environments' => {
-          '*' => {
-            'can' => {
-              'catalog#*' => []
-            }
-          }
-        }
-      }
-      File.open(roles_yml_file, 'w') {|f| f.write roles_yml.to_yaml }
-
-      yml_file = File.join(Rails.root, 'config/location_uris.yml')
-      FileUtils.touch(yml_file) # Create if it doesn't exist
-      stub_yml = YAML.load_file(yml_file) || {
-        'development' => {
-          'http://id.library.columbia.edu/term/45487bbd-97ef-44b4-9468-dda47594bc60' => {
-            'remote_ip' => ['127.0.0.1']
-          }
-        },
-        'test' => {
-          'http://id.library.columbia.edu/term/45487bbd-97ef-44b4-9468-dda47594bc60' => {
-            'remote_ip' => ['127.0.0.1']
-          }
-        }
-      }
-      File.open(yml_file, 'w') {|f| f.write stub_yml.to_yaml }
-
-      # dcv.yml
-      dcv_yml_file = File.join(Rails.root, 'config/dcv.yml')
-      FileUtils.touch(dcv_yml_file) # Create if it doesn't exist
-      dcv_yml = YAML.load_file(dcv_yml_file) || {}
-      ['development', 'test'].each do |env_name|
-        dcv_yml[env_name] ||= {
-          require_authentication: false,
-          cdn_urls: ['http://localhost'],
-          num_load_balanced_cdn_urls: 0
-        }
-      end
-      File.open(dcv_yml_file, 'w') {|f| f.write dcv_yml.to_yaml }
-
-      # subsites.yml
-      subsites_yml_file = File.join(Rails.root, 'config/subsites.yml')
-      subsites_template = File.join(Rails.root, 'config/templates/subsites.template.yml')
-      FileUtils.touch(subsites_yml_file) # Create if it doesn't exist
-      subsites_yml = YAML.load_file(subsites_yml_file) || YAML.load_file(subsites_template)
-      File.open(subsites_yml_file, 'w') {|f| f.write subsites_yml.to_yaml }
     end
   end
 end

@@ -1,0 +1,6 @@
+test: &1
+  http://id.library.columbia.edu/term/45487bbd-97ef-44b4-9468-dda47594bc60:
+    remote_ip:
+    - 127.0.0.1
+development: *1
+

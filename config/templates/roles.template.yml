@@ -1,0 +1,4 @@
+_all_environments:
+  "*":
+    can:
+      catalog#*: []
