@@ -113,9 +113,11 @@ module Dcv::CatalogHelperBehavior
     published = parents(document).detect do |parent|
       parent['dc_type_ssm'].include?('InteractiveResource') && parent['ezid_doi_ssim'].present?
     end
+    return {} unless published
+    published_title = published['title_display_ssm']&.first || published['id']
     {
-      'Title' => link_to(published['title_display_ssm'].first, controller: controller_name, action: :show, id: published['id']),
-      'Date' => published['lib_date_textual_ssm'].first,
+      'Title' => link_to(published_title, controller: controller_name, action: :show, id: published['id']),
+      'Date' => published['lib_date_textual_ssm']&.first,
       'Identifier' => published['ezid_doi_ssim'].first
     }.compact
   end
