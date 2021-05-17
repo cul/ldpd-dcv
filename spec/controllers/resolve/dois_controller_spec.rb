@@ -11,25 +11,25 @@ describe Resolve::DoisController, type: :controller do
 	let(:legacy_id) { 'donotuse:1234' }
 	let(:solr_doc) { SolrDocument.new(site.default_filters.merge(id: legacy_id, ezid_doi_ssim: ["doi:#{known_id}"])) }
 
-	describe '#resolve_doc_for' do
+	describe '#doc_url_in_site_context' do
 		context 'nil site' do
 			let(:solr_doc) { SolrDocument.new(id: legacy_id, ezid_doi_ssim: ["doi:#{known_id}"]) }
 			let(:expected_url) { "http://test.host/catalog/#{known_id}" }
 			it 'resolves to catalog url' do
-				expect(controller.resolve_doc_for(nil, solr_doc)).to eql(expected_url)
+				expect(controller.doc_url_in_site_context(nil, solr_doc)).to eql(expected_url)
 			end
 		end
 		context 'site with catalog search' do
 			let(:expected_url) { "http://test.host/catalog/#{known_id}" }
 			it 'resolves to catalog url' do
-				expect(controller.resolve_doc_for(site, solr_doc)).to eql(expected_url)
+				expect(controller.doc_url_in_site_context(site, solr_doc)).to eql(expected_url)
 			end
 		end
 		context 'site with local search' do
 			let(:site) { FactoryBot.create(:site, search_type: 'local') }
 			let(:expected_url) { "http://test.host/dlc_site/#{known_id}" }
 			it 'resolves to site url' do
-				expect(controller.resolve_doc_for(site, solr_doc)).to eql(expected_url)
+				expect(controller.doc_url_in_site_context(site, solr_doc)).to eql(expected_url)
 			end
 		end
 		context 'site with custom search' do
@@ -37,7 +37,7 @@ describe Resolve::DoisController, type: :controller do
 			let(:site) { FactoryBot.create(:site, search_type: 'custom', slug: template_defined_slug) }
 			let(:expected_url) { "http://test.host/#{template_defined_slug}/#{legacy_id}" }
 			it 'resolves to custom url' do
-				expect(controller.resolve_doc_for(site, solr_doc)).to eql(expected_url)
+				expect(controller.doc_url_in_site_context(site, solr_doc)).to eql(expected_url)
 			end
 		end
 	end
@@ -51,7 +51,7 @@ describe Resolve::DoisController, type: :controller do
 			allow(controller).to receive(:site_candidates_for).and_return([])
 			allow(controller).to receive(:site_matches_for).and_return([])
 			allow(controller).to receive(:best_site_for).and_return(site)
-			allow(controller).to receive(:resolve_doc_for).and_return(expected_url)
+			allow(controller).to receive(:doc_url_in_site_context).and_return(expected_url)
 		end
 		it 'redirects to resolved url' do
 			expect(controller).to receive(:redirect_to).with(expected_url)

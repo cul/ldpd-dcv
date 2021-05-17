@@ -4,6 +4,7 @@ module ShowFieldDisplayFieldHelper
   include FieldDisplayHelpers::LocationUrls
   include FieldDisplayHelpers::Name
   include FieldDisplayHelpers::Note
+  include FieldDisplayHelpers::OtherSiteUrls
   include FieldDisplayHelpers::PhysicalDescription
   include FieldDisplayHelpers::Project
   include FieldDisplayHelpers::Publisher
@@ -45,5 +46,12 @@ module ShowFieldDisplayFieldHelper
       doc_repository = Blacklight.default_index
       cache_key = "dcv.#{field_name}.default"
     end
+  end
+
+  def has_check_field?(field_config, document)
+    if field_config.check_field
+      return document[field_config.check_field].present?
+    end
+    false
   end
 end

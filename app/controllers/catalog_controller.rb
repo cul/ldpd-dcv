@@ -1,6 +1,7 @@
 class CatalogController < SubsitesController
   include Dcv::DigitalProjectsController
   include Dcv::Catalog::BrowseListBehavior
+  include Dcv::Sites::LookupController
 
   before_action :get_catalog_browse_lists, only: [:home, :browse]
 
@@ -29,6 +30,11 @@ class CatalogController < SubsitesController
       qt: 'search',
       rows: 250
     }
+  end
+
+  def setup_show_document
+    super
+    @document&.merge_source!({other_sites_data: site_matches_for(@document, site_candidates_for(scope_candidates_for(@document)))})
   end
 
   # get search results from the solr index forhome page
