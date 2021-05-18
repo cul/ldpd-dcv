@@ -71,18 +71,25 @@ module Dcv::Utils::ImageService
     end
   end
 
+  def self.schema_image_for_document(document)
+    schema_image = Array(document['schema_image_ssim']).first
+    # non-site behavior
+    schema_image = document['representative_generic_resource_pid_ssi'] if schema_image.blank?
+    schema_image.present? ? schema_image.split('/')[-1] : nil
+  end
+
   def self.for(document, routes = nil)
     solr_doc =  document.is_a?(SolrDocument) ? document : SolrDocument.new(document)
     opts = { routes: routes }
-    return ArchiveOrgImages(solr_doc.archive_org_identifier, opts) if solr_doc.archive_org_identifier
+    return ArchiveOrgImages.new(solr_doc.archive_org_identifier, opts) if solr_doc.archive_org_identifier
     schema_image = schema_image_for_document(solr_doc)
-    return IiifImages(schema_image, opts) if schema_image
+    return IiifImages.new(schema_image, opts) if schema_image
     if solr_doc['cul_number_of_members_isi'] == 0
       opts[:formats] = solr_doc.fetch('lib_format_ssm', [])
       opts[:has_external_content] = solr_doc['lib_non_item_in_context_url_ssm'].present?
       opts[:routes] = routes
-      return PlaceholderImages(solr_doc.id, opts)
+      return PlaceHolderImages.new(solr_doc.id, opts)
     end
-    IiifImages(solr_doc.id)
+    IiifImages.new(solr_doc.id)
   end
 end

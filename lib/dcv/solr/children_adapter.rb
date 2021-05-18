@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 class Dcv::Solr::ChildrenAdapter
+  include Dcv::AccessLevels
   attr_reader :searcher, :authorizer, :title_field
   # legacy searcher is controller or helper, needs to define .search_results
   # legacy authorizer is helper
@@ -125,7 +126,7 @@ class Dcv::Solr::ChildrenAdapter
         dc_type: 'Text',
         order: (order += 1),
         title: arxv_obj['displayLabel'] || arxv_obj['id'],
-        thumbnail: Dcv::Utils::CdnUtils.image_service('archive_org_identifier_ssi' => arxv_obj['id']).thumbnail,
+        thumbnail: Dcv::Utils::CdnUtils.image_service('archive_org_identifier_ssi' => arxv_obj['id']).thumbnail_url,
         datastreams_ssim: [],
         active_fedora_model_ssi: 'ArchiveOrg',
         archive_org_identifier_ssi: arxv_obj['id'],

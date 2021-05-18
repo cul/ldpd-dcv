@@ -16,13 +16,6 @@ module Dcv::Utils::CdnUtils
     solr_doc.archive_org_identifier
   end
 
-  def self.schema_image_for_document(solr_doc)
-    schema_image = Array(document[ActiveFedora::SolrService.solr_name('schema_image', :symbol)]).first
-    # non-site behavior
-    schema_image = document['representative_generic_resource_pid_ssi'] if schema_image.blank?
-    schema_image.present? ? schema_image.split('/')[-1] : nil
-  end
-
   def self.image_service(document, routes = nil)
     solr_doc =  document.is_a?(SolrDocument) ? document : SolrDocument.new(document)
     return Dcv::Utils::ImageService.for(solr_doc, routes)
