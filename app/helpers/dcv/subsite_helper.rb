@@ -63,9 +63,8 @@ module Dcv::SubsiteHelper
     if s_key == s_layout
       return s_key
     else
-      s_key + ' ' + s_layout
+      "#{s_key} #{s_layout}".strip
     end
-
   end
 
   # if the search action URL has a query string, parse it into params

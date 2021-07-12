@@ -57,6 +57,10 @@ describe CatalogHelper, :type => :helper do
           }
         end
         it { is_expected.to eql('/' + slug) }
+        context 'that is nested' do
+          let(:slug) { 'nancy/sluggo' }
+          it { is_expected.to eql('/' + slug) }
+        end
       end
       context 'with a non-site result' do
         let(:document) do

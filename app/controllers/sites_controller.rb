@@ -6,6 +6,7 @@ class SitesController < ApplicationController
   include Dcv::Catalog::BrowseListBehavior
   include Dcv::CdnHelper
   include Dcv::MarkdownRendering
+  include Dcv::DcvUrlHelper # access to url_for_document
   include Dcv::Sites::ConfiguredLayouts
   include Cul::Omniauth::AuthorizingController
   include ShowFieldDisplayFieldHelper
@@ -238,7 +239,7 @@ class SitesController < ApplicationController
       t = {
         name: solr_doc.fetch('title_ssm',[]).first,
         image: thumbnail_url(solr_doc),
-        external_url: solr_doc.fetch('source_ssim',[]).first || site_url(solr_doc.fetch('slug_ssim',[]).first),
+        external_url: solr_doc.fetch('source_ssim',[]).first || url_for_document(solr_doc),
         description: solr_doc.fetch('abstract_ssim',[]).first,
         search_scope: solr_doc.fetch('search_scope_ssi', "project") || "project"
       }
