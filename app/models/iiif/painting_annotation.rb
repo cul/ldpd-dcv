@@ -29,11 +29,11 @@ class Iiif::PaintingAnnotation
       painting_annotation['body'] = body
     elsif body['type'] == Iiif::Type::V3::VIDEO
       # TODO: media streaming with auth service
-      body['id'] = Dcv::Utils::CdnUtils.wowza_media_token_url(canvas.solr_document, self, route_helper.request.remote_ip)
+      body['id'] = Dcv::Utils::CdnUtils.wowza_media_token_url(canvas.solr_document, route_helper, route_helper.request.remote_ip)
       body['format'] = 'application/vnd.apple.mpegurl'
     elsif body['type'] == Iiif::Type::V3::SOUND
       # TODO: media streaming with auth service
-      body['id'] = Dcv::Utils::CdnUtils.wowza_media_token_url(canvas.solr_document, self, route_helper.request.remote_ip)
+      body['id'] = Dcv::Utils::CdnUtils.wowza_media_token_url(canvas.solr_document, route_helper, route_helper.request.remote_ip)
       body['format'] = 'application/vnd.apple.mpegurl'
     else
       catalog_id = canvas.solr_document.id
