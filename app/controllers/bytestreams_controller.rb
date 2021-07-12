@@ -41,7 +41,7 @@ class BytestreamsController < ApplicationController
   end
 
   def index
-  	@response, @document = get_solr_response_for_doc_id(params[:catalog_id])
+  	@response, @document = fetch(params[:catalog_id])
     respond_to do |format|
       format.any do
         render json: resources_for_document, layout: false
