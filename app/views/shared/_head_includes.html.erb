@@ -20,7 +20,8 @@ DLC VERSION: <%= IO.read(Rails.root.to_s+'/VERSION') %> -->
 <title><%= render_page_title %></title>
 <%= opensearch_description_tag application_name, opensearch_catalog_url(:format => 'xml') %>
 <%= favicon_link_tag asset_path('favicon.ico') %>
-
+<%= tag(:link, href: asset_path('logo-icon-192x192.png'), rel: "apple-touch-icon") %>
+<%= tag(:link, href: asset_path('logo-icon-192x192.png'), rel: "icon", sizes: "192x192") %>
 <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
 <!--[if lt IE 9]>
 	<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
