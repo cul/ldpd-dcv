@@ -6,14 +6,14 @@ module ChildrenHelper
 
   def children(id=params[:parent_id], opts={})
     # get the document
-    @response, @document = get_solr_response_for_doc_id(id)
-    document_children_from_model(@document, opts)
+    _response, parent_document = fetch(id)
+    document_children_from_model(parent_document, opts)
   end
 
   def child(id=params[:id], opts={})
     # get the document
-    @response, @document = get_solr_response_for_doc_id(id, {fl: '*'})
-    child_from_solr(@document, document_show_link_field)
+    _response, child_document = fetch(id, {fl: '*'})
+    child_from_solr(child_document, document_show_link_field(child_doc))
   end
 
   def structured_children
