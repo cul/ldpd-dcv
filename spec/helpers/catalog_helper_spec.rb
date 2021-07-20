@@ -45,7 +45,7 @@ describe CatalogHelper, :type => :helper do
     describe '#url_for_document' do
       let(:slug) { 'sluggo' }
       let(:document_show_link_field) { 'title_short' }
-      subject { helper.url_for_document(SolrDocument.new(document)) }
+      subject { helper.url_for_document(SolrDocument.new(document), only_path: true) }
       context 'with a site result' do
         let(:document) do
           {
