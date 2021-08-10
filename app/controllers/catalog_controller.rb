@@ -34,7 +34,10 @@ class CatalogController < SubsitesController
 
   def setup_show_document
     super
-    @document&.merge_source!({other_sites_data: site_matches_for(@document, site_candidates_for(scope_candidates_for(@document)))})
+    return unless @document
+    site_candidates = site_candidates_for(scope_candidates_for(@document)).where.not(id: load_subsite)
+    other_sites_data = site_matches_for(@document, site_candidates)
+    @document.merge_source!({ other_sites_data: other_sites_data }) if other_sites_data.present?
   end
 
   # get search results from the solr index forhome page
