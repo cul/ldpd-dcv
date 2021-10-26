@@ -7,4 +7,8 @@ class PagesController < ApplicationController
 
   def about
   end
+
+  def repository
+    Blacklight.default_index
+  end
 end

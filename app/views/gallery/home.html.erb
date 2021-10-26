@@ -1,42 +1,14 @@
 <div class="row">
-  <div id="sidebar" class="col-md-3">
-    <div class="inner outline">
-      <%- cache [@subsite, 'home-content'] do -%>
-        <div id="home-sidebar-news">
-          <h2 class="home-sidebar-heading h5"><%= @subsite.title.html_safe %></h2>
-            <p>
-              <a href="<%= search_action_url %>">
-                <img src="<%= thumbnail_for_site(@subsite) %>" class="thumbnail pull-right" alt="<%= @subsite.title.html_safe %>">
-              </a>
-            </p>
-            <%- @page.site_text_blocks.sort { |a,b| a.sort_label <=> b.sort_label }.each do |text_block| -%>
-              <%- if text_block.label.present? -%>
-                <div class="collection-title"><%= text_block.label %></div>
-              <%- end -%>
-              <div>
-                <%= controller.render_markdown(text_block.markdown) %>
-                <hr class="visible-sm">
-              </div>
-            <%- end -%>
-            <div class="clearfix"></div>
-          </div>
-        </div>
-        <div id="home-sidebar-about">
-            <%- if (about_link = @subsite.about_link) -%>
-              <p><%= link_to("About the collection &raquo;".html_safe, site_page_path(site_slug: @subsite.slug, slug: about_link.link)) %></p>
-            <%- end -%>
-            <p>
-              <%= link_to_site_browse("Browse the collection &raquo;", "Visit site &raquo;") %>
-            </p>
-        </div>
-      <%- end -%>
-      <%- if @subsite.show_facets -%>
-        <%- @response ||= controller.load_facet_response -%>
-        <%= render partial: 'facets', locals: {hide_refine_heading: true, no_id_attr: true} %>
-      <%- end -%>
-  </div>
+  <%- if @subsite.show_facets -%>
+    <div id="sidebar" class="col-md-3">
+      <div class="inner outline">
+          <%- @response ||= controller.load_facet_response -%>
+          <%= render partial: 'facets', locals: {hide_refine_heading: true, no_id_attr: true} %>
+      </div>
+    </div>
+  <%- end -%>
 
-  <div id="content" class="col-md-9">
+  <div id="content" class="col-md-<%= @subsite.show_facets ? 9 : 12 %>">
         <div id="home-page-content">
 
             <div id="home-page-tabs" class="inner outline">

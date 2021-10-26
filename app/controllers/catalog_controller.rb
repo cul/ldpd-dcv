@@ -32,6 +32,13 @@ class CatalogController < SubsitesController
     }
   end
 
+  # produce a lazily-loaded list of featured items according to a supplied filter
+  def featured_items(args= {})
+    @response = repository.search(home_params)
+    @document_list = @response.documents
+    digital_projects
+  end
+
   def setup_show_document
     super
     return unless @document
@@ -42,12 +49,12 @@ class CatalogController < SubsitesController
 
   # get search results from the solr index forhome page
   def home
-    @response = repository.search(home_params)
-    @document_list = @response.documents
-
     respond_to do |format|
       format.html { render action: 'home' }
     end
   end
 
+  def browse_lists
+    @browse_lists
+  end
 end
