@@ -1,4 +1,4 @@
-class AddAlternativeTitleToSite < ActiveRecord::Migration
+class AddAlternativeTitleToSite < ActiveRecord::Migration[4.2]
   def change
     reversible do |direction|
       change_table :sites do |table|

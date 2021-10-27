@@ -1,4 +1,4 @@
-class MoveHomepageFacetSwitchToSites < ActiveRecord::Migration
+class MoveHomepageFacetSwitchToSites < ActiveRecord::Migration[4.2]
 	def up
 		add_column :sites, :show_facets, :boolean, default: false
 		SitePage.where(slug: 'home') do |p|

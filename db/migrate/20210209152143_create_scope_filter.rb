@@ -1,4 +1,4 @@
-class CreateScopeFilter < ActiveRecord::Migration
+class CreateScopeFilter < ActiveRecord::Migration[4.2]
   def change
     create_table :scope_filters do |t|
       t.string :filter_type

@@ -1,4 +1,4 @@
-class ConvertConstraintsToPermissions < ActiveRecord::Migration
+class ConvertConstraintsToPermissions < ActiveRecord::Migration[4.2]
 	def up
 		rename_column :sites, :constraints, :permissions 
 		Site.all.each do |site|

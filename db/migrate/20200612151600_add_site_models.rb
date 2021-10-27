@@ -1,4 +1,4 @@
-class AddSiteModels < ActiveRecord::Migration
+class AddSiteModels < ActiveRecord::Migration[4.2]
   def change
     create_table :sites do |t|
       t.string :slug, null: false

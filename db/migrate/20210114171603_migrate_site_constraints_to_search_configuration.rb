@@ -1,4 +1,4 @@
-class MigrateSiteConstraintsToSearchConfiguration < ActiveRecord::Migration
+class MigrateSiteConstraintsToSearchConfiguration < ActiveRecord::Migration[4.2]
 	def up
 		add_column :sites, :search_configuration, :text 
 		Site.all.each do |site|
