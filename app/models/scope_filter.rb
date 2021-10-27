@@ -1,4 +1,4 @@
-class ScopeFilter < ActiveRecord::Base
+class ScopeFilter < ApplicationRecord
 	FIELDS_FOR_FILTER_TYPES = {
 		'publisher'       => 'publisher_ssim',
 		'project'         => 'lib_project_short_ssim',

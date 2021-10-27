@@ -1,4 +1,4 @@
-class NavLink < ActiveRecord::Base
+class NavLink < ApplicationRecord
 	belongs_to :site, touch: true
 	validates_presence_of [:sort_label, :link]
 

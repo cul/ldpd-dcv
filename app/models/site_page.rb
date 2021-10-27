@@ -1,4 +1,4 @@
-class SitePage < ActiveRecord::Base
+class SitePage < ApplicationRecord
 	has_many :site_text_blocks, dependent: :destroy
 	belongs_to :site, touch: true
 	validates :columns, inclusion: { in: (1..2) }

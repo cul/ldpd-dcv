@@ -1,5 +1,5 @@
 require 'uri'
-class SiteTextBlock < ActiveRecord::Base
+class SiteTextBlock < ApplicationRecord
 	belongs_to :site_page, touch: true
 
 	def label

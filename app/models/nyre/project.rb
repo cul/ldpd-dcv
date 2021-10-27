@@ -1,5 +1,5 @@
 module Nyre
-  class Project < ActiveRecord::Base
+  class Project < ApplicationRecord
     self.table_name_prefix = 'nyre_'
     validates :call_number, presence: true
   end

@@ -1,5 +1,5 @@
 require 'csv'
-class Site < ActiveRecord::Base
+class Site < ApplicationRecord
 	include Dcv::Sites::Constants
 	include Blacklight::Configurable
 	has_many :scope_filters, as: :scopeable

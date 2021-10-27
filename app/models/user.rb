@@ -1,4 +1,4 @@
-class User < ActiveRecord::Base
+class User < ApplicationRecord
 
   include Blacklight::User
   include Cul::Omniauth::Users
