@@ -24,7 +24,7 @@ module Dcv::Catalog::RandomItemBehavior
         render json: json_response
       }
       format.any {
-        render :text => 'JSON is the only format available.', :status => 406
+        render plain: 'JSON is the only format available.', status: 406
       }
     end
   end

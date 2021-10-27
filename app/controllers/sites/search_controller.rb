@@ -78,7 +78,7 @@ module Sites
 				# Add all dynamically added (such as by document extensions)
 				# export formats.
 				@document.export_formats.each_key do | format_name |
-					format.send(format_name.to_sym) { render :text => @document.export_as(format_name), :layout => false }
+					format.send(format_name.to_sym) { render plain: @document.export_as(format_name), layout: false }
 				end
 			end
 		end
