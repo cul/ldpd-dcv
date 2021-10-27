@@ -2,7 +2,7 @@ module Nyre
   class ProjectsController < ApplicationController
     include Dcv::CatalogIncludes
 
-    before_filter :set_view_path
+    before_action :set_view_path
     helper_method :extract_map_data_from_document_list, :url_for_document
 
     layout 'nyre'

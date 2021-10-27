@@ -10,11 +10,11 @@ class SubsitesController < ApplicationController
   include Cul::Omniauth::RemoteIpAbility
   include ShowFieldDisplayFieldHelper
 
-  before_filter :store_unless_user, except: [:update, :destroy, :api_info]
-  before_filter :authorize_action, only:[:index, :preview, :show]
-  before_filter :default_search_mode_cookie, only: :index
-  before_filter :load_subsite, except: [:home, :page]
-  before_filter :load_page, only: [:home, :index, :page]
+  before_action :store_unless_user, except: [:update, :destroy, :api_info]
+  before_action :authorize_action, only:[:index, :preview, :show]
+  before_action :default_search_mode_cookie, only: :index
+  before_action :load_subsite, except: [:home, :page]
+  before_action :load_page, only: [:home, :index, :page]
   protect_from_forgery :except => [:update, :destroy, :api_info] # No CSRF token required for publishing actions
 
 

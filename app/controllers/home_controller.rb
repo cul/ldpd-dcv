@@ -7,8 +7,8 @@ class HomeController < ApplicationController
   include Cul::Omniauth::RemoteIpAbility
   include Dcv::Sites::ConfiguredLayouts
 
-  before_filter :authorize_action, only:[:restricted]
-  before_filter :store_unless_user
+  before_action :authorize_action, only:[:restricted]
+  before_action :store_unless_user
 
   layout Proc.new { |controller|
     self.subsite_layout

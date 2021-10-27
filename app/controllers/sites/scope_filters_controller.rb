@@ -2,8 +2,8 @@ module Sites
 	class ScopeFiltersController < ApplicationController
 		include Dcv::RestrictableController
 		include Cul::Omniauth::AuthorizingController
-		before_filter :load_subsite
-		before_filter :authorize_site_update
+		before_action :load_subsite
+		before_action :authorize_site_update
 		layout 'sites'
 
 		def load_subsite

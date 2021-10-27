@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
 
   skip_after_action :discard_flash_if_xhr
 
-  before_filter :set_view_path
+  before_action :set_view_path
 
   layout false
 

@@ -7,9 +7,9 @@ module Sites
 		include Dcv::Sites::ConfiguredLayouts
 		include Cul::Omniauth::AuthorizingController
 
-		before_filter :load_subsite, only: [:index, :new, :create]
-		before_filter :load_page, except: [:index, :new, :create]
-		before_filter :authorize_site_update, except: [:index, :show]
+		before_action :load_subsite, only: [:index, :new, :create]
+		before_action :load_page, except: [:index, :new, :create]
+		before_action :authorize_site_update, except: [:index, :show]
 
 		layout :request_layout
 

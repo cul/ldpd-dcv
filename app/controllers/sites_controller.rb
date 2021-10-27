@@ -11,10 +11,10 @@ class SitesController < ApplicationController
   include Cul::Omniauth::AuthorizingController
   include ShowFieldDisplayFieldHelper
 
-  before_filter :browse_lists, only: :index
-  before_filter :load_subsite, except: [:index]
-  before_filter :load_page, only: [:home]
-  before_filter :authorize_site_update, only: [:edit, :update]
+  before_action :browse_lists, only: :index
+  before_action :load_subsite, except: [:index]
+  before_action :load_page, only: [:home]
+  before_action :authorize_site_update, only: [:edit, :update]
 
   layout :request_layout
 

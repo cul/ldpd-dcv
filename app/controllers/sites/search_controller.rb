@@ -10,7 +10,7 @@ module Sites
 		include Cul::Omniauth::AuthorizingController
 		include ShowFieldDisplayFieldHelper
 
-		before_filter :load_subsite
+		before_action :load_subsite
 		before_action :set_map_data_json, only: [:map_search]
 
 		delegate :blacklight_config, to: :@subsite

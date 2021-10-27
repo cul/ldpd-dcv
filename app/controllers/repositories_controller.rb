@@ -27,7 +27,7 @@ class RepositoriesController < ApplicationController
     end
   end
 
-  before_filter :set_repository_id, only:[:show]
+  before_action :set_repository_id, only:[:show]
 
   def initialize(*args)
     super(*args)
