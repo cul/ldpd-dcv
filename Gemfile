@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 gem 'bigdecimal', '~>1.4.4'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 4.2.11'
+gem 'rails', '~> 5.2.0'
 gem 'actionpack-action_caching'
 # Hydra stack
 gem 'nokogiri', '~> 1.8.2'
@@ -12,12 +12,13 @@ gem 'active-fedora', '>= 7.3.1'
 # carrierwave for file uploads
 gem 'carrierwave', '~> 1.3'
 #gem 'rubydora', :path => '../rubydora'
-gem 'rubydora', :git => 'https://github.com/elohanlon/rubydora', branch: 'datastream_dissemination_with_headers'
+gem 'rubydora'
 
 # Columbia Hydra models
-gem 'cul_hydra', '~> 1.9.5'
-gem 'cancancan', '~>1.12.0'
-gem 'cul_omniauth', '~>0.5.5'
+gem 'cul_hydra', '~> 1.10.0'
+#gem 'cul_hydra', git: 'https://github.com/cul/cul_hydra', branch: 'master'
+gem 'cancancan', '~>2.0'
+gem 'cul_omniauth', '~> 0.6.1'
 #gem 'cul_omniauth', git: 'https://github.com/cul/cul_omniauth', branch: '0.5.x'
 gem 'active-triples', '~> 0.4.0'
 
@@ -41,7 +42,7 @@ gem 'colorbox-rails'
 gem 'uglifier', '>= 1.3.0'
 
 # Use CoffeeScript for .js.coffee assets and views
-gem 'coffee-rails', '~> 4.0.0'
+gem 'coffee-rails'
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 gem 'libv8', '>= 8.4.255.0' # Min version for Mac OS 10.15
@@ -108,7 +109,7 @@ group :development, :test do
   gem 'capistrano-passenger', '~> 0.1', require: false
   # Use net-ssh >= 4.2 to prevent warnings with Ruby 2.4
   gem 'net-ssh', '>= 4.2'
-  gem 'rspec-rails', '~> 3.4.0'
+  gem 'rspec-rails'
   gem 'rspec-json_expectations'
   gem 'capybara', '~> 3.32'
   # For testing with chromedriver for headless-browser JavaScript testing
