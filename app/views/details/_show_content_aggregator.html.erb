@@ -9,7 +9,7 @@
 	</div>
 	<div id="children-links" style="visibility: hidden;">
 		<% children.each_with_index do |child, ix| -%>
-			<a rel="child" data-src="<%= resolve_catalog_url(id: CGI.escape(child[:id])) %>.json" data-id="<%=child[:id]%>" data-zoom-info-url="<%= get_resolved_iiif_zoom_info_url(id: child[:id], pid: child[:pid]) %>" data-info-url="<%= get_resolved_asset_info_url(id: child[:id], pid: child[:pid], image_format: 'jpg') %>" data-bytestreams="<%= resolve_catalog_bytestreams_path(catalog_id: child[:id], :format=>'json') %>" data-rftId="<%= child[:rft_id]-%>"></a>
+			<a rel="child" data-src="<%= resolve_catalog_url(id: CGI.escape(child[:id])) %>.json" data-id="<%=child[:id]%>" data-zoom-info-url="<%= get_resolved_iiif_zoom_info_url(id: child[:id], pid: child[:pid]) %>" data-info-url="<%= get_resolved_asset_info_url(id: child[:id], pid: child[:pid], image_format: 'jpg') %>" data-bytestreams="<%= resolve_catalog_bytestreams_path(catalog_id: child[:id], :format=>'json') %>" data-rftId="<%= get_resolved_iiif_zoom_info_url(id: child[:id], pid: child[:pid]) -%>"></a>
 		<% end -%>
 	</div>
 <% else %>

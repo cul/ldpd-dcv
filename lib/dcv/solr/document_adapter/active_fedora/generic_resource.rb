@@ -43,14 +43,6 @@ class Dcv::Solr::DocumentAdapter::ActiveFedora
         end
       end
 
-      zooming_dsid&.tap do |z_dsid|
-        ds = obj.datastreams[z_dsid]
-        unless ds.nil?
-          rft_id = ds.controlGroup == 'E' ? ds.dsLocation : legacy_content_path(ds,'info:fedora/datastreams/')
-          solr_doc['rft_id_ss'] = rft_id
-        end
-      end
-
       if (service_ds = service_datastream)
         solr_doc['service_dslocation_ss'] = service_ds.dsLocation
       end

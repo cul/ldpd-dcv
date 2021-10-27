@@ -19,5 +19,5 @@
         data-zoom-info-url="<%= get_iiif_zoom_info_url(id: params[:id]) %>"
         data-info-url="<%= get_asset_info_url(id: params[:id], image_format: 'jpg') %>"
         data-bytestreams="<%= bytestreams_path(catalog_id: params[:id], :format=>'json') %>"
-        data-rftId="<%= document['rft_id'] -%>"></a>
+        data-rftId="<%= get_resolved_iiif_zoom_info_url(id: params[:id]) -%>"></a>
 </div>

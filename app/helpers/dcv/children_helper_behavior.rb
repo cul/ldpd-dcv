@@ -11,7 +11,7 @@ module Dcv::ChildrenHelperBehavior
   ].freeze
   CHILDREN_IDS = ['id', 'dc_identifier_ssim', 'identifier_ssim'].freeze
   CHILDREN_STRUC = (CHILDREN_IDS + CHILDREN_ACCESS + ['dc_type_ssm', 'datastreams_ssim','original_name_ssim']).freeze
-  CHILDREN_MODEL = (CHILDREN_STRUC + ['active_fedora_model_ssi','rels_int_profile_tesim','rft_id_ss','label_ssi','lib_item_in_context_url_ssm']).freeze
+  CHILDREN_MODEL = (CHILDREN_STRUC + ['active_fedora_model_ssi','rels_int_profile_tesim','label_ssi','lib_item_in_context_url_ssm']).freeze
 
 
   # Return the number from the specified field if greater than zero.
@@ -65,16 +65,7 @@ module Dcv::ChildrenHelperBehavior
       child[:contentids] = doc['dc_identifier_ssim']
       rels_int = JSON.load(doc.fetch('rels_int_profile_tesim',[]).join(''))
 
-      if (ActiveFedora.config.credentials[:datastreams_root].present? && base_rft = doc['rft_id_ss'])
-        zoom = rels_int["info:fedora/#{child[:id]}/content"].fetch('foaf_zooming',['zoom']).first
-        zoom = zoom.split('/')[-1]
-        base_rft.sub!(/^info\:fedora\/datastreams/,ActiveFedora.config.credentials[:datastreams_root])
-        base_rft = 'file:' + base_rft unless base_rft =~ /(file|https?)\:\//
-        child[:rft_id] = CGI.escape(base_rft)
-        dimension_ref = "info:fedora/#{child[:id]}/#{zoom}"
-      else
-        dimension_ref = "info:fedora/#{child[:id]}/content"
-      end
+      dimension_ref = "info:fedora/#{child[:id]}/content"
       unless rels_int.blank?
         width = rels_int[dimension_ref]&.fetch('image_width',[0])
         width = width.blank? ? 0 : width.first.to_i
