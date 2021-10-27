@@ -86,7 +86,7 @@ module FieldDisplayHelpers::ArchivalContext
     info = []
     if document['lib_sublocation_ssm'].present?
       info << document['lib_sublocation_ssm'][0]
-      url = HashWithIndifferentAccess.new(I18n.t('ldpd.url.sublocation'))[info[-1]]
+      url = ActiveSupport::HashWithIndifferentAccess.new(I18n.t('ldpd.url.sublocation'))[info[-1]]
       if url
         info[-1] = link_to(info[-1], url)
       end

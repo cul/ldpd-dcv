@@ -49,6 +49,6 @@ module Dcv::FacetsHelperBehavior
 
   def translate_facet_value(value, facet_config)
     return value unless facet_config['translation']
-    HashWithIndifferentAccess.new(I18n.t(facet_config['translation']))[value] || value
+    ActiveSupport::HashWithIndifferentAccess.new(I18n.t(facet_config['translation']))[value] || value
   end
 end

@@ -432,7 +432,7 @@ class Dcv::Solr::DocumentAdapter::ModsXml
     def translate_with_default(prefix, value, default)
       begin
         # Using method below to handle translations because our YAML keys can contain periods and this doesn't play well with the translation dot-syntax
-        translations = HashWithIndifferentAccess.new(I18n.t(prefix))
+        translations = ActiveSupport::HashWithIndifferentAccess.new(I18n.t(prefix))
         if translations.has_key?(value)
           return translations[value]
         else

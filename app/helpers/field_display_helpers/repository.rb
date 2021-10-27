@@ -30,9 +30,9 @@ module FieldDisplayHelpers::Repository
   # Link to a translated lib_repo_short_ssim value
   # as a library location URL, if available
   def link_to_repo_homepage(repo_value, code=false)
-    url = code ? HashWithIndifferentAccess.new(I18n.t('ldpd.url.repo'))[repo_value] : get_short_repo_names_to_urls[repo_value]
+    url = code ? ActiveSupport::HashWithIndifferentAccess.new(I18n.t('ldpd.url.repo'))[repo_value] : get_short_repo_names_to_urls[repo_value]
     return unless url
-    label = code ? HashWithIndifferentAccess.new(I18n.t('ldpd.full.repo'))[repo_value] : get_short_repo_names_to_full_repo_names.fetch(repo_value, repo_value)
+    label = code ? ActiveSupport::HashWithIndifferentAccess.new(I18n.t('ldpd.full.repo'))[repo_value] : get_short_repo_names_to_full_repo_names.fetch(repo_value, repo_value)
     link_to(label, url)
   end
 
@@ -66,7 +66,7 @@ module FieldDisplayHelpers::Repository
   def show_repository_to_web_link(args)
 
     facet_field_name = args[:field]
-    codes_lookup = HashWithIndifferentAccess.new(I18n.t('ldpd.' + facet_field_name.split('_')[-2] + '.repo').invert)
+    codes_lookup = ActiveSupport::HashWithIndifferentAccess.new(I18n.t('ldpd.' + facet_field_name.split('_')[-2] + '.repo').invert)
 
     repo_names = args[:document][args[:field]]
 
@@ -114,12 +114,12 @@ module FieldDisplayHelpers::Repository
   end
 
   def code_map_for_repo_field(field)
-    HashWithIndifferentAccess.new(I18n.t('ldpd.' + field.split('_')[-2] + '.repo').invert)
+    ActiveSupport::HashWithIndifferentAccess.new(I18n.t('ldpd.' + field.split('_')[-2] + '.repo').invert)
   end
 
   def get_short_repo_names_to_full_repo_names
-    short_repo_names_to_marc_codes = HashWithIndifferentAccess.new(I18n.t('ldpd.short.repo').invert)
-    marc_codes_to_full_repo_names = HashWithIndifferentAccess.new(I18n.t('ldpd.full.repo'))
+    short_repo_names_to_marc_codes = ActiveSupport::HashWithIndifferentAccess.new(I18n.t('ldpd.short.repo').invert)
+    marc_codes_to_full_repo_names = ActiveSupport::HashWithIndifferentAccess.new(I18n.t('ldpd.full.repo'))
 
     new_hash = {}
 
@@ -131,8 +131,8 @@ module FieldDisplayHelpers::Repository
   end
 
   def get_short_repo_names_to_urls
-    short_repo_names_to_marc_codes = HashWithIndifferentAccess.new(I18n.t('ldpd.short.repo').invert)
-    marc_codes_to_urls = HashWithIndifferentAccess.new(I18n.t('ldpd.url.repo'))
+    short_repo_names_to_marc_codes = ActiveSupport::HashWithIndifferentAccess.new(I18n.t('ldpd.short.repo').invert)
+    marc_codes_to_urls = ActiveSupport::HashWithIndifferentAccess.new(I18n.t('ldpd.url.repo'))
 
     new_hash = {}
 
@@ -144,8 +144,8 @@ module FieldDisplayHelpers::Repository
   end
 
   def get_full_repo_names_to_short_repo_names
-    full_repo_names_to_marc_codes = HashWithIndifferentAccess.new(I18n.t('ldpd.full.repo').invert)
-    marc_codes_to_short_repo_names = HashWithIndifferentAccess.new(I18n.t('ldpd.short.repo'))
+    full_repo_names_to_marc_codes = ActiveSupport::HashWithIndifferentAccess.new(I18n.t('ldpd.full.repo').invert)
+    marc_codes_to_short_repo_names = ActiveSupport::HashWithIndifferentAccess.new(I18n.t('ldpd.short.repo'))
 
     new_hash = {}
 
@@ -157,8 +157,8 @@ module FieldDisplayHelpers::Repository
   end
 
   def get_long_repo_names_to_short_repo_names
-    full_repo_names_to_marc_codes = HashWithIndifferentAccess.new(I18n.t('ldpd.long.repo').invert)
-    marc_codes_to_short_repo_names = HashWithIndifferentAccess.new(I18n.t('ldpd.short.repo'))
+    full_repo_names_to_marc_codes = ActiveSupport::HashWithIndifferentAccess.new(I18n.t('ldpd.long.repo').invert)
+    marc_codes_to_short_repo_names = ActiveSupport::HashWithIndifferentAccess.new(I18n.t('ldpd.short.repo'))
 
     new_hash = {}
 
