@@ -90,7 +90,7 @@ module Sites
 			begin
 				create_params = page_params
 				# separate the text blocks, since page must exist for them to be saved
-				site_text_blocks_attributes = create_params.delete(:'site_text_blocks_attributes')
+				site_text_blocks_attributes = create_params.delete(:site_text_blocks_attributes)
 				@page = load_subsite.site_pages.create!(create_params)
 				@page.update_attributes(site_text_blocks_attributes: site_text_blocks_attributes) if site_text_blocks_attributes.present?
 				flash[:notice] = "Page Created!"
@@ -148,9 +148,11 @@ module Sites
 
 		private
 			def page_params
-				params.require(:site_page).permit(:slug, :title, :use_multiple_columns, :site_text_blocks_attributes, site_text_blocks_attributes: [:label, :markdown]).tap do |p|
-					p[:columns] = (p.delete(:use_multiple_columns).to_s == 'true') ? 2 : 1
-				end
+				params.require(:site_page)
+					.permit(:slug, :title, :use_multiple_columns, site_text_blocks_attributes: [:label, :markdown])
+					.to_h.tap do |p|
+						p[:columns] = (p.delete(:use_multiple_columns).to_s == 'true') ? 2 : 1
+					end
 			end
 	end
 end

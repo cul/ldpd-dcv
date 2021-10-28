@@ -31,7 +31,7 @@ describe CatalogController, :type => :controller do
 
   describe '#update' do
     subject do
-      put :update, params
+      put :update, params: params
       response.status
     end
     context 'no api_key' do
@@ -100,7 +100,7 @@ describe CatalogController, :type => :controller do
       allow(controller).to receive(:rsolr).and_return(rsolr)
     end
     subject do
-      delete :destroy, params
+      delete :destroy, params: params
       response.status
     end
     context 'no api_key' do

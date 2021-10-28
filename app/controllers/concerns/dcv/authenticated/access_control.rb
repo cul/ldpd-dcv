@@ -17,17 +17,7 @@ module Dcv::Authenticated::AccessControl
   end
 
   def authorize_action_and_scope(action, scope)
-    if can?(action, scope)
-      return true
-    else
-      if current_user
-        access_denied
-        return false
-      end
-    end
-    store_location
-    redirect_to_login
-    return false
+    raise CanCan::AccessDenied unless can?(action, scope)
   end
 
   def authorize_document(_document=nil)

@@ -19,15 +19,9 @@ class HomeController < ApplicationController
   end
 
   def authorize_action
-    return true if current_ability.ip_to_location_uris(request.remote_ip).present?
+    return if current_ability.ip_to_location_uris(request.remote_ip).present?
 
-    if current_user
-      return true
-    else
-      store_location
-      redirect_to_login
-      return false
-    end
+    raise CanCan::AccessDenied unless current_user
   end
   
   def restricted

@@ -345,7 +345,7 @@ class SitesController < ApplicationController
       unroll_nav_link_params
       params.require(:site).permit(:palette, :layout, :show_facets, :alternative_title, :search_type, :editor_uids, :image_uris, :nav_links_attributes,
                                    image_uris: [], nav_links_attributes: [:sort_group, :sort_label, :link, :external])
-      .tap do |p|
+      .to_h.tap do |p|
         p.delete('banner')
         p.delete('watermark')
         p['image_uris']&.delete_if { |v| v.blank? }

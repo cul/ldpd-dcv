@@ -55,19 +55,8 @@ class SubsitesController < ApplicationController
     self.prepend_view_path('app/views/' + controller_path)
   end
 
-  # Override to prepend restricted if necessary
   def authorize_action
-    if can?(Ability::ACCESS_SUBSITE, self)
-      return true
-    else
-      if current_user
-        access_denied(root_url)
-        return false
-      end
-    end
-    store_location
-    redirect_to_login
-    return false
+    raise CanCan::AccessDenied unless can?(Ability::ACCESS_SUBSITE, self)
   end
 
   def self.subsite_config
@@ -174,7 +163,7 @@ class SubsitesController < ApplicationController
   def show
     params[:format] ||= 'html'
     setup_show_document
-    return unless authorize_document
+    authorize_document
 
     respond_to do |format|
       format.html do
@@ -194,7 +183,7 @@ class SubsitesController < ApplicationController
 
   def preview
     @response, @document = fetch(params[:id], fl:'*')
-    return unless authorize_document
+    authorize_document
 
     render layout: 'preview', locals: { document: @document }
   end
@@ -251,7 +240,7 @@ class SubsitesController < ApplicationController
 
   def synchronizer
     @response, @document = fetch(params[:id], fl:'*')
-    return unless authorize_document
+    authorize_document
     render layout: 'minimal', locals: { document: @document }
   end
 

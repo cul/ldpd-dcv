@@ -67,10 +67,12 @@ describe Sites::PermissionsController, type: :unit do
 				site: rails_param_hash
 			)
 		}
+		let(:edit_site_permissions_path) { "/#{site.slug}/permissions/edit" }
 		before do
 			allow(controller).to receive(:authorize_site_update).and_return(true)
 			allow(controller).to receive(:can?).with(:admin, site).and_return(true)
-			expect(controller).to receive(:redirect_to).with("/#{site.slug}/permissions/edit")
+			allow(controller).to receive(:edit_site_permissions_path).with(site_slug: site.slug).and_return(edit_site_permissions_path)
+			expect(controller).to receive(:redirect_to).with(edit_site_permissions_path)
 		end
 		context 'local search' do
 			let(:site) { FactoryBot.create(:site, search_type: 'local') }

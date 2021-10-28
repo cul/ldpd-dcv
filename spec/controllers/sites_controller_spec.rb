@@ -8,6 +8,7 @@ describe SitesController, type: :unit do
 		)
 	}
 	let(:site) { FactoryBot.create(:site) }
+	let(:edit_site_path) { "/#{site.slug}/edit" }
 	let(:request_double) { instance_double('ActionDispatch::Request') }
 	before do
 		allow(request_double).to receive(:host).and_return('localhost')
@@ -18,16 +19,33 @@ describe SitesController, type: :unit do
 		allow(controller).to receive(:params).and_return(params)
 		allow(controller).to receive(:request).and_return(request_double)
 		allow(controller).to receive(:load_subsite).and_return(site)
+		allow(controller).to receive(:edit_site_path).with(slug: site.slug).and_return(edit_site_path)
 	end
 	include_context 'verify configurable layouts'
 	describe '#search_action_url' do
 		let(:query) { {search_field: 'all_text_teim'} }
 		let(:search_uri) { URI(controller.search_action_url(query)) }
 		context 'catalog search' do
-			it { expect(search_uri.path).to eql('/catalog') }
+			let(:collection_filter) { { "lib_collection_sim"=>["DLC Site Collection"] } }
+			let(:repo_filter) { { "lib_repo_code_ssim"=>["NNC-RB"] } }
+			let(:expected_filters) { collection_filter }
+			let(:expected_url_params) do
+				query.merge(controller: 'catalog', action: 'index', f: expected_filters).except(:search_field)
+			end
+			it do
+				expect(controller).to receive(:url_for).with(expected_url_params)
+				controller.search_action_url(query)
+			end
 			context 'restricted' do
 				let(:site) { FactoryBot.create(:site, slug: "restricted/site", repository_id: 'NNC-RB', restricted: true) }
-				it { expect(search_uri.path).to eql('/NNC-RB/catalog') }
+				let(:expected_filters) { collection_filter.merge(repo_filter) }
+				let(:expected_url_params) do
+					{ repository_id: 'NNC-RB', f: expected_filters }
+				end
+				it do
+					expect(controller).to receive(:search_repository_catalog_path).with(expected_url_params)
+					controller.search_action_url(query)
+				end
 			end
 		end
 		context 'custom search' do
@@ -43,8 +61,11 @@ describe SitesController, type: :unit do
 		end
 		context 'local search' do
 			let(:site) { FactoryBot.create(:site, search_type: 'local') }
-			it { expect(search_uri.path).to eql("/#{site.slug}/search") }
-			it { expect(search_uri.query).to match(/search_field\=/) }
+			let(:expected_url_params) { query.merge(controller: 'sites/search', action: 'index', site_slug: site.slug) }
+			it do
+				expect(controller).to receive(:url_for).with(query.merge(controller: 'sites/search', action: 'index', site_slug: site.slug))
+				controller.search_action_url(query)
+			end
 		end
 	end
 	describe '#tracking_method' do
@@ -149,7 +170,7 @@ describe SitesController, type: :unit do
 				)
 			end
 			before do
-				allow(controller).to receive(:redirect_to).with("/#{site.slug}/edit")
+				allow(controller).to receive(:redirect_to).with(edit_site_path)
 			end
 			after do
 				File.delete(target_path) if File.exists?(target_path)

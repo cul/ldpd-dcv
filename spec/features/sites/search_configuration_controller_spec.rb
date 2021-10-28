@@ -23,8 +23,8 @@ describe ::Sites::SearchConfigurationController, type: :feature do
 			# do a find to make sure page loaded
 			find('#site_search_configuration_map_configuration_default_lat')
 			visit(edit_link_href)
-			expect(find_field('Default Latitude').value).to eq("42.0")			
-			expect(find_field('Default Longitude').value).to eq("24.0")			
+			expect(page).to have_field('Default Latitude', with: "42.0")			
+			expect(page).to have_field('Default Longitude', with: "24.0")			
 		end
 	end
 	describe '#edit' do

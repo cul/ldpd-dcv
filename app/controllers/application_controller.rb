@@ -17,6 +17,16 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
+
+  rescue_from CanCan::AccessDenied do |exception|
+    if current_user.nil?
+      store_location
+      redirect_to_login
+    else
+      access_denied
+    end
+  end
+
   # get the solr name for a field with this name and using the given solrizer descriptor
   # ported from Hydra::Controller::ControllerBehavior
   # see also https://github.com/samvera/hydra-head/blob/v7.2.2/hydra-core/app/controllers/concerns/hydra/controller/controller_behavior.rb

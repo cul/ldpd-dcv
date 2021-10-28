@@ -38,9 +38,17 @@ module Sites
 		def edit
 		end
 
-		#TODO: strengthen params after Rails 5+ for deep hashes
 		def search_configuration_params
-			params.dig('site', 'search_configuration')&.tap do |atts|
+			scp = params.require(:site)
+				.require(:search_configuration).permit(
+					date_search_configuration: [:enabled, :granularity_search, :show_sidebar, :show_timeline, :sidebar_label],
+					map_configuration: [:default_lat, :default_long, :enabled, :granularity_data, :granularity_search, :show_items, :show_sidebar],
+					display_options: [:default_search_mode, :show_csv_results, :show_original_file_download, :show_other_sources],
+					facets: [:field_name, :label, :limit, :sort, :value_transforms],
+					search_fields: [:type, :label]
+			)&.to_h
+			# todo: find a better way to unroll the list of values
+			scp&.tap do |atts|
 				atts['search_fields'] = atts['search_fields'].values if atts&.fetch('search_fields', nil)
 				atts['facets'] = atts['facets'].values if atts&.fetch('facets', nil)
 			end

@@ -21,11 +21,12 @@ describe Sites::SearchController, type: :unit do
 	include_context 'verify configurable layouts'
 	describe '#search_action_url' do
 		let(:query) { {search_field: 'all_text_teim'} }
-		let(:search_uri) { URI(controller.search_action_url(query)) }
 		context 'local search' do
 			let(:site) { FactoryBot.create(:site, search_type: 'local') }
-			it { expect(search_uri.path).to eql("/#{site.slug}/search") }
-			it { expect(search_uri.query).to match(/search_field\=/) }
+			it do
+				expect(controller).to receive(:site_search_url).with(site.slug, query)
+				controller.search_action_url(query)
+			end
 		end
 	end
 end

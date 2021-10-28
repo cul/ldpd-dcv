@@ -46,7 +46,7 @@ describe LcaajController, :type => :controller do
             contain_exactly(*expected_csv_row)
           )
         end
-        get :index, params
+        get :index, params: params
         expect(response.status).to eq(200)
         expect(response.headers['Content-Type']).to eq("text/csv")
         expect(response.headers['Content-Disposition']).to eq('attachment; filename="search_results.csv"')

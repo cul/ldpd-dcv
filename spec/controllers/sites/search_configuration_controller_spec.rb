@@ -37,9 +37,12 @@ describe Sites::SearchConfigurationController, type: :unit do
 				site: { search_configuration: rails_param_hash }
 			)
 		}
+		let(:edit_site_search_configuration_path) { "/#{site.slug}/search_configuration/edit" }
 		before do
 			allow(controller).to receive(:authorize_site_update).and_return(true)
-			expect(controller).to receive(:redirect_to).with("/#{site.slug}/search_configuration/edit")
+			expect(controller).to receive(:edit_site_search_configuration_path)
+			  .with(site_slug: site.slug).and_return(edit_site_search_configuration_path)
+			expect(controller).to receive(:redirect_to).with(edit_site_search_configuration_path)
 		end
 		context 'local search' do
 			let(:site) { FactoryBot.create(:site, search_type: 'local') }

@@ -12,6 +12,7 @@ module Sites
 
 		before_action :load_subsite
 		before_action :set_map_data_json, only: [:map_search]
+		before_action :authorize_document, only: :show
 
 		delegate :blacklight_config, to: :@subsite
 
@@ -22,7 +23,7 @@ module Sites
 		self.search_state_class = Dcv::Sites::SearchState
 
 		def authorize_document(_document=nil)
-			authorize_action_and_scope(Ability::ACCESS_SUBSITE, @subsite)
+			authorize_action_and_scope(Ability::ACCESS_SUBSITE, load_subsite)
 		end
 
 		def initialize(*args)
@@ -65,7 +66,6 @@ module Sites
 			else
 				@response, @document = fetch "info:fedora/#{params[:id]}", q: "{!raw f=fedora_pid_uri_ssi v=$#{blacklight_config.document_unique_id_param}}"
 			end
-			return unless authorize_document
 
 			respond_to do |format|
 				format.html do
