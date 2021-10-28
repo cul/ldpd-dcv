@@ -14,12 +14,8 @@
 	</div>
 	<%= render 'secondary_nav' %>
 	<img class="img-responsive" alt="" src="<%= asset_path("nyre/nyre-collage.png") %>">
-	<div id="home-map-container">
-		<script>
-			DCV.mapCoordinateSearchUrl = decodeURIComponent('<%= CGI.escape(url_for(params.merge(:action => 'index', :lat => '_lat_', :long => '_long_', :search_field => params[:search_field] || 'all_text_teim', :q => params[:q] || ''))) %>');
-		</script>
-		<% map_search_settings = map_search_settings_for_subsite %>
-	</div>
+	<%= render partial: 'map_search/home' %>
+
 </div>
  <div class="row">
   <div class="col-md-8">

@@ -1,0 +1,3 @@
+<%= render_opensearch_response_metadata %>
+<%= auto_discovery_link_tag(:rss, url_for(params.permit!.to_h.merge(:format => 'rss')), :title => t('blacklight.search.rss_feed') ) %>
+<%= auto_discovery_link_tag(:atom, url_for(params.permit!.to_h.merge(:format => 'atom')), :title => t('blacklight.search.atom_feed') ) %>

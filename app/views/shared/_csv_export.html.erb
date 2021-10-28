@@ -1,5 +1,5 @@
 <% if blacklight_config.index.respond_to.has_key?(:csv) %>
 <div id="export-options" class="hidden-xs btn-group btn-group-xs pull-right search-index-tool-group">
-  <%= link_to '<span class="glyphicon glyphicon-download"></span> CSV'.html_safe, search_action_path(params.merge(format: 'csv')), class: 'btn btn-default btn-xs' %>
+  <%= link_to '<span class="glyphicon glyphicon-download"></span> CSV'.html_safe, search_action_path(params.permit!.to_h.merge(format: 'csv')), class: 'btn btn-default btn-xs' %>
 </div>
 <% end %>

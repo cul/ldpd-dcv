@@ -1,0 +1,3 @@
+<script>
+	DCV.mapCoordinateSearchUrl = decodeURIComponent('<%= CGI.escape(url_for(params.permit!.to_h.merge(:action => 'index', :lat => '_lat_', :long => '_long_', :search_field => params[:search_field] || 'all_text_teim', :q => params[:q] || ''))) %>');
+</script>

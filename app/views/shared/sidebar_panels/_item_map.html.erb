@@ -1,11 +1,9 @@
 <div class="inner noprint-sm" style="margin-bottom:1em;">
-	<script>
-		DCV.mapCoordinateSearchUrl = decodeURIComponent('<%= CGI.escape(url_for(params.except(:'utf8').merge(:lat => '_lat_', :long => '_long_', :search_field => params[:search_field] || 'all_text_teim', :q => params[:q] || ''))).html_safe %>');
-	</script>
+	<%= render partial: 'map_search/coordinate_show_script' %>
 
 	<% map_search_settings = map_search_settings_for_subsite %>
 	<% latlong = document['geo'].present? ? document['geo'][0].split(',') : [map_search_settings['default_lat'] || 0, map_search_settings['default_long'] || 0] %>
-	<%= render partial: 'embedded_map_search', locals: {
+	<%= render partial: 'map_search/embedded_results', locals: {
 	  map_data_json: extract_map_data_from_document_list([document]).to_json.html_safe,
 	  map_default_center_lat: latlong[0],
 	  map_default_center_long: latlong[1],
