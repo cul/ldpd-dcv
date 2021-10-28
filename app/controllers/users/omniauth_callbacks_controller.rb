@@ -2,8 +2,9 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   include Cul::Omniauth::Callbacks
   skip_before_action :verify_authenticity_token #, :only => [:create,:update]
   def developer
-    uid = request.env['omniauth.auth'][:info][:uni]
+    uid = request.env['omniauth.auth'][:info][:name]
     email = request.env['omniauth.auth'][:info][:email]
+    up = { uid: uid, email: email, provider: :developer }
     current_user ||= User.find_or_create_by!(
       uid: uid, email: email, provider: :developer
     )
