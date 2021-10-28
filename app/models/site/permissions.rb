@@ -60,22 +60,14 @@ class Site::Permissions
 		}.tap {|v| v.compact! if opts&.fetch(:compact, false)}
 	end
 
-	class Type <  ActiveRecord::Type::Value
-		include ActiveRecord::Type::Mutable
-		def type
-			Site::Permissions
-		end
+	class Type <  ActiveModel::Type::Value
+		include ActiveModel::Type::Helpers::Mutable
 
-		def type_cast_for_database(obj)
+		def serialize(obj)
 			JSON.dump(obj.as_json(compact: true))
 		end
 
-		# Override as base class will return nil (this type should not be nil) 
-		def type_cast_from_database(obj)
-			cast_value(obj)
-		end
-
-		def cast_value(src)
+		def cast(src)
 			case src
 			when Site::Permissions
 				src

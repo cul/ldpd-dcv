@@ -7,8 +7,8 @@ class Site < ApplicationRecord
 	has_many :site_pages, dependent: :destroy
 	accepts_nested_attributes_for :nav_links
 	accepts_nested_attributes_for :scope_filters
-	attribute :search_configuration, Site::SearchConfiguration::Type.new, default: -> {Site::SearchConfiguration.new}
-	attribute :permissions, Site::Permissions::Type.new, default: -> {Site::Permissions.new}
+	attribute :search_configuration, :site_search_configuration, default: -> {Site::SearchConfiguration.new}
+	attribute :permissions, :site_permissions, default: -> {Site::Permissions.new}
 	serialize :editor_uids, Array
 	serialize :image_uris, Array
 
@@ -39,8 +39,8 @@ class Site < ApplicationRecord
 
 	def initialize(atts = {})
 		super
-		@search_configuration ||= Site::SearchConfiguration.new(atts.fetch('search_configuration', {}))
-		@permissions ||= Site::Permissions.new(atts.fetch('permissions', {}))
+		@search_configuration ||= Site::SearchConfiguration.new(atts&.fetch('search_configuration', {}) || {})
+		@permissions ||= Site::Permissions.new(atts&.fetch('permissions', {}) || {})
 		self.search_type ||= DEFAULT_SEARCH_TYPE
 	end
 
