@@ -24,6 +24,7 @@ class SubsitesController < ApplicationController
     self.subsite_layout
   }
 
+  self.search_state_class = Dcv::SearchState
   # TODO: the blacklight_configuration_context expects the controller to
   # have access to the condition evaluation methods; the BL 5 implementation
   # was in the helper context and thus has a controller accessor. The helpers

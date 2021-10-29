@@ -18,6 +18,8 @@ class SitesController < ApplicationController
 
   layout :request_layout
 
+  self.search_state_class = Dcv::Sites::SearchState
+
   configure_blacklight do |config|
     config.default_solr_params = {
       :fq => [

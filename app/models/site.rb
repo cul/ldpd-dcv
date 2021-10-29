@@ -59,7 +59,6 @@ class Site < ApplicationRecord
 			config.show.route = self.routing_params
 			if self.search_type == SEARCH_LOCAL
 				config.document_unique_id_param = :ezid_doi_ssim
-				config.show.route = ShowRouteFactory.new(self)
 			else
 				config.show.route = self.routing_params
 			end
@@ -189,25 +188,6 @@ class Site < ApplicationRecord
 			atts.delete('constraints')
 			atts['search_configuration'] = @search_configuration.as_json
 			atts['permissions'] = @permissions.as_json
-		end
-	end
-
-	# TODO: Move ShowRouteFactory logic into Dcv::Sites::SearchState#url_for_document (DLC-854)
-	class ShowRouteFactory
-		def initialize(site)
-			@slug = site.slug.split('/')[-1]
-			@restricted = site.slug =~ /restricted/
-		end
-		def doi_params(doc)
-			return {} unless doc
-			doi_id = doc.fetch('ezid_doi_ssim',[]).first&.sub(/^doi:/,'')
-			{ id: doi_id }
-		end
-		def merge opts = {}
-			controller_name = "/sites/search"
-			controller_name = "/restricted#{controller_name}" if @restricted
-			doc = opts[:id]
-			doi_params(doc).merge(controller: controller_name, action: :show, site_slug: @slug)
 		end
 	end
 end

@@ -12,35 +12,6 @@ require 'rails_helper'
 # end
 
 describe Dcv::DcvUrlHelper, :type => :helper do
-  describe '#url_for_document' do
-    let(:slug) { 'slug_value' }
-    let(:restriction) { nil }
-    let(:url_opts) { {} }
-    let(:solr_doc) do
-      atts = {
-        slug_ssim: [slug],
-        restriction_ssim: [restriction],
-        dc_type_ssm: ['Publish Target']
-      }
-      SolrDocument.new(atts)
-    end
-    let(:url) { helper.url_for_document(solr_doc, url_opts) }
-    it "returns a relative path" do
-      expect(url).to eql("http://test.host/#{slug}")
-    end
-    context 'nested slug' do
-      let(:slug) { 'nested/slug_value' }
-      it "does not url-encode the segments" do
-        expect(url).to end_with(slug)
-      end
-    end
-    context 'only_path is set' do
-      let(:url_opts) { { only_path: true } }
-      it "returns a relative path" do
-        expect(url).to eql("/#{slug}")
-      end
-    end
-  end
   describe '#site_edit_link' do
     let(:site) { FactoryBot.create(:site) }
     let(:can) { true }

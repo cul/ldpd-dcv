@@ -34,22 +34,6 @@ module Dcv::DcvUrlHelper
     end
   end
 
-  def url_for_document(doc, options = {})
-    options = { only_path: false }.merge(options)
-    doc = SolrDocument.new(doc) unless doc.nil? or doc.is_a? SolrDocument
-    if doc.is_a?(SolrDocument) && doc.site_result?
-      slug = doc.unqualified_slug
-      nested = slug =~ /\//
-      is_restricted = doc.has_restriction? && doc['restriction_ssim'].include?('Onsite')
-      helper_method = is_restricted ? "restricted_" : ""
-      helper_method << (options[:only_path] ? "site_path" : "site_url")
-      document_url = send helper_method.to_sym, slug
-      nested ? document_url.sub(CGI.escape(slug), slug) : document_url
-    else
-      super
-    end
-  end
-
   def has_persistent_link?(document)
     document.has_persistent_url?
   end

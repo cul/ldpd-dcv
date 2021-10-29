@@ -20,7 +20,7 @@ module Sites
 
 		layout :subsite_layout
 
-		self.search_state_class = Dcv::Sites::SearchState
+		self.search_state_class = Dcv::Sites::LocalSearchState
 
 		def authorize_document(_document=nil)
 			authorize_action_and_scope(Ability::ACCESS_SUBSITE, load_subsite)
