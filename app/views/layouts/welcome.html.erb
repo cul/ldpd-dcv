@@ -12,11 +12,11 @@
   <body class="<%= render_body_class %> dcv <%= params[:action] %>" data-no-turbolink>
     <%= render :partial => 'shared/topnavbar' %>
 
-    <div id="spinner" style="text-align:center;"><i class="glyphicon glyphicon-refresh icon-spin icon-large"></i>Loading</div>
+    <div id="spinner" style="text-align:center;"><i class="fa fa-refresh icon-spin icon-large"></i>Loading</div>
 
     <div class="updown hide-until-load">
-           <a id="prev" href="#"><i class="glyphicon glyphicon-arrow-up"></i></a><br>
-           <a id="next" href="#"><i class="glyphicon glyphicon-arrow-down"></i></a>
+           <a id="prev" href="#"><i class="fa fa-arrow-up"></i></a><br>
+           <a id="next" href="#"><i class="fa fa-arrow-down"></i></a>
     </div>
 
 <div id="home" class="section bgParallax" data-speed="2">
@@ -34,10 +34,10 @@
 
 	  <div class="carousel-controls hidden-xs">
 		  <a class="left carousel-control" href="#prev" role="button" data-slide="prev">
-			<span class="glyphicon glyphicon-chevron-left hide"></span>
+			<span class="fa fa-chevron-left hide"></span>
 		  </a>
 		  <a class="right carousel-control" href="#next" role="button" data-slide="next">
-			<span class="glyphicon glyphicon-chevron-right hide"></span>
+			<span class="fa fa-chevron-right hide"></span>
 		  </a>
 	  </div>
 
@@ -46,7 +46,7 @@
 <div id="discover" class="section bgParallax" data-speed="3">
   <div class="culinner container" style="padding-top:60px;">
     <div class="culpanel alignleft row">
-     <h4 class="lead">DISCOVER PROJECTS <%= link_to 'Browse projects &raquo;'.html_safe, root_url(), class: 'browse-link pull-right' %></h4>
+     <h4 class="lead">DISCOVER PROJECTS <%= link_to 'Browse projects &raquo;'.html_safe, root_url(), class: 'browse-link float-right' %></h4>
         <div id="project-info" class="col-sm-12" style="padding:0;">
           <div style="height:160px;margin-bottom:5px;">
             <div class="row">
@@ -57,7 +57,7 @@
               <div class="col-sm-10">
                <div style="">
                 <form id="mosaic-switch" action="#">
-					<select name="mosaic-project" id="mosaic-project" class="pull-right btn btn-default alignleft" style="font-size:.8em;padding:0;margin:0;">
+					<select name="mosaic-project" id="mosaic-project" class="float-right btn btn-default alignleft" style="font-size:.8em;padding:0;margin:0;">
 					</select>
                 </form>
                 <h4 id="mosaic-project-title"></h4>
@@ -79,7 +79,7 @@
 <div id="visualize" class="section bgParallax" data-speed="6">
   <div class="culinner container">
     <div class="culpanel row">
-        <h4 class="lead alignleft">VISUALIZE FORMATS        <%= link_to 'Browse formats &raquo;'.html_safe, browse_url(action:'formats'), class: 'browse-link pull-right' %>
+        <h4 class="lead alignleft">VISUALIZE FORMATS        <%= link_to 'Browse formats &raquo;'.html_safe, browse_url(action:'formats'), class: 'browse-link float-right' %>
 </h4>
         <div class="alignjustify" id="bubbles" style="width:100%;">
 <h5 class="zoom-label">Flare code size circle packing</h5>
@@ -110,7 +110,7 @@
 </div>
 
 <ul class="hide">
-	<li id="culnavitems" class="dropdown menu pull-left"><a class="dropdown-toggle menu" data-toggle="dropdown" href="#">DLC <b class="caret"></b></a>
+	<li id="culnavitems" class="dropdown menu float-left"><a class="dropdown-toggle menu" data-toggle="dropdown" href="#">DLC <b class="caret"></b></a>
 		<ul class="dropdown-menu menu-dropdown dropdown-menu-right">
 			<li><a href="#home" class="scrollto">Search</a></li>
 			<li><a href="#discover" class="scrollto">Discover</a></li>

@@ -28,7 +28,7 @@
                      <div id="site-banner-subtitle" class="trajanpro">Avery Architectural &amp; Fine Arts Library</div>
 					</div>
 					<div class="col-sm-6">
-						<div id="search-navbar" class="navbar navbar-default slim" role="navigation">
+						<div id="search-navbar" class="navbar navbar-light slim" role="navigation">
 							<%= render_search_bar(false)  %>
 						</div>
 					</div>
@@ -39,11 +39,11 @@
 				 <div class="subnav">
 					<div class="row">
 						<div class="col-sm-8">
-						<ul class="nav nav-pills pull-left" style="font-size: 11px;">
+						<ul class="nav nav-pills float-left" style="font-size: 11px;">
 							<li class="hidden-phone"><a href="<%=root_path+'durst'%>" class="opacity_50" style="
 								line-height: 0;
 								margin-top: -6px;
-								padding-right: 22px;"><i class="glyphicon glyphicon-home"></i></a>
+								padding-right: 22px;"><i class="fa fa-home"></i></a>
 							</li>
 							<li class="dropdown">
 								<a href="#" class="dropdown-toggle hidden-xs" data-toggle="dropdown">HELP <b class="caret"></b></a>
@@ -52,7 +52,7 @@
 									margin-top: -6px;
 									padding-right: 22px;
 									padding-left: 22px;"
-									data-toggle="dropdown"><i class="glyphicon glyphicon-question-sign"></i><b class="caret"></b></a>
+									data-toggle="dropdown"><i class="fa fa-question-circle"></i><b class="caret"></b></a>
 								<ul class="dropdown-menu">
 									<li><a href="<%= durst_help_path %>">Search Tips</a></li>
 									<li><a href="<%= durst_help_path %>#glossary">Glossary</a></li>
@@ -66,7 +66,7 @@
 									margin-top: -6px;
 									padding-right: 22px;
 									padding-left: 22px;"
-									data-toggle="dropdown"><i class="glyphicon glyphicon-info-sign"></i><b class="caret"></b></a>
+									data-toggle="dropdown"><i class="fa fa-info-circle"></i><b class="caret"></b></a>
 								<ul class="dropdown-menu">
 									<li><a href="<%= durst_about_the_collection_path %>">About the collection</a></li>
 									<li><a href="<%= durst_about_the_project_path %>">About the project</a></li>
@@ -75,19 +75,19 @@
                             </li>
                         </ul>
 						</div><!--/-->
-									<div id="navbar_right_wrapper" class="col-sm-3 pull-right" style="
+									<div id="navbar_right_wrapper" class="col-sm-3 float-right" style="
 									font-size: 12px;
 									text-align: right;
 								">
-									<ul class="nav nav-pills pull-right nav-collapse" id="user_util_links">
+									<ul class="nav nav-pills float-right nav-collapse" id="user_util_links">
 										<li class="inline">
-										<a href="<%= durst_map_search_path %>" id="durst-search-home" title="Map Search" style="line-height: 0; margin-top: -7px;"><span class="glyphicon glyphicon-map-marker"></span></a>
+										<a href="<%= durst_map_search_path %>" id="durst-search-home" title="Map Search" style="line-height: 0; margin-top: -7px;"><span class="fa fa-map-marker"></span></a>
 										</li>
 										<li class="inline">
-										<a href="<%= durst_image_search_url %>" id="durst-image-search" title="Perform an Image Search" style="line-height: 0; margin-top: -7px;"><span class="glyphicon glyphicon-picture"></span></a>
+										<a href="<%= durst_image_search_url %>" id="durst-image-search" title="Perform an Image Search" style="line-height: 0; margin-top: -7px;"><span class="fa fa-picture-o"></span></a>
 										</li>
 										<li class="inline">
-										<a href="<%= local_facet_search_url('lib_format_sim', 'books') %>" id="durst-book-search" title="Perform a Book Search" style="line-height: 0; margin-top: -7px;"><span class="glyphicon glyphicon-book"></span></a>
+										<a href="<%= local_facet_search_url('lib_format_sim', 'books') %>" id="durst-book-search" title="Perform a Book Search" style="line-height: 0; margin-top: -7px;"><span class="fa fa-book"></span></a>
 										</li>
 									</ul>
 									</div>
@@ -96,10 +96,10 @@
 					</div>
 				</div>
 
-				<%= render partial: 'shared/ajax_modal' %>
+				<%= render partial: 'shared/modal' %>
 
 				<div id="main-container" class="container">
-				<%= render :partial=>'/flash_msg', layout: 'shared/flash_messages' %>
+				<%= render :partial=>'shared/flash_msg', layout: 'shared/flash_messages' %>
 				<%= render partial: 'shared/alert' %>
 
 				<%= yield %>

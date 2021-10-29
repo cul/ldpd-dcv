@@ -11,10 +11,10 @@ module Dcv::NonCatalog
   included do
     helper_method :has_search_parameters?
 
-    # Whenever an action raises Blacklight::Exceptions::InvalidSolrID, this block gets executed.
+    # Whenever an action raises Blacklight::Exceptions::RecordNotFound, this block gets executed.
     # Hint: the Blacklight::SearchHelper#fetch method raises this error,
     # which is used in the #show action here.
-    rescue_from Blacklight::Exceptions::InvalidSolrID, :with => :invalid_solr_id_error
+    rescue_from Blacklight::Exceptions::RecordNotFound, :with => :invalid_solr_id_error
     rescue_from RSolr::Error::Http, :with => :rsolr_request_error if respond_to? :rescue_from
   end
   
@@ -40,7 +40,9 @@ module Dcv::NonCatalog
       @response, @document = fetch
 
       respond_to do |format|
-        format.html {setup_next_and_previous_documents}
+        format.html do
+          @search_context = setup_next_and_previous_documents || {}
+        end
 
         format.json { render json: {response: {document: @document}}}
 

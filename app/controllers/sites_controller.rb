@@ -37,7 +37,7 @@ class SitesController < ApplicationController
     config.max_per_page = 250
 
     # solr field configuration for search results/index views
-    config.index.title_field = solr_name('title_display', :displayable, type: :string)
+    config.index.title_field = ActiveFedora::SolrService.solr_name('title_display', :displayable, type: :string)
     config.index.display_type_field = ActiveFedora::SolrService.solr_name('active_fedora_model', :stored_sortable)
     config.index.thumbnail_method = :thumbnail_for_doc
     config.add_index_field ActiveFedora::SolrService.solr_name('abstract', :symbol, type: :string), :label => 'Abstract'
@@ -47,7 +47,7 @@ class SitesController < ApplicationController
     config.add_index_field ActiveFedora::SolrService.solr_name('source', :symbol, type: :string), :label => 'Site URL'
     config.add_index_field ActiveFedora::SolrService.solr_name('title', :symbol, type: :string), :label => 'Title'
 
-    config.show.title_field = solr_name('title_display', :displayable, type: :string)
+    config.show.title_field = ActiveFedora::SolrService.solr_name('title_display', :displayable, type: :string)
     config.add_show_field ActiveFedora::SolrService.solr_name('description', :displayable, type: :string), :label => 'Description'
     config.add_show_field ActiveFedora::SolrService.solr_name('schema_image', :symbol, type: :string), :label => 'Representative Image'
     config.add_show_field ActiveFedora::SolrService.solr_name('short_title', :symbol, type: :string), :label => 'Facet Value'
@@ -211,7 +211,7 @@ class SitesController < ApplicationController
 
   # produce a list of featured items according to a supplied filter
   def featured_items(args= {})
-    (@response, @document_list) = search_results(params) {|builder| builder.merge(site_search_params(rows: 12))}
+    (@response, @document_list) = search_service.search_results {|builder| builder.merge(site_search_params(rows: 12))}
     @document_list
   end
 
@@ -312,7 +312,7 @@ class SitesController < ApplicationController
   end
 
   def tracking_method
-    "track_#{controller_name}_path"
+    "track_catalog_path"
   end
 
   def load_site_document

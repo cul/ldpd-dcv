@@ -115,20 +115,26 @@ class SolrDocument
 
   # merge behaviors that presume HashWithIndifferentAccess targets
   def merge_source!(target)
-    _source.merge!(target)
+    @_source = _source.merge(target).with_indifferent_access.freeze
   end
 
   def merge_source(target)
     self.class.new(_source).merge_source!(target)
   end
 
+  def source_delete(key)
+    prev_val = self[key]
+    @_source = @_source.except(key).with_indifferent_access.freeze
+    prev_val
+  end
+
   # merge behaviors that presume SolrDocument targets
   def merge_document!(solr_document)
-    _source.merge!(solr_document._source)
+    merge_source!(solr_document._source)
   end
 
   def merge_document(solr_document)
-    self.class.new(_source).merge!(solr_document)
+    self.class.new(_source).merge_document!(solr_document)
   end
 
   def self.each_site_document(index = Blacklight.default_index, fl = '*', &block)

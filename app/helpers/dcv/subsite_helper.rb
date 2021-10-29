@@ -23,7 +23,7 @@ module Dcv::SubsiteHelper
     if nav_link.external
       if Addressable::URI.parse(nav_link.link).absolute?
         link_to(nav_link.link, target: "_blank", rel: "noopener noreferrer") do
-          "#{nav_link.label} <sup class=\"glyphicon glyphicon-new-window\" aria-hidden=\"true\"></sup>".html_safe
+          "#{nav_link.label} <sup class=\"fa fa-external-link\" aria-hidden=\"true\"></sup>".html_safe
         end
       else
         link_to(nav_link.label, nav_link.link)
@@ -90,7 +90,7 @@ module Dcv::SubsiteHelper
   def search_mode_button(mode=:grid)
     classes = 'btn result-type-button'
     classes << ((mode == subsite_search_mode) ? ' btn-success' : ' btn-default')
-    icon_classes = (mode == :list) ? 'glyphicon glyphicon-th-list' : 'glyphicon glyphicon-th'
+    icon_classes = (mode == :list) ? 'fa fa-th-list' : 'fa fa-th'
     content_tag(:button, type: 'button', class: classes, :"data-toggle" => "tooltip", title: "#{mode} view", id: "#{mode}-mode") do
       content_tag(:i, nil, class: icon_classes)
     end

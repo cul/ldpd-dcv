@@ -3,25 +3,33 @@
 $enable-flex:               true;
 $enable-grid-classes:       true;
 
+@import 'bootstrap/_functions.scss';
 @import 'bootstrap/_variables.scss';
 @import 'bootstrap/_mixins.scss';
-@import 'bootstrap/_normalize.scss';
 @import 'bootstrap/_grid.scss';
+@import 'normalize.scss';
 
 @mixin	searchModes($gridDocCols: 3, $listThumbCols: 2) {
 	#content {
+		@include make-col-ready();
 		.document {
 			&.list-view {
-				@include make-sm-column(12);
+				@include media-breakpoint-up(sm) {
+					@include make-col(12);
+				}
 				.index-show-tombstone-fields {
 					display: none !important;
 				}
 				.thumbnail {
-					@include make-sm-column($listThumbCols); // ifp is 1
+					@include media-breakpoint-up(sm) {
+						@include make-col($listThumbCols); // ifp is 1
+					}
 				}
 			}
 			&.grid-view {
-				@include make-sm-column($gridDocCols); // durst is 2
+				@include media-breakpoint-up(sm) {
+					@include make-col($gridDocCols); // durst is 2
+				}
 				.index_title {
 					display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
 				}

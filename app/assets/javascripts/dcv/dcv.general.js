@@ -40,12 +40,12 @@ $(function() {
     window.location = decodeURIComponent($(this).attr('data-new-location'));
   });
   $('#collapseDesc').on('show.bs.collapse', function(e){
-    $(this).parent().find('i.more').addClass('glyphicon-chevron-down');
-    $(this).parent().find('i.more').removeClass('glyphicon-chevron-right');
+    $(this).parent().find('i.more').addClass('fa-angle-down');
+    $(this).parent().find('i.more').removeClass('fa-angle-right');
   })
   $('#collapseDesc').on('hide.bs.collapse', function(e){
-    $(this).parent().find('i.more').removeClass('glyphicon-chevron-down');
-    $(this).parent().find('i.more').addClass('glyphicon-chevron-right');
+    $(this).parent().find('i.more').removeClass('fa-angle-down');
+    $(this).parent().find('i.more').addClass('fa-angle-right');
   })
   $('#toggle-metadata-control').on('click', function(e){
     $('#title-accordion').find('.accordion-toggle').trigger('click');
@@ -83,7 +83,7 @@ DCV.ProjModal.show = function(displayUrl, downloadUrl){
     fixed:true,
     inline:true,
     preloading: false,
-    close: '\ue014',
+    close: '\uf00d',
     title: downloadUrl,
     onClosed: function() {
          $(displayUrl).addClass('hide');
@@ -115,8 +115,8 @@ DCV.ModsDownloadModal.show = function(displayUrl, downloadUrl){
     fixed:true,
     iframe:true,
     preloading: false,
-    close: '\ue014',
-    title: '<a href="' + downloadUrl + '" data-no-turbolink="true"><span class="glyphicon glyphicon-download"></span> Download XML</a>'
+    close: '\uf00d',
+    title: '<a href="' + downloadUrl + '" data-no-turbolink="true"><span class="fa fa-download"></span> Download XML</a>'
   });
 
   return false;
@@ -145,7 +145,7 @@ DCV.FeedbackModal.show = function(){
     iframe:true,
     preloading: false,
     current: false,
-    close: '\ue014',
+    close: '\uf00d',
     title: false
   });
 
@@ -170,7 +170,7 @@ DCV.CitationDisplayModal.show = function(citationDisplayUrl, modalLabel){
     iframe:true,
     preloading: false,
     current:"{current} of {total}",
-    close: '\ue014',
+    close: '\uf00d',
     title: modalLabel
   });
 
@@ -194,7 +194,7 @@ DCV.ZoomingImageModal.show = function(){
     fixed:true,
     iframe:true,
     preloading: false,
-    close: '\ue014',
+    close: '\uf00d',
     current:"{current} of {total}"
   });
 

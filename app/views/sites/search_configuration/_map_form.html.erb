@@ -1,38 +1,38 @@
 <%= config_form.fields_for :map_configuration, @subsite.search_configuration.map_configuration do |map_form| %>
-	<div class="panel panel-info">
-		<div class="panel-heading"><h3 class="panel-title">Enable/Disable Result Displays</h3></div>
-		<div class="panel-body">
+	<div class="card bg-info">
+		<div class="card-heading"><h3 class="card-title">Enable/Disable Result Displays</h3></div>
+		<div class="card-body">
 			<div class="form-group">
-				<label for="site_search_configuration_map_configuration_enabled">Enabled <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-map-enable"></span></label>
+				<label for="site_search_configuration_map_configuration_enabled">Enabled <span class="fa fa-question-circle" data-tooltip="tooltip-map-enable"></span></label>
 				<%= map_form.check_box :enabled, {}, "true", "false" %>
 			</div>
 			<div class="form-group">
-				<label for="site_search_configuration_map_configuration_show_sidebar">Show Sidebar <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-map-show-sidebar"></span></label>
+				<label for="site_search_configuration_map_configuration_show_sidebar">Show Sidebar <span class="fa fa-question-circle" data-tooltip="tooltip-map-show-sidebar"></span></label>
 				<%= map_form.check_box :show_sidebar, {}, "true", "false" %>
 			</div>
 		</div>
 	</div>
-	<div class="panel panel-info">
-		<div class="panel-heading"><h3 class="panel-title">Map Interface Configuration</h3></div>
-		<div class="panel-body">
+	<div class="card bg-info">
+		<div class="card-heading"><h3 class="card-title">Map Interface Configuration</h3></div>
+		<div class="card-body">
 			<div class="form-group">
-				<label for="site_search_configuration_map_configuration_default_lat">Default Latitude <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-map-default-coords"></span></label>
+				<label for="site_search_configuration_map_configuration_default_lat">Default Latitude <span class="fa fa-question-circle" data-tooltip="tooltip-map-default-coords"></span></label>
 				<%= map_form.text_field :default_lat %>
 			</div>
 			<div class="form-group">
-				<label for="site_search_configuration_map_configuration_default_long">Default Longitude <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-map-default-coords"></span></label>
+				<label for="site_search_configuration_map_configuration_default_long">Default Longitude <span class="fa fa-question-circle" data-tooltip="tooltip-map-default-coords"></span></label>
 				<%= map_form.text_field :default_long %>
 			</div>
 			<div class="form-group">
-				<label for="site_search_configuration_map_configuration_granularity_search">Default Search Granularity <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-map-granularity"></span></label>
+				<label for="site_search_configuration_map_configuration_granularity_search">Default Search Granularity <span class="fa fa-question-circle" data-tooltip="tooltip-map-granularity"></span></label>
 				<%= map_form.select(:granularity_search, options_for_select(Site::MapConfiguration::VALID_GRANULARITY_VALUES.keys.map {|v| [v.titlecase, v]}, @subsite.search_configuration.map_configuration.granularity_search || 'country'), {class: ['form-control']}) %>
 			</div>
 			<div class="form-group">
-				<label for="site_search_configuration_map_configuration_granularity_data">Coordinate Data Granularity <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-map-granularity"></span></label>
+				<label for="site_search_configuration_map_configuration_granularity_data">Coordinate Data Granularity <span class="fa fa-question-circle" data-tooltip="tooltip-map-granularity"></span></label>
 				<%= map_form.select(:granularity_data, options_for_select(Site::MapConfiguration::VALID_GRANULARITY_VALUES.keys.map {|v| [v.titlecase, v]}, @subsite.search_configuration.map_configuration.granularity_data || 'city'), {class: ['form-control']}) %>
 			</div>
 			<div class="form-group">
-				<label for="site_search_configuration_map_configuration_show_items">Show Items on Map <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-map-show-items"></span></label>
+				<label for="site_search_configuration_map_configuration_show_items">Show Items on Map <span class="fa fa-question-circle" data-tooltip="tooltip-map-show-items"></span></label>
 				<%= map_form.check_box :show_items, {}, "true", "false" %>
 			</div>
 		</div>

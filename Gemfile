@@ -6,9 +6,8 @@ gem 'bootsnap'
 gem 'actionpack-action_caching'
 # Hydra stack
 gem 'nokogiri', '~> 1.8.2'
-# kaminari 1.2.0 introduces a floating span close in Blacklight?
-gem 'kaminari', '~> 1.1.1'
-gem 'blacklight', '~> 6.0'
+gem 'blacklight', '~> 7.6.0'
+gem 'font-awesome-rails'
 gem 'active-fedora', '>= 7.3.1'
 # carrierwave for file uploads
 gem 'carrierwave', '~> 1.3'
@@ -16,7 +15,7 @@ gem 'carrierwave', '~> 1.3'
 gem 'rubydora'
 
 # Columbia Hydra models
-gem 'cul_hydra', '~> 1.10.0'
+gem 'cul_hydra', '~> 1.11.1'
 #gem 'cul_hydra', git: 'https://github.com/cul/cul_hydra', branch: 'master'
 gem 'cancancan', '~>2.0'
 gem 'cul_omniauth', '~> 0.6.1'
@@ -70,7 +69,9 @@ gem 'redis', '< 4' # Need to lock to earlier version of redis gem because resque
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder'
 
-gem 'bootstrap-sass', '>= 3.2'
+# popper is required for bootstrap tooltips
+gem 'popper_js'
+gem 'bootstrap', '~> 4.0'
 
 gem 'leaflet-rails', '~> 1.2.0'
 

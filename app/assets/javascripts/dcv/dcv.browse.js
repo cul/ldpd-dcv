@@ -12,7 +12,7 @@ DCV.Browse.PseudoFacet.constrainTo = function(klass) {
   $('#pseudo-facet span.appliedFilter a.constraint-value').append('<span class="filterName">Content in DCV</span>');
   $('#pseudo-facet span.appliedFilter a.constraint-value').append('<span class="filterValue">' + value +'</span>');
   $('#pseudo-facet span.appliedFilter').append('<a href="#" onclick="DCV.Browse.PseudoFacet.unClick(); return false;" class="btn btn-default btn-sm remove dropdown-toggle"></a>');  
-  $('#pseudo-facet span.appliedFilter a.remove').append('<span class="glyphicon glyphicon-remove"></span>');
+  $('#pseudo-facet span.appliedFilter a.remove').append('<span class="fa fa-remove"></span>');
   $(hide).hide();
   $(facetHide).hide();
   $(facetSelected + ' span.facet-label a').addClass('btn-disabled selected');

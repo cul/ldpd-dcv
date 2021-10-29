@@ -42,7 +42,7 @@ class CatalogController < SubsitesController
 
   # get search results from the solr index forhome page
   def home
-    @response = repository.search(home_params)
+    @response = search_service.repository.search(home_params)
     @document_list = @response.documents
 
     respond_to do |format|

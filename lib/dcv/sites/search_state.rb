@@ -8,7 +8,12 @@ class Dcv::Sites::SearchState < Blacklight::SearchState
 	end
 
 	def url_for_document(doc, options = {})
-		return params unless doc.slug
-		params.merge('slug' => doc.slug)
+		if doc.slug
+			params.merge('slug' => doc.slug)
+		elsif doc.doi_identifier
+			{ controller: 'catalog', id: doc.doi_identifier, action: 'show' }
+		else
+			params
+		end
 	end
 end

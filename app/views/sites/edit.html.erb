@@ -11,41 +11,41 @@
 <h1>Editing <%= @subsite.slug %> site properties</h1>
 <%= render partial: "sites/edit/edit_buttons" %>
 <div class="container">
-  <div class="panel panel-info" id="site_edit_context_about">
-    <div class="panel-heading"><h2 class="panel-title">About Site Properties <button type="button" class="btn btn-primary collapse-toggle collapsed" data-toggle="collapse" data-target="#site_edit_context_about_content" aria-expanded="false" aria-controls="site_edit_context_about_content" data-parent="site_edit_context_about"></button></h2></div>
-    <div class="panel-body collapse collapsed" id="site_edit_context_about_content">
+  <div class="card bg-info" id="site_edit_context_about">
+    <div class="card-heading"><h2 class="card-title">About Site Properties <button type="button" class="btn btn-primary collapse-toggle collapsed" data-toggle="collapse" data-target="#site_edit_context_about_content" aria-expanded="false" aria-controls="site_edit_context_about_content" data-parent="site_edit_context_about"></button></h2></div>
+    <div class="card-body collapse collapsed" id="site_edit_context_about_content">
       <p>The site properties managed here govern the overall appearance and function of the site. More detailed configuration of the content in scope for the site, its search functions, permissions, and site page content is available on the other admin pages linked here.</p>
       <p>The properties managed here also include the secondary navigation bar of the site. Individual page content is managed under the Edit Page menu.</p>
     </div>
   </div>
 </div>
 <div class="container"><%= form_for @subsite, builder: ::ValueIndexableFormBuilder, url: site_view do |site_form| %>
-  <div class="panel panel-primary">
-    <div class="panel-heading"><h2 class="panel-title">Site Properties</h2></div>
-    <div class="panel-body site_properties">
+  <div class="card bg-primary">
+    <div class="card-heading"><h2 class="card-title">Site Properties</h2></div>
+    <div class="card-body site_properties">
       <div class="form-group">
-        <label for="site_title">Title <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-title"></span></label>
+        <label for="site_title">Title <span class="fa fa-question-circle" data-tooltip="tooltip-title"></span></label>
         <%= site_form.text_field :title, class: ['form-control', 'disabled'], disabled: true %>
       </div>
       <div class="form-group">
-        <label for="site_title">Alternative Title <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-subtitle"></span></label>
+        <label for="site_title">Alternative Title <span class="fa fa-question-circle" data-tooltip="tooltip-subtitle"></span></label>
         <%= site_form.text_field :alternative_title, class: ['form-control'], placeholder: (t("cul.archives.physical_location.#{@subsite.repository_id}") if @subsite.repository_id) %>
       </div>
       <div class="form-group">
-        <label for="site_palette">Site Palette <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-palette"></span></label>
+        <label for="site_palette">Site Palette <span class="fa fa-question-circle" data-tooltip="tooltip-palette"></span></label>
         <%= site_form.select(:palette, options_for_select([['DLC Default', 'default'], ['Dark', 'monochromeDark'], ['Light', 'monochromeLight'], ['Blue', 'blue']], @subsite.palette), {class: ['form-control']}) %>
       </div>
       <div class="form-group">
-        <label for="site_layout">Site Layout <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-layout"></span></label>
+        <label for="site_layout">Site Layout <span class="fa fa-question-circle" data-tooltip="tooltip-layout"></span></label>
         <%= site_form.select(:layout, options_for_select([['DLC Default', 'default'], ['Portrait', 'portrait'], ['Gallery', 'gallery'], ['Signature', 'signature']], @subsite.layout), {class: ['form-control']}) %>
       </div>
       <div class="form-group">
-        <label for="site_search_type">Search Type <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-search-type"></span></label>
+        <label for="site_search_type">Search Type <span class="fa fa-question-circle" data-tooltip="tooltip-search-type"></span></label>
         <%= site_form.select(:search_type, options_for_select(Site::VALID_SEARCH_TYPES.map {|v| [v.titlecase, v]}, @subsite.search_type), {class: ['form-control']}) %>
         <%= link_to("Edit local search configurations", search_edit) %>
       </div>
       <div class="form-group">
-        <label for="site[show_facets]">Show Home Page Facets <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-homepage-facets"></span></label>
+        <label for="site[show_facets]">Show Home Page Facets <span class="fa fa-question-circle" data-tooltip="tooltip-homepage-facets"></span></label>
         <div class="radio">
           <label>
             <%= site_form.radio_button :show_facets, true %>Show facet panel on home page
@@ -59,38 +59,38 @@
       </div>
     </div>
   </div>
-  <div class="panel panel-primary">
-    <div class="panel-heading"><h2 class="panel-title">Site Homepage Images</h2></div>
-    <div class="panel-body site_homepage_images">
-      <div class="form-group panel panel-info" id="portrait_images">
-        <div class="panel-heading form-inline">
+  <div class="card bg-primary">
+    <div class="card-heading"><h2 class="card-title">Site Homepage Images</h2></div>
+    <div class="card-body site_homepage_images">
+      <div class="form-group card bg-info" id="portrait_images">
+        <div class="card-heading form-inline">
           <div class="form-group">
-            <label for="site_image_uris">Portrait Layout Images <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-images-portrait"></span></label>
+            <label for="site_image_uris">Portrait Layout Images <span class="fa fa-question-circle" data-tooltip="tooltip-images-portrait"></span></label>
             <button type="button" class="btn btn-primary collapse-toggle<%= ' collapsed' unless @subsite.layout == Site::LAYOUT_PORTRAIT %>" data-toggle="collapse" data-target="#portrait_image_pids" aria-expanded="false" aria-controls="portrait_image_pids" data-parent="site_homepage_images">Image PIDs</button>
           </div>
         </div>
-        <div class="panel-body collapse<%= ' in' if @subsite.layout == Site::LAYOUT_PORTRAIT %>" id="portrait_image_pids">
+        <div class="card-body collapse<%= ' in' if @subsite.layout == Site::LAYOUT_PORTRAIT %>" id="portrait_image_pids">
           <%- site_form.object.image_uris.each_with_index do |image_uri, ix| %>
             <%= render partial: "sites/edit/text_list_value", locals: { list_name: [:image_uris], value: image_uri, index: ix, removable: (ix > 0) } %>
           <%- end %>
           <fieldset id="add_site_image_uri" style="border-width: 0;">
             <button class="btn btn-info" type="button" onclick="addValueFieldsetFromTemplate(this.parentElement, 'site_image_uris');">
-              <span class="glyphicon glyphicon-plus"></span> Add a PID
+              <span class="fa fa-plus"></span> Add a PID
             </button>
           </fieldset>
         </div>
       </div>
-      <div class="form-group panel panel-info" id="signature_images">
-        <div class="panel-heading form-inline">
+      <div class="form-group card bg-info" id="signature_images">
+        <div class="card-heading form-inline">
           <div class="form-group">
-            <label for="site_signature_images">Signature Layout Images <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-images-signature"></span></label>
+            <label for="site_signature_images">Signature Layout Images <span class="fa fa-question-circle" data-tooltip="tooltip-images-signature"></span></label>
             <button type="button" class="btn btn-primary collapse-toggle<%= ' collapsed' unless @subsite.layout == Site::LAYOUT_SIGNATURE %>" data-toggle="collapse" data-target="#signature_image_assets" aria-expanded="false" aria-controls="signature_image_assets" data-parent="site_homepage_images">Image Information</button>
           </div>
         </div>
-        <div class="panel-body collapse<%= ' in' if @subsite.layout == Site::LAYOUT_SIGNATURE %>" id="signature_image_assets">
+        <div class="card-body collapse<%= ' in' if @subsite.layout == Site::LAYOUT_SIGNATURE %>" id="signature_image_assets">
           <fieldset class="paneled">
             <div class="col-md-6">
-              <label for="site_banner">Signature Banner Image&nbsp;</label><span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-images-signature-banner"></span>
+              <label for="site_banner">Signature Banner Image&nbsp;</label><span class="fa fa-question-circle" data-tooltip="tooltip-images-signature-banner"></span>
               <%= site_form.file_field :banner %>
             </div>
             <div class="col-md-6">
@@ -99,7 +99,7 @@
           </fieldset>
           <fieldset class="paneled">
             <div class="col-md-6">
-              <label for="site_watermark">Signature/Watermark Image&nbsp;</label><span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-images-signature-watermark"></span>
+              <label for="site_watermark">Signature/Watermark Image&nbsp;</label><span class="fa fa-question-circle" data-tooltip="tooltip-images-signature-watermark"></span>
               <%= site_form.file_field :watermark %>
             </div>
             <div class="col-md-6">
@@ -118,9 +118,9 @@
       </div>
     </div>
   </div>
-  <div class="panel panel-primary">
-    <div class="panel-heading"><h2 class="panel-title">Site Pages</h2></div>
-    <div class="panel-body site_pages">
+  <div class="card bg-primary">
+    <div class="card-heading"><h2 class="card-title">Site Pages</h2></div>
+    <div class="card-body site_pages">
       <table class="container">
         <tbody>
       <%- @subsite.site_pages.each do |page| -%>
@@ -128,13 +128,13 @@
           <td class="col-md-3"><%= page.slug %></td>
           <td class="col-md-5"><%= page.title %></td>
           <td class="col-md-2"><%= @subsite.restricted ? link_to(edit_restricted_site_page_path(site_slug: @subsite.slug.sub('restricted/',''), slug: page.slug)) : link_to(edit_site_page_path(site_slug: @subsite.slug, slug: page.slug), class: ['btn', 'btn-primary']) do %>
-                <span class="glyphicon glyphicon-pencil"></span> Edit
+                <span class="fa fa-pencil"></span> Edit
             <% end %>
           </td>
           <td class="col-md-2">
             <%- unless page.slug == 'home' %>
               <%= link_to(site_page_path(site_slug: @subsite.slug, slug: page.slug), method: :delete, data: {confirm: "Are you sure you want to delete page and content at #{page.slug}? It cannot be undone."}, class: ['btn btn-danger']) do  %>
-                <span class="glyphicon glyphicon-remove"></span> Delete
+                <span class="fa fa-remove"></span> Delete
                 <% end %>
             <%- end %>
           </td>
@@ -145,7 +145,7 @@
           <tr class="row">
             <td>
             <%= link_to(new_site_page_path(site_slug: @subsite.slug), class: ['btn btn-info']) do %>
-              <span class="glyphicon glyphicon-plus"></span> Add Page
+              <span class="fa fa-plus"></span> Add Page
             <% end %>
           </td>
           </tr>
@@ -153,19 +153,19 @@
       </table>
     </div>
   </div>
-  <div class="panel panel-primary">
-    <div class="panel-heading"><h2 class="panel-title">Site Navigation</h2></div>
-    <div class="panel-body site_navigation">
+  <div class="card bg-primary">
+    <div class="card-heading"><h2 class="card-title">Site Navigation</h2></div>
+    <div class="card-body site_navigation">
       <%= site_form.fields_for :nav_menus do |menu_form| %>
         <%= render partial: "sites/edit/navigation_menu_form", locals: { menu_form: menu_form } %>
       <%- end %>
       <button type="button" onclick="addNavMenu(this);" value="Add Navigation Menu" class="btn btn-info" >
-        <span class="glyphicon glyphicon-plus"></span> Add Navigation Group
+        <span class="fa fa-plus"></span> Add Navigation Group
       </button>
     </div>
   </div>
-  <div class="panel">
-    <div class="panel-body">
+  <div class="card">
+    <div class="card-body">
       <%= submit_tag "Update Site Information", {class: ['btn', 'btn-default']} %>
     </div>
   </div>

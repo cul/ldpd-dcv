@@ -99,7 +99,7 @@ a {
 		}
 	}
 	#search-navbar {
-		.input-group-addon {
+		.input-group-prepend {
 			background-color: $color_6;
 			font-size: .9em;
 		}
@@ -124,7 +124,7 @@ a {
 		color:$color_2;
 		text-shadow:none;
 	}
-	#search-navbar .input-group-addon {
+	#search-navbar .input-group-prepend {
 		background-color:#aaa;
 	}
 	#search-navbar #q {
@@ -291,7 +291,7 @@ a {
 			background-color: transparent;
 			background-color: transparent;
             .sidenav {
-				.panel-title {
+				.card-title {
 					font-family: $font_b; //$font_0, $font_1, $font_2;
 					font-size:.9em;
 					text-transform:uppercase;
@@ -334,7 +334,7 @@ a {
 			background-color: transparent;
 		}
 	}
-	.panel-default > .panel-heading {
+	.panel-default > .card-heading {
 		background-color: $color_10;
 		color: $color_15;
 		border: 0;
@@ -361,17 +361,17 @@ a {
 		background-color: transparent !important;
 		box-shadow: none;
 	}
-	.panel {
+	.card {
 		background-color: transparent !important;
 		box-shadow: none;
-		.panel-heading {
+		.card-heading {
 			margin-right: 1em;
 			margin-left: 1em;
 			padding: .2em 0;
 			background-color: $color_16 !important;
 		}
 	}
-	.panel-body {
+	.card-body {
 		border: 0;
 	}
 	a {
@@ -443,7 +443,7 @@ a {
 }
 #content {
 	#facet-panel-collapse {
-		.panel-body {
+		.card-body {
 			background-color:$color_10;
 		}
 	}

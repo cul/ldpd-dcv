@@ -69,7 +69,7 @@ describe FieldDisplayHelpers::LocationUrls, :type => :helper do
             }
           ]
         }
-        it { is_expected.to include "<a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.example.org/relatedResource\">External Example Related Resource <sup class=\"glyphicon glyphicon-new-window\" aria-hidden=\"true\"></sup></a>" }
+        it { is_expected.to include "<a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.example.org/relatedResource\">External Example Related Resource <sup class=\"fa fa-external-link\" aria-hidden=\"true\"></sup></a>" }
       end
       context 'that are all usage primary' do
         let(:url_array) {

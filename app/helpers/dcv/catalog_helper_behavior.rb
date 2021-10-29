@@ -28,14 +28,14 @@ module Dcv::CatalogHelperBehavior
     link_opts = session_tracking_params(previous_document, search_session['counter'].to_i - 1).merge(:class => "previous", :rel => 'prev')
     # raw(t('views.pagination.previous'))
     link_opts.merge!(opts)
-    link_to_unless previous_document.nil?, '<i class="glyphicon glyphicon-arrow-left"></i>'.html_safe, url_for_document(previous_document), link_opts do
+    link_to_unless previous_document.nil?, '<i class="fa fa-arrow-left"></i>'.html_safe, url_for_document(previous_document), link_opts do
       if opts[:class]
         opts = opts.merge(class: opts[:class] + ' disabled')
       else
         opts = opts.merge(class: 'disabled')
       end
       content_tag :button, opts do
-        content_tag :i, '', :class => 'glyphicon glyphicon-arrow-left'
+        content_tag :i, '', :class => 'fa fa-arrow-left'
       end
     end
   end
@@ -46,14 +46,14 @@ module Dcv::CatalogHelperBehavior
     link_opts = session_tracking_params(next_document, search_session['counter'].to_i + 1).merge(:class => "next", :rel => 'next')
     # raw(t('views.pagination.next'))
     link_opts.merge!(opts)
-    link_to_unless next_document.nil?, '<i class="glyphicon glyphicon-arrow-right"></i>'.html_safe, url_for_document(next_document), link_opts do
+    link_to_unless next_document.nil?, '<i class="fa fa-arrow-right"></i>'.html_safe, url_for_document(next_document), link_opts do
       if opts[:class]
         opts = opts.merge(class: opts[:class] + ' disabled')
       else
         opts = opts.merge(class: 'disabled')
       end
       content_tag :button, opts do
-        content_tag :i, '', :class => 'glyphicon glyphicon-arrow-right'
+        content_tag :i, '', :class => 'fa fa-arrow-right'
       end
     end
   end
@@ -87,7 +87,7 @@ module Dcv::CatalogHelperBehavior
         fq: [filter],
         facet: false
       }
-      response = controller.repository.connection.send_and_receive 'select', params: solr_params
+      response = controller.search_service.repository.connection.send_and_receive 'select', params: solr_params
       response['response']['numFound'].to_i
     end
   end

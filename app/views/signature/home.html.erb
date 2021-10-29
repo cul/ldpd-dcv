@@ -5,15 +5,15 @@
 			<%- cache [@subsite, 'home-sidenav'] do -%>
 				<div id="link-panel" class="facets sidenav">
 					<div class="panel-group">
-						<div class="panel panel-ui">
-							<div class="panel-heading">
-								<h3 class="panel-title"><%= link_to_site_browse("BROWSE THE COLLECTION", "VISIT SITE") %></h3>
+						<div class="card panel-ui">
+							<div class="card-heading">
+								<h3 class="card-title"><%= link_to_site_browse("BROWSE THE COLLECTION", "VISIT SITE") %></h3>
 							</div>
 						</div>
-						<div class="panel panel-ui">
+						<div class="card panel-ui">
 							<%- if (about_link = @subsite.about_link) -%>
-								<div class="panel-heading">
-									<h3 class="panel-title"><%= link_to("ABOUT THE COLLECTION", site_page_path(site_slug: @subsite.slug, slug: about_link.link)) %></h3>
+								<div class="card-heading">
+									<h3 class="card-title"><%= link_to("ABOUT THE COLLECTION", site_page_path(site_slug: @subsite.slug, slug: about_link.link)) %></h3>
 								</div>
 							<%- end -%>
 						</div>

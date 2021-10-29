@@ -96,7 +96,7 @@
 	&.slim {
 		margin-top: .5em;
 	}
-	.input-group-addon {
+	.input-group-prepend {
 		color: lighten($color_ui,10%);
 		background-color: $color_ui_background;
 	}
@@ -149,7 +149,7 @@
 	.panel-default {
 		border-color: $color_outline_secondary;
 		border-style: solid;
-		.panel-heading {
+		.card-heading {
 			background-color: $color_primary_background;
 			color: $color_ui;
 			border-color: $color_ui_outline;
@@ -159,7 +159,7 @@
 			}
 		}
 	}
-	.panel-body .nav {
+	.card-body .nav {
 		a {
 			@extend %extend_1;
 			&:hover {
@@ -173,7 +173,7 @@
 			}
 		}
 	}
-	.panel-title:hover {
+	.card-title:hover {
 		text-decoration: none;
 	}
 }
@@ -187,7 +187,7 @@
 		border-color: $color_outline;
 		border-style: solid;
 	}
-	.panel-body {
+	.card-body {
 		border-top-color: $color_outline;
 	}
 	@media(max-width: 768px) {

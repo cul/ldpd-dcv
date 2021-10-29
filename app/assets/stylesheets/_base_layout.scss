@@ -256,7 +256,7 @@ input {
 	margin-bottom: 0;
 	background-color: transparent;
 	border: none;
-	.input-group-addon {
+	.input-group-prepend {
 		padding-top: 0;
 		padding-bottom: 0;
 		margin-top: 0;
@@ -1242,6 +1242,10 @@ h2[itemprop="name"] {
 	padding-bottom: 1em;
 	margin-bottom: 0 !important;
 	border-bottom: 0 !important;
+	a.previous, a.next {
+		@extend .btn;
+		@extend .btn-secondary;
+	}
 }
 
 #child-viewer {

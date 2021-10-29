@@ -7,5 +7,5 @@
     remote:        data-remote
 -%>
 <li class="<%= 'disabled' if current_page.last? %>">
-  <%= link_to '<i class="glyphicon glyphicon-arrow-right"></i>'.html_safe, url, :rel => 'next', :remote => remote, :"data-toggle" => 'tooltip', title: raw(t 'views.pagination.next') %>
+  <%= link_to '<i class="fa fa-arrow-right"></i>'.html_safe, url, :rel => 'next', :remote => remote, :"data-toggle" => 'tooltip', title: raw(t 'views.pagination.next') %>
 </li>

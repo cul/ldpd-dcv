@@ -1,21 +1,21 @@
-<div class="panel panel-info site_navigation_menu" id="site_navigation_menu_<%= menu_form.index %>">
-  <div class="panel-heading form-inline">
+<div class="card bg-info site_navigation_menu" id="site_navigation_menu_<%= menu_form.index %>">
+  <div class="card-heading form-inline">
     <div class="form-group">
-      <span class="glyphicon glyphicon-move site_navigation_menu_handle"></span>
-      <label for="site[nav_menus_attributes][<%= menu_form.index %>][label]">Group Label <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-nav-menu-label"></span></label>
+      <span class="fa fa-arrows site_navigation_menu_handle"></span>
+      <label for="site[nav_menus_attributes][<%= menu_form.index %>][label]">Group Label <span class="fa fa-question-circle" data-tooltip="tooltip-nav-menu-label"></span></label>
       <%= menu_form.text_field :label, class: ['form-control'] %>
       <button type="button" class="btn btn-primary collapse-toggle collapsed" data-toggle="collapse" data-target="#site_navigation_links_<%= menu_form.index %>" aria-expanded="false" aria-controls="site_navigation_links_<%= menu_form.index %>" data-parent="site_navigation_menu_<%= menu_form.index %>">Links</button>
     </div>
-    <div class="pull-right">
-      <button type="button" class="btn btn-danger remove" onclick="removeNavMenu(this);"><span class="glyphicon glyphicon-remove"></span> Remove</button>
+    <div class="float-right">
+      <button type="button" class="btn btn-danger remove" onclick="removeNavMenu(this);"><span class="fa fa-remove"></span> Remove</button>
     </div>
   </div>
-  <div class="panel-body collapse site_navigation_links" id="site_navigation_links_<%= menu_form.index %>">
+  <div class="card-body collapse site_navigation_links" id="site_navigation_links_<%= menu_form.index %>">
     <%= menu_form.fields_for :links, include_id: false do |link_form| %>
       <%= render partial: "sites/edit/navigation_link_form", locals: { menu_form: menu_form, link_form: link_form } %>
     <%- end %>
     <button type="button" onclick="addNavLink(this);" class="btn btn-info" id="menu-<%= menu_form.index %>-add-link">
-      <span class="glyphicon glyphicon-plus"></span> Add Link
+      <span class="fa fa-plus"></span> Add Link
     </button>
   </div>
 </div>

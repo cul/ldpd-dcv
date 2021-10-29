@@ -1,7 +1,8 @@
+@import 'font-awesome';
 @import './variables';
 
-@import "bootstrap-sprockets";
 @import 'bootstrap';
+@import 'bootstrap/variables';
 
-@import 'blacklight/blacklight';
+@import 'blacklight/blacklight_base';
 @import 'blacklight/overrides';

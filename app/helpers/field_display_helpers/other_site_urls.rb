@@ -5,7 +5,7 @@ module FieldDisplayHelpers::OtherSiteUrls
     values.map do |site|
       next if site == @subsite
       display_label = site.title
-      link_label = "#{display_label} <sup class=\"glyphicon glyphicon-new-window\" aria-hidden=\"true\"></sup>"
+      link_label = "#{display_label} <sup class=\"fa fa-external-link\" aria-hidden=\"true\"></sup>"
       link_to(link_label.html_safe, site_url(slug: site.slug), target: "_blank", rel: "noopener noreferrer")
     end.compact
   end

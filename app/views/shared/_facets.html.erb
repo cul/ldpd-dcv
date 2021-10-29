@@ -2,7 +2,7 @@
 <% if has_facet_values?  %>
 <div <%= defined?(no_id_attr) && no_id_attr ? '' : 'id="facets"'.html_safe %> class="facets sidenav">
 
-  <div class="top-panel-heading panel-heading">
+  <div class="top-panel-heading card-heading">
     <% if has_search_parameters? %>
       <button type="button" class="facets-toggle" data-toggle="collapse" data-target="#facet-panel-collapse">
         <span class="sr-only">Toggle facets</span>

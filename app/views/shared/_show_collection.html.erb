@@ -18,10 +18,10 @@
      </div>
      <div class="inner">
         <ul class="list-unstyled">
-          <li><a href="http://library.columbia.edu/services/preservation/publications_policy.html"><span class="glyphicon glyphicon-tag"></span> Order a Reproduction</a></li>
-          <li><%= link_to '<span class="glyphicon glyphicon-file"></span> Display XML Metadata'.html_safe, item_mods_path(:pid => @document.id), :'data-no-turbolink' => true, :'data-display-url' => item_mods_path(:pid => @document.id, :type => 'formatted_text'), :'data-download-url' => item_mods_path(:pid => @document.id, :type => 'download'), :onclick => 'return DCV.ModsDownloadModal.show($(this).attr("data-display-url"), $(this).attr("data-download-url"));' %></li>
+          <li><a href="http://library.columbia.edu/services/preservation/publications_policy.html"><span class="fa fa-tag"></span> Order a Reproduction</a></li>
+          <li><%= link_to '<span class="fa fa-file"></span> Display XML Metadata'.html_safe, item_mods_path(:pid => @document.id), :'data-no-turbolink' => true, :'data-display-url' => item_mods_path(:pid => @document.id, :type => 'formatted_text'), :'data-download-url' => item_mods_path(:pid => @document.id, :type => 'download'), :onclick => 'return DCV.ModsDownloadModal.show($(this).attr("data-display-url"), $(this).attr("data-download-url"));' %></li>
         </ul>
-        <%#= link_to '<span class="glyphicon glyphicon-file"></span> Display XML Metadata'.html_safe, item_mods_path(:pid => @document.id), :'data-no-turbolink' => true, :'data-display-url' => item_mods_path(:pid => @document.id, :type => 'formatted_text'), :'data-download-url' => item_mods_path(:pid => @document.id, :type => 'download'), :onclick => 'return DCV.ModsDownloadModal.show($(this).attr("data-display-url"), $(this).attr("data-download-url"));' %>
+        <%#= link_to '<span class="fa fa-file"></span> Display XML Metadata'.html_safe, item_mods_path(:pid => @document.id), :'data-no-turbolink' => true, :'data-display-url' => item_mods_path(:pid => @document.id, :type => 'formatted_text'), :'data-download-url' => item_mods_path(:pid => @document.id, :type => 'download'), :onclick => 'return DCV.ModsDownloadModal.show($(this).attr("data-display-url"), $(this).attr("data-download-url"));' %>
       </div>
     </div>
   <% end %>
@@ -35,9 +35,9 @@
         <% end %>
         <div id="favorite-child">
         <% if child = structured_children.first %>
-          <%= '<a href="#" class="next-child" onclick="return DCV.Show.FavoriteChildNavigation.previous(this);"><span class="glyphicon glyphicon-chevron-left"></span></a>'.html_safe if structured_children.length > 1 %>
+          <%= '<a href="#" class="next-child" onclick="return DCV.Show.FavoriteChildNavigation.previous(this);"><span class="fa fa-chevron-left"></span></a>'.html_safe if structured_children.length > 1 %>
           <img itemprop="contentUrl" onclick="$('.item-cbox').click();" src="<%= get_resolved_asset_url(id: child[:id], pid: child[:pid], size: 768, type: 'full', format: 'jpg') %>" data-counter="1" data-sequence="0" data-zoom-url="<%= details_path(id: document[:id], layout:(request.path.split('/')[1])) %>" data-info-url="<%= get_resolved_asset_info_url(id: child[:id], pid: child[:pid], image_format: 'jpg') %>" data-bytestreams="<%= resolve_catalog_bytestreams_path(catalog_id: child[:id], :format=>'json') %>"/>
-          <%= '<a href="#" class="previous-child" onclick="return DCV.Show.FavoriteChildNavigation.next(this);"><span class="glyphicon glyphicon-chevron-right"></span></a>'.html_safe if structured_children.length > 1 %>
+          <%= '<a href="#" class="previous-child" onclick="return DCV.Show.FavoriteChildNavigation.next(this);"><span class="fa fa-chevron-right"></span></a>'.html_safe if structured_children.length > 1 %>
         <% end %>
       </div>
     <% end %>

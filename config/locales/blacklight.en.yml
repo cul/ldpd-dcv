@@ -10,3 +10,4 @@ en:
         citation: []
       citation:
         label: '%{label}:'
+      title: '%{application_name}'

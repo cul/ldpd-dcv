@@ -93,7 +93,7 @@ a {
 		}
 	}
 	#search-navbar {
-		.input-group-addon {
+		.input-group-prepend {
 			background-color: $color_6;
 			font-size: .9em;
 		}
@@ -287,7 +287,7 @@ a {
 			background-color: transparent;
 		}
 	}
-	.panel-default > .panel-heading {
+	.panel-default > .card-heading {
 		background-color: $color_10;
 		color: $color_15;
 		border: 0;
@@ -408,17 +408,17 @@ a {
 		background-color: transparent !important;
 		box-shadow: none;
 	}
-	.panel {
+	.card {
 		background-color: transparent !important;
 		box-shadow: none;
-		.panel-heading {
+		.card-heading {
 			margin-right: 1em;
 			margin-left: 1em;
 			padding: .2em 0;
 			background-color: $color_16 !important;
 		}
 	}
-	.panel-body {
+	.card-body {
 		border: 0;
 	}
 	a {

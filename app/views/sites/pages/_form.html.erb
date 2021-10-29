@@ -1,14 +1,14 @@
 <%= form_for @page, url: { action: (@page.new_record? ? "create" : "update")  } do |page_form| %>
-<div class="panel panel-primary">
-	<div class="panel-heading"><h2 class="panel-title">Page Properties</h2></div>
-	<div class="panel-body page_properties">
+<div class="card bg-primary">
+	<div class="card-heading"><h2 class="card-title">Page Properties</h2></div>
+	<div class="card-body page_properties">
 		<div class="form-group">
-			<label for="page_slug">Slug <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-slug"></span></label>
+			<label for="page_slug">Slug <span class="fa fa-question-circle" data-tooltip="tooltip-slug"></span></label>
 			<%= page_form.text_field :slug, class: ['form-control'], disabled: ('home' == @page.slug) %>
-			<label for="page_title">Title <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-page-title"></span></label>
+			<label for="page_title">Title <span class="fa fa-question-circle" data-tooltip="tooltip-page-title"></span></label>
 			<%= page_form.text_field :title, class: ['form-control'] %>
 		</div>
-		<label for="site[show_facets]">Text Columns <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-page-columns"></span></label>
+		<label for="site[show_facets]">Text Columns <span class="fa fa-question-circle" data-tooltip="tooltip-page-columns"></span></label>
 		<div class="radio">
 			<label>
 				<%= page_form.radio_button :use_multiple_columns, false %>Show text in one column
@@ -21,21 +21,21 @@
 		</div>
 	</div>
 </div>
-<div class="panel panel-primary">
-	<div class="panel-heading"><h2 class="panel-title">Text Blocks</h2></div>
-	<div class="panel-body site_text_blocks">
+<div class="card bg-primary">
+	<div class="card-heading"><h2 class="card-title">Text Blocks</h2></div>
+	<div class="card-body site_text_blocks">
 		<%= page_form.fields_for :site_text_blocks, include_id: false do |site_text_block_form| %>
 			<%= render partial: 'sites/pages/text_block_form', locals: { site_text_block_form: site_text_block_form } %>
 		<% end %>
 		<button type="button" onclick="addTextBlock(this);" class="btn btn-info" id="site-page-add-block">
-			<span class="glyphicon glyphicon-plus"></span> Add Text Block
+			<span class="fa fa-plus"></span> Add Text Block
 
 		</button>
 	</div>
 </div>
 
-<div class="panel">
-	<div class="panel-body">
+<div class="card">
+	<div class="card-body">
 		<%= submit_tag "#{@page.new_record? ? "Create" : "Update"} Page", {class: ['btn', 'btn-default']} %>
 	</div>
 </div>

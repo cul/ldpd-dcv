@@ -119,7 +119,7 @@ class Resolve::CatalogController < ApplicationController
     p = blacklight_config.default_document_solr_params.merge(extra_controller_params)
     p[:fq] = "identifier_ssim:#{(id)}"
     solr_response = find(blacklight_config.document_solr_path, p)
-    raise Blacklight::Exceptions::InvalidSolrID.new if solr_response.docs.empty?
+    raise Blacklight::Exceptions::RecordNotFound.new if solr_response.docs.empty?
     document = SolrDocument.new(solr_response.docs.first, solr_response)
     @response, @document = [solr_response, document]
   end

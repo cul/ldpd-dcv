@@ -11,7 +11,7 @@ module Dcv
 				config = field_config
 				values = retrieve_values
 			end
-			Rendering::UnjoinedPipeline.render(values, config, document, controller, options)
+			Rendering::UnjoinedPipeline.render(values, config, document, view_context, options)
 		end
 	end
 end

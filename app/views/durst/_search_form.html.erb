@@ -6,7 +6,7 @@
 
     <div class="input-group">
       <input type="hidden" name="search_field" value="all_text_teim">
-      <div class="input-group-btn">
+      <div class="input-group-append">
 
         <button id="format_type_select" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" style="border-color:#ccc;margin-right:-1px;"><span style="font-size:85%;">Formats</span>
           <span class="caret"></span>
@@ -21,11 +21,11 @@
     </div>
       <label for="q" class="sr-only"><%= t('blacklight.search.form.q') %></label>
       <%= text_field_tag :q, params[:q], :placeholder => (!query_has_constraints? ? 'Search Postcards, Maps, Photographs, Books, Etc&hellip;'.html_safe : 'Modify current search&hellip;'.html_safe), :class => "search_q q form-control", :id => "q", :tabindex => "1" %>
-      <div class="input-group-btn">
-    <%= link_to '<i class="glyphicon glyphicon-remove"></i>'.html_safe, start_over_path, :title => 'Start Over', :class => 'btn btn-default reset-btn' if query_has_constraints? %>
+      <div class="input-group-append">
+    <%= link_to '<i class="fa fa-remove"></i>'.html_safe, start_over_path, :title => 'Start Over', :class => 'btn btn-default reset-btn' if query_has_constraints? %>
         <button class="btn btn-primary search-btn" type="submit">
           <span class="hidden-xs"><%= (current_page?(root_url)? t('blacklight.search.form.submit') : '') %></span>
-          <span class="glyphicon glyphicon-search"></span>
+          <span class="fa fa-search"></span>
         </button>
       </div>
     </div>

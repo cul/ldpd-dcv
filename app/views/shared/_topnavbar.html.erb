@@ -1,25 +1,37 @@
-<nav id="topnavbar" class="navbar navbar-default navbar-fixed-top" role="navigation">
+<nav id="topnavbar" class="navbar navbar-dark fixed-top navbar-expand-sm" role="navigation">
 	<div id="navbar-container" class="container">
 		<div class="col-sm-12" id="cul_top-nosearch">
 			<div class="row">
 				<div class="col-sm-6">
-					<ul class="nav pull-left" id="crowndown-nosearch">
-						<li class="dropdown menu"><a href="#" class="dropdown-toggle menu" data-toggle="dropdown" title="Links @ Columbia"><span class="topbarlogo">Columbia University Libraries</span> <b class="caret"></b></a>
-						<ul class="dropdown-menu menu-dropdown">
-							<li><a href="http://columbia.edu"><i class="icon-crown-white"></i> Columbia University » Home</a></li>
-							<li><a href="https://library.columbia.edu"><i class="glyphicon glyphicon-home"></i>  Libraries » Home</a></li>
-							<li><a href="<%=root_path%>"><i class="glyphicon glyphicon-star"></i> Digital Library Collections » Home</a></li>
-							<li class="divider"></li>
-							<li><a href="https://library.columbia.edu/libraries.html">Columbia Libraries Locations</a></li>
-							<li><a href="https://library.columbia.edu/collections/archives-portal.html">Columbia Archival Collections Portal</a></li>
-							<li><a href="https://clio.columbia.edu">CLIO: Columbia Libraries Catalog</a></li>
-						</ul>
+					<ul class="navbar-nav float-left" id="crowndown-nosearch">
+						<li class="dropdown menu nav-item">
+							<a href="#" class="dropdown-toggle menu nav-link" data-toggle="dropdown" title="Links @ Columbia"><span class="topbarlogo">Columbia University Libraries</span> <b class="caret"></b></a>
+							<ul class="dropdown-menu menu-dropdown nav-item">
+								<li><a href="http://columbia.edu"><i class="icon-crown-white"></i> Columbia University » Home</a></li>
+								<li><a href="https://library.columbia.edu"><i class="fa fa-home"></i>  Libraries » Home</a></li>
+								<li><a href="<%=root_path%>"><i class="fa fa-star"></i> Digital Library Collections » Home</a></li>
+								<li class="divider"></li>
+								<li><a href="https://library.columbia.edu/libraries.html">Columbia Libraries Locations</a></li>
+								<li><a href="https://library.columbia.edu/collections/archives-portal.html">Columbia Archival Collections Portal</a></li>
+								<li><a href="https://clio.columbia.edu">CLIO: Columbia Libraries Catalog</a></li>
+							</ul>
 						</li>
 					</ul>
-				</div><!--/col-sm-9-->
+				</div><!--/col-sm-6-->
 				<div class="col-sm-6">
-					<ul id="cul_top-right" class="nav pull-right">
-						<li class="dropdown menu pull-left"><a class="dropdown-toggle menu" data-toggle="dropdown" href="#">Help <b class="caret"></b></a>
+					<ul id="cul_top-right" class="navbar-nav float-right">
+						<li class="nav-item">
+							<% if current_user %>
+								<span class="nav-link">
+									<%= current_user.uid %>
+									<%= link_to '(Log Out)', destroy_user_session_url(provider: current_user.provider, restricted: restricted?) %>
+								</span>
+							<% else %>
+									<%= link_to 'Log In', send(:"user_#{controller.omniauth_provider_key}_omniauth_authorize_url", return_to: request.original_url), {class: "nav-link"} %>
+							<% end %>
+						</li>
+						<li class="dropdown menu nav-item float-left">
+							<a class="nav-link dropdown-toggle menu" data-toggle="dropdown" href="#">Help <b class="caret"></b></a>
 							<ul class="dropdown-menu menu-dropdown dropdown-menu-right">
 								<li><%= link_to 'About', about_path %></li>
 								<li><a href="https://library.columbia.edu/services/askalibrarian.html">Ask a Librarian</a></li>
@@ -29,20 +41,8 @@
 								<li><%= link_to 'Terms of Use', terms_of_use_url %></li>
 							</ul>
 						</li>
-					</ul><!--
-					<ul id="cul_top-login" class="nav pull-right">
-						<li class="dropdown menu pull-left">-->
-					<div class="nav pull-right navlist-padded">
-						<% if current_user %>
-							<%= current_user.uid %>
-							<%= link_to '(Log Out)', destroy_user_session_url(provider: current_user.provider, restricted: restricted?) %>
-						<% else %>
-							<%= link_to 'Log In', send(:"user_#{controller.omniauth_provider_key}_omniauth_authorize_url", return_to: request.original_url) %>
-						<% end %>
-						<!--</li>
-					</ul>-->
-					</div>
-				</div><!--/col-sm-3-->
+					</ul>
+				</div><!--/col-sm-6-->
 			</div><!--/row-->
 		</div><!-- /cul_top-nosearch -->
 	</div>

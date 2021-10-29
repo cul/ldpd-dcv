@@ -1,18 +1,18 @@
-<div class="panel panel-default site_navigation_link">
-<div class="panel-heading form-horizontal">
+<div class="card panel-default site_navigation_link">
+<div class="card-heading form-horizontal">
 	<div class="form-group">
-		<label class="control-label col-md-2" for="site[nav_menus_attributes][<%= menu_form.index %>][links_attributes][<%= link_form.index %>][label]"><span class="glyphicon glyphicon-move site_navigation_link_handle pull-left"></span> Link Label <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-nav-link-label"></span></label>
+		<label class="control-label col-md-2" for="site[nav_menus_attributes][<%= menu_form.index %>][links_attributes][<%= link_form.index %>][label]"><span class="fa fa-arrows site_navigation_link_handle float-left"></span> Link Label <span class="fa fa-question-circle" data-tooltip="tooltip-nav-link-label"></span></label>
 		<div class="col-md-8">
 			<%= link_form.text_field :label, class: ['form-control'] %>
 		</div>
 		<div class="col-md-2">
-			<button type="button" class="btn btn-danger remove" onclick="removeNavLink(this);"  id="menu-<%= menu_form.index %>-remove-link-<%= link_form.index %>"><span class="glyphicon glyphicon-remove"></span> Remove</button>
+			<button type="button" class="btn btn-danger remove" onclick="removeNavLink(this);"  id="menu-<%= menu_form.index %>-remove-link-<%= link_form.index %>"><span class="fa fa-remove"></span> Remove</button>
 		</div>
 	</div>
 </div>
-<div class="panel-body">
+<div class="card-body">
 	<div class="form-group">
-		<label for="site[nav_menus_attributes][<%= menu_form.index %>][links_attributes][<%= link_form.index %>][link]">Links To <span class="glyphicon glyphicon-question-sign" data-tooltip="tooltip-nav-link"></span></label>
+		<label for="site[nav_menus_attributes][<%= menu_form.index %>][links_attributes][<%= link_form.index %>][link]">Links To <span class="fa fa-question-circle" data-tooltip="tooltip-nav-link"></span></label>
 		<%= link_form.text_field :link, class: ['form-control'] %>
 	</div>
 	<div class="form-group">

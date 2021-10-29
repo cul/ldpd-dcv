@@ -7,8 +7,6 @@ class ApplicationController < ActionController::Base
   # Please be sure to impelement current_user and user_session. Blacklight depends on
   # these methods in order to perform user specific actions.
 
-  skip_after_action :discard_flash_if_xhr
-
   before_action :set_view_path
 
   layout false

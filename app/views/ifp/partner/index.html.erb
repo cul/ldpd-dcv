@@ -3,7 +3,7 @@
   <div id="content" class="col-md-9">
     <h2 class="nomar-t"><img style="margin-right:3px;width:auto;max-height:40px;" src="<%= asset_path(partner_data[:rep_flag]) %>" alt=""> <%= partner_data[:heading] %></h2>
     <div class="partner-text-excerpt visible-xs lead"><%= partner_data[:text_excerpt].html_safe %></div><!--patner-text-excerpt-->
-    <div class="pull-right col-sm-5 col-xs-12 nopad-rl-xs">
+    <div class="float-right col-sm-5 col-xs-12 nopad-rl-xs">
       <a href="<%= asset_path(partner_data[:rep_image]) %>" class="thumbnail preview-modal" data-title="IFP <%= partner_data[:heading] %>">
         <img alt="" src="<%= asset_path(partner_data[:rep_image]) %>" class="img-responsive">
       </a>

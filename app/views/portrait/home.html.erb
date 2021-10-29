@@ -7,7 +7,7 @@
 				<div id="doc_<%= @subsite.slug.to_s.parameterize %>">
 					<div class="inner">
 						<div id="show-concept">
-							<div class="col-xs-12 col-sm-6 pull-right">
+							<div class="col-xs-12 col-sm-6 float-right">
 								<%- image_pid = @subsite.image_uri.split('/')[-1] if @subsite.image_uri -%>
 								<%- if image_pid -%>
 									<div class="show-representative-image mb-2"><%= image_tag(get_asset_url(id: image_pid, size: 768, type: 'full', format: 'jpg'), :itemprop => 'image', :class => 'img-responsive w-100') if image_pid %><div class="clearfix"></div></div>

@@ -11,7 +11,7 @@ module Dcv::DcvUrlHelper
   def render_link_to_external_resource(args = {})
     scalar_value = !(args[:value].is_a? Array)
     link_label = args[:config].link_label || "See also"
-    link_label = "#{link_label} <span class=\"glyphicon glyphicon-new-window\"></span>".html_safe
+    link_label = "#{link_label} <span class=\"fa fa-external-link\"></span>".html_safe
     links = Array(args[:value]).map {|url| link_to(link_label, url, target: '_blank') }
     scalar_value ? links.first : links
   end
@@ -20,7 +20,7 @@ module Dcv::DcvUrlHelper
   def render_link_to_clio(args = {})
     scalar_value = !(args[:value].is_a? Array)
     clio_links = Array(args[:value]).map do |clio_id|
-      link_label = "#{args[:config].link_label || clio_id} <span class=\"glyphicon glyphicon-new-window\"></span>".html_safe
+      link_label = "#{args[:config].link_label || clio_id} <span class=\"fa fa-external-link\"></span>".html_safe
       link_to(link_label, "http://clio.columbia.edu/catalog/#{clio_id}", target: '_blank')
     end
     scalar_value ? clio_links.first : clio_links
@@ -90,7 +90,7 @@ module Dcv::DcvUrlHelper
       edit_href = edit_site_path(slug: @subsite.slug)
     end
     edit_ele = link_to(edit_href) do
-      "<span class=\"glyphicon glyphicon-pencil\"></span> Edit".html_safe
+      "<span class=\"fa fa-pencil\"></span> Edit".html_safe
     end
     "#{sep}#{edit_ele}".html_safe
   end

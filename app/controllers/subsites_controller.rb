@@ -168,7 +168,7 @@ class SubsitesController < ApplicationController
 
     respond_to do |format|
       format.html do
-        setup_next_and_previous_documents
+        @search_context = setup_next_and_previous_documents || {}
         render 'show' # explicate since proxies action delegates here
       end
 

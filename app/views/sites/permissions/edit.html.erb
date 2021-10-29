@@ -8,9 +8,9 @@
 <h1>Configuring <%= @subsite.slug %> permissions</h1>
 <%= render partial: "sites/edit/edit_buttons" %>
 <div class="container">
-  <div class="panel panel-info" id="site_edit_context_about">
-    <div class="panel-heading"><h2 class="panel-title">About Site Permissions <button type="button" class="btn btn-primary collapse-toggle collapsed" data-toggle="collapse" data-target="#site_edit_context_about_content" aria-expanded="false" aria-controls="site_edit_context_about_content" data-parent="site_edit_context_about"></button></h2></div>
-    <div class="panel-body collapse collapsed" id="site_edit_context_about_content">
+  <div class="card bg-info" id="site_edit_context_about">
+    <div class="card-heading"><h2 class="card-title">About Site Permissions <button type="button" class="btn btn-primary collapse-toggle collapsed" data-toggle="collapse" data-target="#site_edit_context_about_content" aria-expanded="false" aria-controls="site_edit_context_about_content" data-parent="site_edit_context_about"></button></h2></div>
+    <div class="card-body collapse collapsed" id="site_edit_context_about_content">
       <p>Authorization to view file Assets is managed in Asset metadata, but restricted sites with <strong>local</strong> searches may also limit access to the Item descriptions they present.</p>
       <p>An authenticated user will be required to match at least one permission to view items in the site if permissions are configured.</p>
     </div>
@@ -18,9 +18,9 @@
 </div>
 <%- if @subsite.search_type != 'local' %>
 	<div class="container">
-		<div class="panel panel-warning">
-			<div class="panel-heading"><h2 class="panel-title">Configuration May Not Apply!</h2></div>
-			<div class="panel-body">The properties configured below are for sites with a <strong>local</strong> search. This site has a <strong><%= @subsite.search_type %></strong> search. This can be changed in the <%= link_to('site properties', site_edit) %>.</div>
+		<div class="card bg-warning">
+			<div class="card-heading"><h2 class="card-title">Configuration May Not Apply!</h2></div>
+			<div class="card-body">The properties configured below are for sites with a <strong>local</strong> search. This site has a <strong><%= @subsite.search_type %></strong> search. This can be changed in the <%= link_to('site properties', site_edit) %>.</div>
 		</div>
 	</div>
 <% end -%>

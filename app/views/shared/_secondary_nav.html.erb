@@ -3,7 +3,7 @@
 		<div class="row">
 			<div class="col-sm-12">
 			<%- cache [@subsite, 'nav_menus'] do -%>
-				<ul class="nav nav-pills pull-left">
+				<ul class="nav nav-pills float-left">
 					<%- @subsite.nav_menus.each do |nav_menu| -%>
 						<%- if nav_menu.length > 1 -%>
 							<li class="dropdown">
@@ -21,17 +21,17 @@
 				</ul>
 			<%- end -%>
 			<%- if map_search_settings_for_subsite.present? -%>
-				<ul class="nav nav-pills pull-right">
-					<li><a href="<%= '/' + @subsite.slug + '/map_search' %>" class="btn btn-default btn-link"><span class="glyphicon glyphicon-map-marker"></span> Map<span class="hidden-sm"> All Items</span></a></li>
+				<ul class="nav nav-pills float-right">
+					<li><a href="<%= '/' + @subsite.slug + '/map_search' %>" class="btn btn-default btn-link"><span class="fa fa-map-marker"></span> Map<span class="hidden-sm"> All Items</span></a></li>
 				</ul>
 			<%- end -%>
 			<%- if params[:action] == 'home' && @subsite.persistent_url -%>
-				<ul class="nav nav-pills pull-right">
-					<li><button data-copy="<%= @subsite.persistent_url %>" title="Click to copy to clipboard" class="btn btn-default" onclick="DCV.Clipboard.copyFromElement(this);"><span class="glyphicon glyphicon-copy"></span> Permanent URL</button></li>
+				<ul class="nav nav-pills float-right">
+					<li><button data-copy="<%= @subsite.persistent_url %>" title="Click to copy to clipboard" class="btn btn-default" onclick="DCV.Clipboard.copyFromElement(this);"><span class="fa fa-copy"></span> Permanent URL</button></li>
 				</ul>
 			<%- elsif @document&.has_persistent_url? -%>
-				<ul class="nav nav-pills pull-right">
-					<li><button data-copy="<%= @document.persistent_url %>" title="Click to copy to clipboard" class="btn btn-default" onclick="DCV.Clipboard.copyFromElement(this);"><span class="glyphicon glyphicon-copy"></span> Permanent URL</button></li>
+				<ul class="nav nav-pills float-right">
+					<li><button data-copy="<%= @document.persistent_url %>" title="Click to copy to clipboard" class="btn btn-default" onclick="DCV.Clipboard.copyFromElement(this);"><span class="fa fa-copy"></span> Permanent URL</button></li>
 				</ul>
 			<%- end -%>
 			</div><!--/-->

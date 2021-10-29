@@ -7,9 +7,9 @@
 	end
 -%>
 <%= form_for @subsite, url: config_view, builder: ::ValueIndexableFormBuilder do |site_form| %>
-	<div class="panel panel-primary">
-		<div class="panel-heading"><h2 class="panel-title">Site Editor IDs</h2></div>
-		<div class="panel-body site_editors">
+	<div class="panel bg-primary">
+		<div class="card-heading"><h2 class="card-title">Site Editor IDs</h2></div>
+		<div class="card-body site_editors">
 			<div class="form-group">
 				<label for="site_editor_uids">Site Editor UNIs</label>
 				<p>DLC admins: Enter the comma-separated UNIs of CUL employees authorized to edit this site.</p>
@@ -18,28 +18,28 @@
 		</div>
 	</div>
 	<%- if !@subsite.restricted %>
-		<div class="panel panel-danger">
-			<div class="panel-heading"><h2 class="panel-title">Configuration Will Not Apply!</h2></div>
-			<div class="panel-body">The properties configured below are for restricted sites, but <%= @subsite.slug %> is a public site. If this is an error, please contact dlc-support@library.columbia.edu.</div>
+		<div class="panel bg-danger">
+			<div class="card-heading"><h2 class="card-title">Configuration Will Not Apply!</h2></div>
+			<div class="card-body">The properties configured below are for restricted sites, but <%= @subsite.slug %> is a public site. If this is an error, please contact dlc-support@library.columbia.edu.</div>
 		</div>
 	<% end -%>
 	<%= site_form.fields_for :permissions, @subsite.permissions do |permissions_form| %>
-		<div class="panel panel-primary">
-			<div class="panel-heading"><h2 class="panel-title">Remote Roles/Affiliations</h2></div>
-			<div class="panel-body remote_roles">
+		<div class="card bg-primary">
+			<div class="card-heading"><h2 class="card-title">Remote Roles/Affiliations</h2></div>
+			<div class="card-body remote_roles">
 				<%- permissions_form.object.remote_roles.each_with_index do |value, ix| %>
 					<%= render(partial: "sites/edit/text_list_value", locals: { list_name: [:permissions, :remote_roles], value: value, index: ix, removable: true }) %>
 				<%- end %>
 				<fieldset id="add_remote_role" style="border-width: 0;">
 					<button class="btn btn-info" type="button" onclick="addValueFieldsetFromTemplate(this.parentElement, 'site_permissions_remote_roles');">
-						<span class="glyphicon glyphicon-plus"></span> Add a Role
+						<span class="fa fa-plus"></span> Add a Role
 					</button>
 				</fieldset>
 			</div>
 		</div>
-		<div class="panel panel-primary">
-			<div class="panel-heading"><h2 class="panel-title">Remote User IDs</h2></div>
-			<div class="panel-body remote_ids">
+		<div class="panel bg-primary">
+			<div class="card-heading"><h2 class="card-title">Remote User IDs</h2></div>
+			<div class="card-body remote_ids">
 				<div class="form-group">
 				  <label for="site_permissions_remote_ids">Remote Access UNIs</label>
 					<p>Enter a comma-separated UNIs of CUL employees indvidually authorized to view this site's restricted content.</p>
@@ -47,23 +47,23 @@
 				</div>
 			</div>
 		</div>
-		<div class="panel panel-primary">
-			<div class="panel-heading"><h2 class="panel-title">Authorized Locations URIs</h2></div>
-			<div class="panel-body locations">
+		<div class="card bg-primary">
+			<div class="card-heading"><h2 class="card-title">Authorized Locations URIs</h2></div>
+			<div class="card-body locations">
 				<%- permissions_form.object.locations.each_with_index do |value, ix| %>
 					<%= render(partial: "sites/edit/text_list_value", locals: { list_name: [:permissions, :locations], value: value, index: ix, removable: true }) %>
 				<%- end %>
 				<fieldset id="add_location" style="border-width: 0;">
 					<button class="btn btn-info" type="button" onclick="addValueFieldsetFromTemplate(this.parentElement, 'site_permissions_locations');">
-						<span class="glyphicon glyphicon-plus"></span> Add a Location URI
+						<span class="fa fa-plus"></span> Add a Location URI
 					</button>
 				</fieldset>
 			</div>
 		</div>
 	<%- end %>
 
-	<div class="panel">
-		<div class="panel-body">
+	<div class="card">
+		<div class="card-body">
 			<%= submit_tag "Update Permissions", {class: ['btn', 'btn-default']} %>
 		</div>
 	</div>

@@ -149,7 +149,7 @@ function initCulMapDisplayComponent($mapComponentDiv) {
 
 	// Collapse copyright and attribution info into clickable, expandable icon
 	$('.leaflet-control-attribution').wrapInner('<span id="map-attrib-text" class="hidden"/>').append(
-	  '<div id="map-attrib-icon" class="pull-right text-danger"><i class="glyphicon glyphicon-copyright-mark"></i></div>'
+	  '<div id="map-attrib-icon" class="pull-right text-danger"><i class="fa fa-copyright-mark"></i></div>'
 	);
 	$('body').on('click', '#map-attrib-icon', function() {
 	  $('#map-attrib-text').toggleClass('hidden');

@@ -67,14 +67,14 @@ describe Dcv::SubsiteHelper, :type => :helper do
 			let(:external) { true }
 			let(:link) { "/link?foo=gee" }
 			it "links without external span" do
-				expect(helper.link_to_nav(nav_link)).not_to include("glyphicon-new-window")
+				expect(helper.link_to_nav(nav_link)).not_to include("fa-external-link")
 			end
 		end
 		context 'external url' do
 			let(:external) { true }
 			let(:link) { "http://example.org/link?foo=gee" }
 			it "links with external span" do
-				expect(helper.link_to_nav(nav_link)).to include("glyphicon-new-window")
+				expect(helper.link_to_nav(nav_link)).to include("fa-external-link")
 			end
 		end
 	end

@@ -228,17 +228,17 @@ a, .btn-link {
 		background-color: transparent !important;
 		box-shadow: none;
 	}
-	.panel {
+	.card {
 		background-color: transparent !important;
 		box-shadow: none;
-		.panel-heading {
+		.card-heading {
 			margin-right: 1em;
 			margin-left: 1em;
 			padding: .2em 0;
 			background-color: $color_17 !important;
 		}
 	}
-	.panel-body {
+	.card-body {
 		border: 0;
 		.facet-values li .selected {
 			color: $color_13;
@@ -247,7 +247,7 @@ a, .btn-link {
 	a {
 		text-decoration: none;
 	}
-	.panel-title a:focus {
+	.card-title a:focus {
 		color: inherit;
 	}
 }

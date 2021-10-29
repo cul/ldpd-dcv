@@ -182,7 +182,7 @@ module Dcv::ChildrenHelperBehavior
       if node['pid']
         content_tag(:tr,nil) do
           c = ('<td data-title="Name">'+download_link(node, label, ['fs-file',html_class_for_filename(node['label_ssi'])])+' '+
-            link_to('<span class="glyphicon glyphicon-info-sign"></span>'.html_safe, url_to_item(node['pid'],{return_to_filesystem:request.original_url}), title: 'More information')+
+            link_to('<span class="fa fa-info-circle"></span>'.html_safe, url_to_item(node['pid'],{return_to_filesystem:request.original_url}), title: 'More information')+
             '</td>').html_safe
           c += ('<td data-title="Size" data-sort-value="'+node['extent'].join(",").to_s+'">'+filesize+'</td>').html_safe
           c

@@ -14,7 +14,7 @@ class Dcv::SearchState < Blacklight::SearchState
 			controller_name = doc.has_restriction? ? 'restricted/sites' : 'sites'
 			{ 'controller' => controller_name, 'action' => 'home', 'slug' => slug }
 		else
-			super
+			super(doc, options)
 		end
 	end
 end

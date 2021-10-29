@@ -45,14 +45,14 @@ class Dcv::Configurators::DcvBlacklightConfigurator
   end
 
   def self.configure_default_solr_params(config)
-    config.default_solr_params = {
+    default_default_solr_params(config).merge!({
       fq: [
         'object_state_ssi:A', # Active items only
         'active_fedora_model_ssi:(ContentAggregator OR Concept)'
       ],
       bq: 'active_fedora_model_ssi:Concept^100', # Boost Concepts before all other results
       qt: 'search'
-    }
+    })
   end
 
   # solr fields that will be treated as facets by the blacklight application

@@ -64,14 +64,14 @@ class Dcv::Solr::ChildrenAdapter
       :"resources.q" => "{!terms f=dc_identifier_ssim v=$row.proxyFor_ssi}",
       facet: false
     }
-    merge_proc = Proc.new { |b| b.merge(local_params) }
-    response, proxy_docs = searcher.search_results({}, &merge_proc)
+
+    response, proxy_docs = searcher.search_service.search_results { |b| b.merge(local_params) }
     order = 0
     folders = []
     children = []
     indexed = true;
     proxy_docs.each do |proxy_doc|
-      resource_response = proxy_doc._source.delete('resources')
+      resource_response = proxy_doc.source_delete('resources')
       if proxy_doc['type_ssim'].include?(Iiif::Collection::COLLECTION_PROXY_TYPE) and opts[:include_folders]
         order += 1
         folders << folder_document_from_proxy(proxy_doc, parent_document, order)
@@ -88,7 +88,7 @@ class Dcv::Solr::ChildrenAdapter
       children.sort_by! {|child| child['order']}
       children.each do |child|
         order += 1
-        child._source['order'] = order
+        child.merge_source!('order' => order)
       end
     end
     folders.concat children
@@ -106,8 +106,7 @@ class Dcv::Solr::ChildrenAdapter
       facet: false
     }
 
-    merge_proc = Proc.new { |b| b.merge(local_params) }
-    response, docs = searcher.search_results({}, &merge_proc)
+    response, docs = searcher.search_service.search_results { |b| b.merge(local_params) }
     docs
   end
 

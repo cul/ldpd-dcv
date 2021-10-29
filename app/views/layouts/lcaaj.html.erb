@@ -19,10 +19,10 @@
 
 	  <%= render partial: 'header_navbar' %>
 
-	  <%= render partial: 'shared/ajax_modal' %>
+	  <%= render partial: 'shared/modal' %>
 
 	  <div id="main-container" class="col-md-12">
-		<%= render :partial=>'/flash_msg', layout: 'shared/flash_messages' %>
+		<%= render :partial=>'shared/flash_msg', layout: 'shared/flash_messages' %>
 		<%= render partial: 'shared/alert' %>
 
 		<%= yield %>

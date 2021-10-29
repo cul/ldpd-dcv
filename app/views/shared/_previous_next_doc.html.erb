@@ -1,18 +1,19 @@
 <% #Using the Bootstrap Pagination class  -%>
-  <div id="previousNextDocument">
-    <% if params[:return_to_filesystem].present? %>
-	  <div class="page_links previous-and-next btn-group btn-group-xs">
-        <%= link_to('<i class="glyphicon glyphicon-fast-backward"></i>'.html_safe, params[:return_to_filesystem], class: 'btn btn-default', :"data-toggle" => 'tooltip', title: 'Browse digital records') %>   
+<div id="previousNextDocument">
+  <% if params[:return_to_filesystem].present? %>
+  <div class="page_links previous-and-next btn-group btn-group-sm">
+      <%= link_to('<i class="fa fa-fast-backward"></i>'.html_safe, params[:return_to_filesystem], class: 'btn btn-outline-secondary', :"data-toggle" => 'tooltip', title: 'Browse digital records') %>   
+    </div>
+  <% else %>
+    <% if @search_context[:prev] || @search_context[:next] %>
+      <div class="page-links btn-group btn-group-sm" style="pointer-events:none;">
+        <%= link_to_previous_document @search_context[:prev] %>
+
+        <span class="btn btn-secondary"><%= item_page_entry_info %></span>
+
+        <%= link_to_next_document @search_context[:next] %>
       </div>
-    <% else %>
-		<% if @previous_document || @next_document %>
-		  <div class="page_links previous-and-next btn-group btn-group-xs">
-			<%= link_back_to_catalog(label: '<i class="glyphicon glyphicon-fast-backward"></i> '.html_safe, class: 'btn btn-default', :"data-toggle" => 'tooltip', title: 'Back to results' ) %>
-			<span class="btn btn-default" style="pointer-events:none;"><%= item_page_entry_info %></span>
-			<%= button_to_previous_document @previous_document, class: 'btn btn-default', :"data-toggle" => 'tooltip', title: 'previous search result' %>
-			<%= button_to_next_document @next_document, class: 'btn btn-default', :"data-toggle" => 'tooltip', title: 'next search result' %>
-		  </div>
-		<% end %>
     <% end %>
-    <%= render 'show_tools' %>
-  </div>
+  <% end %>
+  <%= render 'show_tools' %>
+</div>

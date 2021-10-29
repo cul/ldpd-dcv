@@ -45,7 +45,7 @@ a {
 	&.slim {
 		margin-top:2px;
 	}
-	.input-group-addon {
+	.input-group-prepend {
 		background-color: $color_ui_background;
 		color:$color_ui;
 		border-color: $color_ui_outline;
@@ -275,14 +275,14 @@ a {
 				margin-bottom: 5px; // matches margin-top of facet panel
 			}
             .sidenav {
-				.panel-title {
+				.card-title {
 					font-family: $font_b;
 					font-size:.9em;
 					text-transform:uppercase;
 				}
-				.panel {
+				.card {
 					&:not(.panel-ui) {
-						.panel-title {
+						.card-title {
 							color:lighten($color_primary,18%);
 						}
 					}
@@ -293,7 +293,7 @@ a {
 			color: $color_offset;
 		}
 	}
-	.panel-default > .panel-heading {
+	.panel-default > .card-heading {
 		background-color: gradeBgColor(2%);
 		color: $color_ui;
 		border-color: $color_ui_outline;
@@ -317,7 +317,7 @@ a {
 		&:active, &:focus {
 			border-color:darken($color_highlight,30%);
 		}
-		.panel-heading {
+		.card-heading {
 			border: 0;
 			&.home {
 				background-color: transparent;
@@ -339,10 +339,10 @@ a {
 		background-color: transparent !important;
 		box-shadow: none;
 	}
-	.panel {
+	.card {
 		background-color: transparent !important;
 		box-shadow: none;
-		.panel-heading {
+		.card-heading {
 			margin-right: 1em;
 			margin-left: 1em;
 			padding: .2em 0;
@@ -358,7 +358,7 @@ a {
 			background-color: transparent;
 		}
 	}
-	.panel-body {
+	.card-body {
 		border: 0;
 	}
 	a {
@@ -368,7 +368,7 @@ a {
 
 #content {
 	#facet-panel-collapse {
-		.panel-body {
+		.card-body {
 			background-color: gradeBgColor(5%);
 		}
 	}
