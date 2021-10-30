@@ -1,21 +1,21 @@
 #outer-wrapper {
 	overflow: hidden;
 	border-top: 0;
-	border-color: $color_outline_secondary;
-	background-color:$color_primary_background;
+	border-color: map-get($theme-border-colors, 'secondary');
+	background-color:$body-bg;
 }
 
 a {
-	color: $color_anchor;
+	color: $link-color;
 	font-family: $font_c;
 	&:hover {
-		color: $color_highlight_background;
+		color: $info;
 	}
 	&.thumbnail {
-		border-color: $color_outline;
+		border-color: map-get($theme-border-colors, 'body');
 		background-color: transparent;
 		&:hover {
-			border-color: $color_highlight_background;
+			border-color: $info;
 		}
 	}
 }
@@ -30,7 +30,7 @@ a {
 	#site-banner-inner {
 		overflow: visible;
 		.titlesub {
-			color: $color_highlight;
+			color: map-get($theme-text-colors, 'info');
 		}
 		#site-title {
 			font-family: $font_0, $font_3, $font_1, $font_2;
@@ -46,30 +46,30 @@ a {
 		margin-top:2px;
 	}
 	.input-group-prepend {
-		background-color: $color_ui_background;
-		color:$color_ui;
-		border-color: $color_ui_outline;
+		background-color: $primary;
+		color:map-get($theme-text-colors, 'primary');
+		border-color: map-get($theme-border-colors, 'primary');
 		font-size: .9em;
 		select {
 			background-color: inherit;
 			color: inherit;
 			border: 0;
 			option {
-				background-color: gradeUiBgColor(42%);
-				color: $color_ui;
+				background-color: gradePrimaryColor(42%);
+				color: map-get($theme-text-colors, 'primary');
 			}
 		}
 	}
 	#q {
-		background-color: $color_primary_background;
-		color: $color_ui;
+		background-color: $body-bg;
+		color: map-get($theme-text-colors, 'primary');
 		&:focus {
-			background-color: $color_primary_background;
-			color: $color_highlight_background;
+			background-color: $body-bg;
+			color: $info;
 		}
 	}
 	#q, #q-filter, .search-btn, .reset-btn {
-		border-color:$color_ui_outline;
+		border-color:map-get($theme-border-colors, 'primary');
 	}
 }
 
@@ -79,7 +79,7 @@ a {
 		//flex-direction: row;
 		align-items: flex-end;
 		padding:0;
-		background-color:$color_primary_background;
+		background-color:$body-bg;
 		background-size: cover;
 		background-position: center 25%;
 		background-repeat: no-repeat;
@@ -111,6 +111,7 @@ a {
 
 #site-title { // site-title is generally an inverse color scheme for ui elements
 	display: block;
+	clear:left;
 	padding-top: 4px;
 	padding-bottom: .5em;
 	margin-bottom: 2px;
@@ -118,30 +119,30 @@ a {
 	font-size: 198%;
 	font-weight: 400;
 	line-height: 1.1;
-	color: $color_highlight_background;
+	color: $info;
 	text-align: center;
 	text-decoration: none;
 	text-transform: uppercase;
 	text-shadow: none;
 	vertical-align: bottom;
 	.dr-arrow {
-		color: lighten($color_outline_secondary,35%);
+		color: lighten(map-get($theme-border-colors, 'secondary'),35%);
 	}
 	a {
-		color: $color_highlight_background;
+		color: $info;
 		&:hover {
-			color: $color_anchor;
+			color: $link-color;
 		}
 	}
 }
 #site-banner-subtitle {
-	display: block;
+	display: inline-block;
 	padding: 0;
 	margin: 0;
 	font-family: $font_0, $font_1, $font_2;
 	font-size: 17px;
 	line-height: 1;
-	color: lighten($color_highlight_background,20%);
+	color: lighten($info,20%);
 	text-align: center;
 	text-decoration: none;
 	text-transform: uppercase;
@@ -151,7 +152,7 @@ a {
 }
 #secondary-nav {
 	margin: 0 0 0 0;
-	border:1px solid $color_ui_secondary;
+	border:1px solid map-get($theme-text-colors, 'secondary');
 	border-width:1px 0;
 }
 @media(min-width: 768px) {
@@ -175,7 +176,7 @@ a {
 	#main-container {
 		.inner {
 			padding: 1.2em;
-			background-color: rgba($color_primary_background, 0.7);
+			background-color: rgba($body-bg, 0.7);
 		}
 	}
 }
@@ -247,25 +248,25 @@ a {
 }
 
 .panel-default {
-	border-color: $color_ui_outline;
+	border-color: map-get($theme-border-colors, 'primary');
 }
 #sort-dropdown .dropdown-toggle, #per_page-dropdown .dropdown-toggle {
-  color: $color_topnav;
+  color: $light;
 }
 
-.appliedFilter .btn-default,
+.appliedFilter .btn-secondary,
 	.appliedFilter .constraint-value:hover,
 	.appliedFilter .constraint-value:active {
-		color: $color_primary;
-		background-color: $color_primary_background;
+		color: $body-color;
+		background-color: $body-bg;
 }
 
 #main-container {
 	padding-top: 1.3em;
-	background-color: $color_primary_background;
+	background-color: $body-bg;
 	.inner {
 		padding: 1em;
-		border: 1px solid $color_outline;
+		border: 1px solid map-get($theme-border-colors, 'body');
 		&.home {
 			padding: 0;
 			border: 0;
@@ -283,44 +284,52 @@ a {
 				.card {
 					&:not(.panel-ui) {
 						.card-title {
-							color:lighten($color_primary,18%);
+							color:lighten($body-color,18%);
 						}
 					}
 				}
 			}
 		}
 		h6 {
-			color: $color_offset;
+			color: $gray-500;
 		}
 	}
-	.panel-default > .card-heading {
+	.panel-default > .card-header {
 		background-color: gradeBgColor(2%);
-		color: $color_ui;
-		border-color: $color_ui_outline;
+		color: map-get($theme-text-colors, 'primary');
+		border-color: map-get($theme-border-colors, 'primary');
 		border: 0;
 		&.home {
 			background-color: transparent;
 		}
 	}
 	.panel-ui { // borrows from btn-primary
-		border-color: $color_ui_outline;
-		background-color: $color_ui_background;
-		color: $color_ui;
+		border-color: map-get($theme-border-colors, 'primary');
+		background-color: $primary;
+		color: map-get($theme-text-colors, 'primary');
 		&:hover {
-			background-color: $color_ui;
-			color:$color_ui_background;
-			border-color:lighten($color_ui_background,30%);
+			background-color: map-get($theme-text-colors, 'primary');
+			color:$primary;
+			border-color:lighten($primary,30%);
 			a:hover {
 				color: inherit;
 			}
 		}
 		&:active, &:focus {
-			border-color:darken($color_highlight,30%);
+			border-color:darken(map-get($theme-text-colors, 'info'),30%);
 		}
-		.card-heading {
+		.card-header {
 			border: 0;
+			padding:0.4rem 0.6rem;
 			&.home {
 				background-color: transparent;
+			}
+			a {
+			  color:inherit;
+			}
+			.card-title {
+			  margin-top:0;
+			  margin-bottom:0;
 			}
 		}
 	}
@@ -342,17 +351,17 @@ a {
 	.card {
 		background-color: transparent !important;
 		box-shadow: none;
-		.card-heading {
+		.card-header {
 			margin-right: 1em;
 			margin-left: 1em;
 			padding: .2em 0;
-			background-color: $color_primary_background;
+			background-color: $body-bg;
 		}
 	}
 	.panel-default {
 		background-color: gradeBgColor(5%);
-		color: $color_ui_outline;
-		border-color: $color_ui_outline;
+		color: map-get($theme-border-colors, 'primary');
+		border-color: map-get($theme-border-colors, 'primary');
 		border: 0;
 		&.home {
 			background-color: transparent;
@@ -379,7 +388,7 @@ a {
 	.document {
 		#child_gallery {
 			.index_subtitle {
-				color: $color_anchor;
+				color: $link-color;
 			}
 			@media(min-width: 768px) {
 				.child-scroll {
@@ -392,7 +401,7 @@ a {
 			}
 		}
 		&:not(.list-view) {
-			.index-show-tombstone-fields {
+			.index-show-grid-fields {
 				margin-bottom: 1.5em;
 				line-height: 1em;
 				.index_title {
@@ -440,7 +449,7 @@ a {
 		}
 		.tombstone {
 			height: auto;
-			.index-show-tombstone-fields {
+			.index-show-grid-fields {
 				h3 {
 					margin-bottom: .25em;
 				}
@@ -451,7 +460,7 @@ a {
 		}
 	}
 	.appliedFilter .filterName:after {
-		color: $color_outline_offset;
+		color: map-get($theme-border-colors, 'body')_offset;
 	}
 }
 
@@ -499,41 +508,41 @@ a {
 }
 .fs-crumbs {
 	margin-bottom: 1em;
-	background-color: $color_primary_background;
-	border-color: $color_outline_offset !important;
+	background-color: $body-bg;
+	border-color: map-get($theme-border-colors, 'body')_offset !important;
 	border-radius: 0;
 }
 .table-bordered {
-	border-color: $color_outline_offset;
+	border-color: map-get($theme-border-colors, 'body')_offset;
 	> {
 		thead > tr > {
 			th {
-				border-color: $color_outline_offset;
+				border-color: map-get($theme-border-colors, 'body')_offset;
 			}
 			td {
-				border-color: $color_outline_offset;
+				border-color: map-get($theme-border-colors, 'body')_offset;
 			}
 		}
 		tbody > tr > {
 			th {
-				border-color: $color_outline_offset;
+				border-color: map-get($theme-border-colors, 'body')_offset;
 			}
 			td {
-				border-color: $color_outline_offset;
+				border-color: map-get($theme-border-colors, 'body')_offset;
 			}
 		}
 		tfoot > tr > {
 			th {
-				border-color: $color_outline_offset;
+				border-color: map-get($theme-border-colors, 'body')_offset;
 			}
 			td {
-				border-color: $color_outline_offset;
+				border-color: map-get($theme-border-colors, 'body')_offset;
 			}
 		}
 	}
 }
 .dropdown a {
-	color: $color_highlight_background;
+	color: $info;
 }
 
 #item-content dl {
@@ -541,24 +550,24 @@ a {
 }
 
 .leaflet-control-attribution a {
-	color: $color_highlight !important;
+	color: map-get($theme-text-colors, 'info') !important;
 }
 .leaflet-popup-content a {
-	color: $color_highlight !important;
+	color: map-get($theme-text-colors, 'info') !important;
 }
 .table-striped > tbody > tr:nth-child(odd) > {
 	td {
-		background-color: $color_primary_background;
+		background-color: $body-bg;
 	}
 	th {
-		background-color: $color_primary_background;
+		background-color: $body-bg;
 	}
 }
 
 #ajax-modal .modal-content {
-  color: $color_ui;
+  color: map-get($theme-text-colors, 'primary');
   background-color: gradeBgColor(5%);
-  border-color: $color_ui;
+  border-color: map-get($theme-text-colors, 'primary');
 }
 
 #search-results .index_title small {

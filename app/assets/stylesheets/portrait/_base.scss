@@ -1,25 +1,5 @@
-//@extend-elements
-//original selectors
-//#sidebar .panel-body .nav a, #sidebar .panel-body .nav .btn-link
-%extend_1 {
-	padding: .25em 0;
-	font-size: 95%;
-	color: $color_ui;
-	position: relative;
-	display: block;
-	text-decoration: none;
-}
-
-//original selectors
-//#child_items article dl, #secondary ul, #secondary dl
-%extend_2 {
-	padding: 4px;
-	border: 1px solid $color_outline_secondary;
-	border-radius: 3px;
-}
-
 #outer-wrapper {
-	border-color: $color_outline;
+	border-color: map-get($theme-border-colors, 'body');
 }
 
 #site-banner {
@@ -57,7 +37,7 @@
 		font-family: $font_0, $font_1, $font_4, $font_2;
 		font-size: 220%;
 		a {
-			color: $color_highlight;
+			color: map-get($theme-text-colors, 'info');
 			&:hover {
 				text-decoration: none;
 			}
@@ -74,7 +54,7 @@
 		font-family: $font_0, $font_1, $font_4, $font_2;
 		font-size: 180%;
 		a {
-			color: $color_highlight_background;
+			color: $info;
 			&:hover {
 				text-decoration: none;
 			}
@@ -97,22 +77,22 @@
 		margin-top: .5em;
 	}
 	.input-group-prepend {
-		color: lighten($color_ui,10%);
-		background-color: $color_ui_background;
+		color: lighten(map-get($theme-text-colors, 'primary'),10%);
+		background-color: $primary;
 	}
 	#q-filter, .search_q {
-		border: 1px solid $color_user_input;
+		border: 1px solid map-get($theme-colors, 'user-input');
 		border-width: 1px 0 1px 1px;
 		.search_field {
 			-webkit-appearance:none;
 		}
 	}
 	#q {
-		background-color: $color_primary_background;
-		color: $color_ui;
+		background-color: $body-bg;
+		color: map-get($theme-text-colors, 'primary');
 		&:focus {
-			background-color: $color_primary_background;
-			color: $color_highlight_background;
+			background-color: $body-bg;
+			color: $info;
 		}
 	}
 }
@@ -132,7 +112,7 @@
 		}
 		.tombstone {
 			height: 100%;
-			.index-show-tombstone-fields {
+			.index-show-grid-fields {
 				h3 {
 					margin-bottom: .5em;
 				}
@@ -147,12 +127,12 @@
 #sidebar {
 	clear: both;
 	.panel-default {
-		border-color: $color_outline_secondary;
+		border-color: map-get($theme-border-colors, 'secondary');
 		border-style: solid;
-		.card-heading {
-			background-color: $color_primary_background;
-			color: $color_ui;
-			border-color: $color_ui_outline;
+		.card-header {
+			background-color: $body-bg;
+			color: map-get($theme-text-colors, 'primary');
+			border-color: map-get($theme-border-colors, 'primary');
 			border: 0;
 			&.home {
 				background-color: transparent;
@@ -160,16 +140,10 @@
 		}
 	}
 	.card-body .nav {
-		a {
-			@extend %extend_1;
+		a, .btn-link {
+			@extend %card_link_primary;
 			&:hover {
-				color: $color_highlight_background;
-			}
-		}
-		.btn-link {
-			@extend %extend_1;
-			&:hover {
-				color: $color_highlight_background;
+				color: $info;
 			}
 		}
 	}
@@ -184,11 +158,11 @@
 	.panel-default {
 		border-right: 0;
 		border-left: 0;
-		border-color: $color_outline;
+		border-color: map-get($theme-border-colors, 'body');
 		border-style: solid;
 	}
 	.card-body {
-		border-top-color: $color_outline;
+		border-top-color: map-get($theme-border-colors, 'body');
 	}
 	@media(max-width: 768px) {
 		.top-panel-heading {
@@ -199,17 +173,17 @@
 
 .section-heading {
 	padding: 15px 0;
-	border: solid $color_outline_offset;
+	border: solid map-get($theme-border-colors, 'body')_offset;
 	border-width: 1px 0;
 }
 #child_items {
 	article {
 		overflow: hidden;
 		dl {
-			background: $color_highlight_background;
+			background: $info;
 			margin-top: 0.25em;
 			margin-bottom: 0.25em;
-			@extend %extend_2;
+			@extend %list_secondary;
 			dt {
 				font-size: 121%;
 				line-height: 1.2;
@@ -220,7 +194,7 @@
 					font-size: 90%;
 					font-weight: normal;
 					line-height: 1.5;
-					color: rgba($color_primary_background, 0.3);
+					color: rgba($body-bg, 0.3);
 				}
 			}
 			dd {
@@ -239,7 +213,7 @@
 			}
 			.result_url {
 				font-size: 110%;
-				color: $color_anchor;
+				color: $link-color;
 				word-break: break-word;
 			}
 			.result_aka {
@@ -253,20 +227,20 @@
 				line-height: 1.3em;
 			}
 			.index_title {
-				@extend %extend_3;
+				@extend %dotted_full;
 			}
 		}
 		code {
 			padding: 0;
 			font-size: .9em;
-			color: $color_outline_secondary;
-			background-color: $color_offset;
+			color: map-get($theme-border-colors, 'secondary');
+			background-color: $gray-500;
 		}
 		.documentHeader h5 {
 			overflow: hidden;
 		}
 		&:nth-child(odd) dl {
-			background-color: $color_highlight;
+			background-color: map-get($theme-text-colors, 'info');
 		}
 	}
 	.dl-vertical dd {
@@ -280,11 +254,8 @@
 	}
 }
 #secondary {
-	ul {
-		@extend %extend_2;
-	}
-	dl {
-		@extend %extend_2;
+	ul ,dl {
+		@extend %list_secondary;
 	}
 }
 #doc-item-title {
@@ -312,25 +283,25 @@
 
 }
 #sort-dropdown .dropdown-toggle, #per_page-dropdown .dropdown-toggle {
-  color: $color_topnav;
+  color: $light;
 }
 
-.appliedFilter .btn-default,
+.appliedFilter .btn-secondary,
 	.appliedFilter .constraint-value:hover,
 	.appliedFilter .constraint-value:active {
-		color: $color_primary;
-		background-color: $color_primary_background;
+		color: $body-color;
+		background-color: $body-bg;
 }
 
 #main-container {
 	.inner {
 		padding: 1.2em;
-		background-color: rgba($color_primary_background, 0.7);
+		background-color: rgba($body-bg, 0.7);
 		&.outline {
-			border: 1px solid $color_ui_outline;
+			border: 1px solid map-get($theme-border-colors, 'primary');
 		}
 		.sidenav {
-			border: 1px solid $color_outline;
+			border: 1px solid map-get($theme-border-colors, 'body');
 		}
 	}
 }

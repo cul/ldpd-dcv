@@ -1,6 +1,6 @@
 <div class="form-group panel bg-info scope_filter" id="scope_filters_<%= filter_form.index %>">
-	<div class="card-heading form-inline">
-		<div class="card-heading"><h3 class="card-title"><%= filter_form.object.new_record? ? 'New' : filter_form.object.filter_type.titlecase %> Filter</h3></div>
+	<div class="card-header form-inline">
+		<div class="card-header"><h3 class="card-title"><%= filter_form.object.new_record? ? 'New' : filter_form.object.filter_type.titlecase %> Filter</h3></div>
 	</div>
 	<div class="card-body" id="scope_filters_<%= filter_form.index %>_atts">
 		<%- if filter_form.object.new_record? %>

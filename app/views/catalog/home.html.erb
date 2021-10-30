@@ -27,17 +27,17 @@ featured_proj = controller.digital_projects.select { |proj| proj[:facet_value].p
 
             <div id="home-page-tabs" class="inner">
                 <!-- Nav tabs -->
-                <ul class="nav nav-tabs">
-                    <li class="active"><a href="#projects" data-toggle="tab">Searchable Collections</a></li>
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="nav-item" role="tab"><a href="#projects" data-toggle="tab" class="nav-link active">Searchable Collections</a></li>
                     <% @browse_lists&.each do |facet_name, data| %>
-                        <li><a href="#tab_<%= facet_name %>" data-toggle="tab"><%= data['display_label'] %></a></li>
+                        <li class="nav-item" role="tab"><a href="#tab_<%= facet_name %>" data-toggle="tab" class="nav-link"><%= data['display_label'] %></a></li>
                     <% end %>
-										<li class="float-right non-tab"><a onclick="window.open(this.href);return false;" data-toggle="tooltip" data-placement="top" href="https://library.columbia.edu/resolve/lweb0164" title="See All Digital Collections">All Collections <i class="fa fa-external-link"></i></a></li>
+										<li class="float-right non-tab"><a onclick="window.open(this.href);return false;" data-toggle="tooltip" data-placement="top" href="https://library.columbia.edu/resolve/lweb0164" title="See All Digital Collections" class="nav-link">All Collections <i class="fa fa-external-link"></i></a></li>
                 </ul>
 
                 <!-- Tab panes -->
                 <div class="tab-content">
-                    <div class="tab-pane fadein active" id="projects">
+                    <div class="tab-pane fade show active" id="projects">
                       <%- cache [controller_name, 'projects', 'page', true], expires_in: 2.minutes do -%>
                         <%= render template: 'pages/projects_and_exhibitions' %>
                       <% end %>

@@ -1,42 +1,35 @@
-$color_white: #ffffff;
-$color_black: #000000;
-$color_darkgray: #444;
+@import './base/functions';
+@import './base/variables';
 
-//colors
-$color_primary: #111;
-$color_primary_background: #fafafa;
-$color_highlight_background: #1a4481; // rgb(26,68,129);
-$color_highlight: #e6e6e6;
-$color_outline: #ccc;
-$color_outline_offset: lighten($color_outline, 7%);
-$color_outline_secondary: #222;
-$color_offset: #999;
-$color_user_input: #ccc;
-$color_ui: #ccc;
-$color_ui_background: darken($color_highlight_background, 10%);
-$color_ui_secondary: #333;
-$color_ui_outline: #999;
-$color_anchor: $color_anchor;
+//theme colors
+$body-color: #111;
+$body-bg: #fafafa;
+$body-border-color: #ccc;
+$theme-colors: map-merge($theme-colors, ('body': $body-bg));
+$theme-text-colors: map-merge($theme-text-colors, ('body': $body-color));
+$theme-border-colors: map-merge($theme-border-colors, ('body': $body-border-color));
 
-$color_local_navbar_background: #1a4481;
+$primary: #112e57;
+$primary-color: #ccc;
+$primary-border-color: #999;
+$theme-colors: map-merge($theme-colors, ('primary': $primary));
+$theme-text-colors: map-merge($theme-text-colors, ('primary': $primary-color));
+$theme-border-colors: map-merge($theme-border-colors, ('primary': $primary-border-color));
 
-@function navBgColor($l: 0%) {
-	@return lighten($color_local_navbar_background, $l);
-}
-@mixin	navBg($l: 0%) {
-	background: navBgColor($l);
-}
-@function navColor($l: 0%) {
-	@return darken($color_topnav, $l);
-}
+$secondary: $body-bg;
+$secondary-color: #333;
+$secondary-border-color: #222;
+$theme-colors: map-merge($theme-colors, ('secondary': $secondary));
+$theme-text-colors: map-merge($theme-text-colors, ('secondary': $secondary-color));
+$theme-border-colors: map-merge($theme-border-colors, ('secondary': $secondary-border-color));
 
-@function gradeBgColor($l: 25%) {
-	@return lighten($color_primary_background, $l);
-}
-@mixin gradeBg($l: 7%) {
-	background-color: gradeBgColor($l);
-}
+$info: #1a4481; // rgb(26,68,129);
+$info-color: #e6e6e6;
+$info-border-color: $info;
+$theme-colors: map-merge($theme-colors, ('info': $info));
+$theme-text-colors: map-merge($theme-text-colors, ('info': $info-color));
+$theme-border-colors: map-merge($theme-border-colors, ('info': $info));
 
-@function gradeUiBgColor($l: 25%) {
-	@return lighten($color_ui_background, $l);
-}
+$theme-colors: map-merge($theme-colors, ('user-input': #ccc));
+
+@import './base/post';

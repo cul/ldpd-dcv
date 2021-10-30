@@ -1,5 +1,5 @@
 <% if blacklight_config.index.respond_to.has_key?(:csv) %>
-<div id="export-options" class="hidden-xs btn-group btn-group-xs float-right search-index-tool-group">
-  <%= link_to '<span class="fa fa-download"></span> CSV'.html_safe, search_action_path(params.permit!.to_h.merge(format: 'csv')), class: 'btn btn-default btn-xs' %>
+<div id="export-options" class="hidden-xs btn-group btn-group-sm float-right search-index-tool-group">
+  <%= link_to '<span class="fa fa-download"></span> CSV'.html_safe, search_action_path(params.permit!.to_h.merge(format: 'csv')), class: 'btn btn-secondary btn-sm' %>
 </div>
 <% end %>

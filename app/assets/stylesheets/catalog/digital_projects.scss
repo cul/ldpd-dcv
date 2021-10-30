@@ -1,4 +1,3 @@
-@import '../palettes/base';
 @import '../palettes/monochromeDark';
 
 #digital_projects {
@@ -9,6 +8,9 @@
 	.project-image-link {
 		display: block;
 		margin-bottom:.5em;
+	}
+	.card-body {
+		padding: 0.25rem;
 	}
 }
 
@@ -36,12 +38,16 @@
 
 // only in projects_and_exhibitions partials
 .btn-dark {
-	color: $color_primary;
-	background-color: $color_primary_background;
-	border-color: $color_ui_outline;
+	color: $body-color;
+	background-color: $body-bg;
+	border-color: map-get($theme-border-colors, 'primary');
 	&:hover {
-		background-color:$color_ui_outline;
+		background-color:map-get($theme-border-colors, 'primary');
 	}
+}
+
+.proj-jav {
+	width:100%;
 }
 
 #home-page-content {
@@ -57,7 +63,7 @@
 				text-transform: uppercase;
 				.active {
 					a {
-						color:$color_primary;
+						color:$body-color;
 					}
 				}
 			}
@@ -74,7 +80,7 @@
 				line-height:1.4;
 				a {
 					&:hover {
-						color:lighten($color_outline_secondary, 20%);
+						color:lighten(map-get($theme-border-colors, 'secondary'), 20%);
 						text-decoration:none;
 					}
 				}

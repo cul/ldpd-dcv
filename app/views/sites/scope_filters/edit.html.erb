@@ -10,7 +10,7 @@
 <%= render partial: "sites/edit/edit_buttons" %>
 <div class="container">
 	<div class="card bg-info" id="site_edit_context_about">
-		<div class="card-heading"><h2 class="card-title">About Site Scope <button type="button" class="btn btn-primary collapse-toggle collapsed" data-toggle="collapse" data-target="#site_edit_context_about_content" aria-expanded="false" aria-controls="site_edit_context_about_content" data-parent="site_edit_context_about"></button></h2></div>
+		<div class="card-header"><h2 class="card-title">About Site Scope <button type="button" class="btn btn-primary collapse-toggle collapsed" data-toggle="collapse" data-target="#site_edit_context_about_content" aria-expanded="false" aria-controls="site_edit_context_about_content" data-parent="site_edit_context_about"></button></h2></div>
 		<div class="card-body collapse collapsed" id="site_edit_context_about_content">
 			<p>The scope of content presented for a site is determined by metadata attributes such as project, collection, or repository. These attributes are the default filters used to search the site's content.</p>
 			<p>Items matching at least one scope filter from each configured category will be included in the site's search results. When there are no attributes configured as scope filters, the site is considered to be only a splash page, and presumed to link to content outside the DLC.</p>
@@ -19,7 +19,7 @@
 </div>
 <div class="container"><%= form_for @subsite, url: {action: :update} do |site_form| %>
 	<div class="panel bg-primary">
-		<div class="card-heading"><h2 class="card-title">Content Scope Filters</h2></div>
+		<div class="card-header"><h2 class="card-title">Content Scope Filters</h2></div>
 		<div class="card-body scope_filters">
 			<%= site_form.fields_for :scope_filters, include_id: false do |filter_form| %>
 				<%= render partial: "sites/scope_filters/scope_filter_form", locals: {filter_form: filter_form} %>
@@ -32,7 +32,7 @@
 	</div>
 	<div class="card">
 		<div class="card-body">
-			<%= submit_tag "Update Scope", {class: ['btn', 'btn-default']} %>
+			<%= submit_tag "Update Scope", {class: ['btn', 'btn-secondary']} %>
 		</div>
 	</div>
 <%- end %></div>

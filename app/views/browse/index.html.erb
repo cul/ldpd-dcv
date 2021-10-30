@@ -5,10 +5,10 @@
     <div id="home-page-tabs" class="inner">
       <!-- Nav tabs -->
       <% active_tab = params[:list] || 'projects' -%>
-      <ul class="nav nav-tabs">
-        <li class="<%= 'active' if active_tab == 'projects' %>"><a href="#projects" data-toggle="tab">Projects</a></li>
+      <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item" role="tab"><a href="#projects" data-toggle="tab" class="nav-link<%= ' active' if active_tab == 'projects' %>">Projects</a></li>
         <% @browse_lists.each do |facet_name, data| %>
-          <li class="<%= 'active' if active_tab == facet_name %>"><a href="#tab_<%= facet_name %>" data-toggle="tab"><%= data['display_label'] %></a></li>
+          <li class="nav-item" role="tab"><a href="#tab_<%= facet_name %>" data-toggle="tab" class="nav-link<%= ' active' if active_tab == 'projects' %>"><%= data['display_label'] %></a></li>
         <% end %>
       </ul>
 
@@ -18,7 +18,7 @@
           <%= render template: 'pages/projects_and_exhibitions' -%>
         </div>
         <% @browse_lists.each do |facet_name, data| %>
-          <div class="tab-pane fade<%= ' in active' if active_tab == facet_name %>" id="tab_<%= facet_name %>">
+          <div class="tab-pane fade<%= ' show active' if active_tab == facet_name %>" id="tab_<%= facet_name %>">
             <small><%= data['short_description'] %></small>
             <br /><br />
             <ul class="nopad-rl cols-two">

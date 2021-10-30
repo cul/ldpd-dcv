@@ -1,0 +1,105 @@
+$white:    #fff !default;
+$gray-dcv: #888;
+$gray-100: #f8f9fa !default;
+$gray-200: $gray-dcv;
+$gray-300: lighten($gray-dcv, 20%);
+$gray-400: #ccc;
+$gray-500: #999;
+$gray-600: #6c757d !default;
+$gray-700: #495057 !default;
+$gray-800: #343a40 !default;
+$gray-900: #212529 !default;
+$black:    #000 !default;
+
+$grays: (
+  "dcv": $gray-dcv,
+  "100": $gray-100,
+  "200": $gray-200,
+  "300": $gray-300,
+  "400": $gray-400,
+  "500": $gray-500,
+  "600": $gray-600,
+  "700": $gray-700,
+  "800": $gray-800,
+  "900": $gray-900
+);
+
+$transblack: rgba(0,0,0,.5);
+$dark: #222;
+$light: #eee;
+
+// The yiq lightness value that determines when the lightness of color changes from "dark" to "light". Acceptable values are between 0 and 255.
+$yiq-contrasted-threshold:  150 !default;
+
+// Customize the light and dark text colors for use in our YIQ color contrast function.
+$yiq-text-dark:             $gray-900 !default;
+$yiq-text-light:            $white !default;
+
+$colors: (
+  "transblack": $transblack,
+  "offset": $gray-500
+);
+
+$black: #000;
+$body-bg: $black;
+$body-color: $light;
+
+$primary: $dark;
+$info: $light;
+
+$theme-colors: (
+  "body": $body-bg,
+  "primary": $primary,
+  "secondary": $transblack,
+  "info": $info,
+  "success": #555,
+  'light':      $light,
+  'dark':       $dark,
+  "user-input": $gray-400,
+);
+
+$theme-text-colors: (
+  'body':       $body-color,
+  'primary':    #eee,
+  'secondary':  #ddd,
+  'info':       $black,
+  'success':    #bbb,
+  'light':      $dark,
+  'dark':       $light
+);
+
+$theme-border-colors: map-merge($theme-colors, ());
+
+$theme-border-colors: map-merge($theme-border-colors, (
+  'primary': #ccc,
+  'secondary': $gray-dcv
+));
+
+$text-color: #ddd;
+$link-color: #2c6bac;
+$link-hover-color: darken($link-color, 15%);
+
+$enable-gradients: true;
+
+$border-radius-base: 0;
+$navbar-height:30px;
+$btn-secondary-bg: $transblack;
+$btn-secondary-color:$text-color;
+$btn-secondary-border: $gray-dcv;
+$panel-bg: $transblack;
+$panel-heading: $transblack;
+$panel-default-heading-bg: $transblack;
+$panel-default-border: $gray-dcv;
+$panel-default-text:$text-color;
+
+$pagination-bg: $transblack;
+$pagination-disabled-bg:#222;
+$pagination-disabled-border:$gray-dcv;
+$pagination-hover-bg: #eeeeee;
+$pagination-border: $gray-dcv;
+$pagination-hover-border: $gray-dcv;
+$table-border-color: $gray-dcv;
+
+$color_overlay_control: rgba(255, 255, 255, 0.4); // carousel control
+$color_disabled_background: rgba(0, 0, 0, 0.2); // disable element background
+$color_facet_panel_background: rgba(255, 255, 255, 0.3); // facet panel background

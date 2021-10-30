@@ -3,7 +3,7 @@
   <div class="tombstone <%= (document.site_result? ? 'site-result' : '') %>" data-number-of-members=<%= document[:cul_number_of_members_isi] || -1 %>>
 		<% thumbnail_img_tag = render_thumbnail_tag(document, { class: 'img-square', itemprop: 'thumbnailUrl', alt: short_title(document) },{ suppress_link: true }) %>
 		<%= link_to(thumbnail_img_tag, url_for_document(document), document_link_params(document, counter: (@do_not_link_to_search ? nil : counter_in_results), class: 'thumbnail')) %>
-		<div class="index-show-tombstone-fields">
+		<div class="index-show-grid-fields">
 			<h3 class="index_title "><span class="counter"><%= t('blacklight.search.documents.counter', :counter => counter_in_results) %></span>
 				<%= link_to_document(document, :counter => (@do_not_link_to_search ? nil : counter_in_results), :title => document['title_ssm']) %>
 			</h3>

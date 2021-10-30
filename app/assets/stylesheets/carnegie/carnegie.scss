@@ -21,7 +21,7 @@ $color_18: #ddd;
 $color_19: rgba(42, 119, 143, 0.5);
 $color_20: rgba(255, 255, 255, 0.9);
 $color_21: rgba(255, 255, 255, 0.4);
-$color_anchor: #1a8be4;
+$link-color: #1a8be4;
 
 //fonts
 $font_0: helvetica neue;
@@ -106,7 +106,7 @@ body {
 	}
 }
 a {
-	color: $color_anchor;
+	color: $link-color;
 	font-family: $font_c;
 	&:hover {
 		color: $color_2;
@@ -256,7 +256,7 @@ a {
 	text-decoration: none;
 	text-transform: uppercase;
 	&:hover {
-		color: $color_anchor;
+		color: $link-color;
 	}
 }
 @media(min-width: 768px) {
@@ -569,7 +569,7 @@ a {
 		#child_gallery {
 			background-color: transparent;
 			.index_subtitle {
-				color: $color_anchor;
+				color: $link-color;
 			}
 			.index_alert {
 				color: $color_0;
@@ -587,7 +587,7 @@ a {
 			}
 		}
 		&:not(.list-view) {
-			.index-show-tombstone-fields {
+			.index-show-grid-fields {
 				margin-bottom: 1.5em;
 				line-height: 1em;
 				.index_title {
@@ -634,7 +634,7 @@ a {
 		}
 		.tombstone {
 			height: auto;
-			.index-show-tombstone-fields h3 {
+			.index-show-grid-fields h3 {
 				margin-bottom: .25em;
 			}
 			.img-square {
@@ -647,7 +647,7 @@ a {
 	}
 }
 #content, #sortAndPerPage {
-	.btn-default {
+	.btn-secondary {
 		color: $color_1;
 		&:hover {
 			color:darken($color_10,6%);
@@ -823,7 +823,7 @@ footer.container {
 #item-content dl {
 	margin-bottom: 0;
 }
-#previousNextDocument .btn-default {
+#previousNextDocument .btn-secondary {
 	color: $color_10;
 }
 .btn-primary {

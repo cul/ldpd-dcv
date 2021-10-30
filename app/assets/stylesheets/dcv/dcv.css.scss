@@ -44,7 +44,7 @@ $font_1: trajan;
 $font_2: serif;
 $font_3: trajan pro;
 $font_4: georgia;
-$font_5: Glyphicons Halflings;
+$font_5: FontAwesome;
 
 //urls
 $url_0: url(//cdn.cul.columbia.edu/ldpd-toolkit/img/crown-bts-24x24.png);
@@ -305,7 +305,7 @@ input {
 		.tombstone {
 			height: 100%;
 			font-size: 1em;
-			.index-show-tombstone-fields {
+			.index-show-grid-fields {
 				font-size: .85em;
 				h3 {
 					margin-bottom: .5em;
@@ -343,7 +343,7 @@ input {
 			.tombstone {
 				width: 100%;
 				word-wrap: break-word;
-				.index-show-tombstone-fields {
+				.index-show-grid-fields {
 					font-size: 1em;
 					h3 {
 						font-size: 1em;
@@ -710,7 +710,7 @@ h2[itemprop="name"] {
 				font-size: .7em;
 				font-family: $font_5;
 				color: $color_20;
-				content: "\e080";
+				content: "\f105";
 			}
 			&:last-child .facet-label {
 				padding-bottom: 0;
@@ -1252,8 +1252,8 @@ h2[itemprop="name"] {
 			width:55px;
 			margin:0 -65px;
 
-			.glyphicon-chevron-left,
-			.glyphicon-chevron-right {
+			.fa-chevron-left,
+			.fa-chevron-right {
 				top: 48.3%;
 			}
 		}

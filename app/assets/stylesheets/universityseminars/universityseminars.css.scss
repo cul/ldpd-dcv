@@ -292,7 +292,7 @@ a {
 			background-color: transparent;
 		}
 	}
-	.panel-default > .card-heading {
+	.panel-default > .card-header {
 		background-color: $color_10;
 		color: $color_15;
 		border: 0;
@@ -322,7 +322,7 @@ a {
 	.card {
 		background-color: transparent !important;
 		box-shadow: none;
-		.card-heading {
+		.card-header {
 			margin-right: 1em;
 			margin-left: 1em;
 			padding: .2em 0;
@@ -412,7 +412,7 @@ a {
 		}
 		.tombstone {
 			height: auto;
-			.index-show-tombstone-fields h3 {
+			.index-show-grid-fields h3 {
 				margin-bottom: .25em;
 			}
 		}
@@ -586,7 +586,7 @@ footer.container {
 #item-content dl {
 	margin-bottom: 0;
 }
-#previousNextDocument .btn-default {
+#previousNextDocument .btn-secondary {
 	color: $color_10;
 }
 .pagination > {

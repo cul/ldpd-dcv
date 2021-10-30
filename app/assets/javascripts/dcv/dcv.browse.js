@@ -8,10 +8,10 @@ DCV.Browse.PseudoFacet.constrainTo = function(klass) {
   var facetSelected = (klass == "project-dcv") ? "#dcv-yes" : "#dcv-no";
   $('#pseudo-facet').empty();
   $('#pseudo-facet').append('<span class="btn-group appliedFilter constraint filter"></span>')
-  $('#pseudo-facet span.appliedFilter').append('<a href="#" class="constraint-value btn btn-sm btn-default btn-disabled"></a>');
+  $('#pseudo-facet span.appliedFilter').append('<a href="#" class="constraint-value btn btn-sm btn-secondary btn-disabled"></a>');
   $('#pseudo-facet span.appliedFilter a.constraint-value').append('<span class="filterName">Content in DCV</span>');
   $('#pseudo-facet span.appliedFilter a.constraint-value').append('<span class="filterValue">' + value +'</span>');
-  $('#pseudo-facet span.appliedFilter').append('<a href="#" onclick="DCV.Browse.PseudoFacet.unClick(); return false;" class="btn btn-default btn-sm remove dropdown-toggle"></a>');  
+  $('#pseudo-facet span.appliedFilter').append('<a href="#" onclick="DCV.Browse.PseudoFacet.unClick(); return false;" class="btn btn-secondary btn-sm remove dropdown-toggle"></a>');
   $('#pseudo-facet span.appliedFilter a.remove').append('<span class="fa fa-remove"></span>');
   $(hide).hide();
   $(facetHide).hide();

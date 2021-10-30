@@ -22,7 +22,7 @@ module Dcv::SubsiteHelper
   def link_to_nav(nav_link)
     if nav_link.external
       if Addressable::URI.parse(nav_link.link).absolute?
-        link_to(nav_link.link, target: "_blank", rel: "noopener noreferrer") do
+        link_to(nav_link.link, target: "_blank", rel: "noopener noreferrer", class: "nav-link") do
           "#{nav_link.label} <sup class=\"fa fa-external-link\" aria-hidden=\"true\"></sup>".html_safe
         end
       else
@@ -36,7 +36,7 @@ module Dcv::SubsiteHelper
       else
         link_params[:slug] = nav_link.link
       end
-      link_to(nav_link.label, site_page_path(link_params))
+      link_to(nav_link.label, site_page_path(link_params), class: "nav-link")
     end
   end
 
@@ -89,7 +89,7 @@ module Dcv::SubsiteHelper
 
   def search_mode_button(mode=:grid)
     classes = 'btn result-type-button'
-    classes << ((mode == subsite_search_mode) ? ' btn-success' : ' btn-default')
+    classes << ((mode == subsite_search_mode) ? ' btn-success' : ' btn-secondary')
     icon_classes = (mode == :list) ? 'fa fa-th-list' : 'fa fa-th'
     content_tag(:button, type: 'button', class: classes, :"data-toggle" => "tooltip", title: "#{mode} view", id: "#{mode}-mode") do
       content_tag(:i, nil, class: icon_classes)

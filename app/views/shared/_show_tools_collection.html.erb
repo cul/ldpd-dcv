@@ -1,9 +1,9 @@
 <% if structured_children.first %>
-  <a class="btn btn-default item-cbox" data-original-title="<%= document_show_html_title %>" data-toggle="tooltip" title="Zoom in" href="#" onclick="return DCV.ZoomingImageModal.show();"><i class="fa fa-eye"></i></a>
-  <a class="btn btn-default" href="#" data-original-title="<%= document_show_html_title %>" data-toggle="tooltip" title="Open in new window" onclick="return DCV.ZoomingImageModal.openInNewWindow();"><i class="fa fa-external-link"></i></a>
+  <a class="btn btn-secondary item-cbox" data-original-title="<%= document_show_html_title %>" data-toggle="tooltip" title="Zoom in" href="#" onclick="return DCV.ZoomingImageModal.show();"><i class="fa fa-eye"></i></a>
+  <a class="btn btn-secondary" href="#" data-original-title="<%= document_show_html_title %>" data-toggle="tooltip" title="Open in new window" onclick="return DCV.ZoomingImageModal.openInNewWindow();"><i class="fa fa-external-link"></i></a>
 <% end %>
-<div class="btn-group btn-group-xs">
-  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" data-tt="tooltip" title="Citations">
+<div class="btn-group btn-group-sm">
+  <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" data-tt="tooltip" title="Citations">
   <i class="fa fa-book"></i> <span class="caret"></span>
   <span class="sr-only">Toggle Dropdown</span>
   </button>

@@ -12,7 +12,7 @@
 <%= render partial: "sites/edit/edit_buttons", locals: { view_label: 'View Page', view_path: (@page.slug != 'home') ? page_view : site_view } %>
 <div class="container">
   <div class="card bg-info" id="site_edit_context_about">
-    <div class="card-heading"><h2 class="card-title">About Site Pages <button type="button" class="btn btn-primary collapse-toggle collapsed" data-toggle="collapse" data-target="#site_edit_context_about_content" aria-expanded="false" aria-controls="site_edit_context_about_content" data-parent="site_edit_context_about"></button></h2></div>
+    <div class="card-header"><h2 class="card-title">About Site Pages <button type="button" class="btn btn-primary collapse-toggle collapsed" data-toggle="collapse" data-target="#site_edit_context_about_content" aria-expanded="false" aria-controls="site_edit_context_about_content" data-parent="site_edit_context_about"></button></h2></div>
     <div class="card-body collapse collapsed" id="site_edit_context_about_content">
 		<p>The page properties managed here govern the narrative/explanatory pages attached to a site. The <strong>slug</strong> determines the URL the page will be available at under the site - it is also the data used to add links to the page in the site navigation in Site Properties. Content on the page is managed as a series of text blocks, each with an optional label. These blocks can be reoredered by dragging and dropping.</p>
   		<p>The overall layout of the pages is managed in the site properties.</p>

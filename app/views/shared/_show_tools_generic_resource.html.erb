@@ -1,9 +1,9 @@
 <% if @document['dc_type_ssm'].present? && @document['dc_type_ssm'].first.eql?('StillImage') %>
-  <a class="btn btn-default item-cbox" data-original-title="<%= document_show_html_title %>" title="Zoom in" href="#" onclick="return DCV.ZoomingImageModal.show();"><i class="fa fa-eye"></i></a>
-  <a class="btn btn-default" href="#" data-original-title="<%= document_show_html_title %>" title="Open in new window" onclick="return DCV.ZoomingImageModal.openInNewWindow();"><i class="fa fa-external-link"></i></a>
-  <div class="btn-group btn-group-xs">
+  <a class="btn btn-secondary item-cbox" data-original-title="<%= document_show_html_title %>" title="Zoom in" href="#" onclick="return DCV.ZoomingImageModal.show();"><i class="fa fa-eye"></i></a>
+  <a class="btn btn-secondary" href="#" data-original-title="<%= document_show_html_title %>" title="Open in new window" onclick="return DCV.ZoomingImageModal.openInNewWindow();"><i class="fa fa-external-link"></i></a>
+  <div class="btn-group btn-group-sm">
     <% unless is_publicly_available_asset?(@document) -%>
-      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" title="Downloads">
+      <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" title="Downloads">
       <i class="fa fa-cloud-download"></i> <span class="caret"></span>
       <span class="sr-only">Toggle Dropdown</span>
       </button>

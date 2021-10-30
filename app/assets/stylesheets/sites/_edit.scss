@@ -21,15 +21,15 @@ button.collapse-toggle {
 		content: "Hide ";
 	}
 	&::after {
-		font-family: 'Glyphicons Halflings';
-		content: "\e114";
+		font-family: 'FontAwesome';
+		content: "\f107"; // angle-down
 	}
 	&.collapsed {
 		&::before {
 			content: "Show ";
 		}
 		&::after {
-			content: "\e080";
+			content: "\f105"; // angle-right
 		}
 	}
 }

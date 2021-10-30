@@ -1,8 +1,8 @@
-// bs4 compat
-@import './_bs4_compat.scss';
-
-//fonts
-$font_glyphs: Glyphicons Halflings;
+@import 'font-awesome';
+@import './bootstrap_layout';
+@import 'blacklight';
+ //fonts
+$font_glyphs: FontAwesome;
 
 //urls
 $url_crown_small: url(//cdn.cul.columbia.edu/ldpd-toolkit/img/crown-bts-24x24.png);
@@ -55,10 +55,10 @@ $url_brand_svg: url(//cdn.cul.columbia.edu/ldpd-toolkit/fonts/trajanpro-regular-
 
 //original selectors
 //#sidebar .panel-body .nav a, #sidebar .panel-body .nav .btn-link
-%extend_1 {
+%card_link_primary {
 	padding: .25em 0;
 	font-size: 95%;
-	color: $color_ui;
+	color: map-get($theme-text-colors, 'primary');
 	position: relative;
 	display: block;
 	text-decoration: none;
@@ -66,15 +66,15 @@ $url_brand_svg: url(//cdn.cul.columbia.edu/ldpd-toolkit/fonts/trajanpro-regular-
 
 //original selectors
 //#child_items article dl, #secondary ul, #secondary dl
-%extend_2 {
+%list_secondary {
 	padding: 4px;
-	border: 1px solid $color_outline_secondary;
+	border: 1px solid map-get($theme-border-colors, 'secondary');
 	border-radius: 3px;
 }
 
 //original selectors
 //#child_items article .caption .index_title, #documents .span3 article .index_title
-%extend_3 {
+%dotted_full {
 	width: 100%;
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -82,31 +82,47 @@ $url_brand_svg: url(//cdn.cul.columbia.edu/ldpd-toolkit/fonts/trajanpro-regular-
 }
 
 %active_pagination_ui {
-	color: $color_highlight;
-	background-color: $color_highlight_background;
-	border-color: $color_highlight_background;
+	@extend .bg-info;
+  color: map-get($theme-text-colors, "info");
+	border-color: $info;
+}
+
+@each $color, $value in $theme-colors {
+  .swatch-#{$color} {
+    background-color: $value;
+    color: map-get($theme-text-colors, $color);
+  }
+  .invert-#{$color} {
+    background-color: map-get($theme-text-colors, $color);
+    color: $value;
+  }
+}
+
+@include bg-variant(".bg-body", $body-bg, true);
+
+@if $enable-gradients {
+   @include bg-gradient-variant(".bg-gradient-body", $body-bg, true);
 }
 
 body {
-	background-color: $color_primary_background;
-	color:$color_primary;
+	background-color: $body-bg;
+	color: $body-color;
 	&.citation {
-		background-color:$color_highlight_background;
-		color:$color_primary_background;
+		@extend .swatch-info;
 	}
 }
 
 a {
-	color: $color_anchor;
+	color: $link-color;
 	font-family: $font_c;
 	&:hover {
-		color: $color_highlight_background;
+		color: $info;
 	}
 	&.thumbnail {
-		border-color: $color_outline;
+		border-color: map-get($theme-border-colors, 'body');
 		background-color: transparent;
 		&:hover {
-			border-color: $color_highlight_background;
+			border-color: $info;
 		}
 	}
 }
@@ -118,21 +134,78 @@ input {
 	padding-top: 0;
 	padding-bottom: 2em;
 	margin-bottom: 2em;
-	background-color: $color_primary_background;
-	border: 1px solid $color_outline;
+	background-color: $body-bg;
+	border: 1px solid map-get($theme-border-colors, 'body');
 	border-top: 0;
 	@media(min-width: 768px) {
 		overflow-x: hidden;
 	}
 }
 
+// Navbar themes
+//
+// Additonal style for switching between navbars with theme-specific background.
+
+// Dark links against a light background
+.navbar-primary {
+  background-color: $primary;
+  .navbar-brand {
+    color: $navbar-primary-brand-color;
+
+    @include hover-focus() {
+      color: $navbar-primary-brand-hover-color;
+    }
+  }
+
+  .navbar-nav {
+    .nav-link {
+      color: $navbar-primary-color;
+
+      @include hover-focus() {
+        color: $navbar-primary-hover-color;
+      }
+
+      &.disabled {
+        color: $navbar-primary-disabled-color;
+      }
+    }
+
+    .show > .nav-link,
+    .active > .nav-link,
+    .nav-link.show,
+    .nav-link.active {
+      color: $navbar-primary-active-color;
+    }
+  }
+
+  .navbar-toggler {
+    color: $navbar-primary-color;
+    border-color: $navbar-primary-toggler-border-color;
+  }
+
+  .navbar-toggler-icon {
+    background-image: escape-svg($navbar-primary-toggler-icon-bg);
+  }
+
+  .navbar-text {
+    color: $navbar-primary-color;
+    a {
+      color: $navbar-primary-active-color;
+
+      @include hover-focus() {
+        color: $navbar-primary-active-color;
+      }
+    }
+  }
+}
+
 #topnavbar {
-	@include navBg;
 	min-height: 50px;
 	font-size: 13px;
-	color: navColor();
-	border-top: 5px solid $color_outline_secondary;
-	border-bottom: 1px solid navBgColor();
+	border-top: map-get($theme-border-colors, 'body') 5px solid;
+	border-bottom: $body-bg 1px solid;
+	padding-top: 0.25rem;
+	padding-bottom: 0.25rem;
 	#navbar-container {
 		padding: 0;
 		.navlist-padded {
@@ -145,16 +218,11 @@ input {
 		padding-left: 0;
 		padding-right: 10px;
 		height: 38px;
-		background: $color_topnav_background;
-		background-color: $color_topnav_background;
 		min-height: 44px;
 		margin-top: -1px;
 		#crowndown-nosearch {
 			height: 39px;
-			//margin-lef: -10px;
 			padding-left: 0;
-			background: $color_topnav_background;
-			background-color: $color_topnav_background;
 			.dropdown-toggle {
 				@extend %extend_brand_font;
 				background: transparent $url_crown_small no-repeat 4px 30%;
@@ -169,7 +237,6 @@ input {
 		}
 		.dropdown-menu {
 			margin-top: -3px;
-			background-color: $color_topnav_background;
 			i.icon-crown-white {
 				display: inline-block;
 				width: 14px;
@@ -182,20 +249,15 @@ input {
 			}
 			li a:hover {
 				text-decoration: none;
-				background-color: lighten($color_topnav_background, 10%);
-				color: $color_topnav;
 			}
 		}
 	}
-	a {
-		color: navColor();
-	}
 }
 #site-banner {
-	@include gradeBg;
+  background-color: color-shade($body-bg);
 	padding: 0 13px 1.4em;
 	margin: 0 -13px 20px -14px;
-	border-bottom: 1px solid $color_outline;
+	border-bottom: map-get($theme-border-colors, 'body') 1px solid;
 	&.slim {
 		margin-bottom: .5em;
 		#site-banner-inner {
@@ -237,18 +299,8 @@ input {
 	}
 }
 
-.btn-primary {
-	background-color: $color_ui_background;
-	color:$color_ui;
-	border-color:lighten($color_highlight,20%);
-	&:hover {
-		background-color: $color_ui;
-		color:$color_ui_background;
-		border-color:lighten($color_ui_background,30%);
-	}
-	&:active, &:focus {
-		border-color:darken($color_highlight,30%);
-	}
+.nav-tabs {
+	border-bottom:0;
 }
 
 #search-navbar {
@@ -261,72 +313,65 @@ input {
 		padding-bottom: 0;
 		margin-top: 0;
 		margin-bottom: 0;
-		border-color: $color_ui_outline;
 		select {
 			background-color: transparent;
 			border: 0;
-			option {
-				background-color: gradeUiBgColor(42%);
-				color: $color_ui;
-			}
 		}
 	}
 	#q-filter, .search_q {
 		display: table-cell;
-		border: 1px solid $color_user_input;
+		border: 1px solid map-get($theme-colors, 'user-input');
 		border-width: 1px 0 1px 1px;
 		.search_field {
 			padding: .5em;
 			-webkit-appearance:none;
 				&:hover {
-					color:$color_user_input;
+					color:map-get($theme-colors, 'user-input');
 					cursor: pointer;
 			}
 		}
 	}
 	#q {
-		background-color: gradeUiBgColor(25%);
-		color: $color_user_input;
+		color: map-get($theme-colors, 'user-input');
 		&:focus {
-			background-color: $color_primary_background;
-			color: $color_highlight_background;
+			@extend .swatch-primary;
 		}
 		&:-moz-placeholder {
-			color: darken($color_user_input, 12%);
+			color: darken(map-get($theme-colors, 'user-input'), 12%);
 			opacity: 1;
 		}
 		&:-ms-input-placeholder {
-			color: darken($color_user_input, 12%);
+			color: darken(map-get($theme-colors, 'user-input'), 12%);
 		}
 	}
 	#q::-webkit-input-placeholder {
-		color: darken($color_user_input, 12%);
+		color: darken(map-get($theme-colors, 'user-input'), 12%);
 	}
 	#q::-moz-placeholder {
-		color: darken($color_user_input, 12%);
+		color: darken(map-get($theme-colors, 'user-input'), 12%);
 		opacity: 1;
 	}
 	.search-btn {
-		border-color: $color_user_input;
+		border-color: map-get($theme-colors, 'user-input');
 		&:focus {
 			outline: 0;
 		}
 	}
 	.reset-btn {
-		border-color: $color_user_input;
+		border-color: map-get($theme-colors, 'user-input');
 		&:hover {
-			background-color:  $danger;
+			background-color:  map_get($theme-colors, 'danger');
 		}
 	}
 	#search {
-		border-color: $color_ui_outline;
+		border-color: map-get($theme-border-colors, 'primary');
 	}
 }
 
 #secondary-nav {
 	padding: 0 12px;
 	margin: 0 -1.5em;
-	border-bottom: 1px solid $color_outline;
+	border-bottom: 1px solid;
 	.nav {
 		width: 100%;
 		@media(min-width: 768px) {
@@ -355,7 +400,7 @@ input {
 	}
 
 	li {
-		border-left: 1px solid lighten($color_outline, 13%);
+		border-left: 1px solid;
 		&:first-child, .dropdown-menu li {
 			border-left: 0;
 		}
@@ -366,58 +411,59 @@ input {
 				width: auto;
 				text-align: left;
 			}
-			background-color: lighten($color_primary_background,10%);
-			border: 1px solid lighten($color_primary_background,25%);
+			border: 1px solid;
 			border-top-color: transparent;
 			border-radius: 0;
-			box-shadow: 0 6px 12px rgba($color_ui_outline,0.375);
+			box-shadow: 0 6px 12px;
 			background-clip: padding-box;
 			font-size: .95em;
 			li {
 				margin: 1rem 0;
 			}
 		}
-		a {
+		a, .nav-link {
 			&:hover {
 				background-color: transparent;
-				color: $color_anchor;
+				color: $link-color;
 			}
 			&.active {
 				background-color: transparent;
-				color: $color_highlight_background;
 			}
 		}
 		li {
 			a:hover {
-				color: $color_highlight;
-				background-color: $color_highlight_background;
+				@extend .swatch-info;
 			}
 		}
 		&.open a.dropdown-toggle {
 			background-color: transparent;
-			color: $color_highlight_background;
+			color: $info;
 		}
 	}
 	a {
-		color: $color_ui_secondary;
+		color: map-get($theme-text-colors, 'secondary');
 		&:focus {
 			background-color: transparent;
 		}
 	}
-	.btn-default {
+	.btn-secondary {
 		padding: 1rem;
 		border: 0;
-		color: $color_ui_secondary;
 		background-color: transparent;
 		font-family: $font_c;
 		text-transform: uppercase;
 		&:hover {
-			color: $color_highlight;
-			background-color: $color_highlight_background;
+			@extend .swatch-info;
 		}
 	}
 }
-
+.lead {
+	font-size: 1.1em;
+	a.continued {
+		white-space:nowrap;
+		font-size: .8em;
+	}
+}
 #content {
 	.document {
 		margin-bottom: .25em;
@@ -425,7 +471,7 @@ input {
 			padding-top: 1em;
 			margin-top: 1em;
 			background-color: transparent;
-			border: 1px solid $color_outline;
+			border: 1px solid;
 			border-width: 1px 0;
 			.child-container {
 				margin-bottom: 1em;
@@ -445,28 +491,25 @@ input {
 				}
 			}
 			.index_alert {
-				color: $color_primary;
+				@extend .swatch-info;
 				font-weight: bolder;
 				font-style: italic;
 			}
 			a.document.selected {
-				border-color: $color_ui_outline;
-				box-shadow: 0 0 3px $color_highlight_background;
+				box-shadow: 0 0 3px $info;
 			}
 		}
 		.fulltext-snippet {
 			font-size: .9em;
 			.highlight {
-				background: $color_highlight_background;
-				color: $color_highlight;
+				@extend .swatch-info;
 				padding: 2px 3px 1px;
 				border-radius: 3px;
 			}
 		}
-		.tombstone {
-			height: 100%;
+		.card {
 			font-size: 1em;
-			.index-show-tombstone-fields {
+			.index-show-grid-fields {
 				font-size: .85em;
 			}
 			h3 {
@@ -477,7 +520,7 @@ input {
 			}
 			.thumbnail {
 				.img-square {
-					background-color:$color_ui_outline;
+					background-color: map-get($theme-border-colors, 'primary');
 				}
 			}
 		}
@@ -485,7 +528,7 @@ input {
 			height: auto;
 			min-height: 136px;
 			padding-top: 1em;
-			border-top: 1px solid $color_outline;
+			border-top: 1px solid map-get($theme-border-colors, 'body');
 			&.compact {
 			  min-height: auto;
 				&:first-child {
@@ -497,10 +540,10 @@ input {
 				padding-top: 0;
 				border-top: 0;
 			}
-			.tombstone {
+			.card {
 				width: 100%;
 				word-wrap: break-word;
-				.index-show-tombstone-fields {
+				.index-show-grid-fields {
 					font-size: 1em;
 					h3 {
 						font-size: 1em;
@@ -657,15 +700,15 @@ h2[itemprop="name"] {
 	margin: 0;
 	overflow: hidden;
 	line-height: 1;
-	background-color: $color_primary_background;
-	border-color: $color_outline;
+	background-color: $body-bg;
+	border-color: map-get($theme-border-colors, 'body');
 	border-radius: 0;
 	img {
 		width: auto;
 		max-height: 100%;
 	}
 	&.placeholder {
-		background-color: $color_ui;
+		background-color: map-get($theme-text-colors, 'primary');
 	}
 	> img {
 		display: block;
@@ -680,11 +723,11 @@ h2[itemprop="name"] {
 #home-sidebar-news {
 	font-size: 90%;
 	.home-sidebar-heading {
-		color: $color_offset;
+		color: $gray-500;
 	}
 	hr {
 		margin: 1em auto;
-		border-color: $color_outline_offset;
+		border-color: color-shade(map-get($theme-border-colors, 'primary'));
 		border-style: dotted;
 	}
 	img {
@@ -693,7 +736,7 @@ h2[itemprop="name"] {
 		margin-left: .5em;
 	}
 	.collection-title {
-		color:$color_ui;
+		color:map-get($theme-text-colors, 'primary');
 		font-size:1.15em;
 		font-style:italic;
 	}
@@ -704,10 +747,10 @@ h2[itemprop="name"] {
 	text-align: center;
 	text-transform: uppercase;
 	a {
-		color: $color_offset;
+		color: $gray-500;
 		text-decoration: none;
 		&:hover {
-			color: $color_highlight_background;
+			color: $info;
 		}
 	}
 }
@@ -717,48 +760,36 @@ h2[itemprop="name"] {
 }
 #sidebar {
 	clear: both;
-	.panel-default {
-		border-color: $color_outline_secondary;
+	.card {
+		border-color: map-get($theme-border-colors, 'secondary');
 		border-style: solid;
 	}
-	.panel-body .nav {
-		a {
-			@extend %extend_1;
+	.card-body .nav {
+		a, .btn-link {
+			@extend %card_link_primary;
 			&:hover {
-				color: $color_highlight_background;
-			}
-		}
-		.btn-link {
-			@extend %extend_1;
-			&:hover {
-				color: $color_highlight_background;
+				color: $info;
 			}
 		}
 	}
-	.panel-title:hover {
+	.card-title:hover {
 		text-decoration: none;
 	}
 }
 #sidebar-right {
-	.panel-default {
-		border-color: $color_outline_secondary;
+	.card {
+		border-color: map-get($theme-border-colors, 'secondary');
 		border-style: solid;
 	}
-	.panel-body .nav {
-		a {
-			@extend %extend_1;
+	.card-body .nav {
+		a, .btn-link {
+			@extend %card_link_primary;
 			&:hover {
-				color: $color_highlight_background;
-			}
-		}
-		.btn-link {
-			@extend %extend_1;
-			&:hover {
-				color: $color_highlight_background;
+				color: $info;
 			}
 		}
 	}
-	.panel-title:hover {
+	.card-title:hover {
 		text-decoration: none;
 	}
 }
@@ -769,14 +800,14 @@ h2[itemprop="name"] {
 		padding-left: .9em;
 		font-weight: 100;
 	}
-	.panel {
+	.card {
 		margin-bottom: .5em;
 	}
-	.panel-title {
+	.card-title {
 		font-size: .86em;
 		text-transform: uppercase;
 		a {
-			color: $color_primary;
+			color: $body-color;
 		}
 	}
 	.top-panel-heading {
@@ -795,22 +826,22 @@ h2[itemprop="name"] {
 				margin-left: -5px;
 				font-size: .7em;
 				font-family: $font_glyphs;
-				color: $color_outline;
-				content: "\e080";
+				color: map-get($theme-border-colors, 'body');
+				content: "\f105";
 			}
 			&:last-child .facet-label {
 				padding-bottom: 0;
 			}
 			&.selected {
 				.remove {
-					color: $color_anchor;
+					color: $link-color;
 					&:hover {
 						color: $danger;
 					}
 				}
 			}
 			.selected {
-				color: $color_primary !important;
+				color: $body-color !important;
 			}
 		}
 		.facet-label {
@@ -828,8 +859,8 @@ h2[itemprop="name"] {
 	.facet_limit {
 		background-color: inherit;
 	}
-	.facet_limit-active > .panel-heading {
-		background-color: rgba($color_ui_outline, 0.25);
+	.facet_limit-active > .card-header {
+		background-color: rgba($primary, 0.25);
 	}
 }
 @media(max-width: 768px) {
@@ -839,17 +870,17 @@ h2[itemprop="name"] {
 }
 .section-heading {
 	padding: 15px 0;
-	border: solid $color_outline_offset;
+	border: solid map-get($theme-border-colors, 'body')_offset;
 	border-width: 1px 0;
 }
 #child_items {
 	article {
 		overflow: hidden;
 		dl {
-			background: $color_highlight_background;
+			background: $info;
 			margin-top: 0.25em;
 			margin-bottom: 0.25em;
-			@extend %extend_2;
+			@extend %list_secondary;
 			dt {
 				font-size: 121%;
 				line-height: 1.2;
@@ -860,7 +891,7 @@ h2[itemprop="name"] {
 					font-size: 90%;
 					font-weight: normal;
 					line-height: 1.5;
-					color: rgba($color_primary_background, 0.3);
+					color: rgba($body-bg, 0.3);
 				}
 			}
 			dd {
@@ -879,7 +910,7 @@ h2[itemprop="name"] {
 			}
 			.result_url {
 				font-size: 110%;
-				color: $color_anchor;
+				color: $link-color;
 				word-break: break-word;
 			}
 			.result_aka {
@@ -893,20 +924,20 @@ h2[itemprop="name"] {
 				line-height: 1.3em;
 			}
 			.index_title {
-				@extend %extend_3;
+				@extend %dotted_full;
 			}
 		}
 		code {
 			padding: 0;
 			font-size: .9em;
-			color: $color_outline_secondary;
-			background-color: $color_offset;
+			color: map-get($theme-border-colors, 'secondary');
+			background-color: $gray-500;
 		}
 		.documentHeader h5 {
 			overflow: hidden;
 		}
 		&:nth-child(odd) dl {
-			background-color: $color_highlight;
+			background-color: $info;
 		}
 	}
 	.dl-vertical dd {
@@ -920,11 +951,8 @@ h2[itemprop="name"] {
 	}
 }
 #secondary {
-	ul {
-		@extend %extend_2;
-	}
-	dl {
-		@extend %extend_2;
+	ul, dl {
+		@extend %list_secondary;
 	}
 }
 #doc-item-title {
@@ -954,20 +982,17 @@ h2[itemprop="name"] {
 
 #colorbox {
 	#cboxClose {
+	  @extend .swatch-info;
 		top: 0;
-		color: $color_highlight;
-		background-color: $color_highlight_background;
 		border-bottom-left-radius: 4px;
 		&:hover {
-			color: $color_highlight_background;
-			background-color: $color_highlight;
+		  @extend .invert-info;
 		}
 	}
 	#cboxCurrent {
 		top: 0;
 		left: 0;
-		background-color: $color_highlight_background;
-		color: $color_outline;
+	  @extend .swatch-info;
 		height: 1.8em;
 		line-height: 22px;
 		padding: 2px 6px;
@@ -979,9 +1004,9 @@ h2[itemprop="name"] {
 		bottom: -6px;
 		.dropdown-toggle {
 			padding: 0;
-			color: $color_ui;
+			color: $primary;
 			&:hover {
-				color: $color_outline;
+				color: map-get($theme-border-colors, 'body');
 			}
 		}
 		.dropdown-menu {
@@ -990,9 +1015,9 @@ h2[itemprop="name"] {
 			border-top-left-radius: 6px;
 			box-shadow: none;
 			a {
-				color: $color_ui;
+				color: $primary;
 				&:hover {
-					color: $color_ui_secondary;
+					color: $secondary;
 				}
 			}
 		}
@@ -1013,7 +1038,7 @@ h2[itemprop="name"] {
 
 #item-description {
 	dt {
-		border-bottom: 1px solid $color_outline_secondary;
+		border-bottom: 1px solid map-get($theme-border-colors, 'secondary');
 		font-size: .86em;
 		text-transform: uppercase;
 	}
@@ -1025,7 +1050,7 @@ h2[itemprop="name"] {
 
 #show-generic-resource {
 	.inner {
-		border-color: $color_outline_secondary;
+		border-color: map-get($theme-border-colors, 'secondary');
 	}
 	.dl-horizontal {
 		word-break: break-word;
@@ -1042,7 +1067,7 @@ h2[itemprop="name"] {
 				padding-bottom: .5em;
 				margin-bottom: .5em;
 				margin-top: 1em;
-				border-bottom: 1px solid $color_ui_outline;
+				border-bottom: 1px solid map-get($theme-border-colors, 'primary');
 			}
 		}
 	}
@@ -1058,12 +1083,12 @@ h2[itemprop="name"] {
 }
 
 .btn.active {
-	background-color:lighten($color_highlight, 10%);
-	border-color:darken($color_highlight,30%);
+	background-color:lighten($info, 10%);
+	border-color:darken($info,30%);
 }
 
 .media-wrapper.thumbnail {
-	border-color: $color_ui_outline;
+	border-color: map-get($theme-border-colors, 'primary');
 	background-color: transparent;
 	.caption {
 		color: inherit;
@@ -1090,28 +1115,27 @@ h2[itemprop="name"] {
  *****************/
 
 #ajax-modal .modal-content {
-	color: $color_primary;
-	background-color: $color_primary_background;
-	border-color: $color_ui_outline;
+	@extend .swatch-primary;
+	border-color: map-get($theme-border-colors, 'primary');
 	.modal-header {
-		border-color: $color_ui_outline;
+		border-color: map-get($theme-border-colors, 'primary');
 	}
 	.modal-footer {
-		border-color: $color_ui_outline;
+		border-color: map-get($theme-border-colors, 'primary');
 	}
 	button {
-		color: $color_ui;
-		background-color: $color_ui_background;
+		color: map-get($theme-text-colors, 'primary');
+		background-color: $primary;
 		opacity: 1;
 	}
 	.sort_options {
 		.btn {
 			background-color:inherit;
-			color:$color_ui;
+			color:map-get($theme-text-colors, 'primary');
 			&.active {
-				background-color:$color_ui_outline;
-				border-color:$color_ui_outline;
-				color:$color_ui_background;
+				background-color:map-get($theme-border-colors, 'primary');
+				border-color:map-get($theme-border-colors, 'primary');
+				color:$primary;
 			}
 		}
 	}
@@ -1126,7 +1150,7 @@ h2[itemprop="name"] {
 	list-style: none;
 }
 #documents .span3 article .index_title {
-	@extend %extend_3;
+	@extend %dotted_full;
 }
 
 #search-index-tools .search-index-tool-group {
@@ -1141,6 +1165,7 @@ h2[itemprop="name"] {
 		position: relative;
 	}
 	.site-result a.thumbnail::after {
+		@extend .swatch-info;
 		content: 'Collection';
 		display:block;
 		position:absolute;
@@ -1148,9 +1173,7 @@ h2[itemprop="name"] {
 		left:0;
 		width:100%;
 		height:21px;
-		color:$color_highlight;
-		background-color:$color_highlight_background;
-		border:1px solid $color_primary_background;
+		border:1px solid $primary;
 		border-width:1px 0 0;
 		text-align: center;
 		text-transform: uppercase;
@@ -1162,10 +1185,9 @@ h2[itemprop="name"] {
 }
 
 #date-range-canvas {
+	@extend .swatch-primary;
   width:100%;
-  border:1px solid $color_ui_outline;
-  background-color: $color_primary_background;
-  color: $color_primary;
+  border:1px solid map-get($theme-border-colors, 'primary');
   cursor: crosshair;
 }
 
@@ -1184,11 +1206,11 @@ h2[itemprop="name"] {
 .pagination > {
 	li > {
 		a {
-			color: $color_highlight_background;
+			color: $info;
 			background-color: transparent;
 		}
 		span {
-			color: $color_highlight_background;
+			color: $info;
 			background-color: transparent;
 		}
 	}

@@ -4,7 +4,7 @@
 <div class="col-sm-3 document <%= dcv_search_link.present? ? 'project-dcv' : 'project-external' %>" itemscope itemtype="project">
   <div class="tombstone" data-number-of-members"-1">
 	<%= link_to image_tag('digital_projects_page/' + project[:image], :class => 'thumbnail img-responsive'), (dcv_search_link.present? ? dcv_search_link : project[:external_url]), :style => 'margin:0px auto;' %>
-		<div class="index-show-tombstone-fields">
+		<div class="index-show-grid-fields">
 			<h3 class="index_title ellipsis"><%= project[:name] %></h3>
 			<%= '<div class="ellipsis">'.html_safe + link_to('Browse Content', dcv_search_link) + '</div>'.html_safe if dcv_search_link.present? %>
 			<%= '<div class="ellipsis">'.html_safe + link_to('Jump to Project Site', project[:external_url]) + '</div>'.html_safe if project[:external_url].present? %>

@@ -3,11 +3,10 @@
 $enable-flex:               true;
 $enable-grid-classes:       true;
 
-@import 'bootstrap/_functions.scss';
-@import 'bootstrap/_variables.scss';
-@import 'bootstrap/_mixins.scss';
-@import 'bootstrap/_grid.scss';
-@import 'normalize.scss';
+@import 'bootstrap/functions';
+@import 'bootstrap/variables';
+@import 'bootstrap/mixins';
+@import 'bootstrap/grid';
 
 @mixin	searchModes($gridDocCols: 3, $listThumbCols: 2) {
 	#content {
@@ -17,12 +16,21 @@ $enable-grid-classes:       true;
 				@include media-breakpoint-up(sm) {
 					@include make-col(12);
 				}
-				.index-show-tombstone-fields {
+				@extend .no-gutters;
+				.index-show-grid-fields {
 					display: none !important;
 				}
 				.thumbnail {
 					@include media-breakpoint-up(sm) {
 						@include make-col($listThumbCols); // ifp is 1
+					}
+				}
+				.card {
+					flex-direction: row;
+				}
+				.card-body {
+					@include media-breakpoint-up(sm) {
+						@include make-col((12 - $listThumbCols));
 					}
 				}
 			}
@@ -36,8 +44,10 @@ $enable-grid-classes:       true;
 				.index-show-list-fields {
 					display: none !important;
 				}
-				.thumbnail {
-					// relies on container
+				.card-body {
+					@include media-breakpoint-up(sm) {
+						@include make-col(12);
+					}
 				}
 			}
 		}

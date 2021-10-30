@@ -1,4 +1,3 @@
-@import '../palettes/base';
 @import '../palettes/monochromeDark';
 
 $url_dcv_small: image-url('dcv/1836760843_267e9c947f_o-sm-b.jpg');
@@ -9,7 +8,7 @@ $url_dcv_small: image-url('dcv/1836760843_267e9c947f_o-sm-b.jpg');
 		text-align: center;
 	}
 	#site-banner-left {
-		background-color: $color_primary_background;
+		background-color: $body-bg;
 		background-image: $url_dcv_small;
 		background-repeat: no-repeat;
 		background-position: center center;

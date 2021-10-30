@@ -6,7 +6,7 @@
 
 <% if @date_year_segment_data.present? %>
 	Click and drag inside of the date range graph to selects results from that range.
-	<%= link_to 'Reset Date Range Filter', params.except(:start_year, :end_year), :class => 'btn btn-default btn-xs float-right' if params[:start_year].present? || params[:end_year].present? %>
+	<%= link_to 'Reset Date Range Filter', params.except(:start_year, :end_year), :class => 'btn btn-secondary btn-sm float-right' if params[:start_year].present? || params[:end_year].present? %>
 	<div id="date-range-widget" data-palette="<%= active_site_palette %>"></div>
 <% else %>
 	There is no date data available for your search results.

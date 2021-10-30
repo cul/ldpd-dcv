@@ -1,26 +1,15 @@
 <% # main container for facets/limits menu -%>
 <% if has_facet_values?  %>
-<div <%= defined?(no_id_attr) && no_id_attr ? '' : 'id="facets"'.html_safe %> class="facets sidenav">
-
-  <div class="top-panel-heading card-heading">
-    <% if has_search_parameters? %>
-      <button type="button" class="facets-toggle" data-toggle="collapse" data-target="#facet-panel-collapse">
-        <span class="sr-only">Toggle facets</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-    <% end %>
-
-        <% unless defined?(hide_refine_heading) && hide_refine_heading %>
-        <h4><%= t('blacklight.search.facets.title') %></h4>
-        <% end %>
-  </div>
-  <div id="facet-panel-collapse" class="<%= has_search_parameters? ? 'collapse' : '' %> panel-group">
-    <%= render_facet_partials %>
-    <%= render :partial => 'sidebar_date_selector' %>
-  </div>
+<div id="facets" class="facets sidenav">
+  <h4 data-toggle="collapse" data-target=".facets-collapse">
+      <a class="btn btn-navbar">
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                    </a>
+    <%= t('blacklight.search.facets.title') %>
+  </h4>
+  <div class="facets-collapse">
+  <%= render_facet_partials %>
 </div>
-<% else %>
-    No facets available.
+</div>
 <% end %>

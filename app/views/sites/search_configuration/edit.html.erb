@@ -10,7 +10,7 @@
 <%= render partial: "sites/edit/edit_buttons" %>
 <div class="container">
   <div class="card bg-info" id="site_edit_context_about">
-    <div class="card-heading"><h2 class="card-title">About Search Configuration <button type="button" class="btn btn-primary collapse-toggle collapsed" data-toggle="collapse" data-target="#site_edit_context_about_content" aria-expanded="false" aria-controls="site_edit_context_about_content" data-parent="site_edit_context_about"></button></h2></div>
+    <div class="card-header"><h2 class="card-title">About Search Configuration <button type="button" class="btn btn-primary collapse-toggle collapsed" data-toggle="collapse" data-target="#site_edit_context_about_content" aria-expanded="false" aria-controls="site_edit_context_about_content" data-parent="site_edit_context_about"></button></h2></div>
     <div class="card-body collapse collapsed" id="site_edit_context_about_content">
       <p>Sites with <strong>local</strong> searches may configure search behaviors within the scope of their search. The facet, search type, and search field configurations managed here apply only to the site's search: The general catalog (or any other site that also includes an item here) have independently configured searches.</p>
       <p>If a site has the <strong>catalog</strong> search type, it delegates its search to the catalog and the configurations here will have no effect.</p>
@@ -20,7 +20,7 @@
 <%- if @subsite.search_type != 'local' %>
 	<div class="container">
 		<div class="card bg-warning">
-			<div class="card-heading"><h2 class="card-title">Configuration May Not Apply!</h2></div>
+			<div class="card-header"><h2 class="card-title">Configuration May Not Apply!</h2></div>
 			<div class="card-body">The properties configured below are for sites with a local search. This site has a <%= @subsite.search_type %> search. This can be changed in the <%= link_to('site properties', site_edit) %>.</div>
 		</div>
 	</div>

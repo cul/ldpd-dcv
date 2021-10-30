@@ -7,7 +7,7 @@
   # functions by default only on detail.
 
 -%>
-<div class="float-right search-widgets btn-group btn-group-xs">
+<div class="float-right search-widgets btn-group btn-group-sm">
   <%- if ['ContentAggregator', 'Collection', 'GenericResource'].include?(@document['active_fedora_model_ssi']) %>
   <%= render  partial: "show_tools_#{@document['active_fedora_model_ssi'].underscore}", locals: {document: @document} %>
   <%- end %>

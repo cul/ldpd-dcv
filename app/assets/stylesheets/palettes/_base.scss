@@ -1,6 +1,2 @@
-$color_overlay_control: rgba(255, 255, 255, 0.4); // carousel control
-$color_disabled_background: rgba(0, 0, 0, 0.2); // disable element background
-$color_facet_panel_background: rgba(255, 255, 255, 0.3); // facet panel background
-$color_topnav: #eee;
-$color_topnav_background: #222;
-$color_anchor: #2c6bac;
+@import './base/functions';
+@import './base/variables';

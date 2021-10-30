@@ -7,7 +7,7 @@
 					<%- @subsite.nav_menus.each do |nav_menu| -%>
 						<%- if nav_menu.length > 1 -%>
 							<li class="dropdown">
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown"><%=nav_menu.label %> <b class="caret"></b></a>
+								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"><%=nav_menu.label %> <b class="caret"></b></a>
 								<ul class="dropdown-menu list-unstyled dropdown-menu-left">
 									<%- nav_menu.links.each do |nav_link| -%>
 										<li><%= link_to_nav(nav_link) %></li>
@@ -22,16 +22,16 @@
 			<%- end -%>
 			<%- if map_search_settings_for_subsite.present? -%>
 				<ul class="nav nav-pills float-right">
-					<li><a href="<%= '/' + @subsite.slug + '/map_search' %>" class="btn btn-default btn-link"><span class="fa fa-map-marker"></span> Map<span class="hidden-sm"> All Items</span></a></li>
+					<li class="nav-item"><a href="<%= '/' + @subsite.slug + '/map_search' %>" class="btn btn-secondary nav-link"><span class="fa fa-map-marker"></span> Map<span class="hidden-sm"> All Items</span></a></li>
 				</ul>
 			<%- end -%>
 			<%- if params[:action] == 'home' && @subsite.persistent_url -%>
 				<ul class="nav nav-pills float-right">
-					<li><button data-copy="<%= @subsite.persistent_url %>" title="Click to copy to clipboard" class="btn btn-default" onclick="DCV.Clipboard.copyFromElement(this);"><span class="fa fa-copy"></span> Permanent URL</button></li>
+					<li class="nav-item"><button data-copy="<%= @subsite.persistent_url %>" title="Click to copy to clipboard" class="btn nav-link" onclick="DCV.Clipboard.copyFromElement(this);"><span class="fa fa-copy"></span> Permanent URL</button></li>
 				</ul>
 			<%- elsif @document&.has_persistent_url? -%>
 				<ul class="nav nav-pills float-right">
-					<li><button data-copy="<%= @document.persistent_url %>" title="Click to copy to clipboard" class="btn btn-default" onclick="DCV.Clipboard.copyFromElement(this);"><span class="fa fa-copy"></span> Permanent URL</button></li>
+					<li class="nav-item"><button data-copy="<%= @document.persistent_url %>" title="Click to copy to clipboard" class="btn nav-link" onclick="DCV.Clipboard.copyFromElement(this);"><span class="fa fa-copy"></span> Permanent URL</button></li>
 				</ul>
 			<%- end -%>
 			</div><!--/-->

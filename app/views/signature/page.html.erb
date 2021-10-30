@@ -1,5 +1,5 @@
 <%- cache [@subsite, @page] do -%>
-<div class="col-md-8 col-md-offset-2">
+<div class="col-md-8 mx-auto">
 	<h2 class="text-center"><%= @page.title %></h2>
 	<hr>
 	<%- @page.site_text_blocks.sort { |a,b| a.sort_label <=> b.sort_label }.each do |text_block| -%>

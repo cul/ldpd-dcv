@@ -14,17 +14,17 @@
 
    As of Kaminari 0.15, this paginator doesn't have access to the original collection/scope, so it can't render the page entries info directly.
 -%>
-<div class="page_links btn-group btn-group-xs">
+<div class="page_links btn-group btn-group-sm">
 <% if total_pages > 1 -%>
   <%# #render checks if total_pages > 1, so we can't put our fallback 
   in here .. -%>
   <%= paginator.render do -%>
     <%= first_page_tag %>
-    <span class="btn btn-default" style="pointer-events:none;"><%= page_entries_info %></span>
+    <span class="btn btn-secondary" style="pointer-events:none;"><%= page_entries_info %></span>
     <%= prev_page_tag %>
     <%= next_page_tag %>
   <% end -%>
 <% else -%>
-  <span class="btn btn-default" style="pointer-events:none;"><%= page_entries_info %></span>
+  <span class="btn btn-secondary" style="pointer-events:none;"><%= page_entries_info %></span>
 <% end -%>
 </div>

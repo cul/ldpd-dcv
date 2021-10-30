@@ -1,45 +1,42 @@
-$color_white: #ffffff;
-$color_black: #000000;
-$color_darkgray: #444;
+@import './base/functions';
+@import './base/variables';
 
 //colors
-$color_primary: #111;
-$color_primary_background: #fafafa;
-$color_highlight_background: #1a1f2f; //rgb(68,89,116);
-$color_highlight: #e6e6e6;
-$color_outline: #ccc;
-$color_outline_offset: lighten($color_outline, 7%);
-$color_outline_secondary: #222;
-$color_offset: #999;
-$color_user_input: $color_black;
-$color_ui: #888;
-$color_ui_background: #fff;
-$color_ui_secondary: #333;
-$color_ui_outline: #444;
-$color_anchor: darken($color_highlight_background, 25%);
+$body-bg: #fafafa;
+$body-color: #111;
+$body-border-color: #ccc;
+$theme-colors: map-merge($theme-colors, ('body': $body-bg));
+$theme-text-colors: map-merge($theme-text-colors, ('body': $body-color));
+$theme-border-colors: map-merge($theme-border-colors, ('body': $body-border-color));
+
+$primary: #fff;
+$primary-color: #888;
+$primary-border-color: #444;
+$theme-colors: map-merge($theme-colors, ('primary': $primary));
+$theme-text-colors: map-merge($theme-text-colors, ('primary': $primary-color));
+$theme-border-colors: map-merge($theme-border-colors, ('primary': $primary-border-color));
+
+$secondary: $body-bg;
+$secondary-color: #333;
+$secondary-border-color: #222;
+$theme-colors: map-merge($theme-colors, ('secondary': $secondary));
+$theme-text-colors: map-merge($theme-text-colors, ('secondary': $secondary-color));
+$theme-border-colors: map-merge($theme-border-colors, ('secondary': $secondary-border-color));
+
+$info: #1a1f2f; //rgb(68,89,116);
+$info-color: #e6e6e6;
+$theme-colors: map-merge($theme-colors, ('info': $info));
+$theme-text-colors: map-merge($theme-text-colors, ('info': $info-color));
+$theme-border-colors: map-merge($theme-border-colors, ('info': $info));
+
+$link-color: darken($info, 25%);
+$theme-colors: map-merge($theme-colors, ('user-input': $black));
 
 //urls
 $url_stripe: url(asset_path("signature/stripes-white-10.png"));
 
-@function navBgColor($l: 25%) {
-	@return lighten($color_highlight_background, $l);
-}
-@function navColor($l: 0%) {
-	@return darken($color_topnav, $l);
-}
-
-@mixin	navBg($l: 25%) {
-	background: navBgColor($l);
+.nav {
 	background-image:$url_stripe;
 }
 
-@function gradeBgColor($l: 25%) {
-	@return darken($color_primary_background, $l);
-}
-@mixin gradeBg($l: 7%) {
-	background-color: gradeBgColor($l);
-}
-
-@function gradeUiBgColor($l: 25%) {
-	@return darken($color_ui_background, $l);
-}
+@import './base/post';

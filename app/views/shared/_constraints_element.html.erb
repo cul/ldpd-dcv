@@ -8,7 +8,7 @@
 -%>
 
 <span class="btn-group appliedFilter constraint <%= options[:classes].join(" ") if options[:classes] %>">
-<a href="#" class="constraint-value btn btn-xs btn-default btn-disabled">
+<a href="#" class="constraint-value btn btn-sm btn-secondary btn-disabled">
       <%- unless label.blank? -%>
         <span class="filterName"><%= label %></span> 
       <%- end -%>
@@ -28,7 +28,7 @@
         %>    
 
         <%= link_to(content_tag(:span, '', :class => 'fa fa-remove') + accessible_remove_label,
-					options[:remove], :class => 'btn btn-default btn-xs remove dropdown-toggle'
+					options[:remove], :class => 'btn btn-secondary btn-sm remove dropdown-toggle'
 				) %>
       <%- end -%>
 </span>
