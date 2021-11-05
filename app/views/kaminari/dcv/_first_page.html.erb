@@ -6,6 +6,6 @@
     per_page:      number of items to fetch per page
     remote:        data-remote
 -%>
-<li class="<%= 'disabled' if current_page.first? %>">
-  <%= link_to_unless current_page.first?, '<i class="fa fa-fast-backward"></i>'.html_safe, url, :remote => remote, :"data-toggle" => 'tooltip', title: raw(t 'views.pagination.first') %>
+<li class="page-item<%= ' disabled' if current_page.first? %>">
+  <%= link_to_unless current_page.first?, '<i class="fa fa-fast-backward"></i>'.html_safe, url, remote: remote, :"data-toggle" => 'tooltip', title: raw(t 'views.pagination.first'), class: 'page-link' %>
 </li>

@@ -126,7 +126,7 @@
 }
 #sidebar {
 	clear: both;
-	.panel-default {
+	.card {
 		border-color: map-get($theme-border-colors, 'secondary');
 		border-style: solid;
 		.card-header {
@@ -155,7 +155,7 @@
 #facets {
 	margin-right: -15px;
 	margin-left: -15px;
-	.panel-default {
+	.card {
 		border-right: 0;
 		border-left: 0;
 		border-color: map-get($theme-border-colors, 'body');
@@ -173,7 +173,7 @@
 
 .section-heading {
 	padding: 15px 0;
-	border: solid map-get($theme-border-colors, 'body')_offset;
+	border: solid map-get($theme-border-colors, 'body');
 	border-width: 1px 0;
 }
 #child_items {

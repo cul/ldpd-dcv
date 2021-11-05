@@ -434,7 +434,7 @@ a {
 			color: $color_6;
 		}
 	}
-	#facets .panel-default {
+	#facets .card {
 		background-color: $color_10;
 		color: $color_15;
 		border: 0;
@@ -442,7 +442,7 @@ a {
 			background-color: transparent;
 		}
 	}
-	.panel-default > .panel-heading {
+	.card > .panel-heading {
 		background-color: $color_10;
 		color: $color_15;
 		border: 0;

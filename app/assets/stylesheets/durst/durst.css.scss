@@ -204,7 +204,7 @@ a, .btn-link {
 			color: $color_7;
 		}
 	}
-	#facets .panel-default {
+	#facets .card {
 		background-color: $color_1;
 		color: $color_16;
 		border: 0;
@@ -212,7 +212,7 @@ a, .btn-link {
 			background-color: transparent;
 		}
 	}
-	.panel-default > .panel-heading {
+	.card > .panel-heading {
 		background-color: $color_1;
 		color: $color_16;
 		border: 0;

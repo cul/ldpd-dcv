@@ -19,7 +19,9 @@ a {
 		}
 	}
 }
-
+header[role='banner'] {
+	flex-basis:max-content;
+}
 #site-banner {
 	padding: 1em 1.4em;
 	margin: 0 -1.75em 0;
@@ -109,7 +111,7 @@ a {
 	}
 }
 
-#site-title { // site-title is generally an inverse color scheme for ui elements
+#site-title {
 	display: block;
 	clear:left;
 	padding-top: 4px;
@@ -247,11 +249,11 @@ a {
 	}
 }
 
-.panel-default {
+.card {
 	border-color: map-get($theme-border-colors, 'primary');
 }
 #sort-dropdown .dropdown-toggle, #per_page-dropdown .dropdown-toggle {
-  color: $light;
+  @extend .swatch-secondary;
 }
 
 .appliedFilter .btn-secondary,
@@ -294,7 +296,7 @@ a {
 			color: $gray-500;
 		}
 	}
-	.panel-default > .card-header {
+	.card > .card-header {
 		background-color: gradeBgColor(2%);
 		color: map-get($theme-text-colors, 'primary');
 		border-color: map-get($theme-border-colors, 'primary');
@@ -358,7 +360,7 @@ a {
 			background-color: $body-bg;
 		}
 	}
-	.panel-default {
+	.card {
 		background-color: gradeBgColor(5%);
 		color: map-get($theme-border-colors, 'primary');
 		border-color: map-get($theme-border-colors, 'primary');
@@ -460,7 +462,7 @@ a {
 		}
 	}
 	.appliedFilter .filterName:after {
-		color: map-get($theme-border-colors, 'body')_offset;
+		color: map-get($theme-border-colors, 'body');
 	}
 }
 
@@ -513,30 +515,30 @@ a {
 	border-radius: 0;
 }
 .table-bordered {
-	border-color: map-get($theme-border-colors, 'body')_offset;
+	border-color: map-get($theme-border-colors, 'body');
 	> {
 		thead > tr > {
 			th {
-				border-color: map-get($theme-border-colors, 'body')_offset;
+				border-color: map-get($theme-border-colors, 'body');
 			}
 			td {
-				border-color: map-get($theme-border-colors, 'body')_offset;
+				border-color: map-get($theme-border-colors, 'body');
 			}
 		}
 		tbody > tr > {
 			th {
-				border-color: map-get($theme-border-colors, 'body')_offset;
+				border-color: map-get($theme-border-colors, 'body');
 			}
 			td {
-				border-color: map-get($theme-border-colors, 'body')_offset;
+				border-color: map-get($theme-border-colors, 'body');
 			}
 		}
 		tfoot > tr > {
 			th {
-				border-color: map-get($theme-border-colors, 'body')_offset;
+				border-color: map-get($theme-border-colors, 'body');
 			}
 			td {
-				border-color: map-get($theme-border-colors, 'body')_offset;
+				border-color: map-get($theme-border-colors, 'body');
 			}
 		}
 	}

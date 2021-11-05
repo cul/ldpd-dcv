@@ -1,14 +1,14 @@
-<div id="child_gallery" class="row" style="<%= structured_children.length > 1 ? '' : 'display:none;'%>">
-	<div class="<%= (structured_children.length > 4) ? 'child-scroll' : '' %>">
+<div id="child_gallery" class="container-fluid px-0" style="<%= structured_children.length > 1 ? '' : 'display:none;'%>">
+	<div class="row<%= (structured_children.length > 4) ? ' child-scroll' : '' %>">
 		<% structured_children.each_with_index do |child, ix| -%>
 			<% can_access = can_access_asset?(child.with_indifferent_access) -%>
 			<div class="col-sm-<%= 12 / [4, structured_children.length].min %>">
-				<article class="child-container">
-					<a rel="<%= can_access ? 'item-link' : 'item-nolink' %>" data-child-number="<%= ix %>" class="<%= ix == 0 ? 'selected' : '' %> <%= can_access ? 'tocontent' : '' %> post thumbnail document blacklight-photographs">
-						<img src="<%= get_resolved_asset_url(id: child[:id], pid: child[:pid], size: 256, type: 'full', format: 'jpg') %>" alt="<%= child[:title] %>" />
+				<article class="card child-container">
+					<a rel="<%= can_access ? 'item-link' : 'item-nolink' %>" data-child-number="<%= ix %>" class="<%= ix == 0 ? 'selected' : '' %> <%= can_access ? 'tocontent' : '' %> post document blacklight-photographs">
+						<img class="card-img-top" src="<%= get_resolved_asset_url(id: child[:id], pid: child[:pid], size: 256, type: 'full', format: 'jpg') %>" alt="<%= child[:title] %>" />
 					</a>
-					<div class="caption aligncenter">
-						<div class="documentHeader">
+					<div class="card-body py-0">
+						<div class="card-title text-center">
 							<a rel="item-link" data-src="<%= get_resolved_asset_url(id: child[:id], pid: child[:pid]) %>.json" data-id="<%=child[:id]%>"><i class="icon-zoom-in"></i></a>
 							<div class="index_title">
 								<%= document['title_display_ssm'].present? && child[:title] == document['title_display_ssm'].first ? '&nbsp;'.html_safe : child[:title] %>

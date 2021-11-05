@@ -624,7 +624,7 @@ h2[itemprop="name"] {
 }
 #sidebar {
 	clear: both;
-	.panel-default {
+	.card {
 		border-color: $color_18;
 		border-style: solid;
 	}
@@ -647,7 +647,7 @@ h2[itemprop="name"] {
 	}
 }
 #sidebar-right {
-	.panel-default {
+	.card {
 		border-color: $color_18;
 		border-style: solid;
 	}
@@ -684,7 +684,7 @@ h2[itemprop="name"] {
 		font-size: .86em;
 		text-transform: uppercase;
 	}
-	.panel-default {
+	.card {
 		border-right: 0;
 		border-left: 0;
 		border-color: $color_4;

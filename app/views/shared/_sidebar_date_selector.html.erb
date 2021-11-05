@@ -2,7 +2,7 @@
 
   <% date_filter_is_active = 'facet_limit-active' if params[:start_year].present? || params[:end_year].present? %>
 
-  <div class="card panel-default facet_limit date-range <%= 'facet_limit-active' if date_filter_is_active %>">
+  <div class="card card facet_limit date-range <%= 'facet_limit-active' if date_filter_is_active %>">
     <div class="collapsed collapse-toggle card-header" data-toggle="collapse" data-target="#date-range-filter">
       <h5 class="card-title">
         <a data-no-turbolink="true" href="#"><%= controller.subsite_config.dig('date_search_configuration', 'sidebar_label') || "Date Range" %></a>

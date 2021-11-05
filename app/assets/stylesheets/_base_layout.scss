@@ -104,6 +104,10 @@ $url_brand_svg: url(//cdn.cul.columbia.edu/ldpd-toolkit/fonts/trajanpro-regular-
    @include bg-gradient-variant(".bg-gradient-body", $body-bg, true);
 }
 
+.hidden {
+	display: none;
+}
+
 body {
 	background-color: $body-bg;
 	color: $body-color;
@@ -125,9 +129,6 @@ a {
 			border-color: $info;
 		}
 	}
-}
-
-input {
 }
 
 #outer-wrapper {
@@ -388,7 +389,7 @@ input {
 				width: auto;
 				text-align: left;
 			}
-			> a {
+			> .nav-link {
 				font-size:.825em;
 				font-family: $font_b;
 				text-transform:uppercase;
@@ -471,17 +472,22 @@ input {
 			padding-top: 1em;
 			margin-top: 1em;
 			background-color: transparent;
-			border: 1px solid;
+			border: 1px solid map-get($theme-border-colors, 'body');
 			border-width: 1px 0;
 			.child-container {
 				margin-bottom: 1em;
 			}
-			.thumbnail {
+			a.blacklight-photographs {
+				border: 1px solid map-get($theme-border-colors, 'body');
+				width:99%;			
+			}
+			.card-img-top {
 				height: 130px;
-				width: 99%;
-				img {
-					max-width: 99%;
-				}
+				margin-left: auto;
+				margin-right: auto;
+				display:block;
+				width: auto;
+				background-color: transparent;
 			}
 			.child-scroll .thumbnail {
 				height: 130px;
@@ -508,20 +514,19 @@ input {
 			}
 		}
 		.card {
-			font-size: 1em;
+			background-color: $body-bg;
+			font-size: 1rem;
 			.index-show-grid-fields {
-				font-size: .85em;
+				font-size: .75em;
 			}
-			h3 {
-				font-size: 1em;
+			card-title {
+				font-size: .85em;
 			}
 			.index_title {
 				margin-top: .5em;
 			}
-			.thumbnail {
-				.img-square {
-					background-color: map-get($theme-border-colors, 'primary');
-				}
+			.img-square {
+				background-color: map-get($theme-border-colors, 'primary');
 			}
 		}
 		&.list-view {
@@ -557,11 +562,8 @@ input {
 					height: auto;
 				}
 			}
-			.thumbnail {
-				margin-right: 1em;
-				img {
-					max-height: 98%;
-				}
+			img.card-img-top {
+				max-height: 98%;
 			}
 		}
 	}
@@ -870,7 +872,7 @@ h2[itemprop="name"] {
 }
 .section-heading {
 	padding: 15px 0;
-	border: solid map-get($theme-border-colors, 'body')_offset;
+	border: solid map-get($theme-border-colors, 'body');
 	border-width: 1px 0;
 }
 #child_items {
@@ -1158,6 +1160,18 @@ h2[itemprop="name"] {
 }
 
 #search-results {
+	.card {
+		border: 0;
+		.card-img-top {
+			border: 1px solid map-get($theme-border-colors, 'body');
+		}
+		.card-title {
+			font-size:.85em;
+		}
+		.card-body {
+			padding:0.25em;
+		}
+	}
 	.site-result a.thumbnail:hover {
 		text-decoration: none !important;
 	}
@@ -1205,7 +1219,7 @@ h2[itemprop="name"] {
 
 .pagination > {
 	li > {
-		a {
+		.page-link {
 			color: $info;
 			background-color: transparent;
 		}
@@ -1215,7 +1229,7 @@ h2[itemprop="name"] {
 		}
 	}
 	.active > {
-		a {
+		.page-link {
 			@extend %active_pagination_ui;
 			&:hover {
 				@extend %active_pagination_ui;
@@ -1236,7 +1250,7 @@ h2[itemprop="name"] {
 	}
 	.disabled > {
 		span {
-			background-color: $color_disabled_background;
+			background-color: transparent;
 			&:hover {
 				background-color: $color_disabled_background;
 			}
@@ -1244,8 +1258,8 @@ h2[itemprop="name"] {
 				background-color: $color_disabled_background;
 			}
 		}
-		a {
-			background-color: $color_disabled_background;
+		.page-link {
+			background-color: transparent;
 			&:hover {
 				background-color: $color_disabled_background;
 			}
@@ -1290,10 +1304,11 @@ h2[itemprop="name"] {
 	#child-viewer-carousel {
 		margin: 0 55px .5em;
 
-		.carousel-control {
+		.carousel-control-prev, .carousel-control-next {
 			width:55px;
 			margin:0 -65px;
-
+			color: $body-color;
+			background-image:none;
 			.glyphicon-chevron-left,
 			.glyphicon-chevron-right {
 				top: 48.3%;
@@ -1310,7 +1325,7 @@ h2[itemprop="name"] {
 			margin-right:0.5rem;
 		}
 
-		.item {
+		.carousel-item {
 
 			.child-content {
 				text-align: center;
