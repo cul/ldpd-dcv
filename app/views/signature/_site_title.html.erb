@@ -1,5 +1,8 @@
-<h1 id="site-title" class="mt-0"><%= link_to @subsite.title.html_safe,
-"/#{@subsite.slug}" %></h1>
+<div class="d-flex flex-column w-100">
+<a id="site-title" class="navbar-brand" href="<%= "/#{@subsite.slug}"%>">
+<%= @subsite.title.html_safe %>
+</a>
 <%- if @subsite.alternative_title.present? || @subsite.repository_id.present? -%>
-<h2 id="site-banner-subtitle" class="h3"><%= @subsite.alternative_title.present? ? @subsite.alternative_title : t("cul.archives.physical_location.#{@subsite.repository_id}") %></h2>
+<small id="site-banner-subtitle"><%= @subsite.alternative_title.present? ? @subsite.alternative_title : t("cul.archives.physical_location.#{@subsite.repository_id}") %></small>
 <%- end -%>
+</div>

@@ -1,40 +1,34 @@
-<div id="secondary-nav" class="">
-	<div class="subnav">
-		<div class="row">
-			<div class="col-sm-12">
-			<%- cache [@subsite, 'nav_menus'] do -%>
-				<ul class="nav nav-pills float-left">
-					<%- @subsite.nav_menus.each do |nav_menu| -%>
-						<%- if nav_menu.length > 1 -%>
-							<li class="dropdown">
-								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"><%=nav_menu.label %> <b class="caret"></b></a>
-								<ul class="dropdown-menu list-unstyled dropdown-menu-left">
-									<%- nav_menu.links.each do |nav_link| -%>
-										<li><%= link_to_nav(nav_link) %></li>
-									<%- end -%>
-								</ul>
-							</li>
-						<%- else -%>
-							<li><%= link_to_nav(nav_menu.links[-1]) %></li>
-						<%- end -%>
-					<%- end -%>
-				</ul>
+<nav id="secondary-nav" class="navbar d-flex px-0">
+	<%- cache [@subsite, 'nav_menus'] do -%>
+		<ul class="nav nav-pills mr-auto">
+			<%- @subsite.nav_menus.each do |nav_menu| -%>
+				<%- if nav_menu.length > 1 -%>
+					<li class="dropdown">
+						<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"><%=nav_menu.label %> <b class="caret"></b></a>
+						<ul class="dropdown-menu list-unstyled dropdown-menu-left">
+							<%- nav_menu.links.each do |nav_link| -%>
+								<li><%= link_to_nav(nav_link, "dropdown-item") %></li>
+							<%- end -%>
+						</ul>
+					</li>
+				<%- else -%>
+					<li><%= link_to_nav(nav_menu.links[-1]) %></li>
+				<%- end -%>
 			<%- end -%>
-			<%- if map_search_settings_for_subsite.present? -%>
-				<ul class="nav nav-pills float-right">
-					<li class="nav-item"><a href="<%= '/' + @subsite.slug + '/map_search' %>" class="btn btn-secondary nav-link"><span class="fa fa-map-marker"></span> Map<span class="hidden-sm"> All Items</span></a></li>
-				</ul>
-			<%- end -%>
-			<%- if params[:action] == 'home' && @subsite.persistent_url -%>
-				<ul class="nav nav-pills float-right">
-					<li class="nav-item"><button data-copy="<%= @subsite.persistent_url %>" title="Click to copy to clipboard" class="btn nav-link" onclick="DCV.Clipboard.copyFromElement(this);"><span class="fa fa-copy"></span> Permanent URL</button></li>
-				</ul>
-			<%- elsif @document&.has_persistent_url? -%>
-				<ul class="nav nav-pills float-right">
-					<li class="nav-item"><button data-copy="<%= @document.persistent_url %>" title="Click to copy to clipboard" class="btn nav-link" onclick="DCV.Clipboard.copyFromElement(this);"><span class="fa fa-copy"></span> Permanent URL</button></li>
-				</ul>
-			<%- end -%>
-			</div><!--/-->
-		</div><!--/row-->
-	</div><!--/subnav-->
-</div>
+		</ul>
+	<%- end -%>
+	<%- if map_search_settings_for_subsite.present? -%>
+		<ul class="nav nav-pills">
+			<li class="nav-item"><a href="<%= '/' + @subsite.slug + '/map_search' %>" class="nav-link mx-auto"><span class="fa fa-map-marker"></span> Map<span class="hidden-sm"> All Items</span></a></li>
+		</ul>
+	<%- end -%>
+	<%- if params[:action] == 'home' && @subsite.persistent_url -%>
+		<ul class="nav nav-pills">
+			<li class="nav-item"><button data-copy="<%= @subsite.persistent_url %>" title="Click to copy to clipboard" class="btn nav-link mx-auto" onclick="DCV.Clipboard.copyFromElement(this);"><span class="fa fa-copy"></span> Permanent URL</button></li>
+		</ul>
+	<%- elsif @document&.has_persistent_url? -%>
+		<ul class="nav nav-pills justify-content-center">
+			<li class="nav-item"><button data-copy="<%= @document.persistent_url %>" title="Click to copy to clipboard" class="btn nav-link mx-auto" onclick="DCV.Clipboard.copyFromElement(this);"><span class="fa fa-copy"></span> Permanent URL</button></li>
+		</ul>
+	<%- end -%>
+</nav>

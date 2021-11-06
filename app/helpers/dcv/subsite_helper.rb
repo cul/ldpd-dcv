@@ -19,14 +19,14 @@ module Dcv::SubsiteHelper
     @subsite.scope_filters.present?
   end
 
-  def link_to_nav(nav_link)
+  def link_to_nav(nav_link, link_class = "nav-link")
     if nav_link.external
       if Addressable::URI.parse(nav_link.link).absolute?
-        link_to(nav_link.link, target: "_blank", rel: "noopener noreferrer", class: "nav-link") do
-          "#{nav_link.label} <sup class=\"fa fa-external-link\" aria-hidden=\"true\"></sup>".html_safe
+        link_to(nav_link.link, target: "_blank", rel: "noopener noreferrer", class: link_class) do
+          "#{nav_link.label} <i class=\"fa fa-external-link\" aria-hidden=\"true\"></i>".html_safe
         end
       else
-        link_to(nav_link.label, nav_link.link)
+        link_to(nav_link.label, nav_link.link, class: link_class)
       end
     else
       site_slug = controller.load_subsite.slug
@@ -36,7 +36,7 @@ module Dcv::SubsiteHelper
       else
         link_params[:slug] = nav_link.link
       end
-      link_to(nav_link.label, site_page_path(link_params), class: "nav-link")
+      link_to(nav_link.label, site_page_path(link_params), class: link_class)
     end
   end
 

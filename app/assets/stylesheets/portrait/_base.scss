@@ -3,28 +3,29 @@
 }
 
 #site-banner {
-	background-color: navBgColor(5%);
-	#site-banner-inner {
-		.titlesub {
-			color: navColor(5%);
+	background-color: $primary;
+	#site-title {
+		text-align: center;
+		font-size:1.25rem;
+		vertical-align:middle !important;
+		a {
+		  color:inherit;
+		  text-decoration:none;
 		}
-		#site-title {
-			font-size: 200%;
-			text-transform: uppercase;
-			font-family: $font_b;
-			font-weight: 400;
-			color: navColor(5%);
+		text-transform: uppercase;
+		font-family: $font_b;
+		font-weight: 400;
+		color: map-get($theme-text-colors, 'primary');
+	}
+	#site-banner-subtitle {
+		@extend %extend_brand_font;
+		color: color-shade(map-get($theme-text-colors, 'primary'));
+		font-size: 100%;
+		text-align: center;
+		@media(min-width: 768px) {
+			text-align: left;
 		}
-		#site-banner-subtitle {
-			color: navColor(5%);
-			font-family: $font_0, $font_3, $font_1, $font_2;
-			font-size: 100%;
-			text-align: center;
-			@media(min-width: 768px) {
-				text-align: left;
-			}
-			margin-top: 0;
-		}
+		margin-top: 0;
 	}
 	nav {
 		border: 0;
@@ -34,7 +35,7 @@
 		padding: 2px 0 0;
 		margin-bottom: .75em;
 		text-align: center;
-		font-family: $font_0, $font_1, $font_4, $font_2;
+		@extend %extend_brand_font;
 		font-size: 220%;
 		a {
 			color: map-get($theme-text-colors, 'info');
@@ -51,7 +52,7 @@
 		padding: 2px 0 0;
 		margin-bottom: .5em;
 		text-align: center;
-		font-family: $font_0, $font_1, $font_4, $font_2;
+		@extend %extend_brand_font;
 		font-size: 180%;
 		a {
 			color: $info;
@@ -95,10 +96,6 @@
 			color: $info;
 		}
 	}
-}
-
-#secondary-nav {
-	margin-top:-6px;
 }
 
 #content {

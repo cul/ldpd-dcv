@@ -1,49 +1,41 @@
-<nav id="topnavbar" class="navbar fixed-top navbar-expand-sm" role="navigation">
-	<div id="navbar-container" class="container">
-		<div class="col-sm-12 navbar-primary" id="cul_top-nosearch">
-			<div class="row">
-				<div class="col-sm-6">
-					<ul class="navbar-nav float-left" id="crowndown-nosearch">
-						<li class="dropdown menu nav-item">
-							<a href="#" class="dropdown-toggle menu nav-link" data-toggle="dropdown" title="Links @ Columbia"><span class="topbarlogo">Columbia University Libraries</span> <b class="caret"></b></a>
-							<ul class="dropdown-menu menu-dropdown nav-item">
-								<li><a href="http://columbia.edu"><i class="icon-crown-white"></i> Columbia University » Home</a></li>
-								<li><a href="https://library.columbia.edu"><i class="fa fa-home"></i>  Libraries » Home</a></li>
-								<li><a href="<%=root_path%>"><i class="fa fa-star"></i> Digital Library Collections » Home</a></li>
-								<li class="divider"></li>
-								<li><a href="https://library.columbia.edu/libraries.html">Columbia Libraries Locations</a></li>
-								<li><a href="https://library.columbia.edu/collections/archives-portal.html">Columbia Archival Collections Portal</a></li>
-								<li><a href="https://clio.columbia.edu">CLIO: Columbia Libraries Catalog</a></li>
-							</ul>
-						</li>
-					</ul>
-				</div><!--/col-sm-6-->
-				<div class="col-sm-6">
-					<ul id="cul_top-right" class="navbar-nav float-right">
-						<li class="nav-item">
-							<% if current_user %>
-								<span class="nav-link">
-									<%= current_user.uid %>
-									<%= link_to '(Log Out)', destroy_user_session_url(provider: current_user.provider, restricted: restricted?) %>
-								</span>
-							<% else %>
-									<%= link_to 'Log In', send(:"user_#{controller.omniauth_provider_key}_omniauth_authorize_url", return_to: request.original_url), {class: "nav-link"} %>
-							<% end %>
-						</li>
-						<li class="dropdown menu nav-item float-left">
-							<a class="nav-link dropdown-toggle menu" data-toggle="dropdown" href="#">Help <b class="caret"></b></a>
-							<ul class="dropdown-menu menu-dropdown dropdown-menu-right">
-								<li><%= link_to 'About', about_path %></li>
-								<li><a href="https://library.columbia.edu/services/askalibrarian.html">Ask a Librarian</a></li>
-								<li><a href="#" onclick="return DCV.FeedbackModal.show();">Suggestions &amp; Feedback</a></li>
-								<li><a href="https://hours.library.columbia.edu">Library Hours</a></li>
-								<li><a href="https://library.columbia.edu/libraries/map.html?location=culis">Maps and Locations</a></li>
-								<li><%= link_to 'Terms of Use', terms_of_use_url %></li>
-							</ul>
-						</li>
-					</ul>
-				</div><!--/col-sm-6-->
-			</div><!--/row-->
-		</div><!-- /cul_top-nosearch -->
+<nav id="topnavbar" class="navbar fixed-top d-flex flex-sm-row py-0" role="navigation">
+	<div id="navbar-container" class="container-fluid navbar-primary">
+		<ul class="nav" id="crowndown-nosearch">
+			<li class="dropdown menu nav-item">
+				<a href="#" class="dropdown-toggle menu nav-link" data-toggle="dropdown" title="Links @ Columbia"><span class="fa icon-columbia-crown"></span><span class="d-sm-none d-md-inline">Columbia University Libraries</span> <b class="caret"></b></a>
+				<ul class="dropdown-menu  nav-item">
+					<li><a href="http://columbia.edu"><i class="fa icon-columbia-crown"></i> Columbia University » Home</a></li>
+					<li><a href="https://library.columbia.edu"><i class="fa fa-home"></i>  Libraries » Home</a></li>
+					<li><a href="<%=root_path%>"><i class="fa fa-star"></i> Digital Library Collections » Home</a></li>
+					<li class="divider"></li>
+					<li><a href="https://library.columbia.edu/libraries.html">Columbia Libraries Locations</a></li>
+					<li><a href="https://library.columbia.edu/collections/archives-portal.html">Columbia Archival Collections Portal</a></li>
+					<li><a href="https://clio.columbia.edu">CLIO: Columbia Libraries Catalog</a></li>
+				</ul>
+			</li>
+		</ul>
+		<div id="cul_top-right" class="nav flex-sm-row-reverse">
+			<div class="nav-item">
+				<% if current_user %>
+					<span class="nav-link">
+						<%= current_user.uid %>
+						<%= link_to '(Log Out)', destroy_user_session_url(provider: current_user.provider, restricted: restricted?) %>
+					</span>
+				<% else %>
+						<%= link_to 'Log In', send(:"user_#{controller.omniauth_provider_key}_omniauth_authorize_url", return_to: request.original_url), {class: "nav-link"} %>
+				<% end %>
+			</div>
+			<div class="dropdown menu nav-item">
+				<a class="dropdown-toggle menu nav-link" data-toggle="dropdown" href="#">Help <b class="caret"></b></a>
+				<ul class="dropdown-menu nav-item">
+					<li><%= link_to 'About', about_path %></li>
+					<li><a href="https://library.columbia.edu/services/askalibrarian.html">Ask a Librarian</a></li>
+					<li><a href="#" onclick="return DCV.FeedbackModal.show();">Suggestions &amp; Feedback</a></li>
+					<li><a href="https://hours.library.columbia.edu">Library Hours</a></li>
+					<li><a href="https://library.columbia.edu/libraries/map.html?location=culis">Maps and Locations</a></li>
+					<li><%= link_to 'Terms of Use', terms_of_use_url %></li>
+				</ul>
+			</div>
+		</ul>
 	</div>
 </nav>

@@ -23,23 +23,16 @@ header[role='banner'] {
 	flex-basis:max-content;
 }
 #site-banner {
-	padding: 1em 1.4em;
-	margin: 0 -1.75em 0;
 	background-color: transparent;
 	background-repeat:no-repeat;
 	background-position:center top;
 	background-size:cover;
-	#site-banner-inner {
-		overflow: visible;
-		.titlesub {
-			color: map-get($theme-text-colors, 'info');
-		}
-		#site-title {
-			font-family: $font_0, $font_3, $font_1, $font_2;
-		}
-		#site-banner-subtitle {
-			//font-size: 120%;
-		}
+	overflow: visible;
+	.titlesub {
+		color: map-get($theme-text-colors, 'body');
+	}
+	#site-title {
+		font-family: $font_0, $font_3, $font_1, $font_2;
 	}
 }
 
@@ -75,53 +68,41 @@ header[role='banner'] {
 	}
 }
 
-#hometn {
-	.featured-outer {
-		display: flex;
-		//flex-direction: row;
-		align-items: flex-end;
-		padding:0;
-		background-color:$body-bg;
-		background-size: cover;
-		background-position: center 25%;
-		background-repeat: no-repeat;
-		margin:0 -15px 1rem;
-		min-height:200px;
-		@media(min-width: 768px) {
-			height:60vh;
-			min-height:320px;
-		}
-		@media(min-width: 1200px) {
-			margin:0 -12px 1rem;
-		}
-		.img-responsive {
-			margin:0;
-			width:100vw;
-			@media(min-width: 768px) {
-				width:55%;
-			}
-			@media(min-width: 1200px) {
-				margin-left: 12px;
-			}
-		}
+.featured-outer {
+	display: flex;
+	align-items: flex-end;
+	padding:0;
+	background-color:$body-bg;
+	background-size: cover;
+	background-position: center 25%;
+	background-repeat: no-repeat;
+	min-height:200px;
+	@media(min-width: 768px) {
+		height:60vh;
+		min-height:320px;
 	}
 	.img-responsive {
-		margin-top:1em;
-		margin-bottom:.5em;
+		margin:1em 0 .5em;
+		width:100vw;
+		@media(min-width: 768px) {
+			width:55%;
+		}
+		@media(min-width: 1200px) {
+			margin-left: 12px;
+		}
 	}
 }
 
 #site-title {
-	display: block;
-	clear:left;
+	width:100%;
 	padding-top: 4px;
 	padding-bottom: .5em;
 	margin-bottom: 2px;
 	font-family: $font_0, $font_1, $font_2;
 	font-size: 198%;
-	font-weight: 400;
+	font-weight: 200;
 	line-height: 1.1;
-	color: $info;
+	color: map-get($theme-text-colors, 'brand');
 	text-align: center;
 	text-decoration: none;
 	text-transform: uppercase;
@@ -131,20 +112,20 @@ header[role='banner'] {
 		color: lighten(map-get($theme-border-colors, 'secondary'),35%);
 	}
 	a {
-		color: $info;
+		color: map-get($theme-text-colors, 'brand');
 		&:hover {
-			color: $link-color;
+			color: color-yiq(map-get($theme-colors, 'brand'));
 		}
 	}
 }
 #site-banner-subtitle {
-	display: inline-block;
+  width:100%;
 	padding: 0;
 	margin: 0;
 	font-family: $font_0, $font_1, $font_2;
 	font-size: 17px;
 	line-height: 1;
-	color: lighten($info,20%);
+	color: color-shade(map-get($theme-text-colors, 'brand'),20%);
 	text-align: center;
 	text-decoration: none;
 	text-transform: uppercase;
@@ -162,7 +143,6 @@ header[role='banner'] {
 		background-position:center center;
 	}
 	#site-banner-subtitle {
-		display: inline-block;
 		text-align: left;
 	}
 	#site-title {
@@ -209,7 +189,6 @@ header[role='banner'] {
 	}
 	#site-banner-subtitle {
 		font-size: 18px;
-		//letter-spacing: 1px;
 	}
 }
 @media(max-width: 640px) {
@@ -252,9 +231,6 @@ header[role='banner'] {
 .card {
 	border-color: map-get($theme-border-colors, 'primary');
 }
-#sort-dropdown .dropdown-toggle, #per_page-dropdown .dropdown-toggle {
-  @extend .swatch-secondary;
-}
 
 .appliedFilter .btn-secondary,
 	.appliedFilter .constraint-value:hover,
@@ -277,7 +253,7 @@ header[role='banner'] {
 			#link-panel > .panel-group {
 				margin-bottom: 5px; // matches margin-top of facet panel
 			}
-            .sidenav {
+			.sidenav {
 				.card-title {
 					font-family: $font_b;
 					font-size:.9em;
@@ -297,13 +273,10 @@ header[role='banner'] {
 		}
 	}
 	.card > .card-header {
-		background-color: gradeBgColor(2%);
+		background-color: color-shade($primary, 2%);
 		color: map-get($theme-text-colors, 'primary');
 		border-color: map-get($theme-border-colors, 'primary');
 		border: 0;
-		&.home {
-			background-color: transparent;
-		}
 	}
 	.panel-ui { // borrows from btn-primary
 		border-color: map-get($theme-border-colors, 'primary');
@@ -362,7 +335,7 @@ header[role='banner'] {
 	}
 	.card {
 		background-color: gradeBgColor(5%);
-		color: map-get($theme-border-colors, 'primary');
+		color: map-get($theme-text-colors, 'body');
 		border-color: map-get($theme-border-colors, 'primary');
 		border: 0;
 		&.home {

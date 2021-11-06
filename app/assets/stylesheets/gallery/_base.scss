@@ -3,26 +3,14 @@
 }
 
 #site-banner {
-	#site-banner-inner {
-		.titlesub {
-			color: map-get($theme-text-colors, 'info');
-		}
-		#site-title {
-			color: $info;
-			font-family: $font_0, $font_3, $font_1, $font_2;
-			text-decoration: none;
-		}
-	}
 	nav {
 		border: 0;
 	}
 	h1 {
 		width: 100%;
 		padding: 2px 0 0;
-		margin-bottom: .75em;
 		text-align: center;
 		font-family: $font_0, $font_1, $font_4, $font_2;
-		font-size: 220%;
 		a {
 			color: $info;
 			&:hover {
@@ -50,35 +38,29 @@
 			}
 		}
 	}
-	.note {
-		text-align: center;
-		max-width: 100%;
-	}
-	#site-banner-inner #site-title {
-		display: inline-block;
-		max-width: 100%;
+}
+#site-title {
+	max-width: 100%;
+	text-align: center;
+	font-size:1.25rem;
+	vertical-align:middle !important;
+	a {
+	  color:inherit;
+	  text-decoration:none;
 	}
 }
+
 #search-navbar {
-	&.slim {
-		margin-top: .5em;
-	}
 	.input-group-prepend {
 		background-color: $primary;
 		font-size: 1em;
 	}
-	#q {
-		background-color: $body-bg;
-		color: map-get($theme-text-colors, 'primary');
-		&:focus {
-			background-color: $body-bg;
-			color: $info;
-		}
-	}
 }
-
-#secondary-nav {
-	margin-top:-6px;
+#q {
+		@extend .swatch-info;
+		&:focus {
+			@extend .swatch-primary;
+		}
 }
 
 #content {

@@ -1,26 +1,9 @@
 @import 'font-awesome';
 @import './bootstrap_layout';
 @import 'blacklight';
+@import './brand_topnav';
  //fonts
 $font_glyphs: FontAwesome;
-
-//urls
-$url_crown_small: url(//cdn.cul.columbia.edu/ldpd-toolkit/img/crown-bts-24x24.png);
-$url_crown_sprite: url(//cdn.cul.columbia.edu/ldpd-toolkit/img/crown-icon-sprite.png);
-$url_brand_eot: url(//cdn.cul.columbia.edu/ldpd-toolkit/fonts/trajanpro-regular-webfont.eot);
-$url_brand_eot_ie: url(//cdn.cul.columbia.edu/ldpd-toolkit/fonts/trajanpro-regular-webfont.eot?#iefix);
-$url_brand_woff: url(//cdn.cul.columbia.edu/ldpd-toolkit/fonts/trajanpro-regular-webfont.woff);
-$url_brand_ttf: url(//cdn.cul.columbia.edu/ldpd-toolkit/fonts/trajanpro-regular-webfont.ttf);
-$url_brand_svg: url(//cdn.cul.columbia.edu/ldpd-toolkit/fonts/trajanpro-regular-webfont.svg#TrajanProRegular);
-
-// should move to shared dcv.css after refactor
-@font-face {
-	font-family: TrajanProRegular;
-	src: $url_brand_eot;
-	src: $url_brand_eot_ie format("embedded-opentype"), $url_brand_woff format("woff"), $url_brand_ttf format("truetype"), $url_brand_svg format("svg");
-	font-weight: normal;
-	font-style: normal;
-}
 
 /* mixin for multiline */
 @mixin multiLineEllipsis($lineHeight: 1.2em, $lineCount: 1, $bgColor: white){
@@ -49,10 +32,6 @@ $url_brand_svg: url(//cdn.cul.columbia.edu/ldpd-toolkit/fonts/trajanpro-regular-
 }
 
 //@extend-elements
-%extend_brand_font {
-	font-family: TrajanProRegular, trajan, serif;
-}
-
 //original selectors
 //#sidebar .panel-body .nav a, #sidebar .panel-body .nav .btn-link
 %card_link_primary {
@@ -158,7 +137,7 @@ a {
     }
   }
 
-  .navbar-nav {
+  .navbar-nav, .nav {
     .nav-link {
       color: $navbar-primary-color;
 
@@ -200,85 +179,26 @@ a {
   }
 }
 
-#topnavbar {
-	min-height: 50px;
-	font-size: 13px;
-	border-top: map-get($theme-border-colors, 'body') 5px solid;
-	border-bottom: $body-bg 1px solid;
-	padding-top: 0.25rem;
-	padding-bottom: 0.25rem;
-	#navbar-container {
-		padding: 0;
-		.navlist-padded {
-			position: relative;
-			display: block;
-			padding: 10px 15px;
-		}
-	}
-	#cul_top-nosearch {
-		padding-left: 0;
-		padding-right: 10px;
-		height: 38px;
-		min-height: 44px;
-		margin-top: -1px;
-		#crowndown-nosearch {
-			height: 39px;
-			padding-left: 0;
-			.dropdown-toggle {
-				@extend %extend_brand_font;
-				background: transparent $url_crown_small no-repeat 4px 30%;
-				padding-right: 4px;
-				padding-left: 34px;
-				font-size: 103%;
-				line-height: 120%;
-				letter-spacing: 0;
-				font-weight: normal;
-				margin-top: 2px;
-			}
-		}
-		.dropdown-menu {
-			margin-top: -3px;
-			i.icon-crown-white {
-				display: inline-block;
-				width: 14px;
-				height: 14px;
-				background-position: -14px 0;
-				background-image: $url_crown_sprite !important;
-				line-height: 14px;
-				vertical-align: text-top;
-				margin-top: 1px;
-			}
-			li a:hover {
-				text-decoration: none;
-			}
-		}
-	}
-}
 #site-banner {
   background-color: color-shade($body-bg);
-	padding: 0 13px 1.4em;
-	margin: 0 -13px 20px -14px;
 	border-bottom: map-get($theme-border-colors, 'body') 1px solid;
 	&.slim {
 		margin-bottom: .5em;
-		#site-banner-inner {
-			margin-top: .9em;
-			img {
-				max-width: 100%;
-				margin-top: 1.4em;
+		img {
+			max-width: 100%;
+			margin-top: 1.4em;
+		}
+		#site-title {
+			display: block;
+			padding-top: 8px;
+			padding-bottom: 0;
+			font-size: 1.80em;
+			text-decoration: none;
+			text-align: center;
+			@media(min-width: 768px) {
+				text-align: left;
 			}
-			#site-title {
-				display: block;
-				padding-top: 8px;
-				padding-bottom: 0;
-				font-size: 1.80em;
-				text-decoration: none;
-				text-align: center;
-				@media(min-width: 768px) {
-					text-align: left;
-				}
-				vertical-align: bottom;
-			}
+			vertical-align: bottom;
 		}
 	}
 	nav {
@@ -309,6 +229,8 @@ a {
 	margin-bottom: 0;
 	background-color: transparent;
 	border: none;
+}
+#search-navbar, #site-banner {
 	.input-group-prepend {
 		padding-top: 0;
 		padding-bottom: 0;
@@ -316,9 +238,23 @@ a {
 		margin-bottom: 0;
 		select {
 			background-color: transparent;
-			border: 0;
+		}
+		.btn {
+			border-top-left-radius:0.25rem;
+			border-bottom-left-radius:0.25rem;
 		}
 	}
+	.input-group-append {
+		padding-top: 0;
+		padding-bottom: 0;
+		margin-top: 0;
+		margin-bottom: 0;
+		.btn {
+			border-top-right-radius:0.25rem;
+			border-bottom-right-radius:0.25rem;
+		}
+	}
+
 	#q-filter, .search_q {
 		display: table-cell;
 		border: 1px solid map-get($theme-colors, 'user-input');
@@ -371,7 +307,6 @@ a {
 
 #secondary-nav {
 	padding: 0 12px;
-	margin: 0 -1.5em;
 	border-bottom: 1px solid;
 	.nav {
 		width: 100%;
@@ -401,7 +336,9 @@ a {
 	}
 
 	li {
-		border-left: 1px solid;
+		@media(min-width: 768px) {
+			border-left: 1px solid;
+		}
 		&:first-child, .dropdown-menu li {
 			border-left: 0;
 		}
@@ -588,16 +525,6 @@ a {
 			font-size: .96em;
 		}
 	}
-	#topnavbar .topbarlogo {
-		display: inline-block;
-		letter-spacing: 0;
-	}
-}
-@media(max-width: 991px) {
-	#topnavbar .topbarlogo {
-		display: inline-block;
-		letter-spacing: 0;
-	}
 }
 @media(min-width: 992px) {
 	#site-banner {
@@ -620,24 +547,14 @@ a {
 			}
 		}
 	}
-	#topnavbar .topbarlogo {
-		display: inline-block;
-		margin: 0;
-		letter-spacing: 1px;
-		margin-top: 2px;
-	}
 }
 @media(min-width: 1200px) {
 	#outer-wrapper {
 		padding: 0 10px 2em;
 		width: 1190px;
-	}
-	#navbar-container {
-		width: 1190px;
+		max-width:1190px;
 	}
 	#site-banner {
-		padding: 0 24px 1.4em;
-		margin: 0 -24px 20px;
 		#site-banner-inner {
 			margin-bottom: .3em;
 			overflow: hidden;
@@ -658,31 +575,6 @@ a {
 				font-size: 1.58em;
 			}
 		}
-	}
-	#topnavbar .topbarlogo {
-		display: inline-block;
-		margin: 0;
-		font-size: 16px;
-		line-height: 18px;
-		letter-spacing: 0;
-		#topbarslash {
-			padding-left: .2em;
-			padding-right: .2em;
-		}
-	}
-}
-@media(max-width: 600px) {
-	#topnavbar {
-		font-size: 80%;
-		line-height: 17px;
-	}
-	#cul_top-right .dropdown-toggle {
-		margin-top: -1px;
-	}
-}
-@media(max-width: 640px) {
-	#topnavbar .topbarlogo {
-		display: none;
 	}
 }
 .blacklight-home-restricted #search-navbar {

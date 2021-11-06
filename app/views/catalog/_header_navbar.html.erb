@@ -1,29 +1,17 @@
-<div class="container">
 <% if current_page?(root_url) %>
-	<div id="site-banner">
-		<div id="site-banner-inner" class="row my-1">
-			<div class="col-sm-3 hidden-xs" id="site-banner-left"><%= link_to '', root_path, { :style => 'display:flex;width:100%;height:100%;' } %></div>
-			<div class="col"><h1><%= link_to image_tag('dcv/dcv-banner-sm-c.png', :alt => 'Digital Library Collections'), root_path %></h1></div>
+	<nav class="navbar navbar-expand d-flex flex-column" id="site-banner">
+		<div id="site-banner-inner" class="d-flex flex-row my-1">
+			<div class="hidden-xs w-25 px-2" id="site-banner-left"><%= link_to '', root_path, { :style => 'width:100%;height:100%;' } %></div>
+			<div class="flex-fill px-2"><h1><%= link_to image_tag('dcv/dcv-banner-sm-c.png', :alt => 'Digital Library Collections'), root_path %></h1></div>
 		</div><!--/row-->
 
-		<div id="search-navbar" class="navbar navbar-light" role="navigation">
+		<div id="search-navbar" class="w-100 my-1" role="navigation">
 			<%= render_search_bar  %>
 		</div>
-	</div>
-
+	</nav>
 <% else %>
-
-	<div id="site-banner" class="slim">
-		<div id="site-banner-inner" class="row">
-			<div class="col-sm-3">
-			 <a href="<%= root_path %>" id="site-title">Digital Collections</a>
-			</div>
-			<div class="col">
-				<div id="search-navbar" class="navbar navbar-light navbar-expand-sm slim row" role="navigation">
-				<%= render_search_bar  %>
-					</div>
-			</div>
-		</div><!--/row-->
-	</div>
+	<nav class="navbar navbar-expand d-flex flex-md-row flex-sm-column" id="site-banner">
+		<a href="<%= root_path %>" id="site-title" class="navbar-brand">Digital Collections</a>
+		<%= render_search_bar  %>
+	</nav>
 <% end %>
-</div>

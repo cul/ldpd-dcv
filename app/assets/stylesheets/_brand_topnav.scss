@@ -1,0 +1,113 @@
+@import './brand_font';
+
+#topnavbar {
+	font-size: 13px;
+	border-top: map-get($theme-border-colors, 'body') 5px solid;
+	padding-top: 0.25rem;
+	padding-bottom: 0.25rem;
+	.icon-columbia-crown {
+		padding-right:.25em;
+	}
+	#navbar-container {
+		padding: 0 10px;
+		height:100%;
+		border-left: map-get($theme-border-colors, 'secondary') 1px solid;
+		border-right: map-get($theme-border-colors, 'secondary') 1px solid;
+		border-bottom: map-get($theme-border-colors, 'secondary') 1px solid;
+		.navlist-padded {
+			position: relative;
+			display: block;
+			padding: 10px 15px;
+		}
+	}
+	height: 50px;
+	margin-top: -1px;
+	#crowndown-nosearch {
+		height: 39px;
+		padding-left: 0;
+		.dropdown-toggle {
+			@extend %extend_brand_font;
+			padding-right: 4px;
+			font-size: 103%;
+			line-height: 120%;
+			letter-spacing: 0;
+			font-weight: normal;
+			margin-top: 2px;
+		}
+	}
+	.dropdown-menu {
+		margin-top: -3px;
+		li{
+			padding: 0 .5em 0;
+			a:hover {
+				text-decoration: none;
+			}
+		}
+	}
+}
+@media(min-width: 768px) {
+	#site-banner {
+		#site-banner-inner {
+			margin-bottom: .1em;
+			overflow: hidden;
+		}
+		#site-banner-left {
+			height: 80px;
+		}
+		&.slim #site-banner-inner #site-title {
+			display: inline-block;
+			padding-top: 16px;
+			padding-bottom: 0;
+			font-size: .96em;
+		}
+	}
+	#topnavbar .topbarlogo {
+		display: inline-block;
+		letter-spacing: 0;
+	}
+}
+@media(max-width: 991px) {
+	#topnavbar .topbarlogo {
+		display: inline-block;
+		letter-spacing: 0;
+	}
+}
+@media(min-width: 992px) {
+	#topnavbar .topbarlogo {
+		display: inline-block;
+		margin: 0;
+		letter-spacing: 1px;
+		margin-top: 2px;
+	}
+}
+@media(min-width: 1200px) {
+	#navbar-container {
+		width: 1190px;
+		max-width:1190px;
+	}
+	#topnavbar .topbarlogo {
+		display: inline-block;
+		margin: 0;
+		font-size: 16px;
+		line-height: 18px;
+		letter-spacing: 0;
+		#topbarslash {
+			padding-left: .2em;
+			padding-right: .2em;
+		}
+	}
+}
+@media(max-width: 600px) {
+	#topnavbar {
+		font-size: 80%;
+		line-height: 17px;
+	}
+	#cul_top-right .dropdown-toggle {
+		margin-top: -1px;
+	}
+}
+@media(max-width: 640px) {
+	#topnavbar .topbarlogo {
+		display: none;
+	}
+}

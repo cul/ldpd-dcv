@@ -1,37 +1,12 @@
+<nav class="navbar navbar-expand d-flex flex-md-row flex-sm-column" id="site-banner">
+	<%= render 'site_title' %>
+	<%= render_search_bar  %>
+</nav>
+<%= render 'secondary_nav' %>
+
 <% if params[:action] == 'home' %>
-	<div id="hometn" class="home">
-		<div id="site-banner">
-			<div class="row">
-				<div class="col-sm-8">
-					<%= render 'site_title' %>
-				</div>
-				<div class="col-sm-4">
-					<div id="search-navbar" class="navbar navbar-light slim" role="navigation">
-						<%= render_search_bar(false)  %>
-					</div>
-				</div>
-			</div>
-		</div>
-		<%= render 'secondary_nav' %>
-		<div class="featured-outer">
-			<img class="img-responsive" alt="" src="<%= signature_image_path %>">
-		</div>
-		<%= render 'map_search/home' %>
+	<div class="featured-outer container-fluid">
+		<img class="img-responsive" alt="" src="<%= signature_image_path %>">
 	</div>
-<% else %>
-	<div class="container-fluid px-0">
-		<div id="site-banner">
-			<div class="row no-gutters" id="site-banner-inner">
-				<div class="col-sm-8">
-					<%= render 'site_title' %>
-				</div>
-				<div class="col-sm-4">
-					<div id="search-navbar" class="navbar navbar-light slim" role="navigation">
-							<%= render_search_bar(false)  %>
-					</div>
-				</div>
-			</div><!--/row-->
-		</div>
-		<%= render 'secondary_nav' %>
-	</div>
+	<%= render 'map_search/home' %>
 <% end %>

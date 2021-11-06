@@ -14,18 +14,16 @@
 
 	<%= render :partial => 'shared/topnavbar' %>
 
-	<div id="outer-wrapper" class="container">
-		<div class="row">
-			<%= render partial: 'header_navbar' %>
+	<div id="outer-wrapper" class="container-fluid p-0">
+		<%= render partial: 'header_navbar' %>
 
-			<%= render partial: 'shared/modal' %>
+		<%= render partial: 'shared/modal' %>
 
-			<div id="main-container" class="container py-4">
-				<%= render :partial=>'shared/flash_msg', layout: 'shared/flash_messages' %>
-				<%= render partial: 'shared/alert' %>
-				<%= yield %>
-			</div>
-		</div><!--/.row-->
+		<div id="main-container" class="container py-4">
+			<%= render :partial=>'shared/flash_msg', layout: 'shared/flash_messages' %>
+			<%= render partial: 'shared/alert' %>
+			<%= yield %>
+		</div>
 		<%= render :partial => 'footer' %>
 	</div><!--/#outer-wrapper-->
 
