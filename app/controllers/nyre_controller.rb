@@ -17,6 +17,7 @@ class NyreController < SubsitesController
       super
       if !has_search_parameters? && request.format.html?
         # we override the view rendered for the subsite home on html requests
+        params[:action] = 'home'
         render 'home'
       end
     end
@@ -29,6 +30,19 @@ class NyreController < SubsitesController
   end
 
   def subsite_layout
-    'nyre'
+    'signature'
   end
+
+  def subsite_palette
+    'blue'
+  end
+
+  def signature_image_path
+    nil
+  end
+
+  def signature_banner_image_path
+    view_context.asset_path("nyre/nyre-collage.png")
+  end
+
 end

@@ -1,19 +1,18 @@
-<h3 class="nomar-t">About the Collection and the Website</h3>
-
-<div class="col-xs-6 col-sm-4 float-right">
-	<div class="thumbnail" style="background-color:white;text-align:center;">
-		<img src="<%= asset_path("nyre/dlo.jpg") %>" alt="">
-		<div class="caption" style="color:#888;">
-		"The Sutton"<br>
-		1170 Ocean Parkway, Brooklyn
+<div class="col-md-8 mx-auto">
+	<h2 class="text-center">About the Collection and the Website</h2>
+	<section class="ff clearfix">
+		<div class="card w-50 w-sm-25 float-right" style="background-color:white;text-align:center;">
+			<img class="card-img-top" src="<%= asset_path("nyre/dlo.jpg") %>" alt="">
+			<div class="card-body" style="color:#888;">
+				<h3 class="h5 card-title">"The Sutton"</h3>
+				<h4 class="h6 card-subtitle">1170 Ocean Parkway, Brooklyn</h4>
+			</div>
 		</div>
-	</div>
+		<p>The New York Real Estate Brochure Collection, housed in <a href="http://library.columbia.edu/locations/avery/classics/">Avery Architectural &amp; Fine Arts Library's Classics Department</a>, consists of over 9,200 advertising brochures, floor plans, price lists, and related materials that document residential and commercial real estate development in the five boroughs of New York and outlying vicinities from the 1920s to the 1970s. The majority of the collection is offerings for apartment and other residential spaces.</p>
+	</section>
+
+	<h3 class="text-center">More Information About the Collection</h3>
+	<section class="ff text-center">
+		<a href="<%=nyre_aboutcollection_path()%>">Overview and History</a>
+	</section>
 </div>
-
-<p>The New York Real Estate Brochure Collection, housed in <a href="http://library.columbia.edu/locations/avery/classics/">Avery Architectural &amp; Fine Arts Library's Classics Department</a>, consists of over 9,200 advertising brochures, floor plans, price lists, and related materials that document residential and commercial real estate development in the five boroughs of New York and outlying vicinities from the 1920s to the 1970s. The majority of the collection is offerings for apartment and other residential spaces. </p>
-
-<h4>More Information About the Collection</h4>
-
-<ul>
-<li><a href="<%=nyre_aboutcollection_path()%>">Overview and History</a></li>
-</ul>

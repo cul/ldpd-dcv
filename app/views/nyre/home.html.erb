@@ -1,33 +1,15 @@
 <div id="content">
-<div id="hometn" class="home inner">
-	<div id="site-banner" style="padding-top:0;padding-bottom:0;border:0;">
-        <div class="row">
-            <div class="col-sm-8">
-                            <%= link_to 'New York Real Estate Brochure Collection'.html_safe, search_nyre_path, { :id => 'site-title' } %>
-            </div>
-            <div class="col-sm-4">
-                            <div id="search-navbar" class="navbar navbar-light slim" role="navigation">
-                                    <%= render_search_bar(false)  %>
-                            </div>
-            </div>
-		</div>
-	</div>
-	<%= render 'secondary_nav' %>
-	<img class="img-responsive" alt="" src="<%= asset_path("nyre/nyre-collage.png") %>">
-	<%= render partial: 'map_search/home' %>
-
-</div>
  <div class="row">
-  <div class="col-md-8">
+  <div class="col-md-8 order-1">
     <div class="home inner">
-		<h4>ABOUT THE COLLECTION</h4>
+		<h2 class="h5 text-uppercase">ABOUT THE COLLECTION</h2>
 			<p>
 The New York Real Estate Brochure Collection was donated to Avery Architectural &amp; Fine Arts Library by Yale Robbins, Henry Robbins, and David Magier in 1986. The collection consists of over 9,200 advertising brochures, floor plans, price lists, and related materials that document residential and commercial real estate development in the five boroughs of New York and outlying vicinities from the 1920s to the 1970s. <%= link_to 'More information &raquo;'.html_safe, nyre_about_path %>
 			</p>
     </div>
 	<hr>
     <div class="home inner">
-		<h4>NEWS</h4>
+		<h2 class="h5 text-uppercase">NEWS</h2>
 			<p>
 Christopher Gray in the <em>New York Times'</em> <strong>Streetscapes</strong> writes about the NYRE Brochure Collection (August 26, 2010).<br><a href="http://www.nytimes.com/2010/08/29/realestate/29scapes.html?_r=1&amp;ref=realestate">Read the article &raquo;</a>
 			</p>
@@ -36,12 +18,12 @@ NYRE Brochure Collection site receives the <strong>Worldwide Books Award for Ele
 			</p>
     </div>
   </div>
-  <div class="col-md-4">
-     <div class="home inner">
-        <h5 class="">BROWSE THE COLLECTION</h5>
-        <%= render partial: 'facets', locals: {hide_refine_heading: true, no_id_attr: true} %>
-     </div> <!--/.inner-->
-  </div><!--/-->
-
+   <div class="col-md-4 order-3">
+      <div class="home inner">
+         <h2 class="h5 text-uppercase">BROWSE THE COLLECTION</h2>
+         <%= render partial: 'facets', locals: { hide_heading: true } %>
+         <hr class="hidden-md hidden-lg">
+      </div> <!--/.inner-->
+   </div><!--/-->
 </div>
 </div>

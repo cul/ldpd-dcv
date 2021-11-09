@@ -5,6 +5,8 @@ class LcaajController < SubsitesController
   before_action :set_map_data_json, only: [:map_search]
   #before_action :set_map_data_json, only: [:index, :map_search]
 
+  layout 'signature'
+
   configure_blacklight do |config|
     Dcv::Configurators::LcaajBlacklightConfigurator.configure(config)
     # Include this target's content in search results, and any additional publish targets specified in subsites.yml

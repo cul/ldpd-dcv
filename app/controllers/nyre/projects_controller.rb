@@ -1,11 +1,11 @@
 module Nyre
   class ProjectsController < ApplicationController
     include Dcv::CatalogIncludes
-
+    include Dcv::Sites::SearchableController
     before_action :set_view_path
     helper_method :extract_map_data_from_document_list, :url_for_document
 
-    layout 'nyre'
+    layout 'signature'
 
     def self.subsite_key
       'nyre'
@@ -32,7 +32,19 @@ module Nyre
     end
 
     def subsite_layout
-      self.class.subsite_key
+      'signature'
+    end
+
+    def subsite_palette
+      'blue'
+    end
+
+    def signature_image_path
+      nil
+    end
+
+    def signature_banner_image_path
+      view_context.asset_path("nyre/nyre-collage.png")
     end
 
     def self.configure_blacklight_scope_constraints(config, exclude_by_id = false)

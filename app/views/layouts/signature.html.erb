@@ -7,7 +7,7 @@
 		<%- end -%>
 		<style type="text/css">
 			.featured-outer {
-				<%- if signature_banner_image_path.include? @subsite.slug -%>
+				<%- if @subsite&.slug && signature_banner_image_path.include?(@subsite.slug) -%>
 					background-image: url("<%= signature_banner_image_path %>");
 				<%- else -%>
 					background-color: var(--signature-banner-tint);
