@@ -5,6 +5,8 @@ class CentennialController < SubsitesController
 
   before_action :set_map_data_json, only: [:map_search]
 
+  layout 'signature'
+
   configure_blacklight do |config|
     Dcv::Configurators::CarnegieBlacklightConfigurator.configure(config)
     config.show.route = { controller: 'carnegie/centennial' }
@@ -29,7 +31,24 @@ class CentennialController < SubsitesController
   end
 
   def subsite_layout
-    'carnegie'
+    'signature'
+  end
+
+  def subsite_palette
+    'oceanStripe'
+  end
+
+  def signature_image_path
+    view_context.asset_path("carnegie/ac-signature.svg")
+  end
+
+  def signature_banner_image_path
+    view_context.asset_path("carnegie/Carnegie_q85-large.jpg")
+  end
+
+  # override for namespaced controller
+  def tracking_method
+    "track_carnegie_centennial_path"
   end
 
   private

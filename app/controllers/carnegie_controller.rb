@@ -4,6 +4,8 @@ class CarnegieController < SubsitesController
 
   before_action :set_map_data_json, only: [:map_search]
 
+  layout 'signature'
+
   configure_blacklight do |config|
     Dcv::Configurators::CarnegieBlacklightConfigurator.configure(config)
     # Include this target's content in search results, and any additional publish targets specified in subsites.yml
@@ -17,6 +19,7 @@ class CarnegieController < SubsitesController
       super
       if !has_search_parameters? && request.format.html?
         # we override the view rendered for the subsite home on html requests
+        params[:action] = 'home'
         render 'home'
       end
     end
@@ -29,7 +32,19 @@ class CarnegieController < SubsitesController
   end
 
   def subsite_layout
-    'carnegie'
+    'signature'
+  end
+
+  def subsite_palette
+    'oceanStripe'
+  end
+
+  def signature_image_path
+    view_context.asset_path("carnegie/ac-signature.svg")
+  end
+
+  def signature_banner_image_path
+    view_context.asset_path("carnegie/Carnegie_q85-large.jpg")
   end
 
   private

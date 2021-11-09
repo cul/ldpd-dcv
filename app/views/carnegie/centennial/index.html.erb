@@ -1,56 +1,6 @@
-<div class="row">
-	<div id="about_the_project" class="col-md-12 hide-xs">
-		<p class="lead">
-	Carnegie Corporation of New York celebrated its centennial in 2011. <a href="<%=carnegie_about_path()%>#about_the_centennial">Read more &raquo;</a>
-		</p>
-	</div>
-	<div id="nav" class="col-md-12">
-		<%= render 'sort_and_per_page' %>
-	</div>
-	<div id="sidebar" class="col-md-3">
-		<%= render 'search_sidebar' %>
-	</div>
-
-	<div id="content" class="col-md-9">
-
-		<div class="inner">
-
-			<h2 class="sr-only top-content-title"><%= t('blacklight.search.search_results_header') %></h2>
-
-			<% @page_title = t('blacklight.search.title', :application_name => application_name) %>
-
-			<% content_for(:head) do -%>
-				<%= render 'open_search' %>
-			<% end -%>
-
-			<%= render 'search_header' %>
-
-			<h2 class="sr-only"><%= t('blacklight.search.search_results') %></h2>
-
-			<div id="search-result-container">
-				<div>
-					<%- if @response.empty? %>
-						<%= render "zero_results" %>
-					<%- else %>
-						<%- if render_grouped_response? %>
-							<%= render_grouped_document_index %>
-						<%- else %>
-							<%= render_document_index %>
-						<%- end %>
-					<%- end %>
-				</div>
-			</div>
-
-			<%= render 'results_pagination' %>
-
-		</div> <!--/.inner-->
-
-		<% if map_search_settings_for_subsite.fetch('show_sidebar', false) %>
-			<div class="inner visible-sm visible-xs" style="margin-top:1em;">
-				<%= render 'mapped_results_sidebar' %>
-			</div>
-		<% end %>
-
-	</div>
-
+<div id="about_the_project" class="row hide-xs">
+	<p class="lead">
+Carnegie Corporation of New York celebrated its centennial in 2011. <a class="continued" href="<%=carnegie_about_path()%>#about_the_centennial">Read more &raquo;</a>
+	</p>
 </div>
+<%= render template: '/shared/index' %>

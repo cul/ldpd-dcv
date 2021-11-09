@@ -1,67 +1,47 @@
 <div id="content">
-<div id="hometn" class="home inner">
-	<div id="site-banner" style="padding-top:0;padding-bottom:0;border:0;">
-        <div class="row">
-            <div class="col-sm-8">
-                            <%= render 'site_title' %>
-            </div>
-            <div class="col-sm-4">
-                            <div id="search-navbar" class="navbar navbar-light slim" role="navigation">
-                                    <%= render_search_bar(false)  %>
-                            </div>
-            </div>
-		</div>
-	</div>
-	<%= render 'secondary_nav' %>
-	<div class="featured-outer">
-		<img class="img-responsive" alt="" src="<%= asset_path("carnegie/ac-signature.svg") %>">
-
-	</div>
-	<%= render 'map_search/home' %>
-</div>
- <div class="row">
- <div class="col-md-4 order-3">
+<div class="row">
+	<div class="col-md-4 order-3">
 		<div class="home inner">
-			 <h2 class="h5 text-uppercase">BROWSE THE COLLECTION</h2>
-			 <%= render partial: 'facets', locals: {hide_refine_heading: true, no_id_attr: true} %>
-			 <hr class="hidden-md hidden-lg">
+			<h2 class="h5 text-uppercase">BROWSE THE COLLECTION</h2>
+			<%= render partial: 'facets', locals: { hide_heading: true } %>
+			<hr class="hidden-md hidden-lg">
 		</div> <!--/.inner-->
- </div><!--/-->
-  <div class="col-md-4 col-md-pull-4">
-    <div class="home inner">
-		<h2 class="h5 text-uppercase">About the Project</h2>
+	</div><!--/-->
+	<div class="col-md-4 order-1">
+		<div class="home inner">
+			<h2 class="h5 text-uppercase">About the Project</h2>
 			<p>
-			The goal of this project is to connect <a href="https://www.carnegie.org/">Carnegie Corporation of New York’s</a> digitized past to its born-digital future. This website represents only a portion of the Corporation archives. The bulk of the records are in paper format. Please see the <a href="https://findingaids.library.columbia.edu/ead/nnc-rb/ldpd_4079753/">archival finding aid</a> to search the entire collection.
+				The goal of this project is to connect <a href="https://www.carnegie.org/">Carnegie Corporation of New York’s</a> digitized past to its born-digital future. This website represents only a portion of the Corporation archives. The bulk of the records are in paper format. Please see the <a href="https://findingaids.library.columbia.edu/ead/nnc-rb/ldpd_4079753/">archival finding aid</a> to search the entire collection.
 			</p>
 			<p>
-			This website provides a portal into the Corporation’s philanthropy from the 1870s to the 21st century. The reach is increasingly global, from early twentieth century gifts in support of library construction to more recent interviews relating to the Corporation's Russia Initiative. Scholars studying the history of philanthropy, capital, education, race, foreign relations, and a range of other topics will find that the website contains valuable primary resource material.
+				This website provides a portal into the Corporation’s philanthropy from the 1870s to the 21st century. The reach is increasingly global, from early twentieth century gifts in support of library construction to more recent interviews relating to the Corporation's Russia Initiative. Scholars studying the history of philanthropy, capital, education, race, foreign relations, and a range of other topics will find that the website contains valuable primary resource material.
 			</p>
 			<p>
-			<a class="color_" href="<%=carnegie_about_path()%>#about_the_project">Read more &raquo;</a>
+				<a class="color_" href="<%=carnegie_about_path()%>#about_the_project">Read more &raquo;</a>
 			</p>
 			<hr>
 			<h2 class="h5 text-uppercase">Oral History Projects</h2>
 			<p>
-			Carnegie Corporation of New York Oral History Project began in 1966 and continued in three phases over a fifty year period  (1966-1974, 1996-2004, 2011-2013). In total nearly 850 hours of testimony reflect the thinking of the Corporation’s officers, staff members, and grantees. They offer a rich portrait of the Corporation’s evolution over the first 58 years of its existence.
+				Carnegie Corporation of New York Oral History Project began in 1966 and continued in three phases over a fifty year period  (1966-1974, 1996-2004, 2011-2013). In total nearly 850 hours of testimony reflect the thinking of the Corporation’s officers, staff members, and grantees. They offer a rich portrait of the Corporation’s evolution over the first 58 years of its existence.
 			</p>
 			<p>
-			<a class="color_" href="<%=carnegie_about_path()%>#oral_history_projects">Read more &raquo;</a>
+				<a class="color_" href="<%=carnegie_about_path()%>#oral_history_projects">Read more &raquo;</a>
 			</p>
 			<hr class="visible-sm">
-    </div>
-  </div>
-	<div class="col-md-4 col-md-pull-4">
-		 <div class="home inner">
-				<h2 class="h5 text-uppercase">About the Corporation</h2>
-				<p>
+		</div>
+	</div>
+	<div class="col-md-4 order-1">
+		<div class="home inner">
+			<h2 class="h5 text-uppercase">About the Corporation</h2>
+			<p>
 				Carnegie Corporation of New York, established by Andrew Carnegie in 1911 to promote the advancement and diffusion of knowledge and understanding, is one of the oldest, largest and most influential of American foundations.
-				</p>
-				<p>
+			</p>
+			<p>
 				By 1911 Andrew Carnegie had endowed five organizations in the United States and three in the United Kingdom, and had given away over $43 million for public library buildings and close to $110 million for other purposes. Nevertheless, ten years after the sale of the Carnegie Steel Company, he still had more than $150 million and, at the age of 76, was tiring of the burden of philanthropic decision making. On the advice of Elihu Root, a long-time friend, he decided to establish a trust to which he could transfer the bulk of his remaining fortune and, ultimately, the responsibility for distributing his wealth after his lifetime. Having already used the conventional labels for his previously endowed institutions, he selected "corporation" for this last and largest. It was chartered by the State of New York as Carnegie Corporation of New York.
-				</p>
-				<p>
+			</p>
+			<p>
 				<a class="color_" href="<%=carnegie_about_path()%>#about_the_corporation">Read more &raquo;</a>
-				</p>
+			</p>
 		 </div> <!--/.inner-->
 	</div><!--/-->
 
