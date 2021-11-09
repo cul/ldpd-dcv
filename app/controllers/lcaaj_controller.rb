@@ -18,6 +18,7 @@ class LcaajController < SubsitesController
       super
       if !has_search_parameters? && request.format.html?
         # we override the view rendered for the subsite home on html requests
+        params[:action] = 'home'
         render 'home'
       end
     end
@@ -27,7 +28,19 @@ class LcaajController < SubsitesController
   end
 
   def subsite_layout
-    'lcaaj'
+    'signature'
+  end
+
+  def subsite_palette
+    'steel'
+  end
+
+  def signature_image_path
+    view_context.asset_path("lcaaj/signature.svg")
+  end
+
+  def signature_banner_image_path
+    view_context.asset_path("lcaaj/lcaaj-c1.png")
   end
 
   private
