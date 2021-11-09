@@ -19,4 +19,14 @@ module Dcv::Sites::ConfiguredLayouts
     return [subsite_layout] unless Dcv::Sites::Constants::PORTABLE_LAYOUTS.include?(subsite_layout)
     ["#{subsite_layout}-#{subsite_palette}"]
   end
+
+  def signature_image_path
+    path = File.join("", "images", "sites", load_subsite&.slug, "signature.svg")
+    File.exists?(File.join(Rails.root, "public", path)) ? path : view_context.asset_path("signature/signature.svg")
+  end
+
+  def signature_banner_image_path
+    path = File.join("", "images", "sites", load_subsite&.slug, "signature-banner.png")
+    File.exists?(File.join(Rails.root, "public", path)) ? path : view_context.asset_path("signature/signature-banner.png")
+  end
 end
