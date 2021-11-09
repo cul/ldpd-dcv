@@ -57,6 +57,7 @@ class Site < ApplicationRecord
 		configure_blacklight do |config|
 			config.default_solr_params[:fq] += default_fq()
 			config.show.route = self.routing_params
+			config.track_search_session = self.search_type != SEARCH_CATALOG
 			if self.search_type == SEARCH_LOCAL
 				config.document_unique_id_param = :ezid_doi_ssim
 			else

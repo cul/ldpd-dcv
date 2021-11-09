@@ -69,7 +69,7 @@ describe SitesController, type: :unit do
 		end
 	end
 	describe '#tracking_method' do
-		it { expect(controller.tracking_method).to eql('track_sites_path') }
+		it { expect(controller.tracking_method).to eql('sites_track_path') }
 	end
 	describe '#site_params' do
 		let(:is_admin) { false }

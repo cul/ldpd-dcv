@@ -39,6 +39,8 @@ module Dcv::BlacklightHelperBehavior
   def document_link_params(doc, opts)
     if doc.site_result?
       super.merge(target: '_blank')
+    elsif action_name == 'home' # do not track homepage content searches
+      return opts.except(:label, :counter)
     else
       super
     end

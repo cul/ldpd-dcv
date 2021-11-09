@@ -127,4 +127,9 @@ class DetailsController < ApplicationController
   	id = params[:id]
     @response, @document = fetch(params[:id])
   end
+
+  # shims from Blacklight 6 controller fetch to BL 7 search service
+  def fetch(id = nil, extra_controller_params = {})
+    return search_service.fetch(id, extra_controller_params)
+  end
 end

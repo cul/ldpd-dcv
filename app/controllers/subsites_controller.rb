@@ -39,6 +39,7 @@ class SubsitesController < ApplicationController
     # but need testing. default blank value should be first, but layout needs to be in front of controller path
     self._prefixes.unshift "shared"
     self._prefixes.unshift self.subsite_layout
+    self._prefixes.unshift(controller_path.sub('restricted/', '')) if self.restricted?
     self._prefixes.unshift ""
   end
 
@@ -53,6 +54,7 @@ class SubsitesController < ApplicationController
   def set_view_path
     self.prepend_view_path('app/views/shared')
     self.prepend_view_path('app/views/' + self.subsite_layout)
+    self.prepend_view_path('app/views/' + controller_path.sub('restricted/', '')) if self.restricted?
     self.prepend_view_path('app/views/' + controller_path)
   end
 
@@ -257,6 +259,6 @@ class SubsitesController < ApplicationController
   end
 
   def tracking_method
-    "track_#{controller_name}_path"
+    self.restricted? ? "track_restricted_#{controller_name}_path" : "track_#{controller_name}_path"
   end
 end

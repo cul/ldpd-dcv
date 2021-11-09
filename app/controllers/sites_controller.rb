@@ -35,6 +35,7 @@ class SitesController < ApplicationController
     config.default_per_page = 250
     config.per_page = [20,60,100,250]
     config.max_per_page = 250
+    config.track_search_session = false # don't track blank or featured searches on home pages
 
     # solr field configuration for search results/index views
     config.index.title_field = ActiveFedora::SolrService.solr_name('title_display', :displayable, type: :string)
@@ -312,7 +313,7 @@ class SitesController < ApplicationController
   end
 
   def tracking_method
-    "track_catalog_path"
+    "#{controller_name}_track_path"
   end
 
   def load_site_document
