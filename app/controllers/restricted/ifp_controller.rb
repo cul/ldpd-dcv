@@ -10,6 +10,7 @@ class Restricted::IfpController < SubsitesController
     super
     if !has_search_parameters? && request.format.html?
       # we override the view rendered for the subsite home on html requests
+      params[:action] = 'home'
       render 'home'
     end
   end

@@ -1,72 +1,21 @@
+<div id="content">
 <div class="row">
-  <div id="content" class="col-lg-12">
+	<div class="col-md-4 order-1">
+		<div class="home inner">
+			<h6>ABOUT IFP</h6>
+			<p>The IFP program began in November 2000 with four pilot sites. In Asia, the program was initiated in Vietnam.  In Africa, the first competition was held in West Africa (Ghana, Nigeria and Senegal).  In Latin America, IFP began in the Andean Region as Southern Cone (Chile and Peru).  Russia was the final pilot site.  The first 96 Fellows from these countries were named in 2001.  In February 2002, 173 new Fellows from the pilot site countries and from India, China, Kenya, Tanzania, Uganda, Mexico and Guatemala were announced.  During 2002, the program expanded to seven additional countries and territories: Brazil, Egypt, Indonesia, Mozambique, Palestine, Philippines and South Africa.  For the selections in 2003, the program expanded to Thailand.</p>
+			<a href="<%=ifp_about_the_ifp_path()%>" class="btn btn-primary btn-sm">Learn More &raquo;</a>
+		</div>
+	</div>
 
-                    <div class="home inner">
-
-                <div id="carousel-example-generic" class="carousel slide" data-ride="carousel" style="margin-bottom:.8em;">
-				  <ol class="carousel-indicators hidden-xs" style="bottom:0;">
-					<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-					<li data-target="#carousel-example-generic" data-slide-to="1"></li>
-					<li data-target="#carousel-example-generic" data-slide-to="2"></li>
-					<li data-target="#carousel-example-generic" data-slide-to="3"></li>
-					<li data-target="#carousel-example-generic" data-slide-to="4"></li>
-					<li data-target="#carousel-example-generic" data-slide-to="5"></li>
-					<li data-target="#carousel-example-generic" data-slide-to="6"></li>
-					<li data-target="#carousel-example-generic" data-slide-to="7"></li>
-				  </ol>
-                <!-- Wrapper for slides -->
-                  <div class="carousel-inner">
-                    <div class="item active">
-                      <img class="" alt="" src="<%= asset_path("ifp/home-ss/home-image-0.jpg") %>">
-                    </div>
-                    <div class="item">
-                      <img class="" alt="" data-src="<%= asset_path("ifp/home-ss/home-image-1.jpg") %>">
-                    </div>
-                    <div class="item">
-                      <img class="" alt="" data-src="<%= asset_path("ifp/home-ss/home-image-2.jpg") %>">
-                    </div>
-                    <div class="item">
-                      <img class="" alt="" data-src="<%= asset_path("ifp/home-ss/home-image-3.jpg") %>">
-                    </div>
-                    <div class="item">
-                      <img class="" alt="" data-src="<%= asset_path("ifp/home-ss/home-image-4.jpg") %>">
-                    </div>
-                    <div class="item">
-                      <img class="" alt="" data-src="<%= asset_path("ifp/home-ss/home-image-5.jpg") %>">
-                    </div>
-                    <div class="item">
-                      <img class="" alt="" data-src="<%= asset_path("ifp/home-ss/home-image-6.jpg") %>">
-                    </div>
-                    <div class="item">
-                      <img class="" alt="" data-src="<%= asset_path("ifp/home-ss/home-image-7.jpg") %>">
-                    </div>
-                  </div>
-                  <a class=" left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-                    <span class="fa fa-chevron-left"></span>
-                  </a>
-                  <a class=" right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-                    <span class="fa fa-chevron-right"></span>
-                  </a>
-                 </div>
-
-                    </div> <!--/.inner-->
-<div class="row">
-  <div class="col-md-4">
-    <div class="home inner">
-		<h6>ABOUT IFP</h6>
-		<p>The IFP program began in November 2000 with four pilot sites. In Asia, the program was initiated in Vietnam.  In Africa, the first competition was held in West Africa (Ghana, Nigeria and Senegal).  In Latin America, IFP began in the Andean Region as Southern Cone (Chile and Peru).  Russia was the final pilot site.  The first 96 Fellows from these countries were named in 2001.  In February 2002, 173 new Fellows from the pilot site countries and from India, China, Kenya, Tanzania, Uganda, Mexico and Guatemala were announced.  During 2002, the program expanded to seven additional countries and territories: Brazil, Egypt, Indonesia, Mozambique, Palestine, Philippines and South Africa.  For the selections in 2003, the program expanded to Thailand.</p>
-		<a href="<%=ifp_about_the_ifp_path()%>" class="btn btn-primary btn-sm">Learn More &raquo;</a>
-    </div>
-  </div>
-
-  <div class="col-md-4">
-    <div class="home inner">
-                  <h6>ABOUT THE COLLECTION</h6>
-                  <p>The archives cover the issues of social justice, community development, and access to higher education, and include paper and digital documentation and audiovisual materials on the more than 4,300 IFP Fellows as well as comprehensive planning and administrative files of the program.</p>
-    </div>
-    <div id="home-global-data" class="home well well-sm">
+	<div class="col-md-4 order-2">
+		<div class="home inner">
+			<h6>ABOUT THE COLLECTION</h6>
+			<p>The archives cover the issues of social justice, community development, and access to higher education, and include paper and digital documentation and audiovisual materials on the more than 4,300 IFP Fellows as well as comprehensive planning and administrative files of the program.</p>
+		</div>
+		<div id="home-global-data" class="home well well-sm">
 			<% partner_data = ifp_office_sidebar_data(:global) %>
-      <dl class="nomar-b">
+			<dl class="nomar-b">
 				<dt>Collection Guide (Finding Aid)</dt>
 				<dd>
 					<%
@@ -89,19 +38,16 @@
 						end
 					%>
 				</dd>
-      </dl>
-    </div>
-  </div>
+			</dl>
+		</div>
+	</div>
 
-  <div class="col-md-4">
-     <div class="home inner">
-        <h6 class="">IFP COUNTRIES</h6>
-        <ul id="partner-sidebar" class="list-unstyled list-inline"><%= render :partial => 'partners_flags_list' %></ul>
-     </div> <!--/.inner-->
-  </div><!--/-->
+	<div class="col-md-4 order-3">
+		 <div class="home inner">
+				<h6 class="">IFP COUNTRIES</h6>
+				<ul id="partner-sidebar" class="list-unstyled list-inline clearfix"><%= render :partial => 'partners_flags_list' %></ul>
+		 </div> <!--/.inner-->
+	</div><!--/-->
 
 </div><!--/row-->
-
-  </div>
-
 </div>

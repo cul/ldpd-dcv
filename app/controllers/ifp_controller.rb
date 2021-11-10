@@ -10,6 +10,7 @@ class IfpController < SubsitesController
     super
     if !has_search_parameters? && request.format.html?
       # we override the view rendered for the subsite home on html requests
+      params[:action] = 'home'
       render 'home'
     end
   end
@@ -29,7 +30,23 @@ class IfpController < SubsitesController
   end
 
   def subsite_layout
-    'ifp'
+    'signature'
   end
 
+  def subsite_palette
+    'monochromeLight'
+  end
+
+  def carousel_image_paths
+    @carousel_image_paths ||= [
+      "ifp/home-ss/home-image-0.jpg",
+      "ifp/home-ss/home-image-1.jpg",
+      "ifp/home-ss/home-image-2.jpg",
+      "ifp/home-ss/home-image-3.jpg",
+      "ifp/home-ss/home-image-4.jpg",
+      "ifp/home-ss/home-image-5.jpg",
+      "ifp/home-ss/home-image-6.jpg",
+      "ifp/home-ss/home-image-7.jpg"
+    ].map { |path| view_context.asset_path(path) }
+  end
 end
