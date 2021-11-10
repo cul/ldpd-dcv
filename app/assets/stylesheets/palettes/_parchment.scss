@@ -16,7 +16,7 @@ $theme-colors: map-merge($theme-colors, ('primary': $primary));
 $theme-text-colors: map-merge($theme-text-colors, ('primary': $primary-color));
 $theme-border-colors: map-merge($theme-border-colors, ('primary': $primary-border-color));
 
-$secondary: $body-bg;
+$secondary: #cfcfcf;
 $secondary-color: #333;
 $secondary-border-color: #222;
 $theme-colors: map-merge($theme-colors, ('secondary': $secondary));

@@ -1,0 +1,25 @@
+#portrait-carousel {
+	border: 1px solid map-get($theme-border-colors, 'body');
+}
+.carousel-inner {
+	height: 100%;
+	.portrait-carousel-img-holder {
+		background-position: center center;
+		background-repeat: no-repeat;
+		background-size: cover;
+		&:hover {
+			cursor: pointer;
+		}
+	}
+	> .carousel-item > {
+		height:100%;
+		img {
+			position: relative;
+			width: 100%;
+		}
+		a > img {
+			position: relative;
+			width: 100%;
+		}
+	}
+}

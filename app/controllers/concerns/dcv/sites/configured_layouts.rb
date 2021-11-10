@@ -29,4 +29,9 @@ module Dcv::Sites::ConfiguredLayouts
     path = File.join("", "images", "sites", load_subsite&.slug, "signature-banner.png")
     File.exists?(File.join(Rails.root, "public", path)) ? path : view_context.asset_path("signature/signature-banner.png")
   end
+
+  # this method is stubbed here for configured sites and overridden in custom sites
+  def carousel_image_paths
+    []
+  end
 end

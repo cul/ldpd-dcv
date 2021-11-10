@@ -446,30 +446,6 @@ header[role='banner'] {
 	}
 }
 
-.carousel-inner {
-	> .item > {
-		img {
-			position: relative;
-			width: 100%;
-		}
-		a > img {
-			position: relative;
-			width: 100%;
-		}
-	}
-}
-.carousel-control {
-	color: $color_overlay_control;
-	&.right, &.left {
-		background:transparent;
-		.glyphicon {
-			color:#000;
-		}
-	}
-}
-.nodec {
-	text-decoration: none !important;
-}
 .caretup {
 	display: inline-block;
 	width: 0;

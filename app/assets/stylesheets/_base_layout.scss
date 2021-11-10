@@ -2,6 +2,8 @@
 @import './bootstrap_layout';
 @import 'blacklight';
 @import './brand_topnav';
+@import './base_layout/utilities';
+@import './base_layout/carousel';
  //fonts
 $font_glyphs: FontAwesome;
 
@@ -308,6 +310,7 @@ a {
 #secondary-nav {
 	padding: 0 12px;
 	border-bottom: 1px solid;
+	@extend .swatch-secondary;
 	.nav {
 		width: 100%;
 		@media(min-width: 768px) {

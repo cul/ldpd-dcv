@@ -1,0 +1,9 @@
+.carousel-control-prev, .carousel-control-next {
+	color: $primary;
+	&.icon-only {
+		background-image:none;
+		background-color:transparent;
+		border:0;
+		opacity:1;
+	}
+}

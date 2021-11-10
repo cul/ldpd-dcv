@@ -1,12 +1,14 @@
 <nav class="navbar navbar-expand d-flex flex-md-row flex-sm-column" id="site-banner">
-	<%= render 'site_title' %>
-	<%= render_search_bar  %>
+    <%= render 'site_title' %>
+    <%= render_search_bar  %>
 </nav>
 <%= render 'secondary_nav' %>
 
 <% if params[:action] == 'home' %>
-	<div class="featured-outer container-fluid">
-		<img class="img-responsive" alt="" src="<%= signature_image_path %>">
-	</div>
-	<%= render 'map_search/home' %>
+    <% if controller.carousel_image_paths.present? %>
+        <%= render 'home/banner_carousel' %>
+    <% else %>
+        <%= render 'home/signature_overlay' %>
+    <% end %>
+    <%= render 'map_search/home' %>
 <% end %>
