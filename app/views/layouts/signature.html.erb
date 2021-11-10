@@ -9,7 +9,7 @@
 			.featured-outer {
 				<%- if @subsite&.slug && signature_banner_image_path.include?(@subsite.slug) -%>
 					background-image: url("<%= signature_banner_image_path %>");
-				<%- else -%>
+				<%- elsif signature_banner_image_path -%>
 					background-color: var(--signature-banner-tint);
 					background-image: url("<%= signature_banner_image_path %>");
 					background-blend-mode: luminosity;
@@ -19,7 +19,7 @@
 		</style>
 		<%= javascript_include_tag subsite_layout %>
 		<script>
-			window.CULh_feedback_url = 'https://feedback.cul.columbia.edu/feedback_submission/dlc';
+			window.CULh_feedback_url = '<%= t("feedback.#{@subsite.slug}", default: t('feedback.default'))%>';
 		</script>
 	</head>
 	<body class="<%= render_body_class %> dcv <%= render_subsite_body_classes %> <%= params[:action] %>" style="padding-top: 50px;">

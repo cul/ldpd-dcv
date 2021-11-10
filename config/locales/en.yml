@@ -25,6 +25,14 @@ en:
       words_connector: "; "
       two_words_connector: "; "
       last_word_connector: "; "
+  feedback:
+    default: https://feedback.cul.columbia.edu/feedback_submission/dlc
+    carnegie: https://feedback.cul.columbia.edu/feedback_submission/carnegie
+    durst: https://feedback.cul.columbia.edu/feedback_submission/durst
+    ifp: https://feedback.cul.columbia.edu/feedback_submission/ifp
+    lcaaj: https://feedback.cul.columbia.edu/feedback_submission/lcaaj
+    nyre: https://feedback.cul.columbia.edu/feedback_submission/nyre
+    universityseminars: https://feedback.cul.columbia.edu/feedback_submission/universityseminars
   ldpd:
     url:
       repo:
