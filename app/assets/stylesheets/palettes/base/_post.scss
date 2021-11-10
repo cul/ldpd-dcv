@@ -10,6 +10,10 @@ $navbar-primary-toggler-border-color:  rgba(map-get($theme-border-colors, 'prima
 $navbar-primary-brand-color:                 $navbar-primary-active-color !default;
 $navbar-primary-brand-hover-color:           $navbar-primary-active-color !default;
 
+// default brand colors if necessary
+$brand: transparent !default;
+$brand-color: $body-color !default;
+$brand-border-color: $body-border-color !default;
 // refresh colr maps post-theme variables
 $theme-colors: map-merge(
   (
@@ -20,7 +24,8 @@ $theme-colors: map-merge(
     "warning":    $warning,
     "danger":     $danger,
     "light":      $light,
-    "dark":       $dark
+    "dark":       $dark,
+    "brand":      $brand
   ),
   $theme-colors
 );
@@ -34,7 +39,8 @@ $theme-text-colors: map-merge(
     "warning":    color-yiq($warning),
     "danger":     color-yiq($danger),
     "light":      color-yiq($light),
-    "dark":       color-yiq($dark)
+    "dark":       color-yiq($dark),
+    "brand":      $brand-color
   ),
   $theme-text-colors
 );
@@ -48,7 +54,8 @@ $theme-border-colors: map-merge(
     "warning":    $warning,
     "danger":     $danger,
     "light":      $light,
-    "dark":       $dark
+    "dark":       $dark,
+    "brand":      $brand-border-color
   ),
   $theme-border-colors
 );

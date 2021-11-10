@@ -23,13 +23,14 @@ header[role='banner'] {
 	flex-basis:max-content;
 }
 #site-banner {
-	background-color: transparent;
+	color: map-get($theme-text-colors, 'brand');
+	background-color: map-get($theme-colors, 'brand');
 	background-repeat:no-repeat;
 	background-position:center top;
 	background-size:cover;
 	overflow: visible;
 	.titlesub {
-		color: map-get($theme-text-colors, 'body');
+		color: color-shade(map-get($theme-text-colors, 'brand'));
 	}
 	#site-title {
 		font-family: $font_0, $font_3, $font_1, $font_2;
@@ -135,7 +136,7 @@ header[role='banner'] {
 }
 #secondary-nav {
 	margin: 0 0 0 0;
-	border:1px solid map-get($theme-text-colors, 'secondary');
+	border-color: map-get($theme-text-colors, 'secondary');
 	border-width:1px 0;
 }
 @media(min-width: 768px) {

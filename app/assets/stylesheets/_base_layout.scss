@@ -181,7 +181,7 @@ a {
 
 #site-banner {
   background-color: color-shade($body-bg);
-	border-bottom: map-get($theme-border-colors, 'body') 1px solid;
+	border-bottom: map-get($theme-border-colors, 'secondary') 1px solid;
 	&.slim {
 		margin-bottom: .5em;
 		img {

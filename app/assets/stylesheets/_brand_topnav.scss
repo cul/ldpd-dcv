@@ -2,12 +2,13 @@
 
 #topnavbar {
 	font-size: 13px;
-	border-top: map-get($theme-border-colors, 'body') 5px solid;
+	border-top: map-get($theme-colors, 'primary') 5px solid;
 	padding-top: 0.25rem;
 	padding-bottom: 0.25rem;
 	.icon-columbia-crown {
 		padding-right:.25em;
 	}
+	background-color: map-get($theme-colors, 'secondary');
 	#navbar-container {
 		padding: 0 10px;
 		height:100%;
@@ -21,7 +22,6 @@
 		}
 	}
 	height: 50px;
-	margin-top: -1px;
 	#crowndown-nosearch {
 		height: 39px;
 		padding-left: 0;

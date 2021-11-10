@@ -50,6 +50,12 @@
 	}
 }
 
+#secondary-nav {
+	margin: 0 0 0 0;
+	border:1px solid map-get($theme-border-colors, 'secondary');
+	border-width:1px 0;
+}
+
 #search-navbar {
 	.input-group-prepend {
 		background-color: $primary;
