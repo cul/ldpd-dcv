@@ -10,12 +10,26 @@ class Restricted::UniversityseminarsController < SubsitesController
     super
     if !has_search_parameters? && request.format.html?
       # we override the view rendered for the subsite home on html requests
+      params[:action] = 'home'
       render 'home'
     end
   end
 
-  def thumb_url(document={})
-    super
+  def subsite_layout
+    'signature'
   end
 
+  def subsite_palette
+    'glacier'
+  end
+
+  def carousel_image_paths
+    @carousel_image_paths ||= [
+      "universityseminars/home-ss/slide-0.jpg",
+      "universityseminars/home-ss/slide-1.jpg",
+      "universityseminars/home-ss/slide-2.jpg",
+      "universityseminars/home-ss/slide-3.jpg",
+      "universityseminars/home-ss/slide-4.jpg"
+    ].map { |path| view_context.asset_path(path) }
+  end
 end

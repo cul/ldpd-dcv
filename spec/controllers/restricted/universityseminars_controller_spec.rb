@@ -8,8 +8,8 @@ describe Restricted::UniversityseminarsController, :type => :controller do
     end
     it "includes both the common styles and custom styles" do
       expect(controller.load_subsite.layout).to eql('custom')
-      expect(controller.subsite_layout).to eql('universityseminars')
-      expect(controller.subsite_styles).to eql(['universityseminars'])
+      expect(controller.subsite_layout).to eql('signature')
+      expect(controller.subsite_styles).to eql(['signature-glacier', 'universityseminars'])
     end
   end
 end
