@@ -87,7 +87,7 @@ module Dcv::CatalogHelperBehavior
         fq: [filter],
         facet: false
       }
-      response = controller.search_service.repository.connection.send_and_receive 'select', params: solr_params
+      response = Blacklight.default_index.connection.send_and_receive 'select', params: solr_params
       response['response']['numFound'].to_i
     end
   end

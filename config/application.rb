@@ -31,6 +31,7 @@ module Dcv
     config.assets.precompile += [
         'dcv.css',
         'dcv.js',
+        'empty.css',
         'welcome.js', 'welcome.css',
         'print.css',
         'freelib.js',

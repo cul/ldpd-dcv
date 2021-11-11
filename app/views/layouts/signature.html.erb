@@ -19,7 +19,7 @@
 		</style>
 		<%= javascript_include_tag subsite_layout %>
 		<script>
-			window.CULh_feedback_url = '<%= t("feedback.#{@subsite.slug}", default: t('feedback.default'))%>';
+			window.CULh_feedback_url = '<%= t("feedback.#{@subsite&.slug}", default: t('feedback.default'))%>';
 		</script>
 	</head>
 	<body class="<%= render_body_class %> dcv <%= render_subsite_body_classes %> <%= params[:action] %>" style="padding-top: 50px;">

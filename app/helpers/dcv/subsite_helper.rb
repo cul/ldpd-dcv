@@ -1,6 +1,6 @@
 module Dcv::SubsiteHelper
 
-  DEFAULT_SUBSITE_LAYOUT = 'dcv'
+  DEFAULT_SUBSITE_LAYOUT = 'gallery'
   DEFAULT_SUBSITE_KEY = 'catalog'
 
   def subsite_key
