@@ -3,3 +3,9 @@
   	display: block;
   }
 }
+
+.facet-limit-active {
+  .btn {
+    @extend .btn-success; // blacklight set background but not color
+  }
+}
