@@ -13,14 +13,11 @@ describe Dcv::SearchState, type: :unit do
 	end
 	describe '#url_for_document' do
 		let(:slug) { 'sluggo' }
-		let(:document_show_link_field) { 'title_short' }
 		subject(:url_params) { search_state.url_for_document(document) }
 		context 'with a site result' do
 			let(:document) do
 				{
-				'title_short' => '0123456789abc',
-				'title_long' => '0123456789abcdefghijklmnopqrstuvwxyz',
-				'title_long_array' => ['0123456789abcdefghijklmnopqrstuvwxyz'],
+				'title_ssm' => ['0123456789abcdefghijklmnopqrstuvwxyz'],
 				'dc_type_ssm' => ['Publish Target'],
 				'slug_ssim' => [slug]
 				}

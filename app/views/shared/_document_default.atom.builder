@@ -1,5 +1,5 @@
 xml.entry do
-  xml.title index_presenter(document).label(document_show_link_field(document))
+  xml.title index_presenter(document).heading
   
   # updated is required, for now we'll just set it to now, sorry
   xml.updated document[:timestamp]

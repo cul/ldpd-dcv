@@ -22,13 +22,20 @@ module Dcv::BlacklightHelperBehavior
     end
   end
 
-  # see also Blacklight::BlacklightHelperBehavior#render_document_show_field_value
-  def render_document_dynamic_field_value *args
-    options = args.extract_options!
-    document = args.shift || options[:document]
+  def citation_presenter_class(_document)
+    Dcv::CitationPresenter
+  end
 
-    field = args.shift || options[:field]
-    presenter(document).render_document_dynamic_field_value field, options
+  def citation_presenter(document)
+    citation_presenter_class(document).new(document, self)
+  end
+
+  def geo_presenter_class(_document)
+    Dcv::GeoPresenter
+  end
+
+  def geo_presenter(document)
+    geo_presenter_class(document).new(document, self)
   end
 
   # translate AF model names per previous behaviors

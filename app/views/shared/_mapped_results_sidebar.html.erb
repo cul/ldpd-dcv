@@ -1,14 +1,14 @@
-<% coordinates_in_page = @document_list.select {|doc| has_geo?(doc, true) }.length > 0 -%>
+<% coordinates_in_page = @response.documents.select {|doc| has_geo?(doc, true) }.length > 0 -%>
 <% if coordinates_in_page %>
   <h6 class="nomar-t">Mapped Results:
           <%= (@response.params[:start].to_i + 1).to_s + ' - ' +
-          (@response.params[:start].to_i + @document_list.length).to_s  %>
+          (@response.params[:start].to_i + @response.documents.length).to_s  %>
   </h6>
   <%= render partial: 'map_search/coordinate_show_script' %>
 
   <% map_search_settings = map_search_settings_for_subsite %>
   <%= render partial: 'map_search/embedded_results', locals: {
-    map_data_json: extract_map_data_from_document_list(@document_list).to_json.html_safe,
+    map_data_json: extract_map_data_from_document_list(@response.documents).to_json.html_safe,
     map_default_center_lat: params[:lat] || map_search_settings['default_lat'] || 0,
     map_default_center_long: params[:long] || map_search_settings['default_long'] || 0,
     map_default_zoom_level: map_search_settings['default_zoom'] || 11,
@@ -18,7 +18,7 @@
 <% else %>
   <h6 class="nomar-t">No Mappable Results in:
           <%= (@response.params[:start].to_i + 1).to_s + ' - ' +
-          (@response.params[:start].to_i + @document_list.length).to_s  %>
+          (@response.params[:start].to_i + @response.documents.length).to_s  %>
   </h6>
 <% end %>
 <% if has_geo_facet? && controller.respond_to?( :map_search) %>

@@ -1,16 +1,15 @@
+<% doc_presenter = geo_presenter(document) %>
 <div class="inner" style="margin-bottom:1em;padding-bottom:0;">
 	<dl class="dl-vertical">
-		<% geo_facet_fields_to_show.each do |field|  %>
-			<% if document[field.field].present? %>
-				<dt><%= field.label %></dt>
-				<dd><ul><%= document[field.field].uniq.map{|val| ('<li><a href="' + local_facet_search_url(field.field, val) + '">' + val + '</a></li>').html_safe}.join('').html_safe %></ul></dd>
-			<% end %>
-		<% end %>
-		<% geo_non_facet_fields_to_show.each do |field|  %>
-			<% if document[field.field].present? %>
-				<dt><%= field.label %></dt>
-				<dd><ul><%= document[field.field].uniq.map{|val| "<li#{(field.field == 'geo' ? ' class="coordinates"' : '')}>#{val}</li>" }.join('').html_safe %></ul></dd>
-			<% end %>
+		<% doc_presenter.fields_to_render.each do |solr_fname, field, field_presenter| %>
+			<dt class="blacklight-<%= solr_fname.parameterize %>"><%= render_document_geo_field_label document, field: solr_fname %></dt>
+			<dd class="blacklight-<%= solr_fname.parameterize %>">
+				<ul>
+					<% Array(doc_presenter.field_value field).each do |val| -%>
+						<li class="<%= 'coordinates' if field.field == 'geo' %>"><%= field.link ? link_to(val, local_facet_search_url(field.field, val)) : val %></li>
+					<% end -%>				
+				</ul>
+			</dd>
 		<% end %>
 	</dl>
 </div>

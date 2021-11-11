@@ -8,26 +8,28 @@ module Dcv
       'default'
     end
 
-    def render_document_citation_field_value field, options = {}
-      field_config = @configuration.citation_fields[field] || Blacklight::Configuration::NullField.new
-      value = options[:value] || field_value(field_config, options)
+    # @return [Hash<String,Configuration::Field>]  all the fields for this index view that should be rendered
+    def fields_to_render
+      return to_enum(:fields_to_render) unless block_given?
 
-      field_values(field_config, value: Array(value))
+      fields.each do |name, field_config|
+        if field_config.pattern
+          document.to_h.select {|k,v| k =~ field_config.pattern }.each do |k,v|
+            field_clone = field_config.clone.tap { |c| c.field = k }
+            field_presenter = field_presenter(field_clone)
+            # check for rendering against the original, pattern config
+            next unless view_context.should_render_field?(field_config, document) && field_presenter.any?
+
+            yield k, field_clone, field_presenter
+          end
+          next
+        end
+        field_presenter = field_presenter(field_config)
+        next unless field_presenter.render_field? && field_presenter.any?
+        yield name, field_config, field_presenter
+      end
     end
 
-    def render_document_geo_field_value field, options = {}
-      field_config = @configuration.geo_fields[field] || Blacklight::Configuration::NullField.new
-      value = options[:value] || field_value(field_config, options)
-
-      field_values(field_config, value: Array(value))
-    end
-
-    def render_document_dynamic_field_value field, options = {}
-      field_config = options.fetch(:field_config, Blacklight::Configuration::NullField.new)
-      value = options[:value] || field_value(field_config, options)
-
-      field_values(field_config, value: Array(value))
-    end
     ##
     # Create <link rel="alternate"> links from a documents dynamically
     # provided export formats. Returns empty string if no links available.

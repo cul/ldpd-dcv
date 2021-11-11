@@ -1,3 +1,5 @@
-<%= render_opensearch_response_metadata %>
+<%= tag :meta, name: "totalResults", content: @response.total %>
+<%= tag :meta, name: "startIndex", content: @response.start %>
+<%= tag :meta, name: "itemsPerPage", content: @response.limit_value %>
 <%= auto_discovery_link_tag(:rss, url_for(params.permit!.to_h.merge(:format => 'rss')), :title => t('blacklight.search.rss_feed') ) %>
 <%= auto_discovery_link_tag(:atom, url_for(params.permit!.to_h.merge(:format => 'atom')), :title => t('blacklight.search.atom_feed') ) %>

@@ -13,7 +13,7 @@ module ChildrenHelper
   def child(id=params[:id], opts={})
     # get the document
     _response, child_document = fetch(id, {fl: '*'})
-    child_from_solr(child_document, document_show_link_field(child_doc))
+    child_from_solr(child_document, 'title_ssm')
   end
 
   def structured_children

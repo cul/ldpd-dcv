@@ -12,35 +12,34 @@ require 'rails_helper'
 # end
 
 describe CatalogHelper, :type => :helper do
-  context do
+  describe '#short_title' do
+    let(:long_title) { '0123456789abcdefghijklmnopqrstuvwxyz' }
+    let(:short_title) { '0123456789abc' }
+    let(:title_value) { nil }
+    let(:document) { { 'title_ssm' => title_value } }
+    let(:view_context) { Struct.new(:document_index_view_type).new(:index) }
+    let(:blacklight_config) { Blacklight::Configuration.new }
+    let(:index_presenter) { Dcv::IndexPresenter.new(document, view_context, blacklight_config) }
     before do
-      allow(helper).to receive(:document_show_link_field).and_return(document_show_link_field)
+      allow(index_presenter).to receive(:heading).and_return(title_value)
+      allow(helper).to receive(:index_presenter).and_return(index_presenter)
     end
-    let(:document) do
-      {
-        'title_short' => '0123456789abc',
-        'title_long' => '0123456789abcdefghijklmnopqrstuvwxyz',
-        'title_long_array' => ['0123456789abcdefghijklmnopqrstuvwxyz']
-      }
+    subject { helper.short_title(document) }
+    context "a short title" do
+      let(:title_value) { short_title }
+      it { is_expected.to eql(short_title) }
     end
-    describe '#short_title' do
-      subject { helper.short_title(document) }
-      context "a short title" do
-        let(:document_show_link_field) { 'title_short' }
-        it { is_expected.to eql('0123456789abc') }
-      end
-      context "a long title" do
-        let(:document_show_link_field) { 'title_long' }
-        it { is_expected.to eql('0123456789abcdefghijklmnopq...') }
-      end
-      context "a long title in an array" do
-        let(:document_show_link_field) { 'title_long_array' }
-        it { is_expected.to eql('0123456789abcdefghijklmnopq...') }
-      end
-      context "no title" do
-        let(:document_show_link_field) { 'title_absent' }
-        it { is_expected.to be_nil }
-      end
+    context "a long title" do
+      let(:title_value) { long_title }
+      it { is_expected.to eql('0123456789abcdefghijklmnopq...') }
+    end
+    context "a long title in an array" do
+      let(:title_value) { [long_title] }
+      it { is_expected.to eql('0123456789abcdefghijklmnopq...') }
+    end
+    context "no title" do
+      let(:document) { { 'some_field' => 'some_value' } }
+      it { is_expected.to be_nil }
     end
   end
 
@@ -57,7 +56,7 @@ describe CatalogHelper, :type => :helper do
     let(:repository) { double(Blacklight::Solr::Repository) }
     let(:rsolr_connection) { double(RSolr::Client) }
     before do
-      allow(controller).to receive(:repository).and_return(repository)
+      allow(Blacklight).to receive(:default_index).and_return(repository)
       allow(repository).to receive(:connection).and_return(rsolr_connection)
       allow(rsolr_connection).to receive(:send_and_receive).and_return(solr_response)
     end
@@ -81,23 +80,18 @@ describe CatalogHelper, :type => :helper do
   end
 
   describe '#iframe_url_for_document' do
-    let(:document_show_link_field) { 'title_short' }
     subject { helper.iframe_url_for_document(SolrDocument.new(document)) }
-    context 'with a site result' do
+    context 'with an IA result' do
       let(:document) do
         {
-          'title_short' => '0123456789abc',
-          'title_long' => '0123456789abcdefghijklmnopqrstuvwxyz',
           'lib_non_item_in_context_url_ssm' => ['https://archive.org/details/sluggo'],
         }
       end
       it { is_expected.to match(/sluggo\?ui=(full|embed)/) }
     end
-    context 'with a non-site result' do
+    context 'with a non-IA result' do
       let(:document) do
         {
-          'title_short' => '0123456789abc',
-          'title_long' => '0123456789abcdefghijklmnopqrstuvwxyz',
           'lib_non_item_in_context_url_ssm' => ['https://library.org/details/sluggo'],
         }
       end

@@ -4,7 +4,6 @@ class Dcv::Solr::ChildrenAdapter
   attr_reader :searcher, :authorizer, :title_field
   # legacy searcher is controller or helper, needs to define .search_results
   # legacy authorizer is helper
-  # title field given by document_show_link_field() where defined
   def initialize(searcher, authorizer, title_field = 'title_ssm')
     @searcher = searcher
     @authorizer = authorizer

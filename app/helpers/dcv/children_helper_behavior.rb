@@ -40,7 +40,7 @@ module Dcv::ChildrenHelperBehavior
     fl = CHILDREN_MODEL.dup
     title_field = nil
     begin
-      fl << (title_field = document_show_link_field).to_s
+      fl << (title_field = 'title_ssm').to_s
     rescue
     end
     opts = {fl: fl.join(','), raw: true, rows: rows, start: offset}.merge(opts)
@@ -139,8 +139,7 @@ module Dcv::ChildrenHelperBehavior
     @children_adapter ||= begin
       searcher = (defined? :controller) ? controller : self
       authorizer = self
-      title_field = (defined? :document_show_link_field) ? document_show_link_field : "title_ssm"
-      Dcv::Solr::ChildrenAdapter.new(searcher, authorizer, title_field)
+      Dcv::Solr::ChildrenAdapter.new(searcher, authorizer, "title_ssm")
     end
   end
 
