@@ -25,6 +25,8 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  self.search_service_class = Dcv::SearchService
+
   # get the solr name for a field with this name and using the given solrizer descriptor
   # ported from Hydra::Controller::ControllerBehavior
   # see also https://github.com/samvera/hydra-head/blob/v7.2.2/hydra-core/app/controllers/concerns/hydra/controller/controller_behavior.rb

@@ -34,8 +34,8 @@ class RepositoriesController < ApplicationController
     self._prefixes.unshift 'repositories'
   end
 
-  def search_builder
-    super.tap { |builder| builder.processor_chain.concat [:constrain_to_repository_context] }
+  def search_service_context
+    { builder: { addl_processor_chain: [:constrain_to_repository_context] } }
   end
 
   def set_view_path

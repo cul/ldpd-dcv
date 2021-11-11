@@ -68,11 +68,9 @@ class SitesController < ApplicationController
     end
   end
 
-  def search_builder
-    super.tap do |builder|
-      builder.processor_chain << :constrain_to_slug
-      builder.processor_chain <<  (self.restricted? ? :constrain_to_restricted_sites : :constrain_to_public_sites)
-    end
+
+  def search_service_context
+    { builder: { addl_processor_chain: [:constrain_to_slug, self.restricted? ? :constrain_to_restricted_sites : :constrain_to_public_sites] } }
   end
 
   def index
@@ -80,7 +78,7 @@ class SitesController < ApplicationController
       format.json {
         response.headers['Access-Control-Allow-Origin'] = '*'
         response.headers['Access-Control-Allow-Methods'] = 'GET'
-        (@response, @document_list) = search_results(params)
+        (@response, @document_list) = search_service.search_results
         render json: digital_projects
       }
       format.any { super }
@@ -242,7 +240,7 @@ class SitesController < ApplicationController
       t = {
         name: solr_doc.fetch('title_ssm',[]).first,
         image: thumbnail_url(solr_doc),
-        external_url: solr_doc.fetch('source_ssim',[]).first || url_for_document(solr_doc),
+        external_url: solr_doc.fetch('source_ssim',[]).first || search_state.url_for_document(solr_doc),
         description: solr_doc.fetch('abstract_ssim',[]).first,
         search_scope: solr_doc.fetch('search_scope_ssi', "project") || "project"
       }

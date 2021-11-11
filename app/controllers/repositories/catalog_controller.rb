@@ -20,8 +20,9 @@ module Repositories
     end
 
 
-    def search_builder
-      super.tap { |builder| builder.processor_chain.concat [:constrain_to_repository_context, :hide_concepts_when_query_blank_filter] }
+
+    def search_service_context
+      { builder: { addl_processor_chain: [:constrain_to_repository_context, :hide_concepts_when_query_blank_filter] } }
     end
 
     def set_view_path
