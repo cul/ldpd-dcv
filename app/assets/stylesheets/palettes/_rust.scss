@@ -9,8 +9,13 @@ $theme-colors: map-merge($theme-colors, ('body': $body-bg));
 $theme-text-colors: map-merge($theme-text-colors, ('body': $body-color));
 $theme-border-colors: map-merge($theme-border-colors, ('body': $body-border-color));
 
-$primary: #fff;
-$primary-color: #888;
+$brand: #3d3f3e;
+$brand-color: $white;
+$theme-colors: map-merge($theme-colors, ('brand': $brand));
+$theme-text-colors: map-merge($theme-text-colors, ('brand': $brand-color));
+
+$primary: #591300;
+$primary-color: #fff;
 $primary-border-color: #444;
 $theme-colors: map-merge($theme-colors, ('primary': $primary));
 $theme-text-colors: map-merge($theme-text-colors, ('primary': $primary-color));
