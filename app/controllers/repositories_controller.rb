@@ -4,7 +4,7 @@ class RepositoriesController < ApplicationController
   include Dcv::CatalogIncludes
   include Dcv::CdnHelper
 
-  layout Proc.new { |controller| 'dcv' }
+  layout Proc.new { |controller| 'gallery' }
 
   configure_blacklight do |config|
     config.default_solr_params = {

@@ -57,8 +57,6 @@ module Dcv
       config.assets.precompile += ['signature-*.css']
       config.assets.precompile += ['gallery-*.css']
       config.assets.precompile += ['portrait-*.css']
-      # add the legacy omnibus css
-      config.assets.precompile += ['dcv-legacy.css']
     end
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.

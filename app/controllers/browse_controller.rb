@@ -1,7 +1,7 @@
 class BrowseController < ApplicationController
   include Dcv::Catalog::BrowseListBehavior
 
-  layout 'dcv'
+  layout 'gallery'
 
   def index
   	@browse_lists = get_catalog_browse_lists

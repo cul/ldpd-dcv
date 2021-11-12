@@ -60,7 +60,7 @@ module Repositories
     end
 
     def subsite_layout
-      'dcv'
+      'gallery'
     end
 
     def index
