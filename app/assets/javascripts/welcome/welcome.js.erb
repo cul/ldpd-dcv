@@ -1,4 +1,61 @@
 <% default_url_options[:host] = 'placeholder.fake' %>
+
+// proj is a map of title, thumb, link (search) and blurb
+function mosaicDemo(container, proj) {
+  var width = Math.max($(container).parent().width(),$(container).width());
+  //var height = Math.max($(container).parent().height(),$(container).height());
+  var winHeight = $(window).height();
+  var height = Math.floor(winHeight * .55);
+
+  var tileSide = Math.floor(Math.max(height, width)/8);
+  if (tileSide == 0) return;
+
+  var total = 24;
+  var projlink = proj.attr('data-link');
+
+  var randomItems = projlink.replace('catalog','catalog/random.json') + '&per_page=' + total;
+  var fill = "<%= image_url("dcv/columbia_crown_outline.png") %>";
+  var style = 'width:12%;height:fit-content;'
+  for (var i=0; i< total; i++) {
+    $(container).append('<div class="brick d-inline-block" style="' + style + '"> \
+  <img class="img-responsive" src="' + fill + '" />\
+</div>');
+  }
+
+  var items = [];
+  $.ajax(randomItems, {dataType: 'json'}).done(function(data) {
+
+    var items = data;
+    var imgs = $(".brick img");
+    var cix = -1;
+
+    imgs.each(
+      function(){
+        cix++;
+
+
+        if (cix < items.length) {
+          var img_name = items[cix];
+          var id_name = img_name['id'];
+          if (typeof(img_name) == 'undefined') {
+            window.console.log(ix + ': no image name: ' + items[cix] + ", length: " + items.length);
+          }
+          $(this).attr('id',img_name['id']);
+          $(this).attr('src',img_name['thumbnail_url']);
+          $(this).attr('data-default',img_name['thumbnail_url']);
+          $(this).attr('data-scaled',img_name['thumbnail_url'].replace('featured','full'));
+          $(this).on('click', window.mosaicClick);
+        }
+      }
+    );
+  });
+  $(window).on('load', function(){$(container + " .img-responsive").fadeIn();});
+}
+
+function mosaicClick() {
+  window.open('/catalog/' + $(this).attr('id'));
+}
+
 $(window).on('load', function() {
   $('#spinner').remove();
   $('#culnavitems').hide().prependTo($('#cul_top-right'));

@@ -3,7 +3,8 @@
   <head>
 
     <%= render partial: 'shared/head_includes' %>
-    <%= stylesheet_link_tag 'dcv-legacy', :media => 'all'  %>
+    <%= stylesheet_link_tag 'dcv', :media => 'all'  %>
+    <%= stylesheet_link_tag 'gallery-monochromeDark', :media => 'all'  %>
     <%= stylesheet_link_tag    "welcome" %>
     <%= javascript_include_tag "d3" %>
     <%= javascript_include_tag "welcome" %>
@@ -21,56 +22,49 @@
 
 <div id="home" class="section bgParallax" data-speed="2">
 
-	<div id="slidecaps" style="visibility: hidden;">
-				 <ul class="hide-until-load bgslider-captions list-unstyled hidden-xs" style="font-size:95%;text-align:left;margin-bottom:10px;">
-				   <li><span class="text-dim">Title:</span> <a id="slide-title" href="#"></a></li>
-				   <li><span class="text-dim">Project:</span> <a id="slide-projssm" href="#"></a></li>
-				 </ul>
-	</div>
+  <div id="slidecaps" style="visibility: hidden;">
+         <ul class="hide-until-load bgslider-captions list-unstyled hidden-xs" style="font-size:95%;text-align:left;margin-bottom:10px;">
+           <li><span class="text-dim">Title:</span> <a id="slide-title" href="#"></a></li>
+           <li><span class="text-dim">Project:</span> <a id="slide-projssm" href="#"></a></li>
+         </ul>
+  </div>
 
      <div class="culinner">
-		<%= yield %>
+    <%= yield %>
      </div>
 
-	  <div class="carousel-controls hidden-xs">
-		  <a class="left carousel-control" href="#prev" role="button" data-slide="prev">
-			<span class="fa fa-chevron-left hide"></span>
-		  </a>
-		  <a class="right carousel-control" href="#next" role="button" data-slide="next">
-			<span class="fa fa-chevron-right hide"></span>
-		  </a>
-	  </div>
+    <div class="carousel-controls hidden-xs">
+      <a class="carousel-control-prev icon-only" href="#prev" role="button" data-slide="prev">
+      <span class="fa fa-chevron-left hidden"></span>
+      </a>
+      <a class="right carousel-control-next icon-only" href="#next" role="button" data-slide="next">
+      <span class="fa fa-chevron-right hidden"></span>
+      </a>
+    </div>
 
 </div>
 
 <div id="discover" class="section bgParallax" data-speed="3">
-  <div class="culinner container" style="padding-top:60px;">
+  <div class="culinner container-fluid" style="padding-top:60px;">
     <div class="culpanel alignleft row">
      <h4 class="lead">DISCOVER PROJECTS <%= link_to 'Browse projects &raquo;'.html_safe, root_url(), class: 'browse-link float-right' %></h4>
-        <div id="project-info" class="col-sm-12" style="padding:0;">
-          <div style="height:160px;margin-bottom:5px;">
-            <div class="row">
-              <div class="col-sm-2">
-                <div data-style="border:1px solid #888;" style="padding:2px;background-color:#1d1d1d;background-position:center center;background-repeat:no-repeat;background-size:100%;background-image:url('<%= image_url("dcv/columbia_crown_outline.png")%>');height:160px;width:100%;" id="burrito">
-                </div>
-              </div>
-              <div class="col-sm-10">
-               <div style="">
-                <form id="mosaic-switch" action="#">
-					<select name="mosaic-project" id="mosaic-project" class="float-right btn btn-secondary alignleft" style="font-size:.8em;padding:0;margin:0;">
-					</select>
-                </form>
-                <h4 id="mosaic-project-title"></h4>
-                <p id="mosaic-project-blurb" class="lead"></p>
-                <p><a id="mosaic-project-link" href="">Browse Content &raquo;</a></p>
-               </div>
+        <div id="project-info" class="col-sm-12 small" style="padding:0;">
+          <div style="margin-bottom:5px;" class="row">
+            <div class="col-sm-2">
+              <div data-style="border:1px solid #888;" style="padding:2px;background-color:#1d1d1d;background-position:center center;background-repeat:no-repeat;background-size:100%;background-image:url('<%= image_url("dcv/columbia_crown_outline.png")%>');height:160px;width:100%;" id="burrito">
               </div>
             </div>
+            <div class="col-sm-10">
+              <form id="mosaic-switch" action="#">
+                <select name="mosaic-project" id="mosaic-project" class="float-right btn btn-secondary alignleft" style="font-size:.8em;padding:0;margin:0;"></select>
+              </form>
+              <h4 id="mosaic-project-title"></h4>
+              <p id="mosaic-project-blurb" class="lead"></p>
+              <p><a id="mosaic-project-link" href="">Browse Content &raquo;</a></p>
+            </div>
           </div>
-        </div>
-        <div class="col-sm-12" id="discover-content" data-style="max-height:520px;overflow-y:auto;" style="padding:0;position:relative;">
-          <%# @per_row = 2 %>
-          <%#= render template: 'pages/digital_projects', :locals => { :per_row => 2 } -%>
+          <div class="container-fluid w-100 px-auto flex-row justify-content-center" id="discover-content" data-style="max-height:520px;overflow-y:auto;" style="padding:0;position:relative;">
+          </div>
         </div>
     </div>
   </div>
@@ -98,26 +92,26 @@
         <p class="small alignleft"><a href="https://www.flickr.com/photos/mmj171188/1836760843">"Empty steps, 1 AM"</a> by <a href="https://www.flickr.com/photos/mmj171188/">Mira (on the wall)</a> is licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/2.0/">CC BY NC SA 2.0</a>.</p>
         <hr>
         <div class="row">
-		  <div class="col-sm-6">
-			<p class="alignleft small">535 West 114th St. New York, NY 10027 Telephone (212) 854-7309</p>
-		  </div>
-		  <div class="col-sm-6 text-right">
-			<p class="alignright small"><%= link_to 'Terms of Use', terms_of_use_url %> | <a href="#" onclick="return DCV.FeedbackModal.show();">Suggestions &amp; Feedback</a></p>
-		  </div>
-	    </div>
+      <div class="col-sm-6">
+      <p class="alignleft small">535 West 114th St. New York, NY 10027 Telephone (212) 854-7309</p>
+      </div>
+      <div class="col-sm-6 text-right">
+      <p class="alignright small"><%= link_to 'Terms of Use', terms_of_use_url %> | <a href="#" onclick="return DCV.FeedbackModal.show();">Suggestions &amp; Feedback</a></p>
+      </div>
+      </div>
     </div>
   </div>
 </div>
 
 <ul class="hidden">
-	<li id="culnavitems" class="dropdown menu float-left"><a class="dropdown-toggle menu" data-toggle="dropdown" href="#">DLC <b class="caret"></b></a>
-		<ul class="dropdown-menu menu-dropdown dropdown-menu-right">
-			<li><a href="#home" class="scrollto">Search</a></li>
-			<li><a href="#discover" class="scrollto">Discover</a></li>
-			<li><a href="#visualize" class="scrollto">Visualize</a></li>
-			<li><a href="#colophon" class="scrollto">Colophon</a></li>
-		</ul>
-	</li>
+  <li id="culnavitems" class="dropdown menu float-left"><a class="dropdown-toggle menu" data-toggle="dropdown" href="#">DLC <b class="caret"></b></a>
+    <ul class="dropdown-menu menu-dropdown dropdown-menu-right">
+      <li><a href="#home" class="scrollto">Search</a></li>
+      <li><a href="#discover" class="scrollto">Discover</a></li>
+      <li><a href="#visualize" class="scrollto">Visualize</a></li>
+      <li><a href="#colophon" class="scrollto">Colophon</a></li>
+    </ul>
+  </li>
 </ul>
 
   </body>

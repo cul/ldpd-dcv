@@ -5,19 +5,21 @@
 
 
 <div id="search-navbar" class="navbar navbar-light" role="navigation">
-		  <form accept-charset="UTF-8" action="/catalog" class="clearfix" method="get"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="✓"></div>
+  <%= form_tag "/catalog", method: :get, class: ['d-flex','flex-md-row-reverse','flex-sm-column','w-100'] do %>
+    <input name="utf8" type="hidden" value="✓">
 
-
-    <div class="input-group input-group-lg" style="box-shadow: none;">
+    <div class="input-group flex-sm-row flex-md-fill" style="box-shadow: none;">
       <span class="input-group-prepend">
         <label for="search_field" class="sr-only">Search in</label>
-        <select class="search_field" id="search_field" name="search_field" title="Targeted search options"><option value="all_text_teim">All Fields</option>
-<option value="search_title_info_search_title_teim">Title</option>
-<option value="lib_name_teim">Name</option></select>
+        <select class="search_field btn btn-secondary search-btn" id="search_field" name="search_field" title="Targeted search options">
+          <option value="all_text_teim">All Fields</option>
+          <option value="search_title_info_search_title_teim">Title</option>
+          <option value="lib_name_teim">Name</option>
+        </select>
         <span class="sr-only">for</span>
       </span>
       <label for="q" class="sr-only">Search...</label>
-      <input class="search_q q form-control" id="q" name="q" placeholder="Start a new search…" tabindex="1" type="text">
+      <%= text_field_tag :q, params[:q], :placeholder => search_placeholder_text, :class => "search_q q form-control", :id => "q" %>
       <div class="input-group-append">
 
         <button class="btn btn-secondary search-btn" type="submit">
@@ -26,7 +28,7 @@
       </div>
     </div>
 
-</form>
+<% end %>
     </div>
 <div id="menuholder" style="margin-top:40px;">
 <ul class="list-inline list-unstyled">
