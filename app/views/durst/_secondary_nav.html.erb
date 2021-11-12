@@ -1,0 +1,41 @@
+<nav id="secondary-nav" class="navbar d-flex px-0">
+	<ul class="nav nav-pills mr-auto">
+		<li class="nav-item">
+			<a href="<%=root_path+'durst'%>" class="nav-link"><i class="fa fa-home"></i></a>
+		</li>
+		<li class="dropdown">
+			<a href="#" title="Help" class="dropdown-toggle nav-link" data-toggle="dropdown">
+				<i class="fa fa-question-circle"></i><b class="caret"></b>
+			</a>
+			<ul class="dropdown-menu">
+				<li><a href="<%= durst_help_path %>" class="dropdown-item">Search Tips</a></li>
+				<li><a href="<%= durst_help_path %>#glossary" class="dropdown-item">Glossary</a></li>
+				<li><a href="#" onclick="return DCV.FeedbackModal.show();" class="dropdown-item">Suggestions and Feedback</a></li>
+			</ul>
+		</li>
+		<li class="dropdown">
+			<a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown"><i class="fa fa-info-circle"></i><b class="caret"></b></a>
+			<ul class="dropdown-menu">
+				<li><a href="<%= durst_about_the_collection_path %>"class="dropdown-item">About the collection</a></li>
+				<li><a href="<%= durst_about_the_project_path %>"class="dropdown-item">About the project</a></li>
+				<li><a href="<%= durst_acknowledgements_path %>"class="dropdown-item">Acknowledgements</a></li>
+			</ul>
+		</li>
+	</ul>
+	<ul class="nav nav-pills">
+		<li class="nav-item">
+			<a href="<%= durst_map_search_path %>" class="nav-link"><span class="fa fa-map-marker"></span></a>
+		</li>
+		<li class="nav-item">
+			<a href="<%= durst_image_search_url %>" id="durst-image-search" title="Perform an Image Search" class="nav-link"><span class="fa fa-picture-o"></span></a>
+		</li>
+		<li class="nav-item">
+			<a href="<%= local_facet_search_url('lib_format_sim', 'books') %>" id="durst-book-search" title="Perform a Book Search" class="nav-link"><span class="fa fa-book"></span></a>
+		</li>
+	<%- if params[:action] == 'home' && @subsite.persistent_url -%>
+			<li class="nav-item"><button data-copy="<%= @subsite.persistent_url %>" title="Click to copy to clipboard" class="btn nav-link mx-auto" onclick="DCV.Clipboard.copyFromElement(this);"><span class="fa fa-copy"></span> Permanent URL</button></li>
+		<%- elsif @document&.has_persistent_url? -%>
+			<li class="nav-item"><button data-copy="<%= @document.persistent_url %>" title="Click to copy to clipboard" class="btn nav-link mx-auto" onclick="DCV.Clipboard.copyFromElement(this);"><span class="fa fa-copy"></span> Permanent URL</button></li>
+		<%- end -%>
+	</ul>
+</nav>
