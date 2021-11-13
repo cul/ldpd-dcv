@@ -1,6 +1,7 @@
 require 'redcarpet'
 
 class SitesController < ApplicationController
+  include Dcv::DigitalProjectsController
   include Dcv::RestrictableController
   include Dcv::CatalogIncludes
   include Dcv::Catalog::BrowseListBehavior
@@ -232,22 +233,6 @@ class SitesController < ApplicationController
   def site_search_params(args = {})
       result = load_subsite.blacklight_config.default_solr_params.merge(sort: "random_#{Random.new_seed} DESC")
       result.merge(args)
-  end
-
-  # used in :index action
-  def digital_projects
-    @document_list.delete_if{|doc| doc['source_ssim'].blank? && doc['slug_ssim'].blank? }.each.map do |solr_doc|
-      t = {
-        name: solr_doc.fetch('title_ssm',[]).first,
-        image: thumbnail_url(solr_doc),
-        external_url: solr_doc.fetch('source_ssim',[]).first || search_state.url_for_document(solr_doc),
-        description: solr_doc.fetch('abstract_ssim',[]).first,
-        search_scope: solr_doc.fetch('search_scope_ssi', "project") || "project"
-      }
-      t[:facet_value] = solr_doc.fetch('short_title_ssim',[]).first if published_to_catalog?(solr_doc)
-      t[:facet_field] = (t[:search_scope] == 'collection') ? 'lib_collection_sim' : 'lib_project_short_ssim'
-      t
-    end
   end
 
   def published_to_catalog?(document={})

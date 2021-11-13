@@ -1,5 +1,5 @@
 <%= form_for @page, url: { action: (@page.new_record? ? "create" : "update")  } do |page_form| %>
-<div class="card bg-primary">
+<div class="card swatch-secondary">
 	<div class="card-header"><h2 class="card-title">Page Properties</h2></div>
 	<div class="card-body page_properties">
 		<div class="form-group">
@@ -21,7 +21,7 @@
 		</div>
 	</div>
 </div>
-<div class="card bg-primary">
+<div class="card swatch-secondary">
 	<div class="card-header"><h2 class="card-title">Text Blocks</h2></div>
 	<div class="card-body site_text_blocks">
 		<%= page_form.fields_for :site_text_blocks, include_id: false do |site_text_block_form| %>
@@ -36,7 +36,7 @@
 
 <div class="card">
 	<div class="card-body">
-		<%= submit_tag "#{@page.new_record? ? "Create" : "Update"} Page", {class: ['btn', 'btn-secondary']} %>
+		<%= submit_tag "#{@page.new_record? ? "Create" : "Update"} Page", {class: ['btn', 'btn-warning']} %>
 	</div>
 </div>
 <% end %>

@@ -8,31 +8,31 @@
 -%>
 <%= form_for @subsite, url: config_view, builder: ::ValueIndexableFormBuilder do |site_form| %>
 	<%= site_form.fields_for :search_configuration, @subsite.search_configuration do |config_form| %>
-		<div class="card bg-primary">
+		<div class="card swatch-secondary">
 			<div class="card-header"><h2 class="card-title">Display Options</h2></div>
 			<div class="card-body display_options">
 				<%= render partial: 'sites/search_configuration/display_options_form', locals: {config_form: config_form} %>
 			</div>
 		</div>
-		<div class="card bg-primary">
+		<div class="card swatch-secondary">
 			<div class="card-header"><h2 class="card-title">Map Configuration</h2></div>
 			<div class="card-body map_configuration">
 				<%= render partial: 'sites/search_configuration/map_form', locals: {config_form: config_form} %>
 			</div>
 		</div>
-		<div class="card bg-primary">
+		<div class="card swatch-secondary">
 			<div class="card-header"><h2 class="card-title">Date Range Search Configuration</h2></div>
 			<div class="card-body date_search_configuration">
 				<%= render partial: 'sites/search_configuration/date_range_form', locals: {config_form: config_form} %>
 			</div>
 		</div>
-		<div class="card bg-primary">
+		<div class="card swatch-secondary">
 			<div class="card-header"><h2 class="card-title">Facet Field Configuration</h2></div>
 			<div class="card-body facet_fields">
 				<%= render partial: 'sites/search_configuration/facet_fields_form', locals: {config_form: config_form} %>
 			</div>
 		</div>
-		<div class="card bg-primary">
+		<div class="card swatch-secondary">
 			<div class="card-header"><h2 class="card-title">Search Field Configuration</h2></div>
 			<div class="card-body search_fields">
 				<%= render partial: 'sites/search_configuration/search_fields_form', locals: {config_form: config_form} %>
@@ -41,7 +41,7 @@
 	<%- end %>
   <div class="card">
   	<div class="card-body">
-	    <%= submit_tag "Update Search Configuration", {class: ['btn', 'btn-secondary']} %>
+	    <%= submit_tag "Update Search Configuration", {class: ['btn', 'btn-warning']} %>
 	  </div>
   </div>
 <% end %>

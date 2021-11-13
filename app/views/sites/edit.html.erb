@@ -11,8 +11,8 @@
 <h1>Editing <%= @subsite.slug %> site properties</h1>
 <%= render partial: "sites/edit/edit_buttons" %>
 <div class="container">
-  <div class="card bg-info" id="site_edit_context_about">
-    <div class="card-header"><h2 class="card-title">About Site Properties <button type="button" class="btn btn-primary collapse-toggle collapsed" data-toggle="collapse" data-target="#site_edit_context_about_content" aria-expanded="false" aria-controls="site_edit_context_about_content" data-parent="site_edit_context_about"></button></h2></div>
+  <div class="card swatch-info" id="site_edit_context_about">
+    <div class="card-header"><h2 class="card-title">About Site Properties <button type="button" class="btn btn-secondary collapse-toggle collapsed" data-toggle="collapse" data-target="#site_edit_context_about_content" aria-expanded="false" aria-controls="site_edit_context_about_content" data-parent="#site_edit_context_about"><%= collapse_labels %></button></h2></div>
     <div class="card-body collapse collapsed" id="site_edit_context_about_content">
       <p>The site properties managed here govern the overall appearance and function of the site. More detailed configuration of the content in scope for the site, its search functions, permissions, and site page content is available on the other admin pages linked here.</p>
       <p>The properties managed here also include the secondary navigation bar of the site. Individual page content is managed under the Edit Page menu.</p>
@@ -20,7 +20,7 @@
   </div>
 </div>
 <div class="container"><%= form_for @subsite, builder: ::ValueIndexableFormBuilder, url: site_view do |site_form| %>
-  <div class="card bg-primary">
+  <div class="card swatch-secondary">
     <div class="card-header"><h2 class="card-title">Site Properties</h2></div>
     <div class="card-body site_properties">
       <div class="form-group">
@@ -59,17 +59,17 @@
       </div>
     </div>
   </div>
-  <div class="card bg-primary">
+  <div class="card swatch-secondary">
     <div class="card-header"><h2 class="card-title">Site Homepage Images</h2></div>
     <div class="card-body site_homepage_images">
-      <div class="form-group card bg-info" id="portrait_images">
+      <div class="form-group card swatch-info" id="portrait_images">
         <div class="card-header form-inline">
           <div class="form-group">
             <label for="site_image_uris">Portrait Layout Images <span class="fa fa-question-circle" data-tooltip="tooltip-images-portrait"></span></label>
-            <button type="button" class="btn btn-primary collapse-toggle<%= ' collapsed' unless @subsite.layout == Site::LAYOUT_PORTRAIT %>" data-toggle="collapse" data-target="#portrait_image_pids" aria-expanded="false" aria-controls="portrait_image_pids" data-parent="site_homepage_images">Image PIDs</button>
+            <button type="button" class="btn btn-primary collapse-toggle<%= ' show' if @subsite.layout == Site::LAYOUT_PORTRAIT %>" data-toggle="collapse" data-target="#portrait_image_pids" aria-expanded="false" aria-controls="portrait_image_pids" data-parent=".site_homepage_images"><%= collapse_labels("Image PIDs") %></button>
           </div>
         </div>
-        <div class="card-body collapse<%= ' in' if @subsite.layout == Site::LAYOUT_PORTRAIT %>" id="portrait_image_pids">
+        <div class="card-body collapse<%= ' show' if @subsite.layout == Site::LAYOUT_PORTRAIT %>" id="portrait_image_pids">
           <%- site_form.object.image_uris.each_with_index do |image_uri, ix| %>
             <%= render partial: "sites/edit/text_list_value", locals: { list_name: [:image_uris], value: image_uri, index: ix, removable: (ix > 0) } %>
           <%- end %>
@@ -80,14 +80,14 @@
           </fieldset>
         </div>
       </div>
-      <div class="form-group card bg-info" id="signature_images">
+      <div class="form-group card swatch-info" id="signature_images">
         <div class="card-header form-inline">
           <div class="form-group">
             <label for="site_signature_images">Signature Layout Images <span class="fa fa-question-circle" data-tooltip="tooltip-images-signature"></span></label>
-            <button type="button" class="btn btn-primary collapse-toggle<%= ' collapsed' unless @subsite.layout == Site::LAYOUT_SIGNATURE %>" data-toggle="collapse" data-target="#signature_image_assets" aria-expanded="false" aria-controls="signature_image_assets" data-parent="site_homepage_images">Image Information</button>
+            <button type="button" class="btn btn-primary collapse-toggle<%= ' show' if @subsite.layout == Site::LAYOUT_SIGNATURE %>" data-toggle="collapse" data-target="#signature_image_assets" aria-expanded="false" aria-controls="signature_image_assets" data-parent=".site_homepage_images"><%= collapse_labels("Image Information") %></button>
           </div>
         </div>
-        <div class="card-body collapse<%= ' in' if @subsite.layout == Site::LAYOUT_SIGNATURE %>" id="signature_image_assets">
+        <div class="card-body collapse<%= ' show' if @subsite.layout == Site::LAYOUT_SIGNATURE %>" id="signature_image_assets">
           <fieldset class="paneled">
             <div class="col-md-6">
               <label for="site_banner">Signature Banner Image&nbsp;</label><span class="fa fa-question-circle" data-tooltip="tooltip-images-signature-banner"></span>
@@ -118,7 +118,7 @@
       </div>
     </div>
   </div>
-  <div class="card bg-primary">
+  <div class="card swatch-secondary">
     <div class="card-header"><h2 class="card-title">Site Pages</h2></div>
     <div class="card-body site_pages">
       <table class="container">
@@ -142,7 +142,7 @@
       <%- end -%>
         </tbody>
         <tfoot class="row">
-          <tr class="row">
+          <tr>
             <td>
             <%= link_to(new_site_page_path(site_slug: @subsite.slug), class: ['btn btn-info']) do %>
               <span class="fa fa-plus"></span> Add Page
@@ -153,7 +153,7 @@
       </table>
     </div>
   </div>
-  <div class="card bg-primary">
+  <div class="card swatch-secondary">
     <div class="card-header"><h2 class="card-title">Site Navigation</h2></div>
     <div class="card-body site_navigation">
       <%= site_form.fields_for :nav_menus do |menu_form| %>
@@ -166,7 +166,7 @@
   </div>
   <div class="card">
     <div class="card-body">
-      <%= submit_tag "Update Site Information", {class: ['btn', 'btn-secondary']} %>
+      <%= submit_tag "Update Site Information", {class: ['btn', 'btn-warning']} %>
     </div>
   </div>
 <% end %>
@@ -195,6 +195,6 @@
     <%- end %>
   <%- end %>
 <%- end %>
-<div class="hide widget-templates">
+<div class="hidden widget-templates">
   <%= buffer.html_safe %>
 </div>

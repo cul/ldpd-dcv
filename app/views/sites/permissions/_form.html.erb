@@ -7,7 +7,7 @@
 	end
 -%>
 <%= form_for @subsite, url: config_view, builder: ::ValueIndexableFormBuilder do |site_form| %>
-	<div class="panel bg-primary">
+	<div class="panel swatch-secondary">
 		<div class="card-header"><h2 class="card-title">Site Editor IDs</h2></div>
 		<div class="card-body site_editors">
 			<div class="form-group">
@@ -24,7 +24,7 @@
 		</div>
 	<% end -%>
 	<%= site_form.fields_for :permissions, @subsite.permissions do |permissions_form| %>
-		<div class="card bg-primary">
+		<div class="card swatch-secondary">
 			<div class="card-header"><h2 class="card-title">Remote Roles/Affiliations</h2></div>
 			<div class="card-body remote_roles">
 				<%- permissions_form.object.remote_roles.each_with_index do |value, ix| %>
@@ -37,7 +37,7 @@
 				</fieldset>
 			</div>
 		</div>
-		<div class="panel bg-primary">
+		<div class="panel swatch-secondary">
 			<div class="card-header"><h2 class="card-title">Remote User IDs</h2></div>
 			<div class="card-body remote_ids">
 				<div class="form-group">
@@ -47,7 +47,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="card bg-primary">
+		<div class="card swatch-secondary">
 			<div class="card-header"><h2 class="card-title">Authorized Locations URIs</h2></div>
 			<div class="card-body locations">
 				<%- permissions_form.object.locations.each_with_index do |value, ix| %>
@@ -64,7 +64,7 @@
 
 	<div class="card">
 		<div class="card-body">
-			<%= submit_tag "Update Permissions", {class: ['btn', 'btn-secondary']} %>
+			<%= submit_tag "Update Permissions", {class: ['btn', 'btn-warning']} %>
 		</div>
 	</div>
 <% end %>

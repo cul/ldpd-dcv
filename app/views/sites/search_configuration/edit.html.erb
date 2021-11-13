@@ -9,8 +9,8 @@
 <h1>Editing <%= @subsite.slug %> search configuration</h1>
 <%= render partial: "sites/edit/edit_buttons" %>
 <div class="container">
-  <div class="card bg-info" id="site_edit_context_about">
-    <div class="card-header"><h2 class="card-title">About Search Configuration <button type="button" class="btn btn-primary collapse-toggle collapsed" data-toggle="collapse" data-target="#site_edit_context_about_content" aria-expanded="false" aria-controls="site_edit_context_about_content" data-parent="site_edit_context_about"></button></h2></div>
+  <div class="card swatch-info" id="site_edit_context_about">
+    <div class="card-header"><h2 class="card-title">About Search Configuration <button type="button" class="btn btn-primary collapse-toggle collapsed" data-toggle="collapse" data-target="#site_edit_context_about_content" aria-expanded="false" aria-controls="site_edit_context_about_content" data-parent="#site_edit_context_about"><%= collapse_labels("") %></button></h2></div>
     <div class="card-body collapse collapsed" id="site_edit_context_about_content">
       <p>Sites with <strong>local</strong> searches may configure search behaviors within the scope of their search. The facet, search type, and search field configurations managed here apply only to the site's search: The general catalog (or any other site that also includes an item here) have independently configured searches.</p>
       <p>If a site has the <strong>catalog</strong> search type, it delegates its search to the catalog and the configurations here will have no effect.</p>
@@ -26,7 +26,7 @@
 	</div>
 <% end -%>
 <div class="container"><%= render 'sites/search_configuration/form' %></div>
-<div class="hide widget-templates">
+<div class="hidden widget-templates">
 <%- buffer = "" %>
 <%- form_for(@subsite, builder: ::ValueIndexableFormBuilder) do |site_form| %>
 	<%- site_form.fields_for(:search_configuration, @subsite.search_configuration)  do |config_form| %>

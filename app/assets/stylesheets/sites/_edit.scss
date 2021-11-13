@@ -17,19 +17,20 @@ fieldset.paneled {
 }
 
 button.collapse-toggle {
-	&::before {
-		content: "Hide ";
-	}
-	&::after {
-		font-family: 'FontAwesome';
-		content: "\f107"; // angle-down
+	&:not(.collapsed) {
+		.collapsed-label {
+			display:none;
+		}
+		.show-label {
+			display:inline;
+		}
 	}
 	&.collapsed {
-		&::before {
-			content: "Show ";
+		.collapsed-label {
+			display:inline;
 		}
-		&::after {
-			content: "\f105"; // angle-right
+		.show-label {
+			display:none;
 		}
 	}
 }

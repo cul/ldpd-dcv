@@ -8,8 +8,8 @@
 <h1>Configuring <%= @subsite.slug %> permissions</h1>
 <%= render partial: "sites/edit/edit_buttons" %>
 <div class="container">
-  <div class="card bg-info" id="site_edit_context_about">
-    <div class="card-header"><h2 class="card-title">About Site Permissions <button type="button" class="btn btn-primary collapse-toggle collapsed" data-toggle="collapse" data-target="#site_edit_context_about_content" aria-expanded="false" aria-controls="site_edit_context_about_content" data-parent="site_edit_context_about"></button></h2></div>
+  <div class="card swatch-info" id="site_edit_context_about">
+    <div class="card-header"><h2 class="card-title">About Site Permissions <button type="button" class="btn btn-primary collapse-toggle collapsed" data-toggle="collapse" data-target="#site_edit_context_about_content" aria-expanded="false" aria-controls="site_edit_context_about_content" data-parent="#site_edit_context_about"><%= collapse_labels("") %></button></h2></div>
     <div class="card-body collapse collapsed" id="site_edit_context_about_content">
       <p>Authorization to view file Assets is managed in Asset metadata, but restricted sites with <strong>local</strong> searches may also limit access to the Item descriptions they present.</p>
       <p>An authenticated user will be required to match at least one permission to view items in the site if permissions are configured.</p>
@@ -25,7 +25,7 @@
 	</div>
 <% end -%>
 <div class="container"><%= render 'sites/permissions/form' %></div>
-<div class="hide widget-templates">
+<div class="hidden widget-templates">
 <%- buffer = "" %>
 <%- buffer << render(partial: "sites/edit/text_list_value", locals: { list_name: [:permissions, :remote_roles], value: "", index: "9valueIndex9", removable: true }) %>
 <%- buffer << render(partial: "sites/edit/text_list_value", locals: { list_name: [:permissions, :locations], value: "", index: "9valueIndex9", removable: true }) %>
