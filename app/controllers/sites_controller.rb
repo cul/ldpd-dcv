@@ -29,7 +29,7 @@ class SitesController < ApplicationController
         'dc_type_sim:"Publish Target"',
         '-slug_ssim:sites', # Do not include sites publish targets in this list
       ],
-      :sort => "title_si asc",
+      :sort => "title_si asc, lib_date_dtsi desc",
       :qt => 'search'
     }
 

@@ -27,7 +27,7 @@ class CatalogController < SubsitesController
         'dc_type_sim:"Publish Target"',
         '-slug_ssim:(sites OR catalog)' # Do not include sites or catalog publish target in this list
       ],
-      sort: "title_si asc",
+      sort: "title_si asc, lib_date_dtsi desc",
       qt: 'search',
       rows: 250
     }
@@ -43,12 +43,14 @@ class CatalogController < SubsitesController
 
   # get search results from the solr index forhome page
   def home
-    @response = search_service.repository.search(home_params)
-    @document_list = @response.documents
-
     respond_to do |format|
       format.html { render action: 'home' }
     end
   end
 
+  def digital_projects
+    @response = search_service.repository.search(home_params)
+    @document_list = @response.documents
+    super
+  end
 end
