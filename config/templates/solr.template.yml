@@ -1,4 +1,4 @@
-test:
-  url: http://localhost:9983/solr/dcv_test
 development:
-  url: http://localhost:8983/solr/dcv_development
+  url: http://localhost:8983/solr/dcv-dev
+test:
+  url: http://localhost:8993/solr/dcv-test

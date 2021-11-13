@@ -10,6 +10,7 @@ require 'capybara/rails'
 include ActionDispatch::TestProcess
 
 Capybara.javascript_driver = :selenium_chrome_headless
+Capybara.disable_animation = true
 Capybara.default_max_wait_time = 30 # Some ajax requests might take longer than the default waut time of 2 seconds.
 
 # Requires supporting ruby files with custom matchers and macros, etc, in

@@ -37,6 +37,7 @@ default_user_accounts.yml
 resque.yml
 roles.yml
 secrets.yml
+solr_wrapper.yml
 subsites.yml
 location_uris.yml
 
