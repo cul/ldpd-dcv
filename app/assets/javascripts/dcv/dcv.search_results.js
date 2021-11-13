@@ -106,20 +106,20 @@ DCV.SearchResults.setSearchMode = function(searchMode) {
     if (DCV.SearchResults.getCurrentSearchMode == searchMode) {
     	return;
     }
-	$('.result-type-button').removeClass('btn-success').addClass('btn-secondary');
+	$('.result-type-button').removeClass('btn-success').addClass('btn-outline-secondary');
 
 	if (searchMode == DCV.SearchResults.SearchMode.GRID) {
 		$('#content .document').removeClass('list-view').addClass('grid-view');
-		$('#grid-mode').addClass('btn-success');
+		$('#grid-mode').removeClass('btn-outline-secondary').addClass('btn-success');
 		createCookie(DCV.subsite_key + '_' + DCV.SearchResults.CookieNames.searchMode, searchMode);
 	} else if (searchMode == DCV.SearchResults.SearchMode.LIST) {
 		$('#content .document').removeClass('grid-view').addClass('list-view');
-		$('#list-mode').addClass('btn-success');
+		$('#list-mode').removeClass('btn-outline-secondary').addClass('btn-success');
 		createCookie(DCV.subsite_key + '_' + DCV.SearchResults.CookieNames.searchMode, searchMode);
 	} else if (searchMode == DCV.SearchResults.SearchMode.EXTENDED) {
 		$('#search-results, .results-pagination, #appliedParams').addClass('hidden');
 		$('#extended-search-results').removeClass('hidden');
-		$('#extended-search-mode').addClass('btn-success');
+		$('#extended-search-mode').removeClass('btn-outline-secondary').addClass('btn-success');
 		$('.extended-search-mode').addClass('hidden');
 		$('#return-to-results').removeClass('hidden');
 		//BUT DO NOT SET A COOKIE FOR EXTENDED MODE!  We don't want this mode to persist between page refreshes.
@@ -140,12 +140,12 @@ DCV.SearchResults.setSearchMode = function(searchMode) {
 DCV.SearchResults.setSearchDateGraphVisibility = function(dateGraphVisiblityState) {
   if (dateGraphVisiblityState == DCV.SearchResults.DateGraphVisiblityState.HIDE) {
     $('#search-results-date-graph').addClass('hidden');
-    $('#date-graph-toggle').addClass('btn-secondary').removeClass('btn-success');
+    $('#date-graph-toggle').addClass('btn-outline-secondary').removeClass('btn-success');
     createCookie(DCV.subsite_key + '_' + DCV.SearchResults.CookieNames.searchDateGraphVisiblity, dateGraphVisiblityState);
   } else {
     $('#search-results-date-graph').removeClass('hidden');
     DCV.DateRangeGraphSelector.resizeCanvas();
-    $('#date-graph-toggle').addClass('btn-success').removeClass('btn-secondary');
+    $('#date-graph-toggle').addClass('btn-success').removeClass('btn-outline-secondary');
     createCookie(DCV.subsite_key + '_' + DCV.SearchResults.CookieNames.searchDateGraphVisiblity, dateGraphVisiblityState);
   }
 }

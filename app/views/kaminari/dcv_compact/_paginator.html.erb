@@ -20,11 +20,11 @@
   in here .. -%>
   <%= paginator.render do -%>
     <%= first_page_tag %>
-    <span class="btn btn-secondary" style="pointer-events:none;"><%= page_entries_info %></span>
+    <span class="btn btn-outline-secondary" style="pointer-events:none;"><%= page_entries_info %></span>
     <%= prev_page_tag %>
     <%= next_page_tag %>
   <% end -%>
 <% else -%>
-  <span class="btn btn-secondary" style="pointer-events:none;"><%= page_entries_info %></span>
+  <span class="btn btn-outline-secondary" style="pointer-events:none;"><%= page_entries_info %></span>
 <% end -%>
 </div>

@@ -6,10 +6,10 @@
     </div>
   <% else %>
     <% if @search_context[:prev] || @search_context[:next] %>
-      <div class="page-links btn-group btn-group-sm" style="pointer-events:none;">
+      <div class="page-links btn-group btn-group-sm">
         <%= link_to_previous_document @search_context[:prev] %>
 
-        <span class="btn btn-secondary"><%= item_page_entry_info %></span>
+        <span class="btn btn-secondary" style="pointer-events:none;"><%= item_page_entry_info %></span>
 
         <%= link_to_next_document @search_context[:next] %>
       </div>
