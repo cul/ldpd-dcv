@@ -181,6 +181,11 @@ a {
   }
 }
 
+// button theme adjustments
+.btn-outline-secondary {
+	background-color: map-get($theme-text-colors, 'secondary');
+}
+
 #site-banner {
   background-color: color-shade($body-bg);
 	border-bottom: map-get($theme-border-colors, 'secondary') 1px solid;
@@ -390,7 +395,7 @@ a {
 	.btn-secondary {
 		padding: 1rem;
 		border: 0;
-		background-color: transparent;
+		@extend .swatch-secondary;
 		font-family: $font_c;
 		text-transform: uppercase;
 		&:hover {

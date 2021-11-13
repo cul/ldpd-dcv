@@ -136,7 +136,7 @@ header[role='banner'] {
 }
 #secondary-nav {
 	margin: 0 0 0 0;
-	border-color: map-get($theme-text-colors, 'secondary');
+	@extend .swatch-secondary;
 	border-width:1px 0;
 }
 @media(min-width: 768px) {

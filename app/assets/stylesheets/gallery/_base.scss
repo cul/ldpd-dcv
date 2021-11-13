@@ -41,13 +41,12 @@
 }
 #site-title {
 	max-width: 100%;
-	text-align: center;
+	text-align:center;
 	font-size:1.25rem;
 	vertical-align:middle !important;
-	a {
-	  color:inherit;
-	  text-decoration:none;
-	}
+	color:inherit;
+	text-decoration:none;
+	text-transform: uppercase;
 }
 
 #secondary-nav {
@@ -250,9 +249,7 @@
 	}
 
 }
-#sort-dropdown .dropdown-toggle, #per_page-dropdown .dropdown-toggle {
-  color: $light;
-}
+
 .appliedFilter .btn-secondary,
 	.appliedFilter .constraint-value:hover,
 	.appliedFilter .constraint-value:active {
