@@ -53,4 +53,9 @@ class CatalogController < SubsitesController
     @document_list = @response.documents
     super
   end
+
+  # produce a lazily-loaded list of featured items according to a supplied filter
+  def featured_items(args= {})
+    digital_projects
+  end
 end

@@ -1,0 +1,22 @@
+<%-
+template_key = params[:repository_id].downcase
+template_key.gsub!("-","")
+digital_projects = controller.digital_projects
+%>
+<div id="portals" class="row">
+  <div class="card w-100 mb-2">
+    <div class="card-body">
+      <h3 class="card-title">Archival Collections Portal</h3>
+      <%= render "archives_search_form" %>
+    </div>
+      <div class="card-footer">View archival finding aids that include links to both open and restricted digital content.</div>
+  </div>
+  <div class="card w-100 mb-2">
+    <div class="card-body">
+      <h3 class="card-title">Digital Collections</h3>
+      <%= render template: '_search_form', locals: { availability: 'onsite' } %>
+    </div>
+    <div class="card-footer">Search digital content available in the <%= I18n.t("ldpd.short.repo.#{params[:repository_id]}") %> reading room<%= ', or navigate via the links below' if digital_projects.present? -%>.</div>
+  </div>
+</div>
+<%= render template: 'reading_room/projects_and_exhibitions' %>

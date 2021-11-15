@@ -3,6 +3,9 @@ module Dcv::SubsiteHelper
   DEFAULT_SUBSITE_LAYOUT = 'gallery'
   DEFAULT_SUBSITE_KEY = 'catalog'
 
+  def default_subsite_style
+    "#{DEFAULT_SUBSITE_LAYOUT}-#{Dcv::Sites::Constants.default_palette}"
+  end
   def subsite_key
     return controller.respond_to?(:subsite_key) ? controller.subsite_key : DEFAULT_SUBSITE_KEY
   end
@@ -12,7 +15,7 @@ module Dcv::SubsiteHelper
   end
 
   def subsite_styles
-    return controller.respond_to?(:subsite_styles) ? controller.subsite_styles : DEFAULT_SUBSITE_LAYOUT
+    return controller.respond_to?(:subsite_styles) ? controller.subsite_styles : default_subsite_style
   end
 
   def subsite_has_scope_constraints?

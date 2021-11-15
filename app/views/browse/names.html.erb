@@ -1,17 +1,6 @@
 <div class="row">
-  <div id="nav" class="col-md-12">
-    <div id="sortAndPerPage" style="border-bottom:0; margin-bottom:0;">
-      <div id="browse-lists" class="page_links btn-group btn-group-sm">
-        <a class="btn btn-secondary" href="/browse/projects">Projects</a>
-        <a class="btn btn-secondary" href="/browse/formats">Formats</a>
-        <a class="btn btn-secondary btn-success active" href="#">Names</a>
-        <a class="btn btn-secondary" href="/browse/libraries">Library Locations</a>
-      </div>
-    </div>
-  </div>
   <% facet_name = 'lib_name_sim' -%>
   <% data = @browse_lists[facet_name] -%>
-
   <div id="sidebar" class="col-md-3">
     <div class="inner">
       <div id="facets" class="facets sidenav">

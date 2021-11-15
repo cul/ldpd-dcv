@@ -101,7 +101,7 @@ a {
 	color: $link-color;
 	font-family: $font_c;
 	&:hover {
-		color: $info;
+		color: color-shade($link-color);
 	}
 	&.thumbnail {
 		border-color: map-get($theme-border-colors, 'body');
@@ -393,7 +393,8 @@ a {
 		}
 	}
 	.btn-secondary {
-		padding: 1rem;
+		padding-left: 1rem;
+		padding-right: 1rem;
 		border: 0;
 		@extend .swatch-secondary;
 		font-family: $font_c;

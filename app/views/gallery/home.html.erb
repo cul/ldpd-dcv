@@ -1,64 +1,7 @@
 <div class="row">
-  <div id="sidebar" class="col-md-3">
-    <div class="inner outline">
-      <%- cache [@subsite, 'home-content'] do -%>
-        <div id="home-sidebar-news">
-          <h2 class="home-sidebar-heading h5"><%= @subsite.title.html_safe %></h2>
-            <p>
-              <a href="<%= search_action_url %>">
-                <img src="<%= thumbnail_for_site(@subsite) %>" class="thumbnail float-right" alt="<%= @subsite.title.html_safe %>">
-              </a>
-            </p>
-            <%- @page.site_text_blocks.sort { |a,b| a.sort_label <=> b.sort_label }.each do |text_block| -%>
-              <%- if text_block.label.present? -%>
-                <div class="collection-title"><%= text_block.label %></div>
-              <%- end -%>
-              <div>
-                <%= controller.render_markdown(text_block.markdown) %>
-                <hr class="visible-sm">
-              </div>
-            <%- end -%>
-            <div class="clearfix"></div>
-          </div>
-        </div>
-        <div id="home-sidebar-about">
-            <%- if (about_link = @subsite.about_link) -%>
-              <p><%= link_to("About the collection &raquo;".html_safe, site_page_path(site_slug: @subsite.slug, slug: about_link.link)) %></p>
-            <%- end -%>
-            <p>
-              <%= link_to_site_browse("Browse the collection &raquo;", "Visit site &raquo;") %>
-            </p>
-        </div>
-      <%- end -%>
-      <%- if @subsite.show_facets -%>
-        <%- @response ||= controller.load_facet_response -%>
-        <%= render partial: 'facets', locals: {hide_refine_heading: true, no_id_attr: true} %>
-      <%- end -%>
-  </div>
-
-  <div id="content" class="col-md-9">
+  <div id="content" class="col-md-12">
         <div id="home-page-content">
-
-            <div id="home-page-tabs" class="inner outline">
-                <!-- Nav tabs -->
-                <ul class="nav nav-tabs" role="tablist">
-                    <li class="nav-item"><a href="#featured" data-toggle="tab" class="active nav-link">Featured</a></li>
-                    <% controller.browse_lists&.each do |facet_name, data| %>
-                        <li class="nav-item"><a href="#tab_<%= facet_name %>" data-toggle="tab" class="nav-link"><%= data['display_label'] %></a></li>
-                    <% end %>
-                </ul>
-
-                <!-- Tab panes -->
-                <div class="tab-content">
-                    <div class="tab-pane fade show active" id="featured">
-                        <%= render 'featured_items' %>
-                    </div>
-                    <% controller.browse_lists&.each do |facet_name, data| %>
-                      <%= render template: "pages/#{facet_name}", locals: {facet_name: facet_name, data: data} if data['value_pairs'].present? %>
-                    <% end %>
-                </div>
-            </div> <!--/.inner-->
+            <%= render 'featured_items' %>
         </div>
   </div>
-
 </div>

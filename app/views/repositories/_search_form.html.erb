@@ -1,11 +1,11 @@
 <% availability ||= false # do not require to be passed as a local -%>
 <% search_action_url = search_repository_catalog_path(repository_id: params[:repository_id]) -%>
-<%= form_tag search_action_url, :method => :get, :class => 'clearfix' do %>
+<%= form_tag search_action_url, :method => :get, :class => ['clearfix', 'flex-fill'] do %>
   <%= render_hash_as_hidden_fields(search_state.params_for_search.except(:q, :search_field, :repository_id, :qt, :page, :utf8, :format).tap { |p| p[:'f[content_availability][]'] = availability if availability; p }) %>
 
-  <div class="input-group">
+  <div class="input-group flex-fill">
     <% unless search_fields.empty? %>
-    <span class="input-group-prepend hide"> <%# to be removed. might need hidde %>
+    <span class="input-group-prepend hidden"> <%# to be removed. might need hidde %>
       <label for="search_field" class="sr-only"><%= t('blacklight.search.form.search_field.label') %></label>
       <%= select_tag(:search_field, options_for_select(search_fields, h(params[:search_field])), :title => t('blacklight.search.form.search_field.title'), :class=>"search_field") %>
       <span class="sr-only"><%= t('blacklight.search.form.search_field.post_label') %></span>

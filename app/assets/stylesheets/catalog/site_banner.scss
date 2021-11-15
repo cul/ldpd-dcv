@@ -1,4 +1,4 @@
-@import '../palettes/monochromeDark';
+@import '../palettes/glacier';
 @import '../brand_font';
 
 $url_dcv_small: image-url('dcv/1836760843_267e9c947f_o-sm-b.jpg');
@@ -8,7 +8,6 @@ $url_dcv_small: image-url('dcv/1836760843_267e9c947f_o-sm-b.jpg');
 	text-align: center;
 	font-size:1.25rem;
 	vertical-align:middle !important;
-	color: $info;
 	a {
 	  color:inherit;
 	  text-decoration:none;
@@ -17,6 +16,12 @@ $url_dcv_small: image-url('dcv/1836760843_267e9c947f_o-sm-b.jpg');
 
 #site-banner {
 	// only in root page
+	background-image: url('https://toolkit.library.columbia.edu/v3/img/campus-and-city-image.jpg');
+	background-size: cover;
+	color: $white;
+	text-shadow: $black 0 0 0.3em;
+	#site-banner-inner {
+	}
 	#site-banner-left {
 		background-color: $body-bg;
 		background-image: $url_dcv_small;

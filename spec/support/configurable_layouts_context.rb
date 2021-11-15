@@ -1,4 +1,5 @@
 shared_context "verify configurable layouts", shared_context: :metadata do
+	let(:default_palette) { 'glacier' }
 	describe '#subsite_layout' do
 		before { allow(controller).to receive(:subsite_config).and_return('layout' => site_layout) }
 		context 'custom layout' do
@@ -29,14 +30,14 @@ shared_context "verify configurable layouts", shared_context: :metadata do
 			context "default layout and palette" do
 				let(:site_layout) { 'default' }
 				let(:site_palette) { 'default' }
-				it { expect(controller.subsite_styles).to eql(['portrait-monochromeDark']) }
+				it { expect(controller.subsite_styles).to eql(["portrait-#{default_palette}"]) }
 			end
 			Dcv::Sites::Constants::PORTABLE_LAYOUTS.each do |portable_layout|
 				context "#{portable_layout} layout" do
 					let(:site_layout) { portable_layout }
 					context "and default palette" do
 						let(:site_palette) { 'default' }
-						it { expect(controller.subsite_styles).to eql(["#{portable_layout}-monochromeDark"]) }
+						it { expect(controller.subsite_styles).to eql(["#{portable_layout}-#{default_palette}"]) }
 					end
 					context "and custom palette" do
 						let(:site_palette) { 'custom' }

@@ -61,7 +61,7 @@
 		font-size: 1em;
 	}
 }
-#q {
+input.search_q {
 		@extend .swatch-info;
 		&:focus {
 			@extend .swatch-primary;
@@ -329,8 +329,8 @@
 		text-align: center;
 		font-size: 120%;
 		a {
-			color: $info;
-			font-family: $font_0, $font_3, $font_1, $font_2;
+			color: $body-color;
+			@extend %extend_brand_font;
 			text-decoration: none;
 			&:hover {
 				text-decoration: none;

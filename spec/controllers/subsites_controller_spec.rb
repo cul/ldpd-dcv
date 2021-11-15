@@ -24,7 +24,7 @@ describe CatalogController, :type => :controller do
     end
     it "includes both the common styles and custom styles" do
       expect(controller.load_subsite.layout).to eql('gallery')
-      expect(controller.subsite_styles).to include('gallery-monochromeDark')
+      expect(controller.subsite_styles).to include("gallery-#{Dcv::Sites::Constants.default_palette}")
       expect(controller.subsite_styles).to include('catalog')
     end
   end

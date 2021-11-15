@@ -12,7 +12,7 @@ module Dcv::Sites::ConfiguredLayouts
 
   def subsite_palette
     palette = subsite_config['palette'] || 'default'
-    (palette == 'default') ? DCV_CONFIG.fetch(:default_palette, 'monochromeDark') : palette
+    (palette == 'default') ? Dcv::Sites::Constants.default_palette : palette
   end
 
   def subsite_styles

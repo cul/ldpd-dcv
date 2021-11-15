@@ -9,7 +9,7 @@
 				<%= stylesheet_link_tag subsite_style %>
 			<%- end -%>
 		<%- else -%>
-			<%= stylesheet_link_tag 'gallery-monochromeDark', :media => 'all'  %>
+			<%= stylesheet_link_tag "gallery-#{Dcv::Sites::Constants.default_palette}", :media => 'all'  %>
 			<%= stylesheet_link_tag subsite_layout unless subsite_layout == 'dcv' %>
 		<%- end -%>
 		<meta name="robots" content="noindex" />

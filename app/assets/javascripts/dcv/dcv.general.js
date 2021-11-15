@@ -57,7 +57,10 @@ $(function() {
   DCV.DateRangeSlider.init();
 
   // do fancy tooltips when data-toggle="tooltip" is set on el
-  $('[data-toggle="tooltip"], [data-tt="tooltip"]').tooltip({container: 'body'});
+  $('[data-toggle="tooltip"], [data-tt="tooltip"]').tooltip({
+    boundary: 'window',
+    close: function () {$(".ui-helper-hidden-accessible").remove(); }
+  });
 });
 
 //** CULTNBW START **/

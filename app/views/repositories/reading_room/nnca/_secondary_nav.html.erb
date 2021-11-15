@@ -1,0 +1,22 @@
+<nav id="secondary-nav" class="navbar d-flex px-0">
+	<ul class="nav nav-pills mr-auto">
+		<li class="nav-item">
+			<a href="<%= repository_reading_room_url(repository_id: params[:repository_id]) %>" class="nav-link" title="Online Reading Room Home"><i class="fa fa-home"></i></a>
+		</li>
+		<li class="nav-item">
+			<a href="<%= repository_about_url(repository_id: params[:repository_id]) %>" class="nav-link" title="About the Online Reading Room"><i class="fa fa-info-circle"></i></a>
+		</li>
+		<li class="dropdown">
+			<a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">Avery Drawings &amp; Archives Collections<b class="caret"></b></a>
+			<ul class="dropdown-menu">
+				<li><a href="https://library.columbia.edu/libraries/avery/da/collections.html" class="dropdown-item">Collections list</a></li>
+				<li><a href="https://library.columbia.edu/libraries/avery/da/consult.html" class="dropdown-item">Research and appointments</a></li>
+			</ul>
+		</li>
+	</ul>
+	<ul class="nav nav-pills">
+		<li class="nav-item">
+			<a href="/restricted" class="nav-link" title="List Online Reading Rooms"><i class="fa fa-list-alt"></i></a>
+		</li>
+	</ul>
+</nav>

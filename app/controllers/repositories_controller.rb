@@ -3,6 +3,8 @@ require 'redcarpet'
 class RepositoriesController < ApplicationController
   include Dcv::CatalogIncludes
   include Dcv::CdnHelper
+  include Dcv::Sites::ReadingRooms
+  include Dcv::Sites::SearchableController
 
   layout Proc.new { |controller| 'gallery' }
 
@@ -59,7 +61,7 @@ class RepositoriesController < ApplicationController
     unless @document_list
       (@response, @document_list) = search_results(params)
     end
-    @document_list.map do |solr_doc|
+    @digital_projects ||= @document_list.map do |solr_doc|
       t = {
         name: strip_restricted_title_qualifier(solr_doc.fetch('title_ssm',[]).first),
         image: thumbnail_url(solr_doc),
@@ -95,6 +97,14 @@ class RepositoriesController < ApplicationController
     SUBSITES[top].fetch('sites',{})['uri']
   end
 
+  def subsite_layout
+    'gallery'
+  end
+
+  def subsite_styles
+    ["#{subsite_layout}-#{Dcv::Sites::Constants.default_palette}", "catalog"]
+  end
+
   def show
     redirect_to repository_reading_room_path(repository_id: params[:id])
   end
@@ -102,19 +112,13 @@ class RepositoriesController < ApplicationController
   def reading_room
     template_key = params[:repository_id].downcase
     template_key.gsub!("-","")
-    render "reading_room/#{template_key}/show"
+    render "reading_room"
   end
 
-  def reading_room_client?
-    (repository_ids_for_client & [params[:repository_id]]).present?
-  end
-
-  def repository_ids_for_client(remote_ip = request.remote_ip)
-    Rails.application.config_for(:location_uris).map do |location_uri, location|
-      if location.fetch('remote_ip', []).include?(remote_ip.to_s)
-        location.fetch('repository_id', nil)
-      end
-    end.compact
+  def about
+    template_key = params[:repository_id].downcase
+    template_key.gsub!("-","")
+    render "reading_room/#{template_key}/about"
   end
 
   # Overrides the Blacklight::Controller provided #search_action_url.

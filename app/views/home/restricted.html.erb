@@ -1,51 +1,33 @@
 <div class="row">
-  <div id="sidebar" class="col-md-3">
-    <div class="inner">
-       <div id="home-sidebar-news">
-           <h6>RESTRICTED CONTENT <span class="fa fa-lock"></span></h6>
-           <p>A core objective of Columbia University Libraries Rare Book and Manuscript Library is is to make our archival collections accessible for research and scholarship.</p>
-           <p>The library-specific pages linked here allow users to search archival finding aids and digital collection content from Columbia Libraries' individual special collections. Searching done via the "Digital Collections" search box on each repository page displays results for material that is restricted from general public access for reasons relating to copyright, license, or other terms and conditions. By default the search results are filtered to display only the restricted content, labeled as "Limit by Availability > Reading Room." This filter can also be removed in order to display publicly accessible content as well.</p>
-           <p>Under normal conditions, restricted digital content must be viewed on-site in the relevant library by appointment. As a temporary emergency measure during the COVID-19 health crisis, online access to the Libraries' restricted content has been extended to all affiliates of the Columbia Community having a valid UNI.</p>
-          <div class="clearfix"></div>
-         </div>
-      </div>
-      <div id="home-sidebar-about">
+  <div id="content" class="col-md-12">
+    <div id="home-page-content">
+        <div id="home-page-restricted" class="inner">
+            <div class="content">
+              <div class="row">
+                <h2 class="banner"><%= link_to("Avery Architectural and Fine Arts Library Reading Room", repository_reading_room_path(repository_id: 'NNC-A')) %></h2>
+              </div>
+              <div class="row">
+                <h2 class="banner"><%= link_to("C.V. Starr East Asian Library Reading Room", repository_reading_room_path(repository_id: 'NNC-EA')) %></h2>
+              </div>
+              <div class="row">
+                <h2 class="banner"><%= link_to("Rare Book & Manuscript Library Reading Room", repository_reading_room_path(repository_id: 'NNC-RB')) %></h2>
+              </div>
+              <div class="row">
+                <h2 class="banner"><%= link_to("The Burke Library at Union Theological Seminary Reading Room", repository_reading_room_path(repository_id: 'NyNyCBL')) %></h2>
+              </div>
+              <div class="row">
+                <h2 class="banner"><%= link_to("Music & Arts Library Reading Room", repository_reading_room_path(repository_id: 'NyNyCMA')) %></h2>
+              </div>
+          </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="inner">
+          <h6 class="text-center">RESTRICTED CONTENT <span class="fa fa-lock"></span></h6>
+          <p>A core objective of Columbia University Libraries Rare Book and Manuscript Library is is to make our archival collections accessible for research and scholarship.</p>
+          <p>The library-specific pages linked here allow users to search archival finding aids and digital collection content from Columbia Libraries' individual special collections. Searching done via the "Digital Collections" search box on each repository page displays results for material that is restricted from general public access for reasons relating to copyright, license, or other terms and conditions. By default the search results are filtered to display only the restricted content, labeled as "Limit by Availability > Reading Room." This filter can also be removed in order to display publicly accessible content as well.</p>
+          <p>Under normal conditions, restricted digital content must be viewed on-site in the relevant library by appointment. As a temporary emergency measure during the COVID-19 health crisis, online access to the Libraries' restricted content has been extended to all affiliates of the Columbia Community having a valid UNI.</p>
           <p><a href="<%= about_url %>">Learn more about the DLC &raquo;</a></p>
       </div>
+    </div>
   </div>
-
-  <div id="content" class="col-md-9">
-        <div id="home-page-content">
-
-            <div id="home-page-restricted" class="inner">
-
-                <div class="content">
-                    <div class="" id="projects">
-
-                        <div class="row">
-                          <h2 class="banner"><%= link_to("Avery Architectural and Fine Arts Library Reading Room", repository_reading_room_path(repository_id: 'NNC-A')) %></h2>
-                        </div>
-
-                        <div class="row">
-                          <h2 class="banner"><%= link_to("C.V. Starr East Asian Library Reading Room", repository_reading_room_path(repository_id: 'NNC-EA')) %></h2>
-                        </div>
-
-                        <div class="row">
-                          <h2 class="banner"><%= link_to("Rare Book & Manuscript Library Reading Room", repository_reading_room_path(repository_id: 'NNC-RB')) %></h2>
-                        </div>
-
-                        <div class="row">
-                          <h2 class="banner"><%= link_to("The Burke Library at Union Theological Seminary Reading Room", repository_reading_room_path(repository_id: 'NyNyCBL')) %></h2>
-                        </div>
-
-                        <div class="row">
-                          <h2 class="banner"><%= link_to("Music & Arts Library Reading Room", repository_reading_room_path(repository_id: 'NyNyCMA')) %></h2>
-                        </div>
-                    </div>
-                </div>
-        <div class="clearfix"></div>
-            </div> <!--/.inner-->
-        </div>
-  </div>
-
 </div>

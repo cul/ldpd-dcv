@@ -1,7 +1,19 @@
 <%
-template_key = params[:repository_id].downcase
+repository_key = params[:repository_id]
+template_key = repository_key.downcase
 template_key.gsub!("-","")
 %>
-<div class="container">
-<%= render template: "reading_room/#{template_key}/banner", locals: { repository_key: params[:repository_id] } %>
-</div>
+<% if current_page?(repository_url(repository_key)) or current_page?(repository_reading_room_url(repository_id: repository_key)) %>
+	<nav class="navbar navbar-expand d-flex flex-column" id="site-banner">
+		<h1>Columbia University Libraries Digital Collections</h1>
+		<h2><%= t(:"cul.archives.physical_location.#{repository_key}")%></h2>
+	</nav>
+<% else %>
+	<nav class="navbar navbar-expand d-flex flex-md-row flex-sm-column" id="site-banner">
+		<a href="<%= repository_path(repository_key) %>" id="site-title" class="navbar-brand"><%= t(:"cul.archives.physical_location.#{repository_key}")%></a>
+		<%= render template: '_search_form'  %>
+	</nav>
+<% end %><%= render "reading_room/#{template_key}/secondary_nav" %>
+<% if controller.reading_room_client? -%>
+	<div class="note">This workstation provides access to content that can only be viewed on-site in the reading room.</div>
+<% end -%>

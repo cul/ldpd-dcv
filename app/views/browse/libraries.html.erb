@@ -1,15 +1,4 @@
 <div class="row">
-  <div id="nav" class="col-md-12">
-    <div id="sortAndPerPage" style="border-bottom:0; margin-bottom:0;">
-      <div id="browse-lists" class="page_links btn-group btn-group-sm">
-        <a class="btn btn-secondary" href="/browse/projects">Projects</a>
-        <a class="btn btn-secondary" href="/browse/formats">Formats</a>
-        <a class="btn btn-secondary" href="/browse/names">Names</a>
-        <a class="btn btn-secondary btn-success <%= (params[:action] == 'libraries') ? 'active' : params[:action] -%>" href="#">Library Locations</a>
-      </div>
-    </div>
-  </div>
-
   <div id="content" class="col-md-12">
     <% facet_name = 'lib_repo_long_sim' -%>
     <% data = @browse_lists[facet_name] -%>
@@ -27,5 +16,4 @@
       </ul>
     </div>
   </div>
-
 </div>

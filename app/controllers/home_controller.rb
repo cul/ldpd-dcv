@@ -18,6 +18,10 @@ class HomeController < ApplicationController
     {'layout' => 'gallery', 'slug' => 'restricted'}
   end
 
+  def subsite_styles
+    ["#{subsite_layout}-#{Dcv::Sites::Constants.default_palette}", "catalog"]
+  end
+
   def authorize_action
     return if current_ability.ip_to_location_uris(request.remote_ip).present?
 

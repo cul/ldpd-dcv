@@ -1,6 +1,7 @@
 module Repositories
   class CatalogController < ::SubsitesController
     include Dcv::MapDataController
+    include Dcv::Sites::ReadingRooms
 
     before_action :set_map_data_json, only: [:map_search]
 
@@ -61,6 +62,10 @@ module Repositories
 
     def subsite_layout
       'gallery'
+    end
+
+    def subsite_styles
+      ["#{subsite_layout}-#{Dcv::Sites::Constants.default_palette}", "catalog"]
     end
 
     def index

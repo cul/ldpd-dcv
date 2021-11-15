@@ -13,15 +13,12 @@
 //= require rails-ujs
 //= require activestorage
 //= require url_search_params
-//= require popper
-// Required by Blacklight
 //= require jquery
+//= require jquery-ui
 //= require popper
 //= require bootstrap
 //= require blacklight/blacklight
 //
-// jQuery UI
-//= require jquery-ui
 //
 // colorbox
 //= require colorbox-rails
