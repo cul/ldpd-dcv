@@ -16,7 +16,7 @@ Dcv::Application.routes.draw do
 
   mount Resque::Server.new, at: "/resque"
 
-  get '/browse/:action' => 'browse', as: :browse
+  get '/browse/:list_id' => 'browse', as: :browse, action: 'list'
   get '/explore' => 'welcome#home'
   get '/about' => 'pages#about', as: :about
 

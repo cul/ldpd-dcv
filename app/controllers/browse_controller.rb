@@ -27,8 +27,13 @@ class BrowseController < ApplicationController
     self.prepend_view_path('app/views/' + controller_path)
   end
 
-  def index
+  def list
   	@browse_lists = get_catalog_browse_lists
+    if ['names', 'formats', 'libraries'].include? params[:list_id]
+      render params[:list_id]
+    else
+      render status: 500
+    end
   end
 
   def names
