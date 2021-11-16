@@ -2,8 +2,8 @@
 <% if children.present? && zoomable_image_exists_for_resource?(children.first[:pid]) %>
 	<div id="zoom-gallery" data-url="<%= children_path(document[:id], :per_page=>999) %>">
 		<div id="zoom-content" class="openseadragon">
-			<div id="zoom-toolbar" class="btn-toolbar">
-			<%= render 'zoom/controls' -%>
+			<div id="zoom-toolbar" class="btn-toolbar toolbar">
+				<%= render 'zoom/controls' -%>
 			</div>
 		</div>
 	</div>

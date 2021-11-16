@@ -6,10 +6,9 @@
   </head>
   <body class="<%= render_body_class %> blacklight-dcv %> dcv catalog <%= params[:action] %>" onload="initTiles(<%= params[:initial_page] if params[:initial_page] %>);">
 
-  <div id="main-container" class="container">
-    <%= render :partial=>'shared/flash_msg', layout: 'shared/flash_messages' %>
-
-    <div class="row">
+  <div id="outer-wrapper" class="container-fluid p-0">
+    <div id="main-container" class="container">
+      <%= render :partial=>'shared/flash_msg', layout: 'shared/flash_messages' %>
       <%= yield %>
     </div>
   </div>

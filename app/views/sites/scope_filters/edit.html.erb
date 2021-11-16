@@ -36,6 +36,10 @@
 		</div>
 	</div>
 <%- end %></div>
+<div class="hidden tooltips">
+  <span id="tooltip-scope-filters-type" title="Type of metadata used to define inclusion in the site."></span>
+  <span id="tooltip-scope-filters-value" title="Metadata values indicating inclusion in this site."></span>
+</div>
 <div class="hidden widget-templates">
 <%- buffer = "" %>
 <%- form_for @subsite, url: form_url do |site_form| %>

@@ -1,0 +1,27 @@
+import clipboardFromElement from "../src/dcv/clipboard";
+import ColorBox from "../src/dcv/jquery.colorbox";
+import citationModal from "../src/dcv/modals/citation";
+import feedbackModal from "../src/dcv/modals/feedback";
+import modsModal from "../src/dcv/modals/mods";
+import projectModal from "../src/dcv/modals/project";
+import { zoomingImageModal, zoomingImageNewWindow } from "../src/dcv/modals/zoomingImage";
+import { initTiles } from '../src/dcv/dcv.show.zooming_viewer';
+import "jquery-ui/ui/widgets/draggable";
+import readyHandlers from '../src/dcv/dcv.general';
+window.clipboardFromElement = clipboardFromElement;
+window.initTiles = initTiles;
+window.citationModal = citationModal;
+window.feedbackModal = feedbackModal;
+window.modsModal = modsModal;
+window.projectModal = projectModal;
+window.zoomingImageModal = zoomingImageModal;
+window.zoomingImageNewWindow = zoomingImageNewWindow;
+
+readyHandlers.forEach(handler => $(document).ready(handler));
+$(document).ready(function(){
+  // make colorbox draggable
+  $("#colorbox").draggable({
+    handle: "#cboxWrapper"
+  });
+
+});

@@ -1,0 +1,79 @@
+import OpenSeadragon from 'openseadragon';
+
+OpenSeadragon.IIIFTileSource.prototype.getTileUrl = function( level, x, y ){
+
+    if(this.emulateLegacyImagePyramid) {
+        var url = null;
+        if ( this.levels.length > 0 && level >= this.minLevel && level <= this.maxLevel ) {
+            url = this.levels[ level ].url;
+        }
+        return url;
+    }
+
+    //# constants
+    var IIIF_ROTATION = '0',
+        //## get the scale (level as a decimal)
+        scale = Math.pow( 0.5, this.maxLevel - level ),
+
+        //# image dimensions at this level
+        levelWidth = Math.ceil( this.width * scale ),
+        levelHeight = Math.ceil( this.height * scale ),
+
+        //## iiif region
+        tileWidth,
+        tileHeight,
+        iiifTileSizeWidth,
+        iiifTileSizeHeight,
+        iiifRegion,
+        iiifTileX,
+        iiifTileY,
+        iiifTileW,
+        iiifTileH,
+        iiifSize,
+        iiifQuality,
+        uri;
+
+    tileWidth = this.getTileWidth(level);
+    tileHeight = this.getTileHeight(level);
+    iiifTileSizeWidth = Math.ceil( tileWidth / scale );
+    iiifTileSizeHeight = Math.ceil( tileHeight / scale );
+
+    if ( this['@context'].indexOf('/1.0/context.json') > -1 ||
+         this['@context'].indexOf('/1.1/context.json') > -1 ||
+         this['@context'].indexOf('/1/context.json') > -1 ) {
+        iiifQuality = "native.jpg";
+    } else {
+        iiifQuality = "default.jpg";
+    }
+
+    if ( levelWidth < tileWidth && levelHeight < tileHeight ){
+        iiifSize = levelWidth + ",";
+        iiifRegion = 'full';
+    } else {
+        iiifTileX = x * iiifTileSizeWidth;
+        iiifTileY = y * iiifTileSizeHeight;
+        iiifTileW = Math.min( iiifTileSizeWidth, this.width - iiifTileX );
+        iiifTileH = Math.min( iiifTileSizeHeight, this.height - iiifTileY );
+        iiifSize = Math.ceil( iiifTileW * scale ) + ",";
+        iiifRegion = [ iiifTileX, iiifTileY, iiifTileW, iiifTileH ].join( ',' );
+    }
+    
+    //uri = [ this['@id'], iiifRegion, iiifSize, IIIF_ROTATION, iiifQuality ].join( '/' );
+    
+    /** BEGIN - CUL Changed Code **/
+    var dcvCdnUrls = <%= DCV_CONFIG['cdn_urls'].inspect %>;
+    var originalIiifUrlAndResourceUrlPath = this['@id'];
+    var iiifResourceUrlPath = null;
+    dcvCdnUrls.forEach(function(url){
+        if(originalIiifUrlAndResourceUrlPath.indexOf(url) === 0) {
+            iiifResourceUrlPath = originalIiifUrlAndResourceUrlPath.replace(url, '');
+        }
+    });
+    var randomCdnUrl = dcvCdnUrls[Math.floor(Math.random()*dcvCdnUrls.length)];
+    uri = [ randomCdnUrl + iiifResourceUrlPath, iiifRegion, iiifSize, IIIF_ROTATION, iiifQuality ].join( '/' );
+    /** END - CUL Changed Code **/
+
+    return uri;
+}
+
+export default OpenSeadragon;

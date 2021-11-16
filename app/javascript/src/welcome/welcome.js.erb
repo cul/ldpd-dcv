@@ -1,0 +1,292 @@
+<% helpers = Class.new { include Rails.application.routes.url_helpers; include ActionView::Helpers::AssetUrlHelper }.new %>
+// proj is a map of title, thumb, link (search) and blurb
+function mosaicDemo(container, proj) {
+  var width = Math.max($(container).parent().width(),$(container).width());
+  //var height = Math.max($(container).parent().height(),$(container).height());
+  var winHeight = $(window).height();
+  var height = Math.floor(winHeight * .55);
+
+  var tileSide = Math.floor(Math.max(height, width)/8);
+  if (tileSide == 0) return;
+
+  var total = 24;
+  var projlink = proj.attr('data-link');
+
+  var randomItems = projlink.replace('catalog','catalog/random.json') + '&per_page=' + total;
+  var fill = "<%= helpers.image_path('dcv/columbia_crown_outline.png') %>";
+  var style = 'width:12%;height:fit-content;'
+  for (var i=0; i< total; i++) {
+    $(container).append('<div class="brick d-inline-block" style="' + style + '"> \
+  <img class="img-responsive" src="' + fill + '" />\
+</div>');
+  }
+
+  var items = [];
+  $.ajax(randomItems, {dataType: 'json'}).done(function(data) {
+
+    var items = data;
+    var imgs = $(".brick img");
+    var cix = -1;
+
+    imgs.each(
+      function(){
+        cix++;
+
+
+        if (cix < items.length) {
+          var img_name = items[cix];
+          var id_name = img_name['id'];
+          if (typeof(img_name) == 'undefined') {
+            window.console.log(ix + ': no image name: ' + items[cix] + ", length: " + items.length);
+          }
+          $(this).attr('id',img_name['id']);
+          $(this).attr('src',img_name['thumbnail_url']);
+          $(this).attr('data-default',img_name['thumbnail_url']);
+          $(this).attr('data-scaled',img_name['thumbnail_url'].replace('featured','full'));
+          $(this).on('click', window.mosaicClick);
+        }
+      }
+    );
+  });
+  $(window).on('load', function(){$(container + " .img-responsive").fadeIn();});
+}
+
+function mosaicClick() {
+  window.open('/catalog/' + $(this).attr('id'));
+}
+
+$(window).on('load', function() {
+  $('#spinner').remove();
+  $('#culnavitems').hide().prependTo($('#cul_top-right'));
+  $(window).scroll(function(){
+    if($(this).scrollTop()>=$('#home').height()/1.6){
+        $('#cul_top-right > li:not(:last-child)').show();
+        $('#menuholder li:not(:last-child)').show();
+    } else {
+        $('#cul_top-right > li:not(:last-child)').hide();
+        $('#menuholder li:not(:last-child)').show();
+    }
+  });
+  $('#topnavbar, #pane-1 .cover, .culpanel, .hide-until-load').fadeIn(900);
+
+  var wtop = $('#topnavbar').height();
+  if($(this).scrollTop()>=wtop){
+      $('#cul_top-right > li:not(:last-child)').show();
+      $('#menuholder li:not(:last-child)').show();
+  }
+
+  var bubbles = new DCV.Bubbles("div#bubbles");
+  bubbles.chart("<%= helpers.flare_data_path(format: 'json', fields: 'lib_format_sim,lib_repo_short_ssim,lib_collection_sim')%>");
+
+
+  $(window).on('resize', function() {
+    var svg = $('#bubbles').find('svg');
+    var wh = $(window).height();
+    if (svg.height() > wh) {
+      svg.height(wh-240);
+    }
+  });
+
+});
+$(document).ready(function() {
+
+  /* home bg carousel */
+  var $bgimgs = [
+    {
+      'image' : "<%= helpers.image_path('dcv/ldpd_113670.jpg')%>",
+      'title' : 'Autograph album',
+      'project' : 'Jewels in her Crown',
+      'item-link' : "<%= helpers.catalog_show_path(id: 'ldpd:113670') %>",
+      'project-link' : "<%= helpers.search_catalog_path(:'f[lib_project_short_ssim][]'=> 'Jewels in her Crown') %>"
+    },
+    {
+      'image' : "<%= helpers.image_path('dcv/ldpd_134685.jpg')%>",
+      'title' : 'Footbridge over Little White River, Rosebud Reservation, South Dakota',
+      'project' : 'G.E.E. Lindquist Native American Photographs',
+      'item-link' : "<%= helpers.catalog_show_path(id: 'ldpd:134685') %>",
+      'project-link' : "<%= helpers.search_catalog_path(:'f[lib_project_short_ssim][]'=> 'G.E.E. Lindquist Native American Photographs') %>"
+    },
+    {
+      'image' : "<%= helpers.image_path('dcv/ldpd_85504.jpg')%>",
+      'title' : 'Document, 1821 June 29',
+      'project' : 'The Papers of John Jay',
+      'item-link' : "<%= helpers.catalog_show_path(id: 'ldpd:85504') %>",
+      'project-link' : "<%= helpers.search_catalog_path(:'f[lib_project_short_ssim][]'=> 'John Jay Papers') %>"
+    },
+    {
+      'image' : "<%= helpers.image_path('dcv/ldpd_114725.jpg')%>",
+      'title' : 'Zhong Kui',
+      'project' : 'Chinese Paper Gods',
+      'item-link' : "<%= helpers.catalog_show_path(id: 'ldpd:114725') %>",
+      'project-link' : "<%= helpers.search_catalog_path(:'f[lib_project_short_ssim][]'=> 'Chinese paper gods') %>"
+    },
+    {
+      'image' : "<%= helpers.image_path('dcv/ldpd_111727.jpg')%>",
+      'title' : 'Drawing of an air battle',
+      'project' : 'Children&apos;s Drawings of the Spanish Civil War',
+      'item-link' : "<%= helpers.catalog_show_path(id: 'ldpd:111727') %>",
+      'project-link' : "<%= helpers.search_catalog_path(:'f[lib_project_short_ssim][]'=> 'Spanish Civil War') %>"
+    },
+    {
+      'image' : "<%= helpers.image_path('dcv/ldpd_113939.jpg')%>",
+      'title' : 'Coronation. Photograph, Ceremonial Departure',
+      'project' : 'Russian Imperial Corps of Pages',
+      'item-link' : "<%= helpers.catalog_show_path(id: 'ldpd:113939') %>",
+      'project-link' : "<%= helpers.search_catalog_path(:'f[lib_project_short_ssim][]'=> 'Russian Corps of Pages') %>"
+    },
+    {
+      'image' : "<%= helpers.image_path('dcv/ldpd_136160.jpg')%>",
+      'title' : 'Boys Playing in Open Fire Hydrants, Lower East Side',
+      'project' : 'Community Service Society Photographs',
+      'item-link' : "<%= helpers.catalog_show_path(id: 'ldpd:136160') %>",
+      'project-link' : "<%= helpers.search_catalog_path(:'f[lib_project_short_ssim][]'=> 'Community Service Society Photographs') %>"
+    },
+  ];
+
+  var imgs = [];
+  for(var i = 0; i < $bgimgs.length; i++) { imgs[i] = $bgimgs[i]['image']}
+
+  var homeCarousel = $("#home");
+  homeCarousel.append("<ol class='carousel-indicators hide-until-load hidden-xs'></ol>");
+  var indicators = $(".carousel-indicators");
+  var dt = '';
+  var proj = '';
+  for (var i = 0; i < $bgimgs.length; i++) {
+    indicators.append("<li data-image='"+$bgimgs[i]['image']+"' data-caturl='"+$bgimgs[i]['item-link']+"' data-titlessm='"+$bgimgs[i]['title']+"' data-projssm= '"+$bgimgs[i]['project']+"' data-target='#homeCarousel' data-slide-to='"+i+"' data-searchurl='" + $bgimgs[i]['project-link'] + "'></li> ");
+  };
+
+  $("#home .carousel-indicators li").on("click", function() {
+    $(this).parent().find('.active').removeClass('active');
+
+    var home = $('#home');
+    var imageUrl = $(this).attr('data-image');
+    home.fadeOut(500, function() {
+      home.css("background-image", "url(" + imageUrl + ")");
+      home.fadeIn(500);
+    });
+    $('#slide-title').attr('href', $(this).attr('data-caturl')).html($(this).attr('data-titlessm'));
+    $('#slide-projssm').attr('href', $(this).attr('data-searchurl')).html($(this).attr('data-projssm'));
+    $('#slidecaps').css('visibility','visible');
+    $(this).addClass('active');
+  });
+
+  $("#home .carousel-control").on("click", function() {
+    var nextprev = $(this).attr('data-slide');
+    var active = $('#home .carousel-indicators li').parent().find('.active');
+    if (nextprev == 'next') {
+      if (active.length > 0 && active.next().length > 0) {
+        active.next().trigger('click');
+      } else {
+        $('#home .carousel-indicators li').first().trigger('click');
+      }
+    } else {
+      if (active.length > 0 && active.prev().length > 0) {
+        active.prev().trigger('click');
+      } else {
+        $('#home .carousel-indicators li').last().trigger('click');
+      }
+    }
+    $('#slide-title').attr('href', $('.carousel-indicators').find('li.active').attr('data-caturl')).html($('.carousel-indicators li.active').attr('data-titlessm'));
+    $('#slide-projssm').attr('href', $('.carousel-indicators').find('li.active').attr('data-searchurl')).html($('.carousel-indicators li.active').attr('data-projssm'));
+    return false;
+  });
+
+  /* /END home bg carousel */
+
+  parallasse();
+
+  $('body').on('click', '.scrollto', function() {
+    var where = $(this).attr('href');
+    $('body,html').animate({ scrollTop: $(where).offset().top /*- $('#topnavbar').height()*/ }, 900, 'swing');
+    $('#culnavitems').removeClass('open');
+    $(this).blur();
+    return false;
+  });
+
+  $('.updown').on('click', 'a', function(e) {
+      var t = $(this).attr('id'),
+      $par = $('.section.current');
+
+    if (t === 'next' && $par.next('div.section').length > 0) {
+        var $next = $par.next('.section');
+        var top = $next.offset().top;
+
+        $('body,html').animate({
+          scrollTop: top
+        }, function () {
+        });
+    } else if (t === 'prev' && $par.prev('div.section').length > 0) {
+        var $prev = $par.prev('.section');
+        var top = $prev.offset().top;
+
+        $('body,html').animate({
+          scrollTop: top
+        }, function () {
+        });
+    }
+    return false;
+  });
+
+  $('#mosaic-project').change(function() {
+    $( "#mosaic-project option:selected" ).each(function() {
+      var $projtitle = $(this).attr('data-title');
+      var $projthumb = $(this).attr('data-thumb');
+      var $projblurb = $(this).attr('data-blurb');
+      var $projlink = $(this).attr('data-link');
+      $('#discover-content').empty();
+      $('#mosaic-project-title').html($projtitle);
+      $('#mosaic-project-blurb').html($projblurb);
+      $('#mosaic-project-link').attr('href',$projlink);
+      $('#burrito').css('background-image','url('+$projthumb+')');
+      mosaicDemo('#discover-content', $(this));
+    });
+  });
+
+  $.ajax('/sites.json', {dataType: 'json'}).done(
+    function(projects) {
+      var ix = -1;
+      $(projects).each(
+        function() {
+          if (!this['facet_value']) return;
+          var project = this;
+          $('#mosaic-project').append('<option value="' + (ix++) + '">' +  project['name'] + '</option>');
+          var opt = $('#mosaic-project > option').last();
+          opt.attr('data-title', project['name']);
+          opt.attr('data-thumb', project['image']);
+          opt.attr('data-blurb', project['description']);
+          opt.attr('data-link', '/catalog?f%5Blib_project_short_ssim%5D%5B%5D=' + encodeURIComponent(project['facet_value']));
+        }
+      );
+      var cpg = $('option[data-title="Chinese paper gods"]');
+      cpg.attr('selected', true).trigger('change');
+    }
+  );
+});
+
+$(window).scroll(function() {
+    var windowTop = Math.max($('body').scrollTop(), $('html').scrollTop());
+    $('.section').each(function (index) {
+        if (windowTop > ($(this).position().top - 100))
+        {
+            $('.section.current').removeClass('current');
+            $('.section:eq(' + index + ')').addClass('current');
+        }
+    });
+}).scroll();
+
+function parallasse() {
+		var $window = $(window);
+		$('.bgParallax').each(function() {
+			var $bgobj = $(this); // assigning the object
+			$(window).scroll(function() {
+				// Scroll the background at var speed
+				// the yPos is a negative value because we're scrolling it UP!
+				var yPos = -(($window.scrollTop() - $bgobj.offset().top) / $bgobj.data('speed'));
+				var coords = '50% ' + yPos.toFixed(0) + 'px';
+				// Move the background
+				$bgobj.css({
+					backgroundPosition: coords
+				});
+			});
+		});
+}

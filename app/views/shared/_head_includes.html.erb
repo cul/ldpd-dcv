@@ -45,14 +45,7 @@ DLC VERSION: <%= IO.read(Rails.root.to_s+'/VERSION') %> -->
 </script>
 <% end %>
 
-
-
-<% # Probbly want to move stuff below to the footer %>
-
-
-
-<%= javascript_include_tag "application" %>
-<%= javascript_include_tag "dcv" %>
+<%= javascript_pack_tag *["application", "dcv", "ableplayer"].concat(Array(subsite_layout)).uniq %>
 
 <!-- OHSynchronizer -->
 <% if params[:action] == 'synchronizer' %>

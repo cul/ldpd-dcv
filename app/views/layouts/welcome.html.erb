@@ -6,8 +6,7 @@
     <%= stylesheet_link_tag 'dcv', :media => 'all'  %>
     <%= stylesheet_link_tag 'gallery-monochromeDark', :media => 'all'  %>
     <%= stylesheet_link_tag    "welcome" %>
-    <%= javascript_include_tag "d3" %>
-    <%= javascript_include_tag "welcome" %>
+    <%= javascript_pack_tag "d3", "welcome" %>
 
   </head>
   <body class="<%= render_body_class %> dcv <%= params[:action] %>" data-no-turbolink>
@@ -96,7 +95,7 @@
       <p class="alignleft small">535 West 114th St. New York, NY 10027 Telephone (212) 854-7309</p>
       </div>
       <div class="col-sm-6 text-right">
-      <p class="alignright small"><%= link_to 'Terms of Use', terms_of_use_url %> | <a href="#" onclick="return DCV.FeedbackModal.show();">Suggestions &amp; Feedback</a></p>
+      <p class="alignright small"><%= link_to 'Terms of Use', terms_of_use_url %> | <a href="#" onclick="return feedbackModal();">Suggestions &amp; Feedback</a></p>
       </div>
       </div>
     </div>

@@ -10,7 +10,7 @@
 			<ul class="dropdown-menu">
 				<li><a href="<%= durst_help_path %>" class="dropdown-item">Search Tips</a></li>
 				<li><a href="<%= durst_help_path %>#glossary" class="dropdown-item">Glossary</a></li>
-				<li><a href="#" onclick="return DCV.FeedbackModal.show();" class="dropdown-item">Suggestions and Feedback</a></li>
+				<li><a href="#" onclick="return feedbackModal();" class="dropdown-item">Suggestions and Feedback</a></li>
 			</ul>
 		</li>
 		<li class="dropdown">
@@ -33,9 +33,9 @@
 			<a href="<%= local_facet_search_url('lib_format_sim', 'books') %>" id="durst-book-search" title="Perform a Book Search" class="nav-link"><span class="fa fa-book"></span></a>
 		</li>
 	<%- if params[:action] == 'home' && @subsite.persistent_url -%>
-			<li class="nav-item"><button data-copy="<%= @subsite.persistent_url %>" title="Click to copy to clipboard" class="btn-secondary nav-link mx-auto" onclick="DCV.Clipboard.copyFromElement(this);"><span class="fa fa-copy"></span> Permanent URL</button></li>
+			<li class="nav-item"><button data-copy="<%= @subsite.persistent_url %>" title="Click to copy to clipboard" class="btn-secondary nav-link mx-auto" onclick="clipboardFromElement(this);"><span class="fa fa-copy"></span> Permanent URL</button></li>
 		<%- elsif @document&.has_persistent_url? -%>
-			<li class="nav-item"><button data-copy="<%= @document.persistent_url %>" title="Click to copy to clipboard" class="btn-secondary nav-link mx-auto" onclick="DCV.Clipboard.copyFromElement(this);"><span class="fa fa-copy"></span> Permanent URL</button></li>
+			<li class="nav-item"><button data-copy="<%= @document.persistent_url %>" title="Click to copy to clipboard" class="btn-secondary nav-link mx-auto" onclick="clipboardFromElement(this);"><span class="fa fa-copy"></span> Permanent URL</button></li>
 		<%- end -%>
 	</ul>
 </nav>

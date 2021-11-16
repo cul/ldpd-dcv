@@ -23,7 +23,7 @@
 			{
 				:'data-display-url' => item_mods_path(:pid => document.id, :type => 'formatted_text'),
 				:'data-download-url' => item_mods_path(:pid => document.id, :type => 'download'),
-				:onclick => 'return DCV.ModsDownloadModal.show($(this).attr("data-display-url"), $(this).attr("data-download-url"));'
+				:onclick => 'return modsModal(this);'
 			}
 			%></li>
 		<% end %>

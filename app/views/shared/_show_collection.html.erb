@@ -19,9 +19,8 @@
      <div class="inner">
         <ul class="list-unstyled">
           <li><a href="http://library.columbia.edu/services/preservation/publications_policy.html"><span class="fa fa-tag"></span> Order a Reproduction</a></li>
-          <li><%= link_to '<span class="fa fa-file"></span> Display XML Metadata'.html_safe, item_mods_path(:pid => @document.id), :'data-no-turbolink' => true, :'data-display-url' => item_mods_path(:pid => @document.id, :type => 'formatted_text'), :'data-download-url' => item_mods_path(:pid => @document.id, :type => 'download'), :onclick => 'return DCV.ModsDownloadModal.show($(this).attr("data-display-url"), $(this).attr("data-download-url"));' %></li>
+          <li><%= link_to '<span class="fa fa-file"></span> Display XML Metadata'.html_safe, item_mods_path(:pid => @document.id), :'data-no-turbolink' => true, :'data-display-url' => item_mods_path(:pid => @document.id, :type => 'formatted_text'), :'data-download-url' => item_mods_path(:pid => @document.id, :type => 'download'), :onclick => 'return modsModal(this);' %></li>
         </ul>
-        <%#= link_to '<span class="fa fa-file"></span> Display XML Metadata'.html_safe, item_mods_path(:pid => @document.id), :'data-no-turbolink' => true, :'data-display-url' => item_mods_path(:pid => @document.id, :type => 'formatted_text'), :'data-download-url' => item_mods_path(:pid => @document.id, :type => 'download'), :onclick => 'return DCV.ModsDownloadModal.show($(this).attr("data-display-url"), $(this).attr("data-download-url"));' %>
       </div>
     </div>
   <% end %>

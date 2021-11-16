@@ -28,7 +28,7 @@
 	<%- end -%>
 	<%- if params[:action] == 'index' && @subsite.persistent_url && !has_search_parameters? -%>
 		<ul class="nav nav-pills">
-			<li class="nav-item"><button data-copy="<%= @subsite.persistent_url %>" title="Click to copy to clipboard" class="btn-secondary nav-link mx-auto" onclick="DCV.Clipboard.copyFromElement(this);"><span class="fa fa-copy"></span> Permanent URL</button></li>
+			<li class="nav-item"><button data-copy="<%= @subsite.persistent_url %>" title="Click to copy to clipboard" class="btn-secondary nav-link mx-auto" onclick="clipboardFromElement(this);"><span class="fa fa-copy"></span> Permanent URL</button></li>
 		</ul>
 	<%- end -%>
 </nav>
