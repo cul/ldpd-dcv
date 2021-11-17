@@ -57,4 +57,37 @@ module Dcv::BlacklightHelperBehavior
     # "track_#{controller_name}_path"
     controller.tracking_method
   end
+
+  # Override to use a disabled link when no doc
+  # Link to the previous document in the current search context
+  def link_to_previous_document(link_document)
+    if link_document
+      super
+    else
+      link_opts = { class: ["previous", "disabled"], rel: 'prev', disabled: true }
+      link_opts[:disabled] = true
+      link_opts[:class] << 'disabled'
+      doc_url = '#'
+      link_to doc_url, link_opts do
+        content_tag :span, raw(t('views.pagination.previous')), class: 'previous'
+      end
+    end
+  end
+
+  # Override to use a disabled link when no doc
+  # Link to the next document in the current search context
+  def link_to_next_document(link_document)
+    if link_document
+      super
+    else
+      link_opts = { class: ["next", "disabled"], rel: 'next', disabled: true }
+      link_opts[:disabled] = true
+      link_opts[:class] << 'disabled'
+      doc_url = '#'
+      link_to doc_url, link_opts do
+        content_tag :span, raw(t('views.pagination.next')), class: 'next'
+      end
+    end
+  end
+
 end
