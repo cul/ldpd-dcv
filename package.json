@@ -8,6 +8,7 @@
     "bootstrap": "4.6.0",
     "d3": "3.5.12",
     "easymde": "2.13.0",
+    "font-awesome": "4.7.0",
     "hls.js": "^1.1.1",
     "jquery": "3.5.1",
     "jquery-colorbox": "^1.6.4",
@@ -22,6 +23,7 @@
     "webpack-cli": "^3.3.12"
   },
   "devDependencies": {
+    "resolve-url-loader": "^4.0.0",
     "webpack-dev-server": "^3"
   }
 }

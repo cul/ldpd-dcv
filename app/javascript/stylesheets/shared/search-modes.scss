@@ -1,0 +1,55 @@
+// import the bootstrap grid mixins, but not the core styles
+
+$enable-flex:               true;
+$enable-grid-classes:       true;
+
+@import 'bootstrap/scss/functions';
+@import 'bootstrap/scss/variables';
+@import 'bootstrap/scss/mixins';
+@import 'bootstrap/scss/grid';
+
+@mixin	searchModes($gridDocCols: 3, $listThumbCols: 2) {
+	#content {
+		@include make-col-ready();
+		.document {
+			&.list-view {
+				@include media-breakpoint-up(sm) {
+					@include make-col(12);
+				}
+				@extend .no-gutters;
+				.index-show-grid-fields {
+					display: none !important;
+				}
+				.thumbnail {
+					@include media-breakpoint-up(sm) {
+						@include make-col($listThumbCols); // ifp is 1
+					}
+				}
+				.card {
+					flex-direction: row;
+				}
+				.card-body {
+					@include media-breakpoint-up(sm) {
+						@include make-col((12 - $listThumbCols));
+					}
+				}
+			}
+			&.grid-view {
+				@include media-breakpoint-up(sm) {
+					@include make-col($gridDocCols); // durst is 2
+				}
+				.index_title {
+					display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+				}
+				.index-show-list-fields {
+					display: none !important;
+				}
+				.card-body {
+					@include media-breakpoint-up(sm) {
+						@include make-col(12);
+					}
+				}
+			}
+		}
+	}
+}

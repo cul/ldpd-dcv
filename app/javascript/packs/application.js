@@ -14,7 +14,10 @@
 //
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
-
+require.context('../assets', true)
+require.context('../images', true)
+import "./application.scss"; // prompts webpack to include css packs
+import 'font-awesome/css/font-awesome.css';
 import 'bootstrap/dist/js/bootstrap.js';
 import 'blacklight-frontend/app/assets/javascripts/blacklight/blacklight';
 

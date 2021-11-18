@@ -2,9 +2,7 @@
 <html lang="en" class="no-js">
 	<head>
 		<%= render partial: 'shared/head_includes' %>
-		<%- Array(subsite_styles).each do |subsite_style| -%>
-			<%= stylesheet_link_tag subsite_style %>
-		<%- end -%>
+		<%= stylesheet_pack_tag *Array(subsite_styles) %>
 		<script>
 			window.CULh_feedback_url = '<%= t("feedback.#{@subsite&.slug}", default: t('feedback.default'))%>';
 		</script>

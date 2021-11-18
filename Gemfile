@@ -8,7 +8,6 @@ gem 'actionpack-action_caching'
 # Hydra stack
 gem 'nokogiri', '~> 1.8.2'
 gem 'blacklight', '~> 7.6.0'
-gem 'font-awesome-rails'
 gem 'active-fedora', '>= 7.3.1'
 # carrierwave for file uploads
 gem 'carrierwave', '~> 1.3'
@@ -16,7 +15,7 @@ gem 'carrierwave', '~> 1.3'
 gem 'rubydora'
 
 # Columbia Hydra models
-gem 'cul_hydra', '~> 1.11.1'
+gem 'cul_hydra', '~> 1.11.2'
 #gem 'cul_hydra', git: 'https://github.com/cul/cul_hydra', branch: 'master'
 gem 'cancancan', '~>2.0'
 gem 'cul_omniauth', '~> 0.6.1'
@@ -32,13 +31,6 @@ gem "sqlite3", "~> 1.3.6"
 # Use mysql2 gem for mysql connections
 gem 'mysql2', '0.5.2'
 
-# Use SCSS for stylesheets
-gem 'sass-rails', '~> 5.0.0'
-gem 'sass', '>= 3.5.3'
-
-# Use colorbox-rails gem for dialogs
-gem 'colorbox-rails'
-
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 
@@ -47,10 +39,6 @@ gem 'coffee-rails'
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 gem 'libv8', '>= 8.4.255.0' # Min version for Mac OS 10.15
-
-# Use jquery as the JavaScript library
-gem 'jquery-rails', '~> 4.4.0'
-gem 'jquery-ui-rails', '~>6.0'
 
 # Pretty printing
 gem 'coderay'
@@ -69,12 +57,6 @@ gem 'redis', '< 4' # Need to lock to earlier version of redis gem because resque
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder'
-
-# popper is required for bootstrap tooltips
-gem 'popper_js'
-gem 'bootstrap', '~> 4.0'
-
-gem 'leaflet-rails', '~> 1.2.0'
 
 gem 'redcarpet'
 

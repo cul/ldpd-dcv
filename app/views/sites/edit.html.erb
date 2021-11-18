@@ -66,10 +66,10 @@
         <div class="card-header form-inline">
           <div class="form-group">
             <label for="site_image_uris">Portrait Layout Images <span class="fa fa-question-circle" data-tooltip="tooltip-images-portrait"></span></label>
-            <button type="button" class="btn btn-primary collapse-toggle<%= ' show' if @subsite.layout == Site::LAYOUT_PORTRAIT %>" data-toggle="collapse" data-target="#portrait_image_pids" aria-expanded="false" aria-controls="portrait_image_pids" data-parent=".site_homepage_images"><%= collapse_labels("Image PIDs") %></button>
+            <button type="button" class="btn btn-primary collapse-toggle <%= @subsite.layout == Site::LAYOUT_PORTRAIT ? 'show' : 'collapsed' %>" data-toggle="collapse" data-target="#portrait_image_pids" aria-expanded="false" aria-controls="portrait_image_pids" data-parent=".site_homepage_images"><%= collapse_labels("Image PIDs") %></button>
           </div>
         </div>
-        <div class="card-body collapse<%= ' show' if @subsite.layout == Site::LAYOUT_PORTRAIT %>" id="portrait_image_pids">
+        <div class="card-body collapse <%= @subsite.layout == Site::LAYOUT_PORTRAIT ? 'show' : 'collapsed' %>" id="portrait_image_pids">
           <%- site_form.object.image_uris.each_with_index do |image_uri, ix| %>
             <%= render partial: "sites/edit/text_list_value", locals: { list_name: [:image_uris], value: image_uri, index: ix, removable: (ix > 0) } %>
           <%- end %>
@@ -84,10 +84,10 @@
         <div class="card-header form-inline">
           <div class="form-group">
             <label for="site_signature_images">Signature Layout Images <span class="fa fa-question-circle" data-tooltip="tooltip-images-signature"></span></label>
-            <button type="button" class="btn btn-primary collapse-toggle<%= ' show' if @subsite.layout == Site::LAYOUT_SIGNATURE %>" data-toggle="collapse" data-target="#signature_image_assets" aria-expanded="false" aria-controls="signature_image_assets" data-parent=".site_homepage_images"><%= collapse_labels("Image Information") %></button>
+            <button type="button" class="btn btn-primary collapse-toggle <%= @subsite.layout == Site::LAYOUT_SIGNATURE ? 'show' : 'collapsed' %>" data-toggle="collapse" data-target="#signature_image_assets" aria-expanded="false" aria-controls="signature_image_assets" data-parent=".site_homepage_images"><%= collapse_labels("Image Information") %></button>
           </div>
         </div>
-        <div class="card-body collapse<%= ' show' if @subsite.layout == Site::LAYOUT_SIGNATURE %>" id="signature_image_assets">
+        <div class="card-body collapse <%= @subsite.layout == Site::LAYOUT_SIGNATURE ? 'show' : 'collapsed' %>" id="signature_image_assets">
           <fieldset class="paneled">
             <div class="col-md-6">
               <label for="site_banner">Signature Banner Image&nbsp;</label><span class="fa fa-question-circle" data-tooltip="tooltip-images-signature-banner"></span>

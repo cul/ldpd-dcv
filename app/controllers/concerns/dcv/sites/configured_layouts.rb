@@ -22,12 +22,12 @@ module Dcv::Sites::ConfiguredLayouts
 
   def signature_image_path
     path = File.join("", "images", "sites", load_subsite&.slug, "signature.svg")
-    File.exists?(File.join(Rails.root, "public", path)) ? path : view_context.asset_path("signature/signature.svg")
+    File.exists?(File.join(Rails.root, "public", path)) ? path : view_context.asset_pack_path("media/assets/signature/images/signature.svg")
   end
 
   def signature_banner_image_path
     path = File.join("", "images", "sites", load_subsite&.slug, "signature-banner.png")
-    File.exists?(File.join(Rails.root, "public", path)) ? path : view_context.asset_path("signature/signature-banner.png")
+    File.exists?(File.join(Rails.root, "public", path)) ? path : view_context.asset_pack_path("media/assets/signature/images/signature-banner.png")
   end
 
   # this method is stubbed here for configured sites and overridden in custom sites

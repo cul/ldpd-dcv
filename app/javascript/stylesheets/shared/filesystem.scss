@@ -1,0 +1,89 @@
+/* Core Styles */
+
+
+.file-system, .fs-crumbs {
+	.fs-directory, .fs-file {
+	  padding-left:20px;
+	}
+    th[data-sort]{
+      cursor:pointer;
+    }
+}
+$fsApplicationImg: url('/images/cul_hydra/filesystem/application.png') !default;
+$fsCodeImg: url('/images/cul_hydra/filesystem/code.png') !default;
+$fsCssImg: url('/images/cul_hydra/filesystem/css.png') !default;
+$fsDirectoryImg: url('/images/cul_hydra/filesystem/directory.png') !default;
+$fsFileImg: url('/images/cul_hydra/filesystem/file.png') !default;
+$fsFolderImg: url('/images/cul_hydra/filesystem/folder.png') !default;
+$fsFolderOpenImg: url('/images/cul_hydra/filesystem/folder_open.png') !default;
+$fsHtmlImg: url('/images/cul_hydra/filesystem/html.png') !default;
+$fsPictureImg: url('/images/cul_hydra/filesystem/picture.png') !default;
+$fsPdfImg: url('/images/cul_hydra/filesystem/pdf.png') !default;
+$fsScriptImg: url('/images/cul_hydra/filesystem/script.png') !default;
+$fsSpinnerImg: url('/images/cul_hydra/filesystem/spinner.gif') !default;
+$fsZipImg: url('/images/cul_hydra/filesystem/zip.png') !default;
+
+.fs-children { display: none;}
+.fs-directory { background: $fsDirectoryImg left top no-repeat; }
+.fs-expanded { background: $fsFolderOpenImg left top no-repeat; }
+.fs-file { background: $fsFileImg left top no-repeat; }
+.fs-wait { background: $fsSpinnerImg left top no-repeat; }
+/* MIME Types */
+.text_css { background: $fsCssImg left top no-repeat; }
+.application_octet-stream { background: $fsApplicationImg left top no-repeat; }
+.text_html { background: $fsHtmlImg left top no-repeat; }
+.text_javascript { background: $fsScriptImg left top no-repeat; }
+.application_json { background: $fsScriptImg left top no-repeat; }
+.image_jpeg { background: $fsPictureImg left top no-repeat; }
+.image_gif { background: $fsPictureImg left top no-repeat; }
+.image_png { background: $fsPictureImg left top no-repeat; }
+.image_png { background: $fsPictureImg left top no-repeat; }
+.image_tiff { background: $fsPictureImg left top no-repeat; }
+.text_xml { background: $fsCodeImg left top no-repeat; }
+.application_pdf { background: $fsPdfImg left top no-repeat; }
+.application_zip { background: $fsZipImg left top no-repeat; }
+
+@media
+only screen and (max-width: 760px),
+(min-device-width: 768px) and (max-device-width: 1024px)  {
+
+  table.file-system {
+        display: block;
+    /* Force table to not be like tables anymore */
+    table, thead, tbody, th, td, tr {
+        display: block;
+    }
+
+    /* Hide table headers (but not display: none;, for accessibility) */
+    thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    tr { border: 1px solid #ccc; }
+
+    td {
+        /* Behave  like a "row" */
+        border: none;
+        border-bottom: 1px solid #eee;
+        position: relative;
+        padding-left: 33%!important;
+        word-break: break-word;
+    }
+
+    td:before {
+        /* Now like a table header */
+        position: absolute;
+        /* Top/left values mimic padding */
+        top: 6px;
+        left: 6px;
+        width: 28%;
+        padding-right: 10px;
+        white-space: nowrap;
+    }
+
+    /* Label the data */
+      td:before { content: attr(data-title); }
+  }
+}
