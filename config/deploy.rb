@@ -29,12 +29,15 @@ set :deploy_to,   "/opt/passenger/#{fetch(:instance)}/#{fetch(:deploy_name)}"
 set :log_level, :info
 
 # Default value for linked_dirs is []
-set :linked_dirs, fetch(:linked_dirs, []).push('log','tmp/pids', 'public/images/sites')
+set :linked_dirs, fetch(:linked_dirs, []).push('log','tmp/pids', 'public/images/sites', 'node_modules', 'public/packs')
 
 # Default value for keep_releases is 5
 set :keep_releases, 3
 
 set :passenger_restart_with_touch, true
+
+# Default value for default_env is {}
+set :default_env, { NODE_ENV: 'production' }
 
 set :linked_files, fetch(:linked_files, []).push(
   "config/cas.yml",
