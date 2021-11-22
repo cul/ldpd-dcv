@@ -282,11 +282,11 @@ const setSearchDateGraphVisibility = function(makeVisible) {
   if (makeVisible) {
     $('#search-results-date-graph').removeClass('hidden');
     resizeDateRangeCanvas();
-    $('#date-graph-toggle').addClass('success').removeClass('btn-outline-secondary');
+    $('#date-graph-toggle').removeClass('btn-outline-secondary').addClass('success');
     createCookie(DCV.subsite_key + '_' + DateGraphVisiblityState.COOKIE, DateGraphVisiblityState.SHOW);
   } else {
     $('#search-results-date-graph').addClass('hidden');
-    $('#date-graph-toggle').addClass('btn-outline-secondary').removeClass('success');
+    $('#date-graph-toggle').removeClass('success').addClass('btn-outline-secondary');
     createCookie(DCV.subsite_key + '_' + DateGraphVisiblityState.COOKIE, DateGraphVisiblityState.HIDE);
   }
 }
@@ -300,7 +300,7 @@ export const toggleSearchDateGraphVisibility = function(toggleTo) {
 }
 
 export const storedDateRangeVisibleValue = function() {
-  readCookie(DCV.subsite_key + '_' + DateGraphVisiblityState.COOKIE) === DateGraphVisiblityState.SHOW;  
+  return readCookie(DCV.subsite_key + '_' + DateGraphVisiblityState.COOKIE) === DateGraphVisiblityState.SHOW;
 }
 
 export const dateWidgetReady = function() {
