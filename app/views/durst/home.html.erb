@@ -35,7 +35,7 @@
             <div class="carousel-item active"><img class="img-fluid" src="<%= get_asset_url({id: random_selection_of_asset_pids.first, type: 'full', size: 768, format: 'jpg'}) %>"></div>
 
 						<% random_selection_of_asset_pids[1..-1].each do |pid| %>
-              <div class="carousel-item"><img class="img-fluid" data-src="<%= get_asset_url({id: pid, type: 'full', size: 768, format: 'jpg'}) %>"></div>
+              <div class="carousel-item"><img class="img-fluid" src="<%= get_asset_url({id: pid, type: 'full', size: 768, format: 'jpg'}) %>"></div>
 						<% end %>
 				  </div>
           <button class="carousel-control-prev icon-only" type="button" data-target="#portrait-carousel" data-slide="prev">

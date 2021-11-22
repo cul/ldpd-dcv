@@ -8,8 +8,7 @@ export default function lazyCarousel(elementId) {
     if (img && !img.getAttribute('src')) {
       img.setAttribute('src', img.getAttribute('data-src'));
     }
-    console.log("carousel sliding");
   };
   const slidHandler = function (ev) { console.log("slid"); };
-  $(elementId).carousel({ interval: false }).on('slide.bs.carousel', changeHandler).on('cycle', slidHandler);
+  $(elementId).carousel({ interval: false }).on('slide.bs.carousel', changeHandler).on('cycle.bs.carousel', slidHandler);
 }
