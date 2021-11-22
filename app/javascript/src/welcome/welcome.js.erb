@@ -13,7 +13,7 @@ function mosaicDemo(container, proj) {
   var projlink = proj.attr('data-link');
 
   var randomItems = projlink.replace('catalog','catalog/random.json') + '&per_page=' + total;
-  var fill = "<%= helpers.image_path('dcv/columbia_crown_outline.png') %>";
+  var fill = "<%= helpers.image_path('media/images/dcv/columbia_crown_outline.png') %>";
   var style = 'width:12%;height:fit-content;'
   for (var i=0; i< total; i++) {
     $(container).append('<div class="brick d-inline-block" style="' + style + '"> \

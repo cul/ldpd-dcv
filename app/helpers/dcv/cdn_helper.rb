@@ -127,7 +127,7 @@ module Dcv::CdnHelper
     if id
       get_asset_url(id: id, size: 256, type: 'featured', format: 'jpg')
     else
-      image_url('dcv/columbia_crown_outline.png')
+      asset_pack_path('media/images/dcv/columbia_crown_outline.png')
     end
   end
 
