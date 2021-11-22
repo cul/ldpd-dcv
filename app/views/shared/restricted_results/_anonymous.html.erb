@@ -1,0 +1,14 @@
+<div class="alert alert-warning fade show" role="alert">
+	<div class="w-100">
+		<div class="d-flex" id="restrictedContentHeader">
+			<h3 class="h6 mr-auto my-auto">
+				<span class="align-middle">
+					Notice: Access to some items may be restricted because of copyright. Members of the Columbia Community can <%= link_to 'log in', send(:"user_#{controller.omniauth_provider_key}_omniauth_authorize_url", return_to: request.original_url) %> to view the Terms of Use.
+				</span>
+			</h3>
+			<button class="btn btn-sm btn-warning ml-1" type="button" data-dismiss="alert" title="Close" aria-label="Close">
+				<i class="fa fa-times"><span class="hidden" aria-hidden="true">Close</span></i>
+			</button>
+		</div>
+	</div>
+</div>

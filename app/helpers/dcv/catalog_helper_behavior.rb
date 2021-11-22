@@ -121,4 +121,14 @@ module Dcv::CatalogHelperBehavior
       'Identifier' => published['ezid_doi_ssim'].first
     }.compact
   end
+
+  def results_include_restricted_material?
+    return false unless blacklight_config.facet_fields['content_availability']
+    facet_query = blacklight_config.facet_fields['content_availability'].query&.with_indifferent_access.dig('onsite', 'fq')
+    return @response.dig('facet_counts', 'facet_queries', facet_query).to_i > 0
+  end
+
+  def reading_room_client?
+    controller.reading_room_client?
+  end
 end

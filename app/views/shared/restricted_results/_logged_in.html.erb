@@ -1,0 +1,22 @@
+<div class="alert alert-warning fade show" role="alert">
+	<div class="w-100">
+		<div class="d-flex" id="restrictedContentHeader">
+			<h3 class="h6 mr-auto my-auto">
+				<span class="align-middle">
+					Notice: Access to some items may be restricted because of copyright, but accessible by Members of the Columbia Community.
+				</span>
+			</h3>
+			<button class="btn btn-sm btn-warning mx-1" type="button" data-toggle="collapse" data-target="#restrictedContentDetails" aria-expanded="false" aria-controls="restrictedContentDetails" title="Show More" aria-label="Show More">
+				<i class="fa fa-bars"><span class="hidden" aria-hidden="true">Show More</span></i>
+			</button>
+			<button class="btn btn-sm btn-warning" type="button" data-dismiss="alert" title="Close" aria-label="Close">
+				<i class="fa fa-times"><span class="hidden" aria-hidden="true">Close</span></i>
+			</button>
+		</div>
+		<div class="collapse collapsed" id="restrictedContentDetails"  aria-expanded="false">
+			<hr>
+			<p>Lorem ipsum dolar sit amet.</p>
+			<p>For further information, please see the <%= link_to 'Terms of Use', terms_of_use_url %>.</p>
+		</div>
+	</div>
+</div>

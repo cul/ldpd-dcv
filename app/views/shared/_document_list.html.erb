@@ -7,6 +7,9 @@
 <% end %>
 
 <div id="search-results">
+  <%- if results_include_restricted_material? && !reading_room_client? %>
+    <%= render partial: current_user ? "restricted_results/logged_in" : "restricted_results/anonymous" %>
+  <% end %>
   <div class="row">
     <% @items_per_row_counter = 1 %>
     <% search_view = (subsite_search_mode == :list) ? 'list-view' : 'grid-view' %>

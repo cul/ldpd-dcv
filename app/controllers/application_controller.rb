@@ -57,4 +57,9 @@ class ApplicationController < ActionController::Base
   def store_unless_user
     store_location unless current_user
   end
+
+  # Overridden in relevant subclasses
+  def reading_room_client?
+    false
+  end
 end
