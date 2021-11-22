@@ -8,6 +8,7 @@
   <% end %>
   <div class="facets-collapse">
     <%= render_facet_partials(facet_field_names, response: @response) %>
+    <%= render :partial => 'sidebar_date_selector' %>
   </div>
 </div>
 <% end %>

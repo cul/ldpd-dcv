@@ -3,12 +3,12 @@
   <% date_filter_is_active = 'facet_limit-active' if params[:start_year].present? || params[:end_year].present? %>
 
   <div class="card card facet_limit date-range <%= 'facet_limit-active' if date_filter_is_active %>">
-    <div class="collapsed collapse-toggle card-header" data-toggle="collapse" data-target="#date-range-filter">
-      <h5 class="card-title">
-        <a data-no-turbolink="true" href="#"><%= controller.subsite_config.dig('date_search_configuration', 'sidebar_label') || "Date Range" %></a>
-      </h5>
-    </div>
-    <div id="date-range-filter" class="panel-collapse facet-content <%= date_filter_is_active ? 'show' : 'collapse' %>">
+    <h3 class="card-header p-0 facet-field-heading" id="facet-date-range-filter-header">
+      <button class="btn btn-block p-2 text-left collapse-toggle collapsed" data-toggle="collapse" data-target="#date-range-filter" aria-expanded="false">
+        <%= controller.subsite_config.dig('date_search_configuration', 'sidebar_label') || "Date Range" %>
+      </button>
+    </h3>
+    <div id="date-range-filter" class="panel-collapse facet-content <%= date_filter_is_active ? 'show' : 'collapse' %>" aria-labelledby="facet-date-range-filter-header">
       <div class="card-body">
         <form id="sidebar-date-range-selector" action="#">
 
