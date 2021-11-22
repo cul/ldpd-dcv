@@ -3,8 +3,8 @@
   <head>
 
     <%= render partial: 'shared/head_includes' %>
-    <%= stylesheet_pack_tag 'dcv', 'gallery-monochromeDark', 'welcome' :media => 'all'  %>
-    <%= javascript_pack_tag "d3", "welcome" %>
+    <%= stylesheet_pack_tag 'dcv', 'gallery-monochromeDark', 'welcome', :media => 'all'  %>
+    <%= javascript_pack_tag "welcome" %>
 
   </head>
   <body class="<%= render_body_class %> dcv <%= params[:action] %>" data-no-turbolink>
@@ -70,7 +70,7 @@
 <div id="visualize" class="section bgParallax" data-speed="6">
   <div class="culinner container">
     <div class="culpanel row">
-        <h4 class="lead alignleft">VISUALIZE FORMATS        <%= link_to 'Browse formats &raquo;'.html_safe, browse_url(action:'formats'), class: 'browse-link float-right' %>
+        <h4 class="lead alignleft">VISUALIZE FORMATS        <%= link_to 'Browse formats &raquo;'.html_safe, browse_url(list_id:'formats'), class: 'browse-link float-right' %>
 </h4>
         <div class="alignjustify" id="bubbles" style="width:100%;">
 <h5 class="zoom-label">Flare code size circle packing</h5>
