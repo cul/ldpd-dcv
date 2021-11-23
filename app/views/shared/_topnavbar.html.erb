@@ -1,8 +1,8 @@
-<nav id="topnavbar" class="navbar fixed-top d-flex flex-sm-row py-0" role="navigation">
+<nav id="topnavbar" class="navbar fixed-top d-flex flex-sm-row py-0 px-0 px-lg-3" role="navigation">
 	<div id="navbar-container" class="container-fluid navbar-primary">
 		<ul class="nav" id="crowndown-nosearch">
 			<li class="dropdown menu nav-item">
-				<a href="#" class="dropdown-toggle menu nav-link" data-toggle="dropdown" title="Links @ Columbia"><span class="fa icon-columbia-crown"></span><span class="d-sm-none d-md-inline">Columbia University Libraries</span> <b class="caret"></b></a>
+				<a href="#" class="dropdown-toggle menu nav-link" data-toggle="dropdown" title="Links @ Columbia"><span class="fa icon-columbia-crown"></span><span class="d-none d-sm-inline">Columbia University Libraries</span> <b class="caret"></b></a>
 				<ul class="dropdown-menu  nav-item">
 					<li><a href="http://columbia.edu"><i class="fa icon-columbia-crown"></i> Columbia University » Home</a></li>
 					<li><a href="https://library.columbia.edu"><i class="fa fa-home"></i>  Libraries » Home</a></li>
@@ -18,15 +18,15 @@
 			<div class="nav-item">
 				<% if current_user %>
 					<span class="nav-link">
-						<%= current_user.uid %>
-						<%= link_to '(Log Out)', destroy_user_session_url(provider: current_user.provider, restricted: restricted?) %>
+						<span class="fa fa-user d-sm-none"></span><span class="d-none d-sm-inline-block"><%= current_user.uid %></span>
+						<%= link_to '<span class="fa fa-sign-out d-sm-none"></span><span class="d-none d-sm-inline-block">(Log Out)</span>'.html_safe, destroy_user_session_url(provider: current_user.provider, restricted: restricted?) %>
 					</span>
 				<% else %>
 						<%= link_to 'Log In', send(:"user_#{controller.omniauth_provider_key}_omniauth_authorize_url", return_to: request.original_url), {class: "nav-link"} %>
 				<% end %>
 			</div>
 			<div class="dropdown menu nav-item">
-				<a class="dropdown-toggle menu nav-link" data-toggle="dropdown" href="#">Help <b class="caret"></b></a>
+				<a class="dropdown-toggle menu nav-link" data-toggle="dropdown" href="#"><span class="fa fa-question-circle d-sm-none"></span><span class="d-none d-sm-inline">Help <b class="caret"></b></span></a>
 				<ul class="dropdown-menu nav-item">
 					<li><%= link_to 'About', about_path %></li>
 					<li><a href="https://library.columbia.edu/services/askalibrarian.html">Ask a Librarian</a></li>
@@ -36,6 +36,5 @@
 					<li><%= link_to 'Terms of Use', terms_of_use_url %></li>
 				</ul>
 			</div>
-		</ul>
 	</div>
 </nav>
