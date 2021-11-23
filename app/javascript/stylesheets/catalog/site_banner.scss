@@ -34,6 +34,12 @@ $url_dcv_small: image-url('/images/dcv/1836760843_267e9c947f_o-sm-b.jpg');
 	}
 }
 
+#search-navbar {
+	input.search_q {
+		background-color: $body-bg;
+	}
+}
+
 @media(min-width: 768px) {
 	#site-banner {
 		#site-banner-inner {

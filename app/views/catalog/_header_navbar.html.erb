@@ -1,10 +1,10 @@
 <% if current_page?(root_url) %>
-	<nav class="navbar navbar-expand d-flex flex-column" id="site-banner">
-		<div id="site-banner-inner" class="d-flex flex-row my-1">
+	<nav class="navbar navbar-expand d-flex flex-column p-0 mb-0" id="site-banner">
+		<div id="site-banner-inner" class="d-flex flex-row mt-1 mb-0">
 			<div class="flex-fill px-2"><h1><%= link_to image_tag('dcv/dcv-banner-sm-c.png', :alt => 'Digital Library Collections'), root_path %></h1></div>
 		</div><!--/row-->
 
-		<div id="search-navbar" class="w-100 my-1" role="navigation">
+		<div id="search-navbar" class="w-100 mb-0 p-3 bg-body" role="navigation">
 			<%= render_search_bar  %>
 		</div>
 	</nav>
