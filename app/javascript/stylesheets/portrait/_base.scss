@@ -18,7 +18,7 @@
 		text-decoration:none;
 		text-transform: uppercase;
 		font-family: $font_b;
-		font-weight: 250;
+		font-weight: 300;
 		color: map-get($theme-text-colors, 'brand');
 	}
 	#site-banner-subtitle {
@@ -29,7 +29,7 @@
 		//@extend %extend_brand_font;
 		color: color-shade(map-get($theme-text-colors, 'brand'));
 		font-size: 90%;
-		font-weight: 150;
+		font-weight: 200;
 		text-align: center;
 		text-transform: none;
 		@media(min-width: 768px) {
