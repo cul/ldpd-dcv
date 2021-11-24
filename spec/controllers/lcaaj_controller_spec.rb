@@ -11,7 +11,7 @@ describe LcaajController, :type => :controller do
     end
     it "returns only custom styles" do
       expect(controller.load_subsite.layout).to eql('custom')
-      expect(controller.subsite_styles).to eql(['signature-steel', 'lcaaj'])
+      expect(controller.subsite_styles).to eql(['signature-blue', 'lcaaj'])
     end
   end
   describe '#index' do
