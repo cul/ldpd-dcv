@@ -9,19 +9,19 @@
       cursor:pointer;
     }
 }
-$fsApplicationImg: url('/images/cul_hydra/filesystem/application.png') !default;
-$fsCodeImg: url('/images/cul_hydra/filesystem/code.png') !default;
-$fsCssImg: url('/images/cul_hydra/filesystem/css.png') !default;
-$fsDirectoryImg: url('/images/cul_hydra/filesystem/directory.png') !default;
-$fsFileImg: url('/images/cul_hydra/filesystem/file.png') !default;
-$fsFolderImg: url('/images/cul_hydra/filesystem/folder.png') !default;
-$fsFolderOpenImg: url('/images/cul_hydra/filesystem/folder_open.png') !default;
-$fsHtmlImg: url('/images/cul_hydra/filesystem/html.png') !default;
-$fsPictureImg: url('/images/cul_hydra/filesystem/picture.png') !default;
-$fsPdfImg: url('/images/cul_hydra/filesystem/pdf.png') !default;
-$fsScriptImg: url('/images/cul_hydra/filesystem/script.png') !default;
-$fsSpinnerImg: url('/images/cul_hydra/filesystem/spinner.gif') !default;
-$fsZipImg: url('/images/cul_hydra/filesystem/zip.png') !default;
+$fsApplicationImg: url('cul_hydra/filesystem/application.png') !default;
+$fsCodeImg: url('cul_hydra/filesystem/code.png') !default;
+$fsCssImg: url('cul_hydra/filesystem/css.png') !default;
+$fsDirectoryImg: url('cul_hydra/filesystem/directory.png') !default;
+$fsFileImg: url('cul_hydra/filesystem/file.png') !default;
+$fsFolderImg: url('cul_hydra/filesystem/folder.png') !default;
+$fsFolderOpenImg: url('cul_hydra/filesystem/folder_open.png') !default;
+$fsHtmlImg: url('cul_hydra/filesystem/html.png') !default;
+$fsPictureImg: url('cul_hydra/filesystem/picture.png') !default;
+$fsPdfImg: url('cul_hydra/filesystem/pdf.png') !default;
+$fsScriptImg: url('cul_hydra/filesystem/script.png') !default;
+$fsSpinnerImg: url('cul_hydra/filesystem/spinner.gif') !default;
+$fsZipImg: url('cul_hydra/filesystem/zip.png') !default;
 
 .fs-children { display: none;}
 .fs-directory { background: $fsDirectoryImg left top no-repeat; }
