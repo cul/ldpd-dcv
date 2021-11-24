@@ -7,9 +7,9 @@
 
   $yiq: (($r * 299) + ($g * 587) + ($b * 114)) / 1000;
   @if ($yiq >= $yiq-contrasted-threshold) {
-    @return scale-color($color, $lightness: -($shift), $saturation: $shift);
+    @return darken($color, $shift);
   } @else {
-    @return scale-color($color, $lightness: $shift, $saturation: -($shift));
+    @return lighten($color, $shift);
   }
 }
 
