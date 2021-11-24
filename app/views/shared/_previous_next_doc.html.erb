@@ -2,18 +2,18 @@
 <div id="previousNextDocument">
   <% if params[:return_to_filesystem].present? %>
   <div class="page_links previous-and-next btn-group btn-group-sm">
-      <%= link_to('<i class="fa fa-fast-backward"></i>'.html_safe, params[:return_to_filesystem], class: 'btn btn-outline-secondary', :"data-toggle" => 'tooltip', title: 'Browse digital records') %>   
+      <%= link_to('<i class="fa fa-reply-all"></i>'.html_safe, params[:return_to_filesystem], class: 'btn btn-outline-secondary', :"data-toggle" => 'tooltip', title: t('views.pagination.return_to_filesystem')) %>   
     </div>
   <% else %>
-    <% if @search_context[:prev] || @search_context[:next] %>
-      <div class="page-links btn-group btn-group-sm">
-        <%= link_to_previous_document @search_context[:prev] %>
 
-        <span class="btn btn-secondary" style="pointer-events:none;"><%= item_page_entry_info %></span>
-
-        <%= link_to_next_document @search_context[:next] %>
-      </div>
-    <% end %>
+    <div class="page-links btn-group btn-group-sm">
+      <%= link_back_to_catalog(label: '<i class="fa fa-reply-all"></i> '.html_safe, class: 'btn btn-default', :"data-toggle" => 'tooltip', title: t('views.pagination.return_to_search') ) %>
+      <% if @search_context[:prev] || @search_context[:next] %>
+          <span class="btn btn-secondary" style="pointer-events:none;"><%= item_page_entry_info %></span>
+          <%= link_to_previous_document @search_context[:prev] %>
+          <%= link_to_next_document @search_context[:next] %>
+      <% end %>
+    </div>
   <% end %>
   <%= render 'show_tools' %>
 </div>
