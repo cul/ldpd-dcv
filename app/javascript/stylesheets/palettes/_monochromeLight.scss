@@ -9,15 +9,15 @@ $theme-colors: map-merge($theme-colors, ('body': $body-bg));
 $theme-text-colors: map-merge($theme-text-colors, ('body': $body-color));
 $theme-border-colors: map-merge($theme-border-colors, ('body': $body-border-color));
 
-$primary: #eee;
-$primary-color: #222;
-$primary-border-color: #aaa;
+$primary: #222;
+$primary-color: #eee;
+$primary-border-color: #222;
 $theme-colors: map-merge($theme-colors, ('primary': $primary));
 $theme-text-colors: map-merge($theme-text-colors, ('primary': $primary-color));
 $theme-border-colors: map-merge($theme-border-colors, ('primary': $primary-border-color));
 
-$secondary: color-yiq(#444);
-$secondary-color: #444;
+$secondary: #cfcfcf;
+$secondary-color: #333;
 $secondary-border-color: #222;
 $theme-colors: map-merge($theme-colors, ('secondary': $secondary));
 $theme-text-colors: map-merge($theme-text-colors, ('secondary': $secondary-color));
@@ -28,6 +28,10 @@ $info-color: #e6e6e6;
 $theme-colors: map-merge($theme-colors, ('info': $info));
 $theme-text-colors: map-merge($theme-text-colors, ('info': $info-color));
 $theme-border-colors: map-merge($theme-border-colors, ('info': $info));
+
+$brand: #3d3f3e;
+$brand-color: $body-bg;
+$brand-border-color: #222;
 
 $theme-colors: map-merge($theme-colors, ('user-input': #999));
 

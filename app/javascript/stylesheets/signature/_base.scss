@@ -130,6 +130,9 @@ header[role='banner'] {
 	text-align: center;
 	text-decoration: none;
 	text-transform: uppercase;
+	a {
+		color: inherit;
+	}
 }
 #site-banner {
 	margin: 0 0 0 0;
@@ -261,9 +264,15 @@ header[role='banner'] {
 					text-transform:uppercase;
 				}
 				.card {
+					&.panel-ui {
+						border: none;
+						.card-header {
+							@extend .swatch-body;
+						}
+					}
 					&:not(.panel-ui) {
 						.card-title {
-							color:lighten($body-color,18%);
+							color:color-shade($body-color,18%);
 						}
 					}
 				}
