@@ -35,7 +35,12 @@ class CentennialController < SubsitesController
   end
 
   def subsite_palette
-    'oceanStripe'
+    'blue'
+  end
+
+  # some custom sites have local styles even when using a non-custom layout
+  def subsite_styles
+    (super + ['carnegie']).uniq - ['centennial']
   end
 
   def signature_image_path
