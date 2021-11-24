@@ -32,11 +32,4 @@ $theme-border-colors: map-merge($theme-border-colors, ('info': $info));
 $link-color: darken($info, 25%);
 $theme-colors: map-merge($theme-colors, ('user-input': $black));
 
-//urls
-$url_stripe: image-url("/signature/images/stripes-white-10.png");
-
-.navbar-primary, .btn-primary {
-	background-image:$url_stripe;
-}
-
 @import './base/post';
