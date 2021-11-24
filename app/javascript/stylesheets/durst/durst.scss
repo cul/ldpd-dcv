@@ -4,51 +4,66 @@ $color_4: #900;
 $color_14: rgba(0, 0, 0, 0.2);
 $color_15: rgba(0, 0, 0, 0.25);
 $color_21: #ddd;
-
-#main-container {
-	.inner {
-		&.home {
-			#imgholder-div .thumbnail {
-				background-color: transparent;
-				h3 {
-					color: $color_1;
-					background: $color_14;
-				}
-				&:hover {
-					border-color: $color_4;
+$splash: #591300;
+$splash-color: #fff;
+$splash-hover: #6a2400;
+.durst {
+	.btn-primary, #site-banner .search-btn {
+		background: $splash !important;
+		color: $splash-color;
+		&:hover {
+			background: $splash-hover !important;
+		}
+	}
+	#main-container {
+		a {
+			color: $splash;	
+			&:hover {
+				color: $splash-hover;
+			}
+		}
+		.inner {
+			&.home {
+				#imgholder-div .thumbnail {
+					background-color: transparent;
 					h3 {
-						background: $color_15;
+						color: $color_1;
+						background: $color_14;
+					}
+					&:hover {
+						border-color: $color_4;
+						h3 {
+							background: $color_15;
+						}
 					}
 				}
-			}
-			#facets {
-				margin-left:0;
-				margin-right:0;
-				border:0;
+				#facets {
+					margin-left:0;
+					margin-right:0;
+					border:0;
+				}
 			}
 		}
 	}
-}
-#content {
-	#durst-map-image {
-		width: 100%;
-		height: auto;
-	}
-	.appliedFilter .filterName:after {
-		color: $color_21;
-	}
-	#motm-list {
-		> li {
-			margin-bottom:1em;
+	#content {
+		.appliedFilter .filterName:after {
+			color: $color_21;
+		}
+		#motm-list {
+			> li {
+				margin-bottom:1em;
+			}
 		}
 	}
+	#map-attrib-icon {
+		margin-left: .25em;
+		cursor: pointer;
+	}
 }
-#map-attrib-icon {
-	margin-left: .25em;
-	cursor: pointer;
-}
-.nodec {
-	text-decoration: none !important;
+
+#durst-map-image {
+	width: 100%;
+	height: auto;
 }
 #durst-help-img {
 	margin-left: .5em;

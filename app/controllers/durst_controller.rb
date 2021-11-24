@@ -42,7 +42,7 @@ class DurstController < SubsitesController
   end
 
   def subsite_palette
-    'rust'
+    'monochromeLight'
   end
 
 end

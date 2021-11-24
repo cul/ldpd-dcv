@@ -6,7 +6,7 @@ title: Imported Site
 alternative_title: 'The Site: Imported!'
 search_type: catalog
 layout: signature
-palette: rust
+palette: blue
 show_facets: false
 permissions:
   remote_ids:
