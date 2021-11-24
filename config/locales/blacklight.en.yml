@@ -11,3 +11,9 @@ en:
       citation:
         label: '%{label}:'
       title: '%{application_name}'
+  views:
+    pagination:
+      next: 'Next'
+      previous: 'Previous'
+      return_to_search: 'Back to results'
+      return_to_filesystem: 'Browse digital records'

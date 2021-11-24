@@ -58,35 +58,37 @@ module Dcv::BlacklightHelperBehavior
     controller.tracking_method
   end
 
+  def prev_next_link_opts(link_document, link_opts = {})
+    session_tracking_params(link_document, search_session['counter'].to_i - 1).merge(link_opts)
+  end
+
   # Override to use a disabled link when no doc
   # Link to the previous document in the current search context
   def link_to_previous_document(link_document)
+    link_opts = { class: ["previous", "disabled"], rel: 'prev', disabled: true }
+    doc_url = '#'
     if link_document
-      super
-    else
-      link_opts = { class: ["previous", "disabled"], rel: 'prev', disabled: true }
-      link_opts[:disabled] = true
-      link_opts[:class] << 'disabled'
-      doc_url = '#'
-      link_to doc_url, link_opts do
-        content_tag :span, raw(t('views.pagination.previous')), class: 'previous'
-      end
+      link_opts = prev_next_link_opts(link_document, class: "previous", rel: 'prev', :'data-toggle' => 'tooltip')
+      doc_url = url_for_document(link_document)
+    end
+    link_opts[:title] = t('views.pagination.previous')
+    link_to doc_url, link_opts do
+      content_tag :i, '', class: ['previous', 'fa', 'fa-arrow-left']
     end
   end
 
   # Override to use a disabled link when no doc
   # Link to the next document in the current search context
   def link_to_next_document(link_document)
+    link_opts = { class: ["next", "disabled"], rel: 'next', disabled: true }
+    doc_url = '#'
     if link_document
-      super
-    else
-      link_opts = { class: ["next", "disabled"], rel: 'next', disabled: true }
-      link_opts[:disabled] = true
-      link_opts[:class] << 'disabled'
-      doc_url = '#'
-      link_to doc_url, link_opts do
-        content_tag :span, raw(t('views.pagination.next')), class: 'next'
-      end
+      link_opts = prev_next_link_opts(link_document, class: "next", rel: 'next', :'data-toggle' => 'tooltip')
+      doc_url = url_for_document(link_document)
+    end
+    link_opts[:title] = t('views.pagination.next')
+    link_to doc_url, link_opts do
+      content_tag :i, '', class: ['previous', 'fa', 'fa-arrow-right']
     end
   end
 
