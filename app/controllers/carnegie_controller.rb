@@ -36,7 +36,7 @@ class CarnegieController < SubsitesController
   end
 
   def subsite_palette
-    'oceanStripe'
+    'blue'
   end
 
   def signature_image_path

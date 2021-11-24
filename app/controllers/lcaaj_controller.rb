@@ -34,7 +34,7 @@ class LcaajController < SubsitesController
   end
 
   def subsite_palette
-    'steel'
+    'blue'
   end
 
   def signature_image_path
