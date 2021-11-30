@@ -7,7 +7,7 @@
 	 Version: 1.1
 */
 
-export default const onMessage = function(e) {
+onMessage = function(e) {
   var first = false;
   var nextSync = false;
   var workerResult = '<p>';

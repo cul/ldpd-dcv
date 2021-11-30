@@ -1,6 +1,8 @@
 import { uploadSuccess } from './events';
 import { transcriptVTT } from './export';
 import { closeButtons, errorHandler, timecodeRegEx } from './functions';
+import PreviewWorker from './preview.worker.js';
+import TranscriptWorker from './transcript.worker.js';
 /** Transcript Sync Functions **/
 export default class Transcript {
 	constructor(id, options = {}){
@@ -45,8 +47,7 @@ export default class Transcript {
 
 							// We implement a Web Worker because larger transcript files will freeze the browser
 							if (window.Worker) {
-								var workerSrc = (transcript.previewOnly) ? (OHSynchronizer.webWorkers + "/transcript-preview.js") : (OHSynchronizer.webWorkers + "/transcript.js");
-								var textWorker = new Worker(workerSrc);
+								var textWorker = (transcript.previewOnly) ? new PreviewWorker() : new TranscriptWorker();
 								textWorker.postMessage(text);
 								textWorker.onmessage = function(e) {
 									$('#transcript')[0].innerHTML += e.data;
@@ -140,7 +141,7 @@ export default class Transcript {
 		var transcript = this;
 		var content = transcriptVTT(transcript).split(/\r?\n|\r/);
 		if (window.Worker) {
-			var textWorker = new Worker(OHSynchronizer.webWorkers + "/transcript-preview.js");
+			var textWorker = new PreviewWorker();
 			textWorker.onmessage = function(e) {
 				$("#transcript-preview").html(e.data);
 				transcript.initPreviewControls();

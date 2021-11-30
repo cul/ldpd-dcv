@@ -16,22 +16,23 @@ import { mediaFromFile, mediaFromUrl, uploadedFile } from './import';
 // This must be presented before any function that can utilize it
 
 export default class OHSynchronizer {
-	constructor(config = {}) {
-		if (!config.options) config.options = {};
-		if (config.player) this.playerControls = this.player(config.player, config.options);
-		if (config.index) this.index = this.configIndex(config.index, config.options);
-		if (config.transcript) this.transcript = this.configTranscript(config.transcript, config.options);
-	}
-
-	player(feature, options) {
+	static player(feature, options) {
 		if (feature.url) {
 			return mediaFromUrl(feature.url, feature);
 		} else if (feature.fileId) {
-			return mediaFromFile.apply(null, uploadedFile(feature.fileId));
+			var fileInfo = uploadedFile(feature.fileId);
+			return mediaFromFile(fileInfo[0], fileInfo[1]);
 		} else if (feature.file) {
-			return mediaFromFile.apply(null, feature.file);
+			return mediaFromFile(feature.file[0], feature.file[1]);
 		}
-	},
+	}
+
+	constructor(config = {}) {
+		if (!config.options) config.options = {};
+		if (config.player) this.playerControls = OHSynchronizer.player(config.player, config.options);
+		if (config.index) this.index = this.configIndex(config.index, config.options);
+		if (config.transcript) this.transcript = this.configTranscript(config.transcript, config.options);
+	}
 
 	configWidget(widget, feature) {
 		if (feature.fileId) {
@@ -41,25 +42,27 @@ export default class OHSynchronizer {
 			var xhr = new XMLHttpRequest();
 			xhr.open('GET', feature.url, true);
 			xhr.responseType = 'blob';
+			const playerControls = this.playerControls;
 			xhr.onload = function(e) {
 				var blob = new Blob([xhr.response], {type: 'text/vtt'});
-				widget.renderText(blob, 'vtt', this.playerControls);
+				widget.renderText(blob, 'vtt', playerControls);
 			};
 			xhr.send();
 		}
 		return widget;
 	}
+
 	configIndex(feature, options) {
 		return  this.configWidget(new SynchronizerIndex(feature.id, options), feature);
-	},
+	}
 
 	configTranscript(feature, options) {
 		return this.configWidget(new SynchronizerTranscript(feature.id, options), feature);
-	},
+	}
 
 	hideFinishingControls() {
 		$('.session-controls > .btn').hide();
-	},
+	}
 
 	dispose() {
 		// feature disposals
@@ -77,6 +80,3 @@ export default class OHSynchronizer {
 		$('.preview-segment').off('click');
 	}
 }
-
-// get the relative path of this file, to find WebWorker modules later
-OHSynchronizer.webWorkers = $("script[src$='ohsynchronizer.js']").attr('src').replace(/\.js.*$/,'');

@@ -1,5 +1,7 @@
+require("jquery-ui/ui/widgets/accordion");
+require('bootstrap/js/dist/modal.js');
 import { closeButtons, errorHandler, timecodeRegEx } from './functions';
-import { uploadSuccess } from './events';
+import { uploadsuccess } from './events';
 import { exportIndex, indexVTT } from './export';
 import { timestampAsSeconds } from './timeStamps';
 
@@ -148,7 +150,7 @@ export default class Index {
 					if (timecodeRegEx.test(text[i])) {
 						timestamp = text[i].substring(0, 12);
 						// read json data from subsequent lines, line by line, until an indented end brace is encountered
-						indexJson = '';
+						let indexJson = '';
 						i++;
 						while (text[i] !== "}" && i < text.length) {
 							indexJson += text[i];
@@ -157,7 +159,7 @@ export default class Index {
 
 						}
 						indexJson += '}';
-						indexObj = JSON.parse(indexJson);
+						const indexObj = JSON.parse(indexJson);
 
 						// Now that we've gathered all the data for the variables, we build a panel
 						index.addSegment({
@@ -289,7 +291,7 @@ export default class Index {
 		if (activateIndex !== -1) accordion.accordion( "option", "active", activateIndex);
 	}
 
-	preview() {
+	preview(playerControls) {
 		var accordion = this.accordion();
 		if (accordion[0] != '') {
 			// The current open work needs to be hidden to prevent editing while previewing
@@ -310,7 +312,7 @@ export default class Index {
 				clearStyle: true,
 				active: false
 			});
-			this.initPreviewControls($("#previewAccordion"));
+			this.initPreviewControls($("#previewAccordion"), playerControls);
 		} else {
 			errorHandler(new Error("The selected index document is empty."));
 		}

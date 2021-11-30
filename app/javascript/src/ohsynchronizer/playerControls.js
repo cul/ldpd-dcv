@@ -16,6 +16,7 @@ export default class PlayerControls {
 		var chime1 = $(".loop-boundary-chime")[0];
 		var chime2 = $(".loop-mid-chime")[0];
 
+		let player = null;
 		if ($("#audio").is(':visible')) player = $("#audio-player")[0];
 		else if ($("#video").is(':visible')) player = $("#video-player")[0];
 
@@ -39,7 +40,8 @@ export default class PlayerControls {
 		$("#sync-time").html(timestamp);
 		// If the user is working on an index segment, we need to watch the playhead
 		$("#tag-playhead").val(timestamp);
-	},
+	}
+
 	transcriptLoop() {
 		var minute = parseInt($("#sync-minute")[0].innerHTML);
 
@@ -62,7 +64,8 @@ export default class PlayerControls {
 				this.loopMinute(minute);
 			}
 		}
-	},
+	}
+
 	bindNavControls() {
 		var controls = this;
 		$('.tag-control-beginning').on('click', function(){ controls.playerControls('beginning') });
@@ -71,7 +74,8 @@ export default class PlayerControls {
 		$('.tag-control-stop').on('click', function(){ controls.playerControls('stop') });
 		$('.tag-control-forward').on('click', function(){ controls.playerControls('forward') });
 		$('.tag-control-update').on('click', function(){ controls.playerControls('update') });
-	},
+	}
+
 	dispose() {
 		$('.preview-button').off('click'); // bound outside widget
 		$('.tag-control-beginning').off('click');

@@ -219,7 +219,7 @@ const previewClose = function(playerControls) {
 }
 
 // Here we use prepared data for export to a downloadable file
-const exportTranscript = function(sender, widget) {
+export const exportTranscript = function(sender, widget) {
 	switch (sender) {
 		case "vtt":
 			var content = transcriptVTT();
@@ -242,7 +242,7 @@ const exportTranscript = function(sender, widget) {
 	}
 }
 
-const exportIndex = function(sender, widget) {
+export const exportIndex = function(sender, widget) {
 	switch (sender) {
 		case "vtt":
 			var content = indexVTT(widget);

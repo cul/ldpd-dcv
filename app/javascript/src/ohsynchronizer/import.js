@@ -129,11 +129,13 @@ export const renderMediaURL = function(url, options = {type: 'video'} ) {
 	$("#finish-area").show();
 	if ($('#transcript')[0] && $('#transcript')[0].innerHTML != '') { $("#sync-controls").show(); }
 	closeButtons();
+	playerControls.bindNavControls();
 	return playerControls;
 }
 
 // Here we play video files in the video control player
 const renderVideo = function(file) {
+	const playerControls = new AblePlayerControls();
 	var reader = new FileReader();
 	try {
 		reader.onload = function(event) {
@@ -152,6 +154,7 @@ const renderVideo = function(file) {
 			}
 			uploadsuccess(new CustomEvent("uploadsuccess", {detail: file}));
 			closeButtons();
+			playerControls.bindNavControls();
 		}
 	}
 	catch (e) {
@@ -168,7 +171,7 @@ const renderVideo = function(file) {
 		var time = this.duration;
 		$('#endTime')[0].innerHTML = secondsAsTimestamp(time);
 	});
-	return new AblePlayerControls();
+	return playerControls;
 }
 
 // Here we load the YouTube video into the iFrame via its ID
@@ -202,6 +205,7 @@ const loadYouTube = function(id) {
 
 // Here we play audio files in the audio control player
 const renderAudio = function(file) {
+	const playerControls = new AblePlayerControls();
 	var reader = new FileReader();
 	try {
 		reader.onload = function(event) {
@@ -217,6 +221,7 @@ const renderAudio = function(file) {
 			if ($('#transcript')[0].innerHTML != '') { $("#sync-controls").show(); }
 			uploadsuccess(new CustomEvent("uploadsuccess", {detail: file}));
 			closeButtons();
+			playerControls.bindNavControls();
 		}
 	}
 	catch (e) {
@@ -233,7 +238,7 @@ const renderAudio = function(file) {
 		var time = this.duration;
 		$('#endTime')[0].innerHTML = secondsAsTimestamp(time);
 	});
-	return new AblePlayerControls();
+	return playerControls;
 }
 
 // Here we determine what kind of file was uploaded
