@@ -36,14 +36,14 @@ export default class OHSynchronizer {
 	configWidget(widget, feature) {
 		if (feature.fileId) {
 			var fileInfo = uploadedFile(feature.fileId);
-			widget?.renderText(fileInfo[0], fileInfo[1]);
+			widget?.renderText(fileInfo[0], fileInfo[1], this.playerControls);
 		} else if (feature.url) {
 			var xhr = new XMLHttpRequest();
 			xhr.open('GET', feature.url, true);
 			xhr.responseType = 'blob';
 			xhr.onload = function(e) {
 				var blob = new Blob([xhr.response], {type: 'text/vtt'});
-				widget.renderText(blob, 'vtt');
+				widget.renderText(blob, 'vtt', this.playerControls);
 			};
 			xhr.send();
 		}

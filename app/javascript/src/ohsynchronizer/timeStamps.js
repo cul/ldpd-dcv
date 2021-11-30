@@ -1,3 +1,4 @@
+
 const twoDigits = function(value, frac) {
 	return Number(value).toLocaleString(undefined, {minimumIntegerDigits: 2, maximumFractionDigits: frac, minimumFractionDigits: frac});
 }

@@ -1,9 +1,27 @@
+import { errorHandler } from './functions';
+import { secondsAsTimestamp, timestampAsSeconds } from './timeStamps';
 
-/** Export Functions **/
-OHSynchronizer.Export = function() {};
+// Here we activate the minute sync markers created for previewing transcript
+const addPreviewMinutes = function(playerControls) {
+	$('.preview-minute').on('click', function(){
+		var timestamp = $(this)[0].innerText.split('[');
+		var minute = timestamp[1].split(':');
+		playerControls.seekMinute(parseInt(minute[0]));
+	});
+}
+
+// Here we activate the index segment buttons to for playing index segments during preview
+const addPreviewSegments = function(playerControls) {
+	$('.preview-segment').on('click', function(){
+		const timestamp = $(this).parent().parent().parent().attr("id");
+		playerControls.seekTo(timestampAsSeconds(timestamp));
+		playerControls.playerControls("play");
+	});
+}
+
 
 // Here we prepare transcript data for VTT files
-OHSynchronizer.Export.transcriptVTT = function() {
+export const transcriptVTT = function(_widget) {
 	var minute = '';
 	var metadata = $('#interview-metadata')[0].innerHTML.replace(/<br>/g, '\n');
 	var content = $('#transcript')[0].innerHTML;
@@ -14,7 +32,7 @@ OHSynchronizer.Export.transcriptVTT = function() {
 	minute = (parseInt(minute) < 10) ? '0' + minute : minute;
 
 	if (minute == '') {
-		OHSynchronizer.errorHandler(new Error("You must add at least one sync marker in order to prepare a transcript."));
+		errorHandler(new Error("You must add at least one sync marker in order to prepare a transcript."));
 		return false;
 	}
 	else {
@@ -55,10 +73,10 @@ OHSynchronizer.Export.transcriptVTT = function() {
 }
 
 // Here we prepare index data for VTT files with jquery
-OHSynchronizer.Export.indexSegmentData = function(widget) {
+const indexSegmentData = function(widget, duration) {
 	var metadata = $('#interview-metadata')[0].innerHTML.replace(/<br>/g, '\n');
 	var content = (metadata != '') ? 'WEBVTT\n\nNOTE\n' + metadata + '\n\n' : 'WEBVTT\n\n';
-	var endProxy = {startTime : OHSynchronizer.secondsAsTimestamp(OHSynchronizer.playerControls.duration())};
+	var endProxy = {startTime : secondsAsTimestamp(duration)};
 	// We'll break up the text by segments
 	var segments = $(widget.indexDiv).find('.segment-panel').map(function(index, div){
 		return {
@@ -77,12 +95,12 @@ OHSynchronizer.Export.indexSegmentData = function(widget) {
 	return segments;
 }
 // Here we prepare index data for VTT files
-OHSynchronizer.Export.indexVTT = function(widget) {
+export const indexVTT = function(widget) {
 	var metadata = $('#interview-metadata')[0].innerHTML.replace(/<br>/g, '\n');
 	var content = (metadata != '') ? 'WEBVTT\n\nNOTE\n' + metadata + '\n\n' : 'WEBVTT\n\n';
 
 	// We'll break up the text by segments
-	var segments = OHSynchronizer.Export.indexSegmentData(widget);
+	var segments = indexSegmentData(widget, widget.duration);
 
 	segments.each(function(index, segment) {
 
@@ -99,14 +117,14 @@ OHSynchronizer.Export.indexVTT = function(widget) {
 }
 
 // Here we use VTT-esque data to preview the end result
-OHSynchronizer.Export.previewWork = function(type) {
+export const previewWork = function(type, playerControls) {
 	// Make sure looping isn't running, we'll stop the A/V media and return the playhead to the beginning
-	OHSynchronizer.looping = -1;
-	OHSynchronizer.playerControls.playerControls("beginning");
-	OHSynchronizer.playerControls.playerControls("stop");
+	playerControls.loopMinute(-1);
+	playerControls.playerControls("beginning");
+	playerControls.playerControls("stop");
 
 	if ($('#media-upload').visible){
-		OHSynchronizer.errorHandler(new Error("You must first upload media in order to preview."));
+		errorHandler(new Error("You must first upload media in order to preview."));
 	} else if (type.toLowerCase() == "transcript" && $('#transcript')[0].innerHTML != '') {
 		// The current open work needs to be hidden to prevent editing while previewing
 		$("#transcript").hide();
@@ -116,7 +134,7 @@ OHSynchronizer.Export.previewWork = function(type) {
 		$(".preview-button").addClass('hidden');
 		$("#preview-close").removeClass('hidden');
 
-		var content = OHSynchronizer.Export.transcriptVTT();
+		var content = transcriptVTT();
 		$("#transcript-preview")[0].innerHTML = "<p>";
 
 		// We need to parse the VTT-ified transcript data so that it is "previewable"
@@ -144,7 +162,7 @@ OHSynchronizer.Export.previewWork = function(type) {
 
 		$('#transcript-preview')[0].innerHTML += "</p>";
 
-		OHSynchronizer.Export.addPreviewMinutes();
+		addPreviewMinutes(playerControls);
 	}
 	else if (type.toLowerCase() == "index" && $('.indexAccordion')[0] != '') {
 		// The current open work needs to be hidden to prevent editing while previewing
@@ -175,36 +193,18 @@ OHSynchronizer.Export.previewWork = function(type) {
 		});
 
 		$("#previewAccordion").accordion("refresh");
-		OHSynchronizer.Export.addPreviewSegments();
+		addPreviewSegments(playerControls);
 	}
 	else {
-		OHSynchronizer.errorHandler(new Error("The selected transcript or index document is empty."));
+		errorHandler(new Error("The selected transcript or index document is empty."));
 	}
-}
-
-// Here we activate the minute sync markers created for previewing transcript
-OHSynchronizer.Export.addPreviewMinutes = function() {
-	$('.preview-minute').on('click', function(){
-		var timestamp = $(this)[0].innerText.split('[');
-		var minute = timestamp[1].split(':');
-		OHSynchronizer.playerControls.seekMinute(parseInt(minute[0]));
-	});
-}
-
-// Here we activate the index segment buttons to for playing index segments during preview
-OHSynchronizer.Export.addPreviewSegments = function() {
-	$('.preview-segment').on('click', function(){
-		var timestamp = $(this).parent().parent().parent().attr("id");
-		OHSynchronizer.playerControls.seekTo(OHSynchronizer.timestampAsSeconds(timestamp));
-		OHSynchronizer.playerControls.playerControls("play");
-	});
 }
 
 // Here we return to editing work once we are finished with previewing the end result
-OHSynchronizer.Export.previewClose = function() {
+const previewClose = function(playerControls) {
 	// We'll stop the A/V media and return the playhead to the beginning
-	OHSynchronizer.playerControls.playerControls("beginning");
-	OHSynchronizer.playerControls.playerControls("stop");
+	playerControls.playerControls("beginning");
+	playerControls.playerControls("stop");
 
 	$("#transcript").show();
 	$("#sync-controls").show();
@@ -219,10 +219,10 @@ OHSynchronizer.Export.previewClose = function() {
 }
 
 // Here we use prepared data for export to a downloadable file
-OHSynchronizer.Export.exportTranscript = function(sender, widget) {
+const exportTranscript = function(sender, widget) {
 	switch (sender) {
 		case "vtt":
-			var content = OHSynchronizer.Export.transcriptVTT();
+			var content = transcriptVTT();
 			if (!content) break;
 
 			// This will create a temporary link DOM element that we will click for the user to download the generated file
@@ -237,15 +237,15 @@ OHSynchronizer.Export.exportTranscript = function(sender, widget) {
 			break;
 
 		default:
-			OHSynchronizer.errorHandler(new Error("This function is still under development."));
+			errorHandler(new Error("This function is still under development."));
 			break;
 	}
 }
 
-OHSynchronizer.Export.exportIndex = function(sender, widget) {
+const exportIndex = function(sender, widget) {
 	switch (sender) {
 		case "vtt":
-			var content = OHSynchronizer.Export.indexVTT(widget);
+			var content = indexVTT(widget);
 
 			// This will create a temporary link DOM element that we will click for the user to download the generated file
 			var element = document.createElement('a');
@@ -258,7 +258,7 @@ OHSynchronizer.Export.exportIndex = function(sender, widget) {
 			break;
 
 		default:
-			OHSynchronizer.errorHandler(new Error("This function is still under development."));
+			errorHandler(new Error("This function is still under development."));
 			break;
 	}
 }

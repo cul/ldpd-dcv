@@ -1,8 +1,18 @@
+import { secondsAsTimestamp } from './timeStamps';
+import Transcript from './transcript';
 /** Player Functions **/
-OHSynchronizer.Player = function(){}
-// Here we handling looping controls for Transcript syncing
-OHSynchronizer.Player.prototype = {
-	transcriptTimestamp: function() {
+export default class PlayerControls {
+	constructor() {
+		this.loopingMinute = -1;
+	}
+	loopMinute(minute) {
+		this.loopingMinute = minute;
+	}
+	looping() {
+		return this.loopingMinute !== -1;
+	}
+
+	transcriptTimestamp() {
 		var chime1 = $(".loop-boundary-chime")[0];
 		var chime2 = $(".loop-mid-chime")[0];
 
@@ -14,34 +24,34 @@ OHSynchronizer.Player.prototype = {
 
 		// We only play chimes if we're on the transcript tab, and looping is active
 		var synchingTranscript = $("#transcript").is(':visible');
-		var loopingOnTranscript =  synchingTranscript && OHSynchronizer.looping !== -1;
+		var loopingOnTranscript =  synchingTranscript && this.looping();
 		if (Math.floor(time) % 60 == (60 - offset) && loopingOnTranscript) { chime1.play(); }
 		if (Math.floor(time) % 60 == 0 && Math.floor(time) != 0 && loopingOnTranscript) { chime2.play(); }
 
 		// If looping is active, we will jump back to a specific time should the the time be at the minute + offset
 		if ((Math.floor(time) % 60 == offset || time === this.duration() ) && loopingOnTranscript) {
 			$("#sync-minute")[0].innerHTML = parseInt($("#sync-minute")[0].innerHTML) + 1;
-			OHSynchronizer.Transcript.syncControl("back", this);
+			Transcript.syncControl("back", this);
 			this.playerControls("play");
 		}
 
-		var timestamp = OHSynchronizer.secondsAsTimestamp(time, 0);
+		var timestamp = secondsAsTimestamp(time, 0);
 		$("#sync-time").html(timestamp);
 		// If the user is working on an index segment, we need to watch the playhead
 		$("#tag-playhead").val(timestamp);
 	},
-	transcriptLoop: function() {
+	transcriptLoop() {
 		var minute = parseInt($("#sync-minute")[0].innerHTML);
 
 		// We don't loop at the beginning of the A/V
 		if (minute === 0) {  }
 		else {
 			// If looping is active we stop it
-			if (OHSynchronizer.looping !== -1) {
+			if (this.looping()) {
 				this.playerControls("pause");
 				$('#sync-play').addClass('btn-outline-info');
 				$('#sync-play').removeClass('btn-info');
-				OHSynchronizer.looping = -1;
+				this.loopMinute(-1);
 			}
 			// If looping is not active we start it
 			else {
@@ -49,11 +59,11 @@ OHSynchronizer.Player.prototype = {
 				this.playerControls("play");
 				$('#sync-play').removeClass('btn-outline-info');
 				$('#sync-play').addClass('btn-info');
-				OHSynchronizer.looping = minute;
+				this.loopMinute(minute);
 			}
 		}
 	},
-	bindNavControls: function() {
+	bindNavControls() {
 		var controls = this;
 		$('.tag-control-beginning').on('click', function(){ controls.playerControls('beginning') });
 		$('.tag-control-backward').on('click', function(){ controls.playerControls('backward') });
@@ -62,7 +72,7 @@ OHSynchronizer.Player.prototype = {
 		$('.tag-control-forward').on('click', function(){ controls.playerControls('forward') });
 		$('.tag-control-update').on('click', function(){ controls.playerControls('update') });
 	},
-	dispose: function() {
+	dispose() {
 		$('.preview-button').off('click'); // bound outside widget
 		$('.tag-control-beginning').off('click');
 		$('.tag-control-backward').off('click');
