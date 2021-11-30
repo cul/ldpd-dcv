@@ -18,7 +18,7 @@ $colorboxBorderImg: image-url('/images/colorbox/border.png') !default;
 $colorboxControlImg: image-url('/images/colorbox/controls.png') !default;
 $colorboxLoadingImg: image-url('/images/colorbox/loading.gif') !default;
 $colorboxLoadingBgImg: image-url('/images/colorbox/loading_background.png') !default;
-/* 
+/*
     User Style:
     Change the following styles to modify the appearance of Colorbox.  They are
     ordered & tabbed in a way that represents the nesting of the generated HTML.
@@ -33,7 +33,7 @@ $colorboxLoadingBgImg: image-url('/images/colorbox/loading_background.png') !def
     #cboxMiddleRight{width:21px; background:$colorboxControlImg right top repeat-y;}
     #cboxTopCenter{height:21px; background:$colorboxBorderImg 0 0 repeat-x;}
     #cboxBottomCenter{height:21px; background:$colorboxBorderImg 0 -29px repeat-x;}
-    #cboxContent{background:#fff; overflow:hidden;}
+    #cboxContent{background:#fff; overflow:hidden;border-width:1px;border-style:solid;}
         .cboxIframe{background:#fff;}
         #cboxError{padding:50px; border:1px solid #ccc;}
         #cboxLoadedContent{margin-bottom:28px;}
@@ -44,7 +44,7 @@ $colorboxLoadingBgImg: image-url('/images/colorbox/loading_background.png') !def
 
         /* these elements are buttons, and may need to have additional styles reset to avoid unwanted base styles */
         #cboxPrevious, #cboxNext, #cboxSlideshow, #cboxClose {border:0; padding:0; margin:0; overflow:visible; width:auto; background:none; }
-        
+
         /* avoid outlines on :active (mouseclick), but preserve outlines on :focus (tabbed navigating) */
         #cboxPrevious:active, #cboxNext:active, #cboxSlideshow:active, #cboxClose:active {outline:0;}
 

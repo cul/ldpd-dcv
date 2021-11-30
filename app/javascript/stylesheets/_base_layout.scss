@@ -113,6 +113,21 @@ a {
 	}
 }
 
+.dropdown-menu {
+  background-color: $primary;
+  &>li>a{
+      padding: 0.1em 0.5em;
+      display: block;
+      clear: both;
+      color: map-get($theme-text-colors, 'primary');
+      &:hover {
+        background-color:map-get($theme-text-colors, 'secondary');
+        color: map-get($theme-text-colors, 'primary');
+      }
+  }
+}
+
+
 #outer-wrapper {
 	padding-top: 0;
 	padding-bottom: 2em;
@@ -317,6 +332,9 @@ a {
 	padding: 0 12px;
 	border-bottom: 1px solid;
 	@extend .swatch-secondary;
+  .dropdown-menu {
+    background-color: $secondary;
+  }
 	.nav {
 		width: 100%;
 		@media(min-width: 768px) {
@@ -365,21 +383,25 @@ a {
 			background-clip: padding-box;
 			font-size: .95em;
 			li {
-				margin: 1rem 0;
+				margin: 0.1rem 0;
 			}
 		}
 		a, .nav-link {
 			&:hover {
 				background-color: transparent;
-				color: $link-color;
+				color: map-get($theme-text-colors, 'secondary');
 			}
 			&.active {
 				background-color: transparent;
 			}
 		}
+    .nav-link {
+      border-radius:0;
+    }
 		li {
 			a:hover {
 				@extend .swatch-info;
+        color: map-get($theme-text-colors, 'primary');
 			}
 		}
 		&.open a.dropdown-toggle {
@@ -426,7 +448,7 @@ a {
 			}
 			a.blacklight-photographs {
 				border: 1px solid map-get($theme-border-colors, 'body');
-				width:99%;			
+				width:99%;
 			}
 			.card-img-top {
 				height: 130px;

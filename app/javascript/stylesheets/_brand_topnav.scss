@@ -28,17 +28,19 @@
 		.dropdown-toggle {
 			@extend %extend_brand_font;
 			padding-right: 4px;
-			font-size: 103%;
+			padding-left: 0;
+			font-size: 16px;
 			line-height: 120%;
 			letter-spacing: 0;
 			font-weight: normal;
 			margin-top: 2px;
+			color: map-get($theme-text-colors, 'primary');
 		}
 	}
 	.dropdown-menu {
 		margin-top: -3px;
 		li{
-			padding: 0 .5em 0;
+			padding: 0; // .5em 0;
 			a:hover {
 				text-decoration: none;
 			}
