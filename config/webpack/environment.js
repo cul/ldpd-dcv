@@ -12,6 +12,8 @@ environment.plugins.prepend(
         'window.jQuery': 'jquery',
         Popper: ['popper.js', 'default'],
         Rails: ['@rails/ujs'],
+        Hls: 'hls.js',
+        Cookies: 'js-cookie'
     })
 )
 

@@ -8,6 +8,7 @@
 	div.able-modal-overlay = 9500
 
 	* Items that should always be on top (9000):
+	#able-vts = 9400
 	.able-alert = 9400
 	.able-window-toolbar .able-button-handler-preferences = 9300
   .able-popup = 9200
@@ -22,9 +23,9 @@
   * Player controls: (5000 - 6000)
   .able-controller .able-seekbar = 6900
   .able-controller .buttonOff = 6800
-  .able-controller button > img = 6700
-  .able-controller button > span = 6700
-	.able-controller button = 6600
+  .able-controller div[role="button"] > img = 6700
+  .able-controller div[role="button"] > span = 6700
+	.able-controller div[role="button"] = 6600
 	.able-big-play-button = 6500
 	div.able-captions-wrapper = 6000
   .able-seekbar-head = 5500
@@ -38,11 +39,14 @@
   padding: 0;
   width: 100%;
   height: auto;
+  box-sizing: content-box !important;
+  text-align: left;
 }
 .able {
   position: relative;
   margin: 1em 0;
   width: 100%; /* will be changed dynamically as player is contructed */
+  background-color: #000;
   box-shadow: 0px 0px 16px #262626;
   z-index: 5000;
 }
@@ -65,12 +69,15 @@
 	background-color: #262626; /* background color of player (appears on top & bottom) */
 }
 .able-offscreen {
-	position:absolute;
-	left:-10000px;
-	top:auto;
-	width:1px;
-	height:1px;
-	overflow:hidden;
+	position: absolute;
+	left: -10000px;
+	top: auto;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+}
+.able-media-container audio {
+  display: none !important;
 }
 .able-video {
 }
@@ -79,8 +86,7 @@
 }
 .able-controller {
 	position: relative;
-	border-top: 2px solid #4c4c4c;
-	border-bottom: 2px solid #4c4c4c;
+	border-bottom: 1px solid #4c4c4c;
 	background-color: #464646; /* background color of controller bar */
 	min-height: 38px; /* height of button (20px) + 4px border + 4px padding */
 	padding: 0;
@@ -89,6 +95,11 @@
   position: absolute;
   top: 0;
   left: 0;
+  width: 100% !important;
+  height: auto !important;
+}
+.able .able-vidcap-container {
+  overflow: hidden;
 }
 
 /*
@@ -115,7 +126,7 @@
 .able-left-controls, .able-right-controls {
     overflow: visible;
 }
-.able-left-controls button, .able-right-controls button {
+.able-left-controls div[role="button"], .able-right-controls div[role="button"] {
     vertical-align: middle;
 }
 .able-left-controls {
@@ -125,22 +136,22 @@
   float: right;
 }
 .able-black-controls,
-.able-black-controls button,
+.able-black-controls div[role="button"],
 .able-black-controls label  {
   color: #000 !important;
 }
 .able-black-controls .able-seekbar {
-  border: 2px solid #000;
+  border: 1px solid #000;
 }
 .able-white-controls,
-.able-white-controls button,
+.able-white-controls div[role="button"],
 .able-black-controls label {
   color: #FFF !important;
 }
 .able-white-controls .able-seekbar {
-  border: 2px solid #FFF;
+  border: 1px solid #FFF;
 }
-.able-controller button {
+.able-controller div[role="button"] {
   background: none;
   position: relative;
   display: inline-block;
@@ -149,13 +160,13 @@
   padding: 0;
   font-size: 20px;
   min-width: 24px;
-  outline: 2px solid #464646; /* same color as .able-controller background-color */
+/*  outline: 2px solid #464646; */ /* same color as .able-controller background-color */
   border: none;
   overflow: visible !important;
   z-index: 6600;
 }
-.able-controller button > span,
-.able-controller button > img {
+.able-controller div[role="button"] > span,
+.able-controller div[role="button"] > img {
   width: 20px;
   margin: 0 auto;
   padding: 0;
@@ -170,17 +181,22 @@
   margin: 0 5px;
   z-index: 6900;
 }
-.able-controller button:hover,
-.able-controller button:focus {
+.able-controller div[role="button"]:hover,
+.able-controller div[role="button"]:focus {
   outline-style: solid;
   outline-width: medium;
 }
-.able-controller button:hover {
+.able-controller div[role="button"]:hover {
 	outline-color: #8AB839 !important; /* green */
 }
-.able-controller button:focus {
+.able-controller div[role="button"]:focus {
 	outline-color: #ffbb37 !important; /* yellow */
 }
+.able-controller button::-moz-focus-inner,
+.able-search-results button::-moz-focus-inner {
+  border: 0;
+}
+
 
 /*
   Seekbar
@@ -241,22 +257,26 @@
   position: absolute;
   right: 0px;
   top: -74px;
-  display: none;
+  display: block;
   z-index: 9100;
 }
 .able-volume-track {
   display: block;
   position: relative;
   height: 100%; /* = 50px after padding */
-  width: 5px;
+  width: 7px;
   margin: 0 auto;
-  background-color: #999;
+  background-color: #000;
 }
 .able-volume-track.able-volume-track-on {
   background-color: #dadada;
   position: absolute;
   height: 20px; /* change dynamically; 5px per volume tick */
   top: 30px;  /* change dynamically; 50px - height */
+}
+.able-volume-slider > .able-volume-track {
+  /* add border only to the outer track */
+  border: 1px solid #FFF;
 }
 .able-volume-head {
   display: inline-block;
@@ -403,7 +423,7 @@ div.able-captions-wrapper {
   padding: 0;
   text-align: center;
   line-height: 1.35em;
-  display: none;
+  display: block;
   z-index: 6000;
 }
 div.able-captions {
@@ -422,7 +442,7 @@ div.able-captions-overlay {
 }
 div.able-captions-below {
   position: relative;
-  min-height: 2.8em;
+  min-height: 3.2em;
 }
 div.able-descriptions {
   position: relative;
@@ -458,21 +478,30 @@ div.able-now-playing span span {
 /*
   Modal Dialogs
 */
-
 div.able-modal-dialog {
   position: absolute;
   height: auto;
   max-width: 90%;
   margin-left: auto;
   margin-right: auto;
+  top: 5%;
   left: 0px;
   right: 0px;
   outline: 0px none;
   display: none;
   color: #000;
   background-color: #FAFAFA;
+  box-sizing: content-box !important;
   z-index: 10000;
 }
+@supports (transform: translate(-50%,-50%)) {
+	div.able-modal-dialog {
+	  top: 50%;
+		left: 50%;
+	  transform: translate(-50%,-50%) !important;
+	}
+}
+
 div.able-modal-overlay {
   position: fixed;
   width: 100%;
@@ -583,9 +612,33 @@ fieldset.able-prefs-captions select {
   font-size: 0.9em;
   border-radius: none;
 }
+fieldset.able-prefs-descriptions >  div.able-prefs-select { 
+	margin: 0.5em 1em;
+}
+fieldset.able-prefs-descriptions >  div.able-prefs-select > label,
+fieldset.able-prefs-descriptions >  div.able-prefs-slider > label {
+  width: 6em;
+  text-align: right;
+  padding-right: 1em;
+}
+fieldset.able-prefs-descriptions > div.able-prefs-select > select,
+fieldset.able-prefs-descriptions > div.able-prefs-slider > select {
+  width: 10em;
+  font-size: 0.9em;
+  border-radius: none;
+}
+div.able-prefDescPause {
+  margin-top: 1em;
+}
 .able-prefs-form div.able-captions-sample {
   padding: 0.5em;
   text-align: center;
+}
+.able-prefs-form div.able-desc-sample {
+  padding: 0.5em;
+  text-align: center;
+  color: #FFF;
+  background-color: #000;
 }
 .able-prefs-form h2 {
   margin-top: 0;
@@ -673,9 +726,10 @@ span.able-modkey {
 }
 .able-window-toolbar .able-popup {
   position: absolute;
+  cursor: default;
   right: 0;
   top: 0;
-  display: none;
+  display: block;
 }
 .able-drag {
   border: 2px dashed #F90;
@@ -689,7 +743,7 @@ span.able-modkey {
   bottom: 0;
   right: 0;
   cursor: nwse-resize;
-  background: transparent url('/ableplayer/images/wingrip.png') no-repeat;
+  background: transparent url('../../assets/ableplayer/images/wingrip.png') no-repeat;
 }
 
 /*
@@ -813,12 +867,14 @@ div.able-chapters-div button::-moz-focus-inner {
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
-  display: none;
+  display: block;
 }
 .able-alert {
   background-color: #FFFFCC;
   box-shadow: 0px 0px 16px #262626;
   z-index: 9400;
+  position: absolute;
+  top: 1em;
 }
 .able-popup {
   z-index: 9200;
@@ -841,36 +897,29 @@ div.able-chapters-div button::-moz-focus-inner {
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
-  display: none;
+  display: block;
+  cursor: default;
 }
-.able-popup ul {
+ul.able-popup {
   list-style-type: none;
-  margin: 0;
-  padding: 0;
 }
 .able-popup li {
   padding: 0.25em 1em 0.25em 0.25em;
   margin: 1px;
-}
-.able-popup label {
-  padding-left: 0.25em;
   color: #FFF;
 }
 .able-popup li.able-focus {
   background-color: #CCC;
-}
-.able-popup li.able-focus label {
   color: #000;
 }
-
-/*
-  Popup Menus with hidden radio buttons
-  e.g., chapters and preferences
-*/
-.able-popup-no-radio > ul > li > input {
-  position: absolute !important;
-  clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
-  clip: rect(1px, 1px, 1px, 1px);
+.able-popup-captions li {
+  padding-left: 1em;
+}
+.able-popup-captions li[aria-checked="true"] {
+  padding-left: 0;
+}
+.able-popup-captions li[aria-checked="true"]::before {
+  content: "\2713  "; /* check mark; for heavier mark us 2714 */
 }
 
 /*
@@ -883,6 +932,8 @@ div.able-chapters-div button::-moz-focus-inner {
   height: 400px;
   z-index: 7000;
   outline: none;
+  padding-bottom: 25px; /* keep content above 16x16px drag icon */
+  background-color: #FFF;
 }
 .able-transcript {
 	position: relative; /* must be positioned for scrolling */
@@ -937,24 +988,28 @@ div.able-chapters-div button::-moz-focus-inner {
 }
 .able-window-toolbar input:focus,
 .able-window-toolbar input:hover,
+.able-window-toolbar select:focus,
+.able-window-toolbar select:hover,
 .able-controller input:focus,
 .able-controller input:hover,
-.able-controller button:focus,
-.able-controller button:hover,
+.able-controller div[role="button"]:focus,
+.able-controller div[role="button"]:hover,
 .able-seekbar-head:focus,
 .able-seekbar-head:hover {
   outline-style: solid;
   outline-width: 2px;
 }
 .able-window-toolbar input:focus,
+.able-window-toolbar select:focus,
 .able-controller input:focus,
-.able-controller button:focus,
+.able-controller  div[role="button"]:focus,
 .able-seekbar-head:focus {
 	outline-color: #ffbb37; /* yellow */
 }
 .able-window-toolbar input:hover,
+.able-window-toolbar select:hover,
 .able-controller input:hover,
-.able-controller button:hover,
+.able-controller  div[role="button"]:hover,
 .able-seekbar-head:hover {
 	outline-color: #8AB839; /* green */
 }
@@ -964,83 +1019,86 @@ div.able-chapters-div button::-moz-focus-inner {
 }
 
 /*
-  Playlist - Embedded
+  Playlist (both audio and video)
 */
 
-.able-player .able-playlist {
-	font-size: 0.9em;
+.able-playlist {
 	list-style-type: none;
 	margin: 0;
 	background-color: #FFFFFF;
 	padding: 5px 0;
 }
-.able-player .able-playlist li {
+.able-playlist li {
 	background-color: #DDDDDD; /* default background color of each item in playlist */
 	margin: 5px;
-	padding: 5px 10px;
-	border-radius: 15px;
-	-moz-border-radius: 15px;
+	padding: 0;
+  border: 2px solid #AAA;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
 }
-.able-player .able-playlist li:hover,
-.able-player .able-playlist li:focus,
-.able-player .able-playlist li:active { /* playlist items when they have mouse or keyboard focus */
-	color: #FFFFFF;
-	background-color: #340449;
-	text-decoration: none;
-}
-.able-player .able-playlist li.able-current { /* currently selected playlist item */
+.able-playlist li button {
+	border: none;
 	color: #000000;
+	background-color: transparent;
+	font-size: 1em;
+	width: 100%;
+	padding: 5px 10px;
+	text-align: left;
+}
+.able-playlist li button:hover,
+.able-playlist li button:focus,
+.able-playlist li button:active { /* playlist items when they have mouse or keyboard focus */
 	background-color: #FFEEB3;
-	font-weight: bold;
+	color: #000000;
+	text-decoration: none;
 	outline: none;
-	text-decoration: none;
 }
-.able-player .able-playlist li.able-current:after {
-	content: ' *';
+.able-playlist li button::-moz-focus-inner {
+  border: 0;
 }
-
-/*
-  Playlist - External
-*/
-
-.able-playlist {
-}
-.able-playlist li {
-}
-.able-playlist li:hover,
-.able-playlist li:focus,
-.able-playlist li:active { /* playlist items when they have mouse or keyboard focus */
-	text-decoration: none;
-	color: white;
-	background-color: black;
+.able-playlist li button img {
+ width: 100px;
+ float: left;
+ margin-right: 10px;
 }
 .able-playlist li.able-current { /* currently selected playlist item */
-	font-weight: bold;
-  text-decoration: underline;
+	background-color: #340449;
+	border-color: #230330;
 }
-.able-playlist li.able-current:after {
-	content: ' *';
+.able-playlist li.able-current button {
+	color: #FFFFFF;
+	font-weight: bold;
+	text-decoration: none;
+	outline: none;
+}
+.able-playlist li.able-current button:hover,
+.able-playlist li.able-current button:focus,
+.able-playlist li.able-current button:active   {
+	color: #000000;
 }
 
 /*
   Search
 */
 
+#able-search-term-echo {
+  font-weight: bold;
+  font-style: italic;
+}
 .able-search-results ul li {
   font-size: 1.1em;
   margin-bottom: 1em;
 }
-.able-search-results-time {
+button.able-search-results-time {
+  font-size: 1em;
   font-weight: bold;
-  text-decoration: underline;
   cursor: pointer;
 }
-.able-search-results-time:hover,
-.able-search-results-time:focus,
-.able-search-results-time:active {
+button.able-search-results-time:hover,
+button.able-search-results-time:focus,
+button.able-search-results-time:active {
   color: #FFF;
   background-color: #000;
-  text-decoration: none;
 }
 .able-search-results-text {
   padding-left: 1em;
@@ -1048,6 +1106,112 @@ div.able-chapters-div button::-moz-focus-inner {
 .able-search-term {
 	background-color: #FFC;
 	font-weight: bold;
+}
+  #search-term {
+    font-weight: bold;
+    font-style: italic;
+  }
+
+
+/*
+  Video Transcript Sorter (VTS)
+*/
+#able-vts-instructions {
+	margin-bottom: 1.5em;
+	padding: 1em;
+	border: 1px solid #999;
+	width: 720px;
+	max-width: 90%;
+}
+#able-vts fieldset {
+  margin: 1em;
+  border: none;
+}
+#able-vts fieldset legend {
+  color: #000;
+  font-weight: bold;
+}
+#able-vts fieldset div {
+  float: left;
+  padding-right: 1em;
+}
+#able-vts table {
+  clear: left;
+}
+
+#able-vts table,
+#able-vts table th,
+#able-vts table td {
+  border: 1px solid black;
+  border-collapse: collapse;
+  padding: 0.5em 0.75em;
+}
+#able-vts table th.actions {
+  min-width: 140px;
+}
+#able-vts table td button {
+  width: auto;
+  padding: 0;
+  margin: 2px;
+}
+#able-vts table td button svg {
+  width: 16px;
+  height: 16px;
+}
+#able-vts table button:hover,
+#able-vts table button:focus  {
+  /*    border: 3px solid #66c2ff; */
+}
+#able-vts table button:hover svg {
+  fill: #C00;
+}
+tr.kind-chapters,
+tr.kind-subtitles {
+  background-color: #FFF;
+}
+tr.kind-descriptions {
+  background-color: #FEE;
+}
+tr.kind-chapters {
+  background-color: #e6ffe6;
+}
+.able-vts-dragging {
+  background-color: #FFC;
+}
+div#able-vts-icon-credit {
+  margin: 1em;
+}
+div#able-vts-alert {
+  display: none;
+  position: fixed;
+  top: 5px;
+  left: 5px;
+  border: 2px solid #666;
+  background-color: #FFC;
+  padding: 1em;
+  font-weight: bold;
+  z-index: 9400;
+}
+button#able-vts-save {
+	font-size: 1em;
+	padding: 0.25em;
+	border-radius: 5px;
+	margin-bottom: 1em;
+	font-weight: bold;
+}
+button#able-vts-save:hover,
+button#able-vts-save:focus {
+  color: white;
+  background-color: #060;
+}
+.able-vts-output-instructions {
+	width: 720px;
+	max-width: 90%;
+}
+#able-vts textarea {
+	height: 200px;
+	width: 720px;
+	max-width: 90%;
 }
 
 /*
@@ -1105,29 +1269,39 @@ div.able-chapters-div button::-moz-focus-inner {
 /*
   SVG Icons
 */
-button svg {
+.able-wrapper div[role="button"] svg,
+.able-modal-dialog div[role="button"] svg,
+.able-wrapper button svg,
+.able-modal-dialog button svg {
 	display: inline-block;
 	width: 1em;
 	height: 1em;
 	fill: currentColor;
 }
 
+/*
+  Styles for 2020 Skin
+*/
+div.able-skin-2020 div.able-seekbar-wrapper {
+  width: 96%;
+  margin: 10px 2%;
+}
 
 /*
   icomoon.io font styling
 */
 @font-face {
   font-family: 'able';
-    src:    url('ableplayer/button-icons/fonts/able.eot');
-    src:    url('ableplayer/button-icons/fonts/able.eot') format('embedded-opentype'),
-        url('ableplayer/button-icons/fonts/able.ttf') format('truetype'),
-        url('ableplayer/button-icons/fonts/able.woff') format('woff'),
-        url('ableplayer/button-icons/fonts/able.svg') format('svg');
+    src:    url('../../assets/ableplayer/button-icons/fonts/able.eot?dqripi');
+    src:    url('../../assets/ableplayer/button-icons/fonts/able.eot?dqripi#iefix') format('embedded-opentype'),
+        url('../../assets/ableplayer/button-icons/fonts/able.ttf?dqripi') format('truetype'),
+        url('../../assets/ableplayer/button-icons/fonts/able.woff?dqripi') format('woff'),
+        url('../../assets/ableplayer/button-icons/fonts/able.svg?dqripi#able') format('svg');
   font-weight: normal;
   font-style: normal;
 }
 
-[class^="icon-"], [class*=" icon-"] {
+.able-wrapper [class^="icon-"], .able-wrapper [class*=" icon-"] {
   /* use !important to prevent issues with browser extensions that change fonts */
   font-family: 'able' !important;
   speak: none;
@@ -1232,3 +1406,5 @@ button svg {
 .icon-help:before {
     content: "\f128";
 }
+
+
