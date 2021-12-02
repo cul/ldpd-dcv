@@ -342,5 +342,11 @@ input.search_q {
 	}
 }
 
+@media(min-width: 768px) {
+	#site-title {
+		text-align: left;
+	}
+}
+
 @import '../shared/search-modes';
 @include searchModes();
