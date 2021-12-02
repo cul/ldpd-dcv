@@ -20,6 +20,7 @@
 		font-family: $font_b;
 		font-weight: 300;
 		color: map-get($theme-text-colors, 'brand');
+		white-space: normal;
 	}
 	#site-banner-subtitle {
 		display: block;
