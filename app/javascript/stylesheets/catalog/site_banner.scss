@@ -19,6 +19,7 @@ $url_dcv_small: image-url('/images/dcv/1836760843_267e9c947f_o-sm-b.jpg');
 	background-image: url('https://toolkit.library.columbia.edu/v3/img/campus-and-city-image.jpg');
 	background-size: cover;
 	color: $white;
+	text-align: center;
 	text-shadow: $black 0 0 0.3em;
 	#site-banner-inner {
 	}
@@ -42,6 +43,7 @@ $url_dcv_small: image-url('/images/dcv/1836760843_267e9c947f_o-sm-b.jpg');
 
 @media(min-width: 768px) {
 	#site-banner {
+		text-align: left;
 		#site-banner-inner {
 			margin-bottom: .1em;
 			overflow: hidden;
