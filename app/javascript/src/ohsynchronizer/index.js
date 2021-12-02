@@ -1,22 +1,23 @@
-require("jquery-ui/ui/widgets/accordion");
-require('bootstrap/js/dist/modal.js');
 import { closeButtons, errorHandler, timecodeRegEx } from './functions';
 import { uploadsuccess } from './events';
 import { exportIndex, indexVTT } from './export';
 import { timestampAsSeconds } from './timeStamps';
 
 const segmentHtml = function(segment) {
-	var panel = '<div id="' + segment.startTime + '" class="segment-panel">';
-	panel += '<h3>' + segment.startTime + '-<span class="tag-title">' + segment.title + '</span></h3>';
-	panel += '<div>';
-	panel += '<div class="pull-right"><button class="btn btn-xs btn-secondary tag-edit">Edit</button> ';
-	panel += '<button class="btn btn-xs btn-primary tag-delete">Delete</button></div>';
-	panel += '<p>Synopsis: <span class="tag-segment-synopsis">' + segment.description + "</span></p>";
-	panel += '<p>Keywords: <span class="tag-keywords">' + segment.keywords + "</span></p>";
-	panel += '<p>Subjects: <span class="tag-subjects">' + segment.subjects + "</span></p>";
-	panel += '<p>Partial Transcript: <span class="tag-partial-transcript">' + segment.partialTranscript + "</span></p>";
-	panel += '</div></div>';
-	return panel;
+	const timeId = `ms${timestampAsSeconds(segment.startTime).toString().replace('.','_')}`;
+	const control = `<button class="btn btn-primary btn-block text-left collapsed tag-title" type="button" data-toggle="collapse" data-target="#${timeId}" aria-expanded="true" aria-controls="${timeId}">${segment.startTime}-${segment.title}</button>`;
+	const header = `<h3 class="card-header p-0" id="heading${timeId}">${control}</h3>`;
+	const deleteControl = '<button class="btn btn-xs btn-primary tag-delete">Delete</button>';
+	const editControl = '<button class="btn btn-xs btn-secondary tag-edit">Edit</button>';
+	const controls = `<div class="btn-group-sm ml-auto">${editControl}${deleteControl}</div>`;
+	const synopsis = `<p>Synopsis: <span class="tag-segment-synopsis">${segment.description}</span></p>`;
+	const keywords = `<p>Keywords: <span class="tag-keywords">${segment.keywords}</span></p>`;
+	const subjects = `<p>Subjects: <span class="tag-subjects">${segment.subjects}</span></p>`;
+	const fragment = `<p>Partial Transcript: <span class="tag-partial-transcript">${segment.partialTranscript}</span></p>`;
+	const body = `<div class="card-body">${controls}${synopsis}${keywords}${subjects}${fragment}</div>`;
+	const panel = `<div id="${timeId}" class="collapse" data-parent="#${segment.parent}">${body}</div>`;
+	const card = `<div class="card segment-panel" data-timestamp="${segment.startTime}">${header}${panel}</div>`;
+	return card;
 }
 
 export default class Index {
@@ -61,17 +62,12 @@ export default class Index {
 	}
 
 	initializeAccordion() {
-		this.accordion().accordion({
-			header: "> div > h3",
-			autoHeight: false,
-			collapsible: true,
-			clearStyle: true,
-			active: false
-		});
+		//this.accordion().find('.collapse').collapse();
 	}
 
 	accordion() {
-		return this.indexDiv.find(".indexAccordion") || this.indexDiv.append('<div class="indexAccordion"></div>');
+		const accordionId = this.previewOnly ? 'previewAccordion' : 'indexAccordion';
+		return this.indexDiv.find(`#${accordionId}`) || this.indexDiv.append(`<div class="accordion" id="${accordionId}"></div>`);
 	}
 
 	addSegment(segment) {
@@ -168,7 +164,8 @@ export default class Index {
 							description: indexObj.description,
 							keywords: indexObj.keywords,
 							subjects: indexObj.subjects,
-							partialTranscript: indexObj.partial_transcript
+							partialTranscript: indexObj.partial_transcript,
+							parent: accordion.attr('id')
 						});
 					}
 				}
@@ -178,6 +175,7 @@ export default class Index {
 				index.tagCancel();
 				closeButtons();
 				if (index.previewOnly) index.initPreviewControls(index.accordion(), playerControls);
+				accordion.find('.collapse').collapse("hide"); // { toggle: false }
 			}
 			return reader;
 		} catch (e) { errorHandler(e); }
@@ -223,7 +221,7 @@ export default class Index {
 		var widget = this;
 		$('.tag-edit').on('click', function(){
 			// Pop up the modal
-			$('#index-tag').modal('show');
+			Bootstrap.Modal.modal($('#index-tag'), 'show');
 
 			// Get our data for editing
 			var id = $(this).closest('.segment-panel');
@@ -278,17 +276,12 @@ export default class Index {
 		});
 
 		// Put them in the right order in the accordion
-		var activateIndex = -1;
 		$.each(entries, function(index) {
 			this.detach().appendTo(accordion);
 			if (this.attr('id') == activateId) {
-				activateIndex = index;
+				this.addClass('show');
 			}
 		});
-		accordion.accordion( "option", "active", false);
-		accordion.accordion("refresh");
-		// if a panel was edited, activate it
-		if (activateIndex !== -1) accordion.accordion( "option", "active", activateIndex);
 	}
 
 	preview(playerControls) {
@@ -319,15 +312,15 @@ export default class Index {
 	}
 
 	initPreviewControls(accordion, playerControls) {
+		console.log(accordion);
 		accordion.find(".tag-edit").each(function() { $(this).remove(); });
 		accordion.find(".tag-delete").each(function() {
 			$('<button class="btn btn-xs btn-primary preview-segment">Play Segment</button>').insertAfter($(this));
 			$(this).remove();
 		});
 
-		accordion.accordion("refresh");
 		$('.preview-segment').on('click', function(){
-			var timestamp = $(this).closest(".segment-panel").attr("id");
+			var timestamp = $(this).closest(".segment-panel").attr("data-timestamp");
 			playerControls.seekTo(timestampAsSeconds(timestamp));
 			playerControls.playerControls("play");
 		});

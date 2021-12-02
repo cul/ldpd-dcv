@@ -1,5 +1,5 @@
 import SynchronizerIndex from './index';
-import Transcript from './transcript';
+import SynchronizerTranscript from './transcript';
 import { mediaFromFile, mediaFromUrl, uploadedFile } from './import';
 
 /* Columbia University Library

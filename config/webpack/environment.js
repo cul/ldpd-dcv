@@ -12,6 +12,7 @@ environment.plugins.prepend(
         jquery: 'jquery',
         'window.jQuery': 'jquery',
         Popper: ['popper.js', 'default'],
+        Bootstrap: 'bootstrap',
         Rails: ['@rails/ujs'],
     })
 )

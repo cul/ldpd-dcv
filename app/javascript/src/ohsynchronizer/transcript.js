@@ -1,4 +1,4 @@
-import { uploadSuccess } from './events';
+import { uploadsuccess } from './events';
 import { transcriptVTT } from './export';
 import { closeButtons, errorHandler, timecodeRegEx } from './functions';
 import PreviewWorker from './preview.worker.js';
@@ -47,6 +47,7 @@ export default class Transcript {
 
 							// We implement a Web Worker because larger transcript files will freeze the browser
 							if (window.Worker) {
+								console.log("trying a webworker");
 								var textWorker = (transcript.previewOnly) ? new PreviewWorker() : new TranscriptWorker();
 								textWorker.postMessage(text);
 								textWorker.onmessage = function(e) {
@@ -155,6 +156,7 @@ export default class Transcript {
 			var timestamp = $(this)[0].innerText.split('[');
 			var minute = timestamp[1].split(':');
 			playerControls.seekMinute(parseInt(minute[0]));
+			playerControls.playerControls("play");
 		});
 		if (this.previewOnly) return;
 

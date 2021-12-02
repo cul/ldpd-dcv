@@ -7,7 +7,7 @@
 	 Version: 1.1
 */
 
-onMessage = function(e) {
+onmessage = function(e) {
   var first = false;
   var nextSync = false;
   var workerResult = '';
