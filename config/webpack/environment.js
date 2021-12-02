@@ -14,6 +14,8 @@ environment.plugins.prepend(
         Popper: ['popper.js', 'default'],
         Bootstrap: 'bootstrap',
         Rails: ['@rails/ujs'],
+        Hls: 'hls.js',
+        Cookies: 'js-cookie'
     })
 )
 
