@@ -10,14 +10,14 @@ end
 <% if media_url.present? %>
   <% # Note: "text-align:left;" is required for the widget container, otherwise the seek bar won't render properly %>
   <div id="synchronizer-widget" style="text-align:left;" data-media-url="<%= media_url %>" data-<%= synch_mode %>-url="<%= bytestream_content_path(catalog_id: params[:id], bytestream_id: synch_mode) %>" class="container-fluid">
-    <div id="working-area" class="row h-auto">
-      <div id="left-sidebar" class="col-md-6" style="align-self: start;">
-        <div id="media-playback" class="sticky-top" style="">
+    <div id="working-area" class="d-md-flex" style="height: 90vh">
+      <div id="left-sidebar" style="flex-basis: 50%;">
+        <div id="media-playback">
           <div id="video"><video id="video-player" class="able-player" data-include-transcript="false" preload="none"><source src="<%= media_url %>" /><track id="video-captions" label="English" kind="captions" srclang="en" src="<%= bytestream_content_path(catalog_id: params[:id], bytestream_id: 'captions')%>" /></video></div>
         </div><!-- /#media-playback -->
       </div><!-- /#left-sidebar -->
 
-      <div id="right-sidebar" class="col-md-6" style="min-height:100vh;">
+      <div id="right-sidebar" class="pl-3" style="flex-basis: 50%; overflow-y:auto;">
         <div id="interview-metadata" class="inner" data-assigned="true"><%= render partial: 'synchronizer/interview_metadata' %></div><!-- /#interview-metadata -->
         <div id="text-tabs">
           <% if synch_mode == 'chapters' %>
@@ -32,7 +32,7 @@ end
               <h2>Transcript</h2>
               <div id="input-transcript">
                 <input id="sync-roll" class="btn btn-secondary" type="hidden" maxlength="3" size="3" value="0" name="sync-roll">
-                <div id="transcript" class="col-md-12" ></div>
+                <div id="transcript" class="col-md-12 p-3" ></div>
                 <div id="transcript-preview" class="col-md-12" ></div>
               </div>
             </div>
