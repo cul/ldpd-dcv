@@ -25,6 +25,7 @@
   },
   "devDependencies": {
     "resolve-url-loader": "^4.0.0",
-    "webpack-dev-server": "^3"
+    "webpack-dev-server": "^3",
+    "worker-loader": "^3.0.8"
   }
 }

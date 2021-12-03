@@ -23,7 +23,6 @@ export const synchronizerReady = function(){
     }
 
     var synchronizerWidget = new OHSynchronizer(widgetOptions);
-    OHSynchronizer.playerControls.bindNavControls(); //bind modal forward/back/etc. nav controls. TODO: Move this to widget js instead of DLC js
     OHSynchronizer.errorHandler = function(e) {
       alert(e);
     }

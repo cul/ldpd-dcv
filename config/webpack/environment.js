@@ -1,7 +1,8 @@
-const { environment } = require('@rails/webpacker')
-const erb = require('./loaders/erb')
+const { environment } = require('@rails/webpacker');
+const erb = require('./loaders/erb');
 const resolveUrl = require('./loaders/resolve-url');
-const webpack = require('webpack')
+const workers = require('./loaders/workers');
+const webpack = require('webpack');
 
 environment.plugins.prepend(
     'Provide',
@@ -11,6 +12,7 @@ environment.plugins.prepend(
         jquery: 'jquery',
         'window.jQuery': 'jquery',
         Popper: ['popper.js', 'default'],
+        Bootstrap: 'bootstrap',
         Rails: ['@rails/ujs'],
         Hls: 'hls.js',
         Cookies: 'js-cookie'
@@ -18,6 +20,7 @@ environment.plugins.prepend(
 )
 
 environment.loaders.get('sass').use.splice(-1, 0, resolveUrl);
+environment.loaders.prepend('workers', workers)
 environment.loaders.prepend('erb', erb)
 
 module.exports = environment

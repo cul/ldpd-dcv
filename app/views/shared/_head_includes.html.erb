@@ -32,7 +32,7 @@ DLC VERSION: <%= IO.read(Rails.root.to_s+'/VERSION') %> -->
 
 <!-- OHSynchronizer -->
 <% if params[:action] == 'synchronizer' %>
-  <%= stylesheet_link_tag "/synchronizer-module/css/style.css" %>
+  <%= "<!-- remove stylesheet_link_tag \"/synchronizer-module/css/style.css\" -->".html_safe %>
 <% end %>
 <%= csrf_meta_tags %>
 <%= content_for(:head) %>
@@ -44,13 +44,9 @@ DLC VERSION: <%= IO.read(Rails.root.to_s+'/VERSION') %> -->
 	DCV.subsite_layout = '<%= subsite_layout %>';
 </script>
 <% end %>
-
-<%= javascript_pack_tag *["application", "dcv", "ableplayer"].concat(Array(subsite_layout)).uniq %>
-
-<!-- OHSynchronizer -->
-<% if params[:action] == 'synchronizer' %>
-	<%= javascript_include_tag "/synchronizer-module/js/ohsynchronizer.js" %>
-<% end %>
+<%- js_packs = ["application", "dcv", "ableplayer"].concat(Array(subsite_layout)).uniq %>
+<%- js_packs << 'ohsynchronizer' if params[:action] == 'synchronizer' %>
+<%= javascript_pack_tag *js_packs %>
 
 <% if Rails.env == 'dcv_prod' %>
 	<!-- Global site tag (gtag.js) - Google Analytics -->
