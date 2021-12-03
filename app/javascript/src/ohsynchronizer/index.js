@@ -2,10 +2,11 @@ import { closeButtons, errorHandler, timecodeRegEx } from './functions';
 import { uploadsuccess } from './events';
 import { exportIndex, indexVTT } from './export';
 import { timestampAsSeconds } from './timeStamps';
+import 'bootstrap/js/dist/modal';
 
 const segmentHtml = function(segment) {
 	const timeId = `ms${timestampAsSeconds(segment.startTime).toString().replace('.','_')}`;
-	const control = `<button class="btn btn-primary btn-block text-left collapsed tag-title" type="button" data-toggle="collapse" data-target="#${timeId}" aria-expanded="true" aria-controls="${timeId}">${segment.startTime}-${segment.title}</button>`;
+	const control = `<button class="btn btn-primary btn-block text-left collapsed tag-title" type="button" data-toggle="collapse" data-target="#${timeId}" aria-expanded="false" aria-controls="${timeId}">${segment.startTime}-${segment.title}</button>`;
 	const header = `<h3 class="card-header p-0" id="heading${timeId}">${control}</h3>`;
 	const deleteControl = '<button class="btn btn-xs btn-primary tag-delete">Delete</button>';
 	const editControl = '<button class="btn btn-xs btn-secondary tag-edit">Edit</button>';
@@ -175,7 +176,6 @@ export default class Index {
 				index.tagCancel();
 				closeButtons();
 				if (index.previewOnly) index.initPreviewControls(index.accordion(), playerControls);
-				accordion.find('.collapse').collapse("hide"); // { toggle: false }
 			}
 			return reader;
 		} catch (e) { errorHandler(e); }
@@ -221,7 +221,7 @@ export default class Index {
 		var widget = this;
 		$('.tag-edit').on('click', function(){
 			// Pop up the modal
-			Bootstrap.Modal.modal($('#index-tag'), 'show');
+			$('#index-tag').modal('show');
 
 			// Get our data for editing
 			var id = $(this).closest('.segment-panel');

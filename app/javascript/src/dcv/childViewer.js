@@ -1,5 +1,5 @@
-import 'bootstrap/js/dist/carousel';
 import ColorBox from "./jquery.colorbox";
+import 'bootstrap/js/dist/carousel';
 
 /**********************
  * CHILD VIEWER STUFF *
@@ -10,9 +10,7 @@ export default function() {
   if($childCarouselElement.length == 0) { return; }
 
   // Set up viewer carousel
-  $childCarouselElement.carousel({
-    interval: false // Do not automatically cycle
-  }).on('slid.bs.carousel', function(){
+  const onSlid = function() {
     //pause any video element inside the carousel
     $(this).find('video,audio').each(function(){
       if(typeof($(this)[0].player) != 'undefined') {
@@ -54,7 +52,12 @@ export default function() {
     } else {
       $('#child-viewer-object-in-context').html('&nbsp;').attr('href', '#');
     }
-  });
+  }
+  const carouselOpts = {
+    interval: false // Do not automatically cycle
+  };
+  $childCarouselElement.on('slid.bs.carousel', onSlid).carousel(carouselOpts);
+
 
   $childCarouselElement.on('click', 'img.zoomable', function(){
     $('#child-zoom-modal-button').click(); //Clicking on the image itself is the same as clicking on the modal zoom button
@@ -76,8 +79,8 @@ export default function() {
 		e.preventDefault();
 		ColorBox.call($, {
 	    href: $(this).attr('href'),
-	    height:"90%",
-	    width:"90%",
+	    height:"100vh",
+	    width:"90vw",
 	    opacity:".6",
 	    fixed:true,
 	    iframe:true,

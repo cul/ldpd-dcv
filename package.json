@@ -24,6 +24,7 @@
     "xml-js": "^1.6.11"
   },
   "devDependencies": {
+    "expose-loader": "1",
     "resolve-url-loader": "^4.0.0",
     "webpack-dev-server": "^3",
     "worker-loader": "^3.0.8"

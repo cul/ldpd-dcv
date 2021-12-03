@@ -9,6 +9,6 @@ export default function lazyCarousel(elementId) {
       img.setAttribute('src', img.getAttribute('data-src'));
     }
   };
-  const slidHandler = function (ev) { console.log("slid"); };
-  $(elementId).carousel({ interval: false }).on('slide.bs.carousel', changeHandler).on('cycle.bs.carousel', slidHandler);
+  const carouselOpts = { interval: false };
+  $(elementId).on('slide.bs.carousel', changeHandler).carousel(carouselOpts);
 }
