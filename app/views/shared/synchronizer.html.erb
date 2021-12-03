@@ -9,16 +9,15 @@ end
 
 <% if media_url.present? %>
   <% # Note: "text-align:left;" is required for the widget container, otherwise the seek bar won't render properly %>
-  <div id="synchronizer-widget" style="text-align:left;" data-media-url="<%= media_url %>" data-<%= synch_mode %>-url="<%= bytestream_content_path(catalog_id: params[:id], bytestream_id: synch_mode) %>">
-    <div id="working-area" class="d-flex flex-md-row flex-column">
-      <div id="left-sidebar" class="w-100 p-2">
-        <div id="media-playback" class="position-sticky" style="top:0px;">
-          <div id="video"><video id="video-player" data-able-player data-include-transcript="false" preload="auto"><track id="video-captions" label="English" kind="captions" srclang="en" src="<%= bytestream_content_path(catalog_id: params[:id], bytestream_id: 'captions')%>" /></video></div>
-          <div id="audio"><audio id="audio-player" data-able-player data-include-transcript="false" preload="auto"><track id="audio-captions" label="English" kind="captions" srclang="en" src="<%= bytestream_content_path(catalog_id: params[:id], bytestream_id: 'captions')%>" /></audio></div>
+  <div id="synchronizer-widget" style="text-align:left;" data-media-url="<%= media_url %>" data-<%= synch_mode %>-url="<%= bytestream_content_path(catalog_id: params[:id], bytestream_id: synch_mode) %>" class="container-fluid">
+    <div id="working-area" class="row h-auto">
+      <div id="left-sidebar" class="col-md-6" style="align-self: start;">
+        <div id="media-playback" class="sticky-top" style="">
+          <div id="video"><video id="video-player" class="able-player" data-include-transcript="false" preload="none"><source src="<%= media_url %>" /><track id="video-captions" label="English" kind="captions" srclang="en" src="<%= bytestream_content_path(catalog_id: params[:id], bytestream_id: 'captions')%>" /></video></div>
         </div><!-- /#media-playback -->
       </div><!-- /#left-sidebar -->
 
-      <div id="right-sidebar" class="w-100 p-2">
+      <div id="right-sidebar" class="col-md-6" style="min-height:100vh;">
         <div id="interview-metadata" class="inner" data-assigned="true"><%= render partial: 'synchronizer/interview_metadata' %></div><!-- /#interview-metadata -->
         <div id="text-tabs">
           <% if synch_mode == 'chapters' %>
