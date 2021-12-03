@@ -119,6 +119,7 @@ a {
       padding: 0.1em 0.5em;
       display: block;
       clear: both;
+      /* TODO for DLC-938 */
       color: map-get($theme-text-colors, 'primary');
       &:hover {
         background-color:map-get($theme-text-colors, 'secondary');
@@ -401,6 +402,7 @@ a {
 		li {
 			a:hover {
 				@extend .swatch-info;
+        /* TODO for DLC-938 */
         color: map-get($theme-text-colors, 'primary');
 			}
 		}
