@@ -38,7 +38,7 @@
 	<div class="btn-group" role="group">
 		<button type="button" class="btn <%= site_page_links.detect {|k,v| current_page?(k)} ? 'btn-success' : 'btn-info' %> dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Edit Page <span class="caret"></span></button>
 		<ul class="dropdown-menu">
-			<%- site_page_links.each do |link, label| %><%= link_to(label, link, class: (current_page?(link) ? ['btn','btn-success', 'disabled'] : ['btn']), disabled: current_page?(link)) %><%- end %>
+			<%- site_page_links.each do |link, label| %><li class="dropdown-item p-0"><%= link_to(label, link, class: (current_page?(link) ? ['btn','btn-block','btn-success', 'disabled', 'dropdown-link'] : ['btn','btn-info', 'btn-block', 'dropdown-link']), disabled: current_page?(link)) %></li><%- end %>
 		</ul>
 	</div>
 	<div class="btn-group" role="group">
