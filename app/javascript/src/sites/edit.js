@@ -1,6 +1,6 @@
 import EasyMDE from 'easymde'; 
+import 'bootstrap/js/dist/tooltip';
 import 'jquery-ui/ui/widgets/sortable';
-import 'bootstrap/js/dist/popover';
 
 function addValueFieldsetFromTemplate(addButtonFieldset, templateName) {
 	const newFieldset = $(".widget-templates").find("fieldset[name='" + templateName + "']").clone();
@@ -299,7 +299,7 @@ function addTooltips(selection) {
 			trigger: 'click focus',
 			html: true
 		};
-		$(this).on('click',function(e){ e.preventDefault(); }).popover(options);
+		$(this).on('click',function(e){ e.preventDefault(); }).tooltip(options);
 	});
 }
 /************

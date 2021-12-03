@@ -1,10 +1,10 @@
-import 'bootstrap/js/dist/tooltip';
 import setUpDownloadButton from './downloadsButton';
 import setUpChildViewer from './childViewer';
 import { dateWidgetReady } from './dcv.date-range';
 import { mapReady } from './dcv.map';
 import { searchResultsReady } from './dcv.search_results';
 import { synchronizerReady } from './dcv.synchronizer';
+import 'bootstrap/js/dist/tooltip';
 /************
  * ON READY *
  ************/
@@ -48,8 +48,8 @@ const searchSetUp = function() {
 
   // do fancy tooltips when data-toggle="tooltip" is set on el
   $('[data-toggle="tooltip"], [data-tt="tooltip"]').tooltip({
-    boundary: 'window',
-    close: function () {$(".ui-helper-hidden-accessible").remove(); }
+      boundary: 'window',
+      close: function () {$(".ui-helper-hidden-accessible").remove(); }
   });
 };
 
