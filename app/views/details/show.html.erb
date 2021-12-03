@@ -1,22 +1,13 @@
-<div class="row" id="content">
-	<div class="inner" class="col-md-12 show-document">
+<div class="show-document w-100 my-0" id="content">
+	<% @page_title = t('blacklight.search.show.title', :document_title => document_show_html_title, :application_name => application_name).html_safe -%>
+	<%# this should be in a partial -%>
 
+	<div id="document" class="document <%= render_document_class %>" itemscope itemtype="<%= @document.itemtype %>">
+	  <div id="doc_<%= @document.id.to_s.parameterize %>" class="w-100">
 
-		<% @page_title = t('blacklight.search.show.title', :document_title => document_show_html_title, :application_name => application_name).html_safe -%>
-		<% content_for(:head) { render_link_rel_alternates } -%>
-		<%# this should be in a partial -%>
+		<%= render_document_partial @document, 'title' %>
+		<%= render_document_partial @document, 'show' %>
 
-		<div id="document" class="document <%= render_document_class %>" itemscope itemtype="<%= @document.itemtype %>">
-		  <div id="doc_<%= @document.id.to_s.parameterize %>">
-
-			<%= render_document_partial @document, 'title' %>
-			<%= render_document_partial @document, 'show' %>
-
-		  </div>
-		</div>
-
-		<%= render :partial => 'shared/opengraph_document_metadata' %>
-		<%= render :partial => 'shared/openurl_coins_document_metadata' %>
-
+	  </div>
 	</div>
 </div>

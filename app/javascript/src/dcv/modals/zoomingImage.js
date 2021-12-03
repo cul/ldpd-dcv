@@ -16,8 +16,8 @@ export const zoomingImageModal = function(){
 
   ColorBox.call($, {
     href: zoomUrl,
-    height:"90%",
-    width:"90%",
+    height:"100vh",
+    width:"90vw",
     opacity:".6",
     fixed:true,
     iframe:true,

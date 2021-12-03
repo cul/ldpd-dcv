@@ -36,7 +36,7 @@ $colorboxLoadingBgImg: image-url('/images/colorbox/loading_background.png') !def
     #cboxContent{background:#fff; overflow:hidden;border-width:1px;border-style:solid;}
         .cboxIframe{background:#fff;}
         #cboxError{padding:50px; border:1px solid #ccc;}
-        #cboxLoadedContent{margin-bottom:28px;}
+        #cboxLoadedContent{}
         #cboxTitle{position:absolute; bottom:4px; left:0; text-align:center; width:100%; color:#949494;}
         #cboxCurrent{position:absolute; bottom:4px; left:58px; color:#949494;}
         #cboxLoadingOverlay{background:$colorboxLoadingBgImg no-repeat center center;}

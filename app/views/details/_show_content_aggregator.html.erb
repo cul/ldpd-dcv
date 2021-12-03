@@ -1,10 +1,10 @@
 <% children = structured_children %>
 <% if children.present? && zoomable_image_exists_for_resource?(children.first[:pid]) %>
-	<div id="zoom-gallery" data-url="<%= children_path(document[:id], :per_page=>999) %>">
-		<div id="zoom-content" class="openseadragon">
-			<div id="zoom-toolbar" class="btn-toolbar toolbar">
-				<%= render 'zoom/controls' -%>
-			</div>
+	<div id="zoom-gallery" class="d-flex flex-column" data-url="<%= children_path(document[:id], :per_page=>999) %>" style="height:93vh;">
+		<div id="zoom-toolbar" class="btn-toolbar toolbar position-absolute" style="z-index:2;">
+			<%= render 'zoom/controls' -%>
+		</div>
+		<div id="zoom-content" class="flex-grow-1 openseadragon">
 		</div>
 	</div>
 	<div id="children-links" style="visibility: hidden;">
