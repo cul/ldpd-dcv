@@ -34,10 +34,13 @@ $url_flag_sprite: url("ifp/office-flags/country_flag_folders_sm.png");
 
 .ifp {
 	#secondary-nav {
-		#partner-dropdown a {
-			color: $color_0;
-			&:hover {
-				color: $splash;
+		#partner-dropdown {
+			background-color: $color_1;
+			a {
+				color: $color_0;
+				&:hover {
+					color: $splash;
+				}
 			}
 		}
 	}
