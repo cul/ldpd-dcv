@@ -284,9 +284,6 @@ header[role='banner'] {
 		}
 	}
 	.card > .card-header {
-		background-color: color-shade($primary, 2%);
-		color: map-get($theme-text-colors, 'primary');
-		border-color: map-get($theme-border-colors, 'primary');
 		border: 0;
 	}
 	.panel-ui { // borrows from btn-primary
