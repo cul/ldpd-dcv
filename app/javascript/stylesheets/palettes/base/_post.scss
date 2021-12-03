@@ -1,4 +1,5 @@
 @import 'bootstrap/scss/variables';
+@import 'bootstrap/scss/mixins/breakpoints';
 
 // navbar-primary is a local style following BS4 patterns
 $navbar-primary-color:                 rgba(map-get($theme-text-colors, 'primary'), .7) !default;
@@ -59,3 +60,31 @@ $theme-border-colors: map-merge(
   ),
   $theme-border-colors
 );
+
+// viewport utilities
+//
+// Custom styles for additional viewport height options.
+
+@each $breakpoint in map-keys($grid-breakpoints) {
+  @include media-breakpoint-up($breakpoint) {
+    $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+
+    @each $size in map-keys($sizes) {
+      @if $size != auto {
+        .vh#{$infix}-#{$size} { height: #{$size}vh !important; }
+      }
+    }
+    .h#{$infix}-auto {
+      height: auto !important;
+    }
+  }
+}
+
+@each $size in map-keys($sizes) {
+  @if $size != auto {
+    @if $size != 100 {
+      .vh-#{$size} { height: #{$size}vh !important; }
+      .min-vh-#{$size} { min-height: #{$size}vh !important; }
+    }
+  }
+}
