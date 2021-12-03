@@ -38,8 +38,8 @@ function initZoomingViewer(tileSources, zoomingViewerInitialPage = 0) {
     showSequenceControl:  (tileSources.length > 1)
   });
   $.zoomingViewer.addHandler('open',handleImageChange,null);
-  $.zoomingViewer.addHandler('full-screen', function() {
-    $('#zoom-full-control > i').toggleClass('glyphicon-resize-small');
+  $.zoomingViewer.addHandler('full-screen', function(e) {
+    $('#zoom-full-control > i').toggleClass('fa-compress', e.fullScreen);
     $('#toggle-metadata-control').toggleClass('hidden');
   });
   if (tileSources.length < 2) {
