@@ -21,7 +21,7 @@
       var DCV = {}; // DCV Namespace
     </script>
 
-    <%= stylesheet_pack_tag *((['edit', 'new'].include? params[:action]) ? ["dcv" , "signature-monochromeLight", "sites"] : ["dcv" , "signature-monochromeLight"]) %>
+    <%= stylesheet_pack_tag *((['edit', 'new'].include? params[:action]) ? ["dcv" , "signature-monochrome", "sites"] : ["dcv" , "signature-monochrome"]) %>
     <%= stylesheet_link_tag("easymde.min") if ['edit', 'new'].include? params[:action] %>
     <%= javascript_pack_tag "application", "dcv", "sites" %>
     <%= csrf_meta_tags %>

@@ -76,13 +76,13 @@ button.collapse-toggle {
 		}
 		background-blend-mode: luminosity;
 	}
-	&.palette-monochromeDark, &.palette-default {
+	&.palette-monochromeDark {
 		background-color: black;
 	}
-	&.palette-monochromeLight {
+	&.palette-monochrome {
 		background-color: #595959;
 	}
-	&.palette-blue {
+	&.palette-blue, &.palette-default {
 		background-color: #1a4481;
 	}
 }

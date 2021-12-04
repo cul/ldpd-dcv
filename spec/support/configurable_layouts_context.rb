@@ -1,5 +1,5 @@
 shared_context "verify configurable layouts", shared_context: :metadata do
-	let(:default_palette) { 'glacier' }
+	let(:default_palette) { 'blue' }
 	describe '#subsite_layout' do
 		before { allow(controller).to receive(:subsite_config).and_return('layout' => site_layout) }
 		context 'custom layout' do
