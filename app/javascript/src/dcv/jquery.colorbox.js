@@ -243,7 +243,14 @@ export default (function ($, document, window) {
 
 	// Convert '%' and 'px' values to integers
 	function setSize(size, dimension) {
-		return Math.round((/%/.test(size) ? ((dimension === 'x' ? $window.width() : winheight()) / 100) : 1) * parseInt(size, 10));
+		const raw = parseInt(size, 10);
+		var factor = 1;
+		if (/%/.test(size)) {
+			factor = (dimension === 'x' ? $window.width() : winheight()) / 100;
+		} else if (/v[hw]/.test(size)) {
+			factor = (dimension === 'x' ? document.documentElement.clientWidth : document.documentElement.clientHeight) / 100;
+		}
+		return Math.round(factor * raw);
 	}
 
 	// Checks an href to see if it is a photo.
