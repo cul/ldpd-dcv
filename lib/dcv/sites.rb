@@ -23,7 +23,7 @@ module Dcv::Sites
 		VALID_LAYOUTS = [CUSTOM_LAYOUT, DEFAULT_LAYOUT].concat(PORTABLE_LAYOUTS).freeze
 
 		def self.default_palette
-			DCV_CONFIG.fetch(:default_palette, 'glacier')
+			DCV_CONFIG.fetch(:default_palette, 'blue')
 		end
 	end
 	autoload :Export, 'dcv/sites/export'

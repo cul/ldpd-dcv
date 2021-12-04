@@ -33,7 +33,7 @@
       </div>
       <div class="form-group">
         <label for="site_palette">Site Palette <span class="fa fa-question-circle" data-tooltip="tooltip-palette"></span></label>
-        <%= site_form.select(:palette, options_for_select([['DLC Default', 'default'], ['Dark', 'monochromeDark'], ['Light', 'monochromeLight'], ['Blue', 'blue']], @subsite.palette), {class: ['form-control']}) %>
+        <%= site_form.select(:palette, options_for_select([['DLC Default', 'default'], ['Dark', 'monochromeDark'], ['Light', 'monochrome'], ['Blue', 'blue']], @subsite.palette), {class: ['form-control']}) %>
       </div>
       <div class="form-group">
         <label for="site_layout">Site Layout <span class="fa fa-question-circle" data-tooltip="tooltip-layout"></span></label>

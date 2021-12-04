@@ -20,7 +20,7 @@ class Restricted::UniversityseminarsController < SubsitesController
   end
 
   def subsite_palette
-    'glacier'
+    'blue'
   end
 
   def carousel_image_paths

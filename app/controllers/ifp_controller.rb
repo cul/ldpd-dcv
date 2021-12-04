@@ -34,7 +34,7 @@ class IfpController < SubsitesController
   end
 
   def subsite_palette
-    'monochromeLight'
+    'monochrome'
   end
 
   def carousel_image_paths
