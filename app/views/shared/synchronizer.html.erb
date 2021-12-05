@@ -11,13 +11,13 @@ end
   <% # Note: "text-align:left;" is required for the widget container, otherwise the seek bar won't render properly %>
   <div id="synchronizer-widget" style="text-align:left;" data-media-url="<%= media_url %>" data-<%= synch_mode %>-url="<%= bytestream_content_path(catalog_id: params[:id], bytestream_id: synch_mode) %>" class="">
     <div id="working-area" class="d-flex flex-column flex-md-row">
-      <div id="left-sidebar" class="w-50 vh-sm-50 h-md-auto" style="">
+      <div id="left-sidebar" class="w-100 vh-sm-50 h-md-auto" style="">
         <div id="media-playback" class="" style="">
           <div id="video"><video id="video-player" class="able-player" data-include-transcript="false" preload="none" data-captions-position="<%= document['dc_type_ssm']&.detect {|x| x =~ /sound/i || x =~ /audio/i } ? 'overlay' : 'bottom' %>"><source src="<%= media_url %>" /><track id="video-captions" label="English" kind="captions" srclang="en" src="<%= bytestream_content_path(catalog_id: params[:id], bytestream_id: 'captions')%>" /></video></div>
         </div><!-- /#media-playback -->
       </div><!-- /#left-sidebar -->
 
-      <div id="right-sidebar" class="vh-md-100 min-vh-50 p-0 flex-fill overflow-auto" style="max-height:80vh">
+      <div id="right-sidebar" class="vh-md-100 min-vh-50 p-0 w-100 overflow-auto" style="max-height:80vh">
         <div id="interview-metadata" class="mx-md-2" data-assigned="true"><%= render partial: 'synchronizer/interview_metadata' %></div><!-- /#interview-metadata -->
         <div id="text-tabs">
           <% if synch_mode == 'chapters' %>
