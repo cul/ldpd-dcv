@@ -43,13 +43,8 @@ header[role='banner'] {
 		margin-top:2px;
 	}
 	.input-group-prepend {
-		background-color: $primary;
-		color:map-get($theme-text-colors, 'primary');
-		border-color: map-get($theme-border-colors, 'primary');
 		font-size: .9em;
 		select {
-			background-color: inherit;
-			color: inherit;
 			border: 0;
 			option {
 				background-color: gradePrimaryColor(42%);

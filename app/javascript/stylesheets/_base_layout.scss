@@ -260,8 +260,11 @@ a {
 		padding-bottom: 0;
 		margin-top: 0;
 		margin-bottom: 0;
+		background-color: $primary;
+		color:map-get($theme-text-colors, 'primary');
+		border-color: map-get($theme-border-colors, 'primary');
 		select {
-			background-color: transparent;
+			background-color: inherit;
 		}
 		.btn {
 			border-top-left-radius:0.25rem;
