@@ -50,12 +50,18 @@ const loadHls = function () {
   }
 };
 
-const toWrap = AblePlayer.prototype.setup;
+const wrapSetup = AblePlayer.prototype.setup;
 AblePlayer.prototype.setup = function() {
   loadHls.apply(this);
-  toWrap.apply(this);
+  wrapSetup.apply(this);
 }
 
+const wrapInjectPlayerCode = AblePlayer.prototype.injectPlayerCode;
+AblePlayer.prototype.injectPlayerCode = function() {
+  wrapInjectPlayerCode.apply(this);
+  const evt = new Event("injectedPlayerCode", {"bubbles":false, "cancelable":false});
+  this.media.dispatchEvent(evt);
+}
 window.AblePlayer = AblePlayer;
 
 $(document).ready(function(){
@@ -65,6 +71,16 @@ $(document).ready(function(){
     var mediaUrl = $('source', this)[0].src;
     var player = new AblePlayer($(this), $(element));
     var thisObj = $(this);
+    var thisId = $(this).attr('id');
+    player.media.on("injectedPlayerCode", function() {
+      $(`#${thisId} .able-now-playing`).css("display", "block");
+      let desc = $(`.now-playing-data[data-target="#${thisId}"]`).clone();
+      let appender = function(index, element) {
+        $(element).append(desc);
+        $(element).css('display', 'block');
+      }
+      appender(0, player.$nowPlayingDiv);
+    });
     AblePlayerInstances.push(player);
   })
 });

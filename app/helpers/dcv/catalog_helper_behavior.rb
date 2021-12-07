@@ -116,7 +116,7 @@ module Dcv::CatalogHelperBehavior
     return {} unless published
     published_title = published['title_display_ssm']&.first || published['id']
     {
-      'Title' => link_to(published_title, controller: controller_name, action: :show, id: published['id']),
+      'Title' => link_to(published_title, controller: controller_name, action: :show, id: published['id'], class: ['nodec']),
       'Date' => published['lib_date_textual_ssm']&.first,
       'Identifier' => published['ezid_doi_ssim'].first
     }.compact

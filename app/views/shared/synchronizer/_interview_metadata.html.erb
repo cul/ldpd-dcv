@@ -1,5 +1,7 @@
-<dl class="row">
+<div class="hidden">
+<dl class="now-playing-data row mb-0 align-left" data-target="#video-player"  data-parent="#video">
 <% interview_metadata_for_asset.each do |label, values| %>
   <dt class="col-3"><%= label %>:</dt><dd class="col-9"><%= Array.wrap(values).join('; ').html_safe %></dd>
 <% end -%>
 </dl>
+</div>
