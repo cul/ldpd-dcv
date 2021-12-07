@@ -8,7 +8,6 @@
 */
 
 onmessage = function(e) {
-  console.log(e);
   var first = false;
   var nextSync = false;
   var workerResult = '<p>';

@@ -47,7 +47,6 @@ export default class Transcript {
 
 							// We implement a Web Worker because larger transcript files will freeze the browser
 							if (window.Worker) {
-								console.log("trying a webworker");
 								var textWorker = (transcript.previewOnly) ? new PreviewWorker() : new TranscriptWorker();
 								textWorker.postMessage(text);
 								textWorker.onmessage = function(e) {
