@@ -10,7 +10,7 @@ $theme-text-colors: map-merge($theme-text-colors, ('body': $body-color));
 $theme-border-colors: map-merge($theme-border-colors, ('body': $body-border-color));
 
 $primary: #112e57;
-$primary-color: #ccc;
+$primary-color: #ddd;
 $primary-border-color: #999;
 $theme-colors: map-merge($theme-colors, ('primary': $primary));
 $theme-text-colors: map-merge($theme-text-colors, ('primary': $primary-color));

@@ -296,25 +296,11 @@ a {
 		}
 	}
 	#q {
-		color: map-get($theme-colors, 'user-input');
 		&:focus {
 			@extend .swatch-primary;
 		}
-		&:-moz-placeholder {
-			color: darken(map-get($theme-colors, 'user-input'), 12%);
-			opacity: 1;
-		}
-		&:-ms-input-placeholder {
-			color: darken(map-get($theme-colors, 'user-input'), 12%);
-		}
 	}
-	#q::-webkit-input-placeholder {
-		color: darken(map-get($theme-colors, 'user-input'), 12%);
-	}
-	#q::-moz-placeholder {
-		color: darken(map-get($theme-colors, 'user-input'), 12%);
-		opacity: 1;
-	}
+
 	.search-btn {
 		border-color: map-get($theme-colors, 'user-input');
 		&:focus {
@@ -403,7 +389,7 @@ a {
       border-radius:0;
     }
 		li {
-			a:hover {
+			a:hover, a:active {
 				@extend .swatch-info;
         /* TODO for DLC-938 */
         color: map-get($theme-text-colors, 'primary');
@@ -416,9 +402,7 @@ a {
 	}
 	a {
 		color: map-get($theme-text-colors, 'secondary');
-		&:focus {
-			background-color: transparent;
-		}
+    background-color: transparent;
 	}
 	.btn-secondary {
 		padding-left: 1rem;
@@ -1013,9 +997,16 @@ h2[itemprop="name"] {
 	}
 }
 
-.btn.active {
-	background-color:lighten($info, 10%);
-	border-color:darken($info,30%);
+.btn {
+  &.active {
+  	background-color:lighten($info, 10%);
+  	border-color:darken($info,30%);
+  }
+  &.disabled {
+    color: map-get($theme-border-colors, 'primary');
+    background-color: $color_disabled_background;
+    //border-color: map-get($theme-border-colors, 'primary');
+  }
 }
 
 .media-wrapper.thumbnail {

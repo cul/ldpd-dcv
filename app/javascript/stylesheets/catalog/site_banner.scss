@@ -23,7 +23,9 @@ $url_darkmode_banner: url('dcv/dlc-darkmode.png');
 	background-size: cover;
 	color: $white;
 	text-align: center;
-	text-shadow: $black 0 0 0.3em;
+	> a {
+		text-shadow: $black 0 0 0.3em;
+	}
 	#site-banner-inner {
 	}
 	#site-banner-left {
@@ -36,10 +38,8 @@ $url_darkmode_banner: url('dcv/dlc-darkmode.png');
 		height: 80px;
 		width: 100%;
 	}
-}
-
-#search-navbar {
-	input.search_q {
+	.search_q {
+		color: $primary;
 		background-color: $body-bg;
 	}
 }
