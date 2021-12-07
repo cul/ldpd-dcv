@@ -44,10 +44,9 @@
 }
 .able {
   position: relative;
-  margin: 1em 0;
+  margin: 0 0 1em;
   width: 100%; /* will be changed dynamically as player is contructed */
   background-color: #000;
-  box-shadow: 0px 0px 16px #262626;
   z-index: 900; /* changed from 5000 to sit behind dropdown nav */
 }
 .able-column-left {
@@ -393,7 +392,7 @@ input[type=range]:focus::-ms-fill-upper {
 	color: #CCC;
 	font-size: 0.9em;
 	background-color: transparent;
-	padding: 0.5em 0.5em 0.25em;
+	padding: 0.125em 0.5em;
 }
 .able-status-bar span.able-timer {
 	/* contains both span.elapsedTime and span.duration */
