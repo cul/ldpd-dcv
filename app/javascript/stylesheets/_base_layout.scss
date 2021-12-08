@@ -297,7 +297,7 @@ a {
 	}
 	#q {
 		&:focus {
-			@extend .swatch-primary;
+			border-color: $primary;
 		}
 	}
 
