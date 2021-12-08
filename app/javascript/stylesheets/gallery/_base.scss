@@ -61,12 +61,6 @@
 		font-size: 1em;
 	}
 }
-input.search_q {
-		@extend .swatch-info;
-		&:focus {
-			@extend .swatch-primary;
-		}
-}
 
 #content {
 	.document {
