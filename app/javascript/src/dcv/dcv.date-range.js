@@ -282,11 +282,11 @@ const setSearchDateGraphVisibility = function(makeVisible) {
   if (makeVisible) {
     $('#search-results-date-graph').removeClass('hidden');
     resizeDateRangeCanvas();
-    $('#date-graph-toggle').removeClass('btn-outline-secondary').addClass('success');
+    $('#date-graph-toggle').removeClass('btn-outline-secondary').addClass('btn-success').blur();
     createCookie(DCV.subsite_key + '_' + DateGraphVisiblityState.COOKIE, DateGraphVisiblityState.SHOW);
   } else {
     $('#search-results-date-graph').addClass('hidden');
-    $('#date-graph-toggle').removeClass('success').addClass('btn-outline-secondary');
+    $('#date-graph-toggle').removeClass('btn-success').addClass('btn-outline-secondary').blur();
     createCookie(DCV.subsite_key + '_' + DateGraphVisiblityState.COOKIE, DateGraphVisiblityState.HIDE);
   }
 }
