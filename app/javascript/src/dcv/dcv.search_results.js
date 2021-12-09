@@ -10,7 +10,6 @@ DCV.SearchResults.SearchMode = {
 
 DCV.SearchResults.CookieNames = {};
 DCV.SearchResults.CookieNames.searchMode = 'search_mode';
-
 DCV.SearchResults.configForLayout = {
 	dcv: {
 		defaultSearchMode: DCV.SearchResults.SearchMode.GRID,
@@ -47,20 +46,22 @@ DCV.SearchResults.setSearchMode = function(searchMode) {
     if (DCV.SearchResults.getCurrentSearchMode == searchMode) {
     	return;
     }
-	$('.view-options .result-type-button').removeClass('success').addClass('btn-outline-secondary');
+	$('.view-options .result-type-button').removeClass('btn-success').addClass('btn-outline-secondary');
 
 	if (searchMode == DCV.SearchResults.SearchMode.GRID) {
 		$('#content .document').removeClass('list-view').addClass('grid-view');
-		$('#grid-mode').removeClass('btn-outline-secondary').addClass('success');
+		$('#grid-mode').removeClass('btn-outline-secondary').addClass('btn-success').blur();
+		$('#list-mode').removeClass('btn-success').addClass('btn-outline-secondary');
 		createCookie(DCV.subsite_key + '_' + DCV.SearchResults.CookieNames.searchMode, searchMode);
 	} else if (searchMode == DCV.SearchResults.SearchMode.LIST) {
 		$('#content .document').removeClass('grid-view').addClass('list-view');
-		$('#list-mode').removeClass('btn-outline-secondary').addClass('success');
+		$('#list-mode').removeClass('btn-outline-secondary').addClass('btn-success').blur();
+		$('#grid-mode').removeClass('btn-success').addClass('btn-outline-secondary');
 		createCookie(DCV.subsite_key + '_' + DCV.SearchResults.CookieNames.searchMode, searchMode);
 	} else if (searchMode == DCV.SearchResults.SearchMode.EXTENDED) {
 		$('#search-results, .results-pagination, #appliedParams').addClass('hidden');
 		$('#extended-search-results').removeClass('hidden');
-		$('#extended-search-mode').removeClass('btn-outline-secondary').addClass('success');
+		$('#extended-search-mode').removeClass('btn-outline-secondary').addClass('btn-success').blur();
 		$('.extended-search-mode').addClass('hidden');
 		$('#return-to-results').removeClass('hidden');
 		//BUT DO NOT SET A COOKIE FOR EXTENDED MODE!  We don't want this mode to persist between page refreshes.
@@ -70,7 +71,7 @@ DCV.SearchResults.setSearchMode = function(searchMode) {
 
 	//Undo EXTENDED mode changes, if necessary
 	if (searchMode != DCV.SearchResults.SearchMode.EXTENDED) {
-		$('#extended-search-mode').removeClass('success');
+		$('#extended-search-mode').removeClass('btn-success');
 		$('#extended-search-results').addClass('hidden');
 		$('#search-results, .results-pagination, #appliedParams').removeClass('hidden');
 		$('#return-to-results').addClass('hidden');

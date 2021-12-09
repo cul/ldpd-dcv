@@ -201,6 +201,9 @@ a {
 // button theme adjustments
 .btn-outline-secondary {
 	background-color: map-get($theme-text-colors, 'secondary');
+  &,&:hover {
+    border-color: map-get($theme-border-colors, 'secondary')
+  }
 }
 
 #site-banner {
