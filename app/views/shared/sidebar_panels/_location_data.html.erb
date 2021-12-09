@@ -2,7 +2,7 @@
 <div class="inner" style="margin-bottom:1em;padding-bottom:0;">
 	<dl class="dl-vertical">
 		<% doc_presenter.fields_to_render.each do |solr_fname, field, field_presenter| %>
-			<dt class="blacklight-<%= solr_fname.parameterize %>"><%= render_document_geo_field_label document, field: solr_fname %></dt>
+			<dt class="blacklight-<%= solr_fname.parameterize %>"><%= field_presenter.label('show') %></dt>
 			<dd class="blacklight-<%= solr_fname.parameterize %>">
 				<ul>
 					<% Array(doc_presenter.field_value field).each do |val| -%>

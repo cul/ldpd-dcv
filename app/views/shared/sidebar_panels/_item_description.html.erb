@@ -5,13 +5,13 @@
 <div class="inner" <%= "style=\"margin-top:1em;\"".html_safe if alignment != 'vertical' %>>
 	<dl class="dl-<%= alignment %>">
 		<% doc_presenter.fields_to_render.each do |solr_fname, field, field_presenter| %>
-			<dt class="blacklight-<%= solr_fname.parameterize %>"><%= render_document_show_field_label document, :field => solr_fname %></dt>
+			<dt class="blacklight-<%= solr_fname.parameterize %>"><%= field_presenter.label('show') %></dt>
 			<% Array(doc_presenter.field_value field).each do |field_value| -%>
 				<dd class="blacklight-<%= solr_fname.parameterize %>"><%= field_value %></dd>
 			<% end -%>
 		<% end %>
 		<% cite_presenter.fields_to_render.each do |solr_fname, field, field_presenter| %>
-			<dt class="blacklight-<%= solr_fname.parameterize %>"><%= render_document_citation_field_label document, :field => solr_fname %></dt>
+			<dt class="blacklight-<%= solr_fname.parameterize %>"><%= field_presenter.label('show') %></dt>
 			<% Array(cite_presenter.field_value field).each do |field_value| -%>
 				<dd class="blacklight-<%= solr_fname.parameterize %>"><%= field_value %></dd>
 			<% end -%>

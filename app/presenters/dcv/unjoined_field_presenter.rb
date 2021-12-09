@@ -1,5 +1,5 @@
 module Dcv
-	class UnjoinedFieldPresenter < Blacklight::FieldPresenter
+	class UnjoinedFieldPresenter < Dcv::FieldPresenter
 		# duplicated from Blacklight::FieldPresenter to override use of
 		# Blacklight::Rendering::Pipeline with Dcv::Rendering::UnjoinedPipeline
 		def render
