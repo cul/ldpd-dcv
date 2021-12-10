@@ -15,14 +15,12 @@
   <a id="child-zoom-new-window-button" class="btn btn-secondary" href="#" data-original-title="<%= document_show_html_title %>" data-toggle="tooltip" title="Open in new window"><i class="fa fa-external-link"></i></a>
   <% end -%>
   <% if local_downloads || archive_org_id_for_document(document) -%>
-  <div id="download-button-group" class="btn-group btn-group-sm float-right">
+  <div id="download-button-group" class="btn-group btn-group-sm justify-content-end">
     <button id="download-button" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" data-tt="tooltip" title="Download">
       <i class="fa fa-cloud-download"></i> <span class="caret"></span>
       <span class="sr-only">Toggle Dropdown</span>
     </button>
-    <ul id="downloads-list" class="dropdown-menu float-right" role="menu">
-      <li><a href="#">Test</a></li>
-      <li><a href="#">Test 2</a></li>
+    <ul id="downloads-list" class="dropdown-menu dropdown-menu-right" role="menu">
     </ul>
   </div>
   <% end -%>
