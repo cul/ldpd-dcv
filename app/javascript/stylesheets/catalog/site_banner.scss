@@ -2,7 +2,6 @@
 @import '../brand_font';
 
 $url_dcv_small: image-url('/images/dcv/1836760843_267e9c947f_o-sm-b.jpg');
-$url_darkmode_banner: url('dcv/dlc-darkmode.png');
 #site-title {
 	@extend %extend_brand_font;
 	text-align: center;
@@ -18,7 +17,8 @@ $url_darkmode_banner: url('dcv/dlc-darkmode.png');
 	// only in root page
 	background-image: url('https://toolkit.library.columbia.edu/v3/img/campus-and-city-image.jpg');
 	@media (prefers-color-scheme: dark) {
-		background-image: $url_darkmode_banner;
+		background-color: change-color($primary, $alpha: 0.25);
+		background-blend-mode: multiply;
 	}
 	background-size: cover;
 	color: $white;
