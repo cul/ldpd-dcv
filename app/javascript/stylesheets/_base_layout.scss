@@ -115,6 +115,9 @@ a {
 
 .dropdown-menu {
   background-color: $primary;
+  &>li {
+    padding:0;
+  }
   &>li>a{
       padding: 0.1em 0.5em;
       display: block;
