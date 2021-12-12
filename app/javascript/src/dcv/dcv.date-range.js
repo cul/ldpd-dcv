@@ -174,11 +174,8 @@ const DateRangeGraphSelector = {
         var textToRender = segment['start'].toString();
 
         // Draw labels, shadowed by base fill
-        ctx.fillStyle = p.base.fill;
         ctx.font = fontSize + "px 'Helvetica Neue'";
-        ctx.fillText(textToRender, textXOffset+padding+i*segmentWidth-1, textYOffset-1);
-        ctx.fillText(textToRender, textXOffset+padding+i*segmentWidth+1, textYOffset+1);
-        ctx.fillStyle = p.value.fill;
+        ctx.fillStyle = p.segment.stroke;
         ctx.fillText(textToRender, textXOffset+padding+i*segmentWidth, textYOffset);
 
       }
@@ -231,20 +228,20 @@ const DateRangeGraphSelector = {
       ctx.globalAlpha=1.0;
     }
   },
-  DARK: {
-    base: { stroke: '#666', fill: '#000'},
-    segment: { stroke: '#222', low: [80, 80, 80], high: [110, 110, 110] },
-    value: { stroke: '#555', fill: '#ddd' }
-  },
-
-  LIGHT: {
-    base: { stroke: '#888', fill: '#eee'},
-    segment: { stroke: '#222', low: [80, 80, 80], high: [110, 110, 110] },
-    value: { stroke: '#999', fill: '#000' }
-  },
   paletteFor: function(sitePalette) {
-    if (sitePalette == 'monochromeDark') return DateRangeGraphSelector.DARK;
-    return DateRangeGraphSelector.LIGHT;
+    const palette = {
+      base: { stroke: '#888', fill: '#eee'},
+      segment: { stroke: '#222', low: [80, 80, 80], high: [110, 110, 110] },
+      value: { stroke: '#999', fill: '#000' }
+    };
+    palette.base.fill = $("#palette-swatches .swatch-body").css("background-color");
+    palette.base.stroke = $("#palette-swatches .swatch-body").css("color");
+    palette.value.fill = $("#palette-swatches .swatch-secondary").css("background-color");
+    palette.value.stroke = $("#palette-swatches .swatch-secondary").css("color");
+    palette.segment.stroke = $("#palette-swatches .swatch-primary").css("color");
+    palette.segment.low = [80, 80, 80];
+    palette.segment.high = [110, 110, 110];
+    return palette;
   },
   /**
    * @param: rgbStartArr -> [48, 48, 48]
