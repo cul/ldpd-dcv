@@ -1,0 +1,15 @@
+#site-banner {
+	// only in root page
+	background-color: change-color($primary, $alpha: 0.5);
+	color: $white-alt;
+	> a {
+		text-shadow: $black-alt 0 0 0.3em;
+	}
+	#site-banner-left {
+		background-color: $body-bg-alt;
+	}
+	.search_q {
+		color: $primary-alt;
+		background-color: $body-bg-alt;
+	}
+}

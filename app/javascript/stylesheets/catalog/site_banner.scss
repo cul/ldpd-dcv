@@ -1,5 +1,6 @@
 @import '../palettes/blue';
 @import '../brand_font';
+@import 'bootstrap-dark-4/scss/dark/mixins/color-scheme';
 
 $url_dcv_small: image-url('/images/dcv/1836760843_267e9c947f_o-sm-b.jpg');
 #site-title {
@@ -18,9 +19,6 @@ $url_dcv_small: image-url('/images/dcv/1836760843_267e9c947f_o-sm-b.jpg');
 	background-image: url('https://toolkit.library.columbia.edu/v3/img/campus-and-city-image.jpg');
 	background-blend-mode: multiply;
 	background-color: change-color($primary, $alpha: 0.25);
-		@media (prefers-color-scheme: dark) {
-			background-color: change-color($primary, $alpha: 0.5);
-		}
 	background-size: cover;
 	color: $white;
 	text-align: center;
@@ -43,6 +41,10 @@ $url_dcv_small: image-url('/images/dcv/1836760843_267e9c947f_o-sm-b.jpg');
 		color: $primary;
 		background-color: $body-bg;
 	}
+}
+
+@include prefers-color-scheme(dark) {
+	@import './site_banner/dark';
 }
 
 @media(min-width: 768px) {

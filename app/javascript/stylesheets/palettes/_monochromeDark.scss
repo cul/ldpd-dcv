@@ -9,6 +9,13 @@ $theme-colors: map-merge($theme-colors, ('body': $body-bg));
 $theme-text-colors: map-merge($theme-text-colors, ('body': $body-color));
 $theme-border-colors: map-merge($theme-border-colors, ('body': $body-border-color));
 
+$body-bg-alt: $body-bg;
+$body-color-alt: $body-color;
+$body-border-color-alt: $body-border-color;
+$theme-colors-alt: map-merge($theme-colors-alt, ('body': $body-bg-alt));
+$theme-text-colors-alt: map-merge($theme-text-colors-alt, ('body': $body-color-alt));
+$theme-border-colors-alt: map-merge($theme-border-colors-alt, ('body': $body-border-color-alt));
+
 // color_ui_background -> primary
 $primary: #222;
 $primary-color: #eee;
@@ -16,6 +23,13 @@ $primary-border-color: #777;
 $theme-colors: map-merge($theme-colors, ('primary': $primary));
 $theme-text-colors: map-merge($theme-text-colors, ('primary': $primary-color));
 $theme-border-colors: map-merge($theme-border-colors, ('primary': $primary-border-color));
+
+$primary-alt: $primary;
+$primary-color-alt: $primary-color;
+$primary-border-color-alt: $primary-border-color;
+$theme-colors-alt: map-merge($theme-colors-alt, ('primary': $primary-alt));
+$theme-text-colors-alt: map-merge($theme-text-colors-alt, ('primary': $primary-color-alt));
+$theme-border-colors-alt: map-merge($theme-border-colors-alt, ('primary': $primary-border-color-alt));
 
 // color_ui_secondary -> secondary
 $secondary: color-yiq(#aaa);
@@ -25,6 +39,13 @@ $theme-colors: map-merge($theme-colors, ('secondary': $secondary));
 $theme-text-colors: map-merge($theme-text-colors, ('secondary': $secondary-color));
 $theme-border-colors: map-merge($theme-border-colors, ('secondary': $secondary-border-color));
 
+$secondary-alt: $secondary;
+$secondary-color-alt: $secondary-color;
+$secondary-border-color-alt: $secondary-border-color;
+$theme-colors-alt: map-merge($theme-colors-alt, ('secondary': $secondary-alt));
+$theme-text-colors-alt: map-merge($theme-text-colors-alt, ('secondary': $secondary-color-alt));
+$theme-border-colors-alt: map-merge($theme-border-colors-alt, ('secondary': $secondary-border-color-alt));
+
 // color_highlight_background -> info
 $info: $body-color;
 $info-color: $body-bg;
@@ -32,11 +53,23 @@ $theme-colors: map-merge($theme-colors, ('info': $info));
 $theme-text-colors: map-merge($theme-text-colors, ('info': $info-color));
 $theme-border-colors: map-merge($theme-border-colors, ('info': $info));
 
+$info-alt: $info;
+$info-color-alt: $info-color;
+$theme-colors-alt: map-merge($theme-colors-alt, ('info': $info-alt));
+$theme-text-colors-alt: map-merge($theme-text-colors-alt, ('info': $info-color-alt));
+$theme-border-colors-alt: map-merge($theme-border-colors-alt, ('info': $info-alt));
+
 $theme-colors: map-merge($theme-colors, ('user-input': #ccc));
+$theme-colors-alt: map-merge($theme-colors-alt, ('user-input': #444));
 
 $nav-tabs-border-color:             $body-border-color;
 $nav-tabs-link-active-color:        $light;
 $nav-tabs-link-active-bg:           $dark;
 $nav-tabs-link-active-border-color: $body-border-color;
+
+$nav-tabs-border-color-alt:             $body-border-color-alt;
+$nav-tabs-link-active-color-alt:        $dark;
+$nav-tabs-link-active-bg-alt:           $light;
+$nav-tabs-link-active-border-color-alt: $body-border-color-alt;
 
 @import './base/post';

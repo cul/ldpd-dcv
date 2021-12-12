@@ -58,6 +58,11 @@ $theme-colors: (
   "user-input": $gray-400,
 );
 
+$theme-colors-alt: (
+  'light':      $dark,
+  'dark':       $light,
+);
+
 $theme-text-colors: (
   'body':       $body-color,
   'primary':    #eee,
@@ -68,13 +73,21 @@ $theme-text-colors: (
   'dark':       $light
 );
 
+$theme-text-colors-alt: (
+  'light':      $light,
+  'dark':       $dark,
+);
+
 $theme-border-colors: map-merge($theme-colors, ());
+
+$theme-border-colors-alt: map-merge($theme-colors-alt, ());
 
 $theme-border-colors: map-merge($theme-border-colors, (
   'primary': #ccc,
   'secondary': $gray-dcv
 ));
 
+// move to post-palette?
 $text-color: #ddd;
 $link-color: #2c6bac;
 $link-hover-color: darken($link-color, 15%);

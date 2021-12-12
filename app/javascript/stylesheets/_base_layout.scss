@@ -44,6 +44,9 @@ $font_glyphs: FontAwesome;
 	position: relative;
 	display: block;
 	text-decoration: none;
+	@media (prefers-color-scheme: dark) {
+		color: map-get($theme-text-colors-alt, 'primary');
+	}
 }
 
 //original selectors
@@ -52,6 +55,9 @@ $font_glyphs: FontAwesome;
 	padding: 4px;
 	border: 1px solid map-get($theme-border-colors, 'secondary');
 	border-radius: 3px;
+	@media (prefers-color-scheme: dark) {
+		border-color: map-get($theme-border-colors-alt, 'secondary');
+	}
 }
 
 //original selectors
@@ -64,19 +70,26 @@ $font_glyphs: FontAwesome;
 }
 
 %active_pagination_ui {
-	@extend .bg-info;
-  color: map-get($theme-text-colors, "info");
-	border-color: $info;
+	background-color: map-get($theme-colors, "info");
+	color: map-get($theme-text-colors, "info");
+	border-color: map-get($theme-border-colors, "info");
+	@media (prefers-color-scheme: dark) {
+		background-color: map-get($theme-colors-alt, "info");
+		color: map-get($theme-text-colors-alt, "info");
+		border-color: map-get($theme-border-colors-alt, "info");
+	}
 }
 
 @each $color, $value in $theme-colors {
   .swatch-#{$color} {
     background-color: $value;
     color: map-get($theme-text-colors, $color);
+    border-color: map-get($theme-border-colors, $color);
   }
   .invert-#{$color} {
     background-color: map-get($theme-text-colors, $color);
     color: $value;
+    border-color: $value;
   }
 }
 
@@ -111,6 +124,10 @@ a {
 			border-color: $info;
 		}
 	}
+}
+
+#search-navbar {
+	background-color: map-get($theme-colors, 'body');	
 }
 
 .dropdown-menu {
@@ -1335,4 +1352,8 @@ DD .collapse.show {
 [aria-expanded="false"] > .expanded,
 [aria-expanded="true"] > .collapsed {
   display: none;
+}
+
+@include prefers-color-scheme(dark) {
+	@import './base_layout/dark';
 }

@@ -1,0 +1,243 @@
+#outer-wrapper {
+	border-color: map-get($theme-border-colors-alt, 'secondary');
+	background-color:$body-bg-alt;
+}
+
+a {
+	color: $link-color-alt;
+	&:hover {
+		color: $info-alt;
+	}
+	&.thumbnail {
+		border-color: map-get($theme-border-colors-alt, 'body');
+		background-color: transparent;
+		&:hover {
+			border-color: $info-alt;
+		}
+	}
+}
+#site-banner {
+	color: map-get($theme-text-colors-alt, 'brand');
+	background-color: map-get($theme-colors-alt, 'brand');
+	.titlesub {
+		color: color-shade(map-get($theme-text-colors-alt, 'brand'));
+	}
+}
+
+#search-navbar {
+	.input-group-prepend {
+		select {
+			option {
+				background-color: color-shade(map-get($theme-colors-alt, 'primary'), 42%);
+				color: map-get($theme-text-colors-alt, 'primary');
+			}
+		}
+	}
+	#q {
+		background-color: $body-bg-alt;
+		color: map-get($theme-text-colors-alt, 'primary');
+		&:focus {
+			background-color: $body-bg-alt;
+			color: $info-alt;
+		}
+	}
+	#q, #q-filter, .search-btn, .reset-btn {
+		border-color:map-get($theme-border-colors-alt, 'primary');
+	}
+}
+
+.featured-outer {
+	background-color:$body-bg-alt;
+}
+
+#site-title {
+	color: map-get($theme-text-colors-alt, 'brand');
+	.dr-arrow {
+		color: color-shade(map-get($theme-border-colors-alt, 'secondary'),35%);
+	}
+	a {
+		color: map-get($theme-text-colors-alt, 'brand');
+		&:hover {
+			color: color-yiq(map-get($theme-colors-alt, 'brand'));
+		}
+	}
+}
+#site-banner-subtitle {
+	color: color-shade(map-get($theme-text-colors-alt, 'brand'),20%);
+	a {
+		color: inherit;
+	}
+}
+#secondary-nav {
+	@extend .swatch-secondary-alt;
+}
+@media(min-width: 768px) {
+	#main-container {
+		.inner {
+			background-color: rgba($body-bg-alt, 0.7);
+		}
+	}
+}
+
+.card {
+	border-color: map-get($theme-border-colors-alt, 'primary');
+}
+
+.appliedFilter .btn-secondary,
+	.appliedFilter .constraint-value:hover,
+	.appliedFilter .constraint-value:active {
+		color: $body-color-alt;
+		background-color: $body-bg-alt;
+}
+
+#main-container {
+	background-color: $body-bg-alt;
+	.inner {
+		border-color:map-get($theme-border-colors-alt, 'body');
+		&.home {
+			background: transparent;
+			background-color: transparent;
+			.sidenav {
+				.card {
+					&.panel-ui {
+						.card-header {
+							@extend .swatch-body-alt;
+						}
+					}
+					&:not(.panel-ui) {
+						.card-title {
+							color:color-shade($body-color-alt,18%);
+						}
+					}
+				}
+			}
+		}
+		h6 {
+			color: $gray-500-alt;
+		}
+	}
+	.panel-ui { // borrows from btn-primary
+		border-color: map-get($theme-border-colors-alt, 'primary');
+		background-color: $primary-alt;
+		color: map-get($theme-text-colors-alt, 'primary');
+		&:hover {
+			background-color: map-get($theme-text-colors-alt, 'primary');
+			color:$primary-alt;
+			border-color:color-shade($primary-alt,30%);
+			a:hover {
+				color: inherit;
+			}
+		}
+		&:active, &:focus {
+			border-color:darken(map-get($theme-text-colors-alt, 'info'),30%);
+		}
+		.card-header {
+			&.home {
+				background-color: transparent;
+			}
+			a {
+			  color:inherit;
+			}
+		}
+	}
+}
+
+#facets {
+	.top-panel-heading {
+		background-color: transparent !important;
+	}
+	.card {
+		background-color: transparent !important;
+		.card-header {
+			background-color: $body-bg-alt;
+		}
+	}
+	.card {
+		background-color: shade-color(map-get($theme-colors-alt, 'body'), 5%);
+		color: map-get($theme-text-colors-alt, 'body');
+		border-color: map-get($theme-border-colors-alt, 'primary');
+		&.home {
+			background-color: transparent;
+		}
+	}
+}
+
+#content {
+	#facet-panel-collapse {
+		.card-body {
+			background-color: shade-color(map-get($theme-colors-alt, 'body'), 5%);
+		}
+	}
+	.document {
+		#child_gallery {
+			.index_subtitle {
+				color: $link-color-alt;
+			}
+		}
+	}
+	.appliedFilter .filterName:after {
+		color: map-get($theme-border-colors-alt, 'body');
+	}
+}
+
+.fs-crumbs {
+	background-color: $body-bg-alt;
+	border-color: map-get($theme-border-colors-alt, 'body')_offset !important;
+}
+.table-bordered {
+	border-color: map-get($theme-border-colors-alt, 'body');
+	> {
+		thead > tr > {
+			th {
+				border-color: map-get($theme-border-colors-alt, 'body');
+			}
+			td {
+				border-color: map-get($theme-border-colors-alt, 'body');
+			}
+		}
+		tbody > tr > {
+			th {
+				border-color: map-get($theme-border-colors-alt, 'body');
+			}
+			td {
+				border-color: map-get($theme-border-colors-alt, 'body');
+			}
+		}
+		tfoot > tr > {
+			th {
+				border-color: map-get($theme-border-colors-alt, 'body');
+			}
+			td {
+				border-color: map-get($theme-border-colors-alt, 'body');
+			}
+		}
+	}
+}
+.dropdown a {
+	color: $info-alt;
+}
+
+.leaflet-control-attribution a {
+	color: map-get($theme-text-colors-alt, 'info') !important;
+}
+.leaflet-popup-content a {
+	color: map-get($theme-text-colors-alt, 'info') !important;
+}
+.table-striped > tbody > tr:nth-child(odd) > {
+	td {
+		background-color: $body-bg-alt;
+	}
+	th {
+		background-color: $body-bg-alt;
+	}
+}
+
+#ajax-modal .modal-content {
+  color: map-get($theme-text-colors-alt, 'primary');
+  background-color: shade-color(map-get($theme-colors-alt, 'body'),5%);
+  border-color: map-get($theme-text-colors-alt, 'primary');
+}
+
+:root {
+	--signature-banner-tint: #{color-shade($light)};
+}

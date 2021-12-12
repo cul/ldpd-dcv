@@ -33,3 +33,42 @@
 @import 'bootstrap/scss/spinners';
 @import 'bootstrap/scss/utilities';
 @import 'bootstrap/scss/print';
+
+@import 'bootstrap-dark-4/scss/dark/mixins';
+
+@include prefers-color-scheme(dark) {
+  @import 'bootstrap-dark-4/scss/dark/mixins/forms';
+  @import "bootstrap-dark-4/scss/dark/root";
+  @import "bootstrap-dark-4/scss/dark/reboot";
+  @import "bootstrap-dark-4/scss/dark/type";
+  @import "bootstrap-dark-4/scss/dark/images";
+  @import "bootstrap-dark-4/scss/dark/code";
+  @import "bootstrap-dark-4/scss/dark/tables";
+  @import "bootstrap-dark-4/scss/dark/forms";
+  @import "bootstrap-dark-4/scss/dark/buttons";
+  // _transitions not used
+  @import "bootstrap-dark-4/scss/dark/dropdown";
+  @import "bootstrap-dark-4/scss/dark/button-group";
+  @import "bootstrap-dark-4/scss/dark/input-group";
+  @import "bootstrap-dark-4/scss/dark/custom-forms";
+  @import "bootstrap-dark-4/scss/dark/nav";
+  @import "bootstrap-dark-4/scss/dark/navbar";
+  @import "bootstrap-dark-4/scss/dark/card";
+  @import "bootstrap-dark-4/scss/dark/breadcrumb";
+  @import "bootstrap-dark-4/scss/dark/pagination";
+  @import "bootstrap-dark-4/scss/dark/badge";
+  @import "bootstrap-dark-4/scss/dark/jumbotron";
+  @import "bootstrap-dark-4/scss/dark/alert";
+  @import "bootstrap-dark-4/scss/dark/progress";
+  // _media not used
+  @import "bootstrap-dark-4/scss/dark/list-group";
+  @import "bootstrap-dark-4/scss/dark/close";
+  @import "bootstrap-dark-4/scss/dark/toasts";
+  @import "bootstrap-dark-4/scss/dark/modal";
+  @import "bootstrap-dark-4/scss/dark/tooltip";
+  @import "bootstrap-dark-4/scss/dark/popover";
+  @import "bootstrap-dark-4/scss/dark/carousel";
+  // _spinners not used
+  @import "bootstrap-dark-4/scss/dark/utilities";
+  @import "bootstrap-dark-4/scss/dark/dark";
+}

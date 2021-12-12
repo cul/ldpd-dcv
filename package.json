@@ -6,6 +6,7 @@
     "activestorage": "5.2.6",
     "blacklight-frontend": "^7.5.1",
     "bootstrap": "4.6.0",
+    "bootstrap-dark-4": "^0.6.1",
     "d3": "3.5.12",
     "easymde": "2.13.0",
     "font-awesome": "4.7.0",

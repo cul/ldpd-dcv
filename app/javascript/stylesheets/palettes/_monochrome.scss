@@ -2,12 +2,14 @@
 @import './base/variables';
 
 //colors
-$body-bg: #fafafa;
-$body-color: #111;
-$body-border-color: #ccc;
+@import './body/light';
 $theme-colors: map-merge($theme-colors, ('body': $body-bg));
 $theme-text-colors: map-merge($theme-text-colors, ('body': $body-color));
 $theme-border-colors: map-merge($theme-border-colors, ('body': $body-border-color));
+
+$theme-colors-alt: map-merge($theme-colors-alt, ('body': $body-bg-alt));
+$theme-text-colors-alt: map-merge($theme-text-colors-alt, ('body': $body-color-alt));
+$theme-border-colors-alt: map-merge($theme-border-colors-alt, ('body': $body-border-color-alt));
 
 $primary: #222;
 $primary-color: #eee;
@@ -16,6 +18,13 @@ $theme-colors: map-merge($theme-colors, ('primary': $primary));
 $theme-text-colors: map-merge($theme-text-colors, ('primary': $primary-color));
 $theme-border-colors: map-merge($theme-border-colors, ('primary': $primary-border-color));
 
+$primary-alt: #ccc;
+$primary-color-alt: #111;
+$primary-border-color-alt: #ccc;
+$theme-colors-alt: map-merge($theme-colors-alt, ('primary': $primary-alt));
+$theme-text-colors-alt: map-merge($theme-text-colors-alt, ('primary': $primary-color-alt));
+$theme-border-colors-alt: map-merge($theme-border-colors-alt, ('primary': $primary-border-color-alt));
+
 $secondary: #cfcfcf;
 $secondary-color: #333;
 $secondary-border-color: #222;
@@ -23,16 +32,34 @@ $theme-colors: map-merge($theme-colors, ('secondary': $secondary));
 $theme-text-colors: map-merge($theme-text-colors, ('secondary': $secondary-color));
 $theme-border-colors: map-merge($theme-border-colors, ('secondary': $secondary-border-color));
 
+$secondary-alt: #333;
+$secondary-color-alt: #ccc;
+$secondary-border-color-alt: #eee;
+$theme-colors-alt: map-merge($theme-colors-alt, ('secondary': $secondary-alt));
+$theme-text-colors-alt: map-merge($theme-text-colors-alt, ('secondary': $secondary-color-alt));
+$theme-border-colors-alt: map-merge($theme-border-colors-alt, ('secondary': $secondary-border-color-alt));
+
 $info: #1a1f2f; //rgb(68,89,116);
 $info-color: #e6e6e6;
 $theme-colors: map-merge($theme-colors, ('info': $info));
 $theme-text-colors: map-merge($theme-text-colors, ('info': $info-color));
 $theme-border-colors: map-merge($theme-border-colors, ('info': $info));
 
+$info-alt: $info;
+$info-color-alt: $info-color;
+$theme-colors-alt: map-merge($theme-colors-alt, ('info': $info-alt));
+$theme-text-colors-alt: map-merge($theme-text-colors-alt, ('info': $info-color-alt));
+$theme-border-colors-alt: map-merge($theme-border-colors-alt, ('info': $info-alt));
+
 $brand: #3d3f3e;
 $brand-color: $body-bg;
 $brand-border-color: #222;
 
+$brand-alt: $brand;
+$brand-color: $brand-color;
+$brand-border-color-alt: $brand-border-color;
+
 $theme-colors: map-merge($theme-colors, ('user-input': #999));
+$theme-colors-alt: map-merge($theme-colors-alt, ('user-input': #666));
 
 @import './base/post';

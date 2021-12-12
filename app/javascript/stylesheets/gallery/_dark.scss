@@ -1,0 +1,157 @@
+#outer-wrapper {
+	border-color: map-get($theme-border-colors-alt, 'body');
+}
+
+#site-banner {
+	h1 {
+		a {
+			color: $info-alt;
+		}
+	}
+	h2 {
+		a {
+			color: $info-alt;
+		}
+	}
+}
+#site-title {
+	color:inherit;
+}
+
+#secondary-nav {
+	border-color:map-get($theme-border-colors-alt, 'secondary');
+}
+
+#search-navbar {
+	.input-group-prepend {
+		background-color: $primary-alt;
+	}
+}
+
+#sidebar {
+	.card {
+		background-color: $body-bg;
+	}
+	.card {
+		border-color: map-get($theme-border-colors-alt, 'secondary');
+		.card-header {
+			background-color: color-shade($body-bg-alt, 2%);
+			color: map-get($theme-text-colors-alt, 'primary');
+			border-color: map-get($theme-border-colors-alt, 'primary');
+			&.home {
+				background-color: transparent;
+			}
+		}
+	}
+	.card-body .nav {
+		a, .btn-link {
+			@extend %card_link_primary;
+			&:hover {
+				color: map-get($theme-colors-alt, 'info');
+			}
+		}
+	}
+}
+
+#facets {
+	.card {
+		border-color: map-get($theme-border-colors-alt, 'body');
+	}
+	.card-body {
+		border-top-color: map-get($theme-border-colors-alt, 'body');
+	}
+}
+
+.section-heading {
+	border: solid map-get($theme-border-colors-alt, 'body');
+}
+#child_items {
+	article {
+		dl {
+			background: map-get($theme-colors-alt, 'info');
+			@extend %list_secondary;
+			dt {
+				.dtcount {
+					color: rgba($body-bg-alt, 0.3);
+				}
+			}
+			.result_url {
+				color: $link-color-alt;
+			}
+		}
+		.caption {
+			.index_title {
+				@extend %dotted_full;
+			}
+		}
+		code {
+			color: map-get($theme-border-colors-alt, 'secondary');
+			background-color: $gray-500-alt;
+		}
+		&:nth-child(odd) dl {
+			background-color: map-get($theme-text-colors-alt, 'info');
+		}
+	}
+}
+#secondary {
+	ul, dl {
+		@extend %list_secondary;
+	}
+}
+
+.appliedFilter .btn-secondary,
+	.appliedFilter .constraint-value:hover,
+	.appliedFilter .constraint-value:active {
+		color: $body-color-alt;
+		background-color: $body-bg-alt;
+}
+#main-container {
+	.inner {
+		background-color: rgba($body-bg-alt, 0.7);
+		&.outline {
+			border-color: map-get($theme-border-colors-alt, 'primary');
+		}
+	}
+}
+
+// home page tab panels
+#home-page-content {
+	.inner {
+		hr {
+			border-color: map-get($theme-border-colors-alt, 'primary');
+		}
+	}
+	#home-page-tabs {
+			.nav-tabs {
+				background-color: $body-bg-alt;
+				a.active {
+					background-color: map-get($theme-colors-alt, 'body');
+					color:map-get($theme-text-colors-alt, 'body');
+					border-color: map-get($theme-border-colors-alt, 'body');
+					border-bottom-color: transparent;
+				}
+				a {
+					&:hover, &:active {
+						color:$body-color-alt;
+						background-color:$body-bg-alt;
+					}
+				}
+			}
+			h3 {
+				a {
+					&:hover {
+						color:lighten($body-color-alt, 20%);
+					}
+				}
+			}
+			.small {
+				color:inherit;
+			}
+	}
+	// in the restricted home screen listing repositories
+	h2.banner {
+		a {
+			color: $body-color-alt;
+		}
+	}
+}

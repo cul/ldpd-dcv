@@ -88,3 +88,66 @@ $theme-border-colors: map-merge(
     }
   }
 }
+
+@import 'bootstrap-dark-4/scss/dark/functions';
+@import 'bootstrap-dark-4/scss/variables-alt';
+
+// navbar-primary is a local style following BS4 patterns
+$navbar-primary-color-alt:                 rgba(map-get($theme-text-colors-alt, 'primary'), .7) !default;
+$navbar-primary-hover-color-alt:           rgba(map-get($theme-text-colors-alt, 'primary'), .9) !default;
+$navbar-primary-active-color-alt:          map-get($theme-text-colors-alt, 'primary') !default;
+$navbar-primary-disabled-color-alt:        rgba(map-get($theme-text-colors-alt, 'primary'), .25) !default;
+$navbar-primary-toggler-icon-bg-alt:       url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'><path stroke='#{$navbar-primary-color-alt}' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/></svg>") !default;
+$navbar-primary-toggler-border-color-alt:  rgba(map-get($theme-border-colors-alt, 'primary'), .1) !default;
+$navbar-primary-brand-color-alt:                 $navbar-primary-active-color-alt !default;
+$navbar-primary-brand-hover-color-alt:           $navbar-primary-active-color-alt !default;
+
+// default brand colors if necessary
+$brand-alt: transparent !default;
+$brand-color-alt: $body-color-alt !default;
+$brand-border-color-alt: $body-color-alt !default;
+
+$theme-colors-alt: map-merge(
+  (
+    "primary":    $primary-alt,
+    "secondary":  $secondary-alt,
+    "success":    $success-alt,
+    "info":       $info-alt,
+    "warning":    $warning-alt,
+    "danger":     $danger-alt,
+    "light":      $light-alt,
+    "dark":       $dark-alt,
+    "brand":      $brand-alt
+  ),
+  $theme-colors-alt
+);
+
+$theme-text-colors-alt: map-merge(
+  (
+    "primary":    color-yiq($primary-alt),
+    "secondary":  color-yiq($secondary-alt),
+    "success":    color-yiq($success-alt),
+    "info":       color-yiq($info-alt),
+    "warning":    color-yiq($warning-alt),
+    "danger":     color-yiq($danger-alt),
+    "light":      color-yiq($light-alt),
+    "dark":       color-yiq($dark-alt),
+    "brand":      $brand-color-alt
+  ),
+  $theme-text-colors-alt
+);
+
+$theme-border-colors-alt: map-merge(
+  (
+    "primary":    $primary-alt,
+    "secondary":  $secondary-alt,
+    "success":    $success-alt,
+    "info":       $info-alt,
+    "warning":    $warning-alt,
+    "danger":     $danger-alt,
+    "light":      $light-alt,
+    "dark":       $dark-alt,
+    "brand":      $brand-border-color-alt
+  ),
+  $theme-border-colors-alt
+);

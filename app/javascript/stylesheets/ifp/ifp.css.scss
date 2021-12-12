@@ -1,10 +1,10 @@
 //colors
-$color_0: #111;
-$color_1: #fafafa;
+@import '../palettes/body/light';
 $splash: #2a778f;
 $color_3: #ccc;
 $gray: #888;
-$splash-color: #fff;
+$splash-color: #fafafa;
+$splash-color-alt: #222;
 $color_11: #600;
 $color_12: #444;
 $color_18: #ddd;
@@ -35,9 +35,9 @@ $url_flag_sprite: url("ifp/office-flags/country_flag_folders_sm.png");
 .ifp {
 	#secondary-nav {
 		#partner-dropdown {
-			background-color: $color_1;
+			background-color: $body-bg;
 			a {
-				color: $color_0;
+				color: $body-color;
 				&:hover {
 					color: $splash;
 				}
@@ -450,7 +450,7 @@ $url_flag_sprite: url("ifp/office-flags/country_flag_folders_sm.png");
 				display: inline-block;
 				background-color: transparent;
 				color: $splash-color;
-				text-shadow: 1px 1px 1px $color_0;
+				text-shadow: 1px 1px 1px $body-color;
 				text-align: left;
 				padding: .5em;
 				position: absolute;
@@ -465,12 +465,12 @@ $url_flag_sprite: url("ifp/office-flags/country_flag_folders_sm.png");
 }
 #home-global-data {
 	&.well {
-		background-color: $color_1;
+		background-color: $body-bg;
 		border-radius: 0;
 		font-size: 99%;
 	}
 	.well {
-		background-color: $color_1;
+		background-color: $body-bg;
 	}
 	dl {
 		dt {
@@ -487,7 +487,7 @@ $url_flag_sprite: url("ifp/office-flags/country_flag_folders_sm.png");
 }
 #partner-index-right-sidebar {
 	.well {
-		background-color: $color_1;
+		background-color: $body-bg;
 	}
 	dl {
 		dt {
@@ -510,7 +510,7 @@ $url_flag_sprite: url("ifp/office-flags/country_flag_folders_sm.png");
 
 .fs-crumbs {
 	margin-bottom: 1em;
-	background-color: $color_1;
+	background-color: $body-bg;
 	border-color: $color_18 !important;
 	border-radius: 0;
 }
@@ -535,4 +535,9 @@ $url_flag_sprite: url("ifp/office-flags/country_flag_folders_sm.png");
 			margin-left:1em;
 		}
 	}
+}
+
+@import 'bootstrap-dark-4/scss/dark/mixins/color-scheme';
+@include prefers-color-scheme(dark) {
+	@import './dark';
 }

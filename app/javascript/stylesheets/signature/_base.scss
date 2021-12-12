@@ -529,8 +529,13 @@ header[role='banner'] {
 }
 
 :root {
-	--signature-banner-tint: #{navBgColor()};
+	--signature-banner-tint: #{color-shade($dark)};
 }
 
 @import '../shared/search-modes';
 @include searchModes();
+
+@import 'bootstrap-dark-4/scss/dark/mixins/color-scheme';
+@include prefers-color-scheme(dark) {
+	@import './dark';
+}

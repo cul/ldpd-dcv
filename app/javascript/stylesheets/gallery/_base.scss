@@ -344,3 +344,9 @@
 
 @import '../shared/search-modes';
 @include searchModes();
+
+@import 'bootstrap-dark-4/scss/dark/mixins/color-scheme';
+@include prefers-color-scheme(dark) {
+	@import './dark';
+}
+
