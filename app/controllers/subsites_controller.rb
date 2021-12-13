@@ -3,6 +3,7 @@ class SubsitesController < ApplicationController
   include Dcv::RestrictableController
   include Dcv::CatalogIncludes
   include Dcv::MarkdownRendering
+  include Dcv::MapDataController
   include Dcv::Sites::ConfiguredLayouts
   include Dcv::Sites::SearchableController
   include Cul::Hydra::ApplicationIdBehavior
