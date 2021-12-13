@@ -2,7 +2,7 @@
 
 <div id="per_page-dropdown" class="btn-group btn-group-sm">
   <span class="sr-only"><%= t('blacklight.search.per_page.title') %></span>
-	<%= link_to("<i class=\"fa fa-arrows-v\"></i> #{current_per_page} <span class=\"caret\"></span>".html_safe, "#", :class=> "btn btn-outline-secondary dropdown-toggle", :'data-toggle'=>"dropdown", :"data-tt" => 'tooltip', :title=>t(:'blacklight.search.per_page.button_label', :count => current_per_page)) %>
+	<%= link_to("<i class=\"fa fa-arrows-v\"></i> #{current_per_page} <span class=\"caret\"></span>".html_safe, "#", :class=> "btn btn-outline-secondary dropdown-toggle", :'data-toggle'=>"dropdown", :"data-tt" => 'tooltip', :"aria-label"=>t(:'blacklight.search.per_page.button_label', :count => current_per_page), :title=>t(:'blacklight.search.per_page.button_label', :count => current_per_page)) %>
   <ul class="dropdown-menu dropdown-menu-right" role="menu">
     <%- per_page_options_for_select.each do |(label, count)| %>
       <% label = "#{label} <i class=\"fa fa-check\"></i>".html_safe if count == current_per_page -%>

@@ -7,4 +7,4 @@
     remote:        data-remote
 -%>
 <% tag_class="btn btn-outline-secondary #{'disabled' if current_page.first?}" -%>
-<%= link_to '<i class="fa fa-fast-backward"></i>'.html_safe, url, :remote => remote, :"data-toggle" => 'tooltip', title: raw(t 'views.pagination.first'), class: tag_class %>
+<%= link_to '<i class="fa fa-fast-backward"></i>'.html_safe, url, :remote => remote, :"data-toggle" => 'tooltip', "aria-label": raw(t 'views.pagination.first'), title: raw(t 'views.pagination.first'), class: tag_class %>
