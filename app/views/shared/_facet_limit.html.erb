@@ -3,7 +3,7 @@
   <%= render_facet_limit_list paginator, facet_field.key %>
 
   <% unless paginator.last_page? || params[:action] == "facet" %>
-    <li class="more_facets_link"><%= link_to t('blacklight.search.facets.more'),
-       params.permit!.to_h.merge(id: facet_field.key, action: "facet", page: nil), class: "facet-label more_facets_link" %></li>
+    <li class="more_facets"><%= link_to t("more_#{field_name}_html", scope: 'blacklight.search.facets', default: :more_html, field_name: facet_field_label(facet_field.key)),
+       params.permit!.to_h.merge(id: facet_field.key, action: "facet", page: nil), class: "facet-label more_facets_link", data: { blacklight_modal: 'trigger' } %></li>
   <% end %>
 </ul>
