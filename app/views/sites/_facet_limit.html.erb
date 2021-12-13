@@ -4,6 +4,6 @@
 
   <% unless paginator.last_page? || params[:action] == "facet" %>
     <li class="more_facets_link"><%= link_to t('blacklight.search.facets.more'),
-       @subsite.routing_params(params.merge(id: solr_field, action: "facet", page: nil, f: @subsite.default_filters)), class: "facet-label more_facets_link" %></li>
+       @subsite.routing_params(params.permit!.to_h.merge(id: facet_field.key, action: "facet", page: nil, f: @subsite.default_filters)), class: "facet-label more_facets_link" %></li>
   <% end %>
 </ul>
