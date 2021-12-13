@@ -3,7 +3,7 @@ module Nyre
     include Dcv::CatalogIncludes
     include Dcv::MapDataController
     include Dcv::Sites::SearchableController
-    before_action :set_view_path
+    before_action :set_view_path, :load_subsite
     helper_method :extract_map_data_from_document_list, :url_for_document
 
     layout 'signature'
