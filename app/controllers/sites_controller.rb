@@ -9,6 +9,7 @@ class SitesController < ApplicationController
   include Dcv::MarkdownRendering
   include Dcv::DcvUrlHelper # access to url_for_document
   include Dcv::Sites::ConfiguredLayouts
+  include Dcv::Sites::SearchableController
   include Cul::Omniauth::AuthorizingController
   include ShowFieldDisplayFieldHelper
 
