@@ -484,8 +484,8 @@ a {
 			.index-show-grid-fields {
 				font-size: .75em;
 			}
-			card-title {
-				font-size: .85em;
+			.card-title {
+				font-size: 1em;
 			}
 			.index_title {
 				margin-top: .5em;
@@ -728,7 +728,7 @@ h2[itemprop="name"] {
 
 #facets {
 	padding-bottom: 0;
-	h4 {
+	h4, .h4 {
 		padding-left: .9em;
 		font-weight: 100;
 	}

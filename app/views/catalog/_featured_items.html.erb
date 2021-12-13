@@ -5,25 +5,25 @@
 		<% controller.digital_projects.each do |digital_project| %>
 			<% if digital_project[:facet_value].present? %>
 				<div class="col-sm-3">
-					<div class="card bg-transparent" itemscope itemtype="http://schema.org/CreativeWork">
+					<article class="card bg-transparent" itemscope itemtype="http://schema.org/CreativeWork">
 						<div class="card-body">
 							<% dcv_search_link = (digital_project[:facet_field].present? && digital_project[:facet_value].present?) ? search_catalog_path(:f => {digital_project[:facet_field] => [digital_project[:facet_value]]}) : nil -%>
 							<%= link_to image_tag(digital_project[:image], :class => 'card-img-top img-responsive', :itemprop => 'image', alt: digital_project[:name]), (dcv_search_link.present? ? dcv_search_link : digital_project[:external_url]), class: 'project-image-link' %>
 							<div class=" proj-jav btn-group d-flex" role="group">
-								<a class="btn btn-outline-secondary btn-sm" role="button" data-toggle="tooltip" title="More Information" href="#" data-proj-more="#proj-<%=proj_counter%>" data-proj-title="<%= digital_project[:name] %>" onclick="return projectModal(this);"><span class="fa fa-info-circle"></span></a>
+								<a class="btn btn-outline-secondary btn-sm" role="button" data-toggle="tooltip" aria-label="More Information" title="More Information" href="#" data-proj-more="#proj-<%=proj_counter%>" data-proj-title="<%= digital_project[:name] %>" onclick="return projectModal(this);"><span class="fa fa-info-circle"></span></a>
 								<% if dcv_search_link.present? %>
-									<%= link_to '<span class="fa fa-search"></span>'.html_safe, dcv_search_link, :class => 'btn btn-outline-secondary btn-sm', :"data-toggle" => 'tooltip', :title => 'Browse Content', :role => 'button' %>
+									<%= link_to '<span class="fa fa-search"></span>'.html_safe, dcv_search_link, :class => 'btn btn-outline-secondary btn-sm', :"data-toggle" => 'tooltip', :"aria-label" => 'Browse Content', :title => 'Browse Content', :role => 'button' %>
 								<% end %>
 								<% if digital_project[:external_url].present? %>
-									<%= link_to '<span class="fa fa-external-link"></span>'.html_safe, digital_project[:external_url], :itemprop => 'url', :"data-toggle" => 'tooltip', :title => 'View Collection Site', :role => 'button', :class => 'btn btn-outline-secondary btn-sm' %>
+									<%= link_to '<span class="fa fa-external-link"></span>'.html_safe, digital_project[:external_url], :itemprop => 'url', :"data-toggle" => 'tooltip', :"aria-label" => 'View Collection Site', :title => 'View Collection Site', :role => 'button', :class => 'btn btn-outline-secondary btn-sm' %>
 								<% end %>
 							</div>
-							<div itemprop="name" class="card-title text-center"><h3><%= digital_project[:name] %></h3></div>
+							<div itemprop="name" class="card-title text-center"><h1 class="card-title h3 mb-0"><%= digital_project[:name] %></h1></div>
 							<div id="proj-<%=proj_counter%>" class="hidden">
 								<div style="color:black;padding:30px;font-size:110%;" itemprop="description"><%= (digital_project[:description] || '').html_safe %></div>
 							</div>
 						</div>
-					</div>
+					</article>
 				</div>
 				<%= '<div class="clearfix"></div><br />'.html_safe if (proj_counter += 1) % 4 == 0 %>
 			<% end %>

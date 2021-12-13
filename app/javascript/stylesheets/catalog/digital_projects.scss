@@ -1,7 +1,7 @@
 @import '../palettes/monochromeDark';
 
 #digital_projects {
-	h3 {
+	h3, .h3 {
 		font-size: 1.1em;
 		margin-top: 0;
 	}
@@ -17,7 +17,7 @@
 
 #content {
 	#digital_projects {
-		h3 {
+		h3, .h3 {
 			margin-top: 1em;
 		}
 		.col-sm-2 {
@@ -31,7 +31,7 @@
 }
 
 @media(min-width: 768px) {
-	#content #digital_projects h3 {
+	#content #digital_projects h3, #content #digital_projects .h3 {
 		margin-top: auto;
 	}
 }
@@ -73,7 +73,7 @@
 					border:0;
 				}
 			}
-			h3 {
+			h3, .h3 {
 				margin-top:.5em;
 				font-size:1em;
 				font-weight:normal;
@@ -94,4 +94,3 @@
 			}
 	}
 }
-

@@ -17,7 +17,7 @@
     <%= render :partial => 'csv_export' %>
     <% if controller.subsite_config.dig('date_search_configuration', 'show_timeline') %>
       <div id="date-toggle" class="btn-group btn-group-sm float-right search-index-tool-group">
-        <button id="date-graph-toggle" type="button" class="btn btn-outline-secondary result-type-button" data-toggle="tooltip" title="timeline view"><i class="fa fa-bar-chart"></i></button>
+        <button id="date-graph-toggle" type="button" class="btn btn-outline-secondary result-type-button" data-toggle="tooltip" aria-label="timeline view" title="timeline view"><i class="fa fa-bar-chart"></i></button>
       </div>
     <% end %>
   </div>
