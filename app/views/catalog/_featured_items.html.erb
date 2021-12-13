@@ -4,8 +4,8 @@
 	<div class="row">
 		<% controller.digital_projects.each do |digital_project| %>
 			<% if digital_project[:facet_value].present? %>
-				<div class="col-sm-3">
-					<article class="card bg-transparent" itemscope itemtype="http://schema.org/CreativeWork">
+				<div class="col-sm-3 mb-2">
+					<article class="card h-100 bg-transparent" itemscope itemtype="http://schema.org/CreativeWork">
 						<div class="card-body">
 							<% dcv_search_link = (digital_project[:facet_field].present? && digital_project[:facet_value].present?) ? search_catalog_path(:f => {digital_project[:facet_field] => [digital_project[:facet_value]]}) : nil -%>
 							<%= link_to image_tag(digital_project[:image], :class => 'card-img-top img-responsive', :itemprop => 'image', alt: digital_project[:name]), (dcv_search_link.present? ? dcv_search_link : digital_project[:external_url]), class: 'project-image-link' %>
@@ -18,7 +18,7 @@
 									<%= link_to '<span class="fa fa-external-link"></span>'.html_safe, digital_project[:external_url], :itemprop => 'url', :"data-toggle" => 'tooltip', :"aria-label" => 'View Collection Site', :title => 'View Collection Site', :role => 'button', :class => 'btn btn-outline-secondary btn-sm' %>
 								<% end %>
 							</div>
-							<div itemprop="name" class="card-title text-center"><h1 class="card-title h3 mb-0"><%= digital_project[:name] %></h1></div>
+							<div itemprop="name" class="card-title text-center mb-0"><h1 class="card-title h3 mb-0"><%= digital_project[:name] %></h1></div>
 							<div id="proj-<%=proj_counter%>" class="hidden">
 								<div style="color:black;padding:30px;font-size:110%;" itemprop="description"><%= (digital_project[:description] || '').html_safe %></div>
 							</div>
