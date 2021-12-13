@@ -7,7 +7,7 @@
 		<% thumbnail_img_tag = doc_presenter.thumbnail.thumbnail_tag({ class: 'img-square card-img-top', itemprop: 'thumbnailUrl', alt: short_title(document) }, { suppress_link: true }) %>
 		<%= link_to(thumbnail_img_tag, url_for_document(document), document_link_params(document, counter: (@do_not_link_to_search ? nil : counter_in_results), class: 'thumbnail')) %>
 		<div class="card-body">
-			<h3 class="card-title index_title"><%= t('blacklight.search.documents.counter', counter: counter_in_results) if show_counter %>
+			<h3 class="card-title index_title mb-0"><%= t('blacklight.search.documents.counter', counter: counter_in_results) if show_counter %>
 				<%= link_to_document(document, title: document['title_ssm'].present? ? document['title_ssm'][0] : '[Title unavailable]', counter: (@do_not_link_to_search ? nil : counter_in_results)) %>
 				<% if document['extent_ssim'].present? %>
 					<small class="extent">&bull; <%= byte_size_to_text_string(document['extent_ssim'].first.to_i) %></small>

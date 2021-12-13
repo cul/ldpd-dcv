@@ -2,9 +2,9 @@
 <% if has_facet_values?(facet_field_names, @response)  %>
 <div id="facets" class="facets sidenav">
   <% unless local_assigns[:hide_heading] %>
-  <h4 data-toggle="collapse" data-target=".facets-collapse">
+  <div class="h4" data-toggle="collapse" data-target=".facets-collapse">
     <%= t('blacklight.search.facets.title') %>
-  </h4>
+  </div>
   <% end %>
   <div class="facets-collapse">
     <%= render_facet_partials(facet_field_names, response: @response) %>
