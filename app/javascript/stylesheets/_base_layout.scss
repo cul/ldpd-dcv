@@ -160,9 +160,10 @@ a {
   }
 
   .navbar-nav, .nav {
-    .nav-link {
+    .nav-link, .nav-link a {
       color: $navbar-primary-color;
-
+    }
+    .nav-link a, .nav-link .btn {
       @include hover-focus() {
         color: $navbar-primary-hover-color;
       }
