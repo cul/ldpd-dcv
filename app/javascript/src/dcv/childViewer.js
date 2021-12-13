@@ -1,5 +1,4 @@
 import ColorBox from "./jquery.colorbox";
-import 'bootstrap/js/dist/carousel';
 
 /**********************
  * CHILD VIEWER STUFF *

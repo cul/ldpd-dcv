@@ -18,8 +18,10 @@ require.context('../assets', true)
 require.context('../images', true)
 import "./application.scss"; // prompts webpack to include css packs
 import 'font-awesome/css/font-awesome.css';
-import 'bootstrap';
 
+import "jquery-ui/ui/widgets/draggable";
+import "jquery-ui/ui/widgets/sortable";
+import 'bootstrap';
 import 'blacklight-frontend/app/assets/javascripts/blacklight/blacklight';
 
 import '@ungap/url-search-params';

@@ -1,6 +1,4 @@
 import EasyMDE from 'easymde'; 
-import 'bootstrap/js/dist/tooltip';
-import 'jquery-ui/ui/widgets/sortable';
 
 function addValueFieldsetFromTemplate(addButtonFieldset, templateName) {
 	const newFieldset = $(".widget-templates").find("fieldset[name='" + templateName + "']").clone();

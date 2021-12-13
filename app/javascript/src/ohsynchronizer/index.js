@@ -2,7 +2,6 @@ import { closeButtons, errorHandler, timecodeRegEx } from './functions';
 import { uploadsuccess } from './events';
 import { exportIndex, indexVTT } from './export';
 import { timestampAsSeconds } from './timeStamps';
-import 'bootstrap/js/dist/modal';
 
 const segmentHtml = function(segment) {
 	const timeId = `ms${timestampAsSeconds(segment.startTime).toString().replace('.','_')}`;

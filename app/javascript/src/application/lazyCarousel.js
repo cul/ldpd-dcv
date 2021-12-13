@@ -1,4 +1,3 @@
-import 'bootstrap/js/dist/carousel';
 /*****************
  * LAZY CAROUSEL *
  *****************/
