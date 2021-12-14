@@ -305,12 +305,7 @@ class SitesController < ApplicationController
   end
 
   def self.site_as_solr_document(site)
-    doc = {}
-    return doc unless site
-    doc['title_display_ssm'] = [site.title]
-    doc['active_fedora_model_ssi'] = 'Concept'
-    doc['lib_repo_code_ssim'] = [site.repository_id].compact
-    SolrDocument.new(doc)
+    Dcv::Sites::Export::Solr.new(site).run
   end
 
   private

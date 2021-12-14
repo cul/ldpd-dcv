@@ -22,6 +22,11 @@ describe SitesController, type: :unit do
 		allow(controller).to receive(:edit_site_path).with(slug: site.slug).and_return(edit_site_path)
 	end
 	include_context 'verify configurable layouts'
+	describe '.site_as_solr_document' do
+		it "generates a solr document" do
+			expect(described_class.site_as_solr_document(site).fetch(:slug_ssim)).to eql([site.slug])
+		end
+	end
 	describe '#search_action_url' do
 		let(:query) { {search_field: 'all_text_teim'} }
 		let(:search_uri) { URI(controller.search_action_url(query)) }

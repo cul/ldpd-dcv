@@ -4,6 +4,7 @@ require 'blacklight/catalog'
 class Resolve::DoisController < ApplicationController
   include Dcv::NonCatalog
   include Dcv::Sites::LookupController
+  include Dcv::Sites::SearchableController
 
   SCOPE_FILTER_TYPE_SCORES = {
     'publisher' => 16,
@@ -22,12 +23,23 @@ class Resolve::DoisController < ApplicationController
 
   layout false
 
+  # shims from Blacklight 6 controller fetch to BL 7 search service
+  def search_service
+    Dcv::SearchService.new(config: blacklight_config, user_params: {})
+  end
+
   def resolve
     doi = "#{params[:registrant]}/#{params[:doi]}"
-    @response, @document = fetch "doi:#{doi}", q: "{!raw f=ezid_doi_ssim v=$id}"
+    @response, @document = fetch "doi:#{doi}", q: "{!raw f=ezid_doi_ssim v=$ids}"
     search_session.delete('counter') # do not set up search prev/next on resolved doc
-    best_site = best_site_for(@document, site_matches_for(@document, site_candidates_for(scope_candidates_for(@document))))
-    redirect_to doc_url_in_site_context(best_site, @document)
+    if @document.site_result?
+      href_params = { controller: '/sites', slug: @document.unqualified_slug, action: 'home' }
+      href_params[:controller] = '/restricted/sites' if @document.has_restriction?
+      redirect_to url_for(href_params)
+    else
+      best_site = best_site_for(@document, site_matches_for(@document, site_candidates_for(scope_candidates_for(@document))))
+      redirect_to doc_url_in_site_context(best_site, @document)
+    end
   end
 
   # Criteria:
@@ -51,7 +63,6 @@ class Resolve::DoisController < ApplicationController
   # score sites by strength of match
   # @return Site the best match for the document
   def best_site_for(solr_doc, sites)
-    sites = 
     sites.inject([-1, nil]) do |best_tuple, next_site|
       next_score = match_score_for(next_site, solr_doc)
       if next_score == best_tuple[0]

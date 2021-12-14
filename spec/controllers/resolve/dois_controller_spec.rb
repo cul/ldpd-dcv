@@ -57,6 +57,14 @@ describe Resolve::DoisController, type: :controller do
 			expect(controller).to receive(:redirect_to).with(expected_url)
 			controller.resolve
 		end
+		context 'for a site record' do
+			let(:solr_doc) { Dcv::Sites::Export::Solr.new(site).run }
+			let(:expected_url) { "http://test.host/#{site.slug}" }
+			it 'redirects to resolved url' do
+				expect(controller).to receive(:redirect_to).with(expected_url)
+				controller.resolve
+			end
+		end
 	end
 	describe '#match_score_for' do
 		context 'site is the main catalog' do
