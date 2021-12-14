@@ -10,7 +10,7 @@
     "easymde": "2.13.0",
     "expose-loader": "1",
     "font-awesome": "4.7.0",
-    "hls.js": "^1.1.1",
+    "hls.js": "1.0.11",
     "jquery": "3.5.1",
     "jquery-colorbox": "^1.6.4",
     "jquery-ui": "1.12.1",
