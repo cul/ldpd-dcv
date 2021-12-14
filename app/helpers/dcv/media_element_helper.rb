@@ -5,7 +5,7 @@ module Dcv::MediaElementHelper
       track_element = '<track label="English" kind="subtitles" srclang="en" src="' + captions_path + '" />'
     end
     return ('<div class="media-container"><div class="able-player">
-      <video width="' + width.to_s + '" height="' + height.to_s + '" style="width:100%;height:100%;" poster="' + poster_path + '" class="able-player" preload="auto">
+      <video width="' + width.to_s + '" height="' + height.to_s + '" style="width:100%;height:100%;" poster="' + poster_path + '" class="able-player" preload="none">
         <source src="https://firehose.cul.columbia.edu:8443/' + wowza_project + '/_definst_/mp4:' + video_path + '/playlist.m3u8" />
         ' + track_element.to_s + '
       </video>
@@ -18,7 +18,7 @@ module Dcv::MediaElementHelper
       track_element = '<track label="English" kind="subtitles" srclang="en" src="' + captions_path + '" />'
     end
     return ('<div class="media-container"><div class="able-player">
-      <audio width="' + width.to_s + '" style="width:100%;" preload="auto">
+      <audio width="' + width.to_s + '" style="width:100%;" preload="none">
         <source src="' + url + '" />' + track_element.to_s + '
       </audio>
     </div></div>').html_safe
@@ -30,7 +30,7 @@ module Dcv::MediaElementHelper
       track_element = '<track label="English" kind="subtitles" srclang="en" src="' + captions_path + '" />'
     end
     return ('<div class="media-container"><div class="able-player">
-      <video width="' + width.to_s + '" height="' + height.to_s + '" style="width:100%;height:100%;" poster="' + poster_path + '" preload="auto">
+      <video width="' + width.to_s + '" height="' + height.to_s + '" style="width:100%;height:100%;" poster="' + poster_path + '" preload="none">
         <source src="' + url + '" />' + track_element.to_s + '
       </video>
     </div></div>').html_safe
@@ -42,7 +42,7 @@ module Dcv::MediaElementHelper
       track_element = '<track label="English" kind="subtitles" srclang="en" src="' + captions_path + '" />'
     end
     return ('<div class="media-container"><div class="able-player">
-      <video width="' + width.to_s + '" height="' + height.to_s + '" style="width:100%;height:100%;" poster="' + poster_path + '" preload="auto">
+      <video width="' + width.to_s + '" height="' + height.to_s + '" style="width:100%;height:100%;" poster="' + poster_path + '" preload="none">
           <source type="video/mp4" src="' + video_url + '" />' + track_element.to_s + '
       </video>
     </div></div>').html_safe
@@ -54,7 +54,7 @@ module Dcv::MediaElementHelper
       track_element = '<track label="English" kind="subtitles" srclang="en" src="' + captions_path + '" />'
     end
     return (
-      '<audio class="able-player" style="width:100%;" class="able-player" preload="auto">
+      '<audio style="width:100%;" class="able-player" preload="none">
           <source type="audio/mp3" src="' + audio_url + '" />' + track_element.to_s + '
       </audio>'
     ).html_safe
