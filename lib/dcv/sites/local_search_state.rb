@@ -18,8 +18,7 @@ class Dcv::Sites::LocalSearchState < Blacklight::SearchState
 	end
 
 	def url_for_document(doc, options = {})
-		controller_name = controller.controller_name
 		[options, doi_params(doc), params_for_site.compact]
-			.reduce('controller' => controller_name, 'action' => :show) {|accum, opts| accum.merge(opts)}
+			.reduce('controller' => controller.controller_path, 'action' => :show) {|accum, opts| accum.merge(opts)}
 	end
 end

@@ -8,10 +8,11 @@ class Dcv::Sites::SearchState < Blacklight::SearchState
 	end
 
 	def url_for_document(doc, options = {})
+		doc = SolrDocument.new(doc) if doc.is_a? Hash
 		if doc.slug
 			params.merge('slug' => doc.slug)
 		elsif doc.doi_identifier
-			{ controller: 'catalog', id: doc.doi_identifier, action: 'show' }
+			params.merge(controller: controller.controller_path, id: doc.doi_identifier, action: 'show')
 		else
 			params
 		end

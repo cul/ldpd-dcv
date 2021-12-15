@@ -14,6 +14,7 @@ describe Sites::SearchController, type: :unit do
 		allow(request_double).to receive(:optional_port)
 		allow(request_double).to receive(:protocol)
 		allow(request_double).to receive(:path_parameters).and_return({})
+		controller.instance_variable_set :@subsite, site
 		allow(controller).to receive(:params).and_return(params)
 		allow(controller).to receive(:request).and_return(request_double)
 		allow(controller).to receive(:load_subsite).and_return(site)
@@ -28,5 +29,9 @@ describe Sites::SearchController, type: :unit do
 				controller.search_action_url(query)
 			end
 		end
+	end
+	describe '#search_service' do
+		subject(:search_service) { controller.search_service }
+		it { is_expected.to be_a Dcv::SearchService }
 	end
 end
