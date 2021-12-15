@@ -92,4 +92,32 @@ module Dcv::BlacklightHelperBehavior
     end
   end
 
+  # Override to set controller based on actual current controller
+  def link_back_to_catalog(opts = { label: nil })
+    scope = opts.delete(:route_set) || self
+    query_params = search_state.reset(current_search_session.try(:query_params)).to_hash
+    query_params[:controller] = controller_path if controller.is_a? Dcv::Sites::SearchableController
+    if search_session['counter']
+      per_page = (search_session['per_page'] || blacklight_config.default_per_page).to_i
+      counter = search_session['counter'].to_i
+
+      query_params[:per_page] = per_page unless search_session['per_page'].to_i == blacklight_config.default_per_page
+      query_params[:page] = ((counter - 1) / per_page) + 1
+    end
+
+    link_url = if query_params.empty?
+                 search_action_path(only_path: true)
+               else
+                 scope.url_for(query_params)
+               end
+    label = opts.delete(:label)
+
+    if link_url =~ /bookmarks/
+      label ||= t('blacklight.back_to_bookmarks')
+    end
+
+    label ||= t('blacklight.back_to_search')
+
+    link_to label, link_url, opts
+  end
 end

@@ -1,4 +1,8 @@
 module Dcv::Sites::SearchableController
+  extend ActiveSupport::Concern
+  included do
+    helper_method :search_action_path, :search_action_url
+  end
   def default_search_mode
     search_config = load_subsite&.search_configuration
     search_config ? search_config.display_options.default_search_mode : :grid

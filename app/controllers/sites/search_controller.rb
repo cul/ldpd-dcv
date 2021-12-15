@@ -20,6 +20,7 @@ module Sites
 
 		layout :subsite_layout
 
+		self.search_service_class = Dcv::SearchService
 		self.search_state_class = Dcv::Sites::LocalSearchState
 
 		def authorize_document(_document=nil)
@@ -97,6 +98,15 @@ module Sites
 
 		def search_action_url(options = {})
 			site_search_url(load_subsite.slug, options.except(:controller, :action))
+		end
+
+		def search_action_path(options = {})
+			site_search_url(load_subsite.slug, options.except(:controller, :action))
+		end
+
+		# shims from Blacklight 6 controller fetch to BL 7 search service
+		def search_service
+			search_service_class.new(config: blacklight_config, user_params: {})
 		end
 
 		def tracking_method
