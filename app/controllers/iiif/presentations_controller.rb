@@ -1,5 +1,6 @@
 require 'json'
 class Iiif::PresentationsController < ApplicationController
+  include Dcv::Sites::SearchableController
   include Dcv::CatalogIncludes
   include Dcv::SolrHelper
   # Prevent CSRF attacks by raising an exception.
@@ -134,4 +135,10 @@ class Iiif::PresentationsController < ApplicationController
   def select_params(*keys)
     keys.map { |k| [k, params[k]]}.to_h.compact
   end
+
+  # shims from Blacklight 6 controller fetch to BL 7 search service
+  def search_service
+    Dcv::SearchService.new(config: blacklight_config, user_params: {})
+  end
+
 end
