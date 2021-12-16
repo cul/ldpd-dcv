@@ -136,7 +136,7 @@ class Iiif::Manifest < Iiif::BaseResource
     return nil if @solr_document['active_fedora_model_ssi'] == 'GenericResource' 
     return Array(@solr_document['iiif_behavior_ssim']) if @solr_document['iiif_behavior_ssim'].present?
     return [Iiif::Behavior::V3::UNORDERED] unless @solr_document['structured_bsi']
-    if @solr_document['cul_number_of_members_isi'] < 3
+    if @solr_document['cul_number_of_members_isi']&.< 3
       [Iiif::Behavior::V3::PAGED]
     else
       [Iiif::Behavior::V3::INDIVIDUALS]
