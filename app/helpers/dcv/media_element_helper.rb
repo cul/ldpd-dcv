@@ -62,6 +62,6 @@ module Dcv::MediaElementHelper
 
   def inline_svg(path)
     return unless path =~ /\.svg$/
-    raw Rails.application.assets.find_asset(path).to_s
+    File.read(File.join(Rails.root, 'app', 'assets', 'images', path)).html_safe
   end
 end
