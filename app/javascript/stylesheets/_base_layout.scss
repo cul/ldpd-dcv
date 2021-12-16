@@ -1302,7 +1302,7 @@ h2[itemprop="name"] {
 }
 .btn-primary {
 	svg {
-		background-color: map-get($theme-colors, 'primary');;
+		background-color: map-get($theme-colors, 'primary');
 		path {
 			fill: map-get($theme-text-colors, 'primary');
 			stroke: map-get($theme-border-colors, 'primary');
@@ -1312,7 +1312,7 @@ h2[itemprop="name"] {
 }
 .btn-secondary {
 	svg {
-		background-color: map-get($theme-colors, 'secondary');;
+		background-color: map-get($theme-colors, 'secondary');
 		path {
 			fill: map-get($theme-text-colors, 'secondary');
 			stroke: map-get($theme-border-colors, 'secondary');
