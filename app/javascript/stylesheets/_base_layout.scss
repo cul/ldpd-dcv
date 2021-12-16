@@ -1294,9 +1294,30 @@ h2[itemprop="name"] {
 
 /* be like glyphicons with the iiif icon */
 .localicon-iiif {
-	height: 1em;
-	width: auto;
-	margin-top:-3px;
+	svg {
+		height: 1em;
+		width: auto;
+		margin-top:-3px;
+	}
+}
+.btn-primary {
+	svg {
+		background-color: map-get($theme-colors, 'primary');;
+		path {
+			fill: map-get($theme-text-colors, 'primary');
+			stroke: map-get($theme-border-colors, 'primary');
+		}
+		flood-color: map-get($theme-colors, 'primary')
+	}
+}
+.btn-secondary {
+	svg {
+		background-color: map-get($theme-colors, 'secondary');;
+		path {
+			fill: map-get($theme-text-colors, 'secondary');
+			stroke: map-get($theme-border-colors, 'secondary');
+		}
+	}
 }
 
 /* grabby styles for dragndrop icons */
