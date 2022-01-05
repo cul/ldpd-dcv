@@ -4,7 +4,7 @@
 import ColorBox from "../jquery.colorbox";
 
 const getCurrentZoomUrl = function() {
-  var currentChild = $('#favorite-child img');
+  var currentChild = $('#favorite-child').find('img');
   var url = new URL(currentChild.attr('data-zoom-url'));
   url.searchParams.append('initial_page', currentChild.attr('data-sequence'))
   return url.toString();
