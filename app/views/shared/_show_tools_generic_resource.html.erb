@@ -2,8 +2,8 @@
   <a class="btn btn-secondary item-cbox" data-original-title="<%= document_show_html_title %>" title="Zoom in" href="#" onclick="return zoomingImageModal();"><i class="fa fa-eye"></i></a>
   <a class="btn btn-secondary" href="#" data-original-title="<%= document_show_html_title %>" title="Open in new window" onclick="return zoomingImageNewWindow();"><i class="fa fa-external-link"></i></a>
   <div class="btn-group btn-group-sm">
-    <% unless is_publicly_available_asset?(@document) -%>
-      <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" title="Downloads">
+    <% if is_publicly_available_asset?(@document) -%>
+      <button id="download-button" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" title="Downloads" data-iiif-info-url="<%= get_resolved_asset_info_url(id: @document[:id], pid: @document[:pid], image_format: 'jpg') %>">
       <i class="fa fa-cloud-download"></i> <span class="caret"></span>
       <span class="sr-only">Toggle Dropdown</span>
       </button>
