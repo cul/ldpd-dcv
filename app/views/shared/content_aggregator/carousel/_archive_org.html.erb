@@ -21,7 +21,7 @@
             <%= render partial: "shared/content_aggregator/child_viewer/#{dc_type_string}", locals: { child: child } %>
           <% else %>
             <% # Render image (or placeholder) %>
-            <img class="<%= ['StillImage','Text'].include?(child[:dc_type]) ? 'zoomable' : '' %>" src="<%= poster_url(child) %>" />
+            <img alt="<%= child_title %>" class="<%= ['StillImage','Text'].include?(child[:dc_type]) ? 'zoomable' : '' %>" src="<%= poster_url(child) %>" />
           <% end %>
         </div>
         <%= render partial: 'content_aggregator/disclaimer', locals: { document: document, asset: child.to_h.with_indifferent_access } %>
