@@ -1,11 +1,12 @@
 <div id="child-viewer-carousel" class="carousel slide" data-ride="false">
 
   <!-- Wrapper for slides -->
-  <div class="carousel-inner" role="listbox">
+  <div class="carousel-inner" role="listbox" aria-label="Carousel slides">
     <% archive_org_identifiers_as_children.each_with_index do |child, ix| %>
       <% child_title = child[:title].present? ? child[:title].strip : '' %>
       <% item_in_context_url = nil %>
       <div class="carousel-item <%= ix == 0 ? 'active' : '' %>"
+        role="option" 
         data-child-number="<%= ix %>"
         data-child-title="<%= child_title == parent_title || child_title.blank? ? '&nbsp'.html_safe : h(child_title) %>"
         data-has-details="<%= ['StillImage','Text'].include? child[:dc_type] %>"

@@ -68,7 +68,7 @@ module Dcv::BlacklightHelperBehavior
     link_opts = { class: ["previous", "disabled"], rel: 'prev', disabled: true }
     doc_url = '#'
     if link_document
-      link_opts = prev_next_link_opts(link_document, -1, class: "previous", rel: 'prev', :'data-toggle' => 'tooltip')
+      link_opts = prev_next_link_opts(link_document, -1, class: "previous", rel: 'prev', :'data-toggle' => 'tooltip', :'aria-label' => 'previous document')
       doc_url = url_for_document(link_document)
     end
     link_opts[:title] = t('views.pagination.previous')
@@ -83,7 +83,7 @@ module Dcv::BlacklightHelperBehavior
     link_opts = { class: ["next", "disabled"], rel: 'next', disabled: true }
     doc_url = '#'
     if link_document
-      link_opts = prev_next_link_opts(link_document, 1, class: "next", rel: 'next', :'data-toggle' => 'tooltip')
+      link_opts = prev_next_link_opts(link_document, 1, class: "next", rel: 'next', :'data-toggle' => 'tooltip', :'aria-label' => 'next document')
       doc_url = url_for_document(link_document)
     end
     link_opts[:title] = t('views.pagination.next')
