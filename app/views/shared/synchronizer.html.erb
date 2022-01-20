@@ -11,9 +11,23 @@ end
   <% # Note: "text-align:left;" is required for the widget container, otherwise the seek bar won't render properly %>
   <div id="synchronizer-widget" style="text-align:left;" data-media-url="<%= media_url %>" data-<%= synch_mode %>-url="<%= bytestream_content_path(catalog_id: params[:id], bytestream_id: synch_mode) %>" class="">
     <div id="working-area" class="d-flex flex-column flex-md-row mx-lg-n2">
-      <div id="left-sidebar" class="w-100 vh-sm-50 h-md-auto px-lg-2" style="">
-        <div id="media-playback" class="" style="">
-          <div id="video"><video id="video-player" class="able-player" data-include-transcript="false" preload="none" data-captions-position="<%= document['dc_type_ssm']&.detect {|x| x =~ /sound/i || x =~ /audio/i } ? 'overlay' : 'bottom' %>" data-skin="2020"><source src="<%= media_url %>" /><track id="video-captions" label="English" kind="captions" srclang="en" src="<%= bytestream_content_path(catalog_id: params[:id], bytestream_id: 'captions')%>" /></video></div>
+      <div id="left-sidebar" class="w-100 vh-sm-50 h-md-auto px-lg-2">
+        <div id="media-playback">
+          <% if document['dc_type_ssm']&.detect {|x| x =~ /sound/i || x =~ /audio/i }.present? %>
+            <div id="audio">
+              <audio id="audio-player" data-include-transcript="false" preload="none" data-captions-position="overlay">
+                <source src="<%= media_url %>" type="application/x-mpegURL" />
+                <track id="video-captions" label="English" kind="captions" srclang="en" src="<%= bytestream_content_path(catalog_id: params[:id], bytestream_id: 'captions')%>" />
+              </video>
+            </div>
+          <% else %>
+            <div id="video">
+              <video id="video-player" data-include-transcript="false" preload="none" data-captions-position="bottom">
+                <source src="<%= media_url %>" type="application/x-mpegURL" />
+                <track id="video-captions" label="English" kind="captions" srclang="en" src="<%= bytestream_content_path(catalog_id: params[:id], bytestream_id: 'captions')%>" />
+              </video>
+            </div>
+          <% end %>
         </div><!-- /#media-playback -->
       </div><!-- /#left-sidebar -->
 

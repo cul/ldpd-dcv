@@ -6,7 +6,7 @@
 
       <div id="sidebar-thumb">
         <div class="inner aligncenter">
-          <img alt="" class="img-responsive" src="<%= get_asset_url(id: document[:id], type: 'full', size: 256, format: 'png') %>" />
+          <img alt="" class="img-fluid" src="<%= get_asset_url(id: document[:id], type: 'full', size: 256, format: 'png') %>" />
         </div>
         <div id="file-download-and-info" class="aligncenter">
           <% if can_download?(document) %>
