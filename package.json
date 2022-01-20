@@ -21,6 +21,7 @@
     "popper.js": "1.16.1",
     "rails-erb-loader": "^5.5.2",
     "resolve-url-loader": "^4.0.0",
+    "video.js": "^7.17.0",
     "webpack": "^4.46.0",
     "webpack-cli": "^3.3.12",
     "worker-loader": "^3.0.8",

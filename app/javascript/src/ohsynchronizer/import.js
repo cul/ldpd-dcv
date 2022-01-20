@@ -1,5 +1,4 @@
-import Hls from 'hls.js';
-import AblePlayerControls from './ablePlayerControls';
+import VideoJsControls from './videoJsControls';
 import YouTubeControls from './youTubeControls';
 import { hlssuccess, uploadsuccess } from './events';
 import { closeButtons, errorHandler } from './functions';
@@ -18,7 +17,7 @@ const allowedExts = [
 	"mp3"
 ];
 
-const checkExt = function(ext) {
+const checkExt = function (ext) {
 	return allowedExts.indexOf(ext);
 }
 
@@ -42,8 +41,8 @@ export const uploadedFile = function (sender) {
 
 // Here we accept URL-based files
 // This function is no longer utilized for non-AV files
-export const mediaFromUrl = function(url, options = {}) {
-	if(typeof options.type == 'undefined') { options.type = 'video'; } // default to video if type was not specified
+export const mediaFromUrl = function (url, options = {}) {
+	if (typeof options.type == 'undefined') { options.type = 'video'; } // default to video if type was not specified
 
 	// Handle various types of URLs (e.g. HLS, progressive download, YouTube)
 	var id = '';
@@ -51,26 +50,26 @@ export const mediaFromUrl = function(url, options = {}) {
 
 	// Browsers won't load https resources if the surrounding page is http,
 	// so we'll throw an error.
-	if(location.protocol == 'https:' && lowerCaseUrl.indexOf('http://') > -1) {
+	if (location.protocol == 'https:' && lowerCaseUrl.indexOf('http://') > -1) {
 		errorHandler(new Error("Due to browser security measures, you cannot load an http video resource from an https web page."));
 		return;
 	}
 
 	// Determine what type of URL we're working with
 	var lowerCaseUrl = url.toLowerCase();
-	if(lowerCaseUrl.indexOf('playlist.m3u8') > -1) {
+	if (lowerCaseUrl.indexOf('playlist.m3u8') > -1) {
 		return renderHLS(url);
-	} else if(lowerCaseUrl.indexOf('manifest.mpd') > -1) {
+	} else if (lowerCaseUrl.indexOf('manifest.mpd') > -1) {
 		errorHandler(new Error("MPEG-Dash is not currently supported. Use HLS for streaming sources."));
-	} else if(lowerCaseUrl.indexOf('youtube') > -1) {
+	} else if (lowerCaseUrl.indexOf('youtube') > -1) {
 		// Full YouTube URL
 		var urlArr2 = url.split('=');
 		return loadYouTube(urlArr2[urlArr2.length - 1]);
-	} else if(lowerCaseUrl.indexOf('youtu.be') > -1) {
+	} else if (lowerCaseUrl.indexOf('youtu.be') > -1) {
 		// Short YouTube URL
 		var urlArr2 = url.split('/');
 		return loadYouTube(urlArr2[urlArr2.length - 1]);
- 	} else {
+	} else {
 		// Fall back to progressive download http/https
 		if (options.type == 'video' || options.type == 'audio') {
 			return renderMediaURL(url, options);
@@ -82,38 +81,33 @@ export const mediaFromUrl = function(url, options = {}) {
 
 /** Rendering Functions **/
 // Here we load HLS playlists
-export const renderHLS = function(url) {
+export const renderHLS = function (url) {
 	var player = document.querySelector('video');
-	const playerControls = new AblePlayerControls();
-	var hls = new Hls();
-	hls.loadSource(url);
-	hls.attachMedia(player);
-	hls.on(Hls.Events.MANIFEST_PARSED,function() {
-		playerControls.bindNavControls();
-		// Watch the AblePlayer time status for Transcript Syncing
+	const playerControls = new VideoJsControls();
+	playerControls.onReady(() => {
 		// Must set before video plays
-		$("#video-player").on('timeupdate', function() { playerControls.transcriptTimestamp() });
-		$("#audio-player").on('timeupdate', function() { playerControls.transcriptTimestamp() });
-		video.play();
+		$("#audio-player audio").on('timeupdate', function () { playerControls.transcriptTimestamp() });
+		$("#video-player video").on('timeupdate', function () { playerControls.transcriptTimestamp() });
 	});
+	playerControls.bindNavControls();
+
 	$("#media-upload").hide();
-	// hide audio
-	$("#audio").hide();
-	// show video
+	// show audio or video
+	$("#audio").show();
 	$("#video").show();
 	// show segment controls
 	$(".tag-add-segment").show();
 	$("#finish-area").show();
 	if ($('#transcript')[0] && $('#transcript')[0].innerHTML != '') { $("#sync-controls").show(); }
-	hlssuccess(new CustomEvent("hlssuccess", {detail: url}));
+	hlssuccess(new CustomEvent("hlssuccess", { detail: url }));
 	closeButtons();
 	return playerControls;
 }
 
-export const renderMediaURL = function(url, options = {type: 'video'} ) {
+export const renderMediaURL = function (url, options = { type: 'video' }) {
 	var selector = '#' + options.type + '-player';
-	const playerControls = new AblePlayerControls();
-	$(selector).on('timeupdate', function() { playerControls.transcriptTimestamp() });
+	const playerControls = new VideoJsControls();
+	$(selector).on('timeupdate', function () { playerControls.transcriptTimestamp() });
 	$(selector).attr('src', url);
 	$(selector)[0].play();
 	$("#media-upload").hide();
@@ -134,11 +128,11 @@ export const renderMediaURL = function(url, options = {type: 'video'} ) {
 }
 
 // Here we play video files in the video control player
-const renderVideo = function(file) {
-	const playerControls = new AblePlayerControls();
+const renderVideo = function (file) {
+	const playerControls = new VideoJsControls();
 	var reader = new FileReader();
 	try {
-		reader.onload = function(event) {
+		reader.onload = function (event) {
 			var target = event.target.result;
 			var videoNode = document.querySelector('video');
 
@@ -152,7 +146,7 @@ const renderVideo = function(file) {
 			if ($('#transcript')[0].innerHTML != '') {
 				$("#sync-controls").show();
 			}
-			uploadsuccess(new CustomEvent("uploadsuccess", {detail: file}));
+			uploadsuccess(new CustomEvent("uploadsuccess", { detail: file }));
 			closeButtons();
 			playerControls.bindNavControls();
 		}
@@ -167,7 +161,7 @@ const renderVideo = function(file) {
 	}
 
 	reader.readAsDataURL(file);
-	$('#video-player').on('durationchange', function() {
+	$('#video-player').on('durationchange', function () {
 		var time = this.duration;
 		$('#endTime')[0].innerHTML = secondsAsTimestamp(time);
 	});
@@ -175,7 +169,7 @@ const renderVideo = function(file) {
 }
 
 // Here we load the YouTube video into the iFrame via its ID
-const loadYouTube = function(id) {
+const loadYouTube = function (id) {
 	if ($('#transcript')[0].innerHTML != '') { $("#sync-controls").show(); }
 	$("#finish-area").show();
 	$(".tag-add-segment").show();
@@ -194,7 +188,7 @@ const loadYouTube = function(id) {
 	playerControls = new YouTubeControls();
 	new YT.Player('ytvideo', {
 		events: {
-			'onReady': function(event) {
+			'onReady': function (event) {
 				playerControls.initializeControls(event);
 				playerControls.bindNavControls();
 			}
@@ -204,11 +198,11 @@ const loadYouTube = function(id) {
 }
 
 // Here we play audio files in the audio control player
-const renderAudio = function(file) {
-	const playerControls = new AblePlayerControls();
+const renderAudio = function (file) {
+	const playerControls = new VideoJsControls();
 	var reader = new FileReader();
 	try {
-		reader.onload = function(event) {
+		reader.onload = function (event) {
 			var target = event.target.result;
 			var audioNode = document.querySelector('audio');
 
@@ -219,7 +213,7 @@ const renderAudio = function(file) {
 			$(".tag-add-segment").show();
 			$("#finish-area").show();
 			if ($('#transcript')[0].innerHTML != '') { $("#sync-controls").show(); }
-			uploadsuccess(new CustomEvent("uploadsuccess", {detail: file}));
+			uploadsuccess(new CustomEvent("uploadsuccess", { detail: file }));
 			closeButtons();
 			playerControls.bindNavControls();
 		}
@@ -234,7 +228,7 @@ const renderAudio = function(file) {
 	}
 
 	reader.readAsDataURL(file);
-	$('#audio-player').on('durationchange', function() {
+	$('#audio-player').on('durationchange', function () {
 		var time = this.duration;
 		$('#endTime')[0].innerHTML = secondsAsTimestamp(time);
 	});
@@ -242,7 +236,7 @@ const renderAudio = function(file) {
 }
 
 // Here we determine what kind of file was uploaded
-export const mediaFromFile = function(file, ext) {
+export const mediaFromFile = function (file, ext) {
 	// List the information from the files
 	// console.group("File Name: " + file.name);
 	// console.log("File Size: " + parseInt(file.size / 1024, 10));
@@ -254,7 +248,7 @@ export const mediaFromFile = function(file, ext) {
 
 	// We can't depend upon the file.type (Chrome, IE, and Safari break)
 	// Based upon the extension of the file, display its contents in specific locations
-	switch(ext) {
+	switch (ext) {
 		case "mp4":
 		case "webm":
 			return renderVideo(file);

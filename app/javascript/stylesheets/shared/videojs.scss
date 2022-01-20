@@ -1,0 +1,7 @@
+.video-js, .vjs-no-flex {
+  // These elements are hidden by default and js controls can't unhide them for some reason,
+  // so we're unhiding with css instead. Note that they can still be hidden with js later.
+  .vjs-current-time, .vjs-time-divider, .vjs-duration {
+    display: block;
+  }
+}
