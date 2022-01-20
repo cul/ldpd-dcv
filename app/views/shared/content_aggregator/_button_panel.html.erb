@@ -6,17 +6,18 @@
     :'data-download-url' => item_mods_path(id: @document.id, type: 'download'),
     :class => 'btn btn-secondary float-right',
     :title => 'Display XML Metadata',
+    :'aria-label' => 'Display XML Metadata',
     :'data-tt' => 'tooltip',
     :onclick => 'return modsModal(this);'
   }
   %>
   <% if has_viewable_children? || archive_org_id_for_document(document) -%>
-  <a id="child-zoom-modal-button" class="btn btn-secondary item-cbox" data-original-title="<%= document_show_html_title %>" data-toggle="tooltip" title="Zoom in" href="#"><i class="fa fa-search-plus"></i></a>
-  <a id="child-zoom-new-window-button" class="btn btn-secondary" href="#" data-original-title="<%= document_show_html_title %>" data-toggle="tooltip" title="Open in new window"><i class="fa fa-external-link"></i></a>
+  <a id="child-zoom-modal-button" class="btn btn-secondary item-cbox" data-original-title="<%= document_show_html_title %>" data-toggle="tooltip" title="Zoom in" aria-label="Zoom in" href="#"><i class="fa fa-search-plus"></i></a>
+  <a id="child-zoom-new-window-button" class="btn btn-secondary" href="#" data-original-title="<%= document_show_html_title %>" data-toggle="tooltip" title="Open in new window" aria-label="Open in new window"><i class="fa fa-external-link"></i></a>
   <% end -%>
   <% if local_downloads || archive_org_id_for_document(document) -%>
   <div id="download-button-group" class="btn-group btn-group-sm justify-content-end">
-    <button id="download-button" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" data-tt="tooltip" title="Download">
+    <button id="download-button" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" data-tt="tooltip" title="Download" aria-label="Download">
       <i class="fa fa-cloud-download"></i> <span class="caret"></span>
       <span class="sr-only">Toggle Dropdown</span>
     </button>
@@ -26,7 +27,7 @@
   <% end -%>
   <% if local_downloads -%>
   <% if has_persistent_link?(document) && structured_children.detect {|x| x[:dc_type] =~ /image/i } %>
-    <a id="draggable-iiif-button" class="btn btn-secondary grabbable localicon-iiif" href="<%= get_manifest_url(document) %>" title="drag-n-drop iiif manifest" data-toggle="tooltip">
+    <a id="draggable-iiif-button" class="btn btn-secondary grabbable localicon-iiif" href="<%= get_manifest_url(document) %>" title="drag-n-drop iiif manifest" aria-label="drag-n-drop iiif manifest" data-toggle="tooltip">
       <%= inline_svg('iiif-logo.svg') %>
     </a>
   <% end %>
