@@ -80,4 +80,8 @@ module Dcv::MediaElementHelper
     ).html_safe
   end
 
+  def inline_svg(path)
+    return unless path =~ /\.svg$/
+    File.read(File.join(Rails.root, 'app', 'assets', 'images', path)).html_safe
+  end
 end
