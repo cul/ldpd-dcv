@@ -32,7 +32,11 @@ module Dcv::Sites::SearchableController
     search_service.repository
   end
 
+  def search_service(params = search_state.to_h)
+    search_service_class.new(config: blacklight_config, user_params: params, **search_service_context)
+  end
+
   def search_results(params, &block)
-    search_service_class.new(config: blacklight_config, user_params: params, **search_service_context).search_results(&block)
+    search_service(params).search_results(&block)
   end
 end

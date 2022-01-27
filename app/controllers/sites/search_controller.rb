@@ -104,11 +104,6 @@ module Sites
 			site_search_url(load_subsite.slug, options.except(:controller, :action))
 		end
 
-		# shims from Blacklight 6 controller fetch to BL 7 search service
-		def search_service
-			search_service_class.new(config: blacklight_config, user_params: {})
-		end
-
 		def tracking_method
 			"site_track_path"
 		end
