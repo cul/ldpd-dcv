@@ -23,13 +23,19 @@ describe Sites::SearchConfigurationController, type: :unit do
 	describe '#update' do
 		let(:configuration_fixture) { YAML.load(fixture("yml/sites/search_configuration.yml").read).freeze }
 		let(:rails_param_hash) do
-			configuration_fixture.map do |k, v|
+			rph = configuration_fixture.map do |k, v|
 				if v.is_a? Array
 					[k, v.map.with_index {|c, i| [i.to_s, c]}.to_h]
 				else
-					[k, v]
+					[k, v.dup]
 				end
 			end.to_h
+			# the form params have a composite param for field_name + pivot
+			rph['facets'].each do |fc_tuple|
+				fc = fc_tuple[1]
+				fc['facet_fields_form_value'] = fc.delete('field_name') if fc['field_name']
+			end
+			rph
 		end
 		let(:params) {
 			ActionController::Parameters.new(
@@ -48,6 +54,10 @@ describe Sites::SearchConfigurationController, type: :unit do
 			let(:site) { FactoryBot.create(:site, search_type: 'local') }
 			it do
 				controller.update
+				expected = Site::SearchConfiguration.new(configuration_fixture).as_json
+				site.reload.search_configuration.as_json.each do |k, v|
+					expect(v).to be_eql(expected[k])
+				end
 				expect(site.reload.search_configuration.as_json).to be_eql(Site::SearchConfiguration.new(configuration_fixture).as_json)
 				expect(site.reload.search_configuration.as_json).not_to be_eql(Site::SearchConfiguration.new.as_json)
 			end

@@ -2,9 +2,9 @@
 	<div class="card-header form-inline">
 		<div class="card-header"><span class="card-title"><%= field_form.object.new_record? ? "New Facet" : field_form.object.label %></span></div>
 	</div>
-	<div class="card-body" id="search_fields_<%= field_form.index %>_atts">
+	<div class="card-body" id="facet_fields_<%= field_form.index %>_atts">
 		<div class="form-group">
-			<label for="site[search_configuration][facets][<%= field_form.index %>][label]">Field Name <span class="fa fa-question-circle" data-tooltip="tooltip-facets-field"></span></label>
+			<label for="site[search_configuration][facets][<%= field_form.index %>][facet_fields_form_value]">Field Name <span class="fa fa-question-circle" data-tooltip="tooltip-facets-field"></span></label>
 			<%= field_form.text_field :facet_fields_form_value %>
 		</div>
 		<div class="form-group">
@@ -16,7 +16,7 @@
 			<%= field_form.text_field :limit %>
 		</div>
 		<div class="form-group">
-			<label for="site[search_configuration][facets][<%= field_form.index %>][limit]">Value Sort <span class="fa fa-question-circle" data-tooltip="tooltip-facets-sort"></span></label>
+			<label for="site[search_configuration][facets][<%= field_form.index %>][sort]">Value Sort <span class="fa fa-question-circle" data-tooltip="tooltip-facets-sort"></span></label>
 			<%= field_form.select :sort, Site::FacetConfiguration::VALID_SORTS %>
 		</div>
 		<div class="form-group">

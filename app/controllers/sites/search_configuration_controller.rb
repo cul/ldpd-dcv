@@ -44,7 +44,7 @@ module Sites
 					date_search_configuration: [:enabled, :granularity_search, :show_sidebar, :show_timeline, :sidebar_label],
 					map_configuration: [:default_lat, :default_long, :enabled, :granularity_data, :granularity_search, :show_items, :show_sidebar],
 					display_options: [:default_search_mode, :show_csv_results, :show_original_file_download, :show_other_sources],
-					facets: [:field_name, :label, :limit, :sort, :value_transforms],
+					facets: [:facet_fields_form_value, :label, :limit, :sort, :value_transforms],
 					search_fields: [:type, :label]
 			)&.to_h
 			# todo: find a better way to unroll the list of values
