@@ -52,7 +52,6 @@ class Site::FacetConfiguration
 		self.pivot = vals.length > 1 ? vals[1..-1] : nil
 	end
 
-
 	def value_transforms=(val)
 		val = clean_and_freeze_validated_array(val, VALID_VALUE_TRANSFORMS)
 		value_transforms_will_change! unless val == @value_transforms
@@ -86,7 +85,7 @@ class Site::FacetConfiguration
 	end
 
 	def configure(blacklight_config)
-		return false if blacklight_config.facet_fields[@field_name]
+		return false if @field_name.blank? || blacklight_config.facet_fields[@field_name]
 		opts = {label: @label, limit: @limit, sort: @sort}
 		if @exclusions.present?
 			opts[:cul_custom_value_hide] = Array(@exclusions)

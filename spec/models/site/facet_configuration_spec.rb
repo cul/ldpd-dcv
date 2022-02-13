@@ -43,4 +43,11 @@ describe Site::FacetConfiguration do
 			expect(config.eql?(described_class.new(atts.merge(limit: config.limit - 1)))).to be false
 		end
 	end
+	describe '#configure' do
+		let(:blacklight_config) { instance_double(Blacklight::Configuration) }
+		it 'returns false without configuring when field_name is blank' do
+			expect(blacklight_config).not_to receive(:add_facet_field)
+			expect(config.configure(blacklight_config)).to be false
+		end
+	end
 end
