@@ -103,4 +103,10 @@ class Site::FacetConfiguration
 		end
 		blacklight_config.add_facet_field @field_name, opts
 	end
+
+	def validate(attr_name, errors)
+		if @field_name.blank?
+			errors.add (Array(attr_name) << :field_name).join('/'), "Facet field name cannot be blank"
+		end
+	end
 end
