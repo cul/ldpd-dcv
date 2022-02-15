@@ -14,6 +14,7 @@ class Site < ApplicationRecord
 
 	validates :search_type, inclusion: { in: VALID_SEARCH_TYPES }
 	validates :layout, inclusion: { in: VALID_LAYOUTS }
+	validates_with DelegatingValidator, fields: [:search_configuration]
 
 	configure_blacklight do |config|
 		Dcv::Configurators::DcvBlacklightConfigurator.configure_default_solr_params(config)

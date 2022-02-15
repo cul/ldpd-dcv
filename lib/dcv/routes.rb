@@ -1,7 +1,7 @@
 module Dcv
   class Routes
-    DOI_ID_CONSTRAINT = { id: /10\.[A-Za-z0-9\-]+\/[^\/]+/ }
-    LEGACY_ID_CONSTRAINT = { id: /(cul|ldpd|donotuse):[^\/]*/ }
+    DOI_ID_CONSTRAINT = { id: /10\.[A-Za-z0-9\-]+\/[^\/\.]+/ }
+    LEGACY_ID_CONSTRAINT = { id: /(cul|ldpd|donotuse):[^\/\.]+/ }
 
     attr_reader :subsite_keys
 

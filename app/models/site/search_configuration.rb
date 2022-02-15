@@ -57,6 +57,12 @@ class Site::SearchConfiguration
 		false
 	end
 
+	def validate(attr_name, errors)
+		if @facets.present?
+			@facets.each { |facet_config| facet_config.validate(Array(attr_name) << :facets, errors) }
+		end
+	end
+
 	class Type <  ActiveModel::Type::Value
 		include ActiveModel::Type::Helpers::Mutable
 

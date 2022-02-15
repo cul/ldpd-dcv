@@ -1,6 +1,6 @@
 <%= config_form.fields_for :map_configuration, @subsite.search_configuration.map_configuration do |map_form| %>
-	<div class="card swatch-secondary">
-		<div class="card-header"><span class="card-title">Enable/Disable Result Displays</span></div>
+	<div class="card swatch-body">
+		<div class="card-header swatch-info"><span class="card-title">Enable/Disable Result Displays</span></div>
 		<div class="card-body">
 			<div class="form-group">
 				<label for="site_search_configuration_map_configuration_enabled">Enabled <span class="fa fa-question-circle" data-tooltip="tooltip-map-enable"></span></label>
@@ -12,8 +12,8 @@
 			</div>
 		</div>
 	</div>
-	<div class="card swatch-secondary">
-		<div class="card-header"><span class="card-title">Map Interface Configuration</span></div>
+	<div class="card swatch-body">
+		<div class="card-header swatch-info"><span class="card-title">Map Interface Configuration</span></div>
 		<div class="card-body">
 			<div class="form-group">
 				<label for="site_search_configuration_map_configuration_default_lat">Default Latitude <span class="fa fa-question-circle" data-tooltip="tooltip-map-default-coords"></span></label>

@@ -10,6 +10,7 @@ class SolrDocument
   ]
 
   include Blacklight::Solr::Document
+  include SolrDocument::FieldSemantics
   include SolrDocument::PublicationInfo
   include SolrDocument::Snippets
 
@@ -18,13 +19,6 @@ class SolrDocument
 
   # SMS uses the semantic field mappings below to generate the body of an SMS email.
   SolrDocument.use_extension( Blacklight::Document::Sms )
-
-  # DublinCore uses the semantic field mappings below to assemble an OAI-compliant Dublin Core document
-  # Semantic mappings of solr stored fields. Fields may be multi or
-  # single valued. See Blacklight::Solr::Document::ExtendableClassMethods#field_semantics
-  # and Blacklight::Solr::Document#to_semantic_values
-  # Recommendation: Use field names from Dublin Core
-  use_extension( Blacklight::Document::DublinCore)
 
   # Item in context url for this solr document. Might return nil if this doc has no item in context url.
   def item_in_context_url

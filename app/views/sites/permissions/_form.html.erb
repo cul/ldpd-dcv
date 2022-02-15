@@ -7,7 +7,7 @@
 	end
 -%>
 <%= form_for @subsite, url: config_view, builder: ::ValueIndexableFormBuilder do |site_form| %>
-	<div class="panel border-secondary">
+	<div class="card border-secondary">
 		<div class="card-header swatch-secondary"><h2 class="card-title">Site Editor IDs</h2></div>
 		<div class="card-body site_editors">
 			<div class="form-group">
@@ -18,7 +18,7 @@
 		</div>
 	</div>
 	<%- if !@subsite.restricted %>
-		<div class="panel bg-danger">
+		<div class="card bg-danger">
 			<div class="card-header"><h2 class="card-title">Configuration Will Not Apply!</h2></div>
 			<div class="card-body">The properties configured below are for restricted sites, but <%= @subsite.slug %> is a public site. If this is an error, please contact dlc-support@library.columbia.edu.</div>
 		</div>

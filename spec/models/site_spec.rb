@@ -224,4 +224,22 @@ describe Site do
 			end
 		end
 	end
+	describe '#valid?' do
+		let(:site_slug) { 'validators' }
+		it 'is valid with no configuration' do
+			expect(site.valid?).to be true
+		end
+		context 'bad facet configuration' do
+			let(:search_configuration) do
+				base = YAML.load(fixture("yml/sites/search_configuration.yml").read)
+				base['facets'][0]['field_name'] = ""
+				base
+			end
+			it 'is invalid' do
+				site.search_configuration = search_configuration
+				expect(site.valid?).to be false
+				expect(site.errors.details).to have_key(:"search_configuration/facets/field_name")
+			end
+		end
+	end
 end
