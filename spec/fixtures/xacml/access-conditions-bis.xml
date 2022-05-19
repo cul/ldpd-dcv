@@ -25,11 +25,20 @@
     <xacml:Condition FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-at-least-one-member-of">
       <xacml:AttributeDesignator MustBePresent="false" Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" AttributeId="http://www.ja-sig.org/products/cas/affiliation" DataType="http://www.w3.org/2001/XMLSchema#string"/>
       <xacml:Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-bag">
-        <xacml:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">LIB_role-ext-UnivSemArchives</xacml:AttributeValue>
+        <xacml:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">LIB_role-ext-TestValueOne</xacml:AttributeValue>
       </xacml:Apply>
     </xacml:Condition>
   </xacml:Rule>
   <xacml:Rule RuleId="3" Effect="Permit">
+    <xacml:Description>Specified Group/UNI Access</xacml:Description>
+    <xacml:Condition FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-at-least-one-member-of">
+      <xacml:AttributeDesignator MustBePresent="false" Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" AttributeId="http://www.ja-sig.org/products/cas/affiliation" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+      <xacml:Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-bag">
+        <xacml:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">LIB_role-ext-TestValueTwo</xacml:AttributeValue>
+      </xacml:Apply>
+    </xacml:Condition>
+  </xacml:Rule>
+  <xacml:Rule RuleId="4" Effect="Permit">
     <!-- Each restriction_on_access field group results in a Rule element defining a permit condition -->
     <xacml:Description>Embargoed</xacml:Description> 
     <xacml:Condition FunctionId="urn:oasis:names:tc:xacml:1.0:function:date-greater-than-or-equal">
