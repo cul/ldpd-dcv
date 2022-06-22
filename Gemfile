@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+
 gem 'bigdecimal', '~>1.4.4'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.0'
@@ -6,7 +7,7 @@ gem 'webpacker', '~> 5.2'
 gem 'bootsnap'
 gem 'actionpack-action_caching'
 # Hydra stack
-gem 'nokogiri', '~> 1.8.2'
+gem 'nokogiri', '~> 1.10.10' # can't update to 1.11 because our server version of GLIBC is too old
 gem 'blacklight', '~> 7.6.0'
 gem 'active-fedora', '>= 7.3.1'
 # carrierwave for file uploads
@@ -36,9 +37,6 @@ gem 'uglifier', '>= 1.3.0'
 
 # Use CoffeeScript for .js.coffee assets and views
 gem 'coffee-rails'
-
-# See https://github.com/sstephenson/execjs#readme for more supported runtimes
-gem 'libv8', '>= 8.4.255.0' # Min version for Mac OS 10.15
 
 # Pretty printing
 gem 'coderay'
