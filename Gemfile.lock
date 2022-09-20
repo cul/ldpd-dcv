@@ -506,6 +506,7 @@ DEPENDENCIES
   actionpack-action_caching
   active-fedora (>= 7.3.1)
   active-triples (~> 0.4.0)
+  addressable (~> 2.8.0)
   bigdecimal (~> 1.4.4)
   blacklight (~> 7.6.0)
   bootsnap

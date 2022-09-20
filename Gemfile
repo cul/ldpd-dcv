@@ -62,6 +62,8 @@ gem 'redcarpet'
 
 gem 'mime-types'
 
+gem 'addressable', '~> 2.8.0'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
