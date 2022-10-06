@@ -59,6 +59,13 @@ module Dcv
       config.assets.precompile += ['portrait-*.css']
     end
 
+
+    # permit ActiveSupport::HashWithIndifferentAccess in yaml
+    if config.active_record.yaml_column_permitted_classes.present?
+      config.active_record.yaml_column_permitted_classes.concat [ActiveSupport::HashWithIndifferentAccess, Symbol]
+    else
+      config.active_record.yaml_column_permitted_classes = [ActiveSupport::HashWithIndifferentAccess, Symbol]
+    end
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
     # config.time_zone = 'Central Time (US & Canada)'
