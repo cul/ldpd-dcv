@@ -11,8 +11,8 @@
 	<% elsif (restricted_doc = has_embargoed_children? ) %>
 		<p class="alert alert-info" role="alert">Due to copyright, contractual or privacy restrictions, this item is not available until <%= restricted_doc['access_control_embargo_dtsi'] %>.</p>
 	<% else %>
-		<p class="alert alert-warning" role="alert">Due to copyright, contractual or privacy restrictions, this item is not available online.</p>
+		<%= render :partial => 'shared/vrr_empty' %>
 	<% end %>
 <% else -%>
-	<p class="alert alert-info" role="alert">This item is published without associated content to serve as a citable reference. Content may be added in the future if policy or ongoing digitization work permits. If you have questions, please <a href="#" onclick="return feedbackModal();">contact a Libraries staff member</a>.</p>
+	<%= render :partial => 'shared/vrr_empty' %>
 <% end %>
