@@ -6,6 +6,10 @@ class Dcv::Solr::DocumentAdapter::ModsXml
     SHORT_PROJ = "ldpd.short.project"
     FULL_PROJ = "ldpd.full.project"
 
+    def normalize_space(text)
+      text&.to_s.gsub(/[\n\r]+/,'').gsub(/\s{2,}/,' ').strip
+    end
+
     def to_solr(solr_doc={})
       solr_doc = (defined? super) ? super : solr_doc
       return solr_doc if mods.nil?  # There is no mods.  Return because there is nothing to process, otherwise NoMethodError will be raised by subsequent lines.
@@ -18,20 +22,21 @@ class Dcv::Solr::DocumentAdapter::ModsXml
       
       #t.title(proxy: [:mods, :main_title_info, :main_title], type: :string, index_as: [:searchable, :sortable])
       mods.xpath("./mods:titleInfo[not(@type)]/mods:title", MODS_NS).each_with_index do |main_title, ix|
-        (solr_doc['title_teim'] ||= []).concat(textable(main_title.text))
+        title_text = normalize_space(main_title.text)
+        (solr_doc['title_teim'] ||= []).concat(textable(title_text))
         if ix == 0
-          solr_doc['title_si'] = main_title.text
+          solr_doc['title_si'] = normalize_space(title_text)
         end
       end
       solr_doc['title_teim']&.uniq!
       #t.title_display(proxy:[:mods, :main_title_info], type: :string, index_as: [:displayable])
-      title_display_text = mods.xpath("./mods:titleInfo[not(@type)]", MODS_NS).map(&:text)
+      title_display_text = mods.xpath("./mods:titleInfo[not(@type)]", MODS_NS).map { |x| normalize_space(x.text) }
       solr_doc['title_display_ssm'] = title_display_text if title_display_text.present?
 
       #t.search_title_info(:path=>'titleInfo', :index_as=>[]){
       #  t.search_title(:path=>'title', :index_as=>[:textable])
       #}
-      title_text = mods.xpath("./mods:titleInfo/mods:title", MODS_NS).map(&:text)
+      title_text = mods.xpath("./mods:titleInfo/mods:title", MODS_NS).map { |x| normalize_space(x.text) }
       solr_doc['all_text_teim'].concat(textable(title_text)) if title_text.present?
 
       #t.part(:path=>"relatedItem", :attributes=>{:type=>"constituent"}, :index_as=>[]){
