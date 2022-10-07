@@ -11,7 +11,7 @@ module Dcv::Solr::DocumentAdapter
         return Dcv::Solr::DocumentAdapter::ActiveFedora::ContentAggregator.new(obj)
       elsif Dcv::Solr::DocumentAdapter::ActiveFedora.matches_any_cmodel?(obj, ['info:fedora/ldpd:Concept'])
         return Dcv::Solr::DocumentAdapter::ActiveFedora::Concept.new(obj)
-      elsif Dcv::Solr::DocumentAdapter::ActiveFedora.matches_any_cmodel?(obj, ['info:fedora/ldpd:Collection'])
+      elsif Dcv::Solr::DocumentAdapter::ActiveFedora.matches_any_cmodel?(obj, ['info:fedora/ldpd:Collection', 'info:fedora/pcdm:Collection'])
         return Dcv::Solr::DocumentAdapter::ActiveFedora::Collection.new(obj)
       else
         return Dcv::Solr::DocumentAdapter::ActiveFedora.new(obj)
@@ -29,6 +29,7 @@ module Dcv::Solr::DocumentAdapter
 
     include RepresentativeGenericResourceBehavior
     attr_accessor :obj
+    delegate :pid, to: :@obj
 
     # Initialize adapter object with active_fedora object
     # Largely drawn from legacy class Cul::Hydra::Models::Common
@@ -60,18 +61,7 @@ module Dcv::Solr::DocumentAdapter
       else
         solr_doc["descriptor_ssi"] = ["dublin core"]
       end
-      # if no mods, pull some values from DC
-      if (solr_doc["title_display_ssm"].blank?)
-        if (solr_doc["dc_title_ssm"].present?)
-          solr_doc["title_display_ssm"] = solr_doc["dc_title_ssm"]
-        else
-          solr_doc["title_display_ssm"] = solr_doc["dc_identifier_ssim"]&.reject { |dcid| dcid.eql? obj.id }
-        end
-        solr_doc["title_si"] = solr_doc["title_display_ssm"]&.first
-      end
-      if (solr_doc["identifier_ssim"].blank?)
-          solr_doc["identifier_ssim"] = solr_doc["dc_identifier_ssim"]&.reject {|dcid| dcid.eql? obj.id}
-      end
+      default_decription_solr(solr_doc)
 
       if solr_doc["contributor_ssim"].present?
         if solr_doc["contributor_ssim"].is_a?(Array)
@@ -93,7 +83,7 @@ module Dcv::Solr::DocumentAdapter
         end
       end
 
-      solr_doc['structured_bsi'] = true if has_struct_metadata?
+      solr_doc['structured_bsi'] = has_struct_metadata? ? true : false
 
       get_representative_generic_resource&.tap { |rgr| solr_doc['representative_generic_resource_pid_ssi'] = rgr.pid }
 
@@ -118,6 +108,22 @@ module Dcv::Solr::DocumentAdapter
       solr_doc
     end
 
+    def default_decription_solr(solr_doc={})
+      # if no mods, pull some values from DC
+      if (solr_doc["title_display_ssm"].blank?)
+        if (solr_doc["dc_title_ssm"].present?)
+          solr_doc["title_display_ssm"] = solr_doc["dc_title_ssm"]
+        else
+          solr_doc["title_display_ssm"] = solr_doc["dc_identifier_ssim"]&.reject { |dcid| dcid.eql? obj.id }
+        end
+        solr_doc["title_si"] = solr_doc["title_display_ssm"]&.first
+      end
+      if (solr_doc["identifier_ssim"].blank?)
+          solr_doc["identifier_ssim"] = solr_doc["dc_identifier_ssim"]&.reject {|dcid| dcid.eql? obj.id}
+      end
+      solr_doc
+    end
+
     def route_as
       'default'
     end
@@ -131,10 +137,10 @@ module Dcv::Solr::DocumentAdapter
       solr_doc["index_type_label_ssi"] = [index_type_label]
     end
 
-    # legacy behavior is more stringent than other ds methods
+    # legacy behavior is more stringent than other ds methods, relax to allow any mods content
     def has_desc?
       if obj.datastreams['descMetadata']&.has_content?
-        return Nokogiri::XML(obj.datastreams['descMetadata'].content).xpath('/mods:mods/mods:identifier', MODS_NS).first
+        return Nokogiri::XML(obj.datastreams['descMetadata'].content).xpath('/mods:mods/*', MODS_NS).length > 0
       end
       false
     end

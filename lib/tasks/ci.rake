@@ -61,8 +61,10 @@ namespace :dcv do
       rubydora.ingest(:file=>StringIO.new(fixture_foxml), :pid=>fixture_pid)
       fedora_object = ActiveFedora::Base.find(fixture_pid)
       # Set MODS for publish target titles
-      fedora_object.descMetadata.content = fixture_mods
-      fedora_object.save(update_index: false)
+      desc_metadata = fedora_object.create_datastream(Cul::Hydra::Datastreams::ModsDocument, "descMetadata", controlGroup: 'M')
+      desc_metadata.content = fixture_mods
+      fedora_object.add_datastream(desc_metadata)
+      fedora_object.save!(update_index: false)
       # update solr outside IndexFedoraObjectJob, since Site model create/teardown handled in specs
       doc_adapter = Dcv::Solr::DocumentAdapter::ActiveFedora(fedora_object)
       # rsolr params are camelcased

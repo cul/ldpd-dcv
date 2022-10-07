@@ -6,7 +6,7 @@ class BytestreamsController < ApplicationController
   include ActionController::Live
   include Dcv::NonCatalog
   include Dcv::Resources::RelsIntBehavior
-  include Cul::Hydra::Resolver
+  include Dcv::Resources::LegacyIdBehavior
   include Cul::Omniauth::AuthorizingController
   include Cul::Omniauth::RemoteIpAbility
   include Dcv::CatalogHelperBehavior

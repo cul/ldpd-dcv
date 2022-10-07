@@ -80,10 +80,49 @@ RSpec.configure do |config|
 
   # Custom Hyacinth spec helper methods
 
-  def fixture(file)
+  def fixture_file_path(file)
     path = File.join(File.dirname(__FILE__),'fixtures', file)
     raise "No fixture file at #{path}" unless File.exists? path
-    File.new(path)
+    path
   end
 
+  def fixture(file)
+    File.new(fixture_file_path(file))
+  end
+
+  def absolute_fixture_path(file)
+    File.realpath(fixture_file_path(file))
+  end
+
+  def descMetadata(inner_object, file)
+    tmpl = Cul::Hydra::Datastreams::ModsDocument.new(inner_object, 'descMetadata')
+    tmpl.ng_xml = Nokogiri::XML::Document.parse(file)
+    tmpl.ng_xml_doesnt_change!
+    tmpl
+  end
+
+  def structMetadata(inner_object, file)
+    tmpl = Cul::Hydra::Datastreams::StructMetadata.new(inner_object, 'structMetadata')
+    tmpl.ng_xml = Nokogiri::XML::Document.parse(file)
+    tmpl.ng_xml_doesnt_change!
+    tmpl
+  end
+
+  def fedora_config
+    @config ||= begin
+      _config = {}
+      _config[:fedora_config_path] = File.exists?('config/fedora.yml') ? 'config/fedora.yml' : 'spec/dummy/config/fedora.yml'
+      _config[:solr_config_path] = File.exists?('config/blacklight.yml') ? 'config/blacklight.yml' : nil
+      _config[:solr_config_path] ||= File.exists?('config/solr.yml') ? 'config/solr.yml' : 'spec/dummy/config/solr.yml'
+      _config
+    end
+  end
+
+  def rubydora_connection
+    @configs ||= fedora_config
+    @rubydora_conn ||= begin
+      ActiveFedora.init(@configs)
+      ActiveFedora::RubydoraConnection.new(ActiveFedora.config.credentials)
+    end
+  end
 end

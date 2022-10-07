@@ -6,7 +6,7 @@ class SubsitesController < ApplicationController
   include Dcv::MapDataController
   include Dcv::Sites::ConfiguredLayouts
   include Dcv::Sites::SearchableController
-  include Cul::Hydra::ApplicationIdBehavior
+  include Dcv::Sites::ApplicationIdBehavior
   include Cul::Omniauth::AuthorizingController
   include Cul::Omniauth::RemoteIpAbility
   include ShowFieldDisplayFieldHelper

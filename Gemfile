@@ -9,14 +9,14 @@ gem 'actionpack-action_caching'
 gem 'nokogiri', '~> 1.8.2'
 gem 'blacklight', '~> 7.6.0'
 gem 'active-fedora', '>= 7.3.1'
+gem 'rdf', '>= 1.1.5'
+gem 'rdf-vocab'
+
 # carrierwave for file uploads
 gem 'carrierwave', '~> 1.3'
 #gem 'rubydora', :path => '../rubydora'
 gem 'rubydora'
 
-# Columbia Hydra models
-gem 'cul_hydra', '~> 1.11.2'
-#gem 'cul_hydra', git: 'https://github.com/cul/cul_hydra', branch: 'master'
 gem 'cancancan', '~>2.0'
 gem 'cul_omniauth', '~> 0.6.1'
 #gem 'cul_omniauth', git: 'https://github.com/cul/cul_omniauth', branch: '0.5.x'

@@ -38,27 +38,48 @@ describe Dcv::Solr::DocumentAdapter::ActiveFedora, type: :unit do
 		end
 		describe '#to_solr' do
 			let(:adapter) { described_class.new(active_fedora_object) }
-			let(:schema_image_pid) { legacy_object.get_singular_rel(:schema_image).split('/').last }
+			let(:schema_image_pid) { adapter.get_singular_relationship_value(:schema_image).split('/').last }
 			let(:schema_image_stub) do
 				obj = double('ActiveFedora::Base')
 				allow(obj).to receive(:pid).and_return(schema_image_pid)
 				obj
 			end
+			let(:legacy_object) { ActiveFedora::Base.allocate.init_with_object(rubydora_object) }
 			before do
 				allow(ActiveFedora::Base).to receive(:find).with(schema_image_pid).and_return(schema_image_stub)
+				legacy_object.add_relationship(:has_model, legacy_cmodel)
 			end
 			context "has descMetadata" do
 				let(:fedora_pid) { 'test:c_agg' }
-				let(:legacy_object) { ContentAggregator.allocate.init_with_object(rubydora_object) }
+				let(:legacy_cmodel) { 'info:fedora/ldpd:GenericResource' }
 				it "sets descriptor to mods" do
 					expect(adapter.to_solr['descriptor_ssi']).to eql(["mods"])
+				end
+				it "sets datastreams_ssim" do
+					expect(adapter.to_solr['datastreams_ssim']).to include("descMetadata")
 				end
 			end
 			context "no descMetadata" do
 				let(:fedora_pid) { 'donotuse:internal' }
-				let(:legacy_object) { Concept.allocate.init_with_object(rubydora_object) }
+				let(:legacy_cmodel) { 'info:fedora/ldpd:Concept' }
 				it "sets descriptor to mods" do
 					expect(adapter.to_solr['descriptor_ssi']).to eql(["dublin core"])
+				end
+				it "sets datastreams_ssim" do
+					expect(adapter.to_solr['datastreams_ssim']).not_to include("descMetadata")
+				end
+			end
+			context "general indexing" do
+				let(:fedora_pid) { 'donotuse:internal' }
+				let(:legacy_cmodel) { 'info:fedora/ldpd:ContentAggregator' }
+				it "sets fedora_pid_uri_ssi" do
+					expect(adapter.to_solr['fedora_pid_uri_ssi']).to eql('info:fedora/' + fedora_pid)
+				end
+				it "sets index_type_label_ssi" do
+					expect(adapter.to_solr['index_type_label_ssi']).to eql(["DEFAULT"])
+				end
+				it "sets format_ssi" do
+					expect(adapter.to_solr['format_ssi']).to eql(["default"])
 				end
 			end
 		end

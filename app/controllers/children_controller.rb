@@ -4,7 +4,7 @@ require 'blacklight/catalog'
 class ChildrenController < ApplicationController
 
   include Dcv::NonCatalog
-  include Cul::Hydra::Resolver
+  include Dcv::Resources::LegacyIdBehavior
   include ChildrenHelper
 
   respond_to :json

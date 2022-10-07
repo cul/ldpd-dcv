@@ -27,28 +27,20 @@ module Dcv::ChildrenHelperBehavior
   end
 
   def document_children_from_model(parent_document = @document, opts={})
-    # get the model class
-    klass = parent_document['active_fedora_model_ssi'].constantize
-    # get a relation for :parts
-    reflection = klass.reflect_on_association(:parts)
-    association = reflection.association_class.new(IdProxy.new(parent_document[:id]), reflection)
     children = {parent_id: parent_document[:id], children: []}
-    children[:per_page] = opts.fetch(:per_page, 10).to_i
-    children[:page] = opts.fetch(:page, 0).to_i
-    offset = children[:per_page] * children[:page]
-    rows = children[:per_page]
+    rows = opts.fetch(:per_page, 10).to_i
+    page = opts.fetch(:page, 0).to_i
+    offset = page * rows
     fl = CHILDREN_MODEL.dup
-    title_field = nil
-    begin
-      fl << (title_field = 'title_ssm').to_s
-    rescue
-    end
+    title_field = 'title_ssm'
+    fl << title_field.dup
     opts = {fl: fl.join(','), raw: true, rows: rows, start: offset}.merge(opts)
-    response = association.load_from_solr(opts)['response'];
+    response, docs = solr_children_adapter.from_paged_membership(parent_document, opts)
     children[:pages] = (response['numFound'].to_f / rows).ceil
-    children[:page] = children[:page]
+    children[:page] = page
+    children[:per_page] = rows
     children[:count] = response['numFound'].to_i
-    response['docs'].map do |doc|
+    docs.map do |doc|
       children[:children] << child_from_solr(doc, title_field)
     end
     children

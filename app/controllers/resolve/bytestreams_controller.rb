@@ -5,7 +5,7 @@ class Resolve::BytestreamsController < ApplicationController
 
   include Dcv::NonCatalog
   include Dcv::Resources::RelsIntBehavior
-  include Cul::Hydra::Resolver
+  include Dcv::Resources::LegacyIdBehavior
   include Dcv::CatalogHelperBehavior
   include ChildrenHelper
   caches_action :content, :expires_in => 7.days
