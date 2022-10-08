@@ -1,14 +1,14 @@
 source 'https://rubygems.org'
 gem 'bigdecimal', '~>1.4.4'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.2.0'
+gem 'rails', '~> 6.0.5'
 gem 'webpacker', '~> 5.2'
 gem 'bootsnap'
 gem 'actionpack-action_caching'
 # Hydra stack
 gem 'nokogiri', '~> 1.8.2'
 gem 'blacklight', '~> 7.6.0'
-gem 'active-fedora', '>= 7.3.1'
+gem 'active-fedora', '~> 8.7'
 gem 'rdf', '>= 1.1.5'
 gem 'rdf-vocab'
 
@@ -17,8 +17,8 @@ gem 'carrierwave', '~> 1.3'
 #gem 'rubydora', :path => '../rubydora'
 gem 'rubydora'
 
-gem 'cancancan', '~>2.0'
-gem 'cul_omniauth', '~> 0.6.1'
+gem 'cul_omniauth', '~> 0.7.0'
+gem 'cancancan'
 #gem 'cul_omniauth', git: 'https://github.com/cul/cul_omniauth', branch: '0.5.x'
 gem 'active-triples', '~> 0.4.0'
 
@@ -26,7 +26,7 @@ gem 'active-triples', '~> 0.4.0'
 gem 'wowza-secure_token', '0.0.1'
 
 # Use sqlite3 as the database for Active Record
-gem "sqlite3", "~> 1.3.6"
+gem "sqlite3", "~> 1.4"
 
 # Use mysql2 gem for mysql connections
 gem 'mysql2', '0.5.2'
@@ -110,6 +110,7 @@ group :development, :test do
   gem 'rubocop', '~> 0.53.0', require: false
   gem 'rubocop-rspec', '>= 1.20.1', require: false
   gem 'rubocop-rails_config', require: false
+  gem 'listen'
 end
 
 # Add unicorn as available app server

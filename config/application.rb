@@ -11,13 +11,15 @@ require File.expand_path('../../lib/dcv/rails/routing_patches', __FILE__)
 
 module Dcv
   class Application < Rails::Application
-    include Cul::Omniauth::FileConfigurable
+    include Cul::Omniauth::FileConfigurable::ClassMethods
 
     #config.middleware.use Rack::Deflater # Use GZip on responses whenever possible
 
     config.generators do |g|
       g.test_framework :rspec, :spec => true
     end
+
+    config.load_defaults 6.0
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
