@@ -172,12 +172,12 @@ class SitesController < ApplicationController
     banner_upload = params[:site][:banner]
     watermark_upload = params[:site][:watermark]
     begin
-      @subsite.update_attributes! site_attributes
+      @subsite.update! site_attributes
       if nav_links_attributes.present?
         @subsite.nav_links.each do |nav_link|
           if nav_links_attributes.present?
             # update this available link record
-            nav_link.update_attributes! nav_links_attributes.shift
+            nav_link.update! nav_links_attributes.shift
           else
             # out of attributes so delete remaining nav links
             nav_link.destroy
