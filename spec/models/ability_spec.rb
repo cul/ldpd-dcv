@@ -1,7 +1,7 @@
 require 'rails_helper'
 describe Ability do
 	context 'restricted site' do
-		let(:remote_ip) { Rails.application.config_for(:location_uris).first[1]['remote_ip'].first }
+		let(:remote_ip) { Rails.application.config_for(:location_uris).first[1][:remote_ip].first }
 		let(:current_user) { FactoryBot.create(:user) }
 		let(:affils) { ['userAffil'] }
 		let(:locations) { Rails.application.config_for(:location_uris).keys }
