@@ -30,13 +30,13 @@ describe HomeController, type: :unit do
 			let(:location_uris) { ['http://any.value'] }
 			it do
 				expect(controller).not_to receive(:current_user)
-				expect {controller.authorize_action }.not_to raise_error(CanCan::AccessDenied)
+				expect {controller.authorize_action }.not_to raise_error
 			end
 		end
 		context 'with any current user' do
 			it do
 				expect(controller).to receive(:current_user).and_return(instance_double(User))
-				expect {controller.authorize_action }.not_to raise_error(CanCan::AccessDenied)
+				expect {controller.authorize_action }.not_to raise_error
 			end
 		end
 		context 'with no location or user' do

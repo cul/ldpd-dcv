@@ -98,7 +98,7 @@ describe Resolve::DoisController, type: :controller do
 	describe '#best_site_for' do
 		let(:project_value) { 'ProjectValue' }
 		let(:solr_doc) { SolrDocument.new(site.default_filters.merge(id: legacy_id, ezid_doi_ssim: ["doi:#{known_id}"], lib_project_short_ssim: [project_value])) }
-		let(:project_scope) { FactoryBot.create(:scope_filter, filter_type: 'project', value: project_value) }
+		let(:project_scope) { FactoryBot.build(:scope_filter, filter_type: 'project', value: project_value) }
 		let(:best_site) { FactoryBot.create(:site, scope_filters: [project_scope], slug: 'best') }
 		it "returns the highest scoring site" do
 			expect(controller.best_site_for(solr_doc, [site, best_site])).to eql(best_site)
@@ -111,8 +111,8 @@ describe Resolve::DoisController, type: :controller do
 	end
 	describe '#site_matches_for' do
 		let(:project_value) { 'ProjectValue' }
-		let(:project_scope) { FactoryBot.create(:scope_filter, filter_type: 'project', value: project_value) }
-		let(:collection_scope) { FactoryBot.create(:scope_filter, filter_type: 'collection', value: 'DLC Site Collection') }
+		let(:project_scope) { FactoryBot.build(:scope_filter, filter_type: 'project', value: project_value) }
+		let(:collection_scope) { FactoryBot.build(:scope_filter, filter_type: 'collection', value: 'DLC Site Collection') }
 		let(:partial_site) { FactoryBot.create(:site, scope_filters: [project_scope, collection_scope], slug: 'partial') }
 		let(:site_candidates) { [site, partial_site] }
 		it "filters partially matched sites" do

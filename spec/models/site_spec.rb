@@ -125,7 +125,7 @@ describe Site do
 				expect(site.editor_uids).to eql [original_value, additional_value]
 			end
 			it 'rejects a string' do
-				expect { site.editor_uids = additional_value }.to raise_error
+				expect { site.editor_uids = additional_value }.to raise_error(ActiveRecord::SerializationTypeMismatch)
 			end
 		end
 	end
@@ -148,7 +148,7 @@ describe Site do
 				expect(site.image_uri).to eql additional_value
 			end
 			it 'rejects a string' do
-				expect { site.image_uris = additional_value }.to raise_error
+				expect { site.image_uris = additional_value }.to raise_error(ActiveRecord::SerializationTypeMismatch)
 			end
 		end
 		describe '#image_uri' do
@@ -199,7 +199,7 @@ describe Site do
 	describe '#configure_blacklight!' do
 		let(:site_slug) { 'configure_blacklight' }
 		let(:search_configuration) { YAML.load(fixture("yml/sites/search_configuration.yml").read) }
-		let(:publisher_filter) { FactoryBot.create(:scope_filter, filter_type: 'publisher', value: 'info:fedora/cul:import_site') }
+		let(:publisher_filter) { FactoryBot.build(:scope_filter, filter_type: 'publisher', value: 'info:fedora/cul:import_site') }
 		let(:site) { FactoryBot.create(:site, slug: site_slug, search_type: 'local', search_configuration: search_configuration, scope_filters: [publisher_filter]) }
 		before do
 			site.configure_blacklight!

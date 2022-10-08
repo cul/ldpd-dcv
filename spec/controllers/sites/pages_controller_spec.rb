@@ -57,7 +57,7 @@ describe Sites::PagesController, type: :unit do
 	end
 	describe '#update' do
 		let(:page_title) { 'Example Title' }
-		let(:page) { FactoryBot.create(:site_page, site_id: site, title: page_title) }
+		let(:page) { FactoryBot.create(:site_page, site: site, title: page_title) }
 		let(:params) {
 			ActionController::Parameters.new(
 				site_slug: site.slug,
@@ -76,12 +76,12 @@ describe Sites::PagesController, type: :unit do
 		end
 		it "updates submitted attributes from sanitized values and redirects" do
 			expected_atts = ActionController::Parameters.new(columns: 2).permit(:columns)
-			expect(page).to receive(:update_attributes!).with(expected_atts)
+			expect(page).to receive(:update!).with(expected_atts)
 			expect(controller).to receive(:redirect_to).with(edit_site_page_path)
 			controller.update
 		end
 		context 'home page' do
-			let(:page) { FactoryBot.create(:site_page, site_id: site, title: page_title, slug: 'home') }
+			let(:page) { FactoryBot.create(:site_page, site: site, title: page_title, slug: 'home') }
 			let(:flash) { {} }
 			let(:params) {
 				ActionController::Parameters.new(
@@ -108,7 +108,7 @@ describe Sites::PagesController, type: :unit do
 	end
 	describe '#destroy' do
 		let(:page_title) { 'Example Title' }
-		let(:page) { FactoryBot.create(:site_page, site_id: site, title: page_title, slug: page_slug) }
+		let(:page) { FactoryBot.create(:site_page, site: site, title: page_title, slug: page_slug) }
 		let(:params) {
 			ActionController::Parameters.new(
 				site_slug: site.slug,
