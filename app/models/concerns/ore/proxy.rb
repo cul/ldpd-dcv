@@ -1,6 +1,8 @@
 # A named graph describing the location of a Resource in a virtual nested structure
 require 'digest'
 require 'active_triples'
+require 'rdf/ore'
+require 'rdf/olo'
 module ORE
 class Proxy < ActiveTriples::Resource
   include Digest

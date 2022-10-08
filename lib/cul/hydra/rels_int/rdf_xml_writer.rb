@@ -3,7 +3,7 @@ require 'active_fedora/rdf_xml_writer'
 module Cul
 module Hydra
   module RelsInt
-    class RDFXMLWriter < ActiveFedora::RDFXMLWriter
+    class RdfXmlWriter < ActiveFedora::RDFXMLWriter
       # Write a predicate with one or more values.
       #
       # Values may be a combination of Literal and Resource (Node or URI).

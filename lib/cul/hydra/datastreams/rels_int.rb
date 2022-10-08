@@ -123,7 +123,7 @@ module Hydra
       end
 
       def to_rels_int
-        xml = Cul::Hydra::RelsInt::RDFXMLWriter.buffer(:max_depth=>1) do |writer|
+        xml = Cul::Hydra::RelsInt::RdfXmlWriter.buffer(:max_depth=>1) do |writer|
           graph.each_statement do |statement|
             writer << statement
           end

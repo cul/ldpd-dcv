@@ -1,8 +1,9 @@
+require 'rdf/nfo'
+
 module Cul
 module Hydra
 module Datastreams
-class StructMetadata < ::ActiveFedora::Datastream
-  include ::ActiveFedora::Datastreams::NokogiriDatastreams
+class StructMetadata < Cul::Hydra::Datastreams::NokogiriDatastream
 
   def self.default_attributes
     super.merge(:controlGroup => 'M', :mimeType => 'text/xml')
@@ -18,6 +19,7 @@ class StructMetadata < ::ActiveFedora::Datastream
 
   def initialize(digital_object=nil, dsid=nil, options={})
     super
+#    ng_xml_will_change! if options.present?
   end
 
   # Indicates that this datastream has metadata content.
@@ -102,11 +104,17 @@ class StructMetadata < ::ActiveFedora::Datastream
     self.label= 'Sides' unless self.label == 'Sides'
     create_div_node struct_map, {:order=>'1'} unless divs_with_attribute(false,'ORDER','1').first
     create_div_node struct_map, {:order=>'2'} unless divs_with_attribute(false,'ORDER','2').first
-    if (div = divs_with_attribute(false,'ORDER','1').first)
-      div['LABEL'] = 'Recto' unless div['LABEL'] == 'Recto'
+    divs_with_attribute(false,'ORDER','1').first&.tap do |div|
+      unless div['LABEL'] == 'Recto'
+        div['LABEL'] = 'Recto'
+        ng_xml_will_change!
+      end
     end
-    if (div = divs_with_attribute(false,'ORDER','2').first)
-      div['LABEL'] = 'Verso' unless div['LABEL'] == 'Verso'
+    divs_with_attribute(false,'ORDER','2').first&.tap do |div|
+      unless div['LABEL'] == 'Verso'
+        div['LABEL'] = 'Verso'
+        ng_xml_will_change!
+      end
     end
     struct_map
   end
