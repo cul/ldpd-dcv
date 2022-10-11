@@ -63,11 +63,7 @@ class Iiif::PresentationsController < ApplicationController
       part_of = nil
     end
     manifest = Iiif::Manifest.new(manifest_id, @document, child_service, self, part_of)
-    respond_to do |fmt|
-      fmt.json do
-        render json: manifest.as_json(include: [:items, :metadata, :context]).compact
-      end
-    end
+    render json: manifest.as_json(include: [:items, :metadata, :context]).compact
   end
 
   # return a Iiif::Collection is collection params are present and manifest is in collection
@@ -101,11 +97,7 @@ class Iiif::PresentationsController < ApplicationController
       label = nil
     end
     canvas = manifest.canvas_for(canvas_doc, manifest.route_helper, manifest.routing_opts, label)
-    respond_to do |fmt|
-      fmt.json do
-        render json: canvas.as_json(include: [:context]).compact
-      end
-    end
+    render json: canvas.as_json(include: [:context]).compact
   end
 
   def annotation_page
@@ -130,11 +122,7 @@ class Iiif::PresentationsController < ApplicationController
     collection_params = select_params(:collection_registrant, :collection_doi, :proxy_path)
     collection_id = iiif_collection_url(collection_params)
     collection = Iiif::Collection.new(collection_id, @document, child_service, self)
-    respond_to do |fmt|
-      fmt.json do
-        render json: collection.as_json(include: [:items, :metadata, :context]).compact
-      end
-    end
+    render json: collection.as_json(include: [:items, :metadata, :context]).compact
   end
 
   def cors_headers
