@@ -36,22 +36,14 @@ class Resolve::BytestreamsController < ApplicationController
 
   def index
   	@response, @document = get_solr_response_for_app_id(params[:catalog_id])
-    respond_to do |format|
-      format.any do
-        render json: resources_for_document, layout: false
-      end
-    end
+    render json: resources_for_document, layout: false
   end
 
   def show
   	@response, @document = get_solr_response_for_app_id(params[:catalog_id])
   	doc = resources_for_document.select {|x| x[:id].split('/')[-1] == params[:id]}
   	doc = doc.first || {}
-    respond_to do |format|
-      format.any do
-        render json: doc, layout: false
-      end
-    end
+    render json: doc, layout: false
   end
 
   def content
