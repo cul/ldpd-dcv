@@ -1,7 +1,7 @@
 module Dcv::Sites::LookupController
   def doc_url_in_site_context(site, solr_doc)
     if site&.search_type == Site::SEARCH_CUSTOM
-      helper = site.restricted ? "restricted_#{site.slug}_show_url".to_sym : "#{site.slug}_show_url".to_sym
+      helper = site.restricted ? "restricted_#{site.slug.sub(/^restricted\//,'')}_show_url".to_sym : "#{site.slug}_show_url".to_sym
       send helper, solr_doc
     elsif site&.search_type == Site::SEARCH_LOCAL
       url_for(controller: 'sites/search', site_slug: site.slug, id: solr_doc.doi_identifier, action: :show)
