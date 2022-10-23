@@ -1,3 +1,4 @@
+require 'blacklight/document'
 # -*- encoding : utf-8 -*-
 class SolrDocument
 

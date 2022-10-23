@@ -61,6 +61,8 @@ class Site < ApplicationRecord
 			config.track_search_session = self.search_type != SEARCH_CATALOG
 			if self.search_type == SEARCH_LOCAL
 				config.document_unique_id_param = :ezid_doi_ssim
+				config.document_pagination_params[:fl] = "id,#{config.document_unique_id_param},format"
+				config.search_state_class = Dcv::Sites::LocalSearchState
 			else
 				config.show.route = self.routing_params
 			end
