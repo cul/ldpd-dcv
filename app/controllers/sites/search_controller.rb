@@ -12,6 +12,7 @@ module Sites
 
 		before_action :load_subsite
 		before_action :set_map_data_json, only: [:map_search]
+		before_action :store_unless_user, except: [:update, :destroy, :api_info]
 		before_action :authorize_document, only: :show
 
 		delegate :blacklight_config, to: :@subsite
