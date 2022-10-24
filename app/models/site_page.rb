@@ -1,5 +1,5 @@
 class SitePage < ApplicationRecord
-	has_many :site_text_blocks, dependent: :destroy
+	has_many :site_text_blocks, dependent: :destroy, inverse_of: :site_page
 	belongs_to :site, touch: true
 	validates :columns, inclusion: { in: (1..2) }
 	validates_uniqueness_of :slug, scope: :site_id

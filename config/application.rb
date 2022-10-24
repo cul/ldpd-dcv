@@ -68,6 +68,10 @@ module Dcv
     else
       config.active_record.yaml_column_permitted_classes = [ActiveSupport::HashWithIndifferentAccess, Symbol]
     end
+
+    config.active_record.collection_cache_versioning = true
+    config.active_record.cache_versioning = true
+
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
     # config.time_zone = 'Central Time (US & Canada)'

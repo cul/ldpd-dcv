@@ -3,7 +3,7 @@ class Site < ApplicationRecord
 	include Dcv::Sites::Constants
 	include Blacklight::Configurable
 	has_many :scope_filters, as: :scopeable
-	has_many :nav_links, dependent: :destroy
+	has_many :nav_links, dependent: :destroy, inverse_of: :site
 	has_many :site_pages, dependent: :destroy
 	accepts_nested_attributes_for :nav_links
 	accepts_nested_attributes_for :scope_filters
