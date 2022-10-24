@@ -1,11 +1,11 @@
 require 'rails_helper'
 
 describe Restricted::IfpController, :type => :controller do
+  before do
+    FactoryBot.create(:site, slug: 'restricted/ifp', layout: 'custom', palette: 'custom')
+  end
   describe '#subsite_styles' do
     let(:api_key) { nil }
-    before do
-      FactoryBot.create(:site, slug: 'restricted/ifp', layout: 'custom', palette: 'custom')
-    end
     it "includes both the common styles and custom styles" do
       expect(controller.load_subsite.layout).to eql('custom')
       expect(controller.subsite_layout).to eql('signature')
