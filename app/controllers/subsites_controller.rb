@@ -169,6 +169,11 @@ class SubsitesController < ApplicationController
     setup_show_document
     authorize_document
 
+    unless @document
+      render status: 404
+      return
+    end
+
     respond_to do |format|
       format.html do
         @search_context = setup_next_and_previous_documents || {}

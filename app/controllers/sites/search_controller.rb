@@ -69,6 +69,10 @@ module Sites
 				@response, @document = fetch "info:fedora/#{params[:id]}", q: "{!raw f=fedora_pid_uri_ssi v=$#{blacklight_config.document_unique_id_param}}"
 			end
 
+			unless @document
+				render status: 404
+				return
+			end
 			respond_to do |format|
 				format.html do
 					@search_context = (setup_next_and_previous_documents || {}) if params[:id] =~ Dcv::Routes::DOI_ID_CONSTRAINT[:id]
