@@ -170,7 +170,7 @@ class SubsitesController < ApplicationController
     authorize_document
 
     unless @document
-      render status: 404
+      render file: 'public/404.html', layout: false, status: 404
       return
     end
 

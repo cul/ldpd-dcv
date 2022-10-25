@@ -70,7 +70,7 @@ module Sites
 			end
 
 			unless @document
-				render status: 404
+				render file: 'public/404.html', layout: false, status: 404
 				return
 			end
 			respond_to do |format|
