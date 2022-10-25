@@ -12,6 +12,7 @@ module Sites
 
 		before_action :load_subsite
 		before_action :set_map_data_json, only: [:map_search]
+		before_action :store_unless_user, except: [:update, :destroy, :api_info]
 		before_action :authorize_document, only: :show
 
 		delegate :blacklight_config, to: :@subsite
@@ -68,6 +69,10 @@ module Sites
 				@response, @document = fetch "info:fedora/#{params[:id]}", q: "{!raw f=fedora_pid_uri_ssi v=$#{blacklight_config.document_unique_id_param}}"
 			end
 
+			unless @document
+				render file: 'public/404.html', layout: false, status: 404
+				return
+			end
 			respond_to do |format|
 				format.html do
 					@search_context = (setup_next_and_previous_documents || {}) if params[:id] =~ Dcv::Routes::DOI_ID_CONSTRAINT[:id]

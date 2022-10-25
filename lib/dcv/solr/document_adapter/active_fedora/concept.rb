@@ -57,8 +57,7 @@ class Dcv::Solr::DocumentAdapter::ActiveFedora
       solr_doc['active_fedora_model_ssi'] = 'Concept'
       description.tap do |description_value|
         if description_value
-          description_field_name = ::ActiveFedora::SolrService.solr_name(:description_text, :displayable)
-          solr_doc[description_field_name] = Cul::Hydra::Datastreams::EncodedTextDatastream.utf8able!(description_value).encode(Encoding::UTF_8)
+          solr_doc['description_text_ssm'] = Cul::Hydra::Datastreams::EncodedTextDatastream.utf8able!(description_value).encode(Encoding::UTF_8)
         end
       end
       solr_doc

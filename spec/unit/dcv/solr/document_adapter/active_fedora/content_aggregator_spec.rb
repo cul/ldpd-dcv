@@ -18,8 +18,11 @@ describe Dcv::Solr::DocumentAdapter::ActiveFedora::ContentAggregator, type: :uni
 		describe '#to_solr' do
 			let(:fedora_pid) { 'test:c_agg' }
 			let(:adapter) { Dcv::Solr::DocumentAdapter::ActiveFedora(active_fedora_object) }
-			let(:legacy_object) { ContentAggregator.allocate.init_with_object(rubydora_object) }
-			let(:schema_image_uri) { legacy_object.get_singular_rel(:schema_image) }
+			let(:legacy_object) { ::ActiveFedora::Base.allocate.init_with_object(rubydora_object) }
+			let(:legacy_cmodel) { 'info:fedora/ldpd:ContentAggregator' }
+			let(:mods_fields) { Dcv::Solr::DocumentAdapter::ModsXml.new(legacy_object.datastreams['descMetadata'].content).to_solr }
+			let(:dc_fields) { Dcv::Solr::DocumentAdapter::DcXml.new(legacy_object.datastreams['DC'].content).to_solr }
+			let(:schema_image_uri) { adapter.get_singular_relationship_value(:schema_image) }
 			let(:schema_image_pid) { schema_image_uri ? schema_image_uri.split('/').last : nil }
 			let(:schema_image_stub) do
 				obj = double('ActiveFedora::Base')
@@ -28,15 +31,40 @@ describe Dcv::Solr::DocumentAdapter::ActiveFedora::ContentAggregator, type: :uni
 			end
 			before do
 				allow(ActiveFedora::Base).to receive(:find).with(schema_image_pid).and_return(schema_image_stub)
+				legacy_object.add_relationship(:has_model, legacy_cmodel)
 			end
 			it "produces comparable solr documents to the legacy indexing behavior" do
-				expected = legacy_object.to_solr.delete_if { |k,v| v.blank? }
-				actual = adapter.to_solr.delete_if { |k,v| v.blank? }
+				expected = legacy_object.to_solr
+				actual = adapter.to_solr
 				expected_profile = expected.delete('object_profile_ssm')
 				actual_profile = actual.delete('object_profile_ssm')
 				expect(actual_profile).to eql(expected_profile)
+				# ActiveFedora::Base will not set specialized class
+				expected.delete('active_fedora_model_ssi')
+				expect(actual.delete('active_fedora_model_ssi')).to eql 'ContentAggregator'
 				# legacy class does not wrap doi value in array
 				expect(actual.delete('ezid_doi_ssim')).to eql([expected.delete('ezid_doi_ssim')])
+				expect(actual.slice(*mods_fields.keys)).to eql(mods_fields)
+				actual.delete_if { |k, v| mods_fields.include?(k) }
+				# all_text_teim would have been overridden by mods
+				dc_fields.delete('all_text_teim')
+				expect(actual.slice(*dc_fields.keys)).to eql(dc_fields)
+				actual.delete_if { |k, v| dc_fields.include?(k) }
+				# check normalized contributor relationship
+				expect(actual.delete('contributor_first_si')).to eql Array(actual["contributor_ssim"])&.first
+				# check aggregator specific indexing
+				expect(actual.delete('format_ssi')).to eql(["multipartitem"])
+				expect(actual.delete('cul_number_of_members_isi')).to eql(0)
+				expect(actual.delete('index_type_label_ssi')).to eql(["EMPTY"])
+				expect(actual.delete('representative_generic_resource_pid_ssi')).to eql("test:gr")
+				# delete fields verified in base class spec
+				actual.delete('datastreams_ssim')
+				actual.delete('descriptor_ssi')
+				actual.delete('fedora_pid_uri_ssi')
+				# do not compare types of blank value that will not impact index
+				actual.delete_if { |k,v| v.blank? }
+				expected.delete_if { |k,v| v.blank? }
+				# at this point should be basic legacy ActiveFedora fields and rel indexing
 				expect(actual).to eql(expected)
 			end
 		end

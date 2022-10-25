@@ -1,5 +1,5 @@
 <nav id="secondary-nav" class="navbar d-flex px-0">
-	<%- cache [@subsite, 'nav_menus'] do -%>
+	<%- cache @subsite do -%>
 		<ul class="nav nav-pills mr-auto">
 			<%- @subsite.nav_menus.each do |nav_menu| -%>
 				<%- if nav_menu.length > 1 -%>

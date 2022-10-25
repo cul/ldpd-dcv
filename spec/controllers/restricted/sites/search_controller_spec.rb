@@ -36,8 +36,10 @@ describe Restricted::Sites::SearchController, :type => :controller do
 				site.save
 			end
 			it "permits access" do
-				expect(controller).to receive(:fetch).and_return([nil, nil])
-				expect(controller).to receive(:respond_to)
+				# solr doc is referenced in respond_to block
+				expect(controller).to receive(:fetch).and_return([nil, SolrDocument.new])
+				expect(controller).to receive(:render).with('show').and_return(nil)
+				allow(controller).to receive(:render).with no_args
 				get :show, params: params
 			end
 		end
@@ -47,8 +49,10 @@ describe Restricted::Sites::SearchController, :type => :controller do
 				site.save
 			end
 			it "permits access" do
-				expect(controller).to receive(:fetch).and_return([nil, nil])
-				expect(controller).to receive(:respond_to)
+				# solr doc is referenced in respond_to block
+				expect(controller).to receive(:fetch).and_return([nil, SolrDocument.new])
+				expect(controller).to receive(:render).with('show').and_return(nil)
+				allow(controller).to receive(:render).with no_args
 				get :show, params: params
 			end
 		end

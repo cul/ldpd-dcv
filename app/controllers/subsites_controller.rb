@@ -6,7 +6,7 @@ class SubsitesController < ApplicationController
   include Dcv::MapDataController
   include Dcv::Sites::ConfiguredLayouts
   include Dcv::Sites::SearchableController
-  include Cul::Hydra::ApplicationIdBehavior
+  include Dcv::Sites::ApplicationIdBehavior
   include Cul::Omniauth::AuthorizingController
   include Cul::Omniauth::RemoteIpAbility
   include ShowFieldDisplayFieldHelper
@@ -68,15 +68,15 @@ class SubsitesController < ApplicationController
   end
 
   def subsite_config
-    @subsite_config ||=  self.class.subsite_config
+    @subsite_config ||= load_subsite&.to_subsite_config || SubsiteConfig.for_path(self.class.controller_path, self.restricted?)
   end
 
   def self.load_subsite
-    @subsite ||= Site.find_by(slug: controller_path)
+    Site.find_by(slug: controller_path)
   end
 
   def load_subsite
-    @subsite ||= self.class.load_subsite
+    @subsite ||= Site.find_by(slug: self.class.controller_path)
   end
 
   def load_page
@@ -168,6 +168,11 @@ class SubsitesController < ApplicationController
     params[:format] ||= 'html'
     setup_show_document
     authorize_document
+
+    unless @document
+      render file: 'public/404.html', layout: false, status: 404
+      return
+    end
 
     respond_to do |format|
       format.html do

@@ -17,7 +17,7 @@ module Nyre
     end
 
     def subsite_config
-      @subsite_config ||=  self.class.subsite_config
+      @subsite_config ||= load_subsite&.to_subsite_config || SubsiteConfig.for_path(subsite_key, false)
     end
 
     def self.load_subsite
@@ -25,7 +25,7 @@ module Nyre
     end
 
     def load_subsite
-      @subsite ||= self.class.load_subsite
+      @subsite ||= Site.find_by(slug: subsite_key)
     end
 
     def subsite_key

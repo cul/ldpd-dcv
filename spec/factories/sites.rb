@@ -11,7 +11,7 @@ FactoryBot.define do
     search_type { 'catalog' }
     image_uris { ['info:fedora/test-image:1'] }
     repository_id { 'NNC'}
-    scope_filters { [create(:scope_filter, filter_type: 'collection', value: 'DLC Site Collection')] }
+    scope_filters { [build(:scope_filter, filter_type: 'collection', value: 'DLC Site Collection')] }
 
     factory :site_with_links do
       after(:create) do |site|

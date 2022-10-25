@@ -1,6 +1,6 @@
 require 'resque/server'
 
-Dcv::Application.routes.draw do
+Rails.application.routes.draw do
   root :to => "catalog#home"
 
   devise_for :users, skip: [:sessions], controllers: {

@@ -13,7 +13,7 @@ module Dcv::Authenticated::AccessControl
   end
 
   def omniauth_provider_key
-    @omniauth_provider_key ||= Dcv::Application.cas_configuration_opts[:provider]
+    @omniauth_provider_key ||= Rails.application.cas_configuration_opts[:provider]
   end
 
   def authorize_action_and_scope(action, scope)

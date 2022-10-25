@@ -28,6 +28,12 @@ describe CatalogController, type: :feature do
       expect(page).to have_text('William Burroughs')
     end
   end
+  describe "show mods" do
+    before { visit "/catalog/donotuse:item/mods" }
+    it "shows the expected MODS" do
+      expect(page.body).to start_with('<?xml version="1.0"?>')
+    end
+  end
   describe "home" do
     before do
       visit root_path

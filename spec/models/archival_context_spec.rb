@@ -27,7 +27,7 @@ describe ArchivalContext do
       let(:subseries) { JSON.parse(json)['dc:coverage'][0]['dc:hasPart'] }
       let(:title_for) { subject.title_for(subseries, link: true) }
       before { subject.repo_code = 'NyNyTest' }
-      it { puts title_for; expect(title_for).to include('nynytest/ldpd_4079753/dsc/11#subseries_1') }
+      it { expect(title_for).to include('nynytest/ldpd_4079753/dsc/11#subseries_1') }
     end
     context "when subseries is hyphenated" do
       let(:json) { fixture('json/archival_context_hyphen.json').read }

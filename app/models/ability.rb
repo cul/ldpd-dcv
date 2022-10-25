@@ -78,8 +78,9 @@ class Ability
 
   def ip_to_location_uris(remote_ip)
     Rails.application.config_for(:location_uris).map do |location_uri, location|
-      if location.fetch('remote_ip', []).include?(remote_ip.to_s)
-        location_uri
+      if location.fetch(:remote_ip, []).include?(remote_ip.to_s)
+        # the location_uri will be a symbol (configuration key) but compared to strings
+        location_uri.to_s
       end
     end.compact
   end

@@ -125,7 +125,7 @@ describe Site do
 				expect(site.editor_uids).to eql [original_value, additional_value]
 			end
 			it 'rejects a string' do
-				expect { site.editor_uids = additional_value }.to raise_error
+				expect { site.editor_uids = additional_value }.to raise_error(ActiveRecord::SerializationTypeMismatch)
 			end
 		end
 	end
@@ -148,7 +148,7 @@ describe Site do
 				expect(site.image_uri).to eql additional_value
 			end
 			it 'rejects a string' do
-				expect { site.image_uris = additional_value }.to raise_error
+				expect { site.image_uris = additional_value }.to raise_error(ActiveRecord::SerializationTypeMismatch)
 			end
 		end
 		describe '#image_uri' do
@@ -199,13 +199,20 @@ describe Site do
 	describe '#configure_blacklight!' do
 		let(:site_slug) { 'configure_blacklight' }
 		let(:search_configuration) { YAML.load(fixture("yml/sites/search_configuration.yml").read) }
-		let(:publisher_filter) { FactoryBot.create(:scope_filter, filter_type: 'publisher', value: 'info:fedora/cul:import_site') }
+		let(:publisher_filter) { FactoryBot.build(:scope_filter, filter_type: 'publisher', value: 'info:fedora/cul:import_site') }
 		let(:site) { FactoryBot.create(:site, slug: site_slug, search_type: 'local', search_configuration: search_configuration, scope_filters: [publisher_filter]) }
+		let(:blacklight_config) { site.blacklight_config }
 		before do
 			site.configure_blacklight!
 		end
 		it 'sets facet configurations' do
-			expect(site.blacklight_config.facet_fields.keys).to eql(['role_test_sim'])
+			expect(blacklight_config.facet_fields.keys).to eql(['role_test_sim'])
+		end
+		it 'sets document_unique_id_param to doi param' do
+			expect(blacklight_config.document_unique_id_param.to_s).to eql('ezid_doi_ssim')
+		end
+		it 'sets config.document_pagination_params' do
+			expect(blacklight_config.document_pagination_params[:fl]).to include(blacklight_config.document_unique_id_param.to_s)
 		end
 		context 'with map_configuration.enabled' do
 			let(:search_configuration) do

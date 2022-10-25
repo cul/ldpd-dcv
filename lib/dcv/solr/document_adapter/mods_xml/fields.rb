@@ -1,3 +1,4 @@
+require_relative 'solrizer_patch'
 class Dcv::Solr::DocumentAdapter::ModsXml
   module Fields
     extend ActiveSupport::Concern
@@ -112,7 +113,7 @@ class Dcv::Solr::DocumentAdapter::ModsXml
       # include only the untyped [!@type] titleInfo
       t = node.xpath('./mods:titleInfo[not(@type)]', MODS_NS).first
       if t
-        Fields.normalize(t.text)
+        Fields.normalize(t.text).gsub(/[\n\r]+/,'').gsub(/\s{2,}/,' ')
       else
         nil
       end
@@ -128,7 +129,7 @@ class Dcv::Solr::DocumentAdapter::ModsXml
 
     def alternative_titles(node=mods)
       node.xpath('./mods:titleInfo[@type and (@type="alternative" or @type="abbreviated" or @type="translated" or @type="uniform")]', MODS_NS).collect do |t|
-        Fields.normalize(t.text)
+        Fields.normalize(t.text).gsub(/[\n\r]+/,'').gsub(/\s{2,}/,' ')
       end
     end
 

@@ -73,7 +73,7 @@ module Sites
 
 		def update
 			begin
-				load_page.update_attributes!(page_params)
+				load_page.update!(page_params)
 				flash[:notice] = "Page Updated!"
 				redirect_to edit_site_page_path(site_slug: @subsite.slug, slug: @page.slug)
 			rescue ActiveRecord::RecordInvalid => ex
@@ -92,7 +92,7 @@ module Sites
 				# separate the text blocks, since page must exist for them to be saved
 				site_text_blocks_attributes = create_params.delete(:site_text_blocks_attributes)
 				@page = load_subsite.site_pages.create!(create_params)
-				@page.update_attributes(site_text_blocks_attributes: site_text_blocks_attributes) if site_text_blocks_attributes.present?
+				@page.update(site_text_blocks_attributes: site_text_blocks_attributes) if site_text_blocks_attributes.present?
 				flash[:notice] = "Page Created!"
 				redirect_to edit_site_page_path(site_slug: @subsite.slug, slug: @page.slug)
 			rescue ActiveRecord::RecordInvalid => ex

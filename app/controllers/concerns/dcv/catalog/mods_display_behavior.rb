@@ -2,11 +2,10 @@ module Dcv::Catalog::ModsDisplayBehavior
   extend ActiveSupport::Concern
 
   def mods
-
     begin
       obj = ActiveFedora::Base.find(params[:id])
-      if obj.respond_to?(:descMetadata) && obj.descMetadata.present?
-        xml_content = Nokogiri::XML(obj.descMetadata.content) {|config| config.default_xml.noblanks}.to_xml(:indent => 2)
+      if obj.datastreams['descMetadata']
+        xml_content = Nokogiri::XML(obj.datastreams['descMetadata'].content) {|config| config.default_xml.noblanks}.to_xml(:indent => 2)
         if params[:type] == 'formatted_text'
           html_content = '<div style="border:1px solid #aaa;padding:0px 10px;overflow: auto;">' + CodeRay.scan(xml_content, :xml).div() + '</div>'
           render html: html_content.html_safe
@@ -21,7 +20,5 @@ module Dcv::Catalog::ModsDisplayBehavior
     rescue ActiveFedora::ObjectNotFoundError
       render plain: 'Object not found.'
     end
-
   end
-
 end

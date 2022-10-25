@@ -27,7 +27,7 @@ describe Dcv::Solr::FedoraIndexer, type: :unit do
 	end
 	describe '#index_pid' do
 		let(:index_opts) { { skip_generic_resources: false, softcommit: true, reraise: true } }
-		let(:mock_object) { GenericResource.new }
+		let(:mock_object) { ActiveFedora::Base.new }
 		let(:pid) { 'abc:123' }
 		before do
 			mock_object.add_relationship(:has_model, 'info:fedora/ldpd:GenericResource')

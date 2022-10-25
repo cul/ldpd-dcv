@@ -4,8 +4,8 @@ module CatalogHelper
   include Dcv::FieldSetsHelperBehavior
   include Dcv::CatalogHelperBehavior
   include Dcv::IframeHelperBehavior
-  include Cul::Hydra::OreProxiesHelperBehavior
-  include Cul::Hydra::StructMetadataHelperBehavior
+  include Dcv::OreProxiesHelperBehavior
+  include Dcv::StructMetadataHelperBehavior
   include Dcv::Resources::RelsIntBehavior
 
   def has_thumbnail? document

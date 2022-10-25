@@ -38,7 +38,6 @@ describe Dcv::Sites::Export::Directory do
 			import_properties = File.join(source, 'properties.yml')
 			expected = YAML.load(File.read(import_properties)).fetch('permissions', :no_key_from_expected)
 			actual = YAML.load(File.read(export_properties)).fetch('permissions', :no_key_from_actual)
-			puts File.read(export_properties)
 			expect(actual).to eql(expected)
 		end
 		skip 'exports pages' do

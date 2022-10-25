@@ -1,5 +1,5 @@
 class SitePage < ApplicationRecord
-	has_many :site_text_blocks, dependent: :destroy
+	has_many :site_text_blocks, dependent: :destroy, inverse_of: :site_page
 	belongs_to :site, touch: true
 	validates :columns, inclusion: { in: (1..2) }
 	validates_uniqueness_of :slug, scope: :site_id
@@ -40,7 +40,7 @@ class SitePage < ApplicationRecord
 					atts = unrolled_atts.shift
 					# sanitize script elements
 					atts['markdown']&.gsub!(/<(\/?script[^>]*)>/i, '&lt;\1&gt;')
-					text_block.update_attributes! atts
+					text_block.update! atts
 				else
 					# out of attributes so delete remaining text blocks
 					text_block.delete

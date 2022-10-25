@@ -109,6 +109,20 @@ class Dcv::Solr::ChildrenAdapter
     docs
   end
 
+  def from_paged_membership(parent_document, opts = {})
+    fq = [
+      "cul_member_of_ssim:\"info:fedora/#{parent_document['id']}\""
+    ]
+    local_params = {
+      q: '*:*',
+      fq: fq,
+      qt: 'search',
+      facet: false
+    }.merge(opts)
+
+    searcher.search_service.search_results { |b| b.merge(local_params) }
+  end
+
   def from_archive_org_identifiers(parent_document, _opts = {})
     order = 0
     kids = JSON.parse(parent_document.fetch('archive_org_identifiers_json_ss','[]'))

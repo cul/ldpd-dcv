@@ -8,13 +8,8 @@ class Dcv::Solr::DocumentAdapter::ActiveFedora
     end
   end
   class GenericResource < Dcv::Solr::DocumentAdapter::ActiveFedora
-    def self.concatenate_fulltext(solr_doc, obj)
-      solr_doc["fulltext_tesim"] ||= []
-      unless obj.datastreams["fulltext"].nil?
-        solr_doc["fulltext_tesim"].concat(solr_doc["title_display_ssm"]) unless solr_doc["title_display_ssm"].nil? or solr_doc["title_display_ssm"].length == 0
-        utf8able = Cul::Hydra::Datastreams::EncodedTextDatastream.utf8able!(obj.datastreams["fulltext"].content)
-        solr_doc["fulltext_tesim"] << utf8able.encode(Encoding::UTF_8)
-      end
+    def concatenate_fulltext(solr_doc)
+      (solr_doc["fulltext_tesim"] ||= []).concat fulltext_values(solr_doc["title_display_ssm"])
       solr_doc
     end
 
@@ -23,6 +18,22 @@ class Dcv::Solr::DocumentAdapter::ActiveFedora
     end
     def index_type_label
       'FILE ASSET'
+    end
+
+    def original_name_text
+      obj.relationships(:original_name).map do |original_name|
+        original_name = original_name.object.to_s.split('/').join(' ').strip
+      end
+    end
+
+    def fulltext_values(title_values = nil)
+      _fulltext_values = []
+      unless obj.datastreams["fulltext"].nil?
+        _fulltext_values.concat(Array(title_values)) unless title_values.blank?
+        utf8able = Cul::Hydra::Datastreams::EncodedTextDatastream.utf8able!(obj.datastreams["fulltext"].content)
+        _fulltext_values << utf8able.encode(Encoding::UTF_8)
+      end
+      _fulltext_values
     end
 
     def to_solr(solr_doc={}, opts={})
@@ -47,17 +58,12 @@ class Dcv::Solr::DocumentAdapter::ActiveFedora
         solr_doc['service_dslocation_ss'] = service_ds.dsLocation
       end
 
-      Dcv::Solr::DocumentAdapter::ActiveFedora::GenericResource.concatenate_fulltext(solr_doc, obj)
+      concatenate_fulltext(solr_doc)
 
-      obj.relationships(:original_name).each do |original_name|
-        solr_doc["original_name_tesim"] ||= []
-        original_name = original_name.object.to_s.split('/').join(' ')
-        solr_doc["original_name_tesim"] << original_name.strip
-      end
+      solr_doc["original_name_tesim"] = original_name_text
 
       # the structured field is explicitly false rather than absent in the legacy class
-      # the legacy class also keys it with a symbol
-      solr_doc[:structured_bsi] = 'false'
+      solr_doc['structured_bsi'] = false
 
       solr_doc
     end
@@ -79,8 +85,8 @@ class Dcv::Solr::DocumentAdapter::ActiveFedora
     end
 
     def service_datastream
+      return nil unless has_rels_int?
       # we have to 'manually' query the graph because rels_int doesn't support subject pattern matching
-      rels_int = self.rels_int
       args = [:s, rels_int.to_predicate(:format_of), RDF::URI.new("#{obj.internal_uri}/content")]
       query = RDF::Query.new { |q| q << args }
       candidates = query.execute(rels_int.graph).map(&:to_hash).map do |hash|
@@ -93,7 +99,6 @@ class Dcv::Solr::DocumentAdapter::ActiveFedora
       end
       candidate_dsid = candidates.first && candidates.first.to_s.split('/')[-1]
       return obj.datastreams[candidate_dsid] if obj.datastreams.keys.include? candidate_dsid
-      return nil
     end
   end
 end

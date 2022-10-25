@@ -1,24 +1,25 @@
 source 'https://rubygems.org'
+
 gem 'bigdecimal', '~>1.4.4'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.2.0'
+gem 'rails', '~> 6.0.5'
 gem 'webpacker', '~> 5.2'
 gem 'bootsnap'
 gem 'actionpack-action_caching'
 # Hydra stack
-gem 'nokogiri', '~> 1.8.2'
+gem 'nokogiri', '~> 1.10.10' # can't update to 1.11 because our server version of GLIBC is too old
 gem 'blacklight', '~> 7.6.0'
-gem 'active-fedora', '>= 7.3.1'
+gem 'active-fedora', '~> 8.7'
+gem 'rdf', '>= 1.1.5'
+gem 'rdf-vocab'
+
 # carrierwave for file uploads
 gem 'carrierwave', '~> 1.3'
 #gem 'rubydora', :path => '../rubydora'
 gem 'rubydora'
 
-# Columbia Hydra models
-gem 'cul_hydra', '~> 1.11.2'
-#gem 'cul_hydra', git: 'https://github.com/cul/cul_hydra', branch: 'master'
-gem 'cancancan', '~>2.0'
-gem 'cul_omniauth', '~> 0.6.1'
+gem 'cul_omniauth', '~> 0.7.0'
+gem 'cancancan'
 #gem 'cul_omniauth', git: 'https://github.com/cul/cul_omniauth', branch: '0.5.x'
 gem 'active-triples', '~> 0.4.0'
 
@@ -26,7 +27,7 @@ gem 'active-triples', '~> 0.4.0'
 gem 'wowza-secure_token', '0.0.1'
 
 # Use sqlite3 as the database for Active Record
-gem "sqlite3", "~> 1.3.6"
+gem "sqlite3", "~> 1.4"
 
 # Use mysql2 gem for mysql connections
 gem 'mysql2', '0.5.2'
@@ -36,9 +37,6 @@ gem 'uglifier', '>= 1.3.0'
 
 # Use CoffeeScript for .js.coffee assets and views
 gem 'coffee-rails'
-
-# See https://github.com/sstephenson/execjs#readme for more supported runtimes
-gem 'libv8', '>= 8.4.255.0' # Min version for Mac OS 10.15
 
 # Pretty printing
 gem 'coderay'
@@ -110,6 +108,7 @@ group :development, :test do
   gem 'rubocop', '~> 0.53.0', require: false
   gem 'rubocop-rspec', '>= 1.20.1', require: false
   gem 'rubocop-rails_config', require: false
+  gem 'listen'
 end
 
 # Add unicorn as available app server

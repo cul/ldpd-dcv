@@ -39,6 +39,14 @@ describe Resolve::DoisController, type: :controller do
 			it 'resolves to custom url' do
 				expect(controller.doc_url_in_site_context(site, solr_doc)).to eql(expected_url)
 			end
+			context 'and restricted access' do
+				let(:template_defined_slug) { 'restricted/ifp' }
+				let(:site) { FactoryBot.create(:site, search_type: 'custom', slug: template_defined_slug, restricted: true) }
+				let(:expected_url) { "http://test.host/#{template_defined_slug}/#{legacy_id}" }
+				it 'resolves to custom url' do
+					expect(controller.doc_url_in_site_context(site, solr_doc)).to eql(expected_url)
+				end				
+			end
 		end
 	end
 	describe '#resolve' do
@@ -98,7 +106,7 @@ describe Resolve::DoisController, type: :controller do
 	describe '#best_site_for' do
 		let(:project_value) { 'ProjectValue' }
 		let(:solr_doc) { SolrDocument.new(site.default_filters.merge(id: legacy_id, ezid_doi_ssim: ["doi:#{known_id}"], lib_project_short_ssim: [project_value])) }
-		let(:project_scope) { FactoryBot.create(:scope_filter, filter_type: 'project', value: project_value) }
+		let(:project_scope) { FactoryBot.build(:scope_filter, filter_type: 'project', value: project_value) }
 		let(:best_site) { FactoryBot.create(:site, scope_filters: [project_scope], slug: 'best') }
 		it "returns the highest scoring site" do
 			expect(controller.best_site_for(solr_doc, [site, best_site])).to eql(best_site)
@@ -111,8 +119,8 @@ describe Resolve::DoisController, type: :controller do
 	end
 	describe '#site_matches_for' do
 		let(:project_value) { 'ProjectValue' }
-		let(:project_scope) { FactoryBot.create(:scope_filter, filter_type: 'project', value: project_value) }
-		let(:collection_scope) { FactoryBot.create(:scope_filter, filter_type: 'collection', value: 'DLC Site Collection') }
+		let(:project_scope) { FactoryBot.build(:scope_filter, filter_type: 'project', value: project_value) }
+		let(:collection_scope) { FactoryBot.build(:scope_filter, filter_type: 'collection', value: 'DLC Site Collection') }
 		let(:partial_site) { FactoryBot.create(:site, scope_filters: [project_scope, collection_scope], slug: 'partial') }
 		let(:site_candidates) { [site, partial_site] }
 		it "filters partially matched sites" do

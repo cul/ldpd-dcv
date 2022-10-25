@@ -169,15 +169,15 @@ class SitesController < ApplicationController
     # though Site accepts nested attributes of nav_links for persistence, we want to handle the updates
     # specially (to accommodate the deletion and reordering without recourse to record id)
     nav_links_attributes = site_attributes.delete('nav_links_attributes')
-    banner_upload = params[:site][:banner]
-    watermark_upload = params[:site][:watermark]
+    banner_upload = params[:site].delete(:banner)
+    watermark_upload = params[:site].delete(:watermark)
     begin
-      @subsite.update_attributes! site_attributes
+      @subsite.update! site_attributes
       if nav_links_attributes.present?
         @subsite.nav_links.each do |nav_link|
           if nav_links_attributes.present?
             # update this available link record
-            nav_link.update_attributes! nav_links_attributes.shift
+            nav_link.update! nav_links_attributes.shift
           else
             # out of attributes so delete remaining nav links
             nav_link.destroy
@@ -191,12 +191,11 @@ class SitesController < ApplicationController
         @subsite.nav_links.destroy_all
       end
       if banner_upload
-        BannerUploader.new(@subsite).store!(banner_upload)
+        BannerUploader.new(@subsite).store!(banner_upload) && @subsite.touch
       end
       if watermark_upload
-        WatermarkUploader.new(@subsite).store!(watermark_upload)
+        WatermarkUploader.new(@subsite).store!(watermark_upload) && @subsite.touch
       end
-      @subsite.save! if @subsite.changed?
       flash[:notice] = "Saved!"
     rescue ActiveRecord::RecordInvalid => ex
       flash[:alert] = ex.message

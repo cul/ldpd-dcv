@@ -13,7 +13,7 @@
 									<div class="show-representative-image mb-2"><%= image_tag(get_asset_url(id: image_pid, size: 768, type: 'full', format: 'jpg'), :itemprop => 'image', :class => 'img-responsive w-100') if image_pid %><div class="clearfix"></div></div>
 								<%- end -%>
 							</div>
-							<%- cache [@subsite, 'home-content'] do -%>
+							<%- cache [@subsite, @page] do -%>
 								<div class="col-xs-12 col-sm-6 pl-0">
 									<%- @page.site_text_blocks.sort { |a,b| a.sort_label <=> b.sort_label }.each do |text_block| -%>
 										<%- if text_block.label.present? -%>

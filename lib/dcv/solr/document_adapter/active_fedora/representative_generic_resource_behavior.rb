@@ -11,7 +11,7 @@ class Dcv::Solr::DocumentAdapter::ActiveFedora
       assigned_image = get_singular_relationship_value(:schema_image)
       return ActiveFedora::Base.find(assigned_image.split('/')[-1]) if assigned_image
 
-      return nil unless self.is_a?(Cul::Hydra::Models::Aggregator) # Only Aggregators have struct metadata
+      return nil unless self.is_a?(Dcv::Solr::DocumentAdapter::ActiveFedora::GenericAggregatorBehavior) # Only Aggregators have struct metadata
       # If we're here, then the object was not a Generic resource.
       # Try to get child info from a structMat datastream, and fall back to
       # the first :cul_member_of child if a structMap isn't present
@@ -19,9 +19,9 @@ class Dcv::Solr::DocumentAdapter::ActiveFedora
       # Check for the presence of a structMap and get first GenericResource in that structMap
       if has_struct_metadata?
         begin
-          struct = Cul::Hydra::Datastreams::StructMetadata.from_xml(self.datastreams['structMetadata'].content)
+          struct = Cul::Hydra::Datastreams::StructMetadata.from_xml(obj.datastreams['structMetadata'].content)
         rescue Rubydora::FedoraInvalidRequest => e
-          Rails.logger.error "Error: Problem accessing struct datastream data in #{self.pid}" # More specific error notice
+          Rails.logger.error "Error: Problem accessing struct datastream data in #{obj.pid}" # More specific error notice
           raise e
         end
         ng_div = struct.first_ordered_content_div #Nokogiri node response
