@@ -14,16 +14,16 @@
 .cboxPhoto{float:left; margin:auto; border:0; display:block; max-width:none; -ms-interpolation-mode:bicubic;}
 .cboxIframe{width:100%; height:100%; display:block; border:0; padding:0; margin:0;}
 #colorbox, #cboxContent, #cboxLoadedContent{box-sizing:content-box; -moz-box-sizing:content-box; -webkit-box-sizing:content-box;}
-$colorboxBorderImg: image-url('/images/colorbox/border.png') !default;
-$colorboxControlImg: image-url('/images/colorbox/controls.png') !default;
-$colorboxLoadingImg: image-url('/images/colorbox/loading.gif') !default;
-$colorboxLoadingBgImg: image-url('/images/colorbox/loading_background.png') !default;
+$colorboxBorderImg: image-url('images/colorbox/border.png') !default;
+$colorboxControlImg: image-url('images/colorbox/controls.png') !default;
+$colorboxLoadingImg: image-url('images/colorbox/loading.gif') !default;
+$colorboxLoadingBgImg: image-url('images/colorbox/loading_background.png') !default;
 /*
     User Style:
     Change the following styles to modify the appearance of Colorbox.  They are
     ordered & tabbed in a way that represents the nesting of the generated HTML.
 */
-#cboxOverlay{background:image-url('/images/colorbox/overlay.png') repeat 0 0;}
+#cboxOverlay{background:image-url('colorbox/overlay.png') repeat 0 0;}
 #colorbox{outline:0;}
     #cboxTopLeft{width:21px; height:21px; background:$colorboxControlImg no-repeat -101px 0;}
     #cboxTopRight{width:21px; height:21px; background:$colorboxControlImg no-repeat -130px 0;}

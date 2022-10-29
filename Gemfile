@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 gem 'bigdecimal', '~>1.4.4'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.0.5'
-gem 'webpacker', '~> 5.2'
+gem 'shakapacker', '6.4.1'
 gem 'bootsnap'
 gem 'actionpack-action_caching'
 # Hydra stack

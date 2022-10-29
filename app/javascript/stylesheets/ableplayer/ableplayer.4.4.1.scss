@@ -742,7 +742,7 @@ span.able-modkey {
   bottom: 0;
   right: 0;
   cursor: nwse-resize;
-  background: transparent url('../../assets/ableplayer/images/wingrip.png') no-repeat;
+  background: transparent url('ableplayer/images/wingrip.png') no-repeat;
 }
 
 /*
@@ -1291,11 +1291,11 @@ div.able-skin-2020 div.able-seekbar-wrapper {
 */
 @font-face {
   font-family: 'able';
-    src:    url('../../assets/ableplayer/button-icons/fonts/able.eot?dqripi');
-    src:    url('../../assets/ableplayer/button-icons/fonts/able.eot?dqripi#iefix') format('embedded-opentype'),
-        url('../../assets/ableplayer/button-icons/fonts/able.ttf?dqripi') format('truetype'),
-        url('../../assets/ableplayer/button-icons/fonts/able.woff?dqripi') format('woff'),
-        url('../../assets/ableplayer/button-icons/fonts/able.svg?dqripi#able') format('svg');
+    src:    url('ableplayer/button-icons/fonts/able.eot?dqripi');
+    src:    url('ableplayer/button-icons/fonts/able.eot?dqripi#iefix') format('embedded-opentype'),
+        url('ableplayer/button-icons/fonts/able.ttf?dqripi') format('truetype'),
+        url('ableplayer/button-icons/fonts/able.woff?dqripi') format('woff'),
+        url('ableplayer/button-icons/fonts/able.svg?dqripi#able') format('svg');
   font-weight: normal;
   font-style: normal;
 }

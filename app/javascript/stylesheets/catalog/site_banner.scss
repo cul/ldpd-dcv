@@ -1,7 +1,7 @@
 @import '../palettes/blue';
 @import '../brand_font';
 
-$url_dcv_small: image-url('/images/dcv/1836760843_267e9c947f_o-sm-b.jpg');
+$url_dcv_small: image-url('dcv/1836760843_267e9c947f_o-sm-b.jpg');
 #site-title {
 	@extend %extend_brand_font;
 	text-align: center;

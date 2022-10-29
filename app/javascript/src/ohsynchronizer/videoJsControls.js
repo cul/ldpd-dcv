@@ -1,7 +1,7 @@
 import videojs from 'video.js';
 import PlayerControls from './playerControls';
 import { secondsAsTimestamp } from './timeStamps';
-import audioPoster from '../../images/dcv/audio-poster';
+import audioPoster from 'dcv/audio-poster.png';
 
 export default class VideoJsControls extends PlayerControls {
 	videoPlayer = null;
