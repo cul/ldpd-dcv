@@ -1,16 +1,17 @@
 <%- local_downloads ||= false -%>
 <div class="float-right btn-group btn-group-sm ml-2">
-  <%= link_to '<span class="fa fa-folder-open-o"></span>'.html_safe, item_mods_path(id: @document.id),
-  {
-    :'data-display-url' => item_mods_path(id: @document.id, type: 'formatted_text'),
-    :'data-download-url' => item_mods_path(id: @document.id, type: 'download'),
-    :class => 'btn btn-secondary float-right',
-    :title => 'Display XML Metadata',
-    :'aria-label' => 'Display XML Metadata',
-    :'data-tt' => 'tooltip',
-    :onclick => 'return modsModal(this);'
-  }
-  %>
+  <%= link_to('#',
+    data: { 
+      'display-url' => item_mods_path(id: @document.id, type: 'formatted_text'),
+      'download-url' => item_mods_path(id: @document.id, type: 'download'),
+      'modal-title-func' => 'downloadXmlTitle',
+      'modal-large' => true,
+      toggle: 'modal', target: '#dcvModal' 
+    },
+    aria: { label: 'Display XML Metadata' },
+    class: 'btn btn-secondary float-right') do %>
+    <%= content_tag :span, '', class: "fa fa-folder-open-o", data: { toggle: 'tooltip' }, title: 'Display XML Metadata' -%>
+  <%- end -%>
   <% if has_viewable_children? || archive_org_id_for_document(document) -%>
   <a id="child-zoom-modal-button" class="btn btn-secondary item-cbox" data-original-title="<%= document_show_html_title %>" data-toggle="tooltip" title="Zoom in" aria-label="Zoom in" href="#"><i class="fa fa-search-plus"></i></a>
   <a id="child-zoom-new-window-button" class="btn btn-secondary" href="#" data-original-title="<%= document_show_html_title %>" data-toggle="tooltip" title="Open in new window" aria-label="Open in new window"><i class="fa fa-external-link"></i></a>
