@@ -13,7 +13,8 @@ const DcvModals = {
     return '<a href="' + downloadUrl + '" data-no-turbolink="true"><span class="fa fa-download" aria-hidden="true"></span> Download XML</a>';
   },
   bodyFor: function(element) {
-    const displayUrl = $(element).data('display-url');
+    const embedFunc = $(element).data('modal-embed-func');
+    const displayUrl = (embedFunc) ? DcvModals[embedFunc].call(self, element) : $(element).data('display-url');
     if (displayUrl) {
       const fullscreen = ($(element).data('modal-fullscreen') == 'true') ? 'allowfullscreen' : '';
       return '<div class="embed-responsive  embed-responsive-16by9"><iframe class="embed-responsive-item" src="' + displayUrl + '" ' + fullscreen + '></iframe></div>';
@@ -22,7 +23,15 @@ const DcvModals = {
     if (bodyDelegate) return $(bodyDelegate).html();
     return $(element).data('modal-body');
   },
-  needsEmbed: (element) => $(element).data('display-url'),
+  feedbackEmbedUrl: (element) => ((window.CULh_feedback_url || 'https://feedback.cul.columbia.edu/feedback_submission/dlc') +
+    '?submitted_from_page=' +
+    encodeURIComponent(document.URL) +
+    '&window_width=' +
+    $(window).width() +
+    '&window_height=' +
+    $(window).height()
+  ),
+  needsEmbed: (element) => $(element).data('display-url') || $(element).data('modal-embed-func'),
   needsLarge: (element) => $(element).data('modal-large'),
 };
 
