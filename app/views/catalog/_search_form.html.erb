@@ -7,8 +7,7 @@
           <%= hidden_field_tag(:search_field, h(params[:search_field] || search_fields.first[1]), :title => t('blacklight.search.form.search_field.title')) %>
         </span>
       <% end %>
-      <label for="q" class="sr-only"><%= t('blacklight.search.form.search.label') %></label>
-      <%= text_field_tag :q, params[:q], :placeholder => (!query_has_constraints? ?  t(:"dlc.search_placeholder.new.#{controller.controller_name}", default: :'dlc.search_placeholder.new.default').html_safe : t(:"dlc.search_placeholder.modified.#{controller.controller_name}", default: :'dlc.search_placeholder.modifed.default').html_safe), :class => "search_q q form-control", :id => "q" %>
+      <%= text_field_tag :q, params[:q], :placeholder => (!query_has_constraints? ?  t(:"dlc.search_placeholder.new.#{controller.controller_name}", default: :'dlc.search_placeholder.new.default').html_safe : t(:"dlc.search_placeholder.modified.#{controller.controller_name}", default: :'dlc.search_placeholder.modifed.default').html_safe), :class => "search_q q form-control", :id => "q", aria: { label: t('blacklight.search.form.search.label')} %>
       <div class="input-group-append">
         <%= link_to '<i class="fa fa-remove"></i>'.html_safe, start_over_path, :title => 'Start Over', :class => 'btn btn-secondary reset-btn' if query_has_constraints? %>
         <button class="btn btn-primary search-btn" type="submit" aria-label="Submit">

@@ -9,6 +9,7 @@ module Dcv::DigitalProjectsController
     end
     @document_list.delete_if{|doc| doc['source_ssim'].blank? && doc['slug_ssim'].blank? }.each.map do |solr_doc|
       t = {
+        id: solr_doc['id'],
         name: strip_restricted_title_qualifier(solr_doc.fetch('title_ssm',[]).first),
         image: thumbnail_url(solr_doc),
         external_url: solr_doc.has_persistent_url? ? solr_doc.persistent_url : nil,

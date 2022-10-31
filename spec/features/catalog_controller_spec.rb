@@ -55,11 +55,11 @@ describe CatalogController, type: :feature do
         expect(page).not_to have_xpath("//div[@id='digital_projects']/descendant::div[@itemprop='name']", text: 'External Library Project Online')
       end
       it "links to internal_site content with facet value" do
-        expect(page).to have_xpath("//div[@id='digital_projects']/descendant::div[@role='group']/a[@href='/catalog?f%5Blib_project_short_ssim%5D%5B%5D=Internal+Project' and @title='Browse Content']")
+        expect(page).to have_xpath("//div[@id='digital_projects']/descendant::a[@href='/catalog?f%5Blib_project_short_ssim%5D%5B%5D=Internal+Project' and @class='project-image-link']")
       end
     end
     it "doesn't link to external_site content with facet value" do
-      expect(page).not_to have_xpath("//div[@role='group']/a[@href='/catalog?f%5Blib_project_short_ssim%5D%5B%5D=External+Project']")
+      expect(page).not_to have_xpath("//div[@id='digital_projects']/descendant::a[@href='/catalog?f%5Blib_project_short_ssim%5D%5B%5D=External+Project']")
     end
     it "doesn't link to catalog, sites" do
       expect(page).not_to have_xpath("//div[@role='group']/a[@href='/catalog']")

@@ -1,7 +1,9 @@
 <% if current_page?(root_url) %>
-	<nav class="navbar navbar-expand d-flex flex-column p-0 mb-0" id="site-banner">
+	<nav class="navbar navbar-expand d-flex flex-column p-0 mb-0" id="site-banner" role="banner">
 		<div id="site-banner-inner" class="d-flex flex-row mt-1 mb-0">
-			<div class="flex-fill px-2"><h1><%= link_to image_tag('dcv/dcv-banner-sm-c.png', :alt => 'Digital Library Collections'), root_path %></h1></div>
+			<div class="flex-fill px-2"><h1>
+				<%= image_tag('dcv/dcv-banner-sm-c.png', class: "mw-100", alt: "Digital Library Collections") -%>
+			</h1></div>
 		</div><!--/row-->
 
 		<div id="search-navbar" class="w-100 mb-0 p-3 bg-body" role="navigation">
@@ -9,7 +11,7 @@
 		</div>
 	</nav>
 <% else %>
-	<nav class="navbar navbar-expand d-block d-sm-flex flex-md-row flex-column" id="site-banner">
+	<nav class="navbar navbar-expand d-block d-sm-flex flex-md-row flex-column" id="site-banner" role="banner">
 		<a href="<%= root_path %>" id="site-title" class="navbar-brand">Digital Collections</a>
 		<%= render_search_bar  %>
 	</nav>

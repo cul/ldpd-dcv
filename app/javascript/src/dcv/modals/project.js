@@ -22,7 +22,6 @@ export function show (displayUrl, projectTitle){
         $(displayUrl).removeClass('hidden');
     },
     onComplete: function() {
-    	console.log("onComplete");
         $(displayUrl).removeClass('hidden');
         ColorBox.resize.call($, {});
     }
