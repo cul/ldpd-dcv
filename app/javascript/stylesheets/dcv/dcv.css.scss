@@ -323,6 +323,9 @@ input {
 				}
 			}
 		}
+		&.grid-view {
+			@extend .col-3;
+		}
 		&.list-view {
 			height: auto;
 			min-height: 136px;
