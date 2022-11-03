@@ -6,7 +6,7 @@ const DcvModals = {
     }
     const titleDelegate =  $(element).data('modal-title-delegate');
     if (titleDelegate) return $(titleDelegate).html();
-    return $(element).data('modal-title'); 
+    return $(element).data('modal-title') || "";
   },
   downloadXmlTitle: function(element) {
     const downloadUrl = $(element).data('download-url');
