@@ -26,9 +26,9 @@ $(document).ready(function(){
     modal.find('.modal-body').html(DcvModals.bodyFor(button));
     if (DcvModals.needsEmbed(button)) {
       if (DcvModals.needsLarge(button)) {
-        modal.find('.modal-dialog').addClass('modal-lg');
+        modal.find('.modal-dialog').addClass('modal-xl');
       } else {
-        modal.find('.modal-dialog').removeClass('modal-lg');
+        modal.find('.modal-dialog').removeClass('modal-xl');
       }
       modal.find('.modal-content').addClass('mh-100');
     } else {
