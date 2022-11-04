@@ -66,12 +66,6 @@ module Dcv::OreProxiesHelperBehavior
     end
   end
 
-  def proxies_file_system(opts=params, &block)
-    content_tag(:ul, nil, class: 'file-system') do
-      proxies(opts, &block)
-    end
-  end
-
   def download_permitted?(dl_proxy, args={})
     return permitted_to? :fedora_content, dl_proxy, {:context => :download}
   end
