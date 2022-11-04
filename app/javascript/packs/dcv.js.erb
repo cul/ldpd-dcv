@@ -24,12 +24,12 @@ $(document).ready(function(){
     var modal = $(this);
     modal.find('.modal-title').html(DcvModals.titleFor(button));
     modal.find('.modal-body').html(DcvModals.bodyFor(button));
+    if (DcvModals.needsLarge(button)) {
+      modal.find('.modal-dialog').addClass('modal-xl');
+    } else {
+      modal.find('.modal-dialog').removeClass('modal-xl');
+    }
     if (DcvModals.needsEmbed(button)) {
-      if (DcvModals.needsLarge(button)) {
-        modal.find('.modal-dialog').addClass('modal-xl');
-      } else {
-        modal.find('.modal-dialog').removeClass('modal-xl');
-      }
       modal.find('.modal-content').addClass('mh-100');
     } else {
       modal.find('.modal-content').removeClass('mh-100');
