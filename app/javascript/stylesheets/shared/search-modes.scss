@@ -39,7 +39,12 @@ $enable-grid-classes:       true;
 					@include make-col($gridDocCols); // durst is 2
 				}
 				.index_title {
-					display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+					display:block;
+					overflow:hidden;
+					text-overflow:ellipsis;
+					@include media-breakpoint-up(sm) {
+						white-space:nowrap;
+					}
 				}
 				.index-show-list-fields {
 					display: none !important;
