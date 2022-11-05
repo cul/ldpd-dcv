@@ -1,3 +1,5 @@
+import { getCurrentZoomUrl } from "./modals/zoomingImage";
+
 const DcvModals = {
   titleFor: function(element) {
     const titleFunc = $(element).data('modal-title-func');
@@ -31,6 +33,7 @@ const DcvModals = {
     '&window_height=' +
     $(window).height()
   ),
+  getCurrentZoomUrl: getCurrentZoomUrl,
   needsEmbed: (element) => $(element).data('display-url') || $(element).data('modal-embed-func'),
   needsLarge: (element) => $(element).data('modal-large'),
 };
