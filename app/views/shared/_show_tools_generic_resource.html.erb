@@ -1,6 +1,6 @@
 <% if @document['dc_type_ssm'].present? && @document['dc_type_ssm'].first.eql?('StillImage') %>
 <%- @document_title = t('blacklight.search.show.title', document_title: document_show_html_title, application_name: application_name).gsub('&', '&amp;').gsub('"', '&quot;').html_safe -%>
-  <a class="btn btn-secondary item-cbox" data-modal-title="<%= @document_title %>" href="#" data-modal-embed-func="getCurrentZoomUrl" data-toggle="modal" data-target="#dcvModal" data-modal-large="true" ><i class="fa fa-eye" aria-hidden="true" title="Zoom in" data-toggle="tooltip"><span class="sr-only">Zoom in</span></i></a>
+  <a class="btn btn-secondary item-cbox" data-modal-title="<%= @document_title %>" href="#" data-modal-embed-func="getCurrentZoomUrl" data-toggle="modal" data-target="#dcvModal" data-modal-size="xl" ><i class="fa fa-eye" aria-hidden="true" title="Zoom in" data-toggle="tooltip"><span class="sr-only">Zoom in</span></i></a>
   <a class="btn btn-secondary" href="#" data-original-title="<%= @document_title %>" onclick="return zoomingImageNewWindow();"><i class="fa fa-external-link" title="Open in new window" data-toggle="tooltip"><span class="sr-only">Open in new window</span></i></a>
   <div class="btn-group btn-group-sm">
     <% if is_publicly_available_asset?(@document) -%>

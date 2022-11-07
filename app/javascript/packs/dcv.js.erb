@@ -19,14 +19,17 @@ $(document).ready(function(){
     handle: "#dcvModalWrapper"
   });
   $('#dcvModal').on('show.bs.modal', function (event) {
+    const modalSizes = ['small', 'large', 'xl', 'max'];
     var button = $(event.relatedTarget); // Button that triggered the modal
     var modal = $(this);
     modal.find('.modal-title').html(DcvModals.titleFor(button));
     modal.find('.modal-body').html(DcvModals.bodyFor(button));
-    if (DcvModals.needsLarge(button)) {
-      modal.find('.modal-dialog').addClass('modal-xl');
+    if (DcvModals.needsSize(button)) {
+      const modalSize = $(button).data('modal-size');
+      const modalDialog = modal.find('.modal-dialog');
+      modalSizes.forEach(size => (size == modalSize) ? modalDialog.addClass('modal-' + size) : modalDialog.removeClass('modal-' + size));
     } else {
-      modal.find('.modal-dialog').removeClass('modal-xl');
+      modalSizes.forEach(size => modal.find('.modal-dialog').removeClass('modal-' + size));
     }
     if (DcvModals.needsEmbed(button)) {
       modal.find('.modal-content').addClass('mh-100');
