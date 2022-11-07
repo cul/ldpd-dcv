@@ -1,6 +1,5 @@
 import 'video.js/dist/video-js.css';
 import clipboardFromElement from "../src/dcv/clipboard";
-import ColorBox from "../src/dcv/jquery.colorbox";
 import DcvModals from "../src/dcv/dcv.modals";
 import { zoomingImageNewWindow } from "../src/dcv/modals/zoomingImage";
 import { initTiles } from '../src/dcv/dcv.show.zooming_viewer';
@@ -12,9 +11,6 @@ window.zoomingImageNewWindow = zoomingImageNewWindow;
 readyHandlers.forEach(handler => $(document).ready(handler));
 $(document).ready(function(){
   // make modals draggable
-  $("#colorbox").draggable({
-    handle: "#cboxWrapper"
-  });
   $("#dcvModal").draggable({
     handle: "#dcvModalWrapper"
   });

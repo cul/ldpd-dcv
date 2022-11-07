@@ -1,4 +1,3 @@
-import ColorBox from "./jquery.colorbox";
 import videojs from 'video.js';
 
 /**********************
@@ -74,22 +73,6 @@ export default function () {
     e.preventDefault();
     window.open($(this).attr('href'));
   });
-
-  //Set up modal zoomable image button
-  // legacy handler for #child-zoom-modal-button
-  const childZoomModal = function (e) {
-    e.preventDefault();
-    ColorBox.call($, {
-      href: $(this).attr('href'),
-      height: "100vh",
-      width: "90vw",
-      opacity: ".6",
-      fixed: true,
-      iframe: true,
-      preloading: false,
-      close: '\uf00d'
-    });
-  };
 
   //Manually trigger slide load event for carousel so event function runs
   $childCarouselElement.trigger('slid.bs.carousel');

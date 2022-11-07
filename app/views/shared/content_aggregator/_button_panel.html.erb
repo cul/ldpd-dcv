@@ -14,7 +14,7 @@
     <%= content_tag :span, '', class: "fa fa-folder-open-o", data: { toggle: 'tooltip' }, title: 'Display XML Metadata' -%>
   <%- end -%>
   <% if has_viewable_children? || archive_org_id_for_document(document) -%>
-  <a id="child-zoom-modal-button" class="btn btn-secondary item-cbox" data-modal-title="<%= document_show_html_title %>" aria-label="Zoom in" href="#" data-toggle="modal" data-target="#dcvModal" data-modal-size="max"><i class="fa fa-search-plus" data-toggle="tooltip" title="Zoom in"></i></a>
+  <a id="child-zoom-modal-button" class="btn btn-secondary item-modal" data-modal-title="<%= document_show_html_title %>" aria-label="Zoom in" href="#" data-toggle="modal" data-target="#dcvModal" data-modal-size="max"><i class="fa fa-search-plus" data-toggle="tooltip" title="Zoom in"></i></a>
   <a id="child-zoom-new-window-button" class="btn btn-secondary" href="#" data-original-title="<%= document_show_html_title %>" aria-label="Open in new window"><i class="fa fa-external-link" data-toggle="tooltip" title="Open in new window"></i></a>
   <% end -%>
   <% if local_downloads || archive_org_id_for_document(document) -%>
