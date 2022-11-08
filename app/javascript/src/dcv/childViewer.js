@@ -1,4 +1,3 @@
-import ColorBox from "./jquery.colorbox";
 import videojs from 'video.js';
 
 /**********************
@@ -28,7 +27,7 @@ export default function () {
     //Update title, zoom links
     $('#child-viewer-subtitle').html($currentSlideElememt.attr('data-child-title'));
     if ($currentSlideElememt.attr('data-has-details') == 'true') {
-      $('#child-zoom-modal-button').attr('href', $currentSlideElememt.attr('data-zoom-url')).show();
+      $('#child-zoom-modal-button').attr('data-display-url', $currentSlideElememt.attr('data-zoom-url')).show();
       $('#child-zoom-new-window-button').attr('href', $currentSlideElememt.attr('data-zoom-url')).show();
     } else {
       $('#child-zoom-modal-button').hide();
@@ -73,21 +72,6 @@ export default function () {
   $('#child-zoom-new-window-button').on('click', function (e) {
     e.preventDefault();
     window.open($(this).attr('href'));
-  });
-
-  //Set up modal zoomable image button
-  $('#child-zoom-modal-button').on('click', function (e) {
-    e.preventDefault();
-    ColorBox.call($, {
-      href: $(this).attr('href'),
-      height: "100vh",
-      width: "90vw",
-      opacity: ".6",
-      fixed: true,
-      iframe: true,
-      preloading: false,
-      close: '\uf00d'
-    });
   });
 
   //Manually trigger slide load event for carousel so event function runs

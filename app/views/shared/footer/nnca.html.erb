@@ -5,7 +5,9 @@
 			<p><small>300 Avery Hall &bull; avery-drawings@columbia.edu</small></p>
 		</div>
 		<div class="col-md-6 text-right">
-			<p><small><%= link_to 'Copyright and Permissions', terms_of_use_url %> | <a href="#" onclick="return feedbackModal();">Suggestions &amp; Feedback</a><%= site_edit_link(sep: ' | ') %></small></p>
+			<p><small><%= link_to 'Copyright and Permissions', terms_of_use_url %> | <%= link_to 'Suggestions & Feedback', '#', data: {
+				toggle: 'modal', target: '#dcvModal', 'modal-embed-func' => 'feedbackEmbedUrl', 'modal-size' => 'xl', 'modal-title' => 'Suggestions and Feedback'
+			}, role: 'button' %><%= site_edit_link(sep: ' | ') %></small></p>
 		</div>
 	</div>
 </footer>

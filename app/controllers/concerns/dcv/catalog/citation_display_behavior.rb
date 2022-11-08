@@ -19,8 +19,6 @@ module Dcv::Catalog::CitationDisplayBehavior
       #TODO: Get data for item
       @response, @document = fetch(id)
 
-      @citation_type_label = VALID_CITATION_TYPES[type]
-
       single_name_for_citation = @document['lib_name_ssm'].present? ? @document['lib_name_ssm'][0] : nil
 
       # If the name ends with a date, attempt to remove the date via regex
@@ -37,7 +35,7 @@ module Dcv::Catalog::CitationDisplayBehavior
       repository_string = @document['lib_repo_full_ssim'] ? @document['lib_repo_full_ssim'].join(' ') : nil
       application_name_string = t('blacklight.application_name')
       today_date_string = Time.now.strftime("%d %b %Y")
-      item_url_string = url_for({:action => 'show', :id => id})
+      item_url_string = @document.persistent_url || url_for({:action => 'show', :id => id})
 
       @citation_text = ''
 
