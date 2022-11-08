@@ -9,14 +9,17 @@
 						<div class="card-body">
 							<% dcv_search_link = (digital_project[:facet_field].present? && digital_project[:facet_value].present?) ? search_catalog_path(:f => {digital_project[:facet_field] => [digital_project[:facet_value]]}) : nil -%>
 							<% digital_project_id_base = digital_project[:id].sub(':', '') -%>
-							<%= link_to (dcv_search_link.present? ? dcv_search_link : digital_project[:external_url]), class: 'project-image-link' do %>
-								<%= image_tag(digital_project[:image], :class => 'card-img-top img-responsive', :itemprop => 'image', aria: {labelledby: "#{digital_project_id_base}-search"}) -%>
-								<%= content_tag(:span, "Browse #{digital_project[:name]} content", class: "sr-only", id: "#{digital_project_id_base}-search") -%>
+							<%= link_to (dcv_search_link.present? ? dcv_search_link : digital_project[:external_url]), class: 'project-image-link', id: "#{digital_project_id_base}-search" do %>
+								<%= image_tag(digital_project[:image], class: 'card-img-top img-responsive', itemprop: 'image', aria: {labelledby: "#{digital_project_id_base}-search-label"}) -%>
+								<%= content_tag(:span, "Browse #{digital_project[:name]} content", class: "sr-only", id: "#{digital_project_id_base}-search-label") -%>
 							<%- end -%>
 							<div class=" proj-jav btn-group d-flex" role="group">
 								<button class="btn btn-outline-secondary btn-sm" type="button" data-toggle="modal" aria-label="More Information" data-modal-body-delegate="#proj-<%=proj_counter%>" data-modal-title-delegate="#proj-<%= proj_counter %>-title" data-target="#dcvModal"><span class="fa fa-info-circle" aria-hidden="true" title="More Information" data-toggle="tooltip"></span></button>
+								<% if dcv_search_link.present? -%>
+									<button class="btn btn-outline-secondary btn-sm" type="button" aria-label="Browse <%= digital_project[:name] %> content" onclick="document.getElementById('<%= digital_project_id_base %>-search').click();"><span class="fa fa-search" aria-hidden="true" title="Browse Content" data-toggle="tooltip"></span></button>
+								<%- end -%>
 								<% if digital_project[:external_url].present? %>
-									<%= link_to digital_project[:external_url], itemprop: 'url', :"data-toggle" => 'tooltip', :"aria-label" => 'View Collection Site', class: 'btn btn-outline-secondary btn-sm' do -%>
+									<%= link_to digital_project[:external_url], itemprop: 'url', :"aria-label" => 'View Collection Site', class: 'btn btn-outline-secondary btn-sm' do -%>
 										<%= content_tag :span, "", class: ['fa', 'fa-external-link'], title: 'View Collection Site', data: { toggle: 'tooltip' }  %>
 									<%- end -%>
 								<% end %>
