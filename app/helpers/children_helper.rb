@@ -37,8 +37,9 @@ module ChildrenHelper
     end
   end
 
-  def is_publicly_available_asset?(child)
-    child.fetch(:access_control_levels_ssim,[]).include?(ACCESS_LEVEL_PUBLIC)
+  def is_publicly_available_asset?(child, ability = Ability.new)
+    raise "Checking public access against non-public permission context" unless ability.public
+    can_access_asset?(child, ability)
   end
 
   # are any of the assets being denied potentially viewable (not closed or embargoed)
@@ -73,6 +74,7 @@ module ChildrenHelper
 
   # are any of the child assets non-public?
   def has_non_public_children?
-    structured_children.detect { |child| !is_publicly_available_asset?(child) }.present?
+    ability = Ability.new
+    structured_children.detect { |child| !is_publicly_available_asset?(child, ability) }.present?
   end
 end

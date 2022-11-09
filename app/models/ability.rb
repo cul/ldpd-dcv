@@ -1,6 +1,7 @@
 class Ability
   include CanCan::Ability 
   include Dcv::AccessLevels
+  attr_reader :public
   ACCESS_ASSET = :access_asset
   ACCESS_SUBSITE = :access_subsite
   UNSPECIFIED_ACCESS_DECISION = true
@@ -8,6 +9,7 @@ class Ability
   def initialize(user=nil, opts={})
     location_uris = ip_to_location_uris(opts[:remote_ip])
     affils = Array.wrap(opts[:roles]) ||  []
+    @public = location_uris.empty? && affils.empty? && user.nil?
     can ACCESS_SUBSITE, SubsitesController do |controller|
       if controller.restricted?
         result = false
