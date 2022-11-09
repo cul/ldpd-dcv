@@ -1302,3 +1302,11 @@ DD .collapse.show {
 [aria-expanded="true"] > .collapsed {
   display: none;
 }
+
+.embed-code {
+  border: 1px solid map-get($theme-border-colors, 'secondary');
+  border-radius: 3px;
+  border-width: 3px;
+  padding: 10px;
+  width: 100%;
+}

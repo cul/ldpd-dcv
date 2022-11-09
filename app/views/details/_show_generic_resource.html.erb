@@ -11,6 +11,10 @@
     <p>Required plugin appears to be missing.</p>
     <%= link_to '<span class="fa fa-download"></span> Download Original'.html_safe, bytestream_content_url({catalog_id: params[:id], filename: 'content.pdf', bytestream_id: preferred_content_bytestream(document, /\.pdf$/i), download: true}), class: 'btn btn-primary btn-sm' %>
     </object>
+<% elsif (document.fetch('dc_type_ssm',[]) & ['Sound', 'Audio']) %>
+  <%= render partial: 'generic_resource/audio', locals: { child: document } -%>
+<% elsif (document.fetch('dc_type_ssm',[]) & ['MovingImage', 'Video']) %>
+  <%= render partial: 'generic_resource/video', locals: { child: document } -%>
 <% end %>
 <div id="children-links" style="visibility: hidden;">
     <a rel="child"

@@ -125,7 +125,12 @@ class DetailsController < ApplicationController
   end
 
   def show
-  	id = params[:id]
+    id = params[:id]
     @response, @document = fetch(params[:id])
+  end
+
+  def embed
+    id = params[:id]
+    @response, @document = fetch "doi:#{params[:id]}", q: "{!raw f=ezid_doi_ssim v=$ezid_doi_ssim}"
   end
 end
