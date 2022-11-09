@@ -1,15 +1,12 @@
 <div id="child-viewer" class="inner">
   <% parent_title = document['title_ssm'].first.strip %>
-  <%= render partial: 'content_aggregator/button_panel', locals: { document: document, local_downloads: (structured_children.length > 0 && !has_non_public_children?) } %>
-
-  <h3 id="child-viewer-title"><%= parent_title %></h3>
   <p id="child-viewer-subtitle">&nbsp;</p>
 
   <% if (structured_children.length == 0) && iframe_url_for_document(document) %>
-    <%= render partial: 'content_aggregator/carousel/archive_org', locals: { document: document, local_downloads: (structured_children.length > 0), structured_children: structured_children, parent_title: parent_title } %>
+    <%= render partial: 'content_aggregator/carousel/archive_org', locals: { document: document, local_downloads: false, structured_children: structured_children, parent_title: parent_title } %>
   <% elsif has_viewable_children? %>
-    <%= render partial: 'content_aggregator/carousel/structured_children', locals: { document: document, local_downloads: (structured_children.length > 0 && !has_non_public_children?), structured_children: structured_children, parent_title: parent_title } %>
+    <%= render partial: 'content_aggregator/carousel/structured_children', locals: { document: document, local_downloads: !has_non_public_children?, structured_children: structured_children, parent_title: parent_title } %>
   <% else %>
-    <%= render partial: 'content_aggregator/carousel/empty', locals: { document: document, local_downloads: (structured_children.length > 0 && !has_non_public_children?), structured_children: structured_children, parent_title: parent_title } %>
+    <%= render partial: 'content_aggregator/carousel/empty', locals: { document: document, local_downloads: false, structured_children: structured_children, parent_title: parent_title } %>
   <% end %>
 </div>

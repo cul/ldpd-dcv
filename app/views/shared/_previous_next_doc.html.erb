@@ -1,19 +1,19 @@
 <% #Using the Bootstrap Pagination class  -%>
-<div id="previousNextDocument">
-  <% if params[:return_to_filesystem].present? %>
-  <div class="page_links previous-and-next btn-group btn-group-sm">
-      <%= link_to('<i class="fa fa-reply-all"></i>'.html_safe, params[:return_to_filesystem], class: 'btn btn-outline-secondary', :"data-toggle" => 'tooltip', "aria-label": t('views.pagination.return_to_filesystem'), title: t('views.pagination.return_to_filesystem')) %>
-    </div>
-  <% else %>
-
-    <div class="page-links btn-group btn-group-sm">
-      <%= link_back_to_catalog(label: '<i class="fa fa-reply-all"></i> '.html_safe, class: 'btn btn-default', :"data-toggle" => 'tooltip', "aria-label": t('views.pagination.return_to_search'), title: t('views.pagination.return_to_search') ) %>
-      <% if @search_context[:prev] || @search_context[:next] %>
-          <span class="btn btn-secondary" style="pointer-events:none;"><%= item_page_entry_info %></span>
-          <%= link_to_previous_document @search_context[:prev] %>
-          <%= link_to_next_document @search_context[:next] %>
+<div id="previousNextDocument" class="row">
+  <div class="col-3">
+    <div class="btn-group btn-group-sm">
+      <% if params[:return_to_filesystem].present? %>
+        <%= link_to('<i class="fa fa-reply-all"></i>'.html_safe, params[:return_to_filesystem], class: 'btn btn-secondary btn-sm', :"data-toggle" => 'tooltip', "aria-label": t('views.pagination.return_to_filesystem'), title: t('views.pagination.return_to_filesystem')) %>
+      <% else %>
+        <%= link_back_to_catalog(label: '<i class="fa fa-reply-all"></i> '.html_safe, class: 'btn btn-secondary btn-sm', :"data-toggle" => 'tooltip', "aria-label": t('views.pagination.return_to_search'), title: t('views.pagination.return_to_search') ) %>
+        <% if @search_context[:prev] || @search_context[:next] %>
+            <span class="btn btn-secondary btn-sm" style="pointer-events:none;"><%= item_page_entry_info %></span>
+            <%= link_to_previous_document @search_context[:prev], "btn btn-outline-secondary btn-sm" %>
+            <%= link_to_next_document @search_context[:next], "btn btn-outline-secondary btn-sm" %>
+        <% end %>
       <% end %>
     </div>
-  <% end %>
+  </div>
+  <h3 class="d-inline-block h4 col-6 text-center"><%= @document['title_ssm'].first.strip %></h3>
   <%= render 'show_tools' %>
 </div>

@@ -1,9 +1,5 @@
 <%
-poster_url = Dcv::Utils::CdnUtils.random_cdn_url + '/iiif/2/cul:2rbnzs7hj2/full/!512,512/0/native.jpg'
-dsa = child.fetch(:datastreams_ssim, [])
-has_chapters = dsa.include?('chapters')
-has_captions = dsa.include?('captions')
-has_synch = dsa.include?('synchronized_transcript')
+has_captions = child.fetch(:datastreams_ssim, []).include?('captions')
 captions_url = bytestream_content_path(catalog_id: child[:id], bytestream_id: 'captions') if has_captions
 if (media_url = wowza_media_token_url(child))
   player_src = render_media_element_streaming_audio_player(media_url, nil, captions_url, 1024, 500)
@@ -16,16 +12,6 @@ end
 <div>
   <div>
     <%= player_src %>
-    <% if has_chapters || has_synch %>
-    <p id="synchronizer-links">
-    <% if has_chapters %>
-      <%= link_to 'View with synchronized index', {controller: controller_path, action: 'synchronizer', id: child[:pid], mode: 'chapters'}, id: 'view-synchronized-media-index', class: 'btn btn-sm btn-primary view-synchronized-media', target: '_blank' %>
-     <% end %>
-    <% if has_synch %>
-      <%= link_to 'View with synchronized transcript', {controller: controller_path, action: 'synchronizer', id: child[:pid], mode: 'synchronized_transcript'}, id: 'view-synchronized-media-captions', class: 'btn btn-sm btn-primary view-synchronized-media', target: '_blank' %>
-        
-      </p>
-     <% end %>
-     <% end %>
+    <%= render partial: "content_aggregator/child_viewer/button_panel", locals: { child: SolrDocument.new(child), child_index: child_index, document: document, local_downloads: local_downloads } %>
   </div>
 </div>
