@@ -1,8 +1,11 @@
 <%
-document ||= {} # in case legacy code is not passing
-dsa = document.fetch(:datastreams_ssim, [])
-has_chapters = dsa.include?('chapters')
-has_captions = dsa.include?('captions')
-captions_url = bytestream_content_path(catalog_id: document[:id], bytestream_id: 'captions') if has_captions
+child ||= {} # in case legacy code is not passing
+logo_path ||= nil
+captions_path = bytestream_content_path(catalog_id: child[:id], bytestream_id: 'captions') if child.fetch(:datastreams_ssim, []).include?('captions')
+options = { captions_path:  captions_path, logo_path: logo_path }
+unless (media_url = wowza_media_token_url(child))
+  media_url = bytestream_content_path(catalog_id: child[:pid], bytestream_id: 'access')
+  options[:media_type] = 'video/mp4'
+end
 %>
-<%= render_media_element_streaming_video_player(wowza_project, media_path, poster_path, captions_url) %>
+<%= render_media_element_streaming_player(media_url, nil, **options ) %>

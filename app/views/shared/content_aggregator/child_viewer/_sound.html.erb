@@ -1,17 +1,16 @@
 <%
 has_captions = child.fetch(:datastreams_ssim, []).include?('captions')
-captions_url = bytestream_content_path(catalog_id: child[:id], bytestream_id: 'captions') if has_captions
-if (media_url = wowza_media_token_url(child))
-  player_src = render_media_element_streaming_audio_player(media_url, nil, captions_url, 1024, 500)
-else
+options = {}
+options[:captions_path] = bytestream_content_path(catalog_id: child[:id], bytestream_id: 'captions') if has_captions
+unless (media_url = wowza_media_token_url(child))
   media_url = bytestream_content_path(catalog_id: child[:pid], bytestream_id: 'access')
-  player_src = render_media_element_progressive_download_audio_player(media_url, captions_url)
+  options[:media_type] = 'audio/mp4'
 end
 %>
 
 <div>
   <div>
-    <%= player_src %>
+    <%= render_media_element_streaming_audio_player(media_url, nil, **options) %>
     <%= render partial: "content_aggregator/child_viewer/button_panel", locals: { child: SolrDocument.new(child), child_index: child_index, document: document, local_downloads: local_downloads } %>
   </div>
 </div>

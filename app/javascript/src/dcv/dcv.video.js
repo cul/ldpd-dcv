@@ -1,5 +1,20 @@
 import videojs from "video.js";
 
+const Component = videojs.getComponent('Component');
+
+class Logo extends Component {
+  constructor(player, options = {}) {
+    super(player, options);
+  }
+  createEl() {
+    const img = videojs.dom.createEl('img', this.options().logo);
+    const componentElement = videojs.dom.createEl('div', { className: 'vjs-logo' });
+    videojs.appendContent(componentElement, img);
+    return componentElement;
+  }
+};
+videojs.registerComponent('Logo', Logo);
+
 const knownVideoJsPlayers = new Map();
 
 window.getVideoJsPlayerForElement = (element) => {
@@ -35,6 +50,10 @@ export const videoReady = function () {
       }
 
       const player = videojs(el, options);
+
+      if (el.attributes['player-logo']) {
+        player.addChild('Logo', { logo: { src: el.attributes['player-logo'].value } });
+      }
 
       setVideoJsPlayerForElement(el, player);
     })
