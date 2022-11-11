@@ -132,5 +132,11 @@ class DetailsController < ApplicationController
   def embed
     id = params[:id]
     @response, @document = fetch "doi:#{params[:id]}", q: "{!raw f=ezid_doi_ssim v=$ezid_doi_ssim}"
+    if can?(Ability::ACCESS_ASSET, @document)
+      response.headers.delete 'X-Frame-Options'
+    else
+      render file: 'public/404.html', layout: false, status: 404
+      return
+    end
   end
 end
