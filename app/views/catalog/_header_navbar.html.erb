@@ -1,5 +1,6 @@
+<div role="banner">
 <% if current_page?(root_url) %>
-	<nav class="navbar navbar-expand d-flex flex-column p-0 mb-0" id="site-banner" role="banner">
+	<nav class="navbar navbar-expand d-flex flex-column p-0 mb-0" id="site-banner">
 		<div id="site-banner-inner" class="d-flex flex-row mt-1 mb-0">
 			<div class="flex-fill px-2"><h1>
 				<%= image_tag('dcv/dcv-banner-sm-c.png', class: "mw-100", alt: "Digital Library Collections") -%>
@@ -11,9 +12,10 @@
 		</div>
 	</nav>
 <% else %>
-	<nav class="navbar navbar-expand d-block d-sm-flex flex-md-row flex-column" id="site-banner" role="banner">
+	<nav class="navbar navbar-expand d-block d-sm-flex flex-md-row flex-column" id="site-banner">
 		<a href="<%= root_path %>" id="site-title" class="navbar-brand">Digital Collections</a>
 		<%= render_search_bar  %>
 	</nav>
 <% end %>
+</div>
 <%= render 'secondary_nav' %>
