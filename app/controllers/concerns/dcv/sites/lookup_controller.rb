@@ -34,12 +34,12 @@ module Dcv::Sites::LookupController
 
   def site_candidates_for(scope_candidates)
     return [] if scope_candidates.blank?
-    all_values = []
-    clauses = scope_candidates.map do |filter_type, values|
-      (all_values << filter_type).concat(values)
-      values_sub = values.map {|x| '?'}.join(',')
-      "(scope_filters.filter_type = ? AND scope_filters.value IN (#{values_sub}))"
+    where_clause = false
+    scope = scope_candidates.inject do |query, scope_entry|
+      query_values = [scope_entry[0]] + scope_entry[1]
+      clauses = { "scope_filters.filter_type" => scope_entry[0], "scope_filters.value" => scope_entry[1] }
+      where_clause ? query.or(Site.joins(:scope_filters).where(clauses)) : (where_clause ||= true) && Site.joins(:scope_filters).where(clauses)
     end
-    Site.joins(:scope_filters).where(clauses.join(" OR "), *all_values).includes(:scope_filters)
+    scope.includes(:scope_filters)
   end
 end
