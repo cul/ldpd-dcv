@@ -44,7 +44,7 @@ DLC VERSION: <%= IO.read(Rails.root.to_s+'/VERSION') %> -->
 	DCV.subsite_layout = '<%= subsite_layout %>';
 </script>
 <% end %>
-<%- js_packs = ["application", "dcv", "ableplayer"].concat(Array(subsite_layout)).uniq %>
+<%- js_packs = ["application", "dcv"].concat(Array(subsite_layout)).uniq %>
 <%- js_packs << 'ohsynchronizer' if params[:action] == 'synchronizer' %>
 <%= javascript_pack_tag *js_packs %>
 

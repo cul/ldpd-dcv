@@ -1,9 +1,10 @@
-<% if structured_children.first %>
-  <a class="btn btn-secondary item-modal" data-modal-title="<%= document_show_html_title %>" href="#" data-modal-embed-func="getCurrentZoomUrl" data-toggle="modal" data-target="#dcvModal" data-modal-size="xl" ><i class="fa fa-eye" aria-hidden="true" title="Zoom in" data-toggle="tooltip"><span class="sr-only">Zoom in</span></i></a>
-  <a class="btn btn-secondary" href="#" data-original-title="<%= document_show_html_title %>" onclick="return zoomingImageNewWindow();"><i class="fa fa-external-link" title="Open in new window" data-toggle="tooltip"><span class="sr-only">Open in new window</span></i></a>
-<% end %>
 <div class="btn-group btn-group-sm">
-  <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" data-tt="tooltip" title="Citations">
+  <%= mods_display_modal_trigger(document) -%>
+  <% if structured_children.first %>
+    <a class="btn btn-secondary btn-sm item-modal" data-modal-title="<%= document_show_html_title %>" href="#" data-modal-embed-func="getCurrentZoomUrl" data-toggle="modal" data-target="#dcvModal" data-modal-size="xl" ><i class="fa fa-eye" aria-hidden="true" title="Zoom in" data-toggle="tooltip"><span class="sr-only">Zoom in</span></i></a>
+    <a class="btn btn-secondary btn-sm" href="#" data-original-title="<%= document_show_html_title %>" onclick="return zoomingImageNewWindow();"><i class="fa fa-external-link" title="Open in new window" data-toggle="tooltip"><span class="sr-only">Open in new window</span></i></a>
+  <% end %>
+  <button type="button" class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-tt="tooltip" title="Citations">
   <i class="fa fa-book" aria-hidden="true"></i> <span class="caret" aria-hidden="true"></span>
   <span class="sr-only">Toggle Dropdown</span>
   </button>

@@ -221,6 +221,7 @@ Rails.application.routes.draw do
   end
 
   get ':layout/:id/details' => 'details#show', as: :details
+  get ':layout/*id/embed' => 'details#embed', as: :embed, constraints: Dcv::Routes::DOI_ID_CONSTRAINT
 
   #get 'resolve/catalog/*catalog_id/bytestreams/:id/content(.:format)' => 'resolve/bytestreams#content',
   # as: :resolve_bytestream_content #,

@@ -1,0 +1,9 @@
+<% child_title = child[:title].present? ? child[:title].strip : '' %>
+<div>
+  <div>
+    <div>
+      <img alt="<%= child_title %>" class="<%= (['StillImage','Text'].include?(child[:dc_type])) ? 'zoomable' : '' %>" src="<%= poster_url(child) %>" />
+    </div>
+    <%= render partial: "content_aggregator/child_viewer/button_panel", locals: { child: SolrDocument.new(child), child_index: child_index, document: document, local_downloads: local_downloads } %>
+  </div>
+</div>

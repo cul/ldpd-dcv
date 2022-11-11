@@ -131,4 +131,20 @@ module Dcv::CatalogHelperBehavior
   def reading_room_client?
     controller.reading_room_client?
   end
+
+  def mods_display_modal_trigger(document)
+    return unless document.fetch(:datastreams_ssim, []).include?('descMetadata')
+    content_tag(:button,
+      data: {
+        'display-url' => item_mods_path(id: document.id, type: 'formatted_text'),
+        'download-url' => item_mods_path(id: document.id, type: 'download'),
+        'modal-title-func' => 'downloadXmlTitle',
+        'modal-size' => 'xl',
+        toggle: 'modal', target: '#dcvModal'
+      },
+      aria: { label: 'Display XML Metadata' },
+      class: 'btn btn-secondary btn-sm') do
+      content_tag :i, '', class: "fa fa-file-code-o", data: { toggle: 'tooltip' }, title: 'Display XML Metadata'
+    end
+  end
 end

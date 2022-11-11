@@ -1205,10 +1205,6 @@ h2[itemprop="name"] {
 			text-align: left;
 			margin-top: 60px;
 		}
-		.view-synchronized-media {
-			margin-top: 1em;
-			margin-right:0.5rem;
-		}
 
 		.carousel-item {
 
@@ -1305,4 +1301,12 @@ DD .collapse.show {
 [aria-expanded="false"] > .expanded,
 [aria-expanded="true"] > .collapsed {
   display: none;
+}
+
+.embed-code {
+  border: 1px solid map-get($theme-border-colors, 'secondary');
+  border-radius: 3px;
+  border-width: 3px;
+  padding: 10px;
+  width: 100%;
 }

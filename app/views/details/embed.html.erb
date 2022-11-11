@@ -1,0 +1,7 @@
+<div class="show-document w-100 my-0 embed" id="content">
+	<div id="document" class="document" itemscope itemtype="<%= @document.itemtype %>">
+	  <div id="doc_<%= @document.id.to_s.parameterize %>" class="w-100">
+		<%= render_document_partial @document, 'show', logo_path: asset_pack_path('media/images/dcv/columbia_university_libraries.png') %>
+	  </div>
+	</div>
+</div>

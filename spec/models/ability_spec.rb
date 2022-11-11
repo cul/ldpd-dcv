@@ -10,6 +10,12 @@ describe Ability do
 		it 'denies access' do
 			expect(current_ability.can?(Ability::ACCESS_SUBSITE, site)).to be false
 		end
+		it 'does have a truthy public attribute when there is NO context' do
+			expect(Ability.new.public).to be true
+		end
+		it 'does not have a truthy public attribute when there is context' do
+			expect(current_ability.public).to be false
+		end
 		context 'user is in remote IDs for site' do
 			before do
 				site.permissions.remote_ids = [current_user.uid]

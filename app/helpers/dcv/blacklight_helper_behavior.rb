@@ -64,31 +64,33 @@ module Dcv::BlacklightHelperBehavior
 
   # Override to use a disabled link when no doc
   # Link to the previous document in the current search context
-  def link_to_previous_document(link_document)
-    link_opts = { class: ["previous", "disabled"], rel: 'prev', disabled: true }
+  def link_to_previous_document(link_document, classes = "")
+    link_opts = { class: "previous #{classes}".strip.split(' '), rel: 'prev', aria: { label: 'previous document' } }
     doc_url = '#'
     if link_document
-      link_opts = prev_next_link_opts(link_document, -1, class: "previous", rel: 'prev', :'data-toggle' => 'tooltip', :'aria-label' => 'previous document')
+      link_opts = prev_next_link_opts(link_document, -1, link_opts)
       doc_url = url_for_document(link_document)
+    else
+      link_opts.merge!(disabled: true, class: link_opts[:class] + ['disabled'])
     end
-    link_opts[:title] = t('views.pagination.previous')
     link_to doc_url, link_opts do
-      content_tag :i, '', class: ['previous', 'fa', 'fa-arrow-left']
+      content_tag :i, '', class: ['previous', 'fa', 'fa-arrow-left'], title: t('views.pagination.previous'), :'data-toggle' => 'tooltip'
     end
   end
 
   # Override to use a disabled link when no doc
   # Link to the next document in the current search context
-  def link_to_next_document(link_document)
-    link_opts = { class: ["next", "disabled"], rel: 'next', disabled: true }
+  def link_to_next_document(link_document, classes = "")
+    link_opts = { class: "next #{classes}".strip.split(' '), rel: 'next', aria: { label: 'next document' } }
     doc_url = '#'
     if link_document
-      link_opts = prev_next_link_opts(link_document, 1, class: "next", rel: 'next', :'data-toggle' => 'tooltip', :'aria-label' => 'next document')
+      link_opts = prev_next_link_opts(link_document, 1, link_opts)
       doc_url = url_for_document(link_document)
+    else
+      link_opts.merge!(disabled: true, class: link_opts[:class] + ['disabled'])
     end
-    link_opts[:title] = t('views.pagination.next')
     link_to doc_url, link_opts do
-      content_tag :i, '', class: ['previous', 'fa', 'fa-arrow-right']
+      content_tag :i, '', class: ['next', 'fa', 'fa-arrow-right'], title: t('views.pagination.next'), :'data-toggle' => 'tooltip'
     end
   end
 

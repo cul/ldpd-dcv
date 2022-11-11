@@ -1,30 +1,18 @@
 <%
 poster_url = get_resolved_asset_url(id: child[:id], pid: child[:pid], size: 768, type: 'full', format: 'jpg')
-dsa = child.fetch(:datastreams_ssim, [])
-has_chapters = dsa.include?('chapters')
-has_captions = dsa.include?('captions')
-has_synch = dsa.include?('synchronized_transcript')
-captions_url = bytestream_content_path(catalog_id: child[:id], bytestream_id: 'captions') if has_captions
-if (media_url = wowza_media_token_url(child))
-  player_src = render_media_element_streaming_player(media_url, poster_url, captions_url, 1024, 500)
-else
+has_captions = child.fetch(:datastreams_ssim, []).include?('captions')
+captions_path = bytestream_content_path(catalog_id: child[:id], bytestream_id: 'captions') if has_captions
+options = { captions_path:  captions_path }
+unless (media_url = wowza_media_token_url(child))
   media_url = bytestream_content_path(catalog_id: child[:pid], bytestream_id: 'access')
-  player_src = render_media_element_progressive_download_video_player(media_url, poster_url, captions_url, 1024, 500)
+  options[:media_type] = 'video/mp4'
 end
 %>
 
 <div>
   <div>
-    <%= player_src %>
-    <% if has_chapters || has_synch %>
-      <p>
-        <% if has_chapters %>
-          <%= link_to 'View with synchronized index', {controller: controller_path, action: 'synchronizer', id: child[:pid], mode: 'chapters'}, id: 'view-synchronized-media-index', class: 'btn btn-sm btn-primary view-synchronized-media', target: '_blank' %>
-        <% end %>
-        <% if has_synch %>
-          <%= link_to 'View with synchronized transcript', {controller: controller_path, action: 'synchronizer', id: child[:pid], mode: 'synchronized_transcript'}, id: 'view-synchronized-media-captions', class: 'btn btn-sm btn-primary view-synchronized-media', target: '_blank' %>
-        <% end %>
-      </p>
-    <% end %>
+    <%= render_media_element_streaming_player(media_url, poster_url, **options) %>
+    <%= render partial: "content_aggregator/child_viewer/button_panel", locals: { child: SolrDocument.new(child), child_index: child_index, document: document, local_downloads: local_downloads } %>
   </div>
 </div>
+

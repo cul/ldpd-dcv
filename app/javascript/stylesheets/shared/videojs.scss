@@ -5,3 +5,22 @@
     display: block;
   }
 }
+
+.embed {
+  .video-js {
+    .vjs-logo {
+      display: none;
+      position: absolute;
+      top: 0px;
+      right: 0px;
+      img{
+        width: 100%;      
+      }
+    }
+    &.vjs-paused {
+      .vjs-logo {
+        display: block;
+      }
+    }
+  }
+}

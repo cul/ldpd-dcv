@@ -69,13 +69,13 @@ export default class VideoJsControls extends PlayerControls {
 		return this.player().duration;
 	}
 
-	// Here we update the timestamp for the Tag Segment function for AblePlayer
+	// Update the timestamp for the Tag Segment function for the player
 	updateTimestamp() {
 		var time = this.player().currentTime();
 		$("#tag-timestamp").val(secondsAsTimestamp(time));
 	}
 
-	// Here we handle the keyword player controls for AblePlayer
+	// Handle the keyword player controls for the player
 	playerControls(button) {
 		switch (button) {
 			case "beginning":
