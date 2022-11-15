@@ -10,7 +10,9 @@
 			<ul class="dropdown-menu">
 				<li><a href="<%= durst_help_path %>" class="dropdown-item">Search Tips</a></li>
 				<li><a href="<%= durst_help_path %>#glossary" class="dropdown-item">Glossary</a></li>
-				<li><a href="#" onclick="return feedbackModal();" class="dropdown-item">Suggestions and Feedback</a></li>
+				<li><%= link_to 'Suggestions and Feedback', '#', data: {
+				toggle: 'modal', target: '#dcvModal', 'modal-embed-func' => 'feedbackEmbedUrl', 'modal-size' => 'xl', 'modal-title' => 'Suggestions and Feedback'
+			}, role: 'button' %></li>
 			</ul>
 		</li>
 		<li class="dropdown">

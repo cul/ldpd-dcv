@@ -4,7 +4,9 @@
 			<% if !current_user -%>
 				<%= render :partial => 'shared/vrr_login' %>
 			<% else -%>
-				<p class="affiliate-login">You are not authorized to access this content. If you have questions, please <a href="#" onclick="return feedbackModal();">contact a Libraries staff member</a>.</p>
+				<p class="affiliate-login">You are not authorized to access this content. If you have questions, please <%= link_to 'contact a Libraries staff member', '#', data: {
+				toggle: 'modal', target: '#dcvModal', 'modal-embed-func' => 'feedbackEmbedUrl', 'modal-size' => 'xl', 'modal-title' => 'Suggestions and Feedback'
+			}, role: 'button' %>.</p>
 			<% end -%>
 			<%= render :partial => 'shared/vrr_disclaimer' %>
 		</div>
