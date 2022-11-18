@@ -40,6 +40,9 @@ const DcvModals = {
     const dims = aspectRatio.split('x').map(x => Math.round(Number.parseFloat(x) * 35.0))
     return `<textarea onclick="this.focus();this.select();" class="embed-code" rows="4"><iframe title="Columbia University Libraries Digital Collections" width="${dims[0]}" height="${dims[1]}" src="${$(element).data('embed-url')}" frameborder="0" allowfullscreen></iframe></textarea>`;
   },
+  downloadMenu: function(element) {
+    return '<ul id="downloads-list"></ul>'
+  },
   needsEmbed: (element) => $(element).data('display-url') || $(element).data('modal-embed-func'),
   needsSize: (element) => $(element).data('modal-size'),
 };
