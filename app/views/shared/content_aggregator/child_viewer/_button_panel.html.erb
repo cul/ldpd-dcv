@@ -12,7 +12,7 @@ has_download = download_content_url || iiif_info_url
 id_base = child[:id].gsub(/[^A-Za-z0-9]/,'')
 %>
 
-<div class="btn-toolbar justify-content-center m-1" role="toolbar">
+<div class="btn-toolbar justify-content-center m-1" role="toolbar" id="asset-toolbar">
   <div class="btn-group" role="group">
     <% if item_in_context_url -%>
       <%= link_to item_in_context_url, class: "btn btn-sm btn-primary", target: "_blank" do -%>
@@ -35,18 +35,19 @@ id_base = child[:id].gsub(/[^A-Za-z0-9]/,'')
       <%- end -%>
     <% end %>
   </div>
-  <div class="btn-group download-button-group dropup" role="group">  
+  <% if has_download -%>
     <% if is_publicly_available_asset?(child) && child.doi_identifier -%>
-      <button id="embed-button" class="btn btn-primary btn-sm" aria-label="Show embed code" data-embed-url="<%= embed_url(id: child.doi_identifier, layout: request.path.split('/')[1]) %>" data-embed-aspect-ratio="<%= t("embeds.aspect_ratio.#{child[:dc_type]}") %>" data-toggle="modal" data-target="#dcvModal" data-modal-title="Embed Media Code" data-modal-body-func="embedMediaSrc">
-        <i class="fa fa-code" data-toggle="tooltip" title="Show embed code" aria-hidden="true"></i>
-      </button>
+      <div class="btn-group" role="group">
+        <button id="embed-button" class="btn btn-primary btn-sm" aria-label="Show embed code" data-embed-url="<%= embed_url(id: child.doi_identifier, layout: request.path.split('/')[1]) %>" data-embed-aspect-ratio="<%= t("embeds.aspect_ratio.#{child[:dc_type]}") %>" data-toggle="modal" data-target="#dcvModal" data-modal-title="Embed Media Code" data-modal-body-func="embedMediaSrc">
+          <i class="fa fa-code" data-toggle="tooltip" title="Show embed code" aria-hidden="true"></i>
+        </button>
+      </div>
     <% end %>
-    <% if has_download -%>
-      <button type="button" id="<%= id_base %>-download" class="btn btn-sm btn-primary dropdown-toggle download-button" data-toggle="dropdown" aria-label="Download Options" data-download-content-url="<%= download_content_url %>" data-iiif-info-url="<%= iiif_info_url %>">
-        <i class="fa fa-cloud-download" data-toggle="tooltip" title="Download Options" aria-hidden="true"></i>
-      </button>
-      <ul id="<%= id_base %>-downloads-list" class="dropdown-menu dropdown-menu-right downloads-list" role="menu" aria-labelled-by="<%= id_base %>-download">
-      </ul>
-    <% end -%>
-  </div>
+    <div class="btn-group download-button-group" role="group">
+        <button type="button" id="<%= id_base %>-download" class="btn btn-sm btn-primary download-button" data-toggle="modal" data-target="#dcvModal" data-modal-body-func="downloadMenu" data-modal-title="Download Options" data-download-content-url="<%= download_content_url %>" data-iiif-info-url="<%= iiif_info_url %>">
+          <i class="fa fa-cloud-download" data-toggle="tooltip" title="Download Options" aria-hidden="true"></i>
+          <span class="sr-only">Download Options</span>
+        </button>
+    </div>
+  <% end -%>
 </div>
