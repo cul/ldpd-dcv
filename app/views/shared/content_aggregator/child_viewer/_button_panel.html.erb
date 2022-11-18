@@ -45,7 +45,7 @@ id_base = child[:id].gsub(/[^A-Za-z0-9]/,'')
       <button type="button" id="<%= id_base %>-download" class="btn btn-sm btn-primary dropdown-toggle download-button" data-toggle="dropdown" aria-label="Download Options" data-download-content-url="<%= download_content_url %>" data-iiif-info-url="<%= iiif_info_url %>">
         <i class="fa fa-cloud-download" data-toggle="tooltip" title="Download Options" aria-hidden="true"></i>
       </button>
-      <ul id="<%= id_base %>-downloads-list" class="dropdown-menu downloads-list" role="menu" aria-labelled-by="<%= id_base %>-download">
+      <ul id="<%= id_base %>-downloads-list" class="dropdown-menu dropdown-menu-right downloads-list" role="menu" aria-labelled-by="<%= id_base %>-download">
       </ul>
     <% end -%>
   </div>
