@@ -1,6 +1,6 @@
 <% #Using the Bootstrap Pagination class  -%>
 <div id="previousNextDocument" class="row justify-content-center">
-  <div class="col col-sm-3 text-center text-sm-left">
+  <div class="col col-md-3 text-center text-md-left">
     <div class="btn-group btn-group-sm">
       <% if params[:return_to_filesystem].present? %>
         <%= link_to('<i class="fa fa-reply-all"></i>'.html_safe, params[:return_to_filesystem], class: 'btn btn-secondary btn-sm', :"data-toggle" => 'tooltip', "aria-label": t('views.pagination.return_to_filesystem'), title: t('views.pagination.return_to_filesystem')) %>
@@ -14,6 +14,6 @@
       <% end %>
     </div>
   </div>
-  <div class="d-inline-block col-sm-6 text-center"><h3 class="h4"><%= @document['title_ssm'].first.strip %></h3></div>
+  <div class="d-inline-block col-md-6 text-center"><h3 class="h4"><%= @document['title_ssm'].first.strip %></h3></div>
   <%= render 'show_tools' %>
 </div>
