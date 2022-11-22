@@ -12,8 +12,8 @@ module Dcv::Resources::RelsIntBehavior
     if model == 'GenericResource'
       # pull the basic metadata from the Fedora info
       ds_profiles.each do |dsid,ds_props|
-        next unless is_resource_datastream(dsid)
-        mime_type = ds_props['dsMIME'] if ds_props
+        next unless is_resource_datastream(dsid) && ds_props.present?
+        mime_type = ds_props['dsMIME']
         next if mime_type =~ /jp2$/
         label = ds_props["dsLabel"].split('/').last
         results[dsid].merge!( {
