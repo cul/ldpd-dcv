@@ -1,6 +1,6 @@
 module Dcv::Resources::RelsIntBehavior
-  INTERNAL_DSIDS = ['AUDIT','DC','RELS-INT','RELS-EXT'].freeze
-  METADATA_DSIDS = ['descMetadata','rightsMetadata'].freeze
+  INTERNAL_DSIDS = ['AUDIT','DC','RELS-INT','RELS-EXT', 'hyacinth', 'hyacinth_core', 'hyacinth_struct'].freeze
+  METADATA_DSIDS = ['descMetadata','rightsMetadata', 'accessControlMetadata'].freeze
   def resources_for_document(document=@document)
     model = document['active_fedora_model_ssi']
     profile = document['object_profile_ssm'].first
