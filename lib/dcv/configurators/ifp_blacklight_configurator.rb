@@ -58,7 +58,8 @@ class Dcv::Configurators::IfpBlacklightConfigurator
     config.add_show_field ActiveFedora::SolrService.solr_name('contributor', :symbol, type: :string), :label => 'Office'
     config.add_show_field ActiveFedora::SolrService.solr_name('original_name', :symbol), :label => 'Folder Path', :helper_method => :dirname_prefixed_with_slash
     config.add_show_field ActiveFedora::SolrService.solr_name('identifier', :symbol), :label => 'Identifier'
-
+    config.add_show_field 'extent_ssim', label: 'Size', helper_method: :show_extent_in_bytes
+    config.add_show_field 'dc_format_ssm', label: 'MIME Type', helper_method: :mime_type_field_value
     # "fielded" search configuration. Used by pulldown among other places.
     # For supported keys in hash, see rdoc for Blacklight::SearchFields
     #

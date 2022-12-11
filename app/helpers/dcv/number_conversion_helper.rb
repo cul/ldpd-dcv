@@ -12,4 +12,9 @@ module Dcv::NumberConversionHelper
     end
   end
 
+  def show_extent_in_bytes(args)
+    values = args[:document][args[:field]]
+    wrapped_values = Array(values).map { |value| byte_size_to_text_string(value.to_i) }
+    wrapped_values.first
+  end
 end
