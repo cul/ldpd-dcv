@@ -20,7 +20,7 @@ id_base = child[:id].gsub(/[^A-Za-z0-9]/,'')
         <span class="sr-only">View Object in Context</span>
       <%- end -%>
     <%- end -%>
-    <% if has_zoom && (has_viewable_children? || archive_org_id_for_document(document)) -%>
+    <% if has_zoom && (has_viewable_children? || archive_org_id_for_document(document) || document.resource_result?) -%>
       <a class="btn btn-sm btn-primary item-modal" data-modal-title="<%= document_show_html_title %>" aria-label="Zoom in" href="#" data-toggle="modal" data-target="#dcvModal" data-modal-size="max" data-display-url="<%= zoom_url %>"><i class="fa fa-search-plus" data-toggle="tooltip" title="Zoom in"></i></a>
       <a class="btn btn-sm btn-primary" href="<%= zoom_url %>" data-original-title="<%= document_show_html_title %>" aria-label="Open in new window" target="_blank"><i class="fa fa-plus-square" data-toggle="tooltip" title="Open in new window"></i></a>
     <% end -%>

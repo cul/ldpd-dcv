@@ -3,7 +3,9 @@ en:
     aspect_ratio:
       default: '9x9'
       Audio: '16x9'
+      Image: '16x16'
       MovingImage: '16x9'
+      PageDescription: '16x21'
       Sound: '16x9'
       StillImage: '16x16'
       Text: '16x21'

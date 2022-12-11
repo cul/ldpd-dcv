@@ -28,6 +28,10 @@ class SolrDocument
     self['lib_item_in_context_url_ssm']&.first
   end
 
+  def resource_result?
+    self['active_fedora_model_ssi'].present? && self['active_fedora_model_ssi'] == 'GenericResource'
+  end
+
   def site_result?
     self['dc_type_ssm'].present? && self['dc_type_ssm'].include?('Publish Target')
   end
