@@ -1,5 +1,5 @@
 <%
-poster_url = get_resolved_asset_url(id: child[:id], pid: child[:pid], size: 768, type: 'full', format: 'jpg')
+poster_url ||= get_resolved_asset_url(id: child[:id], pid: child[:pid], size: 768, type: 'full', format: 'jpg')
 has_captions = child.fetch(:datastreams_ssim, []).include?('captions')
 captions_path = bytestream_content_path(catalog_id: child[:id], bytestream_id: 'captions') if has_captions
 options = { captions_path:  captions_path }
