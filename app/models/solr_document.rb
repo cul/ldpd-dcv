@@ -10,6 +10,8 @@ class SolrDocument
     'access_control_levels_ssim'
   ]
 
+  TITLE_FIELDS = ['title_ssm', 'title_display_ssm', 'dc_title_ssm']
+
   include Blacklight::Solr::Document
   include SolrDocument::FieldSemantics
   include SolrDocument::PublicationInfo
@@ -106,6 +108,11 @@ class SolrDocument
 
   def has_restriction?
     self[:restriction_ssim].present?
+  end
+
+  def title
+    title_val = (TITLE_FIELDS.inject(nil) { |memo, field| memo || self[field]&.first }) || id
+    title_val.to_s.strip
   end
 
   # merge behaviors that presume HashWithIndifferentAccess targets

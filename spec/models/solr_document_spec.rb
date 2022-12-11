@@ -63,4 +63,16 @@ describe SolrDocument do
   context 'has no archive.org id' do
     it { expect(solr_document.archive_org_identifier).to be_nil }
   end
+  describe '#title' do
+    it 'falls back to id if title fields are absent' do
+      expect(solr_document.title).to eql solr_document.id
+    end
+    context "with a title field" do
+      let(:title_value) { 'Foo' }
+      it 'returns first field value' do
+        solr_document.merge_source!(title_ssm: [title_value])
+        expect(solr_document.title).to eql title_value
+      end
+    end
+  end
 end
