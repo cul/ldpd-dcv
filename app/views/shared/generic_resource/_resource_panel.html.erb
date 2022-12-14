@@ -13,11 +13,6 @@
         <% local_downloads = is_publicly_available_asset?(document) %>
         <div class="carousel-item active"
           role="option" data-child-number="0" data-child-title="<%= h(doc_title) %>"
-          data-has-details="<%= is_image || is_text_document?(document) %>"
-          data-has-iiif="<%= is_image %>"
-          data-zoom-url="<%= zoom_url_for_doc(document, fake_child, layout:(request.path.split('/')[1]), title: 'false', initial_page: 0) %>"
-          data-iiif-info-url="<%= get_resolved_asset_info_url(id: document[:id], pid: doc_pid, image_format: 'jpg') %>"
-          data-download-content-url="<%= is_image ? '' : bytestream_content_url({catalog_id: doc_pid, filename: document[:label_ssi], bytestream_id: preferred_content_bytestream(document, /\.pdf$/i), download: true}) %>"
           >
           <div class="child-content">
             <% dc_type_string = dc_type.underscore.gsub(/\s+/, '_').sub('audio', 'sound').sub('video', 'moving_image') %>
