@@ -12,6 +12,8 @@ class SolrDocument
 
   TITLE_FIELDS = ['title_ssm', 'title_display_ssm', 'dc_title_ssm']
 
+  RESOURCE_MODEL = 'GenericResource'
+
   include Blacklight::Solr::Document
   include SolrDocument::FieldSemantics
   include SolrDocument::PublicationInfo
@@ -29,7 +31,8 @@ class SolrDocument
   end
 
   def resource_result?
-    self['active_fedora_model_ssi'].present? && self['active_fedora_model_ssi'] == 'GenericResource'
+    return true if self['active_fedora_model_ssi'].present? && self['active_fedora_model_ssi'] == RESOURCE_MODEL
+    return true if self['has_model_ssim'].present? && self['has_model_ssim'].detect { |mod| !mod.index(RESOURCE_MODEL).nil? }
   end
 
   def site_result?

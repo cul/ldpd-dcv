@@ -163,4 +163,11 @@ module Dcv::Configurators::BaseBlacklightConfigurator
     hl_params[:'hl.simple.post'] = Dcv::HighlightedSnippetHelper::SNIPPET_HTML_WRAPPER_POST
     search_field.solr_parameters.reverse_merge! hl_params
   end
+
+  def configure_file_show_fields(config, opts = {})
+    config.add_show_field 'original_name_ssim', label: 'Folder Path', helper_method: :dirname_prefixed_with_slash, if: :show_file_fields?
+    config.add_show_field 'identifier_ssim', label: 'Identifier', if: :show_file_fields?
+    config.add_show_field 'extent_ssim', label: 'Size', helper_method: :show_extent_in_bytes, if: :show_file_fields?
+    config.add_show_field 'dc_format_ssm', label: 'MIME Type', helper_method: :mime_type_field_value, if: :show_file_fields?
+  end
 end

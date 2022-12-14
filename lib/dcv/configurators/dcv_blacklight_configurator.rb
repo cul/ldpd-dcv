@@ -108,6 +108,7 @@ class Dcv::Configurators::DcvBlacklightConfigurator
   # solr fields to be displayed in the show (single result) view
   #   The ordering of the field names is the order of the display
   def self.configure_show_fields(config)
+    configure_file_show_fields(config)
     config.add_show_field ActiveFedora::SolrService.solr_name('lib_name', :displayable), label: 'Name', link_to_search: ActiveFedora::SolrService.solr_name('lib_name', :facetable), helper_method: :display_non_copyright_names_with_roles, if: :has_non_copyright_names?
     config.add_show_field ActiveFedora::SolrService.solr_name('title_display', :displayable, type: :string), label: 'Title'
     config.add_show_field ActiveFedora::SolrService.solr_name('alternative_title', :displayable, type: :string), :label => 'Other Titles'

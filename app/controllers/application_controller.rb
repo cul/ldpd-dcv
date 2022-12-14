@@ -62,4 +62,8 @@ class ApplicationController < ActionController::Base
   def reading_room_client?
     false
   end
+
+  def show_file_fields?(field_config, document)
+    document.resource_result?
+  end
 end

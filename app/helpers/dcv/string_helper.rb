@@ -9,11 +9,11 @@ module Dcv::StringHelper
     values = args[:document][args[:field]]
 
     values.map {|value|
+      value = value.split('/data/')[1..-1].join('/data/') if !value.index('/data/').nil?
       value = '/' + value unless value.start_with?('/')
 
       dirname = File.dirname(value)
       dirname = '/' if dirname == '.'
-
       return dirname
     }
   end
