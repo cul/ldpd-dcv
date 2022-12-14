@@ -1,15 +1,8 @@
-<div class="btn-group btn-group-sm download-button-group">
+<div class="btn-group btn-group-sm pull-right">
   <%= mods_display_modal_trigger(document) -%>
   <% if @document['dc_type_ssm'].present? && @document['dc_type_ssm'].first.eql?('StillImage') %>
-    <%- @document_title = t('blacklight.search.show.title', document_title: document_show_html_title, application_name: application_name).gsub('&', '&amp;').gsub('"', '&quot;').html_safe -%>
-    <a class="btn btn-secondary btn-sm item-modal" data-modal-title="<%= @document_title %>" href="#" data-modal-embed-func="getCurrentZoomUrl" data-toggle="modal" data-target="#dcvModal" data-modal-size="xl" ><i class="fa fa-eye" aria-hidden="true" title="Zoom in" data-toggle="tooltip"><span class="sr-only">Zoom in</span></i></a>
-    <a class="btn btn-secondary btn-sm" href="#" data-original-title="<%= @document_title %>" onclick="return zoomingImageNewWindow();"><i class="fa fa-external-link" title="Open in new window" data-toggle="tooltip"><span class="sr-only">Open in new window</span></i></a>
-    <% if is_publicly_available_asset?(@document) -%>
-      <button id="download-button" type="button" class="btn btn-secondary btn-sm download-button dropdown-toggle" data-toggle="dropdown" title="Downloads" data-iiif-info-url="<%= get_resolved_asset_info_url(id: @document[:id], pid: @document[:pid], image_format: 'jpg') %>">
-      <i class="fa fa-cloud-download" aria-hidden="true"></i> <span class="caret" aria-hidden="true"></span>
-      <span class="sr-only">Toggle Dropdown</span>
-      </button>
-      <ul id="downloads-list" class="downloads-list dropdown-menu float-right" role="menu"></ul>
-    <% end -%>
+    <a id="draggable-iiif-button" class="btn btn-secondary btn-sm grabbable localicon-iiif" href="<%= get_manifest_url(document) %>" aria-label="drag-n-drop iiif manifest" data-toggle="tooltip">
+      <span data-toggle="tooltip" title="drag-n-drop iiif manifest"><%= inline_svg('iiif-logo.svg') %></span>
+    </a>
   <% end %>
 </div>
