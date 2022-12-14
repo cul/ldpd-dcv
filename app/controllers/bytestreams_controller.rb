@@ -46,15 +46,16 @@ class BytestreamsController < ApplicationController
   end
 
   def show
-  	@response, @document = fetch(params[:catalog_id])
-  	doc = resources_for_document.select {|x| x[:id].split('/')[-1] == params[:id]}
-  	doc = doc.first || {}
-    render json: doc, layout: false
+    @response, @document = fetch(params[:catalog_id])
+    resource_doc = resources_for_document.detect {|x| x[:id].split('/')[-1] == params[:id]} || {}
+    render json: resource_doc, layout: false
   end
 
   def content
     @response, @document = fetch(params[:catalog_id])
-    if @document.nil?
+    resource_doc = resources_for_document.detect {|x| x[:id].split('/')[-1] == params[:id]}
+    deny_download = resource_doc.nil? && params[:id] != 'descMetadata' # allow MODS download
+    if @document.nil? || deny_download
       render :status => 404
       return
     end

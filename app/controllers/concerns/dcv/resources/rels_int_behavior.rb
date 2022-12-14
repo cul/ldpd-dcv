@@ -34,7 +34,8 @@ module Dcv::Resources::RelsIntBehavior
         mime_type = ds_props['dsMIME'] if ds_props
         mime_type ||= v['format'].first
         next if mime_type =~ /jp2$/
-        title = k.split('/')[-1]
+        title = results.dig(dsid, :title)
+        title = k.split('/')[-1] if title.blank?
         width = (v['exif_image_width'] || v['image_width'] ||[ ]).first.to_i
         length = (v['exif_image_length'] || v['image_length'] || []).first.to_i
         size = (v['extent'] || []).first.to_i
@@ -45,6 +46,9 @@ module Dcv::Resources::RelsIntBehavior
       end
       # remove the content link for image files; no TIFF resources
       if document['dc_type_ssm'].present? && document['dc_type_ssm'].include?('StillImage')
+        results.delete('content')
+      end
+      if Dcv::Utils::UrlUtils.preferred_content_bytestream(document, /\.pdf$/i) != 'content'
         results.delete('content')
       end
     end
