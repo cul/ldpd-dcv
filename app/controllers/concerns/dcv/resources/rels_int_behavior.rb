@@ -1,7 +1,7 @@
 module Dcv::Resources::RelsIntBehavior
   INTERNAL_DSIDS = ['AUDIT','DC','RELS-INT','RELS-EXT', 'hyacinth', 'hyacinth_core', 'hyacinth_struct'].freeze
   METADATA_DSIDS = ['descMetadata','rightsMetadata', 'accessControlMetadata'].freeze
-  def resources_for_document(document=@document)
+  def resources_for_document(document=@document, use_preferred=true)
     model = document['active_fedora_model_ssi']
     profile = document['object_profile_ssm'].first
     profile = profile ? JSON.load(profile) : {}
@@ -48,11 +48,11 @@ module Dcv::Resources::RelsIntBehavior
       if document['dc_type_ssm'].present? && document['dc_type_ssm'].include?('StillImage')
         results.delete('content')
       end
-      if Dcv::Utils::UrlUtils.preferred_content_bytestream(document, /\.pdf$/i) != 'content'
+      if use_preferred && Dcv::Utils::UrlUtils.preferred_content_bytestream(document, /\.pdf$/i) != 'content'
         results.delete('content')
       end
     end
-    return results.map { |k,v| v }
+    return results.map { |k,v| v.with_indifferent_access }
   end
 
   def is_resource_datastream(id)

@@ -53,10 +53,10 @@ class BytestreamsController < ApplicationController
 
   def content
     @response, @document = fetch(params[:catalog_id])
-    resource_doc = resources_for_document.detect {|x| x[:id].split('/')[-1] == params[:id]}
-    deny_download = resource_doc.nil? && params[:id] != 'descMetadata' # allow MODS download
+    resource_doc = resources_for_document(@document, false).detect {|x| x[:id].split('/')[-1] == params[:bytestream_id]}
+    deny_download = resource_doc.nil?
     if @document.nil? || deny_download
-      render :status => 404
+      render status: :not_found, text: "resource not found"
       return
     end
 
