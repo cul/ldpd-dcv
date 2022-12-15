@@ -12,11 +12,7 @@ module Dcv::Sites::LookupController
 
   # filter db result for possible sites for those that the doc matches all criteria for
   def site_matches_for(solr_doc, site_candidates)
-    site_candidates.select do |site|
-      !site.default_filters.detect do |entry|
-        (Array(solr_doc[entry[0]]) & entry[1]).blank?
-      end
-    end
+    site_candidates.select { |site| site.include? solr_doc }
   end
 
   # pull all solr values potentially used in a ScopeFilter
