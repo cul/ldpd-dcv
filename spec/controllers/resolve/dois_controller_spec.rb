@@ -108,6 +108,7 @@ describe Resolve::DoisController, type: :controller do
 		let(:solr_doc) { SolrDocument.new(site.default_filters.merge(id: legacy_id, ezid_doi_ssim: ["doi:#{known_id}"], lib_project_short_ssim: [project_value])) }
 		let(:project_scope) { FactoryBot.build(:scope_filter, filter_type: 'project', value: project_value) }
 		let(:best_site) { FactoryBot.create(:site, scope_filters: [project_scope], slug: 'best') }
+		let(:less_site) { FactoryBot.create(:site, scope_filters: [project_scope], slug: 'less', restricted: true) }
 		it "returns the highest scoring site" do
 			expect(controller.best_site_for(solr_doc, [site, best_site])).to eql(best_site)
 		end

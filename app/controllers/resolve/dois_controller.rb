@@ -19,6 +19,8 @@ class Resolve::DoisController < ApplicationController
 
   configure_blacklight do |config|
     Dcv::Configurators::DcvBlacklightConfigurator.configure(config)
+    # do not limit doi queries by model
+    config.default_solr_params[:fq]&.delete_if { |c| c =~ /^active_fedora_model_ssi\:/ }
   end
 
   layout false
@@ -51,7 +53,8 @@ class Resolve::DoisController < ApplicationController
   def match_score_for(site, solr_doc)
     return -1 unless site && solr_doc
     return 1 if site.slug == 'catalog'
-    site.constraints.inject(0) do |score, entry|
+    base_score = (site.include?(solr_doc) && !site.restricted) ? 1 : 0
+    site.constraints.inject(base_score) do |score, entry|
       if (Array(solr_doc[ScopeFilter::FIELDS_FOR_FILTER_TYPES[entry[0]]]) & entry[1]).present?
         score + SCOPE_FILTER_TYPE_SCORES.fetch(entry[0], 0)
       else

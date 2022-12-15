@@ -12,11 +12,7 @@ module Dcv::Sites::LookupController
 
   # filter db result for possible sites for those that the doc matches all criteria for
   def site_matches_for(solr_doc, site_candidates)
-    site_candidates.select do |site|
-      !site.default_filters.detect do |entry|
-        (Array(solr_doc[entry[0]]) & entry[1]).blank?
-      end
-    end
+    site_candidates.select { |site| site.include? solr_doc }
   end
 
   # pull all solr values potentially used in a ScopeFilter
@@ -34,11 +30,12 @@ module Dcv::Sites::LookupController
 
   def site_candidates_for(scope_candidates)
     return [] if scope_candidates.blank?
-    where_clause = false
-    scope = scope_candidates.inject do |query, scope_entry|
-      query_values = [scope_entry[0]] + scope_entry[1]
-      clauses = { "scope_filters.filter_type" => scope_entry[0], "scope_filters.value" => scope_entry[1] }
-      where_clause ? query.or(Site.joins(:scope_filters).where(clauses)) : (where_clause ||= true) && Site.joins(:scope_filters).where(clauses)
+    filter_clauses = scope_candidates.map do |scope_candidate|
+      { "scope_filters.filter_type" => scope_candidate[0], "scope_filters.value" => scope_candidate[1] }
+    end
+    scope = Site.joins(:scope_filters).where(filter_clauses.shift)
+    scope = filter_clauses.inject(scope) do |query, filter_clause|
+      query.or(Site.joins(:scope_filters).where(filter_clause))
     end
     scope.includes(:scope_filters)
   end

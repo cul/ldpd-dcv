@@ -194,4 +194,8 @@ class Site < ApplicationRecord
 			atts['permissions'] = @permissions.as_json
 		end
 	end
+
+	def include?(solr_doc)
+		!default_filters.detect { |entry| (Array(solr_doc[entry[0]]) & entry[1]).blank? }
+	end
 end
