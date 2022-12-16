@@ -19,10 +19,16 @@ class Iiif::Manifest < Iiif::BaseResource
   end
 
   def metadata
-    # TODO: pass the show field definitions in from the controller context
     # Should this class be a presenter rather than a model?
     fields = []
-
+    presenter = Dcv::ShowPresenter.new(@solr_document, @route_helper.view_context)
+    presenter.fields_to_render do |name, field_config, field_presenter|
+      fields << {
+        label: { en: [field_config.label]},
+        value: { en: Array(field_presenter.render) }
+      }
+    end
+    
     if @solr_document['lib_repo_full_ssim'].present?
       fields << {
           label: { en: ['Location'] },
@@ -31,10 +37,21 @@ class Iiif::Manifest < Iiif::BaseResource
     end
     descriptor_values = descriptors
     if descriptor_values.present?
-      fields << {
-          label: { en: ['Described In'] },
-          value: { en: descriptor_values }
-      }
+      fields.unshift({
+        label: { en: ['Described In'] },
+        value: { en: descriptor_values }
+      })
+    elsif @solr_document.doi_identifier
+      registrant, doi = @solr_document.doi_identifier.split('/')
+      fields.unshift({
+        label: { en: ['More At'] },
+        value: { en: [route_helper.resolve_doi_url(registrant: registrant, doi: doi)]}
+      })
+    elsif @solr_document.persistent_url
+      fields.unshift({
+        label: { en: ['More At'] },
+        value: { en: [@solr_document.persistent_url]}
+      })
     end
     fields
   end

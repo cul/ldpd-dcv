@@ -3,6 +3,8 @@ class Iiif::PresentationsController < ApplicationController
   include Dcv::Sites::SearchableController
   include Dcv::CatalogIncludes
   include Dcv::SolrHelper
+  include ShowFieldDisplayFieldHelper
+
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :null_session

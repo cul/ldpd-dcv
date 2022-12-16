@@ -14,6 +14,7 @@ module Dcv::CdnHelper
     doi = document['ezid_doi_ssim'][0]
     doi = doi.sub(/^doi\:/,'') || doi
     registrant, doi = doi.split('/')
+    return iiif_collection_url(collection_registrant: registrant, collection_doi: doi) if options[:collection]
     iiif_manifest_url(options.merge(version: 3, manifest_registrant: registrant, manifest_doi: doi))
   end
 
