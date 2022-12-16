@@ -17,9 +17,11 @@ $splash-hover: #6a2400;
 	}
 	#main-container {
 		a {
-			color: $splash;	
-			&:hover {
-				color: $splash-hover;
+			&:not(.btn) {
+				color: $splash;	
+				&:hover {
+					color: $splash-hover;
+				}			
 			}
 		}
 		.inner {
