@@ -1,24 +1,10 @@
+@import '../palettes/monochrome';
+@import '../signature/fonts';
+
 //colors
-$color_0: #111;
-$color_1: #fafafa;
 $splash: #2a778f;
-$color_3: #ccc;
 $gray: #888;
 $splash-color: #fff;
-$color_11: #600;
-$color_12: #444;
-$color_18: #ddd;
-$color_19: rgba(42, 119, 143, 0.5);
-$trans_white: rgba(255, 255, 255, 0.3);
-
-//fonts
-$font_0: helvetica neue;
-$font_1: helvetica;
-$font_2: sans-serif;
-$font_3: TrajanProRegular;
-$font_4: trajan pro;
-$font_5: trajan;
-$font_6: serif;
 
 //urls
 $url_logo: url("ifp/IFP-square-logo.png");
@@ -29,108 +15,31 @@ $url_flag_sprite: url("ifp/office-flags/country_flag_folders_sm.png");
 	text-transform: uppercase;
 	font-size: .85em;
 	font-weight: normal;
-	color: $gray;
 }
 
 .ifp {
 	#secondary-nav {
-		#partner-dropdown {
-			background-color: $color_1;
-			a {
-				color: $color_0;
-				&:hover {
-					color: $splash;
-				}
-			}
-		}
 	}
 	#main-container {
-		a {
-			color: $splash;
-			&:hover {
-				color: $splash;
-			}
-			&.thumbnail {
-				background-color: transparent;
-				&:hover {
-					border-color: $splash;
-				}
-			}
-			&.btn {
-				color: $splash;
-				border-color: transparent;
-				background: $splash-color;
-				&:hover {
-					border-color: $splash;
-				}
-			}
-		}
-		button {
-			color: $splash;
-			border-color: transparent;
-			background: $splash-color;
-			&:hover {
-				border-color: $splash;
-				color: $splash;
-			}
-		}
 		.inner {
-			background-color: $splash-color;
 			&.home {
 				#imgholder-div .thumbnail {
-					background-color: $splash-color;
 					h3 {
 						text-align: center;
-						text-shadow: 1px 1px 1px $color_11;
-						color: $splash-color;
-						border: 1px solid $color_12;
 						border-width: 1px 0;
-						background: $trans_white;
-					}
-					&:hover {
-						border-color: $splash;
-						h3 {
-							background: $trans_white;
-						}
 					}
 				}
-			}
-			h6 {
-				color: $gray;
 			}
 		}
 		#facets .card {
-			background-color: $splash-color;
-			color: $gray;
 			border: 0;
-			&.home {
-				background-color: transparent;
-			}
 		}
 		.card > .card-header {
-			background-color: $splash-color;
-			color: $gray;
 			border: 0;
-			&.home {
-				background-color: transparent;
-			}
 		}
 	}
 }
 
-#site-banner {
-	background-color: $splash;
-}
-#site-title {
-	font-family: $font_0, $font_1, $font_2;
-	font-size: 160%;
-	font-weight: 200;
-	color: $splash-color;
-}
-#site-banner-subtitle {
-	font-family: $font_3, $font_4, $font_5, $font_6;
-	color: $splash-color;
-}
 @media(min-width: 768px) {
 	#site-title {
 		background-image: $url_logo;
@@ -294,6 +203,7 @@ $url_flag_sprite: url("ifp/office-flags/country_flag_folders_sm.png");
 		right:0;
 		left:auto;
 		min-width: 280px;
+		background-color: white;
 		li {
 			width: 129px;
 			margin-bottom: 1.5em;
@@ -412,9 +322,6 @@ $url_flag_sprite: url("ifp/office-flags/country_flag_folders_sm.png");
 				}
 			}
 		}
-		.appliedFilter .filterName:after {
-			color: $color_18;
-		}
 	}
 }
 
@@ -423,43 +330,36 @@ $url_flag_sprite: url("ifp/office-flags/country_flag_folders_sm.png");
 	font-weight: 400;
 	letter-spacing: 2px;
 	text-align: center;
-	text-shadow: 1px 1px 2px $splash-color;
+	text-shadow: 1px 1px 2px map-get($theme-text-colors, 'primary');
+	background-color: $primary;
 	text-transform: uppercase;
 	a {
 		position: relative;
 		display: block;
 		vertical-align: bottom;
-		color: $splash-color;
 		overflow: hidden;
 		background-size: cover;
 		width: 100%;
 		height: 160px;
+		color: map-get($theme-text-colors, 'primary');
 		span {
 			position: absolute;
-			color: $splash-color;
 			font-weight: 200;
 			text-shadow: none;
 			top: 45%;
 			text-align: center;
 			width: 100%;
-			background-color: $color_19;
 			display: inline-block;
 		}
 		&:first-child {
 			position: relative;
 			display: block;
 			vertical-align: bottom;
-			color: $splash-color;
 			text-align: left;
 			overflow: hidden;
-			background-color: $splash;
-			color: $splash-color;
 			width: 100%;
 			.lead {
 				display: inline-block;
-				background-color: transparent;
-				color: $splash-color;
-				text-shadow: 1px 1px 1px $color_0;
 				text-align: left;
 				padding: .5em;
 				position: absolute;
@@ -468,18 +368,15 @@ $url_flag_sprite: url("ifp/office-flags/country_flag_folders_sm.png");
 			}
 		}
 		&:hover span {
-			background-color: $splash;
+			color: $primary;
+			background-color: map-get($theme-text-colors, 'primary');
 		}
 	}
 }
 #home-global-data {
 	&.well {
-		background-color: $color_1;
 		border-radius: 0;
 		font-size: 99%;
-	}
-	.well {
-		background-color: $color_1;
 	}
 	dl {
 		dt {
@@ -495,9 +392,6 @@ $url_flag_sprite: url("ifp/office-flags/country_flag_folders_sm.png");
 	}
 }
 #partner-index-right-sidebar {
-	.well {
-		background-color: $color_1;
-	}
 	dl {
 		dt {
 			@extend %custom_dt;
@@ -519,8 +413,6 @@ $url_flag_sprite: url("ifp/office-flags/country_flag_folders_sm.png");
 
 .fs-crumbs {
 	margin-bottom: 1em;
-	background-color: $color_1;
-	border-color: $color_18 !important;
 	border-radius: 0;
 }
 
@@ -537,9 +429,6 @@ $url_flag_sprite: url("ifp/office-flags/country_flag_folders_sm.png");
 		}
 	}
 	.dl-vertical {
-		dt {
-			border-color:$color_3;
-		}
 		dd {
 			margin-left:1em;
 		}
