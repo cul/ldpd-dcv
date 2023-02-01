@@ -18,14 +18,14 @@ export default function () {
       }
     });
 
-    var $currentSlideElememt = $childCarouselElement.find('.carousel-item.active');
-    var childNumber = parseInt($currentSlideElememt.attr('data-child-number'));
+    var $currentSlideElement = $childCarouselElement.find('.carousel-item.active');
+    var childNumber = parseInt($currentSlideElement.attr('data-child-number'));
     //Remove selected class from previous gallery item
     $('#child_gallery a[rel="item-link"].selected').removeClass('selected');
     $('#child_gallery a[rel="item-link"][data-child-number="' + childNumber + '"]').addClass('selected');
 
     //Update title
-    $('#child-viewer-subtitle').html($currentSlideElememt.attr('data-child-title'));
+    $('#child-viewer-subtitle').html($currentSlideElement.attr('data-child-title'));
   }
   const carouselOpts = {
     interval: false // Do not automatically cycle
@@ -34,7 +34,8 @@ export default function () {
 
 
   $childCarouselElement.on('click', 'img.zoomable', function () {
-    $childCarouselElement.find('.item-modal').click(); //Clicking on the image itself is the same as clicking on the modal zoom button
+    const $currentSlideElement = $childCarouselElement.find('.carousel-item.active');
+    $currentSlideElement.find('.item-modal').click(); //Clicking on the image itself is the same as clicking on the modal zoom button
   });
 
   // Set up viewer gallert links

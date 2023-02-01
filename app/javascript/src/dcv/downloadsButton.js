@@ -32,6 +32,10 @@ function getListItemContentFromDownloadsRequestData(data) {
   return li_html;
 }
 
+function getListItemForUrl(resourceUrl) {
+  return '<li class="dropdown-item"><a href="' + resourceUrl + '" target="_blank" onclick="$(\'#dcvModal\').modal(\'hide\')"><span class="fa fa-download"></span> Download document</a></li>';
+}
+
 export default function() {
   if($('.download-button').length > 0) {
     //Set up download button
@@ -62,6 +66,9 @@ export default function() {
             downloadButton.modal('handleUpdate');
           }
         });
+      } else {
+        downloadInfoUrl = downloadButton.attr('data-download-asset-url');
+        if (downloadInfoUrl) downloadsList.html(getListItemForUrl(downloadInfoUrl));
       }
     });
   }
