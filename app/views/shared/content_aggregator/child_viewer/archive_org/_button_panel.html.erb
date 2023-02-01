@@ -1,0 +1,42 @@
+<%
+item_in_context_url = get_archive_org_details_url(child)
+has_zoom = is_image_document?(child, :dc_type) || is_text_document?(child, :dc_type)
+zoom_url = zoom_url_for_doc(child, child, layout:(request.path.split('/')[1]), title: 'false', initial_page: child_index) if has_zoom
+has_chapters = false
+has_synch = false
+has_iiif = child[:dc_type] == 'StillImage'
+download_content_url = get_archive_org_download_url(child)
+iiif_info_url = "https://iiif.archivelab.org/iiif/#{child[:id]}/manifest.json" if has_iiif
+has_download = download_content_url || iiif_info_url
+id_base = child[:id].gsub(/[^A-Za-z0-9]/,'')
+-%>
+
+<div class="btn-toolbar justify-content-center m-1" role="toolbar" id="asset-toolbar">
+  <div class="btn-group" role="group">
+    <% if item_in_context_url -%>
+      <%= link_to item_in_context_url, class: "btn btn-sm btn-primary", target: "_blank" do -%>
+        <i class="fa fa-external-link" title="View Object in Context" data-toggle="tooltip" aria-hidden="true"></i>
+        <span class="sr-only">View Object in Context</span>
+      <%- end -%>
+    <%- end -%>
+    <% if has_zoom && (has_viewable_children? || archive_org_id_for_document(document) || document.resource_result?) -%>
+      <a class="btn btn-sm btn-primary item-modal" data-modal-title="<%= document_show_html_title %>" aria-label="Zoom in" href="#" data-toggle="modal" data-target="#dcvModal" data-modal-size="max" data-display-url="<%= zoom_url %>"><i class="fa fa-search-plus" data-toggle="tooltip" title="Zoom in"></i></a>
+      <a class="btn btn-sm btn-primary" href="<%= zoom_url %>" data-original-title="<%= document_show_html_title %>" aria-label="Open in new window" target="_blank"><i class="fa fa-plus-square" data-toggle="tooltip" title="Open in new window"></i></a>
+    <% end -%>
+  </div>
+  <% if has_download -%>
+    <% if is_publicly_available_asset?(child) && child.doi_identifier -%>
+      <div class="btn-group" role="group">
+        <button id="embed-button" class="btn btn-primary btn-sm" aria-label="Show embed code" data-embed-url="<%= embed_url(id: child.doi_identifier, layout: request.path.split('/')[1]) %>" data-embed-aspect-ratio="<%= t("embeds.aspect_ratio.#{child[:dc_type]}", default: '9x9') %>" data-toggle="modal" data-target="#dcvModal" data-modal-title="Embed Media Code" data-modal-body-func="embedMediaSrc">
+          <i class="fa fa-code" data-toggle="tooltip" title="Show embed code" aria-hidden="true"></i>
+        </button>
+      </div>
+    <% end %>
+    <div class="btn-group download-button-group" role="group">
+        <button type="button" id="<%= id_base %>-download" class="btn btn-sm btn-primary download-button" data-toggle="modal" data-target="#dcvModal" data-modal-body-func="downloadMenu" data-modal-title="Download Options" data-download-asset-url="<%= download_content_url %>" data-iiif-info-url="<%= iiif_info_url %>">
+          <i class="fa fa-cloud-download" data-toggle="tooltip" title="Download Options" aria-hidden="true"></i>
+          <span class="sr-only">Download Options</span>
+        </button>
+    </div>
+  <% end -%>
+</div>
