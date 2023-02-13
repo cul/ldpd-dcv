@@ -3,6 +3,6 @@
   <div>
     <img alt="<%= child_title %>" class="<%= ['StillImage','Text'].include?(child[:dc_type]) ? 'zoomable' : '' %>" src="<%= poster_url(child) %>" />
 
-    <%= render partial: "content_aggregator/child_viewer/archive_org/button_panel", locals: { child: child, child_index: child_index, document: document, local_downloads: true } %>
+    <%= render Dcv::ContentAggregator::ChildViewer::ArchiveOrg::ButtonPanelComponent.new(child: child, child_index: child_index, document: document, local_downloads: true) %>
   </div>
 </div>

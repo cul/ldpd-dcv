@@ -64,8 +64,12 @@ describe SolrDocument do
     it { expect(solr_document.archive_org_identifier).to be_nil }
   end
   describe '#title' do
-    it 'falls back to id if title fields are absent' do
-      expect(solr_document.title).to eql solr_document.id
+    context "when title fields are absent" do
+      include_context "indexed without a display title"
+
+      it 'falls back to id if title fields are absent' do
+        expect(solr_document.title).to eql solr_document.id
+      end
     end
     context "with a title field" do
       let(:title_value) { 'Foo' }

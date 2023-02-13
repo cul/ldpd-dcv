@@ -7,6 +7,6 @@
     <div>
       <img src="<%= get_resolved_asset_url(id: child[:id], pid: child[:pid], size: 768, type: 'full', format: 'jpg') %>" />
     </div>
-    <%= render partial: "content_aggregator/child_viewer/button_panel", locals: { child: SolrDocument.new(child), child_index: child_index, document: document, local_downloads: local_downloads } %>
+    <%= render Dcv::ContentAggregator::ChildViewer::ButtonPanelComponent.new(child: SolrDocument.new(child), child_index: child_index, document: document, local_downloads: local_downloads) %>
   </div>
 </div>

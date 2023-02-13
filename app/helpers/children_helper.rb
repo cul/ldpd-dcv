@@ -16,24 +16,30 @@ module ChildrenHelper
     child_from_solr(child_document, 'title_ssm')
   end
 
-  def structured_children
-    @structured_children ||= begin
-      children = structured_children_from_solr(@document) if @document['structured_bsi'] == true
-      unless children
-        children = document_children_from_model(@document)[:children]
-        # just assign the order they came in, since there's no structure
-        children.each_with_index {|child, ix| child[:order] = ix + 1}
-      end
+  def structured_children(document = @document)
+    document == @document ? memoized_structured_children(document) : structured_children_for_document(document)
+  end
 
-      children.map! { |child| child.to_h.with_indifferent_access }
-      # the should be hashes from solr documents, with an added keys:
-      # - pid
-      # - title
-      # - order
-      # - thumbnail
-      # - dc_type
-      children
+  def memoized_structured_children(document)
+    @structured_children ||= structured_children_for_document(document)
+  end
+
+  def structured_children_for_document(document)
+    children = structured_children_from_solr(document) if document['structured_bsi'] == true
+    unless children
+      children = document_children_from_model(document)[:children]
+      # just assign the order they came in, since there's no structure
+      children.each_with_index {|child, ix| child[:order] = ix + 1}
     end
+
+    children.map! { |child| child.to_h.with_indifferent_access }
+    # the should be hashes from solr documents, with an added keys:
+    # - pid
+    # - title
+    # - order
+    # - thumbnail
+    # - dc_type
+    children
   end
 
   def is_publicly_available_asset?(child, ability = Ability.new)
@@ -52,8 +58,8 @@ module ChildrenHelper
   end
 
   # are any child assets viewable by current user, location, or general public?
-  def has_viewable_children?
-    structured_children.detect { |child| can_access_asset?(child) }.present?
+  def has_viewable_children?(document = @document)
+    structured_children(document).detect { |child| can_access_asset?(child) }.present?
   end
 
   # are any of the child assets closed?

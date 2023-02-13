@@ -11,6 +11,6 @@ end
 <div>
   <div>
     <%= render_media_element_streaming_audio_player(media_url, nil, **options) %>
-    <%= render partial: "content_aggregator/child_viewer/button_panel", locals: { child: SolrDocument.new(child), child_index: child_index, document: document, local_downloads: local_downloads } %>
+    <%= render Dcv::ContentAggregator::ChildViewer::ButtonPanelComponent.new(child: SolrDocument.new(child), child_index: child_index, document: document, local_downloads: local_downloads) %>
   </div>
 </div>

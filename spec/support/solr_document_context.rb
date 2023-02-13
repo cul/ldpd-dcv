@@ -9,10 +9,12 @@ shared_context "a solr document", shared_context: :metadata do
 	let(:dois) { [] }
 	let(:context_urls) { nil }
 	let(:related_urls) { nil }
+	let(:title_displays) { ["Display Title"] }
 	let(:solr_data) {  {
 			id: document_id, dc_type_ssm: types, source_ssim: sources, restriction_ssim: restrictions,
 			slug_ssim: slugs, ezid_doi_ssim: dois, lib_item_in_context_url_ssm: context_urls,
-			lib_non_item_in_context_url_ssm: related_urls, archive_org_identifier_ssi: archive_org_id
+			lib_non_item_in_context_url_ssm: related_urls, archive_org_identifier_ssi: archive_org_id,
+			title_display_ssm: title_displays
 		}
 	 }
 	let(:solr_document) { SolrDocument.new(solr_data) }
@@ -42,4 +44,8 @@ end
 
 shared_context "indexed with a archive.org id" do
 	let(:archive_org_id) { 'internet_archive_id_value' }
+end
+
+shared_context "indexed without a display title" do
+	let(:title_displays) { nil }
 end
