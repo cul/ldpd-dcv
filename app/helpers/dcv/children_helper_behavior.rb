@@ -209,11 +209,4 @@ module Dcv::ChildrenHelperBehavior
     href = bytestream_content_url(args) #, "download")
     content_tag(:a, label, href: href, class: attr_class)
   end
-
-  #TODO: replace this with Cul::Hydra::Fedora::FakeObject
-  class IdProxy < Cul::Hydra::Fedora::DummyObject
-    def internal_uri
-      @uri ||= "info:fedora/#{@pid}"
-    end
-  end
 end
