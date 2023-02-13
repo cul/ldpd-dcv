@@ -78,55 +78,6 @@ module Dcv::ChildrenHelperBehavior
     return child
   end
 
-  def structured_children_from_fedora(parent_document)
-      struct = Cul::Hydra::Fedora.ds_for_uri("info:fedora/#{parent_document['id']}/structMetadata")
-      struct = Nokogiri::XML(struct.content)
-      ns = {'mets'=>'http://www.loc.gov/METS/'}
-      nodes = struct.xpath('//mets:div[@ORDER]', ns).sort {|a,b| a['ORDER'].to_i <=> b['ORDER'].to_i }
-
-      counter = 1
-      nodes.map! do |node|
-        counter += 1
-        {
-          id: node['CONTENTIDS'],
-          order: node['ORDER'].to_i,
-          title: (subsite_layout == 'durst') ? "Image #{counter}" : node['LABEL'],
-          access_control_levels_ssim: (subsite_layout == 'durst') ? ACCESS_LEVEL_PUBLIC : ACCESS_LEVEL_CLOSED
-        }
-      end
-
-      node_ids = nodes.map { |node| node[:id] }
-
-      # Inject types from solr, using id lookup
-      child_results = post_to_repository 'select', {
-        :rows => node_ids.length,
-        :fl => CHILDREN_MODEL.dup,
-        :qt => 'search',
-        :fq => [
-          "dc_identifier_ssim:\"#{node_ids.join('" OR "')}\"",
-        ]
-      }
-
-      child_identifiers_to_documents = {}
-      children = child_results['response']['docs']
-      children.each do |doc|
-        doc['dc_identifier_ssim'].each do |dc_identifier|
-          child_identifiers_to_documents[dc_identifier] = doc
-        end
-      end
-
-      nodes.map do |node|
-        doc = child_identifiers_to_documents[node[:id]] || {}
-        doc[:order] = node['ORDER'].to_i,
-        doc[:access_control_levels_ssim] ||= Array(node[:access_control_levels_ssim])
-        doc[:pid] = doc[:id]
-        doc[:dc_type] = Array(doc['dc_type_ssm']).first
-        doc[:thumbnail] = get_asset_url(id: doc[:id], size: 256, type: 'full', format: 'jpg')
-        doc[:title] = (node[:title].blank? ? Array(doc['title_ssm']).first : node[:title])
-        doc
-      end.map(&:with_indifferent_access)
-  end
-
   def solr_children_adapter
     @children_adapter ||= begin
       searcher = (defined? :controller) ? controller : self

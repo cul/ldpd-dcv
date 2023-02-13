@@ -18,9 +18,8 @@ module ChildrenHelper
 
   def structured_children
     @structured_children ||= begin
-      if @document['structured_bsi'] == true
-        children = structured_children_from_solr(@document) || structured_children_from_fedora(@document)
-      else
+      children = structured_children_from_solr(@document) if @document['structured_bsi'] == true
+      unless children
         children = document_children_from_model(@document)[:children]
         # just assign the order they came in, since there's no structure
         children.each_with_index {|child, ix| child[:order] = ix + 1}
