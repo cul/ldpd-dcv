@@ -9,6 +9,7 @@ gem 'actionpack-action_caching'
 # Hydra stack
 gem 'nokogiri', '~> 1.10.10' # can't update to 1.11 because our server version of GLIBC is too old
 gem 'blacklight', '~> 7.6.0'
+gem 'view_component', '~>2.82.0'
 gem 'active-fedora', '~> 8.7'
 gem 'rdf', '>= 1.1.5'
 gem 'rdf-vocab'
