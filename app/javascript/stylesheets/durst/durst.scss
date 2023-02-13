@@ -1,8 +1,4 @@
 //colors
-$color_1: #fff;
-$color_4: #900;
-$color_14: rgba(0, 0, 0, 0.2);
-$color_15: rgba(0, 0, 0, 0.25);
 $color_21: #ddd;
 $splash: #591300;
 $splash-color: #fff;
@@ -17,7 +13,7 @@ $splash-hover: #6a2400;
 	}
 	#main-container {
 		a {
-			&:not(.btn) {
+			&:not(.btn, .page-link) {
 				color: $splash;	
 				&:hover {
 					color: $splash-hover;
@@ -26,19 +22,6 @@ $splash-hover: #6a2400;
 		}
 		.inner {
 			&.home {
-				#imgholder-div .thumbnail {
-					background-color: transparent;
-					h3 {
-						color: $color_1;
-						background: $color_14;
-					}
-					&:hover {
-						border-color: $color_4;
-						h3 {
-							background: $color_15;
-						}
-					}
-				}
 				#facets {
 					margin-left:0;
 					margin-right:0;

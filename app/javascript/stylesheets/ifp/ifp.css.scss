@@ -21,16 +21,6 @@ $url_flag_sprite: url("ifp/office-flags/country_flag_folders_sm.png");
 	#secondary-nav {
 	}
 	#main-container {
-		.inner {
-			&.home {
-				#imgholder-div .thumbnail {
-					h3 {
-						text-align: center;
-						border-width: 1px 0;
-					}
-				}
-			}
-		}
 		#facets .card {
 			border: 0;
 		}
