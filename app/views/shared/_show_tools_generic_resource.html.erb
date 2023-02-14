@@ -1,8 +1,0 @@
-<div class="btn-group btn-group-sm pull-right">
-  <%= mods_display_modal_trigger(document) -%>
-  <% if @document['dc_type_ssm'].present? && @document['dc_type_ssm'].first.eql?('StillImage') %>
-    <a id="draggable-iiif-button" class="btn btn-secondary btn-sm grabbable localicon-iiif" href="<%= get_manifest_url(document) %>" aria-label="drag-n-drop iiif manifest" data-toggle="tooltip">
-      <span data-toggle="tooltip" title="drag-n-drop iiif manifest"><%= inline_svg('iiif-logo.svg') %></span>
-    </a>
-  <% end %>
-</div>

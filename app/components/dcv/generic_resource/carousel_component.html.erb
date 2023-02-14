@@ -1,0 +1,13 @@
+<div id="child-viewer-carousel">
+  <!-- Borrow carousel layout from ContentAggregator -->
+  <div class="carousel-inner">
+      <div class="carousel-item active"
+        role="option" data-child-number="0" data-child-title="<%= h(@document.title) %>"
+        >
+        <div class="child-content">
+          <%= render child_viewer_component_for(child: fake_child, child_index: 0) -%>
+        </div>
+        <%= render partial: 'content_aggregator/disclaimer', locals: { document: @document, asset: fake_child.with_indifferent_access } %>
+      </div>
+  </div>
+</div>

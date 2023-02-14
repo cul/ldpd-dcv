@@ -1,0 +1,11 @@
+<div id="child-viewer" class="inner">
+  <p id="child-viewer-subtitle">&nbsp;</p>
+  <%= render Dcv::GenericResource::CarouselComponent.new(document: document, parent_title: document.title) %>
+
+  <%- use_unavailable_image_placeholder = false %>
+  <% unless defined?(use_unavailable_image_placeholder) && use_unavailable_image_placeholder == false %>
+    <div>
+      <img id="image-unavailable-img" class="img-responsive" src="<%= get_asset_url(id: 'placeholder:unavailable', size: 256, type: 'full', format: 'jpg') %>" />
+    </div>
+  <% end %>
+</div>

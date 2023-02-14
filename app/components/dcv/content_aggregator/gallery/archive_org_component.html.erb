@@ -1,0 +1,21 @@
+<div id="child_gallery" class="container-fluid px-0" style="<%= archive_org_identifiers_as_children.length > 1 ? '' : 'display:none;'%>">
+	<div class="row<%= (archive_org_identifiers_as_children.length > 4) ? ' child-scroll' : '' %>">
+		<% archive_org_identifiers_as_children.each_with_index do |child, ix| -%>
+			<div class="col-sm-<%= 12 / [4, archive_org_identifiers_as_children.length].min %>">
+				<article class="card child-container">
+					<a rel="item-link" data-child-number="<%= ix %>" class="<%= ix == 0 ? 'selected' : '' %> tocontent post thumbnail document blacklight-photographs">
+					<%= render_thumbnail_tag(child, { class: 'img-square card-img-top', itemprop: 'thumbnailUrl', alt: child[:title] }, { suppress_link: true }) %>
+					</a>
+					<div class="card-body py-0">
+						<div class="card-title">
+							<a rel="item-link" data-src="<%= zoom_url_for_doc(child) %>" data-id="<%=child[:id]%>"><i class="icon-zoom-in"></i></a>
+							<div class="index_title">
+								<%= child_title_for(child) %>
+							</div>
+						</div>
+					</div>
+				</article>
+			</div>
+		<% end %>
+	</div>
+</div>

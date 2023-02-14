@@ -1,0 +1,3 @@
+<div id="export-options" class="hidden-xs btn-group btn-group-sm float-right search-index-tool-group">
+  <%= link_to '<span class="fa fa-download"></span> CSV'.html_safe, search_action_path(params.permit!.to_h.merge(format: 'csv')), class: 'btn btn-outline-secondary btn-sm' %>
+</div>

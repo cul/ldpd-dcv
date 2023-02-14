@@ -1,0 +1,7 @@
+<div>
+  <div>
+    <img alt="<%= child_title %>" class="<%= ['StillImage','Text'].include?(@child[:dc_type]) ? 'zoomable' : '' %>" src="<%= poster_url(@child) %>" />
+
+    <%= render Dcv::ContentAggregator::ChildViewer::ButtonPanel::ArchiveOrgComponent.new(child: @child, child_index: @child_index, document: @document, local_downloads: true) %>
+  </div>
+</div>

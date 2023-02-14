@@ -3,8 +3,8 @@
 	<% offer_login = has_unviewable_children? and !current_user -%>
 	<div class="child-content alert alert-info" role="alert">
 		<% if offer_login -%>
-			<%= render :partial => 'shared/vrr_login' %>
+			<%= render Dcv::Alerts::Vrr::LoginComponent.new %>
 		<% end -%>
-		<%= render :partial => 'shared/vrr_disclaimer' %>
+		<%= render Dcv::Alerts::Vrr::DisclaimerComponent.new %>
 	</div>
 <% end -%>

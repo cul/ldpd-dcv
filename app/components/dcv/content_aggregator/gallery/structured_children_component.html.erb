@@ -1,0 +1,27 @@
+<div id="child_gallery" class="container-fluid px-0" style="<%= structured_children.length > 1 ? '' : 'display:none;'%>">
+  <div class="row<%= (structured_children.length > 4) ? ' child-scroll' : '' %>">
+    <% structured_children.each_with_index do |child, ix| -%>
+      <% can_access = can_access_asset?(child.with_indifferent_access) -%>
+      <div class="col-sm-<%= 12 / [4, structured_children.length].min %>">
+        <article class="card child-container">
+          <a rel="<%= can_access ? 'item-link' : 'item-nolink' %>" data-child-number="<%= ix %>" class="<%= ix == 0 ? 'selected' : '' %> <%= can_access ? 'tocontent' : '' %> post document blacklight-photographs">
+            <img class="card-img-top" src="<%= get_resolved_asset_url(id: child[:id], pid: child[:pid], size: 256, type: 'full', format: 'jpg') %>" alt="<%= child[:title] %>" />
+          </a>
+          <div class="card-body py-0">
+            <div class="card-title text-center">
+              <a rel="item-link" data-src="<%= get_resolved_asset_url(id: child[:id], pid: child[:pid]) %>.json" data-id="<%=child[:id]%>"><i class="icon-zoom-in"></i></a>
+              <div class="index_title">
+                <%= child_title_for(child) %>
+              </div>
+              <% if !can_access -%>
+                <div class="index_alert"><%= child[:access_control_levels_ssim].detect { |v| !v.eql?"Public"} %></div>
+              <% elsif has_synchronized_media?(child) -%>
+                <div class="index_subtitle"><%= t('dlc.media_synchronized') %></div>
+              <% end -%>
+            </div>
+          </div>
+        </article>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -48,8 +48,9 @@ module ChildrenHelper
   end
 
   # are any of the assets being denied potentially viewable (not closed or embargoed)
-  def has_unviewable_children?
-    structured_children.detect { |child| is_unviewable_child?(child) }.present?
+  def has_unviewable_children?(document: @document, children: nil)
+    children ||= structured_children(document)
+    children.detect { |child| is_unviewable_child?(child) }.present?
   end
 
   # is this child potentially viewable in a different location, or with a log in?
@@ -58,8 +59,9 @@ module ChildrenHelper
   end
 
   # are any child assets viewable by current user, location, or general public?
-  def has_viewable_children?(document = @document)
-    structured_children(document).detect { |child| can_access_asset?(child) }.present?
+  def has_viewable_children?(document: @document, children: nil)
+    children ||= structured_children(document)
+    children.detect { |child| can_access_asset?(child) }.present?
   end
 
   # are any of the child assets closed?
@@ -68,8 +70,9 @@ module ChildrenHelper
   end
 
   # are any of the child assets embargoed?
-  def has_embargoed_children?
-    structured_children.detect { |child| !can_access_asset?(child) && child.fetch(:access_control_levels_ssim,[]).include?(ACCESS_LEVEL_EMBARGO) }.present?
+  def has_embargoed_children?(document: @document, children: nil)
+    children ||= structured_children(document)
+    children.detect { |child| !can_access_asset?(child) && child.fetch(:access_control_levels_ssim,[]).include?(ACCESS_LEVEL_EMBARGO) }.present?
   end
 
   # are any of the child assets restricted from public access?
@@ -78,8 +81,14 @@ module ChildrenHelper
   end
 
   # are any of the child assets non-public?
-  def has_non_public_children?
-    ability = Ability.new
-    structured_children.detect { |child| !is_publicly_available_asset?(child, ability) }.present?
+  def has_non_public_children?(document: @document, children: nil, ability: Ability.new)
+    children ||= document ? structured_children(document) : []
+    children.detect { |child| !is_publicly_available_asset?(child, ability) }.present?
+  end
+
+  # are any of the child assets public?
+  def has_public_children?(document: @document, children: nil, ability: Ability.new)
+    children ||= document ? structured_children(document) : []
+    children.detect { |child| is_publicly_available_asset?(child, ability) }.present?
   end
 end

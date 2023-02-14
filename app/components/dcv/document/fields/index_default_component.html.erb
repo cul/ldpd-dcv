@@ -1,0 +1,10 @@
+<ul>
+  <% @presenter.fields_to_render.each do |field_name, field, field_presenter| %>
+    <%- if field_presenter.any? && field_presenter.render_field? %>
+		<li>
+	    <strong><%= render_index_field_label @presenter.document, field: field_name %></strong>
+	    <%= Array(field_presenter.values).join(", ").html_safe %>
+		</li>
+    <% end %>
+  <% end %>
+</ul>

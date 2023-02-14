@@ -1,0 +1,6 @@
+<div>
+  <div>
+    <%= render_media_element_streaming_player(media_url, poster_url, **player_options) %>
+    <%= render Dcv::ContentAggregator::ChildViewer::ButtonPanel::DefaultComponent.new(child: SolrDocument.new(@child), child_index: @child_index, document: @document, local_downloads: @local_downloads) %>
+  </div>
+</div>

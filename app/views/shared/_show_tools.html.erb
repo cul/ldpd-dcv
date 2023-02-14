@@ -1,14 +1,1 @@
-<%-
-  # Compare with render_document_functions_partial helper, and
-  # _document_functions partial. BL actually has two groups
-  # of document-related tools. "document functions" by default
-  # contains Bookmark functionality shown on both results and
-  # item view. While "document tools" contains external export type
-  # functions by default only on detail.
-
--%>
-<div class="search-widgets col-3">
-  <%- if ['ContentAggregator', 'Collection', 'GenericResource'].include?(@document['active_fedora_model_ssi']) %>
-  <%= render  partial: "show_tools_#{@document['active_fedora_model_ssi'].underscore}", locals: {document: @document} %>
-  <%- end %>
-</div>
+<%= render Dcv::Document::Ui::ToolsComponent.new(document: @document) -%>

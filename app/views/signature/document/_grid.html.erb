@@ -11,8 +11,8 @@
 		</div>
 		<div class="col-sm-9 index_title index-show-list-fields hidden">
 			<h3 class="index_title ellipsis"><%= t('blacklight.search.documents.counter', :counter => counter_in_results) %><%= link_to_document(document, :counter => counter_in_results) %> <%= '<small>&bull; '.html_safe + byte_size_to_text_string(document['extent_ssim'].first.to_i) + '</small>'.html_safe if document['extent_ssim'].present? %></h3>
-			<%= render partial: 'index_default', locals: {document: document} %>
-			<%= render partial: 'shared/schema_org_document_metadata', locals: {document: document } %>
+			<%= render Dcv::Document::Fields::IndexDefaultComponent.new(presenter: index_presenter(document)) -%>
+			<%= render Dcv::Document::SchemaOrgMetadataComponent.new(document: document) -%>
 
 			<% if document.has_snippet? %>
 				<div class="fulltext-snippet">
