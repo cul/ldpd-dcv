@@ -11,6 +11,7 @@ class Iiif::PresentationsController < ApplicationController
 
   configure_blacklight do |config|
     Dcv::Configurators::DcvBlacklightConfigurator.configure(config)
+    config.show_fields.each { |field_key, show_field| show_field.link_to_search = false }
   end
 
   layout false
