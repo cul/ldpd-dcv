@@ -25,7 +25,7 @@ module Dcv::Document::Ui
           toggle: 'modal', target: '#dcvModal'
         },
         aria: { label: 'Display XML Metadata' },
-        class: 'btn btn-secondary btn-sm') do
+        class: 'btn btn-outline-secondary btn-sm') do
         content_tag :i, '', class: "fa fa-file-code-o", data: { toggle: 'tooltip' }, title: 'Display XML Metadata'
       end
     end

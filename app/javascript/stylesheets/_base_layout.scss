@@ -1165,7 +1165,7 @@ h2[itemprop="name"] {
 	border-bottom: 0 !important;
 	a.previous, a.next {
 		@extend .btn;
-		@extend .btn-secondary;
+		@extend .btn-outline-secondary;
 	}
 }
 

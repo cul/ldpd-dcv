@@ -30,7 +30,7 @@ module Dcv::Document::Ui
       content_tag(:a,
         id: "draggable-iiif-button",
         href: get_manifest_url(@document),
-        class: "btn btn-secondary btn-sm grabbable localicon-iiif",
+        class: "btn btn-outline-secondary btn-sm grabbable localicon-iiif",
         data: { toggle: 'tooltip' },
         aria: { label: 'drag-n-drop iiif manifest' }) do
         content_tag :span, inline_svg('iiif-logo.svg'), data: { toggle: 'tooltip' }, title: 'drag-n-drop iiif manifest'
