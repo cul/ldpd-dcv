@@ -7,9 +7,11 @@ module Sites
 		include Dcv::Sites::ConfiguredLayouts
 		include Cul::Omniauth::AuthorizingController
 
-		before_action :load_subsite, only: [:index, :new, :create]
+		before_action :load_subsite, only: [:index, :new, :create, :show]
 		before_action :load_page, except: [:index, :new, :create]
 		before_action :authorize_site_update, except: [:index, :show]
+
+		delegate :blacklight_config, to: :@subsite
 
 		layout :request_layout
 
@@ -32,10 +34,12 @@ module Sites
 				site_slug = params[:site_slug]
 				site_slug = "restricted/#{site_slug}" if restricted?
 				if pages.blank?
-					Site.find_by(slug: site_slug)
+					site_ = Site.find_by(slug: site_slug)
 				else
-					Site.includes(:site_pages).find_by(slug: site_slug, site_pages: { slug: pages })
+					site_ = Site.includes(:site_pages).find_by(slug: site_slug, site_pages: { slug: pages })
 				end
+				site_&.configure_blacklight!
+				site_
 			end
 		end
 

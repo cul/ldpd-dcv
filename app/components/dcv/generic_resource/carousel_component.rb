@@ -5,7 +5,7 @@ module Dcv::GenericResource
     include Dcv::Components::ActiveFedoraDocumentBehavior
     include Dcv::Components::ChildViewerBehavior
 
-    delegate :can_access_asset?, :is_publicly_available_asset?, to: :helpers
+    delegate :blacklight_config, :can_access_asset?, :is_publicly_available_asset?, to: :helpers
 
     def initialize(document:, parent_title: nil, **_opts)
       super

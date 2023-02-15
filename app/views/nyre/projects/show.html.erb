@@ -28,7 +28,7 @@
 					<%- if @response.empty? %>
 						<%= render "zero_results" %>
 					<%- else %>
-						<%= render_document_index %>
+						<%= render_document_index @response.documents %>
 					<%- end %>
 				</div>
 			</div>

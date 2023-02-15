@@ -95,6 +95,8 @@ class Dcv::Configurators::LindquistBlacklightConfigurator
     # except in the relevancy case).
     config.add_sort_field 'score desc, title_si asc, lib_date_dtsi desc', :label => 'relevance'
     config.add_sort_field 'title_si asc, lib_date_dtsi desc', :label => 'title'
+
+    default_component_configuration(config)
   end
 
 end

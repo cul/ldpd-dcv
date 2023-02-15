@@ -1,11 +1,11 @@
-<%- doc_presenter ||= index_presenter(document) %>
+<%- doc_presenter ||= document_presenter(document) %>
 <%- start ||= @response.params[:start].to_i -%>
 <% counter_in_results = document_counter + row_offset + 1 + start -%>
 <% search_view ||= "#{controller.default_search_mode}-view" -%>
 <div class="document w-100 <%= search_view %> <%= render_document_class document %>" itemscope itemtype="<%= document.itemtype %>">
   <div class="card bg-transparent <%= (document.site_result? ? 'site-result' : '') %>" data-number-of-members="<%= document[:cul_number_of_members_isi] || -1 %>">
 		<% thumbnail_img_tag = doc_presenter.thumbnail.thumbnail_tag({ class: 'img-square card-img-top w-100', itemprop: 'thumbnailUrl', alt: short_title(document) }, { suppress_link: true }) %>
-		<%= link_to(thumbnail_img_tag, url_for_document(document), document_link_params(document, counter: (@do_not_link_to_search ? nil : counter_in_results), class: 'thumbnail')) %>
+		<%= link_to(thumbnail_img_tag, search_state.url_for_document(document), document_link_params(document, counter: (@do_not_link_to_search ? nil : counter_in_results), class: 'thumbnail')) %>
 		<div class="card-body">
 			<h3 class="card-title index_title mb-0"><%= t('blacklight.search.documents.counter', counter: counter_in_results) if show_counter %>
 				<%= link_to_document(document, title: document['title_ssm'].present? ? document['title_ssm'][0] : '[Title unavailable]', counter: (@do_not_link_to_search ? nil : counter_in_results)) %>

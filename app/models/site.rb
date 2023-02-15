@@ -81,6 +81,7 @@ class Site < ApplicationRecord
 			else
 				Dcv::Configurators::DcvBlacklightConfigurator.configure_keyword_search_field(config)
 			end
+		    Dcv::Configurators::DcvBlacklightConfigurator.default_component_configuration(config)
 		end
 	end
 

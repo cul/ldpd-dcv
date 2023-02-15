@@ -5,7 +5,7 @@ module Dcv::ContentAggregator::Gallery
     include Dcv::Components::ActiveFedoraDocumentBehavior
     include Dcv::Components::ArchiveOrgBehavior
 
-    delegate :poster_url, :render_thumbnail_tag, :zoom_url_for_doc, to: :helpers
+    delegate :poster_url, :blacklight_config, :thumbnail_for_doc, :zoom_url_for_doc, to: :helpers
 
     def initialize(document:, **_opts)
       super

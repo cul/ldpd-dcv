@@ -14,6 +14,7 @@ class Dcv::Configurators::DurstBlacklightConfigurator
 
     # solr field configuration for search results/index views
     default_index_configuration(config)
+    config.search_state_fields << :durst_favorites
     config.index.grid_size = 6
 
     default_show_configuration(config)
@@ -108,6 +109,8 @@ class Dcv::Configurators::DurstBlacklightConfigurator
     # except in the relevancy case).
     config.add_sort_field 'title_si asc, lib_date_dtsi desc', :label => 'title'
     config.add_sort_field 'score desc, title_si asc, lib_date_dtsi desc', :label => 'relevance'
+
+    default_component_configuration(config, search_bar: Dcv::SearchBar::DurstComponent)
   end
 
 end

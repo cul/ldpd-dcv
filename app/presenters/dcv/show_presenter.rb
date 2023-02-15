@@ -2,6 +2,7 @@
 module Dcv
   class ShowPresenter < Blacklight::ShowPresenter
     include Dcv::FieldPresenters
+
     def display_type(base_name = nil, default: nil)
       if ['ContentAggregator', 'Collection', 'GenericResource'].include?(document['active_fedora_model_ssi'])
         return document['active_fedora_model_ssi'].underscore
@@ -42,6 +43,14 @@ module Dcv
     # @deprecated moved to ShowPresenter#link_rel_alternates
     def link_rel_alternates(options = {})
       Dcv::LinkAlternatePresenter.new(view_context, document, options).render
+    end
+
+    private
+
+    # override to avoid deprecation in BL7 implementation
+    # @return [Hash<String,Configuration::Field>]
+    def fields
+      configuration.show_fields_for([display_type])
     end
   end
 end

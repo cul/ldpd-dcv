@@ -14,7 +14,7 @@ module CatalogHelper
 
   # truncate title to 30 characters if present
   def short_title(document)
-    title = index_presenter(document).heading
+    title = document_presenter(document).heading
     title = title.first if title.is_a? Array
     if title && title.length > 30
       title = title[0..26] + '...'

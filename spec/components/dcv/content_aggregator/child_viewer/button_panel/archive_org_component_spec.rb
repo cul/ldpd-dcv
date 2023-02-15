@@ -20,13 +20,15 @@ RSpec.describe Dcv::ContentAggregator::ChildViewer::ButtonPanel::ArchiveOrgCompo
   include_context "a solr document"
 
   let(:document) { solr_document }
+  let(:presenter) { double(Dcv::ShowPresenter) }
   let(:archive_org_url) { "https://archive.org/stream/#{archive_org_id}?ui=full&showNavbar=false" }
 
   before do
     # Every call to view_context returns a different object. This ensures it stays stable.
     allow(controller).to receive(:view_context).and_return(view_context)
     allow(view_context).to receive(:structured_children_for_document).with(document).and_return([])
-    allow(view_context).to receive(:document_show_html_title).and_return("Document Show Title")
+    allow(view_context).to receive(:document_presenter).and_return(presenter)
+    allow(presenter).to receive(:html_title).and_return("Document Show Title")
   end
 
   context 'has an archive.org id' do

@@ -4,7 +4,7 @@
 			<div class="col-sm-<%= 12 / [4, archive_org_identifiers_as_children.length].min %>">
 				<article class="card child-container">
 					<a rel="item-link" data-child-number="<%= ix %>" class="<%= ix == 0 ? 'selected' : '' %> tocontent post thumbnail document blacklight-photographs">
-					<%= render_thumbnail_tag(child, { class: 'img-square card-img-top', itemprop: 'thumbnailUrl', alt: child[:title] }, { suppress_link: true }) %>
+					<%= document_presenter(child).thumbnail.thumbnail_tag({ class: 'img-square card-img-top', itemprop: 'thumbnailUrl', alt: child[:title] }, { suppress_link: true }) %>
 					</a>
 					<div class="card-body py-0">
 						<div class="card-title">

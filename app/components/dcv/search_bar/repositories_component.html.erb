@@ -1,7 +1,5 @@
-<% availability ||= false # do not require to be passed as a local -%>
-<% search_action_url = search_repository_catalog_path(repository_id: params[:repository_id]) -%>
-<%= form_tag search_action_url, :method => :get, :class => ['clearfix', 'flex-fill'] do %>
-  <%= render_hash_as_hidden_fields(search_state.params_for_search.except(:q, :search_field, :repository_id, :qt, :page, :utf8, :format).tap { |p| p[:'f[content_availability][]'] = availability if availability; p }) %>
+<%= form_tag @url, :method => :get, :class => ['clearfix', 'flex-fill'] do %>
+  <%= render_hash_as_hidden_fields(@params.except(:q, :search_field, :repository_id, :qt, :page, :utf8, :format).tap { |p| p[:'f[content_availability][]'] = @content_availability if @content_availability }) %>
 
   <div class="input-group flex-fill">
     <% unless search_fields.empty? %>

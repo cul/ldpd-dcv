@@ -23,6 +23,7 @@ class SitesController < ApplicationController
   self.search_state_class = Dcv::Sites::SearchState
 
   configure_blacklight do |config|
+    Dcv::Configurators::DcvBlacklightConfigurator.default_component_configuration(config)
     config.default_solr_params = {
       :fq => [
         'object_state_ssi:A', # Active items only

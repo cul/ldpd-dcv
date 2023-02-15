@@ -1,7 +1,7 @@
 <%
 	# For some documents, we need to convert the title to a string using to_str (NOT to_s) before using CGI::escape.
 	# For more info: http://pjkh.com/articles/cgi-escape-undefined-method-bytesize-for-nil-class/
-	str_title = document_show_html_title.to_str
+	str_title = document_presenter(@document).html_title.to_str
 %>
 
 <% coins_data_to_print =

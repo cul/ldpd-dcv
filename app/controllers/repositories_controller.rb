@@ -9,6 +9,7 @@ class RepositoriesController < ApplicationController
   layout Proc.new { |controller| 'gallery' }
 
   configure_blacklight do |config|
+    config.search_state_fields << :repository_id # allow repository id for routing
     config.default_solr_params = {
       :fq => [
         'object_state_ssi:A', # Active items only

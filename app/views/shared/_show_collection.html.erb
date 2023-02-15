@@ -27,7 +27,7 @@
 
   <div class="<%= is_filesystem_view ? 'col-md-12 filesystem' : 'col-md-9' %>">
     <div class="inner">
-      <h3 id="doc-item-title" class="nomar"><%= document_show_html_title %></h3>
+      <h3 id="doc-item-title" class="nomar"><%= document_presenter(@document).html_title %></h3>
       <% unless is_filesystem_view %>
         <% if ct = structured_children.first %>
           <p id="ct"><%= ct[:title] %></p>

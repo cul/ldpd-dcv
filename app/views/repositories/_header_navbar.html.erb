@@ -11,7 +11,13 @@ template_key.gsub!("-","")
 <% else %>
 	<nav class="navbar navbar-expand d-flex flex-md-row flex-sm-column" id="site-banner">
 		<a href="<%= repository_path(repository_key) %>" id="site-title" class="navbar-brand"><%= t(:"cul.archives.physical_location.#{repository_key}")%></a>
-		<%= render template: '_search_form'  %>
+		<%= render Dcv::SearchBar::RepositoriesComponent.new(
+			url: search_repository_catalog_path(repository_id: params[:repository_id]),
+			advanced_search_url: search_repository_catalog_path(repository_id: params[:repository_id], action: 'advanced_search'),
+			params: search_state.params_for_search.except(:qt),
+			autocomplete_path: search_action_path(action: :suggest),
+			content_availability: 'onsite'
+		) -%>
 	</nav>
 <% end %><%= render "reading_room/#{template_key}/secondary_nav" %>
 <% if controller.reading_room_client? -%>

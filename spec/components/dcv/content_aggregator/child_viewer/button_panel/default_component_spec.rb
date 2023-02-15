@@ -18,12 +18,14 @@ RSpec.describe Dcv::ContentAggregator::ChildViewer::ButtonPanel::DefaultComponen
   include_context "a solr document"
 
   let(:document) { solr_document }
+  let(:presenter) { double(Dcv::ShowPresenter) }
 
   before do
     # Every call to view_context returns a different object. This ensures it stays stable.
     allow(controller).to receive(:view_context).and_return(view_context)
     allow(view_context).to receive(:structured_children_for_document).with(document).and_return([child])
-    allow(view_context).to receive(:document_show_html_title).and_return("Document Show Title")
+    allow(view_context).to receive(:document_presenter).and_return(presenter)
+    allow(presenter).to receive(:html_title).and_return("Document Show Title")
     allow(view_context). to receive(:get_resolved_asset_info_url).and_return("/iiif/info.json")
   end
 

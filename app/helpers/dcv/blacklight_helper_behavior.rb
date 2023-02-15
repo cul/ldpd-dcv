@@ -4,18 +4,27 @@ module Dcv::BlacklightHelperBehavior
     @subsite&.title || super
   end
 
-  # Override so that this method doesn't always specify the shared 'search_form' partial
-  def render_search_bar(use_shared_partial=false)
-    render :partial => (use_shared_partial ? 'shared/search_form' : 'search_form')
+  # will be removed in BL8, but it just renders the configured component
+  def render_search_bar
+    component_class = blacklight_config&.view_config(document_index_view_type)&.search_bar_component || Blacklight::SearchBarComponent
+    render component_class.new(
+      url: search_action_url,
+      advanced_search_url: search_action_url(action: 'advanced_search'),
+      params: search_state.params_for_search.except(:qt),
+      search_fields: Deprecation.silence(Blacklight::ConfigurationHelperBehavior) { search_fields },
+      autocomplete_path: search_action_path(action: :suggest)
+    )
   end
 
   # Override to accomodate proxies action
-  def presenter(document)
+  def document_presenter_class(document = nil)
     case action_name
-    when 'show', 'citation', 'proxies', 'home'
-      show_presenter(document)
+    when 'show', 'proxies', 'home'
+      Dcv::ShowPresenter
+    when 'citation'
+      Dcv::CitationPresenter
     when 'index'
-      index_presenter(document)
+      Dcv::IndexPresenter
     else
       Deprecation.warn(Blacklight::BlacklightHelperBehavior, "Unable to determine presenter type for #{action_name} on #{controller_name}, falling back on deprecated Blacklight::DocumentPresenter")
       presenter_class.new(document, self)

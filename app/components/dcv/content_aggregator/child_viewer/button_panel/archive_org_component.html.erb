@@ -7,18 +7,22 @@
       <%- end -%>
     <%- end -%>
     <% if show_zoom? -%>
-      <a class="btn btn-sm btn-primary item-modal" data-modal-title="<%= document_show_html_title %>" aria-label="Zoom in" href="#" data-toggle="modal" data-target="#dcvModal" data-modal-size="max" data-display-url="<%= zoom_url %>"><i class="fa fa-search-plus" data-toggle="tooltip" title="Zoom in"></i></a>
-      <a class="btn btn-sm btn-primary" href="<%= zoom_url %>" data-original-title="<%= document_show_html_title %>" aria-label="Open in new window" target="_blank"><i class="fa fa-plus-square" data-toggle="tooltip" title="Open in new window"></i></a>
+      <a class="btn btn-sm btn-primary item-modal" data-modal-title="<%= @presenter.html_title %>" aria-label="Zoom in" href="#" data-toggle="modal" data-target="#dcvModal" data-modal-size="max" data-display-url="<%= zoom_url %>"><i class="fa fa-search-plus" data-toggle="tooltip" title="Zoom in"></i></a>
+      <a class="btn btn-sm btn-primary" href="<%= zoom_url %>" data-original-title="<%= @presenter.html_title %>" aria-label="Open in new window" target="_blank"><i class="fa fa-plus-square" data-toggle="tooltip" title="Open in new window"></i></a>
     <% end -%>
   </div>
   <% if has_download? -%>
-    <% if show_embed? -%>
-      <div class="btn-group" role="group">
-        <button id="embed-button" class="btn btn-primary btn-sm" aria-label="Show embed code" data-embed-url="<%= embed_url %>" data-embed-aspect-ratio="<%= enbed_aspect_ratio %>" data-toggle="modal" data-target="#dcvModal" data-modal-title="Embed Media Code" data-modal-body-func="embedMediaSrc">
+    <div class="btn-group" role="group">
+      <% if show_embed? -%>
+        <button id="embed-button" class="btn btn-primary btn-sm" aria-label="Show embed code" data-embed-url="<%= embed_url %>" data-embed-aspect-ratio="<%= embed_aspect_ratio %>" data-toggle="modal" data-target="#dcvModal" data-modal-title="Embed Media Code" data-modal-body-func="embedMediaSrc">
           <i class="fa fa-code" data-toggle="tooltip" title="Show embed code" aria-hidden="true"></i>
         </button>
-      </div>
-    <% end %>
+      <% else -%>
+        <button id="embed-button" class="btn btn-primary btn-sm disabled" aria-label="No embed code available" aria-disabled="true" disabled>
+          <i class="fa fa-code" data-toggle="tooltip" title="No embed code available" aria-hidden="true"></i>
+        </button>
+      <% end -%>
+    </div>
     <div class="btn-group download-button-group" role="group">
         <button type="button" id="<%= id_base %>-download" class="btn btn-sm btn-primary download-button" data-toggle="modal" data-target="#dcvModal" data-modal-body-func="downloadMenu" data-modal-title="Download Options" data-download-asset-url="<%= download_content_url %>" data-iiif-info-url="<%= iiif_info_url %>">
           <i class="fa fa-cloud-download" data-toggle="tooltip" title="Download Options" aria-hidden="true"></i>

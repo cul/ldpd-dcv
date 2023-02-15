@@ -7,16 +7,20 @@ module Dcv::ContentAggregator::ChildViewer::ButtonPanel
     DEFAULT_ASPECT_RATIO = '9x9'
     attr_reader :child, :parent, :id_base
 
-    delegate :archive_org_id_for_document, :document_show_html_title,
-             :has_viewable_children?, :is_publicly_available_asset?, to: :helpers
+    delegate :archive_org_id_for_document, :has_viewable_children?, :is_publicly_available_asset?, to: :helpers
 
-    def initialize(child:, document: {}, **opts)
+    def initialize(child:, document: SolrDocument.new, presenter: nil, **opts)
       super
       @document = document
+      @presenter = presenter
       @child = child
       @id_base = child[:id].gsub(/[^A-Za-z0-9]/,'')
       @child_index = opts[:child_index]
       @local_downloads = opts[:local_downloads]
+    end
+
+    def before_render
+      @presenter ||= helpers.document_presenter(@document)
     end
 
     def item_in_context_url
@@ -63,7 +67,7 @@ module Dcv::ContentAggregator::ChildViewer::ButtonPanel
       @download_content_url ||= bytestreams_url(catalog_id: @child[:pid])
     end
 
-    def has_embed?
+    def show_embed?
       is_publicly_available_asset?(@child) && @child.doi_identifier
     end
 

@@ -12,7 +12,7 @@ class DetailsController < ApplicationController
       :qt => 'search',
       :rows => 20
     }
-
+    config.search_state_fields.concat(DETAILS_PARAMS)
     config.per_page = [20,60,100]
     # solr field configuration for search results/index views
     default_index_configuration(config)

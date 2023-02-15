@@ -35,7 +35,7 @@
 						<%- if render_grouped_response? %>
 							<%= render_grouped_document_index %>
 						<%- else %>
-							<%= render_document_index %>
+							<%= render_document_index @response.documents %>
 						<%- end %>
 					<%- end %>
 				</div>

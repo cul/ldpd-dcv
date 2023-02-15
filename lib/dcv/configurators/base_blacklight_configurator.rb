@@ -6,6 +6,14 @@ module Dcv::Configurators::BaseBlacklightConfigurator
     COMMA_DELIMITED     = { words_connector: COMMA_DELIMITER,     two_words_connector: COMMA_DELIMITER,     last_word_connector: COMMA_DELIMITER }
     LINEBREAK_DELIMITED = { words_connector: LINEBREAK_DELIMITER, two_words_connector: LINEBREAK_DELIMITER, last_word_connector: LINEBREAK_DELIMITER }
     SEMICOLON_DELIMITED = { words_connector: SEMICOLON_DELIMITER, two_words_connector: SEMICOLON_DELIMITER, last_word_connector: SEMICOLON_DELIMITER }
+    # BL needs to know what params to permit for searches beyond configured filter fields
+    CORE_PARAMS = [:id]
+    DETAILS_PARAMS = [:initial_page, :layout, :title]
+    DATE_RANGE_PARAMS = [:end_year, :start_year]
+    COORD_PARAMS = [:lat, :long]
+    SUBSITE_PARAMS = [:slug, :site_slug]
+    FILESYSTEM_PARAMS = [:proxy_id, :return_to_filesystem]
+    READING_ROOM_PARAMS = [:repository_id]
   end
 
   def self.extended(extendor)
@@ -42,6 +50,9 @@ module Dcv::Configurators::BaseBlacklightConfigurator
   end
 
   def default_index_configuration(config)
+    config.search_state_fields.concat(Constants::CORE_PARAMS).concat(Constants::DATE_RANGE_PARAMS)
+                              .concat(Constants::COORD_PARAMS).concat(Constants::SUBSITE_PARAMS)
+                              .concat(Constants::FILESYSTEM_PARAMS).concat(Constants::READING_ROOM_PARAMS)
     config.http_method = :post
     config.fetch_many_document_params = { fl: '*' } # default deprecation circumvention from BL6
     # If there are more than this many search results, no spelling ("did you
@@ -81,7 +92,13 @@ module Dcv::Configurators::BaseBlacklightConfigurator
     #config.default_solr_params['facet.field'] = config.facet_fields.select{ |k, v| v[:show] != false}.keys
   end
 
-    # All Text search configuration, used by main search pulldown.
+  def default_component_configuration(config, opts = {})
+    config.index.search_bar_component = opts.fetch(:search_bar, Dcv::SearchBar::DefaultComponent)
+    config.index.facet_group_component = opts.fetch(:facet_group, Dcv::Response::FacetGroupComponent)
+    config.index.constraints_component = opts.fetch(:constraints, Dcv::ConstraintsComponent)
+  end
+
+  # All Text search configuration, used by main search pulldown.
   def configure_keyword_search_field(config, opts = {})
     field_name = ActiveFedora::SolrService.solr_name('all_text', :searchable, type: :text)
     return false if config.search_fields[field_name]

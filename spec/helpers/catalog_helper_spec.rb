@@ -19,10 +19,10 @@ describe CatalogHelper, :type => :helper do
     let(:document) { { 'title_ssm' => title_value } }
     let(:view_context) { Struct.new(:document_index_view_type).new(:index) }
     let(:blacklight_config) { Blacklight::Configuration.new }
-    let(:index_presenter) { Dcv::IndexPresenter.new(document, view_context, blacklight_config) }
+    let(:document_presenter) { Dcv::IndexPresenter.new(document, view_context, blacklight_config) }
     before do
-      allow(index_presenter).to receive(:heading).and_return(title_value)
-      allow(helper).to receive(:index_presenter).and_return(index_presenter)
+      allow(document_presenter).to receive(:heading).and_return(title_value)
+      allow(helper).to receive(:document_presenter).and_return(document_presenter)
     end
     subject { helper.short_title(document) }
     context "a short title" do

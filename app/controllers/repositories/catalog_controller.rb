@@ -7,11 +7,14 @@ module Repositories
 
     configure_blacklight do |config|
       Dcv::Configurators::DcvBlacklightConfigurator.configure(config)
+      config.search_state_fields << :repository_id # allow repository id for routing
       config.add_facet_field 'content_availability', label: 'Limit by Availability',
         query: {
           onsite: { label: 'Reading Room', fq: "{!join from=cul_member_of_ssim to=fedora_pid_uri_ssi}!access_control_levels_ssim:Public*" },
           public: { label: 'Public', fq: "{!join from=cul_member_of_ssim to=fedora_pid_uri_ssi}access_control_levels_ssim:Public*" },
         }
+      Dcv::Configurators::DcvBlacklightConfigurator.default_component_configuration(config, search_bar: Dcv::SearchBar::RepositoriesComponent)
+
     end
 
     def initialize(*args)

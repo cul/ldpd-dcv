@@ -42,6 +42,8 @@ class Dcv::Configurators::DcvBlacklightConfigurator
     configure_name_search_field(config)
 
     configure_sort_fields(config)
+
+    default_component_configuration(config, search_bar: Dcv::SearchBar::CatalogComponent)
   end
 
   def self.configure_default_solr_params(config)

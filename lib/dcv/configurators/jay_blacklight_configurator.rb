@@ -104,6 +104,8 @@ class Dcv::Configurators::JayBlacklightConfigurator
     config.add_sort_field 'title_si asc', :label => 'title'
     config.add_sort_field 'lib_start_date_year_itsi asc', :label => 'date (earliest to latest)'
     config.add_sort_field 'lib_start_date_year_itsi desc', :label => 'date (latest to earliest)'
+
+    default_component_configuration(config)
   end
 
 end

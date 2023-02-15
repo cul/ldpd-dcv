@@ -1,0 +1,10 @@
+<%= render(@layout.new(field: @field)) do |component| %>
+  <% component.label do %>
+    <%= label %>
+  <% end %>
+  <% Array(@field.render).each do |value| -%>
+    <% component.value do %>
+      <%= value %>
+    <% end %>
+  <% end %>
+<% end %>

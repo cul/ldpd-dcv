@@ -90,6 +90,8 @@ class Dcv::Configurators::IfpBlacklightConfigurator
     config.add_sort_field 'score desc, title_si asc, lib_date_dtsi desc', :label => 'Relevance'
     config.add_sort_field 'title_si asc, lib_date_dtsi desc', :label => 'Title'
     config.add_sort_field 'contributor_first_si asc, title_si asc', :label => 'Office'
+
+    default_component_configuration(config)
   end
 
 end

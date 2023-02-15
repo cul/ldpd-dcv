@@ -122,6 +122,7 @@ class Dcv::Configurators::CarnegieBlacklightConfigurator
     # Respond to CSV
     config.index.respond_to.csv = true
 
+    default_component_configuration(config)
   end
 
 end

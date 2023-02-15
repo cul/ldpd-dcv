@@ -1,0 +1,12 @@
+<% # this is a component template override and should be replaced ASAP with an actual component -%>
+<div id="<%= @id %>" class="facets sidenav">
+  <% unless @hide_heading %>
+  <div class="h4" data-toggle="collapse" data-target="#<%= @panel_id %>">
+    <%= t('blacklight.search.facets.title') %>
+  </div>
+  <% end %>
+  <div id="<%= @panel_id %>" class="facets-collapse">
+    <%= render_facet_partials %>
+    <%= render :partial => 'sidebar_date_selector' %>
+  </div>
+</div>

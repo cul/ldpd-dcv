@@ -17,4 +17,10 @@ class Dcv::SearchState < Blacklight::SearchState
 			super(doc, options)
 		end
 	end
+
+	# this is an internally-called deprecated method from BL7 for which silencing is not working
+	# in BL8 this should simply be removed
+	def add_facet_params(field, item)
+		filter(field).add(item).params
+	end
 end

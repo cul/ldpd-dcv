@@ -1,7 +1,7 @@
 <div class="row">
 	<div id="content" class="col-md-12 show-document">
 		<div id="item-show">
-			<% @page_title = t('blacklight.search.show.title', :document_title => document_show_html_title, :application_name => application_name).html_safe -%>
+			<% @page_title = t('blacklight.search.show.title', :document_title => document_presenter(@document).html_title, :application_name => application_name).html_safe -%>
 			<% content_for(:head) { render_link_rel_alternates } -%>
 			<div id="document" class="document <%= render_document_class %>" itemscope  itemtype="https://schema.org/CollectionPage">
 				<div id="doc_<%= @subsite.slug.to_s.parameterize %>">
