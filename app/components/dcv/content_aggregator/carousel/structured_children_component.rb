@@ -6,7 +6,7 @@ module Dcv::ContentAggregator::Carousel
     include Dcv::Components::StructuredChildrenBehavior
     include Dcv::Components::ChildViewerBehavior
 
-    delegate :can_access_asset?, :current_user, :get_resolved_asset_url, :has_synchronized_media?, to: :helpers
+    delegate :blacklight_config, :can_access_asset?, :current_user, :get_resolved_asset_url, :has_synchronized_media?, to: :helpers
 
     renders_one :gallery, -> (document:, structured_children:) do
       case active_fedora_model

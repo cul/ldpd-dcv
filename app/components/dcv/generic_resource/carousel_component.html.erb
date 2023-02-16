@@ -7,7 +7,7 @@
         <div class="child-content">
           <%= render child_viewer_component_for(child: fake_child, child_index: 0) -%>
         </div>
-        <%= render partial: 'content_aggregator/disclaimer', locals: { document: @document, asset: fake_child.with_indifferent_access } %>
+        <%= render blacklight_config.show.disclaimer_component.new(document: @document, asset: fake_child.to_h.with_indifferent_access) %>
       </div>
   </div>
 </div>

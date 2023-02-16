@@ -96,6 +96,7 @@ module Dcv::Configurators::BaseBlacklightConfigurator
     config.index.search_bar_component = opts.fetch(:search_bar, Dcv::SearchBar::DefaultComponent)
     config.index.facet_group_component = opts.fetch(:facet_group, Dcv::Response::FacetGroupComponent)
     config.index.constraints_component = opts.fetch(:constraints, Dcv::ConstraintsComponent)
+    config.show.disclaimer_component = opts.fetch(:disclaimer, Dcv::Alerts::Disclaimers::DefaultComponent)
   end
 
   # All Text search configuration, used by main search pulldown.

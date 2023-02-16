@@ -12,7 +12,7 @@
         <div class="child-content">
           <%= render child_viewer_component_for(child: child, document: @document, child_index: ix) %>
         </div>
-        <%= render partial: 'content_aggregator/disclaimer', locals: { document: @document, asset: child.to_h.with_indifferent_access } %>
+        <%= render blacklight_config.show.disclaimer_component.new(document: @document, asset: child.to_h.with_indifferent_access) %>
       </div>
     <% end %>
   </div>

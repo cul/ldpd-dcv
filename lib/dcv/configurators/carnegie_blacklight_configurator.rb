@@ -122,7 +122,7 @@ class Dcv::Configurators::CarnegieBlacklightConfigurator
     # Respond to CSV
     config.index.respond_to.csv = true
 
-    default_component_configuration(config)
+    default_component_configuration(config, disclaimer: Dcv::Alerts::Disclaimers::CarnegieComponent)
   end
 
 end

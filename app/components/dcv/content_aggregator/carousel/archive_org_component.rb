@@ -5,7 +5,7 @@ module Dcv::ContentAggregator::Carousel
     include Dcv::Components::ActiveFedoraDocumentBehavior
     include Dcv::Components::ArchiveOrgBehavior
 
-    delegate :current_user, :get_archive_org_details_url, :get_archive_org_download_url, :iframe_url_for_document, to: :helpers
+    delegate :blacklight_config, :current_user, :get_archive_org_details_url, :get_archive_org_download_url, :iframe_url_for_document, to: :helpers
 
     renders_one :gallery, Dcv::ContentAggregator::Gallery::ArchiveOrgComponent
 
