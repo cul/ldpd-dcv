@@ -2,7 +2,7 @@
 <i class="fa fa-book" aria-hidden="true" data-toggle="tooltip" title="Citations"></i>
 <span class="sr-only">Toggle Dropdown</span>
 </button>
-<ul id="item-show-citations" class="dropdown-menu" role="menu">
+<ul id="item-show-citations" class="dropdown-menu dropdown-menu-right" role="menu">
   <li role="menuitem"><%= link_to 'APA Citation', '#', role: 'button', data: { 'modal-title' => 'APA Citation', 'display-url' => item_citation_path(type: 'apa'), toggle: 'modal', target: '#dcvModal' } %></li>
   <li role="menuitem"><%= link_to 'Chicago Citation', '#', role: 'button', data: { 'modal-title' => 'Chicago Citation', 'display-url' => item_citation_path(type: 'chicago'), toggle: 'modal', target: '#dcvModal' } %></li>
   <li role="menuitem"><%= link_to 'MLA Citation', '#', role: 'button', data: { 'modal-title' => 'MLA Citation', 'display-url' => item_citation_path(type: 'mla'), toggle: 'modal', target: '#dcvModal' } %></li>
