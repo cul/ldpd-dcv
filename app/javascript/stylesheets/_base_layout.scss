@@ -115,6 +115,7 @@ a {
 
 .dropdown-menu {
   background-color: $primary;
+  color: map-get($theme-text-colors, 'primary');
   &>li {
     padding:0;
   }
