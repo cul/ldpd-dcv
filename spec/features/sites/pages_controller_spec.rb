@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 describe ::Sites::PagesController, type: :feature do
-	include_context "site fixtures for features"
 	let(:source) { fixture("sites/import/directory").path }
 	let(:import) { Dcv::Sites::Import::Directory.new(source) }
 	let(:site_slug) { import.atts['slug'] }
