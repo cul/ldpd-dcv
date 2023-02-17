@@ -1,0 +1,10 @@
+<div class="row">
+	<div class="col-md-6">
+		<p><small>Avery Architectural &amp; Fine Arts Library<br>1172 Amsterdam Ave. New York, NY 10027 Phone (212) 854-6199</small></p>
+	</div>
+	<div class="col-md-6 text-right">
+		<p><small><%= link_to 'Terms of Use', terms_of_use_url %> | <%= link_to 'Suggestions & Feedback', '#', data: {
+			toggle: 'modal', target: '#dcvModal', 'modal-embed-func' => 'feedbackEmbedUrl', 'modal-size' => 'xl', 'modal-title' => 'Suggestions and Feedback'
+		}, role: 'button' %><%= site_edit_link(sep: ' | ') %></small></p>
+	</div>
+</div>

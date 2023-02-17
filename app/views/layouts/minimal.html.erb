@@ -17,7 +17,7 @@
 					<%= yield %>
 				</div>
 			</div><!--/.row-->
-			<%= render :partial => 'footer' %>
+			<%= render Dcv::FooterComponent.new(subsite: @subsite, repository_id: params[:repository_id]) %>
 		</div><!--/#outer-wrapper-->
 	</body>
 </html>

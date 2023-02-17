@@ -1,5 +1,0 @@
-<%
-template_key = params[:repository_id].downcase
-template_key.gsub!("-","")
-%>
-<%= render template: "footer/#{template_key}", locals: {} %>

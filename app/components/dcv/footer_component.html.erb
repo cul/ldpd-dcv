@@ -1,9 +1,7 @@
-<% if @subsite&.repository_id -%>
-	<% template = "footer/#{@subsite.repository_id}".downcase; template.gsub!("-","") -%>
-<% else -%>
-	<% template = "footer/nnc" -%>
-<% end -%>
-<%= render template: template, locals: {} %>
+<footer class="container">
+	<hr />
+	<%= render(Dcv::Footer::ContactComponent.new) %>
+</footer>
 <div class="d-none" id="palette-swatches">
 	<p class="swatch-body"></p>
 	<p class="swatch-primary"></p>
