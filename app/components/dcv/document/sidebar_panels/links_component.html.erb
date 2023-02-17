@@ -1,0 +1,29 @@
+<div class="inner noprint-sm">
+	<ul class="list-unstyled">
+		<% if @configured_links.include?(:persistent) && has_persistent_link?(@document) %>
+			<li><%= persistent_link_to('<span class="fa fa-bookmark"></span> Persistent URL'.html_safe, @document)  %></li>
+		<% end %>
+		<% if @configured_links.include?(:reproduction) %>
+			<li><a href="http://library.columbia.edu/services/preservation/publications_policy.html"><span class="fa fa-tag"></span> Order a Reproduction</a></li>
+		<% end %>
+		<% if @configured_links.include?(:related) %>
+			<% display_related_urls.each do |location_link| %>
+				<li><%= location_link %></li>
+			<% end %>
+		<% end %>
+		<% if @configured_links.include?(:download) && @child_document %>
+			<% if can_download?(@child_document || @document) %>
+				<%= link_to '<span class="fa fa-download"></span> Download Original'.html_safe, bytestream_content_url({catalog_id: @child_document['id'], filename: @child_document['label_ssi'], bytestream_id: 'content', download: true}) %>
+			<% end %>
+		<% end %>
+		<% if @configured_links.include?(:mods) %>
+			<li><%= link_to '<span class="fa fa-file"></span> Display XML Metadata'.html_safe, item_mods_path(:pid => @document.id),
+			{
+				:'data-display-url' => item_mods_path(:pid => @document.id, :type => 'formatted_text'),
+				:'data-download-url' => item_mods_path(:pid => @document.id, :type => 'download'),
+				:onclick => 'return modsModal(this);'
+			}
+			%></li>
+		<% end %>
+	</ul>
+</div>

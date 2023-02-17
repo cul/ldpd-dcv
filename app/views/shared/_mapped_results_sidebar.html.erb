@@ -4,17 +4,10 @@
           <%= (@response.params[:start].to_i + 1).to_s + ' - ' +
           (@response.params[:start].to_i + @response.documents.length).to_s  %>
   </h6>
-  <%= render partial: 'map_search/coordinate_show_script' %>
+  <%= render Dcv::Search::Map::ShowScriptComponent.new %>
 
   <% map_search_settings = map_search_settings_for_subsite %>
-  <%= render partial: 'map_search/embedded_results', locals: {
-    map_data_json: extract_map_data_from_document_list(@response.documents).to_json.html_safe,
-    map_default_center_lat: params[:lat] || map_search_settings['default_lat'] || 0,
-    map_default_center_long: params[:long] || map_search_settings['default_long'] || 0,
-    map_default_zoom_level: map_search_settings['default_zoom'] || 11,
-    map_max_zoom_level: map_search_settings['max_zoom'] || 13,
-    map_show_items: false
-  } %>
+  <%= Dcv::Search::Map::EmbeddedResultsComponent.new(document_list: @response.documents, map_search_settings: map_search_settings_for_subsite, map_show_items: false) %>
 <% else %>
   <h6 class="nomar-t">No Mappable Results in:
           <%= (@response.params[:start].to_i + 1).to_s + ' - ' +

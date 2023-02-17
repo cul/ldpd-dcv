@@ -10,5 +10,5 @@
     <% else %>
         <%= render 'home/signature_overlay' %>
     <% end %>
-    <%= render 'map_search/home' %>
+    <%= render Dcv::Search::Map::HomeComponent.new %>
 <% end %>

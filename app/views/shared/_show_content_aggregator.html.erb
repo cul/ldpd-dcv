@@ -1,6 +1,6 @@
 <div class="row" id="child_items">
 	<div class="col-md-12 ls-controls-dark">
 		<%= render partial: 'content_aggregator/viewer_panel', locals: { document: document, configured_links: [:persistent, :mods] } %>
-		<%= render partial: 'sidebar_panels/item_description', locals: { document: document, alignment: 'horizontal', link_helpers: [] } %>
+		<%= render Dcv::Document::SidebarPanels::ItemDescriptionComponent.new(document: document, alignment: 'horizontal', link_helpers: []) %>
 	</div>
 </div>

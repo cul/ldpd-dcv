@@ -1,0 +1,5 @@
+<div class="inner noprint-sm" style="margin-bottom:1em;">
+	<%= render Dcv::Search::Map::ShowScriptComponent.new %>
+	<%= render Dcv::Search::Map::EmbeddedResultsComponent.new(document_list: [@document], map_search_settings: @map_search_settings, map_show_items: false) %>
+	<div class="clearfix"></div>
+</div>

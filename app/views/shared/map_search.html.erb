@@ -5,15 +5,11 @@
 	<% else %>
 		<%= render partial: 'constraints' %>
 	<% end %>
-	<%= render partial: 'map_search/coordinate_search_script' %>
-	<% map_search_settings = map_search_settings_for_subsite %>
-	<%= render partial: 'map_search/embedded_results', locals: {
+	<%= render Dcv::Search::Map::ShowScriptComponent.new %>
+	<%= render Dcv::Search::Map::EmbeddedResultsComponent.new(
+		document_list: nil,
 		map_data_json: @map_data_json,
-		map_default_center_lat: map_search_settings['default_lat'] || 0,
-		map_default_center_long: map_search_settings['default_long'] || 0,
-		map_default_zoom_level: map_search_settings['default_zoom'] || 11,
-		map_max_zoom_level: map_search_settings['max_zoom'] || 13,
-		map_show_items: map_search_settings['show_items'],
+		map_search_settings: map_search_settings_for_subsite,
 		force_use_default_center: true
-	} %>
+	) %>
 </div>

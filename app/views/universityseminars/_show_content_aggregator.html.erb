@@ -4,9 +4,8 @@
   <% child = structured_children.first %>
   <% unless is_filesystem_view %>
     <div id="item-description" class="col-md-3">
-    <%= render partial: 'sidebar_panels/item_description', locals: { document: document, alignment: 'vertical' } %>
-
-    <%= render partial: 'sidebar_panels/links', locals: { document: document, configured_links: [:mods, :download], child_document: child } %>
+    <%= render Dcv::Document::SidebarPanels::ItemDescriptionComponent.new(document: document, link_helpers: []) %>
+    <%= render Dcv::Document::SidebarPanels::LinksComponent.new(document: document, configured_links: [:mods, :download], child_document: child) %>
     </div>
   <% end %>
 
