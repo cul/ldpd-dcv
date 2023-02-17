@@ -13,7 +13,7 @@ $splash-hover: #6a2400;
 	}
 	#main-container {
 		a {
-			&:not(.btn, .page-link) {
+			&:not(.btn, .page-link, [role='button']) {
 				color: $splash;	
 				&:hover {
 					color: $splash-hover;
