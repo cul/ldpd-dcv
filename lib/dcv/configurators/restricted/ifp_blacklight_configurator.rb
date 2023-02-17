@@ -119,6 +119,7 @@ class Dcv::Configurators::Restricted::IfpBlacklightConfigurator
 
     config.index.thumbnail_method = :thumbnail_for_doc
 
+    default_component_configuration(config)
   end
 
 end
