@@ -3,9 +3,9 @@ module Dcv::Catalog::ModsDisplayBehavior
 
   def mods
     begin
-      obj = ActiveFedora::Base.find(params[:id])
-      if obj.datastreams['descMetadata']
-        xml_content = Nokogiri::XML(obj.datastreams['descMetadata'].content) {|config| config.default_xml.noblanks}.to_xml(:indent => 2)
+      ds_content = Cul::Hydra::Fedora.ds_for_opts(pid: params[:id], dsid: 'descMetadata')&.content
+      if ds_content.present?
+        xml_content = Nokogiri::XML(ds_content) {|config| config.default_xml.noblanks}.to_xml(:indent => 2)
         if params[:type] == 'formatted_text'
           html_content = '<div style="border:1px solid #aaa;padding:0px 10px;overflow: auto;">' + CodeRay.scan(xml_content, :xml).div() + '</div>'
           render html: html_content.html_safe
