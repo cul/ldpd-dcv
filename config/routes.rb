@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   get '/browse/:list_id' => 'browse', as: :browse, action: 'list'
   get '/explore' => 'welcome#home'
   get '/about' => 'pages#about', as: :about
+  get "/tombstone/*id" => "pages#tombstone", as: "tombstone_doi", constraints: Dcv::Routes::DOI_ID_CONSTRAINT
 
   get '/catalog/random' => 'catalog#random'
   get '/catalog/get_random_item' => 'catalog#random', defaults: { per_page: 1 }

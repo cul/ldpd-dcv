@@ -32,6 +32,9 @@ class PagesController < ApplicationController
   def about
   end
 
+  def tombstone
+  end
+
   def repository
     Blacklight.default_index
   end

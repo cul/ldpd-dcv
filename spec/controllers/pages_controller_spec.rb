@@ -2,10 +2,13 @@ require 'rails_helper'
 
 describe PagesController, type: :controller do
   let(:default_catalog_styles) { ["gallery-#{Dcv::Sites::Constants.default_palette}", "catalog"] }
+  let(:view_context) { controller.view_context }
 
   before do
     expect(controller).not_to be_nil
     expect(controller.controller_name).not_to be_nil
+    allow(controller).to receive(:view_context).and_return(view_context)
+    allow(view_context).to receive(:current_user).and_return(nil)
   end
 
   describe '#subsite_key' do
@@ -16,13 +19,10 @@ describe PagesController, type: :controller do
     describe '#about' do
       render_views
 
-      let(:view_context) { controller.view_context }
       let(:total_dcv_object_count) { 200 }
 
       before do
-        allow(controller).to receive(:view_context).and_return(view_context)
-        allow(view_context).to receive(:total_dcv_object_count).and_return(total_dcv_object_count)
-        allow(view_context).to receive(:current_user).and_return(nil)
+        allow(view_context).to receive(:total_dcv_object_count).and_return(total_dcv_object_count)    
       end
 
       it "responds" do
@@ -66,6 +66,18 @@ describe PagesController, type: :controller do
       end
 
       it_behaves_like "a functioning pages controller"
+    end
+  end
+
+  describe '#tombstone' do
+    render_views
+
+    let(:fake_doi) { "10.7916/fake-doi" }
+    let(:datacite_url) { "https://commons.datacite.org/doi.org?query=#{URI.encode_www_form_component(fake_doi)}" }
+    let(:datacite_link) { "<a href=\"#{datacite_url}\">Datacite</a>" }
+    it "links to Datacite" do
+      get :tombstone, params: { id: fake_doi }
+      expect(response.body).to include(datacite_link)
     end
   end
 end

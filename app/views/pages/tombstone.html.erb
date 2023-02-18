@@ -1,0 +1,9 @@
+<div class="row">
+	<div id="content" class="col-md-12">
+		<div class="inner">
+			<p>
+				The item published under <strong>doi:<%= params[:id] %></strong> is no longer available. There may be more information available at <%= link_to "Datacite", "https://commons.datacite.org/doi.org?query=#{URI.encode_www_form_component(params[:id])}" %>.
+			</p>
+		</div>
+	</div>
+</div>

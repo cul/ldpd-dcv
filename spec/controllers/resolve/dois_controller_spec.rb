@@ -73,6 +73,14 @@ describe Resolve::DoisController, type: :controller do
 				controller.resolve
 			end
 		end
+		context 'for a non-existent document' do
+			let(:solr_doc) { nil }
+			let(:expected_url) { "http://test.host/tombstone/#{known_id}" }
+			it 'redirects to resolved url' do
+				expect(controller).to receive(:redirect_to).with(expected_url)
+				controller.resolve
+			end
+		end
 	end
 	describe '#match_score_for' do
 		context 'site is the main catalog' do

@@ -34,13 +34,17 @@ class Resolve::DoisController < ApplicationController
     doi = "#{params[:registrant]}/#{params[:doi]}"
     @response, @document = fetch "doi:#{doi}", q: "{!raw f=ezid_doi_ssim v=$ids}"
     search_session.delete('counter') # do not set up search prev/next on resolved doc
-    if @document.site_result?
-      href_params = { controller: '/sites', slug: @document.unqualified_slug, action: 'home' }
-      href_params[:controller] = '/restricted/sites' if @document.has_restriction?
-      redirect_to url_for(href_params)
+    if @document.present?
+      if @document.site_result?
+        href_params = { controller: '/sites', slug: @document.unqualified_slug, action: 'home' }
+        href_params[:controller] = '/restricted/sites' if @document.has_restriction?
+        redirect_to url_for(href_params)
+      else
+        best_site = best_site_for(@document, site_matches_for(@document, site_candidates_for(scope_candidates_for(@document))))
+        redirect_to doc_url_in_site_context(best_site, @document)
+      end
     else
-      best_site = best_site_for(@document, site_matches_for(@document, site_candidates_for(scope_candidates_for(@document))))
-      redirect_to doc_url_in_site_context(best_site, @document)
+      redirect_to tombstone_doi_url(id: doi)
     end
   end
 
