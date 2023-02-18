@@ -1,18 +1,7 @@
 <% #Using the Bootstrap Pagination class  -%>
 <div id="previousNextDocument" class="row justify-content-center">
   <div class="col col-md-3 text-center text-md-left">
-    <div class="btn-group btn-group-sm">
-      <% if params[:return_to_filesystem].present? %>
-        <%= link_to('<i class="fa fa-reply-all"></i>'.html_safe, params[:return_to_filesystem], class: 'btn btn-outline-secondary btn-sm', :"data-toggle" => 'tooltip', "aria-label": t('views.pagination.return_to_filesystem'), title: t('views.pagination.return_to_filesystem')) %>
-      <% else %>
-        <%= helpers.link_back_to_catalog(label: '<i class="fa fa-reply-all"></i> '.html_safe, class: 'btn btn-outline-secondary btn-sm', :"data-toggle" => 'tooltip', "aria-label": t('views.pagination.return_to_search'), title: t('views.pagination.return_to_search') ) %>
-        <% if @search_context[:prev] || @search_context[:next] %>
-            <span class="btn btn-outline-secondary btn-sm" style="pointer-events:none;"><%= item_page_entry_info %></span>
-            <%= link_to_previous_document @search_context[:prev], "btn btn-outline-secondary btn-sm" %>
-            <%= link_to_next_document @search_context[:next], "btn btn-outline-secondary btn-sm" %>
-        <% end %>
-      <% end %>
-    </div>
+    <%= render Dcv::SearchContext::PaginationComponent.new(search_context: @search_context, search_session: @search_session) %>
   </div>
   <div class="d-inline-block col-md-6 text-center"><h3 class="h4"><%= @document.title %></h3></div>
   <%= render Dcv::Document::Ui::ToolsComponent.new(document: @document) -%>

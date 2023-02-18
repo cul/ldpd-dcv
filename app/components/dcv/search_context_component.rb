@@ -7,7 +7,7 @@ module Dcv
       @document = document
     end
     def render?
-      super && @document['dc_type_ssm']&.first != 'FileSystem'
+      @document['dc_type_ssm']&.first != 'FileSystem'
     end
   end
 end
