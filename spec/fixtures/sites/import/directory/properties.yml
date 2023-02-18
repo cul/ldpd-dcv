@@ -7,7 +7,7 @@ alternative_title: 'The Site: Imported!'
 search_type: catalog
 layout: signature
 palette: blue
-show_facets: false
+show_facets: true
 permissions:
   remote_ids:
     - siteAdmin

@@ -8,6 +8,7 @@ describe Dcv::Sites::Import::Directory do
 		it 'sets properties' do
 			expect(site.slug).to eql('import_site')
 			expect(site.palette).to eql('blue')
+			expect(site.show_facets).to be true
 		end
 		it 'imports links' do
 			expect(site.nav_links.length).to eql(4)

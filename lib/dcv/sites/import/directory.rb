@@ -27,6 +27,7 @@ module Dcv::Sites::Import
 			site.layout ||= DEFAULT_LAYOUT
 			site.palette = atts['palette'] if atts['palette']
 			site.palette ||= DEFAULT_PALETTE
+			site.show_facets = atts['show_facets'] if atts['show_facets']
 			search_configuration_atts = atts['search_configuration'] || {}
 			if atts['constraints']
 				puts "atts had legacy constraints; will attempt to migrate? : #{search_configuration_atts['scope_constraints'].nil?}"
