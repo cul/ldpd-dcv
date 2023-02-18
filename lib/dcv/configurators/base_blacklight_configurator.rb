@@ -7,6 +7,7 @@ module Dcv::Configurators::BaseBlacklightConfigurator
     LINEBREAK_DELIMITED = { words_connector: LINEBREAK_DELIMITER, two_words_connector: LINEBREAK_DELIMITER, last_word_connector: LINEBREAK_DELIMITER }
     SEMICOLON_DELIMITED = { words_connector: SEMICOLON_DELIMITER, two_words_connector: SEMICOLON_DELIMITER, last_word_connector: SEMICOLON_DELIMITER }
     # BL needs to know what params to permit for searches beyond configured filter fields
+    BROWSE_LIST_PARAMS = [:list_id]
     CORE_PARAMS = [:id]
     DETAILS_PARAMS = [:initial_page, :layout, :title]
     DATE_RANGE_PARAMS = [:end_year, :start_year]
@@ -53,6 +54,7 @@ module Dcv::Configurators::BaseBlacklightConfigurator
     config.search_state_fields.concat(Constants::CORE_PARAMS).concat(Constants::DATE_RANGE_PARAMS)
                               .concat(Constants::COORD_PARAMS).concat(Constants::SUBSITE_PARAMS)
                               .concat(Constants::FILESYSTEM_PARAMS).concat(Constants::READING_ROOM_PARAMS)
+                              .concat(Constants::BROWSE_LIST_PARAMS)
     config.http_method = :post
     config.fetch_many_document_params = { fl: '*' } # default deprecation circumvention from BL6
     # If there are more than this many search results, no spelling ("did you

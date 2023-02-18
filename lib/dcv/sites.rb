@@ -22,6 +22,10 @@ module Dcv::Sites
 		CUSTOM_LAYOUT = 'custom'
 		VALID_LAYOUTS = [CUSTOM_LAYOUT, DEFAULT_LAYOUT].concat(PORTABLE_LAYOUTS).freeze
 
+		def self.default_layout
+			DCV_CONFIG.fetch(:default_layout, 'portrait')
+		end
+
 		def self.default_palette
 			DCV_CONFIG.fetch(:default_palette, 'blue')
 		end

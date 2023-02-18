@@ -26,10 +26,6 @@ class PagesController < ApplicationController
     self.prepend_view_path('app/views/' + controller_path)
   end
 
-  def subsite_layout
-     'gallery'
-  end
-
   def wall
   end
 
