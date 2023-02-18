@@ -8,8 +8,7 @@ module Dcv::Authenticated::AccessControl
   end
 
   def redirect_to_login
-    opk = respond_to?(:controller) ? controller.omniauth_provider_key : omniauth_provider_key
-    redirect_to send(:"user_#{opk}_omniauth_authorize_path", url: session[:return_to])
+    redirect_to send(:"user_#{omniauth_provider_key}_omniauth_authorize_path", url: session[:return_to])
   end
 
   def omniauth_provider_key
