@@ -7,7 +7,7 @@
   <%= render Dcv::Search::Map::ShowScriptComponent.new %>
 
   <% map_search_settings = map_search_settings_for_subsite %>
-  <%= Dcv::Search::Map::EmbeddedResultsComponent.new(document_list: @response.documents, map_search_settings: map_search_settings_for_subsite, map_show_items: false) %>
+  <%= render Dcv::Search::Map::EmbeddedResultsComponent.new(document_list: @response.documents, map_search_settings: map_search_settings_for_subsite, map_show_items: false) %>
 <% else %>
   <h6 class="nomar-t">No Mappable Results in:
           <%= (@response.params[:start].to_i + 1).to_s + ' - ' +
