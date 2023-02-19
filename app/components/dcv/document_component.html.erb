@@ -1,0 +1,28 @@
+<div class="document w-100 <%= @search_view %> <%= render_document_class @document %>" itemscope itemtype="<%= @document.itemtype %>">
+  <div class="card bg-transparent <%= (@document.site_result? ? 'site-result' : '') %>" data-number-of-members="<%= @document[:cul_number_of_members_isi] || -1 %>">
+		<%= linked_thumbnail %>
+		<div class="card-body">
+			<h3 class="card-title index_title mb-0"><%= t('blacklight.search.documents.counter', counter: @counter) if @show_counter %>
+				<%= document_link %>
+				<% if @document['extent_ssim'].present? %>
+					<small class="extent">&bull; <%= byte_size_to_text_string(@document['extent_ssim'].first.to_i) %></small>
+				<% end %>
+			</h3>
+			<div class="card-text index-show-grid-fields">
+				<% document_tombstone_fields(@document).each do |field, field_config| -%>
+					<%= render_document_tombstone_field_value(@document, field) %>
+				<% end -%>
+			</div>
+			<div class="card-text index-show-list-fields">
+				<%= render Dcv::Document::Fields::IndexDefaultComponent.new(presenter: @presenter) -%>
+				<%= render Dcv::Document::SchemaOrgMetadataComponent.new(document: @document) -%>
+
+				<% if @document.has_snippet? %>
+					<div class="fulltext-snippet">
+						&hellip;<%= render_snippet_with_post_processing(@document.snippet).html_safe %>&hellip;
+					</div>
+				<% end %>
+			</div>
+		</div>
+  </div>
+</div>

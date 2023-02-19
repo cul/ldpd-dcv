@@ -10,12 +10,6 @@ module Dcv::FieldSetsHelperBehavior
     blacklight_config.geo_fields
   end
 
-  def document_tombstone_fields(document = nil)
-    blacklight_config.index_fields.select do |field, field_config|
-      field_config[:tombstone_display] && document[field].present?
-    end.to_h
-  end
-
   def render_document_tombstone_field_value *args
     options = args.extract_options!
     document = args.shift || options[:document]

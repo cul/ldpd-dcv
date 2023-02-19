@@ -95,9 +95,10 @@ module Dcv::Configurators::BaseBlacklightConfigurator
   end
 
   def default_component_configuration(config, opts = {})
-    config.index.search_bar_component = opts.fetch(:search_bar, Dcv::SearchBar::DefaultComponent)
-    config.index.facet_group_component = opts.fetch(:facet_group, Dcv::Response::FacetGroupComponent)
     config.index.constraints_component = opts.fetch(:constraints, Dcv::ConstraintsComponent)
+    config.index.document_component = opts.fetch(:document, Dcv::DocumentComponent)
+    config.index.facet_group_component = opts.fetch(:facet_group, Dcv::Response::FacetGroupComponent)
+    config.index.search_bar_component = opts.fetch(:search_bar, Dcv::SearchBar::DefaultComponent)
     config.show.disclaimer_component = opts.fetch(:disclaimer, Dcv::Alerts::Disclaimers::DefaultComponent)
   end
 

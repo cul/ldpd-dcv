@@ -1,7 +1,8 @@
 <% # container for all documents in index view -%>
 <div id="search-results">
   <div class="row">
-    <% @items_per_row_counter = 1 %>
-    <%= render :partial=>'document',:collection=> documents, :as=> :document, :locals=> {row_offset: 0, show_counter: true} %>
+    <% view_config = local_assigns[:view_config] || blacklight_config&.view_config(document_index_view_type) %>
+    <% document_presenters = documents.map { |doc| document_presenter(doc) } -%>
+    <%= render view_config.document_component.with_collection(document_presenters, partials: view_config.partials, counter_offset: @response&.start || 0, search_view: (subsite_search_mode == :list) ? 'list-view' : 'grid-view') %>
   </div>
 </div>

@@ -1,8 +1,8 @@
 <div id="search-results">
   <div class="row">
-    <%- @items_per_row_counter = 1 -%>
-    <%- @do_not_link_to_search = true -%>
-    <%= render :partial=>'document',:collection=> controller.featured_items, :as=> :document, :locals=> {row_offset: 0, start: 0, show_counter: false, search_view: 'grid-view' } %>
+    <% view_config = local_assigns[:view_config] || blacklight_config&.view_config(document_index_view_type) %>
+    <% document_presenters = controller.featured_items.map { |doc| document_presenter(doc) } -%>
+    <%= render view_config.document_component.with_collection(document_presenters, partials: view_config.partials, do_not_link_to_search: true, show_counter: false, search_view: 'grid-view') %>
   </div>
 </div>
 
