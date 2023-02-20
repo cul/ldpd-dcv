@@ -1,4 +1,4 @@
-class Dcv::Sites::LocalSearchState < Blacklight::SearchState
+class Dcv::Sites::LocalSearchState < Dcv::SearchState
 	def params_for_search(*args)
 		super.except(:site_slug, :slug)
 	end
@@ -9,12 +9,6 @@ class Dcv::Sites::LocalSearchState < Blacklight::SearchState
 
 	def params_for_site(*args)
 		params.dup.slice(:site_slug, :slug)
-	end
-
-	def doi_params(doc)
-		return {} unless doc
-		doi_id = doc.fetch('ezid_doi_ssim',[]).first&.sub(/^doi:/,'')
-		{ 'id' => doi_id }
 	end
 
 	def url_for_document(doc, options = {})

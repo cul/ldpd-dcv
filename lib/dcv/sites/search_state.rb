@@ -1,4 +1,4 @@
-class Dcv::Sites::SearchState < Blacklight::SearchState
+class Dcv::Sites::SearchState < Dcv::SearchState
 	include Dcv::Sites::Constants
 
 	def params_for_search(*args)
@@ -19,6 +19,7 @@ class Dcv::Sites::SearchState < Blacklight::SearchState
 			params
 		end
 	end
+
 	def url_for_doi(doi_identifier, site)
 		case site.search_type
 		when SEARCH_LOCAL
