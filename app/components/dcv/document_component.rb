@@ -62,7 +62,7 @@ module Dcv
     end
 
     def document_link_params
-      helpers.document_link_params(@document, counter: (@do_not_link_to_search ? nil : @document_counter), class: 'thumbnail')
+      helpers.document_link_params(@document, counter: (@do_not_link_to_search ? nil : @counter), class: 'thumbnail')
     end
 
     def linked_thumbnail
