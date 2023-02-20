@@ -5,7 +5,7 @@ module Dcv::SearchBar
     delegate :query_has_constraints?, :search_action_params, :search_placeholder_text, to: :helpers
 
     def start_over_params
-      params.slice(:search_field, :utf8)
+      params.slice(:search_field, :utf8).permit!
     end
 
     def start_over_path
