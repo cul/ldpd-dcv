@@ -102,6 +102,7 @@ class Site::FacetConfiguration
 			# propagate the sort configuration to the pivoted facets
 			@pivot.each { |pf| blacklight_config.default_solr_params[:"f.#{pf}.facet.sort"] ||= @sort }
 			opts[:item_component] = Dcv::FacetItemPivotComponent
+			opts[:collapsing] = true
 		end
 		blacklight_config.add_facet_field @field_name, opts
 	end
