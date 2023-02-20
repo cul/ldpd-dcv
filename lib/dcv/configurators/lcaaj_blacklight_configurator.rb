@@ -38,7 +38,10 @@ class Dcv::Configurators::LcaajBlacklightConfigurator
 
     config.add_facet_field ActiveFedora::SolrService.solr_name('subject_hierarchical_geographic_region', :symbol), :label => 'Region', :sort => 'index', :limit => 10
     config.add_facet_field ActiveFedora::SolrService.solr_name('subject_hierarchical_geographic_city', :symbol), :label => 'City', :sort => 'index', :limit => 10
-    config.add_facet_field ActiveFedora::SolrService.solr_name('lib_format', :facetable), :label => 'Document Type', :sort => 'index', :limit => 10, :cul_custom_value_transforms => [:translate, :capitalize, :singularize], :cul_custom_value_hide => ['manuscripts'], translation: 'facet.lcaaj.format'
+    config.add_facet_field ActiveFedora::SolrService.solr_name('lib_format', :facetable),
+      label: 'Document Type', sort: 'index', limit: 10,
+      cul_custom_value_transforms: [:translate, :capitalize, :singularize], cul_custom_value_hide: ['manuscripts'],
+      translation: 'facet.lcaaj.format', item_component: Dcv::FacetItemComponent
 
     default_facet_configuration(config, geo: true)
 

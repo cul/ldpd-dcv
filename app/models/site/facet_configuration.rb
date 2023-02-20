@@ -96,10 +96,12 @@ class Site::FacetConfiguration
 		if @value_map.present?
 			opts[:translation] = @value_map
 		end
+		opts[:item_component] = Dcv::FacetItemComponent
 		if @pivot.present?
 			opts[:pivot] = @pivot.dup.unshift(@field_name)
 			# propagate the sort configuration to the pivoted facets
 			@pivot.each { |pf| blacklight_config.default_solr_params[:"f.#{pf}.facet.sort"] ||= @sort }
+			opts[:item_component] = Dcv::FacetItemPivotComponent
 		end
 		blacklight_config.add_facet_field @field_name, opts
 	end
