@@ -45,4 +45,35 @@ RSpec.describe Dcv::DocumentComponent, type: :component do
       component.document_link_params
     end
   end
+
+  describe '#short_title' do
+    let(:long_title) { '0123456789abcdefghijklmnopqrstuvwxyz' }
+    let(:short_title) { '0123456789abc' }
+    let(:document) { { 'title_ssm' => title_value } }
+    let(:view_context) { Struct.new(:document_index_view_type).new(:index) }
+    let(:blacklight_config) { Blacklight::Configuration.new }
+    let(:presenter) { double(Dcv::ShowPresenter, document: document, heading: title_value) }
+    subject { component.short_title }
+
+    context "a short title" do
+      let(:title_value) { short_title }
+      it { is_expected.to eql(short_title) }
+    end
+
+    context "a long title" do
+      let(:title_value) { long_title }
+      it { is_expected.to eql('0123456789abcdefghijklmnopq...') }
+    end
+
+    context "a long title in an array" do
+      let(:title_value) { [long_title] }
+      it { is_expected.to eql('0123456789abcdefghijklmnopq...') }
+    end
+
+    context "no title" do
+      let(:title_value) { nil }
+      let(:document) { { 'some_field' => 'some_value' } }
+      it { is_expected.to be_nil }
+    end
+  end
 end

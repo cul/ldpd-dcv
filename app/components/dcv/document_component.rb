@@ -58,7 +58,7 @@ module Dcv
     end
 
     def thumbnail_img_tag
-      @presenter.thumbnail.thumbnail_tag({ class: 'img-square card-img-top w-100', itemprop: 'thumbnailUrl', alt: helpers.short_title(@document) }, { suppress_link: true })
+      @presenter.thumbnail.thumbnail_tag({ class: 'img-square card-img-top w-100', itemprop: 'thumbnailUrl', alt: short_title }, { suppress_link: true })
     end
 
     def document_link_params
@@ -73,6 +73,16 @@ module Dcv
       helpers.link_to_document(@document,
                                title: @document['title_ssm'].present? ? @document['title_ssm'][0] : '[Title unavailable]',
                                counter: (@do_not_link_to_search ? nil : @counter))
+    end
+
+    # truncate title to 30 characters if present
+    def short_title
+      title = @presenter.heading
+      title = title.first if title.is_a? Array
+      if title && title.length > 30
+        title = title[0..26] + '...'
+      end
+      title
     end
 
     def document_tombstone_fields(document = nil)

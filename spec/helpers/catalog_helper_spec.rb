@@ -12,37 +12,6 @@ require 'rails_helper'
 # end
 
 describe CatalogHelper, :type => :helper do
-  describe '#short_title' do
-    let(:long_title) { '0123456789abcdefghijklmnopqrstuvwxyz' }
-    let(:short_title) { '0123456789abc' }
-    let(:title_value) { nil }
-    let(:document) { { 'title_ssm' => title_value } }
-    let(:view_context) { Struct.new(:document_index_view_type).new(:index) }
-    let(:blacklight_config) { Blacklight::Configuration.new }
-    let(:document_presenter) { Dcv::IndexPresenter.new(document, view_context, blacklight_config) }
-    before do
-      allow(document_presenter).to receive(:heading).and_return(title_value)
-      allow(helper).to receive(:document_presenter).and_return(document_presenter)
-    end
-    subject { helper.short_title(document) }
-    context "a short title" do
-      let(:title_value) { short_title }
-      it { is_expected.to eql(short_title) }
-    end
-    context "a long title" do
-      let(:title_value) { long_title }
-      it { is_expected.to eql('0123456789abcdefghijklmnopq...') }
-    end
-    context "a long title in an array" do
-      let(:title_value) { [long_title] }
-      it { is_expected.to eql('0123456789abcdefghijklmnopq...') }
-    end
-    context "no title" do
-      let(:document) { { 'some_field' => 'some_value' } }
-      it { is_expected.to be_nil }
-    end
-  end
-
   describe '#total_dcv_object_count' do
     let (:solr_response) {
       {
