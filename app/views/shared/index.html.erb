@@ -18,7 +18,7 @@
 			<% @page_title = t('blacklight.search.title', :application_name => application_name) %>
 
 			<% content_for(:head) do -%>
-				<%= render 'open_search' %>
+				<%= render Dcv::Search::OpenSearchMetadataComponent.new(response: @response) %>
 			<% end -%>
 
 			<%= render 'search_header' %>

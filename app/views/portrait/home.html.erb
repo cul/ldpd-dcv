@@ -1,7 +1,8 @@
 <div class="row">
 	<div id="content" class="col-md-12 show-document">
 		<div id="item-show">
-			<% @page_title = t('blacklight.search.show.title', :document_title => document_presenter(@document).html_title, :application_name => application_name).html_safe -%>
+			<% doc_presenter = document_presenter(@document) -%>
+			<% @page_title = t('blacklight.search.show.title', :document_title => doc_presenter.html_title, :application_name => application_name).html_safe -%>
 			<% content_for(:head) { render_link_rel_alternates } -%>
 			<div id="document" class="document <%= render_document_class %>" itemscope  itemtype="https://schema.org/CollectionPage">
 				<div id="doc_<%= @subsite.slug.to_s.parameterize %>">
@@ -34,8 +35,7 @@
 					</div>
 				</div>
 			</div>
-			<%= render partial: 'opengraph_document_metadata' %>
-			<%= render partial: 'openurl_coins_document_metadata' %>
+			<%= render Dcv::Document::DiscoveryMetadataComponent.new(document_presenter: doc_presenter, application_name: application_name, id_url: url_for(action: 'home', slug: @subsite.slug, host: request.host)) %>
 		</div>
 	</div>
 </div>
