@@ -12,5 +12,13 @@ module Dcv::Search::Ui
     def render?
       controller.subsite_config.dig('date_search_configuration', 'show_timeline')
     end
+
+    def reset_range_filter_params
+      params.except(:start_year, :end_year).permit!
+    end
+
+    def has_range_filter_params?
+      params[:start_year].present? || params[:end_year].present?
+    end
   end
 end
