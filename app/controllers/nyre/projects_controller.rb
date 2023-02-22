@@ -3,6 +3,8 @@ module Nyre
     include Dcv::CatalogIncludes
     include Dcv::MapDataController
     include Dcv::Sites::SearchableController
+    include Dcv::Sites::ConfiguredLayouts
+
     before_action :set_view_path, :load_subsite
     helper_method :extract_map_data_from_document_list, :url_for_document
 
@@ -62,6 +64,7 @@ module Nyre
       config.add_facet_field ActiveFedora::SolrService.solr_name('subject_hierarchical_geographic_street', :symbol), :label => 'Address', :sort => 'index', :limit => 10
       # Include this target's content in search results, and any additional publish targets specified in subsites.yml
       configure_blacklight_scope_constraints(config)
+      config.show.route.merge!(controller: "/nyre")
     end
 
     def subsite_config
@@ -73,6 +76,7 @@ module Nyre
       super(*args)
       self._prefixes << "#{subsite_key}/projects"
       self._prefixes << subsite_key
+      self._prefixes << subsite_layout
       self._prefixes << '/catalog'
       self._prefixes.unshift "shared"
       self._prefixes.unshift ""
@@ -84,6 +88,7 @@ module Nyre
       self.prepend_view_path(subsite_key)
       self.prepend_view_path('app/views/' + controller_path)
       self.prepend_view_path(controller_path)
+      self.prepend_view_path("app/views/#{subsite_layout}")
     end
 
     def resource
@@ -123,17 +128,8 @@ module Nyre
       search_nyre_url *args
     end
 
-    # Override to point to NYRE controller
     def url_for_document doc, options = {}
-      if respond_to?(:blacklight_config) and
-          blacklight_config.show.route and
-          (!doc.respond_to?(:to_model) or doc.to_model.is_a? SolrDocument)
-        route = blacklight_config.show.route.merge(action: :show, id: doc).merge(options)
-        route[:controller] = "/nyre"
-        route
-      else
-        doc
-      end
+      search_state.url_for_document(doc, options)
     end
 
     def tracking_method

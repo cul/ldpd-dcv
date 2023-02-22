@@ -20,6 +20,7 @@ describe Nyre::ProjectsController, type: :feature do
   describe '#show' do
     let(:project) { FactoryBot.create(:nyre_project) }
     before do
+      FactoryBot.create(:site, slug: "nyre")
       visit nyre_project_path(project)
     end
     it "has a Call Number" do

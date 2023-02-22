@@ -8,8 +8,12 @@ describe Nyre::ProjectsController, type: :controller do
       id: project.id
     )
   }
-  let(:site) { FactoryBot.create(:site) }
+  let(:site) { FactoryBot.create(:site, slug: "nyre") }
   let(:request_double) { instance_double('ActionDispatch::Request') }
+  let(:solr_response) { { 'facet_counts' => {} } }
+  let(:solr_doc) { SolrDocument.new(id: "cul:12345") }
+  let(:document_list) { [solr_doc] }
+
   before do
     @orig_config = SUBSITES['public']['nyre']
     SUBSITES['public']['nyre'] = {
@@ -32,12 +36,13 @@ describe Nyre::ProjectsController, type: :controller do
     allow(controller).to receive(:request).and_return(request_double)
     allow(controller).to receive(:load_subsite).and_return(site)
     allow(controller).to receive(:resource).and_return(OpenStruct.new(project.attributes))
-    allow(controller).to receive(:search_results).and_return('facet_counts' => {})
+    allow(controller).to receive(:search_results).and_return(solr_response, document_list)
   end
   after do
     SUBSITES['public']['nyre'] = @orig_config
   end
   describe '#show' do
+    render_views
     it 'renders' do
       controller.show
       expect(response).to have_http_status(200)
@@ -56,6 +61,13 @@ describe Nyre::ProjectsController, type: :controller do
         expect(controller).to receive(:render).with(nothing: true, status: :not_found)
         controller.show
       end
+    end
+  end
+
+  describe '#search_state' do
+    let(:search_state) { controller.send :search_state }
+    it "can link to a document" do
+      expect(search_state.url_for_document(solr_doc)).to include(controller: '/nyre', id: solr_doc)
     end
   end
 end
