@@ -35,7 +35,7 @@ describe SitesController, type: :unit do
 			let(:repo_filter) { { "lib_repo_code_ssim"=>["NNC-RB"] } }
 			let(:expected_filters) { collection_filter }
 			let(:expected_url_params) do
-				query.merge(controller: 'catalog', action: 'index', f: expected_filters).except(:search_field)
+				query.merge(controller: 'catalog', action: 'index', f: expected_filters)
 			end
 			it do
 				expect(controller).to receive(:url_for).with(expected_url_params)
@@ -45,10 +45,10 @@ describe SitesController, type: :unit do
 				let(:site) { FactoryBot.create(:site, slug: "restricted/site", repository_id: 'NNC-RB', restricted: true) }
 				let(:expected_filters) { collection_filter.merge(repo_filter) }
 				let(:expected_url_params) do
-					{ repository_id: 'NNC-RB', f: expected_filters }
+					query.merge(controller: 'repositories/catalog', repository_id: 'NNC-RB', f: expected_filters, action: 'index')
 				end
 				it do
-					expect(controller).to receive(:search_repository_catalog_path).with(expected_url_params)
+					expect(controller).to receive(:url_for).with(expected_url_params)
 					controller.search_action_url(query)
 				end
 			end
@@ -68,8 +68,19 @@ describe SitesController, type: :unit do
 			let(:site) { FactoryBot.create(:site, search_type: 'local') }
 			let(:expected_url_params) { query.merge(controller: 'sites/search', action: 'index', site_slug: site.slug) }
 			it do
-				expect(controller).to receive(:url_for).with(query.merge(controller: 'sites/search', action: 'index', site_slug: site.slug))
+				expect(controller).to receive(:url_for).with(expected_url_params)
 				controller.search_action_url(query)
+			end
+		end
+	end
+	describe '#search_facet_path' do
+		context 'local search' do
+			let(:query) { {id: 'format_ssim'} }
+			let(:site) { FactoryBot.create(:site, search_type: 'local') }
+			let(:expected_url_params) { query.merge(controller: 'sites/search', action: 'facet', site_slug: site.slug, only_path: true) }
+			it do
+				expect(controller).to receive(:url_for).with(expected_url_params)
+				controller.search_facet_path(query)
 			end
 		end
 	end
