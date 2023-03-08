@@ -40,11 +40,11 @@ module Dcv::ContentAggregator::ChildViewer::ButtonPanel
     end
 
     def has_chapters?
-      has_datastream?('chapters')
+      has_datastream?('chapters', @child)
     end
 
     def has_synch?
-      has_datastream?('synchronized_transcript')
+      has_datastream?('synchronized_transcript', @child)
     end
 
     def has_iiif?

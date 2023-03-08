@@ -41,6 +41,30 @@ RSpec.describe Dcv::ContentAggregator::ChildViewer::ButtonPanel::DefaultComponen
       expect(rendered).to have_selector("a.item-modal[data-display-url ='#{details_url}']")
     end
   end
+  context 'has a MovingImage child' do
+    let(:datastreams) { ['DC',  'content'] }
+    let(:child_id) { 'child_id' }
+    let(:child) { SolrDocument.new(id: child_id, pid: child_id, dc_type: 'MovingImage', datastreams_ssim: datastreams) }
+    let(:details_url) { "/details" }
+    let(:fake_button) { "<a class='chapters-link-test'>#{child_id}</a>".html_safe }
+
+    before do
+      allow(view_context).to receive(:can_access_asset?).and_return(true)
+      allow(view_context).to receive(:zoom_url_for_doc).and_return(details_url)
+      allow(component).to receive(:link_to).and_return(fake_button)
+    end
+    it "has no synchronizer link" do
+      expect(component.has_chapters?).to be false
+      expect(rendered).not_to have_selector("a.chapters-link-test", text: child_id)
+    end
+    context 'with a captions datastream' do
+      let(:datastreams) { ['DC',  'content', 'chapters'] }
+      it "has no synchronizer link" do
+        expect(component.has_chapters?).to be true
+        expect(rendered).to have_selector("a.chapters-link-test", text: child_id)
+      end
+    end
+  end
   context "child type has no aspect ratio configured" do
     let(:child) { SolrDocument.new(id: 'child_id', dc_type: 'SurpriseValue') }
     it "returns a default value" do
