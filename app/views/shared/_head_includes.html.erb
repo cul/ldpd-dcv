@@ -49,7 +49,7 @@ DLC VERSION: <%= IO.read(Rails.root.to_s+'/VERSION') %> -->
 <%= javascript_pack_tag *js_packs %>
 
 <% if Rails.env == 'dcv_prod' %>
-	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<!-- Google tag (gtag.js) -->
 	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-796949-25"></script>
 	<script>
 		window.dataLayer = window.dataLayer || [];
@@ -57,5 +57,6 @@ DLC VERSION: <%= IO.read(Rails.root.to_s+'/VERSION') %> -->
 		gtag('js', new Date());
 
 		gtag('config', 'UA-796949-25');
+		gtag('config', 'G-TY98RMMDPT');
 	</script>
 <% end %>
