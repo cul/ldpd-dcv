@@ -4,14 +4,14 @@
 			<span class="fa fa-arrows site_text_block_handle"></span>
 			<label for="site_page[site_text_blocks_attributes][<%= site_text_block_form.index %>][sort_label]">Block Label <span class="fa fa-question-circle" data-tooltip="tooltip-block-label"></span></label>
 			<%= site_text_block_form.text_field :label, class: ['form-control'] %>
-			<button type="button" class="btn btn-primary collapse-toggle collapsed" data-toggle="collapse" data-target="#site_page_text_block_image_<%= site_text_block_form.index %>_markdown" aria-expanded="false" aria-controls="site_page_text_block_image_<%= site_text_block_form.index %>" data-parent="#site_text_block_<%= site_text_block_form.index %>"><%= collapse_labels("Images") %></button>
+			<button type="button" class="btn btn-primary collapse-toggle collapsed" data-toggle="collapse" data-target="#site_page_text_block_image_<%= site_text_block_form.index %>" aria-expanded="false" aria-controls="site_page_text_block_image_<%= site_text_block_form.index %>" data-parent="#site_text_block_<%= site_text_block_form.index %>"><%= collapse_labels("Images") %></button>
 			<button type="button" class="btn btn-primary collapse-toggle collapsed" data-toggle="collapse" data-target="#site_page_text_block_<%= site_text_block_form.index %>_markdown" aria-expanded="false" aria-controls="site_page_text_blocks_<%= site_text_block_form.index %>" data-parent="#site_text_block_<%= site_text_block_form.index %>"><%= collapse_labels("Content") %></button>
 		</div>
 		<div class="float-right">
 			<a class="btn btn-danger remove" onclick="removeTextBlock(this); return false;"><span class="fa fa-remove"></span> Remove</a>
 		</div>
 	</div>
-	<div class="card-body collapse site_page_text_block_images" id="site_page_text_block_image_<%= site_text_block_form.index %>_markdown">
+	<div class="card-body collapse site_page_text_block_images" id="site_page_text_block_image_<%= site_text_block_form.index %>">
 		<%= site_text_block_form.fields_for :site_page_images, site_text_block_form.object.site_page_images[0] || SitePageImage.new, include_id: true do |image_form| %>
 			<label for="image_identifier">Image Identifier (doi:, asset:, lweb:)</label>
 			<%= image_form.text_field :image_identifier, class: ['form-control'] %>
