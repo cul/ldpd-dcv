@@ -51,7 +51,7 @@ class Dcv::Solr::DocumentAdapter::ActiveFedora
         Rails.logger.warn "Warning: #{self.pid} is a member of itself!" if member_pids.include?(self.pid)
         if member_pids.first
           child_obj = ActiveFedora::Base.find(member_pids.first)
-          return child_obj.get_representative_generic_resource
+          return self.class.new(child_obj).get_representative_generic_resource(false)
         else
           #Rails.logger.error "No child objects or resources for #{self.pid}"
           return nil
