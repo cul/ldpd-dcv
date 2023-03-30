@@ -1,7 +1,7 @@
 <%- cache [@subsite, @page] do -%>
 <div class="col-md-8 mx-auto">
-    <%= render Dcv::PageImageComponent.new(page: @page, blacklight_config: @subsite.blacklight_config) %>
 	<h2 class="text-center"><%= @page.title %></h2>
+    <%= render Dcv::PageImageComponent.new(page: @page, blacklight_config: @subsite.blacklight_config) %>
 	<hr>
 	<%- @page.site_text_blocks.sort { |a,b| a.sort_label <=> b.sort_label }.each do |text_block| -%>
 		<section class="ff">

@@ -1,12 +1,11 @@
 <%- cache [@subsite, @page] do -%>
 <div id="content" class="row">
-    <%= render Dcv::PageImageComponent.new(page: @page, blacklight_config: @subsite.blacklight_config) %>
-
 	<%- if @page.has_columns? -%>
 		<%- @page.text_block_columns.each_with_index do |column, index| -%>
 			<div class="col-md-6 col-md-pull-6">
 				<div class="home inner">
 					<h2 class="nomar-t mt-0"><%= @page.title %></h2>
+				    <%= render Dcv::PageImageComponent.new(page: @page, blacklight_config: @subsite.blacklight_config) %>
 					<%- column.each do |text_block| -%>
 						<%- if text_block.label.present? -%>
 							<h3 class="h5 text-uppercase"><%= text_block.label %></h3>
@@ -21,6 +20,7 @@
 		<div class="col-md-12">
 			<div class="home inner">
 				<h2 class="nomar-t mt-0"><%= @page.title %></h2>
+			    <%= render Dcv::PageImageComponent.new(page: @page, blacklight_config: @subsite.blacklight_config) %>
 				<%- @page.site_text_blocks.sort { |a,b| a.sort_label <=> b.sort_label }.each do |text_block| -%>
 					<%- if text_block.label.present? -%>
 						<h3 class="h5 text-uppercase"><%= text_block.label %></h3>
