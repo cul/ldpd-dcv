@@ -1,0 +1,21 @@
+.figure-hero {
+	max-width: 100%;
+	width: max-content;
+	margin-right: auto;
+	margin-left: auto;	
+}
+.figure-inset {
+	@media(max-width: 767.9px) {
+		max-width: 100%;
+		width: max-content;
+		margin-right: auto;
+		margin-left: auto;
+	}
+	@media(min-width: 768px) {
+		float: right;
+		max-width: 50%;
+	}
+}
+
+
+

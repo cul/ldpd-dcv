@@ -23,8 +23,8 @@
 	<div class="card-body page_images">
 		<h3>Page Image</h3>
 		<%= page_form.fields_for :site_page_images, @page.site_page_images[0] || SitePageImage.new do |site_page_image_form| %>
-			<label for="doi">DOI of Item with Representative Image</label>
-			<%= site_page_image_form.text_field :doi, class: ['form-control'] %>
+			<label for="image_identifier">Image Identifier (doi:, asset:, lweb:)</label>
+			<%= site_page_image_form.text_field :image_identifier, class: ['form-control'] %>
 			<% if @page.site_page_images[0] -%>
 				<label for="_destroy"><span class="fa fa-remove"></span> Remove</label>
 				<%= site_page_image_form.check_box(:_destroy) %>

@@ -5,6 +5,7 @@ class SitePage < ApplicationRecord
 	validates :columns, inclusion: { in: (1..2) }
 	validates_uniqueness_of :slug, scope: :site_id
 	validate :home_slug_does_not_change
+	validates_associated :site_page_images
 	accepts_nested_attributes_for :site_text_blocks
 	accepts_nested_attributes_for :site_page_images, allow_destroy: true
 

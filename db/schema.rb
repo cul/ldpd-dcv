@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_03_30_024835) do
+ActiveRecord::Schema.define(version: 2023_03_30_172525) do
 
   create_table "bookmarks", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -58,10 +58,12 @@ ActiveRecord::Schema.define(version: 2023_03_30_024835) do
   end
 
   create_table "site_page_images", force: :cascade do |t|
-    t.string "doi", null: false
+    t.string "image_identifier", null: false
     t.string "style", default: "hero", null: false
     t.string "depictable_type"
     t.integer "depictable_id"
+    t.string "alt_text"
+    t.string "caption"
     t.index ["depictable_type", "depictable_id"], name: "index_site_page_images_on_depictable"
   end
 

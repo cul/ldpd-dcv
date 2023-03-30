@@ -2,6 +2,7 @@ require 'uri'
 class SiteTextBlock < ApplicationRecord
 	belongs_to :site_page, touch: true
 	has_many :site_page_images, dependent: :destroy, as: :depictable
+	accepts_nested_attributes_for :site_page_images, allow_destroy: true
 
 	def label
 		self.sort_label =~ /^\d+\:\s*(.*)/ ? $1 : self.sort_label

@@ -5,7 +5,7 @@
 			<div class="col-md-6 col-md-pull-6">
 				<div class="home inner">
 					<h2 class="nomar-t mt-0"><%= @page.title %></h2>
-				    <%= render Dcv::PageImageComponent.new(page: @page, blacklight_config: @subsite.blacklight_config) %>
+				    <%= render Dcv::PageImageComponent.new(depictable: @page, blacklight_config: @subsite.blacklight_config, allow_inset: false) %>
 					<%- column.each do |text_block| -%>
 						<%- if text_block.label.present? -%>
 							<h3 class="h5 text-uppercase"><%= text_block.label %></h3>
@@ -20,13 +20,14 @@
 		<div class="col-md-12">
 			<div class="home inner">
 				<h2 class="nomar-t mt-0"><%= @page.title %></h2>
-			    <%= render Dcv::PageImageComponent.new(page: @page, blacklight_config: @subsite.blacklight_config) %>
+			    <%= render Dcv::PageImageComponent.new(depictable: @page, blacklight_config: @subsite.blacklight_config) %>
 				<%- @page.site_text_blocks.sort { |a,b| a.sort_label <=> b.sort_label }.each do |text_block| -%>
 					<%- if text_block.label.present? -%>
 						<h3 class="h5 text-uppercase"><%= text_block.label %></h3>
 					<%- end -%>
+				    <%= render Dcv::PageImageComponent.new(depictable: text_block, blacklight_config: @subsite.blacklight_config) %>
 					<%= controller.render_markdown(text_block.markdown) %>
-					<hr class="visible-sm">
+					<hr class="visible-sm clear-both">
 				<%- end -%>
 			</div>
 		</div>

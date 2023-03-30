@@ -59,7 +59,7 @@ describe ::Sites::PagesController, type: :feature do
 			visit(edit_link_href)
 		end
 		it 'updates text blocks' do
-			find('button[data-parent="#site_text_block_0"]').click # Show Text Block content
+			find('button[data-target="#site_page_text_block_0_markdown"]').click # Show Text Block content
 			new_text = find('#site_page_site_text_blocks_attributes_0_markdown').value
 			new_text.sub!('Don\'t Repeat Yourself', "Text Block Value")
 			# the markdown textarea is display:none by the editor widget, but we're not running js
@@ -81,7 +81,7 @@ describe ::Sites::PagesController, type: :feature do
 		end
 		it 'updates text blocks' do
 			find('#site-page-add-block').click
-			find('button[data-parent="#site_text_block_1"]').click # Show Text Block content
+			find('button[data-target="#site_page_text_block_1_markdown"]').click # Show Text Block content
 			find('#site_page_site_text_blocks_attributes_1_label').set("Text Block Value")
 			# sending key events is complicated; we will fake it with the editor's JS api
 			page.execute_script("document.querySelector('#site_page_text_block_1_markdown .CodeMirror').CodeMirror.setValue('**Text Block Value**');")
@@ -89,7 +89,7 @@ describe ::Sites::PagesController, type: :feature do
 			find('#site_text_block_0 .remove').click
 			click_button "Update Page"
 			# do a find to make sure page loaded
-			find('button[data-parent="#site_text_block_0"]').click # Show Text Block content
+			find('button[data-target="#site_page_text_block_0_markdown"]').click # Show Text Block content
 			expect(find('#site_page_site_text_blocks_attributes_0_markdown', visible: :any).value).to include('Text Block Value')
 			visit(page_link)
 			expect(page).to have_xpath("//strong", text: "Text Block Value")
@@ -109,7 +109,7 @@ describe ::Sites::PagesController, type: :feature do
 		end
 		it 'updates text blocks' do
 			find('#site-page-add-block').click
-			find('button[data-parent="#site_text_block_0"]').click # Show Text Block content
+			find('button[data-target="#site_page_text_block_0_markdown"]').click # Show Text Block content
 			find('#site_page_slug').set(new_page_slug)
 			find('#site_page_title').set(new_page_title)
 			find('#site_page_site_text_blocks_attributes_0_label').set("Text Block Value")
@@ -117,7 +117,7 @@ describe ::Sites::PagesController, type: :feature do
 			page.execute_script("document.querySelector('#site_page_text_block_0_markdown .CodeMirror').CodeMirror.setValue('**Text Block Value**');")
 			click_button "Create Page"
 			# do a find to make sure page loaded
-			find('button[data-parent="#site_text_block_0"]').click # Show Text Block content
+			find('button[data-target="#site_page_text_block_0_markdown"]').click # Show Text Block content
 			expect(find('#site_page_site_text_blocks_attributes_0_markdown', visible: :any).value).to include('Text Block Value')
 			visit("#{site_slug}/#{new_page_slug}")
 			expect(page).to have_xpath("//h2", text: new_page_title)
