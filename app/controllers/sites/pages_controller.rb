@@ -153,7 +153,7 @@ module Sites
 		private
 			def page_params
 				params.require(:site_page)
-					.permit(:slug, :title, :use_multiple_columns, site_text_blocks_attributes: [:label, :markdown])
+					.permit(:slug, :title, :use_multiple_columns, site_text_blocks_attributes: [:label, :markdown], site_page_images_attributes: [:id, :doi, :_destroy])
 					.to_h.tap do |p|
 						p[:columns] = (p.delete(:use_multiple_columns).to_s == 'true') ? 2 : 1
 					end

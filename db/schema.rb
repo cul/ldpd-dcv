@@ -2,15 +2,15 @@
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 #
-# This file is the source Rails uses to define your schema when running `rails
-# db:schema:load`. When creating a new database, `rails db:schema:load` tends to
+# This file is the source Rails uses to define your schema when running `bin/rails
+# db:schema:load`. When creating a new database, `bin/rails db:schema:load` tends to
 # be faster and is potentially less error prone than running all of your
 # migrations from scratch. Old migrations may fail to apply correctly if those
 # migrations use external dependencies or application code.
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_04_183815) do
+ActiveRecord::Schema.define(version: 2023_03_30_024835) do
 
   create_table "bookmarks", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -42,8 +42,8 @@ ActiveRecord::Schema.define(version: 2021_12_04_183815) do
   create_table "scope_filters", force: :cascade do |t|
     t.string "filter_type"
     t.string "value"
-    t.string "scopeable_type"
     t.integer "scopeable_id"
+    t.string "scopeable_type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -55,6 +55,14 @@ ActiveRecord::Schema.define(version: 2021_12_04_183815) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["user_id"], name: "index_searches_on_user_id"
+  end
+
+  create_table "site_page_images", force: :cascade do |t|
+    t.string "doi", null: false
+    t.string "style", default: "hero", null: false
+    t.string "depictable_type"
+    t.integer "depictable_id"
+    t.index ["depictable_type", "depictable_id"], name: "index_site_page_images_on_depictable"
   end
 
   create_table "site_pages", force: :cascade do |t|
@@ -119,7 +127,4 @@ ActiveRecord::Schema.define(version: 2021_12_04_183815) do
     t.index ["uid"], name: "index_users_on_uid"
   end
 
-  add_foreign_key "nav_links", "sites"
-  add_foreign_key "site_pages", "sites"
-  add_foreign_key "site_text_blocks", "site_pages"
 end

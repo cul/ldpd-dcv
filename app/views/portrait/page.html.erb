@@ -1,5 +1,6 @@
 <%- cache [@subsite, @page] do -%>
 <div id="content" class="row">
+    <%= render Dcv::PageImageComponent.new(page: @page, blacklight_config: @subsite.blacklight_config) %>
 
 	<%- if @page.has_columns? -%>
 		<%- @page.text_block_columns.each_with_index do |column, index| -%>

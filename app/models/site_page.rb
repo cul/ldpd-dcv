@@ -1,10 +1,12 @@
 class SitePage < ApplicationRecord
 	has_many :site_text_blocks, dependent: :destroy, inverse_of: :site_page
+	has_many :site_page_images, dependent: :destroy, as: :depictable
 	belongs_to :site, touch: true
 	validates :columns, inclusion: { in: (1..2) }
 	validates_uniqueness_of :slug, scope: :site_id
 	validate :home_slug_does_not_change
 	accepts_nested_attributes_for :site_text_blocks
+	accepts_nested_attributes_for :site_page_images, allow_destroy: true
 
 	def initialize(atts = {})
 		super
