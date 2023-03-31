@@ -1,0 +1,24 @@
+<article class="card <%= card_classes.join(' ') %>" itemscope itemtype="http://schema.org/CreativeWork">
+	<div class="card-body">
+		<%= link_to (dcv_search_link.present? ? dcv_search_link : external_url), class: 'project-image-link', id: "#{digital_project_id_base}-search", aria: {labelledby: "#{digital_project_id_base}-search-label" } do %>
+			<%= project_image -%>
+			<%= content_tag(:span, browse_label, class: "sr-only", id: "#{digital_project_id_base}-search-label") -%>
+		<%- end -%>
+		<div class="proj-jav btn-group d-flex" role="group">
+			<button class="btn btn-outline-secondary btn-sm" type="button" data-toggle="modal" aria-label="More Information" data-modal-body-delegate="#proj-<%=proj_counter%>" data-modal-title-delegate="#proj-<%= proj_counter %>-title" data-target="#dcvModal"><span class="fa fa-info-circle" aria-hidden="true" title="More Information" data-toggle="tooltip"></span></button>
+			<% if dcv_search_link.present? -%>
+				<button class="btn btn-outline-secondary btn-sm" type="button" aria-label="Browse <%= html_escape_once(@project_data[:name]).html_safe %> content" onclick="document.getElementById('<%= digital_project_id_base %>-search').click();"><span class="fa fa-search" aria-hidden="true" title="Browse Content" data-toggle="tooltip"></span></button>
+			<%- end -%>
+			<% if external_url.present? %>
+				<%= link_to external_url, itemprop: 'url', :"aria-label" => 'View Collection Site', class: 'btn btn-outline-secondary btn-sm' do -%>
+					<%= content_tag :span, "", class: ['fa', 'fa-external-link'], title: 'View Collection Site', data: { toggle: 'tooltip' }  %>
+				<%- end -%>
+			<% end %>
+		</div>
+		<div itemprop="name" class="card-title text-center mb-0" id="proj-<%=proj_counter%>-title"><h2 class="card-title h3 mb-0"><%= html_escape_once(@project_data[:name]).html_safe %></h2></div>
+
+		<div id="proj-<%=proj_counter%>" class="hidden">
+			<div style="color:black;padding:30px;font-size:110%;" itemprop="description"><%= html_escape_once(@project_data[:description] || '').html_safe %></div>
+		</div>
+	</div>
+</article>

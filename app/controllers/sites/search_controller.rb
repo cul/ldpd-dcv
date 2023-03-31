@@ -13,6 +13,7 @@ module Sites
 		before_action :load_subsite
 		before_action :set_map_data_json, only: [:map_search]
 		before_action :store_unless_user, except: [:update, :destroy, :api_info]
+		before_action :redirect_unless_local, only: :index
 		before_action :authorize_document, only: :show
 
 		delegate :blacklight_config, to: :@subsite
@@ -26,6 +27,16 @@ module Sites
 
 		def authorize_document(_document=nil)
 			authorize_action_and_scope(Ability::ACCESS_SUBSITE, load_subsite)
+		end
+
+		def search_url_service
+			@search_url_service ||= Dcv::Sites::SearchUrlService.new
+		end
+
+		def redirect_unless_local
+			unless load_subsite.search_type == 'local'
+				redirect_to search_url_service.search_action_url(load_subsite, self, {})
+			end
 		end
 
 		def initialize(*args)

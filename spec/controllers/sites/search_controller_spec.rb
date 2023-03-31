@@ -34,4 +34,26 @@ describe Sites::SearchController, type: :unit do
 		subject(:search_service) { controller.search_service }
 		it { is_expected.to be_a Dcv::SearchService }
 	end
+	describe '#redirect_unless_local'do
+		context 'local search' do
+			let(:site) { FactoryBot.create(:site, search_type: 'local') }
+			it do
+				expect(controller).not_to receive(:redirect_to)
+				controller.redirect_unless_local
+			end
+		end
+		context 'catalog search' do
+			let(:search_url_service) { double(Dcv::Sites::SearchUrlService) }
+			let(:well_known_url) { "/catalog?q=success" }
+			let(:site) { FactoryBot.create(:site, search_type: 'catalog') }
+			before do
+				controller.instance_variable_set :@search_url_service, search_url_service
+				allow(search_url_service).to receive(:search_action_url).and_return(well_known_url)
+			end
+			it do
+				expect(controller).to receive(:redirect_to).with(well_known_url)
+				controller.redirect_unless_local
+			end
+		end
+	end
 end

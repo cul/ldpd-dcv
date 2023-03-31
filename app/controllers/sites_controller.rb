@@ -244,28 +244,16 @@ class SitesController < ApplicationController
     SUBSITES[self.restricted? ? 'restricted' : 'public'].fetch('catalog',{})['uri']
   end
 
+  def search_url_service
+    @search_url_service ||= Dcv::Sites::SearchUrlService.new
+  end
+
   # this is only used from site home pages or the sites listing
   def search_controller_params(options = {})
     if action_name == 'index'
-      options.merge(controller: 'catalog')
-    elsif load_subsite.search_type == 'custom'
-      options.merge(controller: load_subsite.slug)
-    elsif load_subsite.search_type == 'local'
-      if load_subsite.restricted.present?
-        slug_param = load_subsite.slug.sub("restricted/",'')
-        options.merge(controller: 'restricted/sites/search', site_slug: slug_param)
-      else
-        options.merge(controller: 'sites/search', site_slug: load_subsite.slug)
-      end
+      options.merge(controller: '/catalog')
     else
-      # delegate to relevant catalog
-      # initialize with facet values if present
-      if load_subsite.restricted.present?
-        repository_id = load_site_document[:lib_repo_code_ssim].first
-        options.merge(controller: 'repositories/catalog', repository_id: repository_id)
-      else
-        options.merge(controller: 'catalog')
-      end
+      search_url_service.search_controller_params(load_subsite, options)
     end
   end
   # Overrides the Blacklight::Controller provided #search_action_url.
@@ -274,21 +262,10 @@ class SitesController < ApplicationController
   # see also HomeController
   def search_action_url(options = {})
     if action_name == 'index'
-      url_params = search_controller_params(options.merge(action: 'index'))
-    elsif load_subsite.search_type == 'custom'
-      # ignore the offered filters for full-fledged custom sites until either:
-      # 1. there are multiple Solr cores
-      # 2. there are collections published to non-catalog subsites
-      url_params = search_controller_params(options.merge(action: 'index'))
-    elsif load_subsite.search_type == 'local'
-      url_params = search_controller_params(options.merge(action: 'index'))
+      url_for(search_controller_params(options.merge(action: 'index')))
     else
-      # delegate to relevant catalog with pre-selected filters
-      # initialize with facet values if present
-      f = options.fetch('f', {}).merge(load_subsite.default_filters)
-      url_params = search_controller_params(options.merge(action: 'index', f: f))
+      search_url_service.search_action_url(load_subsite, self, options)
     end
-    url_for(url_params)
   end
 
   # Override from core BL to remove slug
