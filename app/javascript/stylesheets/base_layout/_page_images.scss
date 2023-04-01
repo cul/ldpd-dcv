@@ -1,3 +1,10 @@
+.figure-dcv {
+	display: block;
+	position: relative; // enables stretched-link in caption to be contained
+	figcaption {
+		font-style: italic;
+	}
+}
 .figure-hero {
 	max-width: 100%;
 	width: max-content;

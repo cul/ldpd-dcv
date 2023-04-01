@@ -2,6 +2,7 @@
 
 module Dcv
   class PageImageComponent < ViewComponent::Base
+    BREAKPOINTS = [[1200, 1140], [992, 960], [768, 720], [576, 540]]
     def initialize(depictable:, blacklight_config:, allow_inset: true)
       @depictable = depictable
       @image = depictable.site_page_images.first
@@ -33,7 +34,7 @@ module Dcv
 
     def figure_opts
       opts = {
-        class: ["figure"]
+        class: ["figure figure-dcv"]
       }
       if @allow_inset && @image&.style == "inset"
         opts[:class] <<  "figure-inset"
@@ -42,21 +43,28 @@ module Dcv
       end
       if reference_url
         opts[:role] = "button"
-        opts[:onclick] = "document.getElementById('hero-link').click();"
         opts[:tabindex] = "0"
       end
       opts
     end
 
-    def image_caption
+    def image_caption_value
       @image&.caption.present? ? @image.caption : image_item&.title
     end
 
-    def image_opts
-      opts = {
-        alt: image_caption, class:"figure-img img-fluid rounded mx-auto"
-      }
+    def image_caption
+      if reference_url
+        link_to(image_caption_value, reference_url, class: ["stretched-link"])
+      else
+        image_caption_value
+      end
+    end
 
+    def image_opts
+      alt = @image&.alt_text.present? ? @image.alt_text : image_caption_value
+      opts = {
+        alt: alt, class:"figure-img img-fluid rounded mx-auto"
+      }
     end
 
     def image_url
@@ -73,10 +81,19 @@ module Dcv
       end
     end
 
-    def item_image_url
+    def item_image_url(size = 768)
       image_id = image_item&.schema_image_identifier || image_item&.id
       return unless image_id
-      Dcv::Utils::CdnUtils.asset_url(id: image_id, size: 768, type: 'full', format: 'jpg')
+      Dcv::Utils::CdnUtils.asset_url(id: image_id, size: size, type: 'full', format: 'jpg')
+    end
+
+    def picture_tag
+      content_tag :picture do
+        safe_join(BREAKPOINTS[0...-1].map do |media_min, content_max|
+          # <source srcset="mdn-logo-wide.png" media="(min-width: 600px)" />
+          tag(:source, srcset: item_image_url(content_max), media: "(min-width:#{media_min}px)")
+        end << image_tag(item_image_url(BREAKPOINTS[-1][1]), image_opts))
+      end
     end
 
     def asset_image_url

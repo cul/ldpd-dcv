@@ -1,5 +1,4 @@
 <%= content_tag :figure, figure_opts do -%>
-    <%= link_to(image_caption, reference_url, id: reference_link_id, class: ["sr-only"], target: "_new") if reference_url %>
-    <%= image_tag(image_url, image_opts) -%>
+    <%= reference_url ? picture_tag : image_tag(image_url, image_opts) -%>
     <figcaption class="figure-caption text-primary"><%= image_caption %></figcaption>
 <% end -%>
