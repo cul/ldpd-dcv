@@ -95,8 +95,13 @@ class SubsitesController < ApplicationController
   end
 
   def self.configure_blacklight_scope_constraints(config, exclude_by_id = false)
-    publishers = Array(subsite_config.dig('scope_constraints','publisher')).compact
-    config.default_solr_params[:fq] << "publisher_ssim:(\"" + publishers.join('" OR "') + "\")"
+    if load_subsite
+      publishers = load_subsite.default_filters.fetch('publisher_ssim', [])
+      config.default_solr_params[:fq] += load_subsite.default_fq
+    else
+      publishers = Array(subsite_config.dig('scope_constraints','publisher')).compact
+      config.default_solr_params[:fq] << "publisher_ssim:(\"" + publishers.join('" OR "') + "\")"
+    end
     # Do not include the publish target itself or any additional publish targets defined in search results
     if exclude_by_id
       config.default_solr_params[:fq] << '-id:("' + publishers.map{|info_fedora_prefixed_pid| info_fedora_prefixed_pid.gsub('info:fedora/', '') }.join('" OR "') + '")'
