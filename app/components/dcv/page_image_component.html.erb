@@ -1,4 +1,6 @@
-<%= content_tag :figure, figure_opts do -%>
-    <%= reference_url ? picture_tag : image_tag(image_url, image_opts) -%>
-    <figcaption class="figure-caption text-primary"><%= image_caption %></figcaption>
+<%= content_tag :div, container_opts do -%>
+    <%= content_tag :figure, figure_opts do -%>
+        <%= reference_url ? picture_tag : image_tag(image_url, image_opts) -%>
+        <figcaption class="figure-caption text-primary"><%= image_caption %></figcaption>
+    <% end -%>
 <% end -%>

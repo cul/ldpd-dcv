@@ -9,7 +9,9 @@ module Dcv::Utils::CdnUtils
   end
 
   def self.asset_url(conditions)
-    Dcv::Utils::CdnUtils.random_cdn_url + "/iiif/2/#{conditions[:id]}/#{conditions[:type]}/!#{conditions[:size]},#{conditions[:size]}/0/native.#{conditions[:format]}"
+    box_width = conditions[:width] || conditions[:size]
+    box_height = conditions[:height] || conditions[:size]
+    Dcv::Utils::CdnUtils.random_cdn_url + "/iiif/2/#{conditions[:id]}/#{conditions[:type]}/!#{box_width},#{box_height}/0/native.#{conditions[:format]}"
   end
 
   def self.archive_org_id_for_document(solr_doc)

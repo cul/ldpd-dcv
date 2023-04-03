@@ -32,15 +32,24 @@ module Dcv
       "#{@depictable.class.name.downcase}-#{@depictable.id}-#{@image&.id}-link"
     end
 
+    def container_opts
+      opts = {class: []}
+      if @allow_inset && @image&.style == "inset"
+        opts[:class] <<  "figure-inset-container"
+      else
+        opts[:class] << "container" << "figure-hero-container"
+      end
+      if reference_url
+        opts[:class] << "figure-collections-container"
+        # opts[:style] = "background-image: url(\"#{item_image_url}\");"
+      end
+      opts
+    end
+
     def figure_opts
       opts = {
         class: ["figure figure-dcv"]
       }
-      if @allow_inset && @image&.style == "inset"
-        opts[:class] <<  "figure-inset"
-      else
-        opts[:class] << "figure-hero"
-      end
       if reference_url
         opts[:role] = "button"
         opts[:tabindex] = "0"
@@ -84,7 +93,8 @@ module Dcv
     def item_image_url(size = 768)
       image_id = image_item&.schema_image_identifier || image_item&.id
       return unless image_id
-      Dcv::Utils::CdnUtils.asset_url(id: image_id, size: size, type: 'full', format: 'jpg')
+      max_height = (size / 16 * 9).ceil
+      Dcv::Utils::CdnUtils.asset_url(id: image_id, width: size, height: max_height, type: 'full', format: 'jpg')
     end
 
     def picture_tag

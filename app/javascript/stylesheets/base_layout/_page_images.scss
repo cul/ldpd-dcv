@@ -5,25 +5,28 @@
 		font-style: italic;
 	}
 }
-.figure-hero {
-	max-width: 100%;
-	width: max-content;
-	margin-right: auto;
-	margin-left: auto;	
-}
-.figure-inset {
-	@media(max-width: 767.9px) {
-		max-width: 100%;
-		width: max-content;
-		margin-right: auto;
-		margin-left: auto;
-	}
-	@media(min-width: 768px) {
-		float: right;
-		max-width: 50%;
-		padding:0.5em;
+.figure-hero-container {
+	figure {
+		width: 100%;
+		picture {
+			@extend .bg-dark;
+			@extend .d-flex;
+			@extend .mx-auto;
+		}
 	}
 }
-
-
-
+.figure-inset-container {
+	figure {
+		@media(max-width: 767.9px) {
+			max-width: 100%;
+			width: max-content;
+			margin-right: auto;
+			margin-left: auto;
+		}
+		@media(min-width: 768px) {
+			float: right;
+			max-width: 50%;
+			padding:0.5em;
+		}
+	}
+}
