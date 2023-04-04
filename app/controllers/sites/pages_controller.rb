@@ -156,7 +156,7 @@ module Sites
 					.permit(
 						:slug, :title, :use_multiple_columns,
 						site_page_images_attributes: [:id, :alt_text, :caption, :image_identifier, :_destroy],
-						site_text_blocks_attributes: [:label, :markdown, { site_page_images_attributes: [:id, :alt_text, :caption, :image_identifier, :style, :_destroy]}]
+						site_text_blocks_attributes: [:id, :label, :markdown, :_destroy, { site_page_images_attributes: [:id, :alt_text, :caption, :image_identifier, :style, :_destroy]}]
 					).to_h.tap do |p|
 						p[:columns] = (p.delete(:use_multiple_columns).to_s == 'true') ? 2 : 1
 						p[:site_page_images_attributes]&.delete_if {|ix, obj| obj[:id].blank? && obj[:image_identifier].blank? }

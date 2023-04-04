@@ -23,21 +23,27 @@
 	<div class="card-body page_images">
 		<h3>Page Image</h3>
 		<%= page_form.fields_for :site_page_images, @page.site_page_images[0] || SitePageImage.new do |site_page_image_form| %>
-			<label for="image_identifier">Image Identifier (doi:, asset:, lweb:)</label>
-			<%= site_page_image_form.text_field :image_identifier, class: ['form-control'] %>
 			<% if @page.site_page_images[0] -%>
 				<label for="_destroy"><span class="fa fa-remove"></span> Remove</label>
 				<%= site_page_image_form.check_box(:_destroy) %>
 			<% end -%>
+			<label for="image_identifier">Image Identifier (doi:, asset:, lweb:)</label>
+			<%= site_page_image_form.text_field :image_identifier, class: ['form-control'] %>
+			<label for="caption">Image Caption</label>
+			<%= site_page_image_form.text_field :caption, class: ['form-control'] %>
+			<label for="alt_text">Image Alt Text</label>
+			<%= site_page_image_form.text_field :alt_text, class: ['form-control'] %>
 		<% end %>
 	</div>
 </div>
 <div class="card border-secondary">
 	<div class="card-header swatch-secondary"><h2 class="card-title">Text Blocks</h2></div>
 	<div class="card-body site_text_blocks">
-		<%= page_form.fields_for :site_text_blocks, include_id: false do |site_text_block_form| %>
-			<%= render partial: 'sites/pages/text_block_form', locals: { site_text_block_form: site_text_block_form } %>
-		<% end %>
+		<% @page.site_text_blocks.sort_by(&:sort_label).each_with_index do |site_text_block, ix| -%>
+			<%= page_form.fields_for :site_text_blocks, site_text_block, include_id: false, child_index: ix do |site_text_block_form| %>
+				<%= render partial: 'sites/pages/text_block_form', locals: { site_text_block_form: site_text_block_form, index: ix } %>
+			<% end %>
+		<% end -%>
 		<button type="button" onclick="addTextBlock(this);" class="btn btn-info" id="site-page-add-block">
 			<span class="fa fa-plus"></span> Add Text Block
 

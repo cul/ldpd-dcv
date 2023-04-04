@@ -107,10 +107,12 @@ export function addTextBlock(addButton) {
 			$(this).attr(att, $(this).attr(att).replace(re, blockNumber.toString()));
 		});
 	});
-	// append it after last menu
+	// append it after last menu but before the add button
+	// removed blocks are after the button
 	newBlock.insertBefore($(addButton));
 	addTooltips(newBlock);
 	addMarkdownEditors(newBlock);
+	reassignTextBlockIndexes($(addButton).closest(".site_text_blocks"));
 }
 
 export function addFacetFieldFields(addButton) {
@@ -165,7 +167,12 @@ export function removeNavLink(button) {
 
 export function removeTextBlock(button) {
 	var allBlocks = $(button).closest(".site_text_blocks");
-	$(button).closest(".site_text_block").remove();
+	var block = $(button).closest(".site_text_block");
+	block.hide();
+	block.find('.destroy_flag').attr('value', '1');
+	block.remove();
+	// append to end if it was an existing block that needs to be deleted
+	if (block.find('.text_block_id').attr('value') != "") allBlocks.append(block);
 	reassignTextBlockIndexes(allBlocks);
 }
 

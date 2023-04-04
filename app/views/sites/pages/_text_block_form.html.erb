@@ -1,6 +1,8 @@
 <div class="card border-info site_text_block" id="site_text_block_<%= site_text_block_form.index %>">
 	<div class="card-header swatch-info form-inline">
 		<div class="form-group">
+			<input type="hidden" name="site_page[site_text_blocks_attributes][<%= site_text_block_form.index %>][id]" id="site_page_site_text_blocks_attributes_<%= site_text_block_form.index %>_id" value="<%= site_text_block_form.object.id %>" class="text_block_id" />
+			<input type="hidden" class="destroy_flag" name="site_page[site_text_blocks_attributes][<%= site_text_block_form.index %>][_destroy]" id="site_page_site_text_blocks_attributes_<%= site_text_block_form.index %>__destroy" value="0" />
 			<span class="fa fa-arrows site_text_block_handle"></span>
 			<label for="site_page[site_text_blocks_attributes][<%= site_text_block_form.index %>][sort_label]">Block Label <span class="fa fa-question-circle" data-tooltip="tooltip-block-label"></span></label>
 			<%= site_text_block_form.text_field :label, class: ['form-control'] %>
@@ -13,16 +15,16 @@
 	</div>
 	<div class="card-body collapse site_page_text_block_images" id="site_page_text_block_image_<%= site_text_block_form.index %>">
 		<%= site_text_block_form.fields_for :site_page_images, site_text_block_form.object.site_page_images[0] || SitePageImage.new, include_id: true do |image_form| %>
+			<% if site_text_block_form.object.site_page_images[0] -%>
+				<label for="_destroy"><span class="fa fa-remove"></span> Remove</label>
+				<%= image_form.check_box(:_destroy) %>
+			<% end -%>
 			<label for="image_identifier">Image Identifier (doi:, asset:, lweb:)</label>
 			<%= image_form.text_field :image_identifier, class: ['form-control'] %>
 			<label for="caption">Image Caption</label>
 			<%= image_form.text_field :caption, class: ['form-control'] %>
 			<label for="alt_text">Image Alt Text</label>
 			<%= image_form.text_field :alt_text, class: ['form-control'] %>
-			<% if site_text_block_form.object.site_page_images[0] -%>
-				<label for="_destroy"><span class="fa fa-remove"></span> Remove</label>
-				<%= image_form.check_box(:_destroy) %>
-			<% end -%>
 			<label for="style">Image Style</label>
 			<div class="radio">
 				<label>

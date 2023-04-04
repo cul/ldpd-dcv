@@ -6,7 +6,7 @@ class SitePage < ApplicationRecord
 	validates_uniqueness_of :slug, scope: :site_id
 	validate :home_slug_does_not_change
 	validates_associated :site_page_images
-	accepts_nested_attributes_for :site_text_blocks
+	accepts_nested_attributes_for :site_text_blocks, allow_destroy: true
 	accepts_nested_attributes_for :site_page_images, allow_destroy: true
 
 	def initialize(atts = {})
@@ -35,25 +35,8 @@ class SitePage < ApplicationRecord
 
 	# this setter is necessary for the form builder
 	def site_text_blocks_attributes=(atts_map)
-		unrolled_atts = atts_map.map {|ix, atts| atts.merge('sort_label' => "#{sprintf("%02d", ix.to_i)}:#{atts.delete('label')}")}
-		if unrolled_atts.detect {|ua| ua['markdown'].present? }
-			self.site_text_blocks.each do |text_block|
-				if unrolled_atts.present?
-					# update this available text block record
-					atts = unrolled_atts.shift
-					# sanitize script elements
-					atts['markdown']&.gsub!(/<(\/?script[^>]*)>/i, '&lt;\1&gt;')
-					text_block.update! atts
-				else
-					# out of attributes so delete remaining text blocks
-					text_block.delete
-				end
-			end
-			# remaining attributes represent new nav links that must be added
-			unrolled_atts.each do |text_block_attributes|
-				self.site_text_blocks.create!(text_block_attributes)
-			end
-		end
+		atts_map.each { |ix, atts| puts atts.inspect; atts['sort_label'] = "#{sprintf("%02d", ix.to_i)}:#{atts.delete('label')}"; puts atts.inspect }
+		super
 	end
 
 	def home_slug_does_not_change
