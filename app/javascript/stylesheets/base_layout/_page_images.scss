@@ -18,10 +18,12 @@
 .figure-inset-container {
 	figure {
 		@media(max-width: 767.9px) {
-			max-width: 100%;
-			width: max-content;
-			margin-right: auto;
-			margin-left: auto;
+			width: 100%;
+			picture {
+				display: flex;
+				margin-left: auto;
+				margin-right: auto;
+			}
 		}
 		@media(min-width: 768px) {
 			float: right;
