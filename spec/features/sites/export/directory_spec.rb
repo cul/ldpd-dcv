@@ -5,6 +5,7 @@ describe Dcv::Sites::Export::Directory do
 	let(:export) { described_class.new(site.slug, Dir.mktmpdir) }
 	let(:export_dir) { export.run }
 	let(:export_properties) { File.join(export_dir, 'properties.yml') }
+	let(:export_about_properties) { File.join(export_dir, 'pages', 'about', 'properties.yml') }
 	let(:source) { fixture("sites/import/directory").path }
 	let(:import) { Dcv::Sites::Import::Directory.new(source) }
 	let(:site) { import.run }
@@ -40,7 +41,11 @@ describe Dcv::Sites::Export::Directory do
 			actual = YAML.load(File.read(export_properties)).fetch('permissions', :no_key_from_actual)
 			expect(actual).to eql(expected)
 		end
-		skip 'exports pages' do
+		it 'exports pages' do
+			import_properties = File.join(source, 'pages', 'about', 'properties.yml')
+			expected = YAML.load(File.read(import_properties))
+			actual = YAML.load(File.read(export_about_properties))
+			expect(actual).to eql(expected)
 		end
 		skip 'exports images' do
 		end

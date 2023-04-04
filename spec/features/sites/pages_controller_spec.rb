@@ -59,14 +59,14 @@ describe ::Sites::PagesController, type: :feature do
 			visit(edit_link_href)
 		end
 		it 'updates text blocks' do
-			find('button[data-target="#site_page_text_block_0_markdown"]').click # Show Text Block content
-			new_text = find('#site_page_site_text_blocks_attributes_0_markdown').value
+			find('button[data-target="#site_page_text_block_1_markdown"]').click # Show Text Block content
+			new_text = find('#site_page_site_text_blocks_attributes_1_markdown').value
 			new_text.sub!('Don\'t Repeat Yourself', "Text Block Value")
 			# the markdown textarea is display:none by the editor widget, but we're not running js
-			find('#site_page_site_text_blocks_attributes_0_markdown').set(new_text)
+			find('#site_page_site_text_blocks_attributes_1_markdown').set(new_text)
 			click_button "Update Page"
 			# do a find to make sure page loaded
-			find('#site_page_site_text_blocks_attributes_0_markdown')
+			find('#site_page_site_text_blocks_attributes_1_markdown')
 			visit(page_link)
 			expect(page).to have_xpath("//strong", text: "Text Block Value")			
 		end

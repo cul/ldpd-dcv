@@ -16,6 +16,13 @@ describe Dcv::Sites::Import::Directory do
 		end
 		it 'imports pages' do
 			expect(site.site_pages.length).to eql(2)
+			about_page = site.site_pages.where(slug: 'about').first
+			page_image = about_page.site_page_images.first
+			expect(page_image.caption).to eql('Photograph of welder, Empire State Building')
+			text_block = about_page.site_text_blocks.sort_by(&:sort_label)[1]
+			expect(text_block.markdown).to include("Rails philosophy")
+			block_image = text_block.site_page_images.first
+			expect(block_image.caption).to eql('Blue Nursery')
 		end
 		it 'imports images' do
 			signature_path = File.join(Rails.root, 'public', 'images', 'sites', site.slug, 'signature.svg')

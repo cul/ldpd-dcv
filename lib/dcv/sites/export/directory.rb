@@ -31,10 +31,10 @@ module Dcv::Sites::Export
 				unless @db_fields
 					DB_FIELDS.each { |f| json.delete(f) }
 					json.delete('constraints') # obsolete
-					json['scope_filters'].each do |nav_link|
-						DB_FIELDS.each { |f| nav_link.delete(f) }
-						nav_link.delete('scopeable_id')
-						nav_link.delete('scopeable_type')
+					json['scope_filters'].each do |filter|
+						DB_FIELDS.each { |f| filter.delete(f) }
+						filter.delete('scopeable_id')
+						filter.delete('scopeable_type')
 					end
 					json['nav_links'].each do |nav_link|
 						DB_FIELDS.each { |f| nav_link.delete(f) }
@@ -42,20 +42,11 @@ module Dcv::Sites::Export
 				end
 				YAML.dump(json, io)
 			end
-			FileUtils.mkdir_p(File.join(@directory, PAGES_SUBDIR))
+			pages_export_dir = File.join(@directory, PAGES_SUBDIR)
+			FileUtils.mkdir_p(pages_export_dir)
 			# dump page content and properties
 			@site.site_pages.each do |site_page|
-				site_page_path = File.join(@directory, PAGES_SUBDIR, site_page.slug)
-				FileUtils.mkdir_p(site_page_path)
-				open(File.join(site_page_path, SITE_METADATA), 'wb') do |io|
-					json = site_page.as_json
-					DB_FIELDS.each { |f| json.delete(f) } unless @db_fields
-					YAML.dump(json, io)
-					site_page.site_text_blocks.each do |text_block|
-						filename = SiteTextBlock.export_filename_for_sort_label(text_block.sort_label)
-						open(File.join(site_page_path, filename), 'wb') { |blio| blio.write(text_block.markdown) }
-					end
-				end
+				export_site_page(site_page, pages_export_dir)
 			end
 			exported_images_dir = File.join(@directory, IMAGES_SUBDIR)
 			FileUtils.mkdir_p(exported_images_dir)
@@ -68,6 +59,51 @@ module Dcv::Sites::Export
 				end
 			end if Dir.exist?(current_images_dir)
 			@directory
+		end
+
+		def export_site_page(site_page, pages_export_dir)
+			site_page_path = File.join(pages_export_dir, site_page.slug)
+			FileUtils.mkdir_p(site_page_path)
+			open(File.join(site_page_path, SITE_METADATA), 'wb') do |io|
+				json = site_page.as_json
+				json['site_page_images'] = site_page.site_page_images.map(&:as_json).each do |spi|
+					DB_FIELDS.each { |f| spi.delete(f) }
+					spi.delete('depictable_id')
+					spi.delete('depictable_type')
+					spi
+				end
+				DB_FIELDS.each { |f| json.delete(f) } unless @db_fields
+				json['site_page_text_blocks'] = []
+				site_page.site_text_blocks.each do |text_block|
+					block_json = export_site_page_text_block_metadata(text_block)
+					filename = SiteTextBlock.export_filename_for_sort_label(text_block.sort_label)
+					markdown_path = File.join(site_page_path, filename)
+					export_site_page_text_block_markdown(text_block, markdown_path)
+					block_json['markdown'] = filename
+					json['site_page_text_blocks'] << block_json
+				end
+				YAML.dump(json, io)
+			end
+		end
+
+		def export_site_page_text_block_metadata(text_block)
+			block_json = text_block.as_json
+			block_json.delete('markdown')
+			DB_FIELDS.each { |f| block_json.delete(f) } unless @db_fields
+			block_json['site_page_images'] = text_block.site_page_images.map do |spi|
+				spi_json = spi.as_json
+				DB_FIELDS.each { |f| spi_json.delete(f) } unless @db_fields
+				spi_json.delete('depictable_id')
+				spi_json.delete('depictable_type')
+				spi_json
+			end
+			block_json.delete('site_page_images') if block_json['site_page_images'].empty?
+			block_json
+		end
+
+		def export_site_page_text_block_markdown(text_block, markdown_path)
+			filename = SiteTextBlock.export_filename_for_sort_label(text_block.sort_label)
+			open(markdown_path, 'wb') { |blio| blio.write(text_block.markdown) }
 		end
 	end
 end

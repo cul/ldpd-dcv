@@ -67,15 +67,21 @@ module Dcv::Sites::Import
 					page_path = File.join(pages_path, page_name)
 					if Dir.exist?(page_path)
 						puts "creating page at #{page_name} for #{site.slug}"
-						atts = { 'slug' => page_name, 'site_id' => site.id }
+						page_atts = { 'slug' => page_name, 'site_id' => site.id }
 						if File.exist?(File.join(page_path, SITE_METADATA))
-							atts.merge!(YAML.load(File.read(File.join(page_path, SITE_METADATA))))
+							page_atts.merge!(YAML.load(File.read(File.join(page_path, SITE_METADATA))))
 						end
-						page = SitePage.create(atts)
-						Dir.glob(File.join(page_path,"*.md")).map do |block_path|
-							label = SiteTextBlock.sort_label_from_filename(block_path)
-							block = SiteTextBlock.new(sort_label: label, site_page_id: page.id)
-							block.markdown = File.read(block_path)
+						blocks_atts = page_atts.delete('site_page_text_blocks') || []
+						page_atts['site_page_images']&.map! { |spi_atts| SitePageImage.new(spi_atts) }
+						page = SitePage.create(page_atts)
+						blocks_atts.each do |block_props|
+							markdown_path = File.join(page_path, block_props.delete('markdown')) if block_props['markdown']
+							block_props['site_page_images']&.map! { |spi_atts| SitePageImage.new(spi_atts) }
+							block_props['site_page_id'] = page.id
+							block = SiteTextBlock.new(block_props)
+							if markdown_path.to_s =~ /.md$/
+								block.markdown = File.read(markdown_path)
+							end
 							block.save
 						end
 					end

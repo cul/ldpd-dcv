@@ -1,0 +1,18 @@
+slug: about
+title: About Rails
+columns: 1
+site_page_images:
+  - image_identifier: "asset:dcv/ldpd-112745.jpg"
+    caption: Photograph of welder, Empire State Building
+    alt_text: Photograph of man welding with flying sparks
+    style: hero
+site_page_text_blocks:
+  - sort_label: 00:About
+    markdown: 00_About.md
+  - sort_label: "01:"
+    markdown: 01_.md
+    site_page_images:
+      - image_identifier: "asset:dcv/ldpd.treasures.243.jpg"
+        caption: Blue Nursery
+        alt_text: Photograph of a theatrical set model with a lattice of blue arches above triangular windows
+        style: inset
