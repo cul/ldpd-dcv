@@ -79,12 +79,13 @@ module Dcv::CdnHelper
     if (url = get_archive_org_thumbnail_url(document))
       return url
     end
+    size = options.fetch(:size, 256)
     schema_image = Array(document['schema_image_ssim']).first
     # non-site behavior
     schema_image = document['representative_generic_resource_pid_ssi'] if schema_image.blank?
 
     if schema_image.present?
-      Dcv::Utils::CdnUtils.asset_url(id: schema_image.split('/')[-1], size: 256, type: 'featured', format: 'jpg')
+      Dcv::Utils::CdnUtils.asset_url(id: schema_image.split('/')[-1], size: size, type: 'featured', format: 'jpg')
     elsif document[:cul_number_of_members_isi] == 0
       placeholder_format = (['books', 'maps'] & document.fetch('lib_format_ssm', [])).first&.singularize
       if placeholder_format
@@ -97,7 +98,7 @@ module Dcv::CdnHelper
         image_url("thumbtack-fa-placeholder.png")
       end
     else # fall back to whatever the item does from image server
-      Dcv::Utils::CdnUtils.asset_url(id: document.id, size: 256, type: 'featured', format: 'jpg')
+      Dcv::Utils::CdnUtils.asset_url(id: document.id, size: size, type: 'featured', format: 'jpg')
     end
   end
 
