@@ -1,0 +1,34 @@
+.squares {
+  .square {
+    aspect-ratio: 1/ 1;
+    align-items: center;
+    padding: 0px !important;
+    img {
+      object-fit: contain;
+      object-position: center;
+      max-height: 100%;
+      max-width: 100%;
+    }
+    .caption {
+      display: inline-flex;
+      position: absolute;
+      bottom: 0;
+      left:0;
+      z-index: 1;
+      height: 100%;
+      width: 100%;
+      text-align: end;
+      border: solid var(--user-input) 2px;
+      a {
+        color: white;
+      }
+      a:hover {
+        color: black;
+      }
+    }
+    .caption:hover {
+      background-color: rgba(255,255,255, .75);
+      border-color: var(--primary);    
+    }
+  }
+}

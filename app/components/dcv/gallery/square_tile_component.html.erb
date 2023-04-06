@@ -1,0 +1,7 @@
+<%= content_tag :div, class: tile_classes do -%>
+  <picture>
+  	<%= tag(:source, srcset: image_url(@image_size), media: "(min-width:768px)") if @downscale %>
+  	<img src="<%= image_url(@downscale ? (@image_size / 2) : @image_size) %>" aria-labelledby=<%= labelled_by %>/>
+  </picture>
+  <span class="caption"><%= link_to caption, item_url, class: link_classes, id: labelled_by -%></span>
+<% end -%>
