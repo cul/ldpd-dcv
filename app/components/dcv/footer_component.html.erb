@@ -1,6 +1,21 @@
-<footer class="container clear-both">
+<footer class="container small clear-both swatch-brand">
 	<hr />
 	<%= render(Dcv::Footer::ContactComponent.new) %>
+</footer>
+<footer id="site-footer" class="text-muted small py-2">
+	<div class="container">
+		<div class="row">
+			<div class="col-3">
+				<a href="http://www.columbia.edu">
+                    <span class="brand sr-only">Columbia University</span>
+                    <img src="https://toolkit.library.columbia.edu/v3/img/cu-blue-logo.svg" alt="Columbia University Logo" class="img-responsive hidden-xs w-100">
+                </a>
+			</div>
+			<div class="col text-right">
+				<span class="copyright mr-1">©<%= Time.now.year %> Columbia University Libraries</span>
+			</div>
+		</div>
+	</div>
 </footer>
 <div class="d-none" id="palette-swatches">
 	<p class="swatch-body"></p>

@@ -78,18 +78,26 @@ module Dcv::DcvUrlHelper
     end
   end
 
+  def publications_policy_url
+    'http://library.columbia.edu/services/preservation/publications_policy.html'
+  end
+
+  def library_policies_url
+    'https://library.columbia.edu/about/policies.html'
+  end
+
   def terms_of_use_url
     'https://library.columbia.edu/resolve/lweb0208'
   end
 
-  def site_edit_link(sep: ' | ')
+  def site_edit_link(sep: ' | ', **link_opts)
     return unless (@subsite && can?(:update, @subsite))
     if @page && (@page.slug.to_s != 'home')
       edit_href = edit_site_page_path(site_slug: @subsite.slug, slug: @page.slug)
     else
       edit_href = edit_site_path(slug: @subsite.slug)
     end
-    edit_ele = link_to(edit_href) do
+    edit_ele = link_to(edit_href, link_opts) do
       "<span class=\"fa fa-pencil\"></span> Edit".html_safe
     end
     "#{sep}#{edit_ele}".html_safe

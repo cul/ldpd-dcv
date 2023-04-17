@@ -1,10 +1,23 @@
 <div class="row">
-	<div class="col-md-6">
-		<p><small>C.V. Starr East Asian Library &bull; 300 Kent Hall &bull; starr@library.columbia.edu</small></p>
+	<div class="col col-md-6 col-lg-4">
+		<address><strong><%= t('cul.archives.physical_location.NNC-EA') %></strong><br>300 Kent Hall<br>1140 Amsterdam Ave. New York, NY 10027</small></address>
 	</div>
-	<div class="col-md-6 text-right">
-		<p><small><%= link_to 'Copyright and Permissions', terms_of_use_url %> | <%= link_to 'Suggestions & Feedback', '#', data: {
-			toggle: 'modal', target: '#dcvModal', 'modal-embed-func' => 'feedbackEmbedUrl', 'modal-size' => 'xl', 'modal-title' => 'Suggestions and Feedback'
-		}, role: 'button' %><%= site_edit_link(sep: ' | ') %></small></p>
+	<div class="col col-md-6 col-lg-4">
+		<div class="row">
+			<div class="col-1 d-none d-sm-block"><span class="fa fa-mobile fa-lg" aria-hidden="true"></span></div>
+			<div class="col"><address><strong>Phone</strong><br><%= telephone_contact_link('NNC-EA') %></address></div>
+		</div>
+		<div class="row">
+			<div class="col-1 d-none d-sm-block"><span class="fa fa-envelope fa-sm" aria-hidden="true"></span></div>
+			<div class="col"><address><strong>Contact Us</strong><br><%= email_contact_link('NNC-EA') %></address></div>
+		</div>
+	</div>
+	<div class="col">
+		<ul class="list-unstyled">
+			<li><%= terms_of_use_link %></li>
+			<li><%= library_policies_link %></li>
+			<li><%= feedback_modal_link %></li>
+			<li><%= site_edit_link(sep: "", class: 'swatch-brand') %></li>
+		</ul>
 	</div>
 </div>
