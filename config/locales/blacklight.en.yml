@@ -11,6 +11,10 @@ en:
       citation:
         label: '%{label}:'
       title: '%{application_name}'
+      pagination_info:
+        no_items_found: 'No %{entry_name} found'
+        single_item_found: '<strong>1</strong> %{entry_name} found'
+        pages: '<strong>%{start_num}</strong> - <strong>%{end_num}</strong><span class="d-none d-sm-inline"> of <strong>%{total_num}</strong></span>'
   views:
     pagination:
       next: 'Next'

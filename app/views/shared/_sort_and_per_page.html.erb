@@ -1,7 +1,8 @@
-<div id="sortAndPerPage" style="border-bottom:0; margin-bottom:0;">
+<div id="sortAndPerPage" class="border-bottom-0 d-flex justify-content-between">
+  <div id="search-result-pagination">
   <%= render(partial: "paginate_compact", object: @response) if has_search_parameters? %>
-
-  <div id="search-index-tools" class="float-right">
+  </div>
+  <div id="search-index-tools">
     <div id="search-widgets" class="btn-group btn-group-sm float-right search-index-tool-group">
       <%= render :partial => 'sort_widget' %>
       <%= render :partial => 'per_page_widget' %>
