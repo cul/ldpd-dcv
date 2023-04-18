@@ -13,7 +13,9 @@
 	</nav>
 <% else %>
 	<nav class="navbar navbar-expand d-block d-sm-flex flex-md-row flex-column" id="site-banner">
-		<a href="<%= root_path %>" id="site-title" class="navbar-brand">Digital Collections</a>
+		<div class="d-flex flex-column w-100">
+			<a href="<%= root_path %>" id="site-title" class="navbar-brand">Digital Library Collections</a>
+		</div>
 		<%= render_search_bar  %>
 	</nav>
 <% end %>

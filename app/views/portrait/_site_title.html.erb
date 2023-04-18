@@ -1,6 +1,6 @@
-<a id="site-title" class="navbar-brand" href="<%= "/#{@subsite.slug}"%>">
-<%= @subsite.title.html_safe %>
-<%- if @subsite.alternative_title.present? || @subsite.repository_id.present? -%>
-<small id="site-banner-subtitle"><%= @subsite.alternative_title.present? ? @subsite.alternative_title : repository_physical_location(@subsite.repository_id) %></small>
+<div class="d-flex flex-column w-100">
+<a id="site-title" class="navbar-brand" href="<%= "/#{@subsite.slug}"%>"><%= @subsite.title.html_safe %></a>
+<%- if @subsite.alternative_title.present? -%>
+<small id="site-banner-subtitle"><%= @subsite.alternative_title %></small>
 <%- end -%>
-</a>
+</div>
