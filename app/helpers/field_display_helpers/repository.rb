@@ -88,7 +88,7 @@ module FieldDisplayHelpers::Repository
     values = args[:document][args[:field]]
     repo_codes = args[:document]['lib_repo_code_ssim']
     if repo_codes
-      values = repo_codes.map { |repo_code| t("cul.archives.display_value.#{repo_code}", default: repo_code) }
+      values = repo_codes.map { |repo_code| repository_display_value(repo_code) }
     end
     field_config = (controller.action_name.to_sym == :index) ?
       blacklight_config.index_fields[args[:field]] :
@@ -99,9 +99,9 @@ module FieldDisplayHelpers::Repository
 
   def show_repository_location_with_contact(args)
     repo_code = field_helper_repo_code_value(args)
-    repo_display = t("cul.archives.physical_location.#{repo_code}", default: nil)
+    repo_display = repository_display_value(repo_code)
     return unless repo_display
-    email_display = t("cul.archives.contact_email.#{repo_code}", default: nil)
+    email_display = repository_email_contact(repo_code)
     if args[:mixed_content]
       message = "Additional content may be accessible in the reading room of the #{repo_display}. Please make arrangements in advance of your visit."
     else

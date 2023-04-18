@@ -8,13 +8,9 @@
 	.icon-columbia-crown {
 		padding-right:.25em;
 	}
-	background-color: map-get($theme-colors, 'secondary');
 	#navbar-container {
 		padding: 0 10px;
 		height:100%;
-		border-left: map-get($theme-border-colors, 'secondary') 1px solid;
-		border-right: map-get($theme-border-colors, 'secondary') 1px solid;
-		border-bottom: map-get($theme-border-colors, 'secondary') 1px solid;
 		.navlist-padded {
 			position: relative;
 			display: block;

@@ -29,7 +29,7 @@
       </div>
       <div class="form-group">
         <label for="site_title">Alternative Title <span class="fa fa-question-circle" data-tooltip="tooltip-subtitle"></span></label>
-        <%= site_form.text_field :alternative_title, class: ['form-control'], placeholder: (t("cul.archives.physical_location.#{@subsite.repository_id}") if @subsite.repository_id) %>
+        <%= site_form.text_field :alternative_title, class: ['form-control'], placeholder: (repository_physical_location(@subsite.repository_id) if @subsite.repository_id) %>
       </div>
       <div class="form-group">
         <label for="site_palette">Site Palette <span class="fa fa-question-circle" data-tooltip="tooltip-palette"></span></label>

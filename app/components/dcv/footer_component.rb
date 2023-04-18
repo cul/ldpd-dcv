@@ -6,8 +6,8 @@ module Dcv
     SLUG_VARIANTS = ['durst', 'universityseminars']
     def initialize(subsite:, repository_id: nil)
       repository_id = DEFAULT_VARIANT if repository_id.blank?
-      variant = FooterComponent.variant_for(subsite, repository_id).to_sym
-      @local_variants = variant == :nnc ? [variant] : [variant, :nnc]
+      @repository_code = FooterComponent.variant_for(subsite, repository_id).to_sym
+      @local_variants = @repository_code == :nnc ? [@repository_code] : [@repository_code, :nnc]
     end
 
     def render(*args)

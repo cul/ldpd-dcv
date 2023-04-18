@@ -92,7 +92,8 @@ module Dcv::DcvUrlHelper
 
   def site_edit_link(sep: ' | ', **link_opts)
     return unless (@subsite && can?(:update, @subsite))
-    if @page && (@page.slug.to_s != 'home')
+    return if controller.action_name == 'edit'
+    if @page&.slug && (@page.slug.to_s != 'home')
       edit_href = edit_site_page_path(site_slug: @subsite.slug, slug: @page.slug)
     else
       edit_href = edit_site_path(slug: @subsite.slug)

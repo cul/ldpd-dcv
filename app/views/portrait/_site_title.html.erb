@@ -1,6 +1,6 @@
 <a id="site-title" class="navbar-brand" href="<%= "/#{@subsite.slug}"%>">
 <%= @subsite.title.html_safe %>
 <%- if @subsite.alternative_title.present? || @subsite.repository_id.present? -%>
-<small id="site-banner-subtitle"><%= @subsite.alternative_title.present? ? @subsite.alternative_title : t("cul.archives.physical_location.#{@subsite.repository_id}") %></small>
+<small id="site-banner-subtitle"><%= @subsite.alternative_title.present? ? @subsite.alternative_title : repository_physical_location(@subsite.repository_id) %></small>
 <%- end -%>
 </a>

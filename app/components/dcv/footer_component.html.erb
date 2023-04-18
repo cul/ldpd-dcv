@@ -1,11 +1,12 @@
-<footer class="container small clear-both swatch-brand">
-	<hr />
-	<%= render(Dcv::Footer::ContactComponent.new) %>
-</footer>
-<footer id="site-footer" class="text-muted small py-2">
+<section id="contact-footer" class="py-5 mb-2 swatch-primary">
+	<footer class="container small">
+		<%= render Dcv::Footer::ContactComponent.new(repository_code: @repository_code) %>
+	</footer>
+</section>
+<footer id="site-footer" class="text-muted small py-2 mb-5">
 	<div class="container">
 		<div class="row">
-			<div class="col-3">
+			<div class="col-sm-3 mb-2">
 				<a href="http://www.columbia.edu">
                     <span class="brand sr-only">Columbia University</span>
                     <img src="https://toolkit.library.columbia.edu/v3/img/cu-blue-logo.svg" alt="Columbia University Logo" class="img-responsive hidden-xs w-100">

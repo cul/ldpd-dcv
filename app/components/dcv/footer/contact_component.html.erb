@@ -1,23 +1,24 @@
 <div class="row">
 	<div class="col col-md-6 col-lg-4">
-		<address><strong><%= t('cul.archives.physical_location.NNC-A') %></strong><br>300 Avery Hall<br>1172 Amsterdam Ave. New York, NY 10027</address>
+		<address><strong><%= physical_location %></strong><br><%= contact_address %></address>
 	</div>
 	<div class="col col-md-6 col-lg-4">
 		<div class="row">
 			<div class="col-1 d-none d-sm-block"><span class="fa fa-mobile fa-lg" aria-hidden="true"></span></div>
-			<div class="col"><address><strong>Phone</strong><br><%= telephone_contact_link('NNC-A') %></address></div>
+			<div class="col"><address><strong>Phone</strong><br><%= telephone_contact_link %></address></div>
 		</div>
 		<div class="row">
 			<div class="col-1 d-none d-sm-block"><span class="fa fa-envelope fa-sm" aria-hidden="true"></span></div>
-			<div class="col"><address><strong>Contact Us</strong><br><%= email_contact_link('NNC-A') %></address></div>
+			<div class="col"><address><strong>Contact Us</strong><br><%= email_contact_link %></address></div>
 		</div>
 	</div>
 	<div class="col">
 		<ul class="list-unstyled">
+			<li><%= publications_policy_link %></li>
 			<li><%= terms_of_use_link %></li>
 			<li><%= library_policies_link %></li>
 			<li><%= feedback_modal_link %></li>
-			<li><%= site_edit_link(sep: "", class: 'swatch-brand') %></li>
+			<li><%= site_edit_link %></li>
 		</ul>
 	</div>
 </div>

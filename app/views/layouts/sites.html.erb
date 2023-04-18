@@ -46,6 +46,6 @@
       </div>
     </div><!--/.row-->
   </div><!--/#outer-wrapper-->
-
+  <%= render Dcv::FooterComponent.new(subsite: @subsite, repository_id: params[:repository_id]) %>
   </body>
 </html>

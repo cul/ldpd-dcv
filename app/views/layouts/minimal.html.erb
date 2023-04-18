@@ -17,7 +17,7 @@
 					<%= yield %>
 				</div>
 			</div><!--/.row-->
-			<%= render Dcv::FooterComponent.new(subsite: @subsite, repository_id: params[:repository_id]) %>
 		</div><!--/#outer-wrapper-->
+		<%= render Dcv::FooterComponent.new(subsite: @subsite, repository_id: params[:repository_id]) %>
 	</body>
 </html>
