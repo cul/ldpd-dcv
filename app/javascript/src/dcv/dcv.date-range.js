@@ -6,28 +6,6 @@ const DateGraphVisiblityState = {
   COOKIE: 'search_date_graph_visibility'
 }
 
-/*********************
- * Date Range Slider *
- *********************/
-
-const DateRangeSlider = {
-  init:  function() {
-    $('#sidebar-date-range-set-btn').on('click', function(){
-      DateRangeSlider.filterBySelectedDateRange();
-      return false;
-    });
-  },
-  filterBySelectedDateRange: function() {
-    var newStartYearFilter = $("#sidebar-date-range-selector input.sliderValue[data-index=0]").val();
-    var newEndYearFilter = $("#sidebar-date-range-selector input.sliderValue[data-index=1]").val();
-    var searchParams = new URLSearchParams(window.location.search);
-    searchParams.set('start_year', newStartYearFilter);
-    searchParams.set('end_year', newEndYearFilter);
-    var redirectUrl = location.toString().replace(location.search, "?" + searchParams.toString());
-    window.location = redirectUrl;
-  }
-};
-
 /****************************
  * Date Range GraphSelector *
  ****************************/
@@ -304,7 +282,6 @@ export const dateWidgetReady = function() {
   //Date Range Graph Setup
   //Activate date graph if cookie is set
   DateRangeGraphSelector.init();
-  DateRangeSlider.init();
   $('#date-graph-toggle').on('click', function() {
     toggleSearchDateGraphVisibility();
   });

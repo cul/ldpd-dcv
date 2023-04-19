@@ -10,12 +10,12 @@
     </h3>
     <div id="date-range-filter" class="panel-collapse facet-content <%= date_filter_is_active ? 'show' : 'collapse' %>" aria-labelledby="facet-date-range-filter-header">
       <div class="card-body">
-        <form id="sidebar-date-range-selector" action="#">
-
+        <form id="sidebar-date-range-selector" action="<%= search_action_url %>">
+          <%= render_hash_as_hidden_fields(search_state.params_for_search.except(:end_year, :start_year).reverse_merge(search_field: 'all_text_teim')) %>
           <div>
-            <input type="text" class="sliderValue form-control input-sm" data-index="0" placeholder="YYYY" maxlength="4" value="<%= params[:start_year] if params[:start_year] %>" />
+            <input name="start_year" type="text" class="sliderValue form-control input-sm" data-index="0" placeholder="YYYY" maxlength="4" value="<%= params[:start_year] if params[:start_year] %>" />
             -
-            <input type="text" class="sliderValue form-control input-sm" data-index="1" placeholder="YYYY" maxlength="4" value="<%= params[:end_year] if params[:end_year] %>" />
+            <input name="end_year" type="text" class="sliderValue form-control input-sm" data-index="1" placeholder="YYYY" maxlength="4" value="<%= params[:end_year] if params[:end_year] %>" />
             <input id="sidebar-date-range-set-btn" type="submit" class="btn btn-outline-secondary btn-sm" value="Set &raquo;" />
           </div>
 
