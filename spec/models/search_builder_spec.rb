@@ -24,5 +24,11 @@ describe SearchBuilder do
         expect(query_parameters[:fq]).to include "{!tag=#{facet_tag}}#{facet_field}:(\"#{facet_values.join('" OR "')}\")"
       end
     end
+    describe 'filter_random_suppressed_content' do
+      let(:search_builder) { described_class.new(scope).append(:filter_random_suppressed_content) }
+      it 'adds a suppress random filter' do
+        expect(query_parameters[:fq]).to include "!suppress_in_random_bsi:true"
+      end
+    end
   end
 end

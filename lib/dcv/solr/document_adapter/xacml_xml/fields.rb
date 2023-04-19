@@ -11,6 +11,10 @@ class Dcv::Solr::DocumentAdapter::XacmlXml
     TYPE_URI = "http://www.w3.org/2001/XMLSchema#anyURI".freeze
 
     ATTRIBUTE_AFFILIATION = "http://www.ja-sig.org/products/cas/affiliation".freeze
+    ATTRIBUTE_API_CONTEXT = "urn:library.columbia.edu:names:api-context".freeze
+
+    VALUE_DENY = "Deny".freeze
+    VALUE_RANDOM_CONTEXT = "urn:library.columbia.edu:names:api-context:random".freeze
 
     def policy
       ng_xml.xpath('/xacml:Policy', XACML_NS).first
@@ -26,6 +30,10 @@ class Dcv::Solr::DocumentAdapter::XacmlXml
 
     def permissions
       xacml&.xpath('./xacml:Rule[@Effect=\'Permit\']/xacml:Condition', XACML_NS)
+    end
+
+    def prohibitions
+      xacml&.xpath('./xacml:Rule[@Effect=\'Deny\']/xacml:Condition', XACML_NS)
     end
 
     def permit_affiliations
@@ -56,6 +64,16 @@ class Dcv::Solr::DocumentAdapter::XacmlXml
           end
         end
       end.compact.first
+    end
+
+    def suppress_random?
+      prohibitions&.each do |condition|
+        if condition['FunctionId'].eql?(FUNCTION_ONE_URI_MATCH)
+          attr_value = condition.xpath(".//xacml:AttributeValue[@DataType='#{TYPE_URI}']", XACML_NS).text
+          return true if attr_value == VALUE_RANDOM_CONTEXT
+        end
+      end
+      false
     end
   end
 end

@@ -1,0 +1,21 @@
+<xacml:Policy xmlns:xacml="urn:oasis:names:tc:xacml:3.0:core:schema:wd-17" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" PolicyId="policy:af997341-19a4-4df5-bfd3-074fd24d9901" RuleCombiningAlgId="urn:oasis:names:tc:xacml:3.0:rule-combining-algorithm:deny-unless-permit">
+  <xacml:Target>
+    <xacml:AnyOf>
+      <xacml:AllOf>
+        <xacml:Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+          <xacml:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">GET</xacml:AttributeValue>
+          <xacml:AttributeDesignator MustBePresent="false" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:action" AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+        </xacml:Match>
+      </xacml:AllOf>
+    </xacml:AnyOf>
+  </xacml:Target>
+  <xacml:Rule RuleId="1" Effect="Deny">
+    <xacml:Description>No Promotional/Random Display</xacml:Description>
+    <xacml:Condition FunctionId="urn:oasis:names:tc:xacml:1.0:function:anyURI-at-least-one-member-of">
+      <xacml:AttributeDesignator MustBePresent="false" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:action" AttributeId="urn:library.columbia.edu:names:api-context" DataType="http://www.w3.org/2001/XMLSchema#anyURI"/>
+      <xacml:Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:anyURI-bag">
+        <xacml:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#anyURI" FriendlyName="Promotional/Random Access">urn:library.columbia.edu:names:api-context:random</xacml:AttributeValue>
+      </xacml:Apply>
+    </xacml:Condition>
+  </xacml:Rule>
+</xacml:Policy>

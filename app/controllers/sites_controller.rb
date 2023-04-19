@@ -22,6 +22,10 @@ class SitesController < ApplicationController
 
   self.search_state_class = Dcv::Sites::SearchState
 
+  # these need to be removed from the processor chain when not searching for site records
+  SITES_PROCESSOR_CHAIN = [:constrain_to_slug, :constrain_to_public_sites, :constrain_to_restricted_sites]
+
+
   configure_blacklight do |config|
     Dcv::Configurators::DcvBlacklightConfigurator.default_component_configuration(config)
     config.default_solr_params = {
@@ -212,7 +216,11 @@ class SitesController < ApplicationController
 
   # produce a list of featured items according to a supplied filter
   def featured_items(args= {})
-    (@response, @document_list) = search_service.search_results {|builder| builder.merge(site_search_params(rows: args.fetch(:rows, 12)))}
+    (@response, @document_list) = search_service.search_results do |builder|
+      addl_params = site_search_params
+      merge_params = {rows: args.fetch(:rows, 12), sort: addl_params.delete(:sort)}.compact
+      builder.except(*SITES_PROCESSOR_CHAIN).append(:filter_random_suppressed_content).with(addl_params).merge(merge_params)
+    end
     @document_list
   end
 
@@ -220,8 +228,7 @@ class SitesController < ApplicationController
   def load_facet_response
     @response ||= begin
       results = search_results(params) do |builder|
-        sites_processor_chain = [:constrain_to_slug, :constrain_to_public_sites, :constrain_to_restricted_sites]
-        builder.except(*sites_processor_chain).merge(rows: 0)
+        builder.except(*SITES_PROCESSOR_CHAIN).merge(rows: 0)
       end
       results[0] # do not store list as attribute
     end

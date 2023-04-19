@@ -162,4 +162,10 @@ class SearchBuilder < Blacklight::SearchBuilder
       solr_params[:fq] << "publisher_ssim:\"#{publisher_constraint}\""
       solr_params
   end
+
+  def filter_random_suppressed_content(solr_params)
+    solr_params[:fq] ||= []
+    solr_params[:fq] << "!suppress_in_random_bsi:true"
+    solr_params
+  end
 end

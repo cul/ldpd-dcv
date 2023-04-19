@@ -21,10 +21,13 @@ describe Dcv::Solr::DocumentAdapter::XacmlXml, type: :unit do
         expect(solr_doc['access_control_embargo_dtsi']).to eql('2099-01-01')
       end
       it "has permissions flag" do
-        expect(solr_doc['access_control_permissions_bsi']).to eql(true)
+        expect(solr_doc['access_control_permissions_bsi']).to be true
       end
       it "has access levels" do
         expect(solr_doc['access_control_levels_ssim'].sort).to eql(['Embargoed','On-site Access','Specified Group/UNI Access'])
+      end
+      it "has no suppress random flag" do
+        expect(solr_doc['suppress_in_random_bsi']).to be false
       end
     end
     context "is closed" do
@@ -37,6 +40,12 @@ describe Dcv::Solr::DocumentAdapter::XacmlXml, type: :unit do
       let(:xml_src) { fixture(File.join("xacml", "access-open.xml")) }
       it "has access levels" do
         expect(solr_doc['access_control_levels_ssim'].sort).to eql(['Public Access'])
+      end
+    end
+    context "is flagged no-random" do
+      let(:xml_src) { fixture(File.join("xacml", "no-random.xml")) }
+      it "has suppress random flag" do
+        expect(solr_doc['suppress_in_random_bsi']).to be true
       end
     end
   end
