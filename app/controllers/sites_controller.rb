@@ -212,7 +212,7 @@ class SitesController < ApplicationController
 
   # produce a list of featured items according to a supplied filter
   def featured_items(args= {})
-    (@response, @document_list) = search_service.search_results {|builder| builder.merge(site_search_params(rows: 12))}
+    (@response, @document_list) = search_service.search_results {|builder| builder.merge(site_search_params(rows: args.fetch(:rows, 12)))}
     @document_list
   end
 

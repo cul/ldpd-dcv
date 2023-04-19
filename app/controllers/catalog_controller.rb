@@ -14,6 +14,8 @@ class CatalogController < SubsitesController
         onsite: { label: 'Reading Room', fq: "{!join from=cul_member_of_ssim to=fedora_pid_uri_ssi}!access_control_levels_ssim:Public*" },
         public: { label: 'Public', fq: "{!join from=cul_member_of_ssim to=fedora_pid_uri_ssi}access_control_levels_ssim:Public*" },
       }
+
+    config.home.featured_items_component = Dcv::Catalog::ProjectListComponent
   end
 
   def search_service_context

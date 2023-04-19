@@ -24,7 +24,7 @@ module Dcv::Gallery
       @document.persistent_url
     end
     def image_url(size = @image_size)
-      view_context.thumbnail_url(@document, size: size)
+      helpers.thumbnail_url(@document, size: size)
     end
     def link_classes
       classes = %W{align-self-end w-100 stretched-link}

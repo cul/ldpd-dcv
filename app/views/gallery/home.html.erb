@@ -1,7 +1,7 @@
 <div class="row">
   <div id="content" class="col-md-12">
     <div id="home-page-content">
-      <%= render 'featured_items' %>
+      <%= render blacklight_config.home.featured_items_component.new(page: @page) %>
       <%- cache [@subsite, @page] do -%>
         <div class="container container-fluid<%= @page.site_text_blocks.first&.label.blank? ? ' mt-3' : '' %>">
           <%- @page.site_text_blocks.sort { |a,b| a.sort_label <=> b.sort_label }.each do |text_block| -%>
