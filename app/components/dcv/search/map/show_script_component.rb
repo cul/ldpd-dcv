@@ -10,7 +10,7 @@ module Dcv::Search::Map
     end
 
     def uri_component
-      CGI.escape(url_for(search_params)).html_safe
+      CGI.escape(controller.search_action_url(search_params)).html_safe
     end
 
     def call

@@ -272,4 +272,8 @@ class SubsitesController < ApplicationController
   def tracking_method
     self.restricted? ? "track_restricted_#{controller_name}_path" : "track_#{controller_name}_path"
   end
+
+  def search_action_url(params = {})
+    url_for(params.merge(controller: controller_name, action: :index))
+  end
 end
