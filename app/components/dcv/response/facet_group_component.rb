@@ -15,7 +15,7 @@ module Dcv::Response
           display_facet: display_facet,
           field_config: field_config,
           response: @response,
-          component: Blacklight::FacetFieldListComponent,
+          component: Dcv::FacetFieldListComponent,
           layout: (params[:action] == 'facet' ? false : options[:layout])
         ))
       end.compact, "\n")

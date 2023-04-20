@@ -232,8 +232,6 @@ class SitesController < ApplicationController
       end
       results[0] # do not store list as attribute
     end
-    # delete facet responses with only one value-count pair
-    @response.dig('facet_counts', 'facet_fields')&.delete_if {|k, v| v.length < 3}
     @response
   end
 
