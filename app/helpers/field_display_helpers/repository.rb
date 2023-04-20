@@ -18,7 +18,6 @@ module FieldDisplayHelpers::Repository
   end
 
   def generate_finding_aid_url(bib_id, document)
-    repo_fields = ['lib_repo_full_ssim', 'lib_repo_short_ssim']
     repo_code = field_helper_repo_code_value(document: document)
     if repo_code && bib_id
       "https://findingaids.library.columbia.edu/ead/#{repo_code.downcase}/ldpd_#{bib_id}/summary"

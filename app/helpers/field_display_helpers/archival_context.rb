@@ -39,8 +39,8 @@ module FieldDisplayHelpers::ArchivalContext
         if collection
           clio = collection.fetch('dc:bibliographicCitation',{})['@id']
           if clio
-            bib_id = clio.split('/')[-1]
-            fa_url = generate_finding_aid_url(bib_id, document)
+            bib_id = clio.split('/')[-1].to_s
+            fa_url = generate_finding_aid_url(bib_id, document) if bib_id =~ /^\d+$/
             value = link_to(value, fa_url) if fa_url
           end
         end
