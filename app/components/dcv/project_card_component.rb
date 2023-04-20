@@ -18,7 +18,7 @@ module Dcv
       @external_url ||= @project_data[:external_url]
     end
     def digital_project_id_base
-      @digital_project_id_base ||= @project_data[:id].sub(':', '')
+      @digital_project_id_base ||= @project_data[:id]&.sub(':', '')
     end
     def browse_label
       "Browse #{html_escape_once(@project_data[:name])} content".html_safe

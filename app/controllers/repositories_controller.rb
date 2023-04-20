@@ -64,6 +64,7 @@ class RepositoriesController < ApplicationController
     end
     @digital_projects ||= @document_list.map do |solr_doc|
       t = {
+        id: solr_doc.id,
         name: strip_restricted_title_qualifier(solr_doc.fetch('title_ssm',[]).first),
         image: thumbnail_url(solr_doc),
         external_url: solr_doc.fetch('source_ssim',[]).first, # TODO: Handle landing page sites in this context
