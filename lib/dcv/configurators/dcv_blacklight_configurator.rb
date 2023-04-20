@@ -124,8 +124,8 @@ class Dcv::Configurators::DcvBlacklightConfigurator
     config.add_show_field ActiveFedora::SolrService.solr_name('lib_culture_genre', :symbol), label: 'Culture'
     config.add_show_field ActiveFedora::SolrService.solr_name('lib_genre', :symbol), label: 'Genre'
     config.add_show_field ActiveFedora::SolrService.solr_name('origin_info_edition', :displayable, type: :string), :label => 'Edition'
-    config.add_show_field 'origin_info_date_created_ssm(0)', label: 'Origin Information', separator_options: COMMA_DELIMITED, accessor: :unpublished_origin_information, unless: :has_publisher?
-    config.add_show_field 'origin_info_date_created_ssm(1)', label: 'Publication Information', separator_options: COMMA_DELIMITED, accessor: :published_origin_information, if: :has_publisher?
+    config.add_show_field 'origin_info_place_for_display_ssm', label: 'Origin Information', separator_options: COMMA_DELIMITED, unless: :has_publisher?
+    config.add_show_field 'origin_info_date_created_ssm', label: 'Publication Information', separator_options: COMMA_DELIMITED, accessor: :published_origin_information, if: :has_publisher?
     config.add_show_field ActiveFedora::SolrService.solr_name('lib_date_textual', :displayable, type: :string), :label => 'Date', :helper_method => :show_date_field
     config.add_show_field ActiveFedora::SolrService.solr_name('physical_description_extent', :displayable, type: :string), :label => 'Physical Description'
     config.add_show_field 'dynamic_notes', pattern: /lib_.*_notes_ssm/, label: :notes_label, helper_method: :expandable_past_250, unless: :is_excepted_dynamic_field?, except: ['lib_acknowledgment_notes_ssm'], join: false
