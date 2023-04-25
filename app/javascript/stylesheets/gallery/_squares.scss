@@ -3,32 +3,28 @@
     aspect-ratio: 1/ 1;
     align-items: center;
     padding: 0px !important;
+    border: solid var(--user-input) 2px;
+    border-radius:0px;
     img {
       object-fit: contain;
       object-position: center;
       max-height: 100%;
       max-width: 100%;
     }
-    .caption {
-      display: inline-flex;
-      position: absolute;
-      bottom: 0;
-      left:0;
-      z-index: 1;
-      height: 100%;
-      width: 100%;
+    a.caption {
+      color: white;
       text-align: end;
-      border: solid var(--user-input) 2px;
-      a {
-        color: white;
+      padding:0;
+      overflow:clip;
+      span {
+        max-height: 100%;
+        padding: 0.5rem;
       }
-      a:hover {
+      &:hover {
         color: black;
+        background-color: rgba(255,255,255, .8);
+        border-color: var(--primary);
       }
-    }
-    .caption:hover {
-      background-color: rgba(255,255,255, .75);
-      border-color: var(--primary);    
     }
   }
 }

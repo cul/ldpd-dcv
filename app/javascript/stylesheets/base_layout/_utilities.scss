@@ -8,15 +8,23 @@
 .text-transparent, .text-transparent:hover {
 	color: transparent !important;
 }
-.text-md-transparent, .text-md-transparent:hover {
-	@media(min-width: 768px) {
+.text-md-down-transparent, .text-md-down-transparent:hover {
+	@media(max-width: 767.98px) {
 	  color: transparent !important;
 	}
 }
-.text-sm-transparent, .text-sm-transparent:hover {
-	@media(max-width: 767.9px) {
+.text-lg-down-transparent, .text-lg-down-transparent:hover {
+	@media(max-width: 991.98px) {
 	  color: transparent !important;
 	}
+}
+.tooltip-md-none {
+	@media(min-width: 768px) {
+		display:none !important;
+	}
+}
+.tooltip-none {
+  display:none !important;
 }
 footer address {
 	margin-bottom: 1rem;

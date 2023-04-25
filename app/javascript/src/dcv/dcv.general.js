@@ -47,9 +47,14 @@ const searchSetUp = function () {
   });
 
   // do fancy tooltips when data-toggle="tooltip" is set on el
-  $('[data-toggle="tooltip"], [data-tt="tooltip"]').tooltip({
-    boundary: 'window',
-    close: function () { $(".ui-helper-hidden-accessible").remove(); }
+  $('[data-toggle="tooltip"], [data-tt="tooltip"]').each(function(_ix) {
+    var ele = $(this);
+    ele.tooltip({
+      boundary: 'window',
+      customClass: ele.data("customclass"),
+      container: ele.data("container") || false,
+      close: function () { $(".ui-helper-hidden-accessible").remove(); }
+    });
   });
 };
 

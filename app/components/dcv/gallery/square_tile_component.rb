@@ -12,7 +12,7 @@ module Dcv::Gallery
       @additional_classes = args.fetch(:additional_classes, [])
     end
     def tile_classes
-      ['square', "col-#{@default_size}"] + @additional_classes + @breakpoint_sizes.map { |bp, size| "col-#{bp}-#{size}" }
+      ['square', 'card', "col-#{@default_size}"] + @additional_classes + @breakpoint_sizes.map { |bp, size| "col-#{bp}-#{size}" }
     end
     def caption
       @document.title
@@ -27,14 +27,21 @@ module Dcv::Gallery
       helpers.thumbnail_url(@document, size: size)
     end
     def link_classes
-      classes = %W{align-self-end w-100 stretched-link}
+      classes = %W{card-img-overlay d-flex align-items-end justify-content-end caption}
       case @hide_caption
       when :default
         classes << "text-transparent"
+      when :sm
+        classes << "text-md-down-transparent"
       else
-        classes << "text-#{@hide_caption}-transparent" if @hide_caption
+        classes << "text-#{@hide_caption}-down-transparent" if @hide_caption
       end
       classes
+    end
+    def tooltip_class
+      return "tooltip" if @hide_caption == :default
+      return "tooltip-md-none" if @hide_caption == :sm
+      "tooltip-none"
     end
   end
 end
