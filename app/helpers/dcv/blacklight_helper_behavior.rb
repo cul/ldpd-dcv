@@ -19,7 +19,7 @@ module Dcv::BlacklightHelperBehavior
   # Override to accomodate proxies action
   def document_presenter_class(document = nil)
     case action_name
-    when 'show', 'proxies', 'home'
+    when 'show', 'proxies', 'home', 'details', 'embed'
       Dcv::ShowPresenter
     when 'citation'
       Dcv::CitationPresenter

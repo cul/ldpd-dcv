@@ -12,10 +12,8 @@
     <p>Required plugin appears to be missing.</p>
     <%= link_to '<span class="fa fa-download"></span> Download Original'.html_safe, bytestream_content_url({catalog_id: document[:id], filename: 'content.pdf', bytestream_id: preferred_content_bytestream(document, /\.pdf$/i), download: true}), class: 'btn btn-primary btn-sm' %>
     </object>
-<% elsif (document.fetch('dc_type_ssm',[]) & ['Sound', 'Audio']).present? %>
-  <%= render partial: 'generic_resource/audio', locals: { child: document, logo_path: logo_path } -%>
-<% elsif (document.fetch('dc_type_ssm',[]) & ['MovingImage', 'Video']).present? %>
-  <%= render partial: 'generic_resource/video', locals: { child: document, logo_path: logo_path } -%>
+<% elsif (document.fetch('dc_type_ssm',[]) & ['Sound', 'Audio', 'MovingImage', 'Video']).present? %>
+  <%= render Dcv::GenericResource::Details::AmiComponent.new(document: document, logo_path: logo_path) -%>
 <% end %>
 <div id="children-links" style="visibility: hidden;">
     <a rel="child"

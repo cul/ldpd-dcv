@@ -25,7 +25,7 @@ module Dcv::ContentAggregator::ChildViewer
     end
 
     def wowza_media_token_url
-      @wowza_media_token_url = helpers.wowza_media_token_url(@child)
+      @wowza_media_token_url ||= helpers.wowza_media_token_url(@child)
     end
 
     def media_url
