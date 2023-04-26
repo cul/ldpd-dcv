@@ -2,7 +2,7 @@
 
 module Dcv
   class DocumentComponent < Blacklight::DocumentComponent
-    delegate :byte_size_to_text_string, :render_document_class, :render_document_tombstone_field_value, to: :helpers
+    delegate :byte_size_to_text_string, :render_document_class, :render_document_tombstone_field_value, :render_snippet_with_post_processing, to: :helpers
 
     # this is a BL8 forward-compatible override
     # - BL8 will pass DocumentPresenter as :document

@@ -16,9 +16,10 @@ class Dcv::Solr::DocumentAdapter::ActiveFedora
 
       solr_doc['active_fedora_model_ssi'] = 'ContentAggregator'
       Cul::Hydra::RisearchMembers.get_direct_members_with_datastream_pids(obj.pid, 'fulltext').each do |pid|
-        member = ActiveFedora::Base.find(obj.pid)
-        if member.is_a? GenericResource
-          Dcv::Solr::DocumentAdapter::ActiveFedora::GenericResource.concatenate_fulltext(solr_doc, member)
+        member = ActiveFedora::Base.find(pid)
+        member_adapter = Dcv::Solr::DocumentAdapter::ActiveFedora(member)
+        if member_adapter.is_a? GenericResource
+          member_adapter.concatenate_fulltext(solr_doc)
         end
       end
       solr_doc
