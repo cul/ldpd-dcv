@@ -15,5 +15,5 @@
   </h6>
 <% end %>
 <% if has_geo_facet? && controller.respond_to?( :map_search) %>
-  <h6><%= link_to("See #{geo_facet_count} Mappable Results for Your Search", site_map_search_url(site_slug: @subsite.slug, params: params.slice(:f, :q, :search_field))) %></h6>
+  <h6><%= link_to("See #{geo_facet_count} Mappable Results for Your Search", site_map_search_url(site_slug: @subsite.slug, params: params.permit(:q, :search_field, f: {}))) %></h6>
 <% end %>
