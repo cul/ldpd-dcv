@@ -1,22 +1,18 @@
 xml.entry do
   xml.title document_presenter(document).heading
   
-  # updated is required, for now we'll just set it to now, sorry
   xml.updated document[:timestamp]
 
-  xml.link    "rel" => "alternate", "type" => "text/html", "href" => url_for(url_for_document(document))
-  # add other doc-specific formats, atom only lets us have one per
-  # content type, so the first one in the list wins.
-  # xml << show_presenter(document).link_rel_alternates(unique: true)      
+  xml.link    "rel" => "alternate", "type" => "text/html", "href" => url_for(search_state.url_for_document(document))
 
-  xml.id url_for(url_for_document(document))
+  xml.id url_for(search_state.url_for_document(document))
 
 
   if document.to_semantic_values.key? :author
     xml.author { xml.name(document.to_semantic_values[:author].first) }
   end
 
-  with_format("html") do
+  with_format(:html) do
     xml.summary "type" => "html" do
       xml.text! render_document_partial(document,
       :index,
