@@ -51,7 +51,7 @@ const searchSetUp = function () {
     var ele = $(this);
     ele.tooltip({
       boundary: 'window',
-      customClass: ele.data("customclass"),
+      customClass: ele.data("customclass") || function() { return false; },
       container: ele.data("container") || false,
       close: function () { $(".ui-helper-hidden-accessible").remove(); }
     });
