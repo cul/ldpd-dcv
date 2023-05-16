@@ -1,46 +1,6 @@
 <div class="row" id="child_items">
-
-  <% is_filesystem_view = document['dc_type_ssm'].present? && document['dc_type_ssm'].include?('FileSystem') %>
-
-  <% unless is_filesystem_view %>
-    <div id="item-description" class="col-md-3">
-      <div class="inner">
-        <dl class="dl-vertical">
-          <% document_show_fields(document).each do |solr_fname, field| %>
-            <% if should_render_show_field? document, field %>
-              <dt class="blacklight-<%= solr_fname.parameterize %>"><%= render_document_show_field_label document, :field => solr_fname %></dt>
-              <% Array(render_document_show_field_value document, field: solr_fname).each do |field_value| -%>
-                <dd class="blacklight-<%= solr_fname.parameterize %>"><%= field_value %></dd>
-              <% end -%>
-            <% end %>
-          <% end %>
-        </dl>
-     </div>
-     <div class="inner">
-        <ul class="list-unstyled">
-          <li><a href="http://library.columbia.edu/services/preservation/publications_policy.html"><span class="fa fa-tag"></span> Order a Reproduction</a></li>
-          <li><%= link_to '<span class="fa fa-file"></span> Display XML Metadata'.html_safe, item_mods_path(:pid => @document.id), :'data-no-turbolink' => true, :'data-display-url' => item_mods_path(:pid => @document.id, :type => 'formatted_text'), :'data-download-url' => item_mods_path(:pid => @document.id, :type => 'download'), :onclick => 'return modsModal(this);' %></li>
-        </ul>
-      </div>
-    </div>
-  <% end %>
-
-  <div class="<%= is_filesystem_view ? 'col-md-12 filesystem' : 'col-md-9' %>">
-    <div class="inner">
-      <h3 id="doc-item-title" class="nomar"><%= document_presenter(@document).html_title %></h3>
-      <% unless is_filesystem_view %>
-        <% if ct = structured_children.first %>
-          <p id="ct"><%= ct[:title] %></p>
-        <% end %>
-        <div id="favorite-child">
-        <% if child = structured_children.first %>
-          <%= '<a href="#" class="next-child" onclick="return DCV.Show.FavoriteChildNavigation.previous(this);"><span class="fa fa-chevron-left"></span></a>'.html_safe if structured_children.length > 1 %>
-          <img itemprop="contentUrl" onclick="$('.item-modal').click();" src="<%= get_resolved_asset_url(id: child[:id], pid: child[:pid], size: 768, type: 'full', format: 'jpg') %>" data-counter="1" data-sequence="0" data-zoom-url="<%= details_url(id: document[:id], layout:(request.path.split('/')[1]), title: 'false') %>" data-info-url="<%= get_resolved_asset_info_url(id: child[:id], pid: child[:pid], image_format: 'jpg') %>" data-bytestreams="<%= resolve_catalog_bytestreams_path(catalog_id: child[:id], :format=>'json') %>"/>
-          <%= '<a href="#" class="previous-child" onclick="return DCV.Show.FavoriteChildNavigation.next(this);"><span class="fa fa-chevron-right"></span></a>'.html_safe if structured_children.length > 1 %>
-        <% end %>
-      </div>
-    <% end %>
-    <%= render_document_partials @document, (document['dc_type_ssm'].present? && document['dc_type_ssm'].include?('FileSystem') ? @document['dc_type_ssm'].collect{|x| x.underscore} : ['gallery']) %>
-    </div>
+  <div class="col-md-12 ls-controls-dark">
+    <%= render Dcv::Collection::FileSystemComponent.new(document: document, local_downloads: false) %>
+    <%= render Dcv::Document::SidebarPanels::ItemDescriptionComponent.new(document: document, alignment: 'horizontal', link_helpers: []) %>
   </div>
 </div>

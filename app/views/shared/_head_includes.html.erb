@@ -29,6 +29,7 @@ DLC VERSION: <%= IO.read(Rails.root.to_s+'/VERSION') %> -->
 
 <%= stylesheet_pack_tag "dcv", media: 'all'  %>
 <%= stylesheet_pack_tag "print", media: 'print' %>
+<%= stylesheet_pack_tag('iiif' , media: 'all') if @document&.fetch('iiif_behavior_ssim', nil) || is_file_system?(@document) %>
 
 <!-- OHSynchronizer -->
 <% if params[:action] == 'synchronizer' %>
@@ -46,7 +47,7 @@ DLC VERSION: <%= IO.read(Rails.root.to_s+'/VERSION') %> -->
 <% end %>
 <%- js_packs = ["application", "dcv"].concat(Array(subsite_layout)).uniq %>
 <%- js_packs << 'ohsynchronizer' if params[:action] == 'synchronizer' %>
-<%- js_packs << 'iiif' if @document&.fetch('iiif_behavior_ssim', nil) %>
+<%- js_packs << 'iiif' if @document&.fetch('iiif_behavior_ssim', nil) || is_file_system?(@document) %>
 <%= javascript_pack_tag *js_packs %>
 
 <% if Rails.env == 'dcv_prod' %>
