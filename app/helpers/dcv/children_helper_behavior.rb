@@ -153,6 +153,7 @@ module Dcv::ChildrenHelperBehavior
       "#{extent.to_i} items"
     end
   end
+
   def download_link(node, label, attr_class)
     args = {catalog_id: node['pid'], filename:node['label_ssi'], bytestream_id: 'content'}
     href = bytestream_content_url(args) #, "download")
