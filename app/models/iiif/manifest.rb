@@ -120,12 +120,6 @@ class Iiif::Manifest < Iiif::BaseResource
     # Items
     manifest["items"] = items if opts[:include]&.include?(:items)
 
-    # TODO: remove in favor of explicit metadata in index
-    unless @solr_document['active_fedora_model_ssi'] == 'GenericResource'
-      if manifest.dig("items", 0, 'label').to_s =~ /cover/i
-        manifest['behavior'] = [Iiif::Behavior::V3::PAGED]
-      end
-    end
     manifest.compact
   end
 
