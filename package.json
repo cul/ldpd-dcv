@@ -3,6 +3,7 @@
   "private": true,
   "version": "0.1.0",
   "dependencies": {
+    "@archival-iiif/viewer-react": "^3.1.0",
     "@babel/core": "^7.22.17",
     "@babel/plugin-transform-runtime": "^7.22.15",
     "@babel/preset-env": "^7.22.15",
@@ -38,6 +39,7 @@
     "react": "^16.8.0",
     "react-dom": "^16.8.3",
     "react-refresh": "^0.14.0",
+    "resolve-cwd": "^3.0.0",
     "resolve-url-loader": "^4.0.0",
     "sass": "^1.66.1",
     "sass-loader": "^13.3.2",
