@@ -11,7 +11,8 @@ module Dcv::CdnHelper
   end
 
   def get_manifest_url(document, options = {})
-    doi = document['ezid_doi_ssim'][0]
+    doi = document['ezid_doi_ssim']&.first
+    return nil unless doi
     doi = doi.sub(/^doi\:/,'') || doi
     registrant, doi = doi.split('/')
     return iiif_collection_url(collection_registrant: registrant, collection_doi: doi) if options[:collection]
