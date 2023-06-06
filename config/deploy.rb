@@ -2,13 +2,14 @@ lock '3.5.0'
 
 set :department, 'ldpd'
 set :instance, fetch(:department)
-set :application, 'dcv'
-set :repo_name, "#{fetch(:department)}-#{fetch(:application)}"
+set :application, 'dlc'
+set :repo_name, "ldpd-dcv"
 set :deploy_name, "#{fetch(:application)}_#{fetch(:stage)}"
 # used to run rake db:migrate, etc
 # Default value for :rails_env is fetch(:stage)
 set :rails_env, fetch(:deploy_name)
 # use the rvm wrapper
+set :rvm_custom_path, '~/.rvm-alma8'
 set :rvm_ruby_version, fetch(:deploy_name)
 
 set :repo_url,  "git@github.com:cul/#{fetch(:repo_name)}.git"
@@ -16,7 +17,7 @@ set :repo_url,  "git@github.com:cul/#{fetch(:repo_name)}.git"
 set :remote_user, "#{fetch(:instance)}serv"
 # Default deploy_to directory is /var/www/:application
 # set :deploy_to, '/var/www/my_app_name'
-set :deploy_to,   "/opt/passenger/#{fetch(:instance)}/#{fetch(:deploy_name)}"
+set :deploy_to,   "/opt/passenger/#{fetch(:deploy_name)}"
 
 # Default value for :scm is :git
 # set :scm, :git

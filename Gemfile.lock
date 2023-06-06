@@ -240,7 +240,7 @@ GEM
       mime-types-data (~> 3.2015)
     mime-types-data (3.2022.0105)
     mini_mime (1.1.2)
-    mini_portile2 (2.4.0)
+    mini_portile2 (2.8.2)
     minitest (5.17.0)
     mono_logger (1.1.1)
     msgpack (1.4.2)
@@ -262,8 +262,9 @@ GEM
     net-ssh (6.1.0)
     netrc (0.11.0)
     nio4r (2.5.8)
-    nokogiri (1.10.10)
-      mini_portile2 (~> 2.4.0)
+    nokogiri (1.15.2)
+      mini_portile2 (~> 2.8.2)
+      racc (~> 1.4)
     nom-xml (1.2.0)
       i18n
       nokogiri
@@ -288,6 +289,7 @@ GEM
     public_suffix (4.0.6)
     puma (5.5.2)
       nio4r (~> 2.0)
+    racc (1.6.2)
     rack (2.2.6.2)
     rack-protection (2.1.0)
       rack
@@ -522,7 +524,7 @@ DEPENDENCIES
   mime-types
   mysql2 (= 0.5.2)
   net-ssh (>= 4.2)
-  nokogiri (~> 1.10.10)
+  nokogiri (~> 1.15.2)
   puma (~> 5.2)
   rack-protection (>= 1.5.5)
   rails (~> 6.1.0)
@@ -550,4 +552,4 @@ DEPENDENCIES
   wowza-secure_token (= 0.0.1)
 
 BUNDLED WITH
-   2.3.25
+   2.3.9

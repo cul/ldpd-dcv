@@ -9,8 +9,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        ruby-version: ['2.7.5']
-        node: ['10', '12']
+        ruby-version: ['2.7.8']
+        node: ['14', '16']
     env:
       RAILS_ENV: test
       NOKOGIRI_USE_SYSTEM_LIBRARIES: true

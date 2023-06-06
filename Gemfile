@@ -7,7 +7,7 @@ gem 'webpacker', '~> 5.2'
 gem 'bootsnap'
 gem 'actionpack-action_caching'
 # Hydra stack
-gem 'nokogiri', '~> 1.10.10' # can't update to 1.11 because our server version of GLIBC is too old
+gem 'nokogiri', '~> 1.15.2' # update past 1.10 requires alma
 gem 'blacklight', '~> 7.33.1'
 gem 'view_component', '~>2.82.0'
 gem 'active-fedora', '~> 8.7'

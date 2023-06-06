@@ -14,7 +14,7 @@ default: &DEFAULT
 development: *DEFAULT
 test: *DEFAULT
 production: *DEFAULT
-dcv_dev: *DEFAULT
-dcv_test: *DEFAULT
-dcv_staging: *DEFAULT
-dcv_prod: *DEFAULT
+dlc_dev: *DEFAULT
+dlc_test: *DEFAULT
+dlc_staging: *DEFAULT
+dlc_prod: *DEFAULT
