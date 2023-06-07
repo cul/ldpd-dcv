@@ -160,4 +160,9 @@ module Dcv::ChildrenHelperBehavior
     href = bytestream_content_url(args) #, "download")
     content_tag(:a, label, href: href, class: attr_class)
   end
+
+  def is_file_system?(document)
+    return false unless document
+    document['active_fedora_model_ssi'] == 'Collection' && document['dc_type_sim']&.include?('FileSystem')
+  end
 end
