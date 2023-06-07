@@ -163,6 +163,7 @@ module Dcv::ChildrenHelperBehavior
   end
 
   def is_file_system?(document)
+    return false unless document
     document['active_fedora_model_ssi'] == 'Collection' && document['dc_type_sim']&.include?('FileSystem')
   end
 end
