@@ -31,10 +31,15 @@ class Iiif::Collection < Iiif::BaseResource
       # need to make sure collection has partOf property set appropriately to parent collection URI
     end
 
+    contained_items = proxied_items([self.as_json], container_proxy_id)
+    contained_items = archive_org_items if contained_items.blank?
+    contained_items
+  end
+
+  def proxied_items(part_of_json, container_proxy_id)
     # get structured children proxies for context
     children = children_service.from_contained_structure_proxies(solr_document, container_proxy_id, include_folders: true)
     # items are either collections (if proxy) or manifest
-    part_of_json = nil
     children.map do |child_doc|
       part_of_json ||= [self.as_json]
       if child_doc['type_ssim']&.include?(COLLECTION_PROXY_TYPE)
@@ -60,6 +65,7 @@ class Iiif::Collection < Iiif::BaseResource
     collection['id'] = @id
     collection['type'] = 'Collection'
     collection['label'] = label
+    collection['behavior'] = ['multi-part']
     if opts[:include]&.include?(:metadata)
       collection['metadata'] = metadata
     end
@@ -83,6 +89,7 @@ class Iiif::Collection < Iiif::BaseResource
     collection['partOf'] = part_of
     if opts[:include]&.include?(:items)
       collection['items'] = items.map(&:as_json)
+      collection['start'] = collection['items'].first.slice('id', 'type') unless collection['items'].blank?
     end
     collection.compact
   end
