@@ -43,7 +43,9 @@ class CatalogController < SubsitesController
   def setup_show_document
     super
     return unless @document
-    site_candidates = site_candidates_for(scope_candidates_for(@document)).where.not(id: load_subsite)
+    scope_candidates = scope_candidates_for(@document)
+    return if scope_candidates.blank?
+    site_candidates = site_candidates_for(scope_candidates).where.not(id: load_subsite)
     other_sites_data = site_matches_for(@document, site_candidates)
     @document.merge_source!({ other_sites_data: other_sites_data }) if other_sites_data.present?
   end
