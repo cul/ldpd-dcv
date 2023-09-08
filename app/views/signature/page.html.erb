@@ -4,13 +4,14 @@
     <%= render Dcv::PageImageComponent.new(depictable: @page, blacklight_config: @subsite.blacklight_config) %>
 	<hr>
 	<%- @page.site_text_blocks.sort { |a,b| a.sort_label <=> b.sort_label }.each do |text_block| -%>
-		<section class="ff">
+		<%- section_id = text_block.label.downcase.gsub(/[\- ]/, '_').gsub(/[^A-Za-z0-9_]/, '') if text_block.label.present? -%>
+		<%= content_tag(:section, {class: 'ff', id: section_id}.compact) do -%>
 			<%- if text_block.label.present? -%>
 				<h3 class="text-center"><%= text_block.label %></h3>
 			<%- end -%>
 		    <%= render Dcv::PageImageComponent.new(depictable: text_block, blacklight_config: @subsite.blacklight_config) %>
 			<%= controller.render_markdown(text_block.markdown) %>
-		</section>
+		<%- end -%>
 	<%- end -%>
 </div>
 <%- end -%>
