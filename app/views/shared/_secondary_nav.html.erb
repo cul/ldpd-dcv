@@ -19,16 +19,16 @@
 	<%- end -%>
 	<%- if map_search_settings_for_subsite.present? -%>
 		<ul class="nav nav-pills">
-			<li class="nav-item"><a href="<%= '/' + @subsite.slug + '/map_search' %>" class="nav-link mx-auto"><span class="fa fa-map-marker"></span> Map<span class="hidden-sm"> All Items</span></a></li>
+			<li class="nav-item"><a href="<%= '/' + @subsite.slug + '/map_search' %>" class="nav-link mx-auto px-md-1"><span class="fa fa-map-marker"></span> Map<span class="d-md-none d-lg-inline"> All Items</span></a></li>
 		</ul>
 	<%- end -%>
 	<%- if params[:action] == 'home' && @subsite.persistent_url -%>
 		<ul class="nav nav-pills">
-			<li class="nav-item"><button data-copy="<%= @subsite.persistent_url %>" title="Click to copy to clipboard" class="btn-secondary nav-link mx-auto" onclick="clipboardFromElement(this);"><span class="fa fa-copy"></span> Permanent URL</button></li>
+			<li class="nav-item"><button data-copy="<%= @subsite.persistent_url %>" title="Click to copy to clipboard" class="btn-secondary nav-link mx-auto px-md-1 px-lg-3" onclick="clipboardFromElement(this);"><span class="fa fa-copy"></span> Permanent URL</button></li>
 		</ul>
 	<%- elsif @document&.has_persistent_url? -%>
 		<ul class="nav nav-pills justify-content-center">
-			<li class="nav-item"><button data-copy="<%= @document.persistent_url %>" title="Click to copy to clipboard" class="btn-secondary nav-link mx-auto" onclick="clipboardFromElement(this);"><span class="fa fa-copy"></span> Permanent URL</button></li>
+			<li class="nav-item"><button data-copy="<%= @document.persistent_url %>" title="Click to copy to clipboard" class="btn-secondary nav-link mx-auto px-md-1 px-lg-3" onclick="clipboardFromElement(this);"><span class="fa fa-copy"></span> Permanent URL</button></li>
 		</ul>
 	<%- end -%>
 </nav>
