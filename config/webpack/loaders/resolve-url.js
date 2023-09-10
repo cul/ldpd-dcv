@@ -32,8 +32,39 @@ const myJoinFn = createJoinFunction(
 );
 
 module.exports = {
-  loader: 'resolve-url-loader',
-  options: {
-    join: myJoinFn
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        use: [
+          'style-loader',
+          'css-loader',
+        ],
+        exclude: [/node_modules/]
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          {
+            loader: 'css-loader',
+            options: {
+              import: false
+            }
+          },
+          {
+            loader: 'resolve-url-loader',
+            options: {
+              join: myJoinFn
+            }
+          },
+          {
+            loader: 'sass-loader',
+            options: {
+              sourceMap: true, // <-- !!IMPORTANT!!
+            }
+          }
+        ]
+      }
+    ]
   }
 }

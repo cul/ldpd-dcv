@@ -1,0 +1,27 @@
+@import "@archival-iiif/viewer-react/dist/css/App.css";
+@import "@archival-iiif/viewer-react/dist/css/modal.css";
+@import "@archival-iiif/viewer-react/dist/treeView/treeview.css";
+@import "@archival-iiif/viewer-react/dist/folder/item.css";
+@import "@archival-iiif/viewer-react/dist/splitter/splitter.css";
+@import "@archival-iiif/viewer-react/dist/infoBar/tabs/search.css";
+@import "@archival-iiif/viewer-react/dist/infoBar/tabs/download.css";
+@import "@archival-iiif/viewer-react/dist/infoBar/tabs/share.css";
+@import "@archival-iiif/viewer-react/dist/infoBar/infoBar.css";
+@import "@archival-iiif/viewer-react/dist/viewer/image/openSeadragon.css";
+@import "@archival-iiif/viewer-react/dist/viewer/image/imageButtons.css";
+@import "@archival-iiif/viewer-react/dist/viewer/spinner.css";
+@import "@archival-iiif/viewer-react/dist/viewer/viewer.css";
+@import "@archival-iiif/viewer-react/dist/viewer/media/media-player.css";
+@import "@archival-iiif/viewer-react/dist/viewer/media/vjsForest.css";
+@import "@archival-iiif/viewer-react/dist/viewer/media/transcription.css";
+@import "@archival-iiif/viewer-react/dist/topBar/fullscreen.css";
+@import "@archival-iiif/viewer-react/dist/topBar/topbar.css";
+#mirador {
+	height: 80vh;
+}
+
+.aiiif-root {
+	p {
+		margin-top: initial;
+	}
+}

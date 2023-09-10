@@ -17,7 +17,7 @@
     <% end %>
     <% if has_synch? %>
       <%= link_to({controller: controller_path, action: 'synchronizer', id: child[:pid], mode: 'synchronized_transcript'}, class: 'btn btn-sm btn-primary', target: '_blank', aria: { label: 'View with synchronized transcript' }) do %>
-        <i class="fa fa-file-text-o" title="View with synchronized transcript" data-toggle="tooltip" aria-hidden="true"></i>
+        <i class="fa fa-file-lines" title="View with synchronized transcript" data-toggle="tooltip" aria-hidden="true"></i>
       <%- end -%>
     <% end %>
   </div>
