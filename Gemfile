@@ -1,10 +1,12 @@
 source 'https://rubygems.org'
 
-gem 'bigdecimal', '~>1.4.4'
+gem 'bigdecimal', '~>3.0'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.1.0'
-gem 'webpacker', '~> 5.2'
-gem 'bootsnap'
+gem 'shakapacker', '~> 7.0.0'
+gem 'sassc'
+gem 'font-awesome-sass'
+gem 'bootsnap', '~> 1.9.3'
 gem 'actionpack-action_caching'
 # Hydra stack
 gem 'nokogiri', '~> 1.15.2' # update past 1.10 requires alma
@@ -22,7 +24,7 @@ gem 'rubydora'
 gem 'cul_omniauth', '~> 0.7.0'
 gem 'cancancan'
 #gem 'cul_omniauth', git: 'https://github.com/cul/cul_omniauth', branch: '0.5.x'
-gem 'active-triples', '~> 0.4.0'
+gem 'active-triples', git: 'https://github.com/cul/ActiveTriples', branch: 'deprecation_update'
 
 # Use wowza token gem for generating tokens
 gem 'wowza-secure_token', '0.0.1'
@@ -99,9 +101,7 @@ group :development, :test do
   gem 'rspec-json_expectations'
   gem 'capybara', '~> 3.32'
   # For testing with chromedriver for headless-browser JavaScript testing
-  gem 'selenium-webdriver', '~> 4.0'
-  # For automatically updating chromedriver
-  gem 'webdrivers', '~> 5.0', require: false
+  gem 'selenium-webdriver', '~> 4.11.0'
   gem 'database_cleaner'
   gem 'factory_bot_rails'
   gem 'rubocop', '~> 0.53.0', require: false

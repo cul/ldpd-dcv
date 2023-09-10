@@ -26,7 +26,7 @@ module Dcv::Document::Ui
         },
         aria: { label: 'Display XML Metadata' },
         class: 'btn btn-outline-secondary btn-sm') do
-        content_tag :i, '', class: "fa fa-file-code-o", data: { toggle: 'tooltip' }, title: 'Display XML Metadata'
+        content_tag :i, '', class: "fa fa-file-code", data: { toggle: 'tooltip' }, title: 'Display XML Metadata'
       end
     end
   end

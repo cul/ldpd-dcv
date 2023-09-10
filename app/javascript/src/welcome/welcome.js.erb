@@ -1,4 +1,6 @@
-<% helpers = Class.new { include Rails.application.routes.url_helpers; include ActionView::Helpers::AssetUrlHelper }.new %>
+<% routes = Class.new { include Rails.application.routes.url_helpers; include ActionView::Helpers::AssetUrlHelper }.new %>
+<% assets = ActionController::Base.helpers %>
+
 // proj is a map of title, thumb, link (search) and blurb
 function mosaicDemo(container, proj) {
   var width = Math.max($(container).parent().width(),$(container).width());
@@ -13,7 +15,7 @@ function mosaicDemo(container, proj) {
   var projlink = proj.attr('data-link');
 
   var randomItems = projlink.replace('catalog','catalog/random.json') + '&per_page=' + total;
-  var fill = "<%= helpers.image_path('media/images/dcv/columbia_crown_outline.png') %>";
+  var fill = "<%= assets.asset_path('dcv/columbia_crown_outline.png') %>";
   var style = 'width:12%;height:fit-content;'
   for (var i=0; i< total; i++) {
     $(container).append('<div class="brick d-inline-block" style="' + style + '"> \
@@ -76,7 +78,7 @@ $(window).on('load', function() {
   }
 
   var bubbles = new DCV.Bubbles("div#bubbles");
-  bubbles.chart("<%= helpers.flare_data_path(format: 'json', fields: 'lib_format_sim,lib_repo_short_ssim,lib_collection_sim')%>");
+  bubbles.chart("<%= routes.flare_data_path(format: 'json', fields: 'lib_format_sim,lib_repo_short_ssim,lib_collection_sim')%>");
 
 
   $(window).on('resize', function() {
@@ -93,53 +95,53 @@ $(document).ready(function() {
   /* home bg carousel */
   var $bgimgs = [
     {
-      'image' : "<%= helpers.image_path('dcv/ldpd_113670.jpg')%>",
+      'image' : "<%=  assets.asset_path("dcv/ldpd_113670.jpg") %>",
       'title' : 'Autograph album',
       'project' : 'Jewels in her Crown',
-      'item-link' : "<%= helpers.catalog_show_path(id: 'ldpd:113670') %>",
-      'project-link' : "<%= helpers.search_catalog_path(:'f[lib_project_short_ssim][]'=> 'Jewels in her Crown') %>"
+      'item-link' : "<%= routes.catalog_show_path(id: 'ldpd:113670') %>",
+      'project-link' : "<%= routes.search_catalog_path(:'f[lib_project_short_ssim][]'=> 'Jewels in her Crown') %>"
     },
     {
-      'image' : "<%= helpers.image_path('dcv/ldpd_134685.jpg')%>",
+      'image' : "<%= assets.asset_path('dcv/ldpd_134685.jpg')%>",
       'title' : 'Footbridge over Little White River, Rosebud Reservation, South Dakota',
       'project' : 'G.E.E. Lindquist Native American Photographs',
-      'item-link' : "<%= helpers.catalog_show_path(id: 'ldpd:134685') %>",
-      'project-link' : "<%= helpers.search_catalog_path(:'f[lib_project_short_ssim][]'=> 'G.E.E. Lindquist Native American Photographs') %>"
+      'item-link' : "<%= routes.catalog_show_path(id: 'ldpd:134685') %>",
+      'project-link' : "<%= routes.search_catalog_path(:'f[lib_project_short_ssim][]'=> 'G.E.E. Lindquist Native American Photographs') %>"
     },
     {
-      'image' : "<%= helpers.image_path('dcv/ldpd_85504.jpg')%>",
+      'image' : "<%= assets.asset_path('dcv/ldpd_85504.jpg')%>",
       'title' : 'Document, 1821 June 29',
       'project' : 'The Papers of John Jay',
-      'item-link' : "<%= helpers.catalog_show_path(id: 'ldpd:85504') %>",
-      'project-link' : "<%= helpers.search_catalog_path(:'f[lib_project_short_ssim][]'=> 'John Jay Papers') %>"
+      'item-link' : "<%= routes.catalog_show_path(id: 'ldpd:85504') %>",
+      'project-link' : "<%= routes.search_catalog_path(:'f[lib_project_short_ssim][]'=> 'John Jay Papers') %>"
     },
     {
-      'image' : "<%= helpers.image_path('dcv/ldpd_114725.jpg')%>",
+      'image' : "<%= assets.asset_path('dcv/ldpd_114725.jpg')%>",
       'title' : 'Zhong Kui',
       'project' : 'Chinese Paper Gods',
-      'item-link' : "<%= helpers.catalog_show_path(id: 'ldpd:114725') %>",
-      'project-link' : "<%= helpers.search_catalog_path(:'f[lib_project_short_ssim][]'=> 'Chinese paper gods') %>"
+      'item-link' : "<%= routes.catalog_show_path(id: 'ldpd:114725') %>",
+      'project-link' : "<%= routes.search_catalog_path(:'f[lib_project_short_ssim][]'=> 'Chinese paper gods') %>"
     },
     {
-      'image' : "<%= helpers.image_path('dcv/ldpd_111727.jpg')%>",
+      'image' : "<%= assets.asset_path('dcv/ldpd_111727.jpg')%>",
       'title' : 'Drawing of an air battle',
       'project' : 'Children&apos;s Drawings of the Spanish Civil War',
-      'item-link' : "<%= helpers.catalog_show_path(id: 'ldpd:111727') %>",
-      'project-link' : "<%= helpers.search_catalog_path(:'f[lib_project_short_ssim][]'=> 'Spanish Civil War') %>"
+      'item-link' : "<%= routes.catalog_show_path(id: 'ldpd:111727') %>",
+      'project-link' : "<%= routes.search_catalog_path(:'f[lib_project_short_ssim][]'=> 'Spanish Civil War') %>"
     },
     {
-      'image' : "<%= helpers.image_path('dcv/ldpd_113939.jpg')%>",
+      'image' : "<%= assets.asset_path('dcv/ldpd_113939.jpg')%>",
       'title' : 'Coronation. Photograph, Ceremonial Departure',
       'project' : 'Russian Imperial Corps of Pages',
-      'item-link' : "<%= helpers.catalog_show_path(id: 'ldpd:113939') %>",
-      'project-link' : "<%= helpers.search_catalog_path(:'f[lib_project_short_ssim][]'=> 'Russian Corps of Pages') %>"
+      'item-link' : "<%= routes.catalog_show_path(id: 'ldpd:113939') %>",
+      'project-link' : "<%= routes.search_catalog_path(:'f[lib_project_short_ssim][]'=> 'Russian Corps of Pages') %>"
     },
     {
-      'image' : "<%= helpers.image_path('dcv/ldpd_136160.jpg')%>",
+      'image' : "<%= assets.asset_path('dcv/ldpd_136160.jpg')%>",
       'title' : 'Boys Playing in Open Fire Hydrants, Lower East Side',
       'project' : 'Community Service Society Photographs',
-      'item-link' : "<%= helpers.catalog_show_path(id: 'ldpd:136160') %>",
-      'project-link' : "<%= helpers.search_catalog_path(:'f[lib_project_short_ssim][]'=> 'Community Service Society Photographs') %>"
+      'item-link' : "<%= routes.catalog_show_path(id: 'ldpd:136160') %>",
+      'project-link' : "<%= routes.search_catalog_path(:'f[lib_project_short_ssim][]'=> 'Community Service Society Photographs') %>"
     },
   ];
 

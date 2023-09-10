@@ -3,9 +3,9 @@
 	<head>
 		<%= render partial: 'shared/head_includes' %>
 		<%- if ['gallery', 'portrait', 'signature'].include?(subsite_layout) -%>
-			<%= stylesheet_pack_tag *Array(subsite_styles) %>
+			<%= stylesheet_link_tag *Array(subsite_styles) %>
 		<%- else -%>
-			<%= stylesheet_pack_tag *["gallery-#{Dcv::Sites::Constants.default_palette}", subsite_layout].except('dcv') %>
+			<%= stylesheet_link_tag *["gallery-#{Dcv::Sites::Constants.default_palette}", subsite_layout].except('dcv') %>
 		<%- end -%>
 		<meta name="robots" content="noindex" />
 	</head>

@@ -11,7 +11,7 @@ module Dcv::MediaElementHelper
       track_element = '<track label="English" kind="subtitles" srclang="en" src="' + captions_path + '" />'
     end
     if poster_path.nil?
-      poster_path = asset_pack_path('media/images/dcv/audio-poster.png')
+      poster_path = asset_path('dcv/audio-poster.png')
     end
     logo_attr = "player-logo=\"#{logo_path}\"" if logo_path
     return %(

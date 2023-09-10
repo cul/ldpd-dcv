@@ -89,7 +89,7 @@ namespace :dcv do
       if ENV['WEBPACKER_RECOMPILE'] == 'true'
         puts 'Recompiling pack...'
         recompile_duration = Benchmark.realtime do
-          Rake::Task['webpacker:compile'].invoke
+          Rake::Task['shakapacker:compile'].invoke
         end
         puts "Done recompiling pack.  Took #{recompile_duration} seconds."
       end
