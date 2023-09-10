@@ -1,8 +1,12 @@
 module.exports = {
-  test: /\.worker\.js$/,
-  enforce: 'pre',
-  exclude: /node_modules/,
-  use: [{
-    loader: 'worker-loader',
-  }]
+  module: {
+    rules: [
+      {
+        test: /\.worker\.js$/,
+        enforce: 'pre',
+        exclude: /node_modules/,
+        loader: 'worker-loader'
+      }
+    ]
+  }
 }

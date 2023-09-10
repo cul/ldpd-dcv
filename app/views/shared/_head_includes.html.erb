@@ -27,9 +27,9 @@ DLC VERSION: <%= IO.read(Rails.root.to_s+'/VERSION') %> -->
 	<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
-<%= stylesheet_pack_tag "dcv", media: 'all'  %>
-<%= stylesheet_pack_tag "print", media: 'print' %>
-<%= stylesheet_pack_tag('iiif' , media: 'all') if @document&.fetch('iiif_behavior_ssim', nil) || is_file_system?(@document) || archive_org_id_for_document(@document) %>
+<%= stylesheet_link_tag "dcv", media: 'all'  %>
+<%= stylesheet_link_tag "print", media: 'print' %>
+<%= stylesheet_link_tag('iiif' , media: 'all') if @document&.fetch('iiif_behavior_ssim', nil) || is_file_system?(@document) || archive_org_id_for_document(@document) %>
 
 <!-- OHSynchronizer -->
 <% if params[:action] == 'synchronizer' %>
