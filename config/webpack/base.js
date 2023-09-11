@@ -1,4 +1,4 @@
-const { webpackConfig, merge } = require('@rails/webpacker');
+const { globalMutableWebpackConfig, merge } = require('shakapacker');
 
 const erb = require('./loaders/erb');
 const expose = require('./loaders/expose');
@@ -31,4 +31,4 @@ const customConfig = {
 	]
 }
 
-module.exports = merge(webpackConfig, merge(workers, merge(resolveUrl, merge(expose, merge(erb, customConfig)))));
+module.exports = merge(globalMutableWebpackConfig, merge(workers, merge(resolveUrl, merge(expose, merge(erb, customConfig)))));

@@ -424,6 +424,11 @@ GEM
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
     semantic_range (3.0.0)
+    shakapacker (6.6.0)
+      activesupport (>= 5.2)
+      rack-proxy (>= 0.6.1)
+      railties (>= 5.2)
+      semantic_range (>= 2.3.0)
     sinatra (2.1.0)
       mustermann (~> 1.0)
       rack (~> 2.2)
@@ -478,11 +483,6 @@ GEM
       nokogiri (~> 1.6)
       rubyzip (>= 1.3.0)
       selenium-webdriver (> 3.141, < 5.0)
-    webpacker (6.0.0.rc.6)
-      activesupport (>= 5.2)
-      rack-proxy (>= 0.6.1)
-      railties (>= 5.2)
-      semantic_range (>= 2.3.0)
     websocket-driver (0.7.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
@@ -547,12 +547,12 @@ DEPENDENCIES
   sassc
   sdoc
   selenium-webdriver (~> 3.142)
+  shakapacker (~> 6.0)
   solr_wrapper (~> 2.0)
   sqlite3 (~> 1.4)
   uglifier (>= 1.3.0)
   view_component (~> 2.82.0)
   webdrivers (~> 4.0)
-  webpacker (= 6.0.0.rc.6)
   wowza-secure_token (= 0.0.1)
 
 BUNDLED WITH
