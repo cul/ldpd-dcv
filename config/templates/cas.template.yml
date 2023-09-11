@@ -1,7 +1,12 @@
-test: &1
+test:
   provider: developer
   fields:
     - uni
     - email
   uid_field: uni
-development: *1
+development:
+  provider: developer
+  fields:
+    - uni
+    - email
+  uid_field: uni
