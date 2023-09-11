@@ -6,7 +6,7 @@ gem 'rails', '~> 6.1.0'
 gem 'shakapacker', '~> 7.0.0'
 gem 'sassc'
 gem 'font-awesome-sass'
-gem 'bootsnap'
+gem 'bootsnap', '~> 1.9.3'
 gem 'actionpack-action_caching'
 # Hydra stack
 gem 'nokogiri', '~> 1.15.2' # update past 1.10 requires alma
