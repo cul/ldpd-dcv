@@ -1,4 +1,4 @@
-default: &DEFAULT
+shared:
   "http://rightsstatements.org/vocab/InC/1.0/": "In Copyright"
   "http://rightsstatements.org/vocab/InC-OW-EU/1.0/": "In Copyright - EU Orphan Work"
   "http://rightsstatements.org/vocab/InC-EDU/1.0/": "In Copyright - Educational Use Permitted"
@@ -11,10 +11,10 @@ default: &DEFAULT
   "http://rightsstatements.org/vocab/CNE/1.0/": "Copyright Not Evaluated"
   "http://rightsstatements.org/vocab/UND/1.0/": "Copyright Undetermined"
   "http://rightsstatements.org/vocab/NKC/1.0/": "No Known Copyright"
-development: *DEFAULT
-test: *DEFAULT
-production: *DEFAULT
-dlc_dev: *DEFAULT
-dlc_test: *DEFAULT
-dlc_staging: *DEFAULT
-dlc_prod: *DEFAULT
+development: {}
+test: {}
+production: {}
+dlc_dev: {}
+dlc_test: {}
+dlc_staging: {}
+dlc_prod: {}

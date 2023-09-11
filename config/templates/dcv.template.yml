@@ -1,6 +1,10 @@
-test: &1
+test:
   require_authentication: false
   num_load_balanced_cdn_urls: 0
   cdn_urls:
   - http://localhost
-development: *1
+development:
+  require_authentication: false
+  num_load_balanced_cdn_urls: 0
+  cdn_urls:
+  - http://localhost
