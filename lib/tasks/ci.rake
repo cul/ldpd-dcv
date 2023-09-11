@@ -198,13 +198,13 @@ namespace :dcv do
       Dir.glob(File.join(Rails.root, "config/templates/*.template.yml")).each do |template_yml_path|
         target_yml_path = File.join(Rails.root, 'config', File.basename(template_yml_path).sub(".template.yml", ".yml"))
         FileUtils.touch(target_yml_path) # Create if it doesn't exist
-        target_yml = YAML.load_file(target_yml_path) || YAML.load_file(template_yml_path)
+        target_yml = YAML.load_file(target_yml_path, aliases: true) || YAML.load_file(template_yml_path, aliases: true)
         File.open(target_yml_path, 'w') {|f| f.write target_yml.to_yaml }
       end
       Dir.glob(File.join(Rails.root, "config/templates/*.template.yml.erb")).each do |template_yml_path|
         target_yml_path = File.join(Rails.root, 'config', File.basename(template_yml_path).sub(".template.yml.erb", ".yml"))
         FileUtils.touch(target_yml_path) # Create if it doesn't exist
-        target_yml = YAML.load_file(target_yml_path) || YAML.load(ERB.new(File.read(template_yml_path)).result(binding))
+        target_yml = YAML.load_file(target_yml_path, aliases: true) || YAML.load(ERB.new(File.read(template_yml_path)).result(binding), aliases: true)
         File.open(target_yml_path, 'w') {|f| f.write target_yml.to_yaml }
       end
     end

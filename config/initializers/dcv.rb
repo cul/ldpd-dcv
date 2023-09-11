@@ -1,4 +1,4 @@
-DCV_CONFIG = YAML.load_file("#{Rails.root.to_s}/config/dcv.yml")[Rails.env].with_indifferent_access
+DCV_CONFIG = YAML.load_file("#{Rails.root.to_s}/config/dcv.yml", aliases: true)[Rails.env].with_indifferent_access
 
 # Add audio assets path
 Rails.application.config.assets.paths << Rails.root.join("app", "assets", "audio")
