@@ -77,9 +77,9 @@ module Dcv::Solr::DocumentAdapter
 
       solr_doc.each_pair do |key, value|
         if value.is_a? Array
-          value.each {|v| v.strip! unless v.nil? }
+          value.map! {|v| v.strip unless v.nil? }
         elsif value.is_a? String
-          value.strip!
+          value = value.strip
         end
       end
 
