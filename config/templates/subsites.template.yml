@@ -1,4 +1,4 @@
-test: &1
+shared:
   public:
     catalog:
       layout: gallery
@@ -61,4 +61,5 @@ test: &1
     universityseminars:
       layout: universityseminars
       show_original_file_download: true
-development: *1
+test: {}
+development: {}
