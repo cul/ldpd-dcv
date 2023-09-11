@@ -24,7 +24,7 @@ gem 'rubydora'
 gem 'cul_omniauth', '~> 0.7.0'
 gem 'cancancan'
 #gem 'cul_omniauth', git: 'https://github.com/cul/cul_omniauth', branch: '0.5.x'
-gem 'active-triples', '~> 0.4.0'
+gem 'active-triples', git: 'https://github.com/cul/ActiveTriples', branch: 'deprecation_update'
 
 # Use wowza token gem for generating tokens
 gem 'wowza-secure_token', '0.0.1'
