@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'bigdecimal', '~>1.4.4'
+gem 'bigdecimal', '~>3.0'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.1.0'
 gem 'shakapacker', '~> 7.0.0'
@@ -101,9 +101,7 @@ group :development, :test do
   gem 'rspec-json_expectations'
   gem 'capybara', '~> 3.32'
   # For testing with chromedriver for headless-browser JavaScript testing
-  gem 'selenium-webdriver', '~> 3.142'
-  # For automatically updating chromedriver
-  gem 'webdrivers', '~> 4.0', require: false
+  gem 'selenium-webdriver', '~> 4.11.0'
   gem 'database_cleaner'
   gem 'factory_bot_rails'
   gem 'jettywrapper', '>=2.0.5', git: 'https://github.com/samvera-deprecated/jettywrapper.git', branch: 'master'

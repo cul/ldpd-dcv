@@ -3,7 +3,7 @@ ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'spec_helper'
 require 'rspec/rails'
-require 'webdrivers'
+require 'selenium-webdriver'
 require 'capybara/rails'
 
 # include dispatch test helper to enable fixture_file_upload method in specs
