@@ -104,8 +104,6 @@ group :development, :test do
   gem 'selenium-webdriver', '~> 4.11.0'
   gem 'database_cleaner'
   gem 'factory_bot_rails'
-  gem 'jettywrapper', '>=2.0.5', git: 'https://github.com/samvera-deprecated/jettywrapper.git', branch: 'master'
-  gem 'solr_wrapper', '~> 2.0'
   gem 'rubocop', '~> 0.53.0', require: false
   gem 'rubocop-rspec', '>= 1.20.1', require: false
   gem 'rubocop-rails_config', require: false
@@ -117,6 +115,9 @@ end
 
 # Use Thin for local development
 #gem "thin"
+
+# everybody loves rainbows
+gem 'rainbow', '~> 3.0'
 
 # Use Puma for local development
 gem 'puma', '~> 5.2'
