@@ -1,5 +1,5 @@
 require 'rsolr'
-SUBSITES = YAML.load_file("#{Rails.root.to_s}/config/subsites.yml", aliases: true)[Rails.env].with_indifferent_access
+SUBSITES = Rails.application.config_for(:subsites).with_indifferent_access
 begin
   Rails.logger.info("loading sites from Solr")
   Blacklight.default_index.tap do |index|
