@@ -34,7 +34,7 @@ module Dcv
 		end
 
 		def refresh_list_cache
-			rsolr = RSolr.connect :url => YAML.load_file('config/solr.yml')[Rails.env]['url']
+			rsolr = RSolr.connect :url => YAML.load_file('config/blacklight.yml', aliases: true)[Rails.env]['url']
 
 			values_and_counts = {}
 
