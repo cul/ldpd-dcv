@@ -38,6 +38,7 @@ describe ActiveFedora::Datastream, type: :integration do
   end
   context "External Datastream Content" do
     it "should be taggable with a documentary checksum" do
+      pending "docker external file locations"
       ds = test_obj.create_datastream(ActiveFedora::Datastream, "external", controlGroup: 'E', dsLocation:ds_location)
       ds.checksum = ds_checksum()
       ds.checksumType = 'MD5'

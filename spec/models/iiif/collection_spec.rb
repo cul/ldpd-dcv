@@ -28,8 +28,9 @@ describe Iiif::Collection do
 		end
 	end
 	describe '#items' do
+		let(:item) { instance_double(SolrDocument, doi_identifier: '10.123/abcdef', :[] => nil) }
 		it 'delegates to children_service for structured list' do
-			expect(children_service).to receive(:from_contained_structure_proxies).and_return([])
+			expect(children_service).to receive(:from_contained_structure_proxies).and_return([item])
 			iiif_collection.items
 		end
 	end

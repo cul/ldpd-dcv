@@ -32,7 +32,7 @@ describe Dcv::Sites::SearchUrlService, type: :unit do
 		context 'custom search' do
 			let(:site) { FactoryBot.create(:site, search_type: 'custom') }
 			it do
-				expect(controller).to receive(:url_for).with(controller: site.slug, action: 'index')
+				expect(controller).to receive(:url_for).with({ controller: site.slug, action: 'index' })
 				search_url_service.search_action_url(site, controller)
 			end
 			it do
