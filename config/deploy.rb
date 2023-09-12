@@ -1,4 +1,4 @@
-lock '3.5.0'
+lock '3.14.1'
 
 set :department, 'ldpd'
 set :instance, fetch(:department)
