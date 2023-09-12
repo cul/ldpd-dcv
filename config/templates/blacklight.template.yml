@@ -3,5 +3,9 @@ shared:
   timeout: 120
 development:
   url: http://localhost:8983/solr/dcv
+  adapter: solr
+  timeout: 120
 test:
   url: http://localhost:9983/solr/dcv
+  adapter: solr
+  timeout: 120

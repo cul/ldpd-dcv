@@ -61,5 +61,129 @@ shared:
     universityseminars:
       layout: universityseminars
       show_original_file_download: true
-test: {}
-development: {}
+test:
+  public:
+    catalog:
+      layout: gallery
+      date_search:
+        sidebar: true
+        timeline: true
+    carnegie:
+      layout: carnegie
+      default_search_mode: list
+      show_csv_results: true
+      map_search:
+        sidebar: true
+        default_lat: 40.440625
+        default_long: -79.995886
+        default_zoom: 5
+      nested:
+        centennial:
+          default_search_mode: grid
+          layout: carnegie
+          map_search:
+            sidebar: false
+    durst:
+      layout: durst
+      map_search:
+        sidebar: true
+        default_lat: 40.7570
+        default_long: -73.9810
+        default_zoom: 11
+        max_zoom: 17
+      show_other_sources: true
+    ifp:
+      layout: ifp
+      default_search_mode: :list
+      show_original_file_download: true
+    jay:
+      layout: signature
+      palette: blue
+      date_search:
+        sidebar: true
+        timeline: true
+    lcaaj:
+      layout: lcaaj
+      show_csv_results: true
+      map_search:
+        sidebar: true
+        default_lat: 52.8
+        default_long: 21.5
+        default_zoom: 5
+    nyre:
+      layout: nyre
+      map_search:
+        sidebar: true
+        default_lat: 40.757
+        default_long: -73.981
+        default_zoom: 11
+  restricted:
+    ifp:
+      layout: ifp
+      show_original_file_download: true
+    universityseminars:
+      layout: universityseminars
+      show_original_file_download: true
+development:
+  public:
+    catalog:
+      layout: gallery
+      date_search:
+        sidebar: true
+        timeline: true
+    carnegie:
+      layout: carnegie
+      default_search_mode: list
+      show_csv_results: true
+      map_search:
+        sidebar: true
+        default_lat: 40.440625
+        default_long: -79.995886
+        default_zoom: 5
+      nested:
+        centennial:
+          default_search_mode: grid
+          layout: carnegie
+          map_search:
+            sidebar: false
+    durst:
+      layout: durst
+      map_search:
+        sidebar: true
+        default_lat: 40.7570
+        default_long: -73.9810
+        default_zoom: 11
+        max_zoom: 17
+      show_other_sources: true
+    ifp:
+      layout: ifp
+      default_search_mode: :list
+      show_original_file_download: true
+    jay:
+      layout: signature
+      palette: blue
+      date_search:
+        sidebar: true
+        timeline: true
+    lcaaj:
+      layout: lcaaj
+      show_csv_results: true
+      map_search:
+        sidebar: true
+        default_lat: 52.8
+        default_long: 21.5
+        default_zoom: 5
+    nyre:
+      layout: nyre
+      map_search:
+        sidebar: true
+        default_lat: 40.757
+        default_long: -73.981
+        default_zoom: 11
+  restricted:
+    ifp:
+      layout: ifp
+      show_original_file_download: true
+    universityseminars:
+      layout: universityseminars
+      show_original_file_download: true
