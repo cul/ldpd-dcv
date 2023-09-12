@@ -94,6 +94,7 @@ group :development, :test do
   gem 'net-ssh', '>= 4.2'
   gem 'rspec-rails'
   gem 'rspec-json_expectations'
+  gem 'react_on_rails'
   gem 'capybara', '~> 3.32'
   # For testing with chromedriver for headless-browser JavaScript testing
   gem 'selenium-webdriver', '~> 4.16.0'

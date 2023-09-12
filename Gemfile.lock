@@ -142,6 +142,7 @@ GEM
       execjs
     coffee-script-source (1.12.2)
     concurrent-ruby (1.2.2)
+    connection_pool (2.4.1)
     crass (1.0.6)
     cul_omniauth (0.7.0)
       cancancan (~> 3.0)
@@ -344,6 +345,14 @@ GEM
       rdf (~> 1.1, >= 1.1.10)
     rdf-xsd (1.99.0)
       rdf (~> 1.99)
+    rdoc (6.5.0)
+      psych (>= 4.0.0)
+    react_on_rails (13.4.0)
+      addressable
+      connection_pool
+      execjs (~> 2.5)
+      rails (>= 5.2)
+      rainbow (~> 3.0)
     redcarpet (3.6.0)
     redis (3.3.5)
     redis-namespace (1.8.2)
@@ -519,6 +528,7 @@ DEPENDENCIES
   rainbow (~> 3.0)
   rdf (>= 1.1.5)
   rdf-vocab
+  react_on_rails
   redcarpet
   redis (< 4)
   resque (~> 1.26.0)
