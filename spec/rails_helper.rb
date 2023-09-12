@@ -3,6 +3,7 @@ ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'spec_helper'
 require 'rspec/rails'
+require 'react_on_rails'
 require 'selenium-webdriver'
 require 'capybara/rails'
 
@@ -60,4 +61,5 @@ RSpec.configure do |config|
 
   config.include(ControllerLevelHelpers, type: :view)
   config.before(:each, type: :view) { initialize_controller_helpers(view) }
+  ReactOnRails::TestHelper.configure_rspec_to_compile_assets(config)
 end
