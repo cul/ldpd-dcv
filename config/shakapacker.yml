@@ -178,6 +178,18 @@ test:
     - .jpg
 
 production:
+  source_path: app/javascript
+  source_entry_path: /
+  nested_entries: false
+  public_root_path: public
+  public_output_path: packs
+  cache_path: tmp/webpacker
+  webpack_compile_output: true
+
+  # Additional paths webpack should lookup modules
+  # ['app/assets', 'engine/foo/app/assets']
+  additional_paths: ['app/javascript/images', 'app/javascript/assets']
+
   # Production depends on precompilation of packs prior to booting for performance.
   compile: false
 
@@ -216,37 +228,6 @@ production:
     - .gif
     - .jpeg
     - .jpg
-dcv_staging:
-  source_path: app/javascript
-  source_entry_path: /
-  nested_entries: false
-  public_root_path: public
-  public_output_path: packs
-  cache_path: tmp/webpacker
-  webpack_compile_output: true
-
-  # Additional paths webpack should lookup modules
-  # ['app/assets', 'engine/foo/app/assets']
-  additional_paths: ['app/javascript/images', 'app/javascript/assets']
-
-  # Production depends on precompilation of packs prior to booting for performance.
-  compile: false
-
-  # Extract and emit a css file
-  extract_css: true
-
-  # Cache manifest.json for performance
-  cache_manifest: true
-
-dcv_prod:
-  # Production depends on precompilation of packs prior to booting for performance.
-  compile: false
-
-  # Extract and emit a css file
-  extract_css: true
-
-  # Cache manifest.json for performance
-  cache_manifest: true
 
 dlc_dev:
   source_path: app/javascript
@@ -322,6 +303,36 @@ dlc_staging:
   # Cache manifest.json for performance
   cache_manifest: true
 
+  static_assets_extensions:
+    - .jpg
+    - .jpeg
+    - .png
+    - .gif
+    - .tiff
+    - .ico
+    - .svg
+    - .eot
+    - .otf
+    - .ttf
+    - .woff
+    - .woff2
+
+  extensions:
+    - .erb
+    - .mjs
+    - .js
+    - .sass
+    - .scss
+    - .css
+    - .module.sass
+    - .module.scss
+    - .module.css
+    - .png
+    - .svg
+    - .gif
+    - .jpeg
+    - .jpg
+
 dlc_test:
   source_path: app/javascript
   source_entry_path: /
@@ -344,6 +355,36 @@ dlc_test:
   # Cache manifest.json for performance
   cache_manifest: true
 
+  static_assets_extensions:
+    - .jpg
+    - .jpeg
+    - .png
+    - .gif
+    - .tiff
+    - .ico
+    - .svg
+    - .eot
+    - .otf
+    - .ttf
+    - .woff
+    - .woff2
+
+  extensions:
+    - .erb
+    - .mjs
+    - .js
+    - .sass
+    - .scss
+    - .css
+    - .module.sass
+    - .module.scss
+    - .module.css
+    - .png
+    - .svg
+    - .gif
+    - .jpeg
+    - .jpg
+
 dlc_prod:
   source_path: app/javascript
   source_entry_path: /
@@ -357,7 +398,7 @@ dlc_prod:
   # ['app/assets', 'engine/foo/app/assets']
   additional_paths: ['app/javascript/images', 'app/javascript/assets']
 
- # Production depends on precompilation of packs prior to booting for performance.
+  # Production depends on precompilation of packs prior to booting for performance.
   compile: false
 
   # Extract and emit a css file
@@ -365,3 +406,34 @@ dlc_prod:
 
   # Cache manifest.json for performance
   cache_manifest: true
+
+  static_assets_extensions:
+    - .jpg
+    - .jpeg
+    - .png
+    - .gif
+    - .tiff
+    - .ico
+    - .svg
+    - .eot
+    - .otf
+    - .ttf
+    - .woff
+    - .woff2
+
+  extensions:
+    - .erb
+    - .mjs
+    - .js
+    - .sass
+    - .scss
+    - .css
+    - .module.sass
+    - .module.scss
+    - .module.css
+    - .png
+    - .svg
+    - .gif
+    - .jpeg
+    - .jpg
+
