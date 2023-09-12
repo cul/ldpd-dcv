@@ -86,7 +86,7 @@ namespace :dcv do
 
       # A webpacker recompile isn't strictly required, but it speeds up the first feature test run and
       # can prevent first feature test timeout issues, especially in a slower CI server environment.
-      if ENV['WEBPACKER_RECOMPILE'] == 'true'
+      if ENV['SHAKAPACKER_RECOMPILE'] == 'true'
         puts 'Recompiling pack...'
         recompile_duration = Benchmark.realtime do
           Rake::Task['shakapacker:compile'].invoke
