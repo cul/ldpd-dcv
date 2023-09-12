@@ -11,7 +11,7 @@ describe Cul::Hydra::Datastreams::RelsInt , type: :unit do
   end
   let(:repo) do
     repo = double("Repository")
-    allow(repo).to receive(:datastream_dissemination).with(:pid=>pid,:dsid=>"RELS-INT").and_return(test_relsint)
+    allow(repo).to receive(:datastream_dissemination).with({ pid: pid, dsid: "RELS-INT" }).and_return(test_relsint)
     repo
   end
   let(:test_relsint) { fixture(File.join('rels_int', 'rels_int_test.xml')).read }
