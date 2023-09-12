@@ -166,7 +166,7 @@ class WelcomeController < ApplicationController
       selected_repository_keys = repositories_and_counts.keys
     end
 
-    rsolr = RSolr.connect :url => YAML.load_file('config/solr.yml')[Rails.env]['url']
+    rsolr = RSolr.connect :url => YAML.load_file('config/blacklight.yml', aliases: true)[Rails.env]['url']
 
     list_of_ids_to_retrieve = []
 
