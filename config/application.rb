@@ -45,7 +45,7 @@ module Dcv
     # And include styles for all configured subsite layouts
     subsites_yml_file = "#{Rails.root.to_s}/config/subsites.yml"
     if File.exists?(subsites_yml_file)
-      subsite_data = YAML.load_file(subsites_yml_file)[Rails.env]
+      subsite_data = YAML.load_file(subsites_yml_file, aliases: true)[Rails.env]
       unique_layouts = []
       unique_layouts += subsite_data['public'].keys
       unique_layouts += subsite_data['restricted'].keys

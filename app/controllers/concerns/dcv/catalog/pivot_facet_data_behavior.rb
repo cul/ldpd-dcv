@@ -12,7 +12,7 @@ module Dcv::Catalog::PivotFacetDataBehavior
     if facets_to_pivot_on && facets_to_pivot_on.split(',').length < 2
       json_response['error'] = 'Pivot facet requires at least two fields.'
     else
-      rsolr = RSolr.connect :url => YAML.load_file('config/blacklight.yml')[Rails.env]['url']
+      rsolr = RSolr.connect :url => YAML.load_file('config/blacklight.yml', aliases: true)[Rails.env]['url']
       first_facet = facets_to_pivot_on.split(',')[0]
       top_level_field_name = blacklight_config.facet_fields[first_facet]
       if (top_level_field_name)

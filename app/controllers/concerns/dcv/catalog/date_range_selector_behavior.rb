@@ -11,7 +11,7 @@ module Dcv::Catalog::DateRangeSelectorBehavior
   ## Right now, they're only indexed.
   #def get_earliest_and_latest_dates_in_entire_solr_index()
   #
-  #  rsolr = RSolr.connect :url => YAML.load_file('config/solr.yml')[Rails.env]['url']
+  #  rsolr = RSolr.connect :url => YAML.load_file('config/blacklight.yml', aliases: true)[Rails.env]['url']
   #
   #  # Earliest date
   #  response = rsolr.get 'select', :params => {
