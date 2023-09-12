@@ -56,7 +56,7 @@ describe SitesController, type: :unit do
 		context 'custom search' do
 			let(:site) { FactoryBot.create(:site, search_type: 'custom') }
 			it do
-				expect(controller).to receive(:url_for).with(controller: site.slug, action: 'index')
+				expect(controller).to receive(:url_for).with({ controller: site.slug, action: 'index' })
 				controller.search_action_url
 			end
 			it do

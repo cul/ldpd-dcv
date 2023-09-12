@@ -52,13 +52,13 @@ describe Dcv::SubsiteHelper, :type => :helper do
 			let(:link) { 'slug' }
 			let(:expected_path) { '/siteSlug/slug' }
 			it "links to site_page" do
-				expect(helper).to receive(:site_page_path).with(site_slug: site_slug, slug: link).and_return(expected_path)
+				expect(helper).to receive(:site_page_path).with({ site_slug: site_slug, slug: link }).and_return(expected_path)
 				helper.link_to_nav(nav_link)
 			end
 			context 'with an anchor' do
 				let(:link) { 'slug#anchor' }
 				it "links to site_page with anchor" do
-					expect(helper).to receive(:site_page_path).with(site_slug: site_slug, slug: 'slug', anchor: 'anchor').and_return(expected_path)
+					expect(helper).to receive(:site_page_path).with({ site_slug: site_slug, slug: 'slug', anchor: 'anchor' }).and_return(expected_path)
 					helper.link_to_nav(nav_link)
 				end
 			end

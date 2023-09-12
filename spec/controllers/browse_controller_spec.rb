@@ -13,7 +13,7 @@ describe BrowseController, type: :controller do
   end
 
   shared_examples "a functioning browse controller" do
-    describe '#about' do
+    describe '#about', js: true do
       render_views
 
       let(:view_context) { controller.view_context }
