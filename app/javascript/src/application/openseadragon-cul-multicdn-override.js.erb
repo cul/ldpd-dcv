@@ -63,14 +63,17 @@ OpenSeadragon.IIIFTileSource.prototype.getTileUrl = function( level, x, y ){
     /** BEGIN - CUL Changed Code **/
     var dcvCdnUrls = <%= DCV_CONFIG['cdn_urls'].inspect %>;
     var originalIiifUrlAndResourceUrlPath = this['@id'];
+    var iiifResourceUrl = originalIiifUrlAndResourceUrlPath;
     var iiifResourceUrlPath = null;
     dcvCdnUrls.forEach(function(url){
         if(originalIiifUrlAndResourceUrlPath.indexOf(url) === 0) {
             iiifResourceUrlPath = originalIiifUrlAndResourceUrlPath.replace(url, '');
         }
     });
-    var randomCdnUrl = dcvCdnUrls[Math.floor(Math.random()*dcvCdnUrls.length)];
-    uri = [ randomCdnUrl + iiifResourceUrlPath, iiifRegion, iiifSize, IIIF_ROTATION, iiifQuality ].join( '/' );
+    if (iiifResourceUrlPath) {
+        iiifResourceUrl = dcvCdnUrls[Math.floor(Math.random()*dcvCdnUrls.length)] + iiifResourceUrlPath;
+    }
+    uri = [ iiifResourceUrl, iiifRegion, iiifSize, IIIF_ROTATION, iiifQuality ].join( '/' );
     /** END - CUL Changed Code **/
 
     return uri;
