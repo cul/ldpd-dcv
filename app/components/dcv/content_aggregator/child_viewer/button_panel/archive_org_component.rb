@@ -30,7 +30,7 @@ module Dcv::ContentAggregator::ChildViewer::ButtonPanel
     end
 
     def iiif_info_url
-      "https://iiif.archivelab.org/iiif/#{@child[:id]}/manifest.json" if has_iiif?
+      "https://iiif.archive.org/iiif/2/#{@child[:id]}/manifest.json" if has_iiif?
     end
 
     def has_download?
