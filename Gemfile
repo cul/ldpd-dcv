@@ -81,7 +81,7 @@ gem 'loofah', '>= 2.2.1'
 
 group :development, :test do
   # Use Capistrano for deployment
-  gem 'capistrano', '~> 3.14.0', require: false
+  gem 'capistrano', '~> 3.17.0', require: false
   # Rails and Bundler integrations were moved out from Capistrano 3
   gem 'capistrano-rails', '~> 1.4', require: false
   gem 'capistrano-bundler', '~> 1.1', require: false
