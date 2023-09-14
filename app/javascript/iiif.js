@@ -1,5 +1,5 @@
 import Mirador from "mirador";
-import ArchivalIIIFViewer from "@archival-iiif/viewer-react";
+import miradorDownloadPlugins from "mirador-dl-plugin";
 $(document).ready(function(){
   var manifestUrl = $('#mirador').data('manifest');
   if (manifestUrl) {
@@ -22,12 +22,12 @@ $(document).ready(function(){
         },
         workspaceControlPanel: {
           enabled: false
+        },
+        miradorDownloadPlugin: {
+          restrictDownloadOnSizeDefinition: true,
         }
-      }
+      },
+      [...miradorDownloadPlugins],
     );
-  }
-  var manifestUrl = $('#aiiif').data('manifest');
-  if (manifestUrl) {
-    new ArchivalIIIFViewer({id: 'aiiif', manifest: manifestUrl});
   }
 });
