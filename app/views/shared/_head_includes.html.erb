@@ -29,7 +29,12 @@ DLC VERSION: <%= IO.read(Rails.root.to_s+'/VERSION') %> -->
 
 <%= stylesheet_link_tag "dcv", media: 'all'  %>
 <%= stylesheet_link_tag "print", media: 'print' %>
-<%= stylesheet_link_tag('iiif' , media: 'all') if @document&.fetch('iiif_behavior_ssim', nil) || is_file_system?(@document) || archive_org_id_for_document(@document) %>
+<%- is_iiif_client = @document&.fetch('iiif_behavior_ssim', nil).present? -%>
+<%- is_iiif_client ||= Array(@document&.fetch(:dc_type_sim, nil)).include?('StillImage') -%>
+<%- is_iiif_client ||= Array(@document&.fetch(:dc_type_sim, nil)).include?('InteractiveResource') && structured_children_not_type(document: @document || {}, dc_type: 'StillImage').blank? -%>
+<%- is_iiif_client ||= archive_org_id_for_document(@document) -%>
+<%- is_file_system = is_file_system?(@document) -%>
+<%= stylesheet_link_tag('iiif' , media: 'all') if is_iiif_client || is_file_system %>
 
 <!-- OHSynchronizer -->
 <% if params[:action] == 'synchronizer' %>
@@ -47,7 +52,8 @@ DLC VERSION: <%= IO.read(Rails.root.to_s+'/VERSION') %> -->
 <% end %>
 <%- js_packs = ["application", "dcv"].concat(Array(subsite_layout)).uniq %>
 <%- js_packs << 'ohsynchronizer' if params[:action] == 'synchronizer' %>
-<%- js_packs << 'iiif' if @document&.fetch('iiif_behavior_ssim', nil) || is_file_system?(@document) || archive_org_id_for_document(@document) %>
+<%- js_packs << 'iiif' if is_iiif_client %>
+<%- js_packs << 'iiif-archives' if is_file_system %>
 <%= javascript_pack_tag *js_packs %>
 
 <% if Rails.env == 'dcv_prod' %>

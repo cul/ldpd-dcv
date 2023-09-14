@@ -17,6 +17,7 @@ module ChildrenHelper
   end
 
   def structured_children(document = @document)
+    return [] unless document
     document == @document ? memoized_structured_children(document) : structured_children_for_document(document)
   end
 
@@ -90,5 +91,13 @@ module ChildrenHelper
   def has_public_children?(document: @document, children: nil, ability: Ability.new)
     children ||= document ? structured_children(document) : []
     children.detect { |child| is_publicly_available_asset?(child, ability) }.present?
+  end
+
+  def structured_children_of_type(document: @document, dc_type:)
+    structured_children(document)&.select { |child| Array(child[:dc_type_sim]).include?(dc_type) }
+  end
+
+  def structured_children_not_type(document: @document, dc_type:)
+    structured_children(document)&.reject { |child| Array(child[:dc_type_sim]).include?(dc_type) }
   end
 end

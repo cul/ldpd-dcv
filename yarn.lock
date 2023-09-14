@@ -3975,6 +3975,11 @@ minimist@^1.2.0, minimist@^1.2.5:
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.5.tgz#67d66014b66a6a8aaa0c083c5fd58df4e4e97602"
   integrity sha512-FM9nNUYrRBAELZQT3xeZQ7fmMOBg6nWNmJKTcgsJeaLstP/UODVpGsr5OhXhhXg6f+qtJ8uiZ+PUxkDWcgIXLw==
 
+mirador-dl-plugin@^0.13.0:
+  version "0.13.0"
+  resolved "https://registry.yarnpkg.com/mirador-dl-plugin/-/mirador-dl-plugin-0.13.0.tgz#9a6cb0fa3c566a2a1ebe1ad9caa1ff590ff22689"
+  integrity sha512-I/6etIvpTtO1zgjxx2uEUFoyB9NxQ43JWg8CMkKmZqblW7AAeFqRn1/zUlQH7N8KFZft9Rah6D8qxtuNAo9jmA==
+
 mirador@^3.3.0:
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/mirador/-/mirador-3.3.0.tgz#7a957a1db1a5388b2b8cafab00db4eb9f97557b9"
