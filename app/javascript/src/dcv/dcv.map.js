@@ -88,7 +88,7 @@ export const initCulMapDisplayComponent = function($mapComponentDiv) {
 
 			var viewAllUrl = DCV.mapCoordinateSearchUrl.replace('_lat_', childMarkers[0].getLatLng().lat).replace('_long_', childMarkers[0].getLatLng().lng);
 
-			allItemHtml += '<h6>' + childMarkers.length + ' items found <a class="pull-right" href="' + viewAllUrl + '">View all &raquo &nbsp;</a></h6>';
+			allItemHtml += '<h6>' + childMarkers.length + ' items found <a class="float-right" href="' + viewAllUrl + '">View all &raquo &nbsp;</a></h6>';
 			allItemHtml += '<div style="max-height:200px;max-width:200px;width:100%;overflow:auto;">';
 			if ($mapComponentDiv.hasClass('no-thumbs')) {
 				allItemHtml += '<hr />';
@@ -126,7 +126,7 @@ export const initCulMapDisplayComponent = function($mapComponentDiv) {
 
 	// Collapse copyright and attribution info into clickable, expandable icon
 	$('.leaflet-control-attribution').wrapInner('<span id="map-attrib-text" class="hidden"/>').append(
-	  '<div id="map-attrib-icon" class="pull-right text-danger"><i class="fa fa-copyright-mark"></i></div>'
+	  '<div id="map-attrib-icon" class="float-right text-danger"><i class="fa fa-copyright-mark"></i></div>'
 	);
 	$('body').on('click', '#map-attrib-icon', function() {
 	  $('#map-attrib-text').toggleClass('hidden');
