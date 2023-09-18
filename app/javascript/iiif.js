@@ -1,6 +1,8 @@
 import Mirador from 'mirador/dist/es/src/index';
 import miradorDownloadPlugins from "mirador-downloaddialog";
 import canvasLinkPlugin from 'mirador-canvaslink/es';
+import citationSidebar from './src/iiif/mirador-citations';
+import viewXmlPlugin from './src/iiif/mirador-viewXml';
 import ShareCanvasLinkDialog from './src/iiif/mirador-canvaslink/components/ShareCanvasLinkDialog';
 
 canvasLinkPlugin[1].component = ShareCanvasLinkDialog;
@@ -54,7 +56,7 @@ $(document).ready(function(){
           restrictDownloadOnSizeDefinition: true,
         }
       },
-      [...miradorDownloadPlugins].concat([...canvasLinkPlugin]),
+      [...miradorDownloadPlugins].concat([...canvasLinkPlugin]).concat([...viewXmlPlugin]).concat([...citationSidebar]),
     );
   }
 });

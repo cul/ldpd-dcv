@@ -3011,6 +3011,13 @@ fast-memoize@^2.5.1:
   resolved "https://registry.yarnpkg.com/fast-memoize/-/fast-memoize-2.5.2.tgz#79e3bb6a4ec867ea40ba0e7146816f6cdce9b57e"
   integrity sha512-Ue0LwpDYErFbmNnZSF0UH6eImUwDmogUO1jyE+JbN2gsQz/jICm1Ve7t9QT0rNSsfJt+Hs4/S3GnsDVjL4HVrw==
 
+fast-xml-parser@^4.2.5:
+  version "4.2.7"
+  resolved "https://registry.yarnpkg.com/fast-xml-parser/-/fast-xml-parser-4.2.7.tgz#871f2ca299dc4334b29f8da3658c164e68395167"
+  integrity sha512-J8r6BriSLO1uj2miOk1NW0YVm8AGOOu3Si2HQp/cSmo6EA4m3fcwu2WKjJ4RK9wMLBtg69y1kS8baDiQBR41Ig==
+  dependencies:
+    strnum "^1.0.5"
+
 fastest-levenshtein@^1.0.12:
   version "1.0.16"
   resolved "https://registry.npmjs.org/fastest-levenshtein/-/fastest-levenshtein-1.0.16.tgz"
@@ -4809,6 +4816,14 @@ react-window@^1.8.5:
     "@babel/runtime" "^7.0.0"
     memoize-one ">=3.1.1 <6"
 
+react-xml-viewer@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/react-xml-viewer/-/react-xml-viewer-2.0.0.tgz#6dee2b5c7e8238e2cc366dd67f60ba0e0a8e00ec"
+  integrity sha512-UGgb9QqT4Qn6OtJgpxs+y8C7yY+Dpyh9n4WoJcc3RFLm/nn5uddLjhxlrxP9gPE78J1mxplYOvOabJUAJMs49Q==
+  dependencies:
+    fast-xml-parser "^4.2.5"
+    lodash "^4.17.21"
+
 react@^16.8.0:
   version "16.14.0"
   resolved "https://registry.npmjs.org/react/-/react-16.14.0.tgz"
@@ -5364,6 +5379,11 @@ strip-final-newline@^2.0.0:
   version "2.0.0"
   resolved "https://registry.npmjs.org/strip-final-newline/-/strip-final-newline-2.0.0.tgz"
   integrity sha512-BrpvfNAE3dcvq7ll3xVumzjKjZQ5tI1sEUIKr3Uoks0XUl45St3FlatVqef9prk4jRDzhW6WZg+3bk93y6pLjA==
+
+strnum@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/strnum/-/strnum-1.0.5.tgz#5c4e829fe15ad4ff0d20c3db5ac97b73c9b072db"
+  integrity sha512-J8bbNyKKXl5qYcR36TIO8W3mVGVHrmmxsd5PAItGkmyzwJvybiw2IVq5nqd0i4LSNSkB/sx9VHllbfFdr9k1JA==
 
 style-loader@^3.3.3:
   version "3.3.3"
