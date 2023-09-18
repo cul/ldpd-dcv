@@ -112,6 +112,16 @@ class Iiif::Manifest < Iiif::BaseResource
           value: { en: Array(@solr_document['lib_acknowledgment_notes_ssm']) }
         }
       end
+      if @solr_document['fedora_pid_uri_ssi']
+        (manifest["seeAlso"] ||= []) << {
+          "id": route_helper.item_mods_url(id: @solr_document.id, format: 'xml'),
+          "type": "Dataset",
+          "label": { "en": [ "Bibliographic Description in MODS XML" ] },
+          "format": "text/xml",
+          "schema": "http://www.loc.gov/mods/v3",
+          "profile": "https://example.org/profiles/bibliographic"
+        }
+      end
     end
     manifest['thumbnail'] = [thumbnail]
     manifest['partOf'] = Array(@part_of).map {|part| part.as_json } if @part_of.present?
