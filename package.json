@@ -58,9 +58,15 @@
     "worker-loader": "^3.0.8",
     "xml-js": "^1.6.11"
   },
+  "peerDependencies": {
+    "mirador": "^3.0.0-rc.7",
+    "react": "^16.8.0",
+    "react-dom": "^16.8.3"
+  },
   "devDependencies": {
     "@webpack-cli/serve": "^2.0.5",
-    "webpack-dev-server": "^4.15.1"
+    "webpack-dev-server": "^4.15.1",
+    "mirador": "^3.3.0"
   },
   "browserslist": [
     "defaults"
