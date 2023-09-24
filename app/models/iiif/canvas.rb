@@ -1,13 +1,14 @@
 class Iiif::Canvas < Iiif::BaseResource
-  attr_reader :id, :manifest_routing_opts, :route_helper, :doi
+  attr_reader :id, :manifest_routing_opts, :route_helper, :doi, :ability_helper
   attr_accessor :image, :label
 
-  def initialize(id, solr_document, route_helper, manifest_routing_opts, label=nil)
-    super(id, solr_document)
+  def initialize(id:, solr_document:, route_helper:, ability_helper:, label: nil, **manifest_routing_opts)
+    super
     @manifest_routing_opts = manifest_routing_opts
     @label = label || solr_document['title_display_ssm'].first
     @doi = solr_document.doi_identifier
     @route_helper = route_helper
+    @ability_helper = ability_helper
   end
 
   def routing_opts
@@ -24,8 +25,8 @@ class Iiif::Canvas < Iiif::BaseResource
     canvas["@context"] = "http://iiif.io/api/presentation/3/context.json" if opts[:include]&.include?(:context)
     canvas['id'] = id
     canvas['type'] = 'Canvas'
-    canvas['label'] = label.to_s
-    canvas['thumbnail'] = thumbnail
+    canvas['label'] = { en: [label.to_s] }
+    canvas['thumbnail'] = [thumbnail]
     canvas["behavior"] = behaviors
     if canvas_type == Iiif::Type::V3::IMAGE
       canvas['height'] = dimensions[:height]
@@ -60,7 +61,7 @@ class Iiif::Canvas < Iiif::BaseResource
   end
 
   def annotation_page
-    @annotation_page ||= Iiif::AnnotationPage.new(self, route_helper)
+    @annotation_page ||= Iiif::AnnotationPage.new(self, route_helper: route_helper, ability_helper: ability_helper)
   end
 
   def thumbnail

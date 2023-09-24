@@ -1,10 +1,16 @@
 test:
   require_authentication: false
+  iiif:
+    authz:
+      shared_secret: <%= SecureRandom.hex(16) %>
   num_load_balanced_cdn_urls: 0
   cdn_urls:
   - http://localhost
 development:
   require_authentication: false
+  iiif:
+    authz:
+      shared_secret: <%= SecureRandom.hex(16) %>
   num_load_balanced_cdn_urls: 0
   cdn_urls:
   - http://localhost

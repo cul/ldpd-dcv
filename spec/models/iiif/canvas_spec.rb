@@ -5,7 +5,7 @@ describe Iiif::Canvas do
 	let(:route_helper) { instance_double(Iiif::PresentationsController) }
 	let(:manifest_routing_opts) { { collection: false } }
 	let(:label) { "some label" }
-	subject(:canvas) { described_class.new(id, solr_document, route_helper, manifest_routing_opts, label) }
+	subject(:canvas) { described_class.new(id: id, solr_document: solr_document, route_helper: route_helper, ability_helper: route_helper, manifest_routing_opts: manifest_routing_opts, label: label) }
 	describe '#dimensions' do
 		context "in rels_int" do
 			let(:solr_data) { { rels_int_profile_tesim: [JSON.generate({ 'test:gr/content' => { 'image_width' => 200, 'image_length' => 300}})] } }

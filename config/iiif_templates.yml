@@ -12,11 +12,9 @@ painting_annotation :
   motivation : "painting"
 image_annotation_body:
   "type" : "Image"
-  format : "image/jpeg"
   service:
-    "type": "ImageService3"
-    profile : "level2"
-    sizes: []
+    - "@type": "ImageService2"
+      profile : "http://iiif.io/api/image/2/level2.json"
 text_annotation_body:
   "type" : "Text"
   format : "application/pdf"
@@ -27,6 +25,23 @@ sequence :
   "type" : "Sequence"
   "viewingDirection" : "left-to-right"
   "viewingHint" : "individuals"
+v1_access_service:
+  "@context" : "http://iiif.io/api/auth/1/context.json"
+  "service" : []
+v1_access_token_service :
+  "profile" : "http://iiif.io/api/auth/1/token"
+v2_probe_response :
+  "@context" : "http://iiif.io/api/auth/2/context.json"
+  "type" : "AuthProbeResult2"
+v2_probe_service :
+  "type" : "AuthProbeService2"
+  "service" : []
+v2_access_service :
+  "@context" : "http://iiif.io/api/auth/2/context.json"
+  "type" : "AuthAccessService2"
+  "service" : []
+v2_access_token_service :
+  "type" : "AuthAccessTokenService2"
 directions :
   - left-to-right
   - right-to-left

@@ -66,4 +66,8 @@ class ApplicationController < ActionController::Base
   def show_file_fields?(field_config, document)
     document.resource_result?
   end
+
+  def external_service_client_ip
+    DCV_CONFIG.dig('media_streaming','wowza', 'client_ip_override') || request.remote_ip
+  end
 end

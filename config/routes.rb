@@ -166,14 +166,17 @@ Rails.application.routes.draw do
       collection_registrant: /10\.[^\/]+/, collection_doi: /[^\/]+/,
       manifest_registrant: /10\.[^\/]+/, manifest_doi: /[^\/]+/,
       defaults: { version: 3 } do
+      get '/login', to: 'access#login', as: :login
       defaults format: 'json' do
+        get '/kiosk', to: 'access#kiosk', as: :kiosk
         get '/presentation/:manifest_registrant/:manifest_doi', to: 'presentations#show', as: :presentation
         get '/presentation/:collection_registrant/:collection_doi/collection(/*proxy_path)', to: 'presentations#collection', as: :collection, constraints: { format: 'json' }
         get '/presentation/:collection_registrant/:collection_doi/manifest/:manifest_registrant/:manifest_doi', to: 'presentations#manifest', as: :collected_manifest, constraints: { format: 'json' }
         get '/presentation/:manifest_registrant/:manifest_doi/manifest', to: 'presentations#manifest', as: :manifest
         get '/presentation/:manifest_registrant/:manifest_doi/canvas/:registrant/:doi', to: 'presentations#canvas', as: :canvas
+        get '/presentation/:manifest_registrant/:manifest_doi/annotation/:registrant/:doi/probe', to: 'presentations#probe', as: :probe
         get '/presentation/:manifest_registrant/:manifest_doi/annotation/:registrant/:doi/:id', to: 'presentations#annotation', as: :annotation
-        get '/presentation/:manifest_registrant/:manifest_doi/annotationPage/:registrant/:doi', to: 'presentations#annotation', as: :annotation_page
+        get '/presentation/:manifest_registrant/:manifest_doi/annotationPage/:registrant/:doi', to: 'presentations#annotation_page', as: :annotation_page
       end
     end
   end
@@ -187,6 +190,9 @@ Rails.application.routes.draw do
     resources :catalog, only: [:show], constraints: { id: /[^\?]+/ } do
       resources :bytestreams, only: [:index, :show] do
         get 'content'=> 'bytestreams#content'
+        get 'resource' => 'bytestreams#resource'
+        get 'access_service' => 'bytestreams#access'
+        get 'probe' => 'bytestreams#probe'
       end
     end
     resources :bytestreams, path: 'catalog/:catalog_id/bytestreams', only: [:index, :show], constraints: { slug: /(?!.*edit).*/ }
@@ -217,6 +223,11 @@ Rails.application.routes.draw do
 
   resources :bytestreams, path: '/catalog/:catalog_id/bytestreams' do
     get 'content' => 'bytestreams#content'
+    # IIIF Auth2 routes
+    get 'resource' => 'bytestreams#resource'
+    get 'access' => 'bytestreams#access'
+    get 'token' => 'bytestreams#token'
+    get 'probe' => 'bytestreams#probe'
   end
 
   get ':layout/:id/details' => 'details#show', as: :details

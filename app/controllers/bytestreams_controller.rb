@@ -1,9 +1,12 @@
 # -*- encoding : utf-8 -*-
 require 'blacklight/catalog'
 require 'actionpack/action_caching'
+require 'digest'
+require 'base64'
 
 class BytestreamsController < ApplicationController
   include ActionController::Live
+  include Dcv::CrossOriginRequests
   include Dcv::NonCatalog
   include Dcv::Resources::RelsIntBehavior
   include Dcv::Resources::LegacyIdBehavior
@@ -11,7 +14,10 @@ class BytestreamsController < ApplicationController
   include Cul::Omniauth::RemoteIpAbility
   include Dcv::CatalogHelperBehavior
   include ChildrenHelper
+  include Iiif::Authz::V2::Bytestreams
   #caches_action :content, :expires_in => 7.days
+
+  before_action :require_user, only: [:access]
 
   respond_to :json
 
@@ -46,6 +52,7 @@ class BytestreamsController < ApplicationController
   end
 
   def show
+    cors_headers
     @response, @document = fetch(params[:catalog_id])
     resource_doc = resources_for_document.detect {|x| x[:id].split('/')[-1] == params[:id]} || {}
     render json: resource_doc, layout: false

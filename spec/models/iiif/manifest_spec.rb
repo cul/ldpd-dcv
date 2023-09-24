@@ -18,6 +18,9 @@ describe Iiif::Manifest do
 	end
 	let(:solr_adapter) { Dcv::Solr::DocumentAdapter::ActiveFedora.new(active_fedora_object) }
 	let(:manifest_document) { SolrDocument.new(solr_adapter.to_solr) }
+	let(:ability_helper) do
+		TestAbilityHelper.new
+	end
 	let(:route_helper) do
 		TestRouteHelper.new
 	end
@@ -26,7 +29,7 @@ describe Iiif::Manifest do
 		registrant, doi = manifest_document.doi_identifier.split('/')
 		route_helper.iiif_manifest_url(manifest_registrant: registrant, manifest_doi: doi)
 	end
-	let(:iiif_manifest) { described_class.new(manifest_id, manifest_document, children_service, route_helper) }
+	let(:iiif_manifest) { described_class.new(id: manifest_id, solr_document: manifest_document, children_service: children_service, route_helper: route_helper, ability_helper: ability_helper) }
 	before do
 		allow(solr_adapter).to receive(:get_representative_generic_resource).and_return(representative_resource)
 	end

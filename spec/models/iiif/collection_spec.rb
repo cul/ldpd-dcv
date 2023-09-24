@@ -11,6 +11,9 @@ describe Iiif::Collection do
 	end
 	let(:solr_adapter) { Dcv::Solr::DocumentAdapter::ActiveFedora.new(active_fedora_object) }
 	let(:collection_document) { SolrDocument.new(solr_adapter.to_solr) }
+	let(:ability_helper) do
+		TestAbilityHelper.new
+	end
 	let(:route_helper) do
 		TestRouteHelper.new
 	end
@@ -19,7 +22,7 @@ describe Iiif::Collection do
 		registrant, doi = collection_document.doi_identifier.split('/')
 		route_helper.iiif_collection_url(collection_registrant: registrant, collection_doi: doi)
 	end
-	let(:iiif_collection) { described_class.new(collection_id, collection_document, children_service, route_helper) }
+	let(:iiif_collection) { described_class.new(id: collection_id, solr_document: collection_document, children_service: children_service, ability_helper: ability_helper, route_helper: route_helper) }
 	describe '#label' do
 		let(:actual) { iiif_collection.label }
 		it "sets an array of values" do

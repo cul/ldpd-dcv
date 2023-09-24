@@ -10,12 +10,12 @@ module Dcv::CdnHelper
     return response.code == '200' && JSON.parse(response.body)['sizes'].present?
   end
 
-  def get_manifest_url(document, options = {})
+  def get_manifest_url(document, collection: nil, **options)
     doi = document['ezid_doi_ssim']&.first
     return nil unless doi
     doi = doi.sub(/^doi\:/,'') || doi
     registrant, doi = doi.split('/')
-    return iiif_collection_url(collection_registrant: registrant, collection_doi: doi) if options[:collection]
+    return iiif_collection_url(collection_registrant: registrant, collection_doi: doi) if collection
     iiif_manifest_url(options.merge(version: 3, manifest_registrant: registrant, manifest_doi: doi))
   end
 

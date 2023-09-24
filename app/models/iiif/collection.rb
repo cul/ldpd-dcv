@@ -1,9 +1,9 @@
 class Iiif::Collection < Iiif::BaseResource
   COLLECTION_PROXY_TYPE = "http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#Folder"
-  attr_reader :route_helper, :solr_document, :children_service, :proxy_path, :part_of_id
+  attr_reader :route_helper, :solr_document, :children_service, :proxy_path, :part_of_id, :ability_helper
 
-  def initialize(id, solr_document, children_service, route_helper)
-    super(id, solr_document)
+  def initialize(id:, solr_document:, children_service:, route_helper:, ability_helper:, **args)
+    super(id: id, solr_document: solr_document)
     @children_service = children_service
     @route_helper = route_helper
     @proxy_path = @id.split(/\/collection\/?/)[1]
@@ -40,23 +40,45 @@ class Iiif::Collection < Iiif::BaseResource
       if child_doc['type_ssim']&.include?(COLLECTION_PROXY_TYPE)
         # do collection
         child_id = subcollection_id(child_doc['proxyFor_ssi'])
-        Iiif::Collection.new(child_id, solr_document, children_service, route_helper).tap {|c| c.part_of_json = part_of_json}
+        Iiif::Collection.new(id: child_id, solr_document: solr_document, children_service: children_service, route_helper: route_helper, ability_helper: ability_helper).tap {|c| c.part_of_json = part_of_json}
       else
         # do manifest
         child_id = manifest_id(child_doc)
-        Iiif::Manifest.new(child_id, child_doc, children_service, route_helper, part_of_json)
+        Iiif::Manifest.new(id: child_id, solr_document: child_doc, children_service: children_service, route_helper: route_helper, part_of: part_of_json, ability_helper: ability_helper)
       end
     end
   end
 
+  def archive_org_items
+    children = children_service.from_archive_org_identifiers(solr_document)
+    children&.map {|child_doc| Iiif::Manifest::ArchiveOrgReference.new(id: child_doc.id, solr_document: child_doc) }
+  end
+
   def as_json(opts = {})
     collection = {}
-    collection["@context"] = "http://iiif.io/api/presentation/3/context.json" if opts[:include]&.include?(:context)
+    collection["@context"] = ["http://iiif.io/api/auth/2/context.json", "http://iiif.io/api/presentation/3/context.json"] if opts[:include]&.include?(:context)
     collection['id'] = @id
     collection['type'] = 'Collection'
     collection['label'] = label
     if opts[:include]&.include?(:metadata)
       collection['metadata'] = metadata
+    end
+    collection['rights'] = @solr_document['copyright_statement_ssi'] if @solr_document['copyright_statement_ssi'].present?
+    if @solr_document['lib_acknowledgment_notes_ssm'].present?
+      collection['requiredStatement'] = {
+        label: { en: ['Acknowledgment'] },
+        value: { en: Array(@solr_document['lib_acknowledgment_notes_ssm']) }
+      }
+    end
+    if @solr_document['fedora_pid_uri_ssi']
+      (collection["seeAlso"] ||= []) << {
+        "id": route_helper.item_mods_url(id: @solr_document.id, format: 'xml'),
+        "type": "Dataset",
+        "label": { "en": [ "Bibliographic Description in MODS XML" ] },
+        "format": "text/xml",
+        "schema": "http://www.loc.gov/mods/v3",
+        "profile": "https://example.org/profiles/bibliographic"
+      }
     end
     collection['partOf'] = part_of
     if opts[:include]&.include?(:items)
@@ -72,7 +94,10 @@ class Iiif::Collection < Iiif::BaseResource
   def part_of
     return nil unless part_of_id
     @part_of_json ||= [
-      Iiif::Collection.new(part_of_id, solr_document, children_service, route_helper).as_json
+      Iiif::Collection.new(
+        id: part_of_id, solr_document: solr_document, children_service: children_service,
+        route_helper: route_helper, reading_room: reading_room
+      ).as_json
     ]
   end
 

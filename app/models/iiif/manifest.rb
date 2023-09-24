@@ -1,10 +1,11 @@
 class Iiif::Manifest < Iiif::BaseResource
-  attr_reader :route_helper, :solr_document, :children_service
+  attr_reader :route_helper, :solr_document, :children_service, :ability_helper
 
-  def initialize(id, solr_document, children_service, route_helper, part_of = nil)
-    super(id, solr_document)
+  def initialize(id:, solr_document:, children_service:, route_helper:, ability_helper:, part_of: nil, **args)
+    super(id: id, solr_document: solr_document)
     @children_service = children_service
     @route_helper = route_helper
+    @ability_helper = ability_helper
     @part_of = part_of
   end
 
@@ -43,14 +44,15 @@ class Iiif::Manifest < Iiif::BaseResource
       })
     elsif @solr_document.doi_identifier
       registrant, doi = @solr_document.doi_identifier.split('/')
+      more_at_url = route_helper.resolve_doi_url(registrant: registrant, doi: doi)
       fields.unshift({
         label: { en: ['More At'] },
-        value: { en: [route_helper.resolve_doi_url(registrant: registrant, doi: doi)]}
+        value: { en: ["<a href=\"#{more_at_url}\" target=\"_blank\" rel=\"nofollow, noindex, noreferrer\">#{I18n.t("blacklight.application_name")}</a>"] }
       })
     elsif @solr_document.persistent_url
       fields.unshift({
         label: { en: ['More At'] },
-        value: { en: [@solr_document.persistent_url]}
+        value: { en: ["<a href=\"#{@solr_document.persistent_url}\" target=\"_blank\" rel=\"nofollow, noindex, noreferrer\">#{t("blacklight.application_name")}</a>"] }
       })
     end
     fields
@@ -94,7 +96,7 @@ class Iiif::Manifest < Iiif::BaseResource
 
   def as_json(opts = {})
     manifest = {}
-    manifest["@context"] = "http://iiif.io/api/presentation/3/context.json" if opts[:include]&.include?(:context)
+    manifest["@context"] = ["http://iiif.io/api/presentation/3/context.json"] if opts[:include]&.include?(:context)
     manifest['id'] = @id
     manifest['type'] = 'Manifest'
     manifest['label'] = label
@@ -111,7 +113,7 @@ class Iiif::Manifest < Iiif::BaseResource
         }
       end
     end
-    manifest['thumbnail'] = thumbnail
+    manifest['thumbnail'] = [thumbnail]
     manifest['partOf'] = Array(@part_of).map {|part| part.as_json } if @part_of.present?
     # TODO: logo
     # TODO: provider from location data
@@ -128,6 +130,7 @@ class Iiif::Manifest < Iiif::BaseResource
       [canvas_for(@solr_document, route_helper, routing_opts, label[:en]).to_h]
     else
       children_service.from_all_structure_proxies(@solr_document).map do |canvas_document|
+        puts "canvas_for #{canvas_document.id}"
         canvas_for(canvas_document, route_helper, routing_opts).to_h
       end
     end
@@ -163,6 +166,9 @@ class Iiif::Manifest < Iiif::BaseResource
   def canvas_for(canvas_document, route_helper, routing_opts, label = nil)
     registrant, doi = canvas_document.doi_identifier.split('/')
     canvas_routing_opts = routing_opts.merge(registrant: registrant, doi: doi)
-    Iiif::Canvas.new(route_helper.iiif_canvas_url(canvas_routing_opts), canvas_document, route_helper, routing_opts, label)
+    Iiif::Canvas.new(
+      id: route_helper.iiif_canvas_url(canvas_routing_opts), solr_document: canvas_document,
+      route_helper: route_helper, label: label, ability_helper: ability_helper, **routing_opts
+    )
   end
 end

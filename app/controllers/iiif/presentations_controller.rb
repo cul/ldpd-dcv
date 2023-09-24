@@ -1,6 +1,8 @@
 require 'json'
 class Iiif::PresentationsController < ApplicationController
+  include Cul::Omniauth::RemoteIpAbility
   include Dcv::Sites::SearchableController
+  include Dcv::Sites::ReadingRooms
   include Dcv::CatalogIncludes
   include Dcv::SolrHelper
   include ShowFieldDisplayFieldHelper
@@ -36,6 +38,22 @@ class Iiif::PresentationsController < ApplicationController
     fetch_from_cache(doi, fetch_by_doi_opts(query_opts), expiry, force_refresh)
   end
 
+  # override to remove scope check against repository code since these requests will come from arbitrary contexts
+  def reading_room_client?
+    puts "repository_ids_for_client: #{repository_ids_for_client.inspect}"
+    repository_ids_for_client.present?
+  end
+
+  def presentation_params(id, document, part_of, **opts)
+    opts.merge({
+      id: id,
+      route_helper: self,
+      solr_document: document,
+      children_service: child_service,
+      part_of: part_of,
+      ability_helper: self
+    })
+  end
 
   def manifest
     cors_headers
@@ -65,7 +83,7 @@ class Iiif::PresentationsController < ApplicationController
       manifest_id = iiif_manifest_url(manifest_params)
       part_of = nil
     end
-    manifest = Iiif::Manifest.new(manifest_id, @document, child_service, self, part_of)
+    manifest = Iiif::Manifest.new(**presentation_params(manifest_id, @document, part_of))
     render json: manifest.as_json(include: [:items, :metadata, :context]).compact
   end
 
@@ -77,7 +95,7 @@ class Iiif::PresentationsController < ApplicationController
     collection_params = select_params(:collection_registrant, :collection_doi)
     collection_params[:proxy_path] = CGI.unescape(proxy_path) if proxy_path.present?
     collection_id = iiif_collection_url(collection_params)
-    Iiif::Collection.new(collection_id, collection_document, child_service, self)
+    Iiif::Collection.new(**presentation_params(collection_id, collection_document, child_service, self))
   end
 
   def range
@@ -90,7 +108,7 @@ class Iiif::PresentationsController < ApplicationController
     manifest_doc = fetch_by_doi "doi:#{manifest_doi_param}"
     manifest_params = select_params(:manifest_registrant, :manifest_doi)
     manifest_id = iiif_manifest_url(manifest_params)
-    manifest = Iiif::Manifest.new(manifest_id, manifest_doc, child_service, self, nil)
+    manifest = Iiif::Manifest.new(**presentation_params(manifest_id, manifest_doc, nil))
     canvas_doi_param = "#{params[:registrant]}/#{params[:doi]}"
     if canvas_doi_param == manifest_doi_param
       canvas_doc = manifest_doc
@@ -107,8 +125,63 @@ class Iiif::PresentationsController < ApplicationController
     #TODO: Support dereferenceable annotation constructs
   end
 
+  def probe
+    canvas_doi_param = "#{params[:registrant]}/#{params[:doi]}"
+    canvas_doc = fetch_by_doi "doi:#{canvas_doi_param}"
+    token_valid = false
+    authenticate_or_request_with_http_token("Bearer") do |token, _opts|
+      token_valid = token == Iiif::Authz::V2::AccessTokenService.token(canvas_doc.id)
+    end
+    return unless token_valid
+    if can?(Ability::ACCESS_ASSET, canvas_doc)
+      manifest_doi_param = "#{params[:manifest_registrant]}/#{params[:manifest_doi]}"
+      if canvas_doi_param == manifest_doi_param
+        # we are linking to a 'manifest' for a GenericResource
+        manifest_doc = canvas_doc
+      else
+        manifest_doc = fetch_by_doi "doi:#{manifest_doi_param}"
+      end
+      # redirect
+      canvas = manifest.canvas_for(canvas_doc, manifest.route_helper, manifest.routing_opts, label)
+      redirect_to Iiif::PaintingAnnotation.new(canvas, route_helper: self, ability_helper: self).id
+    else
+      # forbidden
+      render json: { description: "403 Forbidden", error: "invalidCredentials"}, status: :forbidden
+      return
+    end
+  end
+
   def annotation
-    #TODO: Support dereferenceable annotation constructs
+    #TODO: Support dereferenceable annotation constructs besides painting
+    unless params[:id] == 'painting'
+      # not supported, not found
+      render plain: "404 Not Found", status: :not_found
+      return
+    end
+    #TODO: Expect bearer token from description resource interaction unless public
+    cors_headers
+    manifest_doi_param = "#{params[:manifest_registrant]}/#{params[:manifest_doi]}"
+    canvas_doi_param = "#{params[:registrant]}/#{params[:doi]}"
+    if canvas_doi_param == manifest_doi_param
+      # we are linking to a 'manifest' for a GenericResource
+      canvas_doc = manifest_doc = fetch_by_doi "doi:#{manifest_doi_param}"
+    else
+      canvas_doc = fetch_by_doi "doi:#{canvas_doi_param}"
+      manifest_doc = fetch_by_doi "doi:#{manifest_doi_param}"
+    end
+    label = canvas_doc.title
+    label = canvas_doc.id if label.blank?
+    unless can?(Ability::ACCESS_ASSET, canvas_doc)
+      # forbidden
+      render plain: "403 Forbidden", status: :forbidden
+      return
+    end
+    manifest_params = select_params(:manifest_registrant, :manifest_doi)
+    manifest_id = iiif_manifest_url(manifest_params)
+    manifest = Iiif::Manifest.new(**presentation_params(manifest_id, manifest_doc, nil))
+    canvas = manifest.canvas_for(canvas_doc, manifest.route_helper, manifest.routing_opts, label)
+    annotation = Iiif::PaintingAnnotation.new(canvas, route_helper: self, ability_helper: self)
+    render json: annotation.to_h.compact
   end
 
   def collection
@@ -124,7 +197,7 @@ class Iiif::PresentationsController < ApplicationController
     end
     collection_params = select_params(:collection_registrant, :collection_doi, :proxy_path)
     collection_id = iiif_collection_url(collection_params)
-    collection = Iiif::Collection.new(collection_id, @document, child_service, self)
+    collection = Iiif::Collection.new(**presentation_params(collection_id, @document, self))
     render json: collection.as_json(include: [:items, :metadata, :context]).compact
   end
 

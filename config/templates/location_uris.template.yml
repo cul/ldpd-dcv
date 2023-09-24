@@ -1,10 +1,12 @@
 test:
   http://id.library.columbia.edu/term/45487bbd-97ef-44b4-9468-dda47594bc60:
+    repository_id: NNC
     remote_ip:
     - 127.0.0.1
     - ::1
 development:
   http://id.library.columbia.edu/term/45487bbd-97ef-44b4-9468-dda47594bc60:
+    repository_id: NNC
     remote_ip:
     - 127.0.0.1
     - ::1

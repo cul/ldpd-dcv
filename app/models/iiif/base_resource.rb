@@ -1,7 +1,7 @@
 class Iiif::BaseResource
   attr_reader :id, :solr_document
 
-  def initialize(id, solr_document)
+  def initialize(id:, solr_document:, **args)
     @id = id
     @solr_document = solr_document
   end
