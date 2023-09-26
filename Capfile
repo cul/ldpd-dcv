@@ -1,7 +1,14 @@
-# default requires
+# Load DSL and set up stages
 require 'capistrano/setup'
+
+# Include default deployment tasks
 require 'capistrano/deploy'
-# additional optional modules used by clio
+
+# Git SCM plugin
+require 'capistrano/scm/git'
+install_plugin Capistrano::SCM::Git
+
+# additional modules
 require 'capistrano/rvm'
 require 'capistrano/bundler'
 require 'capistrano/rails/assets'
