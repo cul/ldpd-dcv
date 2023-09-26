@@ -1,4 +1,4 @@
-lock '3.14.1'
+lock '~> 3.17.3'
 
 set :department, 'ldpd'
 set :instance, fetch(:department)
@@ -76,9 +76,14 @@ namespace :deploy do
 
     system("git tag -a #{tag} -m 'auto-tagged' && git push origin --tags")
   end
+end
 
-  after :restart, :clear_cache do
-    on roles(:web), in: :groups, limit: 3, wait: 10 do
+after 'deploy:finished', 'dlc:restart_resque_workers'
+
+namespace :dlc do
+  desc 'Restart the resque workers'
+  task :restart_resque_workers do
+    on roles(:web) do
       within release_path do
         with rails_env: fetch(:rails_env) do
           resque_restart_err_and_out_log = './log/resque_restart_err_and_out.log'

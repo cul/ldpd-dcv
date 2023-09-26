@@ -85,7 +85,7 @@ GEM
       zeitwerk (~> 2.3)
     addressable (2.8.5)
       public_suffix (>= 2.0.2, < 6.0)
-    airbrussh (1.4.2)
+    airbrussh (1.5.0)
       sshkit (>= 1.6.1, != 1.7.0)
     ast (2.4.2)
     bcrypt (3.1.19)
@@ -104,7 +104,7 @@ GEM
       msgpack (~> 1.0)
     builder (3.2.4)
     cancancan (3.5.0)
-    capistrano (3.14.1)
+    capistrano (3.17.3)
       airbrussh (>= 1.0.0)
       i18n
       rake (>= 10.0.0)
@@ -498,7 +498,7 @@ DEPENDENCIES
   blacklight (~> 7.33.1)
   bootsnap (~> 1.9.3)
   cancancan
-  capistrano (~> 3.14.0)
+  capistrano (~> 3.17.3)
   capistrano-bundler (~> 1.1)
   capistrano-passenger (~> 0.2)
   capistrano-rails (~> 1.4)
