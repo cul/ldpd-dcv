@@ -32,6 +32,7 @@ DLC VERSION: <%= IO.read(Rails.root.to_s+'/VERSION') %> -->
 <%- is_iiif_client = @document&.fetch('iiif_behavior_ssim', nil).present? -%>
 <%- is_iiif_client ||= Array(@document&.fetch(:dc_type_sim, nil)).include?('StillImage') -%>
 <%- is_iiif_client ||= Array(@document&.fetch(:dc_type_sim, nil)).include?('InteractiveResource') && structured_children_not_type(document: @document || {}, dc_type: 'StillImage').blank? -%>
+<%- is_iiif_client ||= Array(@document&.fetch(:dc_type_sim, nil)).include?('InteractiveResource') && structured_children_not_type(document: @document || {}, dc_type: 'MovingImage').blank? -%>
 <%- is_iiif_client ||= archive_org_id_for_document(@document) -%>
 <%- is_file_system = is_file_system?(@document) -%>
 <%= stylesheet_link_tag('iiif' , media: 'all') if is_iiif_client || is_file_system %>
