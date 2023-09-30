@@ -31,4 +31,12 @@ const customConfig = {
 	]
 }
 
-module.exports = merge(globalMutableWebpackConfig, merge(workers, merge(resolveUrl, merge(expose, merge(erb, customConfig)))));
+const mergeableConfigs = [
+	erb,
+	expose,
+	resolveUrl,
+	workers,
+	globalMutableWebpackConfig
+]
+
+module.exports = mergeableConfigs.reduce((accumulator, currentValue) => merge(accumulator, currentValue), customConfig);
