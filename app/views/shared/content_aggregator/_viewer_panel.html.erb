@@ -4,10 +4,12 @@
 
   <% if (document['iiif_behavior_ssim']&.include?("paged")) %>
     <%= render Dcv::ContentAggregator::PagedResourceComponent.new(document: document, local_downloads: false) %>
-  <% elsif structured_children_not_type(dc_type: 'StillImage').blank? %>
-    <%= render Dcv::ContentAggregator::ImageResourceComponent.new(document: document, local_downloads: false) %>
   <% elsif (structured_children.length == 0) && archive_org_id_for_document(document) %>
     <%= render Dcv::ContentAggregator::MultiPartResourceComponent.new(document: document, local_downloads: false) %>
+  <% elsif structured_children_not_type(dc_type: 'StillImage').blank? %>
+    <%= render Dcv::ContentAggregator::ImageResourceComponent.new(document: document, local_downloads: false) %>
+  <% elsif structured_children_not_type(dc_type: 'MovingImage').blank? %>
+    <%= render Dcv::ContentAggregator::ImageResourceComponent.new(document: document, local_downloads: false) %>
   <% elsif has_viewable_children? %>
     <%= render Dcv::ContentAggregator::Carousel::StructuredChildrenComponent.new(document: document, local_downloads: !has_non_public_children?, structured_children: structured_children, parent_title: parent_title) %>
   <% else %>
