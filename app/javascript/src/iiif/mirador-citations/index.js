@@ -1,6 +1,6 @@
-import { updateWindow } from "mirador/dist/es/src/state/actions";
-import { getContainerId } from "mirador/dist/es/src/state/selectors";
-import { getManifestUrl } from "mirador/dist/es/src/state/selectors/manifests";
+import { updateWindow } from "@columbia-libraries/mirador/dist/es/src/state/actions";
+import { getContainerId } from "@columbia-libraries/mirador/dist/es/src/state/selectors";
+import { getManifestUrl } from "@columbia-libraries/mirador/dist/es/src/state/selectors/manifests";
 
 import { WindowSideBarCitationButton } from './WindowSideBarCitationButton';
 import { WindowSideBarCitationPanel } from './WindowSideBarCitationPanel';

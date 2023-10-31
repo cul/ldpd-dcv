@@ -1,12 +1,12 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import CompanionWindow from 'mirador/dist/es/src/containers/CompanionWindow';
-import CanvasInfo from 'mirador/dist/es/src/containers/CanvasInfo';
-import LocalePicker from 'mirador/dist/es/src/containers/LocalePicker';
-import ManifestInfo from 'mirador/dist/es/src/containers/ManifestInfo';
-import CollectionInfo from 'mirador/dist/es/src/containers/CollectionInfo';
-import ManifestRelatedLinks from 'mirador/dist/es/src/containers/ManifestRelatedLinks';
-import ns from 'mirador/dist/es/src/config/css-ns';
+import CompanionWindow from '@columbia-libraries/mirador/dist/es/src/containers/CompanionWindow';
+import CanvasInfo from '@columbia-libraries/mirador/dist/es/src/containers/CanvasInfo';
+import LocalePicker from '@columbia-libraries/mirador/dist/es/src/containers/LocalePicker';
+import ManifestInfo from '@columbia-libraries/mirador/dist/es/src/containers/ManifestInfo';
+import CollectionInfo from '@columbia-libraries/mirador/dist/es/src/containers/CollectionInfo';
+import ManifestRelatedLinks from '@columbia-libraries/mirador/dist/es/src/containers/ManifestRelatedLinks';
+import ns from '@columbia-libraries/mirador/dist/es/src/config/css-ns';
 
 /**
  * WindowSideBarCitationPanel

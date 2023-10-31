@@ -1,11 +1,10 @@
-import Mirador from 'mirador/dist/es/src/index';
-import miradorDownloadPlugins from "mirador-downloaddialog";
-import canvasLinkPlugin from 'mirador-canvaslink/es';
+import Mirador from '@columbia-libraries/mirador/dist/es/src';
+import miradorDownloadPlugins from "./src/iiif/mirador-downloaddialog";
+import canvasLinkPlugin from './src/iiif/mirador-canvaslink';
 import citationSidebar from './src/iiif/mirador-citations';
+import videoJSPlugin from './src/iiif/mirador-videojs';
 import viewXmlPlugin from './src/iiif/mirador-viewXml';
-import ShareCanvasLinkDialog from './src/iiif/mirador-canvaslink/components/ShareCanvasLinkDialog';
 
-canvasLinkPlugin[1].component = ShareCanvasLinkDialog;
 $(document).ready(function(){
   var manifestUrl = $('#mirador').data('manifest');
   if (manifestUrl) {
@@ -56,7 +55,7 @@ $(document).ready(function(){
           restrictDownloadOnSizeDefinition: true,
         }
       },
-      [...miradorDownloadPlugins].concat([...canvasLinkPlugin]).concat([...viewXmlPlugin]).concat([...citationSidebar]),
+      [...miradorDownloadPlugins].concat([...canvasLinkPlugin]).concat([...viewXmlPlugin]).concat([...citationSidebar]).concat([...videoJSPlugin]),
     );
   }
 });

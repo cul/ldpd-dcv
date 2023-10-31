@@ -1,23 +1,23 @@
-import Box from "@material-ui/core/Box";
-import Button from "@material-ui/core/Button";
-import ButtonGroup from "@material-ui/core/ButtonGroup";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import makeStyles from "@material-ui/core/styles/makeStyles";
-import TextField from "@material-ui/core/TextField";
-import Typography from "@material-ui/core/Typography";
-import Alert from "@material-ui/lab/Alert";
-import ns from "mirador/dist/es/src/config/css-ns";
-import ScrollIndicatedDialogContent from "mirador/dist/es/src/containers/ScrollIndicatedDialogContent";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import ButtonGroup from "@mui/material/ButtonGroup";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogTitle from "@mui/material/DialogTitle";
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
+import Alert from "@mui/material/Alert";
+import ns from "@columbia-libraries/mirador/dist/es/src/config/css-ns";
+import ScrollIndicatedDialogContent from "@columbia-libraries/mirador/dist/es/src/containers/ScrollIndicatedDialogContent";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 
-import CopyToClipboard from "mirador-canvaslink/es/components/dialog/CopyToClipboard";
-import RightsInformation from "mirador-canvaslink/es/components/dialog/RightsInformation";
-import ShareButton from "mirador-canvaslink/es/components/dialog/ShareButton";
+import CopyToClipboard from "./dialog/CopyToClipboard";
+import RightsInformation from "./dialog/RightsInformation";
+import ShareButton from "./dialog/ShareButton";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = createTheme((theme) => ({
   actions: {
     justifyContent: "space-between",
     flexWrap: "wrap",
@@ -32,19 +32,20 @@ const useStyles = makeStyles((theme) => ({
 
 const supportsClipboard = "clipboard" in navigator;
 
-const ShareCanvasLinkDialog = ({
-  config,
-  containerId,
-  manifestId,
-  visibleCanvases,
-  label,
-  rights,
-  t,
-  updateConfig,
-}) => {
+const ShareCanvasLinkDialog = (props) => {
+  const {
+    config,
+    containerId,
+    manifestId,
+    visibleCanvases,
+    label,
+    rights,
+    t,
+    updateConfig,
+  } = props;
   const { dialogOpen, enabled, showRightsInformation, getCanvasLink, providers } = config;
   const [copiedToClipboard, setCopiedToClipboard] = useState(false);
-  const { actions, actionButtons, alert } = useStyles();
+  const { actions, actionButtons, alert } = useStyles;
 
   if (!enabled || !dialogOpen || visibleCanvases.length === 0) {
     return null;

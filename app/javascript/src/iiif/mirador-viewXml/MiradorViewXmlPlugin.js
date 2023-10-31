@@ -1,13 +1,13 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import CodeIcon from '@material-ui/icons/Code';
-import { MiradorMenuButton } from "mirador/dist/es/src/components/MiradorMenuButton";
-import { getManifestoInstance } from 'mirador/dist/es/src/state/selectors/manifests';
+import CodeIcon from '@mui/icons-material/Code';
+import MiradorMenuButton from "@columbia-libraries/mirador/dist/es/src/containers/MiradorMenuButton";
+import { getManifestoInstance } from '@columbia-libraries/mirador/dist/es/src/state/selectors/manifests';
 
 self.$RefreshReg$ = () => {};
 self.$RefreshSig$ = () => () => {};
 
-const MiradorViewXml = ({ config, containerId, updateConfig }) => {
+const MiradorViewXml = ({ config, container, updateConfig }) => {
   const { dialogOpen, enabled } = config;
   if (!enabled) {
     return null;
@@ -18,7 +18,7 @@ const MiradorViewXml = ({ config, containerId, updateConfig }) => {
       aria-expanded={dialogOpen}
       aria-haspopup
       aria-label="View MODS"
-      containerId={containerId}
+      container={container}
       onClick={() =>
         updateConfig({
           ...config,
