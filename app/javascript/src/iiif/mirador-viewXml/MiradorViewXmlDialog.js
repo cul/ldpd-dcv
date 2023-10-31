@@ -1,21 +1,21 @@
 import React, { Component } from 'react';
+import { createTheme, ThemeProvider } from '@mui/material';
 import PropTypes from 'prop-types';
-import { useTheme } from '@material-ui/core/styles';
-import Box from "@material-ui/core/Box";
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import Divider from '@material-ui/core/Divider';
-import Link from '@material-ui/core/Link';
-import TextField from '@material-ui/core/TextField';
-import Typography from '@material-ui/core/Typography';
+import Box from "@mui/material/Box";
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogTitle from '@mui/material/DialogTitle';
+import Divider from '@mui/material/Divider';
+import Link from '@mui/material/Link';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
 import XMLViewer from 'react-xml-viewer'
 import {fetch as fetchPolyfill} from 'whatwg-fetch'
-import ns from "mirador/dist/es/src/config/css-ns";
-import ScrollIndicatedDialogContent from 'mirador/dist/es/src/containers/ScrollIndicatedDialogContent';
-import { getManifestoInstance } from 'mirador/dist/es/src/state/selectors/manifests';
-import { getContainerId } from 'mirador/dist/es/src/state/selectors/config';
+import ns from "@columbia-libraries/mirador/dist/es/src/config/css-ns";
+import ScrollIndicatedDialogContent from '@columbia-libraries/mirador/dist/es/src/containers/ScrollIndicatedDialogContent';
+import { getManifestoInstance } from '@columbia-libraries/mirador/dist/es/src/state/selectors/manifests';
+import { getContainerId } from '@columbia-libraries/mirador/dist/es/src/state/selectors/config';
 
 self.$RefreshReg$ = () => {};
 self.$RefreshSig$ = () => () => {};
@@ -56,14 +56,16 @@ const MiradorViewXmlDialog = ({
     })
   }
 
-  const theme = useTheme();
   const closeDialog = () =>
     updateConfig({
       ...config,
       dialogOpen: false,
     });
 
+  const theme = createTheme();
+
   return (
+    <ThemeProvider theme={theme}>
     <Dialog
       container={document.querySelector(`#${containerId} .${ns("viewer")}`)}
       fullWidth
@@ -86,6 +88,7 @@ const MiradorViewXmlDialog = ({
         </Button>
       </DialogActions>
     </Dialog>
+    </ThemeProvider>
   );
 }
 

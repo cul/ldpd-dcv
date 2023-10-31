@@ -1,11 +1,11 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import Badge from '@material-ui/core/Badge';
-import CollectionsBookmarkIcon from '@material-ui/icons/CollectionsBookmark';
-import LocalePicker from 'mirador/dist/es/src/containers/LocalePicker';
-import ManifestInfo from 'mirador/dist/es/src/containers/ManifestInfo';
-import CollectionInfo from 'mirador/dist/es/src/containers/CollectionInfo';
-import ns from 'mirador/dist/es/src/config/css-ns';
+import Badge from '@mui/material/Badge';
+import CollectionsBookmarkIcon from '@mui/icons-material/CollectionsBookmark';
+import LocalePicker from '@columbia-libraries/mirador/dist/es/src/containers/LocalePicker';
+import ManifestInfo from '@columbia-libraries/mirador/dist/es/src/containers/ManifestInfo';
+import CollectionInfo from '@columbia-libraries/mirador/dist/es/src/containers/CollectionInfo';
+import ns from '@columbia-libraries/mirador/dist/es/src/config/css-ns';
 
 /**
  * WindowSideBarCitationButton
@@ -26,7 +26,7 @@ export class WindowSideBarCitationButton extends React.Component {
     } = this.props;
 
     return (
-      <Badge overlap="rectangle" classes={{ badge: classes.badge }} variant="dot">
+      <Badge overlap="rectangular" classes={{ badge: classes.badge }} variant="dot">
         <CollectionsBookmarkIcon />
       </Badge>
     );

@@ -2,8 +2,8 @@ import { getWindowConfig } from "@columbia-libraries/mirador/dist/es/src/state/s
 import { createSelector } from "reselect";
 
 const defaultConfig = {
-  // Open the panel
-  panelOpen: false,
+  // Open the download dialog
+  dialogOpen: false,
   // Enable the plugin
   enabled: true,
 };
@@ -11,9 +11,9 @@ const defaultConfig = {
 /** Selector to get the plugin config for a given window */
 const getPluginConfig = createSelector(
   [getWindowConfig],
-  ({ openPanel = {} }) => ({
+  ({ downloadDialog = {} }) => ({
     ...defaultConfig,
-    ...openPanel,
+    ...downloadDialog,
   }),
 );
 

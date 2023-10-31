@@ -1,5 +1,5 @@
-import { getWindowConfig, getManifestLocale, getManifestoInstance } from "mirador/dist/es/src/state/selectors";
-import asArray from 'mirador/dist/es/src/lib/asArray';
+import { getWindowConfig, getManifestLocale, getManifestoInstance } from "@columbia-libraries/mirador/dist/es/src/state/selectors";
+import asArray from '@columbia-libraries/mirador/dist/es/src/lib/asArray';
 import { PropertyValue, Utils, Resource } from 'manifesto.js';
 import { createSelector } from "reselect";
 

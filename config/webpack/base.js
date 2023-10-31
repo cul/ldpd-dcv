@@ -36,7 +36,8 @@ const mergeableConfigs = [
 	expose,
 	resolveUrl,
 	workers,
-	globalMutableWebpackConfig
+	globalMutableWebpackConfig,
+	customConfig
 ]
 
-module.exports = mergeableConfigs.reduce((accumulator, currentValue) => merge(accumulator, currentValue), customConfig);
+module.exports = mergeableConfigs.reduce((accumulator, currentValue) => merge(accumulator, currentValue), {});

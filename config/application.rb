@@ -38,6 +38,8 @@ module Dcv
     config.eager_load_paths += %W(#{config.root}/lib)
 
     # Custom precompiled asset manifests
+    # add node_modules to asset.paths to allow sprockets to find scss
+    config.assets.paths << Rails.root.join('node_modules')
     config.assets.precompile += [
         'dcv.css',
         'dcv.js',
@@ -47,7 +49,9 @@ module Dcv
         'freelib.js',
         'd3.js',
         'sites.js', 'sites.css',
-        'easymde.min.js', 'easymde.min.css'
+        'easymde.min.js', 'easymde.min.css',
+        'iiif.js', 'iiif.css',
+        'iiif-archives.js'
       ]
 
     # And include styles for all configured subsite layouts
