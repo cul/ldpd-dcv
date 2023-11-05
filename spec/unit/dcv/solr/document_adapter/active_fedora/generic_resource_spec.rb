@@ -31,7 +31,13 @@ describe Dcv::Solr::DocumentAdapter::ActiveFedora::GenericResource, type: :unit 
 				allow(obj).to receive(:pid).and_return(schema_image_pid)
 				obj
 			end
+			let(:mock_iiif_data) { instance_double(Dcv::Solr::DocumentAdapter::ActiveFedora::GenericResource::IiifData) }
+
 			before do
+				adapter.instance_variable_set(:@iiif_adapter, mock_iiif_data)
+				allow(mock_iiif_data).to receive(:to_solr) do |arg|
+					arg
+				end
 				allow(ActiveFedora::Base).to receive(:find).with(schema_image_pid).and_return(schema_image_stub)
 				legacy_object.add_relationship(:has_model, legacy_cmodel)
 			end

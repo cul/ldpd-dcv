@@ -8,6 +8,11 @@ class Dcv::Solr::DocumentAdapter::ActiveFedora
     end
   end
   class GenericResource < Dcv::Solr::DocumentAdapter::ActiveFedora
+    def initialize(obj)
+      super
+      @iiif_adapter = Dcv::Solr::DocumentAdapter::ActiveFedora::GenericResource::IiifData.new(obj)
+    end
+
     def concatenate_fulltext(solr_doc)
       (solr_doc["fulltext_tesim"] ||= []).concat fulltext_values(solr_doc["title_display_ssm"])
       solr_doc
@@ -65,7 +70,7 @@ class Dcv::Solr::DocumentAdapter::ActiveFedora
       # the structured field is explicitly false rather than absent in the legacy class
       solr_doc['structured_bsi'] = false
 
-      solr_doc
+      @iiif_adapter.to_solr(solr_doc)
     end
 
     def has_struct_metadata?

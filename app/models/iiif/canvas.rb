@@ -48,8 +48,14 @@ class Iiif::Canvas < Iiif::BaseResource
       json_props = JSON.parse(@solr_document[:rels_int_profile_tesim]&.join || '{}')
       content_key = json_props.keys.detect { |k| k.to_s.split('/')[-1] == 'content' }
       content_props = content_key ? json_props[content_key] : {}
-      { width: Array(content_props['image_width']).first.to_i, height: Array(content_props['image_length']).first.to_i }
+      dims = { width: Array(content_props['image_width']).first&.to_i, height: Array(content_props['image_length']).first&.to_i }
+      dims[:width] ||= @solr_document[:image_width_isi]
+      dims[:width] ||= 0
+      dims[:height] ||= @solr_document[:image_height_isi]
+      dims[:height] ||= 0
+      dims
     end
+
     @dimensions
   end
 
