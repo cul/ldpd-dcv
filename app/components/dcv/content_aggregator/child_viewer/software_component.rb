@@ -5,7 +5,7 @@ module Dcv::ContentAggregator::ChildViewer
     include Dcv::Components::ActiveFedoraDocumentBehavior
     include Dcv::Components::ArchiveOrgBehavior
 
-    delegate :poster_url, to: :helpers
+    delegate :poster_url, :get_resolved_asset_url, to: :helpers
 
     def initialize(document:, child:, child_index:, local_downloads: false, **_opts)
       super
