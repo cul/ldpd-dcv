@@ -20,7 +20,6 @@ class Dcv::Solr::DocumentAdapter::ActiveFedora::GenericResource
     end
 
     def fetch_iiif_data(iiif_url)
-      puts iiif_url
       response = Faraday.get(iiif_url)
       if response.status == 200
         JSON.load(response.body)
