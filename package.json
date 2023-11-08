@@ -43,7 +43,7 @@
     "mirador-dl-plugin": "^0.13.0",
     "mirador-canvaslink": "^0.2.3",
     "mirador-downloaddialog": "^0.3.0",
-    "@columbia-libraries/mirador": "3.3.1-3789.1",
+    "@columbia-libraries/mirador": "3.3.1-3789.2",
     "openseadragon": "4.0.0",
     "popper.js": "1.16.1",
     "rails-erb-loader": "^5.5.2",
