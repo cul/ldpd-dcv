@@ -98,6 +98,6 @@ module ChildrenHelper
   end
 
   def structured_children_not_type(document: @document, dc_type:)
-    structured_children(document)&.reject { |child| Array(child[:dc_type_sim]).include?(dc_type) }
+    structured_children(document)&.reject { |child| (Array(child[:dc_type_sim]).include?(dc_type)) }
   end
 end
