@@ -30,17 +30,15 @@ DLC VERSION: <%= IO.read(Rails.root.to_s+'/VERSION') %> -->
 <%= stylesheet_link_tag "dcv", media: 'all'  %>
 <%= stylesheet_link_tag "print", media: 'print' %>
 <%- is_iiif_client = @document&.fetch('iiif_behavior_ssim', nil).present? -%>
-<%- is_iiif_client ||= Array(@document&.fetch(:dc_type_sim, nil)).include?('StillImage') -%>
-<%- is_iiif_client ||= Array(@document&.fetch(:dc_type_sim, nil)).include?('InteractiveResource') && structured_children_not_type(document: @document || {}, dc_type: 'StillImage').blank? -%>
-<%- is_iiif_client ||= Array(@document&.fetch(:dc_type_sim, nil)).include?('InteractiveResource') && structured_children_not_type(document: @document || {}, dc_type: 'MovingImage').blank? -%>
+<%- ['StillImage', 'Sound', 'MovingImage', 'Text'].each do |dc_type| -%>
+	<%- is_iiif_client ||= Array(@document&.fetch(:dc_type_sim, nil)).include?(dc_type) -%>
+	<%- is_iiif_client ||= Array(@document&.fetch(:dc_type_sim, nil)).include?('InteractiveResource') && structured_children_of_type(document: @document || {}, dc_type: dc_type).present? -%>
+<%- end -%>
 <%- is_iiif_client ||= archive_org_id_for_document(@document) -%>
 <%- is_file_system = is_file_system?(@document) -%>
-<%= stylesheet_link_tag('iiif' , media: 'all') if is_iiif_client || is_file_system %>
+<%= stylesheet_link_tag('iiif' , media: 'all') if @document && params[:action] != 'synchronizer' %>
 
 <!-- OHSynchronizer -->
-<% if params[:action] == 'synchronizer' %>
-  <%= "<!-- remove stylesheet_link_tag \"/synchronizer-module/css/style.css\" -->".html_safe %>
-<% end %>
 <%= csrf_meta_tags %>
 <%= content_for(:head) %>
 
@@ -52,9 +50,12 @@ DLC VERSION: <%= IO.read(Rails.root.to_s+'/VERSION') %> -->
 </script>
 <% end %>
 <%- js_packs = ["application", "dcv"].concat(Array(subsite_layout)).uniq %>
-<%- js_packs << 'ohsynchronizer' if params[:action] == 'synchronizer' %>
-<%- js_packs << 'iiif' if is_iiif_client %>
-<%- js_packs << 'iiif-archives' if is_file_system %>
+<%- if params[:action] == 'synchronizer' %>
+  <%- js_packs << 'ohsynchronizer' %>
+<%- else -%>
+	<%- js_packs << 'iiif' if is_iiif_client %>
+	<%- js_packs << 'iiif-archives' if is_file_system %>
+<% end %>
 <%= javascript_pack_tag *js_packs %>
 
 <% if Rails.env == 'dcv_prod' %>

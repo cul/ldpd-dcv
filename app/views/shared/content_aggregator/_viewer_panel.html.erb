@@ -10,8 +10,12 @@
     <%= render Dcv::ContentAggregator::ImageResourceComponent.new(document: document, local_downloads: false) %>
   <% elsif structured_children_not_type(dc_type: 'MovingImage').blank? %>
     <%= render Dcv::ContentAggregator::ImageResourceComponent.new(document: document, local_downloads: false) %>
+  <% elsif structured_children_not_type(dc_type: 'Sound').blank? %>
+    <%= render Dcv::ContentAggregator::ImageResourceComponent.new(document: document, local_downloads: false) %>
+  <% elsif structured_children_not_type(dc_type: 'Text').blank? %>
+    <%= render Dcv::ContentAggregator::ImageResourceComponent.new(document: document, local_downloads: false) %>
   <% elsif has_viewable_children? %>
-    <%= render Dcv::ContentAggregator::Carousel::StructuredChildrenComponent.new(document: document, local_downloads: !has_non_public_children?, structured_children: structured_children, parent_title: parent_title) %>
+    <%= render Dcv::ContentAggregator::ImageResourceComponent.new(document: document, local_downloads: false) %>
   <% else %>
     <%= render Dcv::ContentAggregator::Carousel::EmptyComponent.new(document: document, local_downloads: false, structured_children: structured_children, parent_title: parent_title) %>
   <% end %>
