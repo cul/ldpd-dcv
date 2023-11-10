@@ -1,4 +1,6 @@
 class Iiif::Canvas < Iiif::BaseResource
+  include Dcv::Components::ActiveFedoraDocumentBehavior
+
   attr_reader :id, :manifest_routing_opts, :route_helper, :doi, :ability_helper
   attr_accessor :image, :label
 
@@ -37,6 +39,7 @@ class Iiif::Canvas < Iiif::BaseResource
       canvas['width'] = 1
     end
     canvas['items'] = [annotation_page.to_h]
+    canvas['rendering'] = rendering
     canvas.compact
   end
 
@@ -64,6 +67,25 @@ class Iiif::Canvas < Iiif::BaseResource
     @annotation_page ||= Iiif::AnnotationPage.new(self, route_helper: route_helper, ability_helper: ability_helper)
   end
 
+  def rendering
+    values = []
+    if has_datastream?('synchronized_transcript', @solr_document)
+      st_id = route_helper.url_for({controller: '/catalog', action: 'synchronizer', id: @solr_document.id, mode: 'synchronized_transcript'})
+      values << {
+        id: st_id,
+        label: { en: ['View with Synchronized Transcript'] }
+      }
+    end
+    if has_datastream?('chapters', @solr_document)
+      st_id = route_helper.url_for({controller: '/catalog', action: 'synchronizer', id: @solr_document.id, mode: 'chapters'})
+      values << {
+        id: st_id,
+        label: { en: ['View with Synchronized Index'] }
+      }
+    end
+    values if values.present?
+  end
+
   def thumbnail
     @thumbnail ||= begin
       iiif_id = Dcv::Utils::CdnUtils.info_url(id: @solr_document.id).sub(/\/info.json$/,'')
@@ -82,8 +104,8 @@ class Iiif::Canvas < Iiif::BaseResource
       _props[:service] = [
         {
         "id": iiif_id,
-        "type": "ImageService3",
-        "profile": "level2"
+        "type": "ImageService2",
+        "profile": "http://iiif.io/api/image/2/level2.json"
         }
       ]
       _props.freeze
