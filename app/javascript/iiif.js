@@ -1,6 +1,7 @@
 import Mirador from '@columbia-libraries/mirador/dist/es/src';
 import miradorDownloadPlugins from "./src/iiif/mirador-downloaddialog";
 import canvasLinkPlugin from './src/iiif/mirador-canvaslink';
+import canvasRelatedLinksPlugin from './src/iiif/mirador-canvasRelatedLinks'
 import citationSidebar from './src/iiif/mirador-citations';
 import videoJSPlugin from './src/iiif/mirador-videojs';
 import viewXmlPlugin from './src/iiif/mirador-viewXml';
@@ -55,7 +56,7 @@ $(document).ready(function(){
           restrictDownloadOnSizeDefinition: true,
         }
       },
-      [...miradorDownloadPlugins].concat([...canvasLinkPlugin]).concat([...viewXmlPlugin]).concat([...citationSidebar]).concat([...videoJSPlugin]),
+      [...miradorDownloadPlugins].concat([...canvasLinkPlugin]).concat([...viewXmlPlugin]).concat([...citationSidebar]).concat([...videoJSPlugin]).concat([...canvasRelatedLinksPlugin]),
     );
   }
 });
