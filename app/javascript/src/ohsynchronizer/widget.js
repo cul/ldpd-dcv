@@ -80,3 +80,7 @@ export default class OHSynchronizer {
 		$('.preview-segment').off('click');
 	}
 }
+
+OHSynchronizer.errorHandler = function(e) {
+  alert(e);
+}

@@ -23,7 +23,7 @@ export default class VideoJsControls extends PlayerControls {
 
 		if ($("#audio").is(':visible')) {
 			element = $("#audio audio")[0];
-			options.poster = element.attr('poster');
+			options.poster = element.getAttribute('poster');
 			// picture-in-picture doesn't apply to audio, so we won't show the button
 			options.controlBar.pictureInPictureToggle = false;
 		} else if ($("#video").is(':visible')) {

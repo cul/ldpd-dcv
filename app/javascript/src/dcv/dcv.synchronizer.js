@@ -1,3 +1,5 @@
+import OHSynchronizer from '../ohsynchronizer/widget';
+
 export const synchronizerReady = function(){
   if($('#synchronizer-widget').length > 0) {
 
@@ -23,8 +25,5 @@ export const synchronizerReady = function(){
     }
 
     var synchronizerWidget = new OHSynchronizer(widgetOptions);
-    OHSynchronizer.errorHandler = function(e) {
-      alert(e);
-    }
   };
 };

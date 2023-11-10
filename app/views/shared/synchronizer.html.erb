@@ -18,7 +18,7 @@ end
               <audio id="audio-player" data-include-transcript="false" preload="none" data-captions-position="overlay">
                 <source src="<%= media_url %>" type="application/x-mpegURL" />
                 <track id="video-captions" label="English" kind="captions" srclang="en" src="<%= bytestream_content_path(catalog_id: params[:id], bytestream_id: 'captions')%>" />
-              </video>
+              </audio>
             </div>
           <% else %>
             <div id="video">
