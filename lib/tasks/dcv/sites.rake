@@ -26,14 +26,6 @@ namespace :dcv do
     end
     task export: 'export:site'
 
-    task import: :environment do
-      site_import = Dcv::Sites::Import::Directory.new(ENV['directory'])
-      if site_import.exists?
-        site_import.run
-      else
-        puts "No site export at #{ENV['directory']}"
-      end
-    end
     task seed_from_solr: :environment do
       SolrDocument.each_site_document do |document|
         site_import = Dcv::Sites::Import::Solr.new(document)
@@ -41,5 +33,29 @@ namespace :dcv do
         site_import.run
       end
     end
+    namespace :import do
+      task site: :environment do
+        site_import = Dcv::Sites::Import::Directory.new(ENV['directory'])
+        if site_import.exists?
+          site_import.run
+        else
+          puts "No site export at #{ENV['directory']}"
+        end
+      end
+      task all: :environment do
+        Dir.each_child(ENV['directory']) do |subdir|
+          import_dir = File.join(ENV['directory'], subdir)
+          puts import_dir
+          site_import = Dcv::Sites::Import::Directory.new(import_dir)
+          if site_import.exists?
+            puts "Importing from site export at #{import_dir}"
+            site_import.run
+          else
+            puts "No site export at #{import_dir}"
+          end
+        end if ENV['directory']
+      end
+    end
+    task import: 'import:site'
   end
 end
