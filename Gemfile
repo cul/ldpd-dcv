@@ -96,7 +96,7 @@ group :development, :test do
   gem 'rspec-json_expectations'
   gem 'capybara', '~> 3.32'
   # For testing with chromedriver for headless-browser JavaScript testing
-  gem 'selenium-webdriver', '~> 4.11.0'
+  gem 'selenium-webdriver', '~> 4.16.0'
   gem 'database_cleaner'
   gem 'factory_bot_rails'
   gem 'rubocop', '~> 0.53.0', require: false
