@@ -13,6 +13,7 @@
 
 # Ignore all logfiles and tempfiles.
 /log/*.log
+/log/solr
 /tmp
 /log/resque*
 
@@ -40,6 +41,9 @@ secrets.yml
 solr_wrapper.yml
 subsites.yml
 location_uris.yml
+
+# Docker ignores (so these can be customized per-development-environment if needed)
+/docker/docker-compose.*.yml
 
 # Ignore local task files
 /lib/tasks/local.rake

@@ -11,16 +11,21 @@ namespace :dcv do
     end
 
     def wait_for_solr_cores_to_load
-      expected_port = docker_compose_config['services']['solr']['ports'][0].split(':')[0]
+      solr_id = `docker compose -f #{Rails.root.join(docker_compose_file_path)} ps -q solr`
+
       Timeout.timeout(10, Timeout::Error, 'Timed out during solr startup check.') do
         loop do
           sleep 0.25
-          status_code = Net::HTTP.get_response(URI("http://localhost:#{expected_port}/solr/dcv/update?wt=json")).code
-          break if status_code != '503'
-        rescue EOFError, Errno::ECONNRESET
+          status = `docker inspect --format "{{.State.Health.Status}}" #{solr_id}`.strip
+          break if status == 'healthy'
+        rescue EOFError
           next
         end
       end
+    rescue Timeout::Error
+      expected_port = docker_compose_config['services']['solr']['ports'][0].split(':')[0]
+      puts `curl http://localhost:#{expected_port}/solr/dcv/admin/ping?wt=json`
+      raise
     end
 
     def running?

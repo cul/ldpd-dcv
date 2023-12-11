@@ -6,16 +6,38 @@ name: 'dcv-test'
 
 volumes:
   redis-data:
-  solr-cores:
   fedora-data:
+  solr-conf:
+    driver_opts:
+      type: none
+      device: '${PWD}/docker/solr/solr_cores/dcv-solr-6-3/conf'
+      o: bind
+  solr-data:
+  solr-logs:
 services:
   solr:
-    build: ./solr
+    image: solr:8
     restart: always
     ports:
-      - '9983:8983'
+      - 9983:8983
     volumes:
-      - solr-cores:/data
+      - solr-conf:/opt/solr/conf
+      - solr-logs:/var/solr/logs
+      - solr-data:/var/solr/data
+    entrypoint:
+      - docker-entrypoint.sh
+      - solr-precreate
+      - dcv
+      - /opt/solr/conf
+      - "-Xms256m"
+      - "-Xmx512m"
+    healthcheck:
+      # this is a backend test so port will always be 8983 - NOT the forwarded port
+      test: ["CMD-SHELL", "curl -sf http://solr:8983/solr/dcv/admin/ping?wt=json | grep -io \"OK\" || exit 1"]
+      start_period: 5s
+      interval: 2s
+      timeout: 20s
+      retries: 2
   fedora:
     build: ./fedora
     restart: always
