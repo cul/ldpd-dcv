@@ -96,7 +96,10 @@ class SolrDocument
     if link_src
       link_uri = URI(link_src)
       if link_uri.path == "/cgi-bin/cul/resolve" && link_uri.host == "www.columbia.edu"
-        return "https://library.columbia.edu/resolve/#{link_uri.query}"
+        return "https://resolver.library.columbia.edu/#{link_uri.query}"
+      end
+      if link_uri.host == "library.columbia.edu" && link_uri.path =~ /^\/resolve\/([^\/]+)/
+        return "https://resolver.library.columbia.edu/#{$1}"
       end
     end
     link_src

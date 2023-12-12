@@ -32,7 +32,7 @@ featured_proj = controller.digital_projects.select { |proj| proj[:facet_value].p
                     <% @browse_lists.each do |facet_name, data| %>
                         <li class="nav-item"><a href="#tab_<%= facet_name %>" data-toggle="tab" class="nav-link"><%= data['display_label'] %></a></li>
                     <% end %>
-										<li class="float-right non-tab"><a onclick="window.open(this.href);return false;" data-toggle="tooltip" data-placement="top" href="https://library.columbia.edu/resolve/lweb0164" title="See All Digital Collections">All Collections <i class="fa fa-external-link"></i></a></li>
+										<li class="float-right non-tab"><a onclick="window.open(this.href);return false;" data-toggle="tooltip" data-placement="top" href="https://resolver.library.columbia.edu/lweb0164" title="See All Digital Collections">All Collections <i class="fa fa-external-link"></i></a></li>
                 </ul>
 
                 <!-- Tab panes -->

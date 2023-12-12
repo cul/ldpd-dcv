@@ -10,7 +10,7 @@ describe SolrDocument do
       include_context "indexed with a resolver source uri"
       it { is_expected.to have_persistent_url }
       context 'that is an old resolver' do
-        let(:resolver_url) { "https://library.columbia.edu/resolve/#{resolver_key}" }
+        let(:resolver_url) { "https://resolver.library.columbia.edu/#{resolver_key}" }
         it { is_expected.to satisfy {|doc| doc.persistent_url == resolver_url} }
       end
     end
@@ -77,6 +77,26 @@ describe SolrDocument do
         solr_document.merge_source!(title_ssm: [title_value])
         expect(solr_document.title).to eql title_value
       end
+    end
+  end
+  describe '#clean_resolver' do
+    let(:rkey) { 'lweb0138' }
+    let(:cgi_http) { "http://www.columbia.edu/cgi-bin/cul/resolve?#{rkey}" }
+    let(:cgi_https) { "https://www.columbia.edu/cgi-bin/cul/resolve?#{rkey}" }
+    let(:lweb_http) { "https://library.columbia.edu/resolve/#{rkey}" }
+    let(:lweb_https) { "https://library.columbia.edu/resolve/#{rkey}" }
+    let(:current_https) { "https://resolver.library.columbia.edu/#{rkey}" }
+    let(:na_https) { "https://nothing.library.columbia.edu/#{rkey}" }
+    it 'cleans cgi style' do
+      expect(solr_document.clean_resolver(cgi_http)).to eql(current_https)
+      expect(solr_document.clean_resolver(cgi_https)).to eql(current_https)
+    end
+    it 'cleans lweb style' do
+      expect(solr_document.clean_resolver(lweb_http)).to eql(current_https)
+      expect(solr_document.clean_resolver(lweb_https)).to eql(current_https)
+    end
+    it 'passes others through' do
+      expect(solr_document.clean_resolver(na_https)).to eql(na_https)
     end
   end
 end
