@@ -2,6 +2,7 @@ require 'csv'
 class Site < ApplicationRecord
 	include Dcv::Sites::Constants
 	include Blacklight::Configurable
+	include SolrDocument::CleanResolver
 	has_many :scope_filters, as: :scopeable
 	has_many :nav_links, dependent: :destroy, inverse_of: :site
 	has_many :site_pages, dependent: :destroy
@@ -180,6 +181,11 @@ class Site < ApplicationRecord
 	def watermark_url
 		watermark_uploader.store_path.sub(File.join(Rails.root, 'public'), '')
 	end
+
+	# scrub CUL resolvers for format, or pass through
+    def persistent_url
+    	clean_resolver(super)
+    end
 
 	def to_subsite_config
 		config = {

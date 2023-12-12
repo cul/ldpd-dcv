@@ -249,4 +249,27 @@ describe Site do
 			end
 		end
 	end
+	describe '#persistent_url' do
+		let(:site_slug) { 'persistent_url' }
+		let(:rkey) { 'lweb0138' }
+		let(:cgi_http) { "http://www.columbia.edu/cgi-bin/cul/resolve?#{rkey}" }
+		let(:cgi_https) { "https://www.columbia.edu/cgi-bin/cul/resolve?#{rkey}" }
+		let(:lweb_http) { "https://library.columbia.edu/resolve/#{rkey}" }
+		let(:lweb_https) { "https://library.columbia.edu/resolve/#{rkey}" }
+		let(:current_https) { "https://resolver.library.columbia.edu/#{rkey}" }
+		let(:na_https) { "https://nothing.library.columbia.edu/#{rkey}" }
+		it "cleans resolvers" do
+			site.persistent_url = cgi_http
+			expect(site.persistent_url).to eql(current_https)
+			site.persistent_url = cgi_https
+			expect(site.persistent_url).to eql(current_https)
+			site.persistent_url = lweb_http
+			expect(site.persistent_url).to eql(current_https)
+			site.persistent_url = lweb_https
+			expect(site.persistent_url).to eql(current_https)
+			site.persistent_url = na_https
+			expect(site.persistent_url).to eql(na_https)
+		end
+		
+	end
 end
