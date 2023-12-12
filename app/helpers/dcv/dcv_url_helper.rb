@@ -87,7 +87,7 @@ module Dcv::DcvUrlHelper
   end
 
   def terms_of_use_url
-    'https://library.columbia.edu/resolve/lweb0208'
+    'https://resolver.library.columbia.edu/lweb0208'
   end
 
   def site_edit_link(sep: ' | ', **link_opts)
