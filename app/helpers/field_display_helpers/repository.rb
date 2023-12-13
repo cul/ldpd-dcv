@@ -19,10 +19,11 @@ module FieldDisplayHelpers::Repository
 
   def generate_finding_aid_url(bib_id, document)
     repo_code = field_helper_repo_code_value(document: document)
-    if repo_code && bib_id
-      "https://findingaids.library.columbia.edu/ead/#{repo_code.downcase}/ldpd_#{bib_id}/summary"
+    repo_slug = t("cul.archives.arclight_slug.#{repo_code.downcase.sub('-', '')}") if repo_code
+    if repo_slug.present? && bib_id
+      "https://findingaids.library.columbia.edu/ead/#{repo_slug}/ldpd_#{bib_id}"
     else
-      nil
+      "https://clio.columbia.edu/catalog/#{bib_id}" if bib_id
     end
   end
 

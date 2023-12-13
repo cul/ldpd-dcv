@@ -51,6 +51,22 @@ en:
         "Avery Classics Collection": "http://library.columbia.edu/locations/avery/classics.html"   
   cul:
     archives:
+      arclight_slug:
+        "nnba" : "nynybaw"
+        "nnca" : "nnc-a"
+        "nncart" : "nnc-a"
+        "nncea" : "nnc-ea"
+        "nncl" : ""
+        "nncm" : ""
+        "nncmus" : "nnc-rb"
+        "nncoh" : "nynycoh"
+        "nncrb" : "nnc-rb"
+        "nncua" : "nnc-ua"
+        "nynybaw" : "nynybaw"
+        "nynycap" : "nnc-a"
+        "nynycbl" : "nnc-ut"
+        "nynycma" : "nnc-rb"
+        "nynycoh" : "nynycoh"
       facet_value:
         "nnba" : "Barnard College Library"
         "nnc" : "Butler Library"
