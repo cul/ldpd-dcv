@@ -33,5 +33,9 @@ describe Sites::SearchController, :type => :routing do
       expect(post: "/#{site_slug}/#{doi_prefix}/#{doi_id}/track").not_to route_to(controller: "sites/search", action:"track", site_slug: site_slug, id: doi_id_param)
       expect(post: "/#{site_slug}/#{internal_id}/track").to route_to(controller: "sites/search", action:"track", site_slug: site_slug, id: internal_id)
     end
+    # /lehman/legacy_redirect?document_id=ldpd_leh_0002_0026
+    it "routes to #legacy_redirect" do
+      expect(get: "/#{site_slug}/legacy_redirect?document_id=#{internal_id}").to route_to(controller: "sites/search", action:"legacy_redirect", site_slug: site_slug, document_id: internal_id)
+    end
   end
 end

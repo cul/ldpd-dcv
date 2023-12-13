@@ -7,6 +7,8 @@ module Dcv
     def call(mapper, options = {})
       options = @defaults.merge(options)
 
+      mapper.get "/legacy_redirect", controller: 'search', action: 'legacy_redirect'
+
       mapper.get "/*id", controller: 'search', action: 'show', constraints: Dcv::Routes::DOI_ID_CONSTRAINT
       mapper.get "/:id", controller: 'search', action: 'show', constraints: Dcv::Routes::LEGACY_ID_CONSTRAINT
 

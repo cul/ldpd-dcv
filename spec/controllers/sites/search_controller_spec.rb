@@ -56,4 +56,23 @@ describe Sites::SearchController, type: :unit do
 			end
 		end
 	end
+	describe '#legacy_redirect' do
+		let(:legacy_id) { 'legacy_id' }
+		let(:current_id) { 'current_id' }
+		let(:solr_doc) { SolrDocument.new(id: current_id) }
+		let(:solr_response) { instance_double(Blacklight::Solr::Response) }
+		let(:well_known_url) { {action: "show", controller: "catalog", id: "current_id"} }
+		let(:params) {
+			ActionController::Parameters.new(
+				site_slug: site.slug, document_id: legacy_id
+			)
+		}
+		before do
+			allow(controller).to receive(:fetch).with(legacy_id, q: "{!raw f=identifier_ssim v=$ids}").and_return([solr_response, solr_doc])
+		end
+		it do
+			expect(controller).to receive(:redirect_to).with(well_known_url)
+			controller.legacy_redirect
+		end		
+	end
 end

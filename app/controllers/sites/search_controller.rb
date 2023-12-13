@@ -100,6 +100,26 @@ module Sites
 			end
 		end
 
+		def legacy_redirect
+			unless params[:document_id]
+				render status: :bad_request, message: 'document_id param is required', nothing: true
+			end
+			legacy_id ||= params[:document_id].dup
+			@response, @document = fetch legacy_id, q: "{!raw f=identifier_ssim v=$#{blacklight_config.document_unique_id_param}}"
+
+			if @document.blank?
+				render status: :not_found, message: "no document with id #{params[:document_id]}", nothing: true
+				return
+			end
+			document_id = Array(@document[blacklight_config.document_unique_id_param] || @document[:id]).first
+			document_id = document_id&.sub("doi:", "")
+			if load_subsite.search_type == 'local'
+				redirect_to action: "show", id: document_id
+			else
+				redirect_to controller: 'catalog', action: 'show', id: @document[:id]
+			end
+		end
+
 		def index
 			super
 		end
