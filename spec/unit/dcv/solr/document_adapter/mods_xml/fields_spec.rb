@@ -21,12 +21,25 @@ describe Dcv::Solr::DocumentAdapter::ModsXml, type: :unit do
 
     it "should facet on corporate and personal names, ignoring roleTerms" do
       expect(solr_doc["lib_name_sim"]).to eql ['Name, Inc.', 'Name, Personal 1745-1829', 'Name, Recipient 1829-1745','Included Without Attribute']
-      expect(solr_doc["lib_name_sim"]).to eql ['Name, Inc.', 'Name, Personal 1745-1829', 'Name, Recipient 1829-1745','Included Without Attribute']
+      expect(solr_doc["lib_name_teim"]).to eql ['Name, Inc.', 'Name, Personal 1745-1829', 'Name, Recipient 1829-1745','Included Without Attribute']
     end
 
-    it "should not include /mods/subject/name elements in the list of /mods/name elements" do
+    it "should include /mods/subject/name/namePart elements in the list of subject elements" do
+      expect(solr_doc["lib_all_subjects_ssm"]).to include('Jay, John, 1745-1829')
+      expect(solr_doc["lib_all_subjects_teim"]).to include('Jay, John, 1745-1829')
+    end
+
+    it "should not include /mods/subject/name/nameIdentifier elements in the list of subject elements" do
+      expect(solr_doc["lib_all_subjects_ssm"]).not_to include('http://id.loc.gov/authorities/names/n79088877')
+    end
+    it "should include /mods/subject/name valueURI attributes in the list of value URIs" do
+      expect(solr_doc["value_uri_ssim"]).to include('http://id.loc.gov/authorities/names/n79088877')
+      expect(solr_doc["all_text_teim"]).to include('http://id.loc.gov/authorities/names/n79088877')
+    end
+
+    it "should not include /mods/subject/name/namePart elements in the list of /mods/name elements" do
       expect(solr_doc["lib_name_sim"]).not_to include('Jay, John, 1745-1829')
-      expect(solr_doc["lib_name_sim"]).not_to include('Jay, John, 1745-1829')
+      expect(solr_doc["lib_name_teim"]).not_to include('Jay, John, 1745-1829')
     end
 
     it "should not include /mods/relatedItem/identifier[type='CLIO'] elements in the list of clio_identifier elements" do

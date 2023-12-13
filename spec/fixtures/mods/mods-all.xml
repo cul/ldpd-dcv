@@ -59,6 +59,7 @@
   <subject authority="lcsh" valueURI="http://id.loc.gov/authorities/names/n79088877">
       <name authority="naf">
          <namePart>Jay, John, 1745-1829</namePart>
+         <nameIdentifier>http://id.loc.gov/authorities/names/n79088877</nameIdentifier>
       </name>
    </subject>
   <recordInfo>

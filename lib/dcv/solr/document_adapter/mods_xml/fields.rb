@@ -361,7 +361,7 @@ class Dcv::Solr::DocumentAdapter::ModsXml
       node.xpath("./mods:subject/mods:geographic", MODS_NS).collect do |n|
         list_of_subjects << Fields.normalize(n.text, true)
       end
-      node.xpath("./mods:subject/mods:name", MODS_NS).collect do |n|
+      node.xpath("./mods:subject/mods:name/mods:namePart", MODS_NS).collect do |n|
         list_of_subjects << Fields.normalize(n.text, true)
       end
       node.xpath("./mods:subject/mods:temporal", MODS_NS).collect do |n|
@@ -375,6 +375,10 @@ class Dcv::Solr::DocumentAdapter::ModsXml
       end
 
       return list_of_subjects.uniq
+    end
+
+    def all_value_uris(node=mods)
+      node.xpath(".//*[@valueURI]").map { |n| n['valueURI'] }
     end
 
     def durst_subjects(node=mods)
@@ -591,6 +595,8 @@ class Dcv::Solr::DocumentAdapter::ModsXml
       solr_doc["origin_info_place_ssm"] = origin_info_place
       solr_doc["origin_info_place_for_display_ssm"] = origin_info_place_for_display
       solr_doc["classification_other_ssim"] = classification_other
+      solr_doc["value_uri_ssim"] = all_value_uris
+      solr_doc["all_text_teim"] += solr_doc['value_uri_ssim']
 
       repo_marc_code = repository_code
       unless repo_marc_code.nil?
