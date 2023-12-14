@@ -1,9 +1,0 @@
-<div class="row" id="child_items">
-  <div id="item-description" class="col-md-3">
-    <%= render Dcv::Document::SidebarPanels::ItemDescriptionComponent.new(document: document, link_helpers: []) %>
-    <%= render Dcv::Document::SidebarPanels::LinksComponent.new(document: document, configured_links: [:persistent, :mods, :reproduction]) %>
-  </div>
-  <div class="col-md-9">
-    <%= render partial: 'content_aggregator/viewer_panel', locals: { document: document } %>
-  </div>
-</div>
