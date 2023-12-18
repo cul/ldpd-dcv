@@ -62,6 +62,12 @@
     </cartographics>
   </subject>
   <subject>
+    <cartographics>
+      <coordinates>40.75658174592119
+,-73.98963708106945</coordinates>
+    </cartographics>
+  </subject>
+  <subject>
     <hierarchicalGeographic>
       <country>United States</country>
       <province>Nova Scotia</province>

@@ -242,7 +242,7 @@ describe Dcv::Solr::DocumentAdapter::ModsXml, type: :unit do
   describe ".coordinates" do
     let(:xml_src) { fixture( File.join("mods", "mods-subjects.xml")) }
     it "should find coordinate values" do
-      expect(adapter.coordinates).to eql ['40.8075, -73.9619', '40.6892, -74.0444', '-40.6892, 74.0444']
+      expect(adapter.coordinates).to eql ['40.8075,-73.9619', '40.6892,-74.0444', '-40.6892,74.0444', '40.75658174592119,-73.98963708106945']
     end
   end
 

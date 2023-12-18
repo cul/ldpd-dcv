@@ -25,7 +25,8 @@ class Dcv::Solr::DocumentAdapter::ModsXml
           # strip quotes
           n_t = n_t.sub(/^"(.*)"$/, "\\1")
           n_t = n_t.sub(/^'(.*)'$/, "\\1")
-          is_negative_number = n_t =~ /^-\d+$/
+          is_negative_number = n_t =~ /^-\d+(\.\d+)$/
+          is_negative_coordinate = n_t =~ /^-\d+(\.\d+)?(\s*,\s*(-?\d+(\.\d+)?))?$/
           if strip_punctuation == :all
             n_t = n_t.gsub(/[[:punct:]]/, '')
           else
@@ -33,7 +34,7 @@ class Dcv::Solr::DocumentAdapter::ModsXml
           end
           # this may have 'created' leading/trailing space, so strip
           n_t.strip!
-          n_t = '-' + n_t if is_negative_number
+          n_t = '-' + n_t if is_negative_number || is_negative_coordinate
         end
         n_t
       end
@@ -420,8 +421,8 @@ class Dcv::Solr::DocumentAdapter::ModsXml
       coordinate_values = []
       node.xpath("./mods:subject/mods:cartographics/mods:coordinates", MODS_NS).collect do |n|
         nt = Fields.normalize(n.text, true)
-        if nt.match(/-*\d+\.\d+\s*,\s*-*\d+\.\d+\s*/) # Expected coordinate format: 40.123456,-73.5678
-          nt = "-#{nt}" if n.text[n.text.index(nt) - 1] == '-'
+        if nt.match(/-?\d+\.\d+\s*,\s*-?\d+\.\d+\s*/) # Expected coordinate format: 40.123456,-73.5678
+          nt = nt.sub(/\s*,\s*/, ',')
           coordinate_values << nt
         end
       end
