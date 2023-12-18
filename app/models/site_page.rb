@@ -35,7 +35,7 @@ class SitePage < ApplicationRecord
 
 	# this setter is necessary for the form builder
 	def site_text_blocks_attributes=(atts_map)
-		atts_map.each { |ix, atts| puts atts.inspect; atts['sort_label'] = "#{sprintf("%02d", ix.to_i)}:#{atts.delete('label')}"; puts atts.inspect }
+		atts_map.each { |ix, atts| atts['sort_label'] = "#{sprintf("%02d", ix.to_i)}:#{atts.delete('label')}" }
 		super
 	end
 
