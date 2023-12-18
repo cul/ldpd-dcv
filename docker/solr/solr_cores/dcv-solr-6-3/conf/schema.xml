@@ -275,7 +275,7 @@
     <field name="all_text_timv" type="text_general" stored="false" indexed="true" multiValued="true" termVectors="true" termPositions="true" termOffsets="true"/>
 
     <!-- new solr4 location, required for records with multiple coordinates -->
-    <field name="geo" type="location" indexed="true" stored="true" multiValued="true" />
+    <field name="geo" type="location_rpt" multiValued="true" indexed="true" stored="true"/>
 
     <!-- random field for random sorting -->
     <dynamicField name="random_*" type="random" indexed="true" stored="false"/>
@@ -683,6 +683,7 @@
 
     <!-- A specialized field for geospatial search. If indexed, this fieldType must not be multivalued. -->
     <fieldType name="location" class="solr.LatLonType" subFieldSuffix="_coordinate"/>
+    <fieldType name="location_rpt" class="solr.SpatialRecursivePrefixTreeFieldType" geo="true" maxDistErr="0.001" distErrPct="0.025" distanceUnits="kilometers"/>
 
     <!-- Money/currency field type. See http://wiki.apache.org/solr/MoneyFieldType
         Parameters:
