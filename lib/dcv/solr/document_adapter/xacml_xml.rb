@@ -43,7 +43,12 @@ module Dcv::Solr::DocumentAdapter
       solr_doc['access_control_levels_ssim'] ||= [Dcv::AccessLevels::ACCESS_LEVEL_PUBLIC]
       solr_doc['access_control_permissions_bsi'] = !!solr_doc['access_control_permissions_bsi']
       solr_doc['suppress_in_random_bsi'] = suppress_random?
+      solr_doc['access_control_embargo_dtsi'] ||= forty_years_from_now if Array.new(solr_doc['access_control_levels_ssim']).include?(Dcv::AccessLevels::ACCESS_LEVEL_EMBARGO)
       solr_doc
+    end
+
+    def forty_years_from_now
+      (DateTime.now + 40.years).utc.iso8601
     end
   end
 end

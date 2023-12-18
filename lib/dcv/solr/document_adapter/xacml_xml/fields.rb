@@ -60,7 +60,8 @@ class Dcv::Solr::DocumentAdapter::XacmlXml
       permissions&.map do |condition|
         if condition.xpath("../xacml:Description", XACML_NS).text.eql?(ACCESS_LEVEL_EMBARGO)
           if condition['FunctionId'].eql?(FUNCTION_EMBARGO)
-            condition.xpath("./xacml:AttributeValue[@DataType='#{TYPE_DATE}']", XACML_NS).text
+            release_date = condition.xpath("./xacml:AttributeValue[@DataType='#{TYPE_DATE}']", XACML_NS).text
+            date_to_datetime_string(release_date)
           end
         end
       end.compact.first
@@ -74,6 +75,17 @@ class Dcv::Solr::DocumentAdapter::XacmlXml
         end
       end
       false
+    end
+
+    def date_to_datetime_string(date)
+      if date =~ /^\-?\d+$/
+        date = "#{release_date}-01-01"
+      elsif date =~ /^\-?\d+\-\d{1,2}$/
+        date = "#{date}-01"
+      end
+      return DateTime.iso8601(date).utc.iso8601
+    rescue Date::Error
+      nil
     end
   end
 end

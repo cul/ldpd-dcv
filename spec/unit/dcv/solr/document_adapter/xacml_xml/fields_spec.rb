@@ -18,7 +18,7 @@ describe Dcv::Solr::DocumentAdapter::XacmlXml, type: :unit do
         expect(solr_doc['access_control_locations_ssim']).to eql(['http://id.library.columbia.edu/term/45487bbd-97ef-44b4-9468-dda47594bc60'])
       end
       it "has permitted date" do
-        expect(solr_doc['access_control_embargo_dtsi']).to eql('2099-01-01')
+        expect(solr_doc['access_control_embargo_dtsi']).to eql('2099-01-01T00:00:00Z')
       end
       it "has permissions flag" do
         expect(solr_doc['access_control_permissions_bsi']).to be true
@@ -46,6 +46,18 @@ describe Dcv::Solr::DocumentAdapter::XacmlXml, type: :unit do
       let(:xml_src) { fixture(File.join("xacml", "no-random.xml")) }
       it "has suppress random flag" do
         expect(solr_doc['suppress_in_random_bsi']).to be true
+      end
+    end
+    context "has blank embargo date" do
+      let(:xml_src) { fixture(File.join("xacml", "embargo", "blank-date.xml")) }      
+      it "has permitted date" do
+        expect(DateTime.iso8601(solr_doc['access_control_embargo_dtsi'])).to be > (DateTime.now + 39.years)
+      end
+    end
+    context "has invalid embargo date" do
+      let(:xml_src) { fixture(File.join("xacml", "embargo", "bad-date.xml")) }      
+      it "has permitted date" do
+        expect(DateTime.iso8601(solr_doc['access_control_embargo_dtsi'])).to  be > (DateTime.now + 39.years)
       end
     end
   end

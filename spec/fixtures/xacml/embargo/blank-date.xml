@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<xacml:Policy xmlns:xacml="urn:oasis:names:tc:xacml:3.0:core:schema:wd-17" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" PolicyId="policy:c2bb973a-b21d-4a5f-b75d-c0374cc820d7" RuleCombiningAlgId="urn:oasis:names:tc:xacml:3.0:rule-combining-algorithm:deny-unless-permit">
+  <xacml:Target>
+    <xacml:AnyOf>
+      <xacml:AllOf>
+        <xacml:Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+          <xacml:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">GET</xacml:AttributeValue>
+          <xacml:AttributeDesignator MustBePresent="false" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:action" AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+        </xacml:Match>
+      </xacml:AllOf>
+    </xacml:AnyOf>
+  </xacml:Target>
+  <xacml:Rule RuleId="1" Effect="Permit">
+    <!-- Each restriction_on_access field group results in a Rule element defining a permit condition -->
+    <xacml:Description>Embargoed</xacml:Description> 
+    <xacml:Condition FunctionId="urn:oasis:names:tc:xacml:1.0:function:date-greater-than-or-equal">
+      <xacml:Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:date-one-and-only">
+        <xacml:AttributeDesignator MustBePresent="false" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:environment"
+                           AttributeId="urn:oasis:names:tc:xacml:1.0:environment:current-date" DataType="http://www.w3.org/2001/XMLSchema#date"/>
+      </xacml:Apply>
+      <xacml:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#date"></xacml:AttributeValue>
+    </xacml:Condition>
+  </xacml:Rule>
+</xacml:Policy>
