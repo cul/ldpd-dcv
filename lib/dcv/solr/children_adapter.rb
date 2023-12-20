@@ -56,12 +56,14 @@ class Dcv::Solr::ChildrenAdapter
   def from_queried_structure_proxies(parent_document, opts = {})
     local_params = {
       q: opts.fetch(:q, '*:*'),
+      defType: 'lucene',
       qt: 'search',
       rows: opts.fetch(:rows, 0),
       fq: Array(opts.fetch(:fq, nil)).first,
       fl: "*,resources:[subquery]",
+      facet: false,
       :"resources.q" => "{!terms f=dc_identifier_ssim v=$row.proxyFor_ssi}",
-      facet: false
+      :"resources.defType" => "lucene"
     }
 
     response, proxy_docs = searcher.search_service.search_results { |b| b.merge(local_params) }
