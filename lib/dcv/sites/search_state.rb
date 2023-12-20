@@ -26,7 +26,7 @@ class Dcv::Sites::SearchState < Dcv::SearchState
 			controller_name = controller.restricted? ? "restricted/sites/search" : "sites/search"
 			return { controller: controller_name, site_slug: site.slug, id: doi_identifier, action: 'show', slug: nil }
 		when SEARCH_CUSTOM
-			return { controller: URI.decode_uri_component(site.slug), id: doi_identifier, action: 'show', slug: nil }
+			return { controller: URI.decode_www_form_component(site.slug), id: doi_identifier, action: 'show', slug: nil }
 		else
 			return { controller: 'catalog', id: doi_identifier, action: 'show', slug: nil }
 		end
