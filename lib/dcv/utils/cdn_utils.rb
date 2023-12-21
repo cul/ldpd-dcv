@@ -26,22 +26,22 @@ module Dcv::Utils::CdnUtils
   def self.wowza_media_token_url(asset_doc, authorizer, remote_ip)
     asset_doc = SolrDocument.new(asset_doc) unless asset_doc.is_a? SolrDocument
     return unless authorizer.can_access_asset?(asset_doc)
-    wowza_config = DCV_CONFIG.dig('media_streaming','wowza')
+    wowza_config = DCV_CONFIG.dig(:media_streaming,:wowza)
     unless wowza_config
-      Rails.logger.warn("WARNING: no config available at DCV_CONFIG['media_streaming']['wowza']")
+      Rails.logger.warn("WARNING: no config available at DCV_CONFIG[:media_streaming][:wowza]")
       return
     end
 
     access_copy_location = wowza_access_copy_location_from_solr(asset_doc) || wowza_access_copy_location_from_fcrepo(asset_doc)
 
     Wowza::SecureToken::Params.new({
-      stream: wowza_config['application'] + '/_definst_/' + (access_copy_location.downcase.index('.mp3') ? 'mp3:' : 'mp4:') + access_copy_location.gsub(/^\//, ''),
-      secret: wowza_config['shared_secret'],
-      client_ip: wowza_config['client_ip_override'] || remote_ip,
+      stream: wowza_config[:application] + '/_definst_/' + (access_copy_location.downcase.index('.mp3') ? 'mp3:' : 'mp4:') + access_copy_location.gsub(/^\//, ''),
+      secret: wowza_config[:shared_secret],
+      client_ip: wowza_config[:client_ip_override] || remote_ip,
       starttime: Time.now.to_i,
-      endtime: Time.now.to_i + wowza_config['token_lifetime'].to_i,
+      endtime: Time.now.to_i + wowza_config[:token_lifetime].to_i,
       prefix: wowza_config['token_prefix']
-    }).to_url_with_token_hash(wowza_config['host'], wowza_config['ssl_port'], 'hls-ssl')
+    }).to_url_with_token_hash(wowza_config[:host], wowza_config[:ssl_port], 'hls-ssl')
   end
 
   def self.wowza_access_copy_location_from_solr(asset_doc)
