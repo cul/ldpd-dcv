@@ -118,7 +118,7 @@ module Dcv::ChildrenHelperBehavior
 
   def proxy_node(node)
     filesize = node['extent'] ? simple_proxy_extent(node).html_safe : ''
-    label = node['label_ssi']
+    label = "<i class=\"fs-icon\"></i>#{node['label_ssi']}".html_safe
     if node["type_ssim"].include? RDF::NFO[:'#FileDataObject']
       # file
       if node['pid']

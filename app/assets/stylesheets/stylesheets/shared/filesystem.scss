@@ -1,3 +1,5 @@
+@import "font-awesome";
+
 /* Core Styles */
 
 
@@ -9,39 +11,66 @@
       cursor:pointer;
     }
 }
-$fsApplicationImg: url('cul_hydra/filesystem/application.png') !default;
-$fsCodeImg: url('cul_hydra/filesystem/code.png') !default;
-$fsCssImg: url('cul_hydra/filesystem/css.png') !default;
-$fsDirectoryImg: url('cul_hydra/filesystem/directory.png') !default;
-$fsFileImg: url('cul_hydra/filesystem/file.png') !default;
-$fsFolderImg: url('cul_hydra/filesystem/folder.png') !default;
-$fsFolderOpenImg: url('cul_hydra/filesystem/folder_open.png') !default;
-$fsHtmlImg: url('cul_hydra/filesystem/html.png') !default;
-$fsPictureImg: url('cul_hydra/filesystem/picture.png') !default;
-$fsPdfImg: url('cul_hydra/filesystem/pdf.png') !default;
-$fsScriptImg: url('cul_hydra/filesystem/script.png') !default;
-$fsSpinnerImg: url('cul_hydra/filesystem/spinner.gif') !default;
-$fsZipImg: url('cul_hydra/filesystem/zip.png') !default;
 
 .fs-children { display: none;}
-.fs-directory { background: $fsDirectoryImg left top no-repeat; }
-.fs-expanded { background: $fsFolderOpenImg left top no-repeat; }
-.fs-file { background: $fsFileImg left top no-repeat; }
-.fs-wait { background: $fsSpinnerImg left top no-repeat; }
+.fs-icon {
+    margin-right: 0.5em;
+}
+.fs-directory {
+    i.fs-icon {
+        @extend .fa;
+        @extend .fa-folder;
+    }
+}
+.fs-expanded {
+    i.fs-icon {
+        @extend .fa;
+        @extend .fa-folder-open;
+    }
+}
+.fs-file {
+    i.fs-icon {
+        @extend .fa;
+        @extend .fa-file;
+    }
+    &.application_octet-stream {
+        i.fs-icon {
+            @extend .fa-file;
+        }
+    }
+    &.application_json, &.text_css, &.text_html, &.text_javascript, &.text_xml {
+        i.fs-icon {
+            @extend .fa-file-code;
+        }
+    }
+    &.application_pdf {
+        i.fs-icon {
+            @extend .fa-file-pdf;
+        }
+    }
+    &.application_zip {
+        i.fs-icon {
+            @extend .fa-file-zipper;
+        }
+    }
+    &.audio_any {
+        i.fs-icon {
+            @extend .fa-file-audio;
+        }
+    }
+    &.image_jpeg, &.image_gif, &.image_png, &.image_tiff {
+        i.fs-icon {
+            @extend .fa-file-image;
+        }
+    }
+    &.video_any {
+        i.fs-icon {
+            @extend .fa-file-video;
+        }
+    }
+}
+
 /* MIME Types */
-.text_css { background: $fsCssImg left top no-repeat; }
-.application_octet-stream { background: $fsApplicationImg left top no-repeat; }
-.text_html { background: $fsHtmlImg left top no-repeat; }
-.text_javascript { background: $fsScriptImg left top no-repeat; }
-.application_json { background: $fsScriptImg left top no-repeat; }
-.image_jpeg { background: $fsPictureImg left top no-repeat; }
-.image_gif { background: $fsPictureImg left top no-repeat; }
-.image_png { background: $fsPictureImg left top no-repeat; }
-.image_png { background: $fsPictureImg left top no-repeat; }
-.image_tiff { background: $fsPictureImg left top no-repeat; }
-.text_xml { background: $fsCodeImg left top no-repeat; }
-.application_pdf { background: $fsPdfImg left top no-repeat; }
-.application_zip { background: $fsZipImg left top no-repeat; }
 
 @media
 only screen and (max-width: 760px),

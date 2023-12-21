@@ -15,6 +15,8 @@ module Dcv::StructMetadataHelperBehavior
 
   def html_class_for_filename(filename)
     mime = mime_for_name(filename) || 'application/octet-stream'
+    return 'audio_any' if mime =~ /audio/
+    return 'video_any' if mime =~ /video/
     mime.sub(/\//,'_')
   end
 end
