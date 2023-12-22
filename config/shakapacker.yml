@@ -321,3 +321,25 @@ dlc_test:
 
   # Cache manifest.json for performance
   cache_manifest: true
+
+dlc_prod:
+  source_path: app/javascript
+  source_entry_path: /
+  nested_entries: false
+  public_root_path: public
+  public_output_path: packs
+  cache_path: tmp/webpacker
+  webpack_compile_output: true
+
+  # Additional paths webpack should lookup modules
+  # ['app/assets', 'engine/foo/app/assets']
+  additional_paths: ['app/javascript/images', 'app/javascript/assets']
+
+ # Production depends on precompilation of packs prior to booting for performance.
+  compile: false
+
+  # Extract and emit a css file
+  extract_css: true
+
+  # Cache manifest.json for performance
+  cache_manifest: true
