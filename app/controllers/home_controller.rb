@@ -6,6 +6,7 @@ class HomeController < ApplicationController
   include Cul::Omniauth::AuthorizingController
   include Cul::Omniauth::RemoteIpAbility
   include Dcv::Sites::ConfiguredLayouts
+  include Dcv::Sites::ReadingRooms
 
   before_action :authorize_action, only:[:restricted]
   before_action :store_unless_user

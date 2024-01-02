@@ -1,31 +1,22 @@
 <div class="row">
   <div id="content" class="col-md-12">
     <div id="home-page-content">
+        <h2 class="text-center text-md-left h4">READING ROOM SITES</h2>
         <div id="home-page-restricted" class="inner">
-            <div class="content">
-              <div class="row">
-                <h2 class="banner"><%= link_to("Avery Architectural and Fine Arts Library Reading Room", repository_reading_room_path(repository_id: 'NNC-A')) %></h2>
-              </div>
-              <div class="row">
-                <h2 class="banner"><%= link_to("C.V. Starr East Asian Library Reading Room", repository_reading_room_path(repository_id: 'NNC-EA')) %></h2>
-              </div>
-              <div class="row">
-                <h2 class="banner"><%= link_to("Rare Book & Manuscript Library Reading Room", repository_reading_room_path(repository_id: 'NNC-RB')) %></h2>
-              </div>
-              <div class="row">
-                <h2 class="banner"><%= link_to("The Burke Library at Union Theological Seminary Reading Room", repository_reading_room_path(repository_id: 'NyNyCBL')) %></h2>
-              </div>
-              <div class="row">
-                <h2 class="banner"><%= link_to("Music & Arts Library Reading Room", repository_reading_room_path(repository_id: 'NyNyCMA')) %></h2>
-              </div>
-          </div>
+          <ul class="pb-0 pl-0 list-unstyled">
+              <%- current_location_uris = controller.location_uris_for_client -%>
+              <%- Rails.application.config_for(:reading_rooms).sort_by { |tuple| tuple[1].fetch(:label) }.each do |tuple| -%>
+                <%- _reading_room_key, location = tuple -%>
+                <li>
+                  <%= render Dcv::Badges::ReadingRoom.new(reading_room: location, current_location_uris: current_location_uris) %><%= link_to(location[:label], repository_reading_room_path(repository_id: location[:repository_id])) %>
+                </li>
+              <%- end -%>
+          </ul>
         </div>
         <div class="clearfix"></div>
         <div class="inner">
-          <h6 class="text-center">RESTRICTED CONTENT <span class="fa fa-lock"></span></h6>
           <p>A core objective of Columbia University Libraries Rare Book and Manuscript Library is is to make our archival collections accessible for research and scholarship.</p>
           <p>The library-specific pages linked here allow users to search archival finding aids and digital collection content from Columbia Libraries' individual special collections. Searching done via the "Digital Collections" search box on each repository page displays results for material that is restricted from general public access for reasons relating to copyright, license, or other terms and conditions. By default the search results are filtered to display only the restricted content, labeled as "Limit by Availability > Reading Room." This filter can also be removed in order to display publicly accessible content as well.</p>
-          <p>Under normal conditions, restricted digital content must be viewed on-site in the relevant library by appointment. As a temporary emergency measure during the COVID-19 health crisis, online access to the Libraries' restricted content has been extended to all affiliates of the Columbia Community having a valid UNI.</p>
           <p><a href="<%= about_url %>">Learn more about the DLC &raquo;</a></p>
       </div>
     </div>
