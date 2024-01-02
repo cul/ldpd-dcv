@@ -1,8 +1,6 @@
 module Dcv::ChildrenHelperBehavior
-  include Dcv::AccessLevels
-
   include Dcv::CdnHelper
-  include Dcv::SolrHelper
+  include Dcv::AbilityHelperBehavior
 
   CHILDREN_ACCESS = [
     'access_control_levels_ssim', 'access_control_permissions_bsi',

@@ -4,7 +4,7 @@ class Iiif::PresentationsController < ApplicationController
   include Dcv::Sites::SearchableController
   include Dcv::Sites::ReadingRooms
   include Dcv::CatalogIncludes
-  include Dcv::SolrHelper
+  include Dcv::AbilityHelperBehavior
   include ShowFieldDisplayFieldHelper
 
   # Prevent CSRF attacks by raising an exception.
