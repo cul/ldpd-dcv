@@ -52,7 +52,7 @@ set :linked_files, fetch(:linked_files, []).push(
   "config/solr.yml",
   "config/subsites.yml",
   "config/wind.yml",
-  "config/location_uris.yml",
+  "config/reading_rooms.yml",
   "public/robots.txt"
 )
 

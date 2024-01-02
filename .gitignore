@@ -35,11 +35,13 @@ wind.yml
 initializer_secrets.yml
 dcv.yml
 default_user_accounts.yml
+reading_rooms.yml
 resque.yml
 roles.yml
 secrets.yml
 solr_wrapper.yml
 subsites.yml
+# these are obsolete configs
 location_uris.yml
 
 # Docker ignores (so these can be customized per-development-environment if needed)

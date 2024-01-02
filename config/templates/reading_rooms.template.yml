@@ -1,0 +1,38 @@
+test:
+  NNC-A:
+    label: Avery Architectural and Fine Arts Library Reading Room
+    location_uri: info://avery.library.columbia.edu
+    repository_id: NNC-A
+    remote_ip:
+    - 0.0.0.0
+  NNC-EA:
+    label: C.V. Starr East Asian Library Reading Room
+    location_uri: info://starr.library.columbia,edy
+    repository_id: NNC-EA
+    remote_ip:
+    remote_ip: []
+  NNC-RB:
+    label: Rare Book & Manuscript Library Reading Room
+    location_uri: info://rbml.library.columbia.edu
+    repository_id: NNC-RB
+    remote_ip:
+    - 0.0.0.0
+  NyNyCBL:
+    label: The Burke Library at Union Theological Seminary Reading Room
+    location_uri: info://burke.library.columbia.edu
+    repository_id: NyNyCBL
+    remote_ip: []
+  NyNyCMA:
+    label: Music & Arts Library Reading Room
+    location_uri: info://music.library.columbia.edu
+    repository_id: NyNyCMA
+    remote_ip: []
+development:
+  NNC:
+    label: Columbia University Libraries
+    location_uri: http://id.library.columbia.edu/term/45487bbd-97ef-44b4-9468-dda47594bc60
+    repository_id: NNC
+    remote_ip:
+    - 127.0.0.1
+    - ::1
+

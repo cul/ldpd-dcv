@@ -40,7 +40,6 @@ class Iiif::PresentationsController < ApplicationController
 
   # override to remove scope check against repository code since these requests will come from arbitrary contexts
   def reading_room_client?
-    puts "repository_ids_for_client: #{repository_ids_for_client.inspect}"
     repository_ids_for_client.present?
   end
 

@@ -283,7 +283,7 @@ describe Dcv::Solr::DocumentAdapter::ModsXml, type: :unit do
   end
   describe ".reading_room_locations" do
     let(:xml_src) { fixture( File.join("mods", "mods-site-fields.xml")) }
-    let(:expected) { ['http://id.library.columbia.edu/term/45487bbd-97ef-44b4-9468-dda47594bc60'] }
+    let(:expected) { ['info://rbml.library.columbia.edu'] }
     it "should index a copyright statement" do
       expect(adapter.reading_room_locations).to eql expected
       expect(adapter.to_solr['reading_room_ssim']).to eql expected

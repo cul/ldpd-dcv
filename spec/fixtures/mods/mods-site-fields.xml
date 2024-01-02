@@ -22,7 +22,7 @@
     <cul:searchScope value="project"/>
   </mods:extension>
   <mods:extension xmlns:cul="http://id.library.columbia.edu/property/">
-    <cul:readingRoom valueUri="http://id.library.columbia.edu/term/45487bbd-97ef-44b4-9468-dda47594bc60">Reading Room, Rare Book &amp; Manuscript Library, Columbia University</cul:readingRoom>
+    <cul:readingRoom valueUri="info://rbml.library.columbia.edu">Reading Room, Rare Book &amp; Manuscript Library, Columbia University</cul:readingRoom>
   </mods:extension>
   <mods:identifier type="DOI">10.7916/D8Z611H9</mods:identifier>
 </mods:mods>

@@ -1,10 +1,10 @@
 require 'rails_helper'
 describe Ability do
 	context 'restricted site' do
-		let(:remote_ip) { Rails.application.config_for(:location_uris).first[1][:remote_ip].first }
+		let(:remote_ip) { Rails.application.config_for(:reading_rooms).first[1][:remote_ip].first }
 		let(:current_user) { FactoryBot.create(:user) }
 		let(:affils) { ['userAffil'] }
-		let(:locations) { Rails.application.config_for(:location_uris).keys }
+		let(:locations) { Rails.application.config_for(:reading_rooms).map {|id, rr| rr[:location_uri] } }
 		let(:current_ability) { Ability.new(current_user, roles: affils, remote_ip: remote_ip) }
 		let(:site) { FactoryBot.create(:site, slug: "restricted/site_slug", restricted: true) }
 		it 'denies access' do
