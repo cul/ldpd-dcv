@@ -1,5 +1,5 @@
 //urls
-$url_stripe: url("signature/images/stripes-white-10.png");
+$url_stripe: asset-url("signature/stripes-white-10.png");
 
 .navbar-primary, .btn-primary {
 	background-image:$url_stripe;
