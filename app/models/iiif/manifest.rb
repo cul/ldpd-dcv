@@ -130,7 +130,6 @@ class Iiif::Manifest < Iiif::BaseResource
       [canvas_for(@solr_document, route_helper, routing_opts, label[:en]).to_h]
     else
       children_service.from_all_structure_proxies(@solr_document).map do |canvas_document|
-        puts "canvas_for #{canvas_document.id}"
         canvas_for(canvas_document, route_helper, routing_opts).to_h
       end
     end
