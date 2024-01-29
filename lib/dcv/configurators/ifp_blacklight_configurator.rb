@@ -41,21 +41,21 @@ class Dcv::Configurators::IfpBlacklightConfigurator
     # :show may be set to false if you don't want the facet to be drawn in the
     # facet bar
 
-    config.add_facet_field ActiveFedora::SolrService.solr_name('contributor', :symbol), :label => 'Office', :limit => 10, :sort => 'index'
-    config.add_facet_field ActiveFedora::SolrService.solr_name('dc_type', :facetable), :label => 'Resource Type', :limit => 10, :sort => 'index', :helper_method => :pcdm_file_genre_display
+    config.add_facet_field 'contributor_sim', **default_facet_config(label: 'Office')
+    config.add_facet_field 'dc_type_sim', **default_facet_config(label: 'Resource Type', helper_method: :pcdm_file_genre_display)
 
-    default_facet_configuration(config)
+    default_faceting_configuration(config)
 
     # solr fields to be displayed in the index (search results) view
     #   The ordering of the field names is the order of the display
-    #config.add_index_field ActiveFedora::SolrService.solr_name('title_display', :displayable, type: :string), :label => 'Title'
-    config.add_index_field ActiveFedora::SolrService.solr_name('contributor', :symbol, type: :string), :label => 'Office'
-    config.add_index_field ActiveFedora::SolrService.solr_name('original_name', :symbol), :label => 'Folder Path', :helper_method => :dirname_prefixed_with_slash
-    config.add_index_field ActiveFedora::SolrService.solr_name('lib_name', :displayable, type: :string), label: 'Name', tombstone_display: true, if: false
+    #config.add_index_field 'title_display_ssm', :label => 'Title'
+    config.add_index_field 'contributor_ssim', label: 'Office'
+    config.add_index_field 'original_name_ssim', label: 'Folder Path', helper_method: :dirname_prefixed_with_slash
+    config.add_index_field 'lib_name_ssm', label: 'Name', tombstone_display: true, if: false
 
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display
-    config.add_show_field ActiveFedora::SolrService.solr_name('contributor', :symbol, type: :string), :label => 'Office'
+    config.add_show_field 'contributor_ssim', label: 'Office'
 
     configure_file_show_fields(config)
     # "fielded" search configuration. Used by pulldown among other places.
@@ -73,7 +73,7 @@ class Dcv::Configurators::IfpBlacklightConfigurator
     # or can be specified manually to be different.
 
     # Fulltext search configuration, used by main search pulldown.
-    config.add_search_field ActiveFedora::SolrService.solr_name('fulltext', :searchable, type: :text) do |field|
+    config.add_search_field 'fulltext_teim' do |field|
       field.label = 'Fulltext'
       field.default = true
       field.solr_parameters = {

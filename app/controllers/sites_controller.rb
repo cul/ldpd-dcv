@@ -45,32 +45,32 @@ class SitesController < ApplicationController
     config.track_search_session = false # don't track blank or featured searches on home pages
 
     # solr field configuration for search results/index views
-    config.index.title_field = ActiveFedora::SolrService.solr_name('title_display', :displayable, type: :string)
-    config.index.display_type_field = ActiveFedora::SolrService.solr_name('active_fedora_model', :stored_sortable)
+    config.index.title_field = 'title_display_ssm'
+    config.index.display_type_field = 'active_fedora_model_ssi'
     config.index.thumbnail_method = :thumbnail_for_doc
-    config.add_index_field ActiveFedora::SolrService.solr_name('abstract', :symbol, type: :string), :label => 'Abstract'
-    config.add_index_field ActiveFedora::SolrService.solr_name('schema_image', :symbol, type: :string), :label => 'Representative Image'
-    config.add_index_field ActiveFedora::SolrService.solr_name('short_title', :symbol, type: :string), :label => 'Facet Value'
-    config.add_index_field ActiveFedora::SolrService.solr_name('slug', :symbol, type: :string), :label => 'Slug'
-    config.add_index_field ActiveFedora::SolrService.solr_name('source', :symbol, type: :string), :label => 'Site URL'
-    config.add_index_field ActiveFedora::SolrService.solr_name('title', :symbol, type: :string), :label => 'Title'
+    config.add_index_field 'abstract_ssim', :label => 'Abstract'
+    config.add_index_field 'schema_image_ssim', :label => 'Representative Image'
+    config.add_index_field 'short_title_ssim', :label => 'Facet Value'
+    config.add_index_field 'slug_ssim', :label => 'Slug'
+    config.add_index_field 'source_ssim', :label => 'Site URL'
+    config.add_index_field 'title_ssim', :label => 'Title'
 
-    config.show.title_field = ActiveFedora::SolrService.solr_name('title_display', :displayable, type: :string)
-    config.add_show_field ActiveFedora::SolrService.solr_name('description', :displayable, type: :string), :label => 'Description'
-    config.add_show_field ActiveFedora::SolrService.solr_name('schema_image', :symbol, type: :string), :label => 'Representative Image'
-    config.add_show_field ActiveFedora::SolrService.solr_name('short_title', :symbol, type: :string), :label => 'Facet Value'
-    config.add_show_field ActiveFedora::SolrService.solr_name('slug', :symbol, type: :string), :label => 'Slug'
-    config.add_show_field ActiveFedora::SolrService.solr_name('source', :symbol, type: :string), :label => 'Site URL'
-    config.add_show_field ActiveFedora::SolrService.solr_name('title', :symbol, type: :string), :label => 'Title'
+    config.show.title_field = 'title_display_ssm'
+    config.add_show_field 'description_ssm', :label => 'Description'
+    config.add_show_field 'schema_image_ssim', :label => 'Representative Image'
+    config.add_show_field 'short_title_ssim', :label => 'Facet Value'
+    config.add_show_field 'slug_ssim', :label => 'Slug'
+    config.add_show_field 'source_ssim', :label => 'Site URL'
+    config.add_show_field 'title_ssim', :label => 'Title'
     config.add_sort_field 'title_si asc', :label => 'title'
 
     # All Text search configuration, used by main search pulldown.
-    config.add_search_field ActiveFedora::SolrService.solr_name('all_text', :searchable, type: :text) do |field|
+    config.add_search_field 'all_text_teim' do |field|
       field.label = 'All Fields'
       field.default = true
       field.solr_parameters = {
-        :qf => [ActiveFedora::SolrService.solr_name('all_text', :searchable, type: :text)],
-        :pf => [ActiveFedora::SolrService.solr_name('all_text', :searchable, type: :text)]
+        :qf => ['all_text_teim'],
+        :pf => ['all_text_teim']
       }
     end
   end

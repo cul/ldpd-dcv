@@ -15,14 +15,11 @@ module Dcv::Configurators::BaseBlacklightConfigurator
     SUBSITE_PARAMS = [:slug, :site_slug]
     FILESYSTEM_PARAMS = [:proxy_id, :return_to_filesystem]
     READING_ROOM_PARAMS = [:repository_id]
+    DEFAULT_FACET_CONFIG = { limit: 10, sort: 'index', show: true, component: true }.freeze
   end
 
   def self.extended(extendor)
     extendor.include Constants
-  end
-
-  def solr_name(*args)
-    ActiveFedora::SolrService.solr_name(*args)
   end
 
   def notes_label_proc
@@ -35,6 +32,10 @@ module Dcv::Configurators::BaseBlacklightConfigurator
         "Note (#{type})"
       end
     end
+  end
+
+  def default_facet_config(**args)
+    Constants::DEFAULT_FACET_CONFIG.merge(args)
   end
 
   def default_default_solr_params(config)
@@ -60,7 +61,7 @@ module Dcv::Configurators::BaseBlacklightConfigurator
     # If there are more than this many search results, no spelling ("did you
     # mean") suggestion is offered.
     config.spell_max = 5
-    config.index.title_field = solr_name('title_display', :displayable, type: :string)
+    config.index.title_field = 'title_display_ssm'
     config.index.display_type_field = :active_fedora_model_ssi
     config.index.thumbnail_method = :thumbnail_for_doc
     config.index.document_presenter_class = Dcv::IndexPresenter
@@ -79,7 +80,7 @@ module Dcv::Configurators::BaseBlacklightConfigurator
     config.max_per_page = 100
   end
 
-  def default_facet_configuration(config, opts = {})
+  def default_faceting_configuration(config, opts = {})
     config.add_facet_fields_to_solr_request! # Required for facet queries
     if opts[:geo]
       config.add_facet_field 'has_geo_bsi', :label => 'Geo Data Flag', show: false, limit: 2
@@ -106,66 +107,66 @@ module Dcv::Configurators::BaseBlacklightConfigurator
 
   # All Text search configuration, used by main search pulldown.
   def configure_keyword_search_field(config, opts = {})
-    field_name = ActiveFedora::SolrService.solr_name('all_text', :searchable, type: :text)
+    field_name = 'all_text_teim'
     return false if config.search_fields[field_name]
     config.add_search_field field_name do |field|
       field.label = opts.fetch(:label, 'All Fields')
       field.default = opts.fetch(:default, true)
       field.solr_parameters = {
-        :qf => [ActiveFedora::SolrService.solr_name('all_text', :searchable, type: :text)],
-        :pf => [ActiveFedora::SolrService.solr_name('all_text', :searchable, type: :text)]
+        :qf => ['all_text_teim'],
+        :pf => ['all_text_teim']
       }
     end
   end
 
   # Title search configuration, used by main search pulldown.
   def configure_title_search_field(config, opts = {})
-    field_name = ActiveFedora::SolrService.solr_name('search_title_info_search_title', :searchable, type: :text)
+    field_name = 'search_title_info_search_title_teim'
     return false if config.search_fields[field_name]
     config.add_search_field field_name do |field|
       field.label = opts.fetch(:label, 'Title')
       field.default = opts.fetch(:default, true)
       field.solr_parameters = {
-        :qf => [ActiveFedora::SolrService.solr_name('title', :searchable, type: :text)],
-        :pf => [ActiveFedora::SolrService.solr_name('title', :searchable, type: :text)]
+        :qf => ['title_teim'],
+        :pf => ['title_teim']
       }
     end
   end
 
   # Identifier search configuration, used by main search pulldown.
   def configure_identifier_search_field(config, opts = {})
-    field_name = ActiveFedora::SolrService.solr_name('identifier', :symbol)
+    field_name = 'identifier_ssim'
     return false if config.search_fields[field_name]
     config.add_search_field field_name do |field|
       field.label = opts.fetch(:label, 'Document ID')
       field.default = opts.fetch(:default, true)
       field.solr_parameters = {
-        :qf => [ActiveFedora::SolrService.solr_name('identifier', :symbol)],
-        :pf => [ActiveFedora::SolrService.solr_name('identifier', :symbol)]
+        :qf => ['identifier_ssim'],
+        :pf => ['identifier_ssim']
       }
     end
   end
 
   # Name search configuration, used by main search pulldown.
   def configure_name_search_field(config, opts = {})
-    config.add_search_field ActiveFedora::SolrService.solr_name('lib_name', :searchable, type: :text) do |field|
+    config.add_search_field 'lib_name_teim' do |field|
       field.label = opts.fetch(:label, 'Name')
       field.default = opts.fetch(:default, true)
       field.solr_parameters = {
-        :qf => [ActiveFedora::SolrService.solr_name('lib_name', :searchable, type: :text)],
-        :pf => [ActiveFedora::SolrService.solr_name('lib_name', :searchable, type: :text)]
+        :qf => ['lib_name_teim'],
+        :pf => ['lib_name_teim']
       }
     end
   end
 
   # Full Text search configuration, used by main search pulldown.
   def configure_fulltext_search_field(config, opts = {})
-    config.add_search_field ActiveFedora::SolrService.solr_name('fulltext', :stored_searchable, type: :text) do |field|
+    config.add_search_field 'fulltext_tesim' do |field|
       field.label = opts.fetch(:label, 'Full Text')
       field.default = opts.fetch(:default, true)
       field.solr_parameters = {
-        :qf => [ActiveFedora::SolrService.solr_name('fulltext', :stored_searchable, type: :text)],
-        :pf => [ActiveFedora::SolrService.solr_name('fulltext', :stored_searchable, type: :text)]
+        :qf => ['fulltext_tesim'],
+        :pf => ['fulltext_tesim']
       }
       if opts.fetch(:highlight, true)
         configure_fulltext_highlighting(field)

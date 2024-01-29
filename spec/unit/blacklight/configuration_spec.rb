@@ -17,9 +17,4 @@ RSpec.describe "Blacklight::Configuration", api: true do
     expect(config.geo_fields.length).to eq 2
     expect(config.geo_fields[facetable_field_name].link).to eq true
   end
-
-  it "has the right names" do
-    expect(unfacetable_field_name).to eql ActiveFedora::SolrService.solr_name('subject_geographic', :facetable)
-    expect(facetable_field_name).to eql ActiveFedora::SolrService.solr_name('subject_hierarchical_geographic_neighborhood', :symbol)
-  end
 end

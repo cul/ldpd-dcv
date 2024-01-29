@@ -9,7 +9,7 @@ module Hydra
       class_attribute :profile_solr_name
       attr_accessor :relationships_loaded
 
-      self.profile_solr_name = ActiveFedora::SolrService.solr_name("rels_int_profile", :stored_searchable)
+      self.profile_solr_name = 'rels_int_profile_tesim'
 
       def serialize!
         self.content = to_rels_int() if changed_attributes.include? 'relationships'

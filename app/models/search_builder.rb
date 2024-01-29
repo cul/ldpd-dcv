@@ -61,7 +61,7 @@ class SearchBuilder < Blacklight::SearchBuilder
     # How this works (using the lib_format_sim as an example):
 
     # In blacklight config (note the ":multiselect => true" addition):
-    # config.add_facet_field ActiveFedora::SolrService.solr_name('lib_format', :facetable), :label => 'Format', :limit => 10, :sort => 'count', :multiselect => true, :ex => 'lib_format-tag'
+    # config.add_facet_field 'lib_format_sim', :label => 'Format', :limit => 10, :sort => 'count', :multiselect => true, :ex => 'lib_format-tag'
 
     #{
     #  "facet.field"=>[

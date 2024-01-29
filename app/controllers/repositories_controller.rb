@@ -20,12 +20,12 @@ class RepositoriesController < ApplicationController
       :sort => "title_si asc",
       :qt => 'search'
     }
-    config.add_search_field ActiveFedora::SolrService.solr_name('all_text', :searchable, type: :text) do |field|
+    config.add_search_field 'all_text_teim' do |field|
       field.label = 'All Fields'
       field.default = true
       field.solr_parameters = {
-        :qf => [ActiveFedora::SolrService.solr_name('all_text', :searchable, type: :text)],
-        :pf => [ActiveFedora::SolrService.solr_name('all_text', :searchable, type: :text)]
+        :qf => ['all_text_teim'],
+        :pf => ['all_text_teim']
       }
     end
   end

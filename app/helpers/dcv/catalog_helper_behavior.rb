@@ -8,7 +8,7 @@ module Dcv::CatalogHelperBehavior
   end
 
   def parents(document=@document, extra_params={})
-    fname = 'cul_member_of_ssim' #solr_name(:cul_member_of, :symbol)
+    fname = 'cul_member_of_ssim'
     p_pids = Array.new(document[fname])
     p_pids.compact!
     p_pids.collect! {|p_pid| p_pid.split('/')[-1].sub(':','\:')}

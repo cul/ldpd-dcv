@@ -27,7 +27,7 @@ class BytestreamsController < ApplicationController
       :rows => 12
     }
     config[:unique_key] = :id
-    config.index.title_field = solr_name('title_display', :displayable, type: :string)
+    config.index.title_field = 'title_display_ssm'
   end
 
   # overrides the session role key from Cul::Omniauth::RemoteIpAbility

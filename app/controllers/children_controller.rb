@@ -15,7 +15,7 @@ class ChildrenController < ApplicationController
       :rows => 12
     }
     config[:unique_key] = :id
-    config.index.title_field = solr_name('title_display', :displayable, type: :string)
+    config.index.title_field = 'title_display_ssm'
   end
 
   def get_solr_response_for_app_id(id=nil, extra_controller_params={})

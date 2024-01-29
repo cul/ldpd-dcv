@@ -1,6 +1,6 @@
 module FieldDisplayHelpers::Note
   def show_date_field(args)
-    note_field = ActiveFedora::SolrService.solr_name('lib_date_notes', :displayable, type: :string)
+    note_field = 'lib_date_notes_ssm'
     values = args[:document][args[:field]]
     notes = args[:document][note_field]
     (Array(values) + Array(notes)).compact.join('; ')

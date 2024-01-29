@@ -39,41 +39,40 @@ class Dcv::Configurators::Restricted::UniversityseminarsBlacklightConfigurator
     # :show may be set to false if you don't want the facet to be drawn in the
     # facet bar
 
-    config.add_facet_field ActiveFedora::SolrService.solr_name('primary_name', :facetable), { 
-      :label => "Seminar Numbers", :limit => 10, :sort => "index"}
-    config.add_facet_field "subject_topic_sim", :label => "Seminar Titles", :limit => 10, :sort => "index"
-    config.add_facet_field ActiveFedora::SolrService.solr_name('lib_format', :facetable), :label => "Document Types", :limit => 10, :sort => "index"
-    config.add_facet_field ActiveFedora::SolrService.solr_name('language_language_term_text', :symbol), :label => "Languages", :limit => 10, :sort => "index"
+    config.add_facet_field 'primary_name_sim', **default_facet_config(label: "Seminar Numbers")
+    config.add_facet_field 'subject_topic_sim', **default_facet_config(label: "Seminar Titles")
+    config.add_facet_field 'lib_format_sim', **default_facet_config(label: "Document Types")
+    config.add_facet_field 'language_language_term_text_ssim', **default_facet_config(label: "Languages")
 
-    default_facet_configuration(config)
+    default_faceting_configuration(config)
 
 
     # solr fields to be displayed in the index (search results) view
     #   The ordering of the field names is the order of the display
-    #config.add_index_field ActiveFedora::SolrService.solr_name('title_display', :displayable, type: :string), :label => 'Title'
-    config.add_index_field ActiveFedora::SolrService.solr_name('primary_name', :displayable, type: :string), :label => 'Seminar Number'
-    config.add_index_field ActiveFedora::SolrService.solr_name('location_sublocation', :displayable, type: :string), :label => 'Department'
-    config.add_index_field ActiveFedora::SolrService.solr_name('location_shelf_locator', :displayable, type: :string), :label => 'Shelf Location'
-    config.add_index_field ActiveFedora::SolrService.solr_name('lib_date_textual', :displayable, type: :string), :label => 'Date'
-    config.add_index_field ActiveFedora::SolrService.solr_name('lib_item_in_context_url', :displayable, type: :string), :label => 'Item in Context', :helper_method => :link_to_url_value
+    #config.add_index_field 'title_display_ssm', :label => 'Title'
+    config.add_index_field 'primary_name_ssm', :label => 'Seminar Number'
+    config.add_index_field 'location_sublocation_ssm', :label => 'Department'
+    config.add_index_field 'location_shelf_locator_ssm', :label => 'Shelf Location'
+    config.add_index_field 'lib_date_textual_ssm', :label => 'Date'
+    config.add_index_field 'lib_item_in_context_url_ssm', :label => 'Item in Context', :helper_method => :link_to_url_value
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display
-    config.add_show_field ActiveFedora::SolrService.solr_name('title_display', :displayable, type: :string), :label => 'Title'
-    config.add_show_field ActiveFedora::SolrService.solr_name('alternative_title', :displayable, type: :string), :label => 'Alternative Titles'
-    config.add_show_field ActiveFedora::SolrService.solr_name('primary_name', :displayable), :label => 'Seminar Number', :link_to_search => ActiveFedora::SolrService.solr_name('primary_name', :facetable)
-    config.add_show_field ActiveFedora::SolrService.solr_name('lib_date_textual', :displayable, type: :string), :label => 'Date'
-    config.add_show_field ActiveFedora::SolrService.solr_name('lib_non_date_notes', :displayable, type: :string), :label => 'Note'
-    config.add_show_field ActiveFedora::SolrService.solr_name('lib_date_notes', :displayable, type: :string), :label => 'Date Note'
-    config.add_show_field ActiveFedora::SolrService.solr_name('location_sublocation', :displayable, type: :string), :label => 'Department'
-    config.add_show_field ActiveFedora::SolrService.solr_name('location_shelf_locator', :displayable, type: :string), :label => 'Shelf Location'
-    config.add_show_field ActiveFedora::SolrService.solr_name('physical_description_extent', :displayable, type: :string), :label => 'Physical Description'
-    config.add_show_field ActiveFedora::SolrService.solr_name('lib_all_subjects', :displayable, type: :string), :label => 'Subjects'
-    config.add_show_field ActiveFedora::SolrService.solr_name('abstract', :displayable, type: :string), :label => 'Summary'
-    config.add_show_field ActiveFedora::SolrService.solr_name('table_of_contents', :displayable, type: :string), :label => 'Contents'
-    config.add_show_field ActiveFedora::SolrService.solr_name('lib_part', :displayable, type: :string), :label => 'Part'
-    config.add_show_field ActiveFedora::SolrService.solr_name('lib_publisher', :displayable, type: :string), :label => 'Publisher'
-    config.add_show_field ActiveFedora::SolrService.solr_name('origin_info_place', :displayable, type: :string), :label => 'Place'
-    config.add_show_field ActiveFedora::SolrService.solr_name('origin_info_edition', :displayable, type: :string), :label => 'Edition'
+    config.add_show_field 'title_display_ssm', :label => 'Title'
+    config.add_show_field 'alternative_title_ssm', :label => 'Alternative Titles'
+    config.add_show_field 'primary_name_ssm', :label => 'Seminar Number', :link_to_search => 'primary_name_sim'
+    config.add_show_field 'lib_date_textual_ssm', :label => 'Date'
+    config.add_show_field 'lib_non_date_notes_ssm', :label => 'Note'
+    config.add_show_field 'lib_date_notes_ssm', :label => 'Date Note'
+    config.add_show_field 'location_sublocation_ssm', :label => 'Department'
+    config.add_show_field 'location_shelf_locator_ssm', :label => 'Shelf Location'
+    config.add_show_field 'physical_description_extent_ssm', :label => 'Physical Description'
+    config.add_show_field 'lib_all_subjects_ssm', :label => 'Subjects'
+    config.add_show_field 'abstract_ssm', :label => 'Summary'
+    config.add_show_field 'table_of_contents_ssm', :label => 'Contents'
+    config.add_show_field 'lib_part_ssm', :label => 'Part'
+    config.add_show_field 'lib_publisher_ssm', :label => 'Publisher'
+    config.add_show_field 'origin_info_place_ssm', :label => 'Place'
+    config.add_show_field 'origin_info_edition_ssm', :label => 'Edition'
     configure_file_show_fields(config)
 
     # "fielded" search configuration. Used by pulldown among other places.

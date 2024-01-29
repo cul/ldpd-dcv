@@ -39,51 +39,51 @@ class Dcv::Configurators::DurstBlacklightConfigurator
     # :show may be set to false if you don't want the facet to be drawn in the
     # facet bar
 
-    config.add_facet_field ActiveFedora::SolrService.solr_name('lib_format', :facetable),
-      label: 'Format', limit: 10, sort: 'count', multiselect: true, ex: 'lib_format-tag',
-      cul_custom_value_transforms: [:capitalize], item_component: Dcv::FacetItemComponent
-    config.add_facet_field ActiveFedora::SolrService.solr_name('subject_hierarchical_geographic_neighborhood', :symbol), :label => 'Neighborhood', :limit => 10, :sort => 'count'
-    config.add_facet_field ActiveFedora::SolrService.solr_name('subject_hierarchical_geographic_borough', :symbol), :label => 'Borough', :limit => 10, :sort => 'count'
-    config.add_facet_field ActiveFedora::SolrService.solr_name('subject_hierarchical_geographic_city', :symbol), :label => 'City', :limit => 10, :sort => 'count'
+    config.add_facet_field 'lib_format_sim', **default_facet_config(label: 'Format', sort: 'count',
+      multiselect: true, ex: 'lib_format-tag', cul_custom_value_transforms: [:capitalize],
+      item_component: Dcv::FacetItemComponent)
+    config.add_facet_field 'subject_hierarchical_geographic_neighborhood_ssim', **default_facet_config(label: 'Neighborhood', sort: 'count')
+    config.add_facet_field 'subject_hierarchical_geographic_borough_ssim', **default_facet_config(label: 'Borough', sort: 'count')
+    config.add_facet_field 'subject_hierarchical_geographic_city_ssim', **default_facet_config(label: 'City', sort: 'count')
     #Hidden facets
-    config.add_facet_field ActiveFedora::SolrService.solr_name('durst_subjects', :symbol), :label => 'Durst Subject', show: false
+    config.add_facet_field 'durst_subjects_sim', **default_facet_config(label: 'Durst Subject', show: false)
 
-    default_facet_configuration(config, geo: true)
+    default_faceting_configuration(config, geo: true)
 
     # solr fields to be displayed in the index (search results) view
     #   The ordering of the field names is the order of the display
-    config.add_index_field ActiveFedora::SolrService.solr_name('primary_name', :displayable, type: :string), label: 'Name', tombstone_display: true
+    config.add_index_field 'primary_name_ssm', label: 'Name', tombstone_display: true
     config.add_index_field 'lib_date_textual_ssm', :label => 'Published', accessor: :published_origin_information, if: :has_publication_info?
-    config.add_index_field ActiveFedora::SolrService.solr_name('lib_format', :displayable, type: :string), label: 'Format', tombstone_display: true
-    config.add_index_field ActiveFedora::SolrService.solr_name('lib_non_item_in_context_url', :displayable, type: :string), label: 'Online', link_label: 'click here for full-text', helper_method: :render_link_to_external_resource, join: false
-    config.add_index_field ActiveFedora::SolrService.solr_name('clio', :symbol), label: 'Catalog Record', link_label: 'check availability', helper_method: :render_link_to_clio, join: false
+    config.add_index_field 'lib_format_ssm', label: 'Format', tombstone_display: true
+    config.add_index_field 'lib_non_item_in_context_url_ssm', label: 'Online', link_label: 'click here for full-text', helper_method: :render_link_to_external_resource, join: false
+    config.add_index_field 'clio_ssim', label: 'Catalog Record', link_label: 'check availability', helper_method: :render_link_to_clio, join: false
 
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display
 
     # Note: We have a more complex layout that doesn't work with the basic, easy blacklight show fields, so there's no point to filling these out
-    config.add_show_field ActiveFedora::SolrService.solr_name('title_display', :displayable, type: :string), :label => 'Title', separator_options: LINEBREAK_DELIMITED
-    config.add_show_field ActiveFedora::SolrService.solr_name('alternative_title', :displayable, type: :string), :label => 'Alternative Titles', separator_options: LINEBREAK_DELIMITED
-    config.add_show_field ActiveFedora::SolrService.solr_name('lib_name', :displayable), :label => 'Name', separator_options: LINEBREAK_DELIMITED
+    config.add_show_field 'title_display_ssm', :label => 'Title', separator_options: LINEBREAK_DELIMITED
+    config.add_show_field 'alternative_title_ssm', :label => 'Alternative Titles', separator_options: LINEBREAK_DELIMITED
+    config.add_show_field 'lib_name_ssm', :label => 'Name', separator_options: LINEBREAK_DELIMITED
     config.add_show_field 'lib_date_textual_ssm', :label => 'Published', accessor: :published_origin_information, if: :has_publication_info?
-    config.add_show_field ActiveFedora::SolrService.solr_name('origin_info_edition', :displayable, type: :string), :label => 'Edition', separator_options: LINEBREAK_DELIMITED
-    config.add_show_field ActiveFedora::SolrService.solr_name('physical_description_extent', :displayable, type: :string), :label => 'Physical Description', separator_options: LINEBREAK_DELIMITED
-    config.add_show_field ActiveFedora::SolrService.solr_name('lib_all_subjects', :displayable, type: :string), :label => 'Subjects', separator_options: LINEBREAK_DELIMITED, :helper_method => :split_complex_subject_into_links
-    config.add_show_field ActiveFedora::SolrService.solr_name('table_of_contents', :displayable, type: :string), :label => 'Contents', separator_options: LINEBREAK_DELIMITED
-    config.add_show_field ActiveFedora::SolrService.solr_name('abstract', :displayable, type: :string), :label => 'Summary', separator_options: LINEBREAK_DELIMITED
-    config.add_show_field ActiveFedora::SolrService.solr_name('lib_format', :displayable), :label => 'Format', separator_options: LINEBREAK_DELIMITED
-    config.add_show_field ActiveFedora::SolrService.solr_name('lib_non_date_notes', :displayable, type: :string), :label => 'Notes', separator_options: LINEBREAK_DELIMITED
+    config.add_show_field 'origin_info_edition_ssm', :label => 'Edition', separator_options: LINEBREAK_DELIMITED
+    config.add_show_field 'physical_description_extent_ssm', :label => 'Physical Description', separator_options: LINEBREAK_DELIMITED
+    config.add_show_field 'lib_all_subjects_ssm', :label => 'Subjects', separator_options: LINEBREAK_DELIMITED, :helper_method => :split_complex_subject_into_links
+    config.add_show_field 'table_of_contents_ssm', :label => 'Contents', separator_options: LINEBREAK_DELIMITED
+    config.add_show_field 'abstract_ssm', :label => 'Summary', separator_options: LINEBREAK_DELIMITED
+    config.add_show_field 'lib_format_ssm', :label => 'Format', separator_options: LINEBREAK_DELIMITED
+    config.add_show_field 'lib_non_date_notes_ssm', :label => 'Notes', separator_options: LINEBREAK_DELIMITED
     config.add_show_field 'lib_sublocation_ssm', label: 'Location', helper_method: :display_sublocation_information, if: :match_filter?, filter: 'lib_format_ssm:postcards'
-    config.add_show_field ActiveFedora::SolrService.solr_name('lib_non_item_in_context_url', :displayable, type: :string), label: 'Online', link_label: 'click here for full-text', helper_method: :render_link_to_external_resource, join: false
-    config.add_show_field ActiveFedora::SolrService.solr_name('clio', :symbol), label: 'Catalog Record', link_label: 'check availability', helper_method: :render_link_to_clio, join: false
+    config.add_show_field 'lib_non_item_in_context_url_ssm', label: 'Online', link_label: 'click here for full-text', helper_method: :render_link_to_external_resource, join: false
+    config.add_show_field 'clio_ssim', label: 'Catalog Record', link_label: 'check availability', helper_method: :render_link_to_clio, join: false
 
     # solr fields to be displayed in the geo/map panels
     #  facetable (link: true)
-    config.add_geo_field ActiveFedora::SolrService.solr_name('subject_hierarchical_geographic_neighborhood', :symbol), label: 'Neighborhood', link: true
-    config.add_geo_field ActiveFedora::SolrService.solr_name('subject_hierarchical_geographic_borough', :symbol), label: 'Borough', link: true
-    config.add_geo_field ActiveFedora::SolrService.solr_name('subject_hierarchical_geographic_city', :symbol), label: 'City', link: true
+    config.add_geo_field 'subject_hierarchical_geographic_neighborhood_ssim', label: 'Neighborhood', link: true
+    config.add_geo_field 'subject_hierarchical_geographic_borough_ssim', label: 'Borough', link: true
+    config.add_geo_field 'subject_hierarchical_geographic_city_ssim', label: 'City', link: true
     #  nonfacetable (link: false)
-    config.add_geo_field ActiveFedora::SolrService.solr_name('subject_hierarchical_geographic_street', :symbol), label: 'Address', link: false
+    config.add_geo_field 'subject_hierarchical_geographic_street_ssim', label: 'Address', link: false
     config.add_geo_field 'geo', label: 'Coordinates', link: false
 
     # "fielded" search configuration. Used by pulldown among other places.

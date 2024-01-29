@@ -40,8 +40,8 @@ class Dcv::Configurators::Restricted::IfpBlacklightConfigurator
     # :show may be set to false if you don't want the facet to be drawn in the
     # facet bar
 
-    config.add_facet_field ActiveFedora::SolrService.solr_name('contributor', :symbol), :label => 'Office', :limit => 10, :sort => 'index'
-    config.add_facet_field ActiveFedora::SolrService.solr_name('dc_type', :facetable), :label => 'Resource Type', :limit => 10, :sort => 'index', :helper_method => :pcdm_file_genre_display
+    config.add_facet_field 'contributor_ssim', :label => 'Office', :limit => 10, :sort => 'index'
+    config.add_facet_field 'dc_type_sim', :label => 'Resource Type', :limit => 10, :sort => 'index', :helper_method => :pcdm_file_genre_display
     # add a query facet for negating file published to the public site
     config.add_facet_field 'publisher_ssim', label: 'Site Access', query: {
         onsite_only: {
@@ -50,18 +50,18 @@ class Dcv::Configurators::Restricted::IfpBlacklightConfigurator
         }
     }
 
-    default_facet_configuration(config)
+    default_faceting_configuration(config)
 
     # solr fields to be displayed in the index (search results) view
     #   The ordering of the field names is the order of the display
-    #config.add_index_field ActiveFedora::SolrService.solr_name('title_display', :displayable, type: :string), :label => 'Title'
-    config.add_index_field ActiveFedora::SolrService.solr_name('contributor', :symbol, type: :string), :label => 'Office'
-    config.add_index_field ActiveFedora::SolrService.solr_name('original_name', :symbol), :label => 'Folder Path', :helper_method => :dirname_prefixed_with_slash
-    config.add_index_field ActiveFedora::SolrService.solr_name('publisher', :symbol), :label => 'Onsite Only', :helper_method => :onsite_only
+    #config.add_index_field 'title_display_ssm', :label => 'Title'
+    config.add_index_field 'contributor_ssim', :label => 'Office'
+    config.add_index_field 'original_name_ssim', :label => 'Folder Path', :helper_method => :dirname_prefixed_with_slash
+    config.add_index_field 'publisher_ssim', :label => 'Onsite Only', :helper_method => :onsite_only
 
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display
-    config.add_show_field ActiveFedora::SolrService.solr_name('contributor', :symbol, type: :string), :label => 'Office'
+    config.add_show_field 'contributor_ssim', :label => 'Office'
     configure_file_show_fields(config)
 
     # "fielded" search configuration. Used by pulldown among other places.
@@ -79,7 +79,7 @@ class Dcv::Configurators::Restricted::IfpBlacklightConfigurator
     # or can be specified manually to be different.
 
     # Fulltext search configuration, used by main search pulldown.
-    config.add_search_field ActiveFedora::SolrService.solr_name('fulltext', :searchable, type: :text) do |field|
+    config.add_search_field 'fulltext_tesim' do |field|
       field.label = 'Fulltext'
       field.default = true
       field.solr_parameters = {
@@ -89,19 +89,19 @@ class Dcv::Configurators::Restricted::IfpBlacklightConfigurator
       configure_fulltext_highlighting(field)
     end
 
-    #config.add_search_field ActiveFedora::SolrService.solr_name('search_title_info_search_title', :searchable, type: :text) do |field|
+    #config.add_search_field 'search_title_info_search_title_teim' do |field|
     #  field.label = 'Title'
     #  field.solr_parameters = {
-    #    :qf => [ActiveFedora::SolrService.solr_name('title', :searchable, type: :text)],
-    #    :pf => [ActiveFedora::SolrService.solr_name('title', :searchable, type: :text)]
+    #    :qf => ['title_teim'],
+    #    :pf => ['title_teim']
     #  }
     #end
     #
-    #config.add_search_field ActiveFedora::SolrService.solr_name('lib_name', :searchable, type: :text) do |field|
+    #config.add_search_field 'lib_name_teim' do |field|
     #  field.label = 'Name'
     #  field.solr_parameters = {
-    #    :qf => [ActiveFedora::SolrService.solr_name('lib_name', :searchable, type: :text)],
-    #    :pf => [ActiveFedora::SolrService.solr_name('lib_name', :searchable, type: :text)]
+    #    :qf => ['lib_name_teim'],
+    #    :pf => ['lib_name_teim']
     #  }
     #end
 

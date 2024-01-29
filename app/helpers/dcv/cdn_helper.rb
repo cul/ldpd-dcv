@@ -107,7 +107,7 @@ module Dcv::CdnHelper
     if (url = get_archive_org_poster_url(item))
       return url
     end
-    schema_image = Array(item[ActiveFedora::SolrService.solr_name('schema_image', :symbol)]).first
+    schema_image = Array(item['schema_image_ssim']).first
 
     id = schema_image ? schema_image.split('/')[-1] : nil
     id ||= identifier_to_pid(item[:id], item[:pid])

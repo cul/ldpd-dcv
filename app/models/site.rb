@@ -30,9 +30,9 @@ class Site < ApplicationRecord
 		Dcv::Configurators::DcvBlacklightConfigurator.configure_index_fields(config)
 
 		Dcv::Configurators::DcvBlacklightConfigurator.configure_show_fields(config)
-		field_name = ActiveFedora::SolrService.solr_name('lib_repo_short', :symbol, type: :string)
+		field_name = 'lib_repo_short_ssim'
 		config.show_fields[field_name].link_to_search = false
-		field_name = ActiveFedora::SolrService.solr_name('lib_project_full', :symbol)
+		field_name = 'lib_project_full_ssim'
 		config.show_fields[field_name].link_to_search = false
 
 		Dcv::Configurators::DcvBlacklightConfigurator.configure_citation_fields(config)
@@ -74,7 +74,7 @@ class Site < ApplicationRecord
 			else
 				Dcv::Configurators::DcvBlacklightConfigurator.configure_facet_fields(config)
 			end
-			Dcv::Configurators::DcvBlacklightConfigurator.default_facet_configuration(config, geo: self.search_configuration.map_configuration.enabled)
+			Dcv::Configurators::DcvBlacklightConfigurator.default_faceting_configuration(config, geo: self.search_configuration.map_configuration.enabled)
 			if  self.search_type == SEARCH_LOCAL && self.search_configuration.search_fields.present?
 				self.search_configuration.search_fields.each do |search_field|
 					search_field.configure(config)

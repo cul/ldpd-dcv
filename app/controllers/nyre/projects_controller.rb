@@ -61,7 +61,7 @@ module Nyre
 
     configure_blacklight do |config|
       Dcv::Configurators::NyreBlacklightConfigurator.configure(config)
-      config.add_facet_field ActiveFedora::SolrService.solr_name('subject_hierarchical_geographic_street', :symbol), :label => 'Address', :sort => 'index', :limit => 10
+      config.add_facet_field 'subject_hierarchical_geographic_street_ssim', :label => 'Address', :sort => 'index', :limit => 10
       # Include this target's content in search results, and any additional publish targets specified in subsites.yml
       configure_blacklight_scope_constraints(config)
       config.show.route.merge!(controller: "/nyre")

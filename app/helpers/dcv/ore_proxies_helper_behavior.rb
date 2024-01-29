@@ -1,10 +1,10 @@
 module Dcv::OreProxiesHelperBehavior
   def hasModel_name
-    @has_model ||= ActiveFedora::SolrService.solr_name('has_model', :symbol)
+    @has_model ||= 'has_model_ssim'
   end
 
   def publisher_name
-    @has_model ||= ActiveFedora::SolrService.solr_name('publisher', :symbol)
+    @has_model ||= 'publisher_ssim'
   end
 
   def facets_for(query, args)
