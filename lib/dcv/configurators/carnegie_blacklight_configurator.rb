@@ -71,8 +71,8 @@ class Dcv::Configurators::CarnegieBlacklightConfigurator
     config.add_show_field 'lib_all_subjects_ssm', label: 'Subjects'
     config.add_show_field 'lib_format_ssm', label: 'Format'
     config.add_show_field 'lib_genre_ssim', label: 'Genre'
-    config.add_show_field 'origin_info_date_created_ssm(0)', label: 'Origin Information', separator_options: COMMA_DELIMITED, accessor: :unpublished_origin_information, unless: :has_publisher?
-    config.add_show_field 'origin_info_date_created_ssm(1)', label: 'Publication Information', separator_options: COMMA_DELIMITED, accessor: :published_origin_information, if: :has_publisher?
+    config.add_show_field key: 'unpublished_origin_information', field: 'origin_info_date_created_ssm', label: 'Origin Information', separator_options: COMMA_DELIMITED, accessor: :unpublished_origin_information, unless: :has_publisher?
+    config.add_show_field key: 'published_origin_information', field: 'origin_info_date_created_ssm', label: 'Publication Information', separator_options: COMMA_DELIMITED, accessor: :published_origin_information, if: :has_publisher?
     config.add_show_field 'physical_description_extent_ssm', label: 'Physical Description', helper_method: :append_digital_origin
     config.add_show_field 'dynamic_notes', pattern: /lib_.*_notes_ssm/, label: :notes_label, helper_method: :expandable_past_250, unless: :is_excepted_dynamic_field?, except: ['lib_acknowledgment_notes_ssm']
     config.add_show_field 'language_language_term_text_ssim', label: 'Language'

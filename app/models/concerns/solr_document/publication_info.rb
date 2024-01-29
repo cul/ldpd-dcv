@@ -2,9 +2,6 @@ module SolrDocument::PublicationInfo
 	extend ActiveSupport::Concern
 
 	def unpublished_origin_information(field)
-		if field =~ /(.+)(\(\d+\))$/
-			field = $1
-		end
 		place = self.fetch(:origin_info_place_for_display_ssm,[]).first
 		date = self.fetch(field,[]).first
 		date << '.' unless date.nil? || place.nil? || date[-1] == '.'
@@ -12,9 +9,6 @@ module SolrDocument::PublicationInfo
 	end
 
 	def published_origin_information(field)
-		if field =~ /(.+)(\(\d+\))$/
-			field = $1
-		end
 		publisher = self.fetch(:lib_publisher_ssm,[]).first
 		publisher = Array.wrap(publisher)
 
