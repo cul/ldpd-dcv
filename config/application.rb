@@ -2,6 +2,17 @@ require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
 
+# Manually require 'deprecation' gem so we can override one of its methods.
+# NOTE: For this to work, we must use {require: false} in Gemfile for the 'deprecation' gem.
+require 'deprecation'
+# Override Deprecation self.deprecate_methods method so that it does NOTHING.
+module Deprecation
+  def self.deprecate_methods(target_module, *method_names)
+    # Uncomment the line below if you want to see it working
+    # puts 'Skipping deprecation logic'
+  end
+end
+
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)

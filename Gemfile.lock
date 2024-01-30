@@ -502,6 +502,7 @@ DEPENDENCIES
   coffee-rails
   cul_omniauth (~> 0.7.0)
   database_cleaner
+  deprecation
   devise
   devise-guests (~> 0.3)
   factory_bot_rails
