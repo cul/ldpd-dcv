@@ -5,6 +5,7 @@ import {
   addFacetFieldFields,
   addSearchFieldFields,
   addScopeFilterFields,
+  addValueFieldsetFromTemplate,
   removeNavMenu,
   removeNavLink,
   removeTextBlock,
@@ -17,6 +18,7 @@ window.addTextBlock = addTextBlock;
 window.addFacetFieldFields = addFacetFieldFields;
 window.addSearchFieldFields = addSearchFieldFields;
 window.addScopeFilterFields = addScopeFilterFields;
+window.addValueFieldsetFromTemplate = addValueFieldsetFromTemplate;
 window.removeNavMenu = removeNavMenu;
 window.removeNavLink = removeNavLink;
 window.removeTextBlock = removeTextBlock;

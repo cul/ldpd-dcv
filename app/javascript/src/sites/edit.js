@@ -1,6 +1,6 @@
 import EasyMDE from 'easymde'; 
 
-function addValueFieldsetFromTemplate(addButtonFieldset, templateName) {
+export function addValueFieldsetFromTemplate(addButtonFieldset, templateName) {
 	const newFieldset = $(".widget-templates").find("fieldset[name='" + templateName + "']").clone();
 	const valueNumber = $(addButtonFieldset.parentNode).children("fieldset[name='" + templateName + "']").length;
 	var valueIndex = valueNumber;
