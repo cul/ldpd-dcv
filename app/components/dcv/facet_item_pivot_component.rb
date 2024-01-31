@@ -10,10 +10,11 @@ module Dcv
     # on FacetItemPivotComponent in Blacklight v7.33.1
     # This is a little shim to let us call the render methods below outside the
     # usual component rendering cycle (for backward compatibility)
+    # it should not hold a strong reference to the view_context, which refers to the controller
     # @private
     # @deprecated
     def with_view_context(view_context)
-      @view_context = view_context
+      @view_context = WeakRef.new(view_context)
       self
     end
   end
