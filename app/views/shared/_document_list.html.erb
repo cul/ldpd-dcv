@@ -1,6 +1,6 @@
 <% # container for all documents in index view -%>
 
-<%= render Dcv::Search::Ui::DateRangeSelectorComponent.new(date_year_segment_data: @date_year_segment_data) %>
+<%= render Dcv::Search::Ui::DateRangeSelectorComponent.new(enabled: controller.subsite_config.dig('date_search_configuration', 'show_timeline')) %>
 
 <div id="search-results">
   <%- if results_include_restricted_material? && !reading_room_client? %>

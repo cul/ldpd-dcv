@@ -2,7 +2,7 @@
 require 'rails_helper'
 
 RSpec.describe Dcv::Search::Ui::DateRangeSelectorComponent, type: :component do
-  let(:component) { described_class.new(date_year_segment_data: date_range_segment_data) }
+  let(:component) { described_class.new(enabled: true) }
 
   let(:params_for_search) { { controller: 'catalog', action: 'index', q: 'testParamValue', start_year: 1024, end_year: 2048 } }
   let(:params) { ActionController::Parameters.new(params_for_search) }
@@ -19,10 +19,13 @@ RSpec.describe Dcv::Search::Ui::DateRangeSelectorComponent, type: :component do
 
   before do
     component.instance_variable_set(:@view_context, view_context)
+    component.instance_variable_set(:@date_year_segment_data, date_range_segment_data)
+    allow(component).to receive(:render?).and_return(true)
+    allow(component).to receive(:get_date_year_segment_data_for_query)
     allow(view_context).to receive(:current_user)
     allow(view_context).to receive(:active_site_palette).and_return('blue')
     allow(controller).to receive(:params).and_return(params)
-    allow(controller).to receive(:subsite_config).and_return(subsite_config)
+    # allow(controller).to receive(:subsite_config).and_return(subsite_config)
   end
 
   describe "reset_range_filter_params" do

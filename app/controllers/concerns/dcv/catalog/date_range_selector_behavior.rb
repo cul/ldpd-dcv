@@ -1,11 +1,12 @@
 module Dcv::Catalog::DateRangeSelectorBehavior
   extend ActiveSupport::Concern
 
-  included do
-    # Only run for html or nil (i.e. default) request format types, not for others like json or csv
-    before_action :get_date_year_segment_data_for_query, only: [:index], if: proc { has_search_parameters? && ['html', nil].include?(params[:format]) && date_range_enabled? }
-  end
-
+  YEAR_REGEX = /(-?\d\d\d\d)/
+  YEAR_SPLIT_REGEX = /(-?\d\d\d\d)-(-?\d\d\d\d)/
+  DATE_RANGE_FIELD_NAME = 'lib_date_year_range_si'
+  DATE_RANGE_MAX_SEGMENTS = 50
+  FACET_COUNTS = 'facet_counts'
+  FACET_FIELDS = 'facet_fields'
   ## TODO: Use this to get the earliest and latest dates for the date range slider
   ## Also make sure that earliest year and latest year are stored fields.
   ## Right now, they're only indexed.
@@ -44,110 +45,98 @@ module Dcv::Catalog::DateRangeSelectorBehavior
   # This is all related to date range graph generation
 
   def get_date_year_segment_data_for_query()
-    year_regex = /(-?\d\d\d\d)/
-
-    max_number_of_segments = 50
-    date_range_field_name = 'lib_date_year_range_si'
-
     year_range_response = {}
 
-    year_range_response = search_results(search_state.params) do |builder|
+    year_range_response = search_service.search_results do |builder|
       # merging here circumvents facet field config lookup
       builder.merge(
       'facet' => true,
       'facet.limit' => '1000000000',
-      'facet.field' => date_range_field_name,
+      'facet.field' => DATE_RANGE_FIELD_NAME,
       'rows' => 0
       )
+      builder
     end.first
 
     year_range_facet_values = []
+    date_range_field_values = year_range_response.dig(FACET_COUNTS, FACET_FIELDS, DATE_RANGE_FIELD_NAME)
 
-    year_split_regex = /(-?\d\d\d\d)-(-?\d\d\d\d)/
-
-    unless year_range_response.fetch('facet_counts', {}).fetch('facet_fields', {})[date_range_field_name].present?
+    unless date_range_field_values.present?
       @date_year_segment_data = nil
       return
     end
 
-    first_range = year_range_response['facet_counts']['facet_fields'][date_range_field_name][0]
+    first_range = date_range_field_values[0]
 
-    # Initialize earliest_year and latest_year based on first result
-    year_split_match = first_range.match(year_split_regex)
-    earliest_start_year = year_split_match.captures[0].to_i
-    latest_end_year = year_split_match.captures[1].to_i
+    earliest_start_year = nil
+    latest_end_year = nil
 
-    year_range_response['facet_counts']['facet_fields'][date_range_field_name].each_slice(2){|facet_and_count|
-      year_split_match = facet_and_count[0].match(year_split_regex)
+    (0...date_range_field_values.length/2).each do |facet_ix|
+      year_split_match = date_range_field_values[facet_ix * 2].match(YEAR_SPLIT_REGEX)
       start_year = year_split_match.captures[0].to_i
       end_year = year_split_match.captures[1].to_i
-      earliest_start_year = start_year if start_year < earliest_start_year
-      latest_end_year = end_year if end_year > latest_end_year
+      earliest_start_year = start_year if !earliest_start_year || start_year < earliest_start_year
+      latest_end_year = end_year if !latest_end_year || end_year > latest_end_year
 
-      year_range_facet_values << {:start_year => start_year, :end_year => end_year, :count => facet_and_count[1]}
-    }
+      year_range_facet_values << { start_year: start_year, end_year: end_year, count: date_range_field_values[1 + (facet_ix * 2)] }
+    end
 
     # If possible, use start_year and end_year to set the start_of_range and end_of_range values
-    if params[:start_year].present?
-      start_of_range = params[:start_year].to_i
+    if controller.params[:start_year].present?
+      start_of_range = controller.params[:start_year].to_i
     else
       start_of_range = earliest_start_year
     end
 
-    if params[:end_year].present?
-      end_of_range = params[:end_year].to_i
+    if controller.params[:end_year].present?
+      end_of_range = controller.params[:end_year].to_i
     else
       end_of_range = latest_end_year
     end
 
     # Generate segments
     range_size = end_of_range - start_of_range + 1
-    segment_size = 1
 
     if range_size < 20
       number_of_segments = range_size
-      #segment_size = 1
     elsif range_size < 100
       number_of_segments = 40
-      #segment_size = 5
-    elsif range_size < 1000
-      number_of_segments = 30
-      #segment_size = 50
-    elsif range_size < 10000
-      number_of_segments = 30
-      #segment_size = 100
     else
       number_of_segments = 30
-      #segment_size = 1000
     end
 
     segments = []
     highest_segment_count_value = 0
-    #number_of_segments = (range_size.to_f/segment_size.to_f).round(0)
+
     segment_size = range_size.to_f/number_of_segments.to_f
 
-    number_of_segments.times {|i|
-
+    segments = Array.new(number_of_segments)
+    i = 0
+    while i < number_of_segments do
       start_of_segment_range = start_of_range+i*segment_size
       end_of_segment_range = start_of_segment_range + segment_size
-      new_segment = {}
-      new_segment[:start] = start_of_segment_range.round(0)
-      new_segment[:end] = end_of_segment_range.round(0)
-      new_segment[:count] = 0
-
-
-      year_range_facet_values.each {|val|
-        start_year = val[:start_year]
-        end_year = val[:end_year]
-        if (start_year <= end_of_segment_range) && (end_year >= start_of_segment_range)
-          new_segment[:count] += val[:count]
-        end
+      segments[i] = {
+        start: start_of_segment_range.floor,
+        end: end_of_segment_range.floor,
+        count: 0
       }
+      i += 1
+    end
 
-      highest_segment_count_value = new_segment[:count] if new_segment[:count] > highest_segment_count_value
-      segments << new_segment
 
-    }
+    year_range_facet_values.each do |val|
+      val[:start_year] = start_of_range if val[:start_year] < start_of_range
+      val[:end_year] = end_of_range if val[:end_year] > end_of_range
+      start_seg = ((val[:start_year] - start_of_range) / segment_size).round(0)
+      end_seg = ((val[:end_year] - start_of_range) / segment_size).round(0)
+      end_seg = (segments.length - 1) if end_seg >= segments.length
+      while start_seg <= end_seg
+        segments[start_seg][:count] += val[:count]
+        start_seg += 1
+      end
+    end
+
+    highest_segment_count_value = segments.reduce(0) { |max, new_segment| (new_segment[:count] > max) ? new_segment[:count] : max }
 
     @date_year_segment_data = {
       start_of_range: start_of_range,
