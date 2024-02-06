@@ -25,6 +25,14 @@ module Dcv
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
 
+    overrides = "#{Rails.root}/app/overrides"
+    Rails.autoloaders.main.ignore(overrides)
+
+    config.to_prepare do
+      Dir.glob("#{overrides}/**/*_override.rb").sort.each do |override|
+        load override
+      end
+    end
     # Custom directories with classes and modules you want to be autoloadable.
     # See: http://stackoverflow.com/questions/4928664/trying-to-implement-a-module-using-namespaces
     config.eager_load_paths += %W(#{config.root}/lib)
