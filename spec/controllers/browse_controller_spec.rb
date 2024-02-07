@@ -2,10 +2,21 @@ require 'rails_helper'
 
 describe BrowseController, type: :controller do
   let(:default_catalog_styles) { ["gallery-#{Dcv::Sites::Constants.default_palette}", "catalog"] }
+  let(:site_attr) { { slug: 'catalog', layout: 'default', palette: 'default' } }
+  let(:site) { FactoryBot.create(:site, **site_attr) }
+  let(:view_context) { controller.view_context }
 
   before do
     expect(controller).not_to be_nil
     expect(controller.controller_name).not_to be_nil
+    allow(controller).to receive(:view_context).and_return(view_context)
+    expect(site.slug).to eql(controller.load_subsite&.slug)
+    view_context.instance_variable_set(:@subsite, site)
+  end
+
+  after do
+    site&.destroy
+    controller.instance_variable_set(:@subsite, nil)
   end
 
   describe '#subsite_key' do
@@ -16,7 +27,6 @@ describe BrowseController, type: :controller do
     describe '#about', js: true do
       render_views
 
-      let(:view_context) { controller.view_context }
       let(:test_format) { 'Test' }
       let(:test_format_count) { 200 }
       let(:format_link) { "<a href=\"/catalog?f%5Blib_format_sim%5D%5B%5D=#{test_format}\">#{test_format}</a>"}
@@ -31,14 +41,14 @@ describe BrowseController, type: :controller do
       end
 
       before do
-        allow(controller).to receive(:view_context).and_return(view_context)
         allow(view_context).to receive(:current_user).and_return(nil)
-        view_context.instance_variable_set(:@browse_lists, formats_fixture) # controller expectation verified
+        expect(controller).to receive(:get_catalog_browse_lists).and_return(formats_fixture)
+        # controller expectations verified, we can assign to the cached view_context
+        view_context.instance_variable_set(:@browse_lists, formats_fixture)
       end
 
       it "responds" do
-        expect(controller).to receive(:get_catalog_browse_lists)
-        get :list, params: {list_id: 'formats'}
+        get :list, params: { list_id: 'formats' }
         expect(response.status).to eq(200)
         expect(response.body).to include("#{format_link} (#{test_format_count})")
       end
@@ -53,12 +63,6 @@ describe BrowseController, type: :controller do
   end
 
   context 'catalog site entity exists' do
-    let(:site_attr) { { slug: 'catalog', layout: 'default', palette: 'default' } }
-
-    before do
-      FactoryBot.create(:site, **site_attr)
-    end
-
     describe '#subsite_styles' do
       it { expect(controller.load_subsite.slug).to eql 'catalog' }
       it { expect(controller.subsite_config).to be_present }
@@ -74,7 +78,7 @@ describe BrowseController, type: :controller do
       describe '#subsite_styles' do
         it { expect(controller.load_subsite.slug).to eql 'catalog' }
         it { expect(controller.subsite_config).to be_present }
-        it { expect(controller.subsite_styles).to contain_exactly *default_catalog_styles }
+        it { expect(controller.subsite_styles).to contain_exactly *expected_catalog_styles }
       end
 
       it_behaves_like "a functioning browse controller"

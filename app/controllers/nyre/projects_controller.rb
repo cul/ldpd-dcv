@@ -10,6 +10,8 @@ module Nyre
 
     layout 'signature'
 
+    prepend_view_path('app/views/nyre')
+
     def self.subsite_key
       'nyre'
     end

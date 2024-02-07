@@ -12,6 +12,9 @@ class CarnegieController < SubsitesController
     configure_blacklight_scope_constraints(config)
   end
 
+  prepend_view_path('app/views/signature')
+  prepend_view_path('app/views/carnegie')
+
   def index
     if request.format.csv?
       stream_csv_response_for_search_results

@@ -40,23 +40,19 @@ class SubsitesController < ApplicationController
     # but need testing. default blank value should be first, but layout needs to be in front of controller path
     self._prefixes.unshift "shared"
     self._prefixes.unshift self.subsite_layout
-    self._prefixes.unshift(controller_path.sub('restricted/', '')) if self.restricted?
+    self._prefixes.unshift(self.restricted? ? controller_path.sub('restricted/', '') : controller_path) 
     self._prefixes.unshift ""
+  end
+
+  def set_view_path
+    prepend_view_path('app/views/' + subsite_layout)
+    prepend_view_path('app/views/' + controller_path)
+    prepend_view_path(controller_path)
   end
 
   # overrides the session role key from Cul::Omniauth::RemoteIpAbility
   def current_ability
     @current_ability ||= Ability.new(current_user, roles: session["cul.roles"], remote_ip:request.remote_ip)
-  end
-
-  # view paths look up partial templates within _prefixes
-  # paths are relative to Rails.root
-  # prepending because we want to give specialized path priority
-  def set_view_path
-    self.prepend_view_path('app/views/shared')
-    self.prepend_view_path('app/views/' + self.subsite_layout)
-    self.prepend_view_path('app/views/' + controller_path.sub('restricted/', '')) if self.restricted?
-    self.prepend_view_path('app/views/' + controller_path)
   end
 
   def authorize_action

@@ -3,7 +3,7 @@ class PagesController < ApplicationController
   include Dcv::Catalog::CatalogLayout
 
   layout Proc.new { |controller|
-    self.subsite_layout
+    controller.subsite_layout
   }
 
   def initialize(*args)
@@ -20,10 +20,9 @@ class PagesController < ApplicationController
   # paths are relative to Rails.root
   # prepending because we want to give specialized path priority
   def set_view_path
-    self.prepend_view_path('app/views/shared')
-    self.prepend_view_path('app/views/' + self.subsite_layout)
-    self.prepend_view_path('app/views/catalog')
-    self.prepend_view_path('app/views/' + controller_path)
+    super
+    prepend_view_path('app/views/' + self.subsite_layout)
+    prepend_view_path('app/views/' + controller_path)
   end
 
   def wall

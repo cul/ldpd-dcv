@@ -32,6 +32,8 @@ class RepositoriesController < ApplicationController
 
   before_action :set_repository_id, only:[:show]
 
+  prepend_view_path('app/views/repositories')
+
   def initialize(*args)
     super(*args)
     self._prefixes.unshift 'repositories'
@@ -39,11 +41,6 @@ class RepositoriesController < ApplicationController
 
   def search_service_context
     { builder: { addl_processor_chain: [:constrain_to_repository_context] } }
-  end
-
-  def set_view_path
-    super
-    self.prepend_view_path('app/views/repositories')
   end
 
   def set_repository_id

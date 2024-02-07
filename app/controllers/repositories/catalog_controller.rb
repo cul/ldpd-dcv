@@ -29,11 +29,8 @@ module Repositories
       { builder: { addl_processor_chain: [:constrain_to_repository_context, :hide_concepts_when_query_blank_filter] } }
     end
 
-    def set_view_path
-      super
-      self.prepend_view_path('app/views/repositories')
-      self.prepend_view_path('app/views/repositories/catalog')
-    end
+    prepend_view_path('app/views/repositories')
+    prepend_view_path('app/views/repositories/catalog')
 
     # SubsiteController Overrides
     def self.subsite_config

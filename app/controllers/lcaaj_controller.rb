@@ -5,7 +5,8 @@ class LcaajController < SubsitesController
   before_action :set_map_data_json, only: [:map_search]
   #before_action :set_map_data_json, only: [:index, :map_search]
 
-  layout 'signature'
+  prepend_view_path('app/views/signature')
+  prepend_view_path('app/views/lcaaj')
 
   configure_blacklight do |config|
     Dcv::Configurators::LcaajBlacklightConfigurator.configure(config)
