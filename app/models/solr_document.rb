@@ -17,7 +17,6 @@ class SolrDocument
   include Blacklight::Solr::Document
   include SolrDocument::CleanResolver
   include SolrDocument::FieldSemantics
-  include SolrDocument::OpenUrlContext
   include SolrDocument::PublicationInfo
   include SolrDocument::Snippets
 
