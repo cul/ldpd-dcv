@@ -27,20 +27,40 @@ class ApplicationController < ActionController::Base
 
   self.search_service_class = Dcv::SearchService
 
+  # Cache view path resolvers to address a memory leak fixed in Rails 7.1.3
+  # see also https://github.com/rails/rails/pull/47347
+  def self.cached_view_resolver(view_path)
+    @cached_resolvers ||= Concurrent::Map.new
+    @cached_resolvers.fetch_or_store(view_path) do
+      ActionView::Resolver === view_path ? view_path : ActionView::OptimizedFileSystemResolver.new(view_path)
+    end
+  end
+
+  # Override prepend_view_path to address a memory leak fixed in Rails 7.1.3
+  # see also https://github.com/rails/rails/pull/47347
+  def prepend_view_path(view_paths)
+    Array(view_paths).each do |view_path|
+      resolver = ApplicationController.cached_view_resolver(view_path)
+
+      # clear the resolver's cache if the application environment is not caching templates
+      # https://github.com/rails/rails/issues/14301#issuecomment-771651933
+      resolver.clear_cache unless ActionView::Resolver.caching?
+      super(resolver)
+    end
+  end
+
   def initialize(*args)
     super(*args)
     self._prefixes << 'catalog' # haaaaaaack to not reproduce templates
     self._prefixes << 'shared' # haaaaaaack to not reproduce templates
   end
 
-  # this is overridden in SubsitesController
+  append_view_path('app/views/shared')
+
+  # this is overridden in SubsitesController and SitesController
   def set_view_path
-    self.prepend_view_path('app/views/shared')
-    self.prepend_view_path('app/views/catalog')
-    self.prepend_view_path('app/views/dcv')
-    self.prepend_view_path('dcv')
-    self.prepend_view_path('app/views/' + controller_path)
-    self.prepend_view_path(controller_path)
+    prepend_view_path('app/views/' + controller_path)
+    prepend_view_path(controller_path)
   end
 
   def render_unauthorized!

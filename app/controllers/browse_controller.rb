@@ -4,7 +4,7 @@ class BrowseController < ApplicationController
   include Dcv::Catalog::CatalogLayout
 
   layout Proc.new { |controller|
-    self.subsite_layout
+    controller.subsite_layout
   }
 
   def initialize(*args)
@@ -20,16 +20,14 @@ class BrowseController < ApplicationController
   # view paths look up partial templates within _prefixes
   # paths are relative to Rails.root
   # prepending because we want to give specialized path priority
+  prepend_view_path('app/views/browse')
   def set_view_path
-    self.prepend_view_path('app/views/shared')
     self.prepend_view_path('app/views/' + self.subsite_layout)
-    self.prepend_view_path('app/views/catalog')
-    self.prepend_view_path('app/views/' + controller_path)
   end
 
   def list
-  	@browse_lists = get_catalog_browse_lists
-    if ['names', 'formats', 'libraries'].include? params[:list_id]
+    if ['names', 'formats', 'libraries'].include? params[:list_id].to_s
+      @browse_lists = get_catalog_browse_lists
       render params[:list_id]
     else
       render status: 500

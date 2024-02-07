@@ -3,12 +3,22 @@ require 'rails_helper'
 describe PagesController, type: :controller do
   let(:default_catalog_styles) { ["gallery-#{Dcv::Sites::Constants.default_palette}", "catalog"] }
   let(:view_context) { controller.view_context }
+  let(:site_attr) { { slug: 'catalog', layout: 'default', palette: 'default' } }
+  let(:subsite) { FactoryBot.create(:site, **site_attr) }
 
   before do
+    expect(subsite).not_to be_nil
     expect(controller).not_to be_nil
     expect(controller.controller_name).not_to be_nil
+    controller.set_view_path
+    #expect(controller.instance_variable_get(:@subsite)).not_to be_nil
     allow(controller).to receive(:view_context).and_return(view_context)
     allow(view_context).to receive(:current_user).and_return(nil)
+  end
+
+  after do
+    subsite.destroy
+    described_class.instance_variable_set(:@subsite, nil)
   end
 
   describe '#subsite_key' do
@@ -41,12 +51,6 @@ describe PagesController, type: :controller do
   end
 
   context 'catalog site entity exists' do
-    let(:site_attr) { { slug: 'catalog', layout: 'default', palette: 'default' } }
-
-    before do
-      FactoryBot.create(:site, **site_attr)
-    end
-
     describe '#subsite_styles' do
       it { expect(controller.load_subsite.slug).to eql 'catalog' }
       it { expect(controller.subsite_config).to be_present }
@@ -62,7 +66,7 @@ describe PagesController, type: :controller do
       describe '#subsite_styles' do
         it { expect(controller.load_subsite.slug).to eql 'catalog' }
         it { expect(controller.subsite_config).to be_present }
-        it { expect(controller.subsite_styles).to contain_exactly *default_catalog_styles }
+        it { expect(controller.subsite_styles).to contain_exactly *expected_catalog_styles }
       end
 
       it_behaves_like "a functioning pages controller"

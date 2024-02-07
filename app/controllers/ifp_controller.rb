@@ -6,6 +6,9 @@ class IfpController < SubsitesController
     configure_blacklight_scope_constraints(config)
   end
 
+  prepend_view_path('app/views/signature')
+  prepend_view_path('app/views/ifp')
+
   def index
     super
     if !has_search_parameters? && request.format.html?

@@ -98,13 +98,11 @@ class SitesController < ApplicationController
     self._prefixes.unshift '' # allow view_path to find action templates without 'sites' prefix first
   end
 
+  prepend_view_path('app/views/sites')
+
   def set_view_path
-    super
-    self.prepend_view_path('app/views/shared')
     self.prepend_view_path('app/views/' + self.request_layout)
-    self.prepend_view_path('app/views/' + controller_path.sub(/^restricted/,'')) if self.restricted?
-    self.prepend_view_path('app/views/' + controller_path)
-    self.prepend_view_path('app/views/' + load_subsite.slug) unless params[:action] == 'index'
+    self.prepend_view_path('app/views/' + load_subsite.slug.sub('%2F', '/')) unless params[:action] == 'index'
   end
 
   ##
@@ -131,7 +129,7 @@ class SitesController < ApplicationController
 
   def request_layout
     if (action_name == 'index')
-      'dcv' # legacy behavior
+      'gallery' # legacy behavior
     elsif (action_name == 'edit')
       'sites'
     else

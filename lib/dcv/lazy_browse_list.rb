@@ -55,7 +55,7 @@ module Dcv
 					values_and_counts[value] = count
 				end
 			end
-      Rails.cache.write(browse_list_cache_key, values_and_counts, expires_in: 12.hours);
+			Rails.cache.write(browse_list_cache_key, values_and_counts, expires_in: 12.hours);
 		end
 	end
 end

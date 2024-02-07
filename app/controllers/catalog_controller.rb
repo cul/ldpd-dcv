@@ -18,6 +18,8 @@ class CatalogController < SubsitesController
     config.home.featured_items_component = Dcv::Catalog::ProjectListComponent
   end
 
+  prepend_view_path('app/views/gallery')
+
   def search_service_context
     { builder: { addl_processor_chain: [:hide_concepts_when_query_blank_filter] } }
   end
