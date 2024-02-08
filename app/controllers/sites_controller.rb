@@ -101,8 +101,11 @@ class SitesController < ApplicationController
   prepend_view_path('app/views/sites')
 
   def set_view_path
-    self.prepend_view_path('app/views/' + self.request_layout)
-    self.prepend_view_path('app/views/' + load_subsite.slug.sub('%2F', '/')) unless params[:action] == 'index'
+    prepend_view_path('app/views/' + self.request_layout)
+    return if params[:action] == 'index'
+    custom_layout = load_subsite.slug.sub('%2F', '/')
+    prepend_view_path('app/views/' + custom_layout)
+    prepend_view_path(custom_layout)
   end
 
   ##

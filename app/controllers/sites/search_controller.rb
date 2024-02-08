@@ -51,11 +51,10 @@ module Sites
 		end
 
 		def set_view_path
-			super
-			self.prepend_view_path('app/views/shared')
-			self.prepend_view_path('app/views/' + self.subsite_layout)
-			self.prepend_view_path('app/views/' + controller_path.sub(/^restricted/,'')) if self.restricted?
-			self.prepend_view_path('app/views/' + controller_path)
+			prepend_view_path('app/views/' + self.subsite_layout)
+			custom_layout = load_subsite.slug.sub('%2F', '/')
+			prepend_view_path('app/views/' + custom_layout)
+			prepend_view_path(custom_layout)
 		end
 
 		def load_subsite

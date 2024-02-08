@@ -46,13 +46,10 @@ class SubsitesController < ApplicationController
 
   def set_view_path
     prepend_view_path('app/views/' + subsite_layout)
-    if self.restricted?
-      prepend_view_path('app/views/' + controller_path.sub('restricted/', ''))
-      prepend_view_path(controller_path.sub('restricted/', ''))
-    else
-      prepend_view_path('app/views/' + controller_path)
-      prepend_view_path(controller_path)
-    end
+
+    custom_layout = self.restricted? ? controller_path.sub('restricted/', '') : controller_path
+    prepend_view_path('app/views/' + custom_layout)
+    prepend_view_path(custom_layout)
   end
 
   # overrides the session role key from Cul::Omniauth::RemoteIpAbility
