@@ -1,0 +1,121 @@
+shared:
+  averyephemera:
+    short: "Avery Ephemera"
+    full: "Avery's Architectural Ephemera Collections"
+    orig: "Avery&#x2019;s Architectural Ephemera Collections"
+  averynovelties:
+    short: "Avery Novelties"
+    full: "Avery's Architectural Novelties"
+    orig: "Avery&#x2019;s Architectural Novelties"
+  bunraku:
+    short: "Bunraku Collection"
+    full: "Barbara Curtis Adachi Bunraku Collection"
+    orig: "Barbara Curtis Adachi Bunraku Collection"
+  biggert:
+    short: "Biggert Collection"
+    full: "Biggert Collection of Architectural Vignettes on Commercial Stationery"
+    orig: "Biggert collection of architectural vignettes on commercial stationery"
+  butler_seventyfive:
+    short: "Butler 75"
+    full: "Butler 75: Butler Library's 75th anniversary, 1934-2009"
+    orig: "Butler 75: Butler Library's 75th anniversary, 1934-2009"
+  childrens_drawings:
+    short: 'Spanish Civil War'
+    full: "Children's Drawings of the Spanish Civil War"
+    orig: "Children's Drawings of the Spanish Civil War"
+  chinese_paper_gods:
+    short: 'Chinese Paper Gods'
+    full: 'Chinese Paper Gods'
+    orig: 'Chinese paper gods'
+  community_service_society:
+    short: 'Community Service Society'
+    full: 'Community Service Society Photographs'
+    orig: 'Community Service Society Photographs'
+  core_curriculum_cc:
+    short: "Core Curriculum: Contemporary Civilization"
+    full: "Core Curriculum: Contemporary Civilization"
+    orig: "Core Curriculum: Contemporary Civilization"
+  cc_lit_humanities:
+    short: "Core Curriculum: Literature Humanities"
+    full: "Core Curriculum: Literature Humanities"
+    orig: "Core Curriculum: Literature Humanities"
+  dramatic_museum:
+    short: "Dramatic Museum"
+    full: "Dramatic Museum Realia"
+    orig: "Dramatic Museum Realia"
+  customer_orders:
+    short: 'Pres Orders'
+    full: 'Preservation Customer Orders'
+    orig: 'Customer Order Collection'
+  lindquist:
+    short: 'Lindquist Photographs'
+    full: 'G.E.E. Lindquist Native American Photographs'
+    orig: 'G.E.E. Lindquist Native American Photographs'
+  greene_and_greene:
+    short: "Greene & Greene"
+    full: "Greene & Greene Architectural Records and Papers Collection"
+    orig: "Greene & Greene Architectural Records and Papers Collection"
+  jewels_crown:
+    short: 'Jewels in Her Crown'
+    full: 'Jewels in her Crown: Treasures of Columbia University Libraries Special Collections'
+    orig: 'Jewels in her crown: treasures of Columbia University Libraries special collections'
+  urban:
+    short: "Urban Stage Design"
+    full: "Joseph Urban Stage Design Models & Documents Stabilization & Access Project"
+    orig: "Joseph Urban Stage Design Models & Documents Stabilization & Access Project"
+  judging_book_cover:
+    short: "Judging a Book"
+    full: "Judging a Book by its Cover : Gold-Stamped Publishers' Bindings of the 19th century"
+    orig: "Judging a Book by its Cover : Gold-Stamped Publishers' Bindings of the 19th century"
+  korean_independence:
+    short: "Korean Independence"
+    full: "Korean Independence Outbreak Movement"
+    orig: "Korean Independence Outbreak Movement"
+  lehman:
+    short: "Lehman Correspondence"
+    full: "Lehman Special Correspondence Files"
+    orig: "Lehman special correspondence files"
+  npf_vietnamese:
+    short: "Vietnamese Han Nom Text"
+    full: "Vietnamese Han Nom Text"
+    orig: "Vietnamese Han Nom Text"
+  nyre_brochures:
+    short: "New York Real Estate Brochure"
+    full: "New York Real Estate Brochure Collection"
+    orig: "New York Real Estate Brochure Collection"
+  platt_italian:
+    short: "Platt's Italian Garden Photographs"
+    full: "Charles A. Platt's Italian Garden Photographs"
+    orig: "Charles A. Platt's Italian Garden Photographs"
+  plimpton:
+    short: "Plimpton"
+    full: "Our Tools of Learning: George Arthur Plimpton's gifts to Columbia University"
+    orig: "Our Tools of Learning: George Arthur Plimpton's gifts to Columbia University"
+  politicalecologies:
+    short: "Political Ecologies"
+    full: "Political Ecologies in the Renaissance"
+    orig: "Political Ecologies in the Renaissance"
+  TBM:
+    short: 'Time-Based Media'
+    full: 'Time-Based Media'
+    orig: 'Time-Based Media'
+  test:
+    short: 'Successful Project Mapping For Short Project Title'
+    full: 'Successful Project Mapping For Full Project Title'
+    orig: 'Project Mapping Test'
+  reading_of_books:
+    short: "Reading of Books"
+    full: "Reading of Books and the Reading of Literature"
+    orig: "Reading of Books and the Reading of Literature"
+  russian_corps:
+    short: 'Russian Corps of Pages'
+    full: 'Russian Imperial Corps of Pages'
+    orig: 'Russian Imperial Corps of Pages'
+  john_jay:
+    short: 'Jay Papers'
+    full: 'Papers of John Jay'
+    orig: 'The Papers of John Jay'
+  varsity_show:
+    short: "Varsity Show: a Columbia Tradition"
+    full: "Varsity Show"
+    orig: "Varsity Show: a Columbia Tradition"

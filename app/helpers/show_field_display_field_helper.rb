@@ -48,9 +48,9 @@ module ShowFieldDisplayFieldHelper
     end
   end
 
-  def has_check_field?(field_config, document)
-    if field_config.check_field
-      return document[field_config.check_field].present?
+  def has_unless_field?(field_config, document)
+    if field_config.unless_fields
+      return Array(field_config.unless_fields).detect { |check_field| document[check_field].present? }
     end
     false
   end

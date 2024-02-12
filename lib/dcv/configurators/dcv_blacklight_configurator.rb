@@ -82,7 +82,8 @@ class Dcv::Configurators::DcvBlacklightConfigurator
     config.add_facet_field 'language_language_term_text_ssim', **default_facet_config(label: 'Language', sort: 'count')
     config.add_facet_field 'lib_collection_sim', **default_facet_config(label: 'Library Collection', sort: 'count')
     config.add_facet_field 'lib_repo_short_ssim', **default_facet_config(label: 'Library Location')
-    config.add_facet_field 'lib_project_ssim', **default_facet_config(label: 'Digital Project', sort: 'count')
+    config.add_facet_field 'lib_project_short_ssim', **default_facet_config(label: 'Digital Project', sort: 'count', show: false)
+    config.add_facet_field 'project_key', **default_facet_config(field: 'project_key_ssim', label: 'Digital Project', sort: 'count', show: false)
   end
 
   # "sort results by" select (pulldown)
@@ -135,7 +136,8 @@ class Dcv::Configurators::DcvBlacklightConfigurator
     config.add_show_field 'location_sublocation_ssm', :label => 'Department'
     config.add_show_field 'clio_ssim', label: 'Catalog Record', helper_method: :render_link_to_clio, join: false
     config.add_show_field 'lib_part_ssm', :label => 'Part'
-    config.add_show_field 'lib_project_full_ssim', :label => 'Digital Project', :helper_method => :show_field_project_to_facet_link, link_to_search: true, unless: :has_check_field?, check_field: :other_sites_data
+    config.add_show_field 'lib_project_full_ssim', label: 'Digital Project', helper_method: :show_field_project_to_facet_link, link_to_search: :project_key, if: :show_digital_project?, unless_fields: :project_key_ssim
+    config.add_show_field 'project_key_ssim', label: 'Digital Project', helper_method: :show_field_project_to_facet_link, link_to_search: :project_key, if: :show_digital_project?
     config.add_show_field 'other_sites_data', :label => 'Also In', :helper_method => :show_link_to_other_site_home
     # Note: Do NOT show the access_condition field. See DCV-465 for explanation.
     #config.add_show_field 'access_condition_ssim', :label => 'Rights'

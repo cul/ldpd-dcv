@@ -1,19 +1,30 @@
 module FieldDisplayHelpers::Project
+  def is_catalog_site?(*args)
+    return true if controller.load_subsite.slug == 'catalog'
+  end
+
+  def show_digital_project?(field_config, document)
+    return false unless is_catalog_site?(field_config, document) && document[:other_sites_data].blank?
+    return false if has_unless_field?(field_config, document)
+    true
+  end
+
   def show_field_project_to_facet_link(args)
     return args[:document][args[:field]] unless blacklight_config.show_fields[args[:field]].link_to_search
-    facet_field_name = :lib_project_short_ssim
-    full_project_names_to_short_project_names = get_full_project_names_to_short_project_names
+    projects_config = Rails.application.config_for(:hyacinth_projects)
 
     display_values = args[:document][args[:field]]
     display_values.map {|display_value|
-      if full_project_names_to_short_project_names.has_key?(display_value)
-        facet_value = full_project_names_to_short_project_names[display_value]
-      else
-        facet_value = display_value
+      config_key = display_value.to_sym
+      unless projects_config[config_key]
+        config_key = projects_config.detect {|key, label_entries| label_entries.values.include?(display_value)}&.[](0)
       end
-
-      url_for_facet_search = search_catalog_path(:f => {facet_field_name => [facet_value]})
-      link_to(display_value, url_for_facet_search)
+      if config_key && projects_config[config_key]
+        url_for_facet_search = search_catalog_path(f: { project_key: [config_key] })
+        link_to(projects_config.dig(config_key, :full), url_for_facet_search)
+      else
+        display_value
+      end
     }
   end
 
