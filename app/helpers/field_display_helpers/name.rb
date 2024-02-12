@@ -1,17 +1,24 @@
 module FieldDisplayHelpers::Name
   # Pull indexable names, hash to roles
+  NAME_VALUE_STRUCT = { fields: [], roles: [] }.freeze
+
   def display_names_with_roles(args={})
     document = args.fetch(:document,{})
     exclusions = args.fetch(:exclusions, []).map(&:capitalize)
-    names = args.fetch(:value,[]).map {|name| [name,[]]}.to_h
+    names = args.fetch(:value,[]).inject({}) { |memo, name| memo[name] = NAME_VALUE_STRUCT.deep_dup; memo }
     document.to_h.each do |f,v|
       next unless f =~ /role_.*_ssim/
       role = f.split('_')
       role.shift
       role.pop
       role = role[0].present? ? role.join(' ') : nil
-      v.each { |name| names[name] << role.capitalize if role && names[name] }
+      v.each do |name|
+        next unless role && names[name]
+        names[name][:fields] << f
+        names[name][:roles] << role.capitalize if role && names[name]
+      end
     end
+
     field = args[:field]
     case controller.action_name.to_sym
     when :index
@@ -21,10 +28,14 @@ module FieldDisplayHelpers::Name
     else
       field_config = blacklight_config.show_fields[args[:field]]
     end
-    names.map do |name, roles|
-      value = (!args[:suppress_links] && field_config.link_to_search) ?
-        link_to(name, controller.url_for(action: :index, f: { field_config.link_to_search => [name] })) :
+
+    default_field = field_config.link_to_search if blacklight_config.facet_fields[field_config.link_to_search]
+    names.map do |name, role_info|
+      facet_field = role_info[:fields].detect { |field_name| blacklight_config.facet_fields[field_name]} || default_field
+      value = (!args[:suppress_links] && facet_field) ?
+        link_to(name, controller.url_for(action: :index, f: { facet_field => [name] })) :
         name.dup
+      roles = role_info[:roles]
       value << " (#{roles.join(',')})" unless roles.empty?
       value.html_safe 
       value if roles.empty? or roles.detect { |role| !exclusions.include?(role) }
