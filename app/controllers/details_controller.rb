@@ -54,7 +54,7 @@ class DetailsController < ApplicationController
     # Have BL send all facet field names to Solr, which has been the default
     # previously. Simply remove these lines if you'd rather use Solr request
     # handler defaults, or have no facets.
-    config.default_solr_params['facet.field'] = config.facet_fields.keys
+    config.default_solr_params['facet.field'] = config.facet_fields.map { |key, config| config.field || config.key }
     #use this instead if you don't want to query facets marked :show=>false
     #config.default_solr_params['facet.field'] = config.facet_fields.select{ |k, v| v[:show] != false}.keys
 
