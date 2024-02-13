@@ -108,7 +108,7 @@ module Nyre
       # look for matching records in this project, eg original_name_tesim:ldpd_YR_0948_MH_*
       q = "original_name_tesim:#{call_number_prefix}"
       join_param = "{!join from=cul_member_of_ssim to=fedora_pid_uri_ssi}"
-      (@response, @document_list) = search_results(q: join_param + q)
+      (@response, @document_list) = search_results(search_state.to_h) { |builder| builder.merge(q: join_param + q, defType: 'lucene') }
       @response["facet_counts"].fetch("facet_fields", {}).tap do |facets|
         facets.each do |facet_name, facet_values|
           if facet_name == 'subject_hierarchical_geographic_street_ssim'

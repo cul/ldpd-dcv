@@ -36,7 +36,7 @@ module CatalogHelper
       f << "-belongsToContainer_ssi:*"
     end
     rows = opts[:limit] || '999'
-    local_params = { q: "*:*", defType: 'lucene', qt: "search", fq: f, rows:rows }
+    local_params = { q: "*:*", defType: 'lucene', fq: f, rows:rows }
     _response, proxies = controller.search_service.search_results { |b| b.merge(local_params) }
     if proxies.detect {|p| p["type_ssim"] && p["type_ssim"].include?(RDF::NFO[:'#FileDataObject'])}
       if proxy_id
@@ -45,7 +45,7 @@ module CatalogHelper
         query = "{!join from=proxyFor_ssi to=identifier_ssim}#{proxy_in_query}"
       end
       file_members = "cul_member_of_ssim:#{RSolr.solr_escape(proxy_uri).gsub(' ', '%20')}"
-      local_params = { q: query, defType: 'lucene', qt: "search", fq: [file_members], rows: '999' }
+      local_params = { q: query, defType: 'lucene', fq: [file_members], rows: '999' }
       _response, files = controller.search_service.search_results { |b| b.merge(local_params) }
       proxies.each do |proxy|
         file = files.detect {|f| f['identifier_ssim'].include?(proxy['proxyFor_ssi'])}
