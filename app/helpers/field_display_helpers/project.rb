@@ -27,17 +27,4 @@ module FieldDisplayHelpers::Project
       end
     }
   end
-
-  def get_full_project_names_to_short_project_names
-    full_project_names_to_original_project_names = ActiveSupport::HashWithIndifferentAccess.new(I18n.t('ldpd.full.project').invert)
-    original_project_names_to_short_project_names = ActiveSupport::HashWithIndifferentAccess.new(I18n.t('ldpd.short.project'))
-
-    new_hash = {}
-
-    full_project_names_to_original_project_names.each {|key, value|
-      new_hash[key] = original_project_names_to_short_project_names[value]
-    }
-
-    return new_hash
-  end
 end
