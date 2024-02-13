@@ -160,7 +160,7 @@ class SubsitesController < ApplicationController
   def setup_show_document
     if params[:id] =~ Dcv::Routes::DOI_ID_CONSTRAINT[:id]
       @response, @document = fetch "doi:#{params[:id]}", q: "{!raw f=ezid_doi_ssim v=$#{blacklight_config.document_unique_id_param}}"
-      params[:id] = @document.id
+      params[:id] = @document&.id
     else
       @response, @document = fetch params[:id]
     end
