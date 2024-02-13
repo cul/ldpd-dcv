@@ -28,23 +28,25 @@ module CatalogHelper
     proxy_in = opts[:id]
     proxy_uri = "info:fedora/#{proxy_in}"
     proxy_id = opts[:proxy_id]
-    proxy_in_query = "proxyIn_ssi:#{RSolr.solr_escape(proxy_uri)}"
+    proxy_in_query = "proxyIn_ssi:#{RSolr.solr_escape(proxy_uri).gsub(' ', '%20')}"
     f = [proxy_in_query]
     if proxy_id
-      f << "belongsToContainer_ssi:#{RSolr.solr_escape(proxy_id)}"
+      f << "belongsToContainer_ssi:#{RSolr.solr_escape(proxy_id).gsub(' ', '%20')}"
     else
       f << "-belongsToContainer_ssi:*"
     end
     rows = opts[:limit] || '999'
-    proxies = ActiveFedora::SolrService.query("*:*",{fq: f,rows:rows})
+    local_params = { q: "*:*", defType: 'lucene', qt: "search", fq: f, rows:rows }
+    _response, proxies = controller.search_service.search_results { |b| b.merge(local_params) }
     if proxies.detect {|p| p["type_ssim"] && p["type_ssim"].include?(RDF::NFO[:'#FileDataObject'])}
       if proxy_id
         query = "{!join from=proxyFor_ssi to=identifier_ssim}#{f.last}"
       else
         query = "{!join from=proxyFor_ssi to=identifier_ssim}#{proxy_in_query}"
       end
-      file_members = "cul_member_of_ssim:#{RSolr.solr_escape(proxy_uri)}"
-      files = ActiveFedora::SolrService.query(query,fq: [file_members],rows:'999')
+      file_members = "cul_member_of_ssim:#{RSolr.solr_escape(proxy_uri).gsub(' ', '%20')}"
+      local_params = { q: query, defType: 'lucene', qt: "search", fq: [file_members], rows: '999' }
+      _response, files = controller.search_service.search_results { |b| b.merge(local_params) }
       proxies.each do |proxy|
         file = files.detect {|f| f['identifier_ssim'].include?(proxy['proxyFor_ssi'])}
         if file
@@ -53,7 +55,7 @@ module CatalogHelper
           props = props["#{proxy_uri}/content"] || {}
           props['pid'] = file['id']
           props['extent'] ||= file['extent_ssim'] if file['extent_ssim']
-          proxy.merge!(props)
+          proxy.merge_source!(props)
         end
       end
     end
@@ -62,8 +64,8 @@ module CatalogHelper
       folder_counts = facets_for(query,:"facet.field" => "belongsToContainer_ssi",:"facet.limit" => '999')
       unless ( belongsToContainer = facet_to_hash(folder_counts["belongsToContainer_ssi"])).empty?
         proxies.each do |proxy|
-          if proxy["type_ssim"].include?(RDF::NFO[:'#Folder'])
-            proxy['extent'] ||= belongsToContainer[proxy['id']]
+          if proxy["type_ssim"].include?(RDF::NFO[:'#Folder']) && !proxy['extent']
+            proxy.merge_source!(extent: belongsToContainer[proxy['id']])
           end
         end
       end
