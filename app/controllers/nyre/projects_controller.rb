@@ -95,12 +95,20 @@ module Nyre
 
     def resource
       id_param = (params[:id] =~ /^\d+$/) ? :id : :call_number
-      @resource ||= OpenStruct.new Nyre::Project.find_by(id_param => params[:id]).attributes
+      @resource ||= begin
+        _project = Nyre::Project.find_by(id_param => params[:id])
+        OpenStruct.new(_project.attributes) if _project
+      end
     end
 
     def show
       if params[:format].to_s == 'rss'
         render nothing: true, status: :not_found
+        return
+      end
+
+      unless resource
+        render file: 'public/404.html', layout: false, status: 404
         return
       end
       # build an original path term prefix from project call number
