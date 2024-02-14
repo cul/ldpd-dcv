@@ -101,13 +101,13 @@ module Sites
 
 		def legacy_redirect
 			unless params[:document_id]
-				render status: :bad_request, message: 'document_id param is required', nothing: true
+				render status: :bad_request, plain: 'document_id param is required'
 			end
 			legacy_id ||= params[:document_id].dup
 			@response, @document = fetch legacy_id, q: "{!raw f=identifier_ssim v=$#{blacklight_config.document_unique_id_param}}"
 
 			if @document.blank?
-				render status: :not_found, message: "no document with id #{params[:document_id]}", nothing: true
+				render status: :not_found, plain: "no document with id #{params[:document_id]}"
 				return
 			end
 			document_id = Array(@document[blacklight_config.document_unique_id_param] || @document[:id]).first

@@ -103,7 +103,7 @@ module Nyre
 
     def show
       if params[:format].to_s == 'rss'
-        render nothing: true, status: :not_found
+        render status: :not_found, plain: "not found"
         return
       end
 

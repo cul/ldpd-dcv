@@ -123,7 +123,7 @@ class SubsitesController < ApplicationController
       response.headers['Location'] = published_url
       render status: status, json: { "success" => true }
     rescue ActiveFedora::ObjectNotFoundError
-      render status: :not_found, plain: ''
+      render status: :not_found, plain: "object not found"
       return
     rescue StandardError => e
       Rails.logger.error("#{e.message}\n\t#{e.backtrace.join("\n\t")}")
@@ -206,7 +206,7 @@ class SubsitesController < ApplicationController
 
   def legacy_redirect
     unless params[:document_id]
-      render status: :bad_request, message: 'document_id param is required', nothing: true
+      render status: :bad_request, plain: 'document_id param is required'
     end
     document_id ||= params[:document_id].dup
     document_id.gsub!(/\:/,'\:')
@@ -214,7 +214,7 @@ class SubsitesController < ApplicationController
     sp[:fq] = "identifier_ssim:#{document_id}"
     solr_response, docs = search_results({}) { |b| b.merge(sp) }
     if docs.empty?
-      render status: :not_found, message: "no document with id #{params[:document_id]}", nothing: true
+      render status: :not_found, plain: "no document with id #{params[:document_id]}"
       return
     end
     document = docs.first

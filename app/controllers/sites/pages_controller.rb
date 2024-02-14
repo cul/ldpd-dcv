@@ -15,6 +15,8 @@ module Sites
 
 		layout :request_layout
 
+		rescue_from ActiveRecord::RecordNotFound, with: :page_not_found
+
 		def initialize(*args)
 			super(*args)
 			self._prefixes.unshift 'sites'
@@ -24,7 +26,7 @@ module Sites
 		def set_view_path
 			super
 			self.prepend_view_path('app/views/shared')
-			self.prepend_view_path('app/views/' + self.subsite_layout)
+			self.prepend_view_path('app/views/' + self.subsite_layout) if load_subsite && subsite_layout
 			self.prepend_view_path('app/views/' + controller_path.sub(/^restricted/,'')) if self.restricted?
 			self.prepend_view_path('app/views/' + controller_path)
 		end
@@ -38,6 +40,7 @@ module Sites
 				else
 					site_ = Site.includes(:site_pages).find_by(slug: site_slug, site_pages: { slug: pages })
 				end
+				raise ActiveRecord::RecordNotFound unless site_
 				site_&.configure_blacklight!
 				site_
 			end
@@ -47,6 +50,8 @@ module Sites
 			@page ||= begin
 				load_subsite.site_pages.where(slug: args[:slug]).first if load_subsite(args[:slug])
 			end
+			raise ActiveRecord::RecordNotFound unless @page
+			@page
 		end
 
 		def subsite_key
@@ -164,6 +169,9 @@ module Sites
 							tbp[:site_page_images_attributes]&.delete_if {|ix, obj| obj[:id].blank? && obj[:image_identifier].blank? }
 						end
 					end
+			end
+			def record_not_found
+				render status: :not_found, plain: "Page Not Found"
 			end
 	end
 end

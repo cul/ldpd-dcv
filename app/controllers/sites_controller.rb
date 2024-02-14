@@ -152,7 +152,7 @@ class SitesController < ApplicationController
   # override to use :slug and publisher_ssim in search to get document
   def home
     if load_subsite.nil?
-      render status: :not_found, text: "#{params[:slug]} is not a subsite"
+      render status: :not_found, plain: "#{params[:slug]} is not a subsite"
       return
     end
     load_site_document

@@ -63,12 +63,12 @@ class BytestreamsController < ApplicationController
     resource_doc = resources_for_document(@document, false).detect {|x| x[:id].split('/')[-1] == params[:bytestream_id]}
     deny_download = resource_doc.nil?
     if @document.nil? || deny_download
-      render status: :not_found, text: "resource not found"
+      render status: :not_found, plain: "resource not found"
       return
     end
 
     unless can?(Ability::ACCESS_ASSET, @document)
-      render status: (current_user ? :forbidden : :unauthorized), text: (current_user ? 'forbidden' : 'unauthorized')
+      render status: (current_user ? :forbidden : :unauthorized), plain: (current_user ? 'forbidden' : 'unauthorized')
       return
     end 
 

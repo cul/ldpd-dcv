@@ -58,7 +58,7 @@ describe Nyre::ProjectsController, type: :controller do
         allow(request_double).to receive(:variant)
       end
       it "returns not found" do
-        expect(controller).to receive(:render).with(nothing: true, status: :not_found)
+        expect(controller).to receive(:render).with(plain: "not found", status: :not_found)
         controller.show
       end
     end
