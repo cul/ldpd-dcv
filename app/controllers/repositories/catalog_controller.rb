@@ -81,5 +81,10 @@ module Repositories
 
     def aboutcollection
     end
+
+    def show_digital_project?
+      true
+    end
+    helper_method :show_digital_project?
   end
 end

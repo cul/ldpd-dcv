@@ -1,6 +1,6 @@
 module FieldDisplayHelpers::Project
   def is_catalog_site?(*args)
-    return true if controller.load_subsite.slug == 'catalog'
+    return true if controller.load_subsite&.slug == 'catalog'
   end
 
   def show_digital_project?(field_config, document)

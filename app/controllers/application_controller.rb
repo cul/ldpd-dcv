@@ -83,4 +83,9 @@ class ApplicationController < ActionController::Base
   def external_service_client_ip
     DCV_CONFIG.dig('media_streaming','wowza', 'client_ip_override') || request.remote_ip
   end
+
+  # this is overridden in most controllers
+  def load_subsite
+    nil
+  end
 end
