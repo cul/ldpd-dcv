@@ -7,6 +7,7 @@ module Dcv::Catalog::DateRangeSelectorBehavior
   DATE_RANGE_MAX_SEGMENTS = 50
   FACET_COUNTS = 'facet_counts'
   FACET_FIELDS = 'facet_fields'
+
   ## TODO: Use this to get the earliest and latest dates for the date range slider
   ## Also make sure that earliest year and latest year are stored fields.
   ## Right now, they're only indexed.
@@ -75,6 +76,11 @@ module Dcv::Catalog::DateRangeSelectorBehavior
       year_split_match = date_range_field_values[facet_ix * 2].match(YEAR_SPLIT_REGEX)
       start_year = year_split_match.captures[0].to_i
       end_year = year_split_match.captures[1].to_i
+      if end_year < start_year
+        Rails.logger.error("bad values for #{DATE_RANGE_FIELD_NAME} in search results: #{date_range_field_values[facet_ix * 2]}")
+        @date_year_segment_data = nil
+        return        
+      end
       earliest_start_year = start_year if !earliest_start_year || start_year < earliest_start_year
       latest_end_year = end_year if !latest_end_year || end_year > latest_end_year
 
@@ -95,9 +101,13 @@ module Dcv::Catalog::DateRangeSelectorBehavior
     end
 
     # Generate segments
-    range_size = end_of_range - start_of_range + 1
+    range_size = (end_of_range - start_of_range) + 1
 
-    if range_size < 20
+    if range_size == 0
+      Rails.logger.error("bad values for date range bounds: start_of_range = #{start_of_range} end_of_range = #{end_of_range}")
+      @date_year_segment_data = nil
+      return
+    elsif range_size < 20
       number_of_segments = range_size
     elsif range_size < 100
       number_of_segments = 40
