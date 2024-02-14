@@ -216,4 +216,9 @@ class Iiif::PresentationsController < ApplicationController
   def search_service(user_params = {})
     search_service_class.new(config: blacklight_config, user_params: user_params)
   end
+
+  def show_digital_project?
+    false
+  end
+  helper_method :show_digital_project?
 end
