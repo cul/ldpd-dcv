@@ -39,6 +39,10 @@ module Sites
 			end
 		end
 
+		def search_service_context
+			{ builder: { addl_processor_chain: params[:action] == 'index' ? [] : [:remove_cmodel_filters] } }
+		end
+
 		def initialize(*args)
 			super(*args)
 			self._prefixes.unshift 'sites'
@@ -97,6 +101,22 @@ module Sites
 					format.send(format_name.to_sym) { render plain: @document.export_as(format_name), layout: false }
 				end
 			end
+		end
+
+		def synchronizer
+			params[:format] ||= 'html'
+			if params[:id] =~ Dcv::Routes::DOI_ID_CONSTRAINT[:id]
+				@response, @document = fetch "doi:#{params[:id]}", q: "{!raw f=#{blacklight_config.document_unique_id_param} v=$#{blacklight_config.document_unique_id_param}}"
+			else
+				@response, @document = fetch "info:fedora/#{params[:id]}", q: "{!raw f=fedora_pid_uri_ssi v=$#{blacklight_config.document_unique_id_param}}"
+			end
+
+			unless @document
+				render file: 'public/404.html', layout: false, status: 404
+				return
+			end
+			authorize_document
+			render layout: 'minimal', locals: { document: @document }
 		end
 
 		def legacy_redirect

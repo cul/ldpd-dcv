@@ -6,6 +6,7 @@ RSpec.describe Dcv::ContentAggregator::ChildViewer::ButtonPanel::DefaultComponen
   subject(:component) { described_class.new(document: document, child: child, **attr) }
 
   let(:attr) { { child_index: 0, local_downloads: true } }
+  let(:site) { double(Site, search_type: Dcv::Sites::Constants::SEARCH_CUSTOM) }
   let(:view_context) { controller.view_context }
   let(:render) do
     component.render_in(view_context)
@@ -23,6 +24,7 @@ RSpec.describe Dcv::ContentAggregator::ChildViewer::ButtonPanel::DefaultComponen
   before do
     # Every call to view_context returns a different object. This ensures it stays stable.
     allow(controller).to receive(:view_context).and_return(view_context)
+    allow(controller).to receive(:load_subsite).and_return(site)
     allow(view_context).to receive(:structured_children_for_document).with(document).and_return([child])
     allow(view_context).to receive(:document_presenter).and_return(presenter)
     allow(presenter).to receive(:html_title).and_return("Document Show Title")

@@ -3,6 +3,7 @@
 module Dcv::ContentAggregator::ChildViewer::ButtonPanel
   class DefaultComponent < ViewComponent::Base
     include Dcv::Components::ActiveFedoraDocumentBehavior
+    include Dcv::Sites::Constants
 
     DEFAULT_ASPECT_RATIO = '9x9'
     attr_reader :child, :parent, :id_base
@@ -77,6 +78,16 @@ module Dcv::ContentAggregator::ChildViewer::ButtonPanel
 
     def embed_url
       helpers.embed_url(id: @child.doi_identifier, layout: request.path.split('/')[1])
+    end
+
+    def synchronizer_id(child_doc)
+      return child_doc[:pid] if controller.load_subsite&.search_type == SEARCH_CUSTOM
+      child_doc.doi_identifier
+    end
+
+    def link_to_synchronizer(child_doc, mode, **html_args, &block)
+      return unless synch_id = synchronizer_id(child_doc)
+      link_to({ controller: controller_path, action: 'synchronizer', id: synch_id, mode: mode}, **html_args, &block)
     end
   end
 end

@@ -168,4 +168,8 @@ class SearchBuilder < Blacklight::SearchBuilder
     solr_params[:fq] << "!suppress_in_random_bsi:true"
     solr_params
   end
+
+  def remove_cmodel_filters(solr_params)
+    (solr_params[:fq] ||= []).delete_if { |fq| fq.starts_with?("active_fedora_model_ssi:")} 
+  end
 end

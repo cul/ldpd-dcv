@@ -11,12 +11,12 @@
       <a class="btn btn-sm btn-primary" href="<%= zoom_url %>" data-original-title="<%= @presenter.html_title %>" aria-label="Open in new window" target="_blank"><i class="fa fa-plus-square" data-toggle="tooltip" title="Open in new window"></i></a>
     <% end -%>
     <% if has_chapters? %>
-      <%= link_to({controller: controller_path, action: 'synchronizer', id: child[:pid], mode: 'chapters'}, class: 'btn btn-sm btn-primary', target: '_blank', aria: { label: 'View with synchronized index' }) do %>
+      <%= link_to_synchronizer(child, 'chapters', class: 'btn btn-sm btn-primary', target: '_blank', aria: { label: 'View with synchronized index' }) do %>
         <i class="fa fa-list" title="View with synchronized index" data-toggle="tooltip" aria-hidden="true"></i>
       <%- end -%>
     <% end %>
     <% if has_synch? %>
-      <%= link_to({controller: controller_path, action: 'synchronizer', id: child[:pid], mode: 'synchronized_transcript'}, class: 'btn btn-sm btn-primary', target: '_blank', aria: { label: 'View with synchronized transcript' }) do %>
+      <%= link_to_synchronizer(child, 'synchronized_transcript', class: 'btn btn-sm btn-primary', target: '_blank', aria: { label: 'View with synchronized transcript' }) do %>
         <i class="fa fa-file-lines" title="View with synchronized transcript" data-toggle="tooltip" aria-hidden="true"></i>
       <%- end -%>
     <% end %>
