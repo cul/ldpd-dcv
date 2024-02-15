@@ -81,7 +81,7 @@ module Dcv::ContentAggregator::ChildViewer::ButtonPanel
     end
 
     def synchronizer_id(child_doc)
-      return child_doc[:pid] if controller.load_subsite&.search_type == SEARCH_CUSTOM
+      return child_doc[:pid] if controller.load_subsite&.search_type != SEARCH_LOCAL
       child_doc.doi_identifier
     end
 

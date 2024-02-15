@@ -115,8 +115,9 @@ module Dcv::CatalogHelperBehavior
     end
     return {} unless published
     published_title = published['title_display_ssm']&.first || published['id']
+    link_id = controller.load_subsite.search_type == Dcv::Sites::Constants::SEARCH_LOCAL ? published.doi_identifier : published['id']
     {
-      'Title' => link_to(published_title, controller: controller_name, action: :show, id: published['id']),
+      'Title' => link_to(published_title, controller: controller_name, action: :show, id: link_id),
       'Date' => published['lib_date_textual_ssm']&.first,
       'Identifier' => published['ezid_doi_ssim'].first
     }.compact
