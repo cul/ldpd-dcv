@@ -24,7 +24,8 @@ describe Iiif::Manifest do
 	let(:route_helper) do
 		TestRouteHelper.new
 	end
-	let(:children_service) { instance_double(Dcv::Solr::ChildrenAdapter) }
+	let(:children_service) { instance_double(Dcv::Solr::ChildrenAdapter, from_all_structure_proxies: child_documents) }
+	let(:child_documents) { [] }
 	let(:manifest_id) do
 		registrant, doi = manifest_document.doi_identifier.split('/')
 		route_helper.iiif_manifest_url(manifest_registrant: registrant, manifest_doi: doi)
@@ -41,9 +42,22 @@ describe Iiif::Manifest do
 		end
 	end
 	describe '#items' do
+		let(:child_document) do
+			SolrDocument.new({
+				id: 'cul:1234567',
+				ezid_doi_ssim: ['doi:10.123/45678'],
+				title_display_ssm: ['Child Document']
+			})
+		end
+		let(:child_documents) { [child_document] }
+
+		before do
+			allow(ability_helper).to receive(:can?).and_return(true)
+		end
+
 		it 'delegates to children_service for structured list' do
-			expect(children_service).to receive(:from_all_structure_proxies).and_return([])
-			iiif_manifest.items
+			expect(children_service).to receive(:from_all_structure_proxies).and_return(child_documents)
+			expect(iiif_manifest.items.first&.dig('label', 'en')).to eql ['Child Document']
 		end
 	end
 	describe '#as_json' do

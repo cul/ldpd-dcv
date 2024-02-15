@@ -1,3 +1,2 @@
-class TestAbilityHelper
-	include Dcv::Authenticated::AccessControl
+class TestAbilityHelper < ApplicationController
 end

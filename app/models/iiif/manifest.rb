@@ -131,7 +131,7 @@ class Iiif::Manifest < Iiif::BaseResource
     else
       children_service.from_all_structure_proxies(@solr_document).map do |canvas_document|
         canvas_for(canvas_document, route_helper, routing_opts).to_h
-      end
+      end.compact
     end
   end
 
@@ -163,7 +163,8 @@ class Iiif::Manifest < Iiif::BaseResource
   end
 
   def canvas_for(canvas_document, route_helper, routing_opts, label = nil)
-    registrant, doi = canvas_document.doi_identifier.split('/')
+    registrant, doi = canvas_document.doi_identifier&.split('/')
+    return unless doi
     canvas_routing_opts = routing_opts.merge(registrant: registrant, doi: doi)
     Iiif::Canvas.new(
       id: route_helper.iiif_canvas_url(canvas_routing_opts), solr_document: canvas_document,
