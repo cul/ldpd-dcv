@@ -155,6 +155,16 @@ module Sites
 			url_for(url_params)
 		end
 
+		def page_not_found
+			redirect_url = asset_redirect(params[:slug], params[:format]) if params[:site_slug] == 'assets'
+			if redirect_url
+				redirect_to(redirect_url)
+				return
+			end
+
+			render(status: :not_found, plain: "Page Not Found")
+		end
+
 		private
 			def page_params
 				params.require(:site_page)
@@ -170,8 +180,13 @@ module Sites
 						end
 					end
 			end
-			def record_not_found
-				render status: :not_found, plain: "Page Not Found"
+
+			def asset_redirect(file_basename, file_ext)
+				file_ext = file_ext.downcase
+				asset_name = "#{file_basename.sub(/-[a-f0-9]{64}$/, '')}.#{file_ext}"
+				helpers.asset_url(asset_name)
+			rescue Sprockets::Rails::Helper::AssetNotFound
+				nil
 			end
 	end
 end

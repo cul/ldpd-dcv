@@ -142,15 +142,17 @@ describe Sites::PagesController, type: :unit do
 			end
 		end
 	end
-	describe '#show' do
+	describe '#show', type: :controller do
 		let(:params) {
 			ActionController::Parameters.new(
 				site_slug: site_slug,
-				slug: page_slug
-			)
+				slug: page_slug,
+				format: page_format
+			).permit!
 		}
 		let(:site_slug) { 'siteSlug' }
 		let(:page_slug) { 'pageSlug' }
+		let(:page_format) { 'html' }
 		before do
 			controller.instance_variable_set(:@subsite, site)
 			controller.instance_variable_set(:@page, page)
@@ -160,16 +162,37 @@ describe Sites::PagesController, type: :unit do
 			let(:site) { nil }
 			let(:page) { nil }
 			it "returns a 404" do
-				expect(controller).to receive(:render).with(status: :not_found, layout: false, file: "#{Rails.root}/public/404.html")
-				controller.show
+				expect(controller).to receive(:render).with(status: :not_found, plain: "Page Not Found")
+				get :show, params: params.to_h
 			end
 		end
 		context 'page is non-existent' do
 			let(:site) { FactoryBot.create(:site, slug: site_slug) }
 			let(:page) { nil }
 			it "returns a 404" do
-				expect(controller).to receive(:render).with(status: :not_found, layout: false, file: "#{Rails.root}/public/404.html")
-				controller.show
+				expect(controller).to receive(:render).with(status: :not_found, plain: "Page Not Found")
+				get :show, params: params.to_h
+			end
+		end
+		context 'requested url is actually an outdated asset' do
+			let(:site_slug) { 'assets' }
+			let(:page) { nil }
+			let(:page_slug) { 'application-5ad5ec121fe28e3000ec05ad1502d9be955a6f73012ad675de32a7ef0b38b49f' }
+			let(:page_format) { 'css' }
+			let(:asset_url) { "/success" }
+			before do
+				allow(controller.helpers).to receive(:asset_url).with('application.css').and_return(asset_url)
+			end
+			it "redirects" do
+				expect(controller).to receive(:redirect_to).with(asset_url)
+				get :show, params: params.to_h
+			end
+			context 'that has been removed' do
+				let(:asset_url) { nil }
+				it "returns a 404" do
+					expect(controller).to receive(:render).with(status: :not_found, plain: "Page Not Found")
+					get :show, params: params.to_h
+				end
 			end
 		end
 	end
