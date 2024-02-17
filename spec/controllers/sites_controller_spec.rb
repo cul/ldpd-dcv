@@ -4,10 +4,11 @@ describe SitesController, type: :unit do
 	let(:controller) { described_class.new }
 	let(:params) {
 		ActionController::Parameters.new(
-			slug: site.slug
-		)
+			slug: site_slug
+		).permit!
 	}
 	let(:site) { FactoryBot.create(:site) }
+	let(:site_slug) { site.slug }
 	let(:edit_site_path) { "/#{site.slug}/edit" }
 	let(:request_double) { instance_double('ActionDispatch::Request') }
 	before do
@@ -19,7 +20,6 @@ describe SitesController, type: :unit do
 		allow(controller).to receive(:params).and_return(params)
 		allow(controller).to receive(:request).and_return(request_double)
 		allow(controller).to receive(:load_subsite).and_return(site)
-		allow(controller).to receive(:edit_site_path).with(slug: site.slug).and_return(edit_site_path)
 	end
 	include_context 'verify configurable layouts'
 	describe '.site_as_solr_document' do
@@ -141,6 +141,7 @@ describe SitesController, type: :unit do
 		before do
 			controller.instance_variable_set(:@subsite, site)
 			allow(controller).to receive(:can?).with(:admin, site).and_return(false)
+			allow(controller).to receive(:edit_site_path).with(slug: site.slug).and_return(edit_site_path)
 		end
 		context 'with nav_menus_attributes' do
 			let(:params) do
@@ -196,6 +197,17 @@ describe SitesController, type: :unit do
 				controller.update
 				expect(File.exists?(target_path)).to be true
 				expect(File.read(target_path)).to eql(File.read(File.join(fixture_path, fixture_file_path)))
+			end
+		end
+	end
+	describe "#home" do
+		context "site does not exist", type: :controller do
+			let(:site) { nil }
+			let(:site_slug) { 'nonexistent' }
+
+			it "returns a 404" do
+				expect(controller).to receive(:render).with(status: :not_found, plain: "Page Not Found")
+				get :home, params: params.to_h
 			end
 		end
 	end

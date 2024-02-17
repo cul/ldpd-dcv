@@ -14,11 +14,13 @@ class SitesController < ApplicationController
   include ShowFieldDisplayFieldHelper
 
   before_action :browse_lists, only: :index
-  before_action :load_subsite, except: [:index]
+  before_action :load_subsite, except: [:index, :new, :create]
   before_action :load_page, only: [:home]
   before_action :authorize_site_update, only: [:edit, :update]
 
   layout :request_layout
+
+  rescue_from ActiveRecord::RecordNotFound, with: :page_not_found
 
   self.search_state_class = Dcv::Sites::SearchState
 
@@ -102,7 +104,7 @@ class SitesController < ApplicationController
 
   def set_view_path
     prepend_view_path('app/views/' + self.request_layout)
-    return if params[:action] == 'index'
+    return if params[:action] == 'index' || !load_subsite
     custom_layout = load_subsite.slug.sub('%2F', '/')
     prepend_view_path('app/views/' + custom_layout)
     prepend_view_path(custom_layout)
@@ -127,7 +129,11 @@ class SitesController < ApplicationController
   end
 
   def load_page
-    @page ||= load_subsite.site_pages.find_by(slug: 'home')
+    return @page if @page
+    load_subsite&.tap do |subsite|
+      @page = load_subsite.site_pages.find_by(slug: 'home')
+    end
+    @page
   end
 
   def request_layout
@@ -144,17 +150,15 @@ class SitesController < ApplicationController
     if action_name == 'index'
       @subsite_config = {}
     else
-      @subsite_config ||= load_subsite.to_subsite_config
+      @subsite_config ||= load_subsite&.to_subsite_config || {}
     end
   end
 
   # get single document from the solr index
   # override to use :slug and publisher_ssim in search to get document
   def home
-    if load_subsite.nil?
-      render status: :not_found, plain: "#{params[:slug]} is not a subsite"
-      return
-    end
+    raise ActiveRecord::RecordNotFound unless load_subsite
+
     load_site_document
     # override the blacklight config to support featured content and facets
     @blacklight_config = load_subsite.blacklight_config
@@ -312,6 +316,10 @@ class SitesController < ApplicationController
 
   def self.site_as_solr_document(site)
     Dcv::Sites::Export::Solr.new(site).run
+  end
+
+  def page_not_found
+    render(status: :not_found, plain: "Page Not Found")
   end
 
   private
