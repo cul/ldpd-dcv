@@ -28,7 +28,6 @@ class Iiif::Authz::V2::ProbeService::Response
       probe_response.merge!(redirect_location_properties)
     else
       # not authorized
-      puts @ability_helper.current_user.inspect
       if @document.fetch('access_control_levels_ssim',[]).include?(ACCESS_LEVEL_AFFILIATION) && !@ability_helper.current_user
         probe_response.merge!(status: 401, heading: "Login Required", note: "This resource may be visible to Columbia affiliates, please log in")
       else
