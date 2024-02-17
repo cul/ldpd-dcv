@@ -15,7 +15,7 @@ module Sites
 
 		layout :request_layout
 
-		rescue_from ActiveRecord::RecordNotFound, with: :page_not_found
+		rescue_from ActiveRecord::RecordNotFound, with: :on_page_not_found
 
 		def initialize(*args)
 			super(*args)
@@ -67,10 +67,8 @@ module Sites
 		end
 
 		def show
-			unless @page
-				render status: :not_found, file: "#{Rails.root}/public/404.html", layout: false
-				return
-			end
+			raise ActiveRecord::RecordNotFound unless @page
+
 			respond_to do |format|
 				format.json { render json: @page.to_json }
 				format.html { render action: 'page' }
@@ -155,7 +153,7 @@ module Sites
 			url_for(url_params)
 		end
 
-		def page_not_found
+		def on_page_not_found
 			redirect_url = asset_redirect(params[:slug], params[:format]) if params[:site_slug] == 'assets'
 			if redirect_url
 				redirect_to(redirect_url)

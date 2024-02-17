@@ -18,12 +18,13 @@ class SubsitesController < ApplicationController
   before_action :load_page, only: [:home, :index, :page]
   protect_from_forgery :except => [:update, :destroy, :api_info] # No CSRF token required for publishing actions
 
-
   helper_method :extract_map_data_from_document_list
 
   layout Proc.new { |controller|
     self.subsite_layout
   }
+
+  rescue_from ActiveRecord::RecordNotFound, with: :on_page_not_found
 
   self.search_state_class = Dcv::SearchState
   # TODO: the blacklight_configuration_context expects the controller to
@@ -79,7 +80,7 @@ class SubsitesController < ApplicationController
 
   def load_page
     if params[:slug]
-      @page = load_subsite.site_pages.find_by(slug: params[:slug])
+      @page ||= load_subsite.site_pages.find_by(slug: params[:slug])
     else
       unless has_search_parameters?
         @page ||= load_subsite.site_pages.find_by(slug: 'home')
@@ -248,6 +249,10 @@ class SubsitesController < ApplicationController
       end
     end
     status
+  end
+
+  def page
+    raise ActiveRecord::RecordNotFound unless @page
   end
 
   def synchronizer

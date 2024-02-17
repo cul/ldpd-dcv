@@ -20,7 +20,7 @@ class SitesController < ApplicationController
 
   layout :request_layout
 
-  rescue_from ActiveRecord::RecordNotFound, with: :page_not_found
+  rescue_from ActiveRecord::RecordNotFound, with: :on_page_not_found
 
   self.search_state_class = Dcv::Sites::SearchState
 
@@ -316,10 +316,6 @@ class SitesController < ApplicationController
 
   def self.site_as_solr_document(site)
     Dcv::Sites::Export::Solr.new(site).run
-  end
-
-  def page_not_found
-    render(status: :not_found, plain: "Page Not Found")
   end
 
   private

@@ -93,4 +93,8 @@ class ApplicationController < ActionController::Base
   def on_client_disconnect
     Rails.logger.info("Client disconnected (##{Process.pid})")
   end
+
+  def on_page_not_found
+    render(status: :not_found, plain: "Page Not Found")
+  end
 end

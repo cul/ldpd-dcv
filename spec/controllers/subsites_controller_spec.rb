@@ -138,4 +138,32 @@ describe CatalogController, :type => :controller do
       end
     end
   end
+
+  describe '#page' do
+    let(:api_key) { nil }
+    let(:page) { double(SitePage, slug: slug) }
+    let(:params) { { slug: slug } }
+    let(:slug) { 'about' }
+
+    before do
+      controller.instance_variable_set(:@page, page)
+      expect(controller).to receive(:load_page)
+    end
+
+    it "works" do
+      expect(controller).to receive(:render)
+      get :page, params: params
+      expect(response.status).to eql(200)
+    end
+
+    context "with a nonexistent slug" do
+      let(:page) { nil }
+      let(:slug) { 'nonexistent' }
+
+      it "404s" do
+        expect(controller).to receive(:render).with(status: :not_found, plain: "Page Not Found")
+        get :page, params: params
+      end
+    end
+  end
 end
