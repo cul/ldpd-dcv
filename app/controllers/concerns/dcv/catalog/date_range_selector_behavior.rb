@@ -133,7 +133,7 @@ module Dcv::Catalog::DateRangeSelectorBehavior
     range_size = (end_of_range - start_of_range) + 1
 
     if range_size < 1
-      Rails.logger.error("bad values for date range bounds: start_of_range = #{start_of_range} end_of_range = #{end_of_range}")
+      controller.flash.now[:error] = "bad values for date range bounds: start_of_range = #{start_of_range} end_of_range = #{end_of_range}"
       @date_year_segment_data = nil
       return
     elsif range_size < 20
