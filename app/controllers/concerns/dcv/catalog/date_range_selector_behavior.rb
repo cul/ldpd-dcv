@@ -44,6 +44,26 @@ module Dcv::Catalog::DateRangeSelectorBehavior
   end
 
   # This is all related to date range graph generation
+  def counts_by_year_ranges_from_facet_data(date_range_field_values)
+    earliest_start_year = nil
+    latest_end_year = nil
+
+    year_range_facet_values = []
+    (0...date_range_field_values.length/2).each do |facet_ix|
+      year_split_match = date_range_field_values[facet_ix * 2].match(YEAR_SPLIT_REGEX)
+      start_year = year_split_match.captures[0].to_i
+      end_year = year_split_match.captures[1].to_i
+      if end_year < start_year
+        Rails.logger.error("bad values for #{DATE_RANGE_FIELD_NAME} in search results: #{date_range_field_values[facet_ix * 2]}")
+        return [nil, nil, nil]      
+      end
+      earliest_start_year = start_year if !earliest_start_year || start_year < earliest_start_year
+      latest_end_year = end_year if !latest_end_year || end_year > latest_end_year
+
+      year_range_facet_values << { start_year: start_year, end_year: end_year, count: date_range_field_values[1 + (facet_ix * 2)] }
+    end
+    [year_range_facet_values, earliest_start_year, latest_end_year]
+  end
 
   def get_date_year_segment_data_for_query()
     year_range_response = {}
@@ -59,7 +79,6 @@ module Dcv::Catalog::DateRangeSelectorBehavior
       builder
     end.first
 
-    year_range_facet_values = []
     date_range_field_values = year_range_response.dig(FACET_COUNTS, FACET_FIELDS, DATE_RANGE_FIELD_NAME)
 
     unless date_range_field_values.present?
@@ -69,22 +88,11 @@ module Dcv::Catalog::DateRangeSelectorBehavior
 
     first_range = date_range_field_values[0]
 
-    earliest_start_year = nil
-    latest_end_year = nil
+    year_range_facet_values, earliest_start_year, latest_end_year = counts_by_year_ranges_from_facet_data(date_range_field_values)
 
-    (0...date_range_field_values.length/2).each do |facet_ix|
-      year_split_match = date_range_field_values[facet_ix * 2].match(YEAR_SPLIT_REGEX)
-      start_year = year_split_match.captures[0].to_i
-      end_year = year_split_match.captures[1].to_i
-      if end_year < start_year
-        Rails.logger.error("bad values for #{DATE_RANGE_FIELD_NAME} in search results: #{date_range_field_values[facet_ix * 2]}")
-        @date_year_segment_data = nil
-        return        
-      end
-      earliest_start_year = start_year if !earliest_start_year || start_year < earliest_start_year
-      latest_end_year = end_year if !latest_end_year || end_year > latest_end_year
-
-      year_range_facet_values << { start_year: start_year, end_year: end_year, count: date_range_field_values[1 + (facet_ix * 2)] }
+    unless year_range_facet_values.present?
+      @date_year_segment_data = nil
+      return
     end
 
     # If possible, use start_year and end_year to set the start_of_range and end_of_range values
@@ -103,7 +111,7 @@ module Dcv::Catalog::DateRangeSelectorBehavior
     # Generate segments
     range_size = (end_of_range - start_of_range) + 1
 
-    if range_size == 0
+    if range_size < 1
       Rails.logger.error("bad values for date range bounds: start_of_range = #{start_of_range} end_of_range = #{end_of_range}")
       @date_year_segment_data = nil
       return
