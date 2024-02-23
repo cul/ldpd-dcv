@@ -1,12 +1,14 @@
 module Dcv::Catalog::DateRangeSelectorBehavior
   extend ActiveSupport::Concern
 
-  YEAR_REGEX = /(-?\d\d\d\d)/
-  YEAR_SPLIT_REGEX = /(-?\d\d\d\d)-(-?\d\d\d\d)/
   DATE_RANGE_FIELD_NAME = 'lib_date_year_range_si'
   DATE_RANGE_MAX_SEGMENTS = 50
   FACET_COUNTS = 'facet_counts'
   FACET_FIELDS = 'facet_fields'
+  INFINITY_NEG = -1.0/0.0
+  INFINITY_POS = 1.0/0.0
+  MINUS = '-'
+  YEAR_REGEX = /^-?\d{4}--?\d{4}$/
 
   ## TODO: Use this to get the earliest and latest dates for the date range slider
   ## Also make sure that earliest year and latest year are stored fields.
@@ -45,23 +47,42 @@ module Dcv::Catalog::DateRangeSelectorBehavior
 
   # This is all related to date range graph generation
   def counts_by_year_ranges_from_facet_data(date_range_field_values)
-    earliest_start_year = nil
-    latest_end_year = nil
+    earliest_start_year = INFINITY_POS
+    latest_end_year = INFINITY_NEG
 
-    year_range_facet_values = []
-    (0...date_range_field_values.length/2).each do |facet_ix|
-      year_split_match = date_range_field_values[facet_ix * 2].match(YEAR_SPLIT_REGEX)
-      start_year = year_split_match.captures[0].to_i
-      end_year = year_split_match.captures[1].to_i
-      if end_year < start_year
-        Rails.logger.error("bad values for #{DATE_RANGE_FIELD_NAME} in search results: #{date_range_field_values[facet_ix * 2]}")
-        return [nil, nil, nil]      
+    year_range_facet_values = (0...date_range_field_values.length/2).map do |facet_ix|
+      string_val = date_range_field_values[facet_ix * 2]
+      count = date_range_field_values[1 + (facet_ix * 2)]
+      return [nil, nil, nil] unless YEAR_REGEX === string_val
+      case string_val.length
+      when 9
+        start_year = string_val.byteslice(0,4).to_i
+        end_year = string_val.byteslice(5,4).to_i
+      when 11
+        start_year = string_val.byteslice(0,5).to_i
+        end_year = string_val.byteslice(6,5).to_i
+      else
+        if string_val.start_with? MINUS
+          start_year = string_val.byteslice(0,5).to_i
+          end_year = string_val.byteslice(6,4).to_i
+        else
+          Rails.logger.error("bad values for #{DATE_RANGE_FIELD_NAME} in search results: #{string_val}")
+          return [nil, nil, nil]
+          # if we allow misordered data, then...
+          #  start_year = string_val.byteslice(0,4).to_i
+          #  end_year = string_val.byteslice(5,5).to_i
+        end
       end
-      earliest_start_year = start_year if !earliest_start_year || start_year < earliest_start_year
-      latest_end_year = end_year if !latest_end_year || end_year > latest_end_year
-
-      year_range_facet_values << { start_year: start_year, end_year: end_year, count: date_range_field_values[1 + (facet_ix * 2)] }
+      if end_year < start_year
+        Rails.logger.error("bad values for #{DATE_RANGE_FIELD_NAME} in search results: #{string_val}")
+        return [nil, nil, nil]
+      end
+      earliest_start_year = start_year if start_year < earliest_start_year
+      latest_end_year = end_year if end_year > latest_end_year
+      [start_year, end_year, count]
     end
+    earliest_start_year = nil if earliest_start_year.infinite?
+    latest_end_year = nil if latest_end_year.infinite?
     [year_range_facet_values, earliest_start_year, latest_end_year]
   end
 
@@ -141,15 +162,15 @@ module Dcv::Catalog::DateRangeSelectorBehavior
       i += 1
     end
 
-
     year_range_facet_values.each do |val|
-      val[:start_year] = start_of_range if val[:start_year] < start_of_range
-      val[:end_year] = end_of_range if val[:end_year] > end_of_range
-      start_seg = ((val[:start_year] - start_of_range) / segment_size).round(0)
-      end_seg = ((val[:end_year] - start_of_range) / segment_size).round(0)
+      start_year, end_year, count = val
+      start_year = start_of_range if start_of_range > start_year
+      end_year = end_of_range if end_of_range < end_year
+      start_seg = ((start_year - start_of_range) / segment_size).round(0)
+      end_seg = ((end_year - start_of_range) / segment_size).round(0)
       end_seg = (segments.length - 1) if end_seg >= segments.length
       while start_seg <= end_seg
-        segments[start_seg][:count] += val[:count]
+        segments[start_seg][:count] += count
         start_seg += 1
       end
     end

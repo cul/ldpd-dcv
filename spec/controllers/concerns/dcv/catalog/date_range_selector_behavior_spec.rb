@@ -36,6 +36,15 @@ describe Dcv::Catalog::DateRangeSelectorBehavior, type: :unit do
         expect(latest_end_year).to be_nil
       end
     end
+    context "invalid data" do
+      let(:facet_data) do
+        ['-@8a1982', 5]
+      end
+      it "returns nils" do
+        expect(earliest_start_year).to be_nil
+        expect(latest_end_year).to be_nil
+      end
+    end
     context "negative years" do
       let(:facet_data) do
         ['-1984--1982', 5]
