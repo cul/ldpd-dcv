@@ -4,6 +4,9 @@ class Dcv::Solr::DocumentAdapter::ModsXml
     extend ActiveSupport::Concern
     include Solrizer::DefaultDescriptors::Normal
 
+    KEY_DATE_EMPTY_BOUNDS = [nil, nil].freeze
+    KEY_DATE_YEAR_BOUND_REGEX = /^(-?[0-9u]{1,4}).*/
+    KEY_DATE_YEAR_UNBOUNDED = "uuuu"
     ORIGIN_INFO_DATES = ["dateCreated", "dateIssued", "dateOther"]
     # this part name pattern is taken from Hyacinth serialization rules
     # and must be changed if shelfLocator serialization changes in Hyacinth
@@ -283,18 +286,23 @@ class Dcv::Solr::DocumentAdapter::ModsXml
     end
 
     def date_range_to_textual_date(start_year, end_year)
-      start_year = start_year.to_i.to_s # Remove zero-padding if present
-      end_year = end_year.to_i.to_s # Remove zero-padding if present
+      return nil if start_year.blank? && end_year.blank?
+      start_year = start_year&.to_i # to remove zero-padding if present
+      end_year = end_year&.to_i # to remove zero-padding if present
 
       if start_year == end_year
-        return [start_year]
-      else
-        return [('Between ' +
-          (start_year.to_i > 0 ? start_year : start_year[1,start_year.length] + ' BCE') +
-          ' and ' +
-          (end_year.to_i > 0 ? (start_year.to_i > 0 ? end_year : end_year + ' CE') : end_year[1,end_year.length] + ' BCE')
-        )]
+        return start_year < 0 ? ["#{start_year.to_s[1..-1]} BCE"] : [start_year.to_s]
       end
+
+      start_date = (start_year > 0 ? start_year.to_s : start_year.to_s[1..-1]) if start_year
+      end_date = (end_year > 0 ? end_year.to_s : end_year.to_s[1..-1]) if end_year
+      return ["After #{start_date}#{' BCE' if start_year < 0}"] if end_date.blank?
+      return ["Before #{end_date}#{' BCE' if end_year < 0}"] if start_date.blank?
+      if start_year < 0
+        return ["Between #{start_date} and #{end_date} BCE"] if end_year < 0
+        return ["Between #{start_date} BCE and #{end_date} CE"]
+      end
+      ["Between #{start_date} and #{end_date}"]
     end
 
     def notes_by_type(node=mods)
@@ -623,48 +631,23 @@ class Dcv::Solr::DocumentAdapter::ModsXml
 
       # Create convenient start and end date values based on one of the many possible originInfo/dateX elements.
       start_date, end_date = key_date_range
-      start_year = nil
-      end_year = nil
 
-      if start_date.present?
+      if start_date.present? || end_date.present?
+        start_year, end_year = key_date_year_bounds(start_date, end_date)
 
-        start_year = nil
-        end_year = nil
-
-        start_date = nil if start_date == 'uuuu'
-        end_date = nil if end_date == 'uuuu'
-        start_date = start_date.gsub('u', '0') unless start_date.nil?
-        end_date = end_date.gsub('u', '0') unless end_date.nil?
-
-        end_date = start_date if end_date.blank?
-        start_date = end_date if start_date.blank?
-
-        year_regex = /^(-?\d{1,4}).*/
-
-        unless start_date.blank?
-          start_year_match = start_date.match(year_regex)
-          if start_year_match && start_year_match.captures.length > 0
-            start_year = start_year_match.captures[0]
-            start_year = zero_pad_year(start_year)
-            solr_doc["lib_start_date_year_itsi"] = start_year.to_i # TrieInt version for searches
-          end
+        solr_doc["lib_start_date_year_itsi"] = start_year.to_i if start_year.present?
+        solr_doc["lib_end_date_year_itsi"] = end_year.to_i if end_year.present?
+        if start_year.present? || end_year.present?
+          solr_doc["lib_date_year_range_si"] =
+            (start_year.present? ? start_year : KEY_DATE_YEAR_UNBOUNDED) +
+            '-' + (end_year.present? ? end_year : KEY_DATE_YEAR_UNBOUNDED)
+          solr_doc["lib_date_year_range_ss"] =
+            (start_year.present? ? start_year : '*') +
+            '-' + (end_year.present? ? end_year : '*')
         end
-
-        unless end_date.blank?
-          end_year_match = end_date.match(year_regex)
-          if end_year_match && end_year_match.captures.length > 0
-            end_year = end_year_match.captures[0]
-            end_year = zero_pad_year(end_year)
-            solr_doc["lib_end_date_year_itsi"] = end_year.to_i # TrieInt version for searches
-          end
-        end
-
-        solr_doc["lib_date_year_range_si"] = start_year + '-' + end_year if start_year && end_year
-        solr_doc["lib_date_year_range_ss"] = solr_doc["lib_date_year_range_si"]
-
         # When no textual date is available, fall back to other date data (if available)
         if solr_doc["lib_date_textual_ssm"].blank?
-          solr_doc["lib_date_textual_ssm"] = date_range_to_textual_date(start_year.to_i, end_year.to_i)
+          solr_doc["lib_date_textual_ssm"] = date_range_to_textual_date(start_year, end_year)
         end
       end
 
@@ -709,6 +692,43 @@ class Dcv::Solr::DocumentAdapter::ModsXml
       end
 
       return (is_negative ? '-' : '') + year_without_sign
+    end
+
+    # for given textual start and end dates beginning with a year:
+    # substitute 'u' appropriately, return an array consisting of:
+    # two zero-padded 4 digit years with a negative sign for BCE dates
+    # nil for entirely uncertain or unindicated dates
+    # nil if the start/end point was incorrectly entered
+    def key_date_year_bounds(start_date, end_date)
+      start_year = nil
+      end_year = nil
+
+      start_date = nil if start_date == 'uuuu'
+      end_date = nil if end_date == 'uuuu'
+
+      end_date = start_date if end_date.blank?
+      start_date = end_date if start_date.blank?
+
+      unless start_date.blank?
+        start_year_match = start_date.match(KEY_DATE_YEAR_BOUND_REGEX)
+
+        if start_year_match && start_year_match.captures.length > 0
+          start_year = start_year_match.captures[0]
+          start_year.gsub!('u', start_year.start_with?('-') ? '9' : '0')
+          start_year = zero_pad_year(start_year)
+        end
+      end
+
+      unless end_date.blank?
+        end_year_match = end_date.match(KEY_DATE_YEAR_BOUND_REGEX)
+        if end_year_match && end_year_match.captures.length > 0
+          end_year = end_year_match.captures[0]
+          end_year.gsub!('u', end_year.start_with?('-') ? '0' : '9')
+          end_year = zero_pad_year(end_year)
+        end
+      end
+      return KEY_DATE_EMPTY_BOUNDS if (end_year && start_year) && end_year.to_i < start_year.to_i
+      [start_year, end_year]
     end
   end
 end

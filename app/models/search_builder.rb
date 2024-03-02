@@ -2,6 +2,10 @@
 class SearchBuilder < Blacklight::SearchBuilder
   include Blacklight::Solr::SearchBuilderBehavior
 
+  DATE_END_FIELD_NAME = 'lib_end_date_year_itsi'
+  DATE_RANGE_FIELD_NAME = 'lib_date_year_range_si'
+  DATE_START_FIELD_NAME = 'lib_start_date_year_itsi'
+
   self.default_processor_chain += [
     :date_range_filter, :lat_long_filter, :multiselect_facet_feature,
     :durst_favorite_filter
@@ -171,5 +175,23 @@ class SearchBuilder < Blacklight::SearchBuilder
 
   def remove_cmodel_filters(solr_params)
     (solr_params[:fq] ||= []).delete_if { |fq| fq.starts_with?("active_fedora_model_ssi:")} 
+  end
+  def add_date_range_json_facets(solr_params)
+    solr_params[:"facet.field"] = [DATE_RANGE_FIELD_NAME]
+    solr_params[:"f.#{DATE_RANGE_FIELD_NAME}.facet.limit"] = -1
+    solr_params[:rows] = 0
+    solr_params[:json] ||= { facet: {} }
+    (solr_params[:json][:facet] ||= {}).merge!({
+      DATE_START_FIELD_NAME => {
+        field: DATE_START_FIELD_NAME,
+        type: 'terms',
+        limit: 1, sort: 'index asc'
+      },
+      DATE_END_FIELD_NAME => {
+        field: DATE_END_FIELD_NAME,
+        type: 'terms',
+        limit: 1, sort: 'index desc'
+      }
+    })
   end
 end

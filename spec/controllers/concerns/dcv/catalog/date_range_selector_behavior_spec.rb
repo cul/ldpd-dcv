@@ -21,11 +21,17 @@ describe Dcv::Catalog::DateRangeSelectorBehavior, type: :unit do
     let(:facet_data) do
       ['1492-1619', 3, '1215-1776', 5, '1865-1865', 4]
     end
-    let(:earliest_start_year) { controller.counts_by_year_ranges_from_facet_data(facet_data)[1] }
-    let(:latest_end_year) { controller.counts_by_year_ranges_from_facet_data(facet_data)[2] }
+    subject(:counts_by_year) { controller.counts_by_year_ranges_from_facet_data(facet_data, start_range: nil, end_range: nil) }
+    let(:earliest_start_year) { counts_by_year[1] }
+    let(:latest_end_year) { counts_by_year[2] }
     it "returns expected values" do
       expect(earliest_start_year).to be 1215
       expect(latest_end_year).to be 1865
+    end
+    context "unbounded data" do
+      let(:facet_data) do
+        ['1492-1619', 3, '1215-1776', 5, '1865-1865', 4]
+      end
     end
     context "malformed data" do
       let(:facet_data) do

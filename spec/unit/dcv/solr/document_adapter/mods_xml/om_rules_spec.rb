@@ -29,7 +29,7 @@ describe Dcv::Solr::DocumentAdapter::ModsXml, type: :unit do
         context "that represent a range with partial 'u' characters" do
           let(:xml_src) { fixture( File.join("mods", "mods-dates-with-some-u-characters.xml") ) }
           it "replaces 'u' characters with zeroes when they're part of, but not all of, a year's digits" do
-            expect(subject["lib_date_year_range_si"]).to eql '1870-1900'
+            expect(subject["lib_date_year_range_si"]).to eql '1870-1999'
           end
         end
         context "that encode the end date with all 'u' characters" do
