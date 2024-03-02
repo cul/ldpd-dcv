@@ -58,6 +58,61 @@ class BytestreamsController < ApplicationController
     render json: resource_doc, layout: false
   end
 
+  def content_options
+    @response, @document = fetch(params[:catalog_id])
+    resource_doc = resources_for_document(@document, false).detect {|x| x[:id].split('/')[-1] == params[:bytestream_id]}
+    deny_download = resource_doc.nil?
+    if @document.nil? || deny_download
+      render status: :not_found, plain: "resource not found"
+      return
+    end
+
+    unless can?(Ability::ACCESS_ASSET, @document)
+      render status: (current_user ? :forbidden : :unauthorized), plain: (current_user ? 'forbidden' : 'unauthorized')
+      return
+    end
+
+    headers = {}
+    headers["Allow"] = "OPTIONS, GET, HEAD"
+    headers['Accept-Ranges'] = 'bytes' # Inform client that we accept range requests
+
+    options 204, headers
+  end
+
+  def content_head
+    @response, @document = fetch(params[:catalog_id])
+    resource_doc = resources_for_document(@document, false).detect {|x| x[:id].split('/')[-1] == params[:bytestream_id]}
+    deny_download = resource_doc.nil?
+    if @document.nil? || deny_download
+      render status: :not_found, plain: "resource not found"
+      return
+    end
+
+    unless can?(Ability::ACCESS_ASSET, @document)
+      render status: (current_user ? :forbidden : :unauthorized), plain: (current_user ? 'forbidden' : 'unauthorized')
+      return
+    end
+
+    headers = {}
+    headers["Last-Modified"] = @document['system_modified_dtsi'].present? ?
+      DateTime.parse(@document['system_modified_dtsi']).httpdate : Time.now.httpdate
+
+    ds_parms = {pid: params[:catalog_id], dsid: params[:bytestream_id]}
+
+    # Get connection to Fedora
+    repo = ActiveFedora::Base.connection_for_pid(ds_parms[:pid])
+    ds = Cul::Hydra::Fedora.ds_for_opts(ds_parms)
+
+    # Get size, label and mimetype for this datastream
+    content_disposition = datastream_content_disposition(ds)
+    headers["Content-Disposition"] = content_disposition if content_disposition
+    headers[:content_type] = datastream_content_type(ds)
+
+    headers['Accept-Ranges'] = 'bytes' # Inform client that we accept range requests
+    headers['Content-Length'] = datastream_content_length(ds, repo, ds_parms)
+    head 200, headers
+  end
+
   def content
     @response, @document = fetch(params[:catalog_id])
     resource_doc = resources_for_document(@document, false).detect {|x| x[:id].split('/')[-1] == params[:bytestream_id]}
@@ -70,9 +125,11 @@ class BytestreamsController < ApplicationController
     unless can?(Ability::ACCESS_ASSET, @document)
       render status: (current_user ? :forbidden : :unauthorized), plain: (current_user ? 'forbidden' : 'unauthorized')
       return
-    end 
+    end
 
-    response.headers["Last-Modified"] = (DateTime.parse(@document['system_modified_dtsi']) || Time.now).httpdate
+    response.headers["ETag"] = Time.now.httpdate
+    response.headers["Last-Modified"] = @document['system_modified_dtsi'].present? ?
+      DateTime.parse(@document['system_modified_dtsi']).httpdate : response.headers["ETag"]
 
     ds_parms = {pid: params[:catalog_id], dsid: params[:bytestream_id]}
 
@@ -81,24 +138,10 @@ class BytestreamsController < ApplicationController
     ds = Cul::Hydra::Fedora.ds_for_opts(ds_parms)
 
     # Get size, label and mimetype for this datastream
-    size = params[:file_size] || params['file_size']
-    size ||= ds.dsSize
-    if size.blank? || size == 0
-      # Get size of this datastream if we haven't already.  Note: dsSize property won't work for external datastreams
-      # From: https://github.com/samvera/rubydora/blob/1e6980aa1ae605677a5ab43df991578695393d86/lib/rubydora/datastream.rb#L423-L428
-      repo.datastream_dissemination(ds_parms.merge(method: :head)) do |resp|
-        if content_length = resp['Content-Length']
-          size = content_length.to_i
-        else
-          size = resp.body.length
-        end
-      end
-    end
-    label = ds.dsLabel.present? ? ds.dsLabel.split('/').last : 'file'
-    if label
-      response.headers["Content-Disposition"] = label_to_content_disposition(label,(params['download'].to_s == 'true'))
-    end
-    response.headers["Content-Type"] = ds.mimeType
+    size = datastream_content_length(ds, repo, ds_parms)
+    content_disposition = datastream_content_disposition(ds)
+    response.headers["Content-Disposition"] = content_disposition if content_disposition
+    response.headers["Content-Type"] = datastream_content_type(ds)
 
     # Handle range requests
     response.headers['Accept-Ranges'] = 'bytes' # Inform client that we accept range requests
@@ -137,12 +180,38 @@ class BytestreamsController < ApplicationController
     end
   end
 
+  def datastream_content_length(ds, repo, ds_parms)
+    size = params[:file_size] || params['file_size']
+    size ||= ds.dsSize
+    if size.blank? || size == 0
+      # Get size of this datastream if we haven't already.  Note: dsSize property won't work for external datastreams
+      # From: https://github.com/samvera/rubydora/blob/1e6980aa1ae605677a5ab43df991578695393d86/lib/rubydora/datastream.rb#L423-L428
+      repo.datastream_dissemination(ds_parms.merge(method: :head)) do |resp|
+        if content_length = resp['Content-Length']
+          size = content_length.to_i
+        else
+          size = resp.body.length
+        end
+      end
+    end
+    size
+  end
+
+  def datastream_content_disposition(ds)
+    label = ds.dsLabel.present? ? ds.dsLabel.split('/').last : 'file'
+    label_to_content_disposition(label,(params['download'].to_s == 'true')) if label
+  end
+
   # translate a label into a rfc5987 encoded header value
   # see also http://tools.ietf.org/html/rfc5987#section-4.1
   def label_to_content_disposition(label,attachment=false)
     value = attachment ? 'attachment; ' : 'inline'
     value << "; filename*=utf-8''#{label.gsub(' ','%20').gsub(',','%2C')}"
     value
+  end
+
+  def datastream_content_type(ds)
+    ds&.mimeType
   end
 
   # shims from Blacklight 6 controller fetch to BL 7 search service

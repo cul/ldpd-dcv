@@ -229,6 +229,8 @@ Rails.application.routes.draw do
     get 'token' => 'bytestreams#token'
     get 'probe' => 'bytestreams#probe'
   end
+  match '/catalog/:catalog_id/bytestreams/:bytestream_id/content', to: 'bytestreams#content_head', via: :head
+  match '/catalog/:catalog_id/bytestreams/:bytestream_id/content', to: 'bytestreams#content_options', via: :options
 
   get ':layout/:id/details' => 'details#show', as: :details
   get ':layout/*id/embed' => 'details#embed', as: :embed, constraints: Dcv::Routes::DOI_ID_CONSTRAINT
