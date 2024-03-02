@@ -3,7 +3,7 @@ module Dcv::Resources::RelsIntBehavior
   METADATA_DSIDS = ['descMetadata','rightsMetadata', 'accessControlMetadata'].freeze
   def resources_for_document(document=@document, use_preferred=true)
     model = document['active_fedora_model_ssi']
-    profile = document['object_profile_ssm'].first
+    profile = Array(document['object_profile_ssm']).first
     profile = profile ? JSON.load(profile) : {}
     ds_profiles = profile["datastreams"]
 
@@ -15,7 +15,7 @@ module Dcv::Resources::RelsIntBehavior
         next unless is_resource_datastream(dsid) && ds_props.present?
         mime_type = ds_props['dsMIME']
         next if mime_type =~ /jp2$/
-        label = ds_props["dsLabel"].split('/').last
+        label = ds_props["dsLabel"].split('/').last if ds_props["dsLabel"]
         results[dsid].merge!( {
           id: dsid, title: label,
           mime_type: ds_props["dsMIME"],
@@ -24,7 +24,7 @@ module Dcv::Resources::RelsIntBehavior
       end
       # override the basic metadata if RELS-INT was indexed
       streams = document['rels_int_profile_tesim'] ?
-        JSON.load(document['rels_int_profile_tesim'][0]) :
+        JSON.load(Array(document['rels_int_profile_tesim'])[0]) :
         {}
       streams.each do |k,v|
         dsid = k.to_s.split('/').last
@@ -45,7 +45,7 @@ module Dcv::Resources::RelsIntBehavior
         })
       end
       # remove the content link for image files; no TIFF resources
-      if document['dc_type_ssm'].present? && document['dc_type_ssm'].include?('StillImage')
+      if document['dc_type_ssm'].present? && Array(document['dc_type_ssm']).include?('StillImage')
         results.delete('content')
       end
       if use_preferred && Dcv::Utils::UrlUtils.preferred_content_bytestream(document, /\.pdf$/i) != 'content'
