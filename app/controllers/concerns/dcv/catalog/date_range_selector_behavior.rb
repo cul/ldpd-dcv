@@ -178,6 +178,7 @@ module Dcv::Catalog::DateRangeSelectorBehavior
     end
 
     year_range_facet_values.each do |val|
+      next unless val
       start_year, end_year, count = val
       start_year = start_of_range if start_year.nil? || start_of_range > start_year
       end_year = end_of_range if end_year.nil? || end_of_range < end_year
