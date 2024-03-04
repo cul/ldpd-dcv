@@ -4,6 +4,7 @@ describe BytestreamsController, type: :unit do
 	let(:controller) { described_class.new }
 
 	let(:fedora_pid) { 'test:gr' }
+	let(:bytestream_id) { 'content' }
 	let(:rubydora_repository) do
 		Rubydora::Repository.new({}, SingleObjectFcrApi.new(foxml))
 	end
@@ -14,14 +15,14 @@ describe BytestreamsController, type: :unit do
 	let(:foxml) { fixture("foxml/#{fedora_pid.sub(':','_')}.xml").read }
 	let(:solr_adapter) { Dcv::Solr::DocumentAdapter::ActiveFedora(active_fedora_object) }
 	let(:solr_doc) { solr_adapter.to_solr }
-
-	let(:params) {
-		ActionController::Parameters.new(
-			catalog_id: fedora_pid,
-			bytestream_id: "content"
-		).permit!
+	let(:permitted_params) {
+		{ catalog_id: fedora_pid, bytestream_id: bytestream_id }
 	}
-	let(:request_double) { instance_double('ActionDispatch::Request') }
+	let(:params) {
+		ActionController::Parameters.new(permitted_params).permit!
+	}
+	let(:request_headers) { Hash.new }
+	let(:request_double) { instance_double('ActionDispatch::Request', headers: request_headers) }
 	let(:current_ability) { instance_double(Ability) }
 
 	before do
@@ -33,7 +34,7 @@ describe BytestreamsController, type: :unit do
 		allow(controller).to receive(:params).and_return(params)
 		allow(controller).to receive(:request).and_return(request_double)
 		allow(controller).to receive(:current_ability).and_return(current_ability)
-		allow(controller).to receive(:fetch).and_return([nil, solr_doc])
+		allow(controller).to receive(:fetch).and_return([nil, SolrDocument.new(solr_doc)])
 		allow(controller).to receive(:bytestream_content_url).and_return("/")
 	end
 
@@ -44,8 +45,8 @@ describe BytestreamsController, type: :unit do
 		before do
 			allow(current_ability).to receive(:can?).and_return(true)
 			allow(controller).to receive(:datastream_content_length).and_return content_length
-			allow(controller).to receive(:datastream_content_type).and_return content_type
-			allow(controller).to receive(:datastream_content_disposition).and_return content_disposition
+			allow(controller).to receive(:document_content_type).and_return content_type
+			allow(controller).to receive(:document_content_disposition).and_return content_disposition
 		end
 		describe '#content_head' do
 			let(:expected_headers) do
@@ -72,6 +73,44 @@ describe BytestreamsController, type: :unit do
 			it "returns headers" do
 				expect(controller).to receive(:options).with(204, hash_including(expected_headers))
 				controller.content_options
+			end
+		end
+	end
+	describe '#content' do
+		let(:response_double) { instance_double('ActionDispatch::Response', headers: response_headers) }
+		let(:response_headers) { Hash.new }
+		let(:expected_redirect) { "/repository_download/localhost:9080/fedora/objects/#{fedora_pid}/datastreams/#{bytestream_id}/content" }
+		before do
+			allow(controller).to receive(:response).and_return(response_double)
+			allow(controller).to receive(:render).with(body: nil)
+			allow(current_ability).to receive(:can?).and_return(true)
+		end
+		it "sets internal proxy headers" do
+			controller.content
+			expect(response_headers).to include('X-Accel-Redirect' => expected_redirect)
+		end
+	end
+	describe "#object_profile" do
+		let(:ds_parms) { nil }
+		before do
+			controller.instance_variable_set(:@document, SolrDocument.new(solr_doc))
+		end
+		it "supports ds MIME inspection" do
+			expect(controller.document_content_type).to eql("image/tiff")
+		end
+		it "supports ds SIZE inspection" do
+			expect(controller.datastream_content_length(ds_parms)).to eql(11082)
+		end
+		context 'with a labelled bytestream' do
+			let(:bytestream_id) { 'thumbnail' }			
+			let(:permitted_params) {
+				{ catalog_id: fedora_pid, bytestream_id: bytestream_id, download: 'true' }
+			}
+			it "supports ds MIME inspection" do
+				expect(controller.document_bytestream_filename).to eql("CCITT_2.jpg")
+			end
+			it "supports content Content-Disposition" do |variable|
+				expect(controller.document_content_disposition).to eql("attachment; filename*=utf-8''CCITT_2.jpg")
 			end
 		end
 	end

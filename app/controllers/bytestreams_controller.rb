@@ -99,17 +99,13 @@ class BytestreamsController < ApplicationController
 
     ds_parms = {pid: params[:catalog_id], dsid: params[:bytestream_id]}
 
-    # Get connection to Fedora
-    repo = ActiveFedora::Base.connection_for_pid(ds_parms[:pid])
-    ds = Cul::Hydra::Fedora.ds_for_opts(ds_parms)
-
     # Get size, label and mimetype for this datastream
-    content_disposition = datastream_content_disposition(ds)
+    content_disposition = document_content_disposition
     headers["Content-Disposition"] = content_disposition if content_disposition
-    headers[:content_type] = datastream_content_type(ds)
+    headers[:content_type] = document_content_type || datastream_content_type(ds_parms)
 
     headers['Accept-Ranges'] = 'bytes' # Inform client that we accept range requests
-    headers['Content-Length'] = datastream_content_length(ds, repo, ds_parms)
+    headers['Content-Length'] = datastream_content_length(ds_parms)
     head 200, headers
   end
 
@@ -133,85 +129,90 @@ class BytestreamsController < ApplicationController
 
     ds_parms = {pid: params[:catalog_id], dsid: params[:bytestream_id]}
 
-    # Get connection to Fedora
-    repo = ActiveFedora::Base.connection_for_pid(ds_parms[:pid])
-    ds = Cul::Hydra::Fedora.ds_for_opts(ds_parms)
-
-    # Get size, label and mimetype for this datastream
-    size = datastream_content_length(ds, repo, ds_parms)
-    content_disposition = datastream_content_disposition(ds)
+    content_disposition = document_content_disposition
     response.headers["Content-Disposition"] = content_disposition if content_disposition
-    response.headers["Content-Type"] = datastream_content_type(ds)
-
-    # Handle range requests
+    response.headers["Content-Type"] = document_content_type || datastream_content_type(ds_parms)
     response.headers['Accept-Ranges'] = 'bytes' # Inform client that we accept range requests
-    length = size # no length specified by default
-    content_headers_for_fedora = {}
-    success = 200
-    if request.headers['Range'].present?
-      # Example Range header value: "bytes=18022400-37581888"
-      range_matchdata = request.headers['Range'].match(/bytes=(\d+)-(\d+)*/)
-      if range_matchdata
-        from = range_matchdata.captures[0].to_i
-        to = size - 1 # position for full size assumed by default
-        if range_matchdata.captures.length > 1 && range_matchdata.captures[1].present?
-          to = range_matchdata.captures[1].to_i
-        end
-        length = (to - from) + 1 # Adding 1 because to and from are zero-indexed
-        success = 206
-        content_headers_for_fedora = {'Range' => "bytes=#{from}-#{to}"}
-        response.headers["Content-Range"] = "bytes #{from}-#{to}/#{size}"
-        response.headers["Cache-Control"] = 'no-cache'
-      end
+    response.headers['X-Accel-Buffering'] = 'off'
+    if params['download'].to_s == 'true'
+      response.headers['X-Accel-Redirect'] = x_accel_url(ds_content_url(params[:catalog_id], params[:bytestream_id]), document_bytestream_filename)
+    else
+      response.headers['X-Accel-Redirect'] = x_accel_url(ds_content_url(params[:catalog_id], params[:bytestream_id]))
     end
+    response.headers['X-Range'] = request.headers['Range'] if request.headers['Range'].present?
+    render body: nil
+  end
 
-    response.headers["Content-Length"] = length.to_s
-
-    # Rails 4 Streaming method
-    repo.datastream_dissemination(ds_parms.merge(:headers => content_headers_for_fedora)) do |resp|
-      response.status = success
-      begin
-        resp.read_body do |seg|
-          response.stream.write seg
-        end
-      ensure
-        response.stream.close
-      end
+  def object_profile
+    return unless @document
+    @object_profile ||= begin
+      object_profile_src = Array(@document[:object_profile_ssm]).join
+      JSON.load(object_profile_src) unless object_profile_src.blank?
     end
   end
 
-  def datastream_content_length(ds, repo, ds_parms)
+  def datastream_content_length(ds_parms)
     size = params[:file_size] || params['file_size']
-    size ||= ds.dsSize
+    size ||= object_profile&.dig('datastreams', params[:bytestream_id], 'dsSize')
     if size.blank? || size == 0
+      doc_size = Array(@document&.fetch(:extent_ssim, nil)).first if params[:bytestream_id] == 'content'
+      return doc_size.to_i if /^\d+/ === doc_size
+
+      # Get connection to Fedora
+      repo = ActiveFedora::Base.connection_for_pid(ds_parms[:pid])
+      ds = Cul::Hydra::Fedora.ds_for_opts(ds_parms)
+
       # Get size of this datastream if we haven't already.  Note: dsSize property won't work for external datastreams
       # From: https://github.com/samvera/rubydora/blob/1e6980aa1ae605677a5ab43df991578695393d86/lib/rubydora/datastream.rb#L423-L428
       repo.datastream_dissemination(ds_parms.merge(method: :head)) do |resp|
         if content_length = resp['Content-Length']
           size = content_length.to_i
-        else
-          size = resp.body.length
         end
       end
     end
     size
   end
 
-  def datastream_content_disposition(ds)
-    label = ds.dsLabel.present? ? ds.dsLabel.split('/').last : 'file'
+  def document_bytestream_filename
+    dsLabel = object_profile&.dig('datastreams', params[:bytestream_id], 'dsLabel')
+    dsLabel.present? ? dsLabel.split('/').last : 'file'
+  end
+
+  def document_content_disposition
+    label = document_bytestream_filename
     label_to_content_disposition(label,(params['download'].to_s == 'true')) if label
+  end
+
+  def ds_content_url(fedora_pid, dsid)
+    Rails.application.config_for(:fedora)[:url] + '/objects/' + fedora_pid + '/datastreams/' + dsid + '/content'
+  end
+
+  # Downloading of files is handed off to nginx to improve performance.
+  # Uses the x-accel-redirect header in combination with nginx config location
+  # syntax `repository_download` to have nginx proxy the download.
+  # See https://www.nginx.com/resources/wiki/start/topics/examples/x-accel/
+  # See http://kovyrin.net/2010/07/24/nginx-fu-x-accel-redirect-remote/
+  def x_accel_url(url, filename = nil)
+    uri = "/repository_download/#{url.gsub(/https?\:\/\//, '')}"
+    return uri unless filename
+    uri << "?#{filename}"
   end
 
   # translate a label into a rfc5987 encoded header value
   # see also http://tools.ietf.org/html/rfc5987#section-4.1
   def label_to_content_disposition(label,attachment=false)
-    value = attachment ? 'attachment; ' : 'inline'
+    value = attachment ? 'attachment' : 'inline'
     value << "; filename*=utf-8''#{label.gsub(' ','%20').gsub(',','%2C')}"
     value
   end
 
-  def datastream_content_type(ds)
+  def datastream_content_type(ds_parms)
+    ds = Cul::Hydra::Fedora.ds_for_opts(ds_parms)
     ds&.mimeType
+  end
+
+  def document_content_type
+    object_profile&.dig('datastreams', params[:bytestream_id], 'dsMIME')
   end
 
   # shims from Blacklight 6 controller fetch to BL 7 search service
