@@ -50,7 +50,6 @@ XML
 		@ng_xml.xpath("//foxml:datastream", NS).each do |ds|
 			response << "<datastreamProfile pid=\"#{@pid}\" dsID=\"#{ds['ID']}\">\n"
 			response << "<dsState>#{ds['STATE']}</dsState>"
-			response << "<dsLabel>#{ds['LABEL']}</dsLabel>"
 			response << "<dsControlGroup>#{ds['CONTROL_GROUP']}</dsControlGroup>"
 			response << "<dsVersionable>#{ds['VERSIONABLE']}</dsVersionable>"
 			response << "<dsInfoType/>"
@@ -60,6 +59,7 @@ XML
 				response << "<dsMIME>#{dsVersion['MIMETYPE']}</dsMIME>\n"
 				response << "<dsFormatURI>#{dsVersion['FORMAT_URI']}</dsFormatURI>\n"
 				response << "<dsSize>#{ds_content_size(dsVersion, ds['CONTROL_GROUP'])}</dsSize>\n"
+				response << "<dsLabel>#{dsVersion['LABEL']}</dsLabel>"
 				response << "<dsLocation>#{@pid}+#{ds['ID']}+#{dsVersion['ID']}</dsLocation>\n"
 			end
 			response << "<dsLocationType/>\n"
