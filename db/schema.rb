@@ -42,8 +42,8 @@ ActiveRecord::Schema.define(version: 2023_03_30_172525) do
   create_table "scope_filters", force: :cascade do |t|
     t.string "filter_type"
     t.string "value"
-    t.integer "scopeable_id"
     t.string "scopeable_type"
+    t.integer "scopeable_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -129,4 +129,7 @@ ActiveRecord::Schema.define(version: 2023_03_30_172525) do
     t.index ["uid"], name: "index_users_on_uid"
   end
 
+  add_foreign_key "nav_links", "sites"
+  add_foreign_key "site_pages", "sites"
+  add_foreign_key "site_text_blocks", "site_pages"
 end
