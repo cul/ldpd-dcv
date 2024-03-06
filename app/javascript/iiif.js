@@ -1,10 +1,10 @@
-import Mirador from '@columbia-libraries/mirador/src';
-import miradorDownloadPlugins from '@columbia-libraries/mirador/src/plugins/mirador-downloaddialog';
-import canvasLinkPlugin from '@columbia-libraries/mirador/src/plugins/mirador-canvaslink';
-import canvasRelatedLinksPlugin from '@columbia-libraries/mirador/src/plugins/mirador-canvasRelatedLinks'
-import citationSidebar from '@columbia-libraries/mirador/src/plugins/mirador-citations';
-import videoJSPlugin from '@columbia-libraries/mirador/src/plugins/mirador-videojs';
-import viewXmlPlugin from '@columbia-libraries/mirador/src/plugins/mirador-viewXml';
+import Mirador from '@columbia-libraries/mirador/dist/es/src';
+import miradorDownloadPlugins from '@columbia-libraries/mirador/dist/es/src/plugins/mirador-downloaddialog';
+import canvasLinkPlugin from '@columbia-libraries/mirador/dist/es/src/plugins/mirador-canvaslink';
+import canvasRelatedLinksPlugin from '@columbia-libraries/mirador/dist/es/src/plugins/mirador-canvasRelatedLinks'
+import citationSidebar from '@columbia-libraries/mirador/dist/es/src/plugins/mirador-citations';
+import videoJSPlugin from '@columbia-libraries/mirador/dist/es/src/plugins/mirador-videojs';
+import viewXmlPlugin from '@columbia-libraries/mirador/dist/es/src/plugins/mirador-viewXml';
 
 $(document).ready(function(){
   var manifestUrl = $('#mirador').data('manifest');
