@@ -1067,9 +1067,10 @@
     classnames "^2.3.1"
     tslib "~2.6.2"
 
-"@columbia-libraries/mirador@cul/mirador#dlc_plugins_migration", mirador@cul/mirador#dlc_plugins_migration:
-  version "3.3.1-3789.2"
-  resolved "https://codeload.github.com/cul/mirador/tar.gz/decff6c8eef69e1fdddc8bc7e6bf2c051fe823ee"
+"@columbia-libraries/mirador@3.3.1-3789.4":
+  version "3.3.1-3789.4"
+  resolved "https://registry.yarnpkg.com/@columbia-libraries/mirador/-/mirador-3.3.1-3789.4.tgz#b2f045e1df453f3d51a8802da50ce72606bebbbb"
+  integrity sha512-7Eqvj96Ckekg6xoQon1gzswubkF12VpoRuNQfXWJ92Di/qdcNuwmElTlluYxtxpMEqw8GucZqsp/2R6vtcVGxg==
   dependencies:
     "@emotion/cache" "^11.11.0"
     "@emotion/react" "^11.10.6"
@@ -1118,7 +1119,6 @@
     stylis-plugin-rtl "^2.1.1"
     url "^0.11.0"
     uuid "^8.1.0 || ^9.0.0"
-    video.js "^7.17.0"
     whatwg-fetch "^3.6.20"
 
 "@discoveryjs/json-ext@^0.5.0":
