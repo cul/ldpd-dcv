@@ -200,13 +200,6 @@ class Iiif::PresentationsController < ApplicationController
     render json: collection.as_json(include: [:items, :metadata, :context]).compact
   end
 
-  def cors_headers
-    # CORS support: Any site should be able to do a cross-domain info request
-    response.headers['Access-Control-Allow-Origin'] = '*'
-    response.headers['Content-Type'] = 'application/ld+json'
-    expires_in(1.day, public: true)
-  end
-
   # return a hash subset of the request params
   def select_params(*keys)
     keys.map { |k| [k, params[k]]}.to_h.compact

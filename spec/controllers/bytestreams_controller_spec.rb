@@ -49,6 +49,12 @@ describe BytestreamsController, type: :unit do
 			allow(controller).to receive(:document_content_disposition).and_return content_disposition
 		end
 		describe '#content_head' do
+			let(:response_double) { instance_double('ActionDispatch::Response', headers: response_headers) }
+			let(:response_headers) { Hash.new }
+			before do
+				allow(controller).to receive(:expires_in)
+				allow(controller).to receive(:response).and_return(response_double)
+			end
 			let(:expected_headers) do
 				{
 					"Accept-Ranges"=>"bytes",
@@ -81,6 +87,7 @@ describe BytestreamsController, type: :unit do
 		let(:response_headers) { Hash.new }
 		let(:expected_redirect) { "/repository_download/localhost:9080/fedora/objects/#{fedora_pid}/datastreams/#{bytestream_id}/content" }
 		before do
+			allow(controller).to receive(:expires_in)
 			allow(controller).to receive(:response).and_return(response_double)
 			allow(controller).to receive(:render).with(body: nil)
 			allow(current_ability).to receive(:can?).and_return(true)

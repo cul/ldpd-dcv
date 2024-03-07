@@ -52,7 +52,7 @@ class BytestreamsController < ApplicationController
   end
 
   def show
-    cors_headers
+    cors_headers(content_type: 'application/json')
     @response, @document = fetch(params[:catalog_id])
     resource_doc = resources_for_document.detect {|x| x[:id].split('/')[-1] == params[:id]} || {}
     render json: resource_doc, layout: false
@@ -75,6 +75,7 @@ class BytestreamsController < ApplicationController
     headers = {}
     headers["Allow"] = "OPTIONS, GET, HEAD"
     headers['Accept-Ranges'] = 'bytes' # Inform client that we accept range requests
+    headers['Access-Control-Allow-Origin'] = '*'
 
     options 204, headers
   end
@@ -103,6 +104,7 @@ class BytestreamsController < ApplicationController
     content_disposition = document_content_disposition
     headers["Content-Disposition"] = content_disposition if content_disposition
     headers[:content_type] = document_content_type || datastream_content_type(ds_parms)
+    headers['Access-Control-Allow-Origin'] = '*'
 
     headers['Accept-Ranges'] = 'bytes' # Inform client that we accept range requests
     headers['Content-Length'] = datastream_content_length(ds_parms)
@@ -131,7 +133,7 @@ class BytestreamsController < ApplicationController
 
     content_disposition = document_content_disposition
     response.headers["Content-Disposition"] = content_disposition if content_disposition
-    response.headers["Content-Type"] = document_content_type || datastream_content_type(ds_parms)
+    cors_headers(content_type: document_content_type || datastream_content_type(ds_parms))
     response.headers['Accept-Ranges'] = 'bytes' # Inform client that we accept range requests
     response.headers['X-Accel-Buffering'] = 'off'
     if params['download'].to_s == 'true'
