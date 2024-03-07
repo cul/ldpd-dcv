@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
 
   include Dcv::Authenticated::AccessControl
+  include Dcv::CrossOriginRequests
 
   # Adds a few additional behaviors into the application controller
   include Blacklight::Controller

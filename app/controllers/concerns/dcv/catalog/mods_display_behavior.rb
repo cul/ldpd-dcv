@@ -12,6 +12,7 @@ module Dcv::Catalog::ModsDisplayBehavior
         elsif params[:type] == 'download'
           send_data(xml_content, :type=>"text/xml",:filename => params[:id].gsub(':', '_') + '.xml')
         else
+          cors_headers(content_type: 'text/xml')
           render xml: xml_content
         end
       else
