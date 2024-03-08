@@ -3,10 +3,14 @@
 module Iiif::Authz::V2::Bytestreams
   extend ActiveSupport::Concern
 
+  def request_origin(default = '*')
+    request.headers['Origin'] || params[:origin] || default
+  end
+
   # a proxy resource that redirects to actual content when permitted
   # this should be used as the resource in IIIF painting annotations with access restrictions
   def resource
-    cors_headers
+    cors_headers(allow_origin: request_origin, allow_credentials: request_origin(false))
     response.headers["Cache-Control"] = "no-cache, no-store"
     @response, @document = fetch(params[:catalog_id])
     if @document.nil?
@@ -26,8 +30,14 @@ module Iiif::Authz::V2::Bytestreams
 
   # IIIF Authorization 2.0 Probe Service
   # https://iiif.io/api/auth/2.0/#probe-service-response
+  def probe_options
+    cors_headers(allow_origin: request_origin, allow_credentials: request_origin(false), allow_headers: ['Authorization'])
+    response.headers["Cache-Control"] = "no-cache, no-store"
+    render body: nil
+  end
+
   def probe
-    cors_headers
+    cors_headers(allow_origin: request_origin, allow_credentials: request_origin(false))
     response.headers["Cache-Control"] = "no-cache, no-store"
     @response, @document = fetch(params[:catalog_id])
     resource_doc = resources_for_document(@document, false).detect {|x| x[:id].split('/')[-1] == params[:bytestream_id]}
@@ -36,7 +46,9 @@ module Iiif::Authz::V2::Bytestreams
       return
     end
     remote_ip = DCV_CONFIG.dig('media_streaming','wowza', 'client_ip_override') || request.remote_ip
-    probe_response = Iiif::Authz::V2::ProbeService::Response.new(document: @document, bytestream_id: params[:bytestream_id], ability_helper: self, route_helper: self, remote_ip: remote_ip)
+    probe_response = Iiif::Authz::V2::ProbeService::Response.new(
+      document: @document, bytestream_id: params[:bytestream_id], ability_helper: self, route_helper: self,
+      remote_ip: remote_ip, authorization: request.headers['Authorization'])
     render json: probe_response.to_h
   end
 
@@ -52,7 +64,6 @@ module Iiif::Authz::V2::Bytestreams
   # IIIF Authorization 2.0 Token Service
   # https://iiif.io/api/auth/2.0/#access-token-service
   def token
-    cors_headers
     response.headers["Cache-Control"] = "no-cache, no-store"
     @response, @document = fetch(params[:catalog_id])
     message = {
@@ -62,8 +73,10 @@ module Iiif::Authz::V2::Bytestreams
     }
     status = 400
     if can?(Ability::ACCESS_ASSET, @document)
+      expires_in = DCV_CONFIG.dig('media_streaming','wowza', 'token_lifetime').to_i
+      remote_ip = DCV_CONFIG.dig('media_streaming','wowza', 'client_ip_override') || request.remote_ip
       message.merge!({
-        "accessToken" => Iiif::Authz::V2::AccessTokenService.token(params[:catalog_id]),
+        "accessToken" => Iiif::Authz::V2::AccessTokenService.token(params[:catalog_id], remote_ip, Time.now.utc.to_i, DCV_CONFIG.dig('iiif','authz','shared_secret')),
         "expiresIn" => DCV_CONFIG.dig('media_streaming','wowza', 'token_lifetime').to_i
       })
       status = 200
@@ -88,9 +101,11 @@ module Iiif::Authz::V2::Bytestreams
       end
     end
     if params[:format] == 'json'
+      cors_headers(content_type: "application/json", allow_origin: request_origin, allow_credentials: request_origin(false))
       render json: message, status: status
     else
-      render Iiif::Authz::AccessTokenResponseComponent.new(message: message, origin: params[:origin]), layout: false, content_type: "text/html"
+      cors_headers(content_type: "text/html", allow_origin: request_origin)
+      render Iiif::Authz::AccessTokenResponseComponent.new(message: message, origin: request_origin), layout: false, content_type: "text/html"
     end
   end
 end
