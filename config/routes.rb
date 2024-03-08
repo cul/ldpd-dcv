@@ -228,6 +228,7 @@ Rails.application.routes.draw do
     get 'access' => 'bytestreams#access'
     get 'token' => 'bytestreams#token'
     get 'probe' => 'bytestreams#probe'
+    match 'probe', to: 'bytestreams#probe_options', via: :options
   end
   match '/catalog/:catalog_id/bytestreams/:bytestream_id/content', to: 'bytestreams#content_head', via: :head
   match '/catalog/:catalog_id/bytestreams/:bytestream_id/content', to: 'bytestreams#content_options', via: :options

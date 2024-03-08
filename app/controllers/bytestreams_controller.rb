@@ -17,6 +17,8 @@ class BytestreamsController < ApplicationController
   include Iiif::Authz::V2::Bytestreams
   #caches_action :content, :expires_in => 7.days
 
+  protect_from_forgery except: [:content_options]
+
   before_action :require_user, only: [:access]
 
   respond_to :json

@@ -1,16 +1,17 @@
 class Iiif::Authz::V2::ProbeService::Response
   include Dcv::AccessLevels
-  attr_reader :document, :ability_helper, :route_helper, :bytestream_id
+  attr_reader :document, :route_helper, :bytestream_id
 
-  def initialize(document:, bytestream_id:, ability_helper:, route_helper:, remote_ip:)
+  def initialize(document:, bytestream_id:, ability_helper:, route_helper:, remote_ip:, authorization: nil)
     @document = document
     @ability_helper = ability_helper
     @route_helper = route_helper
     @remote_ip = remote_ip
     @bytestream_id = bytestream_id
+    @authorization = authorization
   end
 
-  def redirect_location_properties
+  def redirect_location_properties(ability_helper=@ability_helper)
     if (@document.fetch('dc_type_ssm',[]) & ['Sound', 'Audio', 'MovingImage', 'Video']).present?
       return {
         status: 302,
@@ -22,10 +23,20 @@ class Iiif::Authz::V2::ProbeService::Response
     return { status: 302, location: route_helper.bytestream_content_url(catalog_id: @document.id, bytestream_id: preferred_bytestream_id) }
   end
 
+  def token_authorizer
+    @token_authorizer ||= TokenAuthorizer.new(authorization: @authorization, remote_ip: @remote_ip)
+  end
+
+  def token_authorized?
+    token_authorizer.can_access_asset?(@document) 
+  end
+
   def to_h
     probe_response = IIIF_TEMPLATES['v2_probe_response'].deep_dup
     if @ability_helper.can?(Ability::ACCESS_ASSET, @document)
       probe_response.merge!(redirect_location_properties)
+    elsif token_authorized?
+      probe_response.merge!(redirect_location_properties(token_authorizer))
     else
       # not authorized
       if @document.fetch('access_control_levels_ssim',[]).include?(ACCESS_LEVEL_AFFILIATION) && !@ability_helper.current_user
@@ -36,5 +47,22 @@ class Iiif::Authz::V2::ProbeService::Response
     end
     probe_response[:id] = route_helper.bytestream_probe_url(catalog_id: @document.id, bytestream_id: bytestream_id)
     probe_response
+  end
+  class TokenAuthorizer
+    def initialize(authorization:, remote_ip:)
+      @authorization = authorization
+      @remote_ip = remote_ip
+    end
+
+    def can_access_asset?(asset_doc)
+      return false unless @authorization
+      auth_type, auth_value = @authorization.split(' ')
+      return false unless auth_type.downcase == 'bearer'
+      secret = DCV_CONFIG.dig('iiif','authz','shared_secret')
+
+      token_data = Iiif::Authz::V2::AccessTokenService.parse(auth_value, @remote_ip, secret)
+      return true if token_data['aud'] == asset_doc.id
+      token_data['aud'] == asset_doc.doi_identifier  
+    end
   end
 end
