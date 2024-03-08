@@ -5,7 +5,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     uid = [:name, :uni, :uid].map { |key| request.env['omniauth.auth'][:info][key] }.detect(&:present?)
     email = request.env['omniauth.auth'][:info][:email]
     current_user ||= User.find_or_create_by!(uid: uid, email: email, provider: :developer)
-
+    session['cul.roles'] = Rails.application.config_for(:dcv)[:debug_roles]
     sign_in_and_redirect current_user, event: :authentication
   end
 
