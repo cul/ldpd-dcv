@@ -1,6 +1,6 @@
 <div id="child-viewer" class="inner">
   <p id="child-viewer-subtitle">&nbsp;</p>
-  <%= render Dcv::GenericResource::CarouselComponent.new(document: document, parent_title: document.title) %>
+  <%= render Dcv::ContentAggregator::ImageResourceComponent.new(document: document, local_downloads: false) %>
 
   <%- use_unavailable_image_placeholder = false %>
   <% unless defined?(use_unavailable_image_placeholder) && use_unavailable_image_placeholder == false %>
