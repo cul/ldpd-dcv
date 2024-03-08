@@ -63,11 +63,15 @@
     "worker-loader": "^3.0.8",
     "xml-js": "^1.6.11"
   },
+  "resolutions": {
+    "@archival-iiif/viewer-react/openseadragon": "4.0.0",
+    "@columbia-libraries/mirador/openseadragon": "4.0.0"
+  },
   "peerDependencies": {
+    "@columbia-libraries/mirador": "3.3.1-3789.4",
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
     "dnd-core": "^16.0.1",
-    "@columbia-libraries/mirador": "3.3.1-3789.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
