@@ -26,7 +26,7 @@ class Iiif::Authz::V2::LocalAccessService
     access_service['id'] = @id unless @profile == EXTERNAL
     case @profile
     when ACTIVE
-      access_service['label'] = { 'en' => ["Login to #{I18n.t('blacklight.application_name')}"] }
+      access_service['label'] = { 'en' => ["#{I18n.t('blacklight.application_name')} Users"] }
     when KIOSK
       access_service['label'] = { 'en' => ["#{I18n.t('blacklight.application_name')} Reading Rooms"] }
     when EXTERNAL
