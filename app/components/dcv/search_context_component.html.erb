@@ -3,6 +3,4 @@
   <div class="col col-md-3 text-center text-md-left">
     <%= render Dcv::SearchContext::PaginationComponent.new(search_context: @search_context, search_session: @search_session) %>
   </div>
-  <div class="d-inline-block col-md-6 text-center"><h3 class="h4"><%= @document.title %></h3></div>
-  <%= render Dcv::Document::Ui::ToolsComponent.new(document: @document) -%>
 </div>
