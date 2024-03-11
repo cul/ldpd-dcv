@@ -59,7 +59,7 @@ $(document).ready(function(){
           en: { openCompanionWindow_citation: "Citation" },
         }
       },
-      [...miradorDownloadPlugins].concat([...canvasLinkPlugin]).concat([...viewXmlPlugin]).concat([...citationSidebar]).concat([...videoJSPlugin]).concat([...canvasRelatedLinksPlugin]),
+      [...canvasLinkPlugin].concat([...viewXmlPlugin]).concat([...citationSidebar]).concat([...videoJSPlugin]).concat([...canvasRelatedLinksPlugin]),
     );
   }
 });
