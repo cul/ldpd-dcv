@@ -54,6 +54,9 @@ $(document).ready(function(){
         },
         miradorDownloadPlugin: {
           restrictDownloadOnSizeDefinition: true,
+        },
+        translations: {
+          en: { openCompanionWindow_citation: "Citation" },
         }
       },
       [...miradorDownloadPlugins].concat([...canvasLinkPlugin]).concat([...viewXmlPlugin]).concat([...citationSidebar]).concat([...videoJSPlugin]).concat([...canvasRelatedLinksPlugin]),
