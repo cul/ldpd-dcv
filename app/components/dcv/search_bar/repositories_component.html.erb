@@ -2,6 +2,8 @@
   <%= render_hash_as_hidden_fields(@params.except(:q, :search_field, :repository_id, :qt, :page, :utf8, :format).tap { |p| p[:'f[content_availability][]'] = @content_availability if @content_availability }) %>
 
   <div class="input-group flex-fill">
+    <%= render Dcv::Response::CollapsiblePaginationComponent.new(response: helpers.instance_variable_get(:@response), theme: 'dcv_collapsible', outer_window: 1, window: 1 ) %>
+    <%= render Dcv::SearchContext::CollapsiblePaginationComponent.new(search_context: helpers.instance_variable_get(:@search_context), search_session: helpers.instance_variable_get(:@search_session)) %>
     <% unless search_fields.empty? %>
     <span class="input-group-prepend hidden"> <%# to be removed. might need hidde %>
       <label for="search_field" class="sr-only"><%= t('blacklight.search.form.search_field.label') %></label>
