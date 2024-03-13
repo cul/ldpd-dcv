@@ -33,3 +33,48 @@
 @import 'bootstrap/scss/spinners';
 @import 'bootstrap/scss/utilities';
 @import 'bootstrap/scss/print';
+
+/* override to prevent container resizing on collapse transition in BS 4.6 */
+.collapsing {
+	&.width {
+		height: 0;
+	}
+}
+/* make collapse toggles that are expanded look like active buttons */
+.btn-info[data-toggle='collapse'][aria-expanded='true'] {
+    color: color-yiq(darken(map-get($theme-colors, 'info'), 10%));
+    background-color: darken(map-get($theme-colors, 'info'), 10%);
+    @if $enable-gradients {
+      background-image: none; // Remove the gradient for the pressed/active state
+    }
+    border-color: darken(map-get($theme-border-colors, 'info'), 12.5%);
+
+    &:focus {
+      @if $enable-shadows and $btn-active-box-shadow != none {
+        @include box-shadow($btn-active-box-shadow, 0 0 0 $btn-focus-width rgba(mix(color-yiq(map-get($theme-colors, 'info')), $border, 15%), .5));
+      } @else {
+        // Avoid using mixin so we can pass custom focus shadow properly
+        box-shadow: 0 0 0 $btn-focus-width rgba(mix(color-yiq(map-get($theme-colors, 'info')), map-get($theme-border-colors, 'info'), 15%), .5);
+      }
+    }
+
+}
+
+.btn-secondary[data-toggle='collapse'][aria-expanded='true'] {
+    color: color-yiq(darken(map-get($theme-colors, 'secondary'), 10%));
+    background-color: darken(map-get($theme-colors, 'secondary'), 10%);
+    @if $enable-gradients {
+      background-image: none; // Remove the gradient for the pressed/active state
+    }
+    border-color: darken(map-get($theme-border-colors, 'secondary'), 12.5%);
+
+    &:focus {
+      @if $enable-shadows and $btn-active-box-shadow != none {
+        @include box-shadow($btn-active-box-shadow, 0 0 0 $btn-focus-width rgba(mix(color-yiq(map-get($theme-colors, 'secondary')), $border, 15%), .5));
+      } @else {
+        // Avoid using mixin so we can pass custom focus shadow properly
+        box-shadow: 0 0 0 $btn-focus-width rgba(mix(color-yiq(map-get($theme-colors, 'secondary')), map-get($theme-border-colors, 'secondary'), 15%), .5);
+      }
+    }
+
+}
