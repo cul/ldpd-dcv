@@ -10,7 +10,7 @@ template_key.gsub!("-","")
 	</nav>
 <% else %>
 	<nav class="navbar navbar-expand d-flex flex-md-row flex-sm-column" id="site-banner">
-		<a href="<%= repository_path(repository_key) %>" id="site-title" class="navbar-brand"><%= repository_physical_location(repository_key) %></a>
+		<a href="<%= repository_path(repository_key) %>" id="site-title" class="navbar-brand text-lg-left"><%= repository_physical_location(repository_key) %></a>
 		<%= render Dcv::SearchBar::RepositoriesComponent.new(
 			url: search_repository_catalog_path(repository_id: params[:repository_id]),
 			advanced_search_url: search_repository_catalog_path(repository_id: params[:repository_id], action: 'advanced_search'),
