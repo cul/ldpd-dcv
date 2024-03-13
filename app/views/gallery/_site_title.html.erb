@@ -1,5 +1,5 @@
 <div class="d-flex flex-column w-100">
-<a id="site-title" class="navbar-brand" href="<%= "/#{@subsite.slug}"%>"><%= @subsite.title.html_safe %></a>
+<a id="site-title" class="navbar-brand text-lg-left" href="<%= "/#{@subsite.slug}"%>"><%= @subsite.title.html_safe %></a>
 <%- if @subsite.alternative_title.present? -%>
 <small id="site-banner-subtitle"><%= @subsite.alternative_title %></small>
 <%- end -%>
