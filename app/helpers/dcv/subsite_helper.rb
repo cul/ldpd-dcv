@@ -90,8 +90,8 @@ module Dcv::SubsiteHelper
     end
   end
 
-  def search_mode_button(mode=:grid)
-    classes = 'btn result-type-button'
+  def search_mode_button(mode=:grid, classes: [])
+    classes = 'btn result-type-button ' + classes.join(' ')
     classes << ((mode == subsite_search_mode) ? ' btn-success' : ' btn-outline-secondary')
     icon_classes = (mode == :list) ? 'fa fa-th-list' : 'fa fa-th'
     content_tag(:button, type: 'button', class: classes, :"data-toggle" => "tooltip", "aria-label": "#{mode} view", title: "#{mode} view", id: "#{mode}-mode") do
