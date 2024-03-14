@@ -21,7 +21,7 @@ NYRE Brochure Collection site receives the <strong>Worldwide Books Award for Ele
    <div class="col-md-4 order-3">
       <div class="home inner">
          <h2 class="h5 text-uppercase">BROWSE THE COLLECTION</h2>
-         <%= render partial: 'facets', locals: { hide_heading: true } %>
+          <%= render(Dcv::Response::FacetsComponent.new(blacklight_config: (blacklight_config if defined?(blacklight_config)), hide_heading: true, response: @response)) %>
          <hr class="hidden-md hidden-lg">
       </div> <!--/.inner-->
    </div><!--/-->
