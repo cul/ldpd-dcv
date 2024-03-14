@@ -1,25 +1,10 @@
-<div id="sortAndPerPage" class="border-bottom-0 d-flex justify-content-between">
-  <div id="search-result-pagination">
-  <%= render(partial: "paginate_compact", object: @response) if has_search_parameters? %>
-  </div>
+<div id="sortAndPerPage" class="border-bottom-0 d-flex justify-content-end">
   <div id="search-index-tools">
     <div id="search-widgets" class="btn-group btn-group-sm float-right search-index-tool-group">
       <%= render :partial => 'sort_widget' %>
       <%= render :partial => 'per_page_widget' %>
       <%= render :partial => 'view_type_group' %>
     </div>
-    <div id="view-options" class="hidden-xs btn-group btn-group-sm float-right search-index-tool-group">
-      <%= search_mode_button(:grid) %>
-      <%= search_mode_button(:list) %>
-      <% if controller.subsite_config.dig('display_options', 'show_other_sources') && @response.params[:q].present? %>
-        <button id="extended-search-mode" type="button" class="btn btn-outline-secondary result-type-button" title="Search Other Sources"><i class="fa fa-link"></i></button>
-      <% end %>
-    </div>
     <%= render Dcv::Search::Ui::CsvExportComponent.new %>
-    <% if controller.subsite_config.dig('date_search_configuration', 'show_timeline') %>
-      <div id="date-toggle" class="btn-group btn-group-sm float-right search-index-tool-group">
-        <button id="date-graph-toggle" type="button" class="btn btn-outline-secondary result-type-button" data-toggle="tooltip" aria-label="timeline view" title="timeline view"><i class="fa fa-bar-chart"></i></button>
-      </div>
-    <% end %>
   </div>
 </div>

@@ -1,13 +1,12 @@
 <div class="row">
-	<div id="nav" class="col-md-12">
-		<%= render 'sort_and_per_page' %>
-	</div>
 	<div id="sidebar" class="col-md-3">
 		<%= render 'search_sidebar' %>
 	</div>
 
 	<div id="content" class="col-md-9">
-
+		<div id="nav" class="col-md-12">
+			<%= render 'sort_and_per_page' %>
+		</div>
 		<div class="inner">
 
 		<% unless has_search_parameters? %>
@@ -21,7 +20,7 @@
 				<%= render Dcv::Search::OpenSearchMetadataComponent.new(response: @response) %>
 			<% end -%>
 
-			<%= render 'search_header' %>
+			<%= render(Blacklight::Response::SpellcheckComponent.new(response: @response)) %>
 
 			<h2 class="sr-only"><%= t('blacklight.search.search_results') %></h2>
 
