@@ -22,7 +22,7 @@
 			<%- end -%>
 			<%- if @subsite.show_facets -%>
 				<%- @response ||= controller.load_facet_response -%>
-				<%= render partial: 'facets', locals: { hide_heading: true } %>
+				<%= render(Dcv::Response::FacetsComponent.new(blacklight_config: (blacklight_config if defined?(blacklight_config)), hide_heading: true, response: @response)) %>
 			<%- end -%>
 			<hr class="hidden-md hidden-lg">
 		</div> <!--/.inner-->
