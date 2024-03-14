@@ -10,7 +10,7 @@
           <hr>
 
           <h6 class="align-left">FIND BY</h6>
-          <%= render partial: 'facets', locals: { hide_heading: true } %>
+          <%= render(Dcv::Response::FacetsComponent.new(blacklight_config: (blacklight_config if defined?(blacklight_config)), hide_heading: true, response: @response)) %>
           <div class="clearfix"></div>
        </div>
     </div>
