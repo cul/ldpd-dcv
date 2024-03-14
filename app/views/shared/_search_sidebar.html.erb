@@ -1,3 +1,4 @@
+<%= render(Dcv::ConstraintsComponent.new(render_headers: true, search_state: convert_to_search_state(controller.params != params ? params : search_state))) %>
 <%= render(Dcv::Response::FacetsComponent.new(blacklight_config:( blacklight_config if defined?(blacklight_config)), response: @response)) %>
 <% if map_search_settings_for_subsite.fetch('show_sidebar', false) %>
   <div class="inner" style="margin-top:1em;">

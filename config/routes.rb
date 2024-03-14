@@ -109,6 +109,7 @@ Rails.application.routes.draw do
           end
           get "#{nested_key}/:id" => "#{nested_key}#show", as: "#{nested_key}_show", constraints: Dcv::Routes::LEGACY_ID_CONSTRAINT
           get "#{nested_key}/*id" => "#{nested_key}#show", as: "#{nested_key}_show_doi", constraints: Dcv::Routes::DOI_ID_CONSTRAINT
+          get nested_key, to: "#{nested_key}#home", as: "#{nested_key}_home"
         end
       end
     end
@@ -120,6 +121,7 @@ Rails.application.routes.draw do
     get "#{subsite_key}/:id" => "#{subsite_key}#show", as: "#{subsite_key}_show", constraints: Dcv::Routes::LEGACY_ID_CONSTRAINT
     get "#{subsite_key}/*id" => "#{subsite_key}#show", as: "#{subsite_key}_show_doi", constraints: Dcv::Routes::DOI_ID_CONSTRAINT
     get "#{subsite_key}/:slug" => "#{subsite_key}#page", as: "#{subsite_key}_page", constraints: lambda { |req| !['edit', 'pages', 'permissions', 'scope_filters', 'search_configuration'].include?(req.params[:slug]) }
+    get subsite_key, to: "#{subsite_key}#home", as: "#{subsite_key}_home"
   end
 
   get '/restricted' => 'home#restricted', as: :restricted
@@ -139,6 +141,7 @@ Rails.application.routes.draw do
         get "#{subsite_key}/:id" => "#{subsite_key}#show", as: "#{subsite_key}_show", constraints: Dcv::Routes::LEGACY_ID_CONSTRAINT
         get "#{subsite_key}/*id" => "#{subsite_key}#show", as: "#{subsite_key}_show_doi", constraints: Dcv::Routes::DOI_ID_CONSTRAINT
         get "#{subsite_key}/:slug" => "#{subsite_key}#page", as: "#{subsite_key}_page", constraints: lambda { |req| !['edit', 'pages', 'permissions', 'scope_filters', 'search_configuration'].include?(req.params[:slug]) }
+        get subsite_key, to: "#{subsite_key}#home", as: "#{subsite_key}_home"
       end
       get "sites" => "sites#index"
       get '/:slug', controller: 'sites', action: 'home', as: 'site'
