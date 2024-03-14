@@ -12,24 +12,27 @@ $url_dcv_small: image-url('/images/dcv/1836760843_267e9c947f_o-sm-b.jpg');
 	  text-decoration:none;
 	}
 }
-
-#site-banner {
-	// only in root page
-	background-image: url('https://toolkit.library.columbia.edu/v3/img/campus-and-city-image.jpg');
-	background-blend-mode: multiply;
-	background-color: change-color($primary, $alpha: 0.5);
-	@media (min-width:576px) {
-		background-color: change-color($primary, $alpha: 0.25);
-	}
-		@media (prefers-color-scheme: dark) {
-			background-color: change-color($primary, $alpha: 0.5);
+.home {
+	#site-banner {
+		// only in root page
+		background-image: url('https://toolkit.library.columbia.edu/v3/img/campus-and-city-image.jpg');
+		background-blend-mode: multiply;
+		background-color: change-color($primary, $alpha: 0.5);
+		@media (min-width:576px) {
+			background-color: change-color($primary, $alpha: 0.25);
 		}
-	background-size: cover;
-	color: $white;
-	text-align: center;
-	> a {
-		text-shadow: $black 0 0 0.3em;
+			@media (prefers-color-scheme: dark) {
+				background-color: change-color($primary, $alpha: 0.5);
+			}
+		background-size: cover;
+		color: $white;
+		text-align: center;
+		> a {
+			text-shadow: $black 0 0 0.3em;
+		}
 	}
+}
+#site-banner {
 	#site-banner-inner {
 	}
 	#site-banner-left {
