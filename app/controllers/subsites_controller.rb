@@ -167,6 +167,9 @@ class SubsitesController < ApplicationController
     end
   end
 
+  def home
+  end
+
   # GET /subsite/:id
   def show
     params[:format] ||= 'html'

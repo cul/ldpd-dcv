@@ -1,9 +1,0 @@
-<div class="inner">
-  <%= render partial: 'facets', locals: {hide_refine_heading: (defined?(hide_refine_heading) ? hide_refine_heading : false),
-  no_id_attr: (defined?(no_id_attr) ? no_id_attr : false)} %>
-</div>
-<% if map_search_settings_for_subsite.fetch('show_sidebar', false) %>
-  <div class="inner hidden-sm hidden-xs" style="margin-top:1em;">
-    <%= render 'mapped_results_sidebar' %>
-  </div>
-<% end %>
