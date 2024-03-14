@@ -59,5 +59,34 @@ module Dcv
       remove_path_ = url_for(helpers.search_state.params_for_search.except(:durst_favorites))
       Blacklight::ConstraintLayoutComponent.new(label: 'Show', value: "Seymour's Favorites", remove_path: remove_path_, classes: "btn-group-sm")
     end
+
+    def facet_item_presenters
+      return to_enum(:facet_item_presenters) unless block_given?
+
+      Deprecation.silence(Blacklight::SearchState) do
+        @search_state.filters.map do |facet|
+          next if helpers.should_render_field?(facet.config, {})
+          facet.values.map do |val|
+            next if val.blank?
+
+            if val.is_a?(Array)
+              yield inclusive_facet_item_presenter(facet.config, val, facet.key) if val.any?(&:present?)
+            else
+              yield facet_item_presenter(facet.config, val, facet.key)
+            end
+          end
+        end
+      end
+    end
+
+    def clause_presenters
+      return to_enum(:clause_presenters) unless block_given?
+
+      @search_state.clause_params.each do |key, clause|
+        field_config = helpers.blacklight_config.search_fields[clause[:field]]
+        yield Blacklight::ClausePresenter.new(key, clause, field_config, helpers)
+      end
+    end
+
   end
 end
