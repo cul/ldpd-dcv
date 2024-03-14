@@ -1,8 +1,8 @@
 <div class="row">
-	<div id="nav" class="col-md-12">
+	<div id="sidebar" class="col-md-3">
+	<div id="nav">
 		<%= render 'sort_and_per_page' %>
 	</div>
-	<div id="sidebar" class="col-md-3">
 		<%= render 'search_sidebar' %>
 	</div>
 
@@ -40,8 +40,6 @@
 					<%= render 'extended_search_sources' if show_other_sources? %>
 				</div>
 			</div>
-
-			<%= render 'results_pagination' %>
 
 			<% if show_other_sources? %>
 				<div class="text-right">
