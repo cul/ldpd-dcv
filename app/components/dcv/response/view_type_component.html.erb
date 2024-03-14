@@ -1,0 +1,13 @@
+<div class="view-type hidden-xs btn-group btn-group-sm search-index-tool-group">
+  <span class="sr-only visually-hidden"><%= t('blacklight.search.view_title') %></span>
+  <div class="view-type-group btn-group">
+    <%= helpers.search_mode_button(:grid, classes: ['btn-sm']) %>
+    <%= helpers.search_mode_button(:list, classes: ['btn-sm']) %>
+    <% if show_other_sources? && @response.params[:q].present? %>
+      <button id="extended-search-mode" type="button" class="btn btn-sm btn-outline-secondary result-type-button" title="Search Other Sources"><i class="fa fa-link"></i></button>
+    <% end %>
+    <% if timeline_views? %>
+      <button id="date-graph-toggle" type="button" class="btn btn-sm btn-outline-secondary result-type-button" data-toggle="tooltip" aria-label="timeline view" title="timeline view"><i class="fa fa-bar-chart"></i></button>
+    <% end %>
+  </div>
+</div>
