@@ -48,7 +48,7 @@ DLC VERSION: <%= IO.read(Rails.root.to_s+'/VERSION') %> -->
 <%- js_packs << 'ohsynchronizer' if params[:action] == 'synchronizer' %>
 <%= javascript_pack_tag *js_packs %>
 
-<% if Rails.env == 'dcv_prod' %>
+<% if Rails.env == 'dlc_prod' %>
 	<!-- Google tag (gtag.js) -->
 	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-796949-25"></script>
 	<script>
