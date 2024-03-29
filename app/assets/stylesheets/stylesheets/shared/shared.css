@@ -17,3 +17,10 @@ body.empty {
 #q-filter {
   display: none;
 }
+
+/** collapse UI heleprs */
+.btn[aria-expanded="true"] > .toggle-pressed { display: none }
+.btn[aria-expanded="true"] > .toggle-unpressed { display: inline-block;  }
+
+.btn[aria-expanded="false"] > .toggle-pressed { display: inline-block }
+.btn[aria-expanded="false"] > .toggle-unpressed { display: none;  }

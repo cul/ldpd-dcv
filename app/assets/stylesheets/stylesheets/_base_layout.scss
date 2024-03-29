@@ -267,13 +267,12 @@ a {
 		padding-bottom: 0;
 		margin-top: 0;
 		margin-bottom: 0;
-		background-color: $primary;
-		color:map-get($theme-text-colors, 'primary');
-		border-color: map-get($theme-border-colors, 'primary');
 		select {
-			background-color: inherit;
+			background-color: $primary;
+			color:map-get($theme-text-colors, 'primary');
+			border-color: map-get($theme-border-colors, 'primary');
 		}
-		.btn {
+		.btn-left {
 			border-top-left-radius:0.25rem;
 			border-bottom-left-radius:0.25rem;
 		}

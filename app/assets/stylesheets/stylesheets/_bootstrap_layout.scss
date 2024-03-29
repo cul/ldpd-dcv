@@ -36,9 +36,11 @@
 
 /* override to prevent container resizing on collapse transition in BS 4.6 */
 .collapsing {
-	&.width {
-		height: 0;
-	}
+  &.collapseSearch {
+    -webkit-transition: none;
+    transition: none;  
+  }
+	height: 0;
 }
 /* make collapse toggles that are expanded look like active buttons */
 .btn-info[data-toggle='collapse'][aria-expanded='true'] {

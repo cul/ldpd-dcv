@@ -20,5 +20,22 @@ module Dcv::SearchBar
       end
       URI::HTTP.build(path: path, query: query.join('&')).request_uri
     end
+
+    def pagination_component
+      return @pagination_component unless @pagination_component.nil?
+      @pagination_component = begin
+        _comp = Dcv::Response::CollapsiblePaginationComponent.new(
+          response: helpers.instance_variable_get(:@response), theme: 'dcv_collapsible',
+          outer_window: 1, window: 1
+        )
+        unless _comp.will_render?(controller: controller, helpers: helpers)
+          _comp = Dcv::SearchContext::CollapsiblePaginationComponent.new(
+            search_context: helpers.instance_variable_get(:@search_context),
+            search_session: helpers.instance_variable_get(:@search_session)
+          )
+        end
+        _comp
+      end
+    end
   end
 end
