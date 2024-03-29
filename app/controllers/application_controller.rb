@@ -98,4 +98,9 @@ class ApplicationController < ActionController::Base
   def on_page_not_found
     render(status: :not_found, plain: "Page Not Found")
   end
+
+  # this is overridden in controller that mixin Blacklight::Catalog
+  def has_search_parameters?
+    false
+  end
 end
