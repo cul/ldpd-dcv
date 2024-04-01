@@ -11,7 +11,7 @@ class Dcv::SearchState < Blacklight::SearchState
 		if doc.is_a?(SolrDocument) && doc.site_result?
 			slug = doc.unqualified_slug
 			nested = slug =~ /\//
-			controller_name = doc.has_restriction? ? 'restricted/sites' : 'sites'
+			controller_name = doc.has_restriction? ? '/restricted/sites' : '/sites'
 			{ 'controller' => controller_name, 'action' => 'home', 'slug' => slug }
 		else
 			super(doc, options)

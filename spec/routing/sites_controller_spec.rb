@@ -29,4 +29,13 @@ describe SitesController, :type => :routing do
       expect(site_path('foo')).to eql("/foo")
     end
   end
+  describe "url_for" do
+    let(:routing_params) do
+      { action: "home", controller: "/sites", slug: "ohac", repository_id: "NNC-RB", only_path: true }
+    end
+    let(:expexted_path) { '/ohac?repository_id=NNC-RB' }
+    it do
+      expect(url_for(routing_params)).to eql(expexted_path)
+    end
+  end
 end
