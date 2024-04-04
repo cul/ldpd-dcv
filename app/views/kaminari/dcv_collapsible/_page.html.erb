@@ -7,5 +7,5 @@
     per_page:      number of items to fetch per page
     remote:        data-remote
 -%>
-<% tag_class = "page-item btn btn-outline-secondary rounded-0#{' active' if page.current? }" -%>
+<% tag_class = "page-item btn bg-body btn-outline-info rounded-0#{' active' if page.current? }" -%>
  <%= link_to number_with_delimiter(page.to_s), url, {class: tag_class, remote: remote, rel: (page.next? ? 'next' : page.prev? ? 'prev' : nil)} %>

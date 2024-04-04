@@ -1,32 +1,56 @@
+@import '../palettes/monochrome';
+@import 'bootstrap/scss/mixins';
 //colors
 $color_21: #ddd;
 $splash: #591300;
-$splash-color: #fff;
-$splash-hover: #6a2400;
+$splash-border: $splash;
+$splash-color: color-yiq($splash);
+$splash-hover-background: lighten($splash, 7.5%);
+$splash-hover-border: lighten($splash, 10%);
+$splash-active-background: lighten($splash, 10%);
+$splash-active-border: lighten($splash, 12.5%);
 .durst {
-	.btn-primary, #site-banner .search-btn {
-		background: $splash !important;
-		color: $splash-color;
-		&:hover {
-			background: $splash-hover !important;
+	.btn-splash {
+		@include button-variant($splash, $splash-border, $splash-hover-background, $splash-hover-border, $splash-active-background, $splash-active-border);
+	}
+	.btn-outline-splash {
+		@include button-outline-variant($splash, $splash-color, $splash, $splash,);
+	}
+	.show > .btn-splash, .show > .btn-outline-splash {
+		// we reproduce this because the button-variant mixin builds the .show selector above .durst
+		&.dropdown-toggle {
+			color: color-yiq($splash-active-background);
+			@include gradient-bg($splash-active-background);
+			@if $enable-gradients {
+				background-image: none; // Remove the gradient for the pressed/active state
+			}
+			border-color: $splash-active-border;
+
+			&:focus {
+				@if $enable-shadows and $btn-active-box-shadow != none {
+					@include box-shadow($btn-active-box-shadow, 0 0 0 $btn-focus-width rgba(mix($splash-color, $splash-border, 15%), .5));
+			 	} @else {
+					// Avoid using mixin so we can pass custom focus shadow properly
+					box-shadow: 0 0 0 $btn-focus-width rgba(mix($splash-color, $splash-border, 15%), .5);
+				}
+			}
 		}
 	}
+
 	#main-container {
 		a {
 			&:not(.btn, .page-link, [role='button']) {
 				color: $splash;	
 				&:hover {
-					color: $splash-hover;
+					color: lighten($splash, 10%);
 				}			
 			}
 		}
-		.inner {
-			&.home {
-				#facets {
-					margin-left:0;
-					margin-right:0;
-					border:0;
-				}
+		.home {
+			#facets {
+				margin-left:0;
+				margin-right:0;
+				border:0;
 			}
 		}
 	}

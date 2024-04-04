@@ -42,6 +42,15 @@
   }
 	height: 0;
 }
+
+.btn-splash {
+  @include button-variant($primary, $primary, darken($primary, 7.5%), darken($primary, 10%), darken($primary, 10%), darken($primary, 12.5%));
+}
+
+.btn-outline-splash {
+  @include button-outline-variant($primary, color-yiq($primary), $primary, $primary);
+}
+
 /* make collapse toggles that are expanded look like active buttons */
 .btn-info[data-toggle='collapse'][aria-expanded='true'] {
     color: color-yiq(darken(map-get($theme-colors, 'info'), 10%));

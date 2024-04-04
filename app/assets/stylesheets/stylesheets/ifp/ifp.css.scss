@@ -1,10 +1,16 @@
 @import '../palettes/monochrome';
 @import '../signature/fonts';
+@import 'bootstrap/scss/mixins';
 
 //colors
-$splash: #2a778f;
 $gray: #888;
-$splash-color: #fff;
+$splash: #2a778f;
+$splash-border: $splash;
+$splash-color: color-yiq($splash);
+$splash-hover-background: lighten($splash, 7.5%);
+$splash-hover-border: lighten($splash, 10%);
+$splash-active-background: lighten($splash, 10%);
+$splash-active-border: lighten($splash, 12.5%);
 
 //urls
 $url_logo: url("ifp/IFP-square-logo.png");
@@ -18,6 +24,32 @@ $url_flag_sprite: url("ifp/office-flags/country_flag_folders_sm.png");
 }
 
 .ifp {
+	.btn-splash {
+		@include button-variant($splash, $splash);
+	}
+	.btn-outline-splash {
+		@include button-outline-variant($splash);
+	}
+	.show > .btn-splash, .show > .btn-outline-splash {
+		// we reproduce this because the button-variant mixin builds the .show selector above .ifp
+		&.dropdown-toggle {
+			color: color-yiq($splash-active-background);
+			@include gradient-bg($splash-active-background);
+			@if $enable-gradients {
+				background-image: none; // Remove the gradient for the pressed/active state
+			}
+			border-color: $splash-active-border;
+
+			&:focus {
+				@if $enable-shadows and $btn-active-box-shadow != none {
+					@include box-shadow($btn-active-box-shadow, 0 0 0 $btn-focus-width rgba(mix($splash-color, $splash-border, 15%), .5));
+			 	} @else {
+					// Avoid using mixin so we can pass custom focus shadow properly
+					box-shadow: 0 0 0 $btn-focus-width rgba(mix($splash-color, $splash-border, 15%), .5);
+				}
+			}
+		}
+	}
 	#secondary-nav {
 	}
 	#main-container {
