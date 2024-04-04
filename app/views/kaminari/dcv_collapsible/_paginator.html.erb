@@ -15,22 +15,22 @@
    As of Kaminari 0.15, this paginator doesn't have access to the original collection/scope, so it can't render the page entries info directly.
 -%>
 <div class="input-group-prepend">
-  <button class="btn btn-info btn-left" type="button" data-toggle="collapse" data-target=".collapseSearch" aria-expanded="false" aria-controls="collapseQuery" aria-pressed="false">
+  <button class="btn btn-secondary border-info rounded-left" type="button" data-toggle="collapse" data-target=".collapseSearch" aria-expanded="false" aria-controls="collapsePag collapseQuery" aria-pressed="false">
     <i class="previous fa fa-exchange-alt toggle-unpressed" title="Navigate search results" data-toggle="tooltip" data-original-title="Navigate search results"></i>
     <i class="previous fa fa-search toggle-pressed" title="Start a quick search" data-toggle="tooltip" data-original-title="Start a quick search"></i>
   </button>
 </div>
-<div class="collapse show input-group-prepend collapseSearch p-0 flex-fill" id="collapsePag">
+<div class="collapse show input-group-prepend p-0 flex-fill collapseSearch" id="collapsePag">
   <% if total_pages > 1 -%>
     <%# #render checks if total_pages > 1, so we can't put our fallback 
     in here .. -%>
     <%= paginator.render do -%>
       <%= first_page_tag %>
-      <span class="btn btn-outline-secondary rounded-0" style="pointer-events:none;"><%= page_entries_info %></span>
+      <span class="btn bg-body btn-outline-info rounded-0" style="pointer-events:none;"><%= page_entries_info %></span>
       <%= prev_page_tag %>
       <%= next_page_tag %>
     <% end -%>
   <% else -%>
-    <span class="btn btn-outline-secondary rounded-0" style="pointer-events:none;"><%= page_entries_info %></span>
+    <span class="btn bg-body btn-outline-info rounded-right" style="pointer-events:none;"><%= page_entries_info %></span>
   <% end -%>
 </div>

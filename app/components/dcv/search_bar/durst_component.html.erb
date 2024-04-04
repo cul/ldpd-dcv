@@ -6,27 +6,29 @@
 
     <div class="input-group flex-sm-row flex-md-fill">
       <%= render pagination_component %>
-      <div class="input-group-prepend collapseSearch flex-fill<%= ' p-0 collapse' if pagination_component.render?%>" id="collapseQuery">
-      <input type="hidden" name="search_field" value="all_text_teim">
-        <button id="format_type_select" type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Formats
-          <span class="caret"></span>
-          <span class="sr-only">Toggle Dropdown</span>
-        </button>
-            <ul id="format_filter" class="dropdown-menu dropdown-menu-left" role="menu">
-              <li>Limit search to:</li>
-              <% durst_format_list.each do | key, display_label | %>
-                <li><input type="checkbox" name="f[lib_format_sim][]" <%= (params[:f] && params[:f]['lib_format_sim'] && params[:f]['lib_format_sim'].include?(key)) ? 'checked="checked"' : '' %> value="<%= key %>"> <%= display_label %></li>
-              <% end %>
-            </ul>
-      </div>
-      <label for="q" class="sr-only"><%= t('blacklight.search.form.q') %></label>
-      <%= text_field_tag :q, params[:q], :placeholder => (!query_has_constraints? ? 'Search Postcards, Maps, Photographs, Books, Etc&hellip;'.html_safe : 'Modify current search&hellip;'.html_safe), :class => "search_q q flex-fill", :id => "q", :tabindex => "1" %>
-      <div class="input-group-append">
-        <%= link_to '<i class="fa fa-remove"></i>'.html_safe, start_over_path, :title => 'Start Over', :class => 'btn btn-secondary reset-btn' if query_has_constraints? %>
-        <button class="btn btn-primary search-btn" type="submit">
-          <span class="hidden-xs"><%= (current_page?(root_url)? t('blacklight.search.form.submit') : '') %></span>
-          <span class="fa fa-search"></span>
-        </button>
+      <div class="input-group-prepend collapseSearch flex-fill p-0<%= ' collapse' if pagination_component.render?%>" id="collapseQuery" data-collapse-group="searchPag">
+        <input type="hidden" name="search_field" value="all_text_teim">
+        <div class="btn-group dropdown">
+          <button id="format_type_select" type="button" class="btn btn-splash dropdown-toggle" data-toggle="dropdown" aria-expanded="false" onclick="$(this).dropdown(); return false;" aria-controls="format_filter" aria-pressed="false" data-reference="parent">Formats
+            <span class="caret"></span>
+            <span class="sr-only">Toggle Dropdown</span>
+          </button>
+          <ul id="format_filter" class="dropdown-menu dropdown-menu-left hide" role="menu">
+            <li>Limit search to:</li>
+            <% durst_format_list.each do | key, display_label | %>
+              <li><input type="checkbox" name="f[lib_format_sim][]" <%= (params[:f] && params[:f]['lib_format_sim'] && params[:f]['lib_format_sim'].include?(key)) ? 'checked="checked"' : '' %> value="<%= key %>"> <%= display_label %></li>
+            <% end %>
+          </ul>
+        </div>
+        <label for="q" class="sr-only"><%= t('blacklight.search.form.q') %></label>
+        <%= text_field_tag :q, params[:q], :placeholder => (!query_has_constraints? ? 'Search Postcards, Maps, Photographs, Books, Etc&hellip;'.html_safe : 'Modify current search&hellip;'.html_safe), :class => "search_q q flex-fill bg-white", :id => "q", :tabindex => "1" %>
+        <div class="input-group-append">
+          <%= link_to '<i class="fa fa-remove"></i>'.html_safe, start_over_path, :title => 'Start Over', :class => 'btn btn-secondary reset-btn' if query_has_constraints? %>
+          <button class="btn btn-splash" type="submit">
+            <span class="hidden-xs"><%= (current_page?(root_url)? t('blacklight.search.form.submit') : '') %></span>
+            <span class="fa fa-search"></span>
+          </button>
+        </div>
       </div>
     </div>
 
