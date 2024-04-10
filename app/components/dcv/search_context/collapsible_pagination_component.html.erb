@@ -1,5 +1,8 @@
 <div class="input-group-prepend">
-  <button class="btn btn-secondary border-info rounded-left" type="button" data-toggle="collapse" data-target=".collapseSearch" aria-expanded="true" aria-controls="collapseQuery collapsePrevNext" aria-pressed="true"><i class="previous fa fa-exchange-alt" title="Navigate search results" data-toggle="tooltip" data-original-title="Navigate search results"></i></button>
+  <button class="btn btn-secondary border-info rounded-left" type="button" data-toggle="collapse" data-target=".collapseSearch" aria-expanded="true" aria-controls="collapseQuery collapsePrevNext" aria-pressed="true">
+    <i class="previous fa fa-exchange-alt toggle-unpressed" title="Navigate search results" data-toggle="tooltip" data-original-title="Navigate search results"></i>
+    <i class="previous fa fa-search toggle-pressed" title="Start a quick search" data-toggle="tooltip" data-original-title="Start a quick search"></i>
+  </button>
 </div>
 <div class="p-0 collapse show input-group-prepend flex-fill collapseSearch" id="collapsePrevNext">
   <% if params[:return_to_filesystem].present? %>
