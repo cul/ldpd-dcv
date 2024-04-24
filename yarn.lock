@@ -1067,10 +1067,10 @@
     classnames "^2.3.1"
     tslib "~2.6.2"
 
-"@columbia-libraries/mirador@3.3.1-3789.7":
-  version "3.3.1-3789.7"
-  resolved "https://registry.yarnpkg.com/@columbia-libraries/mirador/-/mirador-3.3.1-3789.7.tgz#1f40681dc559885185cece894410b22af10db4d2"
-  integrity sha512-/Y70fgGTmdV1hFWmaNl2rk9X5if9N7HHEQAfmjo97D/PgZBRAgasyUEyFPM1tZQAOQtbqNhoyJNsNvPnS2lKAA==
+"@columbia-libraries/mirador@3.3.1-3789.8":
+  version "3.3.1-3789.8"
+  resolved "https://registry.yarnpkg.com/@columbia-libraries/mirador/-/mirador-3.3.1-3789.8.tgz#35e8201badf6429cbe6228706399a7a208fac8e2"
+  integrity sha512-BXAAgRzV9uo+DTSErgBhfE7jjj7NlbRHM6oWOLx0jFhu4dfBf18n62jb02e9rCLsOFsJXU0IP6Xgkc0Y6gQczQ==
   dependencies:
     "@emotion/cache" "^11.11.0"
     "@emotion/react" "^11.10.6"
