@@ -1,10 +1,19 @@
 manifest:
-  "@context": "http://iiif.io/api/presentation/3/context.json"
-  "type": "sc:Manifest"
-  "logo":
-    "id": "http://cdn.cul.columbia.edu/ldpd-toolkit/img/crown-bts-24x24.png"
-  sequences : []
+  "@context":
+    - "https://dlc.library.columbia.edu/schema/iiif/3/context.json"
+    - "http://iiif.io/api/presentation/3/context.json"
+  "type": "Manifest"
   structures : []
+  provider:
+    - "type": "Agent"
+      "logo":
+        "id": "http://cdn.cul.columbia.edu/ldpd-toolkit/img/crown-bts-24x24.png"
+      "partOf":
+        "id": "https://library.columbia.edu"
+        "type": "Agent"
+        "label":
+          en:
+            - Columbia University Libraries 
 canvas :
   "type" : "Canvas"
 painting_annotation :

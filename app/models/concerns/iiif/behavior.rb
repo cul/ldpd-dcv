@@ -19,5 +19,8 @@ module Iiif::Behavior
 		NO_NAV        = 'no-nav'
 		# Miscellaneous Behaviors
 		HIDDEN = 'hidden'
+		# CUL Behavior extensions
+		NO_DOWNLOAD = "no-download"
+		STREAMING = 'streaming'
 	end
 end

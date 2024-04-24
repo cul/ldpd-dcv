@@ -24,9 +24,10 @@ class Iiif::Canvas < Iiif::BaseResource
 
   def as_json(opts = {})
     canvas = IIIF_TEMPLATES['canvas'].deep_dup
-    canvas["@context"] = "http://iiif.io/api/presentation/3/context.json" if opts[:include]&.include?(:context)
+    canvas["@context"] = IIIF_CONTEXTS if opts[:include]&.include?(:context)
     canvas['id'] = id
     canvas['type'] = 'Canvas'
+    canvas['doi'] = doi_property if doi
     canvas['label'] = { en: [label.to_s] }
     canvas['thumbnail'] = [thumbnail]
     canvas["behavior"] = behaviors
@@ -40,11 +41,29 @@ class Iiif::Canvas < Iiif::BaseResource
     end
     canvas['items'] = [annotation_page.to_h]
     canvas['rendering'] = rendering
+    canvas['seeAlso'] = seeAlso
     canvas.compact
   end
 
   def behaviors
+    @behaviors ||= begin
+      _behaviors = @solr_document['iiif_behavior_ssim'].present? ? Array(@solr_document['iiif_behavior_ssim']) : []
+      _behaviors << Iiif::Behavior::V3::STREAMING if streamable?
+      _behaviors
+    end
     return Array(@solr_document['iiif_behavior_ssim']) if @solr_document['iiif_behavior_ssim'].present?
+  end
+
+  def streamable?
+    Iiif::Type::V3::STREAMABLE.include?(canvas_type)
+  end
+
+  def no_download_behavior?
+    if @solr_document['iiif_behavior_ssim'].present?
+      Array(@solr_document['iiif_behavior_ssim']).include?(Iiif::Behavior::NO_DOWNLOAD)
+    else
+      false
+    end
   end
 
   def dimensions
@@ -68,19 +87,27 @@ class Iiif::Canvas < Iiif::BaseResource
   end
 
   def rendering
+    []
+  end
+
+  def seeAlso
     values = []
     if has_datastream?('synchronized_transcript', @solr_document)
       st_id = route_helper.url_for({controller: '/catalog', action: 'synchronizer', id: @solr_document.id, mode: 'synchronized_transcript'})
       values << {
         id: st_id,
-        label: { en: ['View with Synchronized Transcript'] }
+        format: "text/html",
+        label: { en: ['View with Synchronized Transcript'] },
+        type: "Text"
       }
     end
     if has_datastream?('chapters', @solr_document)
       st_id = route_helper.url_for({controller: '/catalog', action: 'synchronizer', id: @solr_document.id, mode: 'chapters'})
       values << {
         id: st_id,
-        label: { en: ['View with Synchronized Index'] }
+        format: "text/html",
+        label: { en: ['View with Synchronized Index'] },
+        type: "Text"
       }
     end
     values if values.present?

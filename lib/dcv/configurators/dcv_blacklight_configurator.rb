@@ -115,8 +115,8 @@ class Dcv::Configurators::DcvBlacklightConfigurator
     config.add_show_field 'lib_name_ssm', label: 'Name', link_to_search: 'lib_name_sim', helper_method: :display_non_copyright_names_with_roles, if: :has_non_copyright_names?
     config.add_show_field 'title_display_ssm', label: 'Title'
     config.add_show_field 'alternative_title_ssm', :label => 'Other Titles'
-    config.add_show_field 'abstract_ssm', label: 'Abstract', helper_method: :expandable_past_400
-    config.add_show_field 'lib_collection_ssm', label: 'Collection Name', helper_method: :display_collection_with_links
+    config.add_show_field 'abstract_ssm', label: 'Abstract', helper_method: :expandable_past_400, iiif: false
+    config.add_show_field 'lib_collection_ssm', label: 'Collection Name', helper_method: :display_collection_with_links, iiif: false
     config.add_show_field 'archival_context_json_ss', label: 'Archival Context', helper_method: :display_archival_context, if: :has_archival_context?
     config.add_show_field 'location_shelf_locator_ssm', label: 'Shelf Location', unless: :has_archival_context?, archival_context_field: 'archival_context_json_ss'
     config.add_show_field 'accession_number_ssm', label: 'Accession Number'
@@ -132,7 +132,7 @@ class Dcv::Configurators::DcvBlacklightConfigurator
     config.add_show_field 'dynamic_notes', pattern: /lib_.*_notes_ssm/, label: :notes_label, helper_method: :expandable_past_250, unless: :is_excepted_dynamic_field?, except: ['lib_acknowledgment_notes_ssm'], join: false
     config.add_show_field 'language_language_term_text_ssim', :label => 'Language', :link_to_search => 'language_language_term_text_ssim'
     config.add_show_field 'table_of_contents_ssm', :label => 'Contents'
-    config.add_show_field 'lib_repo_short_ssim', label: 'Library Location', helper_method: :show_field_repository_to_facet_link, link_to_search: true
+    config.add_show_field 'lib_repo_short_ssim', label: 'Library Location', helper_method: :show_field_repository_to_facet_link, link_to_search: true, iiif: false
     config.add_show_field 'location_sublocation_ssm', :label => 'Department'
     config.add_show_field 'clio_ssim', label: 'Catalog Record', helper_method: :render_link_to_clio, join: false
     config.add_show_field 'lib_part_ssm', :label => 'Part'

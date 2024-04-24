@@ -24,18 +24,20 @@ class Iiif::Manifest < Iiif::BaseResource
     fields = []
     presenter = Dcv::ShowPresenter.new(@solr_document, @route_helper.view_context)
     presenter.fields_to_render do |name, field_config, field_presenter|
+      field_presenter.except_operations << Blacklight::Rendering::Join
       fields << {
-        label: { en: [field_config.label]},
+        label: { en: [field_presenter.label]},
         value: { en: Array(field_presenter.render) }
-      }
+      } unless field_config.iiif == false
     end
-    
-    if @solr_document['lib_repo_full_ssim'].present?
-      fields << {
-          label: { en: ['Location'] },
-          value: { en: Array(@solr_document['lib_repo_full_ssim']) }
-      }
+
+    if self.marcorg.present?
+      fields << self.marcorg
     end
+    if self.archival_collection.present?
+      fields << self.archival_collection
+    end
+
     descriptor_values = descriptors
     if descriptor_values.present?
       fields.unshift({
@@ -47,7 +49,7 @@ class Iiif::Manifest < Iiif::BaseResource
       more_at_url = route_helper.resolve_doi_url(registrant: registrant, doi: doi)
       fields.unshift({
         label: { en: ['More At'] },
-        value: { en: ["<a href=\"#{more_at_url}\" target=\"_blank\" rel=\"nofollow, noindex, noreferrer\">#{I18n.t("blacklight.application_name")}</a>"] }
+        value: { en: ["<a href=\"#{more_at_url}\" target=\"_blank\" rel=\"nofollow, noindex, noreferrer\">#{t("blacklight.application_name")}</a>"] }
       })
     elsif @solr_document.persistent_url
       fields.unshift({
@@ -95,11 +97,16 @@ class Iiif::Manifest < Iiif::BaseResource
   end
 
   def as_json(opts = {})
-    manifest = {}
-    manifest["@context"] = ["http://iiif.io/api/presentation/3/context.json"] if opts[:include]&.include?(:context)
+    manifest = IIIF_TEMPLATES['manifest'].deep_dup
+    manifest.delete("@context") unless opts[:include]&.include?(:context)
     manifest['id'] = @id
     manifest['type'] = 'Manifest'
+    manifest['doi'] = doi_property if doi
     manifest['label'] = label
+    manifest['provider'].first&.tap do |provider|
+      provider['id'] = @id.split('/')[0..2].join('/')
+      provider['label'] = { en: [I18n.t('blacklight.application_name')] }
+    end
     if opts[:include]&.include?(:metadata)
       manifest['summary'] = summary
       manifest['metadata'] = metadata
@@ -113,7 +120,7 @@ class Iiif::Manifest < Iiif::BaseResource
         }
       end
       if @solr_document['fedora_pid_uri_ssi']
-        (manifest["seeAlso"] ||= []) << {
+        (manifest["rendering"] ||= []) << {
           "id": route_helper.item_mods_url(id: @solr_document.id, format: 'xml'),
           "type": "Dataset",
           "label": { "en": [ "Bibliographic Description in MODS XML" ] },
@@ -121,6 +128,14 @@ class Iiif::Manifest < Iiif::BaseResource
           "schema": "http://www.loc.gov/mods/v3",
           "profile": "https://example.org/profiles/bibliographic"
         }
+      end
+      if self.archival_collection.present? && self.archival_collection[:seeAlso]&.first
+        (manifest["seeAlso"] ||= []) << self.archival_collection[:seeAlso].first.merge({
+          "type": "Text",
+          "label": { "en": [ "Finding Aid" ] },
+          "format": "text/html",
+          "profile": self.archival_collection[:profile]
+        })
       end
     end
     manifest['thumbnail'] = [thumbnail]
