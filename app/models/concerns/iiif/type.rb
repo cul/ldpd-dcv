@@ -6,6 +6,8 @@ module Iiif::Type
 		SOUND   = 'Sound'
 		TEXT    = 'Text'
 		VIDEO   = 'Video'
+		STREAMABLE = [SOUND, VIDEO].freeze
+
 		def self.for(dc_type)
 			case dc_type.to_s
 			when "StillImage"
