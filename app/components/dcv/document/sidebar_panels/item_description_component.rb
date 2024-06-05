@@ -10,6 +10,17 @@ module Dcv::Document::SidebarPanels
       @alignment = alignment
       @link_helpers = link_helpers
     end
+
+    def panel_classes
+      @panel_classes ||= begin
+        _pc = ['inner']
+        if @alignment != 'vertical'
+          _pc << 'mt-3' << 'border-0'
+        end
+        _pc
+      end
+    end
+
     def before_render
       @citation_presenter ||= helpers.citation_presenter(@document)
       @document_presenter ||= helpers.document_presenter(@document)
