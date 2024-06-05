@@ -1,5 +1,5 @@
-<div class="row" id="child_items">
-  <div class="col-md-12 ls-controls-dark">
+<div class="row mx-0" id="child_items">
+  <div class="col px-0 ls-controls-dark">
     <%= render partial: 'generic_resource/viewer_panel', locals: { document: document, configured_links: [:persistent, :mods] } %>
     <%= render Dcv::Document::SidebarPanels::ItemDescriptionComponent.new(document: document, alignment: 'horizontal', link_helpers: []) %>
   </div>
