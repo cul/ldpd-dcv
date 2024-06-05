@@ -1,4 +1,4 @@
-<div class="inner" <%= "style=\"margin-top:1em;\"".html_safe if @alignment != 'vertical' %>>
+<%= content_tag(:div, class: panel_classes) do -%>
 	<dl class="dl-<%= @alignment %>">
 		<% @document_presenter.fields_to_render.each do |solr_fname, field, field_presenter| %>
 			<dt class="blacklight-<%= solr_fname.parameterize %>"><%= field_presenter.label('show') %></dt>
@@ -16,4 +16,4 @@
 	<% @link_helpers.each do |link_helper| %>
 		<%= send link_helper, @document %>
 	<% end %>
-</div>
+<%- end %>
