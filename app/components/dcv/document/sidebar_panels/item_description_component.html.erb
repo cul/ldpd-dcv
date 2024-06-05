@@ -1,18 +1,24 @@
 <%= content_tag(:div, class: panel_classes) do -%>
-	<dl class="dl-<%= @alignment %>">
-		<% @document_presenter.fields_to_render.each do |solr_fname, field, field_presenter| %>
-			<dt class="blacklight-<%= solr_fname.parameterize %>"><%= field_presenter.label('show') %></dt>
-			<% Array(@document_presenter.field_value field).each do |field_value| -%>
-				<dd class="blacklight-<%= solr_fname.parameterize %>"><%= field_value %></dd>
-			<% end -%>
-		<% end %>
-		<% @citation_presenter.fields_to_render.each do |solr_fname, field, field_presenter| %>
-			<dt class="blacklight-<%= solr_fname.parameterize %>"><%= field_presenter.label('show') %></dt>
-			<% Array(@citation_presenter.field_value field).each do |field_value| -%>
-				<dd class="blacklight-<%= solr_fname.parameterize %>"><%= field_value %></dd>
-			<% end -%>
-		<% end %>
-	</dl>
+	<%- if first_chunk %>
+		<dl class="dl-<%= @alignment %> col-sm-12 col-lg-6 mb-0">
+			<% first_chunk.each do |field_name, label, values| %>
+				<dt class="blacklight-<%= field_name %>"><%= label %></dt>
+				<% values.each do |field_value| -%>
+					<dd class="blacklight-<%= field_name %>"><%= field_value %></dd>
+				<% end -%>
+			<% end %>
+		</dl>
+	<% end -%>
+	<%- if second_chunk %>
+		<dl class="dl-<%= @alignment %> col">
+			<% second_chunk.each do |field_name, label, values| %>
+				<dt class="blacklight-<%= field_name %>"><%= label %></dt>
+				<% values.each do |field_value| -%>
+					<dd class="blacklight-<%= field_name %>"><%= field_value %></dd>
+				<% end -%>
+			<% end %>
+		</dl>
+	<% end -%>
 	<% @link_helpers.each do |link_helper| %>
 		<%= send link_helper, @document %>
 	<% end %>
