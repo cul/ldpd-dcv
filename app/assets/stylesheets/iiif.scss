@@ -18,6 +18,9 @@
 @import "@archival-iiif/viewer-react/dist/topBar/topbar.css";
 #mirador {
 	height: 80vh;
+	.mosaic-root {
+		inset: 0px;
+	}
 }
 
 .aiiif-root {
