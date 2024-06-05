@@ -1,6 +1,6 @@
-<div class="row">
+<div class="row<%= @document.more_like_this.empty? ? ' mx-0' : '' %>">
 
-	<div id="content" class="<%= @document.more_like_this.empty? ? 'col-md-12' : 'col-md-9' %> show-document">
+	<div id="content" class="<%= @document.more_like_this.empty? ? 'col px-0' : 'col-md-9' %> show-document">
 
 	<div id="item-show">
 			<% doc_presenter = document_presenter(@document) -%>

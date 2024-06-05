@@ -1,6 +1,6 @@
-<div class="row" id="child_items">
+<% is_filesystem_view = document['dc_type_ssm'].present? && document['dc_type_ssm'].include?('FileSystem') %>
+<div class="row<%= is_filesystem_view ? ' mx-0' : '' %>" id="child_items">
 
-  <% is_filesystem_view = document['dc_type_ssm'].present? && document['dc_type_ssm'].include?('FileSystem') %>
   <% child = structured_children.first %>
   <% unless is_filesystem_view %>
     <div id="item-description" class="col-md-3">
@@ -9,7 +9,7 @@
     </div>
   <% end %>
 
-  <div class="<%= is_filesystem_view ? 'col-md-12 filesystem' : 'col-md-9' %>">
+  <div class="<%= is_filesystem_view ? 'col px-0 filesystem' : 'col-md-9' %>">
    <div class="inner">
      <h3 id="doc-item-title" class="nomar"><%= document_presenter(@document).html_title %></h3>
      <% if child %>
