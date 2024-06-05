@@ -1,4 +1,4 @@
-<div id="child-viewer" class="inner<%= ' h-poster'  if (document['iiif_behavior_ssim']&.include?("paged")) -%>">
+<div id="child-viewer" class="position-relative<%= ' h-poster'  if (document['iiif_behavior_ssim']&.include?("paged")) -%>">
   <% parent_title = document['title_ssm'].first.strip %>
   <p id="child-viewer-subtitle">&nbsp;</p>
 
