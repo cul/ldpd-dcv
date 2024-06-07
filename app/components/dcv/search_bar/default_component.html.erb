@@ -1,34 +1,35 @@
-  <%= form_tag @url, method: :get, class: ['d-flex','flex-md-row-reverse','flex-sm-column','w-100'] do %>
-    <%= render_hash_as_hidden_fields(@params.except(:q, :search_field, :qt, :page, :utf8, :format, :slug, :site_slug)) %>
-    <%= render_hash_as_hidden_fields(search_action_params) %>
-    <div class="input-group flex-sm-row flex-md-fill">
-      <%= render pagination_component %>
-      <div class="input-group-prepend collapseSearch flex-fill p-0<%= ' collapse' if pagination_component.render?%>" id="collapseQuery">
-        <% unless search_fields.empty? %>
-          <span class="input-group-append p-0<%= ' hidden' if search_fields.length == 1 %>">
-            <label for="search_field" class="sr-only"><%= t('blacklight.search.form.search_field.label') %></label>
-            <%= select_tag(
-                :search_field,
-                options_for_select(
-                  search_fields,
-                  h(params[:search_field])
-                ),
-                title: t('blacklight.search.form.search_field.title'), class: 'btn search-btn btn-primary rounded-0'
-              )
-            %>
-            <span class="sr-only"><%= t('blacklight.search.form.search_field.post_label') %></span>
-          </span>
-        <% end %>
+<%= form_tag @url, method: :get, class: ['form-inline','flex-md-row-reverse','flex-sm-column','w-100'] do %>
+  <%= render_hash_as_hidden_fields(params_for_new_search) %>
+  <%= render_hash_as_hidden_fields(search_action_params) %>
+  <%- rendering_pagination = pagination_will_render? -%>
+  <div class="input-group flex-fill flex-nowrap align-content-end">
+    <div class="btn-group input-group-prepend btn-group-toggle flex-shrink-0" data-toggle="buttons">
+      <label for="show-search-mode" class="btn btn-secondary border-info rounded-left<%= ' active' unless rendering_pagination %>" onclick="if ($('#collapseQuery').hasClass('show')) return false;">
+        <input type="radio" name="searchpag-mode" id="show-search-mode" aria-label="Show search box" aria-controls="collapseQuery collapsePag" <%=  'disabled ' unless rendering_pagination %>data-toggle="collapse" data-target=".collapseSearch" aria-expanded="false">
+        <i class="previous fa fa-binoculars" title="Show search box" data-toggle="tooltip" data-original-title="Show search box"></i>
+      </label>
+      <label for="show-pag-mode" class="btn btn-secondary border-info<%= rendering_pagination ? ' active' : ' disabled'  %>" onclick="if ($('#collapsePag').hasClass('show')) return false;">
+        <input type="radio" name="searchpag-mode" id="show-pag-mode" aria-label="Navigate results" aria-controls="collapseQuery collapsePag" <%=  rendering_pagination ? 'checked ' : ' disabled' %>data-toggle="collapse" data-target=".collapseSearch" aria-expanded="false">
+        <i class="previous fa fa-book-open-reader" title="Navigate results" data-toggle="tooltip" data-original-title="Navigate results"></i>
+      </label>
+    </div>
+    <%= render pagination_component %>
+    <div class="input-group-prepend p-0 flex-grow-1 collapseSearch<%= ' collapse' if rendering_pagination %>" id="collapseQuery">
+      <%= render search_fields_component %>
+      <div class="flex-fill flex-shrink-1">
+        <input type="hidden" name="search_field" value="all_text_teim">
         <label for="q" class="sr-only"><%= t('blacklight.search.form.q') %></label>
-        <%= text_field_tag :q, params[:q], :placeholder => search_placeholder_text, :class => "search_q q flex-fill bg-white", :id => "q" %>
-        <div class="input-group-append">
-          <%= link_to '<i class="fa fa-remove"></i>'.html_safe, start_over_path, :title => 'Start Over', :class => 'btn bg-body btn-outline-info reset-btn' if query_has_constraints? %>
-          <button class="btn btn-splash" type="submit" aria-label="Submit">
-            <span class="hidden-xs"><%= (current_page?(root_url)? t('blacklight.search.form.submit') : '') %></span>
-            <span class="fa fa-search"></span>
-          </button>
-        </div>
+        <%= text_field_tag :q, params[:q], placeholder: search_placeholder_text, class: "search_q q bg-white form-control w-100", id: "q", tabindex: "1" %>
+      </div>
+      <div class="btn-group input-group-append">
+        <%= render format_filter_component %>
+        <%= link_to '<i class="fa fa-remove"></i>'.html_safe, start_over_path, :title => 'Start Over', :class => 'btn btn-secondary reset-btn' if query_has_constraints? %>
+        <button class="btn btn-splash" type="submit">
+          <span class="hidden-xs"><%= (current_page?(root_url)? t('blacklight.search.form.submit') : '') %></span>
+          <span class="fa fa-search"></span>
+        </button>
       </div>
     </div>
+  </div>
 
-  <% end %>
+<% end %>

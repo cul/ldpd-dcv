@@ -1,0 +1,11 @@
+<div class="dropdown">
+  <button id="format_type_select" type="button" class="btn btn-splash dropdown-toggle d-inline" data-toggle="dropdown" aria-expanded="false" onclick="$(this).dropdown(); return false;" aria-controls="format_filter" aria-pressed="false" data-reference="parent"><span class="d-none d-md-inline">Formats</span>
+    <span class="sr-only">Toggle Dropdown</span>
+  </button>
+  <ul id="format_filter" class="dropdown-menu dropdown-menu-left hide" role="menu">
+    <li class="dropdown-header text-light">Limit search to:</li>
+    <% format_filter_list.each do | key, display_label | %>
+      <li class="dropdown-item text-light"><input type="checkbox" name="f[lib_format_sim][]" <%= (params[:f] && params[:f]['lib_format_sim'] && params[:f]['lib_format_sim'].include?(key)) ? 'checked="checked"' : '' %> value="<%= key %>"> <%= display_label %></li>
+    <% end %>
+  </ul>
+</div>

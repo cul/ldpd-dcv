@@ -8,6 +8,8 @@ en:
         title: 'Showing results for:'
       fields:
         citation: []
+      form:
+        q: 'search for'
       citation:
         label: '%{label}:'
       title: '%{application_name}'

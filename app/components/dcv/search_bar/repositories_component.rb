@@ -9,6 +9,10 @@ module Dcv::SearchBar
       @content_availability = content_availability
     end
 
+    def params_for_new_search
+      super.tap { |p| p[:'f[content_availability][]'] = @content_availability if @content_availability }
+    end
+
     def start_over_params
       if @params.dig(:f, :content_availability).present?
         super.to_h.merge("f[content_availability][]" => @params.dig(:f, :content_availability))
