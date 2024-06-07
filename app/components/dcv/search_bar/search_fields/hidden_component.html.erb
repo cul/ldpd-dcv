@@ -1,0 +1,5 @@
+<% unless search_fields.blank? %>
+  <span class="input-group-append">
+    <%= hidden_field_tag(:search_field, h(params[:search_field] || search_fields.first[1]), :title => t('blacklight.search.form.search_field.title')) %>
+  </span>
+<% end %>
