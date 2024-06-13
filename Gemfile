@@ -1,11 +1,26 @@
+require 'yaml'
+
 source 'https://rubygems.org'
+
+def font_awesome_token
+  return ENV['FONT_AWESOME_TOKEN'] if ENV['FONT_AWESOME_TOKEN'] && ENV['FONT_AWESOME_TOKEN'] != ''
+  YAML.load(File.read("./config/secrets.yml")).dig('shared', 'font_awesome_token') if File.exist?("./config/secrets.yml")
+end
 
 gem 'bigdecimal', '~>3.0'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.1.0'
 gem 'shakapacker', '~> 7.0.0'
 gem 'sassc'
-gem 'font-awesome-sass'
+gem "font-awesome-sass", "~> 6.4.0"
+fa_token = font_awesome_token
+if fa_token
+  source "https://token:#{fa_token}@dl.fontawesome.com/basic/fontawesome-pro/ruby/" do
+    gem "font-awesome-pro-sass", "~> 6.4.0"
+  end
+else
+  raise 'ERROR: You are missing font_awesome_token in secrets.yml.  It is required for `bundle install` to work.'
+end
 gem 'bootsnap', '~> 1.9.3'
 gem 'actionpack-action_caching'
 # Hydra stack

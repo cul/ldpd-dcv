@@ -345,8 +345,6 @@ GEM
       rdf (~> 1.1, >= 1.1.10)
     rdf-xsd (1.99.0)
       rdf (~> 1.99)
-    rdoc (6.5.0)
-      psych (>= 4.0.0)
     react_on_rails (13.4.0)
       addressable
       connection_pool
@@ -488,6 +486,12 @@ GEM
       nokogiri (~> 1.8)
     zeitwerk (2.6.11)
 
+GEM
+  remote: https://token:CED764BD-489C-4D2D-8063-0D52DEFDEB5E@dl.fontawesome.com/basic/fontawesome-pro/ruby/
+  specs:
+    font-awesome-pro-sass (6.4.2)
+      sassc (~> 2.0)
+
 PLATFORMS
   ruby
 
@@ -514,7 +518,8 @@ DEPENDENCIES
   devise
   devise-guests (~> 0.3)
   factory_bot_rails
-  font-awesome-sass
+  font-awesome-pro-sass (~> 6.4.0)!
+  font-awesome-sass (~> 6.4.0)
   jbuilder
   listen
   loofah (>= 2.2.1)

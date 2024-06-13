@@ -9,7 +9,7 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-Rails.application.config.secret_key_base = YAML.load_file("#{Rails.root}/config/initializer_secrets.yml", aliases: true)['secret_key_base']
+Rails.application.config.secret_key_base = Rails.application.config_for(:secrets)[:secret_key_base]
 if Blacklight.respond_to? :secret_key
   Blacklight.secret_key = Rails.application.config.secret_key_base
 end
