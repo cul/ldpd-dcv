@@ -6,11 +6,11 @@
     <div class="btn-group input-group-prepend btn-group-toggle flex-shrink-0" data-toggle="buttons">
       <label for="show-search-mode" class="btn btn-secondary border-info rounded-left<%= ' active' unless rendering_pagination %>" onclick="if ($('#collapseQuery').hasClass('show')) return false;">
         <input type="radio" name="searchpag-mode" id="show-search-mode" aria-label="Show search box" aria-controls="collapseQuery collapsePag" <%=  'disabled ' unless rendering_pagination %>data-toggle="collapse" data-target=".collapseSearch" aria-expanded="false">
-        <i class="previous fa fa-binoculars" title="Show search box" data-toggle="tooltip" data-original-title="Show search box"></i>
+        <i class="previous fa-regular fa-user-magnifying-glass" title="Show search box" data-toggle="tooltip" data-original-title="Show search box"></i>
       </label>
       <label for="show-pag-mode" class="btn btn-secondary border-info<%= rendering_pagination ? ' active' : ' disabled'  %>" onclick="if ($('#collapsePag').hasClass('show')) return false;">
         <input type="radio" name="searchpag-mode" id="show-pag-mode" aria-label="Navigate results" aria-controls="collapseQuery collapsePag" <%=  rendering_pagination ? 'checked ' : ' disabled' %>data-toggle="collapse" data-target=".collapseSearch" aria-expanded="false">
-        <i class="previous fa fa-book-open-reader" title="Navigate results" data-toggle="tooltip" data-original-title="Navigate results"></i>
+        <i class="previous fa-regular fa-book-open-reader" title="Navigate results" data-toggle="tooltip" data-original-title="Navigate results"></i>
       </label>
     </div>
     <%= render pagination_component %>
