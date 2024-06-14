@@ -117,25 +117,6 @@
 	}
 }
 
-#facets {
-	margin-right: -15px;
-	margin-left: -15px;
-	.card {
-		border-right: 0;
-		border-left: 0;
-		border-color: map-get($theme-border-colors, 'body');
-		border-style: solid;
-	}
-	.card-body {
-		border-top-color: map-get($theme-border-colors, 'body');
-	}
-	@media(max-width: 768px) {
-		.top-panel-heading {
-			min-height: 2.3em;
-		}
-	}
-}
-
 .section-heading {
 	padding: 15px 0;
 	border: solid map-get($theme-border-colors, 'body');

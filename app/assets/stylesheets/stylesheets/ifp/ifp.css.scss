@@ -52,7 +52,8 @@ $url_flag_sprite: url("ifp/office-flags/country_flag_folders_sm.png");
 			}
 		}
 	}
-	#secondary-nav {
+	.card > .card-header {
+		border: 0;
 	}
 }
 
@@ -316,10 +317,6 @@ $url_flag_sprite: url("ifp/office-flags/country_flag_folders_sm.png");
 		}
 	}
 	#content {
-		#appliedParams {
-			border-width: 0 0 1px 0;
-			box-shadow: none;
-		}
 		.document {
 			&.list-view {
 				margin-bottom: 1em;

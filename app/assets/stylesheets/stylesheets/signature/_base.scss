@@ -1,4 +1,5 @@
 @import './main_container';
+@import './facets';
 
 #outer-wrapper {
 	overflow: hidden;
@@ -235,49 +236,11 @@ header[role='banner'] {
 		background-color: $body-bg;
 }
 
-#facets {
-	margin-right: -1em;
-	margin-left: -1em;
-	.top-panel-heading {
-		background-color: transparent !important;
-		box-shadow: none;
-	}
-	.card {
-		background-color: transparent !important;
-		box-shadow: none;
-		.card-header {
-			margin-right: 1em;
-			margin-left: 1em;
-			padding: .2em 0;
-			background-color: $body-bg;
-		}
-	}
-	.card {
-		background-color: gradeBgColor(5%);
-		color: map-get($theme-text-colors, 'body');
-		border-color: map-get($theme-border-colors, 'primary');
-		border: 0;
-		&.home {
-			background-color: transparent;
-		}
-	}
-	.card-body {
-		border: 0;
-	}
-	a {
-		text-decoration: none;
-	}
-}
-
 #content {
 	#facet-panel-collapse {
 		.card-body {
 			background-color: gradeBgColor(5%);
 		}
-	}
-	#appliedParams {
-		border-width: 0 0 1px 0;
-		box-shadow: none;
 	}
 	.document {
 		#child_gallery {

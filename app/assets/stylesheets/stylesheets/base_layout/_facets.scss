@@ -1,0 +1,100 @@
+#facets {
+	margin-right: -1em;
+	margin-left: -1em;
+	.card {
+		border-color: map-get($theme-border-colors, 'body');
+		border-style: solid;
+		border: 0;
+	}
+	.card-body {
+		border-color: map-get($theme-border-colors, 'body');
+	}
+}
+
+#content {
+	// possible defunct styles copied into several stylesheets
+	#appliedParams {
+		border-width: 0 0 1px 0;
+		box-shadow: none;
+		.applied-filter {
+			margin: .1em 0;
+			.constraint-value {
+				pointer-events: none;
+			}
+		}
+	}
+}
+
+#appliedParams, #facets {
+	padding-bottom: 0;
+	h4, .h4 {
+		padding-left: .9em;
+		font-weight: 100;
+	}
+	.card {
+		margin-bottom: .5em;
+	}
+	.card-title {
+		font-size: .86em;
+		text-transform: uppercase;
+		a {
+			color: $body-color;
+		}
+	}
+	.top-panel-heading {
+		padding-left: 0;
+		padding-top: 0;
+		padding-right: 0;
+		border: 0;
+	}
+	.facet-values {
+		font-size: 90%;
+		margin-bottom: 0;
+		table-layout: auto; // 'fixed' from BL skews layout
+		li {
+			&:before {
+				padding-right: 3px;
+				margin-left: -5px;
+				font-size: .7em;
+				color: map-get($theme-border-colors, 'body');
+				@extend .fa, .fa-angle-right;
+			}
+			&:last-child .facet-label {
+				padding-bottom: 0;
+			}
+			&.selected {
+				.remove {
+					color: $link-color;
+					&:hover {
+						color: $danger;
+					}
+				}
+			}
+			.selected {
+				color: $body-color !important;
+			}
+		}
+		.facet-label {
+			padding-right: .4em;
+			padding-bottom: .9em;
+			padding-left: 0;
+			line-height: 1.25em;
+			text-indent: 0;
+		}
+	}
+	#facet-panel-collapse {
+		clear: both;
+		margin-bottom: 10px;
+	}
+	.facet_limit {
+		background-color: inherit;
+	}
+	.facet_limit-active > .card-header {
+		background-color: rgba($primary, 0.25);
+	}
+}
+@media(max-width: 768px) {
+	#facets .top-panel-heading {
+		min-height: 2.3em;
+	}
+}

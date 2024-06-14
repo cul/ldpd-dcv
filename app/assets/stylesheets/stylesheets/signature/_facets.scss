@@ -1,0 +1,23 @@
+#facets {
+	.card {
+		background-color: transparent !important;
+		box-shadow: none;
+		color: map-get($theme-text-colors, 'body');
+		.card-header {
+			margin-right: 1em;
+			margin-left: 1em;
+			padding: .2em 0;
+			background-color: $body-bg;
+		}
+	}
+	.card-body {
+		border: 0;
+	}
+	a {
+		text-decoration: none;
+	}
+	.top-panel-heading {
+		background-color: transparent !important;
+		box-shadow: none;
+	}
+}
