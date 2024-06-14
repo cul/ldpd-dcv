@@ -671,6 +671,9 @@ h2[itemprop="name"] {
 }
 #sidebar {
 	clear: both;
+	div:first-of-type {
+		padding-top: 0;
+	}
 	.card {
 		border-color: map-get($theme-border-colors, 'secondary');
 		border-style: solid;

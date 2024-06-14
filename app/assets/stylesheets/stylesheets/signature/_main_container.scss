@@ -3,7 +3,6 @@
 	background-color: $body-bg;
 	.inner {
 		padding: 1em;
-		border: 1px solid map-get($theme-border-colors, 'body');
 		&.home {
 			padding: 0;
 			border: 0;
