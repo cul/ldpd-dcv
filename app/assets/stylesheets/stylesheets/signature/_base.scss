@@ -1,3 +1,5 @@
+@import './main_container';
+
 #outer-wrapper {
 	overflow: hidden;
 	border-top: 0;
@@ -155,12 +157,6 @@ header[role='banner'] {
 			margin-left:1em;
 		}
 	}
-	#main-container {
-		.inner {
-			padding: 1.2em;
-			background-color: rgba($body-bg, 0.7);
-		}
-	}
 }
 @media(max-width: 991px) and (min-width: 768px) {
 	#site-title {
@@ -237,86 +233,6 @@ header[role='banner'] {
 	.appliedFilter .constraint-value:active {
 		color: $body-color;
 		background-color: $body-bg;
-}
-
-#main-container {
-	padding-top: 1.3em;
-	background-color: $body-bg;
-	.inner {
-		padding: 1em;
-		border: 1px solid map-get($theme-border-colors, 'body');
-		&.home {
-			padding: 0;
-			border: 0;
-			background: transparent;
-			background-color: transparent;
-			#link-panel > .panel-group {
-				margin-bottom: 5px; // matches margin-top of facet panel
-			}
-			.sidenav {
-				.card-title {
-					font-family: $font_b;
-					font-size:.9em;
-					text-transform:uppercase;
-				}
-				.card {
-					&.panel-ui {
-						border: none;
-						.card-header {
-							@extend .swatch-body;
-						}
-					}
-					&:not(.panel-ui) {
-						.card-title {
-							color:color-shade($body-color,18%);
-						}
-					}
-				}
-			}
-		}
-		h6 {
-			color: $gray-500;
-		}
-	}
-	.card > .card-header {
-		border: 0;
-	}
-	.panel-ui { // borrows from btn-primary
-		border-color: map-get($theme-border-colors, 'primary');
-		background-color: $primary;
-		color: map-get($theme-text-colors, 'primary');
-		&:hover {
-			background-color: map-get($theme-text-colors, 'primary');
-			color:$primary;
-			border-color:lighten($primary,30%);
-			a:hover {
-				color: inherit;
-			}
-		}
-		&:active, &:focus {
-			border-color:darken(map-get($theme-text-colors, 'info'),30%);
-		}
-		.card-header {
-			border: 0;
-			padding:0.4rem 0.6rem;
-			&.home {
-				background-color: transparent;
-			}
-			a {
-			  color:inherit;
-			}
-			.card-title {
-			  margin-top:0;
-			  margin-bottom:0;
-			}
-		}
-	}
-	// text blocks are rendered as sections in the signature page layout
-	section.ff:before {
-		height: 1em;
-		content: "";
-		display:block;
-	}
 }
 
 #facets {

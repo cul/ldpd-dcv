@@ -1,0 +1,12 @@
+#main-container {
+	.inner {
+		padding: 1.2em;
+		background-color: rgba($body-bg, 0.7);
+		&.outline {
+			border: 1px solid map-get($theme-border-colors, 'primary');
+		}
+		.sidenav {
+			border: 1px solid map-get($theme-border-colors, 'body');
+		}
+	}
+}

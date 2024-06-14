@@ -9,6 +9,8 @@ $splash-hover-background: lighten($splash, 7.5%);
 $splash-hover-border: lighten($splash, 10%);
 $splash-active-background: lighten($splash, 10%);
 $splash-active-border: lighten($splash, 12.5%);
+@import './main_container';
+
 .durst {
 	.btn-splash {
 		@include button-variant($splash, $splash-border, $splash-hover-background, $splash-hover-border, $splash-active-background, $splash-active-border);
@@ -37,23 +39,6 @@ $splash-active-border: lighten($splash, 12.5%);
 		}
 	}
 
-	#main-container {
-		a {
-			&:not(.btn, .page-link, [role='button']) {
-				color: $splash;	
-				&:hover {
-					color: lighten($splash, 10%);
-				}			
-			}
-		}
-		.home {
-			#facets {
-				margin-left:0;
-				margin-right:0;
-				border:0;
-			}
-		}
-	}
 	#content {
 		.appliedFilter .filterName:after {
 			color: $color_21;

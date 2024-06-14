@@ -1,0 +1,10 @@
+#main-container {
+	&.ifp {
+		#facets .card {
+			border: 0;
+		}
+		.card > .card-header {
+			border: 0;
+		}
+	}
+}

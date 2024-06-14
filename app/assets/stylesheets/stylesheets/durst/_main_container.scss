@@ -1,0 +1,19 @@
+#main-container {
+	&.durst {
+		a {
+			&:not(.btn, .page-link, [role='button']) {
+				color: $splash;	
+				&:hover {
+					color: lighten($splash, 10%);
+				}			
+			}
+		}
+		.home {
+			#facets {
+				margin-left:0;
+				margin-right:0;
+				border:0;
+			}
+		}
+	}
+}

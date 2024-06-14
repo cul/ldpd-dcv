@@ -4,6 +4,7 @@
 @import './bootstrap_layout';
 @import './blacklight';
 @import './brand_topnav';
+@import './base_layout/main_container';
 @import './base_layout/page_images';
 @import './base_layout/utilities';
 @import './base_layout/carousel';
@@ -967,16 +968,6 @@ h2[itemprop="name"] {
 .show h2[itemprop="name"] {
 	margin-bottom: 1em;
 	font-size: 20px;
-}
-
-#main-container {
-	.inner {
-		position: relative;
-		padding: 1.2em;
-		.tab-content {
-			margin-top: 2em;
-		}
-	}
 }
 
 /*****************
