@@ -23,6 +23,8 @@ $url_flag_sprite: url("ifp/office-flags/country_flag_folders_sm.png");
 	font-weight: normal;
 }
 
+@import './main_container';
+
 .ifp {
 	.btn-splash {
 		@include button-variant($splash, $splash);
@@ -51,14 +53,6 @@ $url_flag_sprite: url("ifp/office-flags/country_flag_folders_sm.png");
 		}
 	}
 	#secondary-nav {
-	}
-	#main-container {
-		#facets .card {
-			border: 0;
-		}
-		.card > .card-header {
-			border: 0;
-		}
 	}
 }
 

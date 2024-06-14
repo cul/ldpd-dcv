@@ -1,0 +1,12 @@
+#main-container {
+	.inner {
+		position: relative;
+		padding: 1.2em;
+		background-color: $color_21;
+		border: 1px solid $color_22;
+		.tab-content {
+			// tabbed browse pages
+			margin-top: 2em;
+		}
+	}
+}

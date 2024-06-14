@@ -105,6 +105,7 @@ $url_7: url(//cdn.cul.columbia.edu/ldpd-toolkit/fonts/trajanpro-regular-webfont.
 	cursor: pointer;
 }
 
+@import './main_container';
 
 body {
 	background-color: $color_0;
@@ -1040,16 +1041,6 @@ h2[itemprop="name"] {
 .show h2[itemprop="name"] {
 	margin-bottom: 1em;
 	font-size: 20px;
-}
-#main-container .inner {
-	position: relative;
-	padding: 1.2em;
-	background-color: $color_21;
-	border: 1px solid $color_22;
-	.tab-content {
-		// tabbed browse pages
-		margin-top: 2em;
-	}
 }
 
 // sites index pages (home)

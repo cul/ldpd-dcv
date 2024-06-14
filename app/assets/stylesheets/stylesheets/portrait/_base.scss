@@ -1,4 +1,6 @@
 @import './carousel';
+@import './main_container';
+
 #outer-wrapper {
 	border-color: map-get($theme-border-colors, 'body');
 }
@@ -298,19 +300,6 @@
 	.appliedFilter .constraint-value:active {
 		color: $body-color;
 		background-color: $body-bg;
-}
-
-#main-container {
-	.inner {
-		padding: 1.2em;
-		background-color: rgba($body-bg, 0.7);
-		&.outline {
-			border: 1px solid map-get($theme-border-colors, 'primary');
-		}
-		.sidenav {
-			border: 1px solid map-get($theme-border-colors, 'body');
-		}
-	}
 }
 
 @import '../shared/search-modes';

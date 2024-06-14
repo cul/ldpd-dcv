@@ -1,0 +1,18 @@
+#main-container {
+	@extend .mw-100;
+	@extend .px-0;
+	@extend .py-3;
+	.inner {
+		position: relative;
+		padding: 1.2em;
+		.tab-content {
+			margin-top: 2em;
+		}
+	}
+}
+
+.show {
+	#main-container {
+		@extend .py-0;
+	}
+}
