@@ -1,8 +1,5 @@
-#main-container {
-	&.ifp {
-		#facets .card {
-			border: 0;
-		}
+.ifp {
+	#main-container {
 		.card > .card-header {
 			border: 0;
 		}

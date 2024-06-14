@@ -5,8 +5,5 @@
 		&.outline {
 			border: 1px solid map-get($theme-border-colors, 'primary');
 		}
-		.sidenav {
-			border: 1px solid map-get($theme-border-colors, 'body');
-		}
 	}
 }
