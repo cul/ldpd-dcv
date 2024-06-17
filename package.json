@@ -11,7 +11,7 @@
     "@babel/runtime": "^7.22.15",
     "@blueprintjs/core": "^5.3.0",
     "@blueprintjs/icons": "^5.1.6",
-    "@columbia-libraries/mirador": "3.3.1-3789.8",
+    "@columbia-libraries/mirador": "3.3.1-3789.9",
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
     "@fortawesome/fontawesome-free": "6.4.2",
@@ -68,7 +68,7 @@
     "@columbia-libraries/mirador/openseadragon": "4.0.0"
   },
   "peerDependencies": {
-    "@columbia-libraries/mirador": "3.3.1-3789.8",
+    "@columbia-libraries/mirador": "3.3.1-3789.9",
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
     "dnd-core": "^16.0.1",
@@ -78,7 +78,7 @@
   "devDependencies": {
     "@emotion/babel-preset-css-prop": "^11.11.0",
     "@webpack-cli/serve": "^2.0.5",
-    "@columbia-libraries/mirador": "3.3.1-3789.8",
+    "@columbia-libraries/mirador": "3.3.1-3789.9",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "webpack-dev-server": "^4.15.1"
