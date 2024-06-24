@@ -18,9 +18,9 @@
 	<ul class="nav nav-pills">
 		<li class="nav-item"><a onclick="window.open(this.href);return false;" data-toggle="tooltip" data-placement="bottom" href="https://resolver.library.columbia.edu/lweb0164" title="See All Digital Collections" class="nav-link">All Collections <i class="fa fa-external-link"></i></a></li>
 	<%- if params[:action] == 'home' && @subsite.persistent_url -%>
-		<li class="nav-item"><button data-copy="<%= @subsite.persistent_url %>" title="Click to copy to clipboard" class="btn btn-secondary nav-link mx-auto" onclick="clipboardFromElement(this);"><span class="fa fa-copy"></span> Permanent URL</button></li>
+		<li class="nav-item"><button data-copy="<%= @subsite.persistent_url %>" title="Click to copy to clipboard" class="btn btn-secondary nav-link mx-auto" onclick="clipboardFromElement(this);"><span class="fa fa-copy"></span> Copy Link</button></li>
 	<%- elsif @document&.has_persistent_url? -%>
-		<li class="nav-item"><button data-copy="<%= @document.persistent_url %>" title="Click to copy to clipboard" class="btn btn-secondary nav-link mx-auto" onclick="clipboardFromElement(this);"><span class="fa fa-copy"></span> Permanent URL</button></li>
+		<li class="nav-item"><button data-copy="<%= @document.persistent_url %>" title="Click to copy to clipboard" class="btn btn-secondary nav-link mx-auto" onclick="clipboardFromElement(this);"><span class="fa fa-copy"></span> Copy Link</button></li>
 	<%- end -%>
 	</ul>
 </nav>
