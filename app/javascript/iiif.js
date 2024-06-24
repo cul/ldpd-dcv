@@ -1,11 +1,16 @@
 import Mirador from '@columbia-libraries/mirador/dist/es/src';
 import miradorDownloadPlugins from '@columbia-libraries/mirador/dist/es/src/culPlugins/mirador-downloaddialog';
-import canvasLinkPlugin from '@columbia-libraries/mirador/dist/es/src/culPlugins/mirador-canvaslink';
 import canvasRelatedLinksPlugin from '@columbia-libraries/mirador/dist/es/src/culPlugins/mirador-canvasRelatedLinks'
 import citationSidebar from '@columbia-libraries/mirador/dist/es/src/culPlugins/mirador-citations';
 import hintingSidebar from '@columbia-libraries/mirador/dist/es/src/culPlugins/mirador-hinting-sidebar';
 import videoJSPlugin from '@columbia-libraries/mirador/dist/es/src/culPlugins/mirador-videojs';
 import viewXmlPlugin from '@columbia-libraries/mirador/dist/es/src/culPlugins/mirador-viewXml';
+
+const flattenPluginConfigs = (...plugins) => plugins.reduce(
+  (acc, curr) => {
+    return acc.concat([...curr])
+  }, []
+);
 
 $(document).ready(function(){
   var manifestUrl = $('#mirador').data('manifest');
@@ -61,7 +66,7 @@ $(document).ready(function(){
           en: { openCompanionWindow_citation: "Citation" },
         }
       },
-      [...hintingSidebar].concat([...canvasLinkPlugin]).concat([...viewXmlPlugin]).concat([...citationSidebar]).concat([...videoJSPlugin]).concat([...canvasRelatedLinksPlugin]),
+      flattenPluginConfigs(hintingSidebar, miradorDownloadPlugins, viewXmlPlugin, citationSidebar, videoJSPlugin, canvasRelatedLinksPlugin),
     );
   }
 });
