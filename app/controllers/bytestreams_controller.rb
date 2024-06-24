@@ -13,6 +13,7 @@ class BytestreamsController < ApplicationController
   include Cul::Omniauth::AuthorizingController
   include Cul::Omniauth::RemoteIpAbility
   include Dcv::CatalogHelperBehavior
+  include Dcv::Sites::ReadingRooms
   include ChildrenHelper
   include Iiif::Authz::V2::Bytestreams
   #caches_action :content, :expires_in => 7.days
@@ -145,6 +146,10 @@ class BytestreamsController < ApplicationController
     end
     response.headers['X-Range'] = request.headers['Range'] if request.headers['Range'].present?
     render body: nil
+  end
+
+  def controller
+    self
   end
 
   def object_profile

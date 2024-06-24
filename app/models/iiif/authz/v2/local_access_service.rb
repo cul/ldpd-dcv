@@ -15,8 +15,7 @@ class Iiif::Authz::V2::LocalAccessService
   end
 
   def token_service
-    use_format = 'json' unless @profile == ACTIVE
-    Iiif::Authz::V2::AccessTokenService.new(canvas, route_helper: route_helper, format: use_format).to_h
+    Iiif::Authz::V2::AccessTokenService.new(canvas, route_helper: route_helper).to_h
   end
 
   def to_h

@@ -48,8 +48,9 @@ module Iiif::Authz::V2::Bytestreams
     remote_ip = DCV_CONFIG.dig('media_streaming','wowza', 'client_ip_override') || request.remote_ip
     probe_response = Iiif::Authz::V2::ProbeService::Response.new(
       document: @document, bytestream_id: params[:bytestream_id], ability_helper: self, route_helper: self,
-      remote_ip: remote_ip, authorization: request.headers['Authorization'])
-    render json: probe_response.to_h
+      remote_ip: remote_ip, authorization: request.headers['Authorization']).to_h
+    response_status = (probe_response[:status].to_i < 400) ? 200 : probe_response[:status].to_i
+    render json: probe_response, status: response_status
   end
 
   # IIIF Authorization 2.0 Access Service
