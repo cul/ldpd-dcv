@@ -2,11 +2,6 @@
 
 module Dcv::ContentAggregator
   class LocalResourceComponent < BaseMiradorComponent
-    DC_TYPE = 'StillImage'.freeze
-
-    include Dcv::Components::ActiveFedoraDocumentBehavior
-    include Dcv::Components::StructuredChildrenBehavior
-
     delegate :can_access_asset?, :get_resolved_asset_url, :get_manifest_url, to: :helpers
 
     def initialize(document:, **opts)
