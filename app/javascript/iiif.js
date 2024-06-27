@@ -13,8 +13,9 @@ const flattenPluginConfigs = (...plugins) => plugins.reduce(
 );
 
 $(document).ready(function(){
-  var manifestUrl = $('#mirador').data('manifest');
+  const manifestUrl = $('#mirador').data('manifest');
   if (manifestUrl) {
+    const numChildren = $('#mirador').data('num-children');
     const startCanvas = function(queryParams) {
       if (queryParams.get("canvas")) {
         const canvases = queryParams.get("canvas").split(',');
@@ -22,6 +23,13 @@ $(document).ready(function(){
         return canvas.startsWith('../') ? manifestUrl.replace('/manifest', canvas.slice(2)) : canvas;
       } else return null;
     }(new URL(document.location).searchParams);
+    const viewConfig = {};
+    if (numChildren && numChildren === 1) {
+      viewConfig.views = [
+        { key: 'single' }
+      ];
+      viewConfig.defaultView = 'single';
+    }
     Mirador.viewer(
       {
         id: 'mirador',
@@ -46,6 +54,7 @@ $(document).ready(function(){
               return `${baseUri}?canvas=${canvasIndices.join(",",)}`;
             }
           },
+          ...viewConfig,
         },
         windows: [
           { 
@@ -64,7 +73,7 @@ $(document).ready(function(){
         },
         translations: {
           en: { openCompanionWindow_citation: "Citation" },
-        }
+        },
       },
       flattenPluginConfigs(hintingSidebar, miradorDownloadPlugins, viewXmlPlugin, citationSidebar, videoJSPlugin, canvasRelatedLinksPlugin),
     );

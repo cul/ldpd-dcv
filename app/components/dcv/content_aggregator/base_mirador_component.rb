@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Dcv::ContentAggregator
-  class PagedResourceComponent < ViewComponent::Base
+  class BaseMiradorComponent < ViewComponent::Base
     include Dcv::Components::ActiveFedoraDocumentBehavior
     include Dcv::Components::StructuredChildrenBehavior
 
@@ -10,10 +10,6 @@ module Dcv::ContentAggregator
     def initialize(document:, **_opts)
       super
       @document = document
-    end
-
-    def render?
-      @document['iiif_behavior_ssim']&.include?("paged")
     end
 
     def iiif_manifest

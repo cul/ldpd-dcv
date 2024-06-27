@@ -107,10 +107,14 @@ class Iiif::Manifest < Iiif::BaseResource
       provider['id'] = @id.split('/')[0..2].join('/')
       provider['label'] = { en: [I18n.t('blacklight.application_name')] }
     end
+
+    # Items
+    manifest["items"] = items if opts[:include]&.include?(:items)
+
     if opts[:include]&.include?(:metadata)
       manifest['summary'] = summary
       manifest['metadata'] = metadata
-      manifest["behavior"] = behaviors
+      manifest["behavior"] = behaviors(items)
       manifest["viewingDirection"] = viewing_direction
       manifest['rights'] = @solr_document['copyright_statement_ssi'] if @solr_document['copyright_statement_ssi'].present?
       if @solr_document['lib_acknowledgment_notes_ssm'].present?
@@ -144,9 +148,6 @@ class Iiif::Manifest < Iiif::BaseResource
     # TODO: provider from location data
     # TODO: homepage from preferred Site
 
-    # Items
-    manifest["items"] = items if opts[:include]&.include?(:items)
-
     manifest.compact
   end
 
@@ -170,15 +171,15 @@ class Iiif::Manifest < Iiif::BaseResource
   # individuals
   # paged
   # continuous
-  def behaviors
+  def behaviors(items = nil)
     return nil if @solr_document['active_fedora_model_ssi'] == 'GenericResource' 
-    return Array(@solr_document['iiif_behavior_ssim']) if @solr_document['iiif_behavior_ssim'].present?
     return [Iiif::Behavior::V3::UNORDERED] unless @solr_document['structured_bsi']
-    if @solr_document['cul_number_of_members_isi']&.< 3
-      [Iiif::Behavior::V3::PAGED]
-    else
-      [Iiif::Behavior::V3::INDIVIDUALS]
-    end
+
+    num_canvases = items&.length || @solr_document['cul_number_of_members_isi']
+    return [Iiif::Behavior::V3::INDIVIDUALS] if num_canvases.nil? || num_canvases < 2
+
+    return Array(@solr_document['iiif_behavior_ssim']) if @solr_document['iiif_behavior_ssim'].present?
+    [Iiif::Behavior::V3::PAGED]
   end
 
   def viewing_direction

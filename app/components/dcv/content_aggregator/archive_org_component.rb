@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
 module Dcv::ContentAggregator
-  class MultiPartResourceComponent < ViewComponent::Base
-    include Dcv::Components::ActiveFedoraDocumentBehavior
-    include Dcv::Components::StructuredChildrenBehavior
+  class ArchiveOrgComponent < BaseMiradorComponent
 
     delegate :archive_org_id_for_document, :get_manifest_url, to: :helpers
 
