@@ -1,15 +1,11 @@
 # frozen_string_literal: true
 
-module Dcv::ContentAggregator::Carousel
-  class EmptyComponent < ViewComponent::Base
-    include Dcv::Components::ActiveFedoraDocumentBehavior
-    include Dcv::Components::StructuredChildrenBehavior
-
+module Dcv::ContentAggregator
+  class EmptyComponent < BaseMiradorComponent
     delegate :can_access_asset?, :current_user, :get_resolved_asset_url, :has_synchronized_media?, to: :helpers
 
     def initialize(document:, local_downloads:, structured_children: nil, parent_title: nil, **_opts)
       super
-      @document = document
       @local_downloads = local_downloads
       @structured_children = structured_children
       @parent_title = parent_title
