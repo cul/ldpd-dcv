@@ -2,7 +2,7 @@ class Dcv::Configurators::CarnegieBlacklightConfigurator
 
   extend Dcv::Configurators::BaseBlacklightConfigurator
 
-  def self.configure(config)
+  def self.configure(config, fulltext: true)
 
     config.show.route = { controller: 'carnegie' }
 
@@ -109,6 +109,7 @@ class Dcv::Configurators::CarnegieBlacklightConfigurator
     configure_keyword_search_field(config)
     configure_title_search_field(config)
     configure_name_search_field(config)
+    configure_fulltext_search_field(config, default: false) if fulltext
 
     # "sort results by" select (pulldown)
     # label in pulldown is followed by the name of the SOLR field to sort by and
