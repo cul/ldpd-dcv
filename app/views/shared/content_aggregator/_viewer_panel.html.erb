@@ -1,5 +1,5 @@
 <div id="child-viewer" class="position-relative<%= ' h-poster'  if (document['iiif_behavior_ssim']&.include?("paged")) -%>">
-  <% parent_title = document['title_ssm'].first.strip %>
+  <% parent_title = document.title %>
   <p id="child-viewer-subtitle">&nbsp;</p>
 
   <% if (structured_children.length == 0) && archive_org_id_for_document(document) %>
