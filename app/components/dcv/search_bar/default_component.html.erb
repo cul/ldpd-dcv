@@ -17,7 +17,6 @@
     <div class="input-group-prepend p-0 flex-grow-1 collapseSearch<%= ' collapse' if rendering_pagination %>" id="collapseQuery">
       <%= render search_fields_component %>
       <div class="flex-fill flex-shrink-1">
-        <input type="hidden" name="search_field" value="all_text_teim">
         <label for="q" class="sr-only"><%= t('blacklight.search.form.q') %></label>
         <%= text_field_tag :q, params[:q], placeholder: search_placeholder_text, class: "search_q q bg-white form-control w-100", id: "q", tabindex: "1" %>
       </div>
