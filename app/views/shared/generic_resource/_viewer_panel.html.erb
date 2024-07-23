@@ -1,6 +1,6 @@
 <div id="child-viewer" class="position-relative">
   <p id="child-viewer-subtitle">&nbsp;</p>
-  <%= render Dcv::ContentAggregator::ImageResourceComponent.new(document: document, local_downloads: false) %>
+  <%= render Dcv::ContentAggregator::LocalResourceComponent.new(document: document, local_downloads: false, num_children: 1) %>
 
   <%- use_unavailable_image_placeholder = false %>
   <% unless defined?(use_unavailable_image_placeholder) && use_unavailable_image_placeholder == false %>

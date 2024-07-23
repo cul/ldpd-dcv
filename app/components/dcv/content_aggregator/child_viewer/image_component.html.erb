@@ -1,8 +1,0 @@
-<div>
-  <div>
-    <div>
-      <img alt="<%= child_title %>" class="<%= (is_image_document?(@child, :dc_type) || is_text_document?(@child, :dc_type)) ? 'zoomable' : '' %>" src="<%= poster_url(@child) %>" />
-    </div>
-    <%= render Dcv::ContentAggregator::ChildViewer::ButtonPanel::DefaultComponent.new(child: SolrDocument.new(@child), child_index: @child_index, document: @document, local_downloads: @local_downloads) %>
-  </div>
-</div>

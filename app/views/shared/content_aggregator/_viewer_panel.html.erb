@@ -2,21 +2,11 @@
   <% parent_title = document['title_ssm'].first.strip %>
   <p id="child-viewer-subtitle">&nbsp;</p>
 
-  <% if (document['iiif_behavior_ssim']&.include?("paged")) %>
-    <%= render Dcv::ContentAggregator::PagedResourceComponent.new(document: document, local_downloads: false) %>
-  <% elsif (structured_children.length == 0) && archive_org_id_for_document(document) %>
-    <%= render Dcv::ContentAggregator::MultiPartResourceComponent.new(document: document, local_downloads: false) %>
-  <% elsif structured_children_not_type(dc_type: 'StillImage').blank? %>
-    <%= render Dcv::ContentAggregator::ImageResourceComponent.new(document: document, local_downloads: false) %>
-  <% elsif structured_children_not_type(dc_type: 'MovingImage').blank? %>
-    <%= render Dcv::ContentAggregator::ImageResourceComponent.new(document: document, local_downloads: false) %>
-  <% elsif structured_children_not_type(dc_type: 'Sound').blank? %>
-    <%= render Dcv::ContentAggregator::ImageResourceComponent.new(document: document, local_downloads: false) %>
-  <% elsif structured_children_not_type(dc_type: 'Text').blank? %>
-    <%= render Dcv::ContentAggregator::ImageResourceComponent.new(document: document, local_downloads: false) %>
-  <% elsif has_viewable_children? %>
-    <%= render Dcv::ContentAggregator::ImageResourceComponent.new(document: document, local_downloads: false) %>
+  <% if (structured_children.length == 0) && archive_org_id_for_document(document) %>
+    <%= render Dcv::ContentAggregator::ArchiveOrgResourceComponent.new(document: document, local_downloads: false) %>
+  <% elsif !has_viewable_children? %>
+    <%= render Dcv::ContentAggregator::EmptyComponent.new(document: document, local_downloads: false, structured_children: structured_children, parent_title: parent_title) %>
   <% else %>
-    <%= render Dcv::ContentAggregator::Carousel::EmptyComponent.new(document: document, local_downloads: false, structured_children: structured_children, parent_title: parent_title) %>
+    <%= render Dcv::ContentAggregator::LocalResourceComponent.new(document: document, local_downloads: false, num_children: structured_children.length) %>
   <% end %>
 </div>

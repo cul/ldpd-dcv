@@ -41,7 +41,7 @@ class Dcv::Configurators::IfpBlacklightConfigurator
     # :show may be set to false if you don't want the facet to be drawn in the
     # facet bar
 
-    config.add_facet_field 'contributor_sim', **default_facet_config(label: 'Office')
+    config.add_facet_field 'contributor_ssim', **default_facet_config(label: 'Office')
     config.add_facet_field 'dc_type_sim', **default_facet_config(label: 'Resource Type', helper_method: :pcdm_file_genre_display)
 
     default_faceting_configuration(config)
