@@ -8,7 +8,7 @@ class CentennialController < SubsitesController
   layout 'signature'
 
   configure_blacklight do |config|
-    Dcv::Configurators::CarnegieBlacklightConfigurator.configure(config)
+    Dcv::Configurators::CarnegieBlacklightConfigurator.configure(config, fulltext: false)
     config.show.route = { controller: 'carnegie/centennial' }
 
     # Include this target's content in search results, and any additional publish targets specified in subsites.yml
