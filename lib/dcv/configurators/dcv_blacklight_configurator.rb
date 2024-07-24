@@ -98,9 +98,9 @@ class Dcv::Configurators::DcvBlacklightConfigurator
   # solr fields to be displayed in the index (search results) view
   #   The ordering of the field names is the order of the display
   def self.configure_index_fields(config)
-    #config.add_index_field 'title_display_ssm', :label => 'Title'
-    config.add_index_field 'lib_repo_long_ssim', :label => 'Library Location'
     config.add_index_field 'primary_name_ssm', label: 'Name', helper_method: :display_non_copyright_names_with_roles, if: :has_non_copyright_names?
+    config.add_index_field 'rel_other_project_ssim', :label => 'Project'
+    config.add_index_field 'lib_repo_long_ssim', :label => 'Library Location'
     config.add_index_field 'location_sublocation_ssm', :label => 'Department'
     config.add_index_field 'lib_collection_ssm', label: 'Collection Name', helper_method: :display_composite_archival_context
     config.add_index_field 'lib_date_textual_ssm', :label => 'Date'
@@ -113,6 +113,7 @@ class Dcv::Configurators::DcvBlacklightConfigurator
   def self.configure_show_fields(config)
     configure_file_show_fields(config)
     config.add_show_field 'lib_name_ssm', label: 'Name', link_to_search: 'lib_name_sim', helper_method: :display_non_copyright_names_with_roles, if: :has_non_copyright_names?
+    config.add_show_field 'rel_other_project_ssim', :label => 'Project'
     config.add_show_field 'title_display_ssm', label: 'Title'
     config.add_show_field 'alternative_title_ssm', :label => 'Other Titles'
     config.add_show_field 'abstract_ssm', label: 'Abstract', helper_method: :expandable_past_400, iiif: false

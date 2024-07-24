@@ -680,6 +680,9 @@ class Dcv::Solr::DocumentAdapter::ModsXml
       solr_doc['reading_room_ssim'] = reading_room_locations
 
       solr_doc.merge!(iiif_properties(mods))
+      othertype_fields = othertype_relations(mods)
+      solr_doc.merge!(othertype_fields)
+      solr_doc["all_text_teim"] += othertype_fields.values.flatten
       solr_doc
     end
 
@@ -729,6 +732,19 @@ class Dcv::Solr::DocumentAdapter::ModsXml
       end
       return KEY_DATE_EMPTY_BOUNDS if (end_year && start_year) && end_year.to_i < start_year.to_i
       [start_year, end_year]
+    end
+
+    # Create a map of field names to value arrays for relatedItem[@otherType]
+    # @param node [Nokogiri::XML::Node] search context
+    # @return [Hash<String, Array<String>] map of field name strings to value string arrays
+    def othertype_relations(node)
+      field_values = {}
+      mods.xpath("./mods:relatedItem[@otherType]/mods:titleInfo", MODS_NS).each do |title|
+        field_name = title.parent['otherType'].downcase.split(/[^a-z]+/).compact.join('_')
+        field_name = "rel_other_#{field_name}_ssim"
+        (field_values[field_name] ||= []) << title.text.strip
+      end
+      field_values
     end
   end
 end
