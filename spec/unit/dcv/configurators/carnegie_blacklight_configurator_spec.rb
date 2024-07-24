@@ -13,7 +13,7 @@ describe Dcv::Configurators::CarnegieBlacklightConfigurator do
         described_class.configure(config)
       end
 
-      it 'only includes the field values in facet.field' do
+      it 'has a search field configuration for fulltext' do
         expect(config.search_fields['fulltext_tesim']).to be_a Blacklight::Configuration::SearchField
       end
     end
@@ -22,7 +22,7 @@ describe Dcv::Configurators::CarnegieBlacklightConfigurator do
         described_class.configure(config, fulltext: true)
       end
 
-      it 'only includes the field values in facet.field' do
+      it 'has a search field configuration for fulltext' do
         expect(config.search_fields['fulltext_tesim']).to be_a Blacklight::Configuration::SearchField
       end
     end
@@ -31,7 +31,7 @@ describe Dcv::Configurators::CarnegieBlacklightConfigurator do
         described_class.configure(config, fulltext: false)
       end
 
-      it 'only includes the field values in facet.field' do
+      it 'has no search field configuration for fulltext' do
         expect(config.search_fields['fulltext_tesim']).to be_nil
       end
     end
