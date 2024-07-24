@@ -12,4 +12,9 @@
     </titleInfo>
     <identifier type="uri">info:hyacinth.library.columbia.edu/projects/customer_orders</identifier>
   </relatedItem>
+  <relatedItem otherType="project" otherTypeAuth="local" otherTypeURI="http://id.library.columbia.edu/term/6e2483cf-b669-4630-a033-3ec05e78c2cd">
+    <titleInfo>
+      <title>Project 2508: Edna Gladney house (Fort Worth, Texas). Scheme 2, Unbuilt Project</mods:title>
+    </titleInfo>
+  </relatedItem>
 </mods>

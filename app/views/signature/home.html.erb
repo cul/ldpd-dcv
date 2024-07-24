@@ -7,13 +7,13 @@
 					<div class="panel-group">
 						<div class="card panel-ui">
 							<div class="card-header">
-								<h3 class="card-title"><%= link_to_site_browse("BROWSE THE COLLECTION", "VISIT SITE") %></h3>
+								<h3 class="card-title"><%= link_to_site_browse("BROWSE THE COLLECTION", "VISIT SITE", class: ['btn', 'btn-outline-light']) %></h3>
 							</div>
 						</div>
 						<div class="card panel-ui">
 							<%- if (about_link = @subsite.about_link) -%>
 								<div class="card-header">
-									<h3 class="card-title"><%= link_to("ABOUT THE COLLECTION", site_page_path(site_slug: @subsite.slug, slug: about_link.link)) %></h3>
+									<h3 class="card-title"><%= link_to("ABOUT THE COLLECTION", site_page_path(site_slug: @subsite.slug, slug: about_link.link), class: ['btn', 'btn-outline-light']) %></h3>
 								</div>
 							<%- end -%>
 						</div>
