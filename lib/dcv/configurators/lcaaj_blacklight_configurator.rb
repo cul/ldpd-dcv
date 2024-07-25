@@ -49,7 +49,7 @@ class Dcv::Configurators::LcaajBlacklightConfigurator
     #   The ordering of the field names is the order of the display
     #config.add_index_field 'title_display_ssm', :label => 'Title'
     config.add_index_field 'lib_repo_long_ssim', :label => 'Library Location'
-    config.add_index_field 'lib_name_ssm', label: 'Name', tombstone_display: true
+    config.add_index_field 'lib_name_ssm', label: 'Name', grid_display: true
     config.add_index_field 'location_sublocation_ssm', :label => 'Department'
     config.add_index_field 'location_shelf_locator_ssm', :label => 'Shelf Location'
     config.add_index_field 'lib_date_textual_ssm', :label => 'Date'

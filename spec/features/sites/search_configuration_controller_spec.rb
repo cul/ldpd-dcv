@@ -39,6 +39,17 @@ describe ::Sites::SearchConfigurationController, type: :feature do
 			expect(find_field('site[search_configuration][facets][1][facet_fields_form_value]').value).to eq("level_one_field_sim,level_2_field_sim")
 			expect(find_field('site[search_configuration][facets][1][label]').value).to eq("Levels")
 		end
+		it 'updates grid display field configuration' do
+			# verify the initial value from the import
+			expect(find_field('site[search_configuration][display_options][grid_field_types]').value).to eq("project, name")
+			page.fill_in('site[search_configuration][display_options][grid_field_types]', with: 'format, project')			
+			click_button "Update Search Configuration"
+			# do a find to make sure page loaded
+			find('#site_search_configuration_display_options_grid_field_types')
+			visit(edit_link_href)
+			# verify the value update
+			expect(find_field('site[search_configuration][display_options][grid_field_types]').value).to eq("format, project")			
+		end
 	end
 	describe '#edit' do
 		before do

@@ -56,7 +56,7 @@ class Dcv::Configurators::CarnegieBlacklightConfigurator
     config.add_index_field 'lib_date_textual_ssm', :label => 'Date'
     config.add_index_field 'lib_collection_ssm', label: 'Collection Name', helper_method: :display_composite_archival_context
     config.add_index_field 'abstract_ssm', label: 'Abstract', helper_method: :expandable_past_250
-    config.add_index_field 'lib_name_ssm', label: 'Name', tombstone_display: true, if: false
+    config.add_index_field 'lib_name_ssm', label: 'Name', grid_display: true, if: false
 
 
     # solr fields to be displayed in the show (single result) view

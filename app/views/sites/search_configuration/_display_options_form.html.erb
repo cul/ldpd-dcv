@@ -16,6 +16,10 @@
 				</div>
 			</div>
 			<div class="form-group">
+				<label for="site_search_configuration_display_options_grid_field_types">"Tombstone" Grid Result Display <span class="fa fa-question-circle" data-tooltip="tooltip-display-tombstone"></span></label>
+				<%= options_form.text_field(:grid_field_types, {value: @subsite.search_configuration.display_options.grid_field_types.join(", "), class: ['form-control'], disabled: !can?(:admin, @subsite)}) %>
+			</div>
+			<div class="form-group">
 				<label for="site_search_configuration_display_options_show_csv_results">Allow CSV Search Results <span class="fa fa-question-circle" data-tooltip="tooltip-display-csv"></span></label>
 				<%= options_form.check_box :show_csv_results, {}, "true", "false" %>
 			</div>
@@ -40,4 +44,5 @@
   <span id="tooltip-display-csv" title="Allow CSV Search Results">Configure the site to make search results available as a CSV download (linked from the results page).</span>
   <span id="tooltip-display-original-files" title="Allow Original File Downloads">Configure the site to link original file downloads where available (useful for born-digital content, such as office documents or spreadsheets). Editing is currently disabled.</span>
   <span id="tooltip-display-other-sources" title="Link to Other Search Sources">Configure the site to include a link to alternate search sources relevant to site content. Editing is currently disabled.</span>
+  <span id="tooltip-display-tombstone" title="'Tombstone' Grid Result Display">Configure the field types (<%= Site::DisplayOptions::VALID_GRID_FIELD_TYPES.join(", ") %>) to display in search result "tombstones" (the compact/grid view).</span>
 </div>

@@ -54,7 +54,7 @@ class Dcv::Configurators::NyreBlacklightConfigurator
     config.add_index_field 'abstract_ssm', :label => 'Summary', :helper_method => :truncate_text_to_250
     config.add_index_field 'cul_number_of_members_isi', :label => 'Number of Images'
     config.add_index_field 'classification_other_ssim', :label => 'Call Number', :link_to_search => 'classification_other_ssim'
-    config.add_index_field 'lib_name_ssm', label: 'Name', tombstone_display: true, if: false
+    config.add_index_field 'lib_name_ssm', label: 'Name', grid_display: true, if: false
 
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display
