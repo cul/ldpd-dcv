@@ -63,8 +63,8 @@ class Dcv::Configurators::LcaajBlacklightConfigurator
     #   The ordering of the field names is the order of the display
     config.add_show_field 'title_display_ssm', :label => 'Title'
     config.add_show_field 'lib_repo_full_ssim', :label => 'Library Location', :helper_method => :show_field_repository_to_facet_link
-    config.add_show_field 'role_interviewer_ssim', :label => 'Interviewer', :sort => 'index', :link_to_search => 'role_interviewer_ssim'
-    config.add_show_field 'role_interviewee_ssim', :label => 'Interviewee', :sort => 'index', :link_to_search => 'role_interviewee_ssim'
+    config.add_show_field 'role_interviewer_ssim', label: 'Interviewer', sort: 'index', link_to_facet: 'role_interviewer_ssim'
+    config.add_show_field 'role_interviewee_ssim', label: 'Interviewee', sort: 'index', link_to_facet: 'role_interviewee_ssim'
     config.add_show_field 'lib_format_ssm', :label => 'Format'
     config.add_show_field 'subject_hierarchical_geographic_region_ssim', :label => 'Region'
     config.add_show_field 'subject_hierarchical_geographic_city_ssim', :label => 'City'

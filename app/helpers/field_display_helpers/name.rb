@@ -29,7 +29,7 @@ module FieldDisplayHelpers::Name
       field_config = blacklight_config.show_fields[args[:field]]
     end
 
-    default_field = field_config.link_to_search if blacklight_config.facet_fields[field_config.link_to_search]
+    default_field = field_config.link_to_facet if blacklight_config.facet_fields[field_config.link_to_facet]
     names.map do |name, role_info|
       facet_field = role_info[:fields].detect { |field_name| blacklight_config.facet_fields[field_name]} || default_field
       value = (!args[:suppress_links] && facet_field) ?

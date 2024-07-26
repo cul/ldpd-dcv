@@ -53,7 +53,7 @@ class Dcv::Configurators::NyreBlacklightConfigurator
     config.add_index_field 'lib_date_textual_ssm', :label => 'Date'
     config.add_index_field 'abstract_ssm', :label => 'Summary', :helper_method => :truncate_text_to_250
     config.add_index_field 'cul_number_of_members_isi', :label => 'Number of Images'
-    config.add_index_field 'classification_other_ssim', :label => 'Call Number', :link_to_search => 'classification_other_ssim'
+    config.add_index_field 'classification_other_ssim', label: 'Call Number'
     config.add_index_field 'lib_name_ssm', label: 'Name', grid_display: true, if: false
 
     # solr fields to be displayed in the show (single result) view
@@ -62,9 +62,9 @@ class Dcv::Configurators::NyreBlacklightConfigurator
     #   The ordering of the field names is the order of the display
     config.add_show_field 'title_display_ssm', :label => 'Title'
     config.add_show_field 'lib_repo_full_ssim', :label => 'Library Location', :helper_method => :show_field_repository_to_facet_link
-    config.add_show_field 'role_architect_ssim', :label => 'Architect', :link_to_search => 'role_architect_ssim'
-    config.add_show_field 'role_owner_agent_ssim', :label => 'Owner/Agent', :link_to_search => 'role_owner_agent_ssim'
-    config.add_show_field 'classification_other_ssim', :label => 'Call Number', :link_to_search => 'classification_other_ssim'
+    config.add_show_field 'role_architect_ssim', label: 'Architect', link_to_facet: 'role_architect_ssim'
+    config.add_show_field 'role_owner_agent_ssim', label: 'Owner/Agent', link_to_facet: 'role_owner_agent_ssim'
+    config.add_show_field 'classification_other_ssim', label: 'Call Number', link_to_facet: 'classification_other_ssim'
     config.add_show_field 'lib_format_ssm', :label => 'Format'
     config.add_show_field 'subject_hierarchical_geographic_region_ssim', :label => 'Region'
     config.add_show_field 'subject_hierarchical_geographic_city_ssim', :label => 'City'

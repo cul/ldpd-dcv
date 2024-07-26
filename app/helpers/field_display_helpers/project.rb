@@ -10,7 +10,7 @@ module FieldDisplayHelpers::Project
   end
 
   def show_field_project_to_facet_link(args)
-    return args[:document][args[:field]] unless blacklight_config.show_fields[args[:field]].link_to_search
+    return args[:document][args[:field]] unless blacklight_config.show_fields[args[:field]].link_to_facet
     projects_config = Rails.application.config_for(:hyacinth_projects)
 
     display_values = args[:document][args[:field]]

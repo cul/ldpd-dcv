@@ -31,9 +31,9 @@ class Site < ApplicationRecord
 
 		Dcv::Configurators::DcvBlacklightConfigurator.configure_show_fields(config)
 		field_name = 'lib_repo_short_ssim'
-		config.show_fields[field_name].link_to_search = false
+		config.show_fields[field_name].link_to_facet = false
 		field_name = 'lib_project_full_ssim'
-		config.show_fields[field_name].link_to_search = false
+		config.show_fields[field_name].link_to_facet = false
 
 		Dcv::Configurators::DcvBlacklightConfigurator.configure_citation_fields(config)
 		Dcv::Configurators::DcvBlacklightConfigurator.configure_sort_fields(config)

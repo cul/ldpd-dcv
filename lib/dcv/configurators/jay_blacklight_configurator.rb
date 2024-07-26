@@ -59,7 +59,7 @@ class Dcv::Configurators::JayBlacklightConfigurator
     config.add_show_field 'title_display_ssm', :label => 'Title'
     config.add_show_field 'alternative_title_ssm', :label => 'Alternative Titles'
     config.add_show_field 'lib_repo_full_ssim', :label => 'Library Location', :helper_method => :show_field_repository_to_facet_link
-    config.add_show_field 'lib_name_ssm', label: 'Name', link_to_search: 'lib_name_sim', helper_method: :display_non_copyright_names_with_roles, if: :has_non_copyright_names?
+    config.add_show_field 'lib_name_ssm', label: 'Name', link_to_facet: 'lib_name_sim', helper_method: :display_non_copyright_names_with_roles, if: :has_non_copyright_names?
     config.add_show_field 'lib_format_ssm', :label => 'Format'
     config.add_show_field 'lib_project_full_ssim', :label => 'Digital Project'
     config.add_show_field 'lib_collection_ssm', :label => 'Collection'

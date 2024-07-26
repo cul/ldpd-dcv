@@ -10,5 +10,10 @@ module Dcv
 				super
 			end
 		end
+		def pipeline_steps
+			upstream_operations = Blacklight::Rendering::Pipeline.operations.dup
+			upstream_operations.index(Blacklight::Rendering::LinkToFacet)&.tap { |ix| upstream_operations[ix] = Rendering::LinkToFacet }
+			(options[:steps] || field_config[:steps] || upstream_operations) - except_operations
+		end
 	end
 end

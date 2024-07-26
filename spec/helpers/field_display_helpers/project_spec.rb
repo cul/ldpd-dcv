@@ -34,14 +34,14 @@ describe FieldDisplayHelpers::Project, :type => :helper do
       let(:field_name) { :project_key_ssim }
       let(:field_values) { ['test'] }
       before do
-        blacklight_config.add_show_field field_name, label: 'Digital Project', helper_method: :show_field_project_to_facet_link, link_to_search: true
+        blacklight_config.add_show_field field_name, label: 'Digital Project', helper_method: :show_field_project_to_facet_link, link_to_facet: true
       end
       it { is_expected.to satisfy {|x| x.length == field_values.length} }
       it { is_expected.to satisfy {|x| x[0].include?(">Successful Project Mapping For Full Project Title</a>") } }
     end
     context "field is not linked" do
       before do
-        blacklight_config.add_show_field field_name, label: 'Digital Project', helper_method: :show_field_project_to_facet_link, link_to_search: false
+        blacklight_config.add_show_field field_name, label: 'Digital Project', helper_method: :show_field_project_to_facet_link, link_to_facet: false
       end
       it { is_expected.to satisfy {|x| x.length == 2} }
       it { is_expected.to satisfy {|x| x[0].eql?("Project 1") && x[1].eql?("Project 2") } }
