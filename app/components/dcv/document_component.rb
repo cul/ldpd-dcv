@@ -48,7 +48,7 @@ module Dcv
       # @search_session = helpers.search_session
       @search_view ||= "#{controller.default_search_mode}-view"
       # part of superclass in BL8
-      with_thumbnail(linked_thumbnail) unless thumbnail
+      with_thumbnail(linked_thumbnail)
       unless partials?
         @view_partials&.each do |view_partial|
           with_partial(view_partial) do
