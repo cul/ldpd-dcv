@@ -51,7 +51,7 @@ class Dcv::Configurators::IfpBlacklightConfigurator
     #config.add_index_field 'title_display_ssm', :label => 'Title'
     config.add_index_field 'contributor_ssim', label: 'Office'
     config.add_index_field 'original_name_ssim', label: 'Folder Path', helper_method: :dirname_prefixed_with_slash
-    config.add_index_field 'lib_name_ssm', label: 'Name', tombstone_display: true, if: false
+    config.add_index_field 'lib_name_ssm', label: 'Name', grid_display: true, if: false
 
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display

@@ -59,7 +59,7 @@ class Dcv::Configurators::Restricted::UniversityseminarsBlacklightConfigurator
     #   The ordering of the field names is the order of the display
     config.add_show_field 'title_display_ssm', :label => 'Title'
     config.add_show_field 'alternative_title_ssm', :label => 'Alternative Titles'
-    config.add_show_field 'primary_name_ssm', :label => 'Seminar Number', :link_to_search => 'primary_name_sim'
+    config.add_show_field 'primary_name_ssm', label: 'Seminar Number', link_to_facet: 'primary_name_sim'
     config.add_show_field 'lib_date_textual_ssm', :label => 'Date'
     config.add_show_field 'lib_non_date_notes_ssm', :label => 'Note'
     config.add_show_field 'lib_date_notes_ssm', :label => 'Date Note'

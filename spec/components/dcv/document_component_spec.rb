@@ -49,7 +49,7 @@ RSpec.describe Dcv::DocumentComponent, type: :component do
   describe '#short_title' do
     let(:long_title) { '0123456789abcdefghijklmnopqrstuvwxyz' }
     let(:short_title) { '0123456789abc' }
-    let(:document) { { 'title_ssm' => title_value } }
+    let(:solr_data) { { 'title_ssm' => title_value } }
     let(:view_context) { Struct.new(:document_index_view_type).new(:index) }
     let(:blacklight_config) { Blacklight::Configuration.new }
     let(:presenter) { double(Dcv::ShowPresenter, document: document, heading: title_value) }
@@ -72,8 +72,34 @@ RSpec.describe Dcv::DocumentComponent, type: :component do
 
     context "no title" do
       let(:title_value) { nil }
-      let(:document) { { 'some_field' => 'some_value' } }
+      let(:solr_data) { { 'some_field' => 'some_value' } }
       it { is_expected.to be_nil }
+    end
+  end
+  describe '#each_grid_field' do
+    let(:subsite) { instance_double(Site, search_configuration: search_configuration) }
+    let(:search_configuration) { instance_double(Site::SearchConfiguration, display_options: display_options) }
+    let(:display_options) { instance_double(Site::DisplayOptions, grid_field_types: ['format']) }
+    let(:blacklight_config) { Blacklight::Configuration.new }
+    let(:solr_data) { { 'ignored_ssm' => ['text value'], 'configured_type_ssm' => ['format value'], 'default_ssm' => ['default value'] } }
+    let(:listed_fields) do
+      _val = []
+      component.each_grid_field do |field, field_config|
+        _val << field
+      end
+      _val
+    end
+    before do
+      blacklight_config.add_index_field 'ignored_ssm', :label => 'Text'
+      blacklight_config.add_index_field 'configured_type_ssm', label: 'Format', grid_display: ['format']
+      blacklight_config.add_index_field 'default_ssm', label: 'Name', grid_display: true
+      blacklight_config.add_index_field 'missing_ssm', label: 'Missing', grid_display: ['format']
+      allow(controller.helpers).to receive(:blacklight_config).and_return(blacklight_config)
+      allow(controller).to receive(:load_subsite).and_return(subsite)
+      component.instance_variable_set(:@view_context, view_context)
+    end
+    it "yields in the expected configuration order" do
+      expect(listed_fields).to eql ['default_ssm', 'configured_type_ssm']
     end
   end
 end

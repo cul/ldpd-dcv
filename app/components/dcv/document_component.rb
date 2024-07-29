@@ -2,8 +2,8 @@
 
 module Dcv
   class DocumentComponent < Blacklight::DocumentComponent
-    delegate :byte_size_to_text_string, :render_document_class, :render_document_tombstone_field_value, :render_snippet_with_post_processing, to: :helpers
-
+    delegate :byte_size_to_text_string, :render_document_class, :render_snippet_with_post_processing, to: :helpers
+    delegate :load_subsite, to: :controller
     # this is a BL8 forward-compatible override
     # - BL8 will pass DocumentPresenter as :document
     # - BL8 will use ViewComponent collection iteration
@@ -29,9 +29,9 @@ module Dcv
       @id = id || ('document' if show)
       @classes = classes
 
-      @metadata_component = Blacklight::DocumentMetadataComponent
+      @metadata_component = metadata_component || Blacklight::DocumentMetadataComponent
 
-      @thumbnail_component = Blacklight::Document::ThumbnailComponent
+      @thumbnail_component = thumbnail_component || Blacklight::Document::ThumbnailComponent
 
       # ViewComponent 3 will change document_counter to be zero-based, but BL8 will accommodate
       @counter = document_counter + counter_offset if document_counter.present?
@@ -48,6 +48,7 @@ module Dcv
       # @search_session = helpers.search_session
       @search_view ||= "#{controller.default_search_mode}-view"
       # part of superclass in BL8
+      with_thumbnail(linked_thumbnail)
       unless partials?
         @view_partials&.each do |view_partial|
           with_partial(view_partial) do
@@ -85,10 +86,25 @@ module Dcv
       title
     end
 
-    def document_tombstone_fields(document = nil)
+    # Iterate over each field that is displayable in the site context for grid mode search results
+    # These will be yields in the order of configuration for grid mode, and then within the Blacklight
+    # index field definitions
+    def each_grid_field(document = @document)
+      return unless document
+      # the True key here supports custom sites with dedicated Blacklight configurators
+      grid_field_types = [true] + load_subsite.search_configuration.display_options.grid_field_types
+      grid_fields = grid_field_types.map {|x| [x, []]}.to_h
       helpers.blacklight_config.index_fields.select do |field, field_config|
-        field_config[:tombstone_display] && document[field].present?
-      end.to_h
+        grid_key = (grid_field_types & Array(field_config[:grid_display])).first
+        grid_fields[grid_key] << [field, field_config] if grid_key && document[field].present?
+      end
+      grid_field_types.each do |type|
+        grid_fields[type].each { |gf| yield gf[0], gf[1] }
+      end
+    end
+
+    def render_grid_field_value(document:, field:, **_args)
+      content_tag(:div, Array(document[field]).first, class: "ellipsis")
     end
   end
 end

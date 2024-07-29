@@ -42,7 +42,7 @@ module Sites
 				.require(:search_configuration).permit(
 					date_search_configuration: [:enabled, :granularity_search, :show_sidebar, :show_timeline, :sidebar_label],
 					map_configuration: [:default_lat, :default_long, :enabled, :granularity_data, :granularity_search, :show_items, :show_sidebar],
-					display_options: [:default_search_mode, :show_csv_results, :show_original_file_download, :show_other_sources],
+					display_options: [:default_search_mode, :show_csv_results, :show_original_file_download, :show_other_sources, :grid_field_types],
 					facets: [:facet_fields_form_value, :label, :limit, :sort, :value_transforms],
 					search_fields: [:type, :label]
 			)&.to_h
@@ -50,6 +50,8 @@ module Sites
 			scp&.tap do |atts|
 				atts['search_fields'] = atts['search_fields'].values if atts&.fetch('search_fields', nil)
 				atts['facets'] = atts['facets'].values if atts&.fetch('facets', nil)
+				display_options = atts['display_options']
+				display_options['grid_field_types'] = display_options['grid_field_types'].split(',').map(&:strip) if display_options&.fetch('grid_field_types', nil)
 			end
 		end
 	end

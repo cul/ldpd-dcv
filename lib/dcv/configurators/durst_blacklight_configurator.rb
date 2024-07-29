@@ -52,9 +52,9 @@ class Dcv::Configurators::DurstBlacklightConfigurator
 
     # solr fields to be displayed in the index (search results) view
     #   The ordering of the field names is the order of the display
-    config.add_index_field 'primary_name_ssm', label: 'Name', tombstone_display: true
+    config.add_index_field 'primary_name_ssm', label: 'Name', grid_display: true
     config.add_index_field 'lib_date_textual_ssm', :label => 'Published', accessor: :published_origin_information, if: :has_publication_info?
-    config.add_index_field 'lib_format_ssm', label: 'Format', tombstone_display: true
+    config.add_index_field 'lib_format_ssm', label: 'Format', grid_display: true
     config.add_index_field 'lib_non_item_in_context_url_ssm', label: 'Online', link_label: 'click here for full-text', helper_method: :render_link_to_external_resource, join: false
     config.add_index_field 'clio_ssim', label: 'Catalog Record', link_label: 'check availability', helper_method: :render_link_to_clio, join: false
 

@@ -56,14 +56,14 @@ class Dcv::Configurators::CarnegieBlacklightConfigurator
     config.add_index_field 'lib_date_textual_ssm', :label => 'Date'
     config.add_index_field 'lib_collection_ssm', label: 'Collection Name', helper_method: :display_composite_archival_context
     config.add_index_field 'abstract_ssm', label: 'Abstract', helper_method: :expandable_past_250
-    config.add_index_field 'lib_name_ssm', label: 'Name', tombstone_display: true, if: false
+    config.add_index_field 'lib_name_ssm', label: 'Name', grid_display: true, if: false
 
 
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display
-    config.add_show_field 'lib_name_ssm', label: 'Name', link_to_search: 'lib_name_sim', helper_method: :display_non_copyright_names_with_roles, if: :has_non_copyright_names?
+    config.add_show_field 'lib_name_ssm', label: 'Name', link_to_facet: 'lib_name_sim', helper_method: :display_non_copyright_names_with_roles, if: :has_non_copyright_names?
     config.add_show_field 'title_display_ssm', label: 'Title'
     config.add_show_field 'abstract_ssm', label: 'Abstract', helper_method: :expandable_past_400
     config.add_show_field 'lib_collection_ssm', label: 'Collection Name', helper_method: :display_collection_with_links

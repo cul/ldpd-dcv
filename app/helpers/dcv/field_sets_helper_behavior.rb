@@ -9,12 +9,4 @@ module Dcv::FieldSetsHelperBehavior
   def document_geo_fields(document = nil)
     blacklight_config.geo_fields
   end
-
-  def render_document_tombstone_field_value *args
-    options = args.extract_options!
-    document = args.shift || options[:document]
-
-    field = args.shift || options[:field]
-    content_tag(:div, Array(document[field]).first, class: "ellipsis")
-  end
 end

@@ -25,6 +25,9 @@ search_configuration:
     show_csv_results: true
     show_original_file_download: false
     show_other_sources: false
+    grid_field_types:
+      - project
+      - name
   facets:
     - field_name: role_test_sim
       label: Test Names

@@ -99,21 +99,22 @@ class Dcv::Configurators::DcvBlacklightConfigurator
   #   The ordering of the field names is the order of the display
   def self.configure_index_fields(config)
     config.add_index_field 'primary_name_ssm', label: 'Name', helper_method: :display_non_copyright_names_with_roles, if: :has_non_copyright_names?
-    config.add_index_field 'rel_other_project_ssim', :label => 'Project'
+    config.add_index_field 'rel_other_project_ssim', label: 'Project', grid_display: ['project']
     config.add_index_field 'lib_repo_long_ssim', :label => 'Library Location'
     config.add_index_field 'location_sublocation_ssm', :label => 'Department'
     config.add_index_field 'lib_collection_ssm', label: 'Collection Name', helper_method: :display_composite_archival_context
     config.add_index_field 'lib_date_textual_ssm', :label => 'Date'
     config.add_index_field 'lib_item_in_context_url_ssm', :label => 'Item in Context', :helper_method => :link_to_url_value
-    config.add_index_field 'lib_name_ssm', label: 'Name', tombstone_display: true, if: false
+    config.add_index_field 'lib_name_ssm', label: 'Name', grid_display: ['name'], if: false
+    config.add_index_field 'lib_format_ssm', label: 'Format', grid_display: ['format'], if: false
   end
 
   # solr fields to be displayed in the show (single result) view
   #   The ordering of the field names is the order of the display
   def self.configure_show_fields(config)
     configure_file_show_fields(config)
-    config.add_show_field 'lib_name_ssm', label: 'Name', link_to_search: 'lib_name_sim', helper_method: :display_non_copyright_names_with_roles, if: :has_non_copyright_names?
-    config.add_show_field 'rel_other_project_ssim', :label => 'Project'
+    config.add_show_field 'lib_name_ssm', label: 'Name', link_to_facet: 'lib_name_sim', helper_method: :display_non_copyright_names_with_roles, if: :has_non_copyright_names?
+    config.add_show_field 'rel_other_project_ssim', label: 'Project', link_to_facet: true
     config.add_show_field 'title_display_ssm', label: 'Title'
     config.add_show_field 'alternative_title_ssm', :label => 'Other Titles'
     config.add_show_field 'abstract_ssm', label: 'Abstract', helper_method: :expandable_past_400, iiif: false
@@ -131,14 +132,14 @@ class Dcv::Configurators::DcvBlacklightConfigurator
     config.add_show_field 'lib_date_textual_ssm', :label => 'Date', :helper_method => :show_date_field
     config.add_show_field 'physical_description_extent_ssm', :label => 'Physical Description'
     config.add_show_field 'dynamic_notes', pattern: /lib_.*_notes_ssm/, label: :notes_label, helper_method: :expandable_past_250, unless: :is_excepted_dynamic_field?, except: ['lib_acknowledgment_notes_ssm'], join: false
-    config.add_show_field 'language_language_term_text_ssim', :label => 'Language', :link_to_search => 'language_language_term_text_ssim'
+    config.add_show_field 'language_language_term_text_ssim', label: 'Language', link_to_facet: 'language_language_term_text_ssim'
     config.add_show_field 'table_of_contents_ssm', :label => 'Contents'
-    config.add_show_field 'lib_repo_short_ssim', label: 'Library Location', helper_method: :show_field_repository_to_facet_link, link_to_search: true, iiif: false
+    config.add_show_field 'lib_repo_short_ssim', label: 'Library Location', helper_method: :show_field_repository_to_facet_link, link_to_facet: true, iiif: false
     config.add_show_field 'location_sublocation_ssm', :label => 'Department'
     config.add_show_field 'clio_ssim', label: 'Catalog Record', helper_method: :render_link_to_clio, join: false
     config.add_show_field 'lib_part_ssm', :label => 'Part'
-    config.add_show_field 'lib_project_full_ssim', label: 'Digital Project', helper_method: :show_field_project_to_facet_link, link_to_search: :project_key, if: :show_digital_project?, unless_fields: :project_key_ssim
-    config.add_show_field 'project_key_ssim', label: 'Digital Project', helper_method: :show_field_project_to_facet_link, link_to_search: :project_key, if: :show_digital_project?
+    config.add_show_field 'lib_project_full_ssim', label: 'Digital Project', helper_method: :show_field_project_to_facet_link, link_to_facet: :project_key, if: :show_digital_project?, unless_fields: :project_key_ssim
+    config.add_show_field 'project_key_ssim', label: 'Digital Project', helper_method: :show_field_project_to_facet_link, link_to_facet: :project_key, if: :show_digital_project?
     config.add_show_field 'other_sites_data', :label => 'Also In', :helper_method => :show_link_to_other_site_home
     # Note: Do NOT show the access_condition field. See DCV-465 for explanation.
     #config.add_show_field 'access_condition_ssim', :label => 'Rights'
