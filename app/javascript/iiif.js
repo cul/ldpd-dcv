@@ -4,6 +4,7 @@ import canvasRelatedLinksPlugin from '@columbia-libraries/mirador/dist/es/src/cu
 import citationSidebar from '@columbia-libraries/mirador/dist/es/src/culPlugins/mirador-citations';
 import hintingSidebar from '@columbia-libraries/mirador/dist/es/src/culPlugins/mirador-hinting-sidebar';
 import videoJSPlugin from '@columbia-libraries/mirador/dist/es/src/culPlugins/mirador-videojs';
+import viewerNavigation from '@columbia-libraries/mirador/dist/es/src/culPlugins/mirador-pageIconViewerNavigation';
 import viewXmlPlugin from '@columbia-libraries/mirador/dist/es/src/culPlugins/mirador-viewXml';
 
 const flattenPluginConfigs = (...plugins) => plugins.reduce(
@@ -75,7 +76,7 @@ $(document).ready(function(){
           en: { openCompanionWindow_citation: "Citation" },
         },
       },
-      flattenPluginConfigs(hintingSidebar, miradorDownloadPlugins, viewXmlPlugin, citationSidebar, videoJSPlugin, canvasRelatedLinksPlugin),
+      flattenPluginConfigs(canvasRelatedLinksPlugin, citationSidebar, hintingSidebar, miradorDownloadPlugins, videoJSPlugin, viewerNavigation, viewXmlPlugin),
     );
   }
 });

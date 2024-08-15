@@ -48,7 +48,7 @@ gem 'wowza-secure_token', '0.0.1'
 gem "sqlite3", "~> 1.4"
 
 # Use mysql2 gem for mysql connections
-gem 'mysql2', '0.5.2'
+gem 'mysql2', '~> 0.5.2'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
