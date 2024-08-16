@@ -6,6 +6,7 @@ class Iiif::Collection < Iiif::BaseResource
     super(id: id, solr_document: solr_document)
     @children_service = children_service
     @route_helper = route_helper
+    @ability_helper = ability_helper
     @proxy_path = @id.split(/\/collection\/?/)[1]
     @part_of_id = @id.split('/')[0...-1].join('/') unless (@id =~ /collection\/?$/)
   end
@@ -103,7 +104,7 @@ class Iiif::Collection < Iiif::BaseResource
     @part_of_json ||= [
       Iiif::Collection.new(
         id: part_of_id, solr_document: solr_document, children_service: children_service,
-        route_helper: route_helper, reading_room: reading_room
+        route_helper: route_helper, ability_helper: ability_helper
       ).as_json
     ]
   end
