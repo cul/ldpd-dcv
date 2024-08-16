@@ -30,7 +30,7 @@ class Iiif::PresentationsController < ApplicationController
 
   def fetch_by_doi_opts(query_opts = {})
     # these can be mutated during processing, so must be a new object and not a constant
-    default_opts = { q: "{!raw f=ezid_doi_ssim v=$id}", fq: ["object_state_ssi:A"] }
+    default_opts = { q: "{!raw f=ezid_doi_ssim v=$ids}", fq: ["object_state_ssi:A"] }
     default_opts.merge(query_opts)
   end
 
@@ -65,6 +65,7 @@ class Iiif::PresentationsController < ApplicationController
       collection_document = fetch_by_doi collection_doi_param
       local_params = {}
       local_params[:fl] = "*,proxy:[subquery]"
+      local_params[:"proxy.defType"] = 'lucene'
       local_params[:"proxy.q"] = "{!terms f=proxyFor_ssi v=$row.dc_identifier_ssim}"
       local_params[:"proxy.fq"] = "proxyIn_ssi:\"#{collection_document['fedora_pid_uri_ssi']}\""
       @response, @document = fetch("doi:#{doi}", fetch_by_doi_opts(local_params))
@@ -94,7 +95,7 @@ class Iiif::PresentationsController < ApplicationController
     collection_params = select_params(:collection_registrant, :collection_doi)
     collection_params[:proxy_path] = CGI.unescape(proxy_path) if proxy_path.present?
     collection_id = iiif_collection_url(collection_params)
-    Iiif::Collection.new(**presentation_params(collection_id, collection_document, child_service, self))
+    Iiif::Collection.new(**presentation_params(collection_id, collection_document, child_service))
   end
 
   def range
