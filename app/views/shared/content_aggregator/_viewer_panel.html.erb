@@ -3,7 +3,7 @@
   <p id="child-viewer-subtitle">&nbsp;</p>
 
   <% if (structured_children.length == 0) && archive_org_id_for_document(document) %>
-    <%= render Dcv::ContentAggregator::ArchiveOrgResourceComponent.new(document: document, local_downloads: false) %>
+    <%= render Dcv::ContentAggregator::ArchiveOrgComponent.new(document: document, local_downloads: false) %>
   <% elsif !has_viewable_children? %>
     <%= render Dcv::ContentAggregator::EmptyComponent.new(document: document, local_downloads: false, structured_children: structured_children, parent_title: parent_title) %>
   <% else %>
