@@ -93,8 +93,18 @@ module ChildrenHelper
     children.detect { |child| is_publicly_available_asset?(child, ability) }.present?
   end
 
+  def structured_children_of document, &block
+    structured_children(document)&.select &block
+  end
+
   def structured_children_of_type(document: @document, dc_type:)
-    structured_children(document)&.select { |child| Array(child[:dc_type_sim]).include?(dc_type) }
+    structured_children_of(@document) { |child| Array(child[:dc_type_sim]).include?(dc_type) }
+  end
+
+  def structured_children_of_valid_types(document: @document)
+    structured_children_of(@document) do |child|
+      Array(child[:dc_type_sim]).detect { |dct| BestType.dc_type.valid_type?(dct) || BestType.pcdm_type.valid_type?(dct) }
+    end
   end
 
   def structured_children_not_type(document: @document, dc_type:)

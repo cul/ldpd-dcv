@@ -93,6 +93,7 @@ gem "devise-guests", "~> 0.3"
 gem 'rubyzip', '>= 1.2.1'
 gem 'rack-protection', '>= 1.5.5'
 gem 'loofah', '>= 2.2.1'
+gem 'best_type'
 
 group :development, :test do
   # Use Capistrano for deployment

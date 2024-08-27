@@ -30,9 +30,8 @@ DLC VERSION: <%= IO.read(Rails.root.to_s+'/VERSION') %> -->
 <%= stylesheet_link_tag "dcv", media: 'all'  %>
 <%= stylesheet_link_tag "print", media: 'print' %>
 <%- is_iiif_client = @document&.fetch('iiif_behavior_ssim', nil).present? -%>
-<%- ['StillImage', 'Sound', 'MovingImage', 'Text'].each do |dc_type| -%>
-	<%- is_iiif_client ||= Array(@document&.fetch(:dc_type_sim, nil)).include?(dc_type) -%>
-	<%- is_iiif_client ||= Array(@document&.fetch(:dc_type_sim, nil)).include?('InteractiveResource') && structured_children_of_type(document: @document || {}, dc_type: dc_type).present? -%>
+<%- if !is_iiif_client && Array(@document&.fetch(:dc_type_sim, nil)).detect { |x| BestType.dc_type.valid_type?(x) || BestType.pcdm_type.valid_type?(x) } -%>
+	<%- is_iiif_client ||= Array(@document&.fetch(:dc_type_sim, nil)).include?('InteractiveResource') ? structured_children_of_valid_types(document: @document).present? : true -%>
 <%- end -%>
 <%- is_iiif_client ||= archive_org_id_for_document(@document) -%>
 <%- is_file_system = is_file_system?(@document) -%>

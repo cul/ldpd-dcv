@@ -89,6 +89,8 @@ GEM
       sshkit (>= 1.6.1, != 1.7.0)
     ast (2.4.2)
     bcrypt (3.1.19)
+    best_type (1.0.1)
+      mime-types (~> 3.4)
     bigdecimal (3.1.4)
     blacklight (7.33.1)
       deprecation
@@ -500,6 +502,7 @@ DEPENDENCIES
   active-fedora (~> 8.7)
   active-triples!
   addressable (~> 2.8.0)
+  best_type
   bigdecimal (~> 3.0)
   blacklight (~> 7.33.1)
   bootsnap (~> 1.9.3)
