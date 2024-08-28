@@ -50,8 +50,7 @@ module Dcv
         'd3.js',
         'sites.js', 'sites.css',
         'easymde.min.js', 'easymde.min.css',
-        'iiif.js', 'iiif.css',
-        'iiif-archives.js'
+        'iiif.js', 'iiif.css'
       ]
 
     # And include styles for all configured subsite layouts

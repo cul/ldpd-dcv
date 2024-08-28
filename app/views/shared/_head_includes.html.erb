@@ -34,7 +34,7 @@ DLC VERSION: <%= IO.read(Rails.root.to_s+'/VERSION') %> -->
 	<%- is_iiif_client ||= Array(@document&.fetch(:dc_type_sim, nil)).include?('InteractiveResource') ? structured_children_of_valid_types(document: @document).present? : true -%>
 <%- end -%>
 <%- is_iiif_client ||= archive_org_id_for_document(@document) -%>
-<%- is_file_system = is_file_system?(@document) -%>
+<%- is_iiif_client ||= is_file_system?(@document) -%>
 <%= stylesheet_link_tag('iiif' , media: 'all') if @document && params[:action] != 'synchronizer' %>
 
 <!-- OHSynchronizer -->
@@ -53,7 +53,6 @@ DLC VERSION: <%= IO.read(Rails.root.to_s+'/VERSION') %> -->
   <%- js_packs << 'ohsynchronizer' %>
 <%- else -%>
 	<%- js_packs << 'iiif' if is_iiif_client %>
-	<%- js_packs << 'iiif-archives' if is_file_system %>
 <% end %>
 <%= javascript_pack_tag *js_packs %>
 

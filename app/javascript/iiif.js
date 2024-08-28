@@ -6,6 +6,7 @@ import hintingSidebar from '@columbia-libraries/mirador/dist/es/src/culPlugins/m
 import videoJSPlugin from '@columbia-libraries/mirador/dist/es/src/culPlugins/mirador-videojs';
 import viewerNavigation from '@columbia-libraries/mirador/dist/es/src/culPlugins/mirador-pageIconViewerNavigation';
 import viewXmlPlugin from '@columbia-libraries/mirador/dist/es/src/culPlugins/mirador-viewXml';
+import collectionFoldersPlugin from '@columbia-libraries/mirador/dist/es/src/culPlugins/mirador-selectCollectionFolders';
 
 const flattenPluginConfigs = (...plugins) => plugins.reduce(
   (acc, curr) => {
@@ -14,9 +15,10 @@ const flattenPluginConfigs = (...plugins) => plugins.reduce(
 );
 
 $(document).ready(function(){
-  const manifestUrl = $('#mirador').data('manifest');
+  const miradorDiv = $('#mirador');
+  const manifestUrl = miradorDiv.data('manifest');
   if (manifestUrl) {
-    const numChildren = $('#mirador').data('num-children');
+    const numChildren = miradorDiv.data('num-children');
     const startCanvas = function(queryParams) {
       if (queryParams.get("canvas")) {
         const canvases = queryParams.get("canvas").split(',');
@@ -31,6 +33,14 @@ $(document).ready(function(){
       ];
       viewConfig.defaultView = 'single';
     }
+    const culMiradorPlugins = flattenPluginConfigs(
+      canvasRelatedLinksPlugin, citationSidebar, hintingSidebar, miradorDownloadPlugins,
+      videoJSPlugin, viewerNavigation, viewXmlPlugin
+    );
+    const foldersAttValue = miradorDiv.data('use-folders');
+    const useFolders = (new Boolean(foldersAttValue).valueOf() && !String.toString(foldersAttValue).match(/false/i));
+    if (useFolders) culMiradorPlugins.push(...collectionFoldersPlugin);
+
     Mirador.viewer(
       {
         id: 'mirador',
@@ -76,7 +86,7 @@ $(document).ready(function(){
           en: { openCompanionWindow_citation: "Citation" },
         },
       },
-      flattenPluginConfigs(canvasRelatedLinksPlugin, citationSidebar, hintingSidebar, miradorDownloadPlugins, videoJSPlugin, viewerNavigation, viewXmlPlugin),
+      culMiradorPlugins,
     );
   }
 });
