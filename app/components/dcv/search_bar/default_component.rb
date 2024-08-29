@@ -40,15 +40,15 @@ module Dcv::SearchBar
     def pagination_component
       return @pagination_component unless @pagination_component.nil?
       @pagination_component = begin
-        _comp = Dcv::Response::CollapsiblePaginationComponent.new(
-          response: helpers.instance_variable_get(:@response), theme: 'dcv_collapsible',
+        _comp = Dcv::Response::CompactPaginationComponent.new(
+          response: helpers.instance_variable_get(:@response), theme: 'dcv_compact',
           outer_window: 1, window: 1
         )
 
         if _comp.will_render?(controller: controller, helpers: helpers)
           @pagination_will_render = true
         else
-          _comp = Dcv::SearchContext::CollapsiblePaginationComponent.new(
+          _comp = Dcv::SearchContext::PaginationComponent.new(
             search_context: helpers.instance_variable_get(:@search_context),
             search_session: helpers.instance_variable_get(:@search_session)
           )

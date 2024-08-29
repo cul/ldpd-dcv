@@ -6,5 +6,5 @@
     per_page:      number of items to fetch per page
     remote:        data-remote
 -%>
-<% tag_class="btn btn-outline-secondary #{'disabled' if current_page.first?}" -%>
+<% tag_class = "btn bg-body btn-outline-info rounded-0 #{'disabled' if current_page.first?}" -%>
 <%= link_to '<i class="fa fa-fast-backward"></i>'.html_safe, url, :remote => remote, :"data-toggle" => 'tooltip', "aria-label": raw(t 'views.pagination.first'), title: raw(t 'views.pagination.first'), class: tag_class %>
