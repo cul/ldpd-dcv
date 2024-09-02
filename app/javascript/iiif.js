@@ -39,7 +39,11 @@ $(document).ready(function(){
     );
     const foldersAttValue = miradorDiv.data('use-folders');
     const useFolders = (new Boolean(foldersAttValue).valueOf() && !String.toString(foldersAttValue).match(/false/i));
-    if (useFolders) culMiradorPlugins.push(...collectionFoldersPlugin);
+    if (useFolders) {
+      culMiradorPlugins.push(...collectionFoldersPlugin);
+      viewConfig.allowTopCollectionButton = true;
+      viewConfig.sideBarOpen = true;
+    }
 
     Mirador.viewer(
       {
