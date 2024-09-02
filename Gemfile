@@ -10,7 +10,7 @@ end
 gem 'bigdecimal', '~>3.0'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.1.0'
-gem 'shakapacker', '~> 7.0.0'
+gem 'shakapacker', '7.2.2'
 gem 'sassc'
 gem "font-awesome-sass", "~> 6.4.0"
 fa_token = font_awesome_token
