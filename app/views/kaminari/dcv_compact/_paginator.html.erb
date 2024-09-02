@@ -15,10 +15,10 @@
    As of Kaminari 0.15, this paginator doesn't have access to the original collection/scope, so it can't render the page entries info directly.
 -%>
 
-<div class="input-group-append p-0 flex-grow-1">
+<div class="input-group-append p-0">
   <%# Kaminari::Paginator#render checks if total_pages > 1, so this requires upstream insertion of paginator override for fallback -%>
   <%= paginator.render do -%>
-    <span class="btn bg-body btn-outline-info rounded-md-left-0 rounded-right-0 flex-fill" style="pointer-events:none;"><%= page_entries_info %></span>
+    <span class="btn bg-body btn-outline-info rounded-md-left-0 rounded-right-0 px-1 d-md-none d-lg-inline-block" style="pointer-events:none;white-space: nowrap;"><%= page_entries_info %></span>
     <%= first_page_tag %>
     <%= prev_page_tag %>
     <%= next_page_tag %>

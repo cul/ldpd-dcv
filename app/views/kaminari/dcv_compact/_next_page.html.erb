@@ -6,5 +6,5 @@
     per_page:      number of items to fetch per page
     remote:        data-remote
 -%>
-<% tag_class = "btn bg-body btn-outline-info rounded-left-0 rounded-right #{'disabled' if current_page.last?}" -%>
+<% tag_class = "btn bg-body btn-outline-info rounded-left-0 rounded-right align-content-center #{'disabled' if current_page.last?}" -%>
 <%= link_to '<i class="fa fa-arrow-right"></i>'.html_safe, url, rel: 'next', remote: remote, :"data-toggle" => 'tooltip', "aria-label": raw(t 'views.pagination.next'), title: raw(t 'views.pagination.next'), class: tag_class %>

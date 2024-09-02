@@ -2,24 +2,24 @@
   <%= render_hash_as_hidden_fields(params_for_new_search) %>
   <%= render_hash_as_hidden_fields(search_action_params) %>
   <%- rendering_pagination = pagination_will_render? -%>
-  <div class="input-group flex-fill flex-nowrap align-content-end">
+  <div class="input-group flex-lg-fill flex-nowrap align-content-end">
     <div class="btn-group input-group-prepend btn-group-toggle flex-shrink-0" data-toggle="buttons">
       <button class="btn btn-splash" type="submit">
         <span class="hidden-xs"><%= (current_page?(root_url)? t('blacklight.search.form.submit') : '') %></span>
         <span class="fa fa-search"></span>
       </button>
     </div>
-    <div class="input-group-prepend p-0 flex-grow-1 collapseSearch collapse show" id="collapseQuery">
+    <div class="input-group-prepend p-0 flex-grow-1">
       <%= render search_fields_component %>
       <div class="btn-group input-group-append">
         <%= render format_filter_component %>
-        <%= link_to '<i class="fa fa-remove"></i>'.html_safe, start_over_path, :title => 'Start Over', :class => 'btn btn-secondary reset-btn rounded-0' if query_has_constraints? %>
+        <%= link_to '<i class="fa fa-remove"></i>'.html_safe, start_over_path, :title => 'Start Over', :class => 'btn btn-secondary reset-btn rounded-0 align-content-center' if query_has_constraints? %>
       </div>
       <div class="flex-fill flex-shrink-1">
         <label for="q" class="sr-only"><%= t('blacklight.search.form.q') %></label>
-        <%= text_field_tag :q, params[:q], placeholder: search_placeholder_text, class: "search_q q bg-white form-control w-100 rounded-left-0 rounded-md-right-0", id: "q", tabindex: "1" %>
+        <%= text_field_tag :q, params[:q], placeholder: search_placeholder_text, class: "search_q q bg-white form-control w-100 h-100 rounded-left-0 rounded-md-right-0 px-1 flex-fill", id: "q", tabindex: "1" %>
       </div>
     </div>
+    <%= render pagination_component %>
   </div>
-  <%= render pagination_component %>
 <% end %>
