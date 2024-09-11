@@ -34,6 +34,22 @@ describe Sites::SearchController, type: :unit do
 		subject(:search_service) { controller.search_service }
 		it { is_expected.to be_a Dcv::SearchService }
 	end
+	describe '#load_subsite!' do
+		context 'no site for slug' do
+			let(:params) {
+				ActionController::Parameters.new(
+					site_slug: 'nonexistent'
+				)
+			}
+			let(:root_url) { 'root_url' }
+			let(:site) { nil }
+			before { allow(controller).to receive(:root_url).and_return(root_url) }
+
+			it 'raises ActiveRecord::RecordNotFound' do
+				expect {controller.load_subsite!}.to raise_error(ActiveRecord::RecordNotFound)
+			end
+		end
+	end
 	describe '#redirect_unless_local'do
 		context 'local search' do
 			let(:site) { FactoryBot.create(:site, search_type: 'local') }

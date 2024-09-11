@@ -10,7 +10,9 @@ module Sites
 		include Cul::Omniauth::AuthorizingController
 		include ShowFieldDisplayFieldHelper
 
-		before_action :load_subsite
+		rescue_from ActiveRecord::RecordNotFound, with: :on_page_not_found
+
+		before_action :load_subsite!
 		before_action :set_map_data_json, only: [:map_search]
 		before_action :store_unless_user, except: [:update, :destroy, :api_info]
 		before_action :redirect_unless_local, only: :index
@@ -56,8 +58,8 @@ module Sites
 
 		def set_view_path
 			prepend_view_path('app/views/' + self.subsite_layout)
-			custom_layout = load_subsite.slug.sub('%2F', '/')
-			prepend_view_path('app/views/' + custom_layout)
+			custom_layout = load_subsite.slug.sub('%2F', '/') if load_subsite&.slug
+			prepend_view_path('app/views/' + custom_layout) if custom_layout
 			prepend_view_path(custom_layout)
 		end
 
@@ -69,6 +71,12 @@ module Sites
 				s&.configure_blacklight!
 				s
 			end
+		end
+
+		def load_subsite!
+			_subsite = load_subsite
+			return _subsite if _subsite
+			raise ActiveRecord::RecordNotFound
 		end
 
 		def subsite_key
@@ -144,7 +152,7 @@ module Sites
 		end
 
 		def subsite_config
-			@subsite_config ||= load_subsite.to_subsite_config
+			@subsite_config ||= (load_subsite&.to_subsite_config || {})
 		end
 
 		def catalog_uri
