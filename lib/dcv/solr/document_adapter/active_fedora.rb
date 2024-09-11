@@ -198,16 +198,19 @@ module Dcv::Solr::DocumentAdapter
       end
     end
 
-    def index_proxies(params = {softCommit: true})
+    def index_proxies(params = {softCommit: true}, conn = ::ActiveFedora::SolrService.instance.conn)
       if has_struct_metadata?
-        conn = ::ActiveFedora::SolrService.instance.conn
         # delete by query proxyIn_ssi: internal_uri
         conn.delete_by_query("proxyIn_ssi:#{RSolr.solr_escape(obj.internal_uri())}")
 
         # reindex proxies
-        proxy_docs = proxies.collect {|p| p.to_solr}
-        conn.add(proxy_docs, params: params)
-        proxy_docs
+        indexed_docs = []
+        proxies.each_slice(100) do |slice|
+          proxy_docs = slice.map(&:to_solr)
+          conn.add(proxy_docs, params: params)
+          indexed_docs.concat proxy_docs
+        end
+        indexed_docs
       else
         []
       end

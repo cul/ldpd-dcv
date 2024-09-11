@@ -69,9 +69,23 @@ describe Dcv::Solr::DocumentAdapter::ActiveFedora::Collection, type: :unit do
 			end
 		end
 		describe '#proxies' do
-			it "produces proxy objects that respod to :to_solr from structMetadata" do
+			it "produces proxy objects that respond to :to_solr from structMetadata" do
 				expect(adapter.proxies.length).to be 7
 				expect(adapter.proxies.first).to respond_to(:to_solr)
+			end
+		end
+		describe '#index_proxies' do
+			let(:conn) { instance_double(RSolr::Client) }
+			before do
+				allow(conn).to receive(:add)
+			end
+			it "indexes proxy documents corresponding to structMetadata" do
+				expect(conn).to receive(:delete_by_query)
+				index_proxies = adapter.index_proxies({}, conn)
+				expect(index_proxies.length).to be 7
+				index_proxies.each do |proxy|
+					expect(proxy.keys).to include("id", "label_ssi", "proxyFor_ssi", "proxyIn_ssi", "type_ssim")
+				end
 			end
 		end
 	end
