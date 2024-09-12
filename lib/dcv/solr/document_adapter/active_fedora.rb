@@ -198,6 +198,14 @@ module Dcv::Solr::DocumentAdapter
       end
     end
 
+    def proxy_document_enumerator
+      if has_struct_metadata?
+        content = obj.datastreams['structMetadata'].content
+        ds = obj.create_datastream(Cul::Hydra::Datastreams::StructMetadata, 'structMetadata', controlGroup: 'X', blob: content)
+        ds.proxy_document_enumerator
+      end
+    end
+
     def index_proxies(params = {softCommit: true}, conn = ::ActiveFedora::SolrService.instance.conn)
       if has_struct_metadata?
         # delete by query proxyIn_ssi: internal_uri
@@ -205,8 +213,8 @@ module Dcv::Solr::DocumentAdapter
 
         # reindex proxies
         indexed_docs = []
-        proxies.each_slice(100) do |slice|
-          proxy_docs = slice.map(&:to_solr)
+        proxy_document_enumerator.each_slice(100) do |slice|
+          proxy_docs = slice.compact
           conn.add(proxy_docs, params: params)
           indexed_docs.concat proxy_docs
         end
