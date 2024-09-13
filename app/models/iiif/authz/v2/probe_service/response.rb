@@ -34,10 +34,10 @@ class Iiif::Authz::V2::ProbeService::Response
   def to_h
     probe_response = IIIF_TEMPLATES['v2_probe_response'].deep_dup
     probe_response[:id] = route_helper.bytestream_probe_url(catalog_id: @document.id, bytestream_id: bytestream_id)
-    if @ability_helper.can?(Ability::ACCESS_ASSET, @document) && @ability_helper.reading_room_client?
-      probe_response.merge!(redirect_location_properties)
-    elsif token_authorized?
+    if token_authorized?
       probe_response.merge!(redirect_location_properties(token_authorizer))
+    elsif @ability_helper.can?(Ability::ACCESS_ASSET, @document)
+      probe_response.merge!(redirect_location_properties)
     else
       no_token = @authorization.blank?
       has_id_policy = @document.fetch('access_control_levels_ssim',[]).include?(ACCESS_LEVEL_AFFILIATION)
