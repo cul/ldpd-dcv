@@ -24,7 +24,7 @@ class Iiif::Manifest::ArchiveOrgReference < Iiif::BaseResource
 
   def as_json(opts = {})
     manifest = {}
-    manifest['id'] = "https://iiif.archive.org/iiif/2/#{@id}/manifest.json"
+    manifest['id'] = "https://iiif.archive.org/iiif/3/#{@id}/manifest.json"
     manifest['type'] = 'Manifest'
     manifest['thumbnail'] = thumbnail
     manifest['label'] = @solr_document['title']
