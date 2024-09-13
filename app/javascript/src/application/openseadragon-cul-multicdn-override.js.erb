@@ -62,7 +62,7 @@ OpenSeadragon.IIIFTileSource.prototype.getTileUrl = function( level, x, y ){
     
     /** BEGIN - CUL Changed Code **/
     var dcvCdnUrls = <%= DCV_CONFIG['cdn_urls'].inspect %>;
-    var originalIiifUrlAndResourceUrlPath = this['@id'];
+    var originalIiifUrlAndResourceUrlPath = this['@id'] || this['id'];
     var iiifResourceUrl = originalIiifUrlAndResourceUrlPath;
     var iiifResourceUrlPath = null;
     dcvCdnUrls.forEach(function(url){
