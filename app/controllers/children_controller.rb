@@ -34,12 +34,22 @@ class ChildrenController < ApplicationController
         opts = {}
         opts[:per_page] = params.fetch('per_page', '10')
         opts[:page] = params.fetch('page', '0')
-        render json: children(params['parent_id'], opts), :content_type => 'application/json' # Yes, content_type seems redundant here, but the header wasn't getting sent.
+        render json: children(params['parent_id'], opts), content_type: 'application/json' # Yes, content_type seems redundant here, but the header wasn't getting sent.
       end
     end
   end
 
   def show
-    render json: child(params['id']), :content_type => 'application/json' # Yes, content_type seems redundant here, but the header wasn't getting sent.
+    puts child(params['id']).inspect
+    render json: child(params['id']), content_type: 'application/json' # Yes, content_type seems redundant here, but the header wasn't getting sent.
+  end
+
+  # shims from Blacklight 6 controller fetch to BL 7 search service
+  def search_service
+    Blacklight::SearchService.new(config: blacklight_config, user_params: {})
+  end
+
+  def fetch(id = nil, extra_controller_params = {})
+    return search_service.fetch(id, extra_controller_params)
   end
 end
