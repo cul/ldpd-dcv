@@ -40,8 +40,11 @@ module FieldDisplayHelpers::ArchivalContext
           clio = collection.fetch('dc:bibliographicCitation',{})['@id']
           if clio
             bib_id = clio.split('/')[-1].to_s
-            fa_url = generate_finding_aid_url(bib_id, document) if bib_id =~ /^\d+$/
-            value = link_to(value, fa_url) if fa_url
+            if bib_id =~ /^\d+$/
+              clio_only = collection.fetch('dc:coverage', []).blank?
+              fa_url = generate_finding_aid_url(bib_id, document, clio_only)
+              value = link_to(value, fa_url) if fa_url
+            end
           end
         end
         value.html_safe
