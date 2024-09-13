@@ -3,7 +3,7 @@
   <%= render_hash_as_hidden_fields(search_action_params) %>
   <%- rendering_pagination = pagination_will_render? -%>
   <div class="input-group flex-lg-fill flex-nowrap align-content-end">
-    <div class="btn-group input-group-prepend btn-group-toggle flex-shrink-0" data-toggle="buttons">
+    <div class="btn-group input-group-prepend btn-group-toggle flex-shrink-0">
       <button class="btn btn-splash" type="submit">
         <span class="hidden-xs"><%= (current_page?(root_url)? t('blacklight.search.form.submit') : '') %></span>
         <span class="fa fa-search"></span>
