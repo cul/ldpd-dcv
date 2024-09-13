@@ -39,10 +39,22 @@ class Cul::Hydra::Datastreams::StructMetadata::SaxProxyParser
   end
 
   class ProxyHandler < ::Ox::Sax
-    CONTENTIDS = :'CONTENTIDS'
-    LABEL = :'LABEL'
-    NAME = :'NAME'
-    ORDER = :'ORDER'
+    # Ox uses symbol keys
+    CONTENTIDS = :CONTENTIDS
+    LABEL = :LABEL
+    NAME = :NAME
+    ORDER = :ORDER
+
+    # legacy to_solr uses String keys
+    FIELD_BELONGS_TO_CONTAINER = 'belongsToContainer_ssi'
+    FIELD_ID = 'id'
+    FIELD_INDEX = 'index_ssi'
+    FIELD_IS_PART_OF = 'isPartOf_ssim'
+    FIELD_LABEL = 'label_ssi'
+    FIELD_PROXY_FOR = 'proxyFor_ssi'
+    FIELD_PROXY_IN = 'proxyIn_ssi'
+    FIELD_TYPE = 'type_ssim'
+
 
     def file_system= val
       @file_system = val
@@ -90,20 +102,20 @@ class Cul::Hydra::Datastreams::StructMetadata::SaxProxyParser
         proxy_uri_chain = current_proxy_uri_chain
         proxy_resource_uri = proxy_uri_chain.pop
         proxy = base_document(@current[CONTENTIDS])
-        proxy['id'] = proxy_resource_uri.to_s
-        proxy['proxyIn_ssi'] = @graph_context_uri.to_s
+        proxy[FIELD_ID] = proxy_resource_uri.to_s
+        proxy[FIELD_PROXY_IN] = @graph_context_uri.to_s
         if @current[CONTENTIDS]
-          proxy['proxyFor_ssi'] = RDF::URI(@current[CONTENTIDS]).to_s
+          proxy[FIELD_PROXY_FOR] = RDF::URI(@current[CONTENTIDS]).to_s
         else
           # this is the existing behavior in 1.13.x
-          proxy['proxyFor_ssi'] = proxy_resource_uri.to_s
+          proxy[FIELD_PROXY_FOR] = proxy_resource_uri.to_s
         end
         if @ancestors.last and @ancestors.last[NAME] == @element_name
-          proxy['belongsToContainer_ssi'] = proxy_uri_chain.last&.to_s
+          proxy[FIELD_BELONGS_TO_CONTAINER] = proxy_uri_chain.last&.to_s
         end
-        proxy['isPartOf_ssim'] = proxy_uri_chain.map(&:to_s) unless proxy_uri_chain.empty?
-        proxy['index_ssi'] = @current[ORDER]
-        proxy['label_ssi'] = @current[LABEL]
+        proxy[FIELD_IS_PART_OF] = proxy_uri_chain.map(&:to_s) unless proxy_uri_chain.empty?
+        proxy[FIELD_INDEX] = @current[ORDER]
+        proxy[FIELD_LABEL] = @current[LABEL]
         @yielder.yield proxy
       end
       @current = @ancestors.pop
@@ -113,14 +125,14 @@ class Cul::Hydra::Datastreams::StructMetadata::SaxProxyParser
     def base_document(has_asset_type)
       if has_asset_type
         return {
-          'type_ssim' => [
+          FIELD_TYPE => [
             RDF::ORE.Proxy.to_s,
             (@file_system ? RDF::NFO[:"#FileDataObject"].to_s : RDF::SC[:Canvas].to_s)
           ]
         }
       end
       {
-        'type_ssim' => [
+        FIELD_TYPE => [
           RDF::ORE.Proxy.to_s,
           (@file_system ? RDF::NFO[:"#Folder"].to_s : RDF::SC[:Sequence].to_s)
         ]
