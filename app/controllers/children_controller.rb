@@ -40,7 +40,6 @@ class ChildrenController < ApplicationController
   end
 
   def show
-    puts child(params['id']).inspect
     render json: child(params['id']), content_type: 'application/json' # Yes, content_type seems redundant here, but the header wasn't getting sent.
   end
 
