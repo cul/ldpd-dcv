@@ -20,15 +20,11 @@ module Dcv::Sites::ReadingRooms
   end
 
   def subsite_key
-    return unless params[:repository_id]
-    key = params[:repository_id].dup
-    key.downcase!
-    key.gsub!('-','')
-    key
+    params[:repository_id]
   end
 
   def load_subsite
-    @subsite ||= Site.find_by(slug: subsite_key) if params[:repository_id]
+    @subsite ||= Site.find_by(slug: params[:repository_id]) if params[:repository_id]
     super
     @subsite
   end

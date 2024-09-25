@@ -3,7 +3,7 @@ require 'rails_helper'
 describe RepositoriesController, type: :controller do
   let(:default_catalog_styles) { ["gallery-#{Dcv::Sites::Constants.default_palette}", "catalog"] }
   let(:view_context) { controller.view_context }
-  let(:site_attr) { { slug: 'nncrb', layout: 'default', palette: 'monochrome' } }
+  let(:site_attr) { { slug: 'NNC-RB', layout: 'default', palette: 'monochrome' } }
   let(:subsite) { FactoryBot.create(:site, **site_attr) }
 
   before do
