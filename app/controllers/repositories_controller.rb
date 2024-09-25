@@ -31,6 +31,7 @@ class RepositoriesController < ApplicationController
   end
 
   before_action :set_repository_id, only:[:show]
+  before_action :load_subsite, only:[:show, :about, :reading_room]
 
   prepend_view_path('app/views/repositories')
 
