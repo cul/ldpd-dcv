@@ -45,10 +45,10 @@ DLC VERSION: <%= IO.read(Rails.root.to_s+'/VERSION') %> -->
 <script>
 	window.DCV = window.DCV || {};
 	DCV.subsite_key = '<%= subsite_key %>';
-	DCV.subsite_layout = '<%= subsite_layout %>';
+	DCV.subsite_layout = '<%= active_site_js %>';
 </script>
 <% end %>
-<%- js_packs = ["application", "dcv"].concat(Array(subsite_layout)).uniq %>
+<%- js_packs = ["application", "dcv"].concat(Array(active_site_js)).uniq %>
 <%- if params[:action] == 'synchronizer' %>
   <%- js_packs << 'ohsynchronizer' %>
 <%- else -%>

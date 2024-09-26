@@ -1,6 +1,10 @@
 module SubsiteHelper
   def active_site_palette
-    (@subsite.layout == 'custom') ? 'custom' : controller.subsite_palette
+    (@subsite&.layout == 'custom') ? 'custom' : controller.subsite_palette
+  end
+
+  def active_site_js
+    (controller.subsite_layout == Site::LAYOUT_REPOSITORIES) ? 'gallery' : controller.subsite_layout
   end
 
   def map_search_settings_for_subsite
