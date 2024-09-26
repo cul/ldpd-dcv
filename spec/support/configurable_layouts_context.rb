@@ -35,13 +35,15 @@ shared_context "verify configurable layouts", shared_context: :metadata do
 			Dcv::Sites::Constants::PORTABLE_LAYOUTS.each do |portable_layout|
 				context "#{portable_layout} layout" do
 					let(:site_layout) { portable_layout }
+					let(:layout_style) { portable_layout == Dcv::Sites::Constants::LAYOUT_REPOSITORIES ? Dcv::Sites::Constants::LAYOUT_GALLERY : portable_layout }
+					
 					context "and default palette" do
 						let(:site_palette) { 'default' }
-						it { expect(controller.subsite_styles).to eql(["#{portable_layout}-#{default_palette}"]) }
+						it { expect(controller.subsite_styles).to eql(["#{layout_style}-#{default_palette}"]) }
 					end
 					context "and custom palette" do
 						let(:site_palette) { 'custom' }
-						it { expect(controller.subsite_styles).to eql(["#{portable_layout}-custom"]) }
+						it { expect(controller.subsite_styles).to eql(["#{layout_style}-custom"]) }
 					end
 				end
 			end
