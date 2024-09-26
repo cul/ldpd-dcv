@@ -17,7 +17,7 @@ module Dcv::Sites::ConfiguredLayouts
 
   def subsite_styles
     return [subsite_layout] unless Dcv::Sites::Constants::PORTABLE_LAYOUTS.include?(subsite_layout)
-    ["#{subsite_layout}-#{subsite_palette}"]
+    subsite_layout == Site::LAYOUT_REPOSITORIES ? ["#{Site::LAYOUT_GALLERY}-#{subsite_palette}"] : ["#{subsite_layout}-#{subsite_palette}"]
   end
 
   def signature_image_path

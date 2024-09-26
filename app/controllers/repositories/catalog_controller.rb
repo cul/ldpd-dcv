@@ -53,13 +53,6 @@ module Repositories
       end
     end
 
-    def subsite_key
-      key = params[:repository_id].dup
-      key.downcase!
-      key.gsub!('-','')
-      key
-    end
-
     def subsite_layout
       'gallery'
     end

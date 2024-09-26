@@ -81,7 +81,7 @@ Rails.application.routes.draw do
   repositories_constraint = lambda { |req| repositories.include?(req.params[:id]) || repositories.include?(req.params[:repository_id]) }
   resources :repositories, path: '', constraints: repositories_constraint, shallow: true, only: [:show] do
     get 'reading-room', as: 'reading_room', action: 'reading_room'
-    get 'about', as: 'about', action: 'about'
+    get 'about', as: 'about', action: 'about', defaults: { slug: 'about' }, constraints: { slug: 'about' }
     scope module: :repositories do
       resource 'catalog', only: [:show], controller: 'catalog' do
         # concerns :searchable

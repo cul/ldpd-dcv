@@ -63,5 +63,7 @@ RSpec.configure do |config|
 
   config.include(ControllerLevelHelpers, type: :view)
   config.before(:each, type: :view) { initialize_controller_helpers(view) }
+
+  ReactOnRails.configure { |configuration| configuration.build_test_command = "RAILS_ENV=test bin/shakapacker" }
   ReactOnRails::TestHelper.configure_rspec_to_compile_assets(config)
 end

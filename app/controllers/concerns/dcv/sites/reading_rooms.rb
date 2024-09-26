@@ -18,4 +18,20 @@ module Dcv::Sites::ReadingRooms
       end
     end.compact
   end
+
+  def subsite_key
+    params[:repository_id]
+  end
+
+  def load_subsite
+    @subsite ||= Site.find_by(slug: params[:repository_id]) if params[:repository_id]
+    super
+    @subsite
+  end
+
+  def load_subsite!
+    _subsite = load_subsite
+    return _subsite if _subsite
+    raise ActiveRecord::RecordNotFound
+  end
 end

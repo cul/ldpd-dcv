@@ -1,14 +1,14 @@
 <%
 repository_key = params[:repository_id]
-template_key = repository_key.downcase
-template_key.gsub!("-","")
+template_key = repository_key&.downcase
+template_key&.gsub!("-","")
 %>
-<% if current_page?(repository_url(repository_key)) or current_page?(repository_reading_room_url(repository_id: repository_key)) %>
+<% if repository_key && (current_page?(repository_url(repository_key)) or current_page?(repository_reading_room_url(repository_id: repository_key))) %>
 	<nav class="navbar navbar-expand d-flex flex-column" id="site-banner">
 		<h1>Columbia University Libraries Digital Collections</h1>
 		<h2><%= repository_physical_location(repository_key) %></h2>
 	</nav>
-<% else %>
+<% elsif repository_key %>
 	<nav class="navbar navbar-expand d-flex flex-md-row flex-sm-column" id="site-banner">
 		<a href="<%= repository_path(repository_key) %>" id="site-title" class="navbar-brand text-lg-left"><%= repository_physical_location(repository_key) %></a>
 		<%= render Dcv::SearchBar::RepositoriesComponent.new(
@@ -17,9 +17,9 @@ template_key.gsub!("-","")
 			params: search_state.params_for_search.except(:qt),
 			autocomplete_path: search_action_path(action: :suggest),
 			content_availability: 'onsite'
-		) -%>
+		) if params[:repository_id] -%>
 	</nav>
-<% end %><%= render "reading_room/#{template_key}/secondary_nav" %>
+<% end %><%= render("reading_room/#{template_key}/secondary_nav") if template_key %>
 <% if controller.reading_room_client? -%>
 	<div class="note">This workstation provides access to content that can only be viewed on-site in the reading room.</div>
 <% end -%>
