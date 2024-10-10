@@ -27,11 +27,4 @@ describe RepositoriesController, type: :controller do
       expect(controller.load_subsite.palette).to eql 'monochrome'
     end
   end
-  describe '#about' do
-    it "responds with 200" do
-      get :about, params: { repository_id: 'NNC-RB' }
-      expect(response.status).to eq(200)
-      expect(controller.load_subsite.palette).to eql 'monochrome'
-    end
-  end
 end

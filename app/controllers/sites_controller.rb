@@ -327,7 +327,7 @@ class SitesController < ApplicationController
         sort_group = "#{sprintf("%02d", group_index.to_i)}:#{group_data['label']}"
         group_data.fetch('links_attributes', {}).each do |link_index, link_data|
           sort_label = "#{sprintf("%02d", link_index.to_i)}:#{link_data['label']}"
-          nav_links << {sort_group: sort_group, sort_label: sort_label, link: link_data['link'], external: link_data['external']}
+          nav_links << {sort_group: sort_group, sort_label: sort_label, link: link_data['link'], external: link_data['external'], icon_class: link_data['icon_class']}
         end
       end
       params['site']['nav_links_attributes'] = nav_links
@@ -336,7 +336,7 @@ class SitesController < ApplicationController
     def site_params
       unroll_nav_link_params
       params.require(:site).permit(:palette, :layout, :show_facets, :alternative_title, :search_type, :editor_uids, :image_uris, :nav_links_attributes,
-                                   image_uris: [], nav_links_attributes: [:sort_group, :sort_label, :link, :external])
+                                   image_uris: [], nav_links_attributes: [:sort_group, :sort_label, :link, :external, :icon_class])
       .to_h.tap do |p|
         p.delete('banner')
         p.delete('watermark')

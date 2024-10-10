@@ -1,6 +1,4 @@
 <%-
-template_key = params[:repository_id].downcase
-template_key.gsub!("-","")
 digital_projects = controller.digital_projects
 %>
 <div id="portals" class="row">
@@ -15,8 +13,8 @@ digital_projects = controller.digital_projects
     <div class="card-body">
       <h3 class="card-title">Digital Collections</h3>
       <%= render Dcv::SearchBar::RepositoriesComponent.new(
-        url: search_repository_catalog_path(repository_id: params[:repository_id]),
-        advanced_search_url: search_repository_catalog_path(repository_id: params[:repository_id], action: 'advanced_search'),
+        url: search_repository_search_path(repository_id: params[:repository_id]),
+        advanced_search_url: search_repository_search_path(repository_id: params[:repository_id], action: 'advanced_search'),
         params: search_state.params_for_search.except(:qt),
         autocomplete_path: search_action_path(action: :suggest),
         content_availability: 'onsite'

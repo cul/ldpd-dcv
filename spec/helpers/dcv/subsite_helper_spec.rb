@@ -13,8 +13,9 @@ require 'rails_helper'
 
 describe Dcv::SubsiteHelper, :type => :helper do
 	let(:site_slug) { 'siteSlug' }
-	let(:nav_link) { NavLink.new(link: link, external: external, sort_label: sort_label) }
+	let(:nav_link) { NavLink.new(link: link, external: external, sort_label: sort_label, icon_class: icon_class) }
 	let(:sort_label) { '00:Link Label' }
+	let(:icon_class) { nil }
 	let(:subsite) { Site.new(slug: site_slug) }
 	before do
 		allow(controller).to receive(:subsite_config).and_return(slug: site_slug)
@@ -60,6 +61,16 @@ describe Dcv::SubsiteHelper, :type => :helper do
 				it "links to site_page with anchor" do
 					expect(helper).to receive(:site_page_path).with({ site_slug: site_slug, slug: 'slug', anchor: 'anchor' }).and_return(expected_path)
 					helper.link_to_nav(nav_link)
+				end
+			end
+			context 'with an icon class' do
+				let(:link) { 'slug#anchor' }
+				let(:icon_class) { 'fa-info-circle' }
+				it "links to site_page with icon" do
+					expect(helper).to receive(:site_page_path).with({ site_slug: site_slug, slug: 'slug', anchor: 'anchor' }).and_return(expected_path)
+					actual_link = helper.link_to_nav(nav_link)
+					expect(actual_link).to include("<i class=\"fa #{icon_class}\"")
+					expect(actual_link).to include("title=\"#{sort_label[3..-1]}\"")
 				end
 			end
 		end

@@ -22,24 +22,33 @@ module Dcv::SubsiteHelper
     @subsite.scope_filters.present?
   end
 
-  def link_to_nav(nav_link, link_class = "nav-link")
+  def link_to_nav(nav_link, link_class: "nav-link", site_slug: nil)
+    link_url = nav_link.link
     if nav_link.external
       if Addressable::URI.parse(nav_link.link).absolute?
-        link_to(nav_link.link, target: "_blank", rel: "noopener noreferrer", class: link_class) do
-          "#{nav_link.label} <i class=\"fa fa-external-link\" aria-hidden=\"true\"></i>".html_safe
+        if nav_link.icon_class.present?
+          return link_to(nav_link.link, target: "_blank", rel: "noopener noreferrer", class: link_class, title: nav_link.label) do
+            "<i class=\"fa #{nav_link.icon_class}\" aria-hidden=\"true\"></i><i class=\"fa fa-external-link\" aria-hidden=\"true\"></i>".html_safe
+          end
+        else
+          return link_to(nav_link.link, target: "_blank", rel: "noopener noreferrer", class: link_class) do
+            "#{nav_link.label} <i class=\"fa fa-external-link\" aria-hidden=\"true\"></i>".html_safe
+          end
         end
-      else
-        link_to(nav_link.label, nav_link.link, class: link_class)
       end
     else
-      site_slug = controller.load_subsite.slug
+      site_slug ||= controller.load_subsite.slug
       link_params = {site_slug: site_slug}
       if nav_link.link.include?('#')
         nav_link.link.split('#').tap { |segs| link_params.merge!(slug: segs[0], anchor: segs[1]) }
       else
         link_params[:slug] = nav_link.link
       end
-      link_to(nav_link.label, site_page_path(link_params), class: link_class)
+      link_url = site_page_path(link_params)
+    end
+    return link_to(nav_link.label, link_url, class: link_class) unless nav_link.icon_class.present?
+    link_to(link_url, class: link_class, title: nav_link.label) do
+      "<i class=\"fa #{nav_link.icon_class}\" aria-hidden=\"true\"></i>".html_safe
     end
   end
 

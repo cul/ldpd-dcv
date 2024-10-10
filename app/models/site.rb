@@ -55,26 +55,19 @@ class Site < ApplicationRecord
 		end
 	end
 
-    def self.configure_local_blacklight(config, default_fq:, routing_params:, search_configuration:, search_type:)
-		config.default_solr_params[:fq] += default_fq
-		config.show.route = routing_params
-		config.track_search_session = search_type != SEARCH_CATALOG
-		if search_type == SEARCH_LOCAL
-			config.document_unique_id_param = :ezid_doi_ssim
-			config.document_pagination_params[:fl] = "id,#{config.document_unique_id_param},format"
-			config.search_state_class = Dcv::Sites::LocalSearchState
-		else
-			config.show.route = routing_params
-		end
-		if search_type == SEARCH_LOCAL && search_configuration.facets.present?
+	def self.configure_blacklight_search_local(config, search_configuration:, **_args)
+		config.document_unique_id_param = :ezid_doi_ssim
+		config.document_pagination_params[:fl] = "id,#{config.document_unique_id_param},format"
+		config.search_state_class = Dcv::Sites::LocalSearchState
+		Dcv::Configurators::DcvBlacklightConfigurator.default_faceting_configuration(config, geo: search_configuration.map_configuration.enabled)
+		if search_configuration.facets.present?
 			search_configuration.facets.each do |facet|
 				facet.configure(config)
 			end
 		else
 			Dcv::Configurators::DcvBlacklightConfigurator.configure_facet_fields(config)
 		end
-		Dcv::Configurators::DcvBlacklightConfigurator.default_faceting_configuration(config, geo: search_configuration.map_configuration.enabled)
-		if  search_type == SEARCH_LOCAL && search_configuration.search_fields.present?
+		if search_configuration.search_fields.present?
 			search_configuration.search_fields.each do |search_field|
 				search_field.configure(config)
 			end
@@ -82,11 +75,59 @@ class Site < ApplicationRecord
 			Dcv::Configurators::DcvBlacklightConfigurator.configure_keyword_search_field(config)
 		end
 		Dcv::Configurators::DcvBlacklightConfigurator.default_component_configuration(config)
-    end
+		config
+	end
+
+	def self.configure_blacklight_search_repositories(config, search_configuration:, **_args)
+		config.document_unique_id_param = :ezid_doi_ssim
+		config.document_pagination_params[:fl] = "id,#{config.document_unique_id_param},format"
+		config.search_state_class = Dcv::SearchState
+		Dcv::Configurators::DcvBlacklightConfigurator.default_faceting_configuration(config, geo: search_configuration.map_configuration.enabled)
+		if search_configuration.facets.present?
+			search_configuration.facets.each do |facet|
+				facet.configure(config)
+			end
+		else
+			Dcv::Configurators::DcvBlacklightConfigurator.configure_facet_fields(config)
+		end
+		config.add_facet_field('content_availability',
+			label: 'Limit by Availability',
+			query: {
+				onsite: { label: 'Reading Room', fq: "{!join from=cul_member_of_ssim to=fedora_pid_uri_ssi}!access_control_levels_ssim:Public*" },
+				public: { label: 'Public', fq: "{!join from=cul_member_of_ssim to=fedora_pid_uri_ssi}access_control_levels_ssim:Public*" },
+			}
+		)
+		if search_configuration.search_fields.present?
+			search_configuration.search_fields.each do |search_field|
+				search_field.configure(config)
+			end
+		else
+			Dcv::Configurators::DcvBlacklightConfigurator.configure_keyword_search_field(config)
+		end
+		config.search_state_fields << :repository_id # allow repository id for routing
+		Dcv::Configurators::DcvBlacklightConfigurator.default_component_configuration(config, search_bar: Dcv::SearchBar::RepositoriesComponent)
+		config
+	end
+
+	def self.configure_site_blacklight(config, default_fq:, routing_params:, search_configuration:, search_type:)
+		config.default_solr_params[:fq] += default_fq
+		config.show.route = routing_params
+		config.track_search_session = search_type != SEARCH_CATALOG
+		if search_type == SEARCH_LOCAL
+			configure_blacklight_search_local(config, search_configuration: search_configuration)
+		elsif search_type == SEARCH_REPOSITORIES
+			configure_blacklight_search_repositories(config, search_configuration: search_configuration)
+		else
+			Dcv::Configurators::DcvBlacklightConfigurator.configure_facet_fields(config)
+			Dcv::Configurators::DcvBlacklightConfigurator.configure_keyword_search_field(config)
+			Dcv::Configurators::DcvBlacklightConfigurator.default_component_configuration(config)
+			config
+		end
+	end
 
 	def configure_blacklight!
 		configure_blacklight do |config|
-			Site.configure_local_blacklight(config, default_fq: default_fq, routing_params: routing_params, search_configuration: search_configuration, search_type: search_type)
+			Site.configure_site_blacklight(config, default_fq: default_fq, routing_params: routing_params, search_configuration: search_configuration, search_type: search_type)
 		end
 	end
 
