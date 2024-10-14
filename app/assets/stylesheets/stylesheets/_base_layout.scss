@@ -101,6 +101,11 @@ a {
 	&:hover {
 		color: color-shade($link-color);
 	}
+	&.swatch-primary {
+		&:hover {
+			color: color-shade($primary-color);
+		}
+	}
 	&.thumbnail {
 		border-color: map-get($theme-border-colors, 'body');
 		background-color: transparent;
