@@ -147,10 +147,6 @@ module Sites
 			end
 		end
 
-		def index
-			super
-		end
-
 		def subsite_config
 			@subsite_config ||= (load_subsite&.to_subsite_config || {})
 		end

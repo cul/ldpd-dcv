@@ -104,9 +104,16 @@ class Site < ApplicationRecord
 		else
 			Dcv::Configurators::DcvBlacklightConfigurator.configure_keyword_search_field(config)
 		end
-		config.search_state_fields << :repository_id # allow repository id for routing
 		Dcv::Configurators::DcvBlacklightConfigurator.default_component_configuration(config, search_bar: Dcv::SearchBar::RepositoriesComponent)
+		config.search_state_fields << :repository_id # allow repository id for routing
 		config
+	end
+
+	def self.configure_csv_results(config, search_configuration:)
+		# the Proc (if configured) is run via instnace_exec in controller
+		if search_configuration.display_options.show_csv_results
+			config.index.respond_to.csv = Proc.new { stream_csv_response_for_search_results }
+		end
 	end
 
 	def self.configure_site_blacklight(config, default_fq:, routing_params:, search_configuration:, search_type:)
@@ -115,8 +122,10 @@ class Site < ApplicationRecord
 		config.track_search_session = search_type != SEARCH_CATALOG
 		if search_type == SEARCH_LOCAL
 			configure_blacklight_search_local(config, search_configuration: search_configuration)
+			configure_csv_results(config, search_configuration: search_configuration)
 		elsif search_type == SEARCH_REPOSITORIES
 			configure_blacklight_search_repositories(config, search_configuration: search_configuration)
+			configure_csv_results(config, search_configuration: search_configuration)
 		else
 			Dcv::Configurators::DcvBlacklightConfigurator.configure_facet_fields(config)
 			Dcv::Configurators::DcvBlacklightConfigurator.configure_keyword_search_field(config)

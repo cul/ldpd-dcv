@@ -45,20 +45,6 @@ module Repositories
       ["#{subsite_layout}-#{Dcv::Sites::Constants.default_palette}", "catalog"]
     end
 
-    def index
-      if request.format.csv?
-        stream_csv_response_for_search_results
-      else
-        super
-      end
-    end
-
-    def about
-    end
-
-    def aboutcollection
-    end
-
     def show_digital_project?
       true
     end
