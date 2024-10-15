@@ -31,12 +31,6 @@ module Repositories
       end
     end
 
-    def load_subsite!
-      _subsite = load_subsite
-      return _subsite if _subsite
-      raise ActiveRecord::RecordNotFound
-    end
-
     def subsite_key
       params[:repository_id] || load_subsite&.slug
     end
