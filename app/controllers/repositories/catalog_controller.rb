@@ -37,18 +37,6 @@ module Repositories
 
     alias_method :site_slug, :subsite_key
 
-    def default_search_mode
-      subsite_config.fetch('default_search_mode',:grid)
-    end
-
-    def default_search_mode_cookie
-      cookie_name = "#{params[:repository_id]}_search_mode".to_sym
-      cookie = cookies[cookie_name]
-      unless cookie
-        cookies[cookie_name] = default_search_mode.to_sym
-      end
-    end
-
     def subsite_layout
       'gallery'
     end
