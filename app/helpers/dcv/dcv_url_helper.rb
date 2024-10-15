@@ -72,7 +72,7 @@ module Dcv::DcvUrlHelper
     facet_value = document.fetch('short_title_ssim',[]).first
     if document[:restriction_ssim].present?
       repository_id = document[:lib_repo_code_ssim].first
-      search_repository_catalog_path(repository_id: repository_id, f: {facet_field => [facet_value]})
+      search_repository_search_path(repository_id: repository_id, f: {facet_field => [facet_value]})
     else
       search_action_path(:f => {facet_field => [facet_value]})
     end

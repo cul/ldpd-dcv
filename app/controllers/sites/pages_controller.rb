@@ -143,7 +143,7 @@ module Sites
 				f = options.fetch('f', {}).merge(load_subsite.default_filters)
 				if load_subsite.restricted.present?
 					repository_id = @document[:lib_repo_code_ssim].first
-					return search_repository_catalog_path(repository_id: repository_id, f: f)
+					return search_repository_search_path(repository_id: repository_id, f: f)
 				else
 					# pages have a module scope so controller needs the leading slash
 					# and since this is not a BL controller, we need to supply the search field
