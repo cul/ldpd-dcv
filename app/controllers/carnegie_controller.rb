@@ -23,15 +23,9 @@ class CarnegieController < SubsitesController
       if !has_search_parameters? && request.format.html?
         # we override the view rendered for the subsite home on html requests
         params[:action] = 'home'
-        render "/signature/home"
+        render "home"
       end
     end
-  end
-
-  def about
-  end
-
-  def faq
   end
 
   def subsite_layout

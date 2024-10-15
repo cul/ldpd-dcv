@@ -17,17 +17,7 @@ class CentennialController < SubsitesController
 
   def index
     params[:search_field] = 'all_text_teim' unless has_search_parameters?
-    if request.format.csv?
-      stream_csv_response_for_search_results
-    else
-      super
-    end
-  end
-
-  def about
-  end
-
-  def faq
+    super
   end
 
   def subsite_layout
