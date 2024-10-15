@@ -114,46 +114,6 @@ module Dcv::ChildrenHelperBehavior
     send method, {id: pid}.merge(additional_params)
   end
 
-  def proxy_node(node)
-    filesize = node['extent'] ? simple_proxy_extent(node).html_safe : ''
-    label = "<i class=\"fs-icon\"></i>#{node['label_ssi']}".html_safe
-    if node["type_ssim"].include? RDF::NFO[:'#FileDataObject']
-      # file
-      if node['pid']
-        content_tag(:tr,nil) do
-          c = ('<td data-title="Name">'+download_link(node, label, ['fs-file',html_class_for_filename(node['label_ssi'])])+' '+
-            link_to('<span class="fa fa-info-circle"></span>'.html_safe, url_to_item(node['pid'],{return_to_filesystem:request.original_url}), title: 'More information')+
-            '</td>').html_safe
-          c += ('<td data-title="Size" data-sort-value="'+node['extent'].join(",").to_s+'">'+filesize+'</td>').html_safe
-          c
-        end
-      end
-    else
-      # folder
-      content_tag(:tr, nil) do
-        c = ('<td data-title="Name">'+link_to(label, url_to_proxy({id: node['proxyIn_ssi'].sub('info:fedora/',''), proxy_id: node['id']}), class: 'fs-directory')+'</td>').html_safe
-        c += ('<td data-title="Size" data-sort-value="'+node['extent'].to_s+'">'+filesize+'</td>').html_safe
-      end
-    end
-  end
-  def simple_proxy_extent(node)
-    extent = Array(node['extent']).first || '0'
-    if node["type_ssim"].include? RDF::NFO[:'#FileDataObject']
-      extent = extent.to_i
-      if extent > 0
-        pow = Math.log(extent,1000).floor
-        pow = 3 if pow > 3
-        pow = 0 if pow < 0
-      else
-        pow = 0
-      end
-      unit = ['B','KB','MB','GB'][pow]
-      "#{extent.to_i/(1000**pow)} #{unit}"
-    else
-      "#{extent.to_i} items"
-    end
-  end
-
   def download_link(node, label, attr_class)
     args = {catalog_id: node['pid'], filename:node['label_ssi'], bytestream_id: 'content'}
     href = bytestream_content_url(args) #, "download")
