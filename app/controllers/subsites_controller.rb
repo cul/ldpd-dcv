@@ -106,6 +106,20 @@ class SubsitesController < ApplicationController
       config.default_solr_params[:fq] << '-id:("' + publishers.map{|info_fedora_prefixed_pid| info_fedora_prefixed_pid.gsub('info:fedora/', '') }.join('" OR "') + '")'
     end
   end
+
+  def render_home_for_index?
+    !has_search_parameters? && request.format.html?
+  end
+
+  def index
+    super
+    if render_home_for_index?
+      # we override the view rendered for the subsite home on html requests
+      params[:action] = 'home'
+      render 'home'
+    end
+  end
+
   # PUT /subsite/publish/:id
   def update
     pid = params[:id]

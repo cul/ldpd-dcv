@@ -16,6 +16,10 @@
 		<%= link_form.text_field :link, class: ['form-control'] %>
 	</div>
 	<div class="form-group">
+		<label for="site[nav_menus_attributes][<%= menu_form.index %>][links_attributes][<%= link_form.index %>][icon_class]">Use Icon Class <span class="fa fa-question-circle" data-tooltip="tooltip-nav-link-icon-class"></span></label>
+		<%= link_form.text_field :icon_class, class: ['form-control'] %>
+	</div>
+	<div class="form-group">
 		<label for="site[nav_menus_attributes][<%= menu_form.index %>][links_attributes][<%= link_form.index %>][external]">Link Type</label>
 		<div class="radio">
 			<label>

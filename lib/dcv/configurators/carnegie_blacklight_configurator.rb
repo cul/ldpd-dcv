@@ -121,7 +121,8 @@ class Dcv::Configurators::CarnegieBlacklightConfigurator
     config.add_sort_field 'lib_start_date_year_itsi desc', :label => 'date (latest to earliest)'
 
     # Respond to CSV
-    config.index.respond_to.csv = true
+    # the Proc is run via instance_exec in controller
+    config.index.respond_to.csv = Proc.new { stream_csv_response_for_search_results }
 
     default_component_configuration(config, disclaimer: Dcv::Alerts::Disclaimers::CarnegieComponent)
   end

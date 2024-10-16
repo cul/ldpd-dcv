@@ -3,9 +3,15 @@ module Dcv::Sites::SearchableController
   included do
     helper_method :search_action_path, :search_action_url
   end
+
   def default_search_mode
     search_config = load_subsite&.search_configuration
     search_config ? search_config.display_options.default_search_mode : :grid
+  end
+
+  def show_csv_results?
+    search_config = load_subsite&.search_configuration
+    search_config ? search_config.display_options.show_csv_results : false
   end
 
   def default_search_mode_cookie

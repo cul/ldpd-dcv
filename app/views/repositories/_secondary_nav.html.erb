@@ -1,13 +1,16 @@
 <nav id="secondary-nav" class="navbar d-flex px-0">
 	<%- cache @subsite do -%>
 		<ul class="nav nav-pills mr-auto">
+			<li class="nav-item">
+				<a href="<%= repository_reading_room_url(repository_id: @subsite.repository_id) %>" class="nav-link" title="Online Reading Room Home"><i class="fa fa-home"></i></a>
+			</li>
 			<%- @subsite.nav_menus.each do |nav_menu| -%>
 				<%- if nav_menu.length > 1 -%>
 					<li class="dropdown">
 						<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"><%=nav_menu.label %> <b class="caret"></b></a>
 						<ul class="dropdown-menu list-unstyled dropdown-menu-left">
 							<%- nav_menu.links.each do |nav_link| -%>
-								<li><%= link_to_nav(nav_link, link_class: "dropdown-item") %></li>
+								<li><%= link_to_nav(nav_link, link_class: "dropdown-item", site_slug: params[:repository_id]) %></li>
 							<%- end -%>
 						</ul>
 					</li>
@@ -22,13 +25,9 @@
 			<li class="nav-item"><a href="<%= '/' + @subsite.slug + '/map_search' %>" class="nav-link mx-auto px-md-1"><span class="fa fa-map-marker"></span> Map<span class="d-md-none d-lg-inline"> All Items</span></a></li>
 		</ul>
 	<%- end -%>
-	<%- if params[:action] == 'home' && @subsite.persistent_url -%>
-		<ul class="nav nav-pills">
-			<li class="nav-item"><button data-copy="<%= @subsite.persistent_url %>" title="Click to copy to clipboard" class="btn-secondary nav-link mx-auto px-md-1 px-lg-3" onclick="clipboardFromElement(this);"><span class="fa fa-copy"></span> Copy Link</button></li>
-		</ul>
-	<%- elsif @document&.has_persistent_url? -%>
-		<ul class="nav nav-pills justify-content-center">
-			<li class="nav-item"><button data-copy="<%= @document.persistent_url %>" title="Click to copy to clipboard" class="btn-secondary nav-link mx-auto px-md-1 px-lg-3" onclick="clipboardFromElement(this);"><span class="fa fa-copy"></span> Copy Link</button></li>
-		</ul>
-	<%- end -%>
+	<ul class="nav nav-pills">
+		<li class="nav-item">
+			<a href="/restricted" class="nav-link" title="List Online Reading Rooms"><i class="fa fa-list-alt"></i></a>
+		</li>
+	</ul>
 </nav>

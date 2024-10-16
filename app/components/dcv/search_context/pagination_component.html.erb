@@ -1,9 +1,5 @@
 <div class="input-group-append p-0">
-  <% if @search_context[:prev] || @search_context[:next] %>
-      <%= helpers.link_back_to_catalog(label: "<span class=\"d-none d-md-inline\">#{item_page_entry_info} </span><i class=\"fa fa-reply-all\"></i>".html_safe, class: 'btn bg-body btn-outline-info rounded-md-left-0 rounded-right-0 align-content-center w-100 h-100', :"data-toggle" => 'tooltip', "aria-label": t('views.pagination.return_to_search'), title: t('views.pagination.return_to_search') ) %>
-      <%= link_to_previous_document @search_context[:prev], "btn bg-body btn-outline-info rounded-0 align-content-center flex-shrink-1" %>
-      <%= link_to_next_document @search_context[:next], "btn bg-body btn-outline-info rounded-right align-content-center flex-shrink-1" %>
-  <% else %>
-      <%= helpers.link_back_to_catalog(label: '<i class="fa fa-reply-all"></i> '.html_safe, class: 'btn bg-body btn-outline-info rounded-md-left-0 align-content-center flex-fill', :"data-toggle" => 'tooltip', "aria-label": t('views.pagination.return_to_search'), title: t('views.pagination.return_to_search') ) %>
-  <% end %>
+  <%= helpers.link_back_to_catalog(label: "<span class=\"d-none d-md-inline\">#{item_page_entry_info} </span><i class=\"fa fa-reply-all\"></i>".html_safe, class: 'btn bg-body btn-outline-info rounded-md-left-0 rounded-right-0 align-content-center w-100 h-100', :"data-toggle" => 'tooltip', "aria-label": t('views.pagination.return_to_search'), title: t('views.pagination.return_to_search') ) %>
+  <%= link_to_previous_document @search_context[:prev], "btn bg-body btn-outline-info rounded-0 align-content-center flex-shrink-1" %>
+  <%= link_to_next_document @search_context[:next], "btn bg-body btn-outline-info rounded-right align-content-center flex-shrink-1" %>
 </div>

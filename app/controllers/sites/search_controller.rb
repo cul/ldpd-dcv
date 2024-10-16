@@ -36,7 +36,7 @@ module Sites
 		end
 
 		def redirect_unless_local
-			unless load_subsite.search_type == 'local'
+			unless load_subsite.search_type == Site::SEARCH_LOCAL || load_subsite.search_type == Site::SEARCH_REPOSITORIES
 				redirect_to search_url_service.search_action_url(load_subsite, self, {})
 			end
 		end
@@ -145,10 +145,6 @@ module Sites
 			else
 				redirect_to controller: 'catalog', action: 'show', id: @document[:id]
 			end
-		end
-
-		def index
-			super
 		end
 
 		def subsite_config

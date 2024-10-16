@@ -1,33 +1,13 @@
 require 'redcarpet'
 
-class RepositoriesController < ApplicationController
-  include Dcv::CatalogIncludes
-  include Dcv::CdnHelper
+class RepositoriesController < SitesController
   include Dcv::Sites::ReadingRooms
-  include Dcv::Sites::SearchableController
 
   layout Proc.new { |controller| 'gallery' }
 
   configure_blacklight do |config|
     config.search_state_fields << :repository_id # allow repository id for routing
-    config.default_solr_params = {
-      :fq => [
-        'object_state_ssi:A', # Active items only
-        'active_fedora_model_ssi:Concept',
-        'dc_type_sim:"Publish Target"',
-        '-slug_ssim:sites', # Do not include sites publish targets in this list
-      ],
-      :sort => "title_si asc",
-      :qt => 'search'
-    }
-    config.add_search_field 'all_text_teim' do |field|
-      field.label = 'All Fields'
-      field.default = true
-      field.solr_parameters = {
-        :qf => ['all_text_teim'],
-        :pf => ['all_text_teim']
-      }
-    end
+    Dcv::Configurators::DcvBlacklightConfigurator.default_component_configuration(config, search_bar: Dcv::SearchBar::RepositoriesComponent)
   end
 
   before_action :set_repository_id, only:[:show]
@@ -38,6 +18,19 @@ class RepositoriesController < ApplicationController
   def initialize(*args)
     super(*args)
     self._prefixes.unshift 'repositories'
+  end
+
+  def load_subsite
+    @subsite ||= begin
+      site_slug = params[:repository_id]
+      s = Site.includes(:nav_links).find_by(slug: site_slug)
+      s&.configure_blacklight!
+      s
+    end
+  end
+
+  def subsite_key
+    params[:repository_id] || load_subsite&.slug
   end
 
   def search_service_context

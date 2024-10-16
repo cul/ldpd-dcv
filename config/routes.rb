@@ -81,14 +81,14 @@ Rails.application.routes.draw do
   repositories_constraint = lambda { |req| repositories.include?(req.params[:id]) || repositories.include?(req.params[:repository_id]) }
   resources :repositories, path: '', constraints: repositories_constraint, shallow: true, only: [:show] do
     get 'reading-room', as: 'reading_room', action: 'reading_room'
-    get 'about', as: 'about', action: 'about', defaults: { slug: 'about' }, constraints: { slug: 'about' }
     scope module: :repositories do
-      resource 'catalog', only: [:show], controller: 'catalog' do
+      resource 'search', only: [:show], controller: 'catalog' do
         # concerns :searchable
         all_concerns = [:searchable] + subsite_concerns
         concerns *all_concerns
       end
-      get 'catalog/:id' => 'catalog#show', as: 'catalog_show' 
+      get ':id' => 'catalog#show', as: 'catalog_show', constraints: Dcv::Routes::LEGACY_ID_CONSTRAINT
+      get '*id' => 'catalog#show', as: 'catalog_show_doi', constraints: Dcv::Routes::DOI_ID_CONSTRAINT
     end
   end
 

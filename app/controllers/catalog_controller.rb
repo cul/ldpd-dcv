@@ -59,6 +59,10 @@ class CatalogController < SubsitesController
     end
   end
 
+  def render_home_for_index?
+    false
+  end
+
   def digital_projects
     @response = search_service.repository.search(home_params)
     @document_list = @response.documents
