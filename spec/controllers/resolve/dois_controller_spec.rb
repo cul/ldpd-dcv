@@ -39,6 +39,14 @@ describe Resolve::DoisController, type: :controller do
 			it 'resolves to custom url' do
 				expect(controller.doc_url_in_site_context(site, solr_doc)).to eql(expected_url)
 			end
+			context 'and nested access' do
+				let(:template_defined_slug) { 'carnegie/centennial' }
+				let(:site) { FactoryBot.create(:site, search_type: 'custom', slug: template_defined_slug) }
+				let(:expected_url) { "http://test.host/#{template_defined_slug}/#{legacy_id}" }
+				it 'resolves to custom url' do
+					expect(controller.doc_url_in_site_context(site, solr_doc)).to eql(expected_url)
+				end
+			end
 			context 'and restricted access' do
 				let(:template_defined_slug) { 'restricted/ifp' }
 				let(:site) { FactoryBot.create(:site, search_type: 'custom', slug: template_defined_slug, restricted: true) }
