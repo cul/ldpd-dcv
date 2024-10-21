@@ -1,5 +1,8 @@
 DCV_CONFIG = Rails.application.config_for(:dcv).with_indifferent_access
 
+if Rails.application.config.respond_to?(:default_host) && Rails.application.config.default_host
+	Rails.application.routes.default_url_options[:host] = Rails.application.config.default_host
+end
 # Add audio assets path
 Rails.application.config.assets.paths << Rails.root.join("app", "assets", "audio")
 Sprockets::Context.send :include, Rails.application.routes.url_helpers
