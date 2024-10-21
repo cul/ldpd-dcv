@@ -95,6 +95,8 @@ gem 'rack-protection', '>= 1.5.5'
 gem 'loofah', '>= 2.2.1'
 gem 'best_type'
 
+gem 'sitemap_generator'
+
 group :development, :test do
   # Use Capistrano for deployment
   gem 'capistrano', '~> 3.17.3', require: false
