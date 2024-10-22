@@ -10,6 +10,13 @@ describe CatalogController, type: :feature do
       expect(page).to have_text('Perform a search')
     end
 
+    it "has robots meta tags" do
+      # <meta name="robots" content="nofollow">
+      # <meta name="robots" content="noindex">
+      expect(page).to have_xpath("//meta[@name='robots' and @content='nofollow']", visible: false)
+      expect(page).to have_xpath("//meta[@name='robots' and @content='noindex']", visible: false)
+    end
+
     it "shows concepts when performing a search with a relevant query" do
       find(:xpath, '//nav[@id="site-banner"]//input[@id="q"]').set('Internal')
       find(:xpath, '//nav[@id="site-banner"]//button[@type="submit"]').click

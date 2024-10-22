@@ -5,6 +5,9 @@ module Repositories
 
     before_action :set_map_data_json, only: [:map_search]
 
+    before_action :meta_nofollow!, only: [:index, :map_search]
+    before_action :meta_noindex!, only: [:index, :map_search]
+
     delegate :blacklight_config, to: :@subsite
 
     def initialize(*args)

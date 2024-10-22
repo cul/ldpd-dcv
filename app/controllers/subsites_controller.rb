@@ -16,6 +16,8 @@ class SubsitesController < ApplicationController
   before_action :default_search_mode_cookie, only: :index
   before_action :load_subsite, except: [:home, :page]
   before_action :load_page, only: [:home, :index, :page]
+  before_action :meta_nofollow!, only: [:index, :map_search]
+  before_action :meta_noindex!, only: [:index, :map_search]
   protect_from_forgery :except => [:update, :destroy, :api_info] # No CSRF token required for publishing actions
 
   helper_method :extract_map_data_from_document_list

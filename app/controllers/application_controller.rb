@@ -103,4 +103,20 @@ class ApplicationController < ActionController::Base
   def has_search_parameters?
     false
   end
+
+  def meta_nofollow
+    @meta_nofollow
+  end
+
+  def meta_nofollow!
+    @meta_nofollow = true
+  end
+
+  def meta_noindex
+    @meta_noindex
+  end
+
+  def meta_noindex!
+    @meta_noindex = true
+  end
 end

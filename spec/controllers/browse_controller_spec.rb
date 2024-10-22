@@ -52,6 +52,11 @@ describe BrowseController, type: :controller do
         expect(response.status).to eq(200)
         expect(response.body).to include("#{format_link} (#{test_format_count})")
       end
+      it "has robots meta flag attributes" do
+        get :list, params: { list_id: 'formats' }
+        expect(controller.instance_variable_get(:@meta_noindex)).to be true
+        expect(controller.instance_variable_get(:@meta_nofollow)).to be true
+      end
     end
   end
 

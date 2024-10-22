@@ -7,6 +7,9 @@ class BrowseController < ApplicationController
     controller.subsite_layout
   }
 
+  before_action :meta_nofollow!, only: [:list]
+  before_action :meta_noindex!, only: [:list]
+
   def initialize(*args)
     super(*args)
     # _prefixes are where view path lookups are attempted; probably unnecessary

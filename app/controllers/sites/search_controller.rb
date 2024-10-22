@@ -17,6 +17,8 @@ module Sites
 		before_action :store_unless_user, except: [:update, :destroy, :api_info]
 		before_action :redirect_unless_local, only: :index
 		before_action :authorize_document, only: :show
+		before_action :meta_nofollow!, only: [:index, :map_search]
+		before_action :meta_noindex!, only: [:index, :map_search]
 
 		delegate :blacklight_config, to: :@subsite
 
