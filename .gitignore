@@ -79,3 +79,4 @@ yarn-debug.log*
 .yarn-integrity
 # Ignore sitemaps
 /public/sitemap*.xml.gz
+/public/sitemaps/*.xml.gz
