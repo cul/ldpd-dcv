@@ -2,7 +2,7 @@
 SitemapGenerator::Sitemap.default_host = Rails.application.config.default_host
 
 SitemapGenerator::Sitemap.create_index = true
-
+SitemapGenerator::Sitemap.sitemaps_path = "sitemaps"
 SitemapGenerator::Interpreter.send :include, Dcv::Sites::LookupController
 
 SitemapGenerator::Sitemap.create do
@@ -85,10 +85,7 @@ SitemapGenerator::Sitemap.create do
   docs = []
   begin
     query = solr_params.merge(start: total)
-    puts query.inspect
     response = blacklight_solr.search(query)
-    puts response.header.inspect
-    puts response.response.except(:docs).inspect
     docs = response&.documents || []
     total += docs.length
     docs.each do |solr_doc|
