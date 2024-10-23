@@ -32,6 +32,7 @@ xsi:schemaLocation="info:fedora/fedora-system:def/foxml# http://www.fedora.info/
 	<memberOf xmlns="http://purl.oclc.org/NET/CUL/" rdf:resource="info:fedora/ldpd:101479"></memberOf>
     <image xmlns="https://schema.org/" rdf:resource="info:fedora/cul:1c59zw3rf4"></image>
     <publisher xmlns="http://purl.org/dc/terms/" rdf:resource="info:fedora/donotuse:catalog"></publisher>
+    <doi xmlns="http://purl.org/ontology/bibo/"  rdf:resource="doi:10.99999/1234-donotuse-item"></doi>
 </rdf:Description> 
 </rdf:RDF> 
 </foxml:xmlContent> 
