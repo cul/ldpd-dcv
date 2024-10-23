@@ -9,15 +9,6 @@ class IfpController < SubsitesController
   prepend_view_path('app/views/signature')
   prepend_view_path('app/views/ifp')
 
-  def index
-    super
-    if !has_search_parameters? && request.format.html?
-      # we override the view rendered for the subsite home on html requests
-      params[:action] = 'home'
-      render 'home'
-    end
-  end
-
   def partner
     if Ifp::PartnerDataHelper::PARTNER_DATA.has_key?(params[:key].to_sym)
       render 'ifp/partner/index'

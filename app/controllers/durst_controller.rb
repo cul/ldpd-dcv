@@ -12,15 +12,6 @@ class DurstController < SubsitesController
   prepend_view_path('app/views/portrait')
   prepend_view_path('app/views/durst')
 
-  def index
-    super
-    if !has_search_parameters? && request.format.html?
-      # we override the view rendered for the subsite home on html requests
-        params[:action] = 'home'
-        render 'home'
-    end
-  end
-
   def help
   end
 

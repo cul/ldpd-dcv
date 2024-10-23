@@ -6,15 +6,6 @@ class Restricted::UniversityseminarsController < SubsitesController
     configure_blacklight_scope_constraints(config)
   end
 
-  def index
-    super
-    if !has_search_parameters? && request.format.html?
-      # we override the view rendered for the subsite home on html requests
-      params[:action] = 'home'
-      render 'home'
-    end
-  end
-
   def subsite_layout
     'signature'
   end
