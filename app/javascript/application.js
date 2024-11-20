@@ -17,6 +17,7 @@
 require.context('./assets', true)
 require.context('./images', true)
 
+import "./webpack-dev-server-fix.js"
 import "jquery-ui/ui/widgets/draggable";
 import "jquery-ui/ui/widgets/sortable";
 import 'bootstrap';
