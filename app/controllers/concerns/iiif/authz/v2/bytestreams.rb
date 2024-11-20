@@ -41,6 +41,7 @@ module Iiif::Authz::V2::Bytestreams
     response.headers["Cache-Control"] = "no-cache, no-store"
     @response, @document = fetch(params[:catalog_id])
     resource_doc = resources_for_document(@document, false).detect {|x| x[:id].split('/')[-1] == params[:bytestream_id]}
+    resource_doc = true if @document && (@document.fetch('dc_type_ssm',[]) & ['StillImage', 'Image']).present?
     if @document.nil? || resource_doc.nil?
       render status: :not_found, plain: "resource not found"
       return
