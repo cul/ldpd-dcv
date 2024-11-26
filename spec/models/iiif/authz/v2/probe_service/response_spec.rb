@@ -21,6 +21,8 @@ describe Iiif::Authz::V2::ProbeService::Response do
   let(:token_authorizer) { instance_double(Iiif::Authz::V2::ProbeService::Response::TokenAuthorizer) }
   let(:user) { instance_double(User) }
   let(:probe_response_status) { probe_response.to_h[:status] }
+  let(:probe_response_location) { probe_response.to_h[:location] }
+  let(:probe_response_format) { probe_response.to_h[:format] }
 
   before do
     allow(controller).to receive(:current_user).and_return(user)
@@ -41,6 +43,15 @@ describe Iiif::Authz::V2::ProbeService::Response do
       allow(controller).to receive(:bytestream_content_url)
     end
     it { expect(probe_response_status).to eql(302) }
+    context 'solr document is an image' do
+      let(:well_known_pid) { 'some:pid' }
+      let(:solr_hash) { { dc_type_ssm: ['StillImage'], id: well_known_pid, fedora_pid_uri_ssi: "info:fedora/#{well_known_pid}" } }
+      it 'returns a 302 for the image info doc' do
+        expect(probe_response_status).to eql(302)
+        expect(probe_response_location).to end_with("#{well_known_pid}/info.json")
+        expect(probe_response_format).to eql('application/json+ld')
+      end
+    end
   end
   context "not authorized" do
     before do
