@@ -36,16 +36,22 @@ module Iiif::Authz::V2::Bytestreams
     render body: nil
   end
 
+  def has_probeable_resource?(solr_doc)
+    return false unless solr_doc.present?
+    resource_doc = resources_for_document(solr_doc, false).detect {|x| x[:id].split('/')[-1] == params[:bytestream_id]}
+    return true if resource_doc.present?  
+    (solr_doc.fetch('dc_type_ssm',[]) & ['StillImage', 'Image']).present?
+  end
+
   def probe
     cors_headers(allow_origin: request_origin, allow_credentials: request_origin(false))
     response.headers["Cache-Control"] = "no-cache, no-store"
     @response, @document = fetch(params[:catalog_id])
-    resource_doc = resources_for_document(@document, false).detect {|x| x[:id].split('/')[-1] == params[:bytestream_id]}
-    resource_doc = true if @document && (@document.fetch('dc_type_ssm',[]) & ['StillImage', 'Image']).present?
-    if @document.nil? || resource_doc.nil?
+    unless has_probeable_resource?(@document)
       render status: :not_found, plain: "resource not found"
       return
     end
+
     remote_ip = DCV_CONFIG.dig('media_streaming','wowza', 'client_ip_override') || request.remote_ip
     probe_response = Iiif::Authz::V2::ProbeService::Response.new(
       document: @document, bytestream_id: params[:bytestream_id], ability_helper: self, route_helper: self,
