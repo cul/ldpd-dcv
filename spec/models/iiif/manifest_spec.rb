@@ -55,8 +55,8 @@ describe Iiif::Manifest do
 			allow(ability_helper).to receive(:can?).and_return(true)
 		end
 
-		it 'delegates to children_service for structured list' do
-			expect(children_service).to receive(:from_all_structure_proxies).and_return(child_documents)
+		it 'delegates to children_service for child list' do
+			expect(children_service).to receive(:from_unordered_membership).and_return(child_documents)
 			expect(iiif_manifest.items.first&.dig('label', 'en')).to eql ['Child Document']
 		end
 	end

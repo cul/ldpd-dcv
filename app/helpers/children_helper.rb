@@ -26,7 +26,7 @@ module ChildrenHelper
   end
 
   def structured_children_for_document(document)
-    children = structured_children_from_solr(document) if document['structured_bsi'] == true
+    children = structured_children_from_solr(document)
     unless children
       children = document_children_from_model(document)[:children]
       # just assign the order they came in, since there's no structure

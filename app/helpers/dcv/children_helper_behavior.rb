@@ -85,6 +85,8 @@ module Dcv::ChildrenHelperBehavior
   end
 
   def structured_children_from_solr(parent_document)
+    return solr_children_adapter.from_unordered_membership(parent_document) unless parent_document&.has_structure?
+
     solr_children_adapter.from_all_structure_proxies(parent_document)
   end
 

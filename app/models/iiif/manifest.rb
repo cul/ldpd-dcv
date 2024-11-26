@@ -152,13 +152,21 @@ class Iiif::Manifest < Iiif::BaseResource
   end
 
   def items
+    return [] unless @solr_document
+
     if @solr_document['active_fedora_model_ssi'] == 'GenericResource'
-      [canvas_for(@solr_document, route_helper, routing_opts, label[:en]).to_h]
-    else
-      children_service.from_all_structure_proxies(@solr_document).map do |canvas_document|
+      return [canvas_for(@solr_document, route_helper, routing_opts, label[:en]).to_h]
+    end
+
+    if @solr_document.has_structure?
+      return children_service.from_all_structure_proxies(@solr_document).map do |canvas_document|
         canvas_for(canvas_document, route_helper, routing_opts).to_h
       end.compact
     end
+
+    children_service.from_unordered_membership(@solr_document).map do |canvas_document|
+      canvas_for(canvas_document, route_helper, routing_opts).to_h
+    end.compact
   end
 
   def routing_opts
@@ -173,7 +181,7 @@ class Iiif::Manifest < Iiif::BaseResource
   # continuous
   def behaviors(items = nil)
     return nil if @solr_document['active_fedora_model_ssi'] == 'GenericResource' 
-    return [Iiif::Behavior::V3::UNORDERED] unless @solr_document['structured_bsi']
+    return [Iiif::Behavior::V3::UNORDERED] unless @solr_document.has_structure?
 
     num_canvases = items&.length || @solr_document['cul_number_of_members_isi']
     return [Iiif::Behavior::V3::INDIVIDUALS] if num_canvases.nil? || num_canvases < 2
