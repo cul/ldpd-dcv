@@ -6,6 +6,8 @@ const expose = require('./loaders/expose');
 const resolveUrl = require('./loaders/resolve-url');
 const workers = require('./loaders/workers');
 const webpack = require('webpack');
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
+const isDevelopment = process.env.NODE_ENV === 'development';
 
 const customConfig = {
   resolve: {
@@ -28,8 +30,9 @@ const customConfig = {
       Tab: 'exports-loader?Tab!bootstrap/js/dist/tab',
       Tooltip: "exports-loader?Tooltip!bootstrap/js/dist/tooltip",
       Util: 'exports-loader?Util!bootstrap/js/dist/util'
-    })
-  ]
+    }),
+    isDevelopment ? new ReactRefreshWebpackPlugin() : null
+  ].filter(Boolean)
 }
 
 const webpackConfig = generateWebpackConfig()
