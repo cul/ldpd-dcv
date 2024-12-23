@@ -117,5 +117,19 @@ namespace :dcv do
 
       puts 'Done.'
     end
+
+    namespace :bind_mount do
+      task use_docker_host: :environment do
+        config_files = ['blacklight', 'solr']
+        config_files.each do | file_name |
+          file_path = File.join(Rails.root, "config/#{file_name}.yml")
+          app_yaml = YAML.load_file(file_path)
+          app_yaml['development']['url'].gsub!('localhost', 'host.docker.internal')
+          File.open(file_path, 'w') {|f| f.write app_yaml.to_yaml }
+        end
+      end
+    end
+
   end
 end
+

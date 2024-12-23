@@ -1,0 +1,12 @@
+echo "Configuring files ..."
+bundle exec rake dcv:ci:config_files
+
+echo "Updating config to use host.docker.internal"
+bundle exec rake dcv:docker:bind_mount:use_docker_host
+
+echo "starting tunneled solr prod in background"
+ssh -L 8983:ldpd-solr-prod1.cul.columbia.edu:8983 -C -N ldpdserv@connect.cul.columbia.edu &
+echo $! > ../tmp/ssh_tunnel.pid
+
+echo "Running docker compose up"
+docker compose up
