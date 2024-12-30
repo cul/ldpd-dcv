@@ -8,7 +8,7 @@ cleanup() {
     rm ./config/blacklight.yml
     bundle exec rake dcv:ci:config_files
     echo "Sending signal to shut down solr tunnel"
-    echo "SHUTDOWN TUNNEL" > ./tmp/tunnel_shutdown;
+    echo "SHUTDOWN TUNNEL" > ./tmp/shutdown_tunnel_signal;
 }
 
 # run cleanup on shutdown
@@ -26,16 +26,11 @@ bundle exec rake db:seed
 echo "Seeding site data from solr ..."
 bundle exec rake dcv:sites:seed_from_solr
 
-# Execute the container's main process (CMD in Dockerfile)
-# exec "$@"
 
-#Trap SIGTERM
-# trap 'true' SIGTERM
 trap cleanup SIGTERM
 
 #Execute command
 "${@}" &
 
+#keep as main process so that sigterm triggers cleanup
 wait $!
-
-# cleanup

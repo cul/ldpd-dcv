@@ -8,5 +8,7 @@ echo "starting tunneled solr prod in background"
 ssh -L 8983:ldpd-solr-prod1.cul.columbia.edu:8983 -C -N ldpdserv@connect.cul.columbia.edu &
 echo $! > ./tmp/ssh_tunnel.pid
 
+bin/solr_monitor.sh &
+
 echo "Running docker compose up"
 docker compose up
