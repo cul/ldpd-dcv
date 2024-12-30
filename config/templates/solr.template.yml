@@ -1,6 +1,6 @@
 development:
-  url: http://localhost:8983/solr/dcv
+  url: http://localhost:8983/solr/dlc
   timeout: 120
 test:
-  url: http://localhost:9983/solr/dcv
+  url: http://localhost:9983/solr/dlc
   timeout: 120

@@ -14,4 +14,3 @@ services:
       - "host.docker.internal:host-gateway"
     environment:
       - SHAKAPACKER_DEV_SERVER_PUBLIC="http://localhost:3035"
-

@@ -1,0 +1,15 @@
+# echo "Shutting dlc docker container down..."
+# docker compose down
+
+echo "Restoring config to local defaults ..."
+rm ./config/solr.yml
+rm ./config/blacklight.yml
+bundle exec rake dcv:ci:config_files
+
+echo "Shutting down prod solr tunnel"
+ssh_tunnel_pid=$(cat ./tmp/ssh_tunnel.pid)
+kill $ssh_tunnel_pid
+rm ./tmp/ssh_tunnel.pid
+
+
+
