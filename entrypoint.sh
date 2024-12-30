@@ -3,8 +3,12 @@ set -e
 
 cleanup() {
     echo "Running cleanup tasks..."
-    ./bin/dlcdown
-    echo "Cleanup completed."
+    echo "Restoring config to local defaults ..."
+    rm ./config/solr.yml
+    rm ./config/blacklight.yml
+    bundle exec rake dcv:ci:config_files
+    echo "Sending signal to shut down solr tunnel"
+    echo "SHUTDOWN TUNNEL" > ./tmp/tunnel_shutdown;
 }
 
 # run cleanup on shutdown
