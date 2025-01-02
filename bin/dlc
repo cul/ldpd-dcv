@@ -8,7 +8,43 @@ echo "starting tunneled solr prod in background"
 ssh -L 8983:ldpd-solr-prod1.cul.columbia.edu:8983 -C -N ldpdserv@connect.cul.columbia.edu &
 echo $! > ./tmp/ssh_tunnel.pid
 
-bin/solr_monitor.sh &
+# (bin/solr_monitor.sh  </dev/null  > /dev/tty 2>/dev/tty) &
+MONITOR_FILE="./tmp/shutdown_tunnel_signal"
+PID_FILE="./tmp/ssh_tunnel.pid"
+
+if [ -f "$PID_FILE" ]; then
+    TUNNEL_PID=$(cat "$PID_FILE")
+    echo "Solr monitor read PID from $PID_FILE: $TUNNEL_PID"
+else
+    echo "Solr monitor PID file $PID_FILE not found. Monitor exiting."
+    exit 1
+fi
+
 
 echo "Running docker compose up"
-docker compose up
+docker compose up --exit-code-from dlc
+container_id=$(docker ps -aqf "name=dlc")
+exit_code=$(docker inspect $container_id --format='{{.State.ExitCode}}')
+
+if [ $exit_code -ne 0 ]; then
+  echo "Sending signal to shut down solr tunnel"
+  echo "SHUTDOWN TUNNEL" > ./tmp/shutdown_tunnel_signal;
+fi
+
+while true; do
+    if [ -f "$MONITOR_FILE" ]; then
+        echo "Signal file detected. Killing tunnel process with PID $TUNNEL_PID..."
+        
+        if kill "$TUNNEL_PID"; then
+            echo "Tunnel process killed successfully."
+        else
+            echo "Failed to kill tunnel process or process not found."
+        fi
+        
+        rm -f "$MONITOR_FILE"
+        rm -f "$PID_FILE"
+
+        exit 0
+    fi
+    sleep 1
+done

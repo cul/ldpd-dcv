@@ -6,6 +6,6 @@ development:
   adapter: solr
   timeout: 120
 test:
-  url: http://localhost:9983/solr/dlc
+  url: http://localhost:9983/solr/dcv
   adapter: solr
   timeout: 120

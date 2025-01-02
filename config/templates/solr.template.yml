@@ -2,5 +2,5 @@ development:
   url: http://localhost:8983/solr/dlc
   timeout: 120
 test:
-  url: http://localhost:9983/solr/dlc
+  url: http://localhost:9983/solr/dcv
   timeout: 120
