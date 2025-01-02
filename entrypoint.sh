@@ -32,5 +32,5 @@ trap cleanup SIGTERM
 #Execute command
 "${@}" &
 
-#keep as main process so that sigterm triggers cleanup
+#keep as main process so that SIGTERM triggers cleanup
 wait $!

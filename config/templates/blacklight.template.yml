@@ -2,7 +2,7 @@ shared:
   adapter: solr
   timeout: 120
 development:
-  url: http://localhost:8983/solr/dlc
+  url: http://localhost:8983/solr/dcv
   adapter: solr
   timeout: 120
 test:
