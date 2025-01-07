@@ -4,48 +4,48 @@ source 'https://rubygems.org'
 
 def font_awesome_token
   return ENV['FONT_AWESOME_TOKEN'] if ENV['FONT_AWESOME_TOKEN'] && ENV['FONT_AWESOME_TOKEN'] != ''
-  YAML.load(File.read("./config/secrets.yml")).dig('shared', 'font_awesome_token') if File.exist?("./config/secrets.yml")
+  YAML.load(File.read("./config/font_awesome_token.yml")).dig('shared', 'font_awesome_token') if File.exist?("./config/font_awesome_token.yml")
 end
 
 gem 'bigdecimal', '~>3.0'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+gem 'font-awesome-sass', '~> 6.4.0'
 gem 'rails', '~> 6.1.0'
-gem 'shakapacker', '7.2.2'
 gem 'sassc'
-gem "font-awesome-sass", "~> 6.4.0"
+gem 'shakapacker', '7.2.2'
 fa_token = font_awesome_token
 if fa_token
   source "https://token:#{fa_token}@dl.fontawesome.com/basic/fontawesome-pro/ruby/" do
-    gem "font-awesome-pro-sass", "~> 6.4.0"
+    gem 'font-awesome-pro-sass', '~> 6.4.0'
   end
 else
   raise 'ERROR: You are missing font_awesome_token in secrets.yml.  It is required for `bundle install` to work.'
 end
-gem 'bootsnap', '~> 1.9.3'
 gem 'actionpack-action_caching'
+gem 'bootsnap', '~> 1.9.3'
 # Hydra stack
-gem 'nokogiri', '~> 1.15.2' # update past 1.10 requires alma
-gem 'blacklight', '~> 7.33.1'
-gem 'view_component', '~>2.82.0'
 gem 'active-fedora', '~> 8.7'
+gem 'blacklight', '~> 7.33.1'
+gem 'nokogiri', '~> 1.15.2' # update past 1.10 requires alma
 gem 'rdf', '>= 1.1.5'
 gem 'rdf-vocab'
+gem 'view_component', '~>2.82.0'
 
 # carrierwave for file uploads
 gem 'carrierwave', '~> 1.3'
-#gem 'rubydora', :path => '../rubydora'
+# gem 'rubydora', :path => '../rubydora'
 gem 'rubydora'
 
-gem 'cul_omniauth', '~> 0.7.0'
 gem 'cancancan'
-#gem 'cul_omniauth', git: 'https://github.com/cul/cul_omniauth', branch: '0.5.x'
+gem 'cul_omniauth', '~> 0.7.0'
+# gem 'cul_omniauth', git: 'https://github.com/cul/cul_omniauth', branch: '0.5.x'
 gem 'active-triples', git: 'https://github.com/cul/ActiveTriples', branch: 'deprecation_update'
 
 # Use wowza token gem for generating tokens
 gem 'wowza-secure_token', '0.0.1'
 
 # Use sqlite3 as the database for Active Record
-gem "sqlite3", "~> 1.4"
+gem 'sqlite3', '~> 1.4'
 
 # Use mysql2 gem for mysql connections
 gem 'mysql2', '~> 0.5.2'
@@ -87,13 +87,13 @@ gem 'addressable', '~> 2.8.0'
 # gem 'debugger', group: [:development, :test]
 
 gem 'devise'
-gem "devise-guests", "~> 0.3"
+gem 'devise-guests', '~> 0.3'
 
 # Gem min versions that are only specified here because of vulnerabilities in earlier versions:
-gem 'rubyzip', '>= 1.2.1'
-gem 'rack-protection', '>= 1.5.5'
-gem 'loofah', '>= 2.2.1'
 gem 'best_type'
+gem 'loofah', '>= 2.2.1'
+gem 'rack-protection', '>= 1.5.5'
+gem 'rubyzip', '>= 1.2.1'
 
 gem 'sitemap_generator'
 
@@ -101,34 +101,34 @@ group :development, :test do
   # Use Capistrano for deployment
   gem 'capistrano', '~> 3.17.3', require: false
   # Rails and Bundler integrations were moved out from Capistrano 3
-  gem 'capistrano-rails', '~> 1.4', require: false
   gem 'capistrano-bundler', '~> 1.1', require: false
+  gem 'capistrano-rails', '~> 1.4', require: false
   # "idiomatic support for your preferred ruby version manager"
   gem 'capistrano-rvm', '~> 0.1', require: false
   # The `deploy:restart` hook for passenger applications is now in a separate gem
   # Just add it to your Gemfile and require it in your Capfile.
   gem 'capistrano-passenger', '~> 0.2', require: false
   # Use net-ssh >= 4.2 to prevent warnings with Ruby 2.4
-  gem 'net-ssh', '>= 4.2'
-  gem 'rspec-rails'
-  gem 'rspec-json_expectations'
-  gem 'react_on_rails'
   gem 'capybara', '~> 3.32'
+  gem 'net-ssh', '>= 4.2'
+  gem 'react_on_rails'
+  gem 'rspec-json_expectations'
+  gem 'rspec-rails'
   # For testing with chromedriver for headless-browser JavaScript testing
-  gem 'selenium-webdriver', '~> 4.16.0'
   gem 'database_cleaner'
   gem 'factory_bot_rails'
+  gem 'selenium-webdriver', '~> 4.16.0'
   gem 'rubocop', '~> 0.53.0', require: false
-  gem 'rubocop-rspec', '>= 1.20.1', require: false
-  gem 'rubocop-rails_config', require: false
   gem 'listen'
+  gem 'rubocop-rails_config', require: false
+  gem 'rubocop-rspec', '>= 1.20.1', require: false
 end
 
 # Add unicorn as available app server
-#gem 'unicorn'
+# gem 'unicorn'
 
 # Use Thin for local development
-#gem "thin"
+# gem "thin"
 
 # everybody loves rainbows
 gem 'rainbow', '~> 3.0'
@@ -136,4 +136,4 @@ gem 'rainbow', '~> 3.0'
 # Use Puma for local development
 gem 'puma', '~> 5.2'
 
-gem "ox", "~> 2.14"
+gem 'ox', '~> 2.14'

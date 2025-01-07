@@ -41,6 +41,7 @@ roles.yml
 secrets.yml
 solr_wrapper.yml
 subsites.yml
+font_awesome_token.yml
 # these are obsolete configs
 location_uris.yml
 
@@ -80,3 +81,5 @@ yarn-debug.log*
 # Ignore sitemaps
 /public/sitemap*.xml.gz
 /public/sitemaps/*.xml.gz
+
+/config/credentials/*.key

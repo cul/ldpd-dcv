@@ -30,7 +30,7 @@ set :deploy_to,   "/opt/passenger/#{fetch(:deploy_name)}"
 set :log_level, :info
 
 # Default value for linked_dirs is []
-set :linked_dirs, fetch(:linked_dirs, []).push('log','tmp/pids', 'public/images/sites', 'node_modules', 'public/packs', 'public/sitemaps')
+set :linked_dirs, fetch(:linked_dirs, []).push('log','tmp/pids', 'public/images/sites', 'node_modules', 'public/packs', 'public/sitemaps','config/credentials')
 
 # Default value for keep_releases is 5
 set :keep_releases, 3
@@ -55,6 +55,10 @@ set :linked_files, fetch(:linked_files, []).push(
   "config/reading_rooms.yml",
   "public/robots.txt"
 )
+
+Dir.glob('config/credentials/*.yml.enc').each do |file|
+  append :linked_files, file
+end
 
 namespace :deploy do
   desc "Report the environment"
