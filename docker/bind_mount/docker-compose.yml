@@ -4,12 +4,13 @@ version: '3.8'
 services:
   dlc:
     build:
-      context: .
+      context: ../../.
+      dockerfile: docker/bind_mount/Dockerfile
     ports:
       - "3000:3000" # Rails server
       - "3035:3035" # Shakapacker dev server
     volumes:
-      - .:/app       # Bind-mount the project folder to /app inside the container
+      - ../../.:/app       # Bind-mount the project folder to /app inside the container
     extra_hosts:
       - "host.docker.internal:host-gateway"
     environment:

@@ -11,13 +11,13 @@ RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - && \
 ENV RAILS_ENV=development \
     NODE_ENV=development    
 
+WORKDIR /app
+    
 COPY . /app
 
-COPY entrypoint.sh /usr/bin/
+COPY docker/bind_mount/entrypoint.sh /usr/bin/
 
 RUN chmod +x /usr/bin/entrypoint.sh
-
-WORKDIR /app
 
 RUN bundle install
 

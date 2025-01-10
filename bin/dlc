@@ -21,7 +21,7 @@ fi
 
 
 echo "Running docker compose up"
-docker compose up --exit-code-from dlc
+docker compose -f 'docker/bind_mount/docker-compose.yml' up --exit-code-from dlc
 container_id=$(docker ps -aqf "name=dlc")
 exit_code=$(docker inspect $container_id --format='{{.State.ExitCode}}')
 
