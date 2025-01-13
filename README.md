@@ -42,6 +42,16 @@ application up and running?
 * Database initialization
   * `bundle exec rake db:seed`
 
+* encrypted credentials
+  * the application expects keys in the following format:
+    ```yml
+    development:
+      devise_secret_key: $DEVISE_SECRET_KEY
+      secret_key_base: $SECRET_KEY_BASE
+      session_store_key: $SESSION_KEY
+    ```
+
+
 ## User permissions and restricted access Assets
 
 Although Item metadata records are generally visible in DLC, some Assets are restricted and require your currently logged in user to have the correct permissions.  For how to configure user permissions, see: [https://wiki.library.columbia.edu/display/DLC/Authorization+Metadata]

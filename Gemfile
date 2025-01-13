@@ -19,7 +19,7 @@ if fa_token
     gem 'font-awesome-pro-sass', '~> 6.4.0'
   end
 else
-  raise 'ERROR: You are missing font_awesome_token in secrets.yml.  It is required for `bundle install` to work.'
+  raise 'ERROR: You are missing font_awesome_token in font_awesome_token.yml.  It is required for `bundle install` to work.'
 end
 gem 'actionpack-action_caching'
 gem 'bootsnap', '~> 1.9.3'
