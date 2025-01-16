@@ -105,6 +105,10 @@ class SolrDocument
     self[:restriction_ssim].present?
   end
 
+  def has_structure?
+    !!(self[:structured_bsi] || self[:datastreams_ssim]&.include?('structMetadata'))
+  end
+
   def title
     title_val = (TITLE_FIELDS.inject(nil) { |memo, field| memo || self[field]&.first }) || id
     title_val.to_s.strip

@@ -99,4 +99,15 @@ describe SolrDocument do
       expect(solr_document.clean_resolver(na_https)).to eql(na_https)
     end
   end
+  describe '#has_structure?' do
+    it 'is true if structMetadata stream is listed' do
+      expect(SolrDocument.new(datastreams_ssim: ['structMetadata']).has_structure?).to be true
+    end
+    it 'is true if structure boolean is set' do
+      expect(SolrDocument.new(structured_bsi: true).has_structure?).to be true
+    end
+    it 'is otherwise false' do
+      expect(solr_document.has_structure?).to be false
+    end
+  end
 end

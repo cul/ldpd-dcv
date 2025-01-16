@@ -20,6 +20,11 @@ class Iiif::PresentationsController < ApplicationController
 
   self.search_service_class = Dcv::SearchService
 
+  # overrides the session role key from Cul::Omniauth::RemoteIpAbility
+  def current_ability
+    @current_ability ||= Ability.new(current_user, roles: session["cul.roles"], remote_ip:request.remote_ip)
+  end
+
   def child_service
     @children_adapter ||= Dcv::Solr::ChildrenAdapter.new(self, self, "title_ssm")
   end

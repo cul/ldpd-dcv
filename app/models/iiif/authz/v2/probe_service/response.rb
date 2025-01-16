@@ -19,6 +19,13 @@ class Iiif::Authz::V2::ProbeService::Response
         format: 'application/vnd.apple.mpegurl'
       }
     end
+    if (@document.fetch('dc_type_ssm',[]) & ['StillImage', 'Image']).present?
+      return {
+        status: 302,
+        location: Dcv::Utils::CdnUtils.info_url(id: @document['fedora_pid_uri_ssi']&.split('/').last),
+        format: 'application/json+ld'
+      }
+    end
     preferred_bytestream_id = Dcv::Utils::UrlUtils.preferred_content_bytestream(@document)
     return { status: 302, location: route_helper.bytestream_content_url(catalog_id: @document.id, bytestream_id: preferred_bytestream_id) }
   end
