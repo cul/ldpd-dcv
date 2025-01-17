@@ -56,8 +56,8 @@ module Iiif::Authz::V2::Bytestreams
     probe_response = Iiif::Authz::V2::ProbeService::Response.new(
       document: @document, bytestream_id: params[:bytestream_id], ability_helper: self, route_helper: self,
       remote_ip: remote_ip, authorization: request.headers['Authorization']).to_h
-    response_status = (probe_response[:status].to_i < 400) ? 200 : probe_response[:status].to_i
-    render json: probe_response, status: response_status
+    # IIIF Auth2 requires probe responses to have HTTP status 200, regardless of effective status in the response
+    render json: probe_response, status: 200
   end
 
   # IIIF Authorization 2.0 Access Service
