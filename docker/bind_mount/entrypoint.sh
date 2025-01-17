@@ -17,6 +17,12 @@ trap cleanup SIGINT SIGTERM
 # Remove a potentially pre-existing server.pid for Rails.
 rm -f ./tmp/pids/server.pid
 
+echo "Configuring files ..."
+bundle exec rake dcv:ci:config_files
+
+echo "Updating config to use host.docker.internal"
+bundle exec rake dcv:docker:bind_mount:use_docker_host
+
 # shakapacker has no promptless option without overwriting, so we preserve and restore existing config
 echo "Checking shakapacker installation..."
 cp config/shakapacker.yml config/shakapacker.yml.dlc
