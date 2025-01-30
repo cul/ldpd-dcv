@@ -18,14 +18,22 @@ module Iiif::Authz::V2::Bytestreams
       return
     end
 
-   remote_ip = DCV_CONFIG.dig('media_streaming','wowza', 'client_ip_override') || request.remote_ip
-    probe_response = Iiif::Authz::V2::ProbeService::Response.new(document: @document, bytestream_id: params[:bytestream_id],ability_helper: self, route_helper: self, remote_ip: remote_ip).to_h
+    remote_ip = DCV_CONFIG.dig('media_streaming','wowza', 'client_ip_override') || request.remote_ip
+    probe_response = probe_service_response(
+      authorization: nil, bytestream_id: params[:bytestream_id], document: @document, remote_ip: remote_ip
+    ).to_h
     case(probe_response[:status])
     when 302
       redirect_to probe_response[:location]
     else
-      render json: probe_response
+      render nothing: true, status: probe_response[:status]
     end
+  end
+
+  def probe_service_response(bytestream_id:, document:, remote_ip:, authorization: nil)
+    Iiif::Authz::V2::ProbeService::Response.new(
+      document: document, bytestream_id: bytestream_id, ability_helper: self, route_helper: self,
+      remote_ip: remote_ip, authorization: authorization)
   end
 
   # IIIF Authorization 2.0 Probe Service
@@ -53,9 +61,10 @@ module Iiif::Authz::V2::Bytestreams
     end
 
     remote_ip = DCV_CONFIG.dig('media_streaming','wowza', 'client_ip_override') || request.remote_ip
-    probe_response = Iiif::Authz::V2::ProbeService::Response.new(
-      document: @document, bytestream_id: params[:bytestream_id], ability_helper: self, route_helper: self,
-      remote_ip: remote_ip, authorization: request.headers['Authorization']).to_h
+    authorization = request.headers['Authorization']
+    probe_response = probe_service_response(
+      authorization: authorization, bytestream_id: params[:bytestream_id], document: @document, remote_ip: remote_ip
+    ).to_h
     # IIIF Auth2 requires probe responses to have HTTP status 200, regardless of effective status in the response
     render json: probe_response, status: 200
   end
