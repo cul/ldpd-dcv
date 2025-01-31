@@ -2,9 +2,11 @@ class Iiif::Authz::BaseAccessTokenService
   attr_reader :id, :canvas, :route_helper
   JWT_HEADER = { alg: 'HS256', typ: 'JWT' }.freeze
 
-  def initialize(canvas, route_helper:, format: nil)
+  def initialize(canvas, route_helper:, format: nil, profile: 'active')
     @canvas = canvas
-    @id = route_helper.bytestream_token_url({catalog_id: canvas.solr_document.id, bytestream_id: 'content', format: format}.compact)
+    id_params = {catalog_id: canvas.solr_document.id, bytestream_id: 'content', format: format}
+    id_params[:profile] = profile unless profile == 'active'
+    @id = route_helper.bytestream_token_url(id_params.compact)
     @route_helper = route_helper
   end
 
