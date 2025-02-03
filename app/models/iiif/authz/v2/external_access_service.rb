@@ -11,12 +11,11 @@ class Iiif::Authz::V2::ExternalAccessService
   end
 
   def token_service
-    Iiif::Authz::V2::AccessTokenService.new(canvas, route_helper: route_helper).to_h
+    Iiif::Authz::V2::AccessTokenService.new(canvas, route_helper: route_helper, profile: PROFILE).to_h
   end
 
   def to_h
     access_service = IIIF_TEMPLATES['v2_access_service'].deep_dup
-    access_service['id'] = 'info:dlc.library.columbia.edu'
     access_service['service'] << token_service
     access_service['profile'] = PROFILE
     access_service['label'] = { 'en' => ["#{I18n.t('blacklight.application_name')} Sessions"] }

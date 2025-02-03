@@ -25,4 +25,8 @@ class Iiif::AccessController < ApplicationController
       format.html { render action: 'login', layout: 'minimal' }
     end
   end
+
+  def subsite_layout
+    Site::LAYOUT_GALLERY
+  end
 end
