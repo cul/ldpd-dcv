@@ -108,7 +108,7 @@ describe Iiif::Authz::V2::Bytestreams, type: :unit do
     context 'request is denied' do
       it 'responds with nothing and passes 401 through' do
         allow(controller).to receive(:can?).and_return(false)
-        expect(controller).to receive(:render).with({nothing: true, status: 401})
+        expect(controller).to receive(:render).with({body: nil, status: 401})
         controller.resource
       end
     end

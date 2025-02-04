@@ -26,7 +26,7 @@ module Iiif::Authz::V2::Bytestreams
     when 302
       redirect_to probe_response[:location]
     else
-      render nothing: true, status: probe_response[:status]
+      render body: nil, status: probe_response[:status]
     end
   end
 
