@@ -1,4 +1,4 @@
-name: 'dlc-dev'
+name: 'dlc'
 
 services:
   dlc:

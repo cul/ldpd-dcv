@@ -1,3 +1,4 @@
+
 echo "Starting Solr prod tunnel in background"
 ssh -L 8983:ldpd-solr-prod1.cul.columbia.edu:8983 -C -N ldpdserv@connect.cul.columbia.edu &
 
@@ -20,13 +21,15 @@ fi
 
 
 echo "Running docker compose up"
-docker compose -f 'docker/bind_mount/docker-compose.yml' up --exit-code-from dlc
-container_id=$(docker ps -aqf "name=dlc")
-exit_code=$(docker inspect $container_id --format='{{.State.ExitCode}}')
+docker compose -f 'docker/bind_mount/docker-compose.yml' up --exit-code-from dlc 
+return_code=$?
 
-if [ $exit_code -ne 0 ]; then
+if [[ $return_code -ne 0 ]]; then
+  echo "docker shutting down with exit code: $return_code"
   echo "Sending signal to shut down solr tunnel"
   echo "SHUTDOWN TUNNEL" > ./tmp/shutdown_tunnel_signal;
+elif [[ $return_code -eq 0 ]]; then
+  echo "docker-compose up completed successfully"
 fi
 
 while true; do

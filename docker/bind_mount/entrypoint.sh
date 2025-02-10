@@ -1,18 +1,16 @@
 #!/bin/bash
 set -e
 
-cleanup() {
+cleanup_config() {
     echo "Running cleanup tasks..."
     echo "Restoring config to local defaults ..."
     rm ./config/solr.yml
     rm ./config/blacklight.yml
     bundle exec rake dcv:ci:config_files
-    echo "Sending signal to shut down solr tunnel"
-    echo "SHUTDOWN TUNNEL" > ./tmp/shutdown_tunnel_signal;
 }
 
 # run cleanup on shutdown
-trap cleanup SIGINT SIGTERM
+trap cleanup_config SIGINT SIGTERM
 
 # Remove a potentially pre-existing server.pid for Rails.
 rm -f ./tmp/pids/server.pid
@@ -45,9 +43,6 @@ bundle exec rake db:seed
 
 echo "Seeding site data from solr ..."
 bundle exec rake dcv:sites:seed_from_solr
-
-
-trap cleanup SIGTERM
 
 echo "Starting rails and shakapacker-dev-server"
 "${@}" &
