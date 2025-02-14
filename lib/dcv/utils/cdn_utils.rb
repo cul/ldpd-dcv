@@ -51,12 +51,16 @@ module Dcv::Utils::CdnUtils
     ds_profile = object_profile.dig("datastreams","access")
     return nil if ds_profile.blank?
     ds_location = ds_profile["dsLocation"]
-    ds_location.present? ? Addressable::URI.unencode(ds_location).gsub(/^file:\/+/, '/') : nil
+    ds_location.present? ? file_uri_ds_location_to_file_path(ds_location) : nil
   end
 
   def self.wowza_access_copy_location_from_fcrepo(asset_doc)
     asset_pid = asset_doc[:pid] || asset_doc[:id]
     ds = Cul::Hydra::Fedora.ds_for_opts({pid: asset_pid, dsid: 'access'})
-    ds.present? ? Addressable::URI.unencode(ds.dsLocation).gsub(/^file:\/+/, '/') : ''
+    ds.present? ? file_uri_ds_location_to_file_path(ds.dsLocation) : ''
+  end
+
+  def self.file_uri_ds_location_to_file_path(file_uri_ds_location)
+    Addressable::URI.unencode(file_uri_ds_location).gsub(/^file:\/+/, '/')
   end
 end
