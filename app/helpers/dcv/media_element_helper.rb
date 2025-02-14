@@ -1,7 +1,9 @@
 module Dcv::MediaElementHelper
   # render a video streaming player with a non-token protected src
   def render_media_element_streaming_video_player(wowza_project, video_path, poster_path, captions_path: nil, width:1024, height:576, logo_path: nil, **args)
-    url = "https://diglib-wowza-prod1.cul.columbia.edu:8443/#{wowza_project}/_definst_/mp4:#{video_path}/playlist.m3u8"
+    wowza_config = DCV_CONFIG.dig(:media_streaming,:wowza)
+    return unless wowza_config
+    url = "https://#{wowza_config[:host]}:#{wowza_config[:ssl_port]}/#{wowza_project}/_definst_/mp4:#{video_path}/playlist.m3u8"
     render_media_element_streaming_player(url, poster_path, captions_path: captions_path, width: width, height: height)
   end
 
