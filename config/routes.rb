@@ -168,11 +168,14 @@ Rails.application.routes.draw do
     scope ':version', version: /[23]/, registrant: /10\.[^\/]+/, doi: /[^\/]+/,
       collection_registrant: /10\.[^\/]+/, collection_doi: /[^\/]+/,
       manifest_registrant: /10\.[^\/]+/, manifest_doi: /[^\/]+/,
+      aspace_id: /[0-9a-f]{32}/,
       defaults: { version: 3 } do
       get '/login', to: 'access#login', as: :login
       defaults format: 'json' do
         get '/kiosk', to: 'access#kiosk', as: :kiosk
         get '/presentation/:manifest_registrant/:manifest_doi', to: 'presentations#show', as: :presentation
+        get '/presentation/aspace/:aspace_id/collection', to: 'presentations#collection', as: :aspace_collection, constraints: { format: 'json' }
+        get '/presentation/aspace/:aspace_id/manifest/:manifest_registrant/:manifest_doi', to: 'presentations#manifest', as: :aspace_linked_manifest, constraints: { format: 'json' }
         get '/presentation/:collection_registrant/:collection_doi/collection(/*proxy_path)', to: 'presentations#collection', as: :collection, constraints: { format: 'json' }
         get '/presentation/:collection_registrant/:collection_doi/manifest/:manifest_registrant/:manifest_doi', to: 'presentations#manifest', as: :collected_manifest, constraints: { format: 'json' }
         get '/presentation/:manifest_registrant/:manifest_doi/manifest', to: 'presentations#manifest', as: :manifest
