@@ -21,7 +21,15 @@ $(document).ready(function(){
         return canvas.startsWith('../') ? manifestUrl.replace('/manifest', canvas.slice(2)) : canvas;
       } else return null;
     }(new URL(document.location).searchParams);
-    const viewConfig = {};
+    const viewConfig = {
+      defaultView: 'single',
+      views: [
+        { key: 'single', behaviors: ['individuals'] },
+        { key: 'book', behaviors: ['paged'] },
+        { key: 'scroll', behaviors: ['continuous'] },
+        { key: 'gallery', behaviors: ['continuous', 'individuals', 'paged', 'unordered'] },
+      ],
+    };
     if (numChildren && numChildren === 1) {
       viewConfig.views = [
         { key: 'single' }
@@ -76,6 +84,9 @@ $(document).ready(function(){
         },
         miradorDownloadPlugin: {
           restrictDownloadOnSizeDefinition: true,
+        },
+        osdConfig: {
+          preserveViewport: false,
         },
         translations: {
           en: { openCompanionWindow_citation: "Citation" },
