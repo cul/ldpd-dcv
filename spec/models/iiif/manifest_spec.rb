@@ -22,8 +22,9 @@ describe Iiif::Manifest do
 		TestAbilityHelper.new
 	end
 	let(:route_helper) do
-		TestRouteHelper.new
+		TestRouteHelper.new(view_context: view_context)
 	end
+	let(:view_context) { double(ActionView::Context) }
 	let(:children_service) { instance_double(Dcv::Solr::ChildrenAdapter, from_all_structure_proxies: child_documents) }
 	let(:child_documents) { [] }
 	let(:manifest_id) do
@@ -39,6 +40,50 @@ describe Iiif::Manifest do
 		it "sets an array of values" do
 			expect(actual[:en]).to be_a Array
 			expect(actual[:en]).to include "With William Burroughs: a report from the bunker: Burroughs comes across a variety of the yage vine in the jungle..., p. 113, image"
+		end
+	end
+	describe '#behavior' do
+		let(:blacklight_config) { Blacklight::Configuration.new }
+		let(:child_document_attrs) do
+			[
+				{
+					id: 'cul:1234567',
+					ezid_doi_ssim: ['doi:10.123/4567'],
+					title_display_ssm: ['Child Document 1']
+				},
+				{
+					id: 'cul:2345678',
+					ezid_doi_ssim: ['doi:10.123/5678'],
+					title_display_ssm: ['Child Document 2']
+				},
+				{
+					id: 'cul:3456789',
+					ezid_doi_ssim: ['doi:10.123/6789'],
+					title_display_ssm: ['Child Document 3']
+				}
+			]
+		end
+		let(:child_documents) { child_document_attrs.map { |child_attrs| SolrDocument.new(child_attrs)} }
+
+		before do
+			allow(ability_helper).to receive(:can?).and_return(true)
+			allow(view_context).to receive(:blacklight_config).and_return(blacklight_config)
+		end
+
+		context 'item is structured' do
+			before do
+				manifest_document['datastreams_ssim'] << 'structMetadata'
+			end
+			it 'defaults to individuals' do
+				expect(children_service).to receive(:from_all_structure_proxies).and_return(child_documents)
+				actual = iiif_manifest.as_json(include: [:metadata])
+				expect(actual['behavior']).to eql ['individuals']
+			end
+		end
+		it 'defaults to unordered' do
+			expect(children_service).to receive(:from_unordered_membership).and_return(child_documents)
+			actual = iiif_manifest.as_json(include: [:metadata])
+			expect(actual['behavior']).to eql ['unordered']
 		end
 	end
 	describe '#items' do
