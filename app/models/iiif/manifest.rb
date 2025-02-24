@@ -187,7 +187,7 @@ class Iiif::Manifest < Iiif::BaseResource
     return [Iiif::Behavior::V3::INDIVIDUALS] if num_canvases.nil? || num_canvases < 2
 
     return Array(@solr_document['iiif_behavior_ssim']) if @solr_document['iiif_behavior_ssim'].present?
-    [Iiif::Behavior::V3::PAGED]
+    [Iiif::Behavior::V3::INDIVIDUALS]
   end
 
   def viewing_direction
