@@ -21,15 +21,14 @@ module Dcv::Catalog::CsvDownloadBehavior
     per_page = 2000
     fl = field_keys_to_labels.keys.join(',') # only retrieve the fields we care about. much faster than asking for all fields.
     begin
-      while (
+      while @document_list&.[](1).present? do
+        @document_list.each do |document|
+          write_csv_line_to_response_stream document_to_csv_row(document, field_keys_to_labels)
+        end
         (@response, @document_list) = search_results(params) do |builder|
           builder.start = ((page+=1) * per_page)
           builder.rows = per_page
           builder.merge(fl: fl)
-        end
-      )[1].present? do
-        @document_list.each do |document|
-          write_csv_line_to_response_stream document_to_csv_row(document, field_keys_to_labels)
         end
       end
     ensure
