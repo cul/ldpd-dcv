@@ -13,8 +13,8 @@ module Dcv::Catalog::CsvDownloadBehavior
     # Write out header row
     write_csv_line_to_response_stream(field_keys_to_labels.values)
 
-    # Export ALL search results, not just a single page worth of results
-    # Do the export in batches of 1000 so that we don't use massive
+    # Re-execute search to export ALL search results, not just a single page worth of results
+    # Do the export in batches of 2000 so that we don't use massive
     # amounts of memory for large result sets (e.g. 100,000 docs)
     # Stream potentially large CSV response to keep memory usage low
     page = -1
