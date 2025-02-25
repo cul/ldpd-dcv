@@ -114,6 +114,7 @@ describe Iiif::Manifest do
 				expect(actual['@context']).to be_blank
 				expect(actual['items']).to be_blank
 				expect(actual['metadata']).to be_blank
+				expect(actual['homepage']).to be_present
 			end
 		end
 	end
