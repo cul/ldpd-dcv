@@ -44,20 +44,33 @@ class Iiif::Manifest < Iiif::BaseResource
         label: { en: ['Described In'] },
         value: { en: descriptor_values }
       })
-    elsif @solr_document.doi_identifier
+    end
+    fields
+  end
+
+  def homepage
+    values = []
+    if @solr_document.doi_identifier
       registrant, doi = @solr_document.doi_identifier.split('/')
       more_at_url = route_helper.resolve_doi_url(registrant: registrant, doi: doi)
-      fields.unshift({
-        label: { en: ['More At'] },
-        value: { en: ["<a href=\"#{more_at_url}\" target=\"_blank\" rel=\"nofollow, noindex, noreferrer\">#{t("blacklight.application_name")}</a>"] }
+      values.unshift({
+        id: more_at_url,
+        format: "text/html",
+        label: { en: [t('blacklight.application_name')] },
+        language: ["en"],
+        type: @solr_document['dc_type_ssm']&.first || "Text",
       })
     elsif @solr_document.persistent_url
-      fields.unshift({
+      values.unshift({
+        id: @solr_document.persistent_url,
+        format: "text/html",
         label: { en: ['More At'] },
+        language: ["en"],
+        type: @solr_document['dc_type_ssm']&.first || "Text",
         value: { en: ["<a href=\"#{@solr_document.persistent_url}\" target=\"_blank\" rel=\"nofollow, noindex, noreferrer\">#{t("blacklight.application_name")}</a>"] }
       })
     end
-    fields
+    values
   end
 
   def descriptors
@@ -107,7 +120,7 @@ class Iiif::Manifest < Iiif::BaseResource
       provider['id'] = @id.split('/')[0..2].join('/')
       provider['label'] = { en: [I18n.t('blacklight.application_name')] }
     end
-
+    manifest['homepage'] = homepage
     # Items
     manifest["items"] = items if opts[:include]&.include?(:items)
 
@@ -187,7 +200,7 @@ class Iiif::Manifest < Iiif::BaseResource
     return [Iiif::Behavior::V3::INDIVIDUALS] if num_canvases.nil? || num_canvases < 2
 
     return Array(@solr_document['iiif_behavior_ssim']) if @solr_document['iiif_behavior_ssim'].present?
-    [Iiif::Behavior::V3::PAGED]
+    [Iiif::Behavior::V3::INDIVIDUALS]
   end
 
   def viewing_direction

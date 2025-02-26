@@ -31,13 +31,17 @@ describe LcaajController, :type => :controller do
         SolrDocument.new(doc2),
         SolrDocument.new(doc3)
       ] }
+      let(:search_service) { instance_double(Dcv::SearchService) }
+
       let(:expected_csv_data_as_2d_array) { CSV.parse(fixture('controllers/lcaaj_controller/csv_for_solr_docs.csv').read) }
       it "responds with expected csv data" do
         # skip access control related to cul_omniauth/roles.yml
         allow(controller).to receive(:store_unless_user).and_return nil
         allow(controller).to receive(:authorize_action).and_return true
-        # mock get_search_results
-        allow_any_instance_of(Blacklight::Catalog).to receive(:search_results).and_return(
+        allow(controller).to receive(:search_service).and_return(search_service)
+        # mock search_results for the initial Blacklight search and the CSV streaming search of all records
+        allow(search_service).to receive(:search_results).twice.and_return(
+          [{}, document_list],
           [{}, document_list],
           [{}, []]
         )
