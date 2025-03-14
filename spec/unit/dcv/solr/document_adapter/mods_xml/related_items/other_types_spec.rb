@@ -15,8 +15,12 @@ describe Dcv::Solr::DocumentAdapter::ModsXml, type: :unit do
     context "has otherType project cataloged" do
       let(:xml_src) { fixture( File.join("mods", "mods-relateditem-project.xml") ) }
       let(:project_label) { 'Project 2508: Edna Gladney house (Fort Worth, Texas). Scheme 2, Unbuilt Project' }
+      let(:aspace_parent_id) { '7cbce73e9905b341c94d4bd4b3c1fc79' }
       it "should extract project labels" do
         expect(subject["rel_other_project_ssim"]).to eq([project_label])
+      end
+      it "should extract aspace parent ids" do
+        expect(subject["rel_other_archives_space_parent_identifier_ssim"]).to eq([aspace_parent_id])
       end
     end    
   end

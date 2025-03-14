@@ -320,4 +320,11 @@ describe Dcv::Solr::DocumentAdapter::ModsXml, type: :unit do
       end
     end
   end
+  describe "aspace identifiers" do
+      let(:xml_src) { fixture( File.join("mods", "mods-aspace-ids.xml")) }
+      it "has expected aspace id values" do
+        expect(adapter.to_solr).to have_key('archives_space_identifier_ssim')
+        expect(adapter.to_solr['archives_space_identifier_ssim']).to eql(['80a20b70974e7d481592b6301618ebaa'])
+      end
+  end
 end
