@@ -17,4 +17,7 @@
       <title>Project 2508: Edna Gladney house (Fort Worth, Texas). Scheme 2, Unbuilt Project</mods:title>
     </titleInfo>
   </relatedItem>
+  <relatedItem otherType="archives_space_parent" otherTypeAuth="local" otherTypeURI="http://id.library.columbia.edu/term/9225b5e1-d8a8-49a8-acb8-5035110ccdbf">
+    <identifier type="archives_space">7cbce73e9905b341c94d4bd4b3c1fc79</identifier>
+  </relatedItem>
 </mods>
