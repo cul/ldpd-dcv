@@ -453,7 +453,7 @@ class Dcv::Solr::DocumentAdapter::ModsXml
     end
 
     def archives_space_identifiers(node=mods)
-      aspace_ids = node.xpath('./mods:identifier[@type="archives_space"]', MODS_NS)&.collect do |t|
+      aspace_ids = node.xpath('./mods:identifier[@type="archivesSpace"]', MODS_NS)&.collect do |t|
         Fields.normalize(t.text)
       end
       aspace_ids&.compact
@@ -748,12 +748,12 @@ class Dcv::Solr::DocumentAdapter::ModsXml
     def othertype_relations(node)
       field_values = {}
       mods.xpath("./mods:relatedItem[@otherType]/mods:titleInfo", MODS_NS).each do |title|
-        field_name = title.parent['otherType'].downcase.split(/[^a-z]+/).compact.join('_')
+        field_name = title.parent['otherType'].underscore.downcase.split(/[^a-z]+/).compact.join('_')
         field_name = "rel_other_#{field_name}_ssim"
         (field_values[field_name] ||= []) << title.text.strip
       end
       mods.xpath("./mods:relatedItem[@otherType]/mods:identifier", MODS_NS).each do |xml_value|
-        field_name = xml_value.parent['otherType'].downcase.split(/[^a-z]+/).compact.join('_')
+        field_name = xml_value.parent['otherType'].underscore.downcase.split(/[^a-z]+/).compact.join('_')
         field_name = "rel_other_#{field_name}_identifier_ssim"
         (field_values[field_name] ||= []) << xml_value.text.strip
       end
