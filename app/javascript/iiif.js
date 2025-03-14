@@ -1,13 +1,21 @@
 import Mirador from '@columbia-libraries/mirador';
+const {
+  downloadDialogPlugin,
+  viewXmlPlugin,
+  citationsSidebarPlugin,
+  videojsPlugin,
+  canvasRelatedLinksPlugin,
+  hintingSideBar,
+  viewerNavigation,
+  nativeObjectViewerPlugin,
+} = Mirador.culPlugins;
 
-const culMiradorPlugins = [...Mirador.culPlugins.downloadDialogPlugin]
-  .concat([...Mirador.culPlugins.viewXmlPlugin])
-  .concat([...Mirador.culPlugins.citationsSidebarPlugin])
-  .concat([...Mirador.culPlugins.videojsPlugin])
-  .concat([...Mirador.culPlugins.canvasRelatedLinksPlugin])
-  .concat([...Mirador.culPlugins.hintingSideBar])
-  .concat([...Mirador.culPlugins.viewerNavigation])
-  .concat([...Mirador.culPlugins.nativeObjectViewerPlugin]);
+const flattenPluginConfigs = (...plugins) => plugins.reduce((acc, curr) => acc.concat([...curr]), []);
+
+const culMiradorPlugins = flattenPluginConfigs(
+  canvasRelatedLinksPlugin, citationsSidebarPlugin, downloadDialogPlugin, hintingSidebar,
+  nativeObjectViewerPlugin, videojsPlugin, viewerNavigation, viewXmlPlugin
+);
 
 $(document).ready(function(){
   const miradorDiv = $('#mirador');
