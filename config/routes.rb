@@ -173,8 +173,10 @@ Rails.application.routes.draw do
       defaults format: 'json' do
         get '/kiosk', to: 'access#kiosk', as: :kiosk
         get '/presentation/:manifest_registrant/:manifest_doi', to: 'presentations#show', as: :presentation
-        get '/presentation/:collection_registrant/:collection_doi/collection(/*proxy_path)', to: 'presentations#collection', as: :collection, constraints: { format: 'json' }
-        get '/presentation/:collection_registrant/:collection_doi/manifest/:manifest_registrant/:manifest_doi', to: 'presentations#manifest', as: :collected_manifest, constraints: { format: 'json' }
+        get '/presentation/:collection_registrant/:collection_doi/collection(/*proxy_path)', to: 'presentations#proxy_collection', as: :proxy_collection, constraints: { format: 'json' }
+        get '/presentation/:collection_registrant/:collection_doi/manifest/:manifest_registrant/:manifest_doi', to: 'presentations#manifest', as: :proxy_collected_manifest, constraints: { format: 'json' }
+        get '/presentation/aspace/:archives_space_id/collection', to: 'presentations#aspace_collection', as: :aspace_collection, constraints: { format: 'json' }
+        get '/presentation/aspace/:archives_space_id/manifest/:manifest_registrant/:manifest_doi', to: 'presentations#manifest', as: :aspace_collected_manifest, constraints: { format: 'json' }
         get '/presentation/:manifest_registrant/:manifest_doi/manifest', to: 'presentations#manifest', as: :manifest
         get '/presentation/:manifest_registrant/:manifest_doi/canvas/:registrant/:doi', to: 'presentations#canvas', as: :canvas
         get '/presentation/:manifest_registrant/:manifest_doi/annotation/:registrant/:doi/probe', to: 'presentations#probe', as: :probe
