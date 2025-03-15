@@ -149,4 +149,32 @@ class Dcv::Solr::ChildrenAdapter
       })
     end
   end
+
+  # see also Dcv::Catalog::CsvDownloadBehavior
+  def from_aspace_parent(archive_space_id, **opts)
+    fq = [
+      "#{Iiif::Collection::ArchivesSpaceCollection::SOLR_PARENT_FIELD}:\"#{archive_space_id}\""
+    ]
+    local_params = {
+      q: '*:*',
+      fq: fq,
+      qt: 'search',
+      facet: false
+    }.merge(opts)
+    local_params[:fl] ||= '*'
+
+    page = -1
+    per_page = 200
+
+    results = []
+    while (
+      (@response, @document_list) = searcher.search_service.search_results(local_params) do |builder|
+        builder.start = ((page+=1) * per_page)
+        builder.rows = per_page
+      end
+    )[1].present? do
+      results.concat(@document_list)
+    end
+    results
+  end
 end

@@ -1,5 +1,5 @@
 require 'rails_helper'
-describe Iiif::Collection do
+describe Iiif::Collection::ProxyCollection do
 	let(:fedora_pid) { 'test:collection' }
 	let(:foxml) { fixture("foxml/#{fedora_pid.sub(':','_')}.xml").read }
 	let(:rubydora_repository) do
@@ -20,7 +20,7 @@ describe Iiif::Collection do
 	let(:children_service) { instance_double(Dcv::Solr::ChildrenAdapter) }
 	let(:collection_id) do
 		registrant, doi = collection_document.doi_identifier.split('/')
-		route_helper.iiif_collection_url(collection_registrant: registrant, collection_doi: doi)
+		route_helper.iiif_proxy_collection_url(collection_registrant: registrant, collection_doi: doi)
 	end
 	let(:iiif_collection) { described_class.new(id: collection_id, solr_document: collection_document, children_service: children_service, ability_helper: ability_helper, route_helper: route_helper) }
 	describe '#label' do
