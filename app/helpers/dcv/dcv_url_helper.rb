@@ -120,4 +120,10 @@ module Dcv::DcvUrlHelper
   def solr_document_url(solr_document, options = {})
     search_state.url_for_document(solr_document, options)
   end
+
+# solr_document routing patch because upstream JSON builder uses polymorphic URL in BL7
+  def show_solr_document_url(solr_document, options = {})
+    url_attrs = solr_document_url(solr_document, options)
+    url_attrs.is_a?(Hash) ? url_for(url_attrs) : url_attrs
+  end
 end

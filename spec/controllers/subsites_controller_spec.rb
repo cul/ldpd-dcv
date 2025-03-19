@@ -166,4 +166,56 @@ describe CatalogController, :type => :controller do
       end
     end
   end
+
+  describe '#index' do
+    let(:api_key) { nil }
+    let(:doc1) { JSON.parse(fixture('controllers/lcaaj_controller/sample_solr_doc_1.json').read) }
+    let(:doc2) { JSON.parse(fixture('controllers/lcaaj_controller/sample_solr_doc_2.json').read) }
+    let(:doc3) { JSON.parse(fixture('controllers/lcaaj_controller/sample_solr_doc_3.json').read) }
+    let(:params) {
+      {
+        format: 'json',
+        q: '',
+        search_field: 'all_text_teim'
+      }
+    }
+    let(:document_list) { [
+      SolrDocument.new(doc1),
+      SolrDocument.new(doc2),
+      SolrDocument.new(doc3)
+    ] }
+    let(:pagination_stubs) {
+      {
+        prev_page: nil, next_page: nil, total_pages: 1, current_page: 1, limit_value: 10, total_count: document_list.length,
+        offset_value: 0, :first_page? => true, :last_page? => true
+      }
+    }
+    let(:solr_response) {
+      instance_double(Blacklight::Solr::Response, documents: document_list, aggregations: {}, **pagination_stubs)
+    }
+    let(:search_service) { instance_double(Dcv::SearchService) }
+
+    context 'json format is requested' do
+      let(:json_response) { JSON.parse(response.body) }
+      before do
+        # skip access control related to cul_omniauth/roles.yml
+        allow(controller).to receive(:store_unless_user).and_return nil
+        allow(controller).to receive(:authorize_action).and_return true
+        allow(controller).to receive(:search_service).and_return(search_service)
+        # mock search_results for the Blacklight search
+        allow(search_service).to receive(:search_results).once.and_return(
+          [solr_response, document_list],
+        )
+      end
+
+      render_views
+
+      it "responds without error" do
+        get :index, params: params
+        expect(response.status).to eq(200)
+        expect(response.headers['Content-Type']).to eq("application/json; charset=utf-8")
+        expect(json_response.dig('data', 0, 'links', 'self')).to end_with(doc1['id'])
+      end
+    end
+  end
 end
