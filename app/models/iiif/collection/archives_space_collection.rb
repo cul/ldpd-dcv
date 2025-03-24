@@ -16,14 +16,25 @@ class Iiif::Collection::ArchivesSpaceCollection
     []
   end
 
-  # get items from Solr by querying for ASpace ID
-  def items
+  # get collection item documents from Solr by querying for ASpace ID
+  def child_documents
     # memoize because will need to call for metadata and for item listing
     @solr_documents ||= children_service.from_aspace_parent(archives_space_id)
+  end
+
+  def items
     # must also get multiple pages of items
     # if these requests are onerous, may need to refactor to stream some or all of json response back
-    #TODO map these documents to manifest constructs, with identifiers indicating containment
-    []
+    manifests = child_documents.map do |solr_document|
+      Iiif::Manifest.new(
+        id: solr_document.id,
+        solr_document: solr_document,
+        children_service: children_service,
+        route_helper: route_helper,
+        ability_helper: ability_helper,
+        part_of: archives_space_id
+      )
+    end
   end
 
   # this is used when constructing metadata from a contained manifest
@@ -82,7 +93,31 @@ class Iiif::Collection::ArchivesSpaceCollection
   def label
     #TODO: label should come from collections and archival context of included manifests
     # alternately, could query/cache ACFA
-    { en: [] }
+    return { en: [] } unless child_documents.first.present? 
+    
+    collection_title = child_documents.first['lib_collection_ssm']&.first
+
+    archival_context_title = extract_archival_context_title(child_documents.first)
+  
+    label = if collection_title == archival_context_title
+              collection_title
+            else
+              "#{collection_title} #{archival_context_title}"
+            end
+  
+    { en: [label] }
+  end
+    
+  def extract_archival_context_title(child_doc)
+    return nil unless child_doc
+
+    context_json = child_doc['archival_context_json_ss']
+    context = begin
+                JSON.parse(context_json)
+              rescue JSON::ParserError
+                []
+              end  
+    context&.first&.dig("dc:title")
   end
 
   def collection_for?(solr_document)

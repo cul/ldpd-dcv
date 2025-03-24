@@ -75,7 +75,7 @@ class Iiif::PresentationsController < ApplicationController
     else
       @response, @document = fetch("doi:#{doi}", fetch_by_doi_opts)
       if params[:archives_space_id]
-        container_id = iiif_aspace_collection_url(archives_space_id: archives_space_id)
+        archives_space_id = params[:archives_space_id]
         container = manifest_aspace_container(archives_space_id, @document)
         if container
           manifest_id = iiif_aspace_collected_manifest_url(manifest_params.merge(archives_space_id: archives_space_id))
@@ -95,7 +95,6 @@ class Iiif::PresentationsController < ApplicationController
     container_id = iiif_aspace_collection_url(archives_space_id: archives_space_id)
     container = Iiif::Collection::ArchivesSpaceCollection.new(**presentation_params(container_id, nil, child_service))
     return unless container.collection_for?(solr_document)
-
     container.items = [solr_document]
     container
   end
