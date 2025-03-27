@@ -7,7 +7,7 @@ module FieldDisplayHelpers::ArchivalContext
   def display_archival_context(args={})
     contexts = Array(args.fetch(:value,'[]')).map { |json_values| JSON.load(json_values).map {|json| ::ArchivalContext.new(json) } }
     contexts.flatten!
-    shelf_locator = field_helper_shelf_locator_value(args)
+    shelf_locator = field_helper_shelf_locator_value(args) if args.fetch(:shelf_locator, true)
     contexts.map do |context|
       title = context.titles(link: args.fetch(:link, true)).first
       title << '. ' << shelf_locator if shelf_locator && title.present?

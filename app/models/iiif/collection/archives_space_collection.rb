@@ -27,12 +27,12 @@ class Iiif::Collection::ArchivesSpaceCollection
     # if these requests are onerous, may need to refactor to stream some or all of json response back
     manifests = child_documents.map do |solr_document|
       Iiif::Manifest.new(
-        id: solr_document.id,
+        id: manifest_id(solr_document),
         solr_document: solr_document,
         children_service: children_service,
         route_helper: route_helper,
         ability_helper: ability_helper,
-        part_of: archives_space_id
+        part_of: id
       )
     end
   end
@@ -93,36 +93,39 @@ class Iiif::Collection::ArchivesSpaceCollection
   def label
     #TODO: label should come from collections and archival context of included manifests
     # alternately, could query/cache ACFA
-    return { en: [] } unless child_documents.first.present? 
-    
+    return { en: [archives_space_id] } unless child_documents.first.present? 
+
     collection_title = child_documents.first['lib_collection_ssm']&.first
 
     archival_context_title = extract_archival_context_title(child_documents.first)
-  
-    label = if collection_title == archival_context_title
-              collection_title
-            else
-              "#{collection_title} #{archival_context_title}"
-            end
-  
-    { en: [label] }
+
+    label = archival_context_title.present? ? archival_context_title : collection_title
+    { en: [label.to_s] }
   end
-    
+
   def extract_archival_context_title(child_doc)
     return nil unless child_doc
 
-    context_json = child_doc['archival_context_json_ss']
-    context = begin
-                JSON.parse(context_json)
-              rescue JSON::ParserError
-                []
-              end  
-    context&.first&.dig("dc:title")
+    CollectionLabelService.get(child_doc)
   end
 
   def collection_for?(solr_document)
     return false unless solr_document
 
     solr_document[SOLR_PARENT_FIELD]&.include(@archives_space_id)
+  end
+
+  class CollectionLabelService
+    extend FieldDisplayHelpers::ArchivalContext
+
+    def self.get(solr_doc)
+      return nil if solr_doc.blank?
+
+      values = solr_doc[FieldDisplayHelpers::ARCHIVAL_CONTEXT_JSON_FIELD]
+      return nil unless values.present?
+
+      values = Array(values)
+      display_archival_context({ value: values, document: solr_doc, link: false, shelf_locator: false })
+    end
   end
 end
