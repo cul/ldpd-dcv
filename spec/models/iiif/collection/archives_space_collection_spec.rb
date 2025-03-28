@@ -70,6 +70,21 @@ describe Iiif::Collection::ArchivesSpaceCollection do
 		end
 	end
 
+	describe 'collection_for?' do
+		let(:archives_space_parent_id) { archives_space_id }
+		let(:solr_document) { SolrDocument.new({described_class::SOLR_PARENT_FIELD => [archives_space_parent_id]}) }
+		let(:result) { iiif_collection.collection_for?(solr_document) }
+		it 'returns true if doc has aspace id in parent field' do
+			expect(result).to be true		
+		end
+		context 'doc does not have aspace id in parent field' do
+			let(:archives_space_parent_id) { archives_space_id + "-no" }
+			it 'returns false' do
+				expect(result).to be false		
+			end
+		end
+	end
+
 	describe '#as_json' do
 		context "without :include values" do
 			it "does not include #metadata, #items, or context" do

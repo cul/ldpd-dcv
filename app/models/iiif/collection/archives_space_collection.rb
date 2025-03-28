@@ -112,7 +112,7 @@ class Iiif::Collection::ArchivesSpaceCollection
   def collection_for?(solr_document)
     return false unless solr_document
 
-    solr_document[SOLR_PARENT_FIELD]&.include(@archives_space_id)
+    Array(solr_document[SOLR_PARENT_FIELD]).include?(@archives_space_id)
   end
 
   class CollectionLabelService
