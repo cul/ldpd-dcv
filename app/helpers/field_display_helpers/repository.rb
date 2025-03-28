@@ -17,11 +17,15 @@ module FieldDisplayHelpers::Repository
     end
   end
 
-  def generate_finding_aid_url(bib_id, document, clio_only = false)
+  def generate_finding_aid_url(bib_id, document, clio_only: false, deep_link: false)
     repo_code = field_helper_repo_code_value(document: document)
     repo_slug = t("cul.archives.arclight_slug.#{repo_code.downcase.sub('-', '')}") if repo_code
     if repo_slug.present? && bib_id && !clio_only
-      "https://findingaids.library.columbia.edu/ead/#{repo_slug}/ldpd_#{bib_id}"
+      finding_aid_url = "https://findingaids.library.columbia.edu/archives/cul-#{bib_id}"
+      if deep_link && document[FieldDisplayHelpers::ASPACE_PARENT_FIELD].present?
+        return "#{finding_aid_url}_aspace_#{Array(document[FieldDisplayHelpers::ASPACE_PARENT_FIELD]).first}"
+      end
+      finding_aid_url
     else
       "https://clio.columbia.edu/catalog/#{bib_id}" if bib_id
     end

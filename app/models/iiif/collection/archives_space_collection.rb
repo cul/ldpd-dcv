@@ -1,7 +1,8 @@
 class Iiif::Collection::ArchivesSpaceCollection
   attr_reader :id, :archives_space_id, :children_service, :route_helper, :ability_helper
+  include FieldDisplayHelpers
   ID_MATCH = /\/aspace\/([A-Za-z0-9\-]+)\/collection/
-  SOLR_PARENT_FIELD = :rel_other_archives_space_parent_identifier_ssim
+  SOLR_PARENT_FIELD = FieldDisplayHelpers::ASPACE_PARENT_FIELD
 
   def initialize(id:, children_service:, route_helper:, ability_helper:, **args)
     @id = id
@@ -100,7 +101,7 @@ class Iiif::Collection::ArchivesSpaceCollection
     archival_context_title = extract_archival_context_title(child_documents.first)
 
     label = archival_context_title.present? ? archival_context_title : collection_title
-    { en: [label.to_s] }
+    { en: Array(label || "") }
   end
 
   def extract_archival_context_title(child_doc)
@@ -112,7 +113,7 @@ class Iiif::Collection::ArchivesSpaceCollection
   def collection_for?(solr_document)
     return false unless solr_document
 
-    Array(solr_document[SOLR_PARENT_FIELD]).include?(@archives_space_id)
+    Array(solr_document[FieldDisplayHelpers::ASPACE_PARENT_FIELD]).include?(@archives_space_id)
   end
 
   class CollectionLabelService
@@ -121,11 +122,11 @@ class Iiif::Collection::ArchivesSpaceCollection
     def self.get(solr_doc)
       return nil if solr_doc.blank?
 
-      values = solr_doc[FieldDisplayHelpers::ARCHIVAL_CONTEXT_JSON_FIELD]
+      values = solr_doc[FieldDisplayHelpers::COLLECTION_DISPLAY_FIELD]
       return nil unless values.present?
 
       values = Array(values)
-      display_archival_context({ value: values, document: solr_doc, link: false, shelf_locator: false })
+      display_composite_archival_context({ value: values, document: solr_doc, link: false, shelf_locator: false })
     end
   end
 end

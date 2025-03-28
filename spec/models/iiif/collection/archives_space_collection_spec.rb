@@ -72,7 +72,7 @@ describe Iiif::Collection::ArchivesSpaceCollection do
 
 	describe 'collection_for?' do
 		let(:archives_space_parent_id) { archives_space_id }
-		let(:solr_document) { SolrDocument.new({described_class::SOLR_PARENT_FIELD => [archives_space_parent_id]}) }
+		let(:solr_document) { SolrDocument.new({FieldDisplayHelpers::ASPACE_PARENT_FIELD => [archives_space_parent_id]}) }
 		let(:result) { iiif_collection.collection_for?(solr_document) }
 		it 'returns true if doc has aspace id in parent field' do
 			expect(result).to be true		

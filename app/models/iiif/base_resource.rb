@@ -72,7 +72,7 @@ class Iiif::BaseResource
       if bib_ids.present?
         value_obj[:seeAlso] = bib_ids.map do |bib_id|
           {
-            id: generate_finding_aid_url(bib_id, @solr_document),
+            id: generate_finding_aid_url(bib_id, @solr_document, deep_link: true),
             profile: 'https://clio.columbia.edu/archives',
           }
         end

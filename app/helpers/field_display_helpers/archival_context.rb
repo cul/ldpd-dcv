@@ -8,7 +8,10 @@ module FieldDisplayHelpers::ArchivalContext
     contexts = Array(args.fetch(:value,'[]')).map { |json_values| JSON.load(json_values).map {|json| ::ArchivalContext.new(json) } }
     contexts.flatten!
     shelf_locator = field_helper_shelf_locator_value(args) if args.fetch(:shelf_locator, true)
+    document = args[:document]
+    aspace_ids = document&.fetch(FieldDisplayHelpers::ASPACE_PARENT_FIELD, nil)
     contexts.map do |context|
+      context.aspace_id = aspace_ids&.first
       title = context.titles(link: args.fetch(:link, true)).first
       title << '. ' << shelf_locator if shelf_locator && title.present?
       title
@@ -42,7 +45,7 @@ module FieldDisplayHelpers::ArchivalContext
             bib_id = clio.split('/')[-1].to_s
             if bib_id =~ /^\d+$/
               clio_only = collection.fetch('dc:coverage', []).blank?
-              fa_url = generate_finding_aid_url(bib_id, document, clio_only)
+              fa_url = generate_finding_aid_url(bib_id, document, clio_only: clio_only)
               value = link_to(value, fa_url) if fa_url
             end
           end

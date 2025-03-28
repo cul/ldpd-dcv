@@ -33,7 +33,7 @@ describe Dcv::Solr::ChildrenAdapter, type: :unit do
 				offset_value: 0, :first_page? => true, :last_page? => true
 			  }
 			}
-			let(:expected_filter_query) { "#{Iiif::Collection::ArchivesSpaceCollection::SOLR_PARENT_FIELD}:\"#{aspace_parent_id}\"" }
+			let(:expected_filter_query) { "#{FieldDisplayHelpers::ASPACE_PARENT_FIELD}:\"#{aspace_parent_id}\"" }
 			before do
 				# allow(repository).to receive(:search).with(search_builder).once.and_return(solr_response)
 				allow(search_builder).to receive(:merge).with hash_including(fq: [expected_filter_query])

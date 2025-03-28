@@ -155,7 +155,7 @@ class Dcv::Solr::ChildrenAdapter
   # see also Dcv::Catalog::CsvDownloadBehavior
   def from_aspace_parent(archive_space_id, **opts)
     fq = [
-      "#{Iiif::Collection::ArchivesSpaceCollection::SOLR_PARENT_FIELD}:\"#{archive_space_id}\""
+      "#{FieldDisplayHelpers::ASPACE_PARENT_FIELD}:\"#{archive_space_id}\""
     ]
     local_params = {
       q: '*:*',
