@@ -239,6 +239,11 @@ Rails.application.routes.draw do
   get ':layout/:id/details' => 'details#show', as: :details
   get ':layout/*id/embed' => 'details#embed', as: :embed, constraints: Dcv::Routes::DOI_ID_CONSTRAINT
 
+  # Admin routes (React app)
+  namespace :admin do
+    get '/ui/v1', to: 'ui#v1'
+  end
+
   #get 'resolve/catalog/*catalog_id/bytestreams/:id/content(.:format)' => 'resolve/bytestreams#content',
   # as: :resolve_bytestream_content #,
    #constraints: { catalog_id: /[^\/]+/ }
