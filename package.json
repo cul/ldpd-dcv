@@ -10,7 +10,7 @@
     "@babel/runtime": "^7.22.15",
     "@blueprintjs/core": "^5.3.0",
     "@blueprintjs/icons": "^5.1.6",
-    "@columbia-libraries/mirador": "4.0.0-alpha.10-3",
+    "@columbia-libraries/mirador": "4.0.0-alpha.10-4",
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
     "@fortawesome/fontawesome-free": "6.4.2",
@@ -72,7 +72,7 @@
   "devDependencies": {
     "@emotion/babel-preset-css-prop": "^11.11.0",
     "@webpack-cli/serve": "^2.0.5",
-    "@columbia-libraries/mirador": "4.0.0-alpha.10-3",
+    "@columbia-libraries/mirador": "4.0.0-alpha.10-4",
     "react": "^18.3.0",
     "react-dom": "^18.3.0",
     "webpack-dev-server": "^4.15.1"
