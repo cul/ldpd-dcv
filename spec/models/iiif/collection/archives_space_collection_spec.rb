@@ -24,7 +24,7 @@ describe Iiif::Collection::ArchivesSpaceCollection do
 
 	before do
 		allow(children_service).to receive(:from_aspace_parent).with(archives_space_id).and_return([collection_item])
-	end  
+	end
 
 	describe '#archives_space_id' do
 		it 'parses the aspace idenitifer from the id URI' do
@@ -55,7 +55,7 @@ describe Iiif::Collection::ArchivesSpaceCollection do
 
 			it 'delegates to children_service for structured list' do
 				expect(iiif_collection.items).not_to be_empty
-				expect(iiif_collection.items[0].instance_variable_get(:@part_of)).to eq(collection_id)
+				expect(iiif_collection.items[0].instance_variable_get(:@part_of)&.first).to include('id' => collection_id)
 				expect(iiif_collection.items[0].instance_variable_get(:@id)).to eq(item_manifest_id)
 			end
 		end
@@ -65,7 +65,7 @@ describe Iiif::Collection::ArchivesSpaceCollection do
 		it 'delegates to children_service for structured list' do
 			expect(children_service).to receive(:from_aspace_parent).with(archives_space_id).and_return([collection_item])
 			expect(iiif_collection.items).not_to be_empty
-			expect(iiif_collection.items[0].instance_variable_get(:@part_of)).to eq(collection_id)
+			expect(iiif_collection.items[0].instance_variable_get(:@part_of)&.first).to include('id' => collection_id)
 			expect(iiif_collection.items[0].instance_variable_get(:@id)).to eq(item_manifest_id)
 		end
 	end

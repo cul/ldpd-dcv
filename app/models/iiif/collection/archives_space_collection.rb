@@ -33,7 +33,7 @@ class Iiif::Collection::ArchivesSpaceCollection
         children_service: children_service,
         route_helper: route_helper,
         ability_helper: ability_helper,
-        part_of: id
+        part_of: [self.as_json]
       )
     end
   end
