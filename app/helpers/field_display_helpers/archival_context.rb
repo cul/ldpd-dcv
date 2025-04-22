@@ -12,7 +12,7 @@ module FieldDisplayHelpers::ArchivalContext
     aspace_ids = document&.fetch(FieldDisplayHelpers::ASPACE_PARENT_FIELD, nil)
     contexts.map do |context|
       context.aspace_id = aspace_ids&.first
-      title = context.titles(link: args.fetch(:link, true)).first
+      title = context.titles(link: args.fetch(:link, true)).first.dup
       title << '. ' << shelf_locator if shelf_locator && title.present?
       title
     end.join('; ').html_safe
@@ -24,9 +24,8 @@ module FieldDisplayHelpers::ArchivalContext
     context_field = OpenStruct.new(field: 'archival_context_json_ss')
     if has_archival_context?(context_field, document)
       values = values.map do |value|
-        value << '. '
-        value << display_archival_context(args.merge(field: context_field.field, value: document[context_field.field], link: false))
-        value
+        context_label = display_archival_context(args.merge(field: context_field.field, value: document[context_field.field], link: false))
+        "#{value}. #{context_label}"
       end
     end
     args[:value].is_a?(Array) ? values : values[0]

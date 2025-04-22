@@ -35,7 +35,7 @@ describe FieldDisplayHelpers::ArchivalContext, :type => :helper do
         it 'links to clio' do
           expect(display).to match(/clio/)
         end
-      end 
+      end
     end
     context 'collection has no bib id' do
       before do
@@ -44,6 +44,20 @@ describe FieldDisplayHelpers::ArchivalContext, :type => :helper do
       it 'links when the collection has a bib id' do
         expect(display).to eql value
       end
+    end
+  end
+  describe "#display_composite_archival_context" do
+    let(:xml_src) { fixture(File.join("mods", "mods-aspace-ids.xml")) }
+    let(:ng_xml) { Nokogiri::XML(xml_src.read) }
+    let(:adapter) { Dcv::Solr::DocumentAdapter::ModsXml.new(ng_xml) }
+    let(:solr_data) { adapter.to_solr }
+    let(:collection_value) { ["Italian Jewish Community Regulations"] }
+    let(:expected) { "Italian Jewish Community Regulations. Series I: Ferrara (Italy). Subseries I.D Noise Regulations" }
+    it 'builds values without modifying the solr document over multiple calls' do
+      args = {document: solr_document, value: collection_value, shelf_locator: false}
+      expect(helper.display_composite_archival_context(**args).first).to eql expected
+      expect(helper.display_composite_archival_context(**args).first).to eql expected
+      expect(helper.display_composite_archival_context(**args).first).to eql expected
     end
   end
 end

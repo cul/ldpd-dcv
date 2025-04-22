@@ -33,25 +33,22 @@ describe Iiif::Collection::ArchivesSpaceCollection do
 	end
 
 	describe '#label' do
-		let(:actual) { iiif_collection.label }
-  
+		let(:xml_src) { fixture(File.join("mods", "mods-aspace-ids.xml")) }
+		let(:actual) { iiif_collection.label&.[](:en) }
+		let(:json_value) { iiif_collection.as_json.dig('label', :en) }
+
 		it "sets an array of values" do
-	  		expect(actual[:en]).to be_a Array
-	  		expect(actual[:en]).to include("Italian Jewish Community Regulations")
+			iiif_collection.label&.[](:en)
+			expect(actual).to be_a Array
+			expect(actual.first).to eql("Italian Jewish Community Regulations. Series I: Ferrara (Italy). Subseries I.D Noise Regulations")
+			expect(json_value.first).to eql("Italian Jewish Community Regulations. Series I: Ferrara (Italy). Subseries I.D Noise Regulations")
 		end
 		context 'has an item in scope' do
-			let(:json_src) { fixture('json/archival_context.json').read }
-			let(:json) { JSON.load(json_src) }
-			let(:field_config) { instance_double(Blacklight::Configuration::Field) }
-			let(:value) { 'Carnegie Corporation of New York Records' }
-			let(:solr_data) {
-				{
-					id: document_id, archival_context_json_ss: JSON.generate([json]), lib_repo_code_ssim: 'nnc'
-				}
-			}
-			include_context "a solr document"
-			let(:collection_item) { SolrDocument.new(solr_document._source.merge(ezid_doi_ssim: [item_doi])) }
-
+			let(:collection_item) { SolrDocument.new(adapter.to_solr.merge(ezid_doi_ssim: [item_doi])) }
+			let(:collection_item_2) { SolrDocument.new(adapter.to_solr.merge(ezid_doi_ssim: [item_doi])) }
+			before do
+				allow(children_service).to receive(:from_aspace_parent).with(archives_space_id).and_return([collection_item, collection_item_2])
+			end
 
 			it 'delegates to children_service for structured list' do
 				expect(iiif_collection.items).not_to be_empty
