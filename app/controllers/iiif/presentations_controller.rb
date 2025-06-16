@@ -64,43 +64,63 @@ class Iiif::PresentationsController < ApplicationController
 
     doi = "#{params[:manifest_registrant]}/#{params[:manifest_doi]}"
     manifest_params = select_params(:manifest_registrant, :manifest_doi)
+    manifest_id = nil
+    part_of = nil
     collection_params = select_params(:collection_registrant, :collection_doi)
-    if collection_params.length == 2
-      collection_doi_param = "doi:#{params[:collection_registrant]}/#{params[:collection_doi]}"
-      collection_document = fetch_by_doi collection_doi_param
-      local_params = {}
-      local_params[:fl] = "*,proxy:[subquery]"
-      local_params[:"proxy.defType"] = 'lucene'
-      local_params[:"proxy.q"] = "{!terms f=proxyFor_ssi v=$row.dc_identifier_ssim}"
-      local_params[:"proxy.fq"] = "proxyIn_ssi:\"#{collection_document['fedora_pid_uri_ssi']}\""
-      @response, @document = fetch("doi:#{doi}", fetch_by_doi_opts(local_params))
-      proxy_source = @document['proxy']['docs']&.first
-      proxy_doc = SolrDocument.new(proxy_source) if proxy_source
-    else
-      @response, @document = fetch("doi:#{doi}", fetch_by_doi_opts)
-    end
-    container = manifest_container(collection_document, proxy_doc)
+    container = manifest_proxy_container(collection_params, doi)
     if container
       manifest_params.merge!(collection_params)
-      manifest_id = iiif_collected_manifest_url(manifest_params)
+      manifest_id = iiif_proxy_collected_manifest_url(manifest_params)
       part_of = [container]
     else
-      manifest_id = iiif_manifest_url(manifest_params)
-      part_of = nil
+      @response, @document = fetch("doi:#{doi}", fetch_by_doi_opts)
+      if params[:archives_space_id]
+        archives_space_id = params[:archives_space_id]
+        container = manifest_aspace_container(archives_space_id, @document)
+        if container
+          manifest_id = iiif_aspace_collected_manifest_url(manifest_params.merge(archives_space_id: archives_space_id))
+          part_of = [container]
+        end
+      end
+      manifest_id ||= iiif_manifest_url(manifest_params)
     end
     manifest = Iiif::Manifest.new(**presentation_params(manifest_id, @document, part_of))
     render json: manifest.as_json(include: [:items, :metadata, :context]).compact
   end
 
-  # return a Iiif::Collection is collection params are present and manifest is in collection
-  def manifest_container(collection_document, proxy_doc)
+  # return a Iiif::Collection::ArchivesSpaceCollection if archives_space_id params are present and manifest is in collection
+  def manifest_aspace_container(archives_space_id, solr_document)
+    return unless archives_space_id && solr_document
+
+    container_id = iiif_aspace_collection_url(archives_space_id: archives_space_id)
+    container = Iiif::Collection::ArchivesSpaceCollection.new(**presentation_params(container_id, nil, child_service))
+    return unless container.collection_for?(solr_document)
+    container.items = [solr_document]
+    container
+  end
+
+  # return a Iiif::Collection::ProxyCollection if collection params are present and manifest is in collection
+  def manifest_proxy_container(collection_params, doi)
+    return unless collection_params&.length == 2
+
+    collection_doi_param = "doi:#{params[:collection_registrant]}/#{params[:collection_doi]}"
+    collection_document = fetch_by_doi collection_doi_param
+    local_params = {}
+    local_params[:fl] = "*,proxy:[subquery]"
+    local_params[:"proxy.defType"] = 'lucene'
+    local_params[:"proxy.q"] = "{!terms f=proxyFor_ssi v=$row.dc_identifier_ssim}"
+    local_params[:"proxy.fq"] = "proxyIn_ssi:\"#{collection_document['fedora_pid_uri_ssi']}\""
+    @response, @document = fetch("doi:#{doi}", fetch_by_doi_opts(local_params))
+    proxy_source = @document['proxy']['docs']&.first
+    proxy_doc = SolrDocument.new(proxy_source) if proxy_source
     return unless collection_document.present? && proxy_doc.present?
+
     proxy_path = proxy_doc.id.split("/structMetadata/")[1]
     proxy_path = proxy_path.split('/')[0...-1].join('/') if proxy_path
     collection_params = select_params(:collection_registrant, :collection_doi)
     collection_params[:proxy_path] = CGI.unescape(proxy_path) if proxy_path.present?
-    collection_id = iiif_collection_url(collection_params)
-    Iiif::Collection.new(**presentation_params(collection_id, collection_document, child_service))
+    collection_id = iiif_proxy_collection_url(collection_params)
+    Iiif::Collection::ProxyCollection.new(**presentation_params(collection_id, collection_document, child_service))
   end
 
   def range
@@ -189,7 +209,7 @@ class Iiif::PresentationsController < ApplicationController
     render json: annotation.to_h.compact
   end
 
-  def collection
+  def proxy_collection
     cors_headers
     #TODO: Support collections
     # look up the aggregate document (should be a collection)
@@ -201,8 +221,16 @@ class Iiif::PresentationsController < ApplicationController
       @document =  fetch_by_doi("doi:#{doi}", {}, true)
     end
     collection_params = select_params(:collection_registrant, :collection_doi, :proxy_path)
-    collection_id = iiif_collection_url(collection_params)
-    collection = Iiif::Collection.new(**presentation_params(collection_id, @document, self))
+    collection_id = iiif_proxy_collection_url(collection_params)
+    collection = Iiif::Collection::ProxyCollection.new(**presentation_params(collection_id, @document, self))
+    render json: collection.as_json(include: [:items, :metadata, :context]).compact
+  end
+
+  def aspace_collection
+    cors_headers
+    collection_params = select_params(:archives_space_id)
+    collection_id = iiif_aspace_collection_url(collection_params)
+    collection = Iiif::Collection::ArchivesSpaceCollection.new(**presentation_params(collection_id, @document, self))
     render json: collection.as_json(include: [:items, :metadata, :context]).compact
   end
 

@@ -1,5 +1,5 @@
 require 'rails_helper'
-describe Iiif::Collection do
+describe Iiif::Collection::ProxyCollection do
 	let(:fedora_pid) { 'test:collection' }
 	let(:foxml) { fixture("foxml/#{fedora_pid.sub(':','_')}.xml").read }
 	let(:rubydora_repository) do
@@ -20,7 +20,7 @@ describe Iiif::Collection do
 	let(:children_service) { instance_double(Dcv::Solr::ChildrenAdapter) }
 	let(:collection_id) do
 		registrant, doi = collection_document.doi_identifier.split('/')
-		route_helper.iiif_collection_url(collection_registrant: registrant, collection_doi: doi)
+		route_helper.iiif_proxy_collection_url(collection_registrant: registrant, collection_doi: doi)
 	end
 	let(:iiif_collection) { described_class.new(id: collection_id, solr_document: collection_document, children_service: children_service, ability_helper: ability_helper, route_helper: route_helper) }
 	describe '#label' do
@@ -31,10 +31,22 @@ describe Iiif::Collection do
 		end
 	end
 	describe '#items' do
-		let(:item) { instance_double(SolrDocument, doi_identifier: '10.123/abcdef', :[] => nil) }
+		let(:item_doi) { '10.123/abcdef' }
+		let(:item) { instance_double(SolrDocument, doi_identifier: item_doi, :[] => nil) }
+		let(:manifest_routing_params) do
+			collection_registrant, collection_doi = collection_document.doi_identifier.split('/')
+			manifest_registrant, manifest_doi = item_doi.split('/')
+			{
+				collection_registrant: collection_registrant, collection_doi: collection_doi,
+				manifest_registrant: manifest_registrant, manifest_doi: manifest_doi
+			}
+		end
+		let(:item_manifest_id) { route_helper.iiif_proxy_collected_manifest_url(manifest_routing_params) }
 		it 'delegates to children_service for structured list' do
 			expect(children_service).to receive(:from_contained_structure_proxies).and_return([item])
-			iiif_collection.items
+			manifest = iiif_collection.items&.first
+			expect(manifest).to be_present
+			expect(manifest.id).to eql(item_manifest_id)
 		end
 	end
 	describe '#as_json' do

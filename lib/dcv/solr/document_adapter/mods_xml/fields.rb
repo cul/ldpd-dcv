@@ -452,6 +452,13 @@ class Dcv::Solr::DocumentAdapter::ModsXml
       end
     end
 
+    def archives_space_identifiers(node=mods)
+      aspace_ids = node.xpath('./mods:identifier[@type="archivesSpace"]', MODS_NS)&.collect do |t|
+        Fields.normalize(t.text)
+      end
+      aspace_ids&.compact
+    end
+
     def add_names_by_text_role!(solr_doc)
       # Note: These roles usually come from http://www.loc.gov/marc/relators/relaterm.html,
       # but there are known cases when non-marc relator values are used (e.g. 'Owner/Agent'),
@@ -560,6 +567,11 @@ class Dcv::Solr::DocumentAdapter::ModsXml
       {'iiif_viewing_direction_ssi' => viewing_direction, 'iiif_behavior_ssim' => behaviors}.compact
     end
 
+    def hyacinth_uuid(node=mods)
+      uuids = node.xpath("./mods:recordInfo/mods:recordIdentifier[@source='hyacinth']", MODS_NS)
+      uuids.present? ? uuids.first.text.strip.downcase : nil
+    end
+
     def to_solr(solr_doc={})
       solr_doc = (defined? super) ? super : solr_doc
       return solr_doc if mods.nil?  # There is no mods.  Return because there is nothing to process, otherwise NoMethodError will be raised by subsequent lines.
@@ -572,8 +584,13 @@ class Dcv::Solr::DocumentAdapter::ModsXml
       solr_doc["alternative_title_ssm"] = alternative_titles
       solr_doc["all_text_teim"] += solr_doc["alternative_title_ssm"]
       solr_doc["clio_ssim"] = clio_ids
+
+      uuid = hyacinth_uuid
+      solr_doc["hyacinth_uuid_ssi"] = uuid if uuid
+
       solr_doc["archive_org_identifier_ssi"] = archive_org_identifier
       solr_doc["archive_org_identifiers_json_ss"] = JSON.generate(archive_org_identifiers)
+      solr_doc["archives_space_identifier_ssim"] = archives_space_identifiers
       solr_doc["lib_collection_sim"] = collection_titles
       solr_doc["collection_key_ssim"] = collection_keys.uniq
       solr_doc["lib_name_sim"] = names
@@ -740,9 +757,14 @@ class Dcv::Solr::DocumentAdapter::ModsXml
     def othertype_relations(node)
       field_values = {}
       mods.xpath("./mods:relatedItem[@otherType]/mods:titleInfo", MODS_NS).each do |title|
-        field_name = title.parent['otherType'].downcase.split(/[^a-z]+/).compact.join('_')
+        field_name = title.parent['otherType'].underscore.downcase.split(/[^a-z]+/).compact.join('_')
         field_name = "rel_other_#{field_name}_ssim"
         (field_values[field_name] ||= []) << title.text.strip
+      end
+      mods.xpath("./mods:relatedItem[@otherType]/mods:identifier", MODS_NS).each do |xml_value|
+        field_name = xml_value.parent['otherType'].underscore.downcase.split(/[^a-z]+/).compact.join('_')
+        field_name = "rel_other_#{field_name}_identifier_ssim"
+        (field_values[field_name] ||= []) << xml_value.text.strip
       end
       field_values
     end

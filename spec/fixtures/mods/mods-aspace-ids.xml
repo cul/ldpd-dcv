@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<mods xmlns='http://www.loc.gov/mods/v3' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-4.xsd' version='3.4'>
+  <identifier type="archivesSpace">80a20b70974e7d481592b6301618ebaa</identifier>
+  <identifier type="DOI">10.7916/d8-p29s-0b89</identifier>
+  <titleInfo>
+    <title>Editto Girolamo del Titolo di S. Balbina</title>
+  </titleInfo>
+  <relatedItem otherType="archivesSpaceParent" otherTypeAuth="local" otherTypeURI="http://id.library.columbia.edu/term/9225b5e1-d8a8-49a8-acb8-5035110ccdbf">
+    <identifier type="archivesSpace">7cbce73e9905b341c94d4bd4b3c1fc79</identifier>
+  </relatedItem>
+  <relatedItem type="host" displayLabel="Collection">
+    <titleInfo valueURI="http://id.library.columbia.edu/term/2069ef6d-f83d-4925-a27a-2bf6507193df">
+      <title>Italian Jewish Community Regulations</title>
+    </titleInfo>
+    <identifier type="CLIO">11520374</identifier>
+    <part>
+      <detail>
+        <title type="series" level="1">Series I: Ferrara (Italy)</title>
+      </detail>
+      <detail>
+        <title type="subseries" level="2">Subseries I.D Noise Regulations</title>
+      </detail>
+    </part>
+  </relatedItem>
+  <location>
+    <physicalLocation valueURI="http://id.library.columbia.edu/term/d2142d01-deaa-4a39-8dbd-72c4f148353f" authority="marcorg">NNC-RB</physicalLocation>
+    <holdingSimple>
+      <copyInformation>
+        <shelfLocator>Box no. 5, Folder no. 4, Item no. 1</shelfLocator>
+      </copyInformation>
+    </holdingSimple>
+  </location>
+</mods>

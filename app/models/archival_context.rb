@@ -1,12 +1,12 @@
 class ArchivalContext
-  attr_accessor :id, :title, :bib_id, :type, :contexts, :repo_code
+  attr_accessor :id, :title, :bib_id, :type, :contexts, :repo_code, :aspace_id
   ROMAN_SERIES = /Series ([clxvi]+)/i
   ROMAN_SUBSERIES = /^(Sub\-?series\s)?([clxvi]+)\.([a-z0-9]+)/i
   ARABIC_SERIES = /Series ([\d]+)/i
   ARABIC_SUBSERIES = /^(Sub\-?series\s)?([\d]+)\.([a-z0-9]+)/i
   ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
 
-  def initialize(json, repo_code = 'nnc-rb')
+  def initialize(json, repo_code: 'nnc-rb', aspace_id: nil)
     @id = json['@id']
     @title = json['dc:title']
     json['dc:bibliographicCitation']&.tap do |citation|
@@ -15,6 +15,7 @@ class ArchivalContext
     end
     @contexts = json['dc:coverage'] || []
     @repo_code = repo_code
+    @aspace_id = aspace_id
   end
 
   def catalog_url
@@ -23,15 +24,9 @@ class ArchivalContext
 
   def finding_aid_url(series = nil, subseries = nil)
     if bib_id
-      url = "https://findingaids.library.columbia.edu/ead/#{repo_code.downcase}/ldpd_#{bib_id}"
-      # https://findingaids.library.columbia.edu/ead/nnc-rb/ldpd_4079747/dsc/1
-      if series
-        url << "/dsc/#{series}"
-        if subseries
-          subseries_d = subseries.downcase
-          subseries = (ALPHABET.index(subseries_d) + 1) if (ALPHABET.index(subseries_d) || -1) >= 0
-          url << "#subseries_#{subseries}"
-        end
+      url = "https://findingaids.library.columbia.edu/archives/cul-#{bib_id}"
+      if (series || subseries) && @aspace_id
+        url << "_aspace_#{@aspace_id}"
       end
       url
     end

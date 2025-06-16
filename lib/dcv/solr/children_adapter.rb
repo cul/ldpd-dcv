@@ -1,6 +1,8 @@
 # -*- encoding : utf-8 -*-
 class Dcv::Solr::ChildrenAdapter
   include Dcv::AccessLevels
+  ASPACE_PAGE_SIZE = 200
+  PROXY_PAGE_SIZE = 999999
   attr_reader :searcher, :authorizer, :title_field
   # legacy searcher is controller or helper, needs to define .search_results
   # legacy authorizer is helper
@@ -35,14 +37,14 @@ class Dcv::Solr::ChildrenAdapter
   def from_all_structure_proxies(parent_document, opts = {})
     proxy_params = {
       q: "proxyIn_ssi:\"info:fedora/#{parent_document['id']}\"",
-      rows: 999999
+      rows: PROXY_PAGE_SIZE
     }
     from_queried_structure_proxies(parent_document, opts.merge(proxy_params))
   end
 
   def from_contained_structure_proxies(parent_document, container_proxy_id, opts = {})
     proxy_params = {
-      rows: 999999
+      rows: PROXY_PAGE_SIZE
     }
     if container_proxy_id
       proxy_params[:q] = "belongsToContainer_ssi:\"#{container_proxy_id}\""
@@ -103,7 +105,7 @@ class Dcv::Solr::ChildrenAdapter
       q: '*:*',
       fq: fq,
       qt: 'search',
-      rows: 999999,
+      rows: PROXY_PAGE_SIZE,
       facet: false
     }
 
@@ -148,5 +150,35 @@ class Dcv::Solr::ChildrenAdapter
         access_control_permissions_bsi: false
       })
     end
+  end
+
+  # see also Dcv::Catalog::CsvDownloadBehavior
+  def from_aspace_parent(archive_space_id, **opts)
+    fq = [
+      "#{FieldDisplayHelpers::ASPACE_PARENT_FIELD}:\"#{archive_space_id}\""
+    ]
+    local_params = {
+      q: '*:*',
+      fq: fq,
+      qt: 'search',
+      facet: false
+    }.merge(opts)
+    local_params[:fl] ||= '*'
+
+    page = -1
+    per_page = ASPACE_PAGE_SIZE
+
+    results = []
+    while (
+      (@response, @document_list) = searcher.search_service.search_results do |builder|
+        builder.merge(local_params)
+        builder.start = ((page+=1) * per_page)
+        builder.rows = per_page
+        builder
+      end
+    )[1].present? do
+      results.concat(@document_list)
+    end
+    results
   end
 end

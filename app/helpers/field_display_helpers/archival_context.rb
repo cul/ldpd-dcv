@@ -7,9 +7,12 @@ module FieldDisplayHelpers::ArchivalContext
   def display_archival_context(args={})
     contexts = Array(args.fetch(:value,'[]')).map { |json_values| JSON.load(json_values).map {|json| ::ArchivalContext.new(json) } }
     contexts.flatten!
-    shelf_locator = field_helper_shelf_locator_value(args)
+    shelf_locator = field_helper_shelf_locator_value(args) if args.fetch(:shelf_locator, true)
+    document = args[:document]
+    aspace_ids = document&.fetch(FieldDisplayHelpers::ASPACE_PARENT_FIELD, nil)
     contexts.map do |context|
-      title = context.titles(link: args.fetch(:link, true)).first
+      context.aspace_id = aspace_ids&.first
+      title = context.titles(link: args.fetch(:link, true)).first.dup
       title << '. ' << shelf_locator if shelf_locator && title.present?
       title
     end.join('; ').html_safe
@@ -21,9 +24,8 @@ module FieldDisplayHelpers::ArchivalContext
     context_field = OpenStruct.new(field: 'archival_context_json_ss')
     if has_archival_context?(context_field, document)
       values = values.map do |value|
-        value << '. '
-        value << display_archival_context(args.merge(field: context_field.field, value: document[context_field.field], link: false))
-        value
+        context_label = display_archival_context(args.merge(field: context_field.field, value: document[context_field.field], link: false))
+        "#{value}. #{context_label}"
       end
     end
     args[:value].is_a?(Array) ? values : values[0]
@@ -42,7 +44,7 @@ module FieldDisplayHelpers::ArchivalContext
             bib_id = clio.split('/')[-1].to_s
             if bib_id =~ /^\d+$/
               clio_only = collection.fetch('dc:coverage', []).blank?
-              fa_url = generate_finding_aid_url(bib_id, document, clio_only)
+              fa_url = generate_finding_aid_url(bib_id, document, clio_only: clio_only)
               value = link_to(value, fa_url) if fa_url
             end
           end

@@ -1052,10 +1052,10 @@
     classnames "^2.3.1"
     tslib "~2.6.2"
 
-"@columbia-libraries/mirador@4.0.0-alpha.10-3":
-  version "4.0.0-alpha.10-3"
-  resolved "https://registry.yarnpkg.com/@columbia-libraries/mirador/-/mirador-4.0.0-alpha.10-3.tgz#4a3dbdf7d8c5b9986dc05b6d1629c99ed983ce84"
-  integrity sha512-vguNrq7waPiO/Y466RmbX4ABJi1o70s7QRLdeyHSrwP0LoXfjbEau5gLKLkfm23YOZnAmF1OsdcXP8/KhhIyng==
+"@columbia-libraries/mirador@4.0.0-alpha.10-6":
+  version "4.0.0-alpha.10-6"
+  resolved "https://registry.yarnpkg.com/@columbia-libraries/mirador/-/mirador-4.0.0-alpha.10-6.tgz#c876bfeade1699fff89ce29d7c948079eebf99c6"
+  integrity sha512-x4Dg2CW36/hmrK74xzaXypOeow5EVp666hiBQ6HDlp03iMfsADy+rqyMzCW/wCq7Sy+M3J8hxdk28uWKp+sf7g==
   dependencies:
     "@custom-react-hooks/use-element-size" "^1.5.1"
     "@emotion/cache" "^11.11.0"
