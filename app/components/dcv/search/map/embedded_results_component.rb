@@ -21,7 +21,7 @@ module Dcv::Search::Map
     end
 
     def image_thumb_template
-      helpers.get_asset_url(id: '_document_id_', size: 256, type: 'featured', format: 'jpg')
+      helpers.get_asset_url(id: '_document_id_', size: 256, base_type: 'featured', type: 'full', format: 'jpg')
     end
 
     def book_icon_image

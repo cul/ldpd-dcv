@@ -6,7 +6,7 @@ function getListItemContentFromInfoRequestData(data) {
 
   var sizes = data['sizes'];
   var sizeNames = ['small', 'medium', 'large', 'x-Large', 'xx-Large', 'xxx-Large']; // Probably more possible sizes than we will offer
-  var iiifUrlTemplate = data['@id'] + '/full/_width_,_height_/0/native.jpg?download=true';
+  var iiifUrlTemplate = data['@id'] + '/full/_width_,_height_/0/default.jpg?download=true';
   for(var i = 0;i < sizes.length; i++){
     const dlName = sizeNames[i] + ' (' + sizes[i]['width'] + ' x ' + sizes[i]['height'] + ')';
     li_html += '<li class="dropdown-item"><a href="' + iiifUrlTemplate.replace('_width_', sizes[i]['width']).replace('_height_', sizes[i]['height']) + '" target="_blank" onclick="$(\'#dcvModal\').modal(\'hide\')"><span class="fa fa-download"></span> ' + dlName + '</a></li>';

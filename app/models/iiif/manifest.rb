@@ -96,7 +96,7 @@ class Iiif::Manifest < Iiif::BaseResource
     return unless thumbnail_id
     iiif_id = Dcv::Utils::CdnUtils.info_url(id: thumbnail_id).sub(/\/info.json$/,'')
     {
-      id: Dcv::Utils::CdnUtils.asset_url(id: thumbnail_id, size: 256, type: 'featured', format: 'jpg'),
+      id: Dcv::Utils::CdnUtils.asset_url(id: thumbnail_id, size: 256, base_type: 'featured', type: 'full', format: 'jpg'),
       type: 'Image',
       format: 'image/jpeg',
       service: [

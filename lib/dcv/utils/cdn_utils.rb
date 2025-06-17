@@ -5,13 +5,16 @@ module Dcv::Utils::CdnUtils
   end
 
   def self.info_url(conditions)
-    Dcv::Utils::CdnUtils.random_cdn_url + "/iiif/2/#{conditions[:id]}/info.json"
+    base_type = conditions.fetch(:base_type, 'standard')
+    Dcv::Utils::CdnUtils.random_cdn_url + "/#{base_type}/#{conditions[:id]}/info.json"
   end
 
+  # https://triclops.library.columbia.edu/iiif/2/standard/cul:44j0zpc8xq/full/!1280,1280/0/default.jpg
   def self.asset_url(conditions)
     box_width = conditions[:width] || conditions[:size]
     box_height = conditions[:height] || conditions[:size]
-    Dcv::Utils::CdnUtils.random_cdn_url + "/iiif/2/#{conditions[:id]}/#{conditions[:type]}/!#{box_width},#{box_height}/0/native.#{conditions[:format]}"
+    base_type = conditions.fetch(:base_type, 'standard')
+    Dcv::Utils::CdnUtils.random_cdn_url + "/iiif/2/#{base_type}/#{conditions[:id]}/#{conditions[:type]}/!#{box_width},#{box_height}/0/default.#{conditions[:format]}"
   end
 
   def self.archive_org_id_for_document(solr_doc)
