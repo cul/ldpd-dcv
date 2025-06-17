@@ -6,7 +6,7 @@ module Dcv::Utils::CdnUtils
 
   def self.info_url(conditions)
     base_type = conditions.fetch(:base_type, 'standard')
-    Dcv::Utils::CdnUtils.random_cdn_url + "/#{base_type}/#{conditions[:id]}/info.json"
+    Dcv::Utils::CdnUtils.random_cdn_url + "/iiif/2/#{base_type}/#{conditions[:id]}/info.json"
   end
 
   # https://triclops.library.columbia.edu/iiif/2/standard/cul:44j0zpc8xq/full/!1280,1280/0/default.jpg
