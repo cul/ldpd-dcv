@@ -127,7 +127,7 @@ class Iiif::Canvas < Iiif::BaseResource
       end
       _props[:type] = 'Image'
       _props[:format] = 'image/jpeg'
-      _props[:id] = Dcv::Utils::CdnUtils.asset_url(id: @solr_document.id, size: 256, type: 'featured', format: 'jpg')
+      _props[:id] = Dcv::Utils::CdnUtils.asset_url(id: @solr_document.id, size: 256, base_type: 'featured', type: 'full', format: 'jpg')
       _props[:service] = [
         {
         "id": iiif_id,

@@ -257,7 +257,7 @@ class SubsitesController < ApplicationController
   end
 
   def thumb_url(document={})
-    get_asset_url(id: document['id'], size: 256, format: 'jpg', type: 'featured')
+    get_asset_url(id: document['id'], size: 256, format: 'jpg', base_type: 'featured', type: 'full')
   end
 
   def authenticate_publisher

@@ -26,7 +26,7 @@ describe ChildrenController, type: :unit do
 	describe '#show' do
 		let(:child_id) { 'test:child' }
 		let(:child_doc) { { 'id' => child_id, 'title_ssm' => [child_title] } }
-		let(:child_thumbnail) { "http://localhost/iiif/2/#{child_id}/full/!768,768/0/native.jpg" }
+		let(:child_thumbnail) { "http://localhost/iiif/2/standard/#{child_id}/full/!768,768/0/default.jpg" }
 		let(:child_title) { 'test:child title' }
 		let(:params) {
 			ActionController::Parameters.new(
@@ -45,7 +45,8 @@ describe ChildrenController, type: :unit do
 				thumbnail: child_thumbnail,
 				title: child_title
 			})
-			expect { controller.show }.not_to raise_error
+			controller.show
+#			expect { controller.show }.not_to raise_error
 		end
 	end
 end

@@ -16,20 +16,19 @@ describe Dcv::CdnHelper, :type => :helper do
   let(:test_id) { 'test:1' }
   let(:image_id) { 'image:1' }
   before do
-    @original_config = DCV_CONFIG['cdn_urls']
-    DCV_CONFIG['cdn_urls'] = [test_url]
+    allow(Dcv::Utils::CdnUtils).to receive(:random_cdn_url).and_return(test_url)
   end
   subject { helper.thumbnail_url(SolrDocument.new(document)) }
   context "document has a schema_image array" do
     let(:document) { {'id' => test_id, 'schema_image_ssim' => [image_id]} }
-    it { is_expected.to eql("#{test_url}/iiif/2/#{image_id}/featured/!256,256/0/native.jpg")}
+    it { is_expected.to eql("#{test_url}/iiif/2/featured/#{image_id}/full/!256,256/0/default.jpg")}
   end
   context "document has a schema_image" do
     let(:document) { {'id' => test_id, 'schema_image_ssim' => image_id} }
-    it { is_expected.to eql("#{test_url}/iiif/2/#{image_id}/featured/!256,256/0/native.jpg")}
+    it { is_expected.to eql("#{test_url}/iiif/2/featured/#{image_id}/full/!256,256/0/default.jpg")}
   end
   context "document has no schema_image" do
     let(:document) { {'id' => test_id} }
-    it { is_expected.to eql("#{test_url}/iiif/2/#{test_id}/featured/!256,256/0/native.jpg")}
+    it { is_expected.to eql("#{test_url}/iiif/2/featured/#{test_id}/full/!256,256/0/default.jpg")}
   end
 end

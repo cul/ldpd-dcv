@@ -41,7 +41,7 @@ module Dcv::Utils::ImageService
 
   class IiifImages < Base
     def thumbnail_url
-      Dcv::Utils::CdnUtils.asset_url(id: @id, size: 256, type: 'featured', format: 'jpg')
+      Dcv::Utils::CdnUtils.asset_url(id: @id, size: 256, base_type: 'featured', type: 'full', format: 'jpg')
     end
     def poster_url
       Dcv::Utils::CdnUtils.asset_url(id: @id, size: 768, type: 'full', format: 'jpg')
