@@ -1,6 +1,7 @@
 <div class="row mx-0" id="child_items">
 	<div class="col px-0 ls-controls-dark">
 		<%= render partial: 'content_aggregator/viewer_panel', locals: { document: document, configured_links: [:persistent, :mods] } %>
+		<%= render blacklight_config.show.disclaimer_component.new(document: document) %>
 		<%= render Dcv::Document::SidebarPanels::ItemDescriptionComponent.new(document: document, alignment: 'horizontal', link_helpers: []) %>
 	</div>
 </div>
