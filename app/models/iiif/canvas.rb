@@ -132,7 +132,7 @@ class Iiif::Canvas < Iiif::BaseResource
         {
         "id": iiif_id,
         "type": "ImageService2",
-        "profile": "http://iiif.io/api/image/2/level2.json"
+        "profile": "http://iiif.io/api/image/2/level0.json"
         }
       ]
       _props.freeze
