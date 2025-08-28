@@ -98,16 +98,12 @@ gem 'best_type'
 gem 'sitemap_generator'
 
 group :development, :test do
-  # Use Capistrano for deployment
-  gem 'capistrano', '~> 3.17.3', require: false
-  # Rails and Bundler integrations were moved out from Capistrano 3
-  gem 'capistrano-rails', '~> 1.4', require: false
-  gem 'capistrano-bundler', '~> 1.1', require: false
-  # "idiomatic support for your preferred ruby version manager"
-  gem 'capistrano-rvm', '~> 0.1', require: false
-  # The `deploy:restart` hook for passenger applications is now in a separate gem
-  # Just add it to your Gemfile and require it in your Capfile.
-  gem 'capistrano-passenger', '~> 0.2', require: false
+  # Capistrano for deployment (per https://capistranorb.com/documentation/getting-started/installation/)
+  gem "capistrano", "~> 3.19.2", require: false
+  gem "capistrano-cul", require: false # common set of tasks shared across cul apps
+  gem "capistrano-rails", "~> 1.4", require: false # for compiling rails assets
+  gem "capistrano-passenger", "~> 0.2", require: false # allows restart passenger workers
+
   # Use net-ssh >= 4.2 to prevent warnings with Ruby 2.4
   gem 'net-ssh', '>= 4.2'
   gem 'rspec-rails'
