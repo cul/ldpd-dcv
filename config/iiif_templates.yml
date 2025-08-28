@@ -13,7 +13,7 @@ manifest:
         "type": "Agent"
         "label":
           en:
-            - Columbia University Libraries 
+            - Columbia University Libraries
 canvas :
   "type" : "Canvas"
 painting_annotation :
@@ -23,7 +23,7 @@ image_annotation_body:
   "type" : "Image"
   service:
     - "@type": "ImageService2"
-      profile : "http://iiif.io/api/image/2/level2.json"
+      profile : "http://iiif.io/api/image/2/level0.json"
 text_annotation_body:
   "type" : "Text"
   format : "application/pdf"
