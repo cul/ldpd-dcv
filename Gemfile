@@ -24,7 +24,7 @@ end
 gem 'bootsnap', '~> 1.9.3'
 gem 'actionpack-action_caching'
 # Hydra stack
-gem 'nokogiri', '~> 1.15.2' # update past 1.10 requires alma
+gem 'nokogiri', '~> 1.18', '>= 1.18.9', force_ruby_platform: true
 gem 'blacklight', '~> 7.33.1'
 gem 'view_component', '~>2.82.0'
 gem 'active-fedora', '~> 8.7'
