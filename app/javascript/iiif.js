@@ -1,4 +1,5 @@
 import Mirador from '@columbia-libraries/mirador';
+import { __CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE as ReactSharedInternalsClient } from 'react';
 
 const culMiradorPlugins = [...Mirador.culPlugins.downloadDialogPlugin]
   .concat([...Mirador.culPlugins.viewXmlPlugin])
@@ -9,12 +10,12 @@ const culMiradorPlugins = [...Mirador.culPlugins.downloadDialogPlugin]
   .concat([...Mirador.culPlugins.viewerNavigation])
   .concat([...Mirador.culPlugins.nativeObjectViewerPlugin]);
 
-$(document).ready(function(){
+$(document).ready(function () {
   const miradorDiv = $('#mirador');
   const manifestUrl = miradorDiv.data('manifest');
   if (manifestUrl) {
     const numChildren = miradorDiv.data('num-children');
-    const startCanvas = function(queryParams) {
+    const startCanvas = function (queryParams) {
       if (queryParams.get("canvas")) {
         const canvases = queryParams.get("canvas").split(',');
         const canvas = canvases[0];
@@ -44,6 +45,8 @@ $(document).ready(function(){
       viewConfig.sideBarOpen = true;
     }
 
+    ReactSharedInternalsClient.actQueue = null;
+
     Mirador.viewer(
       {
         id: 'mirador',
@@ -71,7 +74,7 @@ $(document).ready(function(){
           ...viewConfig,
         },
         windows: [
-          { 
+          {
             manifestId: manifestUrl,
             canvasId: startCanvas,
           }

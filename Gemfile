@@ -97,6 +97,20 @@ gem 'best_type'
 
 gem 'sitemap_generator'
 
+# Add unicorn as available app server
+#gem 'unicorn'
+
+# Use Thin for local development
+#gem "thin"
+
+# everybody loves rainbows
+gem 'rainbow', '~> 3.0'
+
+# Use Puma for local development
+gem 'puma', '~> 5.2'
+
+gem "ox", "~> 2.14"
+
 group :development, :test do
   # Capistrano for deployment (per https://capistranorb.com/documentation/getting-started/installation/)
   gem "capistrano", "~> 3.19.2", require: false
@@ -119,17 +133,3 @@ group :development, :test do
   gem 'rubocop-rails_config', require: false
   gem 'listen'
 end
-
-# Add unicorn as available app server
-#gem 'unicorn'
-
-# Use Thin for local development
-#gem "thin"
-
-# everybody loves rainbows
-gem 'rainbow', '~> 3.0'
-
-# Use Puma for local development
-gem 'puma', '~> 5.2'
-
-gem "ox", "~> 2.14"
