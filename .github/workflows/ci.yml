@@ -17,6 +17,8 @@ jobs:
       FONT_AWESOME_TOKEN: ${{ secrets.FONT_AWESOME_TOKEN }}
 
     steps:
+      - name: Install libxslt for nokogiri gem (required for ruby platform build)
+        run: sudo apt-get install -y libxml2-dev libxslt-dev
       - uses: actions/checkout@v3
       - name: Add --no-document option to .gemrc file to speed up bundle install
         run: "echo 'gem: --no-document' > ~/.gemrc"
