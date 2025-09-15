@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        ruby-version: ['3.1.3']
+        ruby-version: ['3.1.7']
         node: ['16']
     env:
       RAILS_ENV: test
@@ -17,7 +17,9 @@ jobs:
       FONT_AWESOME_TOKEN: ${{ secrets.FONT_AWESOME_TOKEN }}
 
     steps:
-      - uses: actions/checkout@v2
+      - name: Install libxslt for nokogiri gem (required for ruby platform build)
+        run: sudo apt-get install -y libxml2-dev libxslt-dev
+      - uses: actions/checkout@v3
       - name: Add --no-document option to .gemrc file to speed up bundle install
         run: "echo 'gem: --no-document' > ~/.gemrc"
       - name: Set up Ruby
@@ -26,7 +28,7 @@ jobs:
           ruby-version: ${{ matrix.ruby-version }}
           bundler-cache: true # runs 'bundle install' and caches installed gems automatically
       - name: Set up Node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node }}
       - run: npm install -g yarn
