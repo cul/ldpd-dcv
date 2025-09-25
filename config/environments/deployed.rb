@@ -83,4 +83,10 @@ Rails.application.configure do
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
+
+  config.action_dispatch.trusted_proxies = [
+    # Add 127.0.0.1 as a trusted proxy so that the X-Forwarded-For value set by Anubis (or any other internal proxy)
+    # is whitelisted for use by the request.remote_ip IP-determining mechanism.
+    IPAddr.new('127.0.0.1')
+  ]
 end
