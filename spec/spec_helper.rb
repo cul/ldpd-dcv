@@ -82,7 +82,7 @@ RSpec.configure do |config|
 
   def fixture_file_path(file)
     path = File.join(File.dirname(__FILE__),'fixtures', file)
-    raise "No fixture file at #{path}" unless File.exists? path
+    raise "No fixture file at #{path}" unless File.exist? path
     path
   end
 
@@ -111,9 +111,9 @@ RSpec.configure do |config|
   def fedora_config
     @config ||= begin
       _config = {}
-      _config[:fedora_config_path] = File.exists?('config/fedora.yml') ? 'config/fedora.yml' : 'spec/dummy/config/fedora.yml'
-      _config[:solr_config_path] = File.exists?('config/blacklight.yml') ? 'config/blacklight.yml' : nil
-      _config[:solr_config_path] ||= File.exists?('config/solr.yml') ? 'config/solr.yml' : 'spec/dummy/config/solr.yml'
+      _config[:fedora_config_path] = File.exist?('config/fedora.yml') ? 'config/fedora.yml' : 'spec/dummy/config/fedora.yml'
+      _config[:solr_config_path] = File.exist?('config/blacklight.yml') ? 'config/blacklight.yml' : nil
+      _config[:solr_config_path] ||= File.exist?('config/solr.yml') ? 'config/solr.yml' : 'spec/dummy/config/solr.yml'
       _config
     end
   end

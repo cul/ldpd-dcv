@@ -9,7 +9,7 @@ end
 
 gem 'bigdecimal', '~>3.0'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 6.1.0'
+gem 'rails', '6.1.7.10'
 gem 'shakapacker', '7.2.2'
 gem 'sassc'
 gem "font-awesome-sass", "~> 6.4.0"
@@ -110,6 +110,12 @@ gem 'rainbow', '~> 3.0'
 gem 'puma', '~> 5.2'
 
 gem "ox", "~> 2.14"
+
+#these gems will no longer be default in ruby 3.4.0
+gem "base64"
+gem "mutex_m"
+gem "csv"
+gem "observer"
 
 group :development, :test do
   # Capistrano for deployment (per https://capistranorb.com/documentation/getting-started/installation/)
