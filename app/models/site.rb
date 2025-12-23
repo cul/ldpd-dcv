@@ -217,7 +217,7 @@ class Site < ApplicationRecord
 	end
 
 	def has_banner_image?
-		File.exists?(banner_uploader.store_path)
+		File.exist?(banner_uploader.store_path)
 	end
 
 	def banner_url
@@ -229,7 +229,7 @@ class Site < ApplicationRecord
 	end
 
 	def has_watermark_image?
-		File.exists?(watermark_uploader.store_path)
+		File.exist?(watermark_uploader.store_path)
 	end
 
 	def watermark_url

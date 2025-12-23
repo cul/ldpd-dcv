@@ -14,8 +14,8 @@ describe Dcv::ShowPresenter do
 		allow(view_context).to receive(:search_state) { search_state }
 		# allow(search_state).to receive(:url_for_document).with(solr_document) { show_params }
 	end
-	describe "#field_values" do
-		subject { presenter.field_values(field_config) }
+	describe "#field_value" do
+		subject { presenter.field_value(field_config) }
 		context 'for a single value field' do
 			let(:field_config) {
 				Blacklight::Configuration::Field.new({

@@ -39,7 +39,7 @@ namespace :resque do
 
   def read_pids
     pid_file_path = File.expand_path('tmp/pids/resque.pid', Rails.root)
-    return []  if ! File.exists?(pid_file_path)
+    return []  if ! File.exist?(pid_file_path)
 
     File.open(pid_file_path, 'r') do |f|
       f.read

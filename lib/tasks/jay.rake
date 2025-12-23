@@ -20,7 +20,7 @@ module Util
           checksum = md5.hexdigest
           checksum_type = 'MD5'
         end
-        unless File.exists?(path)
+        unless File.exist?(path)
           LOGGER.warn "No file at #{path}"
           return
         end
