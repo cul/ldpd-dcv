@@ -7,9 +7,12 @@ def font_awesome_token
   YAML.load(File.read("./config/secrets.yml")).dig('shared', 'font_awesome_token') if File.exist?("./config/secrets.yml")
 end
 
+
+gem 'concurrent-ruby', '1.3.4' # needs Rails 7.1 to be removed
+
 gem 'bigdecimal', '~>3.0'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '6.1.7.10'
+gem 'rails', '7.0.10'
 gem 'shakapacker', '7.2.2'
 gem 'sassc'
 gem "font-awesome-sass", "~> 6.4.0"
@@ -36,7 +39,7 @@ gem 'carrierwave', '~> 1.3'
 #gem 'rubydora', :path => '../rubydora'
 gem 'rubydora'
 
-gem 'cul_omniauth', '~> 0.7.0'
+gem 'cul_omniauth', '~> 0.8.0'
 gem 'cancancan'
 #gem 'cul_omniauth', git: 'https://github.com/cul/cul_omniauth', branch: '0.5.x'
 gem 'active-triples', git: 'https://github.com/cul/ActiveTriples', branch: 'deprecation_update'
@@ -116,6 +119,9 @@ gem "base64"
 gem "mutex_m"
 gem "csv"
 gem "observer"
+
+gem "sprockets-rails"
+
 
 group :development, :test do
   # Capistrano for deployment (per https://capistranorb.com/documentation/getting-started/installation/)

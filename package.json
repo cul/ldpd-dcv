@@ -18,7 +18,7 @@
     "@mui/styles": "6.4.11",
     "@mui/system": "6.4.11",
     "@popperjs/core": "^2.11.6",
-    "@rails/ujs": "^6.1.4-1",
+    "@rails/ujs": "^7.0.10",
     "@types/react": "^18.2.33",
     "@ungap/url-search-params": "^0.2.2",
     "activestorage": "5.2.6",
