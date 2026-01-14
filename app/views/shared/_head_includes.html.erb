@@ -30,15 +30,15 @@ DLC VERSION: <%= IO.read(Rails.root.to_s+'/VERSION') %> -->
 	<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
-<%= stylesheet_link_tag "dcv", media: 'all'  %>
-<%= stylesheet_link_tag "print", media: 'print' %>
+<%#= vite_stylesheet_tag "dcv", media: 'all'  %>
+<%#= vite_stylesheet_tag "print", media: 'print' %>
 <%- is_iiif_client = @document&.fetch('iiif_behavior_ssim', nil).present? -%>
 <%- if !is_iiif_client && Array(@document&.fetch(:dc_type_sim, nil)).detect { |x| BestType.dc_type.valid_type?(x) || BestType.pcdm_type.valid_type?(x) } -%>
 	<%- is_iiif_client ||= Array(@document&.fetch(:dc_type_sim, nil)).include?('InteractiveResource') ? structured_children_of_valid_types(document: @document).present? : true -%>
 <%- end -%>
 <%- is_iiif_client ||= archive_org_id_for_document(@document) -%>
 <%- is_iiif_client ||= is_file_system?(@document) -%>
-<%= stylesheet_link_tag('iiif' , media: 'all') if @document && params[:action] != 'synchronizer' %>
+<%#= vite_stylesheet_tag('iiif' , media: 'all') if @document && params[:action] != 'synchronizer' %>
 
 <!-- OHSynchronizer -->
 <%= csrf_meta_tags %>
@@ -49,15 +49,29 @@ DLC VERSION: <%= IO.read(Rails.root.to_s+'/VERSION') %> -->
 	window.DCV = window.DCV || {};
 	DCV.subsite_key = '<%= subsite_key %>';
 	DCV.subsite_layout = '<%= active_site_js %>';
+	window.cdn_urls = <%= (DCV_CONFIG['cdn_urls'] || []).inspect.html_safe %>;
 </script>
 <% end %>
-<%- js_packs = ["application", "dcv"].concat(Array(active_site_js)).uniq %>
-<%- if params[:action] == 'synchronizer' %>
-  <%- js_packs << 'ohsynchronizer' %>
-<%- else -%>
-	<%- js_packs << 'iiif' if is_iiif_client %>
-<% end %>
-<%= javascript_pack_tag *js_packs %>
+<%
+=begin
+	js_packs = ["application", "dcv"].concat(Array(active_site_js)).uniq
+	if params[:action] == 'synchronizer'
+		js_packs << 'ohsynchronizer'
+	else
+		js_packs << 'iiif' if is_iiif_client
+	end
+	javascript_pack_tag *js_packs
+=end
+%>
+
+<% # The stylesheet_link_tag below is only for fontawesome (until we find a better way to load it) %>
+<%= stylesheet_link_tag 'application', media: 'all' %>
+<%= vite_client_tag %>
+<% # Blacklight requires globally-available jQuery, so we'll load it before any other JS %>
+<%= vite_typescript_tag 'jquery.js' %>
+<% # Then we'll load our main JS %>
+<%= vite_typescript_tag 'subsite.js' %>
+<%= vite_stylesheet_tag 'subsite.scss' %>
 
 <% if Rails.env == 'dlc_prod' %>
 	<!-- Google tag (gtag.js) -->

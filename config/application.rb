@@ -41,16 +41,16 @@ module Dcv
     # add node_modules to asset.paths to allow sprockets to find scss
     config.assets.paths << Rails.root.join('node_modules')
     config.assets.precompile += [
-        'dcv.css',
-        'dcv.js',
-        'empty.css',
-        'welcome.js', 'welcome.css',
-        'print.css',
-        'freelib.js',
-        'd3.js',
-        'sites.js', 'sites.css',
-        'easymde.min.js', 'easymde.min.css',
-        'iiif.js', 'iiif.css'
+        # 'dcv.css',
+        # 'dcv.js',
+        # 'empty.css',
+        # 'welcome.js', 'welcome.css',
+        # 'print.css',
+        # 'freelib.js',
+        # 'd3.js',
+        # 'sites.js', 'sites.css',
+        # 'easymde.min.js', 'easymde.min.css',
+        # 'iiif.js', 'iiif.css'
       ]
 
     # And include styles for all configured subsite layouts

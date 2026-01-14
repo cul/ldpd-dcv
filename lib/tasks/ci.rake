@@ -84,16 +84,6 @@ namespace :dcv do
       puts "setting up template docker files...\n"
       Rake::Task["dcv:docker:setup_config_files"].invoke
 
-      # A webpacker recompile isn't strictly required, but it speeds up the first feature test run and
-      # can prevent first feature test timeout issues, especially in a slower CI server environment.
-      if ENV['SHAKAPACKER_RECOMPILE'] == 'true'
-        puts 'Recompiling pack...'
-        recompile_duration = Benchmark.realtime do
-          Rake::Task['shakapacker:compile'].invoke
-        end
-        puts "Done recompiling pack.  Took #{recompile_duration} seconds."
-      end
-
       puts "setting up test db...\n"
       Rake::Task['db:environment:set'].invoke
       Rake::Task['db:drop'].invoke

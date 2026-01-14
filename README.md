@@ -34,6 +34,33 @@ application up and running?
   * administer local users: `bundle exec rake dcv:users:set uid=UNI email=EMAIL [is_admin=true]`
     * the developer strategy will automatically log in based on the uni and email values (uni is used as the uid)
     * rake task will create or update a user, and set properties from arguments appropriately
+  * Set up FontAwesome
+
+    **Option A: FontAwesome Pro (Recommended for maintainers)**
+    1. Create a `.npmrc` file in the root of the repository:
+        ```
+        @fortawesome:registry=https://npm.fontawesome.com/
+        //npm.fontawesome.com/:_authToken={PASTE_YOUR_FONTAWESOME_PRO_TOKEN}
+        ```
+    2. Install FontAwesome Pro:
+        ```bash
+        yarn add @fortawesome/fontawesome-pro@^6.7.2
+        ```
+
+    **Option B: FontAwesome Free**
+    1. Install FontAwesome Free:
+        ```bash
+        yarn add @fortawesome/fontawesome-free@^6.7.2
+        ```
+    2. Update `app/javascript/stylesheets/fontawesome-pro.scss` with the following content:
+        ```scss
+        $fa-font-path: '@fortawesome/fontawesome-free/webfonts/';
+        @import '@fortawesome/fontawesome-free/scss/fontawesome.scss';
+        @import '@fortawesome/fontawesome-free/scss/solid.scss';
+        ```
+
+    > **Note:** When using FontAwesome Free, some icons may not display correctly as they are only available in the Pro version.
+
 
 
 * Database creation

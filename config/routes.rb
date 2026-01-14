@@ -16,6 +16,9 @@ Rails.application.routes.draw do
 
   mount Resque::Server.new, at: "/resque"
 
+  # Admin routes (including admin React app)
+  get '/admin', to: 'admin#index'
+
   get '/browse/:list_id' => 'browse', as: :browse, action: 'list'
   get '/explore' => 'welcome#home'
   get '/about' => 'pages#about', as: :about
@@ -240,11 +243,6 @@ Rails.application.routes.draw do
 
   get ':layout/:id/details' => 'details#show', as: :details
   get ':layout/*id/embed' => 'details#embed', as: :embed, constraints: Dcv::Routes::DOI_ID_CONSTRAINT
-
-  # Admin routes (React app)
-  namespace :admin do
-    get '/ui/v1', to: 'ui#v1'
-  end
 
   #get 'resolve/catalog/*catalog_id/bytestreams/:id/content(.:format)' => 'resolve/bytestreams#content',
   # as: :resolve_bytestream_content #,

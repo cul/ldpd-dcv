@@ -15,7 +15,7 @@ module Dcv::GenericResource::Details
     end
 
     def poster_url
-      @poster_url ||= get_resolved_asset_url(id: @document.id, pid: @document.id, size: 768, type: 'full', format: 'jpg')
+      @poster_url ||= get_resolved_asset_url(id: @document.id, pid: @document.id, size: 768, region: 'full', format: 'jpg')
     end
 
     def wowza_media_token_url

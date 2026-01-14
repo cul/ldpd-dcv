@@ -5,7 +5,7 @@
       <div class="col-sm-<%= 12 / [4, structured_children.length].min %>">
         <article class="card child-container">
           <a rel="<%= can_access ? 'item-link' : 'item-nolink' %>" data-child-number="<%= ix %>" class="<%= ix == 0 ? 'selected' : '' %> <%= can_access ? 'tocontent' : '' %> post document blacklight-photographs">
-            <img class="card-img-top" src="<%= get_resolved_asset_url(id: child[:id], pid: child[:pid], size: 256, type: 'full', format: 'jpg') %>" alt="<%= child[:title] %>" />
+            <img class="card-img-top" src="<%= get_resolved_asset_url(id: child[:id], pid: child[:pid], size: 256, region: 'full', format: 'jpg') %>" alt="<%= child[:title] %>" />
           </a>
           <div class="card-body py-0">
             <div class="card-title text-center">

@@ -94,7 +94,7 @@ module Dcv
       image_id = image_item&.schema_image_identifier || image_item&.id
       return unless image_id
       max_height = (size / 16 * 9).ceil
-      Dcv::Utils::CdnUtils.asset_url(id: image_id, width: size, height: max_height, type: 'full', format: 'jpg')
+      Dcv::Utils::CdnUtils.asset_url(base_type: 'standard', id: image_id, width: size, height: max_height, region: 'full', format: 'jpg')
     end
 
     def picture_tag

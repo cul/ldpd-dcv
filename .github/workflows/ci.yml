@@ -31,6 +31,8 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node }}
+      - name: Set up .npmrc
+        run: echo -e "@fortawesome:registry=https://npm.fontawesome.com/\n//npm.fontawesome.com/:_authToken=${{secrets.FONT_AWESOME_TOKEN}}" > .npmrc
       - run: npm install -g yarn
       - run: yarn install --frozen-lockfile
       - name: Run CI task

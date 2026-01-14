@@ -95,7 +95,7 @@ class RepositoriesController < SitesController
   end
 
   def subsite_styles
-    ["#{subsite_layout}-#{Dcv::Sites::Constants.default_palette}", "catalog"]
+    ["#{subsite_layout}-#{Dcv::Sites::Constants.default_palette}"]
   end
 
   def show

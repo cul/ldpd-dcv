@@ -1,0 +1,115 @@
+/* Core Styles */
+
+.file-system, .fs-crumbs {
+	.fs-directory, .fs-file {
+	  padding-left:20px;
+	}
+    th[data-sort]{
+      cursor:pointer;
+    }
+}
+
+.fs-children { display: none;}
+.fs-icon {
+    margin-right: 0.5em;
+}
+.fs-directory {
+    i.fs-icon {
+        @extend .fa;
+        @extend .fa-folder;
+    }
+}
+.fs-expanded {
+    i.fs-icon {
+        @extend .fa;
+        @extend .fa-folder-open;
+    }
+}
+.fs-file {
+    i.fs-icon {
+        @extend .fa;
+        @extend .fa-file;
+    }
+    &.application_octet-stream {
+        i.fs-icon {
+            @extend .fa-file;
+        }
+    }
+    &.application_json, &.text_css, &.text_html, &.text_javascript, &.text_xml {
+        i.fs-icon {
+            @extend .fa-file-code;
+        }
+    }
+    &.application_pdf {
+        i.fs-icon {
+            @extend .fa-file-pdf;
+        }
+    }
+    &.application_zip {
+        i.fs-icon {
+            @extend .fa-file-zipper;
+        }
+    }
+    &.audio_any {
+        i.fs-icon {
+            @extend .fa-file-audio;
+        }
+    }
+    &.image_jpeg, &.image_gif, &.image_png, &.image_tiff {
+        i.fs-icon {
+            @extend .fa-file-image;
+        }
+    }
+    &.video_any {
+        i.fs-icon {
+            @extend .fa-file-video;
+        }
+    }
+}
+
+/* MIME Types */
+
+@media
+only screen and (max-width: 760px),
+(min-device-width: 768px) and (max-device-width: 1024px)  {
+
+  table.file-system {
+        display: block;
+    /* Force table to not be like tables anymore */
+    table, thead, tbody, th, td, tr {
+        display: block;
+    }
+
+    /* Hide table headers (but not display: none;, for accessibility) */
+    thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    tr { border: 1px solid #ccc; }
+
+    td {
+        /* Behave  like a "row" */
+        border: none;
+        border-bottom: 1px solid #eee;
+        position: relative;
+        padding-left: 33%!important;
+        word-break: break-word;
+    }
+
+    td:before {
+        /* Now like a table header */
+        position: absolute;
+        /* Top/left values mimic padding */
+        top: 6px;
+        left: 6px;
+        width: 28%;
+        padding-right: 10px;
+        white-space: nowrap;
+    }
+
+    /* Label the data */
+      td:before { content: attr(data-title); }
+  }
+}

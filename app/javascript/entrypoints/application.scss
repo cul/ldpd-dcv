@@ -1,0 +1,191 @@
+// @import "../css/cul-toolkit/variables";
+// @import "../css/cuds_palette"; // additional bootstrap variables we want to set for this app
+// $brand: $primary;
+// $brand_text: $white;
+
+// @import "../css/arclight"; // includes bootstrap, blacklight, and arclight base styles
+// @import "../css/mirador";
+
+// @import "../css/cul-toolkit/cul"; // CUL Toolkit base styles (after bootstrap has been loaded)
+// @import "../css/global_search";
+// @import "../css/facets";
+// @import "../css/topnav";
+// @import "../css/cul_footer";
+// @import "../css/mirador";
+
+// @import '../css/cart.scss';
+
+// //urls
+// $url_0: url('https://cdn.cul.columbia.edu/ldpd-toolkit/img/crown-bts-24x24.png');
+// $url_1: url('https://cdn.cul.columbia.edu/ldpd-toolkit/img/crown-icon-sprite.png');
+// $url_3: url('https://cdn.cul.columbia.edu/ldpd-toolkit/fonts/trajanpro-regular-webfont.eot');
+// $url_4: url('https://cdn.cul.columbia.edu/ldpd-toolkit/fonts/trajanpro-regular-webfont.eot?#iefix');
+// $url_5: url('https://cdn.cul.columbia.edu/ldpd-toolkit/fonts/trajanpro-regular-webfont.woff');
+// $url_6: url('https://cdn.cul.columbia.edu/ldpd-toolkit/fonts/trajanpro-regular-webfont.ttf');
+// $url_7: url('https://cdn.cul.columbia.edu/ldpd-toolkit/fonts/trajanpro-regular-webfont.svg#TrajanProRegular');
+
+// :root {
+//   --bs-breadcrumb-divider: "/";
+//   --a-link-color: #2c6bac;
+//   --a-visited-color: #769ac5;
+//   --nav-a-link-color: #3a6fa2;
+//   --icon-grey-color: #595959;
+//   --nav-tabs-link-active-color: #f8f9fa;
+//   --text-shadow-color: 1px 1px 1px rgba(0,0,0,0.5);
+//   --cul-darkblue-color: #093552
+// }
+
+// // application-wide styles
+// .ead_content {
+// 	h2 {
+// 		color: #2c5277;
+// 		font-size: 16px;
+// 		font-weight: bold;
+// 		&.al-show-sub-heading {
+// 			border-bottom: 1px solid #2c5277;
+// 			font-size: 1.5rem;
+// 			text-transform: none;
+// 		}
+// 	}
+
+// 	h3, h3 em {
+// 		color: #999;
+// 		font-weight: bold;
+// 		font-size: 14px;
+// 		padding-top: 10px;
+// 		&.al-show-sub-heading {
+// 			font-size: 1.1rem;
+// 			text-transform: none;
+// 		}
+// 	}
+// }
+// div.toc {
+// 	font-size: 12px;
+// 	clear:both;
+// 	.dropdown .nav {
+// 	  margin-left: -1rem;
+// 	  margin-right: -1rem;
+// 	}
+// }
+
+// div.item {
+// 	padding: 5px;
+// 	margin: 5px;
+// }
+
+// a[aria-expanded=true] span.glyphicon-chevron-right { transform: rotate(90deg); }
+
+// a[aria-expanded=false] span.glyphicon-chevron-right { transform: rotate(0deg);}
+
+// a.subseries_anchor, a.fa_anchor {
+// 	display: block;
+// 	position: relative;
+// 	top: -60px;
+// 	visibility: hidden;
+// }
+
+// .al-masthead H1, .site-heading {
+// 	font-family: TrajanProRegular, trajan, serif;
+// 	color: $brand;
+// 	a {
+// 	  text-decoration: none;
+// 	}
+// }
+
+// .al-search-breadcrumb {
+// 	background-color: #f8f9fa !important;
+// 	ol {
+// 	  background-color: unset;
+// 	}
+// 	.breadcrumb-item {
+// 	  &.active {
+// 	    color: $dark;
+// 	  }
+// 	}
+// }
+
+// .acfa-repositories {
+// 	ul {
+// 	  list-style: none;
+// 	}
+// 	li {
+// 	  font-size: 1.25rem;
+// 	  margin-bottom: 0.5rem;
+// 	  font-weight: 500;
+// 	  line-height: 1.2;
+// 	}
+// }
+
+// @import "../css/lweb_shared";
+
+// .tab-content {
+// 	.active {
+// 		background-color: $white;
+// 	}
+// }
+
+// a.external-link {
+// 	&:after {
+// 	  font-family: 'Font Awesome 6 Pro';
+// 	  content: '\f35d';
+// 	  padding-left: 0.5em;
+// 	}
+// }
+
+// .reset-layout {
+// 	.form-switch {
+// 	  padding-left: 2.5em;
+// 	}
+//   .list-group-item {
+//     position: relative;
+//     display: block;
+//     padding: var(--bs-list-group-item-padding-y) var(--bs-list-group-item-padding-x);
+//     margin-bottom:0;
+//   }
+// }
+
+// .no-item-border {
+// 	.list-group-item {
+// 	  border: 0 !important;
+// 	}
+// }
+
+// a.dropdown-item {
+// /* toolkit visited link style interferes with dropdown legibility */
+//   &.active {
+//     color: var(--bs-dropdown-link-active-color) !important;
+//   }
+// }
+
+// .rounded-left {
+// 	border-top-right-radius: 0 !important;
+// 	border-bottom-right-radius: 0 !important;
+// }
+
+// .modal {
+// /* toolkit is hiding all overflow, and thus some UI on some screens */
+// 	overflow-x: hidden !important;
+//   overflow-y: auto !important;
+// }
+
+// #metadata {
+// 	.accordion-header {
+// 		margin-right: -1rem;
+// 	}
+// 	.accordion-button:not(.collapsed) {
+// 		background: none;
+// 		box-shadow: none;
+// 	}
+// 	.accordion-button {
+// 		margin-left: -.5rem;
+// 		padding-left: .5rem !important;
+// 		padding-right: .5rem !important
+// 	}
+// }
+
+// // This prevents document action buttons from stretching to
+// // match the height of an item title.
+// .index-document-functions {
+//   align-items: flex-start;
+// }
+

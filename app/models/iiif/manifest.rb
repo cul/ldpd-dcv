@@ -96,7 +96,7 @@ class Iiif::Manifest < Iiif::BaseResource
     return unless thumbnail_id
     iiif_id = Dcv::Utils::CdnUtils.info_url(id: thumbnail_id).sub(/\/info.json$/,'')
     {
-      id: Dcv::Utils::CdnUtils.asset_url(id: thumbnail_id, size: 256, base_type: 'featured', type: 'full', format: 'jpg'),
+      id: Dcv::Utils::CdnUtils.asset_url(base_type: 'featured', id: thumbnail_id, size: 256, region: 'full', format: 'jpg'),
       type: 'Image',
       format: 'image/jpeg',
       service: [
@@ -193,7 +193,7 @@ class Iiif::Manifest < Iiif::BaseResource
   # paged
   # continuous
   def behaviors(items = nil)
-    return nil if @solr_document['active_fedora_model_ssi'] == 'GenericResource' 
+    return nil if @solr_document['active_fedora_model_ssi'] == 'GenericResource'
     return [Iiif::Behavior::V3::UNORDERED] unless @solr_document.has_structure?
 
     num_canvases = items&.length || @solr_document['cul_number_of_members_isi']
@@ -204,7 +204,7 @@ class Iiif::Manifest < Iiif::BaseResource
   end
 
   def viewing_direction
-    return nil if @solr_document['active_fedora_model_ssi'] == 'GenericResource' 
+    return nil if @solr_document['active_fedora_model_ssi'] == 'GenericResource'
     return @solr_document['iiif_viewing_direction_ssi'] if @solr_document['viewing_direction_ssi'].present?
     Iiif::ViewingDirection::V3::LEFT_TO_RIGHT
   end

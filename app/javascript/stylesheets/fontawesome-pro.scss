@@ -1,0 +1,9 @@
+// // Direct node_modules reference
+// $fa-font-path: '@fortawesome/fontawesome-pro/webfonts/';
+// @import "node_modules/@fortawesome/fontawesome-pro/scss/fontawesome.scss";
+// @import "node_modules/@fortawesome/fontawesome-pro/scss/light.scss";
+
+$fa-font-path: '@fortawesome/fontawesome-pro/webfonts/';
+@import '@fortawesome/fontawesome-pro/scss/fontawesome';
+@import '@fortawesome/fontawesome-pro/scss/solid';
+@import '@fortawesome/fontawesome-pro/scss/light';

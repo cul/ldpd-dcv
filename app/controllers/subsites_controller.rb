@@ -43,7 +43,7 @@ class SubsitesController < ApplicationController
     # but need testing. default blank value should be first, but layout needs to be in front of controller path
     self._prefixes.unshift "shared"
     self._prefixes.unshift self.subsite_layout
-    self._prefixes.unshift(self.restricted? ? controller_path.sub('restricted/', '') : controller_path) 
+    self._prefixes.unshift(self.restricted? ? controller_path.sub('restricted/', '') : controller_path)
     self._prefixes.unshift ""
   end
 
@@ -257,7 +257,7 @@ class SubsitesController < ApplicationController
   end
 
   def thumb_url(document={})
-    get_asset_url(id: document['id'], size: 256, format: 'jpg', base_type: 'featured', type: 'full')
+    get_asset_url(id: document['id'], size: 256, format: 'jpg', base_type: 'featured', region: 'full')
   end
 
   def authenticate_publisher
