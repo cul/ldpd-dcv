@@ -15,54 +15,54 @@
 }
 .fs-directory {
     i.fs-icon {
-        @extend .fa;
-        @extend .fa-folder;
+        @extend .fa !optional;
+        @extend .fa-folder !optional;
     }
 }
 .fs-expanded {
     i.fs-icon {
-        @extend .fa;
-        @extend .fa-folder-open;
+        @extend .fa !optional;
+        @extend .fa-folder-open !optional;
     }
 }
 .fs-file {
     i.fs-icon {
-        @extend .fa;
-        @extend .fa-file;
+        @extend .fa !optional;
+        @extend .fa-file !optional;
     }
     &.application_octet-stream {
         i.fs-icon {
-            @extend .fa-file;
+            @extend .fa-file !optional;
         }
     }
     &.application_json, &.text_css, &.text_html, &.text_javascript, &.text_xml {
         i.fs-icon {
-            @extend .fa-file-code;
+            @extend .fa-file-code !optional;
         }
     }
     &.application_pdf {
         i.fs-icon {
-            @extend .fa-file-pdf;
+            @extend .fa-file-pdf !optional;
         }
     }
     &.application_zip {
         i.fs-icon {
-            @extend .fa-file-zipper;
+            @extend .fa-file-zipper !optional;
         }
     }
     &.audio_any {
         i.fs-icon {
-            @extend .fa-file-audio;
+            @extend .fa-file-audio !optional;
         }
     }
     &.image_jpeg, &.image_gif, &.image_png, &.image_tiff {
         i.fs-icon {
-            @extend .fa-file-image;
+            @extend .fa-file-image !optional;
         }
     }
     &.video_any {
         i.fs-icon {
-            @extend .fa-file-video;
+            @extend .fa-file-video !optional;
         }
     }
 }
