@@ -1,3 +1,5 @@
 <h1>Add a page to <%= @subsite.slug %></h1>
+<%= vite_javascript_tag 'entrypoints/jquery.js' %>
+<%= vite_javascript_tag 'entrypoints/subsite.js' %>
 <%= render partial: "sites/edit/edit_buttons" %>
 <div class="container"><%= render 'sites/pages/form' %></div>
