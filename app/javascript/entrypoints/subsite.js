@@ -20,6 +20,7 @@ import '../src/features/ohsynchronizer/ohsynchronizer';
 import '../src/features/portrait/portrait';
 import '../src/features/signature/signature';
 import '../src/features/sites/sites';
+import '../src/features/sites/edit.js';
 
 /****************************
  *  application.js
@@ -36,9 +37,15 @@ import '@ungap/url-search-params';
 import L from 'leaflet';
 delete L.Icon.Default.prototype._getIconUrl;
 
-// L.Icon.Default.mergeOptions({
-//   iconRetinaUrl: require('node_modules/leaflet/dist/images/marker-icon-2x.png'),
-//   iconUrl: require('node_modules/leaflet/dist/images/marker-icon.png'),
-//   shadowUrl: require('node_modules/leaflet/dist/images/marker-shadow.png'),
-// });
+import markerIcon2x from 'leaflet/dist/images/marker-icon-2x.png';
+import markerIcon from 'leaflet/dist/images/marker-icon.png';
+import markerShadow from 'leaflet/dist/images/marker-shadow.png';
+
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl: markerIcon2x,
+  iconUrl: markerIcon,
+  shadowUrl: markerShadow,
+});
+
+
 import 'leaflet.markercluster';
