@@ -21,6 +21,8 @@ import '../src/features/portrait/portrait';
 import '../src/features/signature/signature';
 import '../src/features/sites/sites';
 import '../src/features/sites/edit.js';
+import 'jquery-ui-dist/jquery-ui';
+
 
 /****************************
  *  application.js
