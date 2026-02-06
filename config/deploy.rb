@@ -32,7 +32,8 @@ append  :linked_files,
         'config/subsites.yml',
         'config/wind.yml',
         'config/reading_rooms.yml',
-        'public/robots.txt'
+        'public/robots.txt',
+        '.npmrc'
 
 # Default value for linked_dirs is []
 append :linked_dirs, 'log', 'tmp/pids', 'public/images/sites', 'node_modules', 'public/packs', 'public/sitemaps'
