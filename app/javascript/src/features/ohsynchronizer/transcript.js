@@ -1,8 +1,8 @@
 import { uploadsuccess } from './events';
 import { transcriptVTT } from './export';
 import { closeButtons, errorHandler, timecodeRegEx } from './functions';
-import * as PreviewWorker from './preview.worker.js';
-import * as TranscriptWorker from './transcript.worker.js';
+import PreviewWorker from './preview.worker.js?worker';
+import TranscriptWorker from './transcript.worker.js?worker';
 /** Transcript Sync Functions **/
 export default class Transcript {
 	constructor(id, options = {}) {
