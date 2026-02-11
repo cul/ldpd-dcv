@@ -60,3 +60,8 @@ group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
 end
+gem "blacklight", "~> 8.12"
+
+gem "rsolr", "~> 2.6"
+gem "devise"
+gem "devise-guests", "~> 0.8"

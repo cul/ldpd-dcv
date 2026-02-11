@@ -34,6 +34,7 @@
 /config/*.key
 # Ignore certain config files
 /config/database.yml
+/config/blacklight.yml
 
 /app/assets/builds/*
 !/app/assets/builds/.keep
