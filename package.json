@@ -43,11 +43,25 @@
     "sass": "^1.66.1",
     "url": "^0.11.2",
     "video.js": "^7.17.0",
-    "xml-js": "^1.6.11"
+    "xml-js": "^1.6.11",
+
+    "bootstrap5": "npm:bootstrap@5",
+    "react-bootstrap": "^2.10.10",
+    "react-bootstrap-icons": "^1.11.6",
+    "bootstrap-multiselect": "^0.9.15",
+    "@tanstack/react-query": "^5.90.12",
+    "@tanstack/react-query-devtools": "^5.90.12",
+    "react-router": "7.10.1",
+    "react-error-boundary": "^6.0.0"
+
   },
   "devDependencies": {
     "vite": "^6.4.1",
-    "vite-plugin-ruby": "5.1.1"
+    "vite-plugin-ruby": "5.1.1",
+    "@types/node": "^25.0.3",
+    "@types/react-dom": "19.2.3",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.53.1"
   },
   "browserslist": [
     "defaults"
