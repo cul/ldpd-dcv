@@ -1,0 +1,7 @@
+development:
+  catalog:
+    default_solr_params: {}
+  durst:
+    default_solr_params:
+      fq:
+        - 'publisher_ssim:"info:fedora/cul:sqv9s4mwg3"'

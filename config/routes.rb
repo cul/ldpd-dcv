@@ -1,26 +1,60 @@
 Rails.application.routes.draw do
   mount Blacklight::Engine => "/"
   root to: "catalog#index"
-  concern :searchable, Blacklight::Routes::Searchable.new
 
-  resource :catalog, only: [], as: "catalog", path: "/catalog", controller: "catalog" do
-    concerns :searchable
-  end
   devise_for :users
 
-  concern :exportable, Blacklight::Routes::Exportable.new
+  resources :sites, path: "/", except: [ :show ] do
+    concern :searchable, Blacklight::Routes::Searchable.new
 
-  resources :solr_documents, only: [ :show ], path: "/catalog", controller: "catalog" do
-    concerns [ :exportable ]
-  end
+    resource :catalog, only: [], as: "catalog", path: "/", controller: "catalog" do
+      concerns :searchable
 
-  resources :bookmarks, only: [ :index, :update, :create, :destroy ] do
-    concerns :exportable
+      # collection do
+      #   get "admin"
+      # end
+    end
 
-    collection do
-      delete "clear"
+    concern :exportable, Blacklight::Routes::Exportable.new
+
+    resources(
+      :solr_documents,
+      except: [ :index ],
+      path: "/",
+      controller: "catalog"
+    ) do
+      concerns :exportable
+
+
+      member do
+        put "visibility", action: "make_public"
+        delete "visibility", action: "make_private"
+        get "manifest"
+      end
     end
   end
+
+
+  # resource :catalog, only: [], as: "catalog", path: "/", controller: "catalog" do
+  #   concerns :searchable
+  # end
+  # resources :solr_documents, only: [ :show ], path: "/", controller: "catalog" do
+  #   concerns [ :exportable ]
+  # end
+
+  # resources :bookmarks, only: [ :index, :update, :create, :destroy ], path: "/" do
+  #   concerns :exportable
+
+  #   collection do
+  #     delete "clear"
+  #   end
+  # end
+
+
+  # resource :catalog, only: [], as: "catalog", path: "/catalog", controller: "catalog" do
+  #   concerns :searchable
+  # end
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
