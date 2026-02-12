@@ -1,0 +1,43 @@
+# EditorConfig helps maintain consistent coding styles across different editors and IDEs
+# See https://editorconfig.org
+
+root = true
+
+# Default settings
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+indent_style = space
+indent_size = 4
+
+# Ruby files - 2 spaces
+[*.rb]
+indent_size = 2
+
+# HTML/ERB templates - 2 spaces
+[*.html]
+indent_size = 2
+
+[*.erb]
+indent_size = 2
+
+[*.html.erb]
+indent_size = 2
+
+# TypeScript/JavaScript - 2 spaces
+[*.{ts,tsx,js,jsx}]
+indent_size = 2
+
+# YAML - 2 spaces (standard)
+[*.{yml,yaml}]
+indent_size = 2
+
+# JSON - typically 2 spaces (optional, usually auto-formatted)
+[*.json]
+indent_size = 2
+
+# Markdown
+[*.md]
+trim_trailing_whitespace = false
