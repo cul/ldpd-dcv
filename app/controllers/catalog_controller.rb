@@ -78,23 +78,23 @@ class CatalogController < ApplicationController
       # config.index.document_actions.delete(:bookmark)
 
       # CUL Note: We don't use the bookmark feature, so we are disabling it.
-      # config.add_results_document_tool(:bookmark, component: Blacklight::Document::BookmarkComponent, if: :render_bookmarks_control?)
+      config.add_results_document_tool(:bookmark, component: Blacklight::Document::BookmarkComponent, if: :render_bookmarks_control?)
 
       config.add_results_collection_tool(:sort_widget)
       config.add_results_collection_tool(:per_page_widget)
       config.add_results_collection_tool(:view_type_group)
 
       # CUL Note: We don't use the bookmark feature, so we are disabling it.
-      # config.add_show_tools_partial(:bookmark, component: Blacklight::Document::BookmarkComponent, if: :render_bookmarks_control?)
+      config.add_show_tools_partial(:bookmark, component: Blacklight::Document::BookmarkComponent, if: :render_bookmarks_control?)
       # CUL Note: We don't use the email feature, so we are disabling it.
-      # config.add_show_tools_partial(:email, callback: :email_action, validator: :email_params_valid?)
+      config.add_show_tools_partial(:email, callback: :email_action, validator: :email_params_valid?)
       # CUL Note: We don't use the sms feature, so we are disabling it.
-      # config.add_show_tools_partial(:sms, if: :render_sms_action?, callback: :sms_action, validator: :sms_params_valid?)
+      config.add_show_tools_partial(:sms, if: :render_sms_action?, callback: :sms_action, validator: :sms_params_valid?)
       # CUL Note: We don't use the citation feature, so we are disabling it.
-      # config.add_show_tools_partial(:citation)
+      config.add_show_tools_partial(:citation)
 
       # CUL Note: We don't use the bookmark feature, so we are disabling it.
-      # config.add_nav_action(:bookmark, partial: "blacklight/nav/bookmark", if: :render_bookmarks_control?)
+      config.add_nav_action(:bookmark, partial: "blacklight/nav/bookmark", if: :render_bookmarks_control?)
       config.add_nav_action(:search_history, partial: "blacklight/nav/search_history")
 
       # solr field configuration for document/show views
@@ -272,12 +272,12 @@ class CatalogController < ApplicationController
       # CUL Note: We don't use the spelling suggestion feature, so we are disabling it.
       # If there are more than this many search results, no spelling ("did you
       # mean") suggestion is offered.
-      # config.spell_max = 5
+      config.spell_max = 5
 
       # CUL Note: We don't use the autocomplete suggestion feature, so we are disabling it.
       # Configuration for autocomplete suggester
-      # config.autocomplete_enabled = true
-      # config.autocomplete_path = "suggest"
+      config.autocomplete_enabled = true
+      config.autocomplete_path = "suggest"
       # if the name of the solr.SuggestComponent provided in your solrconfig.xml is not the
       # default 'mySuggester', uncomment and provide it below
       # config.autocomplete_suggester = 'mySuggester'

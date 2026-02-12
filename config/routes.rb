@@ -4,56 +4,54 @@ Rails.application.routes.draw do
 
   devise_for :users
 
-  resources :sites, path: "/", except: [ :show ] do
-    concern :searchable, Blacklight::Routes::Searchable.new
+  # resources :sites, path: "/", except: [ :show ] do
+  #   concern :searchable, Blacklight::Routes::Searchable.new
 
-    resource :catalog, only: [], as: "catalog", path: "/", controller: "catalog" do
-      concerns :searchable
+  #   resource :catalog, only: [], as: "catalog", path: "/", controller: "catalog" do
+  #     concerns :searchable
 
-      # collection do
-      #   get "admin"
-      # end
-    end
+  #     # collection do
+  #     #   get "admin"
+  #     # end
+  #   end
 
-    concern :exportable, Blacklight::Routes::Exportable.new
+  #   concern :exportable, Blacklight::Routes::Exportable.new
 
-    resources(
-      :solr_documents,
-      except: [ :index ],
-      path: "/",
-      controller: "catalog"
-    ) do
-      concerns :exportable
-
-
-      member do
-        put "visibility", action: "make_public"
-        delete "visibility", action: "make_private"
-        get "manifest"
-      end
-    end
-  end
+  #   resources(
+  #     :solr_documents,
+  #     except: [ :index ],
+  #     path: "/",
+  #     controller: "catalog"
+  #   ) do
+  #     concerns :exportable
 
 
-  # resource :catalog, only: [], as: "catalog", path: "/", controller: "catalog" do
-  #   concerns :searchable
-  # end
-  # resources :solr_documents, only: [ :show ], path: "/", controller: "catalog" do
-  #   concerns [ :exportable ]
-  # end
-
-  # resources :bookmarks, only: [ :index, :update, :create, :destroy ], path: "/" do
-  #   concerns :exportable
-
-  #   collection do
-  #     delete "clear"
+  #     member do
+  #       put "visibility", action: "make_public"
+  #       delete "visibility", action: "make_private"
+  #       get "manifest"
+  #     end
   #   end
   # end
 
 
-  # resource :catalog, only: [], as: "catalog", path: "/catalog", controller: "catalog" do
-  #   concerns :searchable
-  # end
+  concern :searchable, Blacklight::Routes::Searchable.new
+  concern :exportable, Blacklight::Routes::Exportable.new
+
+  resource :catalog, only: [], as: "catalog", path: "/catalog", controller: "catalog" do
+    concerns :searchable
+  end
+  resources :solr_documents, only: [ :show ], path: "/catalog", controller: "catalog" do
+    concerns [ :exportable ]
+  end
+
+  resources :bookmarks, only: [ :index, :update, :create, :destroy ], path: "/" do
+    concerns :exportable
+
+    collection do
+      delete "clear"
+    end
+  end
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
