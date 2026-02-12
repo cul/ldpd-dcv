@@ -35,21 +35,23 @@ Rails.application.routes.draw do
   # end
 
 
-  concern :searchable, Blacklight::Routes::Searchable.new
-  concern :exportable, Blacklight::Routes::Exportable.new
+  scope "(:site_slug)" do
+    concern :searchable, Blacklight::Routes::Searchable.new
+    concern :exportable, Blacklight::Routes::Exportable.new
 
-  resource :catalog, only: [], as: "catalog", path: "/catalog", controller: "catalog" do
-    concerns :searchable
-  end
-  resources :solr_documents, only: [ :show ], path: "/catalog", controller: "catalog" do
-    concerns [ :exportable ]
-  end
+    resource :catalog, only: [], as: "catalog", path: "/catalog", controller: "catalog" do
+      concerns :searchable
+    end
+    resources :solr_documents, only: [ :show ], path: "/catalog", controller: "catalog" do
+      concerns [ :exportable ]
+    end
 
-  resources :bookmarks, only: [ :index, :update, :create, :destroy ], path: "/" do
-    concerns :exportable
+    resources :bookmarks, only: [ :index, :update, :create, :destroy ], path: "/" do
+      concerns :exportable
 
-    collection do
-      delete "clear"
+      collection do
+        delete "clear"
+      end
     end
   end
 

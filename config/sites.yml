@@ -1,7 +1,14 @@
 development:
   catalog:
+    title: DLC Catalog
     default_solr_params: {}
   durst:
+    title: Seymour B. Durst Old York Library
     default_solr_params:
       fq:
         - 'publisher_ssim:"info:fedora/cul:sqv9s4mwg3"'
+  lindquist:
+    title: G.E.E. Lindquist Native American photographs
+    default_solr_params:
+      fq:
+        - 'collection_key_ssim:"4492645"'

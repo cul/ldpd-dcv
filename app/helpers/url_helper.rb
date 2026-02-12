@@ -8,7 +8,7 @@ module UrlHelper
   # end
 
   #  def solr_document_path(solr_document)
-  #   url_for(params.to_unsafe_h.merge(action: "show", id: solr_document, site_id: controller.current_site.site_slug))
+  #   url_for(params.to_unsafe_h.merge(action: "show", id: solr_document, site_id: controller.current_site.slug))
   # end
 
   # def solr_document_url(solr_document, options = {})
