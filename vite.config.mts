@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite';
 import RubyPlugin from 'vite-plugin-ruby';
 import basicSsl from '@vitejs/plugin-basic-ssl';
+import path from 'path';
 
 export default defineConfig({
   plugins: [
@@ -9,4 +10,9 @@ export default defineConfig({
     basicSsl({}),
     RubyPlugin(),
   ],
+    resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './app/frontend/src')
+    }
+  }
 });

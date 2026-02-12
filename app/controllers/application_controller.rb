@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
 
   rescue_from CanCan::AccessDenied do |exception|
     if current_user.nil?
-      store_location
+      session[:return_to] = request.url
       redirect_to_login
     else
       # TODO: this apparently redirects to sign_in in practice; would we want to instead display an error?
