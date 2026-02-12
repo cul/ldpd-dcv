@@ -20,7 +20,7 @@ class ApplicationController < ActionController::Base
 
   rescue_from CanCan::AccessDenied do |exception|
     if current_user.nil?
-      store_location
+      session[:return_to] = request.url
       redirect_to_login
     else
       access_denied

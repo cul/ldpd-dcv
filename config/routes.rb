@@ -16,8 +16,15 @@ Rails.application.routes.draw do
 
   mount Resque::Server.new, at: "/resque"
 
-  # Admin routes (including admin React app)
+  # Admin routes (including admin React app):
+  # We only have one, because within the admin UI app, react will handle routing
+  # Thus, for any request with a route matching /admin/*, the * (rest) will be handled by React Router in the admin React app
   get '/admin', to: 'admin#index'
+  get '/admin/*path', to: 'admin#index'
+
+  # Backend API Routes:
+  get 'api/v1/sites', to: 'api/sites#index', format: 'json'
+  get 'api/v1/users/_self', to: 'api/users#_self', format: 'json'
 
   get '/browse/:list_id' => 'browse', as: :browse, action: 'list'
   get '/explore' => 'welcome#home'

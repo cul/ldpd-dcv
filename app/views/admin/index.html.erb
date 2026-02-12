@@ -1,5 +1,9 @@
-<% content_for :head do %>
-  <%= vite_typescript_tag 'admin.tsx' %>
-<% end %>
+<%#     Render the root element for our React App to attach to
+        The React App Entrypoint is located at app/frontend/entrypoints/admin_ui.tsx
+        The React App Stylesheet is located at app/frontend/stylesheets/admin_ui.scss
+
+        The layout for this page is located at app/views/layouts/admin.html.erb,
+        and that is where the asset tags are included
+%>
 
 <div id="dlc-admin-app">Loading...</div>
