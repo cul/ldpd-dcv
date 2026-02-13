@@ -4,16 +4,24 @@
 class CatalogController < ApplicationController
   include Blacklight::Catalog
 
-  # before_action :set_locale
-
+  before_action :current_site # Invoke current_site before every action to populate the instance variable
+  around_action :switch_locale
   delegate :blacklight_config, to: :current_site
 
+  # Controller actions
+
+  # Other methods that aren't controller actions
+
   def current_site_slug
-    params.to_unsafe_h[:site_slug]
+    params[:site_slug] || "collections" # The 'collections' site is our main DLC site
   end
 
   def default_url_options
-    super.merge(current_site_slug.present? ? { site_slug: current_site_slug } : {})
+    super.merge(
+      current_site_slug.present? ? { site_slug: current_site_slug } : {}
+    ).merge(
+      { locale: I18n.locale }
+    )
   end
 
   def current_site
@@ -26,8 +34,8 @@ class CatalogController < ApplicationController
 
   private
 
-  # def set_locale
-  #   # TODO: Code below is a placeholder.  Maybe implement for real later on.
-  #   I18n.locale = params[:locale] || I18n.default_locale
-  # end
+  def switch_locale(&action)
+    locale = params[:locale] || I18n.default_locale
+    I18n.with_locale(locale, &action)
+  end
 end

@@ -1,0 +1,16 @@
+<% if @current_site.slug == 'collections' %>
+  <div class="row">
+    <% SITES.each do |slug, _config| %>
+      <%= next if slug == :collections %>
+      <% site = Site.new(slug) %>
+      <div class="col d-flex">
+        <div class="card p-3 w-100">
+          <h1><%= site.title %></h1>
+          <%= link_to site.title, site_home_catalog_path(site_slug: site.slug), class: 'btn btn-primary' %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <h1><%= @current_site.title %></h1>
+<% end %>

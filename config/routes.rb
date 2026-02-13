@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   mount Blacklight::Engine => "/"
-  root to: "catalog#index"
+  root to: "catalog#site_home", defaults: { site_slug: "collections", locale: "en" }
 
   devise_for :users
 
@@ -35,22 +35,28 @@ Rails.application.routes.draw do
   # end
 
 
-  scope "(:site_slug)" do
-    concern :searchable, Blacklight::Routes::Searchable.new
-    concern :exportable, Blacklight::Routes::Exportable.new
+  scope "(:locale)", locale: /#{I18n.available_locales.join("|")}/ do
+    get ":site_slug", controller: "catalog", action: "site_home", as: "site_home_catalog"
 
-    resource :catalog, only: [], as: "catalog", path: "/catalog", controller: "catalog" do
-      concerns :searchable
-    end
-    resources :solr_documents, only: [ :show ], path: "/catalog", controller: "catalog" do
-      concerns [ :exportable ]
-    end
+    scope ":site_slug" do
+      concern :searchable, Blacklight::Routes::Searchable.new
+      concern :exportable, Blacklight::Routes::Exportable.new
 
-    resources :bookmarks, only: [ :index, :update, :create, :destroy ], path: "/" do
-      concerns :exportable
+      # get "/", to: "catalog#index"
 
-      collection do
-        delete "clear"
+      resource :catalog, only: [], as: "catalog", path: "/catalog", controller: "catalog" do
+        concerns :searchable
+      end
+      resources :solr_documents, only: [ :show ], path: "/catalog", controller: "catalog" do
+        concerns [ :exportable ]
+      end
+
+      resources :bookmarks, only: [ :index, :update, :create, :destroy ], path: "/" do
+        concerns :exportable
+
+        collection do
+          delete "clear"
+        end
       end
     end
   end

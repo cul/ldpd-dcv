@@ -26,10 +26,7 @@ class Site
   end
 
   def configure_blacklight!
-    puts "called configure_blacklight for #{self.slug}"
     configure_blacklight do |config|
-      puts "Configuring blacklight for #{self.slug} with #{self.default_solr_params}"
-
       ## Specify the style of markup to be generated
       # config.bootstrap_version = 5
       #

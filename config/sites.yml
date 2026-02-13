@@ -1,6 +1,6 @@
 development:
-  catalog:
-    title: DLC Catalog
+  collections:
+    title: DLC Collections
     default_solr_params: {}
   durst:
     title: Seymour B. Durst Old York Library
