@@ -1,9 +1,15 @@
 class Site
   include Blacklight::Configurable
 
+  DEFAULT_FACET_CONFIG = { limit: 10, sort: "index", show: true, component: true }.freeze
+
   def initialize(slug)
     @slug = slug
     @config = SITES[@slug.to_sym] # TODO: Eventually get this data from the database
+  end
+
+  def config
+    @config
   end
 
   def slug
@@ -19,6 +25,10 @@ class Site
       rows: 10,
       qf: "all_text_teim"
     }.merge(@config[:default_solr_params])
+  end
+
+  def default_facet_config(**args)
+    DEFAULT_FACET_CONFIG.merge(args)
   end
 
   def configure_blacklight(*args, &block)
@@ -61,7 +71,10 @@ class Site
       # config.json_solr_path = 'select'
 
       # items to show per page, each number in the array represent another option to choose from.
-      # config.per_page = [10,20,50,100]
+      config.per_page = [ 20, 60, 100 ]
+
+      # Some global components can be configured
+      config.header_component = Dlc::HeaderComponent
 
       # solr field configuration for search results/index views
       config.index.title_field = "title_display_ssm"
@@ -74,29 +87,30 @@ class Site
       # Some components can be configured
       # config.index.document_component = MyApp::SearchResultComponent
       # config.index.constraints_component = MyApp::ConstraintsComponent
-      # config.index.search_bar_component = MyApp::SearchBarComponent
+      config.index.search_bar_component = Dlc::SearchBarComponent
       # config.index.search_header_component = MyApp::SearchHeaderComponent
       # config.index.document_actions.delete(:bookmark)
 
       # CUL Note: We don't use the bookmark feature, so we are disabling it.
-      config.add_results_document_tool(:bookmark, component: Blacklight::Document::BookmarkComponent, if: :render_bookmarks_control?)
+      # config.add_results_document_tool(:bookmark, component: Blacklight::Document::BookmarkComponent, if: :render_bookmarks_control?)
 
       config.add_results_collection_tool(:sort_widget)
       config.add_results_collection_tool(:per_page_widget)
       config.add_results_collection_tool(:view_type_group)
 
       # CUL Note: We don't use the bookmark feature, so we are disabling it.
-      config.add_show_tools_partial(:bookmark, component: Blacklight::Document::BookmarkComponent, if: :render_bookmarks_control?)
+      # config.add_show_tools_partial(:bookmark, component: Blacklight::Document::BookmarkComponent, if: :render_bookmarks_control?)
       # CUL Note: We don't use the email feature, so we are disabling it.
-      config.add_show_tools_partial(:email, callback: :email_action, validator: :email_params_valid?)
+      # config.add_show_tools_partial(:email, callback: :email_action, validator: :email_params_valid?)
       # CUL Note: We don't use the sms feature, so we are disabling it.
-      config.add_show_tools_partial(:sms, if: :render_sms_action?, callback: :sms_action, validator: :sms_params_valid?)
+      # config.add_show_tools_partial(:sms, if: :render_sms_action?, callback: :sms_action, validator: :sms_params_valid?)
       # CUL Note: We don't use the citation feature, so we are disabling it.
-      config.add_show_tools_partial(:citation)
+      # config.add_show_tools_partial(:citation)
 
       # CUL Note: We don't use the bookmark feature, so we are disabling it.
-      config.add_nav_action(:bookmark, partial: "blacklight/nav/bookmark", if: :render_bookmarks_control?)
-      config.add_nav_action(:search_history, partial: "blacklight/nav/search_history")
+      # config.add_nav_action(:bookmark, partial: "blacklight/nav/bookmark", if: :render_bookmarks_control?)
+      # CUL Note: We don't use the search history feature, so we are disabling it.
+      # config.add_nav_action(:search_history, partial: "blacklight/nav/search_history")
 
       # solr field configuration for document/show views
       # config.show.title_field = 'title_tsim'
@@ -143,26 +157,13 @@ class Site
       # This control only displays when the user has selected "A-Z Sort" (You make make this the default by setting "sort: 'index'"
       # in the facet config)
 
-      # config.add_facet_field "format", label: "Format"
-      # config.add_facet_field "pub_date_ssim", label: "Publication Year", single: true
-      # config.add_facet_field "subject_ssim", label: "Topic", limit: 20, index_range: "A".."Z"
-      # config.add_facet_field "language_ssim", label: "Language", limit: true
-      # config.add_facet_field "lc_1letter_ssim", label: "Call Number"
-      # config.add_facet_field "subject_geo_ssim", label: "Region"
-      # config.add_facet_field "subject_era_ssim", label: "Era"
-
-      # config.add_facet_field "example_pivot_field",
-      #                        label: "Pivot Field",
-      #                        pivot: [ "language_ssim", "subject_geo_ssim", "subject_ssim" ],
-      #                        collapsing: true,
-      #                        include_in_advanced_search: false
-
-      # config.add_facet_field "example_query_facet_field", label: "Publish Date", query: {
-      #    years_5: { label: "within 5 Years", fq: "pub_date_ssim:[#{Time.zone.now.year - 5 } TO *]" },
-      #    years_10: { label: "within 10 Years", fq: "pub_date_ssim:[#{Time.zone.now.year - 10 } TO *]" },
-      #    years_25: { label: "within 25 Years", fq: "pub_date_ssim:[#{Time.zone.now.year - 25 } TO *]" }
-      # }
-
+      config.add_facet_field "lib_name_sim", **default_facet_config(label: "Name")
+      config.add_facet_field "lib_format_sim", **default_facet_config(label: "Format/Genre", sort: "count")
+      config.add_facet_field "language_language_term_text_ssim", **default_facet_config(label: "Language", sort: "count")
+      config.add_facet_field "lib_collection_sim", **default_facet_config(label: "Library Collection", sort: "count")
+      config.add_facet_field "lib_repo_short_ssim", **default_facet_config(label: "Library Location")
+      config.add_facet_field "lib_project_short_ssim", **default_facet_config(label: "Digital Project", sort: "count", show: false)
+      config.add_facet_field "project_key", **default_facet_config(field: "project_key_ssim", label: "Digital Project", sort: "count", show: false)
 
       # Have BL send all facet field names to Solr, which has been the default
       # previously. Simply remove these lines if you'd rather use Solr request
@@ -265,20 +266,18 @@ class Site
       # whether the sort is ascending or descending (it must be asc or desc
       # except in the relevancy case). Add the sort: option to configure a
       # custom Blacklight url parameter value separate from the Solr sort fields.
-      config.add_sort_field "relevance", sort: "score desc, pub_date_si desc, title_si asc", label: "relevance"
-      config.add_sort_field "year-desc", sort: "pub_date_si desc, title_si asc", label: "year"
-      config.add_sort_field "author", sort: "author_si asc, title_si asc", label: "author"
+      config.add_sort_field "relevance", sort: "score desc, title_si asc, lib_date_dtsi desc", label: "relevance"
       config.add_sort_field "title_si asc, pub_date_si desc", label: "title"
 
       # CUL Note: We don't use the spelling suggestion feature, so we are disabling it.
       # If there are more than this many search results, no spelling ("did you
       # mean") suggestion is offered.
-      config.spell_max = 5
+      # config.spell_max = 5
 
       # CUL Note: We don't use the autocomplete suggestion feature, so we are disabling it.
       # Configuration for autocomplete suggester
-      config.autocomplete_enabled = true
-      config.autocomplete_path = "suggest"
+      # config.autocomplete_enabled = true
+      # config.autocomplete_path = "suggest"
       # if the name of the solr.SuggestComponent provided in your solrconfig.xml is not the
       # default 'mySuggester', uncomment and provide it below
       # config.autocomplete_suggester = 'mySuggester'

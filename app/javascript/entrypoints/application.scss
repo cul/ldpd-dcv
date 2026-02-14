@@ -1,0 +1,25 @@
+// @import '../src/styles/variables';
+// @import 'bootstrap';
+// @import 'blacklight-frontend/app/assets/stylesheets/blacklight/blacklight';
+
+// // TODO: The line below imports a second copy of bootstrap.  Eventually we will update the package so we can import individual scss files.
+// @import '@columbia-libraries/cul-toolkit/styles';
+
+@import '../../../node_modules/@columbia-libraries/cul-toolkit/src/scss/_variables';
+@import '../src/styles/variables';
+@import '../src/styles/fontawesome-pro';
+@import 'bootstrap';
+@import 'blacklight-frontend/app/assets/stylesheets/blacklight/blacklight';
+@import '@columbia-libraries/cul-toolkit/src/scss/_cul';
+@import '@columbia-libraries/cul-toolkit/src/scss/_sidebars';
+
+@font-face {
+  font-family: 'TrajanProRegular';
+  src: local('TrajanProRegular'), url('../src/assets/fonts/trajanpro-regular-webfont.woff') format('woff2');
+  font-weight: 300 700;
+}
+
+.trajanpro {
+  font-family: TrajanProRegular, trajan, serif;
+  color: #1d4f91;
+}

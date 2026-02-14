@@ -1,5 +1,8 @@
-<% if @current_site.slug == 'collections' %>
+<% content_for :page_title, current_site.title %>
+
+<% if current_site.slug == 'collections' %>
   <div class="row">
+    <p><%= current_site.config[:home_page_text] %></p>
     <% SITES.each do |slug, _config| %>
       <%= next if slug == :collections %>
       <% site = Site.new(slug) %>
@@ -12,5 +15,6 @@
     <% end %>
   </div>
 <% else %>
-  <h1><%= @current_site.title %></h1>
+  <h1><%= current_site.title %></h1>
+  <p><%= current_site.config[:home_page_text] %></p>
 <% end %>

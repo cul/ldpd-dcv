@@ -1,0 +1,339 @@
+<nav id="cultopbar" class="navbar sticky-top navbar-expand bg-body border-bottom">
+  <div class="container">
+  <div id="CULnavbar" class="flex-grow-1">
+    <a href="https://library.columbia.edu" class="navbar-brand">
+    <img id="CULbrand" class="img-fluid" src="https://toolkit.library.columbia.edu/v5/assets/cul-text-logo.svg" alt="Columbia University Libraries">
+    </a>
+  </div>
+  <nav id="global-menu" class="navbar d-none d-lg-flex">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link text-secondary" href="https://resolver.library.columbia.edu/lweb0087">My Library Account</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-secondary" href="https://hours.library.columbia.edu/">Hours</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-secondary" href="/services/askalibrarian.html">Ask a Librarian</a>
+      </li>
+    </ul>
+  </nav>
+  <button type="button" id="culsidebarbtn" class="btn btn-link text-secondary px-1 animate roll" aria-label="Table of Contents Sidebar" data-bs-toggle="offcanvas" data-bs-target="#CULsidebar"><span class="fa-light fa-sidebar-flip"></span></button>
+  </div>
+</nav>
+<div class="offcanvas offcanvas-end" tabindex="-1" id="CULsidebar" aria-labelledby="CULsidebarLabel">
+  <div class="offcanvas-header">
+    <img class="me-2" style="max-height:1.3em;" src="https://toolkit.library.columbia.edu/v5/assets/columbia_crown_logo-square-135x135.svg"
+      alt="Columbia University Libraries">
+    <h5 class="offcanvas-title" id="CULsidebarLabel">Table of Contents</h5>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <div data-id="hero-search">
+      <form data-id="hero-search-form" style="position:relative;" class="d-flex mb-2 justify-content-between"
+        role="search" method="get" action="https://clio.columbia.edu/quicksearch">
+        <input required class="form-control border-primary tt-input" type="search"
+          aria-label="Search CLIO & the Libraries" placeholder="Search CLIO & the Libraries Website" name="q"
+          data-id="quicksearch" tabindex="0" autofocus>
+        <button style="position:absolute;right:0.3em;" type="reset" title="Clear the query" class="btn btn-link"
+          aria-label="Clear the query">
+          <i class="fal fa-times"></i>
+        </button>
+      </form>
+    </div>
+    <nav>
+      <ul class="list-unstyled">
+        <li class="">
+          <a class="ps-1 btn btn-link text-decoration-none text-secondary"
+            href="https://resolver.library.columbia.edu/lweb0087"><span class="far fa-user"></span> My
+            Library Account</a>
+        </li>
+        <li class="">
+          <a class="ps-1 btn btn-link text-decoration-none text-secondary"
+            href="https://hours.library.columbia.edu/"><span class="far fa-clock"></span> Hours</a>
+        </li>
+        <li class="">
+          <a class="ps-1 btn btn-link text-decoration-none text-secondary"
+            href="/services/askalibrarian.html"><span class="far fa-book-reader"></span> Ask a Librarian</a>
+        </li>
+      </ul>
+    </nav>
+
+    <hr>
+
+    <nav id="main-menu" data-cul-menu class="cul-menu-loading">
+      <ul class="list-unstyled w-100">
+      <li class="mb-1" id="services-and-tools-menu">
+        <button class="btn btn-toggle ps-0 d-inline-flex w-100 align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#services-and-tools-collapse" aria-expanded="false">
+          Services & Tools
+        </button>
+        <div id="services-and-tools-collapse" class="collapse">
+          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1">
+          <li>
+            <a class="d-block" href="https://library.columbia.edu/services.html">Services & Tools</a>
+          </li>
+          <li>
+            <a class="d-block" href="https://library.columbia.edu/using-libraries/alumni.html">For Alumni</a>
+          </li>
+          <li>
+            <a class="d-block" href="https://library.columbia.edu/services/faculty.html">For Faculty</a>
+          </li>
+          <li>
+            <a class="d-block" href="https://library.columbia.edu/services.html#audience&#x3D;student">For Students</a>
+          </li>
+          <li>
+            <a class="d-block" href="https://library.columbia.edu/using-libraries/visitors.html">For Visitors</a>
+          </li>
+          </ul>
+        </div>
+      </li>
+      <li class="mb-1" id="libraries-menu">
+        <button class="btn btn-toggle ps-0 d-inline-flex w-100 align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#libraries-collapse" aria-expanded="false">
+          Libraries
+        </button>
+        <div id="libraries-collapse" class="collapse">
+          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1">
+          <li>
+            <a class="d-block" href="https://library.columbia.edu/libraries.html">Libraries & Affiliates</a>
+          </li>
+          <li>
+            <a class="d-block" href="https://library.columbia.edu/libraries/avery.html">Avery Architectural & Fine Arts Library</a>
+          </li>
+          <li>
+            <a class="d-block" href="https://library.columbia.edu/libraries/burke.html">Burke Library at Union Theological Seminary</a>
+          </li>
+          <li>
+            <a class="d-block" href="https://library.columbia.edu/libraries/business.html">Business & Economics Library in Uris</a>
+          </li>
+          <li>
+            <a class="d-block" href="https://library.columbia.edu/libraries/business-manhattanville.html">Business Library at Manhattanville</a>
+          </li>
+          <li>
+            <a class="d-block" href="https://library.columbia.edu/libraries/butler.html">Butler Library</a>
+          </li>
+          <li>
+            <a class="d-block" href="https://library.columbia.edu/libraries/eastasian.html">C.V. Starr East Asian Library</a>
+          </li>
+          <li>
+            <a class="d-block" href="https://library.columbia.edu/libraries/music.html">Gabe M. Wiener Music & Arts Library</a>
+          </li>
+          <li>
+            <a class="d-block" href="https://library.cumc.columbia.edu/">Health Sciences Library</a>
+          </li>
+          <li>
+            <a class="d-block" href="https://library.columbia.edu/libraries/journalism.html">Journalism Library</a>
+          </li>
+          <li>
+            <a class="d-block" href="https://library.columbia.edu/libraries/lehman.html">Lehman Social Sciences Library</a>
+          </li>
+          <li>
+            <a class="d-block" href="http://www.law.columbia.edu/library/">Li Lu Law Library</a>
+          </li>
+          <li>
+            <a class="d-block" href="https://library.columbia.edu/libraries/math.html">Mathematics Library</a>
+          </li>
+          <li>
+            <a class="d-block" href="https://library.columbia.edu/libraries/rbml.html">Rare Book & Manuscript Library</a>
+          </li>
+          <li>
+            <a class="d-block" href="https://library.columbia.edu/libraries/science-engineering.html">Science & Engineering Library</a>
+          </li>
+          <li>
+            <a class="d-block" href="https://library.columbia.edu/libraries/social-work.html">Social Work Library</a>
+          </li>
+          </ul>
+        </div>
+      </li>
+      <li class="mb-1" id="collections-menu">
+        <button class="btn btn-toggle ps-0 d-inline-flex w-100 align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#collections-collapse" aria-expanded="false">
+          Collections
+        </button>
+        <div id="collections-collapse" class="collapse">
+          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1">
+          <li>
+            <a class="d-block" href="https://library.columbia.edu/collections.html">About Our Collections</a>
+          </li>
+          <li>
+            <a class="d-block" href="https://academiccommons.columbia.edu/">Academic Commons</a>
+          </li>
+          <li>
+            <a class="d-block" href="https://library.columbia.edu/collections/archives-portal.html">Archival Collections</a>
+          </li>
+          <li>
+            <a class="d-block" href="https://resolver.library.columbia.edu/clio">CLIO: Columbia Libraries Catalog</a>
+          </li>
+          <li>
+            <a class="d-block" href="https://library.columbia.edu/about/policies/collection-development.html">Collection Development</a>
+          </li>
+          <li>
+            <a class="d-block" href="https://dlc.library.columbia.edu">Digital Collections</a>
+          </li>
+          <li>
+            <a class="d-block" href="https://library.columbia.edu/collections/eresources.html">E-Resources</a>
+          </li>
+          <li>
+            <a class="d-block" href="https://resolver.library.columbia.edu/lweb0004">Recommend a Title for Purchase</a>
+          </li>
+          <li>
+            <a class="d-block" href="https://library.columbia.edu/about/policies/collection-development/repatriation-return.html">Repatriation</a>
+          </li>
+          <li>
+            <a class="d-block" href="https://library.columbia.edu/about/staff/subject-specialists-by-subject.html">Subject Specialists</a>
+          </li>
+          </ul>
+        </div>
+      </li>
+      <li class="mb-1" id="using-the-libraries-menu">
+        <button class="btn btn-toggle ps-0 d-inline-flex w-100 align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#using-the-libraries-collapse" aria-expanded="false">
+          Using the Libraries
+        </button>
+        <div id="using-the-libraries-collapse" class="collapse">
+          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1">
+          <li>
+            <a class="d-block" href="https://library.columbia.edu/using-libraries.html">Using the Libraries</a>
+          </li>
+          <li>
+            <a class="d-block" href="https://library.columbia.edu/using-libraries/access-privileges.html">Access Privileges</a>
+          </li>
+          <li>
+            <a class="d-block" href="https://library.columbia.edu/using-libraries/disability.html">Accessibility</a>
+          </li>
+          <li>
+            <a class="d-block" href="https://library.columbia.edu/using-libraries/borrowing.html">Borrow, Request, Renew</a>
+          </li>
+          <li>
+            <a class="d-block" href="https://library.columbia.edu/services/reserves.html">Course Reserves</a>
+          </li>
+          <li>
+            <a class="d-block" href="https://hours.library.columbia.edu/">Hours</a>
+          </li>
+          <li>
+            <a class="d-block" href="https://library.columbia.edu/using-libraries/printing.html">Print, Scan, Digitize</a>
+          </li>
+          </ul>
+        </div>
+      </li>
+      <li class="mb-1" id="research-and-teaching-menu">
+        <button class="btn btn-toggle ps-0 d-inline-flex w-100 align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#research-and-teaching-collapse" aria-expanded="false">
+          Research & Teaching
+        </button>
+        <div id="research-and-teaching-collapse" class="collapse">
+          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1">
+          <li>
+            <a class="d-block" href="https://library.columbia.edu/research-teaching.html">Research & Teaching</a>
+          </li>
+          <li>
+            <a class="d-block" href="https://library.columbia.edu/research-teaching/copyright.html">Copyright Information</a>
+          </li>
+          <li>
+            <a class="d-block" href="https://library.columbia.edu/research-teaching/getting-started.html">Getting Started with the Libraries</a>
+          </li>
+          <li>
+            <a class="d-block" href="https://library.columbia.edu/research-teaching/global.html">Global Studies</a>
+          </li>
+          <li>
+            <a class="d-block" href="https://library.columbia.edu/research-teaching/open-scholarship.html">Open Scholarship Services</a>
+          </li>
+          <li>
+            <a class="d-block" href="https://library.columbia.edu/services/research-data-services.html">Research Data Services</a>
+          </li>
+          <li>
+            <a class="d-block" href="https://library.columbia.edu/services/subject-guides.html">Subject & Course Guides</a>
+          </li>
+          <li>
+            <a class="d-block" href="https://library.columbia.edu/research-teaching/workshops.html">Workshops & Training</a>
+          </li>
+          </ul>
+        </div>
+      </li>
+      <li class="mb-1" id="about-menu">
+        <button class="btn btn-toggle ps-0 d-inline-flex w-100 align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#about-collapse" aria-expanded="false">
+          About
+        </button>
+        <div id="about-collapse" class="collapse">
+          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1">
+          <li>
+            <a class="d-block" href="https://library.columbia.edu/about.html">About the Libraries</a>
+          </li>
+          <li>
+            <a class="d-block" href="https://library.columbia.edu/about/jobs-internships.html">Jobs & Internships</a>
+          </li>
+          <li>
+            <a class="d-block" href="https://library.columbia.edu/about/news/alert.html">Library Status Updates</a>
+          </li>
+          <li>
+            <a class="d-block" href="https://library.columbia.edu/about/news.html">News</a>
+          </li>
+          <li>
+            <a class="d-block" href="https://library.columbia.edu/about/values.html">Our Values & Commitment in Action</a>
+          </li>
+          <li>
+            <a class="d-block" href="https://library.columbia.edu/about/policies.html">Policies</a>
+          </li>
+          <li>
+            <a class="d-block" href="https://library.columbia.edu/about/staff.html">Staff</a>
+          </li>
+          <li>
+            <a class="d-block" href="https://strategicdirections.library.columbia.edu/">Strategic Directions</a>
+          </li>
+          <li>
+            <a class="d-block" href="https://library.columbia.edu/about/student_advisory_committee.html">Student Library Advisory Committee</a>
+          </li>
+          </ul>
+        </div>
+      </li>
+      </ul>
+    </nav>
+
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+    </p>
+
+  </div>
+</div>
+
+<% if @current_site %>
+<section id="branding" class="d-flex flex-fill justify-content-center align-items-center">
+  <h1 id="site-name" class="my-1 my-sm-2 trajanpro">
+    <%= link_to current_site.title, helpers.site_home_catalog_path(site_slug: current_site.slug), class: 'text-decoration-none' %>
+  </h1>
+</section>
+<% end %>
+
+<%#= top_bar %>
+
+<div class="border-bottom">
+  <%= search_bar %>
+</div>
+
+<div class="border-bottom">
+  <div class="container px-0">
+    <nav class="navbar navbar-expand-lg py-0">
+      <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item border-start border-end">
+              <%= link_to '<i class="fa-regular fa-house"></i>'.html_safe, helpers.site_home_catalog_path(site_slug: current_site.slug), class: 'nav-link px-3' %>
+            </li>
+            <li class="nav-item border-end">
+              <%= link_to '<i class="fa-regular fa-info-circle"></i>'.html_safe, '#', class: 'nav-link px-3' %>
+            </li>
+            <li class="nav-item dropdown border-end px-3">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Browse
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Option 1</a></li>
+                <li><a class="dropdown-item" href="#">Option 2</a></li>
+                <li><a class="dropdown-item" href="#">Option 3</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </div>
+</div>

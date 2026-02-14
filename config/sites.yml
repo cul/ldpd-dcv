@@ -1,14 +1,17 @@
 development:
   collections:
-    title: DLC Collections
+    title: Digital Library Collections
+    home_page_text: 'Welcome to the Columbia University Libraries Digital Library Collections (DLC) website!  Search all collections using the search form above, or take a look at one of our specific collections below.'
     default_solr_params: {}
   durst:
     title: Seymour B. Durst Old York Library
+    home_page_text: "The Seymour B. Durst Old York Library collection at the Avery Architectural & Fine Arts Library consists of more than 40,000 objects including historic photographs, maps, pamphlets, postcards, books, and New York City memorabilia from the 18th century to the 1980s."
     default_solr_params:
       fq:
         - 'publisher_ssim:"info:fedora/cul:sqv9s4mwg3"'
   lindquist:
     title: G.E.E. Lindquist Native American photographs
+    home_page_text: "An online presentation of the 1322 photographs, 124 postcards, 388 negatives, and 34 glass plate negatives/lantern slides, which derive from the G.E.E. Lindquist Papers archival collection at The Burke Library. They depict the people, places, and practices of Native Americans and their communities from at least 34 States, plus Canada and Mexico in the period from 1909-1953. The majority of the images were taken by G. E. E. Lindquist (1886-1967), an itinerant representative of the ecumenical Home Missions Council of the Federal Council of Churches."
     default_solr_params:
       fq:
         - 'collection_key_ssim:"4492645"'
