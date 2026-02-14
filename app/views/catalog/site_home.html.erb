@@ -6,10 +6,19 @@
     <% SITES.each do |slug, _config| %>
       <%= next if slug == :collections %>
       <% site = Site.new(slug) %>
-      <div class="col d-flex">
-        <div class="card p-3 w-100">
-          <h1><%= site.title %></h1>
-          <%= link_to site.title, site_home_catalog_path(site_slug: site.slug), class: 'btn btn-primary' %>
+      <div class="col col-sm-6 col-lg-3 d-flex">
+        <div class="card p-3 w-100 text-center">
+          <a href="<%= site_home_catalog_path(site_slug: site.slug)%>">
+            <img src="<%= site.thumbnail_image_url %>" class="border border-dark-subtle rounded-1 w-100" aria-hidden="true">
+            <span class="sr-only"><%= site.title %></span>
+          </a>
+          <h2 class="d-none"><%= site.title %></h2>
+          <div class="d-flex justify-content-center my-2">
+            <%= link_to '<i class="fa-regular fa-info-circle"></i>'.html_safe, site_home_catalog_path(site_slug: site.slug), 'aria-label': 'More Information', class: 'btn btn-secondary mx-2' %>
+            <%= link_to '<i class="fa-regular fa-search"></i>'.html_safe, site_home_catalog_path(site_slug: site.slug), 'aria-label': "Browse #{site.title}", class: 'btn btn-secondary mx-2' %>
+            <%= link_to '<i class="fa-regular fa-external-link"></i>'.html_safe, site_home_catalog_path(site_slug: site.slug), 'aria-label': 'View collection site', class: 'btn btn-secondary mx-2' %>
+          </div>
+          <p class="text-center fw-bold mb-0" aria-hidden="true"><%= site.title %></p>
         </div>
       </div>
     <% end %>

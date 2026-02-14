@@ -16,6 +16,10 @@ class Site
     @slug
   end
 
+  def thumbnail_image_url
+    @config[:thumbnail_image_url]
+  end
+
   def title
     @config[:title]
   end

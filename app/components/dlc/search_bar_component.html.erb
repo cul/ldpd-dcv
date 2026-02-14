@@ -1,4 +1,4 @@
-<search class="w-100">
+<search>
   <%= form_with url: @url, local: true, method: @method, class: @classes.join(' ') + ' w-100', scope: @prefix, role: 'search', **@form_options do |f| %>
     <%= render Blacklight::HiddenSearchStateComponent.new(params: @params) %>
     <% if search_fields.length > 1 %>

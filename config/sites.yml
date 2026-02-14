@@ -3,15 +3,31 @@ development:
     title: Digital Library Collections
     home_page_text: 'Welcome to the Columbia University Libraries Digital Library Collections (DLC) website!  Search all collections using the search form above, or take a look at one of our specific collections below.'
     default_solr_params: {}
-  durst:
-    title: Seymour B. Durst Old York Library
-    home_page_text: "The Seymour B. Durst Old York Library collection at the Avery Architectural & Fine Arts Library consists of more than 40,000 objects including historic photographs, maps, pamphlets, postcards, books, and New York City memorabilia from the 18th century to the 1980s."
-    default_solr_params:
-      fq:
-        - 'publisher_ssim:"info:fedora/cul:sqv9s4mwg3"'
   lindquist:
     title: G.E.E. Lindquist Native American photographs
+    thumbnail_image_url: https://triclops.library.columbia.edu/iiif/2/featured/cul:fbg79cnpkf/full/!256,256/0/default.jpg
     home_page_text: "An online presentation of the 1322 photographs, 124 postcards, 388 negatives, and 34 glass plate negatives/lantern slides, which derive from the G.E.E. Lindquist Papers archival collection at The Burke Library. They depict the people, places, and practices of Native Americans and their communities from at least 34 States, plus Canada and Mexico in the period from 1909-1953. The majority of the images were taken by G. E. E. Lindquist (1886-1967), an itinerant representative of the ecumenical Home Missions Council of the Federal Council of Churches."
     default_solr_params:
       fq:
         - 'collection_key_ssim:"4492645"'
+  community_service_society:
+    title: Community Service Society Photographs
+    thumbnail_image_url: https://triclops.library.columbia.edu/iiif/2/featured/cul:bzkh1893f1/full/!256,256/0/default.jpg
+    home_page_text: "Community Service Society Photographs is an online presentation of almost 1400 photographs (and a few illustrations) from the Community Service Society Records at Columbia University's Rare Book & Manuscript Library. They offer representations of urban poverty, unsafe tenement housing, inadequate hygiene in public areas, and other pressing social issues in late-19th- and early-20th-century New York. The images range from the 1880s through the 1950s."
+    default_solr_params:
+      fq:
+        - 'collection_key_ssim:"4079675"'
+  durst:
+    title: Seymour B. Durst Old York Library
+    thumbnail_image_url: https://triclops.library.columbia.edu/iiif/2/featured/cul:hhmgqnk9nx/full/!256,256/0/default.jpg
+    home_page_text: "The Seymour B. Durst Old York Library collection at the Avery Architectural & Fine Arts Library consists of more than 40,000 objects including historic photographs, maps, pamphlets, postcards, books, and New York City memorabilia from the 18th century to the 1980s."
+    default_solr_params:
+      fq:
+        - 'publisher_ssim:"info:fedora/cul:sqv9s4mwg3"'
+  jay:
+    title: The Papers of John Jay
+    thumbnail_image_url: https://triclops.library.columbia.edu/iiif/2/featured/cul:nk98sf7mc2/full/!256,256/0/default.jpg
+    home_page_text: "The Papers of John Jay is an image database and indexing tool comprising some 13,000 documents (more than 30,000 page images) scanned chiefly from photocopies of original documents. Most of the source material was assembled by Columbia University's John Jay publication project staff during the 1960s and 1970s under the direction of the late Professor Richard B. Morris. These photocopies were originally intended to be used as source texts for documents to be included in a planned four-volume letterpress series entitled The Selected Unpublished Papers of John Jay, of which only two volumes were published."
+    default_solr_params:
+      fq:
+        - 'publisher_ssim:"info:fedora/cul:80gb5mkm8v"'
