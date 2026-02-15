@@ -60,7 +60,7 @@ export const initCulMapDisplayComponent = function($mapComponentDiv) {
 		var lng = latAndLong[1];
 		var title = a['t'];
 		var itemLink = '/' + subsiteKey + '/' + a['id'];
-		var thumbnailUrl = a['b'] == 'y' ? DCV.bookIconUrl : DCV.mapImageThumbTemplate.replace('_document_id_', a['id']);
+		var thumbnailUrl = a['b'] == 'y' ? DCV.bookIconUrl : DCV.mapImageThumbTemplate.replace('_document_id_', a['thumbnail_resource_id']);
 
 		var marker = L.marker(new L.LatLng(lat, lng), { title: title });
 		allPoints.push([lat,lng]);

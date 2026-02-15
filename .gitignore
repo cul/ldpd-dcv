@@ -80,3 +80,6 @@ yarn-debug.log*
 # Ignore sitemaps
 /public/sitemap*.xml.gz
 /public/sitemaps/*.xml.gz
+
+# Ignore local .vscode settings
+/.vscode/*
