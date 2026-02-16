@@ -3,10 +3,22 @@ export interface User {
   firstName: string;
   lastName: string;
   email: string;
-  isAdmin: boolean;
+  permissions: UserPermissions;
 }
 
+export interface UserPermissions {
+  role: "ADMIN" | "USER" | "EDITOR";
+  canEdit: string[] | null; // list of site slugs the user can edit
+}
+
+// export interface CurrentUserResponse {
+//   user: User;
+//   permissions: Permissions;
+// }
+
+//  todo : rewrite in camelCase
 export interface Site {
+  id: number;
   title: string;
   slug: string;
   persistent_url: string;

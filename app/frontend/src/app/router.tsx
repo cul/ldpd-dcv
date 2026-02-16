@@ -27,7 +27,11 @@ interface RouteModule {
 }
 
 // Convert a module with clientLoader/clientAction into a route object.
-// This allows loaders/actions to access the QueryClient for prefetching data
+// This allows loaders/actions to access the QueryClient for prefetching data.
+// As a result, route modules must export the following:
+// - default: the component to render for the route (index, edit, etc.)
+// - clientLoader: a function that takes a QueryClient and returns a loader function (optional - only needed if the route needs to load data)
+// - clientAction: a function that takes a QueryClient and returns an action function (optional - only needed if the route needs to handle form submissions or other actions)
 const convert = (queryClient: QueryClient) => (m: RouteModule) => {
   const { clientLoader, clientAction, default: Component, ...rest } = m;
   return {
@@ -38,7 +42,7 @@ const convert = (queryClient: QueryClient) => (m: RouteModule) => {
   };
 };
 
-export const createAppRouter = (queryClient: QueryClient) => {
+const createAppRouter = (queryClient: QueryClient) => {
   // all routes begin with /admin/ --- we are matching on the rest
   return createBrowserRouter([
     {
@@ -52,7 +56,7 @@ export const createAppRouter = (queryClient: QueryClient) => {
         },
         {
           path: 'sites',
-          Component: SitesRoute,
+          // Component: SitesRoute,
           children: [
             {
               // admin/sites -> sites admin dashboard
@@ -60,6 +64,10 @@ export const createAppRouter = (queryClient: QueryClient) => {
               index: true,
               lazy: () => import('./routes/sites').then(convert(queryClient)),
             },
+            {
+              path: ':slug',
+              lazy: () => import('./routes/sites/edit').then(convert(queryClient)),
+            }
           ]
         }
       ],
@@ -69,11 +77,11 @@ export const createAppRouter = (queryClient: QueryClient) => {
       lazy: () => import('./routes/not-found').then(m => ({ Component: m.default })),
     }
   ], {
-    basename: '/admin', // all routes are prefixed with /admin, so set that as the basename for the router
+    basename: '/admin',
   });
 };
 
-export const AppRouter = () => {
+const AppRouter = () => {
   const queryClient = useQueryClient();
 
   const router = useMemo(() => createAppRouter(queryClient), [queryClient]);
@@ -82,3 +90,5 @@ export const AppRouter = () => {
     <RouterProvider router={router} />
   );
 };
+
+export { AppRouter };

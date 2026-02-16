@@ -1,5 +1,5 @@
 class Ability
-  include CanCan::Ability 
+  include CanCan::Ability
   include Dcv::AccessLevels
   attr_reader :public
   ACCESS_ASSET = :access_asset
@@ -21,6 +21,7 @@ class Ability
         true
       end
     end
+    #  can? current_user, :access_subsite, @subsite
     can ACCESS_SUBSITE, Site do |site|
       if site.restricted
         result = false
