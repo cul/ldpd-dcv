@@ -6,28 +6,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 import { queryConfig } from '@/lib/react-query';
 import { MainErrorFallback } from '@/components/errors/main';
-import { useCurrentUser } from '@/lib/auth';
-
-
-const AuthLoader = ({ children }: { children: ReactNode }) => {
-  const { data: user, isLoading } = useCurrentUser();
-
-  // Redirect by modifying window should happen in useEffect hook
-  useEffect(() => {
-    if (!isLoading && !user) {
-      window.location.href = '/sign_in';
-    };
-  }, [user, isLoading])
-
-  if (isLoading) {
-    return <div>Loading user account...</div>
-  }
-
-  // If user is null, return to finish rendering and allow redirection
-  if (!user) return null;
-
-  return <>{children}</>;
-};
+import AuthenticationBoundary from '@/components/auth/authentication-boundary';
 
 const AppProvider: FC<PropsWithChildren> = ({ children }) => {
   const [queryClient] = useState(
@@ -47,9 +26,9 @@ const AppProvider: FC<PropsWithChildren> = ({ children }) => {
       <ErrorBoundary FallbackComponent={MainErrorFallback}>
         <QueryClientProvider client={queryClient}>
           {import.meta.env.DEV && <ReactQueryDevtools />}
-          <AuthLoader>
+          <AuthenticationBoundary> Authentication is required to access the application
             {children}
-            </AuthLoader>
+          </AuthenticationBoundary>
         </QueryClientProvider>
       </ErrorBoundary>
     </Suspense>
