@@ -1,0 +1,17 @@
+Controller Name,Action Name,HTTP Method,Route,Authorization Required
+SitesController,edit,GET,/sites/:slug/edit,:update
+SitesController,update,PUT/PATCH,/sites/:slug,:update
+PagesController,new,GET,/:slug/pages/new,:update
+PagesController,create,POST,/:slug/pages,:update
+PagesController,edit,GET,/:slug/pages/:page_slug/edit,:update
+PagesController,update,PUT/PATCH,/:slug/pages/:page_slug,:update
+PagesController,destroy,DELETE,/:slug/pages/:page_slug,:update
+PermissionsController,edit,GET,/:slug/permissions/edit,:update
+PermissionsController,show,GET,/:slug/permissions,:update
+PermissionsController,update,PUT/PATCH,/:slug/permissions,:update
+ScopeFiltersController,edit,GET,/:slug/scope_filters/edit,:update
+ScopeFiltersController,show,GET,/:slug/scope_filters,:update
+ScopeFiltersController,update,PUT/PATCH,/:slug/scope_filters,:update
+SearchConfigurationController,edit,GET,/:slug/search_configuration/edit,:update
+SearchConfigurationController,show,GET,/:slug/search_configuration,:update
+SearchConfigurationController,update,PUT/PATCH,/:slug/search_configuration,:update

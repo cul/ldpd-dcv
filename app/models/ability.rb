@@ -23,6 +23,7 @@ class Ability
         true
       end
     end
+    #  can? current_user, :access_subsite, @subsite
     can ACCESS_SUBSITE, Site do |site|
       if site.restricted
         result = false

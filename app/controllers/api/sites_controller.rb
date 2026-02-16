@@ -43,6 +43,7 @@ class Api::SitesController < Api::BaseController
   # end
     def site_json(user)
       {
+        id: site.id,
         title: site.title,
         slug: site.slug,
         persistent_url: site.persistent_url,
