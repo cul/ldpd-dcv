@@ -4,7 +4,7 @@ class SitesController < ApplicationController
   include Dcv::DigitalProjectsController
   include Dcv::RestrictableController
   include Dcv::CatalogIncludes
-  include Dcv::Catalog::BrowseListBehavior
+  include Dcv::Catalog::BrowseListBehavior # TODO : redundant? It's already in Dcv::CatalogIncludes?
   include Dcv::CdnHelper
   include Dcv::MarkdownRendering
   include Dcv::DcvUrlHelper # access to url_for_document
@@ -171,6 +171,7 @@ class SitesController < ApplicationController
 
   # authorize edit access and display form for editing static content
   def edit
+    # redirect_to '/admin/:site_slug/edit'
   end
 
   # update sanitized params
