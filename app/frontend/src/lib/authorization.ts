@@ -1,6 +1,6 @@
 import { QueryClient } from '@tanstack/react-query';
 import { Site, User } from '@/types/api';
-import { AUTH_QUERY_KEY } from './authentication';
+import { AUTH_QUERY_KEY, useCurrentUser } from './authentication';
 
 
 enum ROLES {
@@ -11,37 +11,52 @@ enum ROLES {
 
 type RoleTypes = keyof typeof ROLES;
 
-const hasAnyRole = (user: User, allowedRoles: RoleTypes[]): boolean => {
-  const role = user.permissions.role;
-  return allowedRoles.includes(role);
+type RulesType = {
+  role: RoleTypes;
+  site?: string;
 }
 
-// Enforces authorization before serving a route
-// Throws an error if user is not authorized to visit this route
-// This is not real authorization checking; it is just for UX. The backend API includes robust authorization checks.
-// If authorized, returns current user
-const requireAuthorization = async (queryClient: QueryClient, roles: RoleTypes[], sites?: string[]): Promise<User> => {
-  const user = queryClient.getQueryData<User>(AUTH_QUERY_KEY)
-
-  if (!user) {
-    throw new Error('User not authenticated');
-  }
-
-  if (!roles || roles.length === 0) {
-    return user; // No specific roles required, just need to be authenticated
-  }
-
-  if (sites && sites.length > 0) {
-    // todo - are they an editor of the site?
-    // return
-  }
-
-  if (!hasAnyRole(user, roles)) {
-    // throw error
-  }
-
-  return user;
+const canEditSite = (user: User, site: string): boolean | undefined => {
+  return user.permissions.canEdit?.includes(site);
 }
 
-export { ROLES, requireAuthorization };
-export type { RoleTypes };
+// Check if the given user's permissions satisfies the provided rules
+const isUserAuthorized = (user: User, rules: RulesType): boolean => {
+  const { role, site } = rules;
+  const currentUserRole = user.permissions.role;
+
+  if (!role) return true;
+
+  if (role === ROLES.USER) return true;
+
+  if (role === ROLES.EDITOR) {
+    if (currentUserRole === ROLES.ADMIN) return true;
+    if (currentUserRole === ROLES.EDITOR) {
+      if (!site) return true;
+      if (canEditSite(user, site)) return true;
+    }
+  }
+
+  if (role === ROLES.ADMIN && currentUserRole === ROLES.ADMIN) {
+    return true;
+  }
+
+  return false;
+}
+
+// Helper function for conditionally rendering elements.
+// Result should be cached in a useMemo reference in whichever top-level component is using it.
+// The principal difference between using this and using AuthorizationBoundary is
+// that the latter is a Component that renders its children if authorized and throws
+// an error otherwise. That is intended for cases where an unauthorized user should never have
+// gotten so far in the first place.
+// This function is used to check current user permissions for the purposes of
+// conditionally rendering content (throwing an error is the wrong behavior).
+const isAuthorized = (rules: RulesType): boolean => {
+  const { data: user } = useCurrentUser();
+  if (!user) return false;
+  return isUserAuthorized(user, rules);
+}
+
+export { ROLES, isAuthorized, isUserAuthorized };
+export type { RoleTypes, RulesType };

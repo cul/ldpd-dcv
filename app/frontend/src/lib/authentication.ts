@@ -11,7 +11,7 @@ async function getCurrentUser(): Promise<User | null> {
     const response = await api.get<{ user: User }>('/users/_self');
     console.log('api')
     console.log(response)
-    return response.user;
+    return response?.user ?? null; // todo ? ??
   } catch (error) {
     console.error('Error fetching current user:', error);
     return null; //  Should I throw? TODO
