@@ -1,8 +1,8 @@
 import { useMemo } from 'react';
 import { QueryClient, useQueryClient } from '@tanstack/react-query';
-import { LoaderFunction, ActionFunction, createBrowserRouter, Link } from 'react-router';
-import { RouterProvider } from 'react-router/dom';
-import MainLayout from '../components/layouts/main-layout';
+import { LoaderFunction, ActionFunction, createBrowserRouter, Link } from 'react-router-dom';
+import { RouterProvider } from 'react-router-dom';
+import MainLayout from "@/components/layouts/main-layout/main-layout";
 import SitesRoute from './routes/sites';
 
 
