@@ -1,5 +1,5 @@
-import { errorHandler } from './functions';
-import { secondsAsTimestamp, timestampAsSeconds } from './timeStamps';
+import { errorHandler } from './functions.js';
+import { secondsAsTimestamp, timestampAsSeconds } from './timeStamps.js';
 
 // Here we activate the minute sync markers created for previewing transcript
 const addPreviewMinutes = function(playerControls) {

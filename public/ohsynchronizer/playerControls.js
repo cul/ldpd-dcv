@@ -1,5 +1,5 @@
-import { secondsAsTimestamp } from './timeStamps';
-import Transcript from './transcript';
+import { secondsAsTimestamp } from './timeStamps.js';
+import Transcript from './transcript.js';
 /** Player Functions **/
 export default class PlayerControls {
 	constructor() {

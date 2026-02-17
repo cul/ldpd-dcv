@@ -1,5 +1,5 @@
-import PlayerControls from './playerControls';
-import { secondsAsTimestamp } from './timeStamps';
+import PlayerControls from './playerControls.js';
+import { secondsAsTimestamp } from './timeStamps.js';
 
 export default class YouTubeControls extends PlayerControls {
 	initializeControls(event) {

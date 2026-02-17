@@ -1,6 +1,6 @@
-import SynchronizerIndex from './index';
-import SynchronizerTranscript from './transcript';
-import { mediaFromFile, mediaFromUrl, uploadedFile } from './import';
+import SynchronizerIndex from './index.js';
+import SynchronizerTranscript from './transcript.js';
+import { mediaFromFile, mediaFromUrl, uploadedFile } from './import.js';
 
 /* Columbia University Library
 	Project: Synchronizer Module

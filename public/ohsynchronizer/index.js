@@ -1,7 +1,7 @@
-import { closeButtons, errorHandler, timecodeRegEx } from './functions';
-import { uploadsuccess } from './events';
-import { exportIndex, indexVTT } from './export';
-import { timestampAsSeconds } from './timeStamps';
+import { closeButtons, errorHandler, timecodeRegEx } from './functions.js';
+import { uploadsuccess } from './events.js';
+import { exportIndex, indexVTT } from './export.js';
+import { timestampAsSeconds } from './timeStamps.js';
 
 const segmentHtml = function(segment) {
 	const timeId = `ms${timestampAsSeconds(segment.startTime).toString().replace('.','_')}`;

@@ -1,6 +1,6 @@
-import videojs from 'video.js';
-import PlayerControls from './playerControls';
-import { secondsAsTimestamp } from './timeStamps';
+import videojs from 'https://esm.sh/video.js@8';
+import PlayerControls from './playerControls.js';
+import { secondsAsTimestamp } from './timeStamps.js';
 
 export default class VideoJsControls extends PlayerControls {
 	videoPlayer = null;

@@ -16,13 +16,11 @@ document.addEventListener('DOMContentLoaded', loadMirador);
 import '../src/features/dcv/dcv';
 import '../src/features/durst/durst';
 import '../src/features/ifp/ifp';
-import '../src/features/ohsynchronizer/ohsynchronizer';
 import '../src/features/portrait/portrait';
 import '../src/features/signature/signature';
 import '../src/features/sites/sites';
 import '../src/features/sites/edit.js';
 import 'jquery-ui-dist/jquery-ui';
-
 
 /****************************
  *  application.js

@@ -1,8 +1,8 @@
-import VideoJsControls from './videoJsControls';
-import YouTubeControls from './youTubeControls';
-import { hlssuccess, uploadsuccess } from './events';
-import { closeButtons, errorHandler } from './functions';
-import { secondsAsTimestamp } from './timeStamps';
+import VideoJsControls from './videoJsControls.js';
+import YouTubeControls from './youTubeControls.js';
+import { hlssuccess, uploadsuccess } from './events.js';
+import { closeButtons, errorHandler } from './functions.js';
+import { secondsAsTimestamp } from './timeStamps.js';
 
 // Here we ensure the extension is usable by the system
 const allowedExts = [
