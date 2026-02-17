@@ -7,7 +7,7 @@ import { api } from "@/lib/api-client";
 const getSites = async (): Promise<Site[] | null> => {
   try {
     const response = await api.get<{ sites: Site[] }>('/sites');
-    return response.sites
+    return response?.sites ?? null;
   } catch (error) {
     console.error('Error fetching sites list:', error);
     return null; //  Should I throw? TODO;
@@ -25,12 +25,11 @@ const getSitesQueryOptions = () => {
 type UseSitesQueryOptions = {
   queryConfig?: QueryConfig<typeof getSitesQueryOptions>;
 }
-
-const UseSites = ({ queryConfig} : UseSitesQueryOptions = {}) => {
+const useSites = ({ queryConfig} : UseSitesQueryOptions = {}) => {
   return useQuery({
     ...getSitesQueryOptions(),
     ...queryConfig,
   });
 };
 
-export { UseSites, getSitesQueryOptions };
+export { useSites };

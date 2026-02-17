@@ -11,6 +11,7 @@ class Api::SitesController < Api::BaseController
   # Get /api/v1/sites/:site_slug
   def show
     @site = Site.find_by_slug(params[:site_slug])
+    render json: { site: site_json(@site) }
   end
 
   private
@@ -41,7 +42,7 @@ class Api::SitesController < Api::BaseController
   #   t.text "search_configuration"
   #   t.index ["slug"], name: "index_sites_on_slug", unique: true
   # end
-    def site_json(user)
+    def site_json(site)
       {
         id: site.id,
         title: site.title,
