@@ -62,6 +62,12 @@ end
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
+
+  # Use Capistrano for deployment
+  gem "capistrano", "~> 3.19.2", require: false
+  gem "capistrano-cul", require: false
+  gem "capistrano-passenger", "~> 0.1", require: false
+  gem "capistrano-rails", "~> 1.4", require: false
 end
 gem "blacklight", "~> 8.12"
 
