@@ -4,8 +4,8 @@ source "https://rubygems.org"
 gem "rails", "~> 8.1.2"
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
 gem "propshaft"
-# Use sqlite3 as the database for Active Record
-gem "sqlite3", ">= 2.1"
+# Use mysql2 as the database adapter for Active Record
+gem "mysql2", "~> 0.5.7"
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", ">= 5.0"
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
@@ -49,6 +49,9 @@ gem "vite_rails"
 gem "nokogiri", "~> 1.19", ">= 1.19.1", force_ruby_platform: true
 
 group :development, :test do
+  # Use sqlite3 as the database for Active Record in development and test environments
+  gem "sqlite3", ">= 2.1"
+
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
 
