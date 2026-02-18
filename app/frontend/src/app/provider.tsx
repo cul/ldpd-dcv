@@ -1,11 +1,11 @@
-import { FC, PropsWithChildren, useState, Suspense, ReactNode, useEffect } from "react";
+import { FC, PropsWithChildren, useState, Suspense } from "react";
 import Spinner from 'react-bootstrap/Spinner';
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { ErrorBoundary } from "react-error-boundary";
 
 import { queryConfig } from '@/lib/react-query';
 import { MainErrorFallback } from '@/components/errors/main';
-import AuthenticationBoundary from '@/components/auth/authentication-boundary';
 
 
 const AppProvider: FC<PropsWithChildren> = ({ children }) => {
@@ -25,6 +25,7 @@ const AppProvider: FC<PropsWithChildren> = ({ children }) => {
     >
       <ErrorBoundary FallbackComponent={MainErrorFallback}>
         <QueryClientProvider client={queryClient}>
+          {import.meta.env.DEV && <ReactQueryDevtools />}
           {children}
         </QueryClientProvider>
       </ErrorBoundary>

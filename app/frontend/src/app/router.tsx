@@ -2,8 +2,9 @@ import { useMemo } from 'react';
 import { QueryClient, useQueryClient } from '@tanstack/react-query';
 import { LoaderFunction, ActionFunction, createBrowserRouter, Link } from 'react-router-dom';
 import { RouterProvider } from 'react-router-dom';
+
 import MainLayout from "@/components/layouts/main-layout/main-layout";
-import SitesRoute from './routes/sites';
+import { MainErrorFallback } from '@/components/errors/main';
 
 
 function Root() {
@@ -47,6 +48,7 @@ const createAppRouter = (queryClient: QueryClient) => {
   return createBrowserRouter([
     {
       Component: MainLayout,
+      errorElement: <MainErrorFallback />,
       children: [
         {
           // admin/ -> admin 'dashboard'
@@ -56,7 +58,6 @@ const createAppRouter = (queryClient: QueryClient) => {
         },
         {
           path: 'sites',
-          // Component: SitesRoute,
           children: [
             {
               // admin/sites -> sites admin dashboard

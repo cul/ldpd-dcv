@@ -1,7 +1,24 @@
+import { Container } from "react-bootstrap";
+import { useRouteError, isRouteErrorResponse } from "react-router-dom";
+
+
 export const MainErrorFallback = () => {
+  const error = useRouteError();
+
   return (
-    <div>
-      <h2>Ooops, something went wrong</h2>
-    </div>
+    <Container className="m-5">
+      <h2>Oops, something went wrong</h2>
+      <br />
+      <p>The application encountered an error.</p>
+      <Container>
+        <pre>{String(error)}</pre>
+        {isRouteErrorResponse(error) && ( // route errors
+          <Container>
+            <p>{error.status} {error.statusText}</p>
+            <pre>{JSON.stringify(error.data, null, 2)}</pre>
+          </Container>
+        )}
+      </Container>
+    </Container>
   );
 };
