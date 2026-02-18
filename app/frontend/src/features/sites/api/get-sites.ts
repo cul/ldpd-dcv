@@ -1,16 +1,27 @@
-import { queryOptions, useQuery } from "@tanstack/react-query";
+import { queryOptions, useQuery, useSuspenseQuery } from "@tanstack/react-query";
 
 import { QueryConfig } from "@/lib/react-query";
 import { Site } from "@/types/api";
 import { api } from "@/lib/api-client";
 
+
+type UseSitesQueryOptions = {
+  queryConfig?: QueryConfig<typeof getSitesQueryOptions>;
+}
+
+
 const getSites = async (): Promise<Site[] | null> => {
   try {
+    // Simulate network delay
+    console.log('api/sites...')
+    await new Promise(resolve => setTimeout(resolve, 2000));
+
     const response = await api.get<{ sites: Site[] }>('/sites');
+
     return response?.sites ?? null;
   } catch (error) {
     console.error('Error fetching sites list:', error);
-    return null; //  Should I throw? TODO;
+    return null;
   }
 };
 
@@ -22,9 +33,15 @@ const getSitesQueryOptions = () => {
     });
 };
 
-type UseSitesQueryOptions = {
-  queryConfig?: QueryConfig<typeof getSitesQueryOptions>;
+const useSitesSuspense = (): Site[] => {
+  const { data : sites } = useSuspenseQuery(getSitesQueryOptions());
+  if (!sites) {
+    // TODO handle
+    throw Error("Could not load sites data");
+  }
+  return sites;
 }
+
 const useSites = ({ queryConfig} : UseSitesQueryOptions = {}) => {
   return useQuery({
     ...getSitesQueryOptions(),
@@ -32,4 +49,4 @@ const useSites = ({ queryConfig} : UseSitesQueryOptions = {}) => {
   });
 };
 
-export { useSites };
+export { getSitesQueryOptions, useSites, useSitesSuspense };

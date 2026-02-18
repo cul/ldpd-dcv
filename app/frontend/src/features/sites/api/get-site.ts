@@ -1,8 +1,13 @@
-import { queryOptions, useQuery } from "@tanstack/react-query";
+import { queryOptions, useQuery, useSuspenseQuery } from "@tanstack/react-query";
 
 import { QueryConfig } from "@/lib/react-query";
 import { Site } from '@/types/api';
 import { api } from '@/lib/api-client';
+
+
+type UseSiteQueryOptions = {
+  queryConfig?: QueryConfig<typeof getSiteQueryOptions>;
+}
 
 
 const getSite = async (siteSlug: string): Promise<Site | null> => {
@@ -22,8 +27,10 @@ const getSiteQueryOptions = (siteSlug: string) => {
   })
 }
 
-type UseSiteQueryOptions = {
-  queryConfig?: QueryConfig<typeof getSiteQueryOptions>;
+const useSiteSuspense = (slug: string): Site => {
+  const { data: site } = useSuspenseQuery(getSiteQueryOptions(slug));
+  if (!site) throw Error;
+  return site;
 }
 
 const useSite = (siteSlug: string, { queryConfig }: UseSiteQueryOptions = {}) => {
@@ -33,4 +40,4 @@ const useSite = (siteSlug: string, { queryConfig }: UseSiteQueryOptions = {}) =>
   })
 }
 
-export { useSite };
+export { getSiteQueryOptions, useSite, useSiteSuspense };
