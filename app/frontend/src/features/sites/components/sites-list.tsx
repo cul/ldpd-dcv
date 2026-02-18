@@ -1,24 +1,12 @@
 import { ReactNode } from "react";
 
-import { Site } from "@/types/api";
-import { useSites } from "../api/get-sites";
+import { useSitesSuspense } from "../api/get-sites";
 import { Link } from "react-router-dom";
-import TableBuilder from "@/components/ui/table-builder/table-builder";
-import { columnDefs } from "../utils/sites-column-defs";
 import { Col, Container, Row } from "react-bootstrap";
 
 
 const SitesList = (): ReactNode => {
-  console.log('siteslist')
-  const { data: sites, isLoading } = useSites();
-
-  if (isLoading) {
-    return <div>Loading sites...</div>
-  }
-
-  if (!sites) {
-    return <div>no sites?</div>
-  }
+  const sites = useSitesSuspense();
 
   return (
     <Container fluid>
@@ -36,15 +24,6 @@ const SitesList = (): ReactNode => {
       ))}
     </Container>
   )
-
-  return (
-    <div>
-      <ul>
-        {sites.map((site) => (
-          <li key={site.id}>{site.title} -- <Link to={site.slug}>Edit</Link></li>
-        ))}
-      </ul>
-    </div>
-  )};
+}
 
 export default SitesList;
