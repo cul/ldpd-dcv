@@ -3,10 +3,11 @@ import { Col, Container, Row } from "react-bootstrap";
 
 import { useSiteSuspense } from "../api/get-site"
 import CardLink from "@/components/ui/card-link";
-import settingsUrl from "@/assets/icons/settings.png";
-import magnifyingGlassUrl from "@/assets/icons/magnifying-glass.png"
-import pencilUrl from "@/assets/icons/pencil.png"
-import lockUrl from "@/assets/icons/padlock-unlock.png"
+import settingsIconUrl from "@/assets/icons/settings.png";
+import magnifyingGlassIconUrl from "@/assets/icons/magnifying-glass.png"
+import pencilIconUrl from "@/assets/icons/pencil.png"
+import lockIconUrl from "@/assets/icons/padlock-unlock.png"
+import { Link } from "react-router-dom";
 
 
 const SiteDashboard = ({ slug }: { slug: string; }) : ReactNode => {
@@ -23,18 +24,18 @@ const SiteDashboard = ({ slug }: { slug: string; }) : ReactNode => {
       <Container className="my-5">
         <Row>
           <Col md={6}>
-            <CardLink to={"/"} label={"Edit your subsite's general properties"} image={settingsUrl} altTxt="icon of three gears" />
+            <CardLink to="site-properties" label={"Edit your subsite's general properties"} image={settingsIconUrl} altTxt="icon of three gears" />
           </Col>
           <Col md={6}>
-            <CardLink to={"/"} label={"Edit the pages of your subsite"} image={pencilUrl} altTxt="icon of a pencil" />
+            <CardLink to={"/"} label={"Edit the pages of your subsite"} image={pencilIconUrl} altTxt="icon of a pencil" />
           </Col>
         </Row>
         <Row>
           <Col md={6}>
-            <CardLink to={"/"} label={"Configure search for your subsite"} image={magnifyingGlassUrl} altTxt="icon of a magnifying glass" />
+            <CardLink to={"/"} label={"Configure search for your subsite"} image={magnifyingGlassIconUrl} altTxt="icon of a magnifying glass" />
           </Col>
           <Col md={6}>
-            <CardLink to={"/"} label={"Configure permissions for your subsite"} image={lockUrl} altTxt="icon of a padlock" />
+            <CardLink to={"/"} label={"Configure permissions for your subsite"} image={lockIconUrl} altTxt="icon of a padlock" />
           </Col>
         </Row>
       </Container>

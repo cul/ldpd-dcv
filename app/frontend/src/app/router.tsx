@@ -5,6 +5,8 @@ import { RouterProvider } from 'react-router-dom';
 
 import MainLayout from "@/components/layouts/main-layout/main-layout";
 import { MainErrorFallback } from '@/components/errors/main';
+import FetchingSuspense from '@/components/ui/fetching-suspense';
+import SitesLayout from '@/components/layouts/sites-layout/sites-layout';
 
 
 function Root() {
@@ -49,6 +51,7 @@ const createAppRouter = (queryClient: QueryClient) => {
     {
       Component: MainLayout,
       errorElement: <MainErrorFallback />,
+      hydrateFallbackElement: <FetchingSuspense dataName="admin site"/>,
       children: [
         {
           // admin/ -> admin 'dashboard'
@@ -58,6 +61,7 @@ const createAppRouter = (queryClient: QueryClient) => {
         },
         {
           path: 'sites',
+          Component: SitesLayout,
           children: [
             {
               // admin/sites -> sites admin dashboard
@@ -68,6 +72,16 @@ const createAppRouter = (queryClient: QueryClient) => {
             {
               path: ':slug',
               lazy: () => import('./routes/sites/show').then(convert(queryClient)),
+              children: [
+                {
+                  index: true,
+                  lazy: () => import('./routes/sites/show/dashboard').then(convert(queryClient)),
+                },
+                {
+                  path: 'site-properties',
+                  lazy: () => import('./routes/sites/show/edit').then(convert(queryClient)),
+                }
+              ]
             }
           ]
         }

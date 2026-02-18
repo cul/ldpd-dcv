@@ -15,6 +15,7 @@ const getSites = async (): Promise<Site[] | null> => {
     // Simulate network delay
     console.log('api/sites...')
     await new Promise(resolve => setTimeout(resolve, 2000));
+    console.log('         ... Returned!')
 
     const response = await api.get<{ sites: Site[] }>('/sites');
 
@@ -29,6 +30,7 @@ const getSitesQueryOptions = () => {
   return queryOptions({
     queryKey: ['sites'],
     queryFn: getSites,
+    staleTime: 1000 * 60 * 5, // 5 minutes
     //  other config options (override defaults set in queryConfig - @/lib/react-query)
     });
 };
