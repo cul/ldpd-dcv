@@ -16,7 +16,7 @@ const SitesList = (): ReactNode => {
         <Col></Col>
       </Row>
       {sites.map((site) => (
-        <Row>
+        <Row key={site.id}>
           <Col>{site.title}</Col>
           <Col>{site.slug}</Col>
           <Col><Link to={site.slug}>Edit this site</Link></Col>
