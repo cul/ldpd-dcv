@@ -1,5 +1,5 @@
 import { Outlet } from 'react-router-dom';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+// import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 import AuthenticationBoundary from "@/components/auth/authentication-boundary";
 import MainNavBar from "./main-navbar";
@@ -10,7 +10,7 @@ const MainLayout = () => {
   return (
     <AuthenticationBoundary>
       <div className="d-flex flex-column" style={{ minHeight: "100vh", }}>
-        {import.meta.env.DEV && <ReactQueryDevtools />}
+        {/* {import.meta.env.DEV && <ReactQueryDevtools />} */ /* This allows dev tools to be flush with footer (and not require scrolling) */}
         <header className="flex-grow-0 flex-shrink-0">
           <MainNavBar />
         </header>
@@ -21,7 +21,6 @@ const MainLayout = () => {
           <Footer />
         </footer>
       </div>
-
     </AuthenticationBoundary>
   );
 };

@@ -6,9 +6,8 @@ import { useCurrentUser } from "@/lib/authentication";
 // Ensures Authentication before serving the app.
 // Retrieves the current user data from the query cache, and if not present, redirects to the sign-in page.
 const AuthenticationBoundary = ({ children }: { children: ReactNode }) => {
-  console.log("⚠️ Authentication Boundary component entry")
-
-  const { data: user, isLoading } = useCurrentUser();
+  // console.log("⚠️ Authentication Boundary component entry")
+  const { data: user, isLoading } = useCurrentUser(); // subscribe to current user
 
   // Redirect by modifying window should happen in useEffect hook
   useEffect(() => {
@@ -26,7 +25,7 @@ const AuthenticationBoundary = ({ children }: { children: ReactNode }) => {
   // If user is null, return to finish rendering and allow redirection
   if (!user) return null;
 
-  console.log('✅ Authentication Boundary passed!');
+  // console.log('✅ Authentication Boundary passed!');
   return children;
 };
 
