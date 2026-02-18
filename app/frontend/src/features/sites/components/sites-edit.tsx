@@ -1,9 +1,8 @@
 import { ReactNode } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 
-import { useSite } from "../api/get-site"
+import { useSiteSuspense } from "../api/get-site"
 import CardLink from "@/components/ui/card-link";
-import wrenchUrl from "@/assets/icons/wrench.png";
 import settingsUrl from "@/assets/icons/settings.png";
 import magnifyingGlassUrl from "@/assets/icons/magnifying-glass.png"
 import pencilUrl from "@/assets/icons/pencil.png"
@@ -11,15 +10,7 @@ import lockUrl from "@/assets/icons/padlock-unlock.png"
 
 
 const SiteEdit = ({ slug }: { slug: string; }) : ReactNode => {
-  const { data: site, isLoading } = useSite(slug);
-
-  if (isLoading) {
-    return <div>Loading site...</div>
-  }
-
-  if (!site) {
-    return null;
-  }
+  const site = useSiteSuspense(slug);
 
   return (
     <Container fluid>
@@ -49,29 +40,6 @@ const SiteEdit = ({ slug }: { slug: string; }) : ReactNode => {
       </Container>
 
     </Container>
-  )
-
-  return (
-    <div>
-      <h3>Editing Site: {site.title}</h3>
-
-      <div>
-        <h4>Site Properties</h4>
-      </div>
-
-      <div>
-        <h4>Site Homepage Images</h4>
-      </div>
-
-      <div>
-        <h4>Site Pages</h4>
-      </div>
-
-      <div>
-        <h4>Site Navigation</h4>
-      </div>
-
-    </div>
   )
 }
 
