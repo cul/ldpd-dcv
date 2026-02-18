@@ -4,6 +4,7 @@ import { Outlet } from 'react-router-dom';
 import AuthenticationBoundary from "@/components/auth/authentication-boundary";
 import MainNavBar from "./main-navbar";
 import Footer from "./footer";
+import FetchingSuspense from '@/components/ui/fetching-suspense';
 
 
 const MainLayout = () => {
@@ -15,7 +16,11 @@ const MainLayout = () => {
           <MainNavBar />
         </header>
         <div className="container my-4 flex-grow-1">
-          <Outlet />
+
+          <FetchingSuspense>
+            <Outlet />
+          </FetchingSuspense>
+
         </div>
         <footer  className="flex-grow-0 flex-shrink-0 bg-dark-subtle">
           <Footer />

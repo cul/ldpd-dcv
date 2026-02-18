@@ -13,7 +13,7 @@ const clientLoader = (queryClient: QueryClient) => async () => {
 const SitesIndexRoute = () => {
   return (
     <AuthorizationBoundary role={ROLES.ADMIN} >
-      <FetchingSuspense dataName="sites list">
+      <FetchingSuspense dataName="sites">
         <SitesList />
       </FetchingSuspense>
     </AuthorizationBoundary>
