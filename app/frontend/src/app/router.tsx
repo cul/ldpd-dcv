@@ -67,7 +67,7 @@ const createAppRouter = (queryClient: QueryClient) => {
             },
             {
               path: ':slug',
-              lazy: () => import('./routes/sites/edit').then(convert(queryClient)),
+              lazy: () => import('./routes/sites/show').then(convert(queryClient)),
             }
           ]
         }

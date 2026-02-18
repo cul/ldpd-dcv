@@ -3,9 +3,9 @@ import { QueryClient } from "@tanstack/react-query";
 
 import AuthorizationBoundary from "@/components/auth/authorization-boundary"
 import { ROLES } from "@/lib/authorization";
-import SiteEdit from "@/features/sites/components/sites-edit";
 import { getSiteQueryOptions } from "@/features/sites/api/get-site";
 import FetchingSuspense from "@/components/ui/fetching-suspense";
+import SiteDashboard from "@/features/sites/components/sites-dashboard";
 
 // Prefetch the particular site
 const clientLoader = (queryClient: QueryClient) => async ( args: LoaderFunctionArgs) => {
@@ -14,7 +14,7 @@ const clientLoader = (queryClient: QueryClient) => async ( args: LoaderFunctionA
   queryClient.prefetchQuery(getSiteQueryOptions(slug));
 }
 
-const SitesEditRoute = () => {
+const SitesShowRoute = () => {
   let { slug } = useParams();
 
   if (!slug) throw Error("No slug parameter provided");
@@ -22,11 +22,11 @@ const SitesEditRoute = () => {
   return (
     <AuthorizationBoundary role={ROLES.EDITOR} site={slug}>
       <FetchingSuspense dataName="site">
-        <SiteEdit slug={slug} />
+        <SiteDashboard slug={slug} />
       </FetchingSuspense>
     </AuthorizationBoundary>
   )
 
 }
 
-export {clientLoader, SitesEditRoute as default };
+export {clientLoader, SitesShowRoute as default };
