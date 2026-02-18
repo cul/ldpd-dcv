@@ -9,7 +9,7 @@ import pencilUrl from "@/assets/icons/pencil.png"
 import lockUrl from "@/assets/icons/padlock-unlock.png"
 
 
-const SiteEdit = ({ slug }: { slug: string; }) : ReactNode => {
+const SiteDashboard = ({ slug }: { slug: string; }) : ReactNode => {
   const site = useSiteSuspense(slug);
 
   return (
@@ -43,4 +43,4 @@ const SiteEdit = ({ slug }: { slug: string; }) : ReactNode => {
   )
 }
 
-export default SiteEdit;
+export default SiteDashboard;
