@@ -13,6 +13,7 @@ import 'blacklight-frontend/app/assets/javascripts/blacklight/blacklight';
 import { loadMirador } from '../src/features/mirador/mirador';
 document.addEventListener('DOMContentLoaded', loadMirador);
 
+import '../src/features/dcv/dcv.general';
 import '../src/features/durst/durst';
 import '../src/features/portrait/portrait';
 import '../src/features/signature/signature';
