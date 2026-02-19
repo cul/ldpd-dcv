@@ -7,11 +7,7 @@ function getListItemContentFromInfoRequestData(data) {
   var sizes = data['sizes'];
   var sizeNames = ['small', 'medium', 'large', 'x-Large', 'xx-Large', 'xxx-Large']; // Probably more possible sizes than we will offer
   var iiifUrlTemplate = data['@id'] + '/full/_width_,_height_/0/default.jpg?download=true';
-<<<<<<< HEAD:app/javascript/src/dcv/downloadsButton.js
-  for(var i = 0;i < sizes.length; i++){
-=======
   for (var i = 0; i < sizes.length; i++) {
->>>>>>> a79c39f5 (Migrate from webpack to vite (additional fixes needed for some specific features); IIIF url format updates):app/javascript/src/features/dcv/downloadsButton.js
     const dlName = sizeNames[i] + ' (' + sizes[i]['width'] + ' x ' + sizes[i]['height'] + ')';
     li_html += '<li class="dropdown-item"><a href="' + iiifUrlTemplate.replace('_width_', sizes[i]['width']).replace('_height_', sizes[i]['height']) + '" target="_blank" onclick="$(\'#dcvModal\').modal(\'hide\')"><span class="fa fa-download"></span> ' + dlName + '</a></li>';
   }

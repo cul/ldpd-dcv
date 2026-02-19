@@ -60,7 +60,6 @@
 				margin-left: -5px;
 				font-size: .7em;
 				color: map-get($theme-border-colors, 'body');
-				// @extend .fa, .fa-angle-right; /////////////////////////// TODO: Re-enable this
 			}
 			&:last-child .facet-label {
 				padding-bottom: 0;
