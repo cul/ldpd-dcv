@@ -1,8 +1,8 @@
 import { uploadsuccess } from './events.js';
 import { transcriptVTT } from './export.js';
 import { closeButtons, errorHandler, timecodeRegEx } from './functions.js';
-const previewWorker = new Worker('./preview.worker.js');
-const transcriptWorker = new Worker('./transcript.worker.js');
+const previewWorker = new Worker('/ohsynchronizer/preview.worker.js');
+const transcriptWorker = new Worker('/ohsynchronizer/transcript.worker.js');
 /** Transcript Sync Functions **/
 export default class Transcript {
 	constructor(id, options = {}) {
@@ -35,11 +35,9 @@ export default class Transcript {
 						$("#finish-area").show();
 
 						if (!(timecodeRegEx.test(target)) || target.indexOf("WEBVTT") !== 0) {
-							console.log('Not a valid VTT transcript file.');							
 							errorHandler(new Error("Not a valid VTT transcript file."));
 						} else {
 							if ($("#audio").is(':visible') || $("#video").is(':visible') || $("#ytplayer")[0].innerHTML != '') {
-								console.log('preview only');
 								if (!transcript.previewOnly) $("#sync-controls").show();
 							}
 							uploadsuccess(new CustomEvent("uploadsuccess", { detail: file }));
@@ -49,11 +47,7 @@ export default class Transcript {
 
 							// We implement a Web Worker because larger transcript files will freeze the browser
 							if (window.Worker) {
-								console.log('window worker');
 								var textWorker = transcript.previewOnly ? previewWorker : transcriptWorker;
-								console.log(textWorker);
-								console.log('message text');
-								console.log(text);
 								textWorker.postMessage(text);
 								textWorker.onmessage = function (e) {
 									$('#transcript')[0].innerHTML += e.data;
