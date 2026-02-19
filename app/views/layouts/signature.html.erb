@@ -2,7 +2,7 @@
 <html lang="en" class="no-js">
 	<head>
 		<%= render partial: 'shared/head_includes' %>
-		<%= stylesheet_link_tag *Array(subsite_styles) %>
+		<%= vite_stylesheet_tag *Array(subsite_styles.map {|stylesheet_name| "#{stylesheet_name}.scss" }) %>
 		<style type="text/css">
 			.featured-outer {
 				<%- if @subsite&.slug && signature_banner_image_path.include?(@subsite.slug) -%>

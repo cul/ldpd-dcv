@@ -83,8 +83,7 @@ describe ::Sites::PagesController, type: :feature do
 			find('#site-page-add-block').click
 			find('button[data-target="#site_page_text_block_1_markdown"]').click # Show Text Block content
 			find('#site_page_site_text_blocks_attributes_1_label').set("Text Block Value")
-			# sending key events is complicated; we will fake it with the editor's JS api
-			page.execute_script("document.querySelector('#site_page_text_block_1_markdown .CodeMirror').CodeMirror.setValue('**Text Block Value**');")
+			fill_in 'site_page_site_text_blocks_attributes_1_markdown', with: '**Text Block Value**'
 			# remove the first block - the second should be all that is left
 			find('#site_text_block_0 .remove').click
 			click_button "Update Page"

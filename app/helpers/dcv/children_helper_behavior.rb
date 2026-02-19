@@ -45,7 +45,7 @@ module Dcv::ChildrenHelperBehavior
   end
 
   def child_from_solr(doc, title_field = nil)
-    child = {id: doc['id'], pid: doc['id'], thumbnail: get_asset_url(id: doc['id'], size: 768, type: 'full', format: 'jpg')}
+    child = {id: doc['id'], pid: doc['id'], thumbnail: get_asset_url(id: doc['id'], size: 768, region: 'full', format: 'jpg')}
     if title_field
       title = doc[title_field.to_s]
       title = title.first if title.is_a? Array

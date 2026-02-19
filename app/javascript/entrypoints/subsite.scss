@@ -1,0 +1,10 @@
+// Base styles for any DLC "subsite".  A "subsite" is a part of the app that
+// has a route like "/catalog" or "/jay" and uses Blacklight search functionality.
+
+@import '../stylesheets/iiif.scss';
+@import "../stylesheets/fontawesome-pro";
+@import '../stylesheets/catalog/digital_projects';
+@import '../stylesheets/catalog/site_banner';
+@import 'leaflet/dist/leaflet';
+@import '../stylesheets/MarkerCluster';
+@import '../stylesheets/MarkerCluster.Default';

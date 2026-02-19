@@ -3,7 +3,7 @@
   <head>
 
     <%= render partial: 'shared/head_includes' %>
-    <%= stylesheet_link_tag 'dcv', 'gallery-monochromeDark', 'welcome', :media => 'all'  %>
+    <%= vite_stylesheet_tag *['dcv', 'gallery-monochromeDark', 'welcome'].map {|stylesheet_name| "#{stylesheet_name}.scss" }, :media => 'all'  %>
     <%= javascript_pack_tag "welcome" %>
 
   </head>

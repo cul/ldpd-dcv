@@ -41,10 +41,10 @@ module Dcv::Utils::ImageService
 
   class IiifImages < Base
     def thumbnail_url
-      Dcv::Utils::CdnUtils.asset_url(id: @id, size: 256, base_type: 'featured', type: 'full', format: 'jpg')
+      Dcv::Utils::CdnUtils.asset_url(base_type: 'featured', id: @id, size: 256, region: 'full', format: 'jpg')
     end
     def poster_url
-      Dcv::Utils::CdnUtils.asset_url(id: @id, size: 768, type: 'full', format: 'jpg')
+      Dcv::Utils::CdnUtils.asset_url(base_type: 'standard', id: @id, size: 768, region: 'full', format: 'jpg')
     end
     def zoom_url(opts = {})
     end

@@ -30,7 +30,7 @@ class Dcv::Solr::ChildrenAdapter
       'title' => title_value,
       'belongsToContainer_ssi' => proxy_document['belongsToContainer_ssi'],
       'order' => order,
-      'thumbnail' => Dcv::Utils::CdnUtils.asset_url(id: child_document['id'], size: 256, type: 'full', format: 'jpg')
+      'thumbnail' => Dcv::Utils::CdnUtils.asset_url(base_type: 'standard', id: child_document['id'], size: 256, region: 'full', format: 'jpg')
     })
   end
 

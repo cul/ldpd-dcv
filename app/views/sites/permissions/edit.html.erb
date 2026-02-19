@@ -1,3 +1,6 @@
+<%= vite_javascript_tag 'entrypoints/jquery.js' %>
+<%= vite_javascript_tag 'entrypoints/subsite.js' %>
+
 <%- 
   if @subsite.slug =~ /restricted\//
     site_edit = edit_restricted_site_path(slug: @subsite.slug.sub('restricted/', ''))

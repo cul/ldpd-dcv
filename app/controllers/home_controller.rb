@@ -20,7 +20,7 @@ class HomeController < ApplicationController
   end
 
   def subsite_styles
-    ["#{subsite_layout}-#{Dcv::Sites::Constants.default_palette}", "catalog"]
+    ["#{subsite_layout}-#{Dcv::Sites::Constants.default_palette}"]
   end
 
   def authorize_action
@@ -28,7 +28,7 @@ class HomeController < ApplicationController
 
     raise CanCan::AccessDenied unless current_user
   end
-  
+
   def restricted
-  end  
+  end
 end

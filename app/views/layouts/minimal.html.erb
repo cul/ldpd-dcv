@@ -3,9 +3,9 @@
 	<head>
 		<%= render partial: 'shared/head_includes' %>
 		<%- if ['gallery', 'portrait', 'signature'].include?(subsite_layout) -%>
-			<%= stylesheet_link_tag *Array(subsite_styles) %>
+			<%= vite_stylesheet_tag *Array(subsite_styles).map { |stylesheet_name| "#{stylesheet_name}.scss" } %>
 		<%- else -%>
-			<%= stylesheet_link_tag *["gallery-#{Dcv::Sites::Constants.default_palette}", subsite_layout].except('dcv') %>
+			<%= vite_stylesheet_tag *["gallery-#{Dcv::Sites::Constants.default_palette}", subsite_layout].except('dcv').map {|stylesheet_name| "#{stylesheet_name}.scss" } %>
 		<%- end -%>
 		<meta name="robots" content="noindex" />
 	</head>

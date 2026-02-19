@@ -14,7 +14,7 @@ module Dcv::Utils::CdnUtils
     box_width = conditions[:width] || conditions[:size]
     box_height = conditions[:height] || conditions[:size]
     base_type = conditions.fetch(:base_type, 'standard')
-    Dcv::Utils::CdnUtils.random_cdn_url + "/iiif/2/#{base_type}/#{conditions[:id]}/#{conditions[:type]}/!#{box_width},#{box_height}/0/default.#{conditions[:format]}"
+    Dcv::Utils::CdnUtils.random_cdn_url + "/iiif/2/#{base_type}/#{conditions[:id]}/#{conditions[:region]}/!#{box_width},#{box_height}/0/default.#{conditions[:format]}"
   end
 
   def self.archive_org_id_for_document(solr_doc)

@@ -1,3 +1,8 @@
+<script src="/ohsynchronizer/ohsynchronizer.js" type="module"></script>
+
+<%= vite_javascript_tag 'entrypoints/jquery.js' %>
+<%= vite_javascript_tag 'entrypoints/subsite.js' %>
+
 <%
 media_url = wowza_media_token_url(document)
 if params[:mode] == 'chapters'
@@ -59,8 +64,8 @@ end
 
     <!-- Audio files for transcript syncing markers -->
     <div id="transcript-chimes" class="hidden">
-      <audio class="loop-boundary-chime" src="<%= asset_path("synchronizer/startBeep.mp3") %>" autostart="false"></audio>
-      <audio class="loop-mid-chime" src="<%= asset_path("synchronizer/midBeep.mp3") %>" autostart="false"></audio>
+      <audio class="loop-boundary-chime" src="/ohsynchronizer/startBeep.mp3" autostart="false"></audio>
+      <audio class="loop-mid-chime" src="/ohsynchronizer/midBeep.mp3" autostart="false"></audio>
     </div>
   </div>
 <% else %>

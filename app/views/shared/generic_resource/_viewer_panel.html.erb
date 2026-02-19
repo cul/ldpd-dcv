@@ -5,7 +5,7 @@
   <%- use_unavailable_image_placeholder = false %>
   <% unless defined?(use_unavailable_image_placeholder) && use_unavailable_image_placeholder == false %>
     <div>
-      <img id="image-unavailable-img" class="img-responsive" src="<%= get_asset_url(id: 'placeholder:unavailable', size: 256, type: 'full', format: 'jpg') %>" />
+      <img id="image-unavailable-img" class="img-responsive" src="<%= get_asset_url(id: 'placeholder:unavailable', size: 256, region: 'full', format: 'jpg') %>" />
     </div>
   <% end %>
 </div>

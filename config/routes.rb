@@ -16,6 +16,9 @@ Rails.application.routes.draw do
 
   mount Resque::Server.new, at: "/resque"
 
+  # Admin routes (including admin React app)
+  get '/admin', to: 'admin#index'
+
   get '/browse/:list_id' => 'browse', as: :browse, action: 'list'
   get '/explore' => 'welcome#home'
   get '/about' => 'pages#about', as: :about

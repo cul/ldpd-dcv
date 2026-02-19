@@ -86,7 +86,7 @@ module Dcv::CdnHelper
     schema_image = document['representative_generic_resource_pid_ssi'] if schema_image.blank?
 
     if schema_image.present?
-      Dcv::Utils::CdnUtils.asset_url(id: schema_image.split('/')[-1], size: size, base_type: 'featured', type: 'full', format: 'jpg')
+      Dcv::Utils::CdnUtils.asset_url(base_type: 'featured', id: schema_image.split('/')[-1], size: size, region: 'full', format: 'jpg')
     elsif document[:cul_number_of_members_isi] == 0
       placeholder_format = (['books', 'maps'] & document.fetch('lib_format_ssm', [])).first&.singularize
       if placeholder_format
@@ -99,7 +99,7 @@ module Dcv::CdnHelper
         image_url("thumbtack-fa-placeholder.png")
       end
     else # fall back to whatever the item does from image server
-      Dcv::Utils::CdnUtils.asset_url(id: document.id, size: size, base_type: 'featured', type: 'full', format: 'jpg')
+      Dcv::Utils::CdnUtils.asset_url(base_type: 'featured', id: document.id, size: size, region: 'full', format: 'jpg')
     end
   end
 
@@ -111,7 +111,7 @@ module Dcv::CdnHelper
 
     id = schema_image ? schema_image.split('/')[-1] : nil
     id ||= identifier_to_pid(item[:id], item[:pid])
-    opts = { size: 768, type: 'full', format: 'jpg' }.merge(opts)
+    opts = { base_type: 'standard', size: 768, region: 'full', format: 'jpg' }.merge(opts)
     Dcv::Utils::CdnUtils.asset_url(opts.merge(id: id))
   end
 
@@ -133,7 +133,7 @@ module Dcv::CdnHelper
   def thumbnail_for_site(site)
     id = site.image_uri ? site.image_uri.split('/')[-1] : nil
     if id
-      get_asset_url(id: id, size: 256, base_type: 'featured', type: 'full', format: 'jpg')
+      get_asset_url(id: id, size: 256, base_type: 'featured', region: 'full', format: 'jpg')
     else
       asset_path('dcv/columbia_crown_outline.png')
     end
