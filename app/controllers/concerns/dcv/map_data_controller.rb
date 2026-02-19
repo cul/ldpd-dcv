@@ -5,7 +5,7 @@ module Dcv::MapDataController
   end
 
   def map_response_params
-    {:rows => 200000, :fl => 'id, geo, lib_format_ssm, title_display_ssm'}
+    {:rows => 200000, :fl => 'id, geo, lib_format_ssm, title_display_ssm, representative_generic_resource_pid_ssi'}
   end
 
   # We want this data to be as compact as possible because we're sending a lot to the client
@@ -25,8 +25,11 @@ module Dcv::MapDataController
           title = document['title_display_ssm'][0].gsub(/\s+/, ' ') # Compress multiple spaces and new lines into one
           title = title[0,max_title_length].strip + '...' if title.length > max_title_length
 
+          thumbnail_resource_id = document['representative_generic_resource_pid_ssi'] || document.id
+
           row = {
             id: document.id,
+            thumbnail_resource_id: thumbnail_resource_id,
             c: lat_and_long[0].strip + ',' + lat_and_long[1].strip,
             t: title,
             b: is_book ? 'y' : 'n',
