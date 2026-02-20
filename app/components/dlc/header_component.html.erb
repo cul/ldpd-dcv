@@ -333,6 +333,11 @@
             <li class="nav-item border-start">
               <%= link_to '<i class="fa-regular fa-info-circle"></i>'.html_safe, '#', class: 'nav-link px-3' %>
             </li>
+            <% unless current_site.slug == MAIN_SITE_SLUG %>
+              <li class="nav-item border-start">
+                <%= link_to '<i class="fa-regular fa-cubes"></i> All Collections'.html_safe, helpers.root_path, class: 'nav-link px-3' %>
+              </li>
+            <% end %>
           </ul>
         </div>
       </div>

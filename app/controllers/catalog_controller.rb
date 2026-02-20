@@ -13,7 +13,7 @@ class CatalogController < ApplicationController
   # Other methods that aren't controller actions
 
   def current_site_slug
-    params[:site_slug] || "collections" # The 'collections' site is our main DLC site
+    params[:site_slug] || "catalog" # The 'catalog' site is our main DLC site
   end
 
   def default_url_options

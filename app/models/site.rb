@@ -4,7 +4,7 @@ class Site
   DEFAULT_FACET_CONFIG = { limit: 10, sort: "index", show: true, component: true }.freeze
 
   def initialize(slug)
-    @slug = slug
+    @slug = slug.to_s
     @config = SITES[@slug.to_sym] # TODO: Eventually get this data from the database
   end
 

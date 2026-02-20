@@ -1,11 +1,11 @@
 <% content_for :page_title, current_site.title %>
 
-<% if current_site.slug == 'collections' %>
+<% if current_site.slug == MAIN_SITE_SLUG %>
   <div class="row">
     <p><%= current_site.config[:home_page_text] %></p>
-    <% SITES.each do |slug, _config| %>
-      <%= next if slug == :collections %>
-      <% site = Site.new(slug) %>
+    <% SITES.each do |slug_key, _config| %>
+      <%= next if slug_key.to_s == MAIN_SITE_SLUG %>
+      <% site = Site.new(slug_key) %>
       <div class="col col-sm-6 col-lg-3 d-flex">
         <div class="card p-3 w-100 text-center">
           <a href="<%= site_home_catalog_path(site_slug: site.slug)%>">

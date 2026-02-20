@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   mount Blacklight::Engine => "/"
-  root to: "catalog#site_home", defaults: { site_slug: "collections", locale: "en" }
+  root to: "catalog#site_home", defaults: { site_slug: MAIN_SITE_SLUG, locale: "en" }
 
   devise_for :users
 
@@ -44,10 +44,10 @@ Rails.application.routes.draw do
 
       # get "/", to: "catalog#index"
 
-      resource :catalog, only: [], as: "catalog", path: "/catalog", controller: "catalog" do
+      resource :catalog, only: [], as: "catalog", path: "/search", controller: "catalog" do
         concerns :searchable
       end
-      resources :solr_documents, only: [ :show ], path: "/catalog", controller: "catalog" do
+      resources :solr_documents, only: [ :show ], path: "/search", controller: "catalog" do
         concerns [ :exportable ]
       end
 
