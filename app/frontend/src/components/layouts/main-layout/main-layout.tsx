@@ -15,7 +15,7 @@ const MainLayout = () => {
         <header className="flex-grow-0 flex-shrink-0">
           <MainNavBar />
         </header>
-        <div className="container my-4 flex-grow-1">
+        <div className="container-lg my-4 flex-grow-1">
 
           <FetchingSuspense>
             <Outlet />
