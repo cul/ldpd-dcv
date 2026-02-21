@@ -6,8 +6,6 @@ import { RouterProvider } from 'react-router-dom';
 import MainLayout from "@/components/layouts/main-layout/main-layout";
 import { MainErrorFallback } from '@/components/errors/main';
 import FetchingSuspense from '@/components/ui/fetching-suspense';
-import SitesLayout from '@/components/layouts/sites-layout/sites-layout';
-
 
 function Root() {
   return (
@@ -61,7 +59,6 @@ const createAppRouter = (queryClient: QueryClient) => {
         },
         {
           path: 'sites',
-          Component: SitesLayout,
           children: [
             {
               // admin/sites -> sites admin dashboard
@@ -71,16 +68,35 @@ const createAppRouter = (queryClient: QueryClient) => {
             },
             {
               path: ':slug',
-              lazy: () => import('./routes/sites/show').then(convert(queryClient)),
+              // The subsite component is a wrapper for all routes that interact with one subsite
+              lazy: () => import('./routes/sites/subsite').then(convert(queryClient)),
               children: [
                 {
                   index: true,
-                  lazy: () => import('./routes/sites/show/dashboard').then(convert(queryClient)),
+                  lazy: () => import('./routes/sites/subsite/dashboard').then(convert(queryClient)),
                 },
                 {
                   path: 'site-properties',
-                  lazy: () => import('./routes/sites/show/edit').then(convert(queryClient)),
-                }
+                  lazy: () => import('./routes/sites/subsite/site-properties').then(convert(queryClient)),
+                },
+                // {
+                //   path: 'site-scope',
+                //   lazy: () => import('./routes/sites/subsite/site-scope').then(convert(queryClient)),
+                // },
+                // {
+                //   path: 'search-configuration',
+                //   lazy: () => import('./routes/sites/subsite/search-configuration').then(convert(queryClient)),
+                // },
+                // {
+                //   path: 'pages',
+                //   lazy: () => import('./routes/sites/subsites/pages.tsx').then(convert(queryClient)),
+                //   children: [
+                //     {
+                //       index: true,
+                //       lazy: () => import('./routes/sites/subsite/pages/dashboard').then(convert(queryClient)),
+                //     }
+                //   ]
+                // }
               ]
             }
           ]

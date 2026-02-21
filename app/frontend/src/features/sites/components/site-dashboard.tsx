@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 
-import { useSiteSuspense } from "../api/get-site"
+import { useSiteSuspense } from "../../subsite/api/get-site"
 import CardLink from "@/components/ui/card-link";
 import settingsIconUrl from "@/assets/icons/settings.png";
 import magnifyingGlassIconUrl from "@/assets/icons/magnifying-glass.png"
