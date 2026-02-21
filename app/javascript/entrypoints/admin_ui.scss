@@ -1,3 +1,24 @@
 // TODO: Add stuff!
 
+
+// @import "../stylesheets/admin_ui/admin_ui_global.css";
+
+// If you want to modify theme colors:
+// @import "~bootstrap/scss/functions";
+// @import "~bootstrap/scss/variables";
+// @import "~bootstrap/scss/mixins";
+
+/* Global CSS styles */
+
+/* Override active pill background color (default is primary) in Nav (sites-layout-navbar.tsx) */
+.navbar-nav .nav-link.active {
+    background-color: white !important;
+}
+
+/* Override Bootstrap React Styles */
+// $bs-accordion-bg: teal; /* Changes the background color. */
+// $bs-accordion-color: teal; /*Changes the text color.
+// --bs-accordion-border-radius: Changes the border radius.
+// --bs-accordion-btn-focus-box-shadow: Removes the blue outline when an item is focused. */
+
 @import "bootstrap5";
