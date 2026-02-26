@@ -13,7 +13,7 @@ gem 'bootsnap', '~> 1.9.3'
 gem 'actionpack-action_caching'
 # Hydra stack
 gem 'nokogiri', '~> 1.18', '>= 1.18.9', force_ruby_platform: true
-gem 'blacklight', '~> 7.33.1'
+gem 'blacklight', '~> 7.38.0'
 gem 'view_component', '~>2.82.0'
 gem 'active-fedora', '~> 8.7'
 gem 'rdf', '>= 1.1.5'
@@ -94,6 +94,11 @@ gem 'puma', '~> 5.2'
 gem "ox", "~> 2.14"
 
 gem "vite_rails", "~> 3.0"
+#these gems will no longer be default in ruby 3.4.0
+gem "base64"
+gem "mutex_m"
+gem "csv"
+gem "observer"
 
 group :development, :test do
   # Capistrano for deployment (per https://capistranorb.com/documentation/getting-started/installation/)

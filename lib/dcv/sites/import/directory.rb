@@ -61,7 +61,7 @@ module Dcv::Sites::Import
 				NavLink.create({site_id: site.id}.merge(link_atts))
 			end
 			pages_path = File.join(site_dir, PAGES_SUBDIR)
-			if Dir.exists? pages_path
+			if Dir.exist? pages_path
 				Dir.entries(pages_path).each do |page_name|
 					next unless page_name =~ /[^\.]/
 					page_path = File.join(pages_path, page_name)
@@ -88,7 +88,7 @@ module Dcv::Sites::Import
 				end
 			end
 			image_import_path = File.join(site_dir, IMAGES_SUBDIR)
-			if Dir.exists?(image_import_path) && !Dir.empty?(image_import_path)
+			if Dir.exist?(image_import_path) && !Dir.empty?(image_import_path)
 				image_dir_path = File.join(Rails.root, 'public', 'images', 'sites', site.slug)
 				FileUtils.mkdir_p(image_dir_path)
 				Dir.glob(File.join(image_import_path, '*.*')).each do |src_path|

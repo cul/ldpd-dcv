@@ -190,12 +190,12 @@ describe SitesController, type: :unit do
 				allow(controller).to receive(:redirect_to).with(edit_site_path)
 			end
 			after do
-				File.delete(target_path) if File.exists?(target_path)
+				File.delete(target_path) if File.exist?(target_path)
 			end
 			it 'updates/creates watermark image' do
-				expect(File.exists?(target_path)).to be false
+				expect(File.exist?(target_path)).to be false
 				controller.update
-				expect(File.exists?(target_path)).to be true
+				expect(File.exist?(target_path)).to be true
 				expect(File.read(target_path)).to eql(File.read(File.join(fixture_path, fixture_file_path)))
 			end
 		end
