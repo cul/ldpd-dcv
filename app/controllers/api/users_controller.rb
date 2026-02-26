@@ -36,6 +36,7 @@ class Api::UsersController < Api::BaseController
       sites
     end
 
+    # TODO: use camelCase -- right now not important bc we don't access first_name, etc. (any two-word attributes)
     def user_json(user, role, can_edit)
       {
         uid: user.uid,

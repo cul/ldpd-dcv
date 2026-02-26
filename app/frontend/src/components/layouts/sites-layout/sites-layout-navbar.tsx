@@ -33,7 +33,6 @@ const SitesLayoutNavBar = () => {
   const basePath = `/admin/sites/${slug}`;
 
   const activeTab = useMemo(()=>{
-    console.log("pathname is : "+pathname)
     return `/admin${pathname}`
   }, [pathname]);
 
