@@ -9,8 +9,6 @@ const SitesLayout = () => {
 
   // Don't show navbar on subsite dashboard page
   const showNav = pathname !== `/sites/${slug}`;
-  console.log(location.pathname)
-  console.log(showNav)
 
   return (
     <Container fluid className="border rounded border-info-subtle">

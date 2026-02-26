@@ -174,6 +174,38 @@ class SitesController < ApplicationController
     # redirect_to '/admin/:site_slug/edit'
   end
 
+  # Example update params:
+  # {
+  #   "palette" => "default",
+  #   "layout" => "gallery",
+  #   "show_facets" => "false",
+  #   "alternative_title" => "alt title",
+  #   "search_type" => "local",
+  #   "image_uris" => ["info:fedora/cul:fbg79cnpkf"],
+  #   "nav_links_attributes" => [
+  #     {
+  #       "sort_group" => "00:About",
+  #       "sort_label" => "00:About the Collection",
+  #       "link" => "about_the_collection",
+  #       "external" => "false",
+  #       "icon_class" => ""
+  #     },
+  #     {
+  #       "sort_group" => "00:About",
+  #       "sort_label" => "01:About G.E.E. Lindquist",
+  #       "link" => "about_gee_lindquist",
+  #       "external" => "false",
+  #       "icon_class" => ""
+  #     },
+  #     {
+  #       "sort_group" => "00:About",
+  #       "sort_label" => "02:Lindquist Papers Finding Aid",
+  #       "link" => "http://library.columbia.edu/content/dam/libraryweb/locations/burke/fa/mrl/ldpd_4492645.pdf",
+  #       "external" => "true",
+  #       "icon_class" => ""
+  #     }
+  #   ]
+  # }
   # update sanitized params
   def update
     site_attributes = site_params

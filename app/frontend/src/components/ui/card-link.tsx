@@ -19,7 +19,6 @@ const CardLink = ({ to, label, image, altTxt }: CardLinkProps): ReactNode => {
   const handleMouseEnter = () => { setHovering(true) };
   const handleMouseLeave = () => { setHovering(false) };
   const handleClick = () => {
-    console.log("Inside card -- handle click! to: " + to)
     navigate(to);
   }
 
