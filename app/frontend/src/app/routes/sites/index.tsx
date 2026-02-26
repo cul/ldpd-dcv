@@ -7,7 +7,7 @@ import { getSitesQueryOptions } from "@/features/sites/api/get-sites";
 import FetchingSuspense from "@/components/ui/fetching-suspense";
 
 const clientLoader = (queryClient: QueryClient) => async () => {
-  queryClient.prefetchQuery(getSitesQueryOptions());
+  await queryClient.prefetchQuery(getSitesQueryOptions());
 }
 
 const SitesIndexRoute = () => {
