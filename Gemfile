@@ -33,7 +33,7 @@ gem 'active-triples', git: 'https://github.com/cul/ActiveTriples', branch: 'depr
 gem 'wowza-secure_token', '0.0.1'
 
 # Use sqlite3 as the database for Active Record
-gem "sqlite3", "~> 1.4"
+gem "sqlite3", "~> 1.7"
 
 # Use mysql2 gem for mysql connections
 gem 'mysql2', '~> 0.5.6'
