@@ -25,6 +25,7 @@ Rails.application.routes.draw do
   # Backend API Routes:
   get 'api/v1/sites', to: 'api/sites#index', format: 'json'
   get 'api/v1/sites/:site_slug', to: 'api/sites#show', format: 'json'
+  patch 'api/v1/sites/:site_slug', to: 'api/sites#update', format: 'json'
   get 'api/v1/users/_self', to: 'api/users#_self', format: 'json'
 
   get '/browse/:list_id' => 'browse', as: :browse, action: 'list'

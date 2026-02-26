@@ -16,6 +16,9 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
+  # For JSON api, recommended by: http://api.rubyonrails.org/classes/ActionController/RequestForgeryProtection.html
+  skip_before_action :verify_authenticity_token, if: :json_request?
+
   rescue_from ActionController::Live::ClientDisconnected, with: :on_client_disconnect
 
   rescue_from CanCan::AccessDenied do |exception|
@@ -119,4 +122,11 @@ class ApplicationController < ActionController::Base
   def meta_noindex!
     @meta_noindex = true
   end
+
+  protected
+    # For JSON api, recommended by: http://api.rubyonrails.org/classes/ActionController/RequestForgeryProtection.html
+    def json_request?
+      request.format.json?
+    end
+
 end

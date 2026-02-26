@@ -1,7 +1,10 @@
 import { ReactNode } from "react";
 import { useSiteSuspense } from "../api/get-site";
-import { Container, Stack } from "react-bootstrap";
+import { Accordion, Container, Stack } from "react-bootstrap";
 import AboutAccordion from "@/components/ui/about-accordion";
+import GeneralPropertiesForm from "./site-properties/general-properties-form";
+import { getSiteGeneralProperties } from "../utils";
+import FormAccordion from "@/components/ui/form-accordion";
 
 
 type EditSitePropertiesProps = {
@@ -13,6 +16,8 @@ type EditSitePropertiesProps = {
 const SiteProperties = ({ slug }: EditSitePropertiesProps): ReactNode => {
   const site = useSiteSuspense(slug);
 
+  const siteGeneralProperties = getSiteGeneralProperties(site);
+
   const aboutText = "about site properties"
 
   return (
@@ -22,6 +27,10 @@ const SiteProperties = ({ slug }: EditSitePropertiesProps): ReactNode => {
       </Container>
       <Stack>
         <AboutAccordion header="About Site Properties" body={aboutText} />
+
+        <FormAccordion header="Edit Site General Properties">
+          <GeneralPropertiesForm siteGeneralProperties={siteGeneralProperties}/>
+        </FormAccordion>
 
       </Stack>
     </Container>
