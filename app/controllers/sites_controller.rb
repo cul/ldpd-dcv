@@ -208,12 +208,12 @@ class SitesController < ApplicationController
   # }
   # update sanitized params
   def update
+    banner_upload, watermark_upload = extract_file_uploads.values_at(:banner, :watermark)
+    Rails.logger.debug banner_upload
     site_attributes = site_params
     # though Site accepts nested attributes of nav_links for persistence, we want to handle the updates
     # specially (to accommodate the deletion and reordering without recourse to record id)
     nav_links_attributes = site_attributes.delete('nav_links_attributes')
-    banner_upload = params[:site].delete(:banner)
-    watermark_upload = params[:site].delete(:watermark)
     begin
       @subsite.update! site_attributes
       if nav_links_attributes.present?
@@ -352,6 +352,13 @@ class SitesController < ApplicationController
   end
 
   private
+    def extract_file_uploads
+      {
+        banner: params[:site].delete(:banner),
+        watermark: params[:site].delete(:watermark),
+      }
+    end
+
     def unroll_nav_link_params
       nav_menus_attributes = params['site'].delete('nav_menus_attributes')
       return unless nav_menus_attributes
@@ -367,12 +374,14 @@ class SitesController < ApplicationController
     end
 
     def site_params
+      Rails.logger.debug 'site params'
+      Rails.logger.debug params
+      Rails.logger.debug 'site params[:site][:banner]'
+      Rails.logger.debug params[:site]
       unroll_nav_link_params
       params.require(:site).permit(:palette, :layout, :show_facets, :alternative_title, :search_type, :editor_uids, :image_uris, :nav_links_attributes,
                                    image_uris: [], nav_links_attributes: [:sort_group, :sort_label, :link, :external, :icon_class])
       .to_h.tap do |p|
-        p.delete('banner')
-        p.delete('watermark')
         p['image_uris']&.delete_if { |v| v.blank? }
       end
     end

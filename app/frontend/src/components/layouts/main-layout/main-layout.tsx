@@ -20,11 +20,11 @@ TopBarProgress.config({
 
 
 const LoadingBar = () => {
-  const fetching = useIsFetching();``
-  const mutating = useIsMutating();
+  // const fetching = useIsFetching();
+  // const mutating = useIsMutating();
   const navigation = useNavigation();
 
-  if (fetching > 0 || mutating > 0 || navigation.state !== 'idle') {
+  if (navigation.state !== 'idle') {
     // return <div className="border border-primary">LOADING . . . </div>
     return <TopBarProgress />
   }
