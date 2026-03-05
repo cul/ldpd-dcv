@@ -15,6 +15,12 @@
     background-color: white !important;
 }
 
+// Customizing accordions in the homepage images form on the subsite general properties management page:
+div#homepage-image-forms {
+    background-color: rgb(240, 240, 240);
+}
+
+
 /* Override Bootstrap React Styles */
 // $bs-accordion-bg: teal; /* Changes the background color. */
 // $bs-accordion-color: teal; /*Changes the text color.
@@ -22,3 +28,4 @@
 // --bs-accordion-btn-focus-box-shadow: Removes the blue outline when an item is focused. */
 
 @import "bootstrap5";
+@import "../stylesheets/fontawesome-pro";

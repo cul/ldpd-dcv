@@ -35,6 +35,10 @@ export interface Site {
   alternativeTitle?: string; // optional
   showFacets?: boolean; // optional
   searchConfiguration?: Record<string, any>; // optional, flexible structure
+  bannerImageUrl: string;
+  watermarkImageUrl: string;
+  hasBannerImage: boolean;
+  hasWatermarkImage: boolean;
 }
 
 // export type SiteParams = Omit<Site,
