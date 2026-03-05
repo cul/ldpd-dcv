@@ -6,6 +6,7 @@ import { RouterProvider } from 'react-router-dom';
 import MainLayout from "@/components/layouts/main-layout/main-layout";
 import { MainErrorFallback } from '@/components/errors/main';
 import FetchingSuspense from '@/components/ui/fetching-suspense';
+import { Spinner } from 'react-bootstrap';
 
 function Root() {
   return (
@@ -43,13 +44,24 @@ const convert = (queryClient: QueryClient) => (m: RouteModule) => {
   };
 };
 
+const HydrateFall = () => (
+  <div className="d-flex align-items-center justify-content-center vh-100">
+    <div className="d-flex flex-column align-items-center gap-5">
+      <Spinner animation="grow" style={{ width: "7em", height: "7em" }} variant="primary" role="status"/>
+      <Spinner animation="grow" style={{ width: "7em", height: "7em" }} variant="info" role="status" />
+      <Spinner animation="grow" style={{ width: "7em", height: "7em" }} variant="light" role="status" />
+      <span className="fs-4">Loading Admin Section . . .</span>
+    </div>
+  </div>
+)
+
 const createAppRouter = (queryClient: QueryClient) => {
   // all routes begin with /admin/ --- we are matching on the rest
   return createBrowserRouter([
     {
       Component: MainLayout,
       errorElement: <MainErrorFallback />,
-      hydrateFallbackElement: <FetchingSuspense dataName="admin site"/>,
+      hydrateFallbackElement: <HydrateFall />,
       children: [
         {
           // admin/ -> admin 'dashboard'
