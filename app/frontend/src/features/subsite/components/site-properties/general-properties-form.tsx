@@ -1,202 +1,170 @@
 import { SiteGeneralProperties } from '@/types/api';
-import { shouldThrowError } from '@tanstack/react-query';
-import * as formik from 'formik';
-import  { Formik, ErrorMessage }  from 'formik';
 import { Button, Col, Form, Row, Stack } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import * as Yup from 'yup';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from "@hookform/resolvers/zod"
+import * as z from 'zod';
+
 import { mUpdateSite } from '../../api/update-site';
+import { getSiteGeneralProperties, sitePropertiesTooltipMessage } from '../../utils';
+import InfoTooltip from '@/components/ui/forms/info-tooltip';
+import FormErrorMsg from '@/components/ui/forms/form-error-msg';
+import { useSiteSuspense } from '../../api/get-site';
+import SaveButton from '@/components/ui/forms/save-button';
 
-// const GeneralPropertiesForm = ( { title, alternativeTitle, palette, layout, searchType, showFacets }: SiteGeneralProperties ) => {
-const GeneralPropertiesForm = ( {siteGeneralProperties}: {siteGeneralProperties: SiteGeneralProperties} ) => {
+
+const schema = z.object({
+  slug: z.string().min(1),
+  title: z.string().trim().min(1, "Title is required"),
+  alternativeTitle: z.string().optional(),
+  palette: z.string().min(1),
+  layout: z.string().min(1),
+  searchType: z.string().min(1),
+})
+
+//  TODO : consider having these values stored on the backend and retrieved by api endpoint
+// (can change the set of options overtime without breaking things in UI)
+enum SitePalette {
+  BLUE = 'blue',
+  LIGHT = 'light',
+  DARK = 'dark',
+  DEFAULT = 'default',
+}
+enum SiteLayout {
+  PORTRAIT = 'portrait',
+  GALLERY = 'gallery',
+  REPOSITORIES = 'repositories',
+  SIGNATURE = 'signature',
+  DEFAULT = 'default',
+}
+enum SearchType {
+  CATALOG = 'catalog',
+  LOCAL = 'local',
+  CUSTOM = 'custom',
+  REPOSITORIES = 'repositories',
+}
+
+interface FormInput {
+  title: string;
+  alternativeTitle: string;
+  palette: keyof typeof SitePalette;
+  layout: keyof typeof SiteLayout;
+  searchType: keyof typeof SearchType;
+}
+
+const GeneralPropertiesForm = ( { slug}: {slug: string} ) => {
+  const siteGeneralProperties = getSiteGeneralProperties(useSiteSuspense(slug));// TODO : here: lets useSuspenseQuery to get our data and then prune it down, rather than processing in the parent and passing down as props!
+  console.log("general properties: render!")
+
   const mutation = mUpdateSite();
+  if (mutation.status === 'pending') console.log("MUTATION IS PENDING...")
+  const { register, handleSubmit, formState: { errors } } = useForm<z.input<typeof schema>, any, z.output<typeof schema>>({
+    defaultValues: siteGeneralProperties,
+    resolver: zodResolver(schema),
+    mode: 'all',
+    disabled: mutation.status === 'pending', // disable form until PATCH action is complete
+   });
 
-  //  TODO : consider having these values stored on the backend and retrieved by api endpoint
-  // (can change the set of options overtime without breaking things in UI)
-  enum SitePalette {
-    BLUE = 'blue',
-    LIGHT = 'light',
-    DARK = 'dark',
-    DEFAULT = 'default',
-  }
-  enum SiteLayout {
-    PORTRAIT = 'portrait',
-    GALLERY = 'gallery',
-    REPOSITORIES = 'repositories',
-    SIGNATURE = 'signature',
-    DEFAULT = 'default',
-  }
-  enum SearchType {
-    CATALOG = 'catalog',
-    LOCAL = 'local',
-    CUSTOM = 'custom',
-    REPOSITORIES = 'repositories',
-  }
 
-  const schema = Yup.object().shape({
-    title: Yup.string().required(),
-    alternativeTitle: Yup.string().nullable(),
-    palette: Yup.string().required(),
-    layout: Yup.string().required(),
-    searchType: Yup.string().required(),
-  });
+   // TODO : type annotation for data
+  const submitHandler = (data: any) => {
+    console.log(data);
+    mutation.mutate(data);
+  }
 
   return (
-    <Formik
-      validationSchema={schema}
-      onSubmit={(values, { setSubmitting }) => {
-        console.log("submitting...")
-        // setTimeout(() => { setSubmitting(false)}, 2000);
-        console.log(values);
-        mutation.mutate(values);
-      }}
-      // TODO : should we throw an error if initial values can't be loaded from the props? I think so
-      initialValues={ siteGeneralProperties || {
-        title: 'title',
-        alternativeTitle: '',
-        palette: SitePalette.DEFAULT,
-        layout: SiteLayout.DEFAULT,
-        searchType: SearchType.CATALOG,
-      }}
-      >
-        {({ handleSubmit, handleChange, setFieldTouched, handleBlur, values, touched, errors, isValid, isSubmitting}) => {
-          const isFormTouched = Object.keys(touched).length > 0;
-          console.log(JSON.stringify(touched))
-          console.log('isformtouched:', isFormTouched, 'is valid:', isValid)
-          console.log('errors')
-          console.log(JSON.stringify(errors))
-          if (isSubmitting) return <div>Submitting...</div>
-          return (
-          <Form onSubmit={handleSubmit}>
-            <Stack gap={4}>
+    <Form onSubmit={handleSubmit(submitHandler)}>
+      <Stack gap={3}>
 
-            <Form.Group as={Row}>
-              <Form.Label as={Col} xs={2}>Title:</Form.Label>
-              <Col xs={10}>
-                <Form.Control
-                  disabled
-                  type="text"
-                  name="title"
-                  value={values.title}
-                  onChange={handleChange}
-                />
-                <Form.Text>You can not edit this value.</Form.Text> {/* TODO: confirm correctness? */}
-              </Col>
-            </Form.Group>
+      <Form.Group as={Row} controlId="generalPropertiesFormTitle">
+        <Col xs={2}>
+          <InfoTooltip fieldName='title' lookupFn={sitePropertiesTooltipMessage} />
+          <Form.Label>Title:</Form.Label>
+        </Col>
+        <Col xs={10}>
+          <Form.Control {...register('title', { disabled: true })} /> {/* plaintext readOnly  */}
+          <Form.Text className="px-2">You can not edit this value in DLC.</Form.Text>
+          <FormErrorMsg msg={errors.title?.message} />
+        </Col>
+      </Form.Group>
 
-            <Form.Group as={Row}>
-              <Col xs={2}>
-                <Form.Label>Alternative Title:</Form.Label>
-              </Col>
-              <Col xs={10}>
-                <Form.Control
-                  type="text"
-                  name="alternativeTitle"
-                  value={values.alternativeTitle}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  isValid={touched.alternativeTitle && !errors.alternativeTitle}
-                />
-                {touched.title && errors.title && (
-                  <Form.Control.Feedback type="invalid">{errors.title}</Form.Control.Feedback>
-                )}
-              </Col>
-            </Form.Group>
+      <Form.Group as={Row} controlId="generalPropertiesFormAlternativeTitle">
+        <Col xs={2}>
+          <InfoTooltip fieldName='alternativeTitle' lookupFn={sitePropertiesTooltipMessage} />
+          <Form.Label>Alternative Title:</Form.Label>
+        </Col>
+        <Col xs={10}>
+          <Form.Control {...register('alternativeTitle')} placeholder="Alternative Title" />
+          <Form.Text className="px-2">Setting an alternative title is optional.</Form.Text>
+        </Col>
+      </Form.Group>
 
-            <Form.Group as={Row}>
-              <Col xs={2}>
-                <Form.Label>Site Palette:</Form.Label>
-              </Col>
-              <Col xs={10}>
-                <Form.Select
-                  aria-label="Select a site palette"
-                  name="palette"
-                  value={values.palette}
-                  onChange={(e) => {
-                    handleChange(e);
-                    handleBlur(e);
-                  }}
-                  isValid={touched.palette && !errors.palette}
-                  isInvalid={touched.palette && !!errors.palette}
-                >
-                  <option disabled>Select a site palette</option>
-                  <option value={SitePalette.DEFAULT}>DLC Default</option>
-                  <option value={SitePalette.DARK}>Dark</option>
-                  <option value={SitePalette.LIGHT}>Light</option>
-                  <option value={SitePalette.BLUE}>Blue</option>
+      <Form.Group as={Row} controlId="generalPropertiesFormPalette">
+        <Col xs={2}>
+          <InfoTooltip fieldName='palette' lookupFn={sitePropertiesTooltipMessage} />
+          <Form.Label>Site Palette:</Form.Label>
+        </Col>
+        <Col xs={10}>
+          <Form.Select
+            {...register('palette')}
+            aria-label="Select a site palette" >
+            <option disabled>Select a site palette</option>
+            <option value={SitePalette.DEFAULT}>DLC Default</option>
+            <option value={SitePalette.DARK}>Dark</option>
+            <option value={SitePalette.LIGHT}>Light</option>
+            <option value={SitePalette.BLUE}>Blue</option>
+          </Form.Select>
+          </Col>
+      </Form.Group>
 
-                </Form.Select>
-                {touched.palette && errors.palette && (
-                  <Form.Control.Feedback type="invalid">{errors.palette}</Form.Control.Feedback>
-                )}
-              </Col>
-            </Form.Group>
+      <Form.Group as={Row} controlId="generalPropertiesFormLayout">
+        <Col xs={2}>
+          <InfoTooltip fieldName='layout' lookupFn={sitePropertiesTooltipMessage} />
+          <Form.Label>Site Layout:</Form.Label>
+        </Col>
+        <Col xs={10}>
+          <Form.Select
+            {...register('layout')}
+            aria-label="Select a site layout"
+          >
+            <option disabled>Select a site layout</option>
+            <option value={SiteLayout.DEFAULT}>DLC Default</option>
+            <option value={SiteLayout.PORTRAIT}>Portrait</option>
+            <option value={SiteLayout.GALLERY}>Gallery</option>
+            <option value={SiteLayout.REPOSITORIES}>Repositories</option>
+            <option value={SiteLayout.SIGNATURE}>Signature</option>
+          </Form.Select>
+        </Col>
+      </Form.Group>
 
-            <Form.Group as={Row}>
-              <Col xs={2}>
-                <Form.Label>Site Layout:</Form.Label>
-              </Col>
-              <Col xs={10}>
-                <Form.Select
-                  aria-label="Select a site layout"
-                  name="layout"
-                  value={values.layout}
-                  onChange={(e) => {
-                    handleChange(e);
-                    handleBlur(e);
-                  }}
-                  isValid={touched.layout && !errors.layout}
-                  isInvalid={touched.layout && !!errors.layout}
-                >
-                  <option disabled>Select a site layout</option>
-                  <option value={SiteLayout.DEFAULT}>DLC Default</option>
-                  <option value={SiteLayout.PORTRAIT}>Portrait</option>
-                  <option value={SiteLayout.GALLERY}>Gallery</option>
-                  <option value={SiteLayout.REPOSITORIES}>Repositories</option>
-                  <option value={SiteLayout.SIGNATURE}>Signature</option>
-                </Form.Select>
-                {touched.layout && errors.layout && (
-                  <Form.Control.Feedback type="invalid">{errors.layout}</Form.Control.Feedback>
-                )}
-              </Col>
-            </Form.Group>
+      <Form.Group as={Row} controlId="generalPropertiesFormSearchType">
+        <Col xs={2}>
+        <div className="d-flex flex-column">
+          <div>
+            <InfoTooltip fieldName='searchType' lookupFn={sitePropertiesTooltipMessage} />
+            <Form.Label>Search Type:</Form.Label>
+          </div>
+          <Link to="search-config" className="fs-6 fw-light">Edit facet search config</Link>
+        </div>
+        </Col>
+        <Col xs={10}>
+          <Form.Select
+            {...register('searchType')}
+            aria-label="Select a search type"
+          >
+            <option disabled>Select a search type</option>
+            <option value={SearchType.CATALOG}>Catalog</option>
+            <option value={SearchType.LOCAL}>Local</option>
+            <option value={SearchType.CUSTOM}>Custom</option>
+            <option value={SearchType.REPOSITORIES}>Repositories</option>
+          </Form.Select>
+        </Col>
+      </Form.Group>
 
-            <Form.Group as={Row}>
-              <Col xs={2}>
-                <Form.Label>Search Type:</Form.Label>
-              </Col>
-              <Col xs={10}>
-                <Form.Select
-                  aria-label="Select a search type"
-                  name="searchType"
-                  value={values.searchType}
-                  onChange={(e) => {
-                    handleChange(e);
-                    handleBlur(e);
-                  }}
-                  isValid={touched.searchType && !errors.searchType}
-                  isInvalid={touched.searchType && !!errors.searchType}
-                >
-                  <option disabled>Select a search type</option>
-                  <option value={SearchType.CATALOG}>Catalog</option>
-                  <option value={SearchType.LOCAL}>Local</option>
-                  <option value={SearchType.CUSTOM}>Custom</option>
-                  <option value={SearchType.REPOSITORIES}>Repositories</option>
-                </Form.Select>
-                {touched.searchType && errors.searchType && (
-                  <Form.Control.Feedback type="invalid">{errors.searchType}</Form.Control.Feedback>
-                )}
-              </Col>
-            </Form.Group>
+      <SaveButton />
 
-            <Link to="search-config">Edit facet search config</Link>
-
-            <Button type="submit" className="w-25" disabled={!isValid || !isFormTouched} >Save Changes</Button>
-
-            </Stack>
-          </Form>
-        )}}
-      </Formik>
+      </Stack>
+    </Form>
   )
 }
 
