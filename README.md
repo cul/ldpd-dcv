@@ -69,6 +69,20 @@ application up and running?
 * Database initialization
   * `bundle exec rake db:seed`
 
+# Development
+## Frontend Admin App
+The new admin frontend for DLC is implemented as a React 'island' inside our Rails monolith--when users visit the `/admin` route, they are served the React SPA which then takes over routing via React Router and communicates with the Rails application via a RESTful API implemented in `app/controllers/api/`.
+
+This frontend uses React 19 with typescript. During development we use eslint for consistent styling and to avoid common bugs and vitest for testing.
+
+#### Linting
+Run the following script before making a PR to ensure there are no ES Lint Errors
+<!--  TODO : add es lint step to CI-->
+<!-- TODO : upgrade yarn to use `yarn dlx` command instead of npx -->
+```
+  npx eslint app/frontend
+```
+
 ## User permissions and restricted access Assets
 
 Although Item metadata records are generally visible in DLC, some Assets are restricted and require your currently logged in user to have the correct permissions.  For how to configure user permissions, see: [https://wiki.library.columbia.edu/display/DLC/Authorization+Metadata]
