@@ -1,15 +1,18 @@
 const BASE_URL = '/api/v1';
 
-async function request<T>(endpoint: string, options?: RequestInit): Promise<T> {
+async function request<T>(endpoint: string, options?: RequestInit, skipHeaders = false): Promise<T> {
   const config: RequestInit = {
     ...options,
-    headers: {
+    credentials: 'include',
+  };
+
+  if (!skipHeaders) {
+    config.headers = {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
       ...options?.headers,
-    },
-    credentials: 'include',
-  };
+    };
+  }
 
   const response = await fetch(`${BASE_URL}${endpoint}`, config);
 
@@ -35,7 +38,6 @@ export const api = {
   //     method: 'POST',
   //     body: JSON.stringify(data)
   //   }),
-
   // put: <T>(endpoint: string, data?: unknown) =>
   //   request<T>(endpoint, {
   //     method: 'PUT',
@@ -48,6 +50,15 @@ export const api = {
       body: JSON.stringify(data)
     }),
 
-  // delete: <T>(endpoint: string) =>
-  //   request<T>(endpoint, { method: 'DELETE' }),
+  // For when we want to use form data without converting to JSON
+  patchRaw: <T>(endpoint: string, data?: FormData) =>
+    request<T>(endpoint, {
+      method: 'PATCH',
+      body: data,
+    },
+      true // skipHeaders - we want the browser to set this for FormData
+    ),
+
+  delete: <T>(endpoint: string) =>
+    request<T>(endpoint, { method: 'DELETE' }),
 };

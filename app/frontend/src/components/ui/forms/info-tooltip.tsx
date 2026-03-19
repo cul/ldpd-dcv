@@ -10,7 +10,7 @@ type InfoTooltipPropTypes = {
 // fieldName: the name of the field we are describing
 // lookupFn: a method that takes the fieldName as input and outputs the info string
 //           we define these methods in util files
-const InfoTooltip = ( {fieldName, lookupFn}: InfoTooltipPropTypes ) => {
+const InfoTooltip = ( { fieldName, lookupFn }: InfoTooltipPropTypes ) => {
   const renderTooltip = (props: TooltipProps) => (
     <Tooltip id={`form-tooltip-${fieldName}`} {...props}>
       {lookupFn(fieldName)}
@@ -19,7 +19,7 @@ const InfoTooltip = ( {fieldName, lookupFn}: InfoTooltipPropTypes ) => {
 
   return (
     <OverlayTrigger
-      placement='left'
+      placement='right'
       delay={{show: 250, hide: 400}}
       overlay={renderTooltip}
     >

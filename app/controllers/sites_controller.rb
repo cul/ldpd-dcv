@@ -234,7 +234,9 @@ class SitesController < ApplicationController
         @subsite.nav_links.destroy_all
       end
       if banner_upload
+        Rails.logger.debug "hello"
         BannerUploader.new(@subsite).store!(banner_upload) && @subsite.touch
+        Rails.logger.debug "goodbye"
       end
       if watermark_upload
         WatermarkUploader.new(@subsite).store!(watermark_upload) && @subsite.touch
