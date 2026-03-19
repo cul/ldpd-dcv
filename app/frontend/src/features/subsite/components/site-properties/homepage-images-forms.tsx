@@ -7,10 +7,6 @@ import PortraitLayoutImagesForm from './homepage-images-forms/portrait-layout-im
 import SignatureLayoutImagesForm from './homepage-images-forms/signature-layout-images-form';
 
 
-type PortraitLayoutImageFormValues = {
-  imageUris: { value: string}[];
-};
-
 // Renders the two homepage image forms -- one for portrait and one for signature layout
 // If a subsite is not using either of those layout types, the forms will still be accessible
 // but will be collapsed (and they will have no effect on the look of the subsite).

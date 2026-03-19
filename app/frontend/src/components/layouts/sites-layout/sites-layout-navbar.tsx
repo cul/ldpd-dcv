@@ -1,8 +1,5 @@
-import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
+import { Container, Nav, Navbar } from "react-bootstrap";
 
-import { navigatorToRailsRoute } from "@/features/sites/utils/routing-utils";
-import AuthorizationBoundary from "@/components/auth/authorization-boundary";
-import { ROLES } from "@/lib/authorization";
 import { Link, useLocation, useParams } from "react-router-dom";
 import { useMemo } from "react";
 

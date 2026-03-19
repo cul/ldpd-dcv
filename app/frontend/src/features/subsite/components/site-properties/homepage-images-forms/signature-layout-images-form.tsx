@@ -1,11 +1,10 @@
 import { useSiteSuspense } from "@/features/subsite/api/get-site";
 import { useQueryClient } from "@tanstack/react-query";
-import { Accordion, Button, Col, Container, Form, Row, Stack, Image, Alert } from "react-bootstrap";
+import { Button, Form, Stack, Alert } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import ImageUploadPreview from "./image-upload-preview";
 import SaveButton from "@/components/ui/forms/save-button";
 import { api } from "@/lib/api-client";
-import { MutationAlerts } from "@/components/ui/forms/mutation-alerts";
 import { useState } from "react";
 import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -61,8 +60,12 @@ const SignatureLayoutImagesForm = ({ slug }: {slug: string}) => {
       setSubmissionAlert({ isError: false, msg: 'Your image has been uploaded and saved.'})
       setShowAlert(true);
       queryClient.invalidateQueries({queryKey: ['sites']});
-    } catch(error: any){
-      setSubmissionAlert({ isError: true, msg: `There was an error uploading the image: ${error?.message}` })
+    } catch(error: unknown){
+      if (error instanceof Error) {
+        setSubmissionAlert({ isError: true, msg: `There was an error uploading the image: ${error?.message}` })
+      } else {
+        setSubmissionAlert({ isError: true, msg: 'An unknown error occurred while uploading your image. Please try again.' })
+      }
       setShowAlert(true);
     }
   }

@@ -1,9 +1,7 @@
-import { queryOptions, useMutation, useQuery, useQueryClient, useSuspenseQuery } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import { QueryConfig } from "@/lib/react-query";
 import { Site, SiteGeneralProperties, SitePortraitImageUris } from '@/types/api';
 import { api } from '@/lib/api-client';
-import { getSiteQueryOptions } from "./get-site";
 
 
 // Update all or some attributes of a subsite (union of Site and subtypes of Site)
@@ -14,7 +12,7 @@ const updateSite = async (site: Site | SiteGeneralProperties | SitePortraitImage
   return response?.site ?? null;
 }
 
-const mUpdateSite = () => {
+const useMUpdateSite = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: updateSite,
@@ -22,4 +20,4 @@ const mUpdateSite = () => {
   })
 }
 
-export { mUpdateSite }
+export { useMUpdateSite }

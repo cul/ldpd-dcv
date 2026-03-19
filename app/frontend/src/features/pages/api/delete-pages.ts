@@ -1,7 +1,7 @@
 import { api } from "@/lib/api-client";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-const mDeleteSitePages = (siteSlug: string) => {
+const useMDeleteSitePages = (siteSlug: string) => {
   // We define the mutation callback inside of the mutation in order to close-over the siteSlug value
   const deletePages = async ( pageSlugs: string[]) => {
     await Promise.all(pageSlugs.map(async pageSlug => {
@@ -18,4 +18,4 @@ const mDeleteSitePages = (siteSlug: string) => {
   })
 }
 
-export { mDeleteSitePages }
+export { useMDeleteSitePages }

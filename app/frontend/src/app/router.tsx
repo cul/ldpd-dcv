@@ -5,7 +5,6 @@ import { RouterProvider } from 'react-router-dom';
 
 import MainLayout from "@/components/layouts/main-layout/main-layout";
 import { MainErrorFallback } from '@/components/errors/main';
-import FetchingSuspense from '@/components/ui/fetching-suspense';
 import { Spinner } from 'react-bootstrap';
 
 function Root() {

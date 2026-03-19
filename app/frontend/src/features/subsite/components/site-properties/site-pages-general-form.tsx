@@ -7,8 +7,9 @@ import { usePagesSuspense } from "@/features/pages/api/get-pages";
 import { SitePageGeneralData } from "@/types/api";
 import SaveButton from "@/components/ui/forms/save-button";
 import { formatDateRelative, navigatorToRailsRoute } from "@/lib/utils";
-import { mUpdateSitePages } from "@/features/pages/api/update-page";
-import { mDeleteSitePages } from "@/features/pages/api/delete-pages";
+import { useMUpdateSitePages } from "@/features/pages/api/update-page";
+import { useMDeleteSitePages } from "@/features/pages/api/delete-pages";
+import FormErrorMsg from "@/components/ui/forms/form-error-msg";
 
 
 type SitePagesGeneralFormValues = {
@@ -32,8 +33,8 @@ type SitePagesGeneralFormValues = {
 // (we cannot combine both actions, because the Site model does not accept nested attributes for pages -- we need separate API endpoints...)
 const SitePagesGeneralForm = ({ slug }: { slug: string }) => {
   const pages = usePagesSuspense(slug);
-  const mUpdate = mUpdateSitePages(slug);
-  const mDelete = mDeleteSitePages(slug);
+  const mUpdate = useMUpdateSitePages(slug);
+  const mDelete = useMDeleteSitePages(slug);
   const [pagesToDelete, setPagesToDelete] = useState<string[]>([]);
   const initialData: SitePagesGeneralFormValues= { pages: [] };
   pages.forEach((page) => initialData.pages.push({ siteSlug: slug, pageSlug: page.pageSlug, title: page.title, updatedAt: page.updatedAt}));
@@ -49,6 +50,7 @@ const SitePagesGeneralForm = ({ slug }: { slug: string }) => {
     console.log('resetting form with new initial data:', initialData.pages);
     reset(initialData);
     setPagesToDelete([]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pages, formState]);
 
 
@@ -84,7 +86,7 @@ const SitePagesGeneralForm = ({ slug }: { slug: string }) => {
   return (
     <>
     <p>
-      Here you can manage the pages on your site, including the homepage. You can add new pages, edit existing page titles, and remove pages (except for the homepage). To edit page content, click the "Edit Page Content" button for the corresponding page.
+      Here you can manage the pages on your site, including the homepage. You can add new pages, edit existing page titles, and remove pages (except for the homepage). To edit page content, click the &quot;Edit Page Content&quot; button for the corresponding page.
     </p>
     {/*  TODO : instead of multiple mutation alerts, it would be better to combine them */}
       <MutationAlerts
@@ -116,7 +118,8 @@ const SitePagesGeneralForm = ({ slug }: { slug: string }) => {
                     <span className="text-muted">/{field.pageSlug}</span>
                   </Col>
                   <Col xs={3} md={4}>
-                    <Form.Control {...register(`pages.${index}.title` as const)} placeholder="Page title" />
+                    <Form.Control {...register(`pages.${index}.title` as const, { required: 'You must provide a page title' })} placeholder="Page title" />
+                    {errors.pages?.[index]?.title && <FormErrorMsg msg={errors.pages[index].title?.message} />}
                   </Col>
                   <Col xs={3} md={3}>
                     <Button

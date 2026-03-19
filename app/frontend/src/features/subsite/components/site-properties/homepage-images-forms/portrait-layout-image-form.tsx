@@ -1,7 +1,7 @@
 import { useFieldArray, useForm } from "react-hook-form";
 import { Button, Col, Form, Row, Stack } from "react-bootstrap";
 
-import { mUpdateSite } from "@/features/subsite/api/update-site";
+import { useMUpdateSite } from "@/features/subsite/api/update-site";
 import SaveButton from "@/components/ui/forms/save-button";
 import { SitePortraitImageUris } from "@/types/api";
 import { MutationAlerts } from "@/components/ui/forms/mutation-alerts";
@@ -17,7 +17,7 @@ type PortraitLayoutImageFormProps = {
 }
 
 const PortraitLayoutImagesForm = ({ slug }: PortraitLayoutImageFormProps) => {
-  const mutation = mUpdateSite();
+  const mutation = useMUpdateSite();
   const site = useSiteSuspense(slug);
   const initialData: PortraitLayoutImageFormValues = { imageUris: [] };
   site.imageUris.forEach((pid) => initialData.imageUris.push({ value: pid}) );

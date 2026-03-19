@@ -1,4 +1,4 @@
-import { QueryClient, useSuspenseQuery } from "@tanstack/react-query";
+import { QueryClient } from "@tanstack/react-query";
 
 import SitesList from '@/features/sites/components/sites-list';
 import { ROLES } from "@/lib/authorization";
