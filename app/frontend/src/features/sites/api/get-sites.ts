@@ -10,12 +10,12 @@ type UseSitesQueryOptions = {
 }
 
 
+// Q: what happens if there is error? does it get returned to the mutation/query object?
 const getSites = async (): Promise<Site[] | null> => {
+  // throw Error("(getSites queryFn) ERROR GETTING SITES")
   try {
     // Simulate network delay
-    console.log('api/sites...')
     await new Promise(resolve => setTimeout(resolve, 2000));
-    console.log('         ... Returned!')
 
     const response = await api.get<{ sites: Site[] }>('/sites');
 
