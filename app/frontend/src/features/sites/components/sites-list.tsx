@@ -11,7 +11,6 @@ const SitesList = (): ReactNode => {
   const sites = useSitesSuspense();
   const queryClient = useQueryClient();
   const handleMouseEnter = (slug: string) => {
-    console.log(`            ON MOUSE ENTER! : PREFETCHING : /${slug}`);
     queryClient.prefetchQuery(getSiteQueryOptions(slug));
   }
 

@@ -22,11 +22,20 @@ Rails.application.routes.draw do
   get '/admin', to: 'admin#index'
   get '/admin/*path', to: 'admin#index'
 
-  # Backend API Routes:
+  ###### Backend API Routes: ######
   get 'api/v1/sites', to: 'api/sites#index', format: 'json'
   get 'api/v1/sites/:site_slug', to: 'api/sites#show', format: 'json'
   patch 'api/v1/sites/:site_slug', to: 'api/sites#update', format: 'json'
   get 'api/v1/users/_self', to: 'api/users#_self', format: 'json'
+  # signature layout images routes:
+  post 'api/v1/sites/:site_slug/signature_images', to: 'api/sites#upload_signature_images', format: 'json'
+  delete 'api/v1/sites/:site_slug/signature_images/watermark', to: 'api/sites#delete_signature_images_watermark', format: 'json'
+  delete 'api/v1/sites/:site_slug/signature_images/banner', to: 'api/sites#delete_signature_images_banner', format: 'json'
+  # Site pages routes:
+  get 'api/v1/sites/:site_slug/pages', to: 'api/site_pages#index', format: 'json'
+  patch 'api/v1/sites/:site_slug/pages', to: 'api/site_pages#patch_multiple', format: 'json'
+  delete 'api/v1/sites/:site_slug/pages/:page_slug', to: 'api/site_pages#delete', format: 'json'
+
 
   get '/browse/:list_id' => 'browse', as: :browse, action: 'list'
   get '/explore' => 'welcome#home'

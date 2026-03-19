@@ -11,13 +11,13 @@ type UseSiteQueryOptions = {
 
 
 const getSite = async (siteSlug: string): Promise<Site | null> => {
-  try {
+  // try {
     const response = await api.get<{ site: Site }>(`/sites/${siteSlug}`);
     return response?.site ?? null;
-  } catch (error) {
-    console.error('Error fetching site information', error);
-    return null;
-  }
+  // } catch (error) {
+  //   console.error('Error fetching site information', error);
+  //   return null;
+  // }
 }
 
 const getSiteQueryOptions = (siteSlug: string) => {
@@ -29,10 +29,11 @@ const getSiteQueryOptions = (siteSlug: string) => {
 
 const useSiteSuspense = (slug: string): Site => {
   const { data: site } = useSuspenseQuery(getSiteQueryOptions(slug));
-  if (!site) throw Error;
+  if (!site) throw Error("useSiteSuspense got no site");
   return site;
 }
 
+// not used atm -- we use suspense version
 const useSite = (siteSlug: string, { queryConfig }: UseSiteQueryOptions = {}) => {
   return useQuery({
     ...getSiteQueryOptions(siteSlug),
