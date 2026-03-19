@@ -1,19 +1,17 @@
 import { SiteGeneralProperties } from '@/types/api';
-import { Alert, Button, Col, Form, Row, Stack } from 'react-bootstrap';
+import { Col, Form, Row, Stack } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { zodResolver } from "@hookform/resolvers/zod"
+import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from 'zod';
 
-import { mUpdateSite } from '../../api/update-site';
+import { useMUpdateSite } from '../../api/update-site';
 import { getSiteGeneralProperties, sitePropertiesTooltipMessage } from '../../utils';
 import InfoTooltip from '@/components/ui/forms/info-tooltip';
 import FormErrorMsg from '@/components/ui/forms/form-error-msg';
 import { useSiteSuspense } from '../../api/get-site';
 import SaveButton from '@/components/ui/forms/save-button';
 import { MutationAlerts } from '@/components/ui/forms/mutation-alerts';
-import { use } from 'react';
-import { formatDateRelative } from '@/lib/utils';
 
 
 const schema = z.object({
@@ -49,7 +47,7 @@ enum SearchType {
 
 
 const GeneralPropertiesForm = ( { slug}: {slug: string} ) => {
-  const mutation = mUpdateSite();
+  const mutation = useMUpdateSite();
   const site = useSiteSuspense(slug);
   const siteGeneralProperties = getSiteGeneralProperties(site);
   const submitHandler = (data: SiteGeneralProperties) => mutation.mutate(data);

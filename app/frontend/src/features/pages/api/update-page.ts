@@ -7,7 +7,7 @@ const updatePages = async (pages: SitePage[] | SitePageGeneralData[]) => {
   await api.patch<{ pages: SitePage[] }>(`/sites/${pages[0].siteSlug}/pages`, { pages });
 }
 
-const mUpdateSitePages = (siteSlug: string) => {
+const useMUpdateSitePages = (siteSlug: string) => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: updatePages,
@@ -17,4 +17,4 @@ const mUpdateSitePages = (siteSlug: string) => {
   })
 }
 
-export { mUpdateSitePages }
+export { useMUpdateSitePages }

@@ -1,3 +1,6 @@
+import { ApiError } from "@/types/api";
+
+
 const BASE_URL = '/api/v1';
 
 async function request<T>(endpoint: string, options?: RequestInit, skipHeaders = false): Promise<T> {
@@ -21,7 +24,8 @@ async function request<T>(endpoint: string, options?: RequestInit, skipHeaders =
     console.error('API Error:', errorData);
 
     // Throw the parsed error data so React Query can access it
-    const error = new Error(response.statusText);
+    const error: ApiError | null = new Error(response.statusText);
+    if (error === null) throw new Error('An unknown error occurred and the response could not be parsed');
     error.response = errorData;
     throw error;
   }
