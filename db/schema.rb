@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_10_14_175733) do
+ActiveRecord::Schema.define(version: 2026_03_13_140719) do
 
   create_table "bookmarks", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -73,6 +73,8 @@ ActiveRecord::Schema.define(version: 2024_10_14_175733) do
     t.string "title"
     t.integer "columns", default: 1, null: false
     t.integer "site_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.index ["site_id", "slug"], name: "index_site_pages_on_site_id_and_slug", unique: true
   end
 

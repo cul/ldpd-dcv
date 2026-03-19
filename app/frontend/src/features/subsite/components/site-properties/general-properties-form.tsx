@@ -1,5 +1,5 @@
 import { SiteGeneralProperties } from '@/types/api';
-import { Button, Col, Form, Row, Stack } from 'react-bootstrap';
+import { Alert, Button, Col, Form, Row, Stack } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -11,6 +11,9 @@ import InfoTooltip from '@/components/ui/forms/info-tooltip';
 import FormErrorMsg from '@/components/ui/forms/form-error-msg';
 import { useSiteSuspense } from '../../api/get-site';
 import SaveButton from '@/components/ui/forms/save-button';
+import { MutationAlerts } from '@/components/ui/forms/mutation-alerts';
+import { use } from 'react';
+import { formatDateRelative } from '@/lib/utils';
 
 
 const schema = z.object({
@@ -26,8 +29,8 @@ const schema = z.object({
 // (can change the set of options overtime without breaking things in UI)
 enum SitePalette {
   BLUE = 'blue',
-  LIGHT = 'light',
-  DARK = 'dark',
+  LIGHT = 'monochrome',
+  DARK = 'monochromeDark',
   DEFAULT = 'default',
 }
 enum SiteLayout {
@@ -44,21 +47,17 @@ enum SearchType {
   REPOSITORIES = 'repositories',
 }
 
-interface FormInput {
-  title: string;
-  alternativeTitle: string;
-  palette: keyof typeof SitePalette;
-  layout: keyof typeof SiteLayout;
-  searchType: keyof typeof SearchType;
-}
 
 const GeneralPropertiesForm = ( { slug}: {slug: string} ) => {
-  const siteGeneralProperties = getSiteGeneralProperties(useSiteSuspense(slug));// TODO : here: lets useSuspenseQuery to get our data and then prune it down, rather than processing in the parent and passing down as props!
-  console.log("general properties: render!")
-
   const mutation = mUpdateSite();
-  if (mutation.status === 'pending') console.log("MUTATION IS PENDING...")
-  const { register, handleSubmit, formState: { errors } } = useForm<z.input<typeof schema>, any, z.output<typeof schema>>({
+  const site = useSiteSuspense(slug);
+  const siteGeneralProperties = getSiteGeneralProperties(site);
+  const submitHandler = (data: SiteGeneralProperties) => mutation.mutate(data);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isDirty }
+  } = useForm<SiteGeneralProperties>({
     defaultValues: siteGeneralProperties,
     resolver: zodResolver(schema),
     mode: 'all',
@@ -66,105 +65,108 @@ const GeneralPropertiesForm = ( { slug}: {slug: string} ) => {
    });
 
 
-   // TODO : type annotation for data
-  const submitHandler = (data: any) => {
-    console.log(data);
-    mutation.mutate(data);
-  }
-
   return (
+    <>
+     <MutationAlerts
+        mutation={mutation}
+        successMessage="Site updated successfully!"
+        errorMessage="Site changes could not be saved due to Error"
+      />
     <Form onSubmit={handleSubmit(submitHandler)}>
       <Stack gap={3}>
 
-      <Form.Group as={Row} controlId="generalPropertiesFormTitle">
-        <Col xs={2}>
-          <InfoTooltip fieldName='title' lookupFn={sitePropertiesTooltipMessage} />
-          <Form.Label>Title:</Form.Label>
-        </Col>
-        <Col xs={10}>
-          <Form.Control {...register('title', { disabled: true })} /> {/* plaintext readOnly  */}
-          <Form.Text className="px-2">You can not edit this value in DLC.</Form.Text>
-          <FormErrorMsg msg={errors.title?.message} />
-        </Col>
-      </Form.Group>
-
-      <Form.Group as={Row} controlId="generalPropertiesFormAlternativeTitle">
-        <Col xs={2}>
-          <InfoTooltip fieldName='alternativeTitle' lookupFn={sitePropertiesTooltipMessage} />
-          <Form.Label>Alternative Title:</Form.Label>
-        </Col>
-        <Col xs={10}>
-          <Form.Control {...register('alternativeTitle')} placeholder="Alternative Title" />
-          <Form.Text className="px-2">Setting an alternative title is optional.</Form.Text>
-        </Col>
-      </Form.Group>
-
-      <Form.Group as={Row} controlId="generalPropertiesFormPalette">
-        <Col xs={2}>
-          <InfoTooltip fieldName='palette' lookupFn={sitePropertiesTooltipMessage} />
-          <Form.Label>Site Palette:</Form.Label>
-        </Col>
-        <Col xs={10}>
-          <Form.Select
-            {...register('palette')}
-            aria-label="Select a site palette" >
-            <option disabled>Select a site palette</option>
-            <option value={SitePalette.DEFAULT}>DLC Default</option>
-            <option value={SitePalette.DARK}>Dark</option>
-            <option value={SitePalette.LIGHT}>Light</option>
-            <option value={SitePalette.BLUE}>Blue</option>
-          </Form.Select>
+        <Form.Group as={Row} controlId="generalPropertiesFormTitle">
+          <Col xs={2}>
+            <InfoTooltip fieldName='title' lookupFn={sitePropertiesTooltipMessage} />
+            <Form.Label>Title:</Form.Label>
           </Col>
-      </Form.Group>
+          <Col xs={10}>
+            <Form.Control {...register('title', { disabled: true })} /> {/* plaintext readOnly  */}
+            <Form.Text className="px-2">You can not edit this value in DLC.</Form.Text>
+            <FormErrorMsg msg={errors.title?.message} />
+          </Col>
+        </Form.Group>
 
-      <Form.Group as={Row} controlId="generalPropertiesFormLayout">
-        <Col xs={2}>
-          <InfoTooltip fieldName='layout' lookupFn={sitePropertiesTooltipMessage} />
-          <Form.Label>Site Layout:</Form.Label>
-        </Col>
-        <Col xs={10}>
-          <Form.Select
-            {...register('layout')}
-            aria-label="Select a site layout"
-          >
-            <option disabled>Select a site layout</option>
-            <option value={SiteLayout.DEFAULT}>DLC Default</option>
-            <option value={SiteLayout.PORTRAIT}>Portrait</option>
-            <option value={SiteLayout.GALLERY}>Gallery</option>
-            <option value={SiteLayout.REPOSITORIES}>Repositories</option>
-            <option value={SiteLayout.SIGNATURE}>Signature</option>
-          </Form.Select>
-        </Col>
-      </Form.Group>
+        <Form.Group as={Row} controlId="generalPropertiesFormAlternativeTitle">
+          <Col xs={2}>
+            <InfoTooltip fieldName='alternativeTitle' lookupFn={sitePropertiesTooltipMessage} />
+            <Form.Label>Alternative Title:</Form.Label>
+          </Col>
+          <Col xs={10}>
+            <Form.Control {...register('alternativeTitle')} placeholder="Alternative Title" />
+            <Form.Text className="px-2">Setting an alternative title is optional.</Form.Text>
+          </Col>
+        </Form.Group>
 
-      <Form.Group as={Row} controlId="generalPropertiesFormSearchType">
-        <Col xs={2}>
-        <div className="d-flex flex-column">
-          <div>
-            <InfoTooltip fieldName='searchType' lookupFn={sitePropertiesTooltipMessage} />
-            <Form.Label>Search Type:</Form.Label>
+        <Form.Group as={Row} controlId="generalPropertiesFormPalette">
+          <Col xs={2}>
+            <InfoTooltip fieldName='palette' lookupFn={sitePropertiesTooltipMessage} />
+            <Form.Label>Site Palette:</Form.Label>
+          </Col>
+          <Col xs={10}>
+            <Form.Select
+              {...register('palette')}
+              aria-label="Select a site palette" >
+              <option disabled>Select a site palette</option>
+              <option value={SitePalette.DEFAULT}>DLC Default</option>
+              <option value={SitePalette.DARK}>Dark</option>
+              <option value={SitePalette.LIGHT}>Light</option>
+              <option value={SitePalette.BLUE}>Blue</option>
+            </Form.Select>
+            </Col>
+        </Form.Group>
+
+        <Form.Group as={Row} controlId="generalPropertiesFormLayout">
+          <Col xs={2}>
+            <InfoTooltip fieldName='layout' lookupFn={sitePropertiesTooltipMessage} />
+            <Form.Label>Site Layout:</Form.Label>
+          </Col>
+          <Col xs={10}>
+            <Form.Select
+              {...register('layout')}
+              aria-label="Select a site layout"
+            >
+              <option disabled>Select a site layout</option>
+              <option value={SiteLayout.DEFAULT}>DLC Default</option>
+              <option value={SiteLayout.PORTRAIT}>Portrait</option>
+              <option value={SiteLayout.GALLERY}>Gallery</option>
+              <option value={SiteLayout.REPOSITORIES}>Repositories</option>
+              <option value={SiteLayout.SIGNATURE}>Signature</option>
+            </Form.Select>
+          </Col>
+        </Form.Group>
+
+        <Form.Group as={Row} controlId="generalPropertiesFormSearchType">
+          <Col xs={2}>
+          <div className="d-flex flex-column">
+            <div>
+              <InfoTooltip fieldName='searchType' lookupFn={sitePropertiesTooltipMessage} />
+              <Form.Label>Search Type:</Form.Label>
+            </div>
+            <Link to="search-config" className="fs-6 fw-light">Edit facet search config</Link>
           </div>
-          <Link to="search-config" className="fs-6 fw-light">Edit facet search config</Link>
-        </div>
-        </Col>
-        <Col xs={10}>
-          <Form.Select
-            {...register('searchType')}
-            aria-label="Select a search type"
-          >
-            <option disabled>Select a search type</option>
-            <option value={SearchType.CATALOG}>Catalog</option>
-            <option value={SearchType.LOCAL}>Local</option>
-            <option value={SearchType.CUSTOM}>Custom</option>
-            <option value={SearchType.REPOSITORIES}>Repositories</option>
-          </Form.Select>
-        </Col>
-      </Form.Group>
+          </Col>
+          <Col xs={10}>
+            <Form.Select
+              {...register('searchType')}
+              aria-label="Select a search type"
+            >
+              <option disabled>Select a search type</option>
+              <option value={SearchType.CATALOG}>Catalog</option>
+              <option value={SearchType.LOCAL}>Local</option>
+              <option value={SearchType.CUSTOM}>Custom</option>
+              <option value={SearchType.REPOSITORIES}>Repositories</option>
+            </Form.Select>
+          </Col>
+        </Form.Group>
 
-      <SaveButton />
+        <div>
+          <SaveButton isDirty={isDirty} updatedAt={site.updatedAt} />
+        </div>
 
       </Stack>
     </Form>
+    </>
   )
 }
 

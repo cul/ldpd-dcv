@@ -38,6 +38,7 @@ module Sites
 				if pages.blank?
 					site_ = Site.find_by(slug: site_slug)
 				else
+					Rails.logger.debug "LOADING SUBSITE WITH PAGES: #{pages}"
 					site_ = Site.includes(:site_pages).find_by(slug: site_slug, site_pages: { slug: pages })
 				end
 				raise ActiveRecord::RecordNotFound unless site_

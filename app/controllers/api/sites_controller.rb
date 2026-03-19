@@ -1,10 +1,12 @@
 class Api::SitesController < Api::BaseController
 
-  before_action :load_subsite, only: [:show, :update, :upload_signature_image]
+  before_action :load_subsite, only: [:show, :update, :upload_signature_image, :delete_signature_images_watermark, :delete_signature_images_banner]
 
   # GET /api/v1/sites
   # Return a list of all subsites
   def index
+    # render json: { message: 'error'}, status: 400
+    # return
     authorize_action_and_scope :admin, Site
     @sites = Site.all
     render json: { sites: @sites.each { |subsite| { id: subsite.id, title: subsite.title, slug: subsite.slug } } }
@@ -12,6 +14,47 @@ class Api::SitesController < Api::BaseController
 
   # GET /api/v1/sites/:site_slug
   def show
+    # render json: { message: 'error'}, status: 400
+    # return
+    render json: { site: site_json(@subsite) }
+  end
+
+  # POST /api/v1/sites/:site_slug/signature_images
+  def upload_signature_images
+    authorize_action_and_scope(:update, @subsite)
+    banner_upload = params[:banner]
+    watermark_upload = params[:watermark]
+    if banner_upload
+      BannerUploader.new(@subsite).store!(banner_upload)
+      @subsite.touch
+    end
+    if watermark_upload
+      WatermarkUploader.new(@subsite).store!(watermark_upload)
+      @subsite.touch
+    end
+    render json: { site: site_json(@subsite) }
+  rescue ActiveRecord::RecordInvalid, CarrierWave::IntegrityError => ex
+    render json: { error: ex.message }, status: :unprocessable_entity
+  end
+
+  # DELETE /api/v1/sites/:site_slug/signature_images/watermark
+  def delete_signature_images_watermark
+    Rails.logger.debug "DELETING WATERMARK IMAGE FOR SITE #{@subsite}..."
+    authorize_action_and_scope(:update, @subsite)
+    if @subsite.has_watermark_image?
+      FileUtils.rm_f(@subsite.watermark_uploader.store_path('signature.svg'))
+    end
+    render json: { site: site_json(@subsite) }
+  end
+
+  # DELETE /api/v1/sites/:site_slug/signature_images/banner
+  def delete_signature_images_banner
+    Rails.logger.debug "DELETING BANNER IMAGE FOR SITE #{@subsite.slug}..."
+    authorize_action_and_scope(:update, @subsite)
+    if @subsite.has_banner_image?
+      FileUtils.rm_f(@subsite.banner_uploader.store_path('signature-banner.png'))
+      @subsite.touch
+    end
     render json: { site: site_json(@subsite) }
   end
 
@@ -19,27 +62,34 @@ class Api::SitesController < Api::BaseController
   # Mostly taken from SitesController#update
   def update
     # TODO : do not allow title to be changed
+    # render json: { message: 'error'}, status: 422
+    # return
     Rails.logger.debug 'INSIDE API SITES CONTROLLER UPDATE ACTION'
 
     authorize_action_and_scope(:update, @subsite)
-    site_attributes = site_params
     # though Site accepts nested attributes of nav_links for persistence, we want to handle the updates
     # specially (to accommodate the deletion and reordering without recourse to record id)
-    nav_links_attributes = site_attributes.delete('nav_links_attributes')
-    banner_upload = site_attributes.delete('banner')
-    watermark_upload = site_attributes.delete('watermark')
+    update_params = site_params
+    nav_links_attributes = update_params.delete('nav_links_attributes')
+    # TODO: we should not allow uploading images thru this endpoint, as they are not part of the site model
+    banner_upload = update_params.delete('banner')
+    watermark_upload = update_params.delete('watermark')
     Rails.logger.debug 'BANNER' if banner_upload
     Rails.logger.debug banner_upload if banner_upload
     Rails.logger.debug 'WATERMARK' if watermark_upload
     Rails.logger.debug watermark_upload if watermark_upload
 
     Rails.logger.debug "UPDATING SUBSITE..."
-    Rails.logger.debug site_attributes.inspect
+    Rails.logger.debug update_params.inspect
 
-    @subsite.update! site_attributes
+    @subsite.update! update_params
     Rails.logger.debug "UPDATED SUBSITE!"
 
-    if nav_links_attributes.present?
+    if nav_links_attributes.present? || nav_links_attributes == []
+      # Delete the nav links if the attribute is present but empty
+      if nav_links_attributes == []
+        @subsite.nav_links.destroy_all
+      end
       @subsite.nav_links.each do |nav_link|
         if nav_links_attributes.present?
           # update this available link record
@@ -53,23 +103,11 @@ class Api::SitesController < Api::BaseController
       nav_links_attributes.each do |nav_link_attributes|
         @subsite.nav_links.create!(nav_link_attributes)
       end
-    else
-      @subsite.nav_links.destroy_all
     end
-    if banner_upload
-      Rails.logger.debug "Banner upload class: #{banner_upload.class}"
-      Rails.logger.debug "Banner original filename: #{banner_upload.original_filename}"
-      Rails.logger.debug "Banner content type: #{banner_upload.content_type}"
 
-      uploader = BannerUploader.new(@subsite)
-      result = uploader.store!(banner_upload)
-      Rails.logger.debug "Store result: #{result.inspect}"
-      Rails.logger.debug "Stored file path: #{uploader.path}"
-      Rails.logger.debug "File exists? #{File.exist?(uploader.path)}"
 
-      @subsite.touch
-    end
-    # BannerUploader.new(@subsite).store!(banner_upload) && @subsite.touch if banner_upload
+    Rails.logger.debug 'uploading banner and watermark images if present....'
+    BannerUploader.new(@subsite).store!(banner_upload) && @subsite.touch if banner_upload
     WatermarkUploader.new(@subsite).store!(watermark_upload) && @subsite.touch if watermark_upload
 
     # TODO : handle restricted sites
@@ -90,6 +128,7 @@ class Api::SitesController < Api::BaseController
     def load_subsite
       @subsite ||= begin
         site_slug = params[:site_slug] || params[:slug]
+        Rails.logger.debug "SITE SLUG: #{site_slug}"
         # site_slug = "restricted/#{site_slug}" if restricted? # TODO : handle restricted sites
         s = Site.find_by(slug: site_slug)
         s.configure_blacklight! if s
@@ -169,6 +208,7 @@ class Api::SitesController < Api::BaseController
         watermarkImageUrl: site.has_watermark_image? ? "#{site.watermark_url}?v=#{site.updated_at.to_i}" : view_context.asset_path("signature/signature.svg"),
         hasBannerImage: site.has_banner_image?,
         hasWatermarkImage: site.has_watermark_image?,
+        updatedAt: site.updated_at,
       }
     end
 end

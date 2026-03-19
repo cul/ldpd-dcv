@@ -39,11 +39,34 @@ export interface Site {
   watermarkImageUrl: string;
   hasBannerImage: boolean;
   hasWatermarkImage: boolean;
+  updatedAt: string;
+}
+
+//  t.string "slug", null: false
+//     t.string "title"
+//     t.integer "columns", default: 1, null: false
+//     t.integer "site_id"
+//     t.index ["site_id", "slug"], name: "index_site_pages_on_site_id_and_slug", unique: true
+
+export interface SitePage {
+  siteSlug: string;
+  pageSlug: string;
+  title: string;
+  columns: number;
+  siteId: number;
+  updatedAt: string;
 }
 
 // export type SiteParams = Omit<Site,
 //   'title' |
 //   'slug'>;
+
+export type SitePageGeneralData = Pick<SitePage,
+  'siteSlug' |
+  'pageSlug' |
+  'title' |
+  'updatedAt'
+>;
 
 export type SiteGeneralProperties = Pick<Site,
   'slug' | // for identification
@@ -52,4 +75,10 @@ export type SiteGeneralProperties = Pick<Site,
   'palette' |
   'layout' |
   'searchType' |
-  'showFacets' >; // todo: remove this?
+  'showFacets' // todo: remove this?
+>;
+
+export type SitePortraitImageUris = Pick<Site,
+  'slug' | // for identification
+  'imageUris'
+>;

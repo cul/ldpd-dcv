@@ -19,7 +19,6 @@ import SitesLayout from "@/components/layouts/sites-layout/sites-layout";
 
 // Prefetch the particular site
 const clientLoader = (queryClient: QueryClient) => async ( args: LoaderFunctionArgs) => {
-  console.log(` INSIDE ROUTE LOADER METHOD : PREFETCHING : /${args.params.slug}`)
   const slug = args.params.slug;
   if (!slug) throw Error("No slug parameter provided");
   queryClient.prefetchQuery(getSiteQueryOptions(slug));
