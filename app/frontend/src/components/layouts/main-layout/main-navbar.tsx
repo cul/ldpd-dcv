@@ -1,8 +1,6 @@
 import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 
 import { navigatorToRailsRoute } from "@/features/sites/utils/routing-utils";
-import AuthorizationBoundary from "@/components/auth/authorization-boundary";
-import { ROLES } from "@/lib/authorization";
 
 const MainNavBar = () => {
   return (

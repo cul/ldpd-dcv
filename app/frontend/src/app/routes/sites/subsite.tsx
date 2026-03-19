@@ -1,7 +1,7 @@
-import { LoaderFunctionArgs, Outlet, useParams } from "react-router-dom";
+import { LoaderFunctionArgs, useParams } from "react-router-dom";
 import { QueryClient } from "@tanstack/react-query";
 
-import AuthorizationBoundary from "@/components/auth/authorization-boundary"
+import AuthorizationBoundary from "@/components/auth/authorization-boundary";
 import { ROLES } from "@/lib/authorization";
 import { getSiteQueryOptions } from "@/features/subsite/api/get-site";
 import FetchingSuspense from "@/components/ui/fetching-suspense";
@@ -25,7 +25,7 @@ const clientLoader = (queryClient: QueryClient) => async ( args: LoaderFunctionA
 }
 
 const SubsiteRoute = () => {
-  let { slug } = useParams();
+  const { slug } = useParams();
 
   if (!slug) throw Error("No slug parameter provided");
 

@@ -1,11 +1,9 @@
-import { Outlet, useNavigate, useNavigation } from 'react-router-dom';
+import { Outlet, useNavigation } from 'react-router-dom';
 // import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 import AuthenticationBoundary from "@/components/auth/authentication-boundary";
 import MainNavBar from "./main-navbar";
 import Footer from "./footer";
-import FetchingSuspense from '@/components/ui/fetching-suspense';
-import { useIsFetching, useIsMutating } from '@tanstack/react-query';
 
 import TopBarProgress from "react-topbar-progress-indicator";
 

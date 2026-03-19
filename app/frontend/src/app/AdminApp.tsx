@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 interface Site {
   id: string;
   title?: string;
   slug?: string;
-  [key: string]: any;
 }
 
 function AdminApp() {

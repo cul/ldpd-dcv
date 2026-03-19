@@ -1,3 +1,9 @@
+
+export type ApiError = {
+  message?: string;
+  response?: string;
+}
+
 export interface User {
   uid: string;
   firstName: string;
@@ -34,6 +40,7 @@ export interface Site {
   dateSearch: boolean;
   alternativeTitle?: string; // optional
   showFacets?: boolean; // optional
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   searchConfiguration?: Record<string, any>; // optional, flexible structure
   bannerImageUrl: string;
   watermarkImageUrl: string;

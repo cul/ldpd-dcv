@@ -24,7 +24,7 @@ const ImageUploadPreview = ({ slug, type }: { slug: string; type: 'banner' | 'wa
 
   if (hasUpload) return (
     <div style={containerStyles}>
-      <a href={imgUrl} target="_blank" download={`${slug}-signature-${type}`}>
+      <a href={imgUrl} target="_blank" download={`${slug}-signature-${type}`} rel="noreferrer">
         <Image src={imgUrl} className='w-25' style={{ maxWidth: '175px'}} rounded />
         <span style={floatingTextStyles}>Download this image</span>
       </a>

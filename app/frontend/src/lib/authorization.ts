@@ -1,6 +1,5 @@
-import { QueryClient } from '@tanstack/react-query';
-import { Site, User } from '@/types/api';
-import { AUTH_QUERY_KEY, useCurrentUser } from './authentication';
+import { User } from '@/types/api';
+import { useCurrentUser } from './authentication';
 
 
 enum ROLES {
@@ -52,11 +51,11 @@ const isUserAuthorized = (user: User, rules: RulesType): boolean => {
 // gotten so far in the first place.
 // This function is used to check current user permissions for the purposes of
 // conditionally rendering content (throwing an error is the wrong behavior).
-const isAuthorized = (rules: RulesType): boolean => {
+const useIsAuthorized = (rules: RulesType): boolean => {
   const { data: user } = useCurrentUser();
   if (!user) return false;
   return isUserAuthorized(user, rules);
 }
 
-export { ROLES, isAuthorized, isUserAuthorized };
+export { ROLES, useIsAuthorized, isUserAuthorized };
 export type { RoleTypes, RulesType };
