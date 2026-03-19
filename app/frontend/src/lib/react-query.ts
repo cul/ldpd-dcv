@@ -1,4 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { UseMutationOptions, DefaultOptions } from '@tanstack/react-query';
+
 
 // Default configuration for all queries and mutations in the app
 export const queryConfig = {

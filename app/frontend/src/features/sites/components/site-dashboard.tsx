@@ -1,13 +1,12 @@
 import { ReactNode } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 
-import { useSiteSuspense } from "../../subsite/api/get-site"
+import { useSiteSuspense } from "../../subsite/api/get-site";
 import CardLink from "@/components/ui/card-link";
 import settingsIconUrl from "@/assets/icons/settings.png";
-import magnifyingGlassIconUrl from "@/assets/icons/magnifying-glass.png"
-import pencilIconUrl from "@/assets/icons/pencil.png"
-import lockIconUrl from "@/assets/icons/padlock-unlock.png"
-import { Link } from "react-router-dom";
+import magnifyingGlassIconUrl from "@/assets/icons/magnifying-glass.png";
+import pencilIconUrl from "@/assets/icons/pencil.png";
+import lockIconUrl from "@/assets/icons/padlock-unlock.png";
 
 
 const SiteDashboard = ({ slug }: { slug: string; }) : ReactNode => {

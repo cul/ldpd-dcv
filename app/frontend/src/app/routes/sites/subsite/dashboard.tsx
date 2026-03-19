@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 
 
 const SiteDashboardRoute = () => {
-  let { slug } = useParams();
+  const { slug } = useParams();
 
   if (!slug) throw Error("No slug parameter provided");
 
