@@ -68,17 +68,16 @@ set :rvm_ruby_version, fetch(:deploy_name) # This RVM alias must exist on the se
   )
 end
 
-# Add before the assets:precompile hook:
-namespace :deploy do
-  task :yarn_install do
-    on roles(:web) do
-      within release_path do
-        execute "nvm exec #{fetch(:nvm_node_version)} corepack enable"
-        execute "nvm exec #{fetch(:nvm_node_version)} corepack yarn install --immutable"
-      end
-    end
-  end
-end
+# namespace :deploy do
+#   task :yarn_install do
+#     on roles(:web) do
+#       within release_path do
+#         execute "nvm exec #{fetch(:nvm_node_version)} corepack enable"
+#         execute "nvm exec #{fetch(:nvm_node_version)} corepack yarn install --immutable"
+#       end
+#     end
+#   end
+# end
 
 before 'deploy:assets:precompile', 'deploy:yarn_install'
 
