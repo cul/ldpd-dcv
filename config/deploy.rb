@@ -74,7 +74,7 @@ namespace :deploy do
     on roles(:web) do
       within release_path do
         execute "nvm exec #{fetch(:nvm_node_version)} corepack enable"
-        execute "nvm exec #{fetch(:nvm_node_version)} yarn install --immutable"
+        execute "nvm exec #{fetch(:nvm_node_version)} corepack yarn install --immutable"
       end
     end
   end
