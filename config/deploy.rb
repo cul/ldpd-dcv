@@ -79,7 +79,7 @@ end
 #   end
 # end
 
-before 'deploy:assets:precompile', 'deploy:yarn_install'
+# before 'deploy:assets:precompile', 'deploy:yarn_install'
 
 # Default value for default_env is {}
 set :default_env, {
