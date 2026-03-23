@@ -85,7 +85,8 @@ before 'deploy:assets:precompile', 'deploy:yarn_install'
 # Default value for default_env is {}
 set :default_env, {
   NODE_ENV: 'production',
-  VITE_RUBY_SKIP_ASSETS_PRECOMPILE_INSTALL: 'true'
+  VITE_RUBY_SKIP_ASSETS_PRECOMPILE_INSTALL: 'true',
+  NODE_OPTIONS: '--max-old-space-size=4096'
 }
 
 # Default branch is :master
