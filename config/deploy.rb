@@ -85,7 +85,9 @@ end
 set :default_env, {
   NODE_ENV: 'production',
   VITE_RUBY_SKIP_ASSETS_PRECOMPILE_INSTALL: 'true',
-  VITE_RUBY_PACKAGE_MANAGER: 'yarn' # tell vite_ruby to use yarn
+  NODE_OPTIONS: '--max-old-space-size=4096',
+  VITE_RUBY_PACKAGE_MANAGER: 'yarn' # tell vite_ruby to use yarn'
+
 }
 
 # Default branch is :master
