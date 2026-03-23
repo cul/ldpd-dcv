@@ -84,8 +84,8 @@ end
 # Default value for default_env is {}
 set :default_env, {
   NODE_ENV: 'production',
-  # VITE_RUBY_SKIP_ASSETS_PRECOMPILE_INSTALL: 'true',
-  VITE_RUBY_PACKAGE_MANAGER: 'yarn'
+  VITE_RUBY_SKIP_ASSETS_PRECOMPILE_INSTALL: 'true',
+  VITE_RUBY_PACKAGE_MANAGER: 'yarn' # tell vite_ruby to use yarn
 }
 
 # Default branch is :master
