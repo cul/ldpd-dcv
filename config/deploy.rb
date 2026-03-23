@@ -83,7 +83,10 @@ end
 before 'deploy:assets:precompile', 'deploy:yarn_install'
 
 # Default value for default_env is {}
-set :default_env, NODE_ENV: 'production'
+set :default_env, {
+  NODE_ENV: 'production',
+  VITE_RUBY_SKIP_ASSETS_PRECOMPILE_INSTALL: 'true'
+}
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
