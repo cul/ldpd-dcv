@@ -88,5 +88,6 @@ node_modules
 # https://vitejs.dev/guide/env-and-mode.html#env-files
 *.local
 
-# Ignore .npmrc because it contains things like the fontawesome key
+# Ignore .npmrc and .yarnrc.yml because they contain things like the fontawesome key
 .npmrc
+.yarnrc.yml
