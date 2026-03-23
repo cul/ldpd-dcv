@@ -74,7 +74,7 @@ namespace :deploy do
       within release_path do
         # execute "nvm exec #{fetch(:nvm_node_version)} corepack enable && corepack yarn install --immutable"
         # execute "bash -c 'source ~/.nvm/nvm.sh && nvm exec #{fetch(:nvm_node_version)} bash -c \"corepack enable && corepack yarn install --immutable\"'"
-        execute "bash -c 'source ~/.nvm-alma8/nvm.sh && nvm exec #{fetch(:nvm_node_version)} bash -c \"corepack enable && yarn set version berry && corepack yarn install --immutable\"'"
+        execute "bash -c 'source ~/.nvm-alma8/nvm.sh && nvm exec #{fetch(:nvm_node_version)} bash -c \"corepack enable && yarn set version berry && corepack yarn install \"'"
 
 
         # execute "nvm exec #{fetch(:nvm_node_version)} corepack yarn install --immutable"
