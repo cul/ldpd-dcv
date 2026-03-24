@@ -2,6 +2,7 @@
   "name": "app",
   "private": true,
   "version": "0.1.0",
+  "packageManager": "yarn@4.13.0",
   "scripts": {
     "start:dev": "./bin/vite dev"
   },
