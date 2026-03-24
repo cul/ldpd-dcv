@@ -54,11 +54,11 @@ set :log_level, :info
 # But this does not work:
 # ~/.rvm-alma8/bin/rvm example_app_dev do nvm exec 16 node --version
 set :nvm_node_version, fetch(:deploy_name) # This NVM alias must exist on the server
-[:rake, :node, :npm].each do |command_to_prefix|
+[:rake, :node, :npm, :yarn].each do |command_to_prefix|
   SSHKit.config.command_map.prefix[command_to_prefix].push("nvm exec #{fetch(:nvm_node_version)}")
 end
 
-SSHKit.config.command_map[:yarn] = "nvm exec #{fetch(:nvm_node_version)} corepack yarn"
+# SSHKit.config.command_map[:yarn] = "nvm exec #{fetch(:nvm_node_version)} corepack yarn"
 
 # RVM Setup, for selecting the correct ruby version (instead of capistrano-rvm gem)
 set :rvm_ruby_version, fetch(:deploy_name) # This RVM alias must exist on the server
@@ -68,29 +68,28 @@ set :rvm_ruby_version, fetch(:deploy_name) # This RVM alias must exist on the se
   )
 end
 
-namespace :deploy do
-  task :yarn_install do
-    on roles(:web) do
-      within release_path do
-        # execute "nvm exec #{fetch(:nvm_node_version)} corepack enable && corepack yarn install --immutable"
-        # execute "bash -c 'source ~/.nvm/nvm.sh && nvm exec #{fetch(:nvm_node_version)} bash -c \"corepack enable && corepack yarn install --immutable\"'"
-        execute "bash -c 'source ~/.nvm-alma8/nvm.sh && nvm exec #{fetch(:nvm_node_version)} bash -c \"corepack enable && which yarn && yarn --version && corepack yarn install\"'"
+# namespace :deploy do
+#   task :yarn_install do
+#     on roles(:web) do
+#       within release_path do
+#         # execute "nvm exec #{fetch(:nvm_node_version)} corepack enable && corepack yarn install --immutable"
+#         # execute "bash -c 'source ~/.nvm/nvm.sh && nvm exec #{fetch(:nvm_node_version)} bash -c \"corepack enable && corepack yarn install --immutable\"'"
+#         execute "bash -c 'source ~/.nvm-alma8/nvm.sh && nvm exec #{fetch(:nvm_node_version)} bash -c \"corepack enable && which yarn && yarn --version && corepack yarn install\"'"
 
-        # execute "nvm exec #{fetch(:nvm_node_version)} corepack yarn install --immutable"
-      end
-    end
-  end
-end
+#         # execute "nvm exec #{fetch(:nvm_node_version)} corepack yarn install --immutable"
+#       end
+#     end
+#   end
+# end
 
-before 'deploy:assets:precompile', 'deploy:yarn_install'
+# before 'deploy:assets:precompile', 'deploy:yarn_install'
 
 # Default value for default_env is {}
 set :default_env, {
   NODE_ENV: 'production',
-  VITE_RUBY_SKIP_ASSETS_PRECOMPILE_INSTALL: 'true',
-  NODE_OPTIONS: '--max-old-space-size=4096',
-  VITE_RUBY_PACKAGE_MANAGER: 'yarn' # tell vite_ruby to use yarn'
-
+  # VITE_RUBY_SKIP_ASSETS_PRECOMPILE_INSTALL: 'true',
+  # NODE_OPTIONS: '--max-old-space-size=4096',
+  # VITE_RUBY_PACKAGE_MANAGER: 'yarn' # tell vite_ruby to use yarn'
 }
 
 # Default branch is :master
