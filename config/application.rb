@@ -39,7 +39,7 @@ module Dcv
 
     # Custom precompiled asset manifests
     # add node_modules to asset.paths to allow sprockets to find scss
-    config.assets.paths << Rails.root.join('node_modules')
+    # config.assets.paths << Rails.root.join('node_modules')
 
     # And include styles for all configured subsite layouts
     subsites_yml_file = "#{Rails.root.to_s}/config/subsites.yml"
