@@ -91,3 +91,6 @@ node_modules
 # Ignore .npmrc and .yarnrc.yml because they contain things like the fontawesome key
 .npmrc
 .yarnrc.yml
+
+# Ignore local .yarn directory
+.yarn/
