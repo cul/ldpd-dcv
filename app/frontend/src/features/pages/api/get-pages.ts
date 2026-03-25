@@ -8,6 +8,7 @@ type UsePagesQueryOptions = {
 }
 
 const getPages = async (siteSlug: string): Promise<SitePage[]> => {
+  console.log("GET PAGES!")
   const response = await api.get<{ pages: SitePage[] }>(`/sites/${siteSlug}/pages`);
   return response?.pages ?? [];
 }
