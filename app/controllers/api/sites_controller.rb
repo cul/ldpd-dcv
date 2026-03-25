@@ -1,10 +1,18 @@
 class Api::SitesController < Api::BaseController
 
-  before_action :load_subsite, only: [:show, :update, :upload_signature_image, :delete_signature_images_watermark, :delete_signature_images_banner]
+  before_action :load_subsite, 
+    only: [
+      :get_site,
+      :update,
+      :update_site_pages,
+      :upload_signature_image,
+      :delete_signature_images_watermark,
+      :delete_signature_images_banner,
+    ]
 
   # GET /api/v1/sites
   # Return a list of all subsites
-  def index
+  def get_all_sites
     # render json: { message: 'error'}, status: 400
     # return
     authorize_action_and_scope :admin, Site
@@ -13,7 +21,7 @@ class Api::SitesController < Api::BaseController
   end
 
   # GET /api/v1/sites/:site_slug
-  def show
+  def get_site
     # render json: { message: 'error'}, status: 400
     # return
     render json: { site: site_json(@subsite) }
@@ -155,8 +163,6 @@ class Api::SitesController < Api::BaseController
       params.require(:site).permit(:title, :slug, :palette, :layout, :show_facets, :alternative_title, :search_type, :editor_uids, :image_uris, :nav_links_attributes, :banner, :watermark,
                                    image_uris: [], nav_links_attributes: [:sort_group, :sort_label, :link, :external, :icon_class])
       .to_h.tap do |p|
-        # These are not persisted as properties of Site model in the DB--they are saved in a particular path in the public/ directory and served from their (path is based on site slug)
-        # therefore, remove them from the params hash to avoid mass assignment when updating the site object -- todo
         p['image_uris']&.delete_if { |v| v.blank? }
       end
     end
