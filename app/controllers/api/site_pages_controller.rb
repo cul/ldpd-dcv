@@ -7,7 +7,7 @@ class Api::SitePagesController < Api::BaseController
   # include Cul::Omniauth::AuthorizingController
 
   # before_action :load_subsite, only: [:index, :new, :create, :show]
-  before_action :load_subsite, only: [:index, :patch_multiple, :delete_multiple]
+  before_action :load_subsite, only: [:get_all_pages, :patch_multiple, :delete_multiple]
   before_action :load_page, only: [:delete]
   # before_action :load_page, except: [:index, :new, :create]
   # before_action :authorize_site_update, except: [:index, :show]
@@ -56,7 +56,7 @@ class Api::SitePagesController < Api::BaseController
   # end
 
   # GET /site/:site_slug/pages
-  def index
+  def get_all_pages
     pages_json = @subsite.site_pages.map(&method(:site_page_json))
     render json: { pages: pages_json}
   end
@@ -74,21 +74,38 @@ class Api::SitePagesController < Api::BaseController
   # end
 
   # PATCH /site/:site_slug/pages (for bulk updating of pages, e.g. from the general properties page which updates title and slug)
+  # This method will compare the array in params and the @subsite.site_pages array, and delete any pages that were not included
+  # in the request.
   def patch_multiple
-    # Rails.logger.debug "UPDATING MULTIPLE PAGES FOR SITE #{@subsite.slug} with params #{multiple_pages_params.inspect}"
     authorize_action_and_scope(:update, @subsite)
-    multiple_pages_params.each do |page_params|
-      page_params.delete(:site_slug) # site_slug is used to identify the subsite, but it is not part of the database table
-      SitePage.find_by(site_id: @subsite.id, slug: page_params[:slug])&.update!(page_params)
+    current_pages_slugs = @subsite.site_pages.map { |page| page[:slug] } 
+    new_pages_slugs = multiple_pages_params.map { |page| page[:slug]}
+    site_id = @subsite.id
+
+    current_pages_slugs.each do |existing_page_slug|
+      existing_page = SitePage.find_by(site_id: site_id, slug: existing_page_slug)
+
+      if new_pages_slugs.include? existing_page_slug
+        new_page_data = multiple_pages_params.select { |pp| pp[:slug] == existing_page_slug }.pop
+        # update only if the title has changed
+        existing_page.update!(title: new_page_data['title']) if new_page_data['title'] != existing_page[:title]
+      else
+        # delete pages not included in the request body
+        existing_page.destroy!
+      end
     end
+
     render json: { message: 'Pages updated successfully' }
   rescue ActiveRecord::RecordInvalid => ex
     render json: { error: ex.message }, status: :unprocessable_entity
   end
 
+  # TODO : remove --- we will allow deletion of multiple in patch
   # DELETE /site/:site_slug/pages (for bulk deleting of pages, e.g. from the general properties page)
   def delete_multiple
     authorize_action_and_scope(:update, @subsite)
+    Rails.logger.debug "params;"
+    Rails.logger.debug multiple_pages_params
     multiple_pages_params.each do |page_params|
       page = SitePage.find_by(site_id: @subsite.id, slug: page_params[:page_slug])
       next unless page
@@ -196,6 +213,7 @@ class Api::SitePagesController < Api::BaseController
         page_params.permit(:page_slug, :site_slug, :id, :title, :updated_at)
         .to_h.tap do |p|
           p[:slug] = p.delete(:page_slug) # remap page_slug param to just slug to match the SitePage model schema
+          p.delete(:site_slug) # remove site_slug as it is not part of the site page model (site_id is used instead)
         end
       end
     end
