@@ -73,7 +73,7 @@ class Api::SitesController < Api::BaseController
       }
     end
 
-    render json: { nav_groups: return_data }
+    render json: { navGroups: nav_groups_json(return_data) }
   end
 
   # POST /api/v1/sites/:site_slug/signature_images
@@ -281,17 +281,17 @@ class Api::SitesController < Api::BaseController
       }
     end
 
-    # snake_case to camelCase
+    # snake_case to camelCase for nav_groups array of hashes
     def nav_groups_json(nav_groups)
       nav_groups.map do |group|
         {
-          groupLabel: group.group_label,
-          childrenLinks: group.children_links.map do |link|
+          groupLabel: group[:group_label],
+          childrenLinks: group[:children_links].map do |link|
             {
-              linkLabel: link.link_label,
-              linkValue: link.link_value,
-              external: link.external,
-              iconClass: link.icon_class
+              linkLabel: link[:link_label],
+              linkValue: link[:link_value],
+              external: link[:external],
+              iconClass: link[:icon_class]
             }
           end
         }
