@@ -7,6 +7,7 @@ import GeneralPropertiesForm from "./site-properties/general-properties-form";
 import HomepageImagesForms from "./site-properties/homepage-images-forms";
 import FormAccordion from "@/components/ui/forms/form-accordion";
 import SitePagesGeneralForm from "./site-properties/site-pages-general-form";
+import NavGroupsForm from "./site-properties/nav-groups-form";
 
 
 type EditSitePropertiesProps = {
@@ -35,19 +36,17 @@ const SiteProperties = ({ slug }: EditSitePropertiesProps): ReactNode => {
         </FormAccordion>
 
         <FormAccordion header="Edit Homepage Images" id="homepage-image-forms">
-          <HomepageImagesForms slug={slug}/>
+          <HomepageImagesForms slug={slug} />
         </FormAccordion>
 
         <FormAccordion header="Manage Site Pages">
-          <SitePagesGeneralForm slug={slug}/>
+          <SitePagesGeneralForm slug={slug} />
 
-        </FormAccordion>
-
-        {/* <FormAccordion header="Edit Homepage Images">
         </FormAccordion>
 
         <FormAccordion header="Edit Navigation Bar">
-        </FormAccordion> */}
+          <NavGroupsForm slug={slug} />
+        </FormAccordion>
       </Stack>
     </Container>
   )
