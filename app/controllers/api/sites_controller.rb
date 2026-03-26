@@ -3,6 +3,7 @@ class Api::SitesController < Api::BaseController
   before_action :load_subsite, 
     only: [
       :get_site,
+      :get_site_nav_groups,
       :update,
       :update_site_pages,
       :upload_signature_image,
@@ -24,7 +25,55 @@ class Api::SitesController < Api::BaseController
   def get_site
     # render json: { message: 'error'}, status: 400
     # return
+    authorize_action_and_scope :admin, @subsite
+    # Rails.logger.debug 'get site'
+    # Rails.logger.debug @subsite.inspect
+    # Rails.logger.debug 'get site nav links'
+    # Rails.logger.debug @subsite.nav_links.inspect
     render json: { site: site_json(@subsite) }
+  end
+
+  # GET /api/v1/sites/:site_slug/nav_groups
+  # Returns an array of nav group objects, each with an array of nested links
+  # The returned representation differs from how nav_links are stored in the data base:
+  #  - we extract the group number, group label, link order number, and link label
+  #  - we create an ordered array of objects representing the groups
+  #  - each group has an ordered array of links with the actual link data
+  def get_site_nav_groups
+    authorize_action_and_scope :admin, @subsite
+    # Rails.logger.debug '------------------------------------------------'
+    # Rails.logger.debug 'get_site_nav_groups'
+    # Rails.logger.debug @subsite.nav_links.to_a
+    # Rails.logger.debug '------------------------------------------------'
+    # Rails.logger.debug '------------------------------------------------'
+    # Rails.logger.debug '------------------------------------------------'
+    # Rails.logger.debug '------------------------------------------------'
+
+    return_data = []
+    flat_nav_links_array = @subsite.nav_links.to_a
+    flat_nav_links_array.each do |record|
+      group_number, group_label = extract_prefix_and_label record[:sort_group]
+
+      unless return_data[group_number]
+        return_data[group_number] = {
+          group_label: group_label,
+          children_links: []
+        }
+      end
+
+      link_number, link_label = extract_prefix_and_label record[:sort_label]
+      unless return_data[group_number][link_number].nil?
+        raise Error 'Two links in the same group have the same order number--this should not happen!'
+      end
+      return_data[group_number][:children_links][link_number] = {
+        link_label: link_label,
+        link_value: record[:link],
+        external: record[:external],
+        icon_class: record[:icon_class]
+      }
+    end
+
+    render json: { nav_groups: return_data }
   end
 
   # POST /api/v1/sites/:site_slug/signature_images
@@ -82,10 +131,10 @@ class Api::SitesController < Api::BaseController
     # TODO: we should not allow uploading images thru this endpoint, as they are not part of the site model
     banner_upload = update_params.delete('banner')
     watermark_upload = update_params.delete('watermark')
-    Rails.logger.debug 'BANNER' if banner_upload
-    Rails.logger.debug banner_upload if banner_upload
-    Rails.logger.debug 'WATERMARK' if watermark_upload
-    Rails.logger.debug watermark_upload if watermark_upload
+    # Rails.logger.debug 'BANNER' if banner_upload
+    # Rails.logger.debug banner_upload if banner_upload
+    # Rails.logger.debug 'WATERMARK' if watermark_upload
+    # Rails.logger.debug watermark_upload if watermark_upload
 
     Rails.logger.debug "UPDATING SUBSITE..."
     Rails.logger.debug update_params.inspect
@@ -93,6 +142,7 @@ class Api::SitesController < Api::BaseController
     @subsite.update! update_params
     Rails.logger.debug "UPDATED SUBSITE!"
 
+    # TODO: refactor to delete all and then save all...
     if nav_links_attributes.present? || nav_links_attributes == []
       # Delete the nav links if the attribute is present but empty
       if nav_links_attributes == []
@@ -167,6 +217,19 @@ class Api::SitesController < Api::BaseController
       end
     end
 
+    # Captures the numbered prefix and label for a group_label or sort_label with
+    # the format "<2 digit number>:<label text>"
+    # Returns an array:
+    #   return_value[0] : the prefix as an integer
+    #   return_value[1] : the label as a string
+    def extract_prefix_and_label(string)
+      if string =~ /^(\d+)\s*:\s*(.*)$/
+        return [$1.to_i, $2]
+      else
+        raise ArgumentError, "this group or link label has the wrong formatting: #{string}"
+      end
+    end
+
   # create_table "sites", force: :cascade do |t|
   #   t.string "slug", null: false
   #   t.string "title"
@@ -216,5 +279,22 @@ class Api::SitesController < Api::BaseController
         hasWatermarkImage: site.has_watermark_image?,
         updatedAt: site.updated_at,
       }
+    end
+
+    # snake_case to camelCase
+    def nav_groups_json(nav_groups)
+      nav_groups.map do |group|
+        {
+          groupLabel: group.group_label,
+          childrenLinks: group.children_links.map do |link|
+            {
+              linkLabel: link.link_label,
+              linkValue: link.link_value,
+              external: link.external,
+              iconClass: link.icon_class
+            }
+          end
+        }
+      end
     end
 end
