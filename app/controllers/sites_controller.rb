@@ -209,14 +209,17 @@ class SitesController < ApplicationController
   # update sanitized params
   def update
     banner_upload, watermark_upload = extract_file_uploads.values_at(:banner, :watermark)
-    Rails.logger.debug banner_upload
     site_attributes = site_params
     # though Site accepts nested attributes of nav_links for persistence, we want to handle the updates
     # specially (to accommodate the deletion and reordering without recourse to record id)
     nav_links_attributes = site_attributes.delete('nav_links_attributes')
+    Rails.logger.debug 'site_params.delete(nav_links_attributes)'
+    Rails.logger.debug nav_links_attributes.inspect
     begin
       @subsite.update! site_attributes
+      # This is hideous I'm sorry but WHY.
       if nav_links_attributes.present?
+        # update all the nav_links in the subsite model. pop the element off of nav_link_attributes until we have updated each ALREADY defined nav_link on the subsite model
         @subsite.nav_links.each do |nav_link|
           if nav_links_attributes.present?
             # update this available link record
@@ -234,9 +237,7 @@ class SitesController < ApplicationController
         @subsite.nav_links.destroy_all
       end
       if banner_upload
-        Rails.logger.debug "hello"
         BannerUploader.new(@subsite).store!(banner_upload) && @subsite.touch
-        Rails.logger.debug "goodbye"
       end
       if watermark_upload
         WatermarkUploader.new(@subsite).store!(watermark_upload) && @subsite.touch
@@ -365,6 +366,8 @@ class SitesController < ApplicationController
       nav_menus_attributes = params['site'].delete('nav_menus_attributes')
       return unless nav_menus_attributes
       nav_links = []
+      Rails.logger.debug "(unroll nav link params) Raw params['site']['nav_menus_attributes']:"
+      Rails.logger.debug nav_menus_attributes
       nav_menus_attributes.each do |group_index, group_data|
         sort_group = "#{sprintf("%02d", group_index.to_i)}:#{group_data['label']}"
         group_data.fetch('links_attributes', {}).each do |link_index, link_data|
@@ -372,14 +375,16 @@ class SitesController < ApplicationController
           nav_links << {sort_group: sort_group, sort_label: sort_label, link: link_data['link'], external: link_data['external'], icon_class: link_data['icon_class']}
         end
       end
+      Rails.logger.debug 'returns:::'
+      Rails.logger.debug nav_links
       params['site']['nav_links_attributes'] = nav_links
     end
 
     def site_params
-      Rails.logger.debug 'site params'
-      Rails.logger.debug params
-      Rails.logger.debug 'site params[:site][:banner]'
-      Rails.logger.debug params[:site]
+      # Rails.logger.debug 'site params'
+      # Rails.logger.debug params
+      # Rails.logger.debug 'site params[:site][:banner]'
+      # Rails.logger.debug params[:site]
       unroll_nav_link_params
       params.require(:site).permit(:palette, :layout, :show_facets, :alternative_title, :search_type, :editor_uids, :image_uris, :nav_links_attributes,
                                    image_uris: [], nav_links_attributes: [:sort_group, :sort_label, :link, :external, :icon_class])
