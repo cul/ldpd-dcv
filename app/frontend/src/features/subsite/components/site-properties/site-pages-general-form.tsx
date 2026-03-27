@@ -16,6 +16,7 @@ type SitePagesGeneralFormValues = {
 
 const SitePagesGeneralForm = ({ slug }: { slug: string }) => {
   // use staleTime: Infinity to prevent background re-fetches from getting server and component state out of sync
+  // TODO : handle this better
   const pages = usePagesSuspense(slug, { queryConfig: { staleTime: Infinity } });
   const mUpdate = useMUpdateSitePages(slug);
   const initialData: SitePagesGeneralFormValues = useMemo(() => ({
