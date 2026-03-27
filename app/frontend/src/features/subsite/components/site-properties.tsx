@@ -26,7 +26,9 @@ const SiteProperties = ({ slug }: EditSitePropertiesProps): ReactNode => {
       <Container>
         <h2>Edit Site Properties for <span className="text-info">{site.title}</span></h2>
       </Container>
-
+        <FormAccordion header="Edit Navigation Bar">
+          <NavGroupsForm slug={slug} />
+        </FormAccordion>
       <Stack>
         <AboutAccordion header="About Site Properties" body={aboutText} />
 
@@ -44,9 +46,7 @@ const SiteProperties = ({ slug }: EditSitePropertiesProps): ReactNode => {
 
         </FormAccordion>
 
-        <FormAccordion header="Edit Navigation Bar">
-          <NavGroupsForm slug={slug} />
-        </FormAccordion>
+
       </Stack>
     </Container>
   )

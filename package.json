@@ -10,6 +10,8 @@
     "@blueprintjs/core": "^5.3.0",
     "@blueprintjs/icons": "^5.1.6",
     "@columbia-libraries/mirador": "4.0.0-alpha.16-8",
+    "@dnd-kit/helpers": "^0.3.2",
+    "@dnd-kit/react": "^0.3.2",
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
     "@fortawesome/fontawesome-pro": "^6.7.2",

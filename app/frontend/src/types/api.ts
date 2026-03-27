@@ -64,6 +64,20 @@ export interface SitePage {
   updatedAt: string;
 }
 
+
+export type NavGroup = {
+  groupLabel: string;
+  childrenLinks: NavLink[];
+}
+
+export type NavLink = {
+  linkLabel: string;
+  linkValue: string;
+  external: boolean | null;
+  iconClass: string | null;
+}
+
+
 // export type SiteParams = Omit<Site,
 //   'title' |
 //   'slug'>;
