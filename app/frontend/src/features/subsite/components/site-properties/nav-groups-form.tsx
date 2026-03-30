@@ -8,6 +8,7 @@ import { NavGroup } from "@/types/api";
 import SortableNavGroupFormFields from "./nav-groups-forms/sortable-nav-groups-form-fields";
 import { MutationAlerts } from "@/components/ui/forms/mutation-alerts";
 import SaveButton from "@/components/ui/forms/save-button";
+import { useMUpdateSite } from "../../api/update-site";
 
 
 type NavGroupFormValues = {
@@ -18,6 +19,7 @@ const NavGroupsForm = ({ slug }: { slug: string }) => {
   // Do not allow background refresh; always overwrite when submitting
   // TODO : handle this interaction better ...
   const navGroups = useNavGroupsSuspense(slug, { queryConfig: { staleTime: Infinity } });
+  const mutation = useMUpdateSite();
 
   const { register, handleSubmit, control, formState: { isDirty, isSubmitting } } = useForm<NavGroupFormValues>({
     defaultValues: {
@@ -43,6 +45,13 @@ const NavGroupsForm = ({ slug }: { slug: string }) => {
     }
   };
 
+  const submitHandler = (data: NavGroupFormValues) => {
+    mutation.mutate({
+      slug: slug,
+      ...data
+    })
+  }
+
   return (
     <>
     <p>
@@ -50,7 +59,7 @@ const NavGroupsForm = ({ slug }: { slug: string }) => {
       Rearrange the order of the links within a navigation group by dragging and dropping them to sort vertically.
     </p>
     {/* <MutationAlerts /> */}
-    <Form onSubmit={handleSubmit((data)=>console.log(data))}>
+    <Form onSubmit={handleSubmit(submitHandler)}>
       <DragDropProvider 
         onDragEnd={handleDragEnd}
       >
@@ -77,12 +86,10 @@ const NavGroupsForm = ({ slug }: { slug: string }) => {
             </button>
           </Col>
         </Row>
-        <Row>
-          
-          {/* <SaveButton disabled={!isDirty || isSubmitting}>
+        <Row>  
+          <SaveButton disabled={!isDirty || isSubmitting}>
             {isDirty && !isSubmitting && <span className="text-warning fst-italic px-3">(you have unsaved changes)</span>}
-          </SaveButton> */}
-          <Button className='w-25' type="submit">Submit</Button>
+          </SaveButton>
         </Row>
       </DragDropProvider>
     </Form>
