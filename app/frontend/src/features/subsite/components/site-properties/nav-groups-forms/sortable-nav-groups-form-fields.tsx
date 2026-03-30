@@ -76,7 +76,7 @@ const SortableNavGroupFormFields = ({ id, index, register, removeNavGroup, contr
   };
 
   return (
-    <Col xs={5} ref={ref} className="rounded p-3 subtle-light-blue-background" style={{ margin: 5 }}>
+    <Col xs={4} ref={ref} className="rounded p-3 subtle-light-blue-background" style={{ margin: 5 }}>
       <div>
         <Row>
           <Col xs={1} ref={handleRef} style={{ cursor: 'grab' }}>
