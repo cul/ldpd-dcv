@@ -6,6 +6,7 @@ import MainNavBar from "./main-navbar";
 import Footer from "./footer";
 
 import TopBarProgress from "react-topbar-progress-indicator";
+import { Container } from 'react-bootstrap';
 
 TopBarProgress.config({
   barColors: {
@@ -37,13 +38,13 @@ const MainLayout = () => {
         <header className="flex-grow-0 flex-shrink-0">
           <MainNavBar />
         </header>
-        <div className="container-lg my-4 flex-grow-1">
+        <Container fluid className="flex-grow-1">
 
           {/* <FetchingSuspense> */}
             <Outlet />
           {/* </FetchingSuspense> */}
 
-        </div>
+        </Container>
         <footer  className="flex-grow-0 flex-shrink-0 bg-dark-subtle">
           <Footer />
         </footer>
