@@ -103,3 +103,8 @@ export type SitePortraitImageUris = Pick<Site,
   'slug' | // for identification
   'imageUris'
 >;
+
+export type SiteNavGroups = {
+  slug: string;
+  navGroups: NavGroup[]
+}
