@@ -118,9 +118,6 @@ class Api::SitesController < Api::BaseController
   # PATCH /api/v1/sites/:site_slug
   # Mostly taken from SitesController#update
   def update
-    # TODO : do not allow title to be changed
-    # render json: { message: 'error'}, status: 422
-    # return
     Rails.logger.debug 'INSIDE API SITES CONTROLLER UPDATE ACTION'
 
     authorize_action_and_scope(:update, @subsite)
@@ -194,18 +191,27 @@ class Api::SitesController < Api::BaseController
       end
     end
 
+    # This method takes a nested nav_groups object and 'flattens' it into an array
+    # of objects that correspond to the shape of our ActiveRecord nav_links model
     def unroll_nav_link_params
-      nav_menus_attributes = params['site'].delete('nav_menus_attributes')
-      return unless nav_menus_attributes
-      nav_links = []
-      nav_menus_attributes.each do |group_index, group_data|
-        sort_group = "#{sprintf("%02d", group_index.to_i)}:#{group_data['label']}"
-        group_data.fetch('links_attributes', {}).each do |link_index, link_data|
-          sort_label = "#{sprintf("%02d", link_index.to_i)}:#{link_data['label']}"
-          nav_links << {sort_group: sort_group, sort_label: sort_label, link: link_data['link'], external: link_data['external'], icon_class: link_data['icon_class']}
+      nav_groups = params['site'].delete('nav_groups')
+      return unless nav_groups
+      flat_nav_links_array = []
+      nav_groups.each_with_index do |group_data, group_index|
+        sort_group = "#{sprintf("%02d", group_index)}:#{group_data['group_label']}"
+        group_data['children_links'].each_with_index do |link_data, link_index|
+          sort_label = "#{sprintf("%02d", link_index)}:#{link_data['link_label']}"
+          flat_nav_links_array << {
+            sort_group: sort_group,
+            sort_label: sort_label,
+            link: link_data['link_value'],
+            external: link_data['external'],
+            icon_class: link_data['icon_class']
+          }
         end
       end
-      params['site']['nav_links_attributes'] = nav_links
+
+      params['site']['nav_links_attributes'] = flat_nav_links_array
     end
 
     def site_params

@@ -49,34 +49,14 @@ const SortableNavLinkFormFields = ({ id, groupIndex, index, register, remove, hi
           <Form.Control {...register(`navGroups.${groupIndex}.childrenLinks.${index}.linkLabel`)} />
         </Col>
         <Col xs={1} className="d-flex justify-content-end">
-         
-         <ShowHideArrow hidden={hidden} clickHandler={changeHidden} />
-        {/* <div style={{cursor: 'pointer'}}
-          onClick={changeHidden}>
-          {hidden ? 
-            <i className="fa-duotone fa-solid fa-angle-down"></i> :
-            <i className="fa-duotone fa-solid fa-angle-up"></i>
-          }
-        </div> */}
+          <ShowHideArrow hidden={hidden} clickHandler={changeHidden} />
         </Col>
       </Row>
 
       { !hidden && (
         <Stack
           gap={3}
-          className=" my-2 py-2">
-          <Row className=" ps-3">
-            <Button
-              variant="danger"
-              style={{fontSize: '0.85em', width: 'fit-content'}}
-              onClick={() => remove(index)}
-            >
-              Remove Link
-            </Button>
-          </Row>
-          <Row>
-          
-          </Row>
+          className=" my-2 py-1">
           <Row>
             <Col xs={4}>
               <Form.Label>Link Value</Form.Label>
@@ -100,6 +80,16 @@ const SortableNavLinkFormFields = ({ id, groupIndex, index, register, remove, hi
             <Col xs={8}>
               <Form.Control {...register(`navGroups.${groupIndex}.childrenLinks.${index}.iconClass`)} />
             </Col>
+          </Row>
+          <Row className=" ps-2">
+            <Button
+              variant="danger"
+              className="mx-auto"
+              style={{fontSize: '0.85em', width: 'fit-content'}}
+              onClick={() => remove(index)}
+            >
+              Remove Link
+            </Button>
           </Row>
         </Stack>
       )}
