@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { isSortable, useSortable } from "@dnd-kit/react/sortable";
 import { Col, Row, Form, Button } from "react-bootstrap";
-import { Control, useFieldArray, UseFieldArrayRemove, UseFormRegister } from "react-hook-form";
+import { Control, FieldErrors, useFieldArray, UseFieldArrayRemove, UseFormRegister } from "react-hook-form";
 import { RestrictToHorizontalAxis } from '@dnd-kit/abstract/modifiers';
 import { RestrictToWindow } from '@dnd-kit/dom/modifiers';
 import { DragDropProvider } from "@dnd-kit/react";
@@ -12,16 +12,21 @@ import ShowHideArrow from "@/components/ui/show-hide-arrow";
 import { moveArrayElements } from "@/features/subsite/utils";
 
 
+
 type SortableNavGroupElementProps = {
   id: string;
   index: number;
   register: UseFormRegister<NavGroupFormValues>;
   removeNavGroup: UseFieldArrayRemove;
   control: Control<NavGroupFormValues>;
+  errors: FieldErrors<NavGroupFormValues>;
 }
 
-const SortableNavGroupFormFields = ({ id, index, register, removeNavGroup, control }: SortableNavGroupElementProps) => {
+const SortableNavGroupFormFields = (
+  { id, index, register, removeNavGroup, control, errors }: SortableNavGroupElementProps) => {
   const { ref, handleRef } = useSortable({ id, index, modifiers: [RestrictToHorizontalAxis, RestrictToWindow] });
+
+  console.log(errors)
 
   const { fields, move, append, remove } = useFieldArray({
     name: `navGroups.${index}.childrenLinks`,
@@ -56,7 +61,7 @@ const SortableNavGroupFormFields = ({ id, index, register, removeNavGroup, contr
   // By changing the key whenever a drag occurs in the child DragDropProvider, we force
   // react to rerender it so that the UI state (drag state) matches our form state
   const [ dragProviderKey, setDragProviderKey ] = useState(0);
-  const [ isHidden, setIsHidden ] = useState(false);
+  const [ isHidden, setIsHidden ] = useState(true);
   const [ hiddenLinksArray, setHiddenLinksArray ] = useState(Array(fields.length).fill(true));
 
   const handleDragEnd: React.ComponentProps<typeof DragDropProvider>['onDragEnd'] = (event) => {
@@ -76,21 +81,23 @@ const SortableNavGroupFormFields = ({ id, index, register, removeNavGroup, contr
   };
 
   return (
-    <Col xs={4} ref={ref} className="rounded p-3 subtle-light-blue-background" style={{ margin: 5 }}>
+    <Col xs={4} ref={ref} className="rounded p-3 subtle-light-blue-background" style={{ margin: 5, maxWidth: 400}}>
       <div>
-        <Row>
-          <Col xs={1} ref={handleRef} style={{ cursor: 'grab' }}>
+        <div className="d-flex justify-content-between mb-2">
+          <div ref={handleRef} style={{ cursor: 'grab' }}>
             <i className="fa-solid fa-grip-vertical"></i>
             <span className="ps-2 fst-italic text-secondary">#{index+1}</span>
-          </Col>
-          <Col xs={2}>
+          </div>
+          <ShowHideArrow hidden={isHidden} clickHandler={setIsHidden} />
+        </div>
+        <Row>
+          <Col xs={4}>
             <Form.Label>Group Label</Form.Label>
           </Col>
           <Col xs={8}>
             <Form.Control {...register(`navGroups.${index}.groupLabel`)} />
-          </Col>
-          <Col xs={1}>
-            <ShowHideArrow hidden={isHidden} clickHandler={setIsHidden} />
+            {errors && errors.navGroups?.[index]?.groupLabel && <Form.Text className="text-danger">{errors.navGroups[index].groupLabel?.message}</Form.Text>}
+            {errors && errors.navGroups?.[index]?.childrenLinks && <Form.Text className="text-danger">{errors.navGroups[index].childrenLinks?.message}</Form.Text>}
           </Col>
         </Row>
         { !isHidden && <>
@@ -121,7 +128,9 @@ const SortableNavGroupFormFields = ({ id, index, register, removeNavGroup, contr
                 hidden={hiddenLinksArray[linkIndex]}
                 setHiddenLinksArray={setHiddenLinksArray}
                 register={register}
-                remove={() => removeLink(linkIndex)} />
+                remove={() => removeLink(linkIndex)}
+                errors={errors}
+              />  
             ))}
             <button 
               type="button" 

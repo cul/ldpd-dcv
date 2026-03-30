@@ -24,7 +24,7 @@ const SitePagesGeneralForm = ({ slug }: { slug: string }) => {
     }
   ), [slug, pages])
 
-  const { register, handleSubmit, control, reset, formState, formState: { isDirty, isSubmitting, isSubmitSuccessful, errors } } = useForm<SitePagesGeneralFormValues>({
+  const { register, handleSubmit, control, reset, formState, formState: { isDirty, isSubmitting, isSubmitSuccessful } } = useForm<SitePagesGeneralFormValues>({
     values: initialData,
     mode: 'all',
   });
