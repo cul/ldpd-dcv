@@ -1,43 +1,26 @@
+import { useState } from "react";
 import { isSortable, useSortable } from "@dnd-kit/react/sortable";
-import { Col, Row, Form } from "react-bootstrap";
-import { Control, useFieldArray, UseFormRegister } from "react-hook-form";
+import { Col, Row, Form, Button } from "react-bootstrap";
+import { Control, useFieldArray, UseFieldArrayRemove, UseFormRegister } from "react-hook-form";
 import { RestrictToHorizontalAxis } from '@dnd-kit/abstract/modifiers';
 import { RestrictToWindow } from '@dnd-kit/dom/modifiers';
 import { DragDropProvider } from "@dnd-kit/react";
+
 import { NavGroupFormValues } from "../nav-groups-form";
-import { useState } from "react";
 import SortableNavLinkFormFields from "./sortable-nav-link-form-fields";
 import ShowHideArrow from "@/components/ui/show-hide-arrow";
+import { moveArrayElements } from "@/features/subsite/utils";
 
 
 type SortableNavGroupElementProps = {
   id: string;
   index: number;
   register: UseFormRegister<NavGroupFormValues>;
+  removeNavGroup: UseFieldArrayRemove;
   control: Control<NavGroupFormValues>;
 }
 
-
-// Helper to move an element in an array from src index to dst index, shifting
-// the rest of the elements to the right as needed
-// TODO : use splice for this
-const moveArrayElements = (original: boolean[], src: number, dst: number) => {
-  const copy = [...original];
-  const tmp = original[src];
-  if (dst < src) {
-    for (let i = src; i > dst; i--) {
-      copy[i] = original[i-1]
-    }
-  } else {
-    for (let i = src; i < dst; i++) {
-      copy[i] = original[i+1]
-    }
-  }
-  copy[dst] = tmp;
-  return copy;
-}
-
-const SortableNavGroupFormFields = ({ id, index, register, control }: SortableNavGroupElementProps) => {
+const SortableNavGroupFormFields = ({ id, index, register, removeNavGroup, control }: SortableNavGroupElementProps) => {
   const { ref, handleRef } = useSortable({ id, index, modifiers: [RestrictToHorizontalAxis, RestrictToWindow] });
 
   const { fields, move, append, remove } = useFieldArray({
@@ -73,10 +56,8 @@ const SortableNavGroupFormFields = ({ id, index, register, control }: SortableNa
   // By changing the key whenever a drag occurs in the child DragDropProvider, we force
   // react to rerender it so that the UI state (drag state) matches our form state
   const [ dragProviderKey, setDragProviderKey ] = useState(0);
-  const [ hidden, setHidden ] = useState(false);
-  const [ hiddenLinksArray, setHiddenLinksArray ] = useState(Array(fields.length).fill(false));
-  console.log(`FOR NAV GROUP ${index}, OUR hidden array is:`)
-  console.log(hiddenLinksArray);
+  const [ isHidden, setIsHidden ] = useState(false);
+  const [ hiddenLinksArray, setHiddenLinksArray ] = useState(Array(fields.length).fill(true));
 
   const handleDragEnd: React.ComponentProps<typeof DragDropProvider>['onDragEnd'] = (event) => {
     // https://github.com/clauderic/dnd-kit/issues/1564
@@ -96,20 +77,37 @@ const SortableNavGroupFormFields = ({ id, index, register, control }: SortableNa
 
   return (
     <Col xs={5} ref={ref} className="rounded p-3 subtle-light-blue-background" style={{ margin: 5 }}>
-      <Row>
-        <Col xs={1} ref={handleRef} style={{ cursor: 'grab' }}><i className="fa-solid fa-grip-vertical"></i></Col>
-        <Col xs={2}>
-          <Form.Label>Group Label</Form.Label>
-        </Col>
-        <Col xs={8}>
-          <Form.Control {...register(`navGroups.${index}.groupLabel`)} />
-        </Col>
-        <Col xs={1}>
-          <ShowHideArrow hidden={hidden} clickHandler={setHidden} />
-        </Col>
-      </Row>
-
-        <Row className="overflow-auto" style={{ maxHeight: '50vh', display: hidden ? 'none' : undefined  }} >
+      <div>
+        <Row>
+          <Col xs={1} ref={handleRef} style={{ cursor: 'grab' }}>
+            <i className="fa-solid fa-grip-vertical"></i>
+            <span className="ps-2 fst-italic text-secondary">#{index+1}</span>
+          </Col>
+          <Col xs={2}>
+            <Form.Label>Group Label</Form.Label>
+          </Col>
+          <Col xs={8}>
+            <Form.Control {...register(`navGroups.${index}.groupLabel`)} />
+          </Col>
+          <Col xs={1}>
+            <ShowHideArrow hidden={isHidden} clickHandler={setIsHidden} />
+          </Col>
+        </Row>
+        { !isHidden && <>
+          <Row>
+            <Button 
+              className="mx-auto mt-3 mb-1"
+              variant='danger' 
+              style={{ fontSize: '.85em', width: 'fit-content'}}
+              onClick={() => removeNavGroup(index)}
+              >
+              Remove Nav Group
+            </Button>
+          </Row>
+          <hr className="my-2 mx-auto w-75 text-primary"/>
+        </>}
+      </div>
+        <Row className="overflow-auto" style={{ maxHeight: '50vh', display: isHidden ? 'none' : undefined  }} >
           <DragDropProvider
             key={dragProviderKey}
             onDragEnd={handleDragEnd}

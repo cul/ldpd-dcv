@@ -1,6 +1,5 @@
 import { useSortable } from "@dnd-kit/react/sortable";
-import { useEffect, useState } from "react";
-import { Col, Row, Form, Stack } from "react-bootstrap";
+import { Col, Row, Form, Stack, Button } from "react-bootstrap";
 import { UseFieldArrayRemove, UseFormRegister } from "react-hook-form";
 import { RestrictToWindow } from '@dnd-kit/dom/modifiers';
 import { RestrictToVerticalAxis } from '@dnd-kit/abstract/modifiers';
@@ -34,7 +33,7 @@ const SortableNavLinkFormFields = ({ id, groupIndex, index, register, remove, hi
     <div
       ref={ref} 
       key={'group-'+groupIndex+'link-'+index} 
-      className={`${index % 2 === 0 ? 'subtle-light-grey-background' : 'bg-primary-subtle'} rounded my-2 py-2`}>
+      className="subtle-light-grey-background rounded my-2 py-2">
 
       <Row className="justify-content-between align-items-center mb-4">
         <Col xs={1}>
@@ -67,13 +66,13 @@ const SortableNavLinkFormFields = ({ id, groupIndex, index, register, remove, hi
           gap={3}
           className=" my-2 py-2">
           <Row className=" ps-3">
-            <button
-              type="button"
-              className="btn btn-danger" style={{fontSize: '0.85em', width: 'fit-content'}}
+            <Button
+              variant="danger"
+              style={{fontSize: '0.85em', width: 'fit-content'}}
               onClick={() => remove(index)}
             >
               Remove Link
-            </button>
+            </Button>
           </Row>
           <Row>
           
