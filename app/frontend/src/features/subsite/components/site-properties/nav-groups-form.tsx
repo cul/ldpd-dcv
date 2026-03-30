@@ -1,13 +1,13 @@
 import { useNavGroupsSuspense } from "../../api/get-nav-groups";
 import { DragDropProvider } from '@dnd-kit/react';
 import { isSortable } from '@dnd-kit/dom/sortable';
-import { useSortable } from '@dnd-kit/react/sortable';
-import { useForm, useFieldArray, type UseFormRegister, type Control } from "react-hook-form";
+import { useForm, useFieldArray } from "react-hook-form";
 import { Button, Col, Form, Row } from "react-bootstrap";
 
 import { NavGroup } from "@/types/api";
 import SortableNavGroupFormFields from "./nav-groups-forms/sortable-nav-groups-form-fields";
-import { AutoScroller } from "@dnd-kit/dom";
+import { MutationAlerts } from "@/components/ui/forms/mutation-alerts";
+import SaveButton from "@/components/ui/forms/save-button";
 
 
 type NavGroupFormValues = {
@@ -22,7 +22,7 @@ const NavGroupsForm = ({ slug }: { slug: string }) => {
   console.log('initial navGroups data:')
   console.log(navGroups)
 
-  const { register, handleSubmit, control } = useForm<NavGroupFormValues>({
+  const { register, handleSubmit, control, formState: { isDirty, isSubmitting } } = useForm<NavGroupFormValues>({
     defaultValues: {
       navGroups: navGroups,
     },
@@ -47,6 +47,12 @@ const NavGroupsForm = ({ slug }: { slug: string }) => {
   };
 
   return (
+    <>
+    <p>
+      Here you can manage the navigation groups and links for your subsite. Rearrange the display order of Navigation Groups by dragging and dropping the elements to sort horizontally.
+      Rearrange the order of the links within a navigation group by dragging and dropping them to sort vertically.
+    </p>
+    {/* <MutationAlerts /> */}
     <Form onSubmit={handleSubmit((data)=>console.log(data))}>
       <DragDropProvider 
         onDragEnd={handleDragEnd}
@@ -74,10 +80,15 @@ const NavGroupsForm = ({ slug }: { slug: string }) => {
           </Col>
         </Row>
         <Row>
+          
+          {/* <SaveButton disabled={!isDirty || isSubmitting}>
+            {isDirty && !isSubmitting && <span className="text-warning fst-italic px-3">(you have unsaved changes)</span>}
+          </SaveButton> */}
           <Button className='w-25' type="submit">Submit</Button>
         </Row>
       </DragDropProvider>
     </Form>
+    </>
   );
 }
 

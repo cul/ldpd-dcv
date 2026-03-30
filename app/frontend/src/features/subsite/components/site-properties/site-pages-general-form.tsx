@@ -67,7 +67,7 @@ const SitePagesGeneralForm = ({ slug }: { slug: string }) => {
           </Row>
           {fields.map((field, index) => {
             return (
-              <div key={field.id} className={`p-3 rounded ${index % 2 === 0 ? 'subtle-light-background' : ''}`}>
+              <div key={field.id} className={`p-3 rounded ${index % 2 === 0 ? 'subtle-light-blue-background' : ''}`}>
                 <Row key={field.id}>
                   <Col xs={3} md={3} className="text-end pe-3 pt-2">
                     <span className="text-muted">/{field.pageSlug}</span>
