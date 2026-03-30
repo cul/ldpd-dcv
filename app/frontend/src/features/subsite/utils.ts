@@ -22,3 +22,23 @@ export const sitePropertiesTooltipMessage = (fieldName: string) => {
   if (fieldName in TooltipFieldMessageHash) return ''
   return TooltipFieldMessageHash.get(fieldName);
 }
+
+// Helper to move an element in an array from src index to dst index, shifting
+// the rest of the elements to the right as needed
+// TODO : use splice for this
+export const moveArrayElements = (original: boolean[], src: number, dst: number) => {
+  const copy = [...original];
+  const tmp = original[src];
+  if (dst < src) {
+    for (let i = src; i > dst; i--) {
+      copy[i] = original[i-1]
+    }
+  } else {
+    for (let i = src; i < dst; i++) {
+      copy[i] = original[i+1]
+    }
+  }
+  copy[dst] = tmp;
+  return copy;
+}
+
