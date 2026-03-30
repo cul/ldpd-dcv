@@ -16,11 +16,8 @@ type NavGroupFormValues = {
 
 const NavGroupsForm = ({ slug }: { slug: string }) => {
   // Do not allow background refresh; always overwrite when submitting
-  // TODO : handle this better ...
+  // TODO : handle this interaction better ...
   const navGroups = useNavGroupsSuspense(slug, { queryConfig: { staleTime: Infinity } });
-
-  console.log('initial navGroups data:')
-  console.log(navGroups)
 
   const { register, handleSubmit, control, formState: { isDirty, isSubmitting } } = useForm<NavGroupFormValues>({
     defaultValues: {
@@ -64,6 +61,7 @@ const NavGroupsForm = ({ slug }: { slug: string }) => {
               id={field.id}
               index={index}
               register={register}
+              removeNavGroup={remove}
               control={control}
             />
           ))}
