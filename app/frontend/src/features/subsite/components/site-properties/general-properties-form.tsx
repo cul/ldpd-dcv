@@ -68,7 +68,9 @@ const GeneralPropertiesForm = ( { slug}: {slug: string} ) => {
             <Form.Label>Alternative Title:</Form.Label>
           </Col>
           <Col xs={10}>
-            <Form.Control {...register('alternativeTitle')} placeholder="Alternative Title" />
+            <Form.Control {...register('alternativeTitle', {
+              setValueAs: (value: string) => value.trim(),
+            })} placeholder="Alternative Title" />
             <Form.Text className="px-2">Setting an alternative title is optional.</Form.Text>
           </Col>
         </Form.Group>
