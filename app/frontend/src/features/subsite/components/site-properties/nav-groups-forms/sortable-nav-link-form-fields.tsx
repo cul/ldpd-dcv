@@ -6,6 +6,8 @@ import { RestrictToVerticalAxis } from '@dnd-kit/abstract/modifiers';
 
 import { NavGroupFormValues } from "../nav-groups-form";
 import ShowHideArrow from "@/components/ui/show-hide-arrow";
+import InfoTooltip from "@/components/ui/forms/info-tooltip";
+import { sitePropertiesTooltipMessage } from "@/features/subsite/utils";
 
 
 type SortableNavLinkElementProps = {
@@ -31,6 +33,8 @@ const SortableNavLinkFormFields = (
     })
   }
 
+  const toolTipStyles = { fontSize: '.7em'};
+
   return (
     <div
       ref={ref} 
@@ -47,6 +51,8 @@ const SortableNavLinkFormFields = (
       </div>
       <Row>
         <Col xs={5}>
+          <InfoTooltip fieldName='linkLabel' lookupFn={sitePropertiesTooltipMessage} 
+            style={toolTipStyles}/>
           <Form.Label>Link Label:</Form.Label>
         </Col>
         <Col xs={7}>
@@ -62,6 +68,8 @@ const SortableNavLinkFormFields = (
           className=" my-2 py-1">
           <Row>
             <Col xs={5}>
+              <InfoTooltip fieldName='linkValue' lookupFn={sitePropertiesTooltipMessage}
+                style={toolTipStyles}/>
               <Form.Label>Link Value:</Form.Label>
             </Col>
             <Col xs={7}>
@@ -72,6 +80,8 @@ const SortableNavLinkFormFields = (
           </Row>
           <Row>
             <Col xs={5}>
+              <InfoTooltip fieldName='external' lookupFn={sitePropertiesTooltipMessage} 
+                style={toolTipStyles}/>
               <Form.Label>External Link?:</Form.Label>
             </Col>
             <Col xs={7} className="">
@@ -80,6 +90,8 @@ const SortableNavLinkFormFields = (
           </Row>
           <Row>
             <Col xs={5}>
+              <InfoTooltip fieldName='iconClass' lookupFn={sitePropertiesTooltipMessage} 
+                style={toolTipStyles}/>
               <Form.Label>Icon Class (optional):</Form.Label>
             </Col>
             <Col xs={7}>

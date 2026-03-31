@@ -9,7 +9,8 @@ import { DragDropProvider } from "@dnd-kit/react";
 import { NavGroupFormValues } from "../nav-groups-form";
 import SortableNavLinkFormFields from "./sortable-nav-link-form-fields";
 import ShowHideArrow from "@/components/ui/show-hide-arrow";
-import { moveArrayElements } from "@/features/subsite/utils";
+import { moveArrayElements, sitePropertiesTooltipMessage } from "@/features/subsite/utils";
+import InfoTooltip from "@/components/ui/forms/info-tooltip";
 
 
 type SortableNavGroupElementProps = {
@@ -88,7 +89,9 @@ const SortableNavGroupFormFields = (
           <ShowHideArrow hidden={isHidden} clickHandler={setIsHidden} />
         </div>
         <Row>
-          <Col xs={4}>
+          <Col xs={4} style={{ position: 'relative' }}>
+            <InfoTooltip fieldName='groupLabel' lookupFn={sitePropertiesTooltipMessage} 
+              style={{ position: 'absolute', left: '-0.5rem', top: '20%', transform: 'translateY(-50%)', fontSize: '.7em' }}/>
             <Form.Label>Group Label:</Form.Label>
           </Col>
           <Col xs={8}>
@@ -111,7 +114,7 @@ const SortableNavGroupFormFields = (
           <hr className="my-2 mx-auto w-75 text-primary"/>
         </>}
       </div>
-        <Row className="overflow-auto" style={{ maxHeight: '50vh', display: isHidden ? 'none' : undefined  }} >
+        <Row className="overflow-auto" style={{ maxHeight: '75vh', display: isHidden ? 'none' : undefined  }} >
           <DragDropProvider
             key={dragProviderKey}
             onDragEnd={handleDragEnd}

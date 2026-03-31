@@ -18,13 +18,13 @@ type PortraitLayoutImageFormProps = {
 }
 
 const PortraitLayoutImagesForm = ({ slug }: PortraitLayoutImageFormProps) => {
-  const mutation = useMUpdateSite();
   const site = useSiteSuspense(slug);
+  const mutation = useMUpdateSite();
   const initialData: PortraitLayoutImageFormValues = useMemo(() => ({
     imageUris: site.imageUris.map((pid) => ({ value: pid }))
   }), [site]);
 
-  const { register, handleSubmit, control, reset, formState, formState: { isDirty, isSubmitSuccessful } } = useForm<PortraitLayoutImageFormValues>({
+  const { register, handleSubmit, control, reset, formState: { isDirty, isSubmitting, isSubmitSuccessful } } = useForm<PortraitLayoutImageFormValues>({
     values: initialData,
     mode: 'all',
     disabled: mutation.status === 'pending',
@@ -38,7 +38,7 @@ const PortraitLayoutImagesForm = ({ slug }: PortraitLayoutImageFormProps) => {
   useEffect(() => {
     if (!isSubmitSuccessful) return;
     reset(initialData);
-  }, [formState, initialData, isSubmitSuccessful, reset])
+  }, [initialData, isSubmitSuccessful, reset])
 
   const submitHandler = (data: PortraitLayoutImageFormValues) => {
     const reqBody: SitePortraitImageUris  = {
@@ -75,7 +75,7 @@ const PortraitLayoutImagesForm = ({ slug }: PortraitLayoutImageFormProps) => {
           className='w-25 btn btn-success'
         >Add a new image PID</Button>
 
-        <SaveButton isDirty={isDirty} updatedAt={site.updatedAt} disabled={mutation.status === 'pending'}/>
+        <SaveButton isDirty={isDirty} updatedAt={site.updatedAt} isSubmitting={isSubmitting || mutation.isPending} />
 
       </Stack>
     </Form>

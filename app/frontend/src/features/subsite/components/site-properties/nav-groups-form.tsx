@@ -33,7 +33,7 @@ type NavGroupFormValues = {
   navGroups: NavGroup[];
 }
 
-const NavGroupsForm = ({ slug }: { slug: string }) => {
+const NavGroupsForm = ({ slug, updatedAt }: { slug: string, updatedAt: string }) => {
   // Do not allow background refresh; always overwrite when submitting
   // TODO : handle this interaction better ...
   const navGroups = useNavGroupsSuspense(slug, { queryConfig: { staleTime: Infinity } });
@@ -114,9 +114,11 @@ const NavGroupsForm = ({ slug }: { slug: string }) => {
           </Col>
         </Row>
         <Row className="mt-3">  
-          <SaveButton disabled={!isDirty || isSubmitting}>
-            {isDirty && !isSubmitting && <span className="text-warning fst-italic px-3">(you have unsaved changes)</span>}
-          </SaveButton>
+          <SaveButton 
+            isDirty={isDirty} 
+            updatedAt={updatedAt} 
+            isSubmitting={isSubmitting}
+          />
         </Row>
       </DragDropProvider>
     </Form>
