@@ -35,25 +35,24 @@ const SortableNavLinkFormFields = (
     <div
       ref={ref} 
       key={'group-'+groupIndex+'link-'+index} 
-      className="subtle-light-grey-background rounded my-2 py-2">
+      className="subtle-light-grey-background rounded my-2 py-2"
+    >
 
-      <Row className="justify-content-between align-items-center mb-4">
-        <Col xs={1}>
-          <div ref={handleRef} className="d-flex flex-column align-items-start" style={{ cursor: 'grab', width: 'fit-content' }}>
-            <i className="fa-solid fa-grip"></i>
-            <span className="fst-italic text-secondary">#{index+1}</span>
-          </div>
-        </Col> 
-        <Col xs={2}>
-          <Form.Label>Link Label</Form.Label>
+      <div className="d-flex justify-content-between mb-2">
+        <div ref={handleRef} className="d-flex flex-column align-items-start" style={{ cursor: 'grab', width: 'fit-content' }}>
+          <i className="fa-solid fa-grip"></i>
+          <span className="fst-italic text-secondary">#{index+1}</span>
+        </div>
+        <ShowHideArrow hidden={hidden} clickHandler={changeHidden} />
+      </div>
+      <Row>
+        <Col xs={5}>
+          <Form.Label>Link Label:</Form.Label>
         </Col>
-        <Col xs={8}>
+        <Col xs={7}>
           <Form.Control {...register(`navGroups.${groupIndex}.childrenLinks.${index}.linkLabel`)} />
           {errors && errors.navGroups?.[groupIndex]?.childrenLinks?.[index]?.linkLabel && 
             <Form.Text className="text-danger">{errors.navGroups[groupIndex].childrenLinks[index].linkLabel?.message}</Form.Text>}
-        </Col>
-        <Col xs={1} className="d-flex justify-content-end">
-          <ShowHideArrow hidden={hidden} clickHandler={changeHidden} />
         </Col>
       </Row>
 
@@ -62,28 +61,28 @@ const SortableNavLinkFormFields = (
           gap={3}
           className=" my-2 py-1">
           <Row>
-            <Col xs={4}>
-              <Form.Label>Link Value</Form.Label>
+            <Col xs={5}>
+              <Form.Label>Link Value:</Form.Label>
             </Col>
-            <Col xs={8}>
+            <Col xs={7}>
               <Form.Control {...register(`navGroups.${groupIndex}.childrenLinks.${index}.linkValue`)} />
               {errors && errors.navGroups?.[groupIndex]?.childrenLinks?.[index]?.linkValue && 
                 <Form.Text className="text-danger">{errors.navGroups[groupIndex].childrenLinks[index].linkValue?.message}</Form.Text>}
             </Col>
           </Row>
           <Row>
-            <Col xs={4}>
-              <Form.Label>External Link?</Form.Label>
+            <Col xs={5}>
+              <Form.Label>External Link?:</Form.Label>
             </Col>
-            <Col xs={8} className="">
+            <Col xs={7} className="">
               <Form.Check {...register(`navGroups.${groupIndex}.childrenLinks.${index}.external`)} />
             </Col>
           </Row>
           <Row>
-            <Col xs={4}>
-              <Form.Label>Icon Class (optional)</Form.Label>
+            <Col xs={5}>
+              <Form.Label>Icon Class (optional):</Form.Label>
             </Col>
-            <Col xs={8}>
+            <Col xs={7}>
               <Form.Control {...register(`navGroups.${groupIndex}.childrenLinks.${index}.iconClass`)} />
               {errors && errors.navGroups?.[groupIndex]?.childrenLinks?.[index]?.iconClass && 
                 <Form.Text className="text-danger">{errors.navGroups[groupIndex].childrenLinks[index].iconClass?.message}</Form.Text>}
