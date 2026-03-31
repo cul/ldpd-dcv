@@ -100,7 +100,7 @@ const SortableNavLinkFormFields = (
             </Col>
             <Col xs={7}>
               <Form.Control {...register(`navGroups.${groupIndex}.childrenLinks.${index}.iconClass`, {
-                setValueAs: (value: string) => value.trim(),
+                setValueAs: (value: string | undefined) => value?.trim(),
               })} placeholder="(Optional) Icon Class" />
               {errors && errors.navGroups?.[groupIndex]?.childrenLinks?.[index]?.iconClass && 
                 <Form.Text className="text-danger">{errors.navGroups[groupIndex].childrenLinks[index].iconClass?.message}</Form.Text>}
