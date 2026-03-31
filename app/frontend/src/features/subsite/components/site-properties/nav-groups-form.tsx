@@ -2,7 +2,7 @@ import { useNavGroupsSuspense } from "../../api/get-nav-groups";
 import { DragDropProvider } from '@dnd-kit/react';
 import { isSortable } from '@dnd-kit/dom/sortable';
 import { useForm, useFieldArray } from "react-hook-form";
-import { Button, Col, Form, Row } from "react-bootstrap";
+import { Col, Form, Row } from "react-bootstrap";
 import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
