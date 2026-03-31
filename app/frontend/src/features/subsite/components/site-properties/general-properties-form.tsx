@@ -2,7 +2,7 @@ import { Col, Form, Row, Stack } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from 'zod';
+import z from 'zod';
 
 import { useMUpdateSite } from '../../api/update-site';
 import { getSiteGeneralProperties, sitePropertiesTooltipMessage } from '../../utils';
@@ -26,15 +26,15 @@ const schema = z.object({
 const GeneralPropertiesForm = ( { slug}: {slug: string} ) => {
   const mutation = useMUpdateSite();
   const site = useSiteSuspense(slug);
-  const siteGeneralProperties = getSiteGeneralProperties(site);
+  const initialData = getSiteGeneralProperties(site);
   const submitHandler = (data: SiteGeneralProperties) => mutation.mutate(data);
   
   const {
     register,
     handleSubmit,
-    formState: { errors, isDirty }
+    formState: { errors, isDirty, isSubmitting }
   } = useForm<SiteGeneralProperties>({
-    defaultValues: siteGeneralProperties,
+    values: initialData,
     resolver: zodResolver(schema),
     mode: 'all',
     disabled: mutation.status === 'pending', // disable form until PATCH action is complete
@@ -135,9 +135,11 @@ const GeneralPropertiesForm = ( { slug}: {slug: string} ) => {
           </Col>
         </Form.Group>
 
-        <div>
-          <SaveButton isDirty={isDirty} updatedAt={site.updatedAt} />
-        </div>
+        <SaveButton 
+          isDirty={isDirty} 
+          updatedAt={site.updatedAt} 
+          isSubmitting={isSubmitting}
+        />
 
       </Stack>
     </Form>

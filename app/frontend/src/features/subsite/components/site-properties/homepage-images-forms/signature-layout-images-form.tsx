@@ -1,13 +1,14 @@
-import { useSiteSuspense } from "@/features/subsite/api/get-site";
+import { useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { Button, Form, Stack, Alert } from "react-bootstrap";
 import { useForm } from "react-hook-form";
+import z from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+import { useSiteSuspense } from "@/features/subsite/api/get-site";
 import ImageUploadPreview from "./image-upload-preview";
 import SaveButton from "@/components/ui/forms/save-button";
 import { api } from "@/lib/api-client";
-import { useState } from "react";
-import z from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
 
 
 const schema = z.object({
@@ -51,11 +52,13 @@ const SignatureLayoutImagesForm = ({ slug }: {slug: string}) => {
   // - validation error (422): display a descriptive error
   // - anything else: render an enclosing error boundary.
   const submitHandler = async (data: FormInput) => {
-    const formData = new FormData();
-    if (data?.banner?.[0]) formData.append('site[banner]', data.banner[0]);
-    if (data?.watermark?.[0]) formData.append('site[watermark]', data.watermark[0]);
-
     try {
+      const formData = new FormData();
+
+      if (data?.banner?.length === 0 && data?.watermark?.length === 0) throw Error("You have not uploaded any images.");
+      if (data?.banner?.[0]) formData.append('site[banner]', data.banner[0]);
+      if (data?.watermark?.[0]) formData.append('site[watermark]', data.watermark[0]);
+
       await api.patchRaw(`/sites/${site.slug}`, formData);
       setSubmissionAlert({ isError: false, msg: 'Your image has been uploaded and saved.'})
       setShowAlert(true);
@@ -70,7 +73,7 @@ const SignatureLayoutImagesForm = ({ slug }: {slug: string}) => {
     }
   }
 
-  const { register, handleSubmit, formState: { errors, isSubmitting }} = useForm<FormInput>({
+  const { register, handleSubmit, formState: { errors }} = useForm<FormInput>({
     resolver: zodResolver(schema)
   });
 
@@ -126,7 +129,8 @@ const SignatureLayoutImagesForm = ({ slug }: {slug: string}) => {
           {errors && errors.watermark && <Form.Text className="text-danger">{errors.watermark.message}</Form.Text>}
           {site.hasWatermarkImage && <Button variant='danger' onClick={deleteWatermarkHandler}>Delete Watermark Image (and use default)</Button>}
         </Form.Group>
-        <SaveButton disabled={isSubmitting} />
+        {/* We can't rely on isDirty for enabling/disabling the form, so this button will always be enabled */}
+        <SaveButton updatedAt={site.updatedAt} />
       </Stack>
     </Form>
     </>

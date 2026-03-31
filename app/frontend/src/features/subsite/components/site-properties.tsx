@@ -44,7 +44,7 @@ const SiteProperties = ({ slug }: EditSitePropertiesProps): ReactNode => {
         </FormAccordion>
 
         <FormAccordion header="Edit Navigation Bar">
-          <NavGroupsForm slug={slug} />
+          <NavGroupsForm slug={slug} updatedAt={site.updatedAt} />
         </FormAccordion>
 
       </Stack>
