@@ -56,7 +56,9 @@ const SortableNavLinkFormFields = (
           <Form.Label>Link Label:</Form.Label>
         </Col>
         <Col xs={7}>
-          <Form.Control {...register(`navGroups.${groupIndex}.childrenLinks.${index}.linkLabel`)} />
+          <Form.Control {...register(`navGroups.${groupIndex}.childrenLinks.${index}.linkLabel`, {
+            setValueAs: (value: string) => value.trim(),
+          })} placeholder="Link Label" />
           {errors && errors.navGroups?.[groupIndex]?.childrenLinks?.[index]?.linkLabel && 
             <Form.Text className="text-danger">{errors.navGroups[groupIndex].childrenLinks[index].linkLabel?.message}</Form.Text>}
         </Col>
@@ -73,7 +75,9 @@ const SortableNavLinkFormFields = (
               <Form.Label>Link Value:</Form.Label>
             </Col>
             <Col xs={7}>
-              <Form.Control {...register(`navGroups.${groupIndex}.childrenLinks.${index}.linkValue`)} />
+              <Form.Control {...register(`navGroups.${groupIndex}.childrenLinks.${index}.linkValue`, {
+                setValueAs: (value: string) => value.trim(),
+              })} placeholder="Link Value" />
               {errors && errors.navGroups?.[groupIndex]?.childrenLinks?.[index]?.linkValue && 
                 <Form.Text className="text-danger">{errors.navGroups[groupIndex].childrenLinks[index].linkValue?.message}</Form.Text>}
             </Col>
@@ -95,7 +99,9 @@ const SortableNavLinkFormFields = (
               <Form.Label>Icon Class (optional):</Form.Label>
             </Col>
             <Col xs={7}>
-              <Form.Control {...register(`navGroups.${groupIndex}.childrenLinks.${index}.iconClass`)} />
+              <Form.Control {...register(`navGroups.${groupIndex}.childrenLinks.${index}.iconClass`, {
+                setValueAs: (value: string) => value.trim(),
+              })} placeholder="(Optional) Icon Class" />
               {errors && errors.navGroups?.[groupIndex]?.childrenLinks?.[index]?.iconClass && 
                 <Form.Text className="text-danger">{errors.navGroups[groupIndex].childrenLinks[index].iconClass?.message}</Form.Text>}
             </Col>
