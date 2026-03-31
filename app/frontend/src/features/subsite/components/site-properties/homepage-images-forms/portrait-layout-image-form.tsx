@@ -1,3 +1,4 @@
+import { useEffect, useMemo } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 import { Button, Col, Form, Row, Stack } from "react-bootstrap";
 
@@ -19,18 +20,25 @@ type PortraitLayoutImageFormProps = {
 const PortraitLayoutImagesForm = ({ slug }: PortraitLayoutImageFormProps) => {
   const mutation = useMUpdateSite();
   const site = useSiteSuspense(slug);
-  const initialData: PortraitLayoutImageFormValues = { imageUris: [] };
-  site.imageUris.forEach((pid) => initialData.imageUris.push({ value: pid}) );
+  const initialData: PortraitLayoutImageFormValues = useMemo(() => ({
+    imageUris: site.imageUris.map((pid) => ({ value: pid }))
+  }), [site]);
 
-  const { register, handleSubmit, control, formState: { isDirty } } = useForm<PortraitLayoutImageFormValues>({
-    defaultValues: initialData,
+  const { register, handleSubmit, control, reset, formState, formState: { isDirty, isSubmitSuccessful } } = useForm<PortraitLayoutImageFormValues>({
+    values: initialData,
     mode: 'all',
     disabled: mutation.status === 'pending',
   });
+
   const { fields, append, remove} = useFieldArray({
     name: 'imageUris',
     control,
   });
+
+  useEffect(() => {
+    if (!isSubmitSuccessful) return;
+    reset(initialData);
+  }, [formState, initialData, isSubmitSuccessful, reset])
 
   const submitHandler = (data: PortraitLayoutImageFormValues) => {
     const reqBody: SitePortraitImageUris  = {
