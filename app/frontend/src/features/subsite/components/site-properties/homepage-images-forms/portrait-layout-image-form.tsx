@@ -61,7 +61,9 @@ const PortraitLayoutImagesForm = ({ slug }: PortraitLayoutImageFormProps) => {
         {fields.map((field, index) => (
           <Row key={field.id}>
             <Col xs={10}>
-              <Form.Control {...register(`imageUris.${index}.value` as const)} />
+              <Form.Control {...register(`imageUris.${index}.value` as const, {
+                setValueAs: (value: string) => value.trim(),
+              })} />
             </Col>
             <Col xs={2}>
 

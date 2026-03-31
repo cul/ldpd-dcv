@@ -73,7 +73,9 @@ const SitePagesGeneralForm = ({ slug }: { slug: string }) => {
                     <span className="text-muted">/{field.pageSlug}</span>
                   </Col>
                   <Col xs={3} md={4}>
-                    <Form.Control {...register(`pages.${index}.title` as const)} placeholder="Page title" />
+                    <Form.Control {...register(`pages.${index}.title` as const, {
+                      setValueAs: (value: string) => value.trim(),
+                    })} placeholder="Page title" />
                   </Col>
                   <Col xs={3} md={3}>
                     <Button

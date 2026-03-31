@@ -31,6 +31,15 @@ const SortableNavGroupFormFields = (
     control
   })
 
+  // Idea from: https://coreui.io/blog/how-to-force-a-react-component-to-re-render/
+  // There was a bug where the child DragDropProviders's state change was not triggering a rerender
+  // when the form's state changed with useFieldArray's move().
+  // By changing the key whenever a drag occurs in the child DragDropProvider, we force
+  // react to rerender it so that the UI state (drag state) matches our form state
+  const [ dragProviderKey, setDragProviderKey ] = useState(0);
+  const [ isHidden, setIsHidden ] = useState(true);
+  const [ hiddenLinksArray, setHiddenLinksArray ] = useState(Array(fields.length).fill(true));
+
   // When we append a new link, we also need to update our hiddenLink state array
   const appendNewLink = () => {
     append({
@@ -52,15 +61,6 @@ const SortableNavGroupFormFields = (
       return newArray;
     });
   }
-
-  // Idea from: https://coreui.io/blog/how-to-force-a-react-component-to-re-render/
-  // There was a bug where the child DragDropProviders's state change was not triggering a rerender
-  // when the form's state changed with useFieldArray's move().
-  // By changing the key whenever a drag occurs in the child DragDropProvider, we force
-  // react to rerender it so that the UI state (drag state) matches our form state
-  const [ dragProviderKey, setDragProviderKey ] = useState(0);
-  const [ isHidden, setIsHidden ] = useState(true);
-  const [ hiddenLinksArray, setHiddenLinksArray ] = useState(Array(fields.length).fill(true));
 
   const handleDragEnd: React.ComponentProps<typeof DragDropProvider>['onDragEnd'] = (event) => {
     // https://github.com/clauderic/dnd-kit/issues/1564
@@ -95,7 +95,9 @@ const SortableNavGroupFormFields = (
             <Form.Label>Group Label:</Form.Label>
           </Col>
           <Col xs={8}>
-            <Form.Control {...register(`navGroups.${index}.groupLabel`)} />
+            <Form.Control {...register(`navGroups.${index}.groupLabel`, {
+              setValueAs: (value: string) => value.trim(),
+            })} placeholder="Group Label" />
             {errors && errors.navGroups?.[index]?.groupLabel && <p><Form.Text className="text-danger">{errors.navGroups[index].groupLabel?.message}</Form.Text></p>}
             {errors && errors.navGroups?.[index]?.childrenLinks && <p><Form.Text className="text-danger">{errors.navGroups[index].childrenLinks?.message}</Form.Text></p>}
           </Col>
