@@ -12,7 +12,6 @@ import ShowHideArrow from "@/components/ui/show-hide-arrow";
 import { moveArrayElements } from "@/features/subsite/utils";
 
 
-
 type SortableNavGroupElementProps = {
   id: string;
   index: number;
@@ -90,12 +89,12 @@ const SortableNavGroupFormFields = (
         </div>
         <Row>
           <Col xs={4}>
-            <Form.Label>Group Label</Form.Label>
+            <Form.Label>Group Label:</Form.Label>
           </Col>
           <Col xs={8}>
             <Form.Control {...register(`navGroups.${index}.groupLabel`)} />
-            {errors && errors.navGroups?.[index]?.groupLabel && <Form.Text className="text-danger">{errors.navGroups[index].groupLabel?.message}</Form.Text>}
-            {errors && errors.navGroups?.[index]?.childrenLinks && <Form.Text className="text-danger">{errors.navGroups[index].childrenLinks?.message}</Form.Text>}
+            {errors && errors.navGroups?.[index]?.groupLabel && <p><Form.Text className="text-danger">{errors.navGroups[index].groupLabel?.message}</Form.Text></p>}
+            {errors && errors.navGroups?.[index]?.childrenLinks && <p><Form.Text className="text-danger">{errors.navGroups[index].childrenLinks?.message}</Form.Text></p>}
           </Col>
         </Row>
         { !isHidden && <>
