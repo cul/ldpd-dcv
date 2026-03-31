@@ -17,12 +17,7 @@ export interface UserPermissions {
   canEdit: string[] | null; // list of site slugs the user can edit
 }
 
-// export interface CurrentUserResponse {
-//   user: User;
-//   permissions: Permissions;
-// }
-
-//  todo : rewrite in camelCase
+// Type representing a DLC SubSite (site model)
 export interface Site {
   id: number;
   title: string;
@@ -49,12 +44,7 @@ export interface Site {
   updatedAt: string;
 }
 
-//  t.string "slug", null: false
-//     t.string "title"
-//     t.integer "columns", default: 1, null: false
-//     t.integer "site_id"
-//     t.index ["site_id", "slug"], name: "index_site_pages_on_site_id_and_slug", unique: true
-
+// Type representing a page in a SubSite, corresponds to DLC site_page model
 export interface SitePage {
   siteSlug: string;
   pageSlug: string;
@@ -64,7 +54,10 @@ export interface SitePage {
   updatedAt: string;
 }
 
-
+// Type defining a nested representation of a SubSite's Navigation links
+// These are stored in the Rails app as nav_link model instances,
+// which are not nested--see schema.db or the api endpoint site#get_site_nav_groups
+// for more details
 export type NavGroup = {
   groupLabel: string;
   childrenLinks: NavLink[];
@@ -77,11 +70,7 @@ export type NavLink = {
   iconClass: string | null;
 }
 
-
-// export type SiteParams = Omit<Site,
-//   'title' |
-//   'slug'>;
-
+// Subtype of SitePage, for managing just the title value
 export type SitePageGeneralData = Pick<SitePage,
   'siteSlug' |
   'pageSlug' |
@@ -89,6 +78,8 @@ export type SitePageGeneralData = Pick<SitePage,
   'updatedAt'
 >;
 
+// The following are subtypes of SitePage, used in forms that manage only a subset
+// of a SubSite's properties.
 export type SiteGeneralProperties = Pick<Site,
   'slug' | // for identification
   'title' |
@@ -107,4 +98,26 @@ export type SitePortraitImageUris = Pick<Site,
 export type SiteNavGroups = {
   slug: string;
   navGroups: NavGroup[]
+}
+
+//  TODO : consider having these values stored on the backend and retrieved by api endpoint
+// (can change the set of options overtime without breaking things in UI)
+export enum SitePalette {
+  BLUE = 'blue',
+  LIGHT = 'monochrome',
+  DARK = 'monochromeDark',
+  DEFAULT = 'default',
+}
+export enum SiteLayout {
+  PORTRAIT = 'portrait',
+  GALLERY = 'gallery',
+  REPOSITORIES = 'repositories',
+  SIGNATURE = 'signature',
+  DEFAULT = 'default',
+}
+export enum SearchType {
+  CATALOG = 'catalog',
+  LOCAL = 'local',
+  CUSTOM = 'custom',
+  REPOSITORIES = 'repositories',
 }

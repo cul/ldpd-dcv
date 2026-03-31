@@ -26,8 +26,6 @@ const SortableNavGroupFormFields = (
   { id, index, register, removeNavGroup, control, errors }: SortableNavGroupElementProps) => {
   const { ref, handleRef } = useSortable({ id, index, modifiers: [RestrictToHorizontalAxis, RestrictToWindow] });
 
-  console.log(errors)
-
   const { fields, move, append, remove } = useFieldArray({
     name: `navGroups.${index}.childrenLinks`,
     control

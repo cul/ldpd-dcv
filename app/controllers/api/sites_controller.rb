@@ -191,29 +191,6 @@ class Api::SitesController < Api::BaseController
       end
     end
 
-    # This method takes a nested nav_groups object and 'flattens' it into an array
-    # of objects that correspond to the shape of our ActiveRecord nav_links model
-    def unroll_nav_link_params
-      nav_groups = params['site'].delete('nav_groups')
-      return unless nav_groups
-      flat_nav_links_array = []
-      nav_groups.each_with_index do |group_data, group_index|
-        sort_group = "#{sprintf("%02d", group_index)}:#{group_data['group_label']}"
-        group_data['children_links'].each_with_index do |link_data, link_index|
-          sort_label = "#{sprintf("%02d", link_index)}:#{link_data['link_label']}"
-          flat_nav_links_array << {
-            sort_group: sort_group,
-            sort_label: sort_label,
-            link: link_data['link_value'],
-            external: link_data['external'],
-            icon_class: link_data['icon_class']
-          }
-        end
-      end
-
-      params['site']['nav_links_attributes'] = flat_nav_links_array
-    end
-
     def site_params
       unroll_nav_link_params
       params.require(:site).permit(:title, :slug, :palette, :layout, :show_facets, :alternative_title, :search_type, :editor_uids, :image_uris, :nav_links_attributes, :banner, :watermark,
@@ -234,6 +211,28 @@ class Api::SitesController < Api::BaseController
       else
         raise ArgumentError, "this group or link label has the wrong formatting: #{string}"
       end
+    end
+
+    # This method takes a nested nav_groups object and 'flattens' it into an array
+    # of objects that correspond to the shape of our ActiveRecord nav_links model
+    def unroll_nav_link_params
+      nav_groups = params['site'].delete('nav_groups')
+      return unless nav_groups
+      flat_nav_links_array = []
+      nav_groups.each_with_index do |group_data, group_index|
+        sort_group = "#{sprintf("%02d", group_index)}:#{group_data['group_label']}"
+        group_data['children_links'].each_with_index do |link_data, link_index|
+          sort_label = "#{sprintf("%02d", link_index)}:#{link_data['link_label']}"
+          flat_nav_links_array << {
+            sort_group: sort_group,
+            sort_label: sort_label,
+            link: link_data['link_value'],
+            external: link_data['external'],
+            icon_class: link_data['icon_class']
+          }
+        end
+      end
+      params['site']['nav_links_attributes'] = flat_nav_links_array
     end
 
   # create_table "sites", force: :cascade do |t|

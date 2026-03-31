@@ -39,8 +39,10 @@ const NavGroupsForm = ({ slug }: { slug: string }) => {
   const navGroups = useNavGroupsSuspense(slug, { queryConfig: { staleTime: Infinity } });
   const mutation = useMUpdateSite();
 
-  const { register, handleSubmit, control, formState: { isDirty, isSubmitting, errors } } = useForm<NavGroupFormValues>({
-    defaultValues: {
+  const { 
+    register, handleSubmit, control, formState: { isDirty, isSubmitting, errors } 
+  } = useForm<NavGroupFormValues>({
+    values: {
       navGroups: navGroups,
     },
     mode: 'all',
@@ -78,7 +80,11 @@ const NavGroupsForm = ({ slug }: { slug: string }) => {
       Here you can manage the navigation groups and links for your subsite. Rearrange the display order of Navigation Groups by dragging and dropping the elements to sort horizontally.
       Rearrange the order of the links within a navigation group by dragging and dropping them to sort vertically.
     </p>
-    {/* <MutationAlerts /> */}
+    <MutationAlerts 
+      mutation={mutation}
+      successMessage="Site Nav Group(s) updated successfully!" 
+      errorMessage="Site changes could not be saved due to Error" 
+    />
     <Form onSubmit={handleSubmit(submitHandler)}>
       <DragDropProvider 
         onDragEnd={handleDragEnd}
@@ -107,7 +113,7 @@ const NavGroupsForm = ({ slug }: { slug: string }) => {
             </button>
           </Col>
         </Row>
-        <Row>  
+        <Row className="mt-3">  
           <SaveButton disabled={!isDirty || isSubmitting}>
             {isDirty && !isSubmitting && <span className="text-warning fst-italic px-3">(you have unsaved changes)</span>}
           </SaveButton>

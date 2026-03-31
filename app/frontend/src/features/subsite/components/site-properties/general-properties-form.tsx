@@ -1,4 +1,3 @@
-import { SiteGeneralProperties } from '@/types/api';
 import { Col, Form, Row, Stack } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
@@ -7,6 +6,7 @@ import * as z from 'zod';
 
 import { useMUpdateSite } from '../../api/update-site';
 import { getSiteGeneralProperties, sitePropertiesTooltipMessage } from '../../utils';
+import { SearchType, SiteGeneralProperties, SiteLayout, SitePalette } from '@/types/api';
 import InfoTooltip from '@/components/ui/forms/info-tooltip';
 import FormErrorMsg from '@/components/ui/forms/form-error-msg';
 import { useSiteSuspense } from '../../api/get-site';
@@ -23,34 +23,12 @@ const schema = z.object({
   searchType: z.string().min(1),
 })
 
-//  TODO : consider having these values stored on the backend and retrieved by api endpoint
-// (can change the set of options overtime without breaking things in UI)
-enum SitePalette {
-  BLUE = 'blue',
-  LIGHT = 'monochrome',
-  DARK = 'monochromeDark',
-  DEFAULT = 'default',
-}
-enum SiteLayout {
-  PORTRAIT = 'portrait',
-  GALLERY = 'gallery',
-  REPOSITORIES = 'repositories',
-  SIGNATURE = 'signature',
-  DEFAULT = 'default',
-}
-enum SearchType {
-  CATALOG = 'catalog',
-  LOCAL = 'local',
-  CUSTOM = 'custom',
-  REPOSITORIES = 'repositories',
-}
-
-
 const GeneralPropertiesForm = ( { slug}: {slug: string} ) => {
   const mutation = useMUpdateSite();
   const site = useSiteSuspense(slug);
   const siteGeneralProperties = getSiteGeneralProperties(site);
   const submitHandler = (data: SiteGeneralProperties) => mutation.mutate(data);
+  
   const {
     register,
     handleSubmit,
@@ -61,7 +39,6 @@ const GeneralPropertiesForm = ( { slug}: {slug: string} ) => {
     mode: 'all',
     disabled: mutation.status === 'pending', // disable form until PATCH action is complete
    });
-
 
   return (
     <>
