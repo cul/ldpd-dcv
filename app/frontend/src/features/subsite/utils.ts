@@ -1,7 +1,15 @@
 import { Site, SiteGeneralProperties } from "@/types/api";
 
 export const getSiteGeneralProperties = (site: Site): SiteGeneralProperties => {
-  return (({ slug, title, alternativeTitle, palette, layout, searchType, showFacets }) => ({slug, title, alternativeTitle, palette, layout, searchType, showFacets}))(site);
+  return {
+    slug: site.slug,
+    title: site.title,
+    alternativeTitle: site.alternativeTitle,
+    palette: site.palette,
+    layout: site.layout,
+    searchType: site.searchType,
+    showFacets: site.showFacets,
+  }
 }
 
 const TooltipFieldMessageHash = new Map<string, string> ([
@@ -12,6 +20,11 @@ const TooltipFieldMessageHash = new Map<string, string> ([
   ['searchType', "The search type for the site indicates how search results should be presented. 'Catalog' indicates that search results should be presented in the context of filters on the general DLC catalog. 'Local' indicates that search results should be presented as an isolated corpus, with the configured site layout and palettes. 'Custom' indicates that a developer-implemented custom site provides this site's search, and should generally not be selected. See the site editor documentation for details"],
   ['portraitLayoutImages', "Configures the repository PIDs of images for the site homepage, where supported by the configured layout.  See the site editor documentation for details."],
   ['signatureLayoutImages', "Manages the design assets for a site homepage configured with the signature layout. See the site editor documentation for details"],
+  ['groupLabel', "The label for this group of links, which will be presented as a drop-down menu if there are multiple links. If the group has only one link, the group label will not be displayed and the link will be presented directly in the site navigation bar."],
+  ['linkLabel', "The label used for a link in a drop-down menu or, if it is the only link in a group, the site navigation bar."],
+  ['linkValue', "The URL associated with this link. Full URLs will indicate that they are links to external resources. If a page slug is given and the link is marked as internal, a link to the named page will be built."],
+  ['external', 'Mark whether your link value links to an external site (if it is an internal page, leave this field unchecked).'],
+  ['iconClass', " The fontawesome class to use to iconify this link. The link label will be help text/title for the icon button."],
   // ['name', "description"],
   // ['name', "description"],
   // ['name', "description"],
@@ -19,7 +32,7 @@ const TooltipFieldMessageHash = new Map<string, string> ([
 ]);
 
 export const sitePropertiesTooltipMessage = (fieldName: string) => {
-  if (fieldName in TooltipFieldMessageHash) return ''
+  if (!TooltipFieldMessageHash.has(fieldName)) return ''
   return TooltipFieldMessageHash.get(fieldName);
 }
 
