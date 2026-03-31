@@ -11,8 +11,8 @@ const useMUpdateSitePages = (siteSlug: string) => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: updatePages,
-    onSuccess: async () => {
-      await queryClient.refetchQueries({queryKey: ['sites', siteSlug, 'pages']});
+    onSuccess: () => {
+      queryClient.invalidateQueries({queryKey: ['sites', siteSlug, 'pages']});
     }
   })
 }
