@@ -4,8 +4,8 @@ import { LoaderFunction, ActionFunction, createBrowserRouter, Link } from 'react
 import { RouterProvider } from 'react-router-dom';
 
 import MainLayout from "@/components/layouts/main-layout/main-layout";
-import { MainErrorFallback } from '@/components/errors/main';
 import { Spinner } from 'react-bootstrap';
+import { RouteErrorFallback } from '@/components/errors/router-error';
 
 function Root() {
   return (
@@ -59,7 +59,7 @@ const createAppRouter = (queryClient: QueryClient) => {
   return createBrowserRouter([
     {
       Component: MainLayout,
-      errorElement: <MainErrorFallback />,
+      errorElement: <RouteErrorFallback />,
       hydrateFallbackElement: <HydrateFall />,
       children: [
         {

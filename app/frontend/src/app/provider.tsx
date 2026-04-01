@@ -5,7 +5,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { ErrorBoundary } from "react-error-boundary";
 
 import { queryConfig } from '@/lib/react-query';
-import { MainErrorFallback } from '@/components/errors/main';
+import { MainErrorFallback } from '@/components/errors/main-error';
 
 
 const AppProvider: FC<PropsWithChildren> = ({ children }) => {
