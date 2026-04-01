@@ -25,6 +25,12 @@ class Users::SessionsController < Devise::SessionsController
     end
   end
 
+  # When a user session expires on the front end, this endpoint is used to redirect them to the correct login page
+  def redirect_to_sign_in
+    session[:return_to] = params[:return_to] || root_url
+    redirect_to send(:"user_#{omniauth_provider_key}_omniauth_authorize_url")
+  end
+
   def after_sign_out_path_for(resource)
     service = (params[:restricted].to_s =~ TRUE_REGEX) ? restricted_url : root_url
     if omniauth_provider_key =~ SAML_REGEX

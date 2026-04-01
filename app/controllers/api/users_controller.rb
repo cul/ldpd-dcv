@@ -8,12 +8,10 @@ class Api::UsersController < Api::BaseController
   }.freeze
 
   # GET /api/v1/users/_self
-  # TODO : debug this
   def _self
     if current_user.is_admin
       render json: {
         user: user_json(current_user, ROLES[:admin], nil),
-        # permissions: { role: ROLES[:admin], can_edit: nil },
         }
         return
     end
@@ -23,7 +21,6 @@ class Api::UsersController < Api::BaseController
     render json: {
       user: user_json(current_user, role, sites.map(&:slug)),
     }
-      # permissions: { role: role, can_edit: sites.map(&:slug) } }
   end
 
   private
