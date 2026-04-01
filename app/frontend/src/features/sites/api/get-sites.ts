@@ -15,7 +15,7 @@ const getSites = async (): Promise<Site[] | null> => {
   // throw Error("(getSites queryFn) ERROR GETTING SITES")
   try {
     // Simulate network delay
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    // await new Promise(resolve => setTimeout(resolve, 2000));
 
     const response = await api.get<{ sites: Site[] }>('/sites');
 

@@ -20,13 +20,12 @@ async function request<T>(endpoint: string, options?: RequestInit, skipHeaders =
   const response = await fetch(`${BASE_URL}${endpoint}`, config);
 
   if (!response.ok) {
-    const errorData = await response.json().catch(() => null);
-    console.error('API Error:', errorData);
+    const errorBody = await response.json().catch(() => null);
+    const message = errorBody?.message ?? errorBody?.error ?? response.statusText ?? 'API Error';
+    const error = new ApiError(message, response.status);
 
-    // Throw the parsed error data so React Query can access it
-    const error: ApiError | null = new Error(response.statusText);
-    if (error === null) throw new Error('An unknown error occurred and the response could not be parsed');
-    error.response = errorData;
+    console.error(error);
+    
     throw error;
   }
 

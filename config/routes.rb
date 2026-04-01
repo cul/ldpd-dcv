@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   devise_scope :user do
     get 'sign_in', :to => 'users/sessions#new', :as => :new_user_session
     get 'sign_out', :to => 'users/sessions#destroy', :as => :destroy_user_session
+    # For redirecting React App clients in response to an expired session
+    get 'auth/redirect', :to => 'users/sessions#redirect_to_sign_in'
   end
 
   resources :sessions, controller: 'users/sessions'
