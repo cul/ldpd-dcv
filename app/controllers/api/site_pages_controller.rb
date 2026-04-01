@@ -57,6 +57,7 @@ class Api::SitePagesController < Api::BaseController
 
   # GET /site/:site_slug/pages
   def get_all_pages
+    authorize_action_and_scope :update, @subsite
     pages_json = @subsite.site_pages.map(&method(:site_page_json))
     render json: { pages: pages_json}
   end
