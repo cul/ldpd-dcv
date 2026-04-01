@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 
 import { api } from '@/lib/api-client';
-import { User } from '@/types/api';
+import { ApiError, User } from '@/types/api';
 
 
 const AUTH_QUERY_KEY = ['authenticated-user'];
@@ -9,10 +9,13 @@ const AUTH_QUERY_KEY = ['authenticated-user'];
 async function getCurrentUser(): Promise<User | null> {
   try {
     const response = await api.get<{ user: User }>('/users/_self');
-    return response?.user ?? null; // todo ? ??
-  } catch (error) {
+    console.log('get current user api response:')
+    console.log(response)
+    return response?.user ?? null;
+  } catch (error: unknown) {
     console.error('Error fetching current user:', error);
-    return null;
+    if (error instanceof ApiError && error.status === 401) return null;
+    throw error; // Rethrow unknown errors
   }
 }
 
