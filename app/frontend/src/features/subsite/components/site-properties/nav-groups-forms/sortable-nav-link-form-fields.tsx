@@ -33,7 +33,7 @@ const SortableNavLinkFormFields = (
     })
   }
 
-  const toolTipStyles = { fontSize: '.7em'};
+  const toolTipStyles = { };
 
   return (
     <div
@@ -49,11 +49,13 @@ const SortableNavLinkFormFields = (
         </div>
         <ShowHideArrow hidden={hidden} clickHandler={changeHidden} />
       </div>
-      <Row>
+      <Row className="align-items-center">
         <Col xs={5}>
-          <InfoTooltip fieldName='linkLabel' lookupFn={sitePropertiesTooltipMessage} 
-            style={toolTipStyles}/>
-          <Form.Label>Link Label:</Form.Label>
+          <div className="d-flex align-items-center gap-1">
+            <InfoTooltip fieldName='linkLabel' lookupFn={sitePropertiesTooltipMessage} 
+              style={toolTipStyles}/>
+            <Form.Label className="mb-0">Link Label:</Form.Label>
+          </div>
         </Col>
         <Col xs={7}>
           <Form.Control {...register(`navGroups.${groupIndex}.childrenLinks.${index}.linkLabel`, {
@@ -68,11 +70,13 @@ const SortableNavLinkFormFields = (
         <Stack
           gap={3}
           className=" my-2 py-1">
-          <Row>
+          <Row className="align-items-center">
             <Col xs={5}>
-              <InfoTooltip fieldName='linkValue' lookupFn={sitePropertiesTooltipMessage}
-                style={toolTipStyles}/>
-              <Form.Label>Link Value:</Form.Label>
+              <div className="d-flex align-items-center gap-1">
+                <InfoTooltip fieldName='linkValue' lookupFn={sitePropertiesTooltipMessage}
+                  style={toolTipStyles}/>
+                <Form.Label className="mb-0">Link Value:</Form.Label>
+              </div>
             </Col>
             <Col xs={7}>
               <Form.Control {...register(`navGroups.${groupIndex}.childrenLinks.${index}.linkValue`, {
@@ -82,21 +86,25 @@ const SortableNavLinkFormFields = (
                 <Form.Text className="text-danger">{errors.navGroups[groupIndex].childrenLinks[index].linkValue?.message}</Form.Text>}
             </Col>
           </Row>
-          <Row>
+          <Row className="align-items-center">
             <Col xs={5}>
-              <InfoTooltip fieldName='external' lookupFn={sitePropertiesTooltipMessage} 
-                style={toolTipStyles}/>
-              <Form.Label>External Link?:</Form.Label>
+              <div className="d-flex align-items-center gap-1">
+                <InfoTooltip fieldName='external' lookupFn={sitePropertiesTooltipMessage} 
+                  style={toolTipStyles}/>
+                <Form.Label className="mb-0">External Link?:</Form.Label>
+              </div>
             </Col>
             <Col xs={7} className="">
               <Form.Check {...register(`navGroups.${groupIndex}.childrenLinks.${index}.external`)} />
             </Col>
           </Row>
-          <Row>
+          <Row className="align-items-center">
             <Col xs={5}>
-              <InfoTooltip fieldName='iconClass' lookupFn={sitePropertiesTooltipMessage} 
-                style={toolTipStyles}/>
-              <Form.Label>Icon Class (optional):</Form.Label>
+              <div className="d-flex align-items-center gap-1">
+                <InfoTooltip fieldName='iconClass' lookupFn={sitePropertiesTooltipMessage} 
+                  style={toolTipStyles}/>
+                <Form.Label className="mb-0">Icon Class (optional):</Form.Label>
+              </div>
             </Col>
             <Col xs={7}>
               <Form.Control {...register(`navGroups.${groupIndex}.childrenLinks.${index}.iconClass`, {
@@ -106,7 +114,7 @@ const SortableNavLinkFormFields = (
                 <Form.Text className="text-danger">{errors.navGroups[groupIndex].childrenLinks[index].iconClass?.message}</Form.Text>}
             </Col>
           </Row>
-          <Row className=" ps-2">
+          <Row className="ps-2">
             <Button
               variant="danger"
               className="mx-auto"
