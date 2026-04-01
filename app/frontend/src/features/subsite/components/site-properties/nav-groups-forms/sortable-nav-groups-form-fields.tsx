@@ -89,11 +89,10 @@ const SortableNavGroupFormFields = (
           <ShowHideArrow hidden={isHidden} clickHandler={setIsHidden} />
         </div>
         <Row>
-          <Col xs={4} style={{ position: 'relative' }}>
-            <InfoTooltip fieldName='groupLabel' lookupFn={sitePropertiesTooltipMessage} 
-              style={{ position: 'absolute', left: '-0.5rem', top: '20%', transform: 'translateY(-50%)', fontSize: '.7em' }}/>
-            <Form.Label>Group Label:</Form.Label>
-          </Col>
+          <div className="d-flex align-items-center gap-1 mb-1">
+            <InfoTooltip fieldName='groupLabel' lookupFn={sitePropertiesTooltipMessage}  />
+            <Form.Label className="mb-0">Group Label:</Form.Label>
+          </div>
           <Col xs={8}>
             <Form.Control {...register(`navGroups.${index}.groupLabel`, {
               setValueAs: (value: string) => value.trim(),
