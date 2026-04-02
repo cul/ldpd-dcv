@@ -33,10 +33,19 @@ type NavGroupFormValues = {
   navGroups: NavGroup[];
 }
 
+const normalizeUndefinedStringFields = (navGroups: NavGroup[]) => {
+  navGroups.forEach(ng => {
+    ng.childrenLinks.forEach(link => {
+      link.iconClass = link.iconClass || ''; // normalize optional input
+    })
+  })
+}
+
 const NavGroupsForm = ({ slug, updatedAt }: { slug: string, updatedAt: string }) => {
   // Do not allow background refresh; always overwrite when submitting
   // TODO : handle this interaction better ...
   const navGroups = useNavGroupsSuspense(slug, { queryConfig: { staleTime: Infinity } });
+  normalizeUndefinedStringFields(navGroups);
   const mutation = useMUpdateSite();
 
   const { 

@@ -15,10 +15,14 @@ const SaveButton = ({ isDirty, updatedAt, isSubmitting, ...props }: SaveButtonPr
   return (
     <div className={isDirty ? 'text-warning fst-italic' : 'text-muted'}>
       <Button disabled={isDirty !== undefined ? !isDirty || isSubmitting : isSubmitting} type="submit" className="w-25" {...props} ><i className="mx-3 far fa-save"></i> Save Changes</Button>
-      {updatedAt && <span className={`px-3`}>Last updated: {formatDateRelative(updatedAt)} {isDirty && '(unsaved changes)'}</span>}
+      {/* {updatedAt && <span className={`px-3`}>Last updated: {formatDateRelative(updatedAt)} {isDirty && '(unsaved changes)'}</span>} */}
+      {updatedAt && <span className={`ps-3`}>Last updated: {formatDateRelative(updatedAt)}</span>} {isDirty && <span>{"(unsaved changes)"}</span>}
+
       {props.children}
     </div>
   )
 }
 
 export default SaveButton;
+// 
+      // 

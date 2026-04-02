@@ -4,7 +4,7 @@ export const getSiteGeneralProperties = (site: Site): SiteGeneralProperties => {
   return {
     slug: site.slug,
     title: site.title,
-    alternativeTitle: site.alternativeTitle,
+    alternativeTitle: site.alternativeTitle ?? '', // normalize optional input
     palette: site.palette,
     layout: site.layout,
     searchType: site.searchType,
