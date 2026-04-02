@@ -1,8 +1,16 @@
+import { QueryClient } from "@tanstack/react-query";
 import { Container } from "react-bootstrap";
 import { Link } from "react-router";
 
-const clientLoader = () => {
-  console.log('todo : authorization')
+import { authorizeAdminOnly } from "@/lib/authorization";
+import { AuthError } from "@/types/errors";
+
+
+const clientLoader = (queryClient: QueryClient) => async () => {
+  // Authorization check
+  // Only admins may access the Administrator Landing page
+  const authorized = await authorizeAdminOnly(queryClient);
+  if (!authorized) throw new AuthError("Only DLC Administrators can visit this page.");
 }
 
  const AdminIndexRoute = () => {
