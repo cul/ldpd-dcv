@@ -28,7 +28,7 @@ class Api::UsersController < Api::BaseController
     def list_can_edit_sites(uid)
       sites = []
       Site.all.each do |site|
-        sites << site if editor_uids.include? uid
+        sites << site if site[:editor_uids].include? uid
       end
       sites
     end
