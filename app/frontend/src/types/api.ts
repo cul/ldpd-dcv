@@ -1,15 +1,4 @@
 
-// https://medium.com/@Nelsonalfonso/understanding-custom-errors-in-typescript-a-complete-guide-f47a1df9354c
-export class ApiError extends Error {
-  status: number | undefined;
-  constructor(message: string, status?: number) {
-    super(message);
-    this.status = status;
-    this.name = "ApiError";
-  }
-}
-
-
 export interface User {
   uid: string;
   firstName: string;

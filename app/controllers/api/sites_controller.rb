@@ -13,9 +13,8 @@ class Api::SitesController < Api::BaseController
 
   # GET /api/v1/sites
   # Return a list of all subsites
+  # TODO : implement way to get all the sites for a particular editor
   def get_all_sites
-    # render json: { message: 'error'}, status: 400
-    # return
     authorize_action_and_scope :admin, Site
     @sites = Site.all
     render json: { sites: @sites.each { |subsite| { id: subsite.id, title: subsite.title, slug: subsite.slug } } }
@@ -23,13 +22,7 @@ class Api::SitesController < Api::BaseController
 
   # GET /api/v1/sites/:site_slug
   def get_site
-    # render json: { message: 'error'}, status: 400
-    # return
-    authorize_action_and_scope :admin, @subsite
-    # Rails.logger.debug 'get site'
-    # Rails.logger.debug @subsite.inspect
-    # Rails.logger.debug 'get site nav links'
-    # Rails.logger.debug @subsite.nav_links.inspect
+    authorize_site_update @subsite
     render json: { site: site_json(@subsite) }
   end
 
@@ -40,14 +33,7 @@ class Api::SitesController < Api::BaseController
   #  - we create an ordered array of objects representing the groups
   #  - each group has an ordered array of links with the actual link data
   def get_site_nav_groups
-    authorize_action_and_scope :admin, @subsite
-    # Rails.logger.debug '------------------------------------------------'
-    # Rails.logger.debug 'get_site_nav_groups'
-    # Rails.logger.debug @subsite.nav_links.to_a
-    # Rails.logger.debug '------------------------------------------------'
-    # Rails.logger.debug '------------------------------------------------'
-    # Rails.logger.debug '------------------------------------------------'
-    # Rails.logger.debug '------------------------------------------------'
+    authorize_site_update @subsite
 
     return_data = []
     flat_nav_links_array = @subsite.nav_links.to_a
@@ -78,7 +64,7 @@ class Api::SitesController < Api::BaseController
 
   # POST /api/v1/sites/:site_slug/signature_images
   def upload_signature_images
-    authorize_action_and_scope(:update, @subsite)
+    authorize_site_update @subsite
     banner_upload = params[:banner]
     watermark_upload = params[:watermark]
     if banner_upload
@@ -97,7 +83,7 @@ class Api::SitesController < Api::BaseController
   # DELETE /api/v1/sites/:site_slug/signature_images/watermark
   def delete_signature_images_watermark
     Rails.logger.debug "DELETING WATERMARK IMAGE FOR SITE #{@subsite}..."
-    authorize_action_and_scope(:update, @subsite)
+    authorize_site_update @subsite
     if @subsite.has_watermark_image?
       FileUtils.rm_f(@subsite.watermark_uploader.store_path('signature.svg'))
     end
@@ -107,7 +93,7 @@ class Api::SitesController < Api::BaseController
   # DELETE /api/v1/sites/:site_slug/signature_images/banner
   def delete_signature_images_banner
     Rails.logger.debug "DELETING BANNER IMAGE FOR SITE #{@subsite.slug}..."
-    authorize_action_and_scope(:update, @subsite)
+    authorize_site_update @subsite
     if @subsite.has_banner_image?
       FileUtils.rm_f(@subsite.banner_uploader.store_path('signature-banner.png'))
       @subsite.touch
@@ -119,8 +105,7 @@ class Api::SitesController < Api::BaseController
   # Mostly taken from SitesController#update
   def update
     Rails.logger.debug 'INSIDE API SITES CONTROLLER UPDATE ACTION'
-
-    authorize_action_and_scope(:update, @subsite)
+    authorize_site_update @subsite
     # though Site accepts nested attributes of nav_links for persistence, we want to handle the updates
     # specially (to accommodate the deletion and reordering without recourse to record id)
     update_params = site_params
