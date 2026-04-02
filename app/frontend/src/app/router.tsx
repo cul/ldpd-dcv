@@ -28,9 +28,9 @@ interface RouteModule {
 }
 
 // Convert a module with clientLoader/clientAction into a route object.
-// This allows loaders/actions to access the QueryClient for prefetching data.
+// This allows loaders/actions to access the QueryClient for prefetching data via closure.
 // As a result, route modules must export the following:
-// - default: the component to render for the route (index, edit, etc.)
+// - *default: the component to render for the route (index, edit, etc.)
 // - clientLoader: a function that takes a QueryClient and returns a loader function (optional - only needed if the route needs to load data)
 // - clientAction: a function that takes a QueryClient and returns an action function (optional - only needed if the route needs to handle form submissions or other actions)
 const convert = (queryClient: QueryClient) => (m: RouteModule) => {
@@ -58,7 +58,7 @@ const createAppRouter = (queryClient: QueryClient) => {
   // all routes begin with /admin/ --- we are matching on the rest
   return createBrowserRouter([
     {
-      Component: MainLayout,
+      Component: MainLayout, // N.B. our main layout enforces user authentication
       errorElement: <RouteErrorFallback />,
       hydrateFallbackElement: <HydrateFall />,
       children: [
@@ -66,7 +66,8 @@ const createAppRouter = (queryClient: QueryClient) => {
           // admin/ -> admin 'dashboard'
           // Only for admin
           index: true,
-          Component: Root,
+          lazy: () => import("./routes").then(m => ({ Component: m.default, clientLoader: m.clientLoader})),
+          // Component: Root,
         },
         {
           path: 'sites',

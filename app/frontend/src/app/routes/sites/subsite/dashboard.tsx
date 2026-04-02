@@ -1,4 +1,4 @@
-import SiteDashboard from "@/features/sites/components/site-dashboard";
+import SiteDashboard from "@/features/subsite/components/site-dashboard";
 import { useParams } from "react-router-dom";
 
 

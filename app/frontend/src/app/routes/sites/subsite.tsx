@@ -5,10 +5,10 @@ import AuthorizationBoundary from "@/components/auth/authorization-boundary";
 import { ROLES } from "@/lib/authorization";
 import { getSiteQueryOptions } from "@/features/subsite/api/get-site";
 import FetchingSuspense from "@/components/ui/fetching-suspense";
-import SitesLayout from "@/components/layouts/sites-layout/sites-layout";
+import SitesLayout from "@/components/layouts/sites-layout/subsite-layout";
 
 
-/* The show route wraps all routes that interact with one subsite.
+/* This route wraps all routes that interact with one subsite.
  * Those routes are in the routes/sites/show sub directory.
  * This component:
  *  - enforces authorization for editing a site
@@ -19,6 +19,7 @@ import SitesLayout from "@/components/layouts/sites-layout/sites-layout";
 
 // Prefetch the particular site
 const clientLoader = (queryClient: QueryClient) => async ( args: LoaderFunctionArgs) => {
+  console.log('hello')
   const slug = args.params.slug;
   if (!slug) throw Error("No slug parameter provided");
   queryClient.prefetchQuery(getSiteQueryOptions(slug));
