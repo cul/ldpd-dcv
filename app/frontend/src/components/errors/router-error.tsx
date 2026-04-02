@@ -1,5 +1,5 @@
 import { Container } from "react-bootstrap";
-import { useRouteError, isRouteErrorResponse } from "react-router-dom";
+import { useRouteError, isRouteErrorResponse } from "react-router";
 
 
 export const RouteErrorFallback = () => {

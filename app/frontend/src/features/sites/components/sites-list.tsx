@@ -1,9 +1,9 @@
 import { ReactNode } from "react";
+import { useQueryClient } from "@tanstack/react-query";
+import { Link } from "react-router";
 
 import { useSitesSuspense } from "../api/get-sites";
-import { Link } from "react-router-dom";
 import { Col, Container, Row } from "react-bootstrap";
-import { useQueryClient } from "@tanstack/react-query";
 import { getSiteQueryOptions } from "@/features/subsite/api/get-site";
 
 

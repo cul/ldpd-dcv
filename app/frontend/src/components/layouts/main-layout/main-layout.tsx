@@ -1,12 +1,11 @@
-import { Outlet, useNavigation } from 'react-router-dom';
-// import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { Outlet, useNavigation } from 'react-router';
+import { Container } from 'react-bootstrap';
+import TopBarProgress from "react-topbar-progress-indicator";
 
 import AuthenticationBoundary from "@/components/auth/authentication-boundary";
 import MainNavBar from "./main-navbar";
 import Footer from "./footer";
 
-import TopBarProgress from "react-topbar-progress-indicator";
-import { Container } from 'react-bootstrap';
 
 TopBarProgress.config({
   barColors: {

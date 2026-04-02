@@ -1,5 +1,6 @@
+import { useParams } from "react-router";
+
 import SiteDashboard from "@/features/subsite/components/site-dashboard";
-import { useParams } from "react-router-dom";
 
 
 const SiteDashboardRoute = () => {

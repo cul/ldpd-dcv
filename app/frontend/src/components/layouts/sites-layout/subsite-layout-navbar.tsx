@@ -1,7 +1,7 @@
-import { Container, Nav, Navbar } from "react-bootstrap";
-
-import { Link, useLocation, useParams } from "react-router-dom";
 import { useMemo } from "react";
+import { Container, Nav, Navbar } from "react-bootstrap";
+import { useLocation, useParams } from "react-router";
+
 import SubsiteLayoutNavLink from "@/components/layouts/sites-layout/subsite-layout-navlink";
 
 const SitesLayoutNavBar = () => {
