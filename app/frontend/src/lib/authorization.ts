@@ -1,5 +1,6 @@
 import { User } from '@/types/api';
-import { useCurrentUser } from './authentication';
+import { fetchCurrentUser } from './authentication';
+import { QueryClient } from '@tanstack/react-query';
 
 
 enum ROLES {
@@ -8,54 +9,36 @@ enum ROLES {
   EDITOR = 'EDITOR'
 }
 
-type RoleTypes = keyof typeof ROLES;
-
-type RulesType = {
-  role: RoleTypes;
-  site?: string;
+const isAdmin = (user: User): boolean => {
+  return user.permissions.role === ROLES.ADMIN;
 }
 
-const canEditSite = (user: User, site: string): boolean | undefined => {
-  return user.permissions.canEdit?.includes(site);
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const isEditor = (user: User): boolean => {
+  return user.permissions.role === ROLES.EDITOR;
 }
 
-// Check if the given user's permissions satisfies the provided rules
-const isUserAuthorized = (user: User, rules: RulesType): boolean => {
-  const { role, site } = rules;
-  const currentUserRole = user.permissions.role;
-
-  if (!role) return true;
-
-  if (role === ROLES.USER) return true;
-
-  if (role === ROLES.EDITOR) {
-    if (currentUserRole === ROLES.ADMIN) return true;
-    if (currentUserRole === ROLES.EDITOR) {
-      if (!site) return true;
-      if (canEditSite(user, site)) return true;
-    }
-  }
-
-  if (role === ROLES.ADMIN && currentUserRole === ROLES.ADMIN) {
-    return true;
-  }
-
-  return false;
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const getEditableSites = (user: User): string[] => {
+  return user.permissions.canEdit || [];
 }
 
-// Helper function for conditionally rendering elements.
-// Result should be cached in a useMemo reference in whichever top-level component is using it.
-// The principal difference between using this and using AuthorizationBoundary is
-// that the latter is a Component that renders its children if authorized and throws
-// an error otherwise. That is intended for cases where an unauthorized user should never have
-// gotten so far in the first place.
-// This function is used to check current user permissions for the purposes of
-// conditionally rendering content (throwing an error is the wrong behavior).
-const useIsAuthorized = (rules: RulesType): boolean => {
-  const { data: user } = useCurrentUser();
-  if (!user) return false;
-  return isUserAuthorized(user, rules);
+// Admin: can edit all sites
+// Editor: subsite slug must be in the user's canEdit list
+const canEditSite = (user: User, subsiteSlug: string): boolean | undefined => {
+  if (isAdmin(user)) return true;
+  return user.permissions.canEdit?.includes(subsiteSlug);
 }
 
-export { ROLES, useIsAuthorized, isUserAuthorized };
-export type { RoleTypes, RulesType };
+// The following methods are intended to be used in route loader functions.
+// They ensure that the current user data is fresh, and then call the appropriate
+// authorization methods
+export const authorizeAdminOnly = async (queryClient: QueryClient) => {
+  const user = await fetchCurrentUser(queryClient);
+  return isAdmin(user);
+}
+
+export const authorizeCanEditSite = async (subsiteSlug: string, queryClient: QueryClient) => {
+  const user = await fetchCurrentUser(queryClient);
+  return canEditSite(user, subsiteSlug);
+}

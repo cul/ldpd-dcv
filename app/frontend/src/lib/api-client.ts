@@ -1,4 +1,4 @@
-import { ApiError } from "@/types/api";
+import { ApiError } from "@/types/errors";
 
 
 const BASE_URL = '/api/v1';

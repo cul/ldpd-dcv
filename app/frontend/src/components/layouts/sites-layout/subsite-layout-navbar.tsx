@@ -12,7 +12,6 @@ const SitesLayoutNavBar = () => {
   const activeTab = useMemo(()=>{
     return `/admin${pathname}`
   }, [pathname]);
-  console.log('active tab '+ activeTab)
  
   if (!slug) throw Error("Route error: Could not determine subsite");
 

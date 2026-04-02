@@ -5,6 +5,7 @@ import { LoaderFunction, ActionFunction, createBrowserRouter, Link, RouterProvid
 import MainLayout from "@/components/layouts/main-layout/main-layout";
 import { Spinner } from 'react-bootstrap';
 import { RouteErrorFallback } from '@/components/errors/router-error';
+import { fetchCurrentUser, loadAuth } from '@/lib/authentication';
 
 // TODO delete
 function Root() {
@@ -54,6 +55,8 @@ const HydrateFall = () => (
   </div>
 )
 
+
+
 const createAppRouter = (queryClient: QueryClient) => {
   // all routes begin with /admin/ --- we are matching on the rest
   return createBrowserRouter([
@@ -61,13 +64,13 @@ const createAppRouter = (queryClient: QueryClient) => {
       Component: MainLayout, // N.B. our main layout enforces user authentication
       errorElement: <RouteErrorFallback />,
       hydrateFallbackElement: <HydrateFall />,
+      loader: () => loadAuth(queryClient),
       children: [
         {
           // admin/ -> admin 'dashboard'
           // Only for admin
           index: true,
-          lazy: () => import("./routes").then(m => ({ Component: m.default, clientLoader: m.clientLoader})),
-          // Component: Root,
+          lazy: () => import("./routes").then(convert(queryClient)) //(m => ({ Component: m.default, clientLoader: m.clientLoader})),
         },
         {
           path: 'sites',

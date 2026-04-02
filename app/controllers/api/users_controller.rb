@@ -37,11 +37,10 @@ class Api::UsersController < Api::BaseController
     def user_json(user, role, can_edit)
       {
         uid: user.uid,
-        email: user.email,
         first_name: user.first_name,
         last_name: user.last_name,
-        is_admin: user.is_admin,
-        permissions: { role: role, can_edit: can_edit }
+        email: user.email,
+        permissions: { role: role, canEdit: can_edit }
       }
     end
 end
