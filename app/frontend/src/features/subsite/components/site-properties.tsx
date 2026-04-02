@@ -22,8 +22,8 @@ const SiteProperties = ({ slug }: EditSitePropertiesProps): ReactNode => {
   return (
     //  TODO : try using Cols and Rows to resize the centered content...
     <Container fluid style={{ maxWidth: '80vw'}}>
-      <Container>
-        <h2>Edit Site Properties for <span className="text-info">{site.title}</span></h2>
+      <Container className="m-3">
+        <h1>Edit Site Properties for <span className="text-info">{site.title}</span></h1>
       </Container>
 
       <Stack>
