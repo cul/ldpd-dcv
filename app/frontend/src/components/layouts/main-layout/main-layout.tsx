@@ -38,7 +38,7 @@ const MainLayout = () => {
         <header className="flex-grow-0 flex-shrink-0">
           <MainNavBar />
         </header>
-        <Container fluid className="flex-grow-1">
+        <Container fluid className="flex-grow-1" id="main-layout-body">
 
           {/* <FetchingSuspense> */}
             <Outlet />

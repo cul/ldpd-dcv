@@ -9,6 +9,10 @@
 // @import "~bootstrap/scss/mixins";
 
 /* Global CSS styles */
+#main-layout-body a { 
+  color: rgba(13, 202, 240);
+  font-weight: 500;
+}
 
 /* Override active pill background color (default is primary) in Nav (sites-layout-navbar.tsx) */
 .navbar-nav .nav-link.active {

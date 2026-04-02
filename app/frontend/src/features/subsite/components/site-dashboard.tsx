@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 
-import { useSiteSuspense } from "../../subsite/api/get-site";
+import { useSiteSuspense } from "../api/get-site";
 import CardLink from "@/components/ui/card-link";
 import settingsIconUrl from "@/assets/icons/settings.png";
 import magnifyingGlassIconUrl from "@/assets/icons/magnifying-glass.png";
@@ -14,13 +14,13 @@ const SiteDashboard = ({ slug }: { slug: string; }) : ReactNode => {
 
   return (
     <Container fluid>
-      <div className="my-4">
+      <Container className="mt-4">
         <h1>Welcome to the Subsite Dashboard for <span className="text-info">{site.title}</span></h1>
-      </div>
 
-      <h3>Choose which aspect of the subsite you would like to manage:</h3>
+        <h3 className="mt-4 ps-4">Choose which aspect of the subsite you would like to manage:</h3>
+      </Container>
 
-      <Container className="my-5">
+      <Container className="my-4">
         <Row>
           <Col md={6}>
             <CardLink to="site-properties" label={"Edit your subsite's general properties"} image={settingsIconUrl} altTxt="icon of three gears" />

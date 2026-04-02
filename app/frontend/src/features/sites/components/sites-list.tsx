@@ -15,17 +15,19 @@ const SitesList = (): ReactNode => {
   }
 
   return (
-    <Container fluid>
-      <Row>
-        <Col>Site Name</Col>
-        <Col>Site Slug</Col>
+    <Container>
+      <h1 className='ps-2 my-4'>All DLC Subsites</h1>
+      <Row className="mb-3">
+        <Col className="text-center fst-italic">Site Name</Col>
+        <Col className="text-center fst-italic">Site Slug</Col>
         <Col></Col>
       </Row>
       {sites.map((site) => (
         <Row key={site.id}>
-          <Col>{site.title}</Col>
+          <Col className="border-end"><a href={`/${site.slug}`}>{site.title}</a></Col>
           <Col>{site.slug}</Col>
-          <Col><Link to={site.slug} onMouseEnter={() => handleMouseEnter(site.slug)}>Edit this site</Link></Col>
+          {/*  TODO : Use prefetch="intent" rather than a custom onMouseEnter handler */}
+          <Col><Link to={site.slug} onMouseEnter={() => handleMouseEnter(site.slug)}><i className="pe-2 fa-duotone fa-solid fa-file-pen"></i>Edit this site</Link></Col>
         </Row>
       ))}
     </Container>
