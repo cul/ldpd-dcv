@@ -1,5 +1,5 @@
 import { ReactNode, useState } from "react";
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router"
 import { Col, Image, Row } from "react-bootstrap"
 
 
