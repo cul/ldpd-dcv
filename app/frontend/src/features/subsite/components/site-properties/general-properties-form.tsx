@@ -28,7 +28,7 @@ const GeneralPropertiesForm = ( { slug}: {slug: string} ) => {
   const site = useSiteSuspense(slug);
   const initialData = getSiteGeneralProperties(site);
   const submitHandler = (data: SiteGeneralProperties) => mutation.mutate(data);
-  
+
   const {
     register,
     handleSubmit,
