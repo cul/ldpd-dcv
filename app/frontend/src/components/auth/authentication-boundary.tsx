@@ -1,7 +1,7 @@
 import { ReactNode, useEffect } from "react";
+import { useLocation } from "react-router";
 
 import { useCurrentUser } from "@/lib/authentication";
-import { useLocation } from "react-router-dom";
 
 
 // Ensures Authentication before serving the app.
