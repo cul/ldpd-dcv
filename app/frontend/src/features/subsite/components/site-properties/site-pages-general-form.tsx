@@ -20,20 +20,18 @@ const SitePagesGeneralForm = ({ slug }: { slug: string }) => {
   const pages = usePagesSuspense(slug, { queryConfig: { staleTime: Infinity } });
   const mUpdate = useMUpdateSitePages(slug);
   const initialData: SitePagesGeneralFormValues = useMemo(() => ({
-      pages: pages.map((page) => ({ siteSlug: slug, pageSlug: page.pageSlug, title: page.title, updatedAt: page.updatedAt}))
-    }
+      pages: pages.map((page) => ({ 
+        siteSlug: slug,
+        pageSlug: page.pageSlug,
+        title: page.title ?? '', // normalize optional input
+        updatedAt: page.updatedAt}))
+      }
   ), [slug, pages])
 
   const { register, handleSubmit, control, reset, formState, formState: { isDirty, isSubmitting, isSubmitSuccessful } } = useForm<SitePagesGeneralFormValues>({
     values: initialData,
     mode: 'all',
   });
-
-  useEffect(() => {
-    if (!isSubmitSuccessful) return;
-    reset(initialData);
-  }, [formState, isSubmitSuccessful, reset, initialData])
-
 
   const { fields, remove} = useFieldArray({
     name: 'pages',
@@ -43,6 +41,12 @@ const SitePagesGeneralForm = ({ slug }: { slug: string }) => {
   const submitHandler = async (data: SitePagesGeneralFormValues) => {
     mUpdate.mutate(data.pages);
   }
+
+  useEffect(() => {
+    if (!isSubmitSuccessful) return;
+    console.log('resetting!')
+    reset(initialData);
+  }, [formState, isSubmitSuccessful, reset, initialData])
 
   return (
     <>
@@ -105,9 +109,10 @@ const SitePagesGeneralForm = ({ slug }: { slug: string }) => {
             Create a New Page
           </Button>
 
-          <SaveButton disabled={!isDirty || isSubmitting}>
-            {isDirty && !isSubmitting && <span className="text-warning fst-italic px-3">(you have unsaved changes)</span>}
-          </SaveButton>
+          <SaveButton
+            isDirty={isDirty}
+            isSubmitting={isSubmitting}
+          />
         </Stack>
       </Form>
     </>
