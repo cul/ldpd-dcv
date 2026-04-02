@@ -1,4 +1,4 @@
-import { LoaderFunctionArgs, useParams } from "react-router-dom";
+import { LoaderFunctionArgs, useParams } from "react-router";
 import { QueryClient } from "@tanstack/react-query";
 
 import AuthorizationBoundary from "@/components/auth/authorization-boundary";

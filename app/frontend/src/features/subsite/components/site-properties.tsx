@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { Button, Col, Container, Row, Stack } from "react-bootstrap";
+import { Container,Stack } from "react-bootstrap";
 
 import { useSiteSuspense } from "../api/get-site";
 import AboutAccordion from "@/components/ui/about-accordion";
@@ -9,7 +9,6 @@ import FormAccordion from "@/components/ui/forms/form-accordion";
 import SitePagesGeneralForm from "./site-properties/site-pages-general-form";
 import NavGroupsForm from "./site-properties/nav-groups-form";
 import { SitePropertiesPageAboutText } from "@/components/ui/about-messages";
-import { useNavigate } from "react-router-dom";
 
 
 type EditSitePropertiesProps = {

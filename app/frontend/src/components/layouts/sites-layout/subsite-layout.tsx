@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom";
+import { Outlet } from "react-router";
 import SitesLayoutNavbar from "./subsite-layout-navbar";
 import { Col, Container, Row } from "react-bootstrap";
 import BackButton from "@/components/ui/back-button";
