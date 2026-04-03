@@ -1,8 +1,7 @@
 import { LoaderFunctionArgs, useParams } from "react-router";
 import { QueryClient } from "@tanstack/react-query";
 
-import AuthorizationBoundary from "@/components/auth/authorization-boundary";
-import { authorizeCanEditSite, ROLES } from "@/lib/authorization";
+import { authorizeCanEditSite } from "@/lib/authorization";
 import { getSiteQueryOptions } from "@/features/subsite/api/get-site";
 import FetchingSuspense from "@/components/ui/fetching-suspense";
 import SitesLayout from "@/components/layouts/sites-layout/subsite-layout";
@@ -38,11 +37,9 @@ const SubsiteRoute = () => {
   if (!slug) throw Error("No slug parameter provided");
 
   return (
-    // <AuthorizationBoundary role={ROLES.EDITOR} site={slug}>
-      <FetchingSuspense dataName="site">
-        <SitesLayout /> {/* The Layout calls <Outlet /> for us! */}
-      </FetchingSuspense>
-    // </AuthorizationBoundary>
+    <FetchingSuspense dataName="site">
+      <SitesLayout /> {/* The Layout calls <Outlet /> for us! */}
+    </FetchingSuspense>
   )
 }
 
