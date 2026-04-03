@@ -1,11 +1,13 @@
 import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
-
-import { navigatorToRailsRoute } from "@/features/sites/utils/routing-utils";
-import { useCurrentUser } from "@/lib/authentication";
 import { Link } from "react-router";
 
+import { navigatorToRailsRoute } from "@/features/sites/utils/routing-utils";
+
+
 const MainNavBar = () => {
-  const  user = useCurrentUser();
+  // TODO : conditional nav elements
+  // TODO : sites list
+  // const  user = useCurrentUser();
   return (
     <Navbar className="bg-dark-subtle">
       <Container>
