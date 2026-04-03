@@ -101,11 +101,11 @@ header[role='banner'] {
 	font-size: 198%;
 	font-weight: 200;
 	line-height: 1.1;
-	color: map-get($theme-text-colors, 'brand');
+	color: white;
 	text-align: center;
 	text-decoration: none;
 	text-transform: uppercase;
-	text-shadow: none;
+	text-shadow: 1px 1px black;
 	vertical-align: bottom;
 	.dr-arrow {
 		color: lighten(map-get($theme-border-colors, 'secondary'),35%);

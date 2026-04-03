@@ -21,7 +21,8 @@
 		text-transform: uppercase;
 		font-family: $font_b;
 		font-weight: 300;
-		color: map-get($theme-text-colors, 'brand');
+		color: white;
+    text-shadow: 1px 1px black;
 		white-space: normal;
 	}
 	#site-banner-subtitle {
