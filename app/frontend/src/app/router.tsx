@@ -1,25 +1,12 @@
 import { useMemo } from 'react';
 import { QueryClient, useQueryClient } from '@tanstack/react-query';
-import { LoaderFunction, ActionFunction, createBrowserRouter, Link, RouterProvider} from 'react-router';
+import { LoaderFunction, ActionFunction, createBrowserRouter, RouterProvider} from 'react-router';
 
 import MainLayout from "@/components/layouts/main-layout/main-layout";
 import { Spinner } from 'react-bootstrap';
 import { RouteErrorFallback } from '@/components/errors/router-error';
-import { fetchCurrentUser, loadAuth } from '@/lib/authentication';
+import { loadAuth } from '@/lib/authentication';
 
-// TODO delete
-function Root() {
-  return (
-    // TODO: protected route for admin users only ---> actually, no auth is needed in this app at all, because rails will check for auth before rendering the admin view where we mount the app!
-    <div>
-      <h1>Admin React App</h1>
-      <p>Welcome to the admin dashboard!</p>
-      <p>The only admin feature available is the sites admin dashboard.
-        <Link to="/sites">Click here to view it!</Link>
-      </p>
-    </div>
-  );
-}
 
 interface RouteModule {
   default: React.ComponentType;
