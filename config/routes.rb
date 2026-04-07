@@ -18,6 +18,8 @@ Rails.application.routes.draw do
 
   # Admin routes (including admin React app)
   get '/admin', to: 'admin#index'
+  get '/admin/import', to: 'admin#import'
+  post '/admin/import', to: "admin#upload"
 
   get '/browse/:list_id' => 'browse', as: :browse, action: 'list'
   get '/explore' => 'welcome#home'
@@ -210,6 +212,7 @@ Rails.application.routes.draw do
   get "sites" => "sites#index"
   get "sites/:slug", to: redirect("/%{slug}")
   get '/:slug', controller: 'sites', action: 'home', as: 'site'
+  get 'download/:site_slug', to: 'sites#download', as: 'download'
   resources 'sites', only: [:edit, :update], param: :slug, path: '', constraints: SITE_SLUG_CONSTRAINT do
     scope module: :sites do
       resource 'permissions', only: [:edit, :show, :update], controller: 'permissions'

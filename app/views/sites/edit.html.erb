@@ -167,6 +167,16 @@
       </button>
     </div>
   </div>
+
+  <div class="card border-secondary">
+    <div class="card-header swatch-secondary"><h2 class="card-title">Create Subsite Export Zip File</h2></div>
+      <div class="card-body">
+        <p>You can download a zip file containing the data for the <%= @subsite.title %> subsite with the button below. This can be used when migrating a subsite to a different DLC environment (e.g. staging, production).</p>
+        <a role="button" class="btn btn-info" href=<%= download_path(@subsite.slug)%>>Download Subsite</a>
+      </div>
+    </div>
+
+  </div>
   <div class="card">
     <div class="card-body">
       <%= submit_tag "Update Site Information", {class: ['btn', 'btn-warning']} %>
