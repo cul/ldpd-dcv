@@ -93,4 +93,5 @@ node_modules
 .yarnrc.yml
 
 # Ignore local .yarn directory
-.yarn/
+.pnp.*
+.yarn/*
