@@ -23,10 +23,11 @@ append  :linked_files,
         "config/master.key",
         "config/database.yml",
         "config/blacklight.yml",
-        "config/sites.yml"
+        "config/sites.yml",
+        ".yarnrc.yml"
 
 # Default value for linked_dirs is []
-append :linked_dirs, "log", "tmp/pids", "node_modules"
+append :linked_dirs, "log", "tmp/pids"
 
 set :passenger_restart_with_touch, true
 
