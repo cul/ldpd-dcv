@@ -33,7 +33,6 @@ append  :linked_files,
         'config/wind.yml',
         'config/reading_rooms.yml',
         'public/robots.txt',
-        '.npmrc',
         '.yarnrc.yml'
 
 # Default value for linked_dirs is []
