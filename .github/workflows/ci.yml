@@ -33,9 +33,11 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node }}
-      - name: Set up .npmrc
-        run: echo -e "@fortawesome:registry=https://npm.fontawesome.com/\n//npm.fontawesome.com/:_authToken=${{secrets.FONT_AWESOME_TOKEN}}" > .npmrc
-      - run: npm install -g yarn
-      - run: yarn install --frozen-lockfile
+      - name: Set up .yarnrc.yml
+        run: 'echo -e "npmScopes:\n  fortawesome:\n    npmRegistryServer: https://npm.fontawesome.com/\n    npmAuthToken: ${{secrets.FONT_AWESOME_TOKEN}}" > .yarnrc.yml'
+      - name: install yarn
+        run: corepack enable
+      - name: Install dependencies with yarn
+        run: yarn install --immutable
       - name: Run CI task
         run: bundle exec rake dcv:ci
