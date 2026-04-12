@@ -9,10 +9,10 @@
 // @import "~bootstrap/scss/mixins";
 
 /* Global CSS styles */
-#main-layout-body a { 
-  color: rgba(13, 202, 240);
-  font-weight: 500;
-}
+// #main-layout-body a { 
+//   color: rgba(13, 202, 240);
+//   font-weight: 500;
+// }
 
 /* Override active pill background color (default is primary) in Nav (sites-layout-navbar.tsx) */
 .navbar-nav .nav-link.active {
@@ -32,6 +32,11 @@ div#homepage-image-forms {
     background-color: #e6e6e6;
 }
 
+.checkered-bg {
+  background: 
+    repeating-conic-gradient(#808080 0 25%, #0000 0 50%) 
+      50% / 20px 20px  #b9faff;
+}
 
 /* Override Bootstrap React Styles */
 // $bs-accordion-bg: teal; /* Changes the background color. */

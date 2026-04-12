@@ -15,21 +15,24 @@ const SitesList = (): ReactNode => {
   }
 
   return (
-    <Container>
-      <h1 className='ps-2 my-4'>All DLC Subsites</h1>
-      <Row className="mb-3">
-        <Col className="text-center fst-italic">Site Name</Col>
-        <Col className="text-center fst-italic">Site Slug</Col>
-        <Col></Col>
+    <Container className="mt-4">
+      <h1 className='ps-4 mb-5'>All DLC Subsites</h1>
+      <Row className="mb-3 text-center border-bottom">
+        <Col xs={5} className="fst-italic border-end">Site Name</Col>
+        <Col xs={4} className="fst-italic text-center border-end">Site Slug</Col>
+        <Col xs={3} className="fst-italic">Link to Subsite Dashboard</Col>
       </Row>
-      {sites.map((site) => (
-        <Row key={site.id}>
-          <Col className="border-end"><a href={`/${site.slug}`}>{site.title}</a></Col>
-          <Col>{site.slug}</Col>
+      {sites.map((site, i) => {
+        console.log(site, i);
+        return (
+        <Row key={site.id} className={`my-2 p-2 ${i % 2 === 0 && "bg-info-subtle rounded"}`}>
+          <Col xs={5} className="border-end text-center"><a href={`/${site.slug}`}>{site.title}</a></Col>
+          <Col xs={4} className="text-center">{site.slug}</Col>
           {/*  TODO : Use prefetch="intent" rather than a custom onMouseEnter handler */}
-          <Col><Link to={site.slug} onMouseEnter={() => handleMouseEnter(site.slug)}><i className="pe-2 fa-duotone fa-solid fa-file-pen"></i>Edit this site</Link></Col>
+          <Col xs={3} className="text-start"><Link to={site.slug} onMouseEnter={() => handleMouseEnter(site.slug)}><i className="pe-2 fa-duotone fa-solid fa-file-pen"></i>Edit this site</Link></Col>
         </Row>
-      ))}
+)
+      })}
     </Container>
   )
 }
