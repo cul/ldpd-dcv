@@ -9,6 +9,7 @@ import FormAccordion from "@/components/ui/forms/form-accordion";
 import SitePagesGeneralForm from "./site-properties/site-pages-general-form";
 import NavGroupsForm from "./site-properties/nav-groups-form";
 import { SitePropertiesPageAboutText } from "@/components/ui/about-messages";
+import DLCEditorDocsAlert from "@/components/ui/dlc-editor-docs-alert";
 
 
 type EditSitePropertiesProps = {
@@ -25,8 +26,10 @@ const SiteProperties = ({ slug }: EditSitePropertiesProps): ReactNode => {
     // <Container fluid style={{ maxWidth: '80vw'}}>
     <>
         <Container fluid className="mb-3 mt-4">
-          <h1>Edit Site Properties for <span className="text-info">{site.title}</span></h1>
+          <h1>Edit Site Properties for <span className="text-info text-uppercase">{site.title}</span></h1>
         </Container>
+
+        <DLCEditorDocsAlert className="mt-4"/>
 
         <Stack>
           <AboutAccordion header="About Site Properties">
