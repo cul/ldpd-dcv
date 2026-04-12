@@ -37,14 +37,16 @@ type FormInput = {
 // exists in the correct location in the public/ directory.
 // E.g., at runtime, Rails checks if 'jay' has images with the right name at
 // 'public/images/sites/jay/'.
+// The sites API will return watermark- and bannerImageUrl fields set to either the
+// existing asset path, or the default asset path. The API also passes along
+// hasBanner- and hasWatermarkImage values (from the Site model methods).
+// Therefore, we have to do some things manually that react hook form + tanstack
+// query provides for us in other forms.
 const SignatureLayoutImagesForm = ({ slug }: {slug: string}) => {
   const site = useSiteSuspense(slug);
   const queryClient = useQueryClient();
   const [showAlert, setShowAlert] = useState(false);
   const [submissionAlert, setSubmissionAlert] = useState({ isError: false, msg: ''});
-  // TODO : make deletion of existing images more robust by adding a confirmation step to prevent accidental deletions, and by handling potential errors from the delete request (e.g. if file to be deleted is not found)
-  // const [deleteBannerImage, setDeleteBannerImage] = useState(false);
-  // const [deleteWatermarkImage, setDeleteWatermarkImage] = useState(false);
 
   // Because we are not using the mutation cache to trigger updates to the server
   // data, we must manage that logic ourselves. This handler makes a PATCH request
@@ -77,9 +79,8 @@ const SignatureLayoutImagesForm = ({ slug }: {slug: string}) => {
     resolver: zodResolver(schema)
   });
 
-  const getFilenameFromUrl = (url: string) => url.split('/').pop()?.split('?')[0];
-
   const deleteWatermarkHandler = async () => {
+    if (!window.confirm("Are you sure you want to delete this image?")) return;
     await api.delete(`/sites/${site.slug}/signature_images/watermark`);
     setSubmissionAlert({ isError: false, msg: 'Your watermark image has been deleted. The default watermark will now be used.'})
     setShowAlert(true);
@@ -87,11 +88,14 @@ const SignatureLayoutImagesForm = ({ slug }: {slug: string}) => {
   }
 
   const deleteBannerHandler = async () => {
+    if (!window.confirm("Are you sure you want to delete this image?")) return;
     await api.delete(`/sites/${site.slug}/signature_images/banner`);
     setSubmissionAlert({ isError: false, msg: 'Your banner image has been deleted. The default banner will now be used.'})
     setShowAlert(true);
     queryClient.invalidateQueries({queryKey: ['sites']});
   }
+
+  const getFilenameFromUrl = (url: string) => url.split('/').pop()?.split('?')[0];
 
   return (
     <>

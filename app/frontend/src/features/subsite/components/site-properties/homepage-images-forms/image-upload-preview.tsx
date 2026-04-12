@@ -23,9 +23,9 @@ const ImageUploadPreview = ({ slug, type }: { slug: string; type: 'banner' | 'wa
   const imgUrl = type === 'banner' ? site.bannerImageUrl : site.watermarkImageUrl;
 
   if (hasUpload) return (
-    <div style={containerStyles}>
+    <div className="checkered-bg" style={containerStyles}>
       <a href={imgUrl} target="_blank" download={`${slug}-signature-${type}`} rel="noreferrer">
-        <Image src={imgUrl} className='w-25' style={{ maxWidth: '175px'}} rounded />
+        <Image src={imgUrl} style={{height: '175px'}} rounded />
         <span style={floatingTextStyles}>Download this image</span>
       </a>
     </div>
