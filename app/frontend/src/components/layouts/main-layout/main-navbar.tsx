@@ -2,12 +2,15 @@ import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { Link } from "react-router";
 
 import { navigatorToRailsRoute } from "@/features/sites/utils/routing-utils";
+import { useCurrentUserSuspense } from "@/lib/authentication";
+import { ROLES } from "@/lib/authorization";
+import { useSitesSuspense } from "@/features/sites/api/get-sites";
 
 
 const MainNavBar = () => {
-  // TODO : conditional nav elements
-  // TODO : sites list
-  // const  user = useCurrentUser();
+  const { permissions: { role } } = useCurrentUserSuspense();
+  const sites = useSitesSuspense();
+  
   return (
     <Navbar className="bg-dark-subtle">
       <Container>
@@ -19,12 +22,22 @@ const MainNavBar = () => {
             </Nav.Link>
           </Nav.Item>
           <Nav.Item>
-            <Nav.Link as={Link} to="/sites">
+            {role === ROLES.EDITOR &&
+              <NavDropdown title="Your Subsites" id="main-nav-subsites-dropdown" align="end">
+                {sites.map((site, i) => (
+                  <NavDropdown.Item key={i} as={Link} to={`/sites/${site.slug}`}>{site.title}</NavDropdown.Item>
+                ))}
+                <NavDropdown.Divider />
+                <NavDropdown.Item key={sites.length+1} as={Link} to="/sites">View all</NavDropdown.Item>
+              </NavDropdown>
+            }
+            {role === ROLES.ADMIN &&
+              <Nav.Link as={Link} to="/sites">
               DLC Subsites List
-            </Nav.Link>
+            </Nav.Link>}
           </Nav.Item>
           <Nav.Item>
-            <NavDropdown title="Help" id="main-nav-help-dropdown" align="end">
+            <NavDropdown title="Help" align="end">
               <NavDropdown.Item onClick={navigatorToRailsRoute('about')}>About DLC</NavDropdown.Item>
               <NavDropdown.Item href="https://library.columbia.edu/services/askalibrarian.html">Ask A Librarian</NavDropdown.Item>
               <NavDropdown.Item href="">Suggestions & Feedback (wip)</NavDropdown.Item>
