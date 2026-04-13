@@ -10,9 +10,7 @@ class Api::UsersController < Api::BaseController
   # GET /api/v1/users/_self
   def _self
     if current_user.is_admin
-      render json: {
-        user: user_json(current_user, ROLES[:admin], nil),
-        }
+      render json: { user: user_json(current_user, ROLES[:admin], nil) }
         return
     end
     sites = list_can_edit_sites(current_user.uid)
@@ -30,12 +28,11 @@ class Api::UsersController < Api::BaseController
       Site.all.select { |site| site[:editor_uids].include? uid }
     end
 
-    # TODO: use camelCase -- right now not important bc we don't access first_name, etc. (any two-word attributes)
     def user_json(user, role, can_edit)
       {
         uid: user.uid,
-        first_name: user.first_name,
-        last_name: user.last_name,
+        firstName: user.first_name,
+        lastName: user.last_name,
         email: user.email,
         permissions: { role: role, canEdit: can_edit }
       }
