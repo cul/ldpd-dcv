@@ -3,6 +3,7 @@ import { Link } from "react-router";
 
 import { Col, Container, Row } from "react-bootstrap";
 import { getSiteQueryOptions } from "@/features/subsite/api/get-site";
+import { Site } from "@/types/api";
 
 
 const SitesList = ({sites}: {sites: Site[]}) => {
