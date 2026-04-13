@@ -4,7 +4,7 @@ import { useCurrentUserSuspense } from "@/lib/authentication";
 import DLCEditorDocsAlert from "@/components/ui/dlc-editor-docs-alert";
 import { useSitesSuspense } from "../api/get-sites";
 import { ROLES } from "@/lib/authorization";
-import SitesList from "./sites-dashboard/sites-list.tsx";
+import SitesList from "./sites-dashboard/sites-list";
 
 
 const SitesDashboard = () => {
