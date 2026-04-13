@@ -1,4 +1,4 @@
-import { QueryClient, useQuery } from '@tanstack/react-query';
+import { QueryClient, queryOptions, useQuery, useSuspenseQuery } from '@tanstack/react-query';
 
 import { api } from '@/lib/api-client';
 import { ApiError } from '@/types/errors';
@@ -10,8 +10,6 @@ const AUTH_QUERY_KEY = ['current-user'];
 async function getCurrentUser(): Promise<User | null> {
   try {
     const response = await api.get<{ user: User }>('/users/_self');
-    console.log('auth endpoint response')
-    console.log(response)
     return response?.user ?? null;
   } catch (error: unknown) {
     console.error('Error fetching current user:', error);
@@ -20,13 +18,13 @@ async function getCurrentUser(): Promise<User | null> {
   }
 }
 
-export const ensureCurrentUser = async (queryClient: QueryClient) => {
-  await queryClient.fetchQuery({
-    queryKey: AUTH_QUERY_KEY,
-    queryFn: getCurrentUser,
-    staleTime: 1000 * 60 * 30,
-  });
-}
+// export const ensureCurrentUser = async (queryClient: QueryClient) => {
+//   await queryClient.fetchQuery({
+//     queryKey: AUTH_QUERY_KEY,
+//     queryFn: getCurrentUser,
+//     staleTime: 1000 * 60 * 30,
+//   });
+// }
 
 export const fetchCurrentUser = async (queryClient: QueryClient): Promise<User> => {
   return await queryClient.fetchQuery({
@@ -50,15 +48,27 @@ const loadAuth = async (queryClient: QueryClient) => {
   }
 }
 
-function useCurrentUser() {
-  const resp = useQuery({
+const getCurrentUserQueryOptions = () => {
+  return queryOptions({
     queryKey: AUTH_QUERY_KEY,
     queryFn: getCurrentUser,
     staleTime: 1000 * 60 * 30, // 30 minutes
     gcTime: 1000 * 60 * 30, // 30 minutes cache garbage collection
     retry: false,
-  });
-  return resp
+  })
 }
 
-export { loadAuth, useCurrentUser, AUTH_QUERY_KEY}
+const useCurrentUser = () => {
+  const resp = useQuery({
+    ...getCurrentUserQueryOptions(),
+  });
+  return resp;
+}
+
+const useCurrentUserSuspense = (): User => {
+  const { data: currentUser } = useSuspenseQuery(getCurrentUserQueryOptions());
+  if(!currentUser) throw Error("Could not load current user! Mayday!");
+  return currentUser;
+}
+
+export { loadAuth, useCurrentUserSuspense, useCurrentUser, AUTH_QUERY_KEY}

@@ -4,6 +4,7 @@ class Ability
   attr_reader :public
   ACCESS_ASSET = :access_asset
   ACCESS_SUBSITE = :access_subsite
+  EDIT_SUBSITES = :edit
   UNSPECIFIED_ACCESS_DECISION = true
 
   def initialize(user=nil, opts={})
@@ -20,6 +21,11 @@ class Ability
       else
         true
       end
+    end
+    # can? :edit, Site
+    can EDIT_SUBSITES, Site do
+      return true if user&.is_admin?
+      Site.all.any? { |site| site[:editor_uids].include? user[:uid] }
     end
     #  can? current_user, :access_subsite, @subsite
     can ACCESS_SUBSITE, Site do |site|

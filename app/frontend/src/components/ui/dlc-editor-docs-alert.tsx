@@ -1,11 +1,21 @@
-import { RefAttributes } from "react";
-import { Alert, AlertProps } from "react-bootstrap"
+import { Alert } from "react-bootstrap"
 import { JSX } from "react/jsx-runtime";
 
-const DLCEditorDocsAlert = (props: JSX.IntrinsicAttributes & AlertProps & RefAttributes<HTMLDivElement>) => {
+
+type DLCEditorDocsAlertProps = {
+  textOnly?: boolean,
+}
+
+const DLCEditorDocsAlert = ({ textOnly, ...props }: DLCEditorDocsAlertProps): JSX.Element => {
+  const textJSX = (<>
+      For detailed information about editing subsites, please refer to the <a href="https://columbiauniversitylibraries.atlassian.net/wiki/spaces/DLC/pages/3113574/Site+Editors#Page-Properties">DLC Site Editor Documentation</a>.
+    </>);
+  if(textOnly) {
+    return <p>{textJSX}</p>
+  };
   return (
     <Alert variant="primary" {...props}>
-      For detailed information about editing subsites, please refer to the <a href="https://columbiauniversitylibraries.atlassian.net/wiki/spaces/DLC/pages/3113574/Site+Editors#Page-Properties">DLC Site Editor Documentation</a>.
+      {textJSX}
     </Alert>
   )
 }

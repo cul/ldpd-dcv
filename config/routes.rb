@@ -27,7 +27,7 @@ Rails.application.routes.draw do
   ###### Backend API Routes: ######
   get 'api/v1/users/_self', to: 'api/users#_self', format: 'json'
   # sub site routes
-  get 'api/v1/sites', to: 'api/sites#get_all_sites', format: 'json'
+  get 'api/v1/sites', to: 'api/sites#get_sites', format: 'json'
   get 'api/v1/sites/:site_slug', to: 'api/sites#get_site', format: 'json'
   get 'api/v1/sites/:site_slug/nav_groups', to: 'api/sites#get_site_nav_groups', format: 'json'
   patch 'api/v1/sites/:site_slug', to: 'api/sites#update', format: 'json'
