@@ -3,6 +3,8 @@ import { queryOptions, useQuery, useSuspenseQuery } from "@tanstack/react-query"
 import { QueryConfig } from "@/lib/react-query";
 import { Site } from "@/types/api";
 import { api } from "@/lib/api-client";
+import { useCurrentUserRoleSuspense } from "@/lib/authentication";
+import { ROLES } from "@/lib/authorization";
 
 
 type UseSitesQueryOptions = {
@@ -33,8 +35,11 @@ const getSitesQueryOptions = ({isEditor=false}: {isEditor?: boolean} = {}) => {
     });
 };
 
-const useSitesSuspense = ({isEditor}: {isEditor?: boolean}={}): Site[] => {
-  const { data: sites } = useSuspenseQuery(getSitesQueryOptions({isEditor}));
+// If ADMIN: returns list of all DLC subsites
+// If EDITOR: returns list of subsites the editor can edit
+const useSitesSuspense = (): Site[] => {
+  const role = useCurrentUserRoleSuspense();
+  const { data: sites } = useSuspenseQuery(getSitesQueryOptions({isEditor: role === ROLES.EDITOR}));
   if (!sites) {
     // TODO handle
     throw Error("Could not load sites data");
@@ -42,9 +47,12 @@ const useSitesSuspense = ({isEditor}: {isEditor?: boolean}={}): Site[] => {
   return sites;
 }
 
+// If ADMIN: returns list of all DLC subsites
+// If EDITOR: returns list of subsites the editor can edit
 const useSites = ({ queryConfig} : UseSitesQueryOptions = {}) => {
+  const role = useCurrentUserRoleSuspense();
   return useQuery({
-    ...getSitesQueryOptions(),
+    ...getSitesQueryOptions({isEditor: role === ROLES.ADMIN}),
     ...queryConfig,
   });
 };
