@@ -9,15 +9,11 @@ type UseSitesQueryOptions = {
   queryConfig?: QueryConfig<typeof getSitesQueryOptions>;
 }
 
-
-// Q: what happens if there is error? does it get returned to the mutation/query object?
-const getSites = async (): Promise<Site[] | null> => {
-  // throw Error("(getSites queryFn) ERROR GETTING SITES")
+const getSites = async ({isEditor}: {isEditor: boolean}): Promise<Site[] | null> => {
   try {
-    // Simulate network delay
-    // await new Promise(resolve => setTimeout(resolve, 2000));
+    const endpoint = `/sites${isEditor ? '?isEditor=true' : ''}`
 
-    const response = await api.get<{ sites: Site[] }>('/sites');
+    const response = await api.get<{ sites: Site[] }>(endpoint);
 
     return response?.sites ?? null;
   } catch (error) {
@@ -26,17 +22,19 @@ const getSites = async (): Promise<Site[] | null> => {
   }
 };
 
-const getSitesQueryOptions = () => {
+// isEditor: when true, will include an isEditor query parameter with the request
+// so that the sites endpoint only returns a list of sites the current_user can edit.
+const getSitesQueryOptions = ({isEditor=false}: {isEditor?: boolean} = {}) => {
   return queryOptions({
-    queryKey: ['sites'],
-    queryFn: getSites,
+    queryKey: isEditor ? ['sites', { scope: 'editor' }] : ['sites'],
+    queryFn: () => getSites({isEditor}),
     staleTime: 1000 * 60 * 5, // 5 minutes
     //  other config options (override defaults set in queryConfig - @/lib/react-query)
     });
 };
 
-const useSitesSuspense = (): Site[] => {
-  const { data : sites } = useSuspenseQuery(getSitesQueryOptions());
+const useSitesSuspense = ({isEditor}: {isEditor?: boolean}={}): Site[] => {
+  const { data: sites } = useSuspenseQuery(getSitesQueryOptions({isEditor}));
   if (!sites) {
     // TODO handle
     throw Error("Could not load sites data");

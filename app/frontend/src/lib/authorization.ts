@@ -3,17 +3,18 @@ import { fetchCurrentUser } from './authentication';
 import { QueryClient } from '@tanstack/react-query';
 
 
-enum ROLES {
+export enum ROLES {
   ADMIN = 'ADMIN',
   USER = 'USER',
   EDITOR = 'EDITOR'
 }
 
+export type Roles = keyof typeof ROLES;
+
 const isAdmin = (user: User): boolean => {
   return user.permissions.role === ROLES.ADMIN;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const isEditor = (user: User): boolean => {
   return user.permissions.role === ROLES.EDITOR;
 }
@@ -21,6 +22,11 @@ const isEditor = (user: User): boolean => {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const getEditableSites = (user: User): string[] => {
   return user.permissions.canEdit || [];
+}
+
+export const getCurrentUserRole = async (queryClient: QueryClient) => {
+  const user = await fetchCurrentUser(queryClient);
+  return user.permissions.role;
 }
 
 // Admin: can edit all sites
@@ -36,6 +42,11 @@ const canEditSite = (user: User, subsiteSlug: string): boolean | undefined => {
 export const authorizeAdminOnly = async (queryClient: QueryClient) => {
   const user = await fetchCurrentUser(queryClient);
   return isAdmin(user);
+}
+
+export const authorizeAdminOrEditorOnly = async (queryClient: QueryClient) => {
+  const user = await fetchCurrentUser(queryClient);
+  return isAdmin(user) || isEditor(user);
 }
 
 export const authorizeCanEditSite = async (subsiteSlug: string, queryClient: QueryClient) => {
