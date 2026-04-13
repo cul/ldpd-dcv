@@ -104,6 +104,33 @@ module Dcv::DcvUrlHelper
     "#{sep}#{edit_ele}".html_safe
   end
 
+  # Very similar to the above site_edit_link helper, but links to the new
+  # react UI version
+  def site_edit_new_ui_link(sep: ' | ', **link_opts)
+    return unless (@subsite && can?(:update, @subsite))
+    edit_href = "/admin/sites/#{@subsite.slug}"
+    edit_ele = link_to(edit_href, link_opts) do
+      "<span class=\"fa fa-pencil\"></span> Edit in new DLC UI".html_safe
+    end
+    "#{sep}#{edit_ele}".html_safe
+  end
+  # If current user is DLC Admin: links to the main admin section homepage
+  # If current user is an editor of a subsite: links to the editor subsite list dashboard
+  # Otherwise, return nil
+  def admin_ui_link(**link_opts)
+    return unless current_user
+    if current_user[:is_admin]
+      link_to('/admin', link_opts) do
+        "<span class=\"fa fa-pencil\"></span> DLC Admin Dashboard".html_safe
+      end
+    # Determine if user is a site editor by lookup in all sites' editor_uid fields
+    elsif Site.all.select { |site| site[:editor_uids].include? current_user[:uid] }.length > 0
+      link_to('/admin/sites', link_opts) do
+        "<span class=\"fa fa-pencil\"></span> DLC Editor Dashboard".html_safe
+      end
+    end
+  end
+
 # solr_document routing patches to get BL6 up and running
 # TODO remove these
   def solr_document_path(solr_document)
