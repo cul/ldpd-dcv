@@ -3,6 +3,7 @@ import { QueryClient, queryOptions, useQuery, useSuspenseQuery } from '@tanstack
 import { api } from '@/lib/api-client';
 import { ApiError } from '@/types/errors';
 import { User } from '@/types/api';
+import { Roles } from './authorization';
 
 
 const AUTH_QUERY_KEY = ['current-user'];
@@ -17,14 +18,6 @@ async function getCurrentUser(): Promise<User | null> {
     throw error; // Rethrow unknown errors
   }
 }
-
-// export const ensureCurrentUser = async (queryClient: QueryClient) => {
-//   await queryClient.fetchQuery({
-//     queryKey: AUTH_QUERY_KEY,
-//     queryFn: getCurrentUser,
-//     staleTime: 1000 * 60 * 30,
-//   });
-// }
 
 export const fetchCurrentUser = async (queryClient: QueryClient): Promise<User> => {
   return await queryClient.fetchQuery({
@@ -71,4 +64,9 @@ const useCurrentUserSuspense = (): User => {
   return currentUser;
 }
 
-export { loadAuth, useCurrentUserSuspense, useCurrentUser, AUTH_QUERY_KEY}
+const useCurrentUserRoleSuspense = (): Roles => {
+  const user = useCurrentUserSuspense();
+  return user.permissions.role;
+}
+
+export { loadAuth, useCurrentUserRoleSuspense, useCurrentUserSuspense, useCurrentUser, AUTH_QUERY_KEY}

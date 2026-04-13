@@ -1,5 +1,5 @@
 import { User } from '@/types/api';
-import { fetchCurrentUser } from './authentication';
+import { fetchCurrentUser, useCurrentUserSuspense } from './authentication';
 import { QueryClient } from '@tanstack/react-query';
 
 
