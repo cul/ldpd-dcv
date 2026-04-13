@@ -12,11 +12,16 @@ class Api::SitesController < Api::BaseController
     ]
 
   # GET /api/v1/sites
-  # Return a list of all subsites
-  # TODO : implement way to get all the sites for a particular editor
-  def get_all_sites
-    authorize_action_and_scope :admin, Site
-    @sites = Site.all
+  # Return a list of all subsites -- if the URL parameter
+  def get_sites
+    isEditor = params[:isEditor] == "true"
+    if isEditor
+      authorize_action_and_scope :edit, Site
+      @sites = Site.all.select { |site| site[:editor_uids].include? current_user[:uid] }
+    else
+      authorize_action_and_scope :admin, Site
+      @sites = Site.all
+    end
     render json: { sites: @sites.each { |subsite| { id: subsite.id, title: subsite.title, slug: subsite.slug } } }
   end
 

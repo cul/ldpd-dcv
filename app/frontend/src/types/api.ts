@@ -1,3 +1,4 @@
+import { Roles } from "@/lib/authorization";
 
 export interface User {
   uid: string;
@@ -8,7 +9,7 @@ export interface User {
 }
 
 export interface UserPermissions {
-  role: "ADMIN" | "USER" | "EDITOR";
+  role: Roles;
   canEdit: string[] | null; // list of site slugs the user can edit
 }
 
