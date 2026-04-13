@@ -26,11 +26,8 @@ class Api::UsersController < Api::BaseController
   private
 
     def list_can_edit_sites(uid)
-      sites = []
-      Site.all.each do |site|
-        sites << site if site[:editor_uids].include? uid
-      end
-      sites
+      # I couldn't figure out a better way to do this in an sqlite where clause, because sqlite has no 'ANY' operator
+      Site.all.select { |site| site[:editor_uids].include? uid }
     end
 
     # TODO: use camelCase -- right now not important bc we don't access first_name, etc. (any two-word attributes)
