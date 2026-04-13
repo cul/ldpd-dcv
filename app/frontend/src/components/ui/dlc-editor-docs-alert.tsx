@@ -3,8 +3,8 @@ import { JSX } from "react/jsx-runtime";
 
 
 type DLCEditorDocsAlertProps = {
-  textOnly?: boolean,
-}
+  textOnly?: boolean;
+} & React.HTMLAttributes<HTMLElement>;
 
 const DLCEditorDocsAlert = ({ textOnly, ...props }: DLCEditorDocsAlertProps): JSX.Element => {
   const textJSX = (<>
