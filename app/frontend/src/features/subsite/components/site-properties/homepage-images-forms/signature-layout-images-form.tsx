@@ -61,7 +61,7 @@ const SignatureLayoutImagesForm = ({ slug }: {slug: string}) => {
       if (data?.banner?.[0]) formData.append('site[banner]', data.banner[0]);
       if (data?.watermark?.[0]) formData.append('site[watermark]', data.watermark[0]);
 
-      await api.patchRaw(`/sites/${site.slug}`, formData);
+      await api.patchRaw(`/sites/${site.slug}/signature_images`, formData);
       setSubmissionAlert({ isError: false, msg: 'Your image has been uploaded and saved.'})
       setShowAlert(true);
       queryClient.invalidateQueries({queryKey: ['sites']});

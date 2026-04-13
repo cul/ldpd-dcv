@@ -6,7 +6,7 @@ class Api::SitesController < Api::BaseController
       :get_site_nav_groups,
       :update,
       :update_site_pages,
-      :upload_signature_image,
+      :upload_signature_images,
       :delete_signature_images_watermark,
       :delete_signature_images_banner,
     ]
@@ -67,11 +67,14 @@ class Api::SitesController < Api::BaseController
     render json: { navGroups: nav_groups_json(return_data) }
   end
 
-  # POST /api/v1/sites/:site_slug/signature_images
+  # def upload_[]
+
+  # PATCH /api/v1/sites/:site_slug/signature_images
   def upload_signature_images
     authorize_site_update @subsite
-    banner_upload = params[:banner]
-    watermark_upload = params[:watermark]
+
+    banner_upload = site_params[:banner]
+    watermark_upload = site_params[:watermark]
     if banner_upload
       BannerUploader.new(@subsite).store!(banner_upload)
       @subsite.touch
@@ -85,46 +88,33 @@ class Api::SitesController < Api::BaseController
     render json: { error: ex.message }, status: :unprocessable_entity
   end
 
-  # DELETE /api/v1/sites/:site_slug/signature_images/watermark
+  # DELETE /api/v1/sites/:site_slug/signature_images/:image_type
   def delete_signature_images_watermark
-    Rails.logger.debug "DELETING WATERMARK IMAGE FOR SITE #{@subsite}..."
+    Rails.logger.debug "DELETING #{params[:image_type]} IMAGE FOR SITE #{@subsite.slug}..."
     authorize_site_update @subsite
-    if @subsite.has_watermark_image?
-      FileUtils.rm_f(@subsite.watermark_uploader.store_path('signature.svg'))
-    end
-    render json: { site: site_json(@subsite) }
-  end
 
-  # DELETE /api/v1/sites/:site_slug/signature_images/banner
-  def delete_signature_images_banner
-    Rails.logger.debug "DELETING BANNER IMAGE FOR SITE #{@subsite.slug}..."
-    authorize_site_update @subsite
-    if @subsite.has_banner_image?
+    if params[:image_type] == 'banner' && @subsite.has_banner_image?
       FileUtils.rm_f(@subsite.banner_uploader.store_path('signature-banner.png'))
-      @subsite.touch
+      @subsite.touch # Update the updated_at field on @subsite to invalidate browser cache
+    elsif params[:image_type] == 'watermark' && @subsite.has_watermark_image?
+      FileUtils.rm_f(@subsite.watermark_uploader.store_path('signature.svg'))
+      @subsite.touch # Update the updated_at field on @subsite to invalidate browser cache
+    else
+      render json: { error: "Unknown signature image type" }, status: :bad_request
     end
+
     render json: { site: site_json(@subsite) }
   end
 
   # PATCH /api/v1/sites/:site_slug
-  # Mostly taken from SitesController#update
   def update
     Rails.logger.debug 'INSIDE API SITES CONTROLLER UPDATE ACTION'
     authorize_site_update @subsite
+
     # though Site accepts nested attributes of nav_links for persistence, we want to handle the updates
     # specially (to accommodate the deletion and reordering without recourse to record id)
     update_params = site_params
     nav_links_attributes = update_params.delete('nav_links_attributes')
-    # TODO: we should not allow uploading images thru this endpoint, as they are not part of the site model
-    banner_upload = update_params.delete('banner')
-    watermark_upload = update_params.delete('watermark')
-    # Rails.logger.debug 'BANNER' if banner_upload
-    # Rails.logger.debug banner_upload if banner_upload
-    # Rails.logger.debug 'WATERMARK' if watermark_upload
-    # Rails.logger.debug watermark_upload if watermark_upload
-
-    Rails.logger.debug "UPDATING SUBSITE..."
-    Rails.logger.debug update_params.inspect
 
     @subsite.update! update_params
     Rails.logger.debug "UPDATED SUBSITE!"
@@ -150,19 +140,12 @@ class Api::SitesController < Api::BaseController
       end
     end
 
-
-    Rails.logger.debug 'uploading banner and watermark images if present....'
-    BannerUploader.new(@subsite).store!(banner_upload) && @subsite.touch if banner_upload
-    WatermarkUploader.new(@subsite).store!(watermark_upload) && @subsite.touch if watermark_upload
-
     # TODO : handle restricted sites
     # if restricted?
     #   redirect_to edit_restricted_site_path(slug: @subsite.slug.sub('restricted/', ''))
     # else
     #   redirect_to edit_site_path(slug: @subsite.slug)
     # end
-    Rails.logger.debug "FINISHED WITH UPDATE! SENDING JSON RESPONSE..."
-    Rails.logger.debug @subsite.inspect
     render json: { site: site_json(@subsite) }
   rescue ActiveRecord::RecordInvalid, CarrierWave::IntegrityError => ex
     Rails.logger.debug 'RESCUED FROM ERROR!'
@@ -225,28 +208,6 @@ class Api::SitesController < Api::BaseController
       params['site']['nav_links_attributes'] = flat_nav_links_array
     end
 
-  # create_table "sites", force: :cascade do |t|
-  #   t.string "slug", null: false
-  #   t.string "title"
-  #   t.string "persistent_url"
-  #   t.string "publisher_uri"
-  #   t.text "image_uris"
-  #   t.string "repository_id"
-  #   t.string "layout"
-  #   t.string "palette"
-  #   t.string "search_type"
-  #   t.boolean "restricted"
-  #   t.text "permissions"
-  #   t.text "map_search"
-  #   t.text "date_search"
-  #   t.datetime "created_at"
-  #   t.datetime "updated_at"
-  #   t.string "alternative_title"
-  #   t.boolean "show_facets", default: false
-  #   t.text "editor_uids"
-  #   t.text "search_configuration"
-  #   t.index ["slug"], name: "index_sites_on_slug", unique: true
-  # end
     # Converts ruby snake_case attributes to javascript camelCase
     def site_json(site)
       {
@@ -267,7 +228,7 @@ class Api::SitesController < Api::BaseController
         alternativeTitle: site.alternative_title,
         showFacets: site.show_facets,
         searchConfiguration: site.search_configuration,
-        # We need to append the updated_at value to the image URLs, in order to bust the HTTP cache for those assets
+        # We need to append the updated_at value to the image URLs, in order to bust the HTTP cache for those assets -- make sure to #touch the @subsite when these assets are updated!
         bannerImageUrl: site.has_banner_image? ? "#{site.banner_url}?v=#{site.updated_at.to_i}" : view_context.asset_path("signature/signature-banner.png"),
         watermarkImageUrl: site.has_watermark_image? ? "#{site.watermark_url}?v=#{site.updated_at.to_i}" : view_context.asset_path("signature/signature.svg"),
         hasBannerImage: site.has_banner_image?,
