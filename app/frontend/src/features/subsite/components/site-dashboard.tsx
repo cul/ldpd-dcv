@@ -3,10 +3,6 @@ import { Col, Container, Row } from "react-bootstrap";
 
 import { useSiteSuspense } from "../api/get-site";
 import CardLink from "@/components/ui/card-link";
-import settingsIconUrl from "@/assets/icons/settings.png";
-import magnifyingGlassIconUrl from "@/assets/icons/magnifying-glass.png";
-import pencilIconUrl from "@/assets/icons/pencil.png";
-import lockIconUrl from "@/assets/icons/padlock-unlock.png";
 import DLCEditorDocsAlert from "@/components/ui/dlc-editor-docs-alert";
 
 
@@ -27,18 +23,18 @@ const SiteDashboard = ({ slug }: { slug: string; }) : ReactNode => {
       <Container className="my-4">
         <Row>
           <Col md={6}>
-            <CardLink to="site-properties" label={"Edit your subsite's general properties"} image={settingsIconUrl} altTxt="icon of three gears" />
+            <CardLink to="site-properties" faClass="fa-duotone fa-solid fa-gears" label={"Edit your subsite's general properties"}/>
           </Col>
           <Col md={6}>
-            <CardLink to={"/"} label={"Edit the pages of your subsite (not available yet!)"} image={pencilIconUrl} altTxt="icon of a pencil" />
+            <CardLink to={"/"} label={"Edit the pages of your subsite (not available yet!)"} faClass="fa-duotone fa-solid fa-pencil"/>
           </Col>
         </Row>
         <Row>
           <Col md={6}>
-            <CardLink to={"/"} label={"Configure search for your subsite (not available yet!)"} image={magnifyingGlassIconUrl} altTxt="icon of a magnifying glass" />
+            <CardLink to={"/"} label={"Configure search for your subsite (not available yet!)"} faClass="fa-duotone fa-solid fa-magnifying-glass" />
           </Col>
           <Col md={6}>
-            <CardLink to={"/"} label={"Configure permissions for your subsite (not available yet!)"} image={lockIconUrl} altTxt="icon of a padlock" />
+            <CardLink to={"/"} label={"Configure permissions for your subsite (not available yet!)"} faClass="a-duotone fa-solid fa-lock" />
           </Col>
         </Row>
       </Container>

@@ -13,10 +13,6 @@ const Footer = () => {
           {/* LEVEL 2 */}
           <Container className="d-flex justify-content-around">
             <div><a href="/">Go back to the DLC Homepage</a></div>
-            <div>
-              {/* Give credit for icons: */}
-              <a href="https://www.flaticon.com/free-icons/wrench" title="credit icons">Icons created by Dave Gandy - Flaticon</a>
-            </div>
           </Container>
         </Stack>
       </Container>
