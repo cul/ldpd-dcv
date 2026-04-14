@@ -37,5 +37,7 @@ jobs:
         run: echo -e "@fortawesome:registry=https://npm.fontawesome.com/\n//npm.fontawesome.com/:_authToken=${{secrets.FONT_AWESOME_TOKEN}}" > .npmrc
       - run: npm install -g yarn
       - run: yarn install --frozen-lockfile
+      - name: Run linter on frontend application
+        run: npx eslint app/frontend --max-warnings
       - name: Run CI task
         run: bundle exec rake dcv:ci
