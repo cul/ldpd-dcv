@@ -31,7 +31,7 @@ const convert = (queryClient: QueryClient) => (m: RouteModule) => {
   };
 };
 
-const HydrateFall = () => (
+const HydrateFallback = () => (
   <div className="d-flex align-items-center justify-content-center vh-100">
     <div className="d-flex flex-column align-items-center gap-5">
       <Spinner animation="grow" style={{ width: "7em", height: "7em" }} variant="primary" role="status"/>
@@ -50,7 +50,7 @@ const createAppRouter = (queryClient: QueryClient) => {
     {
       Component: MainLayout, // N.B. our main layout enforces user authentication
       errorElement: <RouteErrorFallback />,
-      hydrateFallbackElement: <HydrateFall />,
+      hydrateFallbackElement: <HydrateFallback />,
       loader: () => loadAuth(queryClient),
       children: [
         {
