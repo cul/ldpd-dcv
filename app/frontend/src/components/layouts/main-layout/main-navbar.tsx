@@ -10,17 +10,18 @@ import { useSitesSuspense } from "@/features/sites/api/get-sites";
 const MainNavBar = () => {
   const { permissions: { role } } = useCurrentUserSuspense();
   const sites = useSitesSuspense();
-  
+
   return (
     <Navbar className="bg-dark-subtle">
       <Container>
         <Navbar.Brand href="/">DLC Home</Navbar.Brand>
         <Nav>
+          {role === ROLES.ADMIN && 
           <Nav.Item>
             <Nav.Link as={Link} to='/'>
               DLC Admin Homepage
             </Nav.Link>
-          </Nav.Item>
+          </Nav.Item>}
           <Nav.Item>
             {role === ROLES.EDITOR &&
               <NavDropdown title="Your Subsites" id="main-nav-subsites-dropdown" align="end">
