@@ -19,9 +19,7 @@ const SitesList = ({sites}: {sites: Site[]}) => {
         <Col xs={4} className="fst-italic text-center border-end">Site Slug</Col>
         <Col xs={3} className="fst-italic">Link to Subsite Dashboard</Col>
       </Row>
-      {sites.map((site, i) => {
-        console.log(site, i);
-        return (
+      {sites.map((site, i) => (
           <Row key={site.id} className={`my-2 p-2 ${i % 2 === 0 && "bg-info-subtle rounded"}`}>
             <Col xs={5} className="border-end text-center"><a href={`/${site.slug}`}>{site.title}</a></Col>
             <Col xs={4} className="border-end text-center">{site.slug}</Col>
@@ -29,7 +27,7 @@ const SitesList = ({sites}: {sites: Site[]}) => {
             <Col xs={3} className="ps-4 text-start"><Link to={site.slug} onMouseEnter={() => handleMouseEnter(site.slug)}><i className="pe-2 fa-duotone fa-solid fa-file-pen"></i>Edit this site</Link></Col>
           </Row>
         )
-      })}
+      )}
     </Container>
   )
 }
