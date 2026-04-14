@@ -39,5 +39,7 @@ jobs:
         run: corepack enable
       - name: Install dependencies with yarn
         run: yarn install --immutable
+      - name: Run linter on frontend application
+        run: npx eslint app/frontend --max-warnings
       - name: Run CI task
         run: bundle exec rake dcv:ci
