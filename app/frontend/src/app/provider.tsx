@@ -5,6 +5,7 @@ import { ErrorBoundary } from "react-error-boundary";
 
 import { queryConfig } from '@/lib/react-query';
 import { MainErrorFallback } from '@/components/errors/main-error';
+import { Container } from "react-bootstrap";
 
 
 const AppProvider: FC<PropsWithChildren> = ({ children }) => {
