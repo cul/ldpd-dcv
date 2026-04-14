@@ -1,5 +1,4 @@
-import { FC, PropsWithChildren, useState, Suspense } from "react";
-import Spinner from 'react-bootstrap/Spinner';
+import { FC, PropsWithChildren, useState } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { ErrorBoundary } from "react-error-boundary";
@@ -16,20 +15,12 @@ const AppProvider: FC<PropsWithChildren> = ({ children }) => {
   );
 
   return (
-    <Suspense
-      fallback={
-        <div className="flex h-screen w-screen items-center justify-center">
-          <Spinner />
-        </div>
-      }
-    >
-      <ErrorBoundary FallbackComponent={MainErrorFallback}>
-        <QueryClientProvider client={queryClient}>
-          {import.meta.env.DEV && <ReactQueryDevtools />}
-          {children}
-        </QueryClientProvider>
-      </ErrorBoundary>
-    </Suspense>
+    <ErrorBoundary FallbackComponent={MainErrorFallback}>
+      <QueryClientProvider client={queryClient}>
+        {import.meta.env.DEV && <ReactQueryDevtools />}
+        {children}
+      </QueryClientProvider>
+    </ErrorBoundary>
   );
 };
 

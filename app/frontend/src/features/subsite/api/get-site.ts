@@ -11,13 +11,8 @@ type UseSiteQueryOptions = {
 
 
 const getSite = async (siteSlug: string): Promise<Site | null> => {
-  // try {
-    const response = await api.get<{ site: Site }>(`/sites/${siteSlug}`);
-    return response?.site ?? null;
-  // } catch (error) {
-  //   console.error('Error fetching site information', error);
-  //   return null;
-  // }
+  const response = await api.get<{ site: Site }>(`/sites/${siteSlug}`);
+  return response?.site ?? null;
 }
 
 const getSiteQueryOptions = (siteSlug: string) => {
