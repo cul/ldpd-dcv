@@ -20,6 +20,14 @@ async function request<T>(endpoint: string, options?: RequestInit, skipHeaders =
   const response = await fetch(`${BASE_URL}${endpoint}`, config);
 
   if (!response.ok) {
+    // Catch expired user session and redirect to login
+    if (response.status === 403) {
+      const returnTo = `${window.location.href}`;
+      window.location.replace(`/auth/redirect?return_to=${returnTo}`);
+      // The redirect will happen, but throw in meantime
+      throw new Error('Session expired, redirecting to login...');
+    }
+
     const errorBody = await response.json().catch(() => null);
     const message = errorBody?.message ?? errorBody?.error ?? response.statusText ?? 'API Error';
     const error = new ApiError(message, response.status);
