@@ -228,8 +228,7 @@ class SitesController < ApplicationController
     Rails.logger.debug "subsite_properties.inspect:"
     Rails.logger.debug subsite_properties.inspect
     data = subsite_properties.read
-    send_data(data, filename: "test.zip")
-    # render :inline => "<div>#{subsite_properties}</div>"
+    send_data(data, filename: "#{@subsite[:slug]}.zip")
     return
   end
 
