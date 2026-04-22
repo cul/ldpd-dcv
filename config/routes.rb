@@ -18,8 +18,10 @@ Rails.application.routes.draw do
 
   # Admin routes (including admin React app)
   get '/admin', to: 'admin#index'
-  get '/admin/import', to: 'admin#import'
-  post '/admin/import', to: "admin#upload"
+  namespace :admin do
+    get '/import', to: 'uploads#new'
+    post '/upload', to: 'uploads#create'
+  end
 
   get '/browse/:list_id' => 'browse', as: :browse, action: 'list'
   get '/explore' => 'welcome#home'
