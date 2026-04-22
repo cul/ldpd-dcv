@@ -4,13 +4,18 @@
   <p>Administrators and editors have the ability to create zipped exports of DLC subsites. To do so, visit the editor interface of the site you would like to export and click the "export subsite as zip file" button at the bottom of the Site Properties page.</p>
   <p>When migrating subsites between environments (for example, from the DLC staging environment to production), you can upload zipped subsite contents here to initiate a site import.</p>
   <p class="text-secondary fst-italic">This is the <span class="text-dark"><%= Rails.env %></span> environment.</p>
-  <% unless @upload.nil? %>
-    <div class="m-3 p-5 border border-success text-success">
-      <p>You have initiated an upload for the subsite: <span class="fw-bold"><%= @upload %></span>!</p>
-      <%# TODO : extract some metadata from the upload if possible -- site title and site slug should suffice %>
-      <p>When the upload is complete, the site should be available at the ...correct route.</p>
-    </div>
-  <% end %>
-  <%# TODO : submit should initiate upload via admin upload action %>
-  <button type="button" class="btn btn-primary btn-lg">Upload Subsite Zip File</button>
+  <div id="import-subsite-form" class="p-3 border border-info rounded-4">
+
+    <%= render :partial=>'shared/flash_msg', layout: 'shared/flash_messages' %>
+
+    <%= form_with url: "/admin/upload", multipart: true, class: 'd' do |form| %>
+      <div>
+        <%= form.file_field :upload, required: true %>
+      </div>
+      <div>
+        <%= submit_tag "Upload Subsite Zip File", {class: ['btn', 'btn-primary btn-lg px-4 mt-3'] } %>
+      </div>
+    <% end %>
+  </div>
+
 </div>

@@ -30,6 +30,8 @@ require 'zip'
 #      ∟ other pages...
 #
 # Each level of the directory includes a yaml metadata file describing the contents
+#
+# This service is used by the sites_controller in the download action
 
 DB_FIELDS = ['id', 'created_at', 'site_id', 'site_page_id', 'updated_at']
 
