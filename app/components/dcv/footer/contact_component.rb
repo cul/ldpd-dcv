@@ -33,6 +33,10 @@ module Dcv::Footer
     def site_edit_link
       helpers.site_edit_link(sep: "", class: 'swatch-primary')
     end
+    def site_import_link
+      helpers.site_import_link
+
+    end
     def telephone_contact_link
       phone_number = t("cul.archives.contact_phone.#{@repository_code}")
       link_to phone_number, "tel:#{phone_number}", class: "swatch-primary"

@@ -104,6 +104,13 @@ module Dcv::DcvUrlHelper
     "#{sep}#{edit_ele}".html_safe
   end
 
+  def site_import_link
+    return unless current_user.is_admin
+    link_to(admin_import_path, class: 'swatch-primary') do
+      "<span class=\"fa-regular fa-upload\"></span> Import a subsite".html_safe
+    end
+  end
+
 # solr_document routing patches to get BL6 up and running
 # TODO remove these
   def solr_document_path(solr_document)

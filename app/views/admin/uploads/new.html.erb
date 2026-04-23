@@ -1,9 +1,9 @@
 
 <div>
-  <h2>Import a subsite to DLC</h2>
+  <h2>Import a subsite to DLC - <span class="text-dark fst-italic"><%= Rails.env %></span> environment</h2>
   <p>Administrators and editors have the ability to create zipped exports of DLC subsites. To do so, visit the editor interface of the site you would like to export and click the "export subsite as zip file" button at the bottom of the Site Properties page.</p>
   <p>When migrating subsites between environments (for example, from the DLC staging environment to production), you can upload zipped subsite contents here to initiate a site import.</p>
-  <p class="text-secondary fst-italic">This is the <span class="text-dark"><%= Rails.env %></span> environment.</p>
+  <p><strong class="text-danger" >This will overwrite all the subsite data currently saved and displayed in this environment (<em><%= Rails.env %></em>). This operation cannot be undone.</strong></p>
   <div id="import-subsite-form" class="p-3 border border-info rounded-4">
 
     <%= render :partial=>'shared/flash_msg', layout: 'shared/flash_messages' %>
