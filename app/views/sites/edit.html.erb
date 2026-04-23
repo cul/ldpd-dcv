@@ -168,13 +168,6 @@
     </div>
   </div>
 
-  <div class="card border-secondary">
-    <div class="card-header swatch-secondary"><h2 class="card-title">Create Subsite Export Zip File</h2></div>
-      <div class="card-body">
-        <p>You can download a zip file containing the data for the <%= @subsite.title %> subsite with the button below. This can be used when migrating a subsite to a different DLC environment (e.g. staging, production).</p>
-        <a role="button" class="btn btn-info" href=<%= download_path(@subsite.slug)%>>Download Subsite</a>
-      </div>
-    </div>
 
   </div>
   <div class="card">
@@ -183,6 +176,16 @@
     </div>
   </div>
 <% end %>
+  <div class="card mt-5" style="background-color: #add8e6">
+    <div class="card-header border-bottom border-body"><h2 class="card-title">Create or Import Subsite Export Zip File</h2></div>
+      <div class="card-body border-bottom border-body">
+        <p>You can download a zip file containing the data for the <%= @subsite.title %> subsite with the button below. This can be used when migrating a subsite to a different DLC environment (e.g. staging, production).</p>
+        <a role="button" class="btn btn-info" href=<%= download_path(@subsite.slug)%>>Download Subsite</a>
+      </div>
+      <div class="card-body">
+        <p>If you already have an exported zip file for this subsite, you can upload it using the <span class="bg-primary rounded p-1"><a class="text-light" href="/admin/import">Admin import dashboard</a></span>. <strong class="text-danger" >This will overwrite all the subsite data currently displayed in this environment (<%= Rails.env %>).</strong></p>
+      </div>
+    </div>
 <div class="hidden tooltips">
   <span id="tooltip-title" title="Site Title">The title of the site. This is data published from Hyacinth and should not be edited here.</span>
   <span id="tooltip-subtitle" title="Alternative Title">The subtitle of the site. If blank and the Hyacinth data for the site includes a Library Location, that library's name will be used in some layouts.</span>
