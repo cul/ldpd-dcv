@@ -105,7 +105,6 @@ module Dcv::DcvUrlHelper
   end
 
   def site_import_link
-    return unless current_user.is_admin
     link_to(admin_import_path, class: 'swatch-primary') do
       "<span class=\"fa-regular fa-upload\"></span> Import a subsite".html_safe
     end

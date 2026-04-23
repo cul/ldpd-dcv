@@ -2,6 +2,7 @@
 
 module Dcv::Footer
   class ContactComponent < ViewComponent::Base
+    include Devise::Controllers::Helpers 
     delegate :library_policies_url, :publications_policy_url, :terms_of_use_url, to: :helpers
     def initialize(repository_code:)
       @repository_code = repository_code
@@ -34,8 +35,8 @@ module Dcv::Footer
       helpers.site_edit_link(sep: "", class: 'swatch-primary')
     end
     def site_import_link
+      return unless current_user&.is_admin
       helpers.site_import_link
-
     end
     def telephone_contact_link
       phone_number = t("cul.archives.contact_phone.#{@repository_code}")
