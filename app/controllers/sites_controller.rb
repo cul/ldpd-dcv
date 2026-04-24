@@ -224,10 +224,8 @@ class SitesController < ApplicationController
   def download
     load_subsite
     subsite_properties = SubsiteExportService.new(@subsite).create_zipped_export
-    puts ''
-    Rails.logger.debug "subsite_properties.inspect:"
-    Rails.logger.debug subsite_properties.inspect
-    data = subsite_properties.read
+    data = subsite_properties.string
+    subsite_properties.close
     send_data(data, filename: "#{@subsite[:slug]}.zip")
     return
   end

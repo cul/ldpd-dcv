@@ -45,7 +45,14 @@ class SubsiteExportService
 
   # Users can optionally include ActiveRecord-specific fields by passing db_fields true
   def create_zipped_export
-    # For now, let's try to create the zip in memory:
+    # Create the zip file in memory:
+    # puts 'inside create_zipped_export:'
+    # puts '------subsite:'
+    # puts @subsite.inspect
+    # puts '------subsite.site_pages:'
+    # puts @subsite.site_pages.inspect
+    # puts '------subsite.nav_links:'
+    # puts @subsite.nav_links.inspect
     stream = Zip::OutputStream.write_buffer do |zos|
       write_subsite_metadata(zos)
       write_pages(zos)
