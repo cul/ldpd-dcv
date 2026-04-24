@@ -24,11 +24,6 @@ RSpec.describe SubsiteExportService, focus: true do
 
     it 'returns a zip file stream' do
       expect(export).to be_instance_of StringIO
-
-          puts 'the files:'
-    files.each do |file|
-      puts file
-    end
     end
 
     describe 'site metadata file' do
@@ -90,7 +85,6 @@ RSpec.describe SubsiteExportService, focus: true do
 
           it 'has the correct nav link values' do
             about_link = nav_links.find { |nav_link| nav_link['link'] == 'about' }
-            puts 'about link'
             expect(about_link['sort_label']).to eql('About')
             funding_link = nav_links.find { |nav_link| nav_link['link'] == 'funding' }
             expect(funding_link['sort_label']).to eql('Funding')
