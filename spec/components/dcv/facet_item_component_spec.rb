@@ -5,6 +5,10 @@ require 'rails_helper'
 describe Dcv::FacetItemComponent, type: :component do
   subject(:component) { described_class.new(facet_item: facet_item) }
 
+  def vc_test_controller_class
+    controller
+  end
+
   let(:facet_item) do
     instance_double(
       Blacklight::FacetItemPresenter,

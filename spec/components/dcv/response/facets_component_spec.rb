@@ -9,6 +9,10 @@ RSpec.describe Dcv::Response::FacetsComponent, type: :component do
     )
   end
 
+  def vc_test_controller_class
+    controller
+  end
+
   let(:blacklight_config)  do
     _blacklight_config = Blacklight::Configuration.new
     _blacklight_config.add_facet_field applied_facet_key, label: 'Applied'
@@ -32,15 +36,7 @@ RSpec.describe Dcv::Response::FacetsComponent, type: :component do
 
   let(:hide_heading) { true }
 
-  let(:view_context) { controller.view_context }
-
-  let(:render) do
-    component.render_in(view_context)
-  end
-
-  let(:rendered) do
-    Capybara::Node::Simple.new(render)
-  end
+  include_context "renderable view components"
 
   before do
     allow(solr_response).to receive(:aggregations).and_return(
@@ -52,7 +48,6 @@ RSpec.describe Dcv::Response::FacetsComponent, type: :component do
     allow(view_context).to receive(:should_render_field?).with(applied_facet_config, applied_facet).and_return(true)
     allow(view_context).to receive(:blacklight_config).and_return(blacklight_config)
 
-    allow(controller).to receive(:view_context).and_return(view_context)
     allow(controller).to receive(:subsite_config).and_return({})
     allow(controller).to receive(:blacklight_config).and_return(blacklight_config)
   end

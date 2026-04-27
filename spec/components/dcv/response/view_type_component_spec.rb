@@ -9,6 +9,10 @@ RSpec.describe Dcv::Response::ViewTypeComponent, type: :component do
     )
   end
 
+  def vc_test_controller_class
+    controller
+  end
+
   let(:blacklight_config)  do
     Blacklight::Configuration.new
   end
@@ -34,19 +38,11 @@ RSpec.describe Dcv::Response::ViewTypeComponent, type: :component do
     site.to_subsite_config
   end
 
-  let(:view_context) { controller.view_context }
-
-  let(:render) do
-    component.render_in(view_context)
-  end
-
-  let(:rendered) do
-    Capybara::Node::Simple.new(render)
-  end
+  include_context "renderable view components"
 
   before do
     allow(view_context).to receive(:blacklight_config).and_return(blacklight_config)
-    allow(controller).to receive(:view_context).and_return(view_context)
+    # allow(controller).to receive(:view_context).and_return(view_context)
     allow(controller).to receive(:subsite_config).and_return(subsite_config)
     allow(controller).to receive(:blacklight_config).and_return(blacklight_config)
   end

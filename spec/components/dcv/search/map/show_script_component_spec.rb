@@ -4,6 +4,10 @@ require 'rails_helper'
 RSpec.describe Dcv::Search::Map::ShowScriptComponent, type: :component do
   let(:component) { described_class.new }
 
+  def vc_test_controller_class
+    controller
+  end
+
   let(:params_for_search) { { } }
   let(:params) { ActionController::Parameters.new(params_for_search) }
 
@@ -29,7 +33,10 @@ RSpec.describe Dcv::Search::Map::ShowScriptComponent, type: :component do
     let(:expected_url) { '/expected' }
     let(:search_params) {  { 'lat' => '_lat_', 'long' => '_long_', 'q' => '', 'search_field' => 'all_text_teim' } }
     context "custom site controller" do
-      let(:controller) { DurstController.new }
+      # Use ViewComponent test helper build_controller to avoid overwriting the value of controller that gets set up by
+      # ViewComponent::TestHelpers
+      # This will not be a problem if we upgrade to the latest version of ViewComponent
+      let(:controller) { build_controller(DurstController) }
       let(:expected_routing_params) { {'controller' => 'durst', 'action' => :index}.merge(search_params) }
       before do
         allow(controller).to receive(:url_for).with(expected_routing_params).and_return(expected_url)
@@ -39,7 +46,10 @@ RSpec.describe Dcv::Search::Map::ShowScriptComponent, type: :component do
       end
     end
     context 'site search controller' do
-      let(:controller) { Sites::SearchController.new }
+      # Use ViewComponent test helper build_controller to avoid overwriting the value of controller that gets set up by
+      # ViewComponent::TestHelpers
+      # This will not be a problem if we upgrade to the latest version of ViewComponent
+      let(:controller) { build_controller(Sites::SearchController) }
       let(:subsite) { FactoryBot.create(:site) }
       let(:expected_routing_params) { [subsite.slug, search_params] }
       before do

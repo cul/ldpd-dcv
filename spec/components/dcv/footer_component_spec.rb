@@ -9,24 +9,12 @@ RSpec.describe Dcv::FooterComponent, type: :component do
     controller
   end
 
-  let(:view_context) { controller.view_context }
-  let(:render) do
-    component.render_in(view_context)
-  end
-
-  let(:rendered) do
-    Capybara::Node::Simple.new(render)
-  end
+  include_context "renderable view components" 
 
   let(:site_slug) { 'test' }
   let(:site_repository_id) { nil }
   let(:subsite) { instance_double(Site, slug: site_slug, repository_id: site_repository_id) }
   let(:repository_id) { nil }
-
-  before do
-    # Every call to view_context returns a different object. This ensures it stays stable.
-    allow(controller).to receive(:view_context).and_return(view_context)
-  end
 
   context 'has a subsite' do
     it "falls back to NNC when nothing is a variant" do

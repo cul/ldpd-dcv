@@ -5,23 +5,19 @@ require 'rails_helper'
 RSpec.describe Dcv::Document::Ui::IiifManifestComponent, type: :component do
   subject(:component) { described_class.new(document: document) }
 
-  let(:view_context) { controller.view_context }
-  let(:render) do
-    component.render_in(view_context)
+  def vc_test_controller_class
+    controller
   end
 
-  let(:rendered) do
-    Capybara::Node::Simple.new(render)
-  end
 
   include_context "a solr document"
+
+  include_context "renderable view components"
 
   let(:document) { solr_document }
   let(:child) { nil }
 
   before do
-    # Every call to view_context returns a different object. This ensures it stays stable.
-    allow(controller).to receive(:view_context).and_return(view_context)
     allow(view_context).to receive(:structured_children_for_document).with(document).and_return([child].compact)
     render
   end

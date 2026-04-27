@@ -5,21 +5,14 @@ require 'rails_helper'
 RSpec.describe Dcv::Gallery::MosaicComponent, type: :component do
   subject(:component) { described_class.new(page: page) }
 
-  let(:view_context) { controller.view_context }
-  let(:render) do
-    component.render_in(view_context)
+  def vc_test_controller_class
+    controller
   end
 
-  let(:rendered) do
-    Capybara::Node::Simple.new(render)
-  end
+  include_context 'renderable view components'
 
   let(:page) { FactoryBot.create(:site_page, site: FactoryBot.create(:site)) }
 
-  before do
-    # Every call to view_context returns a different object. This ensures it stays stable.
-    allow(controller).to receive(:view_context).and_return(view_context)
-  end
 
   context 'when less than the requested number of featured items are available' do
     let(:limited_ids) { ['a', 'b', 'c'] }

@@ -5,15 +5,13 @@ require 'rails_helper'
 RSpec.describe Dcv::DocumentComponent, type: :component do
   subject(:component) { described_class.new(document: presenter, **attr) }
 
-  let(:attr) { { document_counter: nil } }
-  let(:view_context) { controller.view_context }
-  let(:render) do
-    component.render_in(view_context)
+  def vc_test_controller_class
+    controller
   end
 
-  let(:rendered) do
-    Capybara::Node::Simple.new(render)
-  end
+  let(:attr) { { document_counter: nil } }
+
+  include_context "renderable view components"
 
   include_context "a solr document"
 
@@ -21,8 +19,6 @@ RSpec.describe Dcv::DocumentComponent, type: :component do
   let(:presenter) { double(Dcv::ShowPresenter, document: document) }
 
   before do
-    # Every call to view_context returns a different object. This ensures it stays stable.
-    allow(controller).to receive(:view_context).and_return(view_context)
     allow(view_context).to receive(:document_presenter).and_return(presenter)
     allow(presenter).to receive(:html_title).and_return("Document Show Title")
   end
