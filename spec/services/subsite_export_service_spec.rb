@@ -1,10 +1,14 @@
 require 'rails_helper'
 
+
 RSpec.describe SubsiteExportService do
   let(:site) { FactoryBot.create(:site_with_links) }
 	let!(:page) { FactoryBot.create(:site_page_with_text_blocks, site: site, slug: 'home', title: 'Home' ) }
   let(:test_export) { SubsiteExportService.new(site)}
 
+  # Helper to extract the files from a zip file and return a hash of those files:
+  # key: file path
+  # value: file contents
   def extract_files(zip_io)
     entries = {}
     Zip::File.open_buffer zip_io do |zip|
@@ -27,6 +31,7 @@ RSpec.describe SubsiteExportService do
     end
 
     describe 'site metadata file' do
+
       it 'creates the right file' do
         expect(files.key? metadata_file).to be_truthy
       end
@@ -37,39 +42,30 @@ RSpec.describe SubsiteExportService do
         it 'has the correct slug' do
           expect(site_metadata['slug']).to eql('dlc_site')
         end
-
         it 'has the correct title' do
           expect(site_metadata['title']).to eql('DLC Site')
         end
-
         it 'has the correct persistent_url' do
           expect(site_metadata['persistent_url']).to eql('https://example.com/catalog/persistent_url')
         end
-
         it 'has the correct restricted value' do
           expect(site_metadata['restricted']).to be_falsy
         end
-
         it 'has the correct layout' do
           expect(site_metadata['layout']).to eql('default')
         end
-
         it 'has the correct palette' do
           expect(site_metadata['palette']).to eql('monochromeDark')
         end
-
         it 'has the correct search_type' do
           expect(site_metadata['search_type']).to eql('catalog')
         end
-
         it 'has the correct image_uris' do
           expect(site_metadata['image_uris'].first).to eql('info:fedora/test-image:1')
         end
-
         it 'has the correct repository_id' do
           expect(site_metadata['repository_id']).to eql('NNC')
         end
-
         it 'has the correct scope filters' do
           scope_filter = site_metadata['scope_filters'].first
           expect(scope_filter['filter_type']).to eql('collection')
@@ -82,7 +78,6 @@ RSpec.describe SubsiteExportService do
           it 'has the correct number of nav links' do
             expect(nav_links.length).to eql(3)
           end
-
           it 'has the correct nav link values' do
             about_link = nav_links.find { |nav_link| nav_link['link'] == 'about' }
             expect(about_link['sort_label']).to eql('About')
@@ -110,11 +105,9 @@ RSpec.describe SubsiteExportService do
         it 'has the right slug' do
           expect(home_page_metadata['slug']).to eql('home')
         end
-
         it 'has the right title' do
           expect(home_page_metadata['title']).to eql('Home')
         end
-
         it 'has the right columns' do
           expect(home_page_metadata['columns']).to eql(1)
         end
@@ -135,6 +128,7 @@ RSpec.describe SubsiteExportService do
 
         describe 'page markdown files' do
           let(:home_page_markdown_file) { "#{pages_subdir}/home/00_Text_Block.md" }
+
           it 'has the markdown file' do
             expect(files.key? home_page_markdown_file).to be_truthy
           end
@@ -163,7 +157,6 @@ RSpec.describe SubsiteExportService do
       it 'includes any images' do
         expect(files.key? image_file_zip).to be_truthy
       end
-
       it 'zips the correct image content' do
         expect(files[image_file_zip]).to eql('test image content')
       end
