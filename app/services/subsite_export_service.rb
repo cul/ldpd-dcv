@@ -99,11 +99,12 @@ class SubsiteExportService
       current_page_subdir = "#{PAGES_SUBDIR}/#{site_page.slug}/"
       zos.put_next_entry("#{current_page_subdir}#{SITE_METADATA}")
       json = site_page.as_json
-      json['site_page_images'] = site_page.site_page_images.map(&:as_json).each do |site_page_image|
-        DB_FIELDS.each { |field| site_page_image.delete(field) } # TODO: unless @db_fields ?
-        site_page_image.delete('depictable_id')
-        site_page_image.delete('depictable_type')
-        site_page_image
+      json['site_page_images'] = site_page.site_page_images.map do |site_page_image|
+        site_page_image_json = site_page_image.as_json
+        DB_FIELDS.each { |field| site_page_image_json.delete(field) } # TODO: unless @db_fields ?
+        site_page_image_json.delete('depictable_id')
+        site_page_image_json.delete('depictable_type')
+        site_page_image_json
       end
       DB_FIELDS.each { |field| json.delete(field) } unless @db_fields
       json['site_page_text_blocks'] = []

@@ -32,19 +32,18 @@ class SubsiteImportService
   end
 
   def import_subsite
+    Rails.logger.debug "Importing subsite: #{@site.title} at #{@site.slug}"
     Zip::File.open @zip_file do |zip|
-      is_valid = validate_import(zip)
-      raise Error unless is_valid
+      validate_import(zip)
       save_import(zip)
     end
-    Rails.logger.debug 'done importing!'
+    Rails.logger.debug "Done importing subsite: #{@site.title} at #{@site.slug}"
   end
 
   private
   ########## PRIVATE ATTR ACCESSORS #############
   # This must be called in the initializer
   def extract_attributes_from_zip_file
-    puts 'extracting attrs'
     Zip::File.open @zip_file do |zip|
       @pages_metadata_files = zip.glob("#{PAGES_SUBDIR}/**/#{SITE_METADATA}")
       zip.glob(SITE_METADATA).first.get_input_stream do |zis|
@@ -68,18 +67,13 @@ class SubsiteImportService
 
   ############## PRIVATE METHODS ################
   def save_import(zip)
-    Rails.logger.debug "Importing site #{attrs['slug']}"
-
-    # Create or update Site model
     create_site_model(zip)
     create_nav_links_models(zip)
     create_page_models(zip)
     save_images(zip)
-
   end
 
   def save_images(zip)
-    puts 'saving images'
     zip_images = zip.glob("#{IMAGES_SUBDIR}/*")
     return if zip_images.length == 0
 
@@ -91,14 +85,11 @@ class SubsiteImportService
       next unless ALLOWED_IMAGE_FILENAMES.include? image_file_name
       image_path = "#{image_dir_path}/#{image_file_name}"
       image_file.extract(image_path) { true }
-      @site.touch # bust browser cache by updating
-      # @site.save
     end
   end
 
   # Creates each page, each page's images, and each page's text blocks
   def create_page_models(zip)
-    puts 'create page models'
     pages_metadata_files.each do |page_metadata_file|
       page_metadata = nil
       page_metadata_file.get_input_stream do |zis|
@@ -139,13 +130,13 @@ class SubsiteImportService
   def create_site_search_configuration(zip)
     search_configuration_attrs = attrs['search_configuration'] || {}
     if attrs['constraints']
-      puts "attrs had legacy constraints; will attempt to migrate? : #{search_configuration_attrs['scope_constraints'].nil?}"
+      Rails.logger.debug "attrs had legacy constraints; will attempt to migrate? : #{search_configuration_attrs['scope_constraints'].nil?}"
       search_configuration_attrs['scope_constraints'] ||= attrs['constraints']
       # i.e. if constraints are defined, they will attempt to be migrated by setting the search_configuration.scope_constraints
       # to constraints -- IF the value search_configuration.scope_constraints is NOT yet set. 
     end
     if search_configuration_attrs['scope_constraints']
-      puts "attrs had search_configuration[scope_constraints]; migrate? : #{attrs['scope_filters'].blank?}"
+      Rails.logger.debug "attrs had search_configuration[scope_constraints]; migrate? : #{attrs['scope_filters'].blank?}"
       scope_constraints = search_configuration_attrs.delete('scope_constraints')
       if attrs['scope_filters'].blank?
         attrs['scope_filters'] = []
@@ -193,14 +184,18 @@ class SubsiteImportService
 
   def validate_import(zip)
     # top-level metadata file should exit
-    return false if zip.glob(SITE_METADATA).length != 1
+    if zip.glob(SITE_METADATA).length != 1
+      raise SubsiteUploadValidationError("There should be one top-level site metadata file. We found #{zip.glob(SITE_METADATA).length}")
+    end
 
     # Validate there is a pages/home/ directory
     # N.B. we cannot use the rubyzip glob method to match directories; only file 
     # names to validate that a pages directory and pages/home directory exist, 
     # we will check for pages/home/properties.yml to validate both requirements
     # at once
-    return false unless pages_metadata_files.any? { |file| file.name == "#{PAGES_SUBDIR}/home/#{SITE_METADATA}" }
+    unless pages_metadata_files.any? { |file| file.name == "#{PAGES_SUBDIR}/home/#{SITE_METADATA}" }
+      raise SubsiteUploadValidationError("No home page data was found (subsites must have a home page).")
+    end
 
     # Validate that each properties.yml that has site_pages_text_blocks data
     # have the corresponding markdown files
@@ -213,17 +208,21 @@ class SubsiteImportService
       yaml["site_page_text_blocks"].each do |block|
         markdown_file_name = block["markdown"]
         # validate markdown filename format
-        return false unless markdown_file_name =~ MD_REGEX
-        return false if zip.glob("#{PAGES_SUBDIR}/#{page_slug}/#{markdown_file_name}").length != 1
+        unless markdown_file_name =~ MD_REGEX
+          raise SubsiteUploadValidationError("A page text block markdown file has the wrong filename (offender: #{markdown_file_name})")
+        end
+        if zip.glob("#{PAGES_SUBDIR}/#{page_slug}/#{markdown_file_name}").length != 1
+          raise SubsiteUploadValidationError("Could not locate a page text block's markdown file (#{zip.glob("#{PAGES_SUBDIR}/#{page_slug}/#{markdown_file_name}").length} results for '#{"#{PAGES_SUBDIR}/#{page_slug}/#{markdown_file_name}"}')")
+        end
       end
     end
 
     # Validate any files in images/ directory are of proper file type
     images = zip.glob("#{IMAGES_SUBDIR}/*")
     images.each do |image|
-      return false unless ALLOWED_IMAGE_FILENAMES.include? image.name.split('/').last
+      unless ALLOWED_IMAGE_FILENAMES.include? image.name.split('/').last
+        raise SubsiteUploadValidationError("The uploaded signature image has the wrong file type or name. Found: #{image.name.split('/').last} - allowed names/types: #{ALLOWED_IMAGE_FILENAMES.to_s}")
+      end
     end
-
-    return true
   end
 end
