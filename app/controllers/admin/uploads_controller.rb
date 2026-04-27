@@ -11,8 +11,9 @@ module Admin
       begin
         uploaded_zip = params[:upload]
         return if uploaded_zip.nil?
-        SubsiteImportService.new(uploaded_zip).import_subsite
-        flash[:success] = "Your upload is complete and the site changes have been saved."
+        import = SubsiteImportService.new(uploaded_zip)
+        import.import_subsite
+        flash[:success] = "#{import.finish_message} Your upload is complete and the site changes have been saved."
       rescue Exception => err
         flash[:error] = "An error occurred: #{err.message}"
       end
