@@ -1,4 +1,5 @@
 class Api::SitesController < Api::BaseController
+  # include Dcv::RestrictableController
 
   before_action :load_subsite, 
     only: [
