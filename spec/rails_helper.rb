@@ -1,9 +1,8 @@
-require "view_component/test_helpers"
-
+require 'view_component/test_helpers'
 
 # This file is copied to spec/ when you run 'rails generate rspec:install'
-ENV["RAILS_ENV"] ||= 'test'
-require File.expand_path("../../config/environment", __FILE__)
+ENV['RAILS_ENV'] ||= 'test'
+require File.expand_path('../config/environment', __dir__)
 require 'spec_helper'
 require 'rspec/rails'
 require 'react_on_rails'
@@ -24,7 +23,7 @@ Capybara.default_max_wait_time = 30 # Some ajax requests might take longer than 
 # run twice. It is recommended that you do not name files matching this glob to
 # end with _spec.rb. You can configure this pattern with the --pattern
 # option on the command line or in ~/.rspec, .rspec or `.rspec-local`.
-Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
+Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 
 # Checks for pending migrations before tests are run.
 # If you are not using ActiveRecord, you can remove this line.
@@ -40,8 +39,8 @@ RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
   # additional factory_bot configuration
   config.before(:suite) do
-    #FactoryBot.definition_file_paths = [File.expand_path('../factories', __FILE__)]
-    #FactoryBot.find_definitions
+    # FactoryBot.definition_file_paths = [File.expand_path('../factories', __FILE__)]
+    # FactoryBot.find_definitions
   end
 
   # RSpec Rails can automatically mix in different behaviours to your tests
@@ -68,8 +67,8 @@ RSpec.configure do |config|
   end
 
   config.include Devise::Test::ControllerHelpers, type: :controller
+  config.include Devise::Test::IntegrationHelpers, type: :request
 
   config.include(ControllerLevelHelpers, type: :view)
   config.before(:each, type: :view) { initialize_controller_helpers(view) }
-
 end

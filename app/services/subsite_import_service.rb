@@ -1,10 +1,9 @@
-
 # This service implements the logic for extracting the data from a zipped subsite
 # export (created by the subsite_export_service), validating the structure of the
 # imported data, and saving the result as DLC data in the ActiveRecord database.
 # It creates or updates Site, SitePage(s), NavLink(s), TextBlock(s) models and
 # saves any signature-theme-related image assets in the public directory.
-# 
+#
 # Usage:
 # Initialize a new instance by passing an uploaded zip file to the initializer
 # (expects an instance of ActionDispatch::Http::UploadedFile). Some initial
@@ -18,10 +17,10 @@
 # This service uses the rubyzip library to process the uploaded zip file.
 
 # These filename constants come from the watermark_uploader.rb and banner_uploader.rb class definitions
-ALLOWED_IMAGE_FILENAMES = %w[ signature-banner.png signature.svg ]
+ALLOWED_IMAGE_FILENAMES = %w[signature-banner.png signature.svg]
 MD_REGEX = /\d{2,}_[\w.%]*\.md/
 
-class SubsiteImportService 
+class SubsiteImportService
   include Dcv::Sites::Constants
   attr_reader :finish_message
 
@@ -38,15 +37,14 @@ class SubsiteImportService
       save_import(zip)
     end
     Rails.logger.debug "Done importing subsite: #{@site.title} at #{@site.slug}"
-  rescue StandardError => err
-    if err.is_a? Exceptions::SubsiteUploadValidationError
-      raise err
-    else
-      raise Exceptions::SubsiteUploadError.new("(#{err.class}) #{err.message}")
-    end
+  rescue StandardError => e
+    raise e if e.is_a? Exceptions::SubsiteUploadValidationError
+
+    raise Exceptions::SubsiteUploadError.new("(#{e.class}) #{e.message}")
   end
 
   private
+
   ########## PRIVATE ATTR ACCESSORS #############
   # This must be called in the initializer
   def extract_attributes_from_zip_file
@@ -55,29 +53,21 @@ class SubsiteImportService
       if zip.glob(SITE_METADATA).length != 1
         raise Exceptions::SubsiteUploadValidationError.new("No home page metadata file could be located (#{zip.glob(SITE_METADATA).length} results found for '#{SITE_METADATA})")
       end
+
       zip.glob(SITE_METADATA).first.get_input_stream do |zis|
         @attrs = YAML.load zis.read
       end
       new_subsite = Site.find_by(slug: @attrs['slug']).nil?
-      if new_subsite and not @is_admin
-        raise Exceptions::SubsiteUploadError.new("You are not authorized to import a new site to the DLC. If this is an error, please contact a DLC administrator to receive admin privileges.")
+      if new_subsite && !@is_admin
+        raise Exceptions::SubsiteUploadError.new('You are not authorized to import a new site to the DLC. If this is an error, please contact a DLC administrator to receive admin privileges.')
       end
-      @finish_message =  "#{ new_subsite ? 'Created new' : 'Updated'} DLC subsite at /#{@attrs['slug']}!"
+
+      @finish_message = "#{new_subsite ? 'Created new' : 'Updated'} DLC subsite at /#{@attrs['slug']}!"
       @site = Site.find_by(slug: @attrs['slug']) || Site.new(slug: @attrs['slug'])
     end
   end
 
-  def pages_metadata_files
-    @pages_metadata_files
-  end
-
-  def attrs
-    @attrs
-  end
-
-  def site
-    @site
-  end
+  attr_reader :pages_metadata_files, :attrs, :site
 
   ############## PRIVATE METHODS ################
   def save_import(zip)
@@ -89,14 +79,15 @@ class SubsiteImportService
 
   def save_images(zip)
     zip_images = zip.glob("#{IMAGES_SUBDIR}/*")
-    return if zip_images.length == 0
+    return if zip_images.empty?
 
-		image_dir_path = File.join(Rails.root, 'public', 'images', 'sites', site.slug)
+    image_dir_path = File.join(Rails.root, 'public', 'images', 'sites', site.slug)
     FileUtils.mkdir_p image_dir_path
 
     zip_images.each do |image_file|
       image_file_name = image_file.name.split('/').last
       next unless ALLOWED_IMAGE_FILENAMES.include? image_file_name
+
       image_path = "#{image_dir_path}/#{image_file_name}"
       image_file.extract(image_path) { true }
     end
@@ -112,12 +103,14 @@ class SubsiteImportService
 
       page_metadata['site_page_images']&.each { |img_attrs| SitePageImage.new(img_attrs) }
 
-      new_page = SitePage.create!({
-        slug: page_metadata['slug'],
-        title: page_metadata['title'],
-        site_id: site.id,
-        columns: page_metadata['columns'],
-      })
+      new_page = SitePage.create!(
+        {
+          slug: page_metadata['slug'],
+          title: page_metadata['title'],
+          site_id: site.id,
+          columns: page_metadata['columns']
+        }
+      )
 
       page_metadata['site_page_text_blocks']&.each do |block_attrs|
         markdown_file_name = block_attrs['markdown']
@@ -147,7 +140,7 @@ class SubsiteImportService
       Rails.logger.debug "attrs had legacy constraints; will attempt to migrate? : #{search_configuration_attrs['scope_constraints'].nil?}"
       search_configuration_attrs['scope_constraints'] ||= attrs['constraints']
       # i.e. if constraints are defined, they will attempt to be migrated by setting the search_configuration.scope_constraints
-      # to constraints -- IF the value search_configuration.scope_constraints is NOT yet set. 
+      # to constraints -- IF the value search_configuration.scope_constraints is NOT yet set.
     end
     if search_configuration_attrs['scope_constraints']
       Rails.logger.debug "attrs had search_configuration[scope_constraints]; migrate? : #{attrs['scope_filters'].blank?}"
@@ -170,7 +163,7 @@ class SubsiteImportService
     site.title = attrs['title']
     site.alternative_title = attrs['alternative_title']
     site.repository_id = attrs['repository_id']
-    site.search_type =  attrs['search_type'] || DEFAULT_SEARCH_TYPE
+    site.search_type = attrs['search_type'] || DEFAULT_SEARCH_TYPE
     site.layout = attrs['layout'] || DEFAULT_LAYOUT
     site.palette = attrs['palette'] || DEFAULT_PALETTE
     site.show_facets = attrs['show_facets'] if attrs['show_facets']
@@ -213,12 +206,12 @@ class SubsiteImportService
     end
 
     # Validate there is a pages/home/ directory
-    # N.B. we cannot use the rubyzip glob method to match directories; only file 
-    # names to validate that a pages directory and pages/home directory exist, 
+    # N.B. we cannot use the rubyzip glob method to match directories; only file
+    # names to validate that a pages directory and pages/home directory exist,
     # we will check for pages/home/properties.yml to validate both requirements
     # at once
     unless pages_metadata_files.any? { |file| file.name == "#{PAGES_SUBDIR}/home/#{SITE_METADATA}" }
-      raise Exceptions::SubsiteUploadValidationError.new("No home page data was found (subsites must have a home page with a proper metadata file).")
+      raise Exceptions::SubsiteUploadValidationError.new('No home page data was found (subsites must have a home page with a proper metadata file).')
     end
 
     # Validate that each properties.yml that has site_pages_text_blocks data
@@ -228,9 +221,9 @@ class SubsiteImportService
       metadata_file.get_input_stream do |zis|
         yaml = YAML.load zis.read
       end
-      page_slug = yaml["slug"]
-      yaml["site_page_text_blocks"].each do |block|
-        markdown_file_name = block["markdown"]
+      page_slug = yaml['slug']
+      yaml['site_page_text_blocks'].each do |block|
+        markdown_file_name = block['markdown']
         # validate markdown filename format
         unless markdown_file_name =~ MD_REGEX
           raise Exceptions::SubsiteUploadValidationError.new("A page text block markdown file has the wrong filename (offender: #{markdown_file_name})")
@@ -245,7 +238,7 @@ class SubsiteImportService
     images = zip.glob("#{IMAGES_SUBDIR}/*")
     images.each do |image|
       unless ALLOWED_IMAGE_FILENAMES.include? image.name.split('/').last
-        raise Exceptions::SubsiteUploadValidationError.new("The uploaded signature image has the wrong file type or name. Found: #{image.name.split('/').last} - allowed names/types: #{ALLOWED_IMAGE_FILENAMES.to_s}")
+        raise Exceptions::SubsiteUploadValidationError.new("The uploaded signature image has the wrong file type or name. Found: #{image.name.split('/').last} - allowed names/types: #{ALLOWED_IMAGE_FILENAMES}")
       end
     end
   end

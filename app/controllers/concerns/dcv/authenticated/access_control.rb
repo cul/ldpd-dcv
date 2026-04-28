@@ -19,11 +19,11 @@ module Dcv::Authenticated::AccessControl
     raise CanCan::AccessDenied unless can?(action, scope)
   end
 
-  def authorize_document(_document=nil)
+  def authorize_document(_document = nil)
     authorize_action_and_scope(Ability::ACCESS_SUBSITE, self)
   end
 
-  def authorize_site_update(site=@subsite)
+  def authorize_site_update(site = @subsite)
     authorize_action_and_scope(:update, site)
   end
 end

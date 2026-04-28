@@ -1,5 +1,4 @@
 class ApplicationController < ActionController::Base
-
   include Dcv::Authenticated::AccessControl
   include Dcv::CrossOriginRequests
 
@@ -23,6 +22,8 @@ class ApplicationController < ActionController::Base
       store_location
       redirect_to_login
     else
+      # TODO: this apparently redirects to sign_in in practice; would we want to instead display an error?
+      # (not sure where it is coming from)
       access_denied
     end
   end
@@ -34,7 +35,7 @@ class ApplicationController < ActionController::Base
   def self.cached_view_resolver(view_path)
     @cached_resolvers ||= Concurrent::Map.new
     @cached_resolvers.fetch_or_store(view_path) do
-      ActionView::Resolver === view_path ? view_path : ActionView::OptimizedFileSystemResolver.new(view_path)
+      view_path.is_a?(ActionView::Resolver) ? view_path : ActionView::OptimizedFileSystemResolver.new(view_path)
     end
   end
 
@@ -53,8 +54,8 @@ class ApplicationController < ActionController::Base
 
   def initialize(*args)
     super(*args)
-    self._prefixes << 'catalog' # haaaaaaack to not reproduce templates
-    self._prefixes << 'shared' # haaaaaaack to not reproduce templates
+    _prefixes << 'catalog' # haaaaaaack to not reproduce templates
+    _prefixes << 'shared' # haaaaaaack to not reproduce templates
   end
 
   append_view_path('app/views/shared')
@@ -66,7 +67,7 @@ class ApplicationController < ActionController::Base
   end
 
   def render_unauthorized!
-    render 'pages/unauthorized', :status => :unauthorized
+    render 'pages/unauthorized', status: :unauthorized
   end
 
   def store_unless_user
@@ -83,7 +84,7 @@ class ApplicationController < ActionController::Base
   end
 
   def external_service_client_ip
-    DCV_CONFIG.dig('media_streaming','wowza', 'client_ip_override') || request.remote_ip
+    DCV_CONFIG.dig('media_streaming', 'wowza', 'client_ip_override') || request.remote_ip
   end
 
   # this is overridden in most controllers
@@ -96,7 +97,7 @@ class ApplicationController < ActionController::Base
   end
 
   def on_page_not_found
-    render(status: :not_found, plain: "Page Not Found")
+    render(status: :not_found, plain: 'Page Not Found')
   end
 
   # this is overridden in controller that mixin Blacklight::Catalog
@@ -104,16 +105,10 @@ class ApplicationController < ActionController::Base
     false
   end
 
-  def meta_nofollow
-    @meta_nofollow
-  end
+  attr_reader :meta_nofollow, :meta_noindex
 
   def meta_nofollow!
     @meta_nofollow = true
-  end
-
-  def meta_noindex
-    @meta_noindex
   end
 
   def meta_noindex!

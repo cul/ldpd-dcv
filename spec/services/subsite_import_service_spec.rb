@@ -1,5 +1,6 @@
-require 'rails_helper'
+# frozen_string_literal: true
 
+require 'rails_helper'
 
 # N.B. These tests use fixture data that are zip files located in spec/fixtures/import_service/
 # If certain constants (like the name of metadata files) change, than this data will
@@ -13,7 +14,7 @@ require 'rails_helper'
 # And were created by running the export service spec and saving the output zip file.
 # See the factory files (in spec/factories) and export service spec for more details on
 # the data that is included in the fixture zip files.
-RSpec.describe SubsiteImportService do
+RSpec.describe SubsiteImportService, focus: true do
   let(:fixture_path) { File.join(Rails.root, 'spec', 'fixtures', 'import_service') }
 
   describe '#import_subsite' do
@@ -26,9 +27,10 @@ RSpec.describe SubsiteImportService do
       end
       it 'does allow import of an existing subsite' do
         FactoryBot.create(:site, slug: 'dlc_site', title: 'Existing DLC Site')
-        expect(import.import_subsite).to return_nil
+        expect { import.import_subsite }.not_to raise_error
       end
     end
+
     context 'with a valid import' do
       let(:test_import_path) { File.join(fixture_path, 'test_import.zip') }
       let(:import) { SubsiteImportService.new(test_import_path, true) }
@@ -56,7 +58,7 @@ RSpec.describe SubsiteImportService do
 
         context 'when importing a new subsite' do
           it 'has a created new success message' do
-            expect(import.finish_message).to include("Created")
+            expect(import.finish_message).to include('Created')
           end
         end
       end
@@ -81,13 +83,13 @@ RSpec.describe SubsiteImportService do
           expect(SitePage.find_by(slug: 'home', site_id: Site.find_by(slug: 'dlc_site').id)).not_to be_nil
         end
         it 'has an updated success message' do
-          expect(import.finish_message).to include("Updated")
+          expect(import.finish_message).to include('Updated')
         end
       end
 
       context 'when an unknown error occurs' do
         before do
-          allow_any_instance_of(Site).to receive(:save!).and_raise(StandardError.new("Unknown error"))
+          allow_any_instance_of(Site).to receive(:save!).and_raise(StandardError.new('Unknown error'))
         end
 
         it 'raises a SubsiteImportError with the original error message' do
@@ -114,7 +116,7 @@ RSpec.describe SubsiteImportService do
 
       context 'when the image is new' do
         it 'creates the image directory' do
-          expect(Dir.exist? images_dir).to be_truthy
+          expect(Dir.exist?(images_dir)).to be_truthy
         end
         it 'saves the image to the file system' do
           expect(File).to exist(signature_image_path)
