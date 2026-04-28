@@ -25,8 +25,9 @@ class SubsiteImportService
   include Dcv::Sites::Constants
   attr_reader :finish_message
 
-  def initialize(zip_file)
+  def initialize(zip_file, is_admin)
     @zip_file = zip_file
+    @is_admin = is_admin
     extract_attributes_from_zip_file
   end
 
@@ -57,7 +58,11 @@ class SubsiteImportService
       zip.glob(SITE_METADATA).first.get_input_stream do |zis|
         @attrs = YAML.load zis.read
       end
-      @finish_message =  "#{Site.find_by(slug: @attrs['slug']).nil? ? 'Created new' : 'Updated'} DLC subsite at '/#{@attrs['slug']}'!"
+      new_subsite = Site.find_by(slug: @attrs['slug']).nil?
+      if new_subsite and not @is_admin
+        raise Exceptions::SubsiteUploadError.new("You are not authorized to import a new site to the DLC. If this is an error, please contact a DLC administrator to receive admin privileges.")
+      end
+      @finish_message =  "#{ new_subsite ? 'Created new' : 'Updated'} DLC subsite at /#{@attrs['slug']}!"
       @site = Site.find_by(slug: @attrs['slug']) || Site.new(slug: @attrs['slug'])
     end
   end

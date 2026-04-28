@@ -4,6 +4,7 @@ class Ability
   attr_reader :public
   ACCESS_ASSET = :access_asset
   ACCESS_SUBSITE = :access_subsite
+  IMPORT_SUBSITE = :import_subsite
   UNSPECIFIED_ACCESS_DECISION = true
 
   def initialize(user=nil, opts={})
@@ -62,6 +63,18 @@ class Ability
     end
     can :admin, Site do |site|
       user&.is_admin
+    end
+    # Authorization rules:
+    #   - in dlc_prod: only dlc admin may import a site
+    #   - else: only dlc admin or an editor of *some* site may import a site
+    # N.B.: in non-prod environments, an editor may import a site or new site
+    #       without restriction. Some ideas to make this more secure:
+    #         - users must entire the slug for the site they are updating, and if
+    #           it doesn't match the metadata of the import, we reject the operation
+    #         - users may not upload a new site unless they are admin
+    can :import_subsite, Site do
+      return user&.is_admin if Rails.env === 'dlc_prod'
+      return user&.is_admin || Site.all.any? { |site| site[:editor_uids].include? user&.uid }
     end
   end
 

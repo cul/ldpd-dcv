@@ -17,9 +17,21 @@ RSpec.describe SubsiteImportService do
   let(:fixture_path) { File.join(Rails.root, 'spec', 'fixtures', 'import_service') }
 
   describe '#import_subsite' do
+    context 'when non-admin' do
+      let(:test_import_path) { File.join(fixture_path, 'test_import.zip') }
+      let(:import) { SubsiteImportService.new(test_import_path, false) }
+
+      it 'does not allow import of a new subsite' do
+        expect { import.import_subsite }.to raise_error(Exceptions::SubsiteUploadError)
+      end
+      it 'does allow import of an existing subsite' do
+        FactoryBot.create(:site, slug: 'dlc_site', title: 'Existing DLC Site')
+        expect(import.import_subsite).to return_nil
+      end
+    end
     context 'with a valid import' do
       let(:test_import_path) { File.join(fixture_path, 'test_import.zip') }
-      let(:import) { SubsiteImportService.new(test_import_path) }
+      let(:import) { SubsiteImportService.new(test_import_path, true) }
 
       context 'when importing a subsite' do
         before do
@@ -50,8 +62,8 @@ RSpec.describe SubsiteImportService do
       end
 
       context 'when importing an existing subsite' do
-        let(:existing_site) { FactoryBot.create(:site, slug: 'dlc_site', title: 'Existing DLC Site') }
         before do
+          existing_site = FactoryBot.create(:site, slug: 'dlc_site', title: 'Existing DLC Site')
           existing_site.site_pages << FactoryBot.create(:site_page, slug: 'existing_page', site: existing_site)
           import.import_subsite
         end
@@ -87,7 +99,7 @@ RSpec.describe SubsiteImportService do
     # Testing a signature-image upload
     context 'when importing a subsite with image data' do
       let(:test_import_path_with_image) { File.join(fixture_path, 'test_import_with_image.zip') }
-      let(:import) { SubsiteImportService.new(test_import_path_with_image) }
+      let(:import) { SubsiteImportService.new(test_import_path_with_image, true) }
       let(:images_dir) { File.join(Rails.root, 'public', 'images', 'sites', 'dlc_site') }
       let(:signature_image_path) { File.join(images_dir, 'signature-banner.png') }
 
@@ -126,7 +138,7 @@ RSpec.describe SubsiteImportService do
     context 'with an invalid import' do
       context 'when the zip file is missing site metadata' do
         let(:invalid_import_path) { File.join(fixture_path, 'bad_no_site_metadata.zip') }
-        let(:import) { SubsiteImportService.new(invalid_import_path) }
+        let(:import) { SubsiteImportService.new(invalid_import_path, true) }
 
         it 'raises a validation error' do
           expect { import.import_subsite }.to raise_error(Exceptions::SubsiteUploadValidationError)
@@ -135,7 +147,7 @@ RSpec.describe SubsiteImportService do
 
       context 'when the zip file has the wrong site metadata filename' do
         let(:invalid_import_path) { File.join(fixture_path, 'bad_site_metadata_filename.zip') }
-        let(:import) { SubsiteImportService.new(invalid_import_path) }
+        let(:import) { SubsiteImportService.new(invalid_import_path, true) }
 
         it 'raises a validation error' do
           expect { import.import_subsite }.to raise_error(Exceptions::SubsiteUploadValidationError)
@@ -144,7 +156,7 @@ RSpec.describe SubsiteImportService do
 
       context 'when the zip file has no home page' do
         let(:invalid_import_path) { File.join(fixture_path, 'bad_no_home_page.zip') }
-        let(:import) { SubsiteImportService.new(invalid_import_path) }
+        let(:import) { SubsiteImportService.new(invalid_import_path, true) }
 
         it 'raises a validation error' do
           expect { import.import_subsite }.to raise_error(Exceptions::SubsiteUploadValidationError)
@@ -153,7 +165,7 @@ RSpec.describe SubsiteImportService do
 
       context 'when the zip file has bad metadata file' do
         let(:invalid_import_path) { File.join(fixture_path, 'bad_page_metadata_filename.zip') }
-        let(:import) { SubsiteImportService.new(invalid_import_path) }
+        let(:import) { SubsiteImportService.new(invalid_import_path, true) }
 
         it 'raises a validation error' do
           expect { import.import_subsite }.to raise_error(Exceptions::SubsiteUploadValidationError)
@@ -162,7 +174,7 @@ RSpec.describe SubsiteImportService do
 
       context 'when the zip file has bad page markdown file' do
         let(:invalid_import_path) { File.join(fixture_path, 'bad_page_markdown_filename.zip') }
-        let(:import) { SubsiteImportService.new(invalid_import_path) }
+        let(:import) { SubsiteImportService.new(invalid_import_path, true) }
 
         it 'raises a validation error' do
           expect { import.import_subsite }.to raise_error(Exceptions::SubsiteUploadValidationError)
@@ -171,7 +183,7 @@ RSpec.describe SubsiteImportService do
 
       context 'when the zip file has bad page markdown metadata (non-matching filename)' do
         let(:invalid_import_path) { File.join(fixture_path, 'bad_page_metadata_markdown_field.zip') }
-        let(:import) { SubsiteImportService.new(invalid_import_path) }
+        let(:import) { SubsiteImportService.new(invalid_import_path, true) }
 
         it 'raises a validation error' do
           expect { import.import_subsite }.to raise_error(Exceptions::SubsiteUploadValidationError)
@@ -180,7 +192,7 @@ RSpec.describe SubsiteImportService do
 
       context 'when the zip file has bad image file' do
         let(:invalid_import_path) { File.join(fixture_path, 'bad_signature_image.zip') }
-        let(:import) { SubsiteImportService.new(invalid_import_path) }
+        let(:import) { SubsiteImportService.new(invalid_import_path, true) }
 
         it 'raises a validation error' do
           expect { import.import_subsite }.to raise_error(Exceptions::SubsiteUploadValidationError)
