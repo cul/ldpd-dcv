@@ -64,8 +64,10 @@ RSpec.describe SubsiteImportService do
       end
 
       context 'when importing an existing subsite' do
+        let(:original_uids) { ['1','2','3','4'] }
+
         before do
-          existing_site = FactoryBot.create(:site, slug: 'dlc_site', title: 'Existing DLC Site')
+          existing_site = FactoryBot.create(:site, slug: 'dlc_site', title: 'Existing DLC Site', editor_uids: original_uids)
           existing_site.site_pages << FactoryBot.create(:site_page, slug: 'existing_page', site: existing_site)
           import.import_subsite
         end
@@ -84,6 +86,9 @@ RSpec.describe SubsiteImportService do
         end
         it 'has an updated success message' do
           expect(import.finish_message).to include('Updated')
+        end
+        it 'does not overwrite the editor list' do
+          expect(Site.find_by(slug: 'dlc_site').editor_uids).to eq(original_uids)
         end
       end
 
