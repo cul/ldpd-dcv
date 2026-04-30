@@ -2,7 +2,7 @@
 
 module Dcv::Footer
   class ContactComponent < ViewComponent::Base
-    delegate :library_policies_url, :publications_policy_url, :terms_of_use_url, to: :helpers
+    delegate :library_policies_url, :publications_policy_url, :terms_of_use_url, :current_user, to: :helpers
     def initialize(repository_code:)
       @repository_code = repository_code
     end
@@ -31,6 +31,9 @@ module Dcv::Footer
       link_to email_address, "mailto:#{email_address}", class:"swatch-primary"
     end
     def site_edit_link
+      puts ''
+      Rails.logger.debug '--------------- test ------------------' if current_user&.is_admin
+      puts ''
       helpers.site_edit_link(sep: "", class: 'swatch-primary')
     end
     def telephone_contact_link

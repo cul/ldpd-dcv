@@ -63,5 +63,9 @@ RSpec.configure do |config|
 
   config.include(ControllerLevelHelpers, type: :view)
   config.before(:each, type: :view) { initialize_controller_helpers(view) }
+  config.include Devise::Test::ControllerHelpers, type: :component
 
+  config.before(:each, type: :component) do
+    @request = controller.request
+  end
 end
