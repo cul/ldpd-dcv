@@ -5,10 +5,6 @@ require 'rails_helper'
 describe Dcv::SearchContext::PaginationComponent, type: :component do
   subject(:component) { described_class.new(search_context: search_context, search_session: search_session) }
 
-  def vc_test_controller_class
-    controller
-  end
-
   # search_context may be nil or a hash of :prev and :next
   let(:search_context) { nil }
 

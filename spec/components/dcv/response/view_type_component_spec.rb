@@ -9,10 +9,6 @@ RSpec.describe Dcv::Response::ViewTypeComponent, type: :component do
     )
   end
 
-  def vc_test_controller_class
-    controller
-  end
-
   let(:blacklight_config)  do
     Blacklight::Configuration.new
   end

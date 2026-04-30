@@ -5,11 +5,6 @@ require 'rails_helper'
 RSpec.describe Dcv::Document::Ui::IiifManifestComponent, type: :component do
   subject(:component) { described_class.new(document: document) }
 
-  def vc_test_controller_class
-    controller
-  end
-
-
   include_context "a solr document"
 
   include_context "renderable view components"

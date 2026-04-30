@@ -4,10 +4,6 @@ require 'rails_helper'
 RSpec.describe Dcv::Search::Map::ShowScriptComponent, type: :component do
   let(:component) { described_class.new }
 
-  def vc_test_controller_class
-    controller
-  end
-
   let(:params_for_search) { { } }
   let(:params) { ActionController::Parameters.new(params_for_search) }
 

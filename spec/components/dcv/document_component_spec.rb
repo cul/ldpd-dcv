@@ -5,10 +5,6 @@ require 'rails_helper'
 RSpec.describe Dcv::DocumentComponent, type: :component do
   subject(:component) { described_class.new(document: presenter, **attr) }
 
-  def vc_test_controller_class
-    controller
-  end
-
   let(:attr) { { document_counter: nil } }
 
   include_context "renderable view components"

@@ -5,17 +5,11 @@ require 'rails_helper'
 RSpec.describe Dcv::Document::Ui::ModsModalDisplayComponent, type: :component do
   subject(:component) { described_class.new(document: document) }
 
-  def vc_test_controller_class
-    controller
-  end
-
   include_context "renderable view components"
 
   include_context "a solr document"
 
   let(:document) { solr_document }
-
-
 
   context "without a mods datastream" do
     it "does not render" do

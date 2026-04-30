@@ -4,15 +4,10 @@ require 'rails_helper'
 
 RSpec.describe Dcv::Gallery::MosaicComponent, type: :component do
   subject(:component) { described_class.new(page: page) }
-
-  def vc_test_controller_class
-    controller
-  end
-
+  
   include_context 'renderable view components'
 
   let(:page) { FactoryBot.create(:site_page, site: FactoryBot.create(:site)) }
-
 
   context 'when less than the requested number of featured items are available' do
     let(:limited_ids) { ['a', 'b', 'c'] }

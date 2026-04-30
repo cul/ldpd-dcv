@@ -62,8 +62,12 @@ RSpec.configure do |config|
   config.include ViewComponentCapybaraTestHelpers, type: :component
   config.include ViewComponent::SystemTestHelpers, type: :component
   config.include Devise::Test::ControllerHelpers, type: :component
+  # This comes from ViewComponent's testing guide for v2
+  # https://github.com/ViewComponent/view_component/issues/70
+  # When we update our version of ViewComponent, we would likely want to change this
+  # and match the current recommended pattern (see https://viewcomponent.org/guide/testing.html#rspec-configuration)
   config.before(:each, type: :component) do
-    @request = vc_test_controller_class.request
+    @request = controller.request
   end
 
   config.include Devise::Test::ControllerHelpers, type: :controller

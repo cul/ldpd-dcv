@@ -2,8 +2,7 @@
 
 module Dcv::Footer
   class ContactComponent < ViewComponent::Base
-    include Devise::Controllers::Helpers 
-    delegate :library_policies_url, :publications_policy_url, :terms_of_use_url, to: :helpers
+    delegate :library_policies_url, :publications_policy_url, :terms_of_use_url, :current_user, to: :helpers
     def initialize(repository_code:)
       @repository_code = repository_code
     end

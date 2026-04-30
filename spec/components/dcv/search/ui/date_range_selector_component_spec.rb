@@ -4,10 +4,6 @@ require 'rails_helper'
 RSpec.describe Dcv::Search::Ui::DateRangeSelectorComponent, type: :component do
   let(:component) { described_class.new(enabled: true) }
 
-  def vc_test_controller_class
-    controller
-  end
-
   let(:params_for_search) { { controller: 'catalog', action: 'index', q: 'testParamValue', start_year: 1024, end_year: 2048 } }
   let(:params) { ActionController::Parameters.new(params_for_search) }
   let(:date_range_segment_data) { { '1024' => []} }

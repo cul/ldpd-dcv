@@ -22,6 +22,7 @@
 						<%= link_to '<span class="fa fa-sign-out d-sm-none"></span><span class="d-none d-sm-inline-block">(Log Out)</span>'.html_safe, destroy_user_session_url(provider: current_user.provider, restricted: restricted?) %>
 					</span>
 				<% else %>
+        <%# TODO : use this logic for resolving sign in link %>
 						<%= link_to 'Log In', send(:"user_#{controller.omniauth_provider_key}_omniauth_authorize_url", return_to: request.original_url), {class: "nav-link"} %>
 				<% end %>
 			</div>

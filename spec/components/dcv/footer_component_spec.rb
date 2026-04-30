@@ -5,10 +5,6 @@ require 'rails_helper'
 RSpec.describe Dcv::FooterComponent, type: :component do
   subject(:component) { described_class.new(subsite: subsite, repository_id: repository_id) }
 
-  def vc_test_controller_class
-    controller
-  end
-
   include_context "renderable view components" 
 
   let(:site_slug) { 'test' }

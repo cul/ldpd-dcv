@@ -9,10 +9,6 @@ RSpec.describe Dcv::Response::FacetsComponent, type: :component do
     )
   end
 
-  def vc_test_controller_class
-    controller
-  end
-
   let(:blacklight_config)  do
     _blacklight_config = Blacklight::Configuration.new
     _blacklight_config.add_facet_field applied_facet_key, label: 'Applied'

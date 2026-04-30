@@ -132,4 +132,8 @@ module Dcv::DcvUrlHelper
     url_attrs = solr_document_url(solr_document, options)
     url_attrs.is_a?(Hash) ? url_for(url_attrs) : url_attrs
   end
+
+  def current_user
+    current_user
+  end
 end
