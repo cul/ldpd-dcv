@@ -15,6 +15,7 @@ application up and running?
   * A streaming media service (Wowza)
     * configured in `dcv.yml` under `media_streaming`
     * not necessary unless testing token generation/streaming
+  * node version 20 or higher (with corepack enabled)
 
 * Configuration for Local/Desktop Development
   * install dependencies: `bundle install`
@@ -34,20 +35,22 @@ application up and running?
   * administer local users: `bundle exec rake dcv:users:set uid=UNI email=EMAIL [is_admin=true]`
     * the developer strategy will automatically log in based on the uni and email values (uni is used as the uid)
     * rake task will create or update a user, and set properties from arguments appropriately
-  * Set up FontAwesome
+  * Set up FontAwesome and install JS dependencies
 
     **Option A: FontAwesome Pro (Recommended for maintainers)**
-    1. Create a `.npmrc` file in the root of the repository:
+    1. Create a `.yarnrc.yml` file in the root of the repository:
         ```
-        @fortawesome:registry=https://npm.fontawesome.com/
-        //npm.fontawesome.com/:_authToken={PASTE_YOUR_FONTAWESOME_PRO_TOKEN}
+       npmScopes:
+        fortawesome:
+          npmAuthToken: FONTAWESOME_API_KEY
+          npmRegistryServer: "https://npm.fontawesome.com/"
         ```
     2. Install FontAwesome Pro:
         ```bash
         yarn add @fortawesome/fontawesome-pro@^6.7.2
         ```
 
-    **Option B: FontAwesome Free**
+    **Option B: FontAwesome Free**  
     1. Install FontAwesome Free:
         ```bash
         yarn add @fortawesome/fontawesome-free@^6.7.2
@@ -60,6 +63,11 @@ application up and running?
         ```
 
     > **Note:** When using FontAwesome Free, some icons may not display correctly as they are only available in the Pro version.
+
+ * Install dependencies with yarn 4
+    ```bash
+      yarn
+    ```
 
 
 
