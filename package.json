@@ -46,6 +46,8 @@
     "xml-js": "^1.6.11"
   },
   "devDependencies": {
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.53.1",
     "vite": "^6.4.1",
     "vite-plugin-ruby": "5.1.1"
   },
