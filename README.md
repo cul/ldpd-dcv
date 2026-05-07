@@ -69,6 +69,16 @@ application up and running?
       yarn
     ```
 
+  * *(Assuming you are using VS Code)* Set up your IDE to locate TS modules and and activate typescript:
+      <!-- If we decide to gitignore .yarn/sdks and .vscode: explicitly instruct people to download ZipFS -->
+      1. Accept any recommended extension installations. You will need [ZipFS](https://marketplace.visualstudio.com/items?itemName=arcanis.vscode-zipfs) to go into any library's code.
+      <!-- If we decide to gitignore .yarn/sdks and .vscode: 2. Install the VS Code SDK: `yarn dlx @yarnpkg/sdks vscode` -->
+      2. Open a typescript file then open the command palette with `ctrl+shift+p` and run "Select TypeScript Version". Pick "Use Workspace Version".
+          * VSCode may prompt you in the bottom right corner to apply this setting automatically - that works as well.
+
+
+> [!Note]
+> See [yarn documentation](https://yarnpkg.com/getting-started/editor-sdks#vscode) for more details or instructions if using a different IDE
 
 
 * Database creation
