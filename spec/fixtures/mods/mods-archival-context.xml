@@ -3,6 +3,10 @@
   <mods:titleInfo>
     <mods:title>Agreement between Gunnar Myrdal and Harper &amp; Brothers for the publication of "An American Dilemma," January 8, 1943</mods:title>
   </mods:titleInfo>
+  <mods:location>
+    <mods:physicalLocation authority='marcorg'>NNC-RB</mods:physicalLocation>
+    <mods:physicalLocation>RBML</mods:physicalLocation>
+  </mods:location>
   <mods:relatedItem type="host" displayLabel="Project">
     <mods:titleInfo>
       <mods:title>Carnegie Digital Past and Future</mods:title>

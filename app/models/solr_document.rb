@@ -15,6 +15,7 @@ class SolrDocument
   RESOURCE_MODEL = 'GenericResource'
 
   include Blacklight::Solr::Document
+  include SolrDocument::ArchivalContext
   include SolrDocument::CleanResolver
   include SolrDocument::FieldSemantics
   include SolrDocument::PublicationInfo
@@ -150,5 +151,16 @@ class SolrDocument
     res = rsolr.send_and_receive('select', params: solr_params.to_hash, method: :get)
     solr_response = Blacklight::Solr::Response.new(res, solr_params, solr_document_model: self)
     solr_response['response']['docs'].each {|doc| block.yield new(doc)}
+  end
+
+  # modeled after ActiveSupport's Array#wrap
+  def self.wrap(obj)
+    if obj.is_a?(SolrDocument)
+      obj
+    elsif obj.respond_to? :to_h
+      SolrDocument.new(obj.to_h)
+    else
+      SolrDocument.new()
+    end
   end
 end
