@@ -2,7 +2,7 @@ import { QueryClient } from "@tanstack/react-query";
 
 import { getSitesQueryOptions } from "@/features/sites/api/get-sites";
 import FetchingSuspense from "@/components/ui/fetching-suspense";
-import { authorizeAdminOrEditorOnly, getCurrentUserRole } from "@/lib/authorization";
+import { authorizeAdminOrEditorOnly, getCurrentUserRole, ROLES } from "@/lib/authorization";
 import { AuthError } from "@/types/errors";
 import SitesDashboard from "@/features/sites/components/sites-dashboard";
 
@@ -16,7 +16,7 @@ const clientLoader = (queryClient: QueryClient) => async () => {
   }
 
   // Prefetch sites data
-  if(await getCurrentUserRole(queryClient) === 'ADMIN') {
+  if(await getCurrentUserRole(queryClient) === ROLES.ADMIN) {
     await queryClient.prefetchQuery(getSitesQueryOptions());
   } else {
     await queryClient.prefetchQuery(getSitesQueryOptions({isEditor: true}));
