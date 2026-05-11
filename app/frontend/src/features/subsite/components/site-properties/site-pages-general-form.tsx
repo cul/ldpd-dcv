@@ -63,13 +63,14 @@ const SitePagesGeneralForm = ({ slug }: { slug: string }) => {
         <Stack gap={3}>
 
           <Row>
-            <Col xs={4} className="text-center fst-italic">
+            <Col xs={3} className="text-center fst-italic">
               Page slug
             </Col>
-            <Col xs={4} className="text-center fst-italic">
+            <Col xs={3} className="text-center fst-italic">
               Page title
             </Col>
           </Row>
+          
           {fields.map((field, index) => (
             <SitePagesGeneralFormRow 
               key={index} 
