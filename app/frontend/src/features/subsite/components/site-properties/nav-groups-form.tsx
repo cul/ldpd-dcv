@@ -118,7 +118,7 @@ const NavGroupsForm = ({ slug, updatedAt }: { slug: string, updatedAt: string })
                 groupLabel: '',
                 childrenLinks: [],
               })}>
-                +
+                Add Navigation Group
             </button>
           </Col>
         </Row>
