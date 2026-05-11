@@ -69,6 +69,10 @@ const createAppRouter = (queryClient: QueryClient) => {
               lazy: () => import('./routes/sites').then(convert(queryClient)),
             },
             {
+              path: 'restricted/:slug',
+              Component: () => <p>Restricted sites have not been implemented yet.</p>
+            },
+            {
               path: ':slug',
               // The subsite component is a wrapper for all routes that interact with one subsite
               lazy: () => import('./routes/sites/subsite').then(convert(queryClient)),
