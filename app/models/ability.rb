@@ -7,6 +7,7 @@ class Ability
   ACCESS_SUBSITE = :access_subsite
   IMPORT_SUBSITE = :import_subsite
   EDIT_SUBSITES = :edit
+  LIST_SUBSITES = :list_subsites
   UNSPECIFIED_ACCESS_DECISION = true
 
   def initialize(user = nil, opts = {})\
@@ -24,8 +25,8 @@ class Ability
         true
       end
     end
-    # can? :edit, Site
-    can EDIT_SUBSITES, Site do
+    # can? :list_subsites, Site
+    can LIST_SUBSITES, Site do
       return true if user&.is_admin?
       Site.all.any? { |site| site[:editor_uids].include? user[:uid] }
     end

@@ -15,13 +15,12 @@ class Api::SitesController < Api::BaseController
   # GET /api/v1/sites
   # Return a list of all subsites -- if the URL parameter
   def get_sites
-    isEditor = params[:isEditor] == "true"
-    if isEditor
-      authorize_action_and_scope :edit, Site
-      @sites = Site.all.select { |site| site[:editor_uids].include? current_user[:uid] }
-    else
-      authorize_action_and_scope :admin, Site
+    authorize_action_and_scope :list_subsites, Site
+    # If we pass the authz check, we are either admin or an editor
+    if current_user&.is_admin?
       @sites = Site.all
+    else
+      @sites = Site.all.select { |site| site[:editor_uids].include? current_user[:uid] }
     end
     render json: { sites: @sites.each { |subsite| { id: subsite.id, title: subsite.title, slug: subsite.slug } } }
   end
