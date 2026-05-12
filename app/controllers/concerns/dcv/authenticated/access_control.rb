@@ -23,7 +23,7 @@ module Dcv::Authenticated::AccessControl
     authorize_action_and_scope(Ability::ACCESS_SUBSITE, self)
   end
 
-  def authorize_site_update(site = @subsite)
-    authorize_action_and_scope(:update, site)
+  def authorize_site_update(site=@subsite)
+    authorize_action_and_scope(Ability::MANAGE_SUBSITE, site)
   end
 end

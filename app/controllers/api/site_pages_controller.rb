@@ -4,27 +4,9 @@ class Api::SitePagesController < Api::BaseController
   before_action :load_subsite, only: [:get_all_pages, :patch_multiple, :delete_multiple]
   before_action :load_page, only: [:delete]
 
-  def load_subsite()
-    @subsite ||= begin
-      site_slug = params[:site_slug]
-      site_ = Site.find_by(slug: site_slug)
-      # site_slug = "restricted/#{site_slug}" if restricted? // TODO : handle restricted sites
-      raise ActiveRecord::RecordNotFound unless site_
-      site_
-    end
-  end
-
-  def load_page()
-    @page ||= begin
-      SitePage.find_by(site_id: load_subsite.id, slug: params[:page_slug])
-    end
-    raise ActiveRecord::RecordNotFound unless @page
-    @page
-  end
-
   # GET /site/:site_slug/pages
   def get_all_pages
-    authorize_action_and_scope :update, @subsite
+    authorize_action_and_scope Ability::MANAGE_SUBSITE, @subsite
     pages_json = @subsite.site_pages.map(&method(:site_page_json))
     render json: { pages: pages_json}
   end
@@ -33,7 +15,7 @@ class Api::SitePagesController < Api::BaseController
   # This method will compare the array in params and the @subsite.site_pages array, and delete any pages that were not included
   # in the request.
   def patch_multiple
-    authorize_action_and_scope(:update, @subsite)
+    authorize_action_and_scope Ability::MANAGE_SUBSITE, @subsite
     current_pages_slugs = @subsite.site_pages.map { |page| page[:slug] } 
     new_pages_slugs = multiple_pages_params.map { |page| page[:slug]}
     site_id = @subsite.id
@@ -58,6 +40,7 @@ class Api::SitePagesController < Api::BaseController
 
   # DELETE /site/:site_slug/pages/:page_slug
   def delete
+    authorize_action_and_scope Ability::MANAGE_SUBSITE, @subsite
     if @page.slug == 'home'
       render json: { error: 'The homepage cannot be deleted' }, status: :forbidden
       return
@@ -71,6 +54,24 @@ class Api::SitePagesController < Api::BaseController
   end
 
   private
+
+    def load_subsite()
+      @subsite ||= begin
+        site_slug = params[:site_slug]
+        site_ = Site.find_by(slug: site_slug)
+        # site_slug = "restricted/#{site_slug}" if restricted? // TODO : handle restricted sites
+        raise ActiveRecord::RecordNotFound unless site_
+        site_
+      end
+    end
+
+    def load_page()
+      @page ||= begin
+        SitePage.find_by(site_id: load_subsite.id, slug: params[:page_slug])
+      end
+      raise ActiveRecord::RecordNotFound unless @page
+      @page
+    end
 
     # Users can update multiple pages' titles at once from the general properties page
     def multiple_pages_params
