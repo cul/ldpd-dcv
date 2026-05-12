@@ -8,6 +8,7 @@ class Ability
   IMPORT_SUBSITE = :import_subsite
   EDIT_SUBSITES = :edit
   LIST_SUBSITES = :list_subsites
+  MANAGE_SUBSITE = :manage_subsite
   UNSPECIFIED_ACCESS_DECISION = true
 
   def initialize(user = nil, opts = {})\
@@ -68,6 +69,9 @@ class Ability
         end
         result
       end
+    end
+    can MANAGE_SUBSITE, Site do |site|
+      user&.is_admin || site.editor_uids.include?(user&.uid)
     end
     can :update, Site do |site|
       user&.is_admin || site.editor_uids.include?(user&.uid)
