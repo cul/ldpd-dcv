@@ -3,17 +3,15 @@ import { queryOptions, useQuery, useSuspenseQuery } from "@tanstack/react-query"
 import { QueryConfig } from "@/lib/react-query";
 import { Site } from "@/types/api";
 import { api } from "@/lib/api-client";
-import { useCurrentUserRoleSuspense } from "@/lib/authentication";
-import { ROLES } from "@/lib/authorization";
 
 
 type UseSitesQueryOptions = {
   queryConfig?: QueryConfig<typeof getSitesQueryOptions>;
 }
 
-const getSites = async ({isEditor}: {isEditor: boolean}): Promise<Site[] | null> => {
+const getSites = async (): Promise<Site[] | null> => {
   try {
-    const endpoint = `/sites${isEditor ? '?isEditor=true' : ''}`
+    const endpoint = '/sites'
 
     const response = await api.get<{ sites: Site[] }>(endpoint);
 
@@ -24,12 +22,10 @@ const getSites = async ({isEditor}: {isEditor: boolean}): Promise<Site[] | null>
   }
 };
 
-// isEditor: when true, will include an isEditor query parameter with the request
-// so that the sites endpoint only returns a list of sites the current_user can edit.
-const getSitesQueryOptions = ({isEditor=false}: {isEditor?: boolean} = {}) => {
+const getSitesQueryOptions = () => {
   return queryOptions({
-    queryKey: isEditor ? ['sites', { scope: 'editor' }] : ['sites'],
-    queryFn: () => getSites({isEditor}),
+    queryKey: ['sites'], // consider 'scoping': isEditor ? ['sites', { scope: 'editor' }] : ['sites'],
+    queryFn: () => getSites(),
     staleTime: 1000 * 60 * 5, // 5 minutes
     //  other config options (override defaults set in queryConfig - @/lib/react-query)
     });
@@ -38,8 +34,7 @@ const getSitesQueryOptions = ({isEditor=false}: {isEditor?: boolean} = {}) => {
 // If ADMIN: returns list of all DLC subsites
 // If EDITOR: returns list of subsites the editor can edit
 const useSitesSuspense = (): Site[] => {
-  const role = useCurrentUserRoleSuspense();
-  const { data: sites } = useSuspenseQuery(getSitesQueryOptions({isEditor: role === ROLES.EDITOR}));
+  const { data: sites } = useSuspenseQuery(getSitesQueryOptions());
   if (!sites) {
     // TODO handle
     throw Error("Could not load sites data");
@@ -50,9 +45,8 @@ const useSitesSuspense = (): Site[] => {
 // If ADMIN: returns list of all DLC subsites
 // If EDITOR: returns list of subsites the editor can edit
 const useSites = ({ queryConfig} : UseSitesQueryOptions = {}) => {
-  const role = useCurrentUserRoleSuspense();
   return useQuery({
-    ...getSitesQueryOptions({isEditor: role === ROLES.ADMIN}),
+    ...getSitesQueryOptions(),
     ...queryConfig,
   });
 };
