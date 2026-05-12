@@ -15,7 +15,7 @@ class Api::SitesController < Api::BaseController
   # GET /api/v1/sites
   # Return a list of all subsites -- if the URL parameter
   def get_sites
-    authorize_action_and_scope :list_subsites, Site
+    authorize_action_and_scope Ability::LIST_SUBSITES, Site
     # If we pass the authz check, we are either admin or an editor
     if current_user&.is_admin?
       @sites = Site.all
@@ -27,7 +27,7 @@ class Api::SitesController < Api::BaseController
 
   # GET /api/v1/sites/:site_slug
   def get_site
-    authorize_site_update @subsite
+    authorize_action_and_scope Ability::MANAGE_SUBSITE, @subsite
     render json: { site: site_json(@subsite) }
   end
 
@@ -38,7 +38,7 @@ class Api::SitesController < Api::BaseController
   #  - we create an ordered array of objects representing the groups
   #  - each group has an ordered array of links with the actual link data
   def get_site_nav_groups
-    authorize_site_update @subsite
+    authorize_action_and_scope Ability::MANAGE_SUBSITE, @subsite
 
     return_data = []
     flat_nav_links_array = @subsite.nav_links.to_a
@@ -71,7 +71,7 @@ class Api::SitesController < Api::BaseController
 
   # PATCH /api/v1/sites/:site_slug/signature_images
   def upload_signature_images
-    authorize_site_update @subsite
+    authorize_action_and_scope Ability::MANAGE_SUBSITE, @subsite
 
     banner_upload = site_params[:banner]
     watermark_upload = site_params[:watermark]
@@ -91,7 +91,7 @@ class Api::SitesController < Api::BaseController
   # DELETE /api/v1/sites/:site_slug/signature_images/:image_type
   def delete_signature_images_watermark
     Rails.logger.debug "DELETING #{params[:image_type]} IMAGE FOR SITE #{@subsite.slug}..."
-    authorize_site_update @subsite
+    authorize_action_and_scope Ability::MANAGE_SUBSITE, @subsite
 
     if params[:image_type] == 'banner' && @subsite.has_banner_image?
       FileUtils.rm_f(@subsite.banner_uploader.store_path('signature-banner.png'))
@@ -109,7 +109,7 @@ class Api::SitesController < Api::BaseController
   # PATCH /api/v1/sites/:site_slug
   def update
     Rails.logger.debug 'INSIDE API SITES CONTROLLER UPDATE ACTION'
-    authorize_site_update @subsite
+    authorize_action_and_scope Ability::MANAGE_SUBSITE, @subsite
 
     # though Site accepts nested attributes of nav_links for persistence, we want to handle the updates
     # specially (to accommodate the deletion and reordering without recourse to record id)
