@@ -8,8 +8,8 @@ class Api::SitesController < Api::BaseController
       :update,
       :update_site_pages,
       :upload_signature_images,
-      :delete_signature_images_watermark,
-      :delete_signature_images_banner,
+      :delete_signature_image,
+      :delete_signature_image,
     ]
 
   # GET /api/v1/sites
@@ -89,18 +89,28 @@ class Api::SitesController < Api::BaseController
   end
 
   # DELETE /api/v1/sites/:site_slug/signature_images/:image_type
-  def delete_signature_images_watermark
+  def delete_signature_image
     Rails.logger.debug "DELETING #{params[:image_type]} IMAGE FOR SITE #{@subsite.slug}..."
     authorize_action_and_scope Ability::MANAGE_SUBSITE, @subsite
 
-    if params[:image_type] == 'banner' && @subsite.has_banner_image?
+    valid_types = %w[banner watermark] 
+
+    unless valid_types.include? params[:image_type]
+      return render json: { error: "The image type given is incorrect." }, status: :bad_request
+    end
+
+    if params[:image_type] == 'banner'
+      unless @subsite.has_banner_image?
+        return render json: { error: "The resource you tried to delete does not exist." }, status: :not_found
+      end
       FileUtils.rm_f(@subsite.banner_uploader.store_path('signature-banner.png'))
       @subsite.touch # Update the updated_at field on @subsite to invalidate browser cache
-    elsif params[:image_type] == 'watermark' && @subsite.has_watermark_image?
+    else # params[:image_type] == 'watermark'
+      unless @subsite.has_watermark_image?
+        return render json: { error: "The resource you tried to delete does not exist." }, status: :not_found
+      end
       FileUtils.rm_f(@subsite.watermark_uploader.store_path('signature.svg'))
       @subsite.touch # Update the updated_at field on @subsite to invalidate browser cache
-    else
-      render json: { error: "Unknown signature image type" }, status: :bad_request
     end
 
     render json: { site: site_json(@subsite) }
