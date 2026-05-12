@@ -38,7 +38,7 @@ Rails.application.routes.draw do
   patch 'api/v1/sites/:site_slug', to: 'api/sites#update', format: 'json'
   # signature layout images routes:
   patch 'api/v1/sites/:site_slug/signature_images', to: 'api/sites#upload_signature_images', format: 'json'
-  delete 'api/v1/sites/:site_slug/signature_images/:image_type', to: 'api/sites#delete_signature_images_watermark', format: 'json'
+  delete 'api/v1/sites/:site_slug/signature_images/:image_type', to: 'api/sites#delete_signature_image', format: 'json'
   # Site pages routes:
   get 'api/v1/sites/:site_slug/pages', to: 'api/site_pages#get_all_pages', format: 'json'
   patch 'api/v1/sites/:site_slug/pages', to: 'api/site_pages#patch_multiple', format: 'json'
