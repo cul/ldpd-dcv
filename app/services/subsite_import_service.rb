@@ -120,7 +120,12 @@ class SubsiteImportService
         block = SiteTextBlock.new(block_attrs)
         if markdown_file_name =~ MD_REGEX
           # e.g. 'pages/home/00_about_collection.md'
-          block.markdown = zip.glob("#{PAGES_SUBDIR}/#{new_page.slug}/#{markdown_file_name}")
+          markdown_file_obj = zip.glob("#{PAGES_SUBDIR}/#{new_page.slug}/#{markdown_file_name}").first
+          markdown_file_obj.get_input_stream do |zis|
+            # We should update this gem to v3 and go from there, but to deal with special chars the following works:
+            # https://github.com/rubyzip/rubyzip/issues/334
+            block.markdown = zis.read.force_encoding("UTF-8")
+          end
         end
         block.save!
       end
