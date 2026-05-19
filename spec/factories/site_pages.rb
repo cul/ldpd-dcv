@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# Should supply an id!
 FactoryBot.define do
   factory :site_page do
     slug { 'dlc_site_page' }
