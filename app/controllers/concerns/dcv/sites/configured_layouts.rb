@@ -22,12 +22,21 @@ module Dcv::Sites::ConfiguredLayouts
 
   def signature_image_path
     path = File.join("", "images", "sites", load_subsite&.slug, "signature.svg")
-    File.exist?(File.join(Rails.root, "public", path)) ? path : view_context.asset_path("signature/signature.svg")
+    if File.exist?(File.join(Rails.root, "public", path)) 
+      # Add the modification time to the end of the path URL in order to bust browser caches when a new file is uploaded
+      modification_time = File.mtime(File.join(Rails.root, "public", path)).to_i
+      return "#{path}?v=#{modification_time}"
+    end 
+    view_context.asset_path("signature/signature.svg")
   end
 
   def signature_banner_image_path
     path = File.join("", "images", "sites", load_subsite&.slug, "signature-banner.png")
-    File.exist?(File.join(Rails.root, "public", path)) ? path : view_context.asset_path("signature/signature-banner.png")
+    if File.exist?(File.join(Rails.root, "public", path)) 
+      modification_time = File.mtime(File.join(Rails.root, "public", path)).to_i
+      return "#{path}?v=#{modification_time}"
+    end
+    view_context.asset_path("signature/signature-banner.png")
   end
 
   # this method is stubbed here for configured sites and overridden in custom sites

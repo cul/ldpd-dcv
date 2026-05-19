@@ -219,6 +219,17 @@ class SitesController < ApplicationController
     end
   end
 
+  # GET /download/:site_slug
+  # create zip export and download a subsite
+  def download
+    load_subsite
+    subsite_properties = SubsiteExportService.new(@subsite).create_zipped_export
+    data = subsite_properties.string
+    subsite_properties.close
+    send_data(data, filename: "#{@subsite[:slug]}.zip")
+    return
+  end
+
   # produce a list of featured items according to a supplied filter
   def featured_items(args= {})
     (@response, @document_list) = search_service.search_results do |builder|

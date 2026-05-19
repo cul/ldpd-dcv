@@ -1,21 +1,23 @@
 class Ability
-  include CanCan::Ability 
+  include CanCan::Ability
   include Dcv::AccessLevels
   attr_reader :public
+
   ACCESS_ASSET = :access_asset
   ACCESS_SUBSITE = :access_subsite
+  IMPORT_SUBSITE = :import_subsite
   UNSPECIFIED_ACCESS_DECISION = true
 
-  def initialize(user=nil, opts={})
+  def initialize(user = nil, opts = {})\
     location_uris = ip_to_location_uris(opts[:remote_ip])
-    affils = Array.wrap(opts[:roles]) ||  []
+    affils = Array.wrap(opts[:roles]) || []
     @public = location_uris.empty? && affils.empty? && user.nil?
     can ACCESS_SUBSITE, SubsitesController do |controller|
       if controller.restricted?
         result = false
-        result ||= (controller.subsite_config.fetch(:remote_ids, []).flatten.include?(user.uid)) if user
-        result ||= true if (controller.subsite_config.fetch(:remote_roles,[]).flatten & affils).first if user
-        result ||= true if (controller.subsite_config.fetch(:locations,[]).flatten & location_uris).first
+        result ||= controller.subsite_config.fetch(:remote_ids, []).flatten.include?(user.uid) if user
+        result ||= true if user && (controller.subsite_config.fetch(:remote_roles, []).flatten & affils).first
+        result ||= true if (controller.subsite_config.fetch(:locations, []).flatten & location_uris).first
         result
       else
         true
@@ -24,34 +26,36 @@ class Ability
     can ACCESS_SUBSITE, Site do |site|
       if site.restricted
         result = false
-        result ||= (site.to_subsite_config.fetch(:remote_ids, []).flatten.include?(user.uid)) if user
-        result ||= true if (site.to_subsite_config.fetch(:remote_roles,[]).flatten & affils).first if user
-        result ||= true if (site.to_subsite_config.fetch(:locations,[]).flatten & location_uris).first
+        result ||= site.to_subsite_config.fetch(:remote_ids, []).flatten.include?(user.uid) if user
+        result ||= true if user && (site.to_subsite_config.fetch(:remote_roles, []).flatten & affils).first
+        result ||= true if (site.to_subsite_config.fetch(:locations, []).flatten & location_uris).first
         result
       else
         true
       end
     end
     can ACCESS_ASSET, SolrDocument do |doc|
-      if doc.fetch('access_control_levels_ssim',[]).include?(ACCESS_LEVEL_CLOSED)
+      if doc.fetch('access_control_levels_ssim', []).include?(ACCESS_LEVEL_CLOSED)
         false
-      elsif doc.fetch('access_control_levels_ssim',[]).include?(ACCESS_LEVEL_PUBLIC)
+      elsif doc.fetch('access_control_levels_ssim', []).include?(ACCESS_LEVEL_PUBLIC)
         true
-      elsif doc.fetch('access_control_levels_ssim',[]).blank?
+      elsif doc.fetch('access_control_levels_ssim', []).blank?
         UNSPECIFIED_ACCESS_DECISION
       else
         result = false
-        if doc.fetch('access_control_levels_ssim',[]).include?(ACCESS_LEVEL_AFFILIATION)
-          result ||= true if (doc.fetch('access_control_affiliations_ssim',[]) & affils).first
+        if doc.fetch('access_control_levels_ssim',
+                     []).include?(ACCESS_LEVEL_AFFILIATION) && (doc.fetch('access_control_affiliations_ssim',
+                                                                          []) & affils).first
+          result ||= true
         end
-        if doc.fetch('access_control_levels_ssim',[]).include?(ACCESS_LEVEL_ONSITE)
-          result ||= true if (doc.fetch('access_control_locations_ssim',[]) & location_uris).first
+        if doc.fetch('access_control_levels_ssim', []).include?(ACCESS_LEVEL_ONSITE)
+          result ||= true if (doc.fetch('access_control_locations_ssim', []) & location_uris).first
           result ||= remote_onsite_access_to_user?(doc, user, affils)
         end
-        if doc.fetch('access_control_levels_ssim',[]).include?(ACCESS_LEVEL_EMBARGO)
+        if doc.fetch('access_control_levels_ssim', []).include?(ACCESS_LEVEL_EMBARGO)
           result ||= begin
             release_date = doc['access_control_embargo_dtsi']
-            DateTime.parse(release_date).httpdate <= Time.now.httpdate  if release_date
+            DateTime.parse(release_date).httpdate <= Time.now.httpdate if release_date
           end
         end
         result
@@ -63,16 +67,27 @@ class Ability
     can :admin, Site do |site|
       user&.is_admin
     end
+    # Authorization rules:
+    #   - in dlc_prod: only dlc admin may import a site
+    #   - else: only dlc admin or an editor of *some* site may import a site
+    # N.B.: in non-prod environments, an editor may import a site or new site
+    #       without restriction. Some ideas to make this more secure:
+    #         - users must enter the slug for the site they are updating, and if
+    #           it doesn't match the metadata of the import, we reject the operation
+    #         - users may not upload a new site unless they are admin
+    is_editor = Site.any? { |site| site[:editor_uids].include? user&.uid }
+    can :import_subsite, Site if user&.is_admin || (!Rails.env.dlc_prod? && is_editor)
   end
 
   # was this document published to a site where the current user has remote "onsite" permissions
   def remote_onsite_access_to_user?(doc, user = nil, affils = [])
     return false unless doc['publisher_ssim'].present?
+
     remote_onsite_access = false
     doc['publisher_ssim'].each do |fedora_uri|
       subsite_config = SubsiteConfig.for_fedora_uri(fedora_uri)
-      remote_onsite_access ||= (subsite_config.fetch(:remote_ids, []).flatten.include?(user.uid)) if user
-      remote_onsite_access ||= true if (subsite_config.fetch(:remote_roles,[]).flatten & affils).first
+      remote_onsite_access ||= subsite_config.fetch(:remote_ids, []).flatten.include?(user.uid) if user
+      remote_onsite_access ||= true if (subsite_config.fetch(:remote_roles, []).flatten & affils).first
       break if remote_onsite_access
     end
     remote_onsite_access
