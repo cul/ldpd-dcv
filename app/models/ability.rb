@@ -76,7 +76,7 @@ class Ability
     #           it doesn't match the metadata of the import, we reject the operation
     #         - users may not upload a new site unless they are admin
     is_editor = Site.any? { |site| site[:editor_uids].include? user&.uid }
-    can :import_subsite, Site if user&.is_admin || (!Rails.env.dlc_prod? && is_editor)
+    can IMPORT_SUBSITE, Site if user&.is_admin || (!Rails.env.dlc_prod? && is_editor)
   end
 
   # was this document published to a site where the current user has remote "onsite" permissions
