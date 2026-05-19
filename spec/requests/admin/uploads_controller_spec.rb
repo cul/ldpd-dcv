@@ -81,7 +81,6 @@ describe Admin::UploadsController, type: :request do
       it 'does not authorize dlc site editors' do
         sign_in editor
         post '/admin/upload'
-        puts response.inspect
         expect(response).to redirect_to('/sign_in?referer=%2Fadmin%2Fupload')
       end
     end
