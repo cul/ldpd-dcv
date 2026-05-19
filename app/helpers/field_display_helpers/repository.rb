@@ -1,34 +1,7 @@
 module FieldDisplayHelpers::Repository
   def field_helper_repo_code_value(args = {})
-    document = args.fetch(:document, {}).to_h.with_indifferent_access
-    return unless document.present?
-    document['repo_code_lookup'] ||= begin
-      repo_code = document['lib_repo_code_ssim']&.first
-      repo_fields = ['lib_repo_full_ssim', 'lib_repo_short_ssim']
-      repo_fields.detect do |field|
-        unless document[field].blank?
-          codes = code_map_for_repo_field(field)
-          document[field].detect do |repo_value|
-            repo_code ||= codes[repo_value]
-          end
-        end
-      end
-      repo_code
-    end
-  end
-
-  def generate_finding_aid_url(bib_id, document, clio_only: false, deep_link: false)
-    repo_code = field_helper_repo_code_value(document: document)
-    repo_slug = t("cul.archives.arclight_slug.#{repo_code.downcase.sub('-', '')}") if repo_code
-    if repo_slug.present? && bib_id && !clio_only
-      finding_aid_url = "https://findingaids.library.columbia.edu/archives/cul-#{bib_id}"
-      if deep_link && document[FieldDisplayHelpers::ASPACE_PARENT_FIELD].present?
-        return "#{finding_aid_url}_aspace_#{Array(document[FieldDisplayHelpers::ASPACE_PARENT_FIELD]).first}"
-      end
-      finding_aid_url
-    else
-      "https://clio.columbia.edu/catalog/#{bib_id}" if bib_id
-    end
+    document = SolrDocument.wrap(args.fetch(:document, {}))
+    document.repository_code
   end
 
   # Link to a translated lib_repo_short_ssim value
@@ -115,10 +88,6 @@ module FieldDisplayHelpers::Repository
       message << " Contact #{link_to(email_display, "mailto:#{email_display}")}."
     end
     message.html_safe
-  end
-
-  def code_map_for_repo_field(field)
-    ActiveSupport::HashWithIndifferentAccess.new(I18n.t('ldpd.' + field.split('_')[-2] + '.repo').invert)
   end
 
   def get_short_repo_names_to_full_repo_names

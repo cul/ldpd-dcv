@@ -1,7 +1,7 @@
 class Iiif::BaseResource
   extend Forwardable
   def_delegator 'I18n', :t
-  include FieldDisplayHelpers::Repository
+
   attr_reader :id, :solr_document
 
   IIIF_CONTEXTS = [
@@ -68,11 +68,11 @@ class Iiif::BaseResource
   def archival_collection
     @archival_collection ||= begin
       value_obj = {}
-      bib_ids = @solr_document[:collection_key_ssim]&.select {|bib_val| bib_val =~ /^\d+$/ }
+      bib_ids = @solr_document[:collection_key_ssim]&.select {|bib_val| bib_val =~ /^(in)?\d+$/ }
       if bib_ids.present?
         value_obj[:seeAlso] = bib_ids.map do |bib_id|
           {
-            id: generate_finding_aid_url(bib_id, @solr_document, deep_link: true),
+            id: @solr_document.finding_aid_url(bib_id, deep_link: true),
             profile: 'https://clio.columbia.edu/archives',
           }
         end

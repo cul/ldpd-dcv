@@ -1,16 +1,13 @@
 module FieldDisplayHelpers::ArchivalContext
   def has_archival_context?(field_config, document)
-    json_src = document.fetch(field_config.archival_context_field || field_config.field,'{}')
-    JSON.load(json_src).detect {|ac| ac['dc:coverage'].present? }
+    SolrDocument.wrap(document).has_archival_context?(field_config.archival_context_field || field_config.field)
   end
 
   def display_archival_context(args={})
-    contexts = Array(args.fetch(:value,'[]')).map { |json_values| JSON.load(json_values).map {|json| ::ArchivalContext.new(json) } }
-    contexts.flatten!
     shelf_locator = field_helper_shelf_locator_value(args) if args.fetch(:shelf_locator, true)
     document = args[:document]
     aspace_ids = document&.fetch(FieldDisplayHelpers::ASPACE_PARENT_FIELD, nil)
-    contexts.map do |context|
+    document.archival_contexts.map do |context|
       context.aspace_id = aspace_ids&.first
       title = context.titles(link: args.fetch(:link, true)).first.dup
       title << '. ' << shelf_locator if shelf_locator && title.present?
@@ -34,17 +31,18 @@ module FieldDisplayHelpers::ArchivalContext
   def display_collection_with_links(args={})
     values = Array(args[:value])
     document = args[:document]
-    if document['archival_context_json_ss']
-      json = JSON.load(document['archival_context_json_ss'])
+    if document.has_archival_context? || document.has_collection_bib_links?
+      json = document.archival_context_json
       values.map do |value|
         collection = json.detect { |context| context['dc:title'].to_s.strip == value.strip }
         if collection
           clio = collection.fetch('dc:bibliographicCitation',{})['@id']
           if clio
             bib_id = clio.split('/')[-1].to_s
-            if bib_id =~ /^\d+$/
+            # Voyager BIBs will be all numeric; FOLIO BIBs will be prefixed for 'instance'
+            if bib_id =~ /^(in)?\d+$/
               clio_only = collection.fetch('dc:coverage', []).blank?
-              fa_url = generate_finding_aid_url(bib_id, document, clio_only: clio_only)
+              fa_url = document.finding_aid_url(bib_id, clio_only: clio_only)
               value = link_to(value, fa_url) if fa_url
             end
           end
@@ -52,24 +50,17 @@ module FieldDisplayHelpers::ArchivalContext
         value.html_safe
       end
     else
-      args[:value]
+      values
     end
   end
 
   def has_collection_bib_links?(field_config, document)
-    if document['archival_context_json_ss']
-      JSON.load(document['archival_context_json_ss']).detect do |collection|
-        collection['dc:bibliographicCitation']
-      end
-    end
+    document.has_collection_bib_links?
   end
 
   def display_collection_bib_links(args={})
     document = args[:document]
-    JSON.load(document['archival_context_json_ss']).select do |collection|
-      collection['dc:bibliographicCitation']
-    end.map do |collection|
-      clio = collection.fetch('dc:bibliographicCitation',{})['@id']
+    document.collection_bib_links.map do |clio|
       link_to(clio, clio) if clio
     end
   end

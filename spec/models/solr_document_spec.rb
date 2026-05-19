@@ -110,4 +110,16 @@ describe SolrDocument do
       expect(solr_document.has_structure?).to be false
     end
   end
+  describe '.wrap' do
+    it 'returns the arg if it is a SolrDocument' do
+      expect(SolrDocument.wrap(solr_document)).to be(solr_document)
+    end
+    it 'return a SolrDocument if it is a hash' do
+      expect(SolrDocument.wrap(solr_document.to_h)).to be_a(SolrDocument)
+    end
+    it 'return a blank SolrDocument if it is an unknown object' do
+      expect(SolrDocument.wrap(true)).to be_a(SolrDocument)
+      expect(SolrDocument.wrap(true).to_h).to be_blank
+    end
+  end
 end
