@@ -38,9 +38,9 @@ class SubsiteImportService
     end
     Rails.logger.debug "Done importing subsite: #{@site.title} at #{@site.slug}"
   rescue StandardError => e
-    raise e if e.is_a? Exceptions::SubsiteUploadValidationError
+    raise e if e.is_a? Dcv::Exceptions::SubsiteUploadValidationError
 
-    raise Exceptions::SubsiteUploadError.new("(#{e.class}) #{e.message}")
+    raise Dcv::Exceptions::SubsiteUploadError.new("(#{e.class}) #{e.message}")
   end
 
   private
@@ -51,7 +51,7 @@ class SubsiteImportService
     Zip::File.open @zip_file do |zip|
       @pages_metadata_files = zip.glob("#{PAGES_SUBDIR}/**/#{SITE_METADATA}")
       if zip.glob(SITE_METADATA).length != 1
-        raise Exceptions::SubsiteUploadValidationError.new("No home page metadata file could be located (#{zip.glob(SITE_METADATA).length} results found for '#{SITE_METADATA})")
+        raise Dcv::Exceptions::SubsiteUploadValidationError.new("No home page metadata file could be located (#{zip.glob(SITE_METADATA).length} results found for '#{SITE_METADATA})")
       end
 
       zip.glob(SITE_METADATA).first.get_input_stream do |zis|
@@ -59,7 +59,7 @@ class SubsiteImportService
       end
       new_subsite = Site.find_by(slug: @attrs['slug']).nil?
       if new_subsite && !@is_admin
-        raise Exceptions::SubsiteUploadError.new('You are not authorized to import a new site to the DLC. If this is an error, please contact a DLC administrator to receive admin privileges.')
+        raise Dcv::Exceptions::SubsiteUploadError.new('You are not authorized to import a new site to the DLC. If this is an error, please contact a DLC administrator to receive admin privileges.')
       end
 
       @finish_message = "#{new_subsite ? 'Created new' : 'Updated'} DLC subsite at /#{@attrs['slug']}!"
@@ -202,7 +202,7 @@ class SubsiteImportService
   def validate_import(zip)
     # top-level metadata file should exit
     if zip.glob(SITE_METADATA).length != 1
-      raise Exceptions::SubsiteUploadValidationError.new("There should be one top-level site metadata file. We found #{zip.glob(SITE_METADATA).length}")
+      raise Dcv::Exceptions::SubsiteUploadValidationError.new("There should be one top-level site metadata file. We found #{zip.glob(SITE_METADATA).length}")
     end
 
     # Validate there is a pages/home/ directory
@@ -211,7 +211,7 @@ class SubsiteImportService
     # we will check for pages/home/properties.yml to validate both requirements
     # at once
     unless pages_metadata_files.any? { |file| file.name == "#{PAGES_SUBDIR}/home/#{SITE_METADATA}" }
-      raise Exceptions::SubsiteUploadValidationError.new('No home page data was found (subsites must have a home page with a proper metadata file).')
+      raise Dcv::Exceptions::SubsiteUploadValidationError.new('No home page data was found (subsites must have a home page with a proper metadata file).')
     end
 
     # Validate that each properties.yml that has site_pages_text_blocks data
@@ -226,10 +226,10 @@ class SubsiteImportService
         markdown_file_name = block['markdown']
         # validate markdown filename format
         unless markdown_file_name =~ MD_REGEX
-          raise Exceptions::SubsiteUploadValidationError.new("A page text block markdown file has the wrong filename (offender: #{markdown_file_name})")
+          raise Dcv::Exceptions::SubsiteUploadValidationError.new("A page text block markdown file has the wrong filename (offender: #{markdown_file_name})")
         end
         if zip.glob("#{PAGES_SUBDIR}/#{page_slug}/#{markdown_file_name}").length != 1
-          raise Exceptions::SubsiteUploadValidationError.new("Could not locate a page text block's markdown file (#{zip.glob("#{PAGES_SUBDIR}/#{page_slug}/#{markdown_file_name}").length} results for '#{"#{PAGES_SUBDIR}/#{page_slug}/#{markdown_file_name}"}')")
+          raise Dcv::Exceptions::SubsiteUploadValidationError.new("Could not locate a page text block's markdown file (#{zip.glob("#{PAGES_SUBDIR}/#{page_slug}/#{markdown_file_name}").length} results for '#{"#{PAGES_SUBDIR}/#{page_slug}/#{markdown_file_name}"}')")
         end
       end
     end
@@ -238,7 +238,7 @@ class SubsiteImportService
     images = zip.glob("#{IMAGES_SUBDIR}/*")
     images.each do |image|
       unless ALLOWED_IMAGE_FILENAMES.include? image.name.split('/').last
-        raise Exceptions::SubsiteUploadValidationError.new("The uploaded signature image has the wrong file type or name. Found: #{image.name.split('/').last} - allowed names/types: #{ALLOWED_IMAGE_FILENAMES}")
+        raise Dcv::Exceptions::SubsiteUploadValidationError.new("The uploaded signature image has the wrong file type or name. Found: #{image.name.split('/').last} - allowed names/types: #{ALLOWED_IMAGE_FILENAMES}")
       end
     end
   end

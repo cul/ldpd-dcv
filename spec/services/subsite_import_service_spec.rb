@@ -23,7 +23,7 @@ RSpec.describe SubsiteImportService do
       let(:import) { SubsiteImportService.new(test_import_path, false) }
 
       it 'does not allow import of a new subsite' do
-        expect { import.import_subsite }.to raise_error(Exceptions::SubsiteUploadError)
+        expect { import.import_subsite }.to raise_error(Dcv::Exceptions::SubsiteUploadError)
       end
       it 'does allow import of an existing subsite' do
         FactoryBot.create(:site, slug: 'dlc_site', title: 'Existing DLC Site')
@@ -98,7 +98,7 @@ RSpec.describe SubsiteImportService do
         end
 
         it 'raises a SubsiteImportError with the original error message' do
-          expect { import.import_subsite }.to raise_error(Exceptions::SubsiteUploadError, /Unknown error/)
+          expect { import.import_subsite }.to raise_error(Dcv::Exceptions::SubsiteUploadError, /Unknown error/)
         end
       end
     end
@@ -148,7 +148,7 @@ RSpec.describe SubsiteImportService do
         let(:import) { SubsiteImportService.new(invalid_import_path, true) }
 
         it 'raises a validation error' do
-          expect { import.import_subsite }.to raise_error(Exceptions::SubsiteUploadValidationError)
+          expect { import.import_subsite }.to raise_error(Dcv::Exceptions::SubsiteUploadValidationError)
         end
       end
 
@@ -157,7 +157,7 @@ RSpec.describe SubsiteImportService do
         let(:import) { SubsiteImportService.new(invalid_import_path, true) }
 
         it 'raises a validation error' do
-          expect { import.import_subsite }.to raise_error(Exceptions::SubsiteUploadValidationError)
+          expect { import.import_subsite }.to raise_error(Dcv::Exceptions::SubsiteUploadValidationError)
         end
       end
 
@@ -166,7 +166,7 @@ RSpec.describe SubsiteImportService do
         let(:import) { SubsiteImportService.new(invalid_import_path, true) }
 
         it 'raises a validation error' do
-          expect { import.import_subsite }.to raise_error(Exceptions::SubsiteUploadValidationError)
+          expect { import.import_subsite }.to raise_error(Dcv::Exceptions::SubsiteUploadValidationError)
         end
       end
 
@@ -175,7 +175,7 @@ RSpec.describe SubsiteImportService do
         let(:import) { SubsiteImportService.new(invalid_import_path, true) }
 
         it 'raises a validation error' do
-          expect { import.import_subsite }.to raise_error(Exceptions::SubsiteUploadValidationError)
+          expect { import.import_subsite }.to raise_error(Dcv::Exceptions::SubsiteUploadValidationError)
         end
       end
 
@@ -184,7 +184,7 @@ RSpec.describe SubsiteImportService do
         let(:import) { SubsiteImportService.new(invalid_import_path, true) }
 
         it 'raises a validation error' do
-          expect { import.import_subsite }.to raise_error(Exceptions::SubsiteUploadValidationError)
+          expect { import.import_subsite }.to raise_error(Dcv::Exceptions::SubsiteUploadValidationError)
         end
       end
 
@@ -193,7 +193,7 @@ RSpec.describe SubsiteImportService do
         let(:import) { SubsiteImportService.new(invalid_import_path, true) }
 
         it 'raises a validation error' do
-          expect { import.import_subsite }.to raise_error(Exceptions::SubsiteUploadValidationError)
+          expect { import.import_subsite }.to raise_error(Dcv::Exceptions::SubsiteUploadValidationError)
         end
       end
 
@@ -202,7 +202,7 @@ RSpec.describe SubsiteImportService do
         let(:import) { SubsiteImportService.new(invalid_import_path, true) }
 
         it 'raises a validation error' do
-          expect { import.import_subsite }.to raise_error(Exceptions::SubsiteUploadValidationError)
+          expect { import.import_subsite }.to raise_error(Dcv::Exceptions::SubsiteUploadValidationError)
         end
       end
     end

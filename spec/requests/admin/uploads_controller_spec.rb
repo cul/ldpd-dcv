@@ -108,7 +108,7 @@ describe 'Admin site uploads and imports', type: :request do
       before do
         sign_in admin
         allow(SubsiteImportService).to receive(:new).and_return(mock_import)
-        allow(mock_import).to receive(:import_subsite).and_raise(Exceptions::SubsiteUploadError, 'Test error')
+        allow(mock_import).to receive(:import_subsite).and_raise(Dcv::Exceptions::SubsiteUploadError, 'Test error')
 
         post '/admin/upload', params: { upload: mock_upload }
       end
