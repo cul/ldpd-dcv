@@ -18,7 +18,7 @@
 
 # These filename constants come from the watermark_uploader.rb and banner_uploader.rb class definitions
 ALLOWED_IMAGE_FILENAMES = %w[signature-banner.png signature.svg]
-MD_REGEX = /\d{2,}_[\w.%]*\.md/
+MD_REGEX = /\d{2,}_[\w]*\.md/
 
 class SubsiteImportService
   include Dcv::Sites::Constants
