@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe Admin::UploadsController, type: :request do
+describe 'Admin site uploads and imports', type: :request do
   let(:admin) { FactoryBot.create(:user, is_admin: true) }
   let(:editor) { FactoryBot.create(:user, uid: 'editor_uid') }
   let(:user) { FactoryBot.create(:user) }
