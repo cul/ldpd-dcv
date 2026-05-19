@@ -3,7 +3,7 @@ require 'rails_helper'
 
 RSpec.describe SubsiteExportService do
   let(:site) { FactoryBot.create(:site_with_links) }
-	let!(:page) { FactoryBot.create(:site_page_with_text_blocks, site: site, slug: 'home', title: 'Home' ) }
+  let!(:page) { FactoryBot.create(:site_page_with_text_blocks, site: site, slug: 'home', title: 'Home' ) }
   let(:test_export) { SubsiteExportService.new(site)}
 
   # Helper to extract the files from a zip file and return a hash of those files:
