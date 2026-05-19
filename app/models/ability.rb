@@ -72,7 +72,7 @@ class Ability
     #   - else: only dlc admin or an editor of *some* site may import a site
     # N.B.: in non-prod environments, an editor may import a site or new site
     #       without restriction. Some ideas to make this more secure:
-    #         - users must entire the slug for the site they are updating, and if
+    #         - users must enter the slug for the site they are updating, and if
     #           it doesn't match the metadata of the import, we reject the operation
     #         - users may not upload a new site unless they are admin
     is_editor = Site.any? { |site| site[:editor_uids].include? user&.uid }
