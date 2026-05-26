@@ -18,7 +18,7 @@ Rails.application.routes.draw do
 
   mount Resque::Server.new, at: "/resque"
 
-  # Admin routes:
+  ###### Admin routes: ############
   namespace :admin do
     # TODO : move the import/export feature to the new UI --- provide two routes for now!
     get '/import', to: 'uploads#new'

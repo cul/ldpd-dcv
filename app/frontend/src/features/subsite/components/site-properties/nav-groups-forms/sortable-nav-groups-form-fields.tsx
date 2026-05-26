@@ -98,7 +98,13 @@ const SortableNavGroupFormFields = (
               setValueAs: (value: string) => value.trim(),
             })} placeholder="Group Label" />
             {errors && errors.navGroups?.[index]?.groupLabel && <p><Form.Text className="text-danger">{errors.navGroups[index].groupLabel?.message}</Form.Text></p>}
-            {errors && errors.navGroups?.[index]?.childrenLinks && <p><Form.Text className="text-danger">{errors.navGroups[index].childrenLinks?.message}</Form.Text></p>}
+            {/* There is a quirk with RHF useFieldArray + Zod where sometimes array errors are on the root property of the error object*/}
+            {errors && errors.navGroups?.[index]?.childrenLinks && 
+              <p>
+                <Form.Text className="text-danger">
+                  {errors.navGroups[index].childrenLinks?.message || errors.navGroups[index].childrenLinks.root?.message}
+                </Form.Text>
+              </p>}
           </Col>
         </Row>
         { !isHidden && <>
