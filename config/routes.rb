@@ -18,16 +18,15 @@ Rails.application.routes.draw do
 
   mount Resque::Server.new, at: "/resque"
 
-  # Admin routes (including admin React app):
-  # We only have one, because within the admin UI app, react will handle routing
-  # Thus, for any request with a route matching /admin/*, the * (rest) will be handled by React Router in the admin React app
-  get '/admin', to: 'admin#index'
+  # Admin routes:
   namespace :admin do
+    # TODO : move the import/export feature to the new UI --- provide two routes for now!
     get '/import', to: 'uploads#new'
     post '/upload', to: 'uploads#create'
   end
-  # TODO : move the import/export feature to the new UI --- provide two routes for now!
-  # get '/admin/*path', to: 'admin#index'
+  # For the admin interface react router will handle routing -- send everything to the same route
+  get '/admin', to: 'admin#index'
+  get '/admin/*path', to: 'admin#index'
 
   ###### Backend API Routes: ######
   get 'api/v1/users/_self', to: 'api/users#_self', format: 'json'
