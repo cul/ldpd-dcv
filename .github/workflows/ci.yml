@@ -40,6 +40,6 @@ jobs:
       - name: Install dependencies with yarn
         run: yarn install --immutable
       - name: Run linter on frontend application
-        run: npx eslint app/frontend --max-warnings
+        run: bundle exec rake dcv:eslint
       - name: Run CI task
         run: bundle exec rake dcv:ci

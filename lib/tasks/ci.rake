@@ -31,6 +31,16 @@ namespace :dcv do
     puts e
   end
 
+  desc 'Run ESLint on React Application code'
+  task :eslint do
+    success = system('yarn eslint app/frontend')
+
+    unless success
+      puts 'ESLint found errors. Fix before committing.'
+      exit 1
+    end
+  end
+
   task reload_fixtures: :environment do
     rubydora = ActiveFedora::RubydoraConnection.new(ActiveFedora.config.credentials).connection
     obj_sources = {}
