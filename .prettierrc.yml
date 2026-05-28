@@ -1,0 +1,5 @@
+trailingComma: "all" # adds a trailing comma to multi-line arrays, function calls etc.
+tabWidth: 2
+semi: true # semicolons
+singleQuote: true # this setting is not applied to JSX (JSX keeps double quotes)
+printWidth: 100 # this will also force the code split across multiple lines into one if the width is roughly under 100, so it’s better not to set it too high
