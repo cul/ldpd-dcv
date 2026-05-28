@@ -182,7 +182,8 @@ describe SitesController, type: :unit do
 			let(:params) do
 				ActionController::Parameters.new(
 					site: {
-						watermark: fixture_file_upload(fixture_file_path)
+						watermark: fixture_file_upload(fixture_file_path),
+            palette: 'default', # Need to have some value here so that strong params doesn't throw error on empty params
 					}
 				)
 			end
