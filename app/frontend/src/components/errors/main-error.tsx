@@ -1,9 +1,7 @@
-import { Button, Container } from "react-bootstrap";
-import { FallbackProps } from "react-error-boundary";
-
+import { Button, Container } from 'react-bootstrap';
+import { FallbackProps } from 'react-error-boundary';
 
 export const MainErrorFallback = ({ error, resetErrorBoundary }: FallbackProps) => {
-  
   return (
     <Container className="m-5">
       <h2>Oops, something went wrong</h2>
@@ -12,7 +10,7 @@ export const MainErrorFallback = ({ error, resetErrorBoundary }: FallbackProps) 
       <Container>
         <pre>{String(error)}</pre>
       </Container>
-      <Button onClick={resetErrorBoundary} >oop</Button>
+      <Button onClick={resetErrorBoundary}>oop</Button>
     </Container>
   );
 };

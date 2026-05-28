@@ -1,17 +1,17 @@
 // TODO: add links home
 
-import { useCurrentUser } from "@/lib/authentication";
+import { useCurrentUser } from '@/lib/authentication';
 
 const NotFoundRoute = () => {
   const { data: user, isLoading } = useCurrentUser();
 
   if (isLoading) {
-    return <div>Loading user account...</div>
-  };
+    return <div>Loading user account...</div>;
+  }
 
   if (!user) {
     return null;
-  };
+  }
 
   return (
     <div className="mt-52 flex flex-col items-center font-semibold">

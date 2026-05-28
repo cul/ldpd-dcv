@@ -1,4 +1,4 @@
-import { Roles } from "@/lib/authorization";
+import { Roles } from '@/lib/authorization';
 
 export interface User {
   uid: string;
@@ -57,44 +57,41 @@ export interface SitePage {
 export type NavGroup = {
   groupLabel: string;
   childrenLinks: NavLink[];
-}
+};
 
 export type NavLink = {
   linkLabel: string;
   linkValue: string;
   external: boolean | null;
   iconClass: string | null;
-}
+};
 
 // Subtype of SitePage, for managing just the title value
-export type SitePageGeneralData = Pick<SitePage,
-  'siteSlug' |
-  'pageSlug' |
-  'title' |
-  'updatedAt'
->;
+export type SitePageGeneralData = Pick<SitePage, 'siteSlug' | 'pageSlug' | 'title' | 'updatedAt'>;
 
 // The following are subtypes of SitePage, used in forms that manage only a subset
 // of a SubSite's properties.
-export type SiteGeneralProperties = Pick<Site,
-  'slug' | // for identification
-  'title' |
-  'alternativeTitle' |
-  'palette' |
-  'layout' |
-  'searchType' |
-  'showFacets' // todo: remove this?
+export type SiteGeneralProperties = Pick<
+  Site,
+  | 'slug' // for identification
+  | 'title'
+  | 'alternativeTitle'
+  | 'palette'
+  | 'layout'
+  | 'searchType'
+  | 'showFacets' // todo: remove this?
 >;
 
-export type SitePortraitImageUris = Pick<Site,
-  'slug' | // for identification
-  'imageUris'
+export type SitePortraitImageUris = Pick<
+  Site,
+  | 'slug' // for identification
+  | 'imageUris'
 >;
 
 export type SiteNavGroups = {
   slug: string;
-  navGroups: NavGroup[]
-}
+  navGroups: NavGroup[];
+};
 
 //  TODO : consider having these values stored on the backend and retrieved by api endpoint
 // (can change the set of options overtime without breaking things in UI)

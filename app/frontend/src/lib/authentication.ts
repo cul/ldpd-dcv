@@ -5,7 +5,6 @@ import { ApiError } from '@/types/errors';
 import { User } from '@/types/api';
 import { Roles } from './authorization';
 
-
 const AUTH_QUERY_KEY = ['current-user'];
 
 async function getCurrentUser(): Promise<User | null> {
@@ -25,21 +24,21 @@ export const fetchCurrentUser = async (queryClient: QueryClient): Promise<User> 
     queryFn: getCurrentUser,
     staleTime: 1000 * 60 * 30,
   });
-}
+};
 
 // This loader on the root route will fetch our current user for the queryCache
 // so that subsequent auth checks can simply use the cached value
-// Because the MainLayout subscribes to the current user query (via the 
+// Because the MainLayout subscribes to the current user query (via the
 // AuthenticationBoundary component), our current user data (including permissions)
 // will always be up to date.
 const loadAuth = async (queryClient: QueryClient) => {
   try {
     await fetchCurrentUser(queryClient);
   } catch (error) {
-    console.error("Unknown error fetching current user - could not authenticate.");
+    console.error('Unknown error fetching current user - could not authenticate.');
     throw error;
   }
-}
+};
 
 const getCurrentUserQueryOptions = () => {
   return queryOptions({
@@ -48,25 +47,31 @@ const getCurrentUserQueryOptions = () => {
     staleTime: 1000 * 60 * 30, // 30 minutes
     gcTime: 1000 * 60 * 30, // 30 minutes cache garbage collection
     retry: false,
-  })
-}
+  });
+};
 
 const useCurrentUser = () => {
   const resp = useQuery({
     ...getCurrentUserQueryOptions(),
   });
   return resp;
-}
+};
 
 const useCurrentUserSuspense = (): User => {
   const { data: currentUser } = useSuspenseQuery(getCurrentUserQueryOptions());
-  if(!currentUser) throw Error("Could not load current user! Mayday!");
+  if (!currentUser) throw Error('Could not load current user! Mayday!');
   return currentUser;
-}
+};
 
 const useCurrentUserRoleSuspense = (): Roles => {
   const user = useCurrentUserSuspense();
   return user.permissions.role;
-}
+};
 
-export { loadAuth, useCurrentUserRoleSuspense, useCurrentUserSuspense, useCurrentUser, AUTH_QUERY_KEY}
+export {
+  loadAuth,
+  useCurrentUserRoleSuspense,
+  useCurrentUserSuspense,
+  useCurrentUser,
+  AUTH_QUERY_KEY,
+};

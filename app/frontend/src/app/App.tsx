@@ -9,7 +9,7 @@ const App = () => {
         <AppRouter />
       </AppProvider>
     </React.StrictMode>
-  )
-}
+  );
+};
 
 export default App;

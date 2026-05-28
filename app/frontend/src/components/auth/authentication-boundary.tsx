@@ -1,8 +1,7 @@
-import { ReactNode, useEffect } from "react";
-import { useLocation } from "react-router";
+import { ReactNode, useEffect } from 'react';
+import { useLocation } from 'react-router';
 
-import { useCurrentUser } from "@/lib/authentication";
-
+import { useCurrentUser } from '@/lib/authentication';
 
 // Ensures Authentication before rendering the app.
 // Retrieves the current user data from the query cache, ensures we are always subscribed to
@@ -16,14 +15,14 @@ const AuthenticationBoundary = ({ children }: { children: ReactNode }) => {
   // we would want to consider it an expired session and redirect to login.
   useEffect(() => {
     if (!isLoading && !user) {
-      const returnTo = `${window.location.href}`
+      const returnTo = `${window.location.href}`;
       window.location.replace(`/auth/redirect?return_to=${returnTo}`);
-      return
-    };
-  }, [user, isLoading, pathname])
+      return;
+    }
+  }, [user, isLoading, pathname]);
 
   if (isLoading) {
-    return <div>Loading user account...</div>
+    return <div>Loading user account...</div>;
   }
 
   // Should be caught in useEffect!
