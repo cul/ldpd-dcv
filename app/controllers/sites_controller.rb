@@ -174,38 +174,6 @@ class SitesController < ApplicationController
     # redirect_to '/admin/:site_slug/edit'
   end
 
-  # Example update params:
-  # {
-  #   "palette" => "default",
-  #   "layout" => "gallery",
-  #   "show_facets" => "false",
-  #   "alternative_title" => "alt title",
-  #   "search_type" => "local",
-  #   "image_uris" => ["info:fedora/cul:fbg79cnpkf"],
-  #   "nav_links_attributes" => [
-  #     {
-  #       "sort_group" => "00:About",
-  #       "sort_label" => "00:About the Collection",
-  #       "link" => "about_the_collection",
-  #       "external" => "false",
-  #       "icon_class" => ""
-  #     },
-  #     {
-  #       "sort_group" => "00:About",
-  #       "sort_label" => "01:About G.E.E. Lindquist",
-  #       "link" => "about_gee_lindquist",
-  #       "external" => "false",
-  #       "icon_class" => ""
-  #     },
-  #     {
-  #       "sort_group" => "00:About",
-  #       "sort_label" => "02:Lindquist Papers Finding Aid",
-  #       "link" => "http://library.columbia.edu/content/dam/libraryweb/locations/burke/fa/mrl/ldpd_4492645.pdf",
-  #       "external" => "true",
-  #       "icon_class" => ""
-  #     }
-  #   ]
-  # }
   # update sanitized params
   def update
     banner_upload, watermark_upload = extract_file_uploads.values_at(:banner, :watermark)
@@ -392,10 +360,6 @@ class SitesController < ApplicationController
     end
 
     def site_params
-      # Rails.logger.debug 'site params'
-      # Rails.logger.debug params
-      # Rails.logger.debug 'site params[:site][:banner]'
-      # Rails.logger.debug params[:site]
       unroll_nav_link_params
       params.require(:site).permit(:palette, :layout, :show_facets, :alternative_title, :search_type, :editor_uids, :image_uris, :nav_links_attributes,
                                    image_uris: [], nav_links_attributes: [:sort_group, :sort_label, :link, :external, :icon_class])
