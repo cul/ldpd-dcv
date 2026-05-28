@@ -1,9 +1,12 @@
-import { ApiError } from "@/types/errors";
-
+import { ApiError } from '@/types/errors';
 
 const BASE_URL = '/api/v1';
 
-async function request<T>(endpoint: string, options?: RequestInit, skipHeaders = false): Promise<T> {
+async function request<T>(
+  endpoint: string,
+  options?: RequestInit,
+  skipHeaders = false,
+): Promise<T> {
   const config: RequestInit = {
     ...options,
     credentials: 'include',
@@ -12,7 +15,7 @@ async function request<T>(endpoint: string, options?: RequestInit, skipHeaders =
   if (!skipHeaders) {
     config.headers = {
       'Content-Type': 'application/json',
-      'Accept': 'application/json',
+      Accept: 'application/json',
       ...options?.headers,
     };
   }
@@ -33,7 +36,7 @@ async function request<T>(endpoint: string, options?: RequestInit, skipHeaders =
     const error = new ApiError(message, response.status);
 
     console.error(error);
-    
+
     throw error;
   }
 
@@ -41,8 +44,7 @@ async function request<T>(endpoint: string, options?: RequestInit, skipHeaders =
 }
 
 export const api = {
-  get: <T>(endpoint: string) =>
-    request<T>(endpoint, { method: 'GET' }),
+  get: <T>(endpoint: string) => request<T>(endpoint, { method: 'GET' }),
 
   // post: <T>(endpoint: string, data?: unknown) =>
   //   request<T>(endpoint, {
@@ -58,18 +60,19 @@ export const api = {
   patch: <T>(endpoint: string, data?: unknown) =>
     request<T>(endpoint, {
       method: 'PATCH',
-      body: JSON.stringify(data)
+      body: JSON.stringify(data),
     }),
 
   // For when we want to use form data without converting to JSON
   patchRaw: <T>(endpoint: string, data?: FormData) =>
-    request<T>(endpoint, {
-      method: 'PATCH',
-      body: data,
-    },
-      true // skipHeaders - we want the browser to set this for FormData
+    request<T>(
+      endpoint,
+      {
+        method: 'PATCH',
+        body: data,
+      },
+      true, // skipHeaders - we want the browser to set this for FormData
     ),
 
-  delete: <T>(endpoint: string) =>
-    request<T>(endpoint, { method: 'DELETE' }),
+  delete: <T>(endpoint: string) => request<T>(endpoint, { method: 'DELETE' }),
 };

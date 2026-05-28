@@ -1,4 +1,4 @@
-const FormErrorMsg = ({ msg } : {msg: string | undefined }) => {
+const FormErrorMsg = ({ msg }: { msg: string | undefined }) => {
   if (!msg) return;
   return <p className="text-danger fst-italic">{msg}</p>;
 };

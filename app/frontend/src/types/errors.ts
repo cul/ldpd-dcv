@@ -4,15 +4,16 @@ export class ApiError extends Error {
   constructor(message: string, status?: number) {
     super(message);
     this.status = status;
-    this.name = "ApiError";
+    this.name = 'ApiError';
   }
 }
-const genericAuthMessage = "You are not authorized to access this page. If this is an error, please contact a DLC site administrator!";
+const genericAuthMessage =
+  'You are not authorized to access this page. If this is an error, please contact a DLC site administrator!';
 export class AuthError extends Error {
   authMessage?: string | undefined;
   constructor(authMessage?: string) {
     super(genericAuthMessage);
     this.authMessage = authMessage;
-    this.name = "AuthError";
+    this.name = 'AuthError';
   }
 }

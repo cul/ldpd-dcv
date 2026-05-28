@@ -1,12 +1,11 @@
 import { useMemo } from 'react';
 import { QueryClient, useQueryClient } from '@tanstack/react-query';
-import { LoaderFunction, ActionFunction, createBrowserRouter, RouterProvider} from 'react-router';
+import { LoaderFunction, ActionFunction, createBrowserRouter, RouterProvider } from 'react-router';
 
-import MainLayout from "@/components/layouts/main-layout/main-layout";
+import MainLayout from '@/components/layouts/main-layout/main-layout';
 import { Spinner } from 'react-bootstrap';
 import { RouteErrorFallback } from '@/components/errors/router-error';
 import { loadAuth } from '@/lib/authentication';
-
 
 interface RouteModule {
   default: React.ComponentType;
@@ -34,88 +33,106 @@ const convert = (queryClient: QueryClient) => (m: RouteModule) => {
 const HydrateFallback = () => (
   <div className="d-flex align-items-center justify-content-center vh-100">
     <div className="d-flex flex-column align-items-center gap-5">
-      <Spinner animation="grow" style={{ width: "7em", height: "7em" }} variant="primary" role="status"/>
-      <Spinner animation="grow" style={{ width: "7em", height: "7em" }} variant="info" role="status" />
-      <Spinner animation="grow" style={{ width: "7em", height: "7em" }} variant="light" role="status" />
+      <Spinner
+        animation="grow"
+        style={{ width: '7em', height: '7em' }}
+        variant="primary"
+        role="status"
+      />
+      <Spinner
+        animation="grow"
+        style={{ width: '7em', height: '7em' }}
+        variant="info"
+        role="status"
+      />
+      <Spinner
+        animation="grow"
+        style={{ width: '7em', height: '7em' }}
+        variant="light"
+        role="status"
+      />
       <span className="fs-4">Loading Admin Section . . .</span>
     </div>
   </div>
-)
-
-
+);
 
 const createAppRouter = (queryClient: QueryClient) => {
   // all routes begin with /admin/ --- we are matching on the rest
-  return createBrowserRouter([
+  return createBrowserRouter(
+    [
+      {
+        Component: MainLayout, // N.B. our main layout enforces user authentication
+        errorElement: <RouteErrorFallback />,
+        hydrateFallbackElement: <HydrateFallback />,
+        loader: () => loadAuth(queryClient),
+        children: [
+          {
+            // admin/ -> admin 'dashboard'
+            // Only for admin
+            index: true,
+            lazy: () => import('./routes').then(convert(queryClient)), //(m => ({ Component: m.default, clientLoader: m.clientLoader})),
+          },
+          {
+            path: 'sites',
+            children: [
+              {
+                // admin/sites -> sites admin dashboard
+                // Only for admin
+                index: true,
+                lazy: () => import('./routes/sites').then(convert(queryClient)),
+              },
+              {
+                path: 'restricted/:slug',
+                Component: () => <p>Restricted sites have not been implemented yet.</p>,
+              },
+              {
+                path: ':slug',
+                // The subsite component is a wrapper for all routes that interact with one subsite
+                lazy: () => import('./routes/sites/subsite').then(convert(queryClient)),
+                children: [
+                  {
+                    index: true,
+                    lazy: () =>
+                      import('./routes/sites/subsite/dashboard').then(convert(queryClient)),
+                  },
+                  {
+                    path: 'site-properties',
+                    lazy: () =>
+                      import('./routes/sites/subsite/site-properties').then(convert(queryClient)),
+                  },
+                  // {
+                  //   path: 'site-scope',
+                  //   lazy: () => import('./routes/sites/subsite/site-scope').then(convert(queryClient)),
+                  // },
+                  // {
+                  //   path: 'search-configuration',
+                  //   lazy: () => import('./routes/sites/subsite/search-configuration').then(convert(queryClient)),
+                  // },
+                  // {
+                  //   path: 'pages',
+                  //   lazy: () => import('./routes/sites/subsites/pages.tsx').then(convert(queryClient)),
+                  //   children: [
+                  //     {
+                  //       index: true,
+                  //       lazy: () => import('./routes/sites/subsite/pages/dashboard').then(convert(queryClient)),
+                  //     }
+                  //   ]
+                  // }
+                ],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        path: '*',
+        lazy: () => import('./routes/not-found').then((m) => ({ Component: m.default })),
+      },
+    ],
     {
-      Component: MainLayout, // N.B. our main layout enforces user authentication
-      errorElement: <RouteErrorFallback />,
-      hydrateFallbackElement: <HydrateFallback />,
-      loader: () => loadAuth(queryClient),
-      children: [
-        {
-          // admin/ -> admin 'dashboard'
-          // Only for admin
-          index: true,
-          lazy: () => import("./routes").then(convert(queryClient)) //(m => ({ Component: m.default, clientLoader: m.clientLoader})),
-        },
-        {
-          path: 'sites',
-          children: [
-            {
-              // admin/sites -> sites admin dashboard
-              // Only for admin
-              index: true,
-              lazy: () => import('./routes/sites').then(convert(queryClient)),
-            },
-            {
-              path: 'restricted/:slug',
-              Component: () => <p>Restricted sites have not been implemented yet.</p>
-            },
-            {
-              path: ':slug',
-              // The subsite component is a wrapper for all routes that interact with one subsite
-              lazy: () => import('./routes/sites/subsite').then(convert(queryClient)),
-              children: [
-                {
-                  index: true,
-                  lazy: () => import('./routes/sites/subsite/dashboard').then(convert(queryClient)),
-                },
-                {
-                  path: 'site-properties',
-                  lazy: () => import('./routes/sites/subsite/site-properties').then(convert(queryClient)),
-                },
-                // {
-                //   path: 'site-scope',
-                //   lazy: () => import('./routes/sites/subsite/site-scope').then(convert(queryClient)),
-                // },
-                // {
-                //   path: 'search-configuration',
-                //   lazy: () => import('./routes/sites/subsite/search-configuration').then(convert(queryClient)),
-                // },
-                // {
-                //   path: 'pages',
-                //   lazy: () => import('./routes/sites/subsites/pages.tsx').then(convert(queryClient)),
-                //   children: [
-                //     {
-                //       index: true,
-                //       lazy: () => import('./routes/sites/subsite/pages/dashboard').then(convert(queryClient)),
-                //     }
-                //   ]
-                // }
-              ]
-            }
-          ]
-        }
-      ],
+      basename: '/admin',
     },
-    {
-      path: '*',
-      lazy: () => import('./routes/not-found').then(m => ({ Component: m.default })),
-    }
-  ], {
-    basename: '/admin',
-  });
+  );
 };
 
 const AppRouter = () => {
@@ -123,9 +140,7 @@ const AppRouter = () => {
 
   const router = useMemo(() => createAppRouter(queryClient), [queryClient]);
 
-  return (
-    <RouterProvider router={router} />
-  );
+  return <RouterProvider router={router} />;
 };
 
 export { AppRouter };

@@ -1,55 +1,65 @@
-import { useNavGroupsSuspense } from "../../api/get-nav-groups";
+import { useNavGroupsSuspense } from '../../api/get-nav-groups';
 import { DragDropProvider } from '@dnd-kit/react';
 import { isSortable } from '@dnd-kit/dom/sortable';
-import { useForm, useFieldArray } from "react-hook-form";
-import { Col, Form, Row } from "react-bootstrap";
-import z from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm, useFieldArray } from 'react-hook-form';
+import { Col, Form, Row } from 'react-bootstrap';
+import z from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
 
-import { NavGroup } from "@/types/api";
-import SortableNavGroupFormFields from "./nav-groups-forms/sortable-nav-groups-form-fields";
-import { MutationAlerts } from "@/components/ui/forms/mutation-alerts";
-import SaveButton from "@/components/ui/forms/save-button";
-import { useMUpdateSite } from "../../api/update-site";
-
+import { NavGroup } from '@/types/api';
+import SortableNavGroupFormFields from './nav-groups-forms/sortable-nav-groups-form-fields';
+import { MutationAlerts } from '@/components/ui/forms/mutation-alerts';
+import SaveButton from '@/components/ui/forms/save-button';
+import { useMUpdateSite } from '../../api/update-site';
 
 const navLinksSchema = z.object({
-  linkLabel: z.string().min(1, "Link label is required").max(80, 'the link label must not exceed 80 characters'),
-  linkValue: z.string().min(1, "Link value is required").max(500, 'the link value must not exceed 500 characters'),
+  linkLabel: z
+    .string()
+    .min(1, 'Link label is required')
+    .max(80, 'the link label must not exceed 80 characters'),
+  linkValue: z
+    .string()
+    .min(1, 'Link value is required')
+    .max(500, 'the link value must not exceed 500 characters'),
   external: z.boolean().nullable(),
   iconClass: z.string().max(250, 'the icon class must not exceed 250 characters').nullable(),
 });
 
 const navGroupsSchema = z.object({
-  groupLabel: z.string().min(1, "Group Label is required").max(80),
-  childrenLinks: z.array(navLinksSchema).min(1, "You must provide at least one link to create a navigation group"),
+  groupLabel: z.string().min(1, 'Group Label is required').max(80),
+  childrenLinks: z
+    .array(navLinksSchema)
+    .min(1, 'You must provide at least one link to create a navigation group'),
 });
 
 const navGroupsFormSchema = z.object({
   navGroups: z.array(navGroupsSchema),
-})
+});
 
 type NavGroupFormValues = {
   navGroups: NavGroup[];
-}
+};
 
 const normalizeUndefinedStringFields = (navGroups: NavGroup[]) => {
-  navGroups.forEach(ng => {
-    ng.childrenLinks.forEach(link => {
+  navGroups.forEach((ng) => {
+    ng.childrenLinks.forEach((link) => {
       link.iconClass = link.iconClass || ''; // normalize optional input
-    })
-  })
-}
+    });
+  });
+};
 
-const NavGroupsForm = ({ slug, updatedAt }: { slug: string, updatedAt: string }) => {
+const NavGroupsForm = ({ slug, updatedAt }: { slug: string; updatedAt: string }) => {
   // Do not allow background refresh; always overwrite when submitting
   // TODO : handle this interaction better ...
   const navGroups = useNavGroupsSuspense(slug, { queryConfig: { staleTime: Infinity } });
   normalizeUndefinedStringFields(navGroups);
   const mutation = useMUpdateSite();
 
-  const { 
-    register, handleSubmit, control, formState: { isDirty, isSubmitting, errors } 
+  const {
+    register,
+    handleSubmit,
+    control,
+    formState: { isDirty, isSubmitting, errors },
   } = useForm<NavGroupFormValues>({
     values: {
       navGroups: navGroups,
@@ -79,60 +89,59 @@ const NavGroupsForm = ({ slug, updatedAt }: { slug: string, updatedAt: string })
   const submitHandler = (data: NavGroupFormValues) => {
     mutation.mutate({
       slug: slug,
-      ...data
-    })
-  }
+      ...data,
+    });
+  };
 
   return (
     <>
-    <p>
-      Here you can manage the navigation groups and links for your subsite. Rearrange the display order of Navigation Groups by dragging and dropping the elements to sort horizontally.
-      Rearrange the order of the links within a navigation group by dragging and dropping them to sort vertically.
-    </p>
-    <MutationAlerts 
-      mutation={mutation}
-      successMessage="Site Nav Group(s) updated successfully!" 
-      errorMessage="Site changes could not be saved due to Error" 
-    />
-    <Form onSubmit={handleSubmit(submitHandler)}>
-      <DragDropProvider 
-        onDragEnd={handleDragEnd}
-      >
-        <Row className="flex-nowrap overflow-auto">
-          {fields.map((field, index) => (
-            <SortableNavGroupFormFields
-              key={field.id}
-              id={field.id}
-              index={index}
-              register={register}
-              removeNavGroup={remove}
-              control={control}
-              errors={errors}
-            />
-          ))}
-          <Col xs='1'>
-            <button 
-              type="button" 
-              className="btn btn-success h-100"
-              onClick={() => append({
-                groupLabel: '',
-                childrenLinks: [],
-              })}>
+      <p>
+        Here you can manage the navigation groups and links for your subsite. Rearrange the display
+        order of Navigation Groups by dragging and dropping the elements to sort horizontally.
+        Rearrange the order of the links within a navigation group by dragging and dropping them to
+        sort vertically.
+      </p>
+      <MutationAlerts
+        mutation={mutation}
+        successMessage="Site Nav Group(s) updated successfully!"
+        errorMessage="Site changes could not be saved due to Error"
+      />
+      <Form onSubmit={handleSubmit(submitHandler)}>
+        <DragDropProvider onDragEnd={handleDragEnd}>
+          <Row className="flex-nowrap overflow-auto">
+            {fields.map((field, index) => (
+              <SortableNavGroupFormFields
+                key={field.id}
+                id={field.id}
+                index={index}
+                register={register}
+                removeNavGroup={remove}
+                control={control}
+                errors={errors}
+              />
+            ))}
+            <Col xs="1">
+              <button
+                type="button"
+                className="btn btn-success h-100"
+                onClick={() =>
+                  append({
+                    groupLabel: '',
+                    childrenLinks: [],
+                  })
+                }
+              >
                 Add Navigation Group
-            </button>
-          </Col>
-        </Row>
-        <Row className="mt-3">  
-          <SaveButton 
-            isDirty={isDirty} 
-            updatedAt={updatedAt} 
-            isSubmitting={isSubmitting}
-          />
-        </Row>
-      </DragDropProvider>
-    </Form>
+              </button>
+            </Col>
+          </Row>
+          <Row className="mt-3">
+            <SaveButton isDirty={isDirty} updatedAt={updatedAt} isSubmitting={isSubmitting} />
+          </Row>
+        </DragDropProvider>
+      </Form>
     </>
   );
-}
+};
 
-export {type NavGroupFormValues, NavGroupsForm as default};
+export { type NavGroupFormValues, NavGroupsForm as default };

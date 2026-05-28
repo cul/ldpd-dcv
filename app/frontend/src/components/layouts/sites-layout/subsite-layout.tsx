@@ -1,8 +1,7 @@
-import { Outlet } from "react-router";
-import SitesLayoutNavbar from "./subsite-layout-navbar";
-import { Col, Row } from "react-bootstrap";
-import BackButton from "@/components/ui/back-button";
-
+import { Outlet } from 'react-router';
+import SitesLayoutNavbar from './subsite-layout-navbar';
+import { Col, Row } from 'react-bootstrap';
+import BackButton from '@/components/ui/back-button';
 
 const SubSiteLayout = () => {
   // const { pathname } = useLocation();
@@ -23,9 +22,9 @@ const SubSiteLayout = () => {
           <Outlet />
         </Col>
       </Row>
-    {/* </Container> */}
+      {/* </Container> */}
     </>
   );
 };
 
-export default SubSiteLayout ;
+export default SubSiteLayout;

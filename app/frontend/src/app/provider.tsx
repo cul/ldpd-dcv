@@ -1,15 +1,15 @@
-import { FC, PropsWithChildren, useState } from "react";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { ErrorBoundary } from "react-error-boundary";
+import { FC, PropsWithChildren, useState } from 'react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { ErrorBoundary } from 'react-error-boundary';
 
 import { queryConfig } from '@/lib/react-query';
 import { MainErrorFallback } from '@/components/errors/main-error';
 
-
 const AppProvider: FC<PropsWithChildren> = ({ children }) => {
   const [queryClient] = useState(
-    () => new QueryClient({
+    () =>
+      new QueryClient({
         defaultOptions: queryConfig,
       }),
   );

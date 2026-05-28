@@ -1,14 +1,13 @@
-import { useSortable } from "@dnd-kit/react/sortable";
-import { Col, Row, Form, Stack, Button } from "react-bootstrap";
-import { FieldErrors, UseFieldArrayRemove, UseFormRegister } from "react-hook-form";
+import { useSortable } from '@dnd-kit/react/sortable';
+import { Col, Row, Form, Stack, Button } from 'react-bootstrap';
+import { FieldErrors, UseFieldArrayRemove, UseFormRegister } from 'react-hook-form';
 import { RestrictToWindow } from '@dnd-kit/dom/modifiers';
 import { RestrictToVerticalAxis } from '@dnd-kit/abstract/modifiers';
 
-import { NavGroupFormValues } from "../nav-groups-form";
-import ShowHideArrow from "@/components/ui/show-hide-arrow";
-import InfoTooltip from "@/components/ui/forms/info-tooltip";
-import { sitePropertiesTooltipMessage } from "@/features/subsite/utils";
-
+import { NavGroupFormValues } from '../nav-groups-form';
+import ShowHideArrow from '@/components/ui/show-hide-arrow';
+import InfoTooltip from '@/components/ui/forms/info-tooltip';
+import { sitePropertiesTooltipMessage } from '@/features/subsite/utils';
 
 type SortableNavLinkElementProps = {
   id: string;
@@ -19,106 +18,151 @@ type SortableNavLinkElementProps = {
   hidden: boolean;
   setHiddenLinksArray: React.Dispatch<React.SetStateAction<boolean[]>>;
   errors: FieldErrors<NavGroupFormValues>;
-}
+};
 
-const SortableNavLinkFormFields = (
-  { id, groupIndex, index, register, remove, hidden, setHiddenLinksArray, errors }: SortableNavLinkElementProps) => {
-  const { ref, handleRef } = useSortable({ id: `${id}`, index, modifiers: [RestrictToVerticalAxis, RestrictToWindow]});
+const SortableNavLinkFormFields = ({
+  id,
+  groupIndex,
+  index,
+  register,
+  remove,
+  hidden,
+  setHiddenLinksArray,
+  errors,
+}: SortableNavLinkElementProps) => {
+  const { ref, handleRef } = useSortable({
+    id: `${id}`,
+    index,
+    modifiers: [RestrictToVerticalAxis, RestrictToWindow],
+  });
 
   const changeHidden = () => {
     setHiddenLinksArray((prev) => {
       const newArray = [...prev];
       newArray[index] = !hidden;
       return newArray;
-    })
-  }
+    });
+  };
 
-  const toolTipStyles = { };
+  const toolTipStyles = {};
 
   return (
     <div
-      ref={ref} 
-      key={'group-'+groupIndex+'link-'+index} 
+      ref={ref}
+      key={'group-' + groupIndex + 'link-' + index}
       className="subtle-light-grey-background rounded my-2 py-2"
     >
-
       <div className="d-flex justify-content-between mb-2">
-        <div ref={handleRef} className="d-flex flex-column align-items-start" style={{ cursor: 'grab', width: 'fit-content' }}>
+        <div
+          ref={handleRef}
+          className="d-flex flex-column align-items-start"
+          style={{ cursor: 'grab', width: 'fit-content' }}
+        >
           <i className="fa-solid fa-grip"></i>
-          <span className="fst-italic text-secondary">#{index+1}</span>
+          <span className="fst-italic text-secondary">#{index + 1}</span>
         </div>
         <ShowHideArrow hidden={hidden} clickHandler={changeHidden} />
       </div>
       <Row className="align-items-center">
         <Col xs={5}>
           <div className="d-flex align-items-center gap-1">
-            <InfoTooltip fieldName='linkLabel' lookupFn={sitePropertiesTooltipMessage} 
-              style={toolTipStyles}/>
+            <InfoTooltip
+              fieldName="linkLabel"
+              lookupFn={sitePropertiesTooltipMessage}
+              style={toolTipStyles}
+            />
             <Form.Label className="mb-0">Link Label:</Form.Label>
           </div>
         </Col>
         <Col xs={7}>
-          <Form.Control {...register(`navGroups.${groupIndex}.childrenLinks.${index}.linkLabel`, {
-            setValueAs: (value: string) => value.trim(),
-          })} placeholder="Link Label" />
-          {errors && errors.navGroups?.[groupIndex]?.childrenLinks?.[index]?.linkLabel && 
-            <Form.Text className="text-danger">{errors.navGroups[groupIndex].childrenLinks[index].linkLabel?.message}</Form.Text>}
+          <Form.Control
+            {...register(`navGroups.${groupIndex}.childrenLinks.${index}.linkLabel`, {
+              setValueAs: (value: string) => value.trim(),
+            })}
+            placeholder="Link Label"
+          />
+          {errors && errors.navGroups?.[groupIndex]?.childrenLinks?.[index]?.linkLabel && (
+            <Form.Text className="text-danger">
+              {errors.navGroups[groupIndex].childrenLinks[index].linkLabel?.message}
+            </Form.Text>
+          )}
         </Col>
       </Row>
 
-      { !hidden && (
-        <Stack
-          gap={3}
-          className=" my-2 py-1">
+      {!hidden && (
+        <Stack gap={3} className=" my-2 py-1">
           <Row className="align-items-center">
             <Col xs={5}>
               <div className="d-flex align-items-center gap-1">
-                <InfoTooltip fieldName='linkValue' lookupFn={sitePropertiesTooltipMessage}
-                  style={toolTipStyles}/>
+                <InfoTooltip
+                  fieldName="linkValue"
+                  lookupFn={sitePropertiesTooltipMessage}
+                  style={toolTipStyles}
+                />
                 <Form.Label className="mb-0">Link Value:</Form.Label>
               </div>
             </Col>
             <Col xs={7}>
-              <Form.Control {...register(`navGroups.${groupIndex}.childrenLinks.${index}.linkValue`, {
-                setValueAs: (value: string) => value.trim(),
-              })} placeholder="Link Value" />
-              {errors && errors.navGroups?.[groupIndex]?.childrenLinks?.[index]?.linkValue && 
-                <Form.Text className="text-danger">{errors.navGroups[groupIndex].childrenLinks[index].linkValue?.message}</Form.Text>}
+              <Form.Control
+                {...register(`navGroups.${groupIndex}.childrenLinks.${index}.linkValue`, {
+                  setValueAs: (value: string) => value.trim(),
+                })}
+                placeholder="Link Value"
+              />
+              {errors && errors.navGroups?.[groupIndex]?.childrenLinks?.[index]?.linkValue && (
+                <Form.Text className="text-danger">
+                  {errors.navGroups[groupIndex].childrenLinks[index].linkValue?.message}
+                </Form.Text>
+              )}
             </Col>
           </Row>
           <Row className="align-items-center">
             <Col xs={5}>
               <div className="d-flex align-items-center gap-1">
-                <InfoTooltip fieldName='external' lookupFn={sitePropertiesTooltipMessage} 
-                  style={toolTipStyles}/>
+                <InfoTooltip
+                  fieldName="external"
+                  lookupFn={sitePropertiesTooltipMessage}
+                  style={toolTipStyles}
+                />
                 <Form.Label className="mb-0">External Link?:</Form.Label>
               </div>
             </Col>
             <Col xs={7} className="">
-              <Form.Check {...register(`navGroups.${groupIndex}.childrenLinks.${index}.external`)} />
+              <Form.Check
+                {...register(`navGroups.${groupIndex}.childrenLinks.${index}.external`)}
+              />
             </Col>
           </Row>
           <Row className="align-items-center">
             <Col xs={5}>
               <div className="d-flex align-items-center gap-1">
-                <InfoTooltip fieldName='iconClass' lookupFn={sitePropertiesTooltipMessage} 
-                  style={toolTipStyles}/>
+                <InfoTooltip
+                  fieldName="iconClass"
+                  lookupFn={sitePropertiesTooltipMessage}
+                  style={toolTipStyles}
+                />
                 <Form.Label className="mb-0">Icon Class (optional):</Form.Label>
               </div>
             </Col>
             <Col xs={7}>
-              <Form.Control {...register(`navGroups.${groupIndex}.childrenLinks.${index}.iconClass`, {
-                setValueAs: (value: string | undefined) => value?.trim(),
-              })} placeholder="(Optional) Icon Class" />
-              {errors && errors.navGroups?.[groupIndex]?.childrenLinks?.[index]?.iconClass && 
-                <Form.Text className="text-danger">{errors.navGroups[groupIndex].childrenLinks[index].iconClass?.message}</Form.Text>}
+              <Form.Control
+                {...register(`navGroups.${groupIndex}.childrenLinks.${index}.iconClass`, {
+                  setValueAs: (value: string | undefined) => value?.trim(),
+                })}
+                placeholder="(Optional) Icon Class"
+              />
+              {errors && errors.navGroups?.[groupIndex]?.childrenLinks?.[index]?.iconClass && (
+                <Form.Text className="text-danger">
+                  {errors.navGroups[groupIndex].childrenLinks[index].iconClass?.message}
+                </Form.Text>
+              )}
             </Col>
           </Row>
           <Row className="ps-2">
             <Button
               variant="danger"
               className="mx-auto"
-              style={{fontSize: '0.85em', width: 'fit-content'}}
+              style={{ fontSize: '0.85em', width: 'fit-content' }}
               onClick={() => remove(index)}
             >
               Remove Link
@@ -126,9 +170,8 @@ const SortableNavLinkFormFields = (
           </Row>
         </Stack>
       )}
-
     </div>
-  )
-}
+  );
+};
 
 export default SortableNavLinkFormFields;
