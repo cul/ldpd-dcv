@@ -1,5 +1,6 @@
 class Api::BaseController <  ApplicationController
   before_action :transform_json_params
+  before_action :authenticate_user!
 
   # Handle authorization errors
   rescue_from CanCan::AccessDenied do |exception|
