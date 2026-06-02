@@ -23,6 +23,12 @@ Rails.application.routes.draw do
     post '/upload', to: 'uploads#create'
   end
 
+  namespace :api do
+    namespace :v1 do
+      get 'external_display/info', to: 'external_display#info'
+    end
+  end
+
   get '/browse/:list_id' => 'browse', as: :browse, action: 'list'
   get '/explore' => 'welcome#home'
   get '/about' => 'pages#about', as: :about
