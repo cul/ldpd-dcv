@@ -92,6 +92,15 @@ header[role='banner'] {
 	}
 }
 
+.home {
+  #site-banner {
+    #site-title {
+      color: white;
+      text-shadow: 1px 1px black;
+    }
+  }
+}
+
 #site-title {
 	width:100%;
 	padding-top: 4px;
@@ -101,11 +110,10 @@ header[role='banner'] {
 	font-size: 198%;
 	font-weight: 200;
 	line-height: 1.1;
-	color: white;
+	color: black;
 	text-align: center;
 	text-decoration: none;
 	text-transform: uppercase;
-	text-shadow: 1px 1px black;
 	vertical-align: bottom;
 	.dr-arrow {
 		color: lighten(map-get($theme-border-colors, 'secondary'),35%);

@@ -5,6 +5,15 @@
 	border-color: map-get($theme-border-colors, 'body');
 }
 
+.home {
+  #site-banner {
+    #site-title {
+      color: white;
+      text-shadow: 1px 1px black;
+    }
+  }
+}
+
 #site-banner {
 	color: map-get($theme-text-colors, 'brand');
 	background-color: map-get($theme-colors, 'brand');
@@ -21,8 +30,7 @@
 		text-transform: uppercase;
 		font-family: $font_b;
 		font-weight: 300;
-		color: white;
-    text-shadow: 1px 1px black;
+    color: black;
 		white-space: normal;
 	}
 	#site-banner-subtitle {
