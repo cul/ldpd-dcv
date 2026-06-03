@@ -63,10 +63,13 @@ RSpec.describe Api::InfoService do
           .and_return([asset_document])
       end
 
-      it "returns not found" do
+      it "returns not found with the missing item identifier" do
         expect(result.success?).to be(false)
         expect(result.status).to eq(:not_found)
         expect(result.error_code).to eq("not_found")
+        expect(result.error_message).to eq(
+          "Solr document(s) not found for identifier(s): item_id=#{item_id}"
+        )
       end
     end
 
@@ -77,10 +80,31 @@ RSpec.describe Api::InfoService do
           .and_return([item_document])
       end
 
-      it "returns not found" do
+      it "returns not found with the missing asset identifier" do
         expect(result.success?).to be(false)
         expect(result.status).to eq(:not_found)
         expect(result.error_code).to eq("not_found")
+        expect(result.error_message).to eq(
+          "Solr document(s) not found for identifier(s): asset_id=#{asset_id}"
+        )
+      end
+    end
+
+    context "when both documents are missing" do
+      before do
+        allow_any_instance_of(described_class)
+          .to receive(:search_documents)
+          .and_return([])
+      end
+
+      it "returns all missing identifiers" do
+        expect(result.success?).to be(false)
+        expect(result.status).to eq(:not_found)
+        expect(result.error_code).to eq("not_found")
+        expect(result.error_message).to eq(
+          "Solr document(s) not found for identifier(s): " \
+          "item_id=#{item_id}, asset_id=#{asset_id}"
+        )
       end
     end
 
