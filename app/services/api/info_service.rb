@@ -29,7 +29,11 @@ module Api
       item  = find_by_identifier(documents, item_id)
       asset = find_by_identifier(documents, asset_id)
 
-      return not_found_result if item.nil? || asset.nil?
+      missing_ids = []
+      missing_ids << "item_id=#{item_id}" unless item
+      missing_ids << "asset_id=#{asset_id}" unless asset
+
+      return not_found_result(missing_ids) if missing_ids.any?
 
       success(format_metadata(item, asset))
     rescue RSolr::Error::Http => e
@@ -109,12 +113,13 @@ module Api
       )
     end
 
-    def not_found_result
-      failure(
-        "One or both Solr documents could not be found.",
+    def not_found_result(missing_ids)
+    failure(
+        "Solr document(s) not found for identifier(s): #{missing_ids.join(', ')}",
         "not_found",
         :not_found
-      )
+    )
     end
-  end
+
+end
 end
