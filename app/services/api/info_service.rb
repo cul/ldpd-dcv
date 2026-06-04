@@ -86,7 +86,7 @@ module Api
     end
 
     def extract_first_value(item, key)
-      item.fetch(key, []).first.presence || ""
+      item.fetch(key, []).first.presence || "null"
     end
 
     def solr_escape(id)
