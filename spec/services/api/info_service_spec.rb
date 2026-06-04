@@ -116,13 +116,13 @@ RSpec.describe Api::InfoService do
         }
       end
 
-      it "returns empty strings for missing metadata" do
+      it "returns null for missing metadata" do
         expect(result.data).to include(
-          title: "",
-          author: "",
-          dateCreated: "",
-          collection: "",
-          extent: ""
+          title: "null",
+          author: "null",
+          dateCreated: "null",
+          collection: "null",
+          extent: "null"
         )
       end
     end
