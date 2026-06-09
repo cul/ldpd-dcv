@@ -22,7 +22,7 @@ class Api::SitesController < Api::BaseController
     else
       @sites = Site.all.select { |site| site[:editor_uids].include? current_user[:uid] }
     end
-    render json: { sites: @sites.each { |subsite| { id: subsite.id, title: subsite.title, slug: subsite.slug } } }
+    render json: { sites: @sites.map { |subsite| { id: subsite.id, title: subsite.title, slug: subsite.slug } } }
   end
 
   # GET /api/v1/sites/:site_slug
@@ -90,7 +90,6 @@ class Api::SitesController < Api::BaseController
 
   # DELETE /api/v1/sites/:site_slug/signature_images/:image_type
   def delete_signature_image
-    Rails.logger.debug "DELETING #{params[:image_type]} IMAGE FOR SITE #{@subsite.slug}..."
     authorize_action_and_scope Ability::MANAGE_SUBSITE, @subsite
 
     valid_types = %w[banner watermark] 
@@ -118,7 +117,6 @@ class Api::SitesController < Api::BaseController
 
   # PATCH /api/v1/sites/:site_slug
   def update
-    Rails.logger.debug 'INSIDE API SITES CONTROLLER UPDATE ACTION'
     authorize_action_and_scope Ability::MANAGE_SUBSITE, @subsite
 
     # though Site accepts nested attributes of nav_links for persistence, we want to handle the updates
@@ -127,7 +125,6 @@ class Api::SitesController < Api::BaseController
     nav_links_attributes = update_params.delete('nav_links_attributes')
 
     @subsite.update! update_params
-    Rails.logger.debug "UPDATED SUBSITE!"
 
     # TODO: refactor to delete all and then save all...
     if nav_links_attributes.present? || nav_links_attributes == []
@@ -158,7 +155,6 @@ class Api::SitesController < Api::BaseController
     # end
     render json: { site: site_json(@subsite) }
   rescue ActiveRecord::RecordInvalid, CarrierWave::IntegrityError => ex
-    Rails.logger.debug 'RESCUED FROM ERROR!'
     render json: { error: ex.message }, status: :unprocessable_entity
   end
 
@@ -166,9 +162,8 @@ class Api::SitesController < Api::BaseController
     def load_subsite
       @subsite ||= begin
         site_slug = params[:site_slug] || params[:slug]
-        Rails.logger.debug "SITE SLUG: #{site_slug}"
         # site_slug = "restricted/#{site_slug}" if restricted? # TODO : handle restricted sites
-        s = Site.find_by(slug: site_slug)
+        s = Site.find_by!(slug: site_slug)
         s.configure_blacklight! if s
         s
       end
@@ -180,19 +175,6 @@ class Api::SitesController < Api::BaseController
                                    image_uris: [], nav_links_attributes: [:sort_group, :sort_label, :link, :external, :icon_class])
       .to_h.tap do |p|
         p['image_uris']&.delete_if { |v| v.blank? }
-      end
-    end
-
-    # Captures the numbered prefix and label for a group_label or sort_label with
-    # the format "<2 digit number>:<label text>"
-    # Returns an array:
-    #   return_value[0] : the prefix as an integer
-    #   return_value[1] : the label as a string
-    def extract_prefix_and_label(string)
-      if string =~ /^(\d+)\s*:\s*(.*)$/
-        return [$1.to_i, $2]
-      else
-        raise ArgumentError, "this group or link label has the wrong formatting: #{string}"
       end
     end
 
@@ -216,6 +198,19 @@ class Api::SitesController < Api::BaseController
         end
       end
       params['site']['nav_links_attributes'] = flat_nav_links_array
+    end
+
+    # Captures the numbered prefix and label for a group_label or sort_label with
+    # the format "<2 digit number>:<label text>"
+    # Returns an array:
+    #   return_value[0] : the prefix as an integer
+    #   return_value[1] : the label as a string
+    def extract_prefix_and_label(string)
+      if string =~ /^(\d+)\s*:\s*(.*)$/
+        return [$1.to_i, $2]
+      else
+        raise ArgumentError, "this group or link label has the wrong formatting: #{string}"
+      end
     end
 
     # Converts ruby snake_case attributes to javascript camelCase

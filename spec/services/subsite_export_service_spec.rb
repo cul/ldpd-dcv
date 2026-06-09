@@ -80,12 +80,12 @@ RSpec.describe SubsiteExportService do
           end
           it 'has the correct nav link values' do
             about_link = nav_links.find { |nav_link| nav_link['link'] == 'about' }
-            expect(about_link['sort_label']).to eql('About')
+            expect(about_link['sort_label']).to eql('00:About')
             funding_link = nav_links.find { |nav_link| nav_link['link'] == 'funding' }
-            expect(funding_link['sort_label']).to eql('Funding')
+            expect(funding_link['sort_label']).to eql('00:Funding')
             expect(funding_link['sort_group']).to eql('01:Project History')
             contributors_link = nav_links.find { |nav_link| nav_link['link'] == 'contributors' }
-            expect(contributors_link['sort_label']).to eql('Contributors')
+            expect(contributors_link['sort_label']).to eql('01:Contributors')
             expect(contributors_link['sort_group']).to eql('01:Project History')
           end
         end

@@ -11,7 +11,7 @@ class Ability
   MANAGE_SUBSITE = :manage_subsite
   UNSPECIFIED_ACCESS_DECISION = true
 
-  def initialize(user = nil, opts = {})\
+  def initialize(user = nil, opts = {})
     location_uris = ip_to_location_uris(opts[:remote_ip])
     affils = Array.wrap(opts[:roles]) || []
     @public = location_uris.empty? && affils.empty? && user.nil?
@@ -27,10 +27,9 @@ class Ability
       end
     end
     # can? :list_subsites, Site
-    can LIST_SUBSITES, Site do
-      return true if user&.is_admin?
-      Site.all.any? { |site| site[:editor_uids].include? user[:uid] }
-    end
+
+    can LIST_SUBSITES, Site if user&.is_admin? || Site.all.any? { |site| site[:editor_uids]&.include? user&.uid }
+      
     #  can? current_user, :access_subsite, @subsite
     can ACCESS_SUBSITE, Site do |site|
       if site.restricted

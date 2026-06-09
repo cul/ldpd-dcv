@@ -26,7 +26,7 @@ const navLinksSchema = z.object({
 });
 
 const navGroupsSchema = z.object({
-  groupLabel: z.string().min(1, 'Group Label is required').max(80),
+  groupLabel: z.string(),
   childrenLinks: z
     .array(navLinksSchema)
     .min(1, 'You must provide at least one link to create a navigation group'),
