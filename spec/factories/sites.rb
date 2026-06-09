@@ -16,9 +16,19 @@ FactoryBot.define do
 
     factory :site_with_links do
       after(:create) do |site|
-        create(:nav_link, site_id: site.id, external: false, link: 'about', sort_label: 'About')
-        create(:nav_link, site_id: site.id, external: false, link: 'funding', sort_group: '01:Project History', sort_label: 'Funding')
-        create(:nav_link, site_id: site.id, external: false, link: 'contributors', sort_group: '01:Project History', sort_label: 'Contributors')
+        # When a NavLink is created via the editor interface, it always has a sort_label with a numbered prefix and a
+        # sort_group with a numbered prefix (even if the sort_group label is blank and it renders at the top level)
+        create(:nav_link, site_id: site.id, external: false, link: 'about', sort_group: '00:', sort_label: '00:About')
+        create(:nav_link, site_id: site.id, external: false, link: 'funding', sort_group: '01:Project History', sort_label: '00:Funding')
+        create(:nav_link, site_id: site.id, external: false, link: 'contributors', sort_group: '01:Project History', sort_label: '01:Contributors')
+      end
+    end
+
+    factory :site_with_pages do
+      after(:create) do |site|
+        create(:site_page, site_id: site.id)
+        create(:site_page, site_id: site.id, slug: 'another_page', title: 'Another Page')
+        create(:site_page_with_text_blocks, site_id: site.id, slug: 'home', title: 'Home Page with Text')
       end
     end
   end

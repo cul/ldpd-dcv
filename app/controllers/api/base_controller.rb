@@ -12,6 +12,10 @@ class Api::BaseController <  ApplicationController
     render json: { error: 'Invalid JSON in request body' }, status: :bad_request
   end
 
+  rescue_from ActiveRecord::RecordNotFound do |exception|
+    render json: { error: 'Object not found' }, status: :not_found
+  end
+
   
   private
 

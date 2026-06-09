@@ -10,8 +10,8 @@ describe Site do
 	describe '#nav_menus' do
 		let(:site_slug) { 'grouped_links' }
 		let(:site) { FactoryBot.create(:site_with_links, slug: site_slug) }
-		let(:unlabeled_menu) { site.nav_menus.detect { |nm| nm.sort_label.nil? } }
-		let(:labeled_menu) { site.nav_menus.detect { |nm| !nm.sort_label.nil? } }
+		let(:unlabeled_menu) { site.nav_menus.detect { |nm| nm.label.blank? } }
+		let(:labeled_menu) { site.nav_menus.detect { |nm| nm.label.present? } }
 		it 'groups links according to sort group' do
 			expect(labeled_menu.label).to eql('Project History')
 			expect(labeled_menu.length).to eql(2)
