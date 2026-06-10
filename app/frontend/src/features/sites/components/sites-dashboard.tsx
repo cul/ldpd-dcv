@@ -17,8 +17,7 @@ const SitesDashboard = () => {
           <>
             <h1 className="ps-4 mb-5">DLC Subsites Admin Dashboard</h1>
             <p>
-              Welcome, DLC Administrator! Here you can view all the subsites you are approved to
-              edit
+              Welcome, DLC Administrator! Here you can view all the subsites in the DLC.
             </p>
           </>
         )}
