@@ -9,5 +9,6 @@ export default defineConfig({
     globals: true,
     environment: 'jsdom',
     include: ['app/frontend/**/*.{test,spec}.?(c|m)[jt]s?(x)'],
+    setupFiles: ['app/frontend/src/testing/setup.ts'],
   }
 })

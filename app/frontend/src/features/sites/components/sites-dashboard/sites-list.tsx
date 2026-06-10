@@ -1,7 +1,7 @@
 import { useQueryClient } from '@tanstack/react-query';
 import { Link } from 'react-router';
 
-import { Col, Container, Row } from 'react-bootstrap';
+import { Container, Table } from 'react-bootstrap';
 import { getSiteQueryOptions } from '@/features/subsite/api/get-site';
 import { Site } from '@/types/api';
 
@@ -12,34 +12,37 @@ const SitesList = ({ sites }: { sites: Site[] }) => {
   };
   return (
     <Container className="mt-4">
-      <h1 className="ps-4 mb-5">All DLC Subsites</h1>
-      <Row className="mb-3 text-center border-bottom">
-        <Col xs={5} className="fst-italic border-end">
-          Site Name
-        </Col>
-        <Col xs={4} className="fst-italic text-center border-end">
-          Site Slug
-        </Col>
-        <Col xs={3} className="fst-italic">
-          Link to Subsite Dashboard
-        </Col>
-      </Row>
-      {sites.map((site, i) => (
-        <Row key={site.id} className={`my-2 p-2 ${i % 2 === 0 && 'bg-info-subtle rounded'}`}>
-          <Col xs={5} className="border-end text-center">
-            <a href={`/${site.slug}`}>{site.title}</a>
-          </Col>
-          <Col xs={4} className="border-end text-center">
-            {site.slug}
-          </Col>
-          {/*  TODO : Use prefetch="intent" rather than a custom onMouseEnter handler */}
-          <Col xs={3} className="ps-4 text-start">
-            <Link to={site.slug} onMouseEnter={() => handleMouseEnter(site.slug)}>
-              <i className="pe-2 fa-duotone fa-solid fa-file-pen"></i>Edit this site
-            </Link>
-          </Col>
-        </Row>
-      ))}
+      <h2 className="ps-4 mb-2">Your DLC Subsites</h2>
+      <Table aria-label='Your DLC Subsites' striped hover style={{ '--bs-table-striped-bg': '#e8f9fc', '--bs-table-hover-bg': '#cff4fc' } as React.CSSProperties}>
+        <thead>
+          <tr>
+            <th>
+              Site Name
+            </th>
+            <th>
+              Site Slug
+            </th>
+            <th>
+              Link to Subsite Dashboard
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {sites.map((site, i) => (
+            <tr className="my-4" key={i}>
+              <td>
+                <a href={`/${site.slug}`}>{site.title}</a>
+              </td>
+              <td>{site.slug}</td>
+              <td>
+                <Link to={site.slug} onMouseEnter={() => handleMouseEnter(site.slug)}>
+                  <i className="pe-2 fa-duotone fa-solid fa-file-pen"></i>Edit this site
+                </Link>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </Table>
     </Container>
   );
 };

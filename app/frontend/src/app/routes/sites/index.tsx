@@ -15,12 +15,9 @@ const clientLoader = (queryClient: QueryClient) => async () => {
   }
 
   // Prefetch sites data
-  if ((await getCurrentUserRole(queryClient)) === ROLES.ADMIN) {
-    await queryClient.prefetchQuery(getSitesQueryOptions());
-  } else {
-    await queryClient.prefetchQuery(getSitesQueryOptions({ isEditor: true }));
-  }
+  await queryClient.prefetchQuery(getSitesQueryOptions());
 };
+
 // todo: render diff dashboard based on current user permissions
 const SitesIndexRoute = () => {
   return (
