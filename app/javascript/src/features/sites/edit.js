@@ -311,22 +311,26 @@ function addTooltips(selection) {
  * ON READY *
  ************/
 export function onReady() {
-	const $siteNavigation = $(".site_navigation");
-	if ($siteNavigation.length == 0) { return; }
-	// make nav groups container sortable
-	$(".site_navigation").sortable({
-		'items': '.site_navigation_menu',
-		'containment': 'parent',
-		'axis': 'y',
-		'handle': '.site_navigation_menu_handle',
-		'cursor': 'move',
-		'opacity': 1.0,
-		'update': navMenuPositionUpdated
-	});
-	// make each nav group sortable
-	sortableLinks($(".site_navigation_links"));
-	// make each text block sortable
-	sortableTextBlocks($(".site_text_blocks"));
-	addMarkdownEditors($(".site_text_blocks"));
-	addTooltips($("form"));
+  const $siteNavigation = $(".site_navigation");
+  const $siteTextBlocks = $(".site_text_blocks");
+  if ($siteTextBlocks.length > 0) {
+    // make each text block sortable
+    sortableTextBlocks($(".site_text_blocks"));
+    addMarkdownEditors($(".site_text_blocks"));
+  }
+  if ($siteNavigation.length > 0) {
+    // make nav groups container sortable
+    $(".site_navigation").sortable({
+      items: ".site_navigation_menu",
+      containment: "parent",
+      axis: "y",
+      handle: ".site_navigation_menu_handle",
+      cursor: "move",
+      opacity: 1.0,
+      update: navMenuPositionUpdated,
+    });
+    // make each nav group sortable
+    sortableLinks($(".site_navigation_links"));
+  }
+  addTooltips($("form"));
 };
