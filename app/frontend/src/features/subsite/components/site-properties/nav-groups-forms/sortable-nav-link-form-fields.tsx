@@ -71,11 +71,17 @@ const SortableNavLinkFormFields = ({
               lookupFn={sitePropertiesTooltipMessage}
               style={toolTipStyles}
             />
-            <Form.Label className="mb-0">Link Label:</Form.Label>
+            <Form.Label
+              className="mb-0"
+              htmlFor={`navGroupsFormGroup${groupIndex}Link${index}Label`}
+            >
+              Link Label:
+            </Form.Label>
           </div>
         </Col>
         <Col xs={7}>
           <Form.Control
+            id={`navGroupsFormGroup${groupIndex}Link${index}Label`}
             {...register(`navGroups.${groupIndex}.childrenLinks.${index}.linkLabel`, {
               setValueAs: (value: string) => value.trim(),
             })}
@@ -99,11 +105,17 @@ const SortableNavLinkFormFields = ({
                   lookupFn={sitePropertiesTooltipMessage}
                   style={toolTipStyles}
                 />
-                <Form.Label className="mb-0">Link Value:</Form.Label>
+                <Form.Label
+                  className="mb-0"
+                  htmlFor={`navGroupsFormGroup${groupIndex}Link${index}Value`}
+                >
+                  Link Value:
+                </Form.Label>
               </div>
             </Col>
             <Col xs={7}>
               <Form.Control
+                id={`navGroupsFormGroup${groupIndex}Link${index}Value`}
                 {...register(`navGroups.${groupIndex}.childrenLinks.${index}.linkValue`, {
                   setValueAs: (value: string) => value.trim(),
                 })}
@@ -124,11 +136,17 @@ const SortableNavLinkFormFields = ({
                   lookupFn={sitePropertiesTooltipMessage}
                   style={toolTipStyles}
                 />
-                <Form.Label className="mb-0">External Link?:</Form.Label>
+                <Form.Label
+                  htmlFor={`navGroupsFormGroup${groupIndex}Link${index}External`}
+                  className="mb-0"
+                >
+                  External Link?:
+                </Form.Label>
               </div>
             </Col>
             <Col xs={7} className="">
               <Form.Check
+                id={`navGroupsFormGroup${groupIndex}Link${index}External`}
                 {...register(`navGroups.${groupIndex}.childrenLinks.${index}.external`)}
               />
             </Col>
@@ -141,7 +159,12 @@ const SortableNavLinkFormFields = ({
                   lookupFn={sitePropertiesTooltipMessage}
                   style={toolTipStyles}
                 />
-                <Form.Label className="mb-0">Icon Class (optional):</Form.Label>
+                <Form.Label
+                  htmlFor={`navGroupsFormGroup${groupIndex}Link${index}IconClass`}
+                  className="mb-0"
+                >
+                  Icon Class (optional):
+                </Form.Label>
               </div>
             </Col>
             <Col xs={7}>
@@ -149,6 +172,7 @@ const SortableNavLinkFormFields = ({
                 {...register(`navGroups.${groupIndex}.childrenLinks.${index}.iconClass`, {
                   setValueAs: (value: string | undefined) => value?.trim(),
                 })}
+                id={`navGroupsFormGroup${groupIndex}Link${index}IconClass`}
                 placeholder="(Optional) Icon Class"
               />
               {errors && errors.navGroups?.[groupIndex]?.childrenLinks?.[index]?.iconClass && (

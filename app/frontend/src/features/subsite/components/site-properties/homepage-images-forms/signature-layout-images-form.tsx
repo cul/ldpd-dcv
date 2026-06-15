@@ -103,22 +103,36 @@ const SignatureLayoutImagesForm = ({ slug }: { slug: string }) => {
 
   const deleteWatermarkHandler = async () => {
     if (!window.confirm('Are you sure you want to delete this image?')) return;
-    await api.delete(`/sites/${site.slug}/signature_images/watermark`);
-    setSubmissionAlert({
-      isError: false,
-      msg: 'Your watermark image has been deleted. The default watermark will now be used.',
-    });
+    try {
+      await api.delete(`/sites/${site.slug}/signature_images/watermark`);
+      setSubmissionAlert({
+        isError: false,
+        msg: 'Your watermark image has been deleted. The default watermark will now be used.',
+      });
+    } catch (error) {
+      setSubmissionAlert({
+        isError: true,
+        msg: `There was an error trying to delete the image: ${error}`,
+      });
+    }
     setShowAlert(true);
     queryClient.invalidateQueries({ queryKey: ['sites'] });
   };
 
   const deleteBannerHandler = async () => {
     if (!window.confirm('Are you sure you want to delete this image?')) return;
-    await api.delete(`/sites/${site.slug}/signature_images/banner`);
-    setSubmissionAlert({
-      isError: false,
-      msg: 'Your banner image has been deleted. The default banner will now be used.',
-    });
+    try {
+      await api.delete(`/sites/${site.slug}/signature_images/banner`);
+      setSubmissionAlert({
+        isError: false,
+        msg: 'Your banner image has been deleted. The default banner will now be used.',
+      });
+    } catch (error) {
+      setSubmissionAlert({
+        isError: true,
+        msg: `There was an error trying to delete the image: ${error}`,
+      });
+    }
     setShowAlert(true);
     queryClient.invalidateQueries({ queryKey: ['sites'] });
   };
@@ -136,7 +150,7 @@ const SignatureLayoutImagesForm = ({ slug }: { slug: string }) => {
           {submissionAlert.msg}
         </Alert>
       )}
-      <Form onSubmit={handleSubmit(submitHandler)}>
+      <Form onSubmit={handleSubmit(submitHandler)} aria-label="Signature Layout Images Form">
         <Stack gap={4}>
           <Form.Group controlId="SignatureLayoutFormBanner" className="d-flex flex-column">
             {/* Clicking a label activates input, so visually hide upload labels */}
@@ -156,7 +170,7 @@ const SignatureLayoutImagesForm = ({ slug }: { slug: string }) => {
               <Form.Text className="text-danger">{errors.banner.message}</Form.Text>
             )}
             {site.hasBannerImage && (
-              <Button variant="danger" onClick={deleteBannerHandler}>
+              <Button variant="danger" onClick={deleteBannerHandler} className="mt-3">
                 Delete Banner Image (and use default)
               </Button>
             )}
