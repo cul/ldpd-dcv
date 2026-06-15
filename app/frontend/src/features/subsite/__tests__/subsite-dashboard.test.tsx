@@ -9,7 +9,7 @@ const renderAppAndWait = async () => {
   });
 };
 
-describe.only('SubsiteDashboard', () => {
+describe('SubsiteDashboard', () => {
   beforeEach(async () => {
     mockApi('get', '/sites/dlc_subsite', { site: buildSite() });
     await renderAppAndWait();
