@@ -26,10 +26,7 @@ class Ability
         true
       end
     end
-    # can? :list_subsites, Site
-
-    can LIST_SUBSITES, Site if user&.is_admin? || Site.all.any? { |site| site[:editor_uids]&.include? user&.uid }
-      
+    
     #  can? current_user, :access_subsite, @subsite
     can ACCESS_SUBSITE, Site do |site|
       if site.restricted
@@ -39,9 +36,9 @@ class Ability
         result ||= true if (site.to_subsite_config.fetch(:locations, []).flatten & location_uris).first
         result
       else
-        true
-      end
+        true end
     end
+
     can ACCESS_ASSET, SolrDocument do |doc|
       if doc.fetch('access_control_levels_ssim', []).include?(ACCESS_LEVEL_CLOSED)
         false
@@ -69,25 +66,24 @@ class Ability
         result
       end
     end
-    can MANAGE_SUBSITE, Site do |site|
-      user&.is_admin || site.editor_uids.include?(user&.uid)
-    end
-    can :update, Site do |site|
-      user&.is_admin || site.editor_uids.include?(user&.uid)
-    end
-    can :admin, Site do |site|
-      user&.is_admin
-    end
-    # Authorization rules:
-    #   - in dlc_prod: only dlc admin may import a site
-    #   - else: only dlc admin or an editor of *some* site may import a site
-    # N.B.: in non-prod environments, an editor may import a site or new site
-    #       without restriction. Some ideas to make this more secure:
-    #         - users must enter the slug for the site they are updating, and if
-    #           it doesn't match the metadata of the import, we reject the operation
-    #         - users may not upload a new site unless they are admin
+
+    return unless user.present?
+
     is_editor = Site.any? { |site| site[:editor_uids].include? user&.uid }
-    can IMPORT_SUBSITE, Site if user&.is_admin || (!Rails.env.dlc_prod? && is_editor)
+
+    return unless is_editor || user.is_admin
+    
+    can LIST_SUBSITES, Site
+
+    can MANAGE_SUBSITE, Site do |site|
+      user.is_admin || site.editor_uids.include?(user.uid)
+    end
+
+    can IMPORT_SUBSITE, Site if user.is_admin || !Rails.env.dlc_prod?
+
+    return unless user.is_admin
+
+    can :admin, Site
   end
 
   # was this document published to a site where the current user has remote "onsite" permissions
