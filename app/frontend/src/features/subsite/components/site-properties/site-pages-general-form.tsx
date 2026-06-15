@@ -54,7 +54,6 @@ const SitePagesGeneralForm = ({ slug }: { slug: string }) => {
 
   useEffect(() => {
     if (!isSubmitSuccessful) return;
-    console.log('resetting!');
     reset(initialData);
   }, [formState, isSubmitSuccessful, reset, initialData]);
 
@@ -72,7 +71,7 @@ const SitePagesGeneralForm = ({ slug }: { slug: string }) => {
       />
       <Form onSubmit={handleSubmit(submitHandler)} className="mb-4">
         <Stack gap={3}>
-          <Row>
+          <Row className="px-3">
             <Col xs={3} className="text-center fst-italic">
               Page slug
             </Col>

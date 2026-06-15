@@ -1,6 +1,8 @@
 import { useEffect, useMemo } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { Button, Col, Form, Row, Stack } from 'react-bootstrap';
+import z from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 import { useMUpdateSite } from '@/features/subsite/api/update-site';
 import SaveButton from '@/components/ui/forms/save-button';
@@ -15,6 +17,12 @@ type PortraitLayoutImageFormValues = {
 type PortraitLayoutImageFormProps = {
   slug: string;
 };
+
+const portraitLayoutImagesFormSchema = z.object({
+  imageUris: z
+    .array(z.object({ value: z.string().trim().min(1, 'Image PIDs cannot be blank') }))
+    .min(1),
+});
 
 const PortraitLayoutImagesForm = ({ slug }: PortraitLayoutImageFormProps) => {
   const site = useSiteSuspense(slug);
@@ -31,11 +39,12 @@ const PortraitLayoutImagesForm = ({ slug }: PortraitLayoutImageFormProps) => {
     handleSubmit,
     control,
     reset,
-    formState: { isDirty, isSubmitting, isSubmitSuccessful },
+    formState: { isDirty, isSubmitting, isSubmitSuccessful, errors },
   } = useForm<PortraitLayoutImageFormValues>({
     values: initialData,
     mode: 'all',
     disabled: mutation.status === 'pending',
+    resolver: zodResolver(portraitLayoutImagesFormSchema),
   });
 
   const { fields, append, remove } = useFieldArray({
@@ -64,16 +73,22 @@ const PortraitLayoutImagesForm = ({ slug }: PortraitLayoutImageFormProps) => {
         successMessage="Site updated successfully!"
         errorMessage="Site changes could not be saved due to Error"
       />
-      <Form onSubmit={handleSubmit(submitHandler)}>
+      <Form onSubmit={handleSubmit(submitHandler)} aria-label="Portrait Layout Images Form">
         <Stack gap={3}>
           {fields.map((field, index) => (
             <Row key={field.id}>
               <Col xs={10}>
-                <Form.Control
-                  {...register(`imageUris.${index}.value` as const, {
-                    setValueAs: (value: string) => value.trim(),
-                  })}
-                />
+                <Form.Group controlId={`portraitImageFormUri${index}`}>
+                  <Form.Label visuallyHidden>pid:</Form.Label>
+                  <Form.Control
+                    {...register(`imageUris.${index}.value` as const, {
+                      setValueAs: (value: string) => value.trim(),
+                    })}
+                  />
+                  <Form.Text className="text-danger">
+                    {errors.imageUris?.[index]?.value?.message}
+                  </Form.Text>
+                </Form.Group>
               </Col>
               <Col xs={2}>
                 <Button

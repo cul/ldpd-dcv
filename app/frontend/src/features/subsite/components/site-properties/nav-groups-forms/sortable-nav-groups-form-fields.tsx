@@ -109,34 +109,36 @@ const SortableNavGroupFormFields = ({
           <ShowHideArrow hidden={isHidden} clickHandler={setIsHidden} />
         </div>
         <Row>
-          <div className="d-flex align-items-center gap-1 mb-1">
-            <InfoTooltip fieldName="groupLabel" lookupFn={sitePropertiesTooltipMessage} />
-            <Form.Label className="mb-0">Group Label:</Form.Label>
-          </div>
-          <Col xs={8}>
-            <Form.Control
-              {...register(`navGroups.${index}.groupLabel`, {
-                setValueAs: (value: string) => value.trim(),
-              })}
-              placeholder="Group Label"
-            />
-            {errors && errors.navGroups?.[index]?.groupLabel && (
-              <p>
-                <Form.Text className="text-danger">
-                  {errors.navGroups[index].groupLabel?.message}
-                </Form.Text>
-              </p>
-            )}
-            {/* There is a quirk with RHF useFieldArray + Zod where sometimes array errors are on the root property of the error object*/}
-            {errors && errors.navGroups?.[index]?.childrenLinks && (
-              <p>
-                <Form.Text className="text-danger">
-                  {errors.navGroups[index].childrenLinks?.message ||
-                    errors.navGroups[index].childrenLinks.root?.message}
-                </Form.Text>
-              </p>
-            )}
-          </Col>
+          <Form.Group controlId={`navGroupsFormNavGroup${index}`}>
+            <div className="d-flex align-items-center gap-1 mb-1">
+              <InfoTooltip fieldName="groupLabel" lookupFn={sitePropertiesTooltipMessage} />
+              <Form.Label className="mb-0">Group Label:</Form.Label>
+            </div>
+            <Col xs={8}>
+              <Form.Control
+                {...register(`navGroups.${index}.groupLabel`, {
+                  setValueAs: (value: string) => value.trim(),
+                })}
+                placeholder="Group Label"
+              />
+              {errors && errors.navGroups?.[index]?.groupLabel && (
+                <p>
+                  <Form.Text className="text-danger">
+                    {errors.navGroups[index].groupLabel?.message}
+                  </Form.Text>
+                </p>
+              )}
+              {/* There is a quirk with RHF useFieldArray + Zod where sometimes array errors are on the root property of the error object*/}
+              {errors && errors.navGroups?.[index]?.childrenLinks && (
+                <p>
+                  <Form.Text className="text-danger">
+                    {errors.navGroups[index].childrenLinks?.message ||
+                      errors.navGroups[index].childrenLinks.root?.message}
+                  </Form.Text>
+                </p>
+              )}
+            </Col>
+          </Form.Group>
         </Row>
         {!isHidden && (
           <>

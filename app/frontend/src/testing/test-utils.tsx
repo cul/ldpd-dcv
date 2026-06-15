@@ -11,13 +11,17 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { RouterProvider, createMemoryRouter } from 'react-router';
 
 export {
-  // buildBucket,
-  // buildObjectDetails,
-  // buildS3Object,
-  // buildBucketContents,
   buildSite,
   buildSitesList,
   buildUser,
+  buildSitePage,
+  buildSitePages,
+  buildNavGroup,
+  buildNavGroups,
+  buildNavLink,
+  buildNavLinks,
+  createTempBannerImage,
+  deleteTempBannerImage,
 } from './data-generators';
 export { mockApi } from './mock-api';
 
@@ -54,27 +58,20 @@ export const renderApp = async (
   const isRoot = url === '/';
 
   const router = createMemoryRouter([{ path: routePath, element: ui }], {
-      initialEntries: isRoot ? ['/'] : ['/', url],
-      initialIndex: isRoot ? 0 : 1,
+    initialEntries: isRoot ? ['/'] : ['/', url],
+    initialIndex: isRoot ? 0 : 1,
   });
 
   let result;
   await act(async () => {
     result = rtlRender(
-    <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
-    </QueryClientProvider>,
-    renderOptions,
-
-    )
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+      </QueryClientProvider>,
+      renderOptions,
+    );
   });
   return result;
-  return rtlRender(
-    <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
-    </QueryClientProvider>,
-    renderOptions,
-  );
 };
 
 export * from '@testing-library/react';

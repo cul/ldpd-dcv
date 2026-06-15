@@ -10,8 +10,6 @@ export enum ROLES {
 
 export type Roles = keyof typeof ROLES;
 
-export const sum = (a: number, b: number) => a + b;
-
 const isAdmin = (user: User): boolean => {
   return user.permissions.role === ROLES.ADMIN;
 };

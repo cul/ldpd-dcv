@@ -15,11 +15,6 @@ class Api::SitePagesController < Api::BaseController
   # This method will compare the array in params and the @subsite.site_pages array, and delete any pages that were not included
   # in the request.
   def patch_multiple
-    puts 'multiple pages params:::::'
-    puts 'multiple pages params:::::'
-    puts 'multiple pages params:::::'
-    puts 'multiple pages params:::::'
-    pp multiple_pages_params
     authorize_action_and_scope Ability::MANAGE_SUBSITE, @subsite
     current_pages_slugs = @subsite.site_pages.map { |page| page[:slug] } 
     new_pages_slugs = multiple_pages_params.map { |page| page[:slug]}
@@ -82,10 +77,6 @@ class Api::SitePagesController < Api::BaseController
 
     # Users can update multiple pages' titles at once from the general properties page
     def multiple_pages_params
-      puts 'raw multiple pages params'
-      pp params
-      puts '909090909'
-      
       params.require(:pages).map do |page_params|
         page_params.permit(:page_slug, :site_slug, :id, :title, :updated_at)
         .to_h.tap do |p|

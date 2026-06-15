@@ -16,7 +16,7 @@ type EditSitePropertiesProps = {
   children?: ReactNode;
 };
 
-const SiteProperties = ({ slug }: EditSitePropertiesProps): ReactNode => {
+const SubsiteProperties = ({ slug }: EditSitePropertiesProps): ReactNode => {
   const site = useSiteSuspense(slug);
 
   return (
@@ -25,7 +25,7 @@ const SiteProperties = ({ slug }: EditSitePropertiesProps): ReactNode => {
     <>
       <Container fluid className="mb-3 mt-4">
         <h1>
-          Edit Site Properties for <span className="text-info text-uppercase">{site.title}</span>
+          Edit Subsite Properties for <span className="text-info text-uppercase">{site.title}</span>
         </h1>
       </Container>
 
@@ -56,4 +56,4 @@ const SiteProperties = ({ slug }: EditSitePropertiesProps): ReactNode => {
   );
 };
 
-export default SiteProperties;
+export default SubsiteProperties;

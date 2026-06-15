@@ -1,7 +1,7 @@
 import { Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import { Link } from 'react-router';
 
-import { navigatorToRailsRoute } from '@/features/sites/utils/routing-utils';
+import { navigatorToRailsRoute } from '@/components/layouts/utils/routing-utils';
 import { useCurrentUserSuspense } from '@/lib/authentication';
 import { ROLES } from '@/lib/authorization';
 import { useSitesSuspense } from '@/features/sites/api/get-sites';

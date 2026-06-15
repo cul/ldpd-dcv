@@ -23,18 +23,22 @@ const SitePagesGeneralFormRow = ({
     <div
       key={field.id}
       className={`p-3 rounded ${index % 2 === 0 ? 'subtle-light-blue-background' : ''}`}
+      data-testid={`page-row-${field.pageSlug}`}
     >
       <Row key={field.id}>
-        <Col xs={3} md={3} className="text-end pe-3 pt-2">
+        <Col xs={3} md={3} className="text-center pe-3 pt-2">
           <span className="text-muted">/{field.pageSlug}</span>
         </Col>
         <Col xs={3} md={4}>
-          <Form.Control
-            {...register(`pages.${index}.title` as const, {
-              setValueAs: (value: string) => value.trim(),
-            })}
-            placeholder="Page title"
-          />
+          <Form.Group controlId={`SubsitePage${index}`}>
+            <Form.Label visuallyHidden>title</Form.Label>
+            <Form.Control
+              {...register(`pages.${index}.title` as const, {
+                setValueAs: (value: string) => value.trim(),
+              })}
+              placeholder="Page title"
+            />
+          </Form.Group>
         </Col>
         <Col xs={3} md={3}>
           <Button type="button" onClick={navigatorToRailsRoute(`/${slug}/${field.pageSlug}/edit`)}>

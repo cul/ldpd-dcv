@@ -15,7 +15,8 @@ describe('SitesDashboard', () => {
     })
   
     it('renders a list of sites with admin text', async () => {
-      expect(await screen.findByRole('heading', { name: 'DLC Subsites Admin Dashboard' })).toBeInTheDocument();
+      const heading = await screen.findByRole('heading', { name: 'DLC Subsites Admin Dashboard' });
+      expect(heading).toBeInTheDocument();
     });
 
     it('renders correct list of column headers', async () => {
@@ -35,6 +36,7 @@ describe('SitesDashboard', () => {
 
     it('includes a link to the developer documentation', async () => {
       const link = await screen.findByRole('link', { name: 'DLC Site Editor Documentation' })
+      expect(link).toBeInTheDocument();
     });
   });
 
@@ -46,7 +48,8 @@ describe('SitesDashboard', () => {
     })
 
     it('renders a list of sites with editor text', async () => {
-      expect(await screen.findByRole('heading', { name: 'DLC Subsites Editor Dashboard' })).toBeInTheDocument();
+      const heading = await screen.findByRole('heading', { name: 'DLC Subsites Editor Dashboard' });
+      expect(heading).toBeInTheDocument();
     });
   });
 });
