@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2026_03_13_140719) do
+ActiveRecord::Schema.define(version: 2026_06_16_143646) do
 
   create_table "bookmarks", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -104,6 +104,7 @@ ActiveRecord::Schema.define(version: 2026_03_13_140719) do
     t.boolean "show_facets", default: false
     t.text "editor_uids"
     t.text "search_configuration"
+    t.string "owner_uid", null: false
     t.index ["slug"], name: "index_sites_on_slug", unique: true
   end
 
