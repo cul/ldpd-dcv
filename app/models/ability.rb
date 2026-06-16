@@ -27,7 +27,7 @@ class Ability
       end
     end
     
-    #  can? current_user, :access_subsite, @subsite
+    # can? current_user, :access_subsite, @subsite
     can ACCESS_SUBSITE, Site do |site|
       if site.restricted
         result = false
@@ -36,7 +36,8 @@ class Ability
         result ||= true if (site.to_subsite_config.fetch(:locations, []).flatten & location_uris).first
         result
       else
-        true end
+        true 
+      end
     end
 
     can ACCESS_ASSET, SolrDocument do |doc|
@@ -85,6 +86,33 @@ class Ability
 
     can :admin, Site
   end
+
+
+  #   # A more robust solution would be to add a 'role' field to the user model, so
+  #   # we can do an O(1) operation instead of looking at each site when this method runs.
+  #   # The react frontend auth does something like that.
+  #   # Because we use sqlite3, we cannot do a query that gets the answer reliably (because
+  #   # the lookup for an id in the editor array matches substrings, not exacts)
+  #   is_editor_or_owner = Site.any? do |site|
+  #     site[:editor_uids].include?(user.uid) || site[:owner_uid] == user.uid
+  #   end
+
+  #   return unless is_editor_or_owner || user.is_admin
+
+  #   can LIST_SUBSITES, Site
+
+  #   can MANAGE_SUBSITE, Site do |site|
+  #     user.is_admin || user.uid == site.owner_uid || site.editor_uids.include?(user.uid)
+  #   end
+
+  #   can IMPORT_SUBSITE, Site do |site|
+  #     user.is_admin || user.uid == site.owner_uid || !Rails.env.dlc_prod?
+  #   end
+
+  #   return unless user.is_admin
+
+  #   can :admin, Site
+  # end
 
   # was this document published to a site where the current user has remote "onsite" permissions
   def remote_onsite_access_to_user?(doc, user = nil, affils = [])

@@ -48,6 +48,7 @@ module Dcv::Sites::Import
 					end
 				end
 			end
+      site.owner_uid = 'ta123'
 
 			unless site.save
 				Rails.logger.error("failed to import #{slug}:\n\t#{site.errors.inspect}")

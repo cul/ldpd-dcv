@@ -2,9 +2,14 @@
 
 require 'rails_helper'
 
+def create_test_site
+  FactoryBot.create(:site, slug: 'dlc_site', title: 'Existing DLC Site', editor_uids: ['editor_uid'], owner_uid: 'owner_uid')
+end
+
 describe 'Admin site uploads and imports', type: :request do
   let(:admin) { FactoryBot.create(:user, is_admin: true) }
   let(:editor) { FactoryBot.create(:user, uid: 'editor_uid') }
+  let(:owner) { FactoryBot.create(:user, uid: 'owner_uid') }
   let(:user) { FactoryBot.create(:user) }
 
   describe 'GET admin/import' do
@@ -19,7 +24,7 @@ describe 'Admin site uploads and imports', type: :request do
     context 'when authenticated editor' do
       context 'in non-prod environment' do
         it 'returns status OK' do
-          FactoryBot.create(:site, slug: 'dlc_site', title: 'Existing DLC Site', editor_uids: ['editor_uid'])
+          create_test_site()
           sign_in editor
           get '/admin/import'
           expect(response).to have_http_status(:ok)
@@ -28,7 +33,7 @@ describe 'Admin site uploads and imports', type: :request do
       context 'in dlc_prod environment' do
         it 'redirects to sign_in' do
           allow(Rails.env).to receive(:dlc_prod?).and_return(true)
-          FactoryBot.create(:site, slug: 'dlc_site', title: 'Existing DLC Site', editor_uids: ['editor_uid'])
+          create_test_site
           sign_in editor
           get '/admin/import'
           expect(response).to redirect_to('/sign_in?referer=%2Fadmin%2Fimport')
@@ -74,7 +79,7 @@ describe 'Admin site uploads and imports', type: :request do
 
     context 'in dlc_prod environment' do
       before do
-        FactoryBot.create(:site, slug: 'dlc_site', title: 'Existing DLC Site', editor_uids: ['editor_uid'])
+        create_test_site
         allow(Rails.env).to receive(:dlc_prod?).and_return(true)
       end
 

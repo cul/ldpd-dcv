@@ -1,4 +1,13 @@
 class AddRepositorySiteRecords < ActiveRecord::Migration[6.1]
+  # Stub class isolated from the live Site model and its validations/callbacks.
+  # This prevents future changes to Site from breaking this migration when
+  # running from scratch.
+  class Site < ActiveRecord::Base
+    self.table_name = 'sites'
+    LAYOUT_REPOSITORIES = 'repositories'
+    SEARCH_REPOSITORIES = 'repositories'
+  end
+
   def change
     reversible do |direction|
       repository_ids = %w(NNC-A NNC-EA NNC-RB NyNyCAP NyNyCBL NyNyCMA)
