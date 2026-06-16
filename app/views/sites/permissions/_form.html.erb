@@ -8,12 +8,21 @@
 -%>
 <%= form_for @subsite, url: config_view, builder: ::ValueIndexableFormBuilder do |site_form| %>
 	<div class="card border-secondary">
-		<div class="card-header swatch-secondary"><h2 class="card-title">Site Editor IDs</h2></div>
+		<div class="card-header swatch-secondary"><h2 class="card-title">Site Owner and Editor IDs</h2></div>
 		<div class="card-body site_editors">
+			<div class="form-group mb-4">
+				<p>Site Owner and DLC admins: Enter the UNI of the CUL employee who is the owner of this site.</p>
+        <div class="row">
+          <label for="site_owner_uid" class="col-2">Site Owner UNI:</label>
+          <%= site_form.text_field(:owner_uid, {value: @subsite.owner_uid, class: ['form-control', 'col-2'], disabled: !can?(Ability::CHANGE_SUBSITE_OWNER_AND_EDITORS, @subsite)}) %>
+        </div>
+			</div>
 			<div class="form-group">
-				<label for="site_editor_uids">Site Editor UNIs</label>
-				<p>DLC admins: Enter the comma-separated UNIs of CUL employees authorized to edit this site.</p>
-				<%= site_form.text_area(:editor_uids, {value: @subsite.editor_uids.sort.join(",\n"), class: ['form-control'], disabled: !can?(:admin, @subsite)}) %>
+				<p>Site Owner and DLC admins: Enter the comma-separated UNIs of CUL employees authorized to edit this site.</p>
+        <div class="row">
+          <label for="site_editor_uids" class="col-2">Site Editor UNIs:</label>
+          <%= site_form.text_area(:editor_uids, {value: @subsite.editor_uids.sort.join(", "), class: ['form-control', 'col-9'], disabled: !can?(Ability::CHANGE_SUBSITE_OWNER_AND_EDITORS, @subsite)}) %>
+        </div>
 			</div>
 		</div>
 	</div>

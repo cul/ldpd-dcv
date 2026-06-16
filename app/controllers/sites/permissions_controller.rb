@@ -19,6 +19,7 @@ module Sites
 				update_attributes = permissions_params
 				update_attributes[:permissions]&.tap {|atts| @subsite.permissions.assign_attributes(atts) }
 				update_attributes[:editor_uids]&.tap {|atts| @subsite.editor_uids = atts }
+        update_attributes[:owner_uid]&.tap { |atts| @subsite.owner_uid = atts }
 				@subsite.save! if @subsite.changed?
 				flash[:notice] = "Saved!"
 			rescue ActiveRecord::RecordInvalid => ex
@@ -41,9 +42,10 @@ module Sites
 
 		def permissions_params
 			params['site']&.tap do |atts|
-				if can?(:admin, @subsite)
+				if can?(Ability::CHANGE_SUBSITE_OWNER_AND_EDITORS, @subsite)
 					atts['editor_uids']&.strip!
 					atts['editor_uids'] = atts['editor_uids'].split(/[\s,]+/).sort
+          atts['owner_uid']&.strip!
 				else
 					atts['editor_uids'] = @subsite.editor_uids
 				end
@@ -51,7 +53,7 @@ module Sites
 			params.dig('site', 'permissions')&.tap do |atts|
 				atts['remote_ids'] = atts['remote_ids'].split(/[\s,]+/).sort if atts&.fetch('remote_ids', nil)
 			end
-			params.require(:site).permit(editor_uids: [], permissions: {remote_ids: [], remote_roles: [], locations: []})
+			params.require(:site).permit(:owner_uid, editor_uids: [], permissions: {remote_ids: [], remote_roles: [], locations: []})
 		end
 	end
 end

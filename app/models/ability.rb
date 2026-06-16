@@ -8,7 +8,7 @@ class Ability
   IMPORT_SUBSITE = :import_subsite
   IMPORT_NEW_SUBSITE = :import_new_subsite
   VIEW_IMPORT_FORM = :view_import_form
-  EDIT_SUBSITES = :edit
+  CHANGE_SUBSITE_OWNER_AND_EDITORS = :change_subsite_owner
   LIST_SUBSITES = :list_subsites
   MANAGE_SUBSITE = :manage_subsite
   UNSPECIFIED_ACCESS_DECISION = true
@@ -95,11 +95,20 @@ class Ability
       user.is_admin || user.uid == site.owner_uid || !Rails.env.dlc_prod?
     end
 
+    return unless is_owner || user.is_admin
+
+    can CHANGE_SUBSITE_OWNER_AND_EDITORS, Site do |site|
+      user.is_admin || user.uid == site.owner_uid
+    end
+
+    # :admin is still used in tombstone grid display field: app/views/sites/search_configuration/_display_options_form.html.erb
+    # TODO: should this be admin only, or admin and owner?
+    can :admin, Site
+
     return unless user.is_admin
 
     can IMPORT_NEW_SUBSITE, Site
 
-    can :admin, Site
   end
 
   # was this document published to a site where the current user has remote "onsite" permissions
