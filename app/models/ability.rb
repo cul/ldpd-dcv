@@ -6,6 +6,8 @@ class Ability
   ACCESS_ASSET = :access_asset
   ACCESS_SUBSITE = :access_subsite
   IMPORT_SUBSITE = :import_subsite
+  IMPORT_NEW_SUBSITE = :import_new_subsite
+  VIEW_IMPORT_FORM = :view_import_form
   EDIT_SUBSITES = :edit
   LIST_SUBSITES = :list_subsites
   MANAGE_SUBSITE = :manage_subsite
@@ -70,49 +72,35 @@ class Ability
 
     return unless user.present?
 
-    is_editor = Site.any? { |site| site[:editor_uids].include? user&.uid }
+    # A more robust solution would be to add a 'role' field to the user model, so
+    # we can do an O(1) operation instead of potentially looking at each site when these are calculated.
+    # The react frontend auth does something like that.
+    # Because we use sqlite3, we cannot do a query that gets the answer reliably (because
+    # the lookup for an id in the editor array matches substrings, not exacts)
+    is_editor = Site.any? { |site| site[:editor_uids].include?(user.uid) }
+    is_owner = Site.any? { |site| site[:owner_uid] == user.uid }
 
-    return unless is_editor || user.is_admin
-    
+    return unless is_editor || is_owner || user.is_admin
+
     can LIST_SUBSITES, Site
 
     can MANAGE_SUBSITE, Site do |site|
-      user.is_admin || site.editor_uids.include?(user.uid)
+      user.is_admin || user.uid == site.owner_uid || site.editor_uids.include?(user.uid)
     end
 
-    can IMPORT_SUBSITE, Site if user.is_admin || !Rails.env.dlc_prod?
+    # In prod, only admins and owners can view the import form
+    can VIEW_IMPORT_FORM, Site if !Rails.env.dlc_prod? || is_owner || user.is_admin
+
+    can IMPORT_SUBSITE, Site do |site|
+      user.is_admin || user.uid == site.owner_uid || !Rails.env.dlc_prod?
+    end
 
     return unless user.is_admin
 
+    can IMPORT_NEW_SUBSITE, Site
+
     can :admin, Site
   end
-
-
-  #   # A more robust solution would be to add a 'role' field to the user model, so
-  #   # we can do an O(1) operation instead of looking at each site when this method runs.
-  #   # The react frontend auth does something like that.
-  #   # Because we use sqlite3, we cannot do a query that gets the answer reliably (because
-  #   # the lookup for an id in the editor array matches substrings, not exacts)
-  #   is_editor_or_owner = Site.any? do |site|
-  #     site[:editor_uids].include?(user.uid) || site[:owner_uid] == user.uid
-  #   end
-
-  #   return unless is_editor_or_owner || user.is_admin
-
-  #   can LIST_SUBSITES, Site
-
-  #   can MANAGE_SUBSITE, Site do |site|
-  #     user.is_admin || user.uid == site.owner_uid || site.editor_uids.include?(user.uid)
-  #   end
-
-  #   can IMPORT_SUBSITE, Site do |site|
-  #     user.is_admin || user.uid == site.owner_uid || !Rails.env.dlc_prod?
-  #   end
-
-  #   return unless user.is_admin
-
-  #   can :admin, Site
-  # end
 
   # was this document published to a site where the current user has remote "onsite" permissions
   def remote_onsite_access_to_user?(doc, user = nil, affils = [])
