@@ -55,6 +55,7 @@ module Dcv::Sites::Import
 				page.site_text_blocks.delete_all
 				page.delete
 			end
+      site.owner_uid = atts['owner_uid'] || DEFAULT_OWNER
 			site.save!
 			nav_links = Array(atts.delete('nav_links'))
 			nav_links.each do |link_atts|
