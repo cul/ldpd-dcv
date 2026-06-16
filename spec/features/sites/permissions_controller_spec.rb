@@ -17,14 +17,16 @@ describe ::Sites::PermissionsController, type: :feature do
 			visit(edit_link_href)
 		end
 		it 'updates atts' do
-			fill_in('Remote Access UNIs', with: "remoteUser, remoteContributor")
-			fill_in('Site Editor UNIs', with: "adminUser, adminPartner")
+      fill_in('Site Owner UNI', with: 'adminUser')
+			fill_in('Remote Access UNIs', with: 'remoteUser, remoteContributor')
+			fill_in('Site Editor UNIs', with: 'adminUser, adminPartner')
 			click_button "Update Permissions"
 			# do a find to make sure page loaded
 			find('#site_permissions_remote_ids')
 			visit(edit_link_href)
-			expect(find_field('Remote Access UNIs').value).to eq("remoteContributor,\nremoteUser")			
-			expect(find_field('Site Editor UNIs').value).to eq("adminPartner,\nadminUser")			
+      expect(find_field('Site Owner UNI').value).to eq('adminUser')
+			expect(find_field('Remote Access UNIs').value).to eq("remoteContributor,\nremoteUser")
+			expect(find_field('Site Editor UNIs').value).to eq("adminPartner, adminUser")			
 		end
 	end
 	describe '#edit' do
