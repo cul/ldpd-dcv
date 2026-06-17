@@ -41,7 +41,7 @@ RSpec.describe Api::InfoService do
       it "returns formatted metadata" do
         expect(result.data).to eq(
           identifier: "item-solr-id",
-          imageSourceUrl: "https://triclops.library.columbia.edu/iiif/2/standard/asset-solr-id/full/!1280,1280/0/default.jpg",
+          imageSourceUrl: "http://localhost/iiif/2/standard/asset-solr-id/full/!1280,1280/0/default.jpg",
           title: "My 1901 Collection",
           author: "Ann Author",
           dateCreated: "1901",

@@ -79,7 +79,13 @@ module Api
     def format_metadata(item, asset)
       METADATA_FIELDS.each_with_object(
         identifier: item['id'],
-        imageSourceUrl: "https://triclops.library.columbia.edu/iiif/2/standard/#{asset['id']}/full/!1280,1280/0/default.jpg"
+        imageSourceUrl: Dcv::Utils::CdnUtils.asset_url(
+          id: asset['id'],
+          region: 'full',
+          width: 1280,
+          height: 1280,
+          format: 'jpg'
+        )
       ) do |(key, solr_field), hash|
         hash[key] = extract_first_value(item, solr_field)
       end
