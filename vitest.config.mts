@@ -10,6 +10,7 @@ export default defineConfig({
     environment: 'jsdom',
     include: ['app/frontend/**/*.{test,spec}.?(c|m)[jt]s?(x)'],
     setupFiles: ['app/frontend/src/testing/setup.ts'],
+    // Ignore console.error output in tests, comment out when writing tests as needed
     onConsoleLog(_log, type) {
       if (type === 'stderr') return false;
     },

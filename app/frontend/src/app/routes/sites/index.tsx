@@ -11,7 +11,7 @@ const clientLoader = (queryClient: QueryClient) => async () => {
   // Only admins may access the sites list page
   const authorized = await authorizeAdminOrEditorOnly(queryClient);
   if (!authorized) {
-    throw new AuthError('Only DLC Administrators can visit this page.');
+    throw new AuthError('Only DLC Administrators and Editors can visit this page.');
   }
 
   // Prefetch sites data

@@ -3,7 +3,7 @@ import SitesLayoutNavbar from './subsite-layout-navbar';
 import { Col, Row } from 'react-bootstrap';
 import BackButton from '@/components/ui/back-button';
 
-const SubSiteLayout = () => {
+const SubsiteLayout = () => {
   // const { pathname } = useLocation();
   // const { slug } = useParams();
 
@@ -27,4 +27,4 @@ const SubSiteLayout = () => {
   );
 };
 
-export default SubSiteLayout;
+export default SubsiteLayout;

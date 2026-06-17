@@ -2,6 +2,19 @@ import { vi, beforeAll, afterEach, afterAll } from 'vitest';
 import '@testing-library/jest-dom/vitest';
 import { server } from './mock-api';
 
+// Object.defineProperty(globalThis, 'IS_REACT_ACT_ENVIRONMENT', {
+//   get() {
+//     if (typeof globalThis.self !== 'undefined') {
+//       return globalThis.self.IS_REACT_ACT_ENVIRONMENT;
+//     }
+//   },
+//   set(value) {
+//     if (typeof globalThis.self !== 'undefined') {
+//       globalThis.self.IS_REACT_ACT_ENVIRONMENT = value;
+//     }
+//   },
+// });
+
 // mock resizeObserver so that it is available in components using dnd-kit
 // This should be fixed in the next dnd-kit-react release
 // https://github.com/clauderic/dnd-kit/issues/2060

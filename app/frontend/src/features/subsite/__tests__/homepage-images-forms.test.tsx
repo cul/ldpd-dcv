@@ -10,7 +10,6 @@ import {
   within,
   createTempBannerImage,
   deleteTempBannerImage,
-  getByAltText,
 } from '@/testing/test-utils';
 import { SiteLayout } from '@/types/api';
 import HomepageImagesForms from '../components/site-properties/homepage-images-forms';
@@ -205,7 +204,7 @@ describe('HomepageImagesForm', () => {
     });
 
     it('asks before allowing deletion', async () => {
-      const confirmSpy = vi.spyOn(window, 'confirm');
+      const confirmSpy = vi.spyOn(window, 'confirm').mockReturnValue(false);
       const deleteButton = await screen.findByRole('button', { name: /delete banner image/i });
       await userEvent.click(deleteButton);
       expect(confirmSpy).toHaveBeenCalled();
