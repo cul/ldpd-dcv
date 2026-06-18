@@ -1,6 +1,5 @@
 import { defineConfig } from 'vite';
 import RubyPlugin from 'vite-plugin-ruby';
-// import ReactPlugin from '@vitejs/plugin-react';
 import basicSsl from '@vitejs/plugin-basic-ssl';
 import path from 'path';
 
@@ -10,11 +9,10 @@ export default defineConfig({
     // cert when the server is running under https.
     basicSsl({}),
     RubyPlugin(),
-    // ReactPlugin(),
   ],
-    resolve: {
-      alias: {
-        '@': path.resolve(__dirname, './app/frontend/src')
-      }
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './app/frontend/src'),
     },
+  },
 });

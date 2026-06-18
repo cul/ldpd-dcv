@@ -71,8 +71,6 @@ class Api::SitePagesController < Api::BaseController
       @page ||= begin
         SitePage.find_by!(site_id: load_subsite.id, slug: params[:page_slug])
       end
-      # raise ActiveRecord::RecordNotFound unless @page
-      # @page
     end
 
     # Users can update multiple pages' titles at once from the general properties page

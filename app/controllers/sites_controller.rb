@@ -345,9 +345,6 @@ class SitesController < ApplicationController
       nav_menus_attributes = params['site'].delete('nav_menus_attributes')
       return unless nav_menus_attributes
       nav_links = []
-      # TODO : delete
-      Rails.logger.debug "(unroll nav link params) Raw params['site']['nav_menus_attributes']:"
-      Rails.logger.debug nav_menus_attributes
       nav_menus_attributes.each do |group_index, group_data|
         sort_group = "#{sprintf("%02d", group_index.to_i)}:#{group_data['label']}"
         group_data.fetch('links_attributes', {}).each do |link_index, link_data|
@@ -355,9 +352,6 @@ class SitesController < ApplicationController
           nav_links << {sort_group: sort_group, sort_label: sort_label, link: link_data['link'], external: link_data['external'], icon_class: link_data['icon_class']}
         end
       end
-      # TODO : delete
-      Rails.logger.debug 'unroll nav link params returns:::'
-      Rails.logger.debug nav_links
       params['site']['nav_links_attributes'] = nav_links
     end
 
