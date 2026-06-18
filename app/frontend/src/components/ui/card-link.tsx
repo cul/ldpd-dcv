@@ -1,5 +1,5 @@
 import { ReactNode, useState } from 'react';
-import { Link, useNavigate } from 'react-router';
+import { Link } from 'react-router';
 import { Col, Row } from 'react-bootstrap';
 
 type CardLinkProps = {
@@ -9,7 +9,6 @@ type CardLinkProps = {
 };
 
 const CardLink = ({ to, label, faClass }: CardLinkProps): ReactNode => {
-  const navigate = useNavigate(); // Use use navigate to redirect user when they click on the card
   const [hovering, setHovering] = useState(false);
 
   const handleMouseEnter = () => {

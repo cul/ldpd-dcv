@@ -2,7 +2,7 @@ import { QueryClient } from '@tanstack/react-query';
 
 import { getSitesQueryOptions } from '@/features/sites/api/get-sites';
 import FetchingSuspense from '@/components/ui/fetching-suspense';
-import { authorizeAdminOrEditorOnly, getCurrentUserRole, ROLES } from '@/lib/authorization';
+import { authorizeAdminOrEditorOnly } from '@/lib/authorization';
 import { AuthError } from '@/types/errors';
 import SitesDashboard from '@/features/sites/components/sites-dashboard';
 

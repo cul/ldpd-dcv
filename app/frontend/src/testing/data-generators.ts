@@ -155,7 +155,6 @@ export const createTempBannerImage = async (subsiteSlug = SITE_DEFAULTS.slug) =>
 export const deleteTempBannerImage = (subsiteSlug = SITE_DEFAULTS.slug) => {
   try {
     const projectRoot = process.cwd();
-    const filePath = `${projectRoot}/public/images/sites/${subsiteSlug}/signature-banner.png`;
     const dirPath = `${projectRoot}/public/images/sites/${subsiteSlug}`;
     fs.rmSync(dirPath, { recursive: true });
   } catch (error) {
