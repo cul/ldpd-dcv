@@ -11,7 +11,7 @@ RSpec.describe Api::InfoService do
       "id" => "item-solr-id",
       "identifier_ssim" => [item_id],
       "title_display_ssm" => ["My 1901 Collection"],
-      "primary_name_ssm" => ["Ann Author"],
+      "primary_name_ssm" => ["Ann Author", "Bob Author"],
       "origin_info_date_created_ssm" => ["1901"],
       "lib_collection_ssm" => ["Special Collections"],
       "physical_description_extent_ssm" => ["12 pages"]
@@ -43,7 +43,7 @@ RSpec.describe Api::InfoService do
           identifier: "item-solr-id",
           imageSourceUrl: "http://localhost/iiif/2/standard/asset-solr-id/full/!1280,1280/0/default.jpg",
           title: "My 1901 Collection",
-          author: "Ann Author",
+          names: ["Ann Author", "Bob Author"],
           dateCreated: "1901",
           collection: "Special Collections",
           extent: "12 pages"
@@ -53,6 +53,30 @@ RSpec.describe Api::InfoService do
       it "does not include errors" do
         expect(result.error_message).to be_nil
         expect(result.error_code).to be_nil
+      end
+    end
+
+    context "when multiple names are present" do
+      let(:item_document) do
+        {
+          "id" => "item-solr-id",
+          "identifier_ssim" => [item_id],
+          "title_display_ssm" => ["My 1901 Collection"],
+          "primary_name_ssm" => [
+            "Ann Author",
+            "Bob Author",
+            "Real Author"
+          ],
+          "origin_info_date_created_ssm" => ["1901"],
+          "lib_collection_ssm" => ["Special Collections"],
+          "physical_description_extent_ssm" => ["12 pages"]
+        }
+      end
+
+      it "returns all names" do
+        expect(result.data[:names]).to eq(
+          ["Ann Author", "Bob Author", "Real Author"]
+        )
       end
     end
 
@@ -112,25 +136,29 @@ RSpec.describe Api::InfoService do
       let(:item_document) do
         {
           "id" => "item-solr-id",
+          "title_display_ssm" => ["My 1902 Collection"],
           "identifier_ssim" => [item_id]
         }
       end
 
-      it "returns null for missing metadata" do
-        expect(result.data).to include(
-          title: "null",
-          author: "null",
-          dateCreated: "null",
-          collection: "null",
-          extent: "null"
+      it "omits missing metadata keys from the payload" do
+        expect(result.data).to eq(
+          title: "My 1902 Collection",
+          identifier: "item-solr-id",
+          imageSourceUrl: "http://localhost/iiif/2/standard/asset-solr-id/full/!1280,1280/0/default.jpg"
         )
+
+        expect(result.data).not_to have_key(:names)
+        expect(result.data).not_to have_key(:dateCreated)
+        expect(result.data).not_to have_key(:collection)
+        expect(result.data).not_to have_key(:extent)
       end
     end
 
     context "when Solr raises an HTTP error" do
-    let(:solr_error) do 
+      let(:solr_error) do
         RSolr::Error::Http.new(
-          { uri: URI("http://localhost:8983/solr") }, 
+          { uri: URI("http://localhost:8983/solr") },
           { status: 503, body: "Solr unavailable" }
         )
       end

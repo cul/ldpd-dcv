@@ -10,7 +10,7 @@ module Api
 
     METADATA_FIELDS = {
       title: "title_display_ssm",
-      author: "primary_name_ssm",
+      names: "primary_name_ssm",
       dateCreated: "origin_info_date_created_ssm",
       collection: "lib_collection_ssm",
       extent: "physical_description_extent_ssm"
@@ -77,22 +77,37 @@ module Api
     end
 
     def format_metadata(item, asset)
-      METADATA_FIELDS.each_with_object(
-        identifier: item['id'],
+      hash = {
+        identifier: item["id"],
         imageSourceUrl: Dcv::Utils::CdnUtils.asset_url(
-          id: asset['id'],
-          region: 'full',
+          id: asset["id"],
+          region: "full",
           width: 1280,
           height: 1280,
-          format: 'jpg'
+          format: "jpg"
         )
-      ) do |(key, solr_field), hash|
-        hash[key] = extract_first_value(item, solr_field)
+      }
+
+      METADATA_FIELDS.each do |key, solr_field|
+        value =
+          if key == :names
+            extract_all_values(item, solr_field)
+          else
+            extract_first_value(item, solr_field)
+          end
+
+        hash[key] = value if value.present?
       end
+
+      hash
+    end
+
+    def extract_all_values(item, key)
+      Array(item[key]).compact_blank.presence
     end
 
     def extract_first_value(item, key)
-      item.fetch(key, []).first.presence || "null"
+      Array(item[key]).first.presence
     end
 
     def solr_escape(id)
@@ -120,12 +135,11 @@ module Api
     end
 
     def not_found_result(missing_ids)
-    failure(
+      failure(
         "Solr document(s) not found for identifier(s): #{missing_ids.join(', ')}",
         "not_found",
         :not_found
-    )
+      )
     end
-
-end
+  end
 end
