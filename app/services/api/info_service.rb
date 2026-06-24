@@ -10,7 +10,7 @@ module Api
 
     METADATA_FIELDS = {
       title: "title_display_ssm",
-      names: "primary_name_ssm",
+      names: "lib_name_ssm",
       dateCreated: "origin_info_date_created_ssm",
       collection: "lib_collection_ssm",
       extent: "physical_description_extent_ssm"
@@ -89,21 +89,23 @@ module Api
       }
 
       METADATA_FIELDS.each do |key, solr_field|
-        value =
-          if key == :names
-            extract_all_values(item, solr_field)
-          else
-            extract_first_value(item, solr_field)
-          end
+          value =
+            if key == :names
+              extract_multiple_values(item, solr_field, 10)
+            else
+              extract_first_value(item, solr_field)
+            end
 
-        hash[key] = value if value.present?
-      end
+          hash[key] = value if value.present?
+        end
 
-      hash
+        hash
     end
 
-    def extract_all_values(item, key)
-      Array(item[key]).compact_blank.presence
+    def extract_multiple_values(item, key, limit = nil)
+      values = Array(item[key]).compact_blank
+      values = values.take(limit) if limit
+      values.presence
     end
 
     def extract_first_value(item, key)

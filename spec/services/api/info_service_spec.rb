@@ -11,7 +11,7 @@ RSpec.describe Api::InfoService do
       "id" => "item-solr-id",
       "identifier_ssim" => [item_id],
       "title_display_ssm" => ["My 1901 Collection"],
-      "primary_name_ssm" => ["Ann Author", "Bob Author"],
+      "lib_name_ssm" => ["Ann Author", "Bob Author"],
       "origin_info_date_created_ssm" => ["1901"],
       "lib_collection_ssm" => ["Special Collections"],
       "physical_description_extent_ssm" => ["12 pages"]
@@ -56,13 +56,13 @@ RSpec.describe Api::InfoService do
       end
     end
 
-    context "when multiple names are present" do
+    context "when multiple names are present (under the limit)" do
       let(:item_document) do
         {
           "id" => "item-solr-id",
           "identifier_ssim" => [item_id],
           "title_display_ssm" => ["My 1901 Collection"],
-          "primary_name_ssm" => [
+          "lib_name_ssm" => [
             "Ann Author",
             "Bob Author",
             "Real Author"
@@ -77,6 +77,26 @@ RSpec.describe Api::InfoService do
         expect(result.data[:names]).to eq(
           ["Ann Author", "Bob Author", "Real Author"]
         )
+      end
+    end
+
+    context "when more than 10 names are present" do
+      let(:twelve_names) { (1..12).map { |i| "Author #{i}" } }
+      let(:item_document) do
+        {
+          "id" => "item-solr-id",
+          "identifier_ssim" => [item_id],
+          "title_display_ssm" => ["My 1901 Collection"],
+          "lib_name_ssm" => twelve_names,
+          "origin_info_date_created_ssm" => ["1901"],
+          "lib_collection_ssm" => ["Special Collections"],
+          "physical_description_extent_ssm" => ["12 pages"]
+        }
+      end
+
+      it "limits the returned names to only the first 10" do
+        expect(result.data[:names].size).to eq(10)
+        expect(result.data[:names]).to eq((1..10).map { |i| "Author #{i}" })
       end
     end
 
