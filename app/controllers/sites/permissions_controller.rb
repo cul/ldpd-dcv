@@ -25,7 +25,6 @@ module Sites
 			rescue ActiveRecord::RecordInvalid => ex
 				flash[:alert] = ex.message
 			end
-			@subsite.save! if @subsite.changed?
 			if restricted?
 				redirect_to edit_restricted_site_permissions_path(site_slug: @subsite.slug.sub('restricted/', ''))
 			else
