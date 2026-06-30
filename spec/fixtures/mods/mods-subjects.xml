@@ -82,4 +82,7 @@
       <area>The good part of town</citySection>
     </hierarchicalGeographic>
   </subject>
+  <subject authority="dlc-group">
+    <topic valueURI="http://id.library.columbia.edu/term/473d7b81-057a-457a-b342-7dc05ae83387">DLC Group Topic</topic>
+  </subject> 
 </mods>

@@ -108,8 +108,14 @@ class Dcv::Solr::DocumentAdapter::ModsXml
       #  t.topic(:index_as=>[:facetable, :displayable])
         topic_text = subject.xpath("mods:topic", MODS_NS).map(&:text)
         if topic_text.present?
-          solr_doc['subject_topic_sim'] = topic_text
-          solr_doc['subject_topic_ssm'] = topic_text
+          if subject['authority'] == 'dlc-group'
+            uri = subject.xpath("mods:topic", MODS_NS).first&.[]('valueURI')
+            solr_doc['dlc_group_uri_ssim'] ||= []
+            solr_doc['dlc_group_uri_ssim'] << uri if uri
+          else
+            solr_doc['subject_topic_sim'] = topic_text
+            solr_doc['subject_topic_ssm'] = topic_text
+          end
         end
       #  t.geographic(:index_as=>[:facetable])
         geographic_text = subject.xpath("mods:geographic", MODS_NS).map(&:text)
