@@ -508,12 +508,24 @@ describe Dcv::Solr::DocumentAdapter::ModsXml, type: :unit do
         expect(subject["subject_topic_ssm"]).not_to include("DLC Group Topic")
       end
 
-      it 'should index valueURIs of topic subjects with authority="dlc-group" into dlc_group_uri_ssim' do
-        expect(subject["dlc_group_uri_ssim"]).to include("http://id.library.columbia.edu/term/473d7b81-057a-457a-b342-7dc05ae83387")
-      end
-
       it 'should not include the topic text in dlc_group_uri_ssim (only URIs, not labels)' do
         expect(subject["dlc_group_uri_ssim"]).not_to include("DLC Group Topic")
+      end
+
+      it 'should index multiple valueURIs from multiple dlc-group subjects into dlc_group_uri_ssim' do
+        expect(subject["dlc_group_uri_ssim"]).to include("http://id.library.columbia.edu/term/473d7b81-057a-457a-b342-7dc05ae83387")
+        expect(subject["dlc_group_uri_ssim"]).to include("http://id.library.columbia.edu/term/99999999-0000-0000-0000-000000000001")
+        expect(subject["dlc_group_uri_ssim"]).to include("http://id.library.columbia.edu/term/00000000-0000-0000-0000-000000000002")
+        expect(subject["dlc_group_uri_ssim"].length).to eql 3
+      end
+
+      it 'should populate dlc_group_uri_ssim even when the dlc-group topic has no text content' do
+        expect(subject["dlc_group_uri_ssim"]).to include("http://id.library.columbia.edu/term/00000000-0000-0000-0000-000000000002")
+      end
+
+      it 'should not include dlc-group subject text in all_text_teim' do
+        expect(all_text_joined).not_to include("DLC Group Topic")
+        expect(all_text_joined).not_to include("DLC Group Topic 2")
       end
     end
 

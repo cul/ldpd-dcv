@@ -102,19 +102,19 @@ class Dcv::Solr::DocumentAdapter::ModsXml
       solr_doc['table_of_contents_ssm'] = table_of_contents_text
       solr_doc['all_text_teim'].concat textable(table_of_contents_text)
 
-      #t.subject(:index_as=>[:textable]){
       mods.xpath("./mods:subject", MODS_NS).each do |subject|
-        solr_doc['all_text_teim'].concat(textable(subject.text))
-      #  t.topic(:index_as=>[:facetable, :displayable])
-        topic_text = subject.xpath("mods:topic", MODS_NS).map(&:text)
-        if topic_text.present?
-          if subject['authority'] == 'dlc-group'
-            uri = subject.xpath("mods:topic", MODS_NS).first&.[]('valueURI')
-            solr_doc['dlc_group_uri_ssim'] ||= []
-            solr_doc['dlc_group_uri_ssim'] << uri if uri
-          else
-            solr_doc['subject_topic_sim'] = topic_text
-            solr_doc['subject_topic_ssm'] = topic_text
+        if subject['authority'] == 'dlc-group'
+          uris = subject.xpath("mods:topic", MODS_NS).map { |t| t['valueURI'] }.compact
+          solr_doc['dlc_group_uri_ssim'] ||= []
+          solr_doc['dlc_group_uri_ssim'].concat(uris)
+        else
+          #t.subject(:index_as=>[:textable]){ except dlc-group
+          solr_doc['all_text_teim'].concat(textable(subject.text))
+          #  t.topic(:index_as=>[:facetable, :displayable])
+          topic_text = subject.xpath("mods:topic", MODS_NS).map(&:text)
+          if topic_text.present?
+              solr_doc['subject_topic_sim'] = topic_text
+              solr_doc['subject_topic_ssm'] = topic_text
           end
         end
       #  t.geographic(:index_as=>[:facetable])

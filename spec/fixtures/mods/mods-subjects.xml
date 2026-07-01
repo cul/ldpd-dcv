@@ -84,5 +84,11 @@
   </subject>
   <subject authority="dlc-group">
     <topic valueURI="http://id.library.columbia.edu/term/473d7b81-057a-457a-b342-7dc05ae83387">DLC Group Topic</topic>
-  </subject> 
+  </subject>
+  <subject authority="dlc-group">
+  <topic valueURI="http://id.library.columbia.edu/term/99999999-0000-0000-0000-000000000001">DLC Group Topic 2</topic>
+  </subject>
+  <subject authority="dlc-group">
+    <topic valueURI="http://id.library.columbia.edu/term/00000000-0000-0000-0000-000000000002"></topic>
+  </subject>
 </mods>
