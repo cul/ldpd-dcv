@@ -44,6 +44,12 @@ Rails.application.routes.draw do
   delete 'api/v1/sites/:site_slug/pages/:page_slug', to: 'api/site_pages#delete', format: 'json'
 
 
+  namespace :api do
+    namespace :v1 do
+      get 'external_display/info', to: 'external_display#info'
+    end
+  end
+
   get '/browse/:list_id' => 'browse', as: :browse, action: 'list'
   get '/explore' => 'welcome#home'
   get '/about' => 'pages#about', as: :about
