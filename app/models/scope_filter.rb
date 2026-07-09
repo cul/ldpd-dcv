@@ -5,7 +5,8 @@ class ScopeFilter < ApplicationRecord
 		'project_key'     => 'project_key_ssim',
 		'collection'      => 'lib_collection_sim',
 		'collection_key'  => 'collection_key_ssim',
-		'repository_code' => 'lib_repo_code_ssim'
+		'repository_code' => 'lib_repo_code_ssim',
+    'DLC group URI'   => 'dlc_group_uri_ssim',
 	}.freeze
 	VALID_TYPES = FIELDS_FOR_FILTER_TYPES.keys.freeze
 	belongs_to :scopeable, polymorphic: true, touch: true
