@@ -177,7 +177,8 @@ class SubsiteImportService
     site.permissions = Site::Permissions.new(attrs['permissions'])
     site.image_uris = attrs['image_uris']
     site.publisher_uri = attrs['publisher_uri']
-    site.owner_uid = attrs['owner_uid'] || DEFAULT_OWNER
+    owner_uid = attrs['owner_uid'] || DEFAULT_OWNER
+    site.owner = User.find_or_create_by(uid: owner_uid)
 
     create_site_search_configuration(zip)
 

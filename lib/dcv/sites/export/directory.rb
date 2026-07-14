@@ -2,7 +2,7 @@ require 'yaml'
 require 'json'
 
 module Dcv::Sites::Export
-	DB_FIELDS = ['id', 'created_at', 'owner_uid', 'site_id', 'site_page_id', 'updated_at']
+	DB_FIELDS = ['id', 'created_at', 'site_id', 'site_page_id', 'updated_at']
 	class Directory
 		include Dcv::Sites::Constants
 		def initialize(site, directory, db_fields = false)
