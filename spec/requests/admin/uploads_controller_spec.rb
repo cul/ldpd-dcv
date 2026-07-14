@@ -8,7 +8,7 @@ describe 'Admin site uploads and imports', type: :request do
   let(:owner) { FactoryBot.create(:user, uid: 'owner_uid') }
   let(:user) { FactoryBot.create(:user) }
   before do
-    FactoryBot.create(:site, slug: 'dlc_site', title: 'Existing DLC Site', editor_uids: ['editor_uid'], owner_uid: 'owner_uid')
+    FactoryBot.create(:site, slug: 'dlc_site', title: 'Existing DLC Site', editor_uids: ['editor_uid'], owner: owner)
   end
 
   describe 'GET admin/import' do

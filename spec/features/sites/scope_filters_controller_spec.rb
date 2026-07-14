@@ -2,6 +2,7 @@ require 'rails_helper'
 
 describe ::Sites::ScopeFiltersController, type: :feature do
 	include_context "site fixtures for features"
+  let!(:owner) { FactoryBot.create(:user, uid: 'owner_uid') }
 	let(:source) { fixture("sites/import/directory").path }
 	let(:import) { Dcv::Sites::Import::Directory.new(source) }
 	let(:site_slug) { import.atts['slug'] }
