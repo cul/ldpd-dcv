@@ -13,7 +13,7 @@ class Site < ApplicationRecord
 	serialize :editor_uids, Array
 	serialize :image_uris, Array
 	belongs_to :owner, class_name: 'User', foreign_key: 'owner_uid', primary_key: 'uid'
-  validates :owner_uid, presence: true # this value must be present, but we allow optional: true on the association to handle cases where the owner's User model does not yet exist
+  validates :owner_uid, presence: true
 
 	validates :search_type, inclusion: { in: VALID_SEARCH_TYPES }
 	validates :layout, inclusion: { in: VALID_LAYOUTS }
