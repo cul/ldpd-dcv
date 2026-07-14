@@ -33,7 +33,7 @@ require 'zip'
 #
 # This service is used by the sites_controller in the download action
 
-DB_FIELDS = ['id', 'created_at', 'site_id', 'site_page_id', 'updated_at']
+DB_FIELDS = ['id', 'created_at', 'site_id', 'owner_uid', 'site_page_id', 'updated_at']
 
 class SubsiteExportService
   include Dcv::Sites::Constants

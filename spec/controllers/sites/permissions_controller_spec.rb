@@ -24,7 +24,7 @@ describe Sites::PermissionsController, type: :unit do
 		let(:is_admin) { false }
 		before do
 			controller.instance_variable_set(:@subsite, site)
-			allow(controller).to receive(:can?).with(:admin, site).and_return(is_admin)
+			allow(controller).to receive(:can?).with(Ability::CHANGE_SUBSITE_OWNER_AND_EDITORS, site).and_return(is_admin)
 		end
 		context 'with editor_uids text' do
 			let(:uids) { ['abc', 'bcd', 'cde'] }
@@ -70,7 +70,7 @@ describe Sites::PermissionsController, type: :unit do
 		let(:edit_site_permissions_path) { "/#{site.slug}/permissions/edit" }
 		before do
 			allow(controller).to receive(:authorize_site_update).and_return(true)
-			allow(controller).to receive(:can?).with(:admin, site).and_return(true)
+			allow(controller).to receive(:can?).with(Ability::CHANGE_SUBSITE_OWNER_AND_EDITORS, site).and_return(true)
 			allow(controller).to receive(:edit_site_permissions_path).with(site_slug: site.slug).and_return(edit_site_permissions_path)
 			expect(controller).to receive(:redirect_to).with(edit_site_permissions_path)
 		end

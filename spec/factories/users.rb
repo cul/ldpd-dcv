@@ -2,8 +2,8 @@
 
 FactoryBot.define do
   factory :user do
-    uid { 'tester' }
-    email { 'tester@example.org' }
+    sequence(:uid) { |n| "tester#{n}" }
+    sequence(:email) { |n| "person#{n}@example.com" }
     is_admin   { false }
   end
 end

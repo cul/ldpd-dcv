@@ -12,5 +12,6 @@ module Dcv
         super("There was an error processing the uploaded subsite: #{msg}")
       end
     end
+    class SubsiteCreateUnauthorized < StandardError; end
   end
 end

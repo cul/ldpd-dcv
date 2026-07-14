@@ -23,6 +23,7 @@ module Dcv::Sites
 		DEFAULT_PALETTE = 'default' # use sitewide default at designers' discretion
 		CUSTOM_LAYOUT = 'custom'
 		VALID_LAYOUTS = [CUSTOM_LAYOUT, DEFAULT_LAYOUT].concat(PORTABLE_LAYOUTS).freeze
+    DEFAULT_OWNER = Rails.application.config_for(:dcv).default_owner
 
 		def self.default_layout
 			DCV_CONFIG.fetch(:default_layout, 'portrait')

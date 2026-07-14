@@ -48,6 +48,7 @@ module Dcv::Sites::Import
 					end
 				end
 			end
+      site.owner = User.find_or_create_by(uid: DEFAULT_OWNER)
 
 			unless site.save
 				Rails.logger.error("failed to import #{slug}:\n\t#{site.errors.inspect}")

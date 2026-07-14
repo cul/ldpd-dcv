@@ -10,22 +10,33 @@ describe ::Sites::PermissionsController, type: :feature do
 	let(:edit_link_href) { "/#{site_slug}/permissions/edit" }
 	describe '#update' do
 		before { import.run }
-		let(:authorized_user) { FactoryBot.create(:user, is_admin: true) }
+		let(:authorized_user) { FactoryBot.create(:user, uid: 'adminUser', is_admin: true) }
 		before do
 			Warden.test_mode!
 			login_as authorized_user, scope: :user
 			visit(edit_link_href)
 		end
 		it 'updates atts' do
-			fill_in('Remote Access UNIs', with: "remoteUser, remoteContributor")
-			fill_in('Site Editor UNIs', with: "adminUser, adminPartner")
+      fill_in('Site Owner UNI', with: 'adminUser')
+			fill_in('Remote Access UNIs', with: 'remoteUser, remoteContributor')
+			fill_in('Site Editor UNIs', with: 'adminUser, adminPartner')
 			click_button "Update Permissions"
 			# do a find to make sure page loaded
 			find('#site_permissions_remote_ids')
 			visit(edit_link_href)
-			expect(find_field('Remote Access UNIs').value).to eq("remoteContributor,\nremoteUser")			
-			expect(find_field('Site Editor UNIs').value).to eq("adminPartner,\nadminUser")			
+      expect(find_field('Site Owner UNI').value).to eq('adminUser')
+			expect(find_field('Remote Access UNIs').value).to eq("remoteContributor,\nremoteUser")
+			expect(find_field('Site Editor UNIs').value).to eq("adminPartner, adminUser")			
 		end
+    it 'does not update owner if user does not exist' do
+      original_owner = find_field('Site Owner UNI').value
+      fill_in('Site Owner UNI', with: 'DNE_user')
+			click_button "Update Permissions"
+			# do a find to make sure page loaded
+			find('#site_permissions_remote_ids')
+			visit(edit_link_href)
+      expect(find_field('Site Owner UNI').value).to eq(original_owner )
+    end
 	end
 	describe '#edit' do
 		before do

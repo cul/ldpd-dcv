@@ -6,7 +6,9 @@ class Ability
   ACCESS_ASSET = :access_asset
   ACCESS_SUBSITE = :access_subsite
   IMPORT_SUBSITE = :import_subsite
-  EDIT_SUBSITES = :edit
+  IMPORT_NEW_SUBSITE = :import_new_subsite
+  VIEW_IMPORT_FORM = :view_import_form
+  CHANGE_SUBSITE_OWNER_AND_EDITORS = :change_subsite_owner
   LIST_SUBSITES = :list_subsites
   MANAGE_SUBSITE = :manage_subsite
   UNSPECIFIED_ACCESS_DECISION = true
@@ -26,12 +28,8 @@ class Ability
         true
       end
     end
-    # can? :list_subsites, Site
-    can LIST_SUBSITES, Site do
-      return true if user&.is_admin?
-      Site.all.any? { |site| site[:editor_uids].include? user[:uid] }
-    end
-    #  can? current_user, :access_subsite, @subsite
+    
+    # can? current_user, :access_subsite, @subsite
     can ACCESS_SUBSITE, Site do |site|
       if site.restricted
         result = false
@@ -40,9 +38,10 @@ class Ability
         result ||= true if (site.to_subsite_config.fetch(:locations, []).flatten & location_uris).first
         result
       else
-        true
+        true 
       end
     end
+
     can ACCESS_ASSET, SolrDocument do |doc|
       if doc.fetch('access_control_levels_ssim', []).include?(ACCESS_LEVEL_CLOSED)
         false
@@ -70,25 +69,46 @@ class Ability
         result
       end
     end
+
+    return unless user.present?
+
+    # A more robust solution would be to add a 'role' field to the user model, so
+    # we can do an O(1) operation instead of potentially looking at each site when these are calculated.
+    # The react frontend auth does something like that.
+    # Because we use sqlite3, we cannot do a query that gets the answer reliably (because
+    # the lookup for an id in the editor array matches substrings, not exacts)
+    is_editor = Site.any? { |site| site[:editor_uids].include?(user.uid) }
+    is_owner = Site.any? { |site| site[:owner_uid] == user.uid }
+
+    return unless is_editor || is_owner || user.is_admin
+
+    can LIST_SUBSITES, Site
+
     can MANAGE_SUBSITE, Site do |site|
-      user&.is_admin || site.editor_uids.include?(user&.uid)
+      user.is_admin || user.uid == site.owner_uid || site.editor_uids.include?(user.uid)
     end
-    can :update, Site do |site|
-      user&.is_admin || site.editor_uids.include?(user&.uid)
+
+    # In prod, only admins and owners can view the import form
+    can VIEW_IMPORT_FORM, Site if !Rails.env.dlc_prod? || is_owner || user.is_admin
+
+    can IMPORT_SUBSITE, Site do |site|
+      user.is_admin || user.uid == site.owner_uid || !Rails.env.dlc_prod?
     end
-    can :admin, Site do |site|
-      user&.is_admin
+
+    return unless is_owner || user.is_admin
+
+    can CHANGE_SUBSITE_OWNER_AND_EDITORS, Site do |site|
+      user.is_admin || user.uid == site.owner_uid
     end
-    # Authorization rules:
-    #   - in dlc_prod: only dlc admin may import a site
-    #   - else: only dlc admin or an editor of *some* site may import a site
-    # N.B.: in non-prod environments, an editor may import a site or new site
-    #       without restriction. Some ideas to make this more secure:
-    #         - users must enter the slug for the site they are updating, and if
-    #           it doesn't match the metadata of the import, we reject the operation
-    #         - users may not upload a new site unless they are admin
-    is_editor = Site.any? { |site| site[:editor_uids].include? user&.uid }
-    can IMPORT_SUBSITE, Site if user&.is_admin || (!Rails.env.dlc_prod? && is_editor)
+
+    # :admin is still used in tombstone grid display field: app/views/sites/search_configuration/_display_options_form.html.erb
+    # TODO: should this be admin only, or admin and owner?
+    can :admin, Site
+
+    return unless user.is_admin
+
+    can IMPORT_NEW_SUBSITE, Site
+
   end
 
   # was this document published to a site where the current user has remote "onsite" permissions

@@ -59,6 +59,7 @@ class SubsiteImportService
         @attrs = YAML.load zis.read
       end
       new_subsite = Site.find_by(slug: @attrs['slug']).nil?
+      # Equivalent of `can? Ability::IMPORT_NEW_SUBSITE, Site`
       if new_subsite && !@is_admin
         raise Dcv::Exceptions::SubsiteUploadError.new('You are not authorized to import a new site to the DLC. If this is an error, please contact a DLC administrator to receive admin privileges.')
       end
@@ -176,6 +177,8 @@ class SubsiteImportService
     site.permissions = Site::Permissions.new(attrs['permissions'])
     site.image_uris = attrs['image_uris']
     site.publisher_uri = attrs['publisher_uri']
+    owner_uid = attrs['owner_uid'] || DEFAULT_OWNER
+    site.owner = User.find_or_create_by(uid: owner_uid)
 
     create_site_search_configuration(zip)
 

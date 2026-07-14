@@ -27,6 +27,7 @@ namespace :dcv do
     task export: 'export:site'
 
     task seed_from_solr: :environment do
+      Site.reset_column_information
       SolrDocument.each_site_document do |document|
         site_import = Dcv::Sites::Import::Solr.new(document)
         next unless site_import.exists?
