@@ -22,8 +22,6 @@ describe('Sites index route', () => {
       mockApi('get', '/users/_self', { user: adminUser });
       await renderAppAndWait();
 
-      // expect(screen.getByText(/DLC Subsites Admin Dashboard/i));
-
       expect(await screen.findByText(/DLC Subsites Admin Dashboard/i));
     });
   });
