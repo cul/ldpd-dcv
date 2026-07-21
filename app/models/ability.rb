@@ -28,16 +28,8 @@ class Ability
         true
       end
     end
-<<<<<<< HEAD
     
     # can? current_user, :access_subsite, @subsite
-=======
-    # can? :list_subsites, Site
-
-    can LIST_SUBSITES, Site if user&.is_admin? || Site.all.any? { |site| site[:editor_uids]&.include? user&.uid }
-      
-    #  can? current_user, :access_subsite, @subsite
->>>>>>> a5efbddb (api testing)
     can ACCESS_SUBSITE, Site do |site|
       if site.restricted
         result = false
