@@ -4,7 +4,7 @@ import { QueryClient } from '@tanstack/react-query';
 import { authorizeCanEditSite } from '@/lib/authorization';
 import { getSiteQueryOptions } from '@/features/subsite/api/get-site';
 import FetchingSuspense from '@/components/ui/fetching-suspense';
-import SitesLayout from '@/components/layouts/sites-layout/subsite-layout';
+import SubsiteLayout from '@/components/layouts/sites-layout/subsite-layout';
 import { AuthError } from '@/types/errors';
 
 /* This route wraps all routes that interact with one subsite.
@@ -37,7 +37,7 @@ const SubsiteRoute = () => {
 
   return (
     <FetchingSuspense dataName="site">
-      <SitesLayout /> {/* The Layout calls <Outlet /> for us! */}
+      <SubsiteLayout /> {/* The Layout calls <Outlet /> for us! */}
     </FetchingSuspense>
   );
 };

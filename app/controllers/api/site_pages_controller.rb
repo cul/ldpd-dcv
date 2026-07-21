@@ -4,14 +4,14 @@ class Api::SitePagesController < Api::BaseController
   before_action :load_subsite, only: [:get_all_pages, :patch_multiple, :delete_multiple]
   before_action :load_page, only: [:delete]
 
-  # GET /site/:site_slug/pages
+  # GET api/v1/sites/:site_slug/pages
   def get_all_pages
     authorize_action_and_scope Ability::MANAGE_SUBSITE, @subsite
     pages_json = @subsite.site_pages.map(&method(:site_page_json))
     render json: { pages: pages_json}
   end
 
-  # PATCH /site/:site_slug/pages (for bulk updating of pages, e.g. from the general properties page which updates title and slug)
+  # PATCH api/v1/sites/:site_slug/pages (for bulk updating of pages, e.g. from the general properties page which updates title and slug)
   # This method will compare the array in params and the @subsite.site_pages array, and delete any pages that were not included
   # in the request.
   def patch_multiple
@@ -38,14 +38,16 @@ class Api::SitePagesController < Api::BaseController
     render json: { error: ex.message }, status: :unprocessable_entity
   end
 
-  # DELETE /site/:site_slug/pages/:page_slug
+  # N.B. Not used in initial UI site-properties page form, but will be useful
+  # later
+  # DELETE api/v1/sites/:site_slug/pages/:page_slug
   def delete
     authorize_action_and_scope Ability::MANAGE_SUBSITE, @subsite
     if @page.slug == 'home'
       render json: { error: 'The homepage cannot be deleted' }, status: :forbidden
       return
     end
-    @page.destroy
+    @page.destroy!
     render json: { message: 'Page deleted successfully' }
   rescue  ActiveRecord::RecordNotFound => ex
     render json: { error: 'Page not found' }, status: :not_found
@@ -67,10 +69,8 @@ class Api::SitePagesController < Api::BaseController
 
     def load_page()
       @page ||= begin
-        SitePage.find_by(site_id: load_subsite.id, slug: params[:page_slug])
+        SitePage.find_by!(site_id: load_subsite.id, slug: params[:page_slug])
       end
-      raise ActiveRecord::RecordNotFound unless @page
-      @page
     end
 
     # Users can update multiple pages' titles at once from the general properties page
@@ -83,7 +83,9 @@ class Api::SitePagesController < Api::BaseController
         end
       end
     end
-
+  
+    # N.B. Not used in initial UI site-properties page form, but will be useful
+    # later
     def page_params
       params.require(:site_page)
         .permit(

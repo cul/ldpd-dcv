@@ -5,7 +5,7 @@ import { useSiteSuspense } from '../api/get-site';
 import CardLink from '@/components/ui/card-link';
 import DLCEditorDocsAlert from '@/components/ui/dlc-editor-docs-alert';
 
-const SiteDashboard = ({ slug }: { slug: string }): ReactNode => {
+const SubsiteDashboard = ({ slug }: { slug: string }): ReactNode => {
   const site = useSiteSuspense(slug);
 
   return (
@@ -66,4 +66,4 @@ const SiteDashboard = ({ slug }: { slug: string }): ReactNode => {
   );
 };
 
-export default SiteDashboard;
+export default SubsiteDashboard;

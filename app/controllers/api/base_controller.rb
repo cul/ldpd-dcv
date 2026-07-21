@@ -1,5 +1,6 @@
 class Api::BaseController <  ApplicationController
   before_action :transform_json_params
+  before_action :authenticate_user!
 
   # Handle authorization errors
   rescue_from CanCan::AccessDenied do |exception|
@@ -9,6 +10,10 @@ class Api::BaseController <  ApplicationController
   # Handle JSON parsing errors
   rescue_from JSON::ParserError do |exception|
     render json: { error: 'Invalid JSON in request body' }, status: :bad_request
+  end
+
+  rescue_from ActiveRecord::RecordNotFound do |exception|
+    render json: { error: 'Object not found' }, status: :not_found
   end
 
   

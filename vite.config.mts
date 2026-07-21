@@ -10,9 +10,9 @@ export default defineConfig({
     basicSsl({}),
     RubyPlugin(),
   ],
-    resolve: {
+  resolve: {
     alias: {
-      '@': path.resolve(__dirname, './app/frontend/src')
-    }
-  }
+      '@': path.resolve(__dirname, './app/frontend/src'),
+    },
+  },
 });

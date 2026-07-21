@@ -1,13 +1,13 @@
 import { useParams } from 'react-router';
 
-import SiteDashboard from '@/features/subsite/components/site-dashboard';
+import SubsiteDashboard from '@/features/subsite/components/subsite-dashboard';
 
 const SiteDashboardRoute = () => {
   const { slug } = useParams();
 
   if (!slug) throw Error('No slug parameter provided');
 
-  return <SiteDashboard slug={slug} />;
+  return <SubsiteDashboard slug={slug} />;
 };
 
 export default SiteDashboardRoute;

@@ -4,7 +4,7 @@ import { useRouteError, isRouteErrorResponse } from 'react-router';
 
 export const RouteErrorFallback = () => {
   const error = useRouteError();
-  console.log(error);
+  console.error(error);
 
   const isAuthError = error instanceof AuthError;
 

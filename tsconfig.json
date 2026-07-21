@@ -1,11 +1,7 @@
 {
   "compilerOptions": {
     "target": "ESNext",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -18,19 +14,13 @@
     "resolveJsonModule": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "types": [ "vite/client" ],
+    "types": ["vite/client", "node"],
     "isolatedModules": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "./app/frontend/src/*"
-      ]
+      "@/*": ["./app/frontend/src/*"]
     }
   },
-  "include": [
-    "app/frontend/src"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["app/frontend/src"],
+  "exclude": ["node_modules"]
 }

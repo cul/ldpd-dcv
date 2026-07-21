@@ -1,6 +1,4 @@
 class Api::UsersController < Api::BaseController
-  before_action :authenticate_user!
-
   ROLES = {
     admin: 'ADMIN',
     editor: 'EDITOR',

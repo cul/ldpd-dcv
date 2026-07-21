@@ -3,6 +3,7 @@ import tseslint from 'typescript-eslint';
 import react from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
 import globals from 'globals';
+import prettierConfig from 'eslint-config-prettier';
 
 export default tseslint.config(
   {
@@ -43,6 +44,8 @@ export default tseslint.config(
       'react/prop-types': 'off',
     },
   },
+  // Disable formatting rules that conflict with Prettier
+  prettierConfig,
   // Disable incompatible-library warnings for TanStack Table components
   // https://github.com/facebook/react/issues/33057
   // Uncomment this if we use tanstack table

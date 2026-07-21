@@ -1,12 +1,12 @@
 import { useParams } from 'react-router';
 
-import SiteProperties from '@/features/subsite/components/site-properties';
+import SubsiteProperties from '@/features/subsite/components/subsite-properties';
 
 const SitesEditRoute = () => {
   const { slug } = useParams();
 
   if (!slug) throw Error('No slug parameter provided');
 
-  return <SiteProperties slug={slug} />;
+  return <SubsiteProperties slug={slug} />;
 };
 export { SitesEditRoute as default };

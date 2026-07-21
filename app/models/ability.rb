@@ -13,7 +13,7 @@ class Ability
   MANAGE_SUBSITE = :manage_subsite
   UNSPECIFIED_ACCESS_DECISION = true
 
-  def initialize(user = nil, opts = {})\
+  def initialize(user = nil, opts = {})
     location_uris = ip_to_location_uris(opts[:remote_ip])
     affils = Array.wrap(opts[:roles]) || []
     @public = location_uris.empty? && affils.empty? && user.nil?

@@ -82,7 +82,7 @@ namespace :dcv do
   task :ci do
     rspec_system_exit_failure_exception = nil
 
-    task_stack = ['dcv:ci_specs']
+    task_stack = ['dcv:ci_specs', 'dcv:frontend_tests']
     task_stack.prepend('dcv:ci:docker_wrapper')
 
     duration = Benchmark.realtime do
@@ -121,6 +121,14 @@ namespace :dcv do
     Rake::Task["dcv:sites:seed_from_solr"].invoke
     Rake::Task["dcv:coverage"].invoke
   end
+
+  task :frontend_tests do
+  sh "yarn test" do |ok, res|
+    unless ok
+      fail "Vitest suite failed with status #{res.exitstatus}"
+    end
+  end
+end
 
   desc "Execute specs with coverage"
   task :coverage do
