@@ -5,8 +5,23 @@ test:
       shared_secret: <%= SecureRandom.hex(16) %>
   num_load_balanced_cdn_urls: 0
   cdn_urls:
-  - http://localhost
+    - http://localhost
   default_owner: ta123
+  media_streaming:
+    wowza:
+      # NOTE: client_ip_override is only used locally during development because the IP comes through as localhost
+      # client_ip_override: 'YOUR IP ADDRESS'
+      host: 'example.com'
+      port: 1935
+      ssl_port: 8443
+      token_prefix: 'wowza'
+      shared_secret: 'EXAMPLE_SECRET'
+      token_lifetime: 10800
+      application: 'EXAMPLE_APPLICATION_NAME'
+      wowza_application_for_file_protocol_resources: 'WOWZA_APPLICATION_NAME_1'
+      wowza_bucket_to_application_mapping_for_s3_resources:
+        bucket-a: 'WOWZA_APPLICATION_NAME_2'
+        bucket-b: 'WOWZA_APPLICATION_NAME_3'
 development:
   require_authentication: false
   iiif:
@@ -14,5 +29,18 @@ development:
       shared_secret: <%= SecureRandom.hex(16) %>
   num_load_balanced_cdn_urls: 0
   cdn_urls:
-  - http://localhost
+    - http://localhost
   default_owner: ta123
+  media_streaming:
+    wowza:
+      host: 'example.com'
+      port: 1935
+      ssl_port: 8443
+      token_prefix: 'wowza'
+      shared_secret: 'EXAMPLE_SECRET'
+      token_lifetime: 10800
+      application: 'EXAMPLE_APPLICATION_NAME'
+      wowza_application_for_file_protocol_resources: 'WOWZA_APPLICATION_NAME_1'
+      wowza_bucket_to_application_mapping_for_s3_resources:
+        bucket-a: 'WOWZA_APPLICATION_NAME_2'
+        bucket-b: 'WOWZA_APPLICATION_NAME_3'
