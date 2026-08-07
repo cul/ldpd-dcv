@@ -23,7 +23,8 @@ module Dcv::Utils::WowzaUtils
 
   def self.wowza_secure_token_params_for_file_path(wowza_config, file_path, remote_ip)
     {
-      stream: wowza_config[:wowza_application_for_file_protocol_resources] + '/_definst_/' + (file_path.downcase.end_with?('.mp3') ? 'mp3:' : 'mp4:') + file_path.gsub(/^\//, ''),
+      stream: "#{wowza_config[:wowza_application_for_file_protocol_resources]}/_definst_/"\
+              "#{file_path.downcase.end_with?('.mp3') ? 'mp3:' : 'mp4:'}#{file_path.gsub(%r{^/}, '')}",
       secret: wowza_config[:shared_secret],
       client_ip: wowza_config[:client_ip_override] || remote_ip,
       starttime: Time.now.to_i,
@@ -35,8 +36,10 @@ module Dcv::Utils::WowzaUtils
   def self.wowza_secure_token_params_for_s3_file(wowza_config, bucket_name, object_key, remote_ip)
     wowza_application = wowza_config.dig(:wowza_bucket_to_application_mapping_for_s3_resources, bucket_name.to_sym)
     raise ArgumentError, "Could not resolve bucket name to wowza application name" if wowza_application.nil?
+
     {
-      stream: wowza_application + '/_definst_/' + (object_key.downcase.end_with?('.mp3') ? 'mp3:' : 'mp4:') + wowza_application + '/' + object_key,
+      stream: "#{wowza_application}/_definst_/#{object_key.downcase.end_with?('.mp3') ? 'mp3:' : 'mp4:'}"\
+              "#{wowza_application}/#{object_key}",
       secret: wowza_config[:shared_secret],
       client_ip: wowza_config[:client_ip_override] || remote_ip,
       starttime: Time.now.to_i,
