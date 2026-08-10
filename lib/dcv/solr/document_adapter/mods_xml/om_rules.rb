@@ -19,7 +19,7 @@ class Dcv::Solr::DocumentAdapter::ModsXml
       # t.non_sort(:path=>"nonSort", :index_as=>[])
       # t.main_title(:path=>"title", :index_as=>[])
       #}
-      
+
       #t.title(proxy: [:mods, :main_title_info, :main_title], type: :string, index_as: [:searchable, :sortable])
       mods.xpath("./mods:titleInfo[not(@type)]/mods:title", MODS_NS).each_with_index do |main_title, ix|
         title_text = normalize_space(main_title.text)
@@ -104,9 +104,8 @@ class Dcv::Solr::DocumentAdapter::ModsXml
 
       mods.xpath("./mods:subject", MODS_NS).each do |subject|
         if subject['authority'] == 'dlc-group'
-          uris = subject.xpath("mods:topic", MODS_NS).map { |t| t['valueURI'] }.compact
           solr_doc['dlc_group_uri_ssim'] ||= []
-          solr_doc['dlc_group_uri_ssim'].concat(uris)
+          solr_doc['dlc_group_uri_ssim'] << subject['valueURI'] if subject['valueURI'].present?
         else
           #t.subject(:index_as=>[:textable]){ except dlc-group
           solr_doc['all_text_teim'].concat(textable(subject.text))
@@ -349,21 +348,21 @@ class Dcv::Solr::DocumentAdapter::ModsXml
       #  t.date_created(:path=>"dateCreated", :attributes=>{:encoding=>'w3cdtf',:keyDate=>'yes'}, :index_as=>[:displayable, :textable])
         date_created_text = origin_info.xpath("mods:dateCreated[@encoding = 'w3cdtf' and @keyDate = 'yes']", MODS_NS).map(&:text)
         if date_created_text.present?
-          solr_doc['origin_info_date_created_ssm'] = date_created_text 
+          solr_doc['origin_info_date_created_ssm'] = date_created_text
           solr_doc['all_text_teim'].concat textable(date_created_text)
         end
 
       #  t.date_created_start(:path=>"dateCreated", :attributes=>{:encoding=>'w3cdtf',:keyDate=>'yes',:point=>'start'}, :index_as=>[:displayable, :textable])
         date_created_text = origin_info.xpath("mods:dateCreated[@encoding = 'w3cdtf' and @keyDate = 'yes' and @point = 'start']", MODS_NS).map(&:text)
         if date_created_text.present?
-          solr_doc['origin_info_date_created_start_ssm'] = date_created_text 
+          solr_doc['origin_info_date_created_start_ssm'] = date_created_text
           solr_doc['all_text_teim'].concat textable(date_created_text)
         end
 
       #  t.date_created_end(:path=>"dateCreated", :attributes=>{:encoding=>'w3cdtf',:point=>'end'}, :index_as=>[:displayable, :textable])
         date_created_text = origin_info.xpath("mods:dateCreated[@encoding = 'w3cdtf' and @point = 'end']", MODS_NS).map(&:text)
         if date_created_text.present?
-          solr_doc['origin_info_date_created_end_ssm'] = date_created_text 
+          solr_doc['origin_info_date_created_end_ssm'] = date_created_text
           solr_doc['all_text_teim'].concat textable(date_created_text)
         end
 
@@ -374,21 +373,21 @@ class Dcv::Solr::DocumentAdapter::ModsXml
       #  t.date_other(:path=>"dateOther", :attributes=>{:encoding=>'w3cdtf',:keyDate=>'yes'}, :index_as=>[:displayable, :textable])
         date_other_text = origin_info.xpath("mods:dateOther[@encoding = 'w3cdtf' and @keyDate = 'yes']", MODS_NS).map(&:text)
         if date_other_text.present?
-          solr_doc['origin_info_date_other_ssm'] = date_other_text 
+          solr_doc['origin_info_date_other_ssm'] = date_other_text
           solr_doc['all_text_teim'].concat textable(date_other_text)
         end
 
       #  t.date_other_start(:path=>"dateOther", :attributes=>{:encoding=>'w3cdtf',:keyDate=>'yes',:point=>'start'}, :index_as=>[:displayable, :textable])
         date_other_text = origin_info.xpath("mods:dateOther[@encoding = 'w3cdtf' and @keyDate = 'yes' and @point = 'start']", MODS_NS).map(&:text)
         if date_other_text.present?
-          solr_doc['origin_info_date_other_start_ssm'] = date_other_text 
+          solr_doc['origin_info_date_other_start_ssm'] = date_other_text
           solr_doc['all_text_teim'].concat textable(date_other_text)
         end
 
       #  t.date_other_end(:path=>"dateOther", :attributes=>{:encoding=>'w3cdtf',:point=>'end'}, :index_as=>[:displayable, :textable])
         date_other_text = origin_info.xpath("mods:dateOther[@encoding = 'w3cdtf' and @point = 'end']", MODS_NS).map(&:text)
         if date_other_text.present?
-          solr_doc['origin_info_date_other_end_ssm'] = date_other_text 
+          solr_doc['origin_info_date_other_end_ssm'] = date_other_text
           solr_doc['all_text_teim'].concat textable(date_other_text)
         end
 
