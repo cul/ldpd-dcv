@@ -36,15 +36,7 @@ module Dcv::Utils::CdnUtils
     end
 
     access_copy_location = wowza_access_copy_location_from_solr(asset_doc) || wowza_access_copy_location_from_fcrepo(asset_doc)
-
-    Wowza::SecureToken::Params.new({
-      stream: wowza_config[:application] + '/_definst_/' + (access_copy_location.downcase.index('.mp3') ? 'mp3:' : 'mp4:') + access_copy_location.gsub(/^\//, ''),
-      secret: wowza_config[:shared_secret],
-      client_ip: wowza_config[:client_ip_override] || remote_ip,
-      starttime: Time.now.to_i,
-      endtime: Time.now.to_i + wowza_config[:token_lifetime].to_i,
-      prefix: wowza_config['token_prefix']
-    }).to_url_with_token_hash(wowza_config[:host], wowza_config[:ssl_port], 'hls-ssl')
+    Dcv::Utils::WowzaUtils.wowza_url_for_video_location(access_copy_location, remote_ip)
   end
 
   def self.wowza_access_copy_location_from_solr(asset_doc)
