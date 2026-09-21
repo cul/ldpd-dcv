@@ -14,7 +14,7 @@ require 'rails_helper'
 # And were created by running the export service spec and saving the output zip file.
 # See the factory files (in spec/factories) and export service spec for more details on
 # the data that is included in the fixture zip files.
-RSpec.describe SubsiteImportService, focus: true do
+RSpec.describe SubsiteImportService do
   let(:fixture_path) { File.join(Rails.root, 'spec', 'fixtures', 'import_service') }
 
   describe '#import_subsite' do
