@@ -1,19 +1,21 @@
-<% coordinates_in_page = @response.documents.select {|doc| has_geo?(doc, true) }.length > 0 -%>
-<% if coordinates_in_page %>
-  <h6 class="nomar-t">Mapped Results:
-          <%= (@response.params[:start].to_i + 1).to_s + ' - ' +
-          (@response.params[:start].to_i + @response.documents.length).to_s  %>
-  </h6>
-  <%= render Dcv::Search::Map::ShowScriptComponent.new %>
+<% if DCV_CONFIG['disable_map_display'].to_s != 'true' %>
+  <% coordinates_in_page = @response.documents.select {|doc| has_geo?(doc, true) }.length > 0 -%>
+  <% if coordinates_in_page %>
+    <h6 class="nomar-t">Mapped Results:
+            <%= (@response.params[:start].to_i + 1).to_s + ' - ' +
+            (@response.params[:start].to_i + @response.documents.length).to_s  %>
+    </h6>
+    <%= render Dcv::Search::Map::ShowScriptComponent.new %>
 
-  <% map_search_settings = map_search_settings_for_subsite %>
-  <%= render Dcv::Search::Map::EmbeddedResultsComponent.new(document_list: @response.documents, map_search_settings: map_search_settings_for_subsite, map_show_items: false) %>
-<% else %>
-  <h6 class="nomar-t">No Mappable Results in:
-          <%= (@response.params[:start].to_i + 1).to_s + ' - ' +
-          (@response.params[:start].to_i + @response.documents.length).to_s  %>
-  </h6>
-<% end %>
-<% if has_geo_facet? && controller.respond_to?( :map_search) %>
-  <h6><%= link_to("See #{geo_facet_count} Mappable Results for Your Search", site_map_search_url(site_slug: @subsite.slug, params: params.permit(:q, :search_field, f: {}))) %></h6>
+    <% map_search_settings = map_search_settings_for_subsite %>
+    <%= render Dcv::Search::Map::EmbeddedResultsComponent.new(document_list: @response.documents, map_search_settings: map_search_settings_for_subsite, map_show_items: false) %>
+  <% else %>
+    <h6 class="nomar-t">No Mappable Results in:
+            <%= (@response.params[:start].to_i + 1).to_s + ' - ' +
+            (@response.params[:start].to_i + @response.documents.length).to_s  %>
+    </h6>
+  <% end %>
+  <% if has_geo_facet? && controller.respond_to?( :map_search) %>
+    <h6><%= link_to("See #{geo_facet_count} Mappable Results for Your Search", site_map_search_url(site_slug: @subsite.slug, params: params.permit(:q, :search_field, f: {}))) %></h6>
+  <% end %>
 <% end %>
