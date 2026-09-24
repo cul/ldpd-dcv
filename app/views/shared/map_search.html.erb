@@ -1,15 +1,22 @@
-<div id="content">
-	<% unless has_search_parameters? && (params[:q].present? || params[:f].present?) %>
-		<h6 class="">FIND BY LOCATION</h6>
-		<%= render partial: 'map_disclaimer' %>
-	<% else %>
-		<%= render((blacklight_config&.view_config(document_index_view_type)&.constraints_component || Blacklight::ConstraintsComponent).new(search_state: convert_to_search_state(controller.params != params ? params : search_state))) %>
-	<% end %>
-	<%= render Dcv::Search::Map::ShowScriptComponent.new %>
-	<%= render Dcv::Search::Map::EmbeddedResultsComponent.new(
-		document_list: nil,
-		map_data_json: @map_data_json,
-		map_search_settings: map_search_settings_for_subsite,
-		force_use_default_center: true
-	) %>
-</div>
+<% if DCV_CONFIG['disable_map_display'].to_s != 'true' %>
+	<div id="content">
+		<% unless has_search_parameters? && (params[:q].present? || params[:f].present?) %>
+			<h6 class="">FIND BY LOCATION</h6>
+			<%= render partial: 'map_disclaimer' %>
+		<% else %>
+			<%= render((blacklight_config&.view_config(document_index_view_type)&.constraints_component || Blacklight::ConstraintsComponent).new(search_state: convert_to_search_state(controller.params != params ? params : search_state))) %>
+		<% end %>
+		<%= render Dcv::Search::Map::ShowScriptComponent.new %>
+		<%= render Dcv::Search::Map::EmbeddedResultsComponent.new(
+			document_list: nil,
+			map_data_json: @map_data_json,
+			map_search_settings: map_search_settings_for_subsite,
+			force_use_default_center: true
+		) %>
+	</div>
+<% else %>
+	<div class="mx-3" style="margin-bottom: 400px;">
+		<p class="h2">Map display functionality is currently unavailable.</p>
+		We are working to restore service.
+	</div>
+<% end %>
