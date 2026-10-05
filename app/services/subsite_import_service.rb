@@ -52,7 +52,7 @@ class SubsiteImportService
     Zip::File.open @zip_file do |zip|
       @pages_metadata_files = zip.glob("#{PAGES_SUBDIR}/**/#{SITE_METADATA}")
       if zip.glob(SITE_METADATA).length != 1
-        raise Dcv::Exceptions::SubsiteUploadValidationError.new("No home page metadata file could be located (#{zip.glob(SITE_METADATA).length} results found for '#{SITE_METADATA})")
+        raise Dcv::Exceptions::SubsiteUploadValidationError.new("No top-level site metadata file could be located (#{zip.glob(SITE_METADATA).length} results found for '#{SITE_METADATA})")
       end
 
       zip.glob(SITE_METADATA).first.get_input_stream do |zis|
@@ -103,7 +103,7 @@ class SubsiteImportService
         page_metadata = YAML.load zis.read
       end
 
-      page_metadata['site_page_images']&.each { |img_attrs| SitePageImage.new(img_attrs) }
+      page_metadata['site_page_images']&.map! { |img_attrs| SitePageImage.new(img_attrs) }
 
       new_page = SitePage.create!(
         {
@@ -116,7 +116,7 @@ class SubsiteImportService
 
       page_metadata['site_page_text_blocks']&.each do |block_attrs|
         markdown_file_name = block_attrs['markdown']
-        block_attrs['site_page_images']&.each { |img_attrs| SitePageImage.new(img_attrs) }
+        block_attrs['site_page_images']&.map! { |img_attrs| SitePageImage.new(img_attrs) }
         block_attrs['site_page_id'] = new_page.id
         block = SiteTextBlock.new(block_attrs)
         if markdown_file_name =~ MD_REGEX

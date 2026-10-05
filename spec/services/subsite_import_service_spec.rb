@@ -142,6 +142,15 @@ RSpec.describe SubsiteImportService do
       end
     end
 
+    context 'when importing a subsite with a text block image' do
+      let(:test_import_path_with_text_block_image) { File.join(fixture_path, 'test_import_with_text_block_image.zip')}
+      let(:import) { SubsiteImportService.new(test_import_path_with_text_block_image, true) }
+      it 'saves the subsite to the database' do
+        import.import_subsite()
+        expect(Site.find_by(slug: 'dlc_site')).not_to be_nil
+      end
+    end
+
     context 'with an invalid import' do
       context 'when the zip file is missing site metadata' do
         let(:invalid_import_path) { File.join(fixture_path, 'bad_no_site_metadata.zip') }
