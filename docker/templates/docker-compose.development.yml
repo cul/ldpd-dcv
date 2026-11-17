@@ -10,20 +10,18 @@ volumes:
   solr-conf:
     driver_opts:
       type: none
-      device: '${PWD}/docker/solr/solr_cores/dcv-solr-6-3/conf'
+      device: '${PWD}/docker/solr/solr_cores/dcv-solr-9/conf'
       o: bind
   solr-data:
-  solr-logs:
 services:
   solr:
-    image: solr:8
+    image: solr:9
     restart: always
     ports:
       - 8983:8983
     volumes:
       - solr-conf:/opt/solr/conf
-      - solr-logs:/var/solr/logs
-      - solr-data:/var/solr/data
+      - solr-data:/var/solr
     entrypoint:
       - docker-entrypoint.sh
       - solr-precreate
