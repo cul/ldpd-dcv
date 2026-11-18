@@ -612,77 +612,20 @@ limitations under the License.
     Not all Request Handlers are defined in the solrconfig.xml, many are implicit.
   -->
 
-  <!-- Primary search handler, expected by most clients, examples and UI frameworks -->
+  <!-- Primary search handler. -->
   <requestHandler name="/select" class="solr.SearchHandler">
     <lst name="defaults">
       <str name="defType">edismax</str>
       <str name="echoParams">explicit</str>
-      <int name="rows">10</int>
-
       <str name="q.alt">*:*</str>
-
-      <!-- Minimum Should Match parameter (mm) -->
-      <!--
-        How to configure this field:
-        https://solr.apache.org/guide/solr/latest/query-guide/dismax-query-parser.html#mm-minimum-should-match-parameter
-      -->
+      <str name="df">id</str>
+      <!-- Minimum Should Match parameter (mm): the app usually overrides this with mm=1 -->
       <str name="mm">2&lt;-1 5&lt;-2 6&lt;90%</str>
-
-      <!--  This qf and pf are used by default, if not otherwise specified by
-            client. The default blacklight_config will use these for the
-            "keywords" search. See the author_qf/author_pf, title_qf, etc
-            below, which the default blacklight_config will specify for
-            those searches. You may also be interested in:
-            http://wiki.apache.org/solr/LocalParams
-      -->
-      <!--  In general, matches using the pf parameter should be boosted higher
-            than qf, so the proximity of multiple search terms in the matching
-            documents is significant in relevance scoring. See:
-            https://solr.apache.org/guide/solr/latest/query-guide/dismax-query-parser.html#pf-phrase-fields-parameter
-      -->
-      <str name="qf">
-        id^10
-        all_text
-      </str>
-
-      <!--
-      <str name="pf">
-        title_tesim^20
-        all_text^2
-      </str>
-      -->
-
-      <int name="ps">3</int>
+      <int name="qs">1</int>
+      <int name="ps">1</int>
       <float name="tie">0.01</float>
-
-      <!--
-      <str name="fl">
-        id,
-        score
-      </str>
-      -->
-
-      <str name="facet">true</str>
       <str name="facet.mincount">1</str>
-      <!--
-      <str name="facet.field">field1_ssim</str>
-      <str name="facet.field">field2_ssim</str>
-      <str name="facet.field">field3_ssim</str>
-
-      <str name="spellcheck">true</str>
-      <str name="spellcheck.dictionary">default</str>
-      <str name="spellcheck.onlyMorePopular">true</str>
-      <str name="spellcheck.extendedResults">true</str>
-      <str name="spellcheck.collate">false</str>
-      <str name="spellcheck.count">5</str>
-      -->
     </lst>
-
-    <!--
-    <arr name="last-components">
-      <str>spellcheck</str>
-    </arr>
-    -->
   </requestHandler>
 
   <!-- A request handler compatible with vector search -->
@@ -690,16 +633,6 @@ limitations under the License.
     <lst name="defaults">
       <str name="echoParams">explicit</str>
       <int name="rows">10</int>
-    </lst>
-  </requestHandler>
-
-  <!-- for requests to get a single document; use id=123 instead of q=id:123 -->
-  <requestHandler name="document" class="solr.SearchHandler" >
-    <lst name="defaults">
-      <str name="echoParams">all</str>
-      <str name="fl">*</str>
-      <str name="rows">1</str>
-      <str name="q">{!term f=id v=$id}</str> <!-- use id=666 instead of q=id:666 -->
     </lst>
   </requestHandler>
 

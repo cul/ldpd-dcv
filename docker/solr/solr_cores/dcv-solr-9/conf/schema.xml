@@ -83,6 +83,9 @@
   <!-- NOTE: Some example copy fields are defined later in this schema.xml file and they copy text to this identifiers field. -->
   <field name="identifiers" type="string" indexed="true" stored="true" multiValued="true" />
 
+  <!-- DCV: coordinates written by the MODS indexer; used by {!geofilt sfield=geo} map searches and map display. -->
+  <field name="geo" type="location_rpt" indexed="true" stored="true" multiValued="true" />
+
   <!--
     ******************
     * DYNAMIC FIELDS *
@@ -96,6 +99,8 @@
   <dynamicField name="*_iim"    type="pint"          stored="false"  indexed="true"   multiValued="true"  />
   <dynamicField name="*_isi"    type="pint"          stored="true"   indexed="true"   multiValued="false"  />
   <dynamicField name="*_isim"   type="pint"          stored="true"   indexed="true"   multiValued="true"  />
+  <!-- DCV: legacy "trie int" suffix kept for lib_start_date_year_itsi / lib_end_date_year_itsi (date range filter and sorts). -->
+  <dynamicField name="*_itsi"   type="pint"          stored="true"   indexed="true"   multiValued="false"  />
   <dynamicField name="*_ss"     type="string"        stored="true"   indexed="false"  multiValued="false" />
   <dynamicField name="*_si"     type="string"        stored="false"  indexed="true"   multiValued="false" />
   <dynamicField name="*_ssm"    type="string"        stored="true"   indexed="false"  multiValued="true"  />
@@ -145,7 +150,8 @@
   <dynamicField name="*_tes"    type="text_en"       stored="true"   indexed="false"  multiValued="false" />
   <dynamicField name="*_tei"    type="text_en"       stored="true"   indexed="true"   multiValued="false" />
   <dynamicField name="*_tesm"   type="text_en"       stored="true"   indexed="false"  multiValued="true"  />
-  <dynamicField name="*_teim"   type="text_en"       stored="true"   indexed="true"   multiValued="true"  />
+  <!-- DCV: not stored (matches the Solr 8 schema); all_text_teim is search-only. -->
+  <dynamicField name="*_teim"   type="text_en"       stored="false"  indexed="true"   multiValued="true"  />
   <dynamicField name="*_tesi"   type="text_en"       stored="true"   indexed="true"   multiValued="false"  />
   <dynamicField name="*_tesim"  type="text_en"       stored="true"   indexed="true"   multiValued="true"  />
   <dynamicField name="*_tesplits"    type="text_en_splitting"  stored="true"   indexed="false"  multiValued="false" />
@@ -161,12 +167,6 @@
 
   <!-- If you don't need to sort records randomly, then you can remove this field: -->
   <dynamicField name="random_*" type="random"        stored="true"   indexed="true" multiValued="false"   />
-
-  <!-- If you're not using vector embedding search, then you can remove the next four fields: -->
-  <dynamicField name="*_vector768si" type="knn768_vector"  indexed="true"  stored="true" />
-  <dynamicField name="*_vector768i" type="knn768_vector"  indexed="true"  stored="false" />
-  <dynamicField name="*_vector1024si" type="knn1024_vector"  indexed="true"  stored="true" />
-  <dynamicField name="*_vector1024i" type="knn1024_vector"  indexed="true"  stored="false" />
 
   <dynamicField name="*_sort" type="alphaNumericSort" />
   <dynamicField name="*spell" type="textSpell" indexed="true" stored="false" multiValued="true" />
@@ -210,10 +210,6 @@
     * FIELD TYPES *
     ***************
   -->
-
-  <!-- If you're not using vector embedding search, then you can remove the next two field types: -->
-  <fieldType name="knn768_vector"  class="solr.DenseVectorField" vectorDimension="768"  similarityFunction="cosine" />
-  <fieldType name="knn1024_vector" class="solr.DenseVectorField" vectorDimension="1024" similarityFunction="cosine" />
 
   <!--  sortMissingLast and sortMissingFirst attributes are optional attributes are
         currently supported on types that are sorted internally as strings
