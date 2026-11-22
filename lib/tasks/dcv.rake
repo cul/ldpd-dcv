@@ -49,13 +49,26 @@ namespace :dcv do
       Dlc::Index.log_level = Logger::INFO
 
       softcommit = (ENV['softcommit'] == 'false' ? false : true)
+      start_at   = ENV['start_at'].to_s.strip
+      started    = start_at.empty? # If start_at was given, process everything.
 
       start_time = Time.now
-      Dlc::Pids.each(ENV['pid'],ENV['list']) do |pid,current,len|
+      Dlc::Pids.each(ENV['pid'], ENV['list']) do |pid, current, len|
+        unless started
+          if pid.to_s.strip == start_at
+            started = true
+            puts "Starting at #{pid} (#{current} of #{len})"
+          else
+            next
+          end
+        end
+
         Dcv::Solr::FedoraIndexer.index_pid(pid, false, false, softcommit)
         puts "Processed #{pid} | #{current} of #{len} | #{Time.now - start_time} seconds"
-        sleep(3) if current % 100 == 0
+        sleep(2) if current % 1000 == 0
       end
+
+      puts "WARNING: start_at pid #{start_at} was never found. Nothing was indexed." unless started
     end
 
     task :queue => :environment do
