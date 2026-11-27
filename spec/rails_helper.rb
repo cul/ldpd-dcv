@@ -12,7 +12,25 @@ require 'capybara/rails'
 # include dispatch test helper to enable fixture_file_upload method in specs
 include ActionDispatch::TestProcess
 
-Capybara.javascript_driver = :selenium_chrome_headless
+# Temporarily locking Chrome to version 157 because of this issue:
+# https://github.com/teamcapybara/capybara/issues/2865
+Capybara.register_driver :chrome_specific do |app|
+  options = Selenium::WebDriver::Chrome::Options.new
+  options.browser_version = '157' # Or exact build like '130.0.6723.91'
+  options.add_argument('--headless=new')
+  options.add_argument('--window-size=1920,1080')
+  options.add_argument('--no-sandbox')
+  options.add_argument('--disable-dev-shm-usage')
+  options.add_argument('--disable-gpu')
+  options.add_argument('--disable-extensions')
+
+  Capybara::Selenium::Driver.new(app, browser: :chrome, options: options)
+end
+Capybara.javascript_driver = :chrome_specific
+Capybara.default_driver = :chrome_specific
+# When the https://github.com/teamcapybara/capybara/issues/2865 is fixed, we can just use this instead:
+#Capybara.javascript_driver = :selenium_chrome_headless
+
 Capybara.disable_animation = true
 Capybara.default_max_wait_time = 30 # Some ajax requests might take longer than the default waut time of 2 seconds.
 
