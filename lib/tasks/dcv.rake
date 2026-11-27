@@ -75,12 +75,23 @@ namespace :dcv do
       Dlc::Index.log_level = Logger::INFO
 
       softcommit = (ENV['softcommit'] == 'true')
+      start_at   = ENV['start_at'].to_s.strip
+      started    = start_at.empty? # If start_at was given, process everything.
 
-      Dlc::Pids.each(ENV['pid'],ENV['list']) do |pid,current,len|
+      Dlc::Pids.each(ENV['pid'],ENV['list']) do |pid, current, len|
+        unless started
+          if pid.to_s.strip == start_at
+            started = true
+            puts "Starting at #{pid} (#{current} of #{len})"
+          else
+            next
+          end
+        end
+
         # Queue for reindex
         # Since we only have one solr index right now, all index requests to go the main core and the 'subsite_keys' value does nothing
         Dcv::Queue.index_object({'pid' => pid, 'subsite_keys' => ['catalog'], 'softcommit' => softcommit})
-        puts "Queued #{current} of #{len}"
+        puts "Queued #{current} of #{len} (#{pid})"
       end
     end
   end
